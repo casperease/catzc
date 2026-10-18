@@ -1,12 +1,16 @@
-# docs/explanation/.assets/chain/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.chain.md
+# Get-BicepDeploymentContext reads the session, guards it, then picks the slot: the value-chain minimap
 
-`Value-chain minimap: adr-az-datamod--read-the-session-guard-then-pick-slot--implementation`
+```text
+Where ADR-AZ-DATAMOD sit in the value chain: value-chain stack down, value-chain concerns across.
+2 of 25 cells lit.
+```
 
-![Value-chain minimap of adr-az-datamod--read-the-session-guard-then-pick-slot--implementation](adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.chain.png)
+![The value-chain minimap of Get-BicepDeploymentContext reads the session, guards it, then picks the slot](adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.chain.png)
 
-The value-chain minimap of the slide `adr-az-datamod--read-the-session-guard-then-pick-slot--implementation` (implementation lens). The
-slide supports [ADR-AZ-DATAMOD][1]; the highlight of those ADR codes selects what is lit, and each reason below names the code that selects
-it.
+This is the value-chain minimap in the sidebar of the implementation diagram of [Get-BicepDeploymentContext reads the session, guards it,
+then picks the slot][5], which explains [ADR-AZ-DATAMOD][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain
+concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code that
+selects it.
 
 ## What the minimap shows
 
@@ -53,27 +57,28 @@ Lit ([ADR-DSGN-TRACK#12][2]) by:
 
 ## Keywords
 
-- [value-chain map][5]
-- [value-chain stack][6]
-- [value-chain concern][7]
-- [cell][8]
-- [lit cell][9]
+- [value-chain map][6]
+- [value-chain stack][7]
+- [value-chain concern][8]
+- [cell][9]
+- [lit cell][10]
 
 Terms the cited ADRs define:
 
-- [environment class][10], defined by [ADR-AZ-DATAMOD#11][11]
-- [slot][12], defined by [ADR-AZ-DATAMOD#2][13]
+- [environment class][11], defined by [ADR-AZ-DATAMOD#11][12]
+- [slot][13], defined by [ADR-AZ-DATAMOD#2][14]
 
 [1]: ../../../adr/azure/azure-data-model.md
 [2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[5]: ../../../adr/glossary.md#value-chain-map
-[6]: ../../../adr/glossary.md#value-chain-stack
-[7]: ../../../adr/glossary.md#value-chain-concern
-[8]: ../../../adr/glossary.md#cell
-[9]: ../../../adr/glossary.md#lit-cell
-[10]: ../../../adr/glossary.md#environment-class
-[11]: ../../../adr/azure/azure-data-model.md#rule-adr-az-datamod11
-[12]: ../../../adr/glossary.md#slot
-[13]: ../../../adr/azure/azure-data-model.md#rule-adr-az-datamod2
+[5]: ../../azure/read-the-session-guard-then-pick-slot.md
+[6]: ../../../adr/glossary.md#value-chain-map
+[7]: ../../../adr/glossary.md#value-chain-stack
+[8]: ../../../adr/glossary.md#value-chain-concern
+[9]: ../../../adr/glossary.md#cell
+[10]: ../../../adr/glossary.md#lit-cell
+[11]: ../../../adr/glossary.md#environment-class
+[12]: ../../../adr/azure/azure-data-model.md#rule-adr-az-datamod11
+[13]: ../../../adr/glossary.md#slot
+[14]: ../../../adr/azure/azure-data-model.md#rule-adr-az-datamod2

@@ -1,12 +1,16 @@
-# docs/explanation/.assets/chain/adr-dsgn-remote--clients-bridge-to-one-server--architecture.chain.md
+# Clients bridge to one server remote: in through a pull request, out from the verified point: the value-chain minimap
 
-`Value-chain minimap: adr-dsgn-remote--clients-bridge-to-one-server--architecture`
+```text
+Where ADR-DSGN-LIFE and ADR-DSGN-REMOTE sit in the value chain: value-chain stack down, value-chain concerns across.
+4 of 25 cells lit.
+```
 
-![Value-chain minimap of adr-dsgn-remote--clients-bridge-to-one-server--architecture](adr-dsgn-remote--clients-bridge-to-one-server--architecture.chain.png)
+![The value-chain minimap of Clients bridge to one server remote: in through a pull request, out from the verified point](adr-dsgn-remote--clients-bridge-to-one-server--architecture.chain.png)
 
-The value-chain minimap of the slide `adr-dsgn-remote--clients-bridge-to-one-server--architecture` (architecture lens). The slide supports
-[ADR-DSGN-LIFE][1] and [ADR-DSGN-REMOTE][2]; the highlight of those ADR codes selects what is lit, and each reason below names the code that
-selects it.
+This is the value-chain minimap in the sidebar of the architecture diagram of [Clients bridge to one server remote: in through a pull
+request, out from the verified point][6], which explains [ADR-DSGN-LIFE][1] and [ADR-DSGN-REMOTE][2]. It lights the cells of the value-chain
+map where the cited ADRs' value-chain concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its
+reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -74,25 +78,26 @@ Lit ([ADR-DSGN-TRACK#12][3]) by:
 
 ## Keywords
 
-- [value-chain map][6]
-- [value-chain stack][7]
-- [value-chain concern][8]
-- [cell][9]
-- [lit cell][10]
+- [value-chain map][7]
+- [value-chain stack][8]
+- [value-chain concern][9]
+- [cell][10]
+- [lit cell][11]
 
 Terms the cited ADRs define:
 
-- [occupant][11], defined by [ADR-DSGN-LIFE#5][12]
+- [occupant][12], defined by [ADR-DSGN-LIFE#5][13]
 
 [1]: ../../../adr/design/commit-lifecycle.md
 [2]: ../../../adr/design/server-remote-integration.md
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
 [5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../../adr/glossary.md#value-chain-map
-[7]: ../../../adr/glossary.md#value-chain-stack
-[8]: ../../../adr/glossary.md#value-chain-concern
-[9]: ../../../adr/glossary.md#cell
-[10]: ../../../adr/glossary.md#lit-cell
-[11]: ../../../adr/glossary.md#occupant
-[12]: ../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[6]: ../../design/clients-bridge-to-one-server.md
+[7]: ../../../adr/glossary.md#value-chain-map
+[8]: ../../../adr/glossary.md#value-chain-stack
+[9]: ../../../adr/glossary.md#value-chain-concern
+[10]: ../../../adr/glossary.md#cell
+[11]: ../../../adr/glossary.md#lit-cell
+[12]: ../../../adr/glossary.md#occupant
+[13]: ../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5

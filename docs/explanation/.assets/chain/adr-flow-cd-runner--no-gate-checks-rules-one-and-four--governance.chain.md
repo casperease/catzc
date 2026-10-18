@@ -1,11 +1,15 @@
-# docs/explanation/.assets/chain/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.chain.md
+# No gate checks the runner rules 1 or 4, and the step template breaks rule 3: the value-chain minimap
 
-`Value-chain minimap: adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance`
+```text
+Where ADR-FLOW-CD-RUNNER and ADR-PIPE-NAME sit in the value chain: value-chain stack down, value-chain concerns across.
+4 of 25 cells lit.
+```
 
-![Value-chain minimap of adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance](adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.chain.png)
+![The value-chain minimap of No gate checks the runner rules 1 or 4, and the step template breaks rule 3](adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.chain.png)
 
-The value-chain minimap of the slide `adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance` (governance lens). The slide
-supports [ADR-FLOW-CD-RUNNER][1] and [ADR-PIPE-NAME][2]; the highlight of those ADR codes selects what is lit, and each reason below names
+This is the value-chain minimap in the sidebar of the governance diagram of [No gate checks the runner rules 1 or 4, and the step template
+breaks rule 3][6], which explains [ADR-FLOW-CD-RUNNER][1] and [ADR-PIPE-NAME][2]. It lights the cells of the value-chain map where the cited
+ADRs' value-chain concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming
 the code that selects it.
 
 ## What the minimap shows
@@ -71,19 +75,20 @@ Lit ([ADR-DSGN-TRACK#12][3]) by:
 
 ## Keywords
 
-- [value-chain map][6]
-- [value-chain stack][7]
-- [value-chain concern][8]
-- [cell][9]
-- [lit cell][10]
+- [value-chain map][7]
+- [value-chain stack][8]
+- [value-chain concern][9]
+- [cell][10]
+- [lit cell][11]
 
 [1]: ../../../adr/flow/pipeline-runner-pattern.md
 [2]: ../../../adr/pipelines/pipeline-naming-and-placement.md
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
 [5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../../adr/glossary.md#value-chain-map
-[7]: ../../../adr/glossary.md#value-chain-stack
-[8]: ../../../adr/glossary.md#value-chain-concern
-[9]: ../../../adr/glossary.md#cell
-[10]: ../../../adr/glossary.md#lit-cell
+[6]: ../../flow/no-gate-checks-rules-one-and-four.md
+[7]: ../../../adr/glossary.md#value-chain-map
+[8]: ../../../adr/glossary.md#value-chain-stack
+[9]: ../../../adr/glossary.md#value-chain-concern
+[10]: ../../../adr/glossary.md#cell
+[11]: ../../../adr/glossary.md#lit-cell

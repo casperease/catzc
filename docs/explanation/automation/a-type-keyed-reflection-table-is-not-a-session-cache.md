@@ -12,7 +12,7 @@ catzc:
     tracktype: documentation
   edges:
     cites:
-      - ADR-AUTO-CACHE#{1,4-7}
+      - ADR-AUTO-CACHE
       - ADR-AUTO-TYPES#7
       - ADR-PWSH-CACHE#1
     links:
@@ -44,11 +44,11 @@ from what the ADR and the type system define; the two are read here, and no rule
 ## Walkthrough
 
 1. **What the ADR governs.** `ADR-AUTO-CACHE` is about "static config reads" and "filesystem-derived information"
-   ([caching](../../adr/automation/caching.md)): rule 1 is a function that loads and parses a checked-in file (`Get-Config`), rule 2 a
-   function that scans the repository by convention (`Get-BicepTemplates`). Rule 9 covers git state, rule 10 a quality check's clean
-   verdicts, rule 8 the committed type assembly itself. Its decision stores the cache in module `$script:` state
-   ([script-scope-caching](../../adr/pwsh/script-scope-caching.md), `ADR-PWSH-CACHE#1`), and its one invalidation is re-running the importer
-   (`ADR-AUTO-CACHE#6`).
+   ([caching](../../adr/automation/caching.md)): ADR-AUTO-CACHE#1 is a function that loads and parses a checked-in file (`Get-Config`),
+   ADR-AUTO-CACHE#2 a function that scans the repository by convention (`Get-BicepTemplates`). ADR-AUTO-CACHE#9 covers git state,
+   ADR-AUTO-CACHE#10 a quality check's clean verdicts, ADR-AUTO-CACHE#8 the committed type assembly itself. Its decision stores the cache in
+   module `$script:` state ([script-scope-caching](../../adr/pwsh/script-scope-caching.md), `ADR-PWSH-CACHE#1`), and its one invalidation is
+   re-running the importer (`ADR-AUTO-CACHE#6`).
 2. **What the table is.** A `ConcurrentDictionary<Type, Shape>` in a static class under a module's `types/`, filled by `GetOrAdd` on the
    first use of a type. Its entries are the readable properties of a type, a name-to-property map, and the type's `[ConsoleDisplay]` list:
    facts about a compiled type.

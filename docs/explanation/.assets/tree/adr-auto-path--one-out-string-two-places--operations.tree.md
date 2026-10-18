@@ -1,11 +1,15 @@
-# docs/explanation/.assets/tree/adr-auto-path--one-out-string-two-places--operations.tree.md
+# One stored out/ string lands in {root}/out on a devbox and in the staging directory in a pipeline: the tree minimap
 
-`Tree minimap: adr-auto-path--one-out-string-two-places--operations`
+```text
+Which files cite ADR-AUTO-PATH: every file of the world map is a tile, grouped by top-level folder.
+50 files lit in 14 groups.
+```
 
-![Tree minimap of adr-auto-path--one-out-string-two-places--operations](adr-auto-path--one-out-string-two-places--operations.tree.png)
+![The tree minimap of One stored out/ string lands in {root}/out on a devbox and in the staging directory in a pipeline](adr-auto-path--one-out-string-two-places--operations.tree.png)
 
-The tree minimap of the slide `adr-auto-path--one-out-string-two-places--operations` (operations lens). The slide supports
-[ADR-AUTO-PATH][1]; the highlight of those ADR codes selects what is lit, and each reason below names the code that selects it.
+This is the tree minimap in the sidebar of the operations diagram of [One stored out/ string lands in {root}/out on a devbox and in the
+staging directory in a pipeline][51], which explains [ADR-AUTO-PATH][1]. It lights every file that cites those codes, grouped by folder, so
+it shows which files carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -24,8 +28,8 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 - ModuleSystem (automation/Catzc.Base.ModuleSystem): 2 lit files
 - adr/* (the files directly in docs/adr/): 2 lit files
 - adr/auto (docs/adr/automation): 2 lit files
-- .unordered: 1 lit file
 - RootConfig (automation/Catzc.Base.RootConfig): 1 lit file
+- Slides (automation/Catzc.Base.Slides): 1 lit file
 - pipelines: 1 lit file
 
 ## Why each group is lit
@@ -77,7 +81,7 @@ The group holds the files of automation/Catzc.Base.Contracts; each sits in its w
 - [automation/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1][19], in the cell automation × powershell: selected by
   [ADR-AUTO-PATH][1]: the file cites it at line 21 (header) and line 39 (header).
 - [automation/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1][20], in the cell automation × powershell: selected by [ADR-AUTO-PATH][1]:
-  the file cites it at line 21 (header) and line 52 (body comment).
+  the file cites it at line 21 (header) and line 53 (body comment).
 - [automation/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1][21], in the cell automation × powershell: selected by
   [ADR-AUTO-PATH][1]: the file cites it at line 20 (header) and line 37 (text).
 - [automation/Catzc.Base.Contracts/types/ContractAsset.cs][22], in the cell automation × csharp: selected by [ADR-AUTO-PATH][1]: the file
@@ -118,7 +122,7 @@ The group holds the files of automation/Catzc.Base.Repository; each sits in its 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][33], in the cell automation × yaml: selected by [ADR-AUTO-PATH][1]: the file cites it at
-  line 156 (text).
+  line 159 (text).
 - [automation/Catzc.Base.Docs/types/DocMapping.cs][34], in the cell automation × csharp: selected by [ADR-AUTO-PATH][1]: the file cites it
   at line 21 (text).
 - [automation/Catzc.Base.Docs/types/DocPattern.cs][35], in the cell automation × csharp: selected by [ADR-AUTO-PATH][1]: the file cites it
@@ -161,9 +165,9 @@ The group holds the files of Root files; each sits in its world-map cell and is 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-layers-vocabulary-rename-contracts.md][41], in the cell .claude × markdown: selected by [ADR-AUTO-PATH][1]: the file
-  cites it at line 722 (text).
-- [.claude/skills/catzc-module/SKILL.md][42], in the cell .claude × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 28
-  (text), line 41 (text) and line 41 (text).
+  cites it at line 782 (text).
+- [.claude/skills/catzc-module/SKILL.md][42], in the cell .claude × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 27
+  (text), line 40 (text) and line 40 (text).
 
 ### ModuleSystem (automation/Catzc.Base.ModuleSystem, 2 lit files)
 
@@ -172,36 +176,36 @@ The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in it
 - [automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1][43], in the cell automation × powershell: selected by [ADR-AUTO-PATH][1]: the
   file cites it at line 21 (header) and line 56 (header).
 - [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][44], in the cell automation × yaml: selected by [ADR-AUTO-PATH][1]: the file
-  cites it at line 57 (text).
+  cites it at line 56 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][45], in the cell docs × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 581 (text).
-- [docs/adr/index.md][46], in the cell docs × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 167 (text).
+- [docs/adr/glossary.md][45], in the cell docs × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 752 (text).
+- [docs/adr/index.md][46], in the cell docs × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 171 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
 
 The group holds the files of docs/adr/automation; each sits in its world-map cell and is lit by:
 
-- [docs/adr/automation/dora-explains.md][47], in the cell docs × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 451
+- [docs/adr/automation/dora-explains.md][47], in the cell docs × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it at line 471
   (text).
 - [docs/adr/automation/path-representation.md][1], in the cell docs × markdown: selected by [ADR-AUTO-PATH][1]: the ADR's own file.
-
-### .unordered (1 lit file)
-
-The group holds the files of .unordered; each sits in its world-map cell and is lit by:
-
-- [.unordered/15-10-2026/plan-diagram-wave-8.md][48], in the cell .unordered × markdown: selected by [ADR-AUTO-PATH][1]: the file cites it
-  at line 15 (text).
 
 ### RootConfig (automation/Catzc.Base.RootConfig, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.RootConfig; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.RootConfig/types/RootConfigFile.cs][49], in the cell automation × csharp: selected by [ADR-AUTO-PATH][1]: the file
+- [automation/Catzc.Base.RootConfig/types/RootConfigFile.cs][48], in the cell automation × csharp: selected by [ADR-AUTO-PATH][1]: the file
   cites it at line 21 (text).
+
+### Slides (automation/Catzc.Base.Slides, 1 lit file)
+
+The group holds the files of automation/Catzc.Base.Slides; each sits in its world-map cell and is lit by:
+
+- [automation/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1][49], in the cell automation × powershell: selected by
+  [ADR-AUTO-PATH][1]: the file cites it at line 20 (header) and line 46 (text).
 
 ### pipelines (1 lit file)
 
@@ -214,13 +218,13 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `automation/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1` line 21 (header),
   `automation/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1` line 39 (header),
   `automation/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 21 (header),
-  `automation/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 52 (body comment),
+  `automation/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1` line 53 (body comment),
   `automation/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1` line 20 (header),
   `automation/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1` line 37 (text),
-  `automation/Catzc.Base.Contracts/types/ContractAsset.cs` line 21 (text), `automation/Catzc.Base.Docs/configs/adrs.yml` line 156 (text),
+  `automation/Catzc.Base.Contracts/types/ContractAsset.cs` line 21 (text), `automation/Catzc.Base.Docs/configs/adrs.yml` line 159 (text),
   `automation/Catzc.Base.Docs/types/DocMapping.cs` line 21 (text), `automation/Catzc.Base.Docs/types/DocPattern.cs` line 21 (text),
   `automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1` line 21 (header), `automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1` line
-  56 (header), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 57 (text),
+  56 (header), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 56 (text),
   `automation/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1` line 19 (header),
   `automation/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1` line 23 (text), `automation/Catzc.Base.Objects/types/ArtifactRef.cs`
   line 21 (text), `automation/Catzc.Base.Objects/types/RepoRelativePath.cs` line 21 (text),
@@ -232,6 +236,8 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
   `automation/Catzc.Base.Repository/Get-RepositoryFolder.ps1` line 25 (header), `automation/Catzc.Base.Repository/Resolve-RepoPath.ps1` line
   20 (header), `automation/Catzc.Base.Repository/Resolve-RepoPath.ps1` line 25 (header),
   `automation/Catzc.Base.RootConfig/types/RootConfigFile.cs` line 21 (text),
+  `automation/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1` line 20 (header),
+  `automation/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1` line 46 (text),
   `automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1` line 21 (header),
   `automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1` line 26 (header),
   `automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1` line 27 (header),
@@ -244,27 +250,26 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 ## Keywords
 
-- [world map][51]
-- [track][52]
-- [file language][53]
-- [cell][54]
-- [lit cell][55]
-- [root file][56]
-- [unlisted file][57]
-- [.claude][58]: a track
-- [.unordered][58]: a track
-- [automation][58]: a track
-- [docs][58]: a track
-- [pipelines][58]: a track
-- [csharp][59]: a file language
-- [markdown][59]: a file language
-- [pipeline-yaml][59]: a file language
-- [powershell][59]: a file language
-- [yaml][59]: a file language
+- [world map][52]
+- [track][53]
+- [file language][54]
+- [cell][55]
+- [lit cell][56]
+- [root file][57]
+- [unlisted file][58]
+- [.claude][59]: a track
+- [automation][59]: a track
+- [docs][59]: a track
+- [pipelines][59]: a track
+- [csharp][60]: a file language
+- [markdown][60]: a file language
+- [pipeline-yaml][60]: a file language
+- [powershell][60]: a file language
+- [yaml][60]: a file language
 
 Terms the cited ADRs define:
 
-- [published artifact][60], defined by [ADR-AUTO-PATH#10][61]
+- [published artifact][61], defined by [ADR-AUTO-PATH#10][62]
 
 [1]: ../../../adr/automation/path-representation.md
 [2]: ../../../references/automation/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md
@@ -313,17 +318,18 @@ Terms the cited ADRs define:
 [45]: ../../../adr/glossary.md
 [46]: ../../../adr/index.md
 [47]: ../../../adr/automation/dora-explains.md
-[48]: ../../../../.unordered/15-10-2026/plan-diagram-wave-8.md
-[49]: ../../../../automation/Catzc.Base.RootConfig/types/RootConfigFile.cs
+[48]: ../../../../automation/Catzc.Base.RootConfig/types/RootConfigFile.cs
+[49]: ../../../../automation/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1
 [50]: ../../../../pipelines/ci-automation.yaml
-[51]: ../../../adr/glossary.md#world-map
-[52]: ../../../adr/glossary.md#track
-[53]: ../../../adr/glossary.md#file-language
-[54]: ../../../adr/glossary.md#cell
-[55]: ../../../adr/glossary.md#lit-cell
-[56]: ../../../adr/glossary.md#root-file
-[57]: ../../../adr/glossary.md#unlisted-file
-[58]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[59]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
-[60]: ../../../adr/glossary.md#published-artifact
-[61]: ../../../adr/automation/path-representation.md#rule-adr-auto-path10
+[51]: ../../automation/one-out-string-two-places.md
+[52]: ../../../adr/glossary.md#world-map
+[53]: ../../../adr/glossary.md#track
+[54]: ../../../adr/glossary.md#file-language
+[55]: ../../../adr/glossary.md#cell
+[56]: ../../../adr/glossary.md#lit-cell
+[57]: ../../../adr/glossary.md#root-file
+[58]: ../../../adr/glossary.md#unlisted-file
+[59]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
+[60]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[61]: ../../../adr/glossary.md#published-artifact
+[62]: ../../../adr/automation/path-representation.md#rule-adr-auto-path10

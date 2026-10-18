@@ -14,7 +14,6 @@ catzc:
     defines:
       - ADR-AUTO-XPLAT#{3,6,7,9}
     cites:
-      - ADR-AUTO-PARITY#1
       - ADR-PWSH-XPLAT#{2,4,6-8}
     links:
       - docs/adr/automation/controlling-systemwide-deps.md
@@ -111,7 +110,7 @@ on Linux.
   push, not after.
 
 - **One entry, everywhere.** A pipeline step calls the same tool installers and importer entry a developer runs, never a script of its own —
-  the one code path of [devbox-pipeline-parity](devbox-pipeline-parity.md#rule-adr-auto-parity1) (ADR-AUTO-PARITY#1).
+  the one code path of [devbox-pipeline-parity](devbox-pipeline-parity.md#rule-adr-auto-parity1).
 
 ## Consequences
 

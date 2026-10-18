@@ -1,11 +1,16 @@
-# docs/explanation/.assets/chain/adr-auto-bundle--invoke-importer-in-code-order--implementation.chain.md
+# Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain: the value-chain minimap
 
-`Value-chain minimap: adr-auto-bundle--invoke-importer-in-code-order--implementation`
+```text
+Where ADR-AUTO-BUNDLE sit in the value chain: value-chain stack down, value-chain concerns across.
+2 of 25 cells lit.
+```
 
-![Value-chain minimap of adr-auto-bundle--invoke-importer-in-code-order--implementation](adr-auto-bundle--invoke-importer-in-code-order--implementation.chain.png)
+![The value-chain minimap of Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain](adr-auto-bundle--invoke-importer-in-code-order--implementation.chain.png)
 
-The value-chain minimap of the slide `adr-auto-bundle--invoke-importer-in-code-order--implementation` (implementation lens). The slide
-supports [ADR-AUTO-BUNDLE][1]; the highlight of those ADR codes selects what is lit, and each reason below names the code that selects it.
+This is the value-chain minimap in the sidebar of the implementation diagram of [Invoke-Importer loads, asserts one run mode, tidies up and
+unloads, in one call chain][5], which explains [ADR-AUTO-BUNDLE][1]. It lights the cells of the value-chain map where the cited ADRs'
+value-chain concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code
+that selects it.
 
 ## What the minimap shows
 
@@ -15,7 +20,7 @@ is idle, a grey box: it holds ADRs the slide does not cite, or none, because no 
 hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
 
 - AUTO × build: 1 lit of 6 ADRs
-- AUTO × release: 1 lit of 3 ADRs
+- AUTO × release: 1 lit of 4 ADRs
 
 ## Key
 
@@ -52,24 +57,25 @@ Lit ([ADR-DSGN-TRACK#12][2]) by:
 
 ## Keywords
 
-- [value-chain map][5]
-- [value-chain stack][6]
-- [value-chain concern][7]
-- [cell][8]
-- [lit cell][9]
+- [value-chain map][6]
+- [value-chain stack][7]
+- [value-chain concern][8]
+- [cell][9]
+- [lit cell][10]
 
 Terms the cited ADRs define:
 
-- [bundle][10], defined by [ADR-AUTO-BUNDLE#1][11]
+- [bundle][11], defined by [ADR-AUTO-BUNDLE#1][12]
 
 [1]: ../../../adr/automation/platform-bundle.md
 [2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[5]: ../../../adr/glossary.md#value-chain-map
-[6]: ../../../adr/glossary.md#value-chain-stack
-[7]: ../../../adr/glossary.md#value-chain-concern
-[8]: ../../../adr/glossary.md#cell
-[9]: ../../../adr/glossary.md#lit-cell
-[10]: ../../../adr/glossary.md#bundle
-[11]: ../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1
+[5]: ../../automation/invoke-importer-in-code-order.md
+[6]: ../../../adr/glossary.md#value-chain-map
+[7]: ../../../adr/glossary.md#value-chain-stack
+[8]: ../../../adr/glossary.md#value-chain-concern
+[9]: ../../../adr/glossary.md#cell
+[10]: ../../../adr/glossary.md#lit-cell
+[11]: ../../../adr/glossary.md#bundle
+[12]: ../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1

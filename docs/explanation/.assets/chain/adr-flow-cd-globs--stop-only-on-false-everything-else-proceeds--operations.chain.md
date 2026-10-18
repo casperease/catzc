@@ -1,12 +1,15 @@
-# docs/explanation/.assets/chain/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.chain.md
+# A stage returns only on $false; a doubt prints a message and proceeds; a typo throws: the value-chain minimap
 
-`Value-chain minimap: adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations`
+```text
+Where ADR-FLOW-CD-GLOBS sit in the value chain: value-chain stack down, value-chain concerns across.
+No cell is lit: the cited ADRs land only in automation, which the AUTO row already names.
+```
 
-![Value-chain minimap of adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations](adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.chain.png)
+![The value-chain minimap of A stage returns only on $false; a doubt prints a message and proceeds; a typo throws](adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.chain.png)
 
-The value-chain minimap of the slide `adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations` (operations lens). The
-slide supports [ADR-FLOW-CD-GLOBS][1]; the highlight of those ADR codes selects what is lit, and each reason below names the code that
-selects it.
+This is the value-chain minimap in the sidebar of the operations diagram of [A stage returns only on $false; a doubt prints a message and
+proceeds; a typo throws][2], which explains [ADR-FLOW-CD-GLOBS][1]. It lights the cells of the value-chain map where the cited ADRs'
+value-chain concerns land, so it shows the part of the value chain the decision governs. Nothing is lit, so no reason follows.
 
 ## What the minimap shows
 
@@ -14,6 +17,7 @@ Value-chain map: value-chain stack × value-chain concerns. The grid crosses the
 CLOUD) with the 5 value-chain concerns (build, quality-control, release, deploy, access) and lights 0 cells, filled in ink. Every other cell
 is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (5 of the 25 cells
 hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
+
 
 ## Key
 
@@ -30,19 +34,18 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - `DEPLOY`: deploy
 - `ACCESS`: access
 
-## Why each cell is lit
-
 ## Keywords
 
-- [value-chain map][2]
-- [value-chain stack][3]
-- [value-chain concern][4]
-- [cell][5]
-- [lit cell][6]
+- [value-chain map][3]
+- [value-chain stack][4]
+- [value-chain concern][5]
+- [cell][6]
+- [lit cell][7]
 
 [1]: ../../../adr/flow/durable-sha-globs.md
-[2]: ../../../adr/glossary.md#value-chain-map
-[3]: ../../../adr/glossary.md#value-chain-stack
-[4]: ../../../adr/glossary.md#value-chain-concern
-[5]: ../../../adr/glossary.md#cell
-[6]: ../../../adr/glossary.md#lit-cell
+[2]: ../../flow/stop-only-on-false-everything-else-proceeds.md
+[3]: ../../../adr/glossary.md#value-chain-map
+[4]: ../../../adr/glossary.md#value-chain-stack
+[5]: ../../../adr/glossary.md#value-chain-concern
+[6]: ../../../adr/glossary.md#cell
+[7]: ../../../adr/glossary.md#lit-cell

@@ -494,7 +494,8 @@ def chain_shows(ctx, links, highlight, extras):
         f"({empty} of the {len(rows) * len(cols)} cells hold none). The minimap shows where the slide sits, not how many ADRs a cell "
         "holds; that count belongs to the full value-chain map."
     )
-    lines.append("")
+    if cells:
+        lines.append("")
     for c in cells:
         total = ctx.chain_count[(c["stack"], c["concern"])]
         lines.append(
@@ -561,7 +562,8 @@ def tree_summary(ctx, highlight, extras, codes):
 def chain_summary(ctx, highlight, extras, codes):
     cells = highlight["cells"]
     lines = [
-        f"Where {codes} sit in the value chain: value-chain stack down, value-chain concerns across."
+        f"Where {codes} {'sits' if len(highlight['requested']) == 1 else 'sit'} in the value chain: value-chain stack down, "
+        "value-chain concerns across."
     ]
     if cells:
         return lines + [
@@ -571,7 +573,7 @@ def chain_summary(ctx, highlight, extras, codes):
     if hidden:
         rows = listing([HIDDEN_CONCERNS[c] for c in hidden])
         return lines + [
-            f"No cell is lit: the cited ADRs land only in {listing(hidden)}, which the {rows} row already names."
+            f"No cell is lit: the cited ADRs land only in the {listing(hidden)} concern, which the {rows} row already names."
         ]
     return lines + [
         "No cell is lit: no value-chain concern of the cited ADRs lands on this map."

@@ -1,12 +1,16 @@
-# docs/explanation/.assets/chain/adr-az-datamod--coordinate-rules-and-their-gates--governance.chain.md
+# Two ADRs rule the coordinate; one shared check and the integrity tests hold them: the value-chain minimap
 
-`Value-chain minimap: adr-az-datamod--coordinate-rules-and-their-gates--governance`
+```text
+Where ADR-AZ-CUSTOMER and ADR-AZ-DATAMOD sit in the value chain: value-chain stack down, value-chain concerns across.
+2 of 25 cells lit.
+```
 
-![Value-chain minimap of adr-az-datamod--coordinate-rules-and-their-gates--governance](adr-az-datamod--coordinate-rules-and-their-gates--governance.chain.png)
+![The value-chain minimap of Two ADRs rule the coordinate; one shared check and the integrity tests hold them](adr-az-datamod--coordinate-rules-and-their-gates--governance.chain.png)
 
-The value-chain minimap of the slide `adr-az-datamod--coordinate-rules-and-their-gates--governance` (governance lens). The slide supports
-[ADR-AZ-CUSTOMER][1] and [ADR-AZ-DATAMOD][2]; the highlight of those ADR codes selects what is lit, and each reason below names the code
-that selects it.
+This is the value-chain minimap in the sidebar of the governance diagram of [Two ADRs rule the coordinate; one shared check and the
+integrity tests hold them][6], which explains [ADR-AZ-CUSTOMER][1] and [ADR-AZ-DATAMOD][2]. It lights the cells of the value-chain map where
+the cited ADRs' value-chain concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below,
+naming the code that selects it.
 
 ## What the minimap shows
 
@@ -56,28 +60,29 @@ Lit ([ADR-DSGN-TRACK#12][3]) by:
 
 ## Keywords
 
-- [value-chain map][6]
-- [value-chain stack][7]
-- [value-chain concern][8]
-- [cell][9]
-- [lit cell][10]
+- [value-chain map][7]
+- [value-chain stack][8]
+- [value-chain concern][9]
+- [cell][10]
+- [lit cell][11]
 
 Terms the cited ADRs define:
 
-- [environment class][11], defined by [ADR-AZ-DATAMOD#11][12]
-- [slot][13], defined by [ADR-AZ-DATAMOD#2][14]
+- [environment class][12], defined by [ADR-AZ-DATAMOD#11][13]
+- [slot][14], defined by [ADR-AZ-DATAMOD#2][15]
 
 [1]: ../../../adr/azure/azure-customer-model.md
 [2]: ../../../adr/azure/azure-data-model.md
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
 [5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../../adr/glossary.md#value-chain-map
-[7]: ../../../adr/glossary.md#value-chain-stack
-[8]: ../../../adr/glossary.md#value-chain-concern
-[9]: ../../../adr/glossary.md#cell
-[10]: ../../../adr/glossary.md#lit-cell
-[11]: ../../../adr/glossary.md#environment-class
-[12]: ../../../adr/azure/azure-data-model.md#rule-adr-az-datamod11
-[13]: ../../../adr/glossary.md#slot
-[14]: ../../../adr/azure/azure-data-model.md#rule-adr-az-datamod2
+[6]: ../../azure/coordinate-rules-and-their-gates.md
+[7]: ../../../adr/glossary.md#value-chain-map
+[8]: ../../../adr/glossary.md#value-chain-stack
+[9]: ../../../adr/glossary.md#value-chain-concern
+[10]: ../../../adr/glossary.md#cell
+[11]: ../../../adr/glossary.md#lit-cell
+[12]: ../../../adr/glossary.md#environment-class
+[13]: ../../../adr/azure/azure-data-model.md#rule-adr-az-datamod11
+[14]: ../../../adr/glossary.md#slot
+[15]: ../../../adr/azure/azure-data-model.md#rule-adr-az-datamod2

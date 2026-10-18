@@ -1,12 +1,15 @@
-# docs/explanation/.assets/chain/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.chain.md
+# One field in globs.yml, pipeline:, binds a set to its pipeline file: the value-chain minimap
 
-`Value-chain minimap: adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation`
+```text
+Where ADR-DSGN-TRACK sit in the value chain: value-chain stack down, value-chain concerns across.
+No cell is lit: the cited ADRs land only in automation, which the AUTO row already names.
+```
 
-![Value-chain minimap of adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation](adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.chain.png)
+![The value-chain minimap of One field in globs.yml, pipeline:, binds a set to its pipeline file](adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.chain.png)
 
-The value-chain minimap of the slide `adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation` (implementation lens). The
-slide supports [ADR-DSGN-TRACK][1]; the highlight of those ADR codes selects what is lit, and each reason below names the code that selects
-it.
+This is the value-chain minimap in the sidebar of the implementation diagram of [One field in globs.yml, pipeline:, binds a set to its
+pipeline file][2], which explains [ADR-DSGN-TRACK][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns
+land, so it shows the part of the value chain the decision governs. Nothing is lit, so no reason follows.
 
 ## What the minimap shows
 
@@ -14,6 +17,7 @@ Value-chain map: value-chain stack × value-chain concerns. The grid crosses the
 CLOUD) with the 5 value-chain concerns (build, quality-control, release, deploy, access) and lights 0 cells, filled in ink. Every other cell
 is idle, a grey box: it holds ADRs the slide does not cite, or none, because no ADR's value-chain concern lands there (5 of the 25 cells
 hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
+
 
 ## Key
 
@@ -30,58 +34,66 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - `DEPLOY`: deploy
 - `ACCESS`: access
 
-## Why each cell is lit
-
 ## Keywords
 
-- [value-chain map][2]
-- [value-chain stack][3]
-- [value-chain concern][4]
-- [cell][5]
-- [lit cell][6]
+- [value-chain map][3]
+- [value-chain stack][4]
+- [value-chain concern][5]
+- [cell][6]
+- [lit cell][7]
 
 Terms the cited ADRs define:
 
-- [cell][5], defined by [ADR-DSGN-TRACK#10][7]
-- [deployable-unit][8], defined by [ADR-DSGN-TRACK#5][9]
-- [file language][10], defined by [ADR-DSGN-TRACK#6][11]
-- [lit cell][6], defined by [ADR-DSGN-TRACK#12][12]
-- [place][13], defined by [ADR-DSGN-TRACK#1][14]
-- [root file][15], defined by [ADR-DSGN-TRACK#7][16]
-- [stack violation][17], defined by [ADR-DSGN-TRACK#11][18]
-- [track][19], defined by [ADR-DSGN-TRACK#1][14]
-- [unlisted file][20], defined by [ADR-DSGN-TRACK#8][21]
-- [value-chain concern][4], defined by [ADR-DSGN-TRACK#15][22]
-- [value-chain map][2], defined by [ADR-DSGN-TRACK#16][23]
-- [value-chain stack][3], defined by [ADR-DSGN-TRACK#14][24]
-- [verification track][25], defined by [ADR-DSGN-TRACK#2][26]
-- [world map][27], defined by [ADR-DSGN-TRACK#9][28]
+- [cell][6], defined by [ADR-DSGN-TRACK#10][8]
+- [deployable-unit][9], defined by [ADR-DSGN-TRACK#5][10]
+- [file language][11], defined by [ADR-DSGN-TRACK#6][12]
+- [import][13], defined by [ADR-DSGN-TRACK#17][14]
+- [landing address][15], defined by [ADR-DSGN-TRACK#17][14]
+- [lit cell][7], defined by [ADR-DSGN-TRACK#12][16]
+- [place][17], defined by [ADR-DSGN-TRACK#1][18]
+- [root file][19], defined by [ADR-DSGN-TRACK#7][20]
+- [sorting][21], defined by [ADR-DSGN-TRACK#17][14]
+- [stack violation][22], defined by [ADR-DSGN-TRACK#11][23]
+- [track][24], defined by [ADR-DSGN-TRACK#1][18]
+- [unlisted file][25], defined by [ADR-DSGN-TRACK#8][26]
+- [unordered track][27], defined by [ADR-DSGN-TRACK#17][14]
+- [value-chain concern][5], defined by [ADR-DSGN-TRACK#15][28]
+- [value-chain map][3], defined by [ADR-DSGN-TRACK#16][29]
+- [value-chain stack][4], defined by [ADR-DSGN-TRACK#14][30]
+- [verification track][31], defined by [ADR-DSGN-TRACK#2][32]
+- [world map][33], defined by [ADR-DSGN-TRACK#9][34]
 
 [1]: ../../../adr/design/tracks.md
-[2]: ../../../adr/glossary.md#value-chain-map
-[3]: ../../../adr/glossary.md#value-chain-stack
-[4]: ../../../adr/glossary.md#value-chain-concern
-[5]: ../../../adr/glossary.md#cell
-[6]: ../../../adr/glossary.md#lit-cell
-[7]: ../../../adr/design/tracks.md#rule-adr-dsgn-track10
-[8]: ../../../adr/glossary.md#deployable-unit
-[9]: ../../../adr/design/tracks.md#rule-adr-dsgn-track5
-[10]: ../../../adr/glossary.md#file-language
-[11]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[12]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[13]: ../../../adr/glossary.md#place
-[14]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[15]: ../../../adr/glossary.md#root-file
-[16]: ../../../adr/design/tracks.md#rule-adr-dsgn-track7
-[17]: ../../../adr/glossary.md#stack-violation
-[18]: ../../../adr/design/tracks.md#rule-adr-dsgn-track11
-[19]: ../../../adr/glossary.md#track
-[20]: ../../../adr/glossary.md#unlisted-file
-[21]: ../../../adr/design/tracks.md#rule-adr-dsgn-track8
-[22]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[23]: ../../../adr/design/tracks.md#rule-adr-dsgn-track16
-[24]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[25]: ../../../adr/glossary.md#verification-track
-[26]: ../../../adr/design/tracks.md#rule-adr-dsgn-track2
-[27]: ../../../adr/glossary.md#world-map
-[28]: ../../../adr/design/tracks.md#rule-adr-dsgn-track9
+[2]: ../../design/globs-yml-pipeline-field-is-the-binding.md
+[3]: ../../../adr/glossary.md#value-chain-map
+[4]: ../../../adr/glossary.md#value-chain-stack
+[5]: ../../../adr/glossary.md#value-chain-concern
+[6]: ../../../adr/glossary.md#cell
+[7]: ../../../adr/glossary.md#lit-cell
+[8]: ../../../adr/design/tracks.md#rule-adr-dsgn-track10
+[9]: ../../../adr/glossary.md#deployable-unit
+[10]: ../../../adr/design/tracks.md#rule-adr-dsgn-track5
+[11]: ../../../adr/glossary.md#file-language
+[12]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
+[13]: ../../../adr/glossary.md#import
+[14]: ../../../adr/design/tracks.md#rule-adr-dsgn-track17
+[15]: ../../../adr/glossary.md#landing-address
+[16]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[17]: ../../../adr/glossary.md#place
+[18]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
+[19]: ../../../adr/glossary.md#root-file
+[20]: ../../../adr/design/tracks.md#rule-adr-dsgn-track7
+[21]: ../../../adr/glossary.md#sorting
+[22]: ../../../adr/glossary.md#stack-violation
+[23]: ../../../adr/design/tracks.md#rule-adr-dsgn-track11
+[24]: ../../../adr/glossary.md#track
+[25]: ../../../adr/glossary.md#unlisted-file
+[26]: ../../../adr/design/tracks.md#rule-adr-dsgn-track8
+[27]: ../../../adr/glossary.md#unordered-track
+[28]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
+[29]: ../../../adr/design/tracks.md#rule-adr-dsgn-track16
+[30]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
+[31]: ../../../adr/glossary.md#verification-track
+[32]: ../../../adr/design/tracks.md#rule-adr-dsgn-track2
+[33]: ../../../adr/glossary.md#world-map
+[34]: ../../../adr/design/tracks.md#rule-adr-dsgn-track9

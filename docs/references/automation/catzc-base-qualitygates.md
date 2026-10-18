@@ -178,6 +178,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Format-MarkdownTitle`        |
 |                                                 | `Test-MarkdownTitle`          |
 |                                                 | `Format-FileMeta`             |
+|                                                 | `Sync-FileMeta`               |
 |                                                 | `Test-FileMeta`               |
 |                                                 | `Test-FileMetaProcessors`     |
 |                                                 | `Format-Types`                |

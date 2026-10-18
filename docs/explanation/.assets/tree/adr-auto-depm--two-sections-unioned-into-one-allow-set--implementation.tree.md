@@ -1,21 +1,25 @@
-# docs/explanation/.assets/tree/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.tree.md
+# Two sections of dependencies.yml are unioned into one allow-set per source module: the tree minimap
 
-`Tree minimap: adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation`
+```text
+Which files cite ADR-AUTO-DEPM: every file of the world map is a tile, grouped by top-level folder.
+18 files lit in 7 groups.
+```
 
-![Tree minimap of adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation](adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.tree.png)
+![The tree minimap of Two sections of dependencies.yml are unioned into one allow-set per source module](adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.tree.png)
 
-The tree minimap of the slide `adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation` (implementation lens). The slide
-supports [ADR-AUTO-DEPM][1]; the highlight of those ADR codes selects what is lit, and each reason below names the code that selects it.
+This is the tree minimap in the sidebar of the implementation diagram of [Two sections of dependencies.yml are unioned into one allow-set
+per source module][19], which explains [ADR-AUTO-DEPM][1]. It lights every file that cites those codes, grouped by folder, so it shows which
+files carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
-domain), and lights 16 files in 7 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 18 files in 7 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - .claude: 5 lit files
+- docs (docs/ outside docs/adr/): 5 lit files
 - ModuleSystem (automation/Catzc.Base.ModuleSystem): 3 lit files
-- docs (docs/ outside docs/adr/): 3 lit files
 - adr/auto (docs/adr/automation): 2 lit files
 - Docs (automation/Catzc.Base.Docs): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
@@ -28,38 +32,43 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
 - [.claude/plans/plan-adr-link-cleanup-prose-to-pages.md][2], in the cell .claude × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites
-  it at line 177 (text).
-- [.claude/plans/plan-assert-wait.md][3], in the cell .claude × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 80
+  it at line 184 (text).
+- [.claude/plans/plan-assert-wait.md][3], in the cell .claude × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 87
   (text).
 - [.claude/plans/plan-module-kinds-tracks.md][4], in the cell .claude × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line
-  35 (text), line 219 (text), line 302 (text), line 306 (text), line 369 (text), line 375 (text), line 379 (text), line 398 (text), line 551
-  (text) and line 588 (text).
+  32 (text), line 226 (text), line 309 (text), line 313 (text), line 376 (text), line 382 (text), line 386 (text), line 405 (text), line 561
+  (text) and line 598 (text).
 - [.claude/plans/prompt-k8s-kinds-2-implement.md][5], in the cell .claude × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at
-  line 40 (text).
+  line 37 (text).
 - [.claude/plans/prompt-module-model-1-prepare.md][6], in the cell .claude × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at
-  line 41 (text).
+  line 38 (text).
+
+### docs (docs/ outside docs/adr/, 5 lit files)
+
+The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
+
+- [docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md][7], in the cell docs ×
+  markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 16 (text), line 68 (text), line 75 (text), line 75 (text), line 92
+  (text) and line 94 (text).
+- [docs/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][8], in the cell docs × markdown: selected
+  by [ADR-AUTO-DEPM][1]: the file cites it at line 16 (text), line 133 (text) and line 137 (text).
+- [docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md][9], in the cell docs × markdown: selected by
+  [ADR-AUTO-DEPM][1]: the file cites it at line 31 (text).
+- [docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md][10], in the cell docs × markdown: selected by
+  [ADR-AUTO-DEPM][1]: the file cites it at line 17 (text) and line 34 (text).
+- [docs/references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md][11], in the cell docs × markdown: selected by
+  [ADR-AUTO-DEPM][1]: the file cites it at line 17 (text) and line 32 (text).
 
 ### ModuleSystem (automation/Catzc.Base.ModuleSystem, 3 lit files)
 
 The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs][7], in the cell automation × csharp: selected by [ADR-AUTO-DEPM][1]: the
+- [automation/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs][12], in the cell automation × csharp: selected by [ADR-AUTO-DEPM][1]: the
   file cites it at line 21 (text).
-- [automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs][8], in the cell automation × csharp: selected by [ADR-AUTO-DEPM][1]: the
+- [automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs][13], in the cell automation × csharp: selected by [ADR-AUTO-DEPM][1]: the
   file cites it at line 20 (text).
-- [automation/Catzc.Base.ModuleSystem/types/ModuleGroup.cs][9], in the cell automation × csharp: selected by [ADR-AUTO-DEPM][1]: the file
+- [automation/Catzc.Base.ModuleSystem/types/ModuleGroup.cs][14], in the cell automation × csharp: selected by [ADR-AUTO-DEPM][1]: the file
   cites it at line 20 (text).
-
-### docs (docs/ outside docs/adr/, 3 lit files)
-
-The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
-
-- [docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md][10], in the cell docs × markdown: selected by
-  [ADR-AUTO-DEPM][1]: the file cites it at line 31 (text).
-- [docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md][11], in the cell docs × markdown: selected by
-  [ADR-AUTO-DEPM][1]: the file cites it at line 17 (text) and line 34 (text).
-- [docs/references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md][12], in the cell docs × markdown: selected by
-  [ADR-AUTO-DEPM][1]: the file cites it at line 17 (text) and line 32 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
 
@@ -67,47 +76,47 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 
 - [docs/adr/automation/controlling-module-dependencies.md][1], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]: the ADR's own
   file.
-- [docs/adr/automation/dora-explains.md][13], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 415
+- [docs/adr/automation/dora-explains.md][15], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 435
   (text).
 
 ### Docs (automation/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][14], in the cell automation × yaml: selected by [ADR-AUTO-DEPM][1]: the file cites it at
-  line 154 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][16], in the cell automation × yaml: selected by [ADR-AUTO-DEPM][1]: the file cites it at
+  line 157 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][15], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 165 (text).
+- [docs/adr/index.md][17], in the cell docs × markdown: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 169 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-automation.yaml][16], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-DEPM][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 154 (text),
+- [pipelines/ci-automation.yaml][18], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-DEPM][1]: a pipeline that cites nothing
+  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 157 (text),
   `automation/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs` line 21 (text),
   `automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs` line 20 (text) and `automation/Catzc.Base.ModuleSystem/types/ModuleGroup.cs`
   line 20 (text).
 
 ## Keywords
 
-- [world map][17]
-- [track][18]
-- [file language][19]
-- [cell][20]
-- [lit cell][21]
-- [.claude][22]: a track
-- [automation][22]: a track
-- [docs][22]: a track
-- [pipelines][22]: a track
-- [csharp][23]: a file language
-- [markdown][23]: a file language
-- [pipeline-yaml][23]: a file language
-- [yaml][23]: a file language
+- [world map][20]
+- [track][21]
+- [file language][22]
+- [cell][23]
+- [lit cell][24]
+- [.claude][25]: a track
+- [automation][25]: a track
+- [docs][25]: a track
+- [pipelines][25]: a track
+- [csharp][26]: a file language
+- [markdown][26]: a file language
+- [pipeline-yaml][26]: a file language
+- [yaml][26]: a file language
 
 [1]: ../../../adr/automation/controlling-module-dependencies.md
 [2]: ../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
@@ -115,20 +124,23 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [4]: ../../../../.claude/plans/plan-module-kinds-tracks.md
 [5]: ../../../../.claude/plans/prompt-k8s-kinds-2-implement.md
 [6]: ../../../../.claude/plans/prompt-module-model-1-prepare.md
-[7]: ../../../../automation/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
-[8]: ../../../../automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
-[9]: ../../../../automation/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
-[10]: ../../../references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
-[11]: ../../../references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
-[12]: ../../../references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md
-[13]: ../../../adr/automation/dora-explains.md
-[14]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[15]: ../../../adr/index.md
-[16]: ../../../../pipelines/ci-automation.yaml
-[17]: ../../../adr/glossary.md#world-map
-[18]: ../../../adr/glossary.md#track
-[19]: ../../../adr/glossary.md#file-language
-[20]: ../../../adr/glossary.md#cell
-[21]: ../../../adr/glossary.md#lit-cell
-[22]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[23]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[7]: ../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
+[8]: ../../../references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[9]: ../../../references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
+[10]: ../../../references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
+[11]: ../../../references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md
+[12]: ../../../../automation/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
+[13]: ../../../../automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
+[14]: ../../../../automation/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
+[15]: ../../../adr/automation/dora-explains.md
+[16]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[17]: ../../../adr/index.md
+[18]: ../../../../pipelines/ci-automation.yaml
+[19]: ../../automation/two-sections-unioned-into-one-allow-set.md
+[20]: ../../../adr/glossary.md#world-map
+[21]: ../../../adr/glossary.md#track
+[22]: ../../../adr/glossary.md#file-language
+[23]: ../../../adr/glossary.md#cell
+[24]: ../../../adr/glossary.md#lit-cell
+[25]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
+[26]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml

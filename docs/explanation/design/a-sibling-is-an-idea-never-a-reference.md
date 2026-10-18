@@ -54,7 +54,7 @@ catzc:
 ```text
 Two siblings of one family, catzc and eac, compared model by model: where they meet, where they part, and how an idea crosses.
 
-1  the family      one thesis in two engines, PowerShell with C# and Go
+1  the family      one thesis in two languages, PowerShell with C# and Go
 2  the meeting     tracks and modules, contracts, defaults, materialization, output
 3  the parting     rules as ADRs or as specifications; a place where imports land, or none
 4  the crossing    an idea is named where it is used and rebuilt to this repository's rules

@@ -1,23 +1,27 @@
-# docs/explanation/.assets/grid/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.grid.md
+# An undeclared module edge fails the gate with one line per issue: the world-map minimap
 
-`Grid minimap: adr-auto-depm--undeclared-edge-fails-with-one-line--operations`
+```text
+Where the files that cite ADR-AUTO-DEPM sit in the repository: tracks down, file languages across.
+5 of 324 cells lit, holding 18 files.
+```
 
-![Grid minimap of adr-auto-depm--undeclared-edge-fails-with-one-line--operations](adr-auto-depm--undeclared-edge-fails-with-one-line--operations.grid.png)
+![The world-map minimap of An undeclared module edge fails the gate with one line per issue](adr-auto-depm--undeclared-edge-fails-with-one-line--operations.grid.png)
 
-The grid minimap of the slide `adr-auto-depm--undeclared-edge-fails-with-one-line--operations` (operations lens). The slide supports
-[ADR-AUTO-DEPM][1]; the highlight of those ADR codes selects what is lit, and each reason below names the code that selects it.
+This is the world-map minimap in the sidebar of the operations diagram of [An undeclared module edge fails the gate with one line per
+issue][22], which explains [ADR-AUTO-DEPM][1]. It lights every cell of the world map that holds a file citing those codes, so it shows where
+the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
-The grid crosses the 16 tracks (rows) with the 18 file languages (columns) of the world map and lights 5 cells, filled in ink. A cell lit
+The grid crosses the 18 tracks (rows) with the 18 file languages (columns) of the world map and lights 5 cells, filled in ink. A cell lit
 only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
-grey box: it holds files the slide's ADR codes do not select, or no file at all (237 of the 288 cells hold none). The minimap shows where
+grey box: it holds files the slide's ADR codes do not select, or no file at all (271 of the 324 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 5 lit of 71 files
-- automation × csharp: 3 lit of 274 files
-- automation × yaml: 1 lit of 109 files
-- docs × markdown: 6 lit of 2165 files
+- .claude × markdown: 5 lit of 91 files
+- automation × csharp: 3 lit of 286 files
+- automation × yaml: 1 lit of 112 files
+- docs × markdown: 8 lit of 2220 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
@@ -36,12 +40,12 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [.claude/plans/plan-adr-link-cleanup-prose-to-pages.md][5]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 177 (text).
-- [.claude/plans/plan-assert-wait.md][6]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 80 (text).
-- [.claude/plans/plan-module-kinds-tracks.md][7]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 35 (text), line 219 (text), line
-  302 (text), line 306 (text), line 369 (text), line 375 (text), line 379 (text), line 398 (text), line 551 (text) and line 588 (text).
-- [.claude/plans/prompt-k8s-kinds-2-implement.md][8]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 40 (text).
-- [.claude/plans/prompt-module-model-1-prepare.md][9]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 41 (text).
+- [.claude/plans/plan-adr-link-cleanup-prose-to-pages.md][5]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 184 (text).
+- [.claude/plans/plan-assert-wait.md][6]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 87 (text).
+- [.claude/plans/plan-module-kinds-tracks.md][7]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 32 (text), line 226 (text), line
+  309 (text), line 313 (text), line 376 (text), line 382 (text), line 386 (text), line 405 (text), line 561 (text) and line 598 (text).
+- [.claude/plans/prompt-k8s-kinds-2-implement.md][8]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 37 (text).
+- [.claude/plans/prompt-module-model-1-prepare.md][9]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 38 (text).
 
 ### automation × csharp (3 lit files)
 
@@ -57,21 +61,26 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][13]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 154 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][13]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 157 (text).
 
-### docs × markdown (6 lit files)
+### docs × markdown (8 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [docs/adr/automation/controlling-module-dependencies.md][1]: selected by [ADR-AUTO-DEPM][1]: the ADR's own file.
-- [docs/adr/automation/dora-explains.md][14]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 415 (text).
-- [docs/adr/index.md][15]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 165 (text).
-- [docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md][16]: selected by [ADR-AUTO-DEPM][1]: the file cites it
+- [docs/adr/automation/dora-explains.md][14]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 435 (text).
+- [docs/adr/index.md][15]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 169 (text).
+- [docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md][16]: selected by
+  [ADR-AUTO-DEPM][1]: the file cites it at line 16 (text), line 68 (text), line 75 (text), line 75 (text), line 92 (text) and line 94
+  (text).
+- [docs/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][17]: selected by [ADR-AUTO-DEPM][1]: the
+  file cites it at line 16 (text), line 133 (text) and line 137 (text).
+- [docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md][18]: selected by [ADR-AUTO-DEPM][1]: the file cites it
   at line 31 (text).
-- [docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md][17]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
+- [docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md][19]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
   line 17 (text) and line 34 (text).
-- [docs/references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md][18]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
+- [docs/references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md][20]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
   line 17 (text) and line 32 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
@@ -79,27 +88,27 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [pipelines/ci-automation.yaml][19]: selected by [ADR-AUTO-DEPM][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 154 (text),
+- [pipelines/ci-automation.yaml][21]: selected by [ADR-AUTO-DEPM][1]: a pipeline that cites nothing itself carries its globset's citations,
+  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 157 (text),
   `automation/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs` line 21 (text),
   `automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs` line 20 (text) and `automation/Catzc.Base.ModuleSystem/types/ModuleGroup.cs`
   line 20 (text).
 
 ## Keywords
 
-- [world map][20]
-- [track][21]
-- [file language][22]
-- [cell][23]
-- [lit cell][24]
-- [.claude][25]: a track
-- [automation][25]: a track
-- [docs][25]: a track
-- [pipelines][25]: a track
-- [csharp][26]: a file language
-- [markdown][26]: a file language
-- [pipeline-yaml][26]: a file language
-- [yaml][26]: a file language
+- [world map][23]
+- [track][24]
+- [file language][25]
+- [cell][26]
+- [lit cell][27]
+- [.claude][28]: a track
+- [automation][28]: a track
+- [docs][28]: a track
+- [pipelines][28]: a track
+- [csharp][29]: a file language
+- [markdown][29]: a file language
+- [pipeline-yaml][29]: a file language
+- [yaml][29]: a file language
 
 [1]: ../../../adr/automation/controlling-module-dependencies.md
 [2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -116,14 +125,17 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [13]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
 [14]: ../../../adr/automation/dora-explains.md
 [15]: ../../../adr/index.md
-[16]: ../../../references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
-[17]: ../../../references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
-[18]: ../../../references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md
-[19]: ../../../../pipelines/ci-automation.yaml
-[20]: ../../../adr/glossary.md#world-map
-[21]: ../../../adr/glossary.md#track
-[22]: ../../../adr/glossary.md#file-language
-[23]: ../../../adr/glossary.md#cell
-[24]: ../../../adr/glossary.md#lit-cell
-[25]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[26]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[16]: ../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
+[17]: ../../../references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[18]: ../../../references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
+[19]: ../../../references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
+[20]: ../../../references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md
+[21]: ../../../../pipelines/ci-automation.yaml
+[22]: ../../automation/undeclared-edge-fails-with-one-line.md
+[23]: ../../../adr/glossary.md#world-map
+[24]: ../../../adr/glossary.md#track
+[25]: ../../../adr/glossary.md#file-language
+[26]: ../../../adr/glossary.md#cell
+[27]: ../../../adr/glossary.md#lit-cell
+[28]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
+[29]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml

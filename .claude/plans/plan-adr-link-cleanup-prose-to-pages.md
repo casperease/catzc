@@ -87,6 +87,9 @@ readable. It cannot move until the plans plan removes the 274 .unordered rows an
 - [x] Run the five gates on the usage code (check: each clean). Done 2026-10-17, the same step as Q59 above.
 - [ ] Step 1.3 apply and 1.4 verify, one slice at a time (check: Test-Links clean). First slice done 2026-10-18: the two narrow fixes in
       `docs/explanation/flow/no-gate-checks-rules-one-and-four.md`, `LINKS issues=0`; usage 7,473 to 7,474 rows, no unregistered code.
+      Slices 2 and 3 done 2026-10-18: the rule-number pattern (two pages narrowed), the retarget signal (0 of 78, closed), the merge signal
+      (2 duplicates dropped, 118 keep); 312 of 6,449 ledger rows reviewed. Next: the 100-row sample of whole links and the 150-row sample of
+      rule rows.
 - [ ] Phase 2 per decided D1, one file at a time (check: Test-Comments, Test-FileMeta clean).
 
 ## Done, and why (session report of 2026-10-16 15:23)

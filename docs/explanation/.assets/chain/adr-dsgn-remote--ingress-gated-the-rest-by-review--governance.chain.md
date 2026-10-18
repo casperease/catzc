@@ -1,12 +1,16 @@
-# docs/explanation/.assets/chain/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.chain.md
+# Only ingress is checked by gates; the source-of-truth and integration rules rest on code review: the value-chain minimap
 
-`Value-chain minimap: adr-dsgn-remote--ingress-gated-the-rest-by-review--governance`
+```text
+Where ADR-DSGN-LIFE, ADR-DSGN-REMOTE and ADR-REPO-VARIANT sit in the value chain: value-chain stack down, value-chain concerns across.
+4 of 25 cells lit.
+```
 
-![Value-chain minimap of adr-dsgn-remote--ingress-gated-the-rest-by-review--governance](adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.chain.png)
+![The value-chain minimap of Only ingress is checked by gates; the source-of-truth and integration rules rest on code review](adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.chain.png)
 
-The value-chain minimap of the slide `adr-dsgn-remote--ingress-gated-the-rest-by-review--governance` (governance lens). The slide supports
-[ADR-DSGN-LIFE][1], [ADR-DSGN-REMOTE][2] and [ADR-REPO-VARIANT][3]; the highlight of those ADR codes selects what is lit, and each reason
-below names the code that selects it.
+This is the value-chain minimap in the sidebar of the governance diagram of [Only ingress is checked by gates; the source-of-truth and
+integration rules rest on code review][7], which explains [ADR-DSGN-LIFE][1], [ADR-DSGN-REMOTE][2] and [ADR-REPO-VARIANT][3]. It lights the
+cells of the value-chain map where the cited ADRs' value-chain concerns land, so it shows the part of the value chain the decision governs.
+Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -74,15 +78,15 @@ Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 ## Keywords
 
-- [value-chain map][7]
-- [value-chain stack][8]
-- [value-chain concern][9]
-- [cell][10]
-- [lit cell][11]
+- [value-chain map][8]
+- [value-chain stack][9]
+- [value-chain concern][10]
+- [cell][11]
+- [lit cell][12]
 
 Terms the cited ADRs define:
 
-- [occupant][12], defined by [ADR-DSGN-LIFE#5][13]
+- [occupant][13], defined by [ADR-DSGN-LIFE#5][14]
 
 [1]: ../../../adr/design/commit-lifecycle.md
 [2]: ../../../adr/design/server-remote-integration.md
@@ -90,10 +94,11 @@ Terms the cited ADRs define:
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
 [6]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[7]: ../../../adr/glossary.md#value-chain-map
-[8]: ../../../adr/glossary.md#value-chain-stack
-[9]: ../../../adr/glossary.md#value-chain-concern
-[10]: ../../../adr/glossary.md#cell
-[11]: ../../../adr/glossary.md#lit-cell
-[12]: ../../../adr/glossary.md#occupant
-[13]: ../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[7]: ../../design/ingress-gated-the-rest-by-review.md
+[8]: ../../../adr/glossary.md#value-chain-map
+[9]: ../../../adr/glossary.md#value-chain-stack
+[10]: ../../../adr/glossary.md#value-chain-concern
+[11]: ../../../adr/glossary.md#cell
+[12]: ../../../adr/glossary.md#lit-cell
+[13]: ../../../adr/glossary.md#occupant
+[14]: ../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5

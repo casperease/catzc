@@ -1,0 +1,48 @@
+Describe 'Sync-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
+    BeforeAll {
+        $script:widgetRoot = Join-Path $TestDrive 'sync-repository'
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
+        $script:widget = Join-Path $script:widgetRoot 'docs/widget.md'
+        [System.IO.File]::WriteAllText($script:widget, "# Widget`n")
+    }
+
+    BeforeEach {
+        Mock Get-RepositoryRoot { $script:widgetRoot } -ModuleName Catzc.Base.QualityGates
+        Mock Format-Code { } -ModuleName Catzc.Base.QualityGates
+        Mock Format-FileMeta { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); FileCount = 1; DryRun = $false } } -ModuleName Catzc.Base.QualityGates
+    }
+
+    It 'formats the one file with the cache off, then brings its meta block up to date, both on that file' {
+        Sync-FileMeta $script:widget | Should -BeNullOrEmpty
+        Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Path -eq $script:widget -and $NoCache -and -not $DryRun }
+        Should -Invoke Format-FileMeta -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Path -eq $script:widget }
+    }
+
+    It 'returns the repository-relative path when either step changed the file' {
+        Mock Format-FileMeta { [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @('docs/widget.md'); FileCount = 1; DryRun = $false } } -ModuleName Catzc.Base.QualityGates
+        Sync-FileMeta $script:widget | Should -BeExactly 'docs/widget.md'
+        Mock Format-FileMeta { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); FileCount = 1; DryRun = $false } } -ModuleName Catzc.Base.QualityGates
+        Mock Format-Code { [pscustomobject]@{ ChangedFiles = @($script:widget); Unfixable = @{} } } -ModuleName Catzc.Base.QualityGates
+        Sync-FileMeta $script:widget | Should -BeExactly 'docs/widget.md'
+    }
+
+    It 'passes -DryRun to both steps and reports it in the result object' -Tag 'ADR-AUTO-DRYRUN#2' {
+        Mock Format-Code { [pscustomobject]@{ ChangedFiles = @(); Unfixable = @{ $script:widget = 'a fault only an author can fix' } } } -ModuleName Catzc.Base.QualityGates
+        $result = Sync-FileMeta $script:widget -DryRun -PassThru
+        $result.Path | Should -BeExactly 'docs/widget.md'
+        $result.Changed | Should -BeFalse
+        $result.DryRun | Should -BeTrue
+        $result.Unfixable | Should -Be @('a fault only an author can fix')
+        Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $DryRun }
+        Should -Invoke Format-FileMeta -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $DryRun }
+    }
+
+    It 'refuses a folder, a missing path and a file outside the repository, naming each' {
+        { Sync-FileMeta (Join-Path $script:widgetRoot 'docs') } | Should -Throw '*is a folder*'
+        { Sync-FileMeta (Join-Path $script:widgetRoot 'docs/gone.md') } | Should -Throw
+        $outside = Join-Path $TestDrive 'outside.md'
+        [System.IO.File]::WriteAllText($outside, "# Outside`n")
+        { Sync-FileMeta $outside } | Should -Throw '*outside the repository*'
+        Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+}

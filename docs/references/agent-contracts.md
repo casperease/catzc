@@ -10,6 +10,9 @@ catzc:
     language: markdown
     track: docs
     tracktype: documentation
+  edges:
+    cites:
+      - ADR-REPO-AGENTS#6
 ---
 
 # Agent contracts: what `contracts: [ADR-AI]` said, and where it lives now
@@ -28,10 +31,10 @@ as pointers. The plan for that ADR (`.claude/plans/plan-adr-ai.md`) intended the
 
 ## Why it is not a per-file key
 
-The same day, ADR-REPO-AGENTS gained rule 6: a robot's front matter is a closed key set (`name`, `description`, `tools`, `disallowedTools`,
-`model`, `effort`, `maxTurns`, `skills`, then the catzc head); the harness ignores any other key, and the gate rejects it. A value that is
-identical on every file is a constant, not per-file data, so declaring it once is the rule (ADR-PRIN-CONFIG, ADR-PRIN-REDUCEVAR). The user
-decided (questionnaire Q140, decisions-2026-10-16.md): ADR-AI is named once, and the per-file key goes.
+ADR-REPO-AGENTS#6 makes a robot's front matter a closed key set (`name`, `description`, `tools`, `disallowedTools`, `model`, `effort`,
+`maxTurns`, `skills`, then the catzc head); the harness ignores any other key, and the gate rejects it. A value that is identical on every
+file is a constant, not per-file data, so declaring it once is the rule (ADR-PRIN-CONFIG, ADR-PRIN-REDUCEVAR). The user decided
+(questionnaire Q140, decisions-2026-10-16.md): ADR-AI is named once, and the per-file key goes.
 
 ## Where it lives now
 

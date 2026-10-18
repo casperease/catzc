@@ -166,8 +166,8 @@ where the file belongs, from the same source as the namespace. The visibility sa
 file moved between folders re-imprints. A hash of the body would change with every edit, so every concurrent edit of one file would conflict
 on the hash line, and git already hashes the file. The ADR codes a file cites are the one list a reader scans to learn which decisions bind
 the file, so the head shows them, rebuilt on every run from the citations the file and its comment page make: a code the text no longer
-spells out no longer binds the file, and a list that kept it would say something the file does not. A hash of the public signature is the one checksum that fits code, and it needs a parser per language, so it is left
-out until a parser is warranted.
+spells out no longer binds the file, and a list that kept it would say something the file does not. A hash of the public signature is the
+one checksum that fits code, and it needs a parser per language, so it is left out until a parser is warranted.
 
 ### Scope
 

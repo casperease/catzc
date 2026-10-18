@@ -1,24 +1,28 @@
-# docs/explanation/.assets/grid/adr-conf-loading--three-caches-back-one-reader--implementation.grid.md
+# Three session caches back the one config reader: the world-map minimap
 
-`Grid minimap: adr-conf-loading--three-caches-back-one-reader--implementation`
+```text
+Where the files that cite ADR-CONF-LOADING sit in the repository: tracks down, file languages across.
+6 of 324 cells lit, holding 43 files.
+```
 
-![Grid minimap of adr-conf-loading--three-caches-back-one-reader--implementation](adr-conf-loading--three-caches-back-one-reader--implementation.grid.png)
+![The world-map minimap of Three session caches back the one config reader](adr-conf-loading--three-caches-back-one-reader--implementation.grid.png)
 
-The grid minimap of the slide `adr-conf-loading--three-caches-back-one-reader--implementation` (implementation lens). The slide supports
-[ADR-CONF-LOADING][1]; the highlight of those ADR codes selects what is lit, and each reason below names the code that selects it.
+This is the world-map minimap in the sidebar of the implementation diagram of [Three session caches back the one config reader][47], which
+explains [ADR-CONF-LOADING][1]. It lights every cell of the world map that holds a file citing those codes, so it shows where the decision
+lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
-The grid crosses the 16 tracks (rows) with the 18 file languages (columns) of the world map and lights 6 cells, filled in ink. A cell lit
+The grid crosses the 18 tracks (rows) with the 18 file languages (columns) of the world map and lights 6 cells, filled in ink. A cell lit
 only by passing mentions (citations in body comments, not in a file's header or text) is touched: a lighter ink. Every other cell is idle, a
-grey box: it holds files the slide's ADR codes do not select, or no file at all (237 of the 288 cells hold none). The minimap shows where
+grey box: it holds files the slide's ADR codes do not select, or no file at all (271 of the 324 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 4 lit of 71 files
-- automation × csharp: 10 lit of 274 files
-- automation × powershell: 12 lit of 1579 files
-- automation × yaml: 1 lit of 109 files
-- docs × markdown: 13 lit of 2165 files
+- .claude × markdown: 4 lit of 91 files
+- automation × csharp: 10 lit of 286 files
+- automation × powershell: 12 lit of 1618 files
+- automation × yaml: 1 lit of 112 files
+- docs × markdown: 15 lit of 2220 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
@@ -39,10 +43,10 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [.claude/plans/decisions-2026-10-16.md][5]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 64 (text).
-- [.claude/plans/plan-bounded-folder-enumeration.md][6]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 219 (text).
-- [.claude/plans/plan-config-defaults.md][7]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 99 (text), line 176 (text) and
-  line 265 (text).
-- [.claude/plans/prompt-config-defaults-continue.md][8]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 38 (text) and line 59
+- [.claude/plans/plan-bounded-folder-enumeration.md][6]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 220 (text).
+- [.claude/plans/plan-config-defaults.md][7]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 98 (text), line 175 (text) and
+  line 264 (text).
+- [.claude/plans/prompt-config-defaults-continue.md][8]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 35 (text) and line 56
   (text).
 
 ### automation × csharp (10 lit files)
@@ -51,8 +55,8 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [automation/Catzc.Base.Docs/types/AdrChecksConfig.cs][9]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 24 (text).
-- [automation/Catzc.Base.Docs/types/AdrsConfig.cs][10]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 24 (text).
-- [automation/Catzc.Base.Docs/types/AgentsConfig.cs][11]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 22 (text).
+- [automation/Catzc.Base.Docs/types/AdrsConfig.cs][10]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 26 (text).
+- [automation/Catzc.Base.Docs/types/AgentsConfig.cs][11]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 23 (text).
 - [automation/Catzc.Base.Docs/types/CapabilitiesConfig.cs][12]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 21 (text).
 - [automation/Catzc.Base.Docs/types/CapabilityEntry.cs][13]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 20 (text).
 - [automation/Catzc.Base.Docs/types/DocsConfig.cs][14]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 21 (text).
@@ -96,54 +100,58 @@ powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][31]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 222 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][31]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 227 (text).
 
-### docs × markdown (13 lit files)
+### docs × markdown (15 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/configuration/dora-explains.md][32]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 36 (text).
+- [docs/adr/configuration/dora-explains.md][32]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 35 (text).
 - [docs/adr/configuration/module-config-loading.md][1]: selected by [ADR-CONF-LOADING][1]: the ADR's own file.
-- [docs/adr/index.md][33]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 230 (text).
-- [docs/how-to/automation/manual-test-plan/configs.md][34]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 16 (text), line 66
-  (text) and line 85 (text).
-- [docs/how-to/getting-started/automation/add-a-module.md][35]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 16 (text) and
-  line 98 (text).
-- [docs/references/automation/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md][36]: selected by [ADR-CONF-LOADING][1]: the file cites
+- [docs/adr/index.md][33]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 236 (text).
+- [docs/how-to/automation/manual-test-plan/configs.md][34]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 16 (text), line 69
+  (text) and line 88 (text).
+- [docs/how-to/getting-started/automation/add-a-module.md][35]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 15 (text) and
+  line 97 (text).
+- [docs/references/.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md][36]: selected by
+  [ADR-CONF-LOADING][1]: the file cites it at line 18 (text) and line 66 (text).
+- [docs/references/automation/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md][37]: selected by [ADR-CONF-LOADING][1]: the file cites
   it at line 18 (text) and line 32 (text).
-- [docs/references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md][37]: selected by [ADR-CONF-LOADING][1]: the file cites it at line
+- [docs/references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md][38]: selected by [ADR-CONF-LOADING][1]: the file cites it at line
   20 (text) and line 39 (text).
-- [docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md][38]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 20
+- [docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md][39]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 20
   (text) and line 38 (text).
-- [docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md][39]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 18
+- [docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md][40]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 18
   (text) and line 37 (text).
-- [docs/references/automation/catzc-base-docs/types/DocsConfig.cs.md][40]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 32
+- [docs/references/automation/catzc-base-docs/types/DocsConfig.cs.md][41]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 32
   (text).
-- [docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md][41]: selected by [ADR-CONF-LOADING][1]: the file cites it at line
+- [docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md][42]: selected by [ADR-CONF-LOADING][1]: the file cites it at line
   31 (text).
-- [docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md][42]: selected by [ADR-CONF-LOADING][1]: the file cites it
+- [docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md][43]: selected by [ADR-CONF-LOADING][1]: the file cites it
   at line 17 (text) and line 33 (text).
-- [docs/references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md][43]: selected by [ADR-CONF-LOADING][1]: the file cites it
+- [docs/references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md][44]: selected by [ADR-CONF-LOADING][1]: the file cites it
   at line 31 (text).
+- [docs/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md][45]: selected by [ADR-CONF-LOADING][1]: the
+  file cites it at line 17 (text), line 48 (text) and line 115 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [pipelines/ci-automation.yaml][44]: selected by [ADR-CONF-LOADING][1]: a pipeline that cites nothing itself carries its globset's
+- [pipelines/ci-automation.yaml][46]: selected by [ADR-CONF-LOADING][1]: a pipeline that cites nothing itself carries its globset's
   citations, which cite it at `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 22 (header),
   `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 29 (header), `automation/Catzc.Base.Config/Get-ConfigValue.ps1` line 35 (header),
   `automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1` line 22 (header), `automation/Catzc.Base.Docs/Build-Readme.ps1` line 23
-  (header), `automation/Catzc.Base.Docs/Build-Readme.ps1` line 45 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 222 (text),
+  (header), `automation/Catzc.Base.Docs/Build-Readme.ps1` line 45 (header), `automation/Catzc.Base.Docs/configs/adrs.yml` line 227 (text),
   `automation/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1` line 23 (header),
   `automation/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1` line 39 (header),
   `automation/Catzc.Base.Docs/private/Get-GlossarySources.ps1` line 21 (header),
   `automation/Catzc.Base.Docs/private/Get-GlossarySources.ps1` line 30 (header), `automation/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1`
   line 21 (header), `automation/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1` line 62 (text),
-  `automation/Catzc.Base.Docs/types/AdrChecksConfig.cs` line 24 (text), `automation/Catzc.Base.Docs/types/AdrsConfig.cs` line 24 (text),
-  `automation/Catzc.Base.Docs/types/AgentsConfig.cs` line 22 (text), `automation/Catzc.Base.Docs/types/CapabilitiesConfig.cs` line 21
+  `automation/Catzc.Base.Docs/types/AdrChecksConfig.cs` line 24 (text), `automation/Catzc.Base.Docs/types/AdrsConfig.cs` line 26 (text),
+  `automation/Catzc.Base.Docs/types/AgentsConfig.cs` line 23 (text), `automation/Catzc.Base.Docs/types/CapabilitiesConfig.cs` line 21
   (text), `automation/Catzc.Base.Docs/types/CapabilityEntry.cs` line 20 (text), `automation/Catzc.Base.Docs/types/DocsConfig.cs` line 21
   (text), `automation/Catzc.Base.Execution/Resolve-ToolExecutable.ps1` line 20 (header),
   `automation/Catzc.Base.Execution/Resolve-ToolExecutable.ps1` line 29 (header),
@@ -162,20 +170,20 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 ## Keywords
 
-- [world map][45]
-- [track][46]
-- [file language][47]
-- [cell][48]
-- [lit cell][49]
-- [.claude][50]: a track
-- [automation][50]: a track
-- [docs][50]: a track
-- [pipelines][50]: a track
-- [csharp][51]: a file language
-- [markdown][51]: a file language
-- [pipeline-yaml][51]: a file language
-- [powershell][51]: a file language
-- [yaml][51]: a file language
+- [world map][48]
+- [track][49]
+- [file language][50]
+- [cell][51]
+- [lit cell][52]
+- [.claude][53]: a track
+- [automation][53]: a track
+- [docs][53]: a track
+- [pipelines][53]: a track
+- [csharp][54]: a file language
+- [markdown][54]: a file language
+- [pipeline-yaml][54]: a file language
+- [powershell][54]: a file language
+- [yaml][54]: a file language
 
 [1]: ../../../adr/configuration/module-config-loading.md
 [2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -212,19 +220,22 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [33]: ../../../adr/index.md
 [34]: ../../../how-to/automation/manual-test-plan/configs.md
 [35]: ../../../how-to/getting-started/automation/add-a-module.md
-[36]: ../../../references/automation/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
-[37]: ../../../references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md
-[38]: ../../../references/automation/catzc-base-docs/types/AdrsConfig.cs.md
-[39]: ../../../references/automation/catzc-base-docs/types/AgentsConfig.cs.md
-[40]: ../../../references/automation/catzc-base-docs/types/DocsConfig.cs.md
-[41]: ../../../references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md
-[42]: ../../../references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
-[43]: ../../../references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md
-[44]: ../../../../pipelines/ci-automation.yaml
-[45]: ../../../adr/glossary.md#world-map
-[46]: ../../../adr/glossary.md#track
-[47]: ../../../adr/glossary.md#file-language
-[48]: ../../../adr/glossary.md#cell
-[49]: ../../../adr/glossary.md#lit-cell
-[50]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[51]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[36]: ../../../references/.assets/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md
+[37]: ../../../references/automation/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
+[38]: ../../../references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md
+[39]: ../../../references/automation/catzc-base-docs/types/AdrsConfig.cs.md
+[40]: ../../../references/automation/catzc-base-docs/types/AgentsConfig.cs.md
+[41]: ../../../references/automation/catzc-base-docs/types/DocsConfig.cs.md
+[42]: ../../../references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md
+[43]: ../../../references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
+[44]: ../../../references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md
+[45]: ../../../references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+[46]: ../../../../pipelines/ci-automation.yaml
+[47]: ../../configuration/three-caches-back-one-reader.md
+[48]: ../../../adr/glossary.md#world-map
+[49]: ../../../adr/glossary.md#track
+[50]: ../../../adr/glossary.md#file-language
+[51]: ../../../adr/glossary.md#cell
+[52]: ../../../adr/glossary.md#lit-cell
+[53]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
+[54]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml

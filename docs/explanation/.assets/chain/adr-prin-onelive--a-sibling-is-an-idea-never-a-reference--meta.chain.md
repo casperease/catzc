@@ -1,12 +1,15 @@
-# docs/explanation/.assets/chain/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.chain.md
+# A sibling is an idea, never a reference: the value-chain minimap
 
-`Value-chain minimap: adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta`
+```text
+Where ADR-AUTO-GO and ADR-PRIN-ONELIVE sit in the value chain: value-chain stack down, value-chain concerns across.
+2 of 25 cells lit.
+```
 
-![Value-chain minimap of adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta](adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.chain.png)
+![The value-chain minimap of A sibling is an idea, never a reference](adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.chain.png)
 
-The value-chain minimap of the slide `adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta` (meta lens). The slide supports
-[ADR-AUTO-GO][1] and [ADR-PRIN-ONELIVE][2]; the highlight of those ADR codes selects what is lit, and each reason below names the code that
-selects it.
+This is the value-chain minimap in the sidebar of the meta diagram of [A sibling is an idea, never a reference][6], which explains
+[ADR-AUTO-GO][1] and [ADR-PRIN-ONELIVE][2]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns land, so
+it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -16,7 +19,7 @@ is idle, a grey box: it holds ADRs the slide does not cite, or none, because no 
 hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
 
 - PRIN × release: 1 lit of 33 ADRs
-- AUTO × quality-control: 1 lit of 16 ADRs
+- AUTO × quality-control: 1 lit of 17 ADRs
 
 ## Key
 
@@ -53,25 +56,26 @@ Lit ([ADR-DSGN-TRACK#12][3]) by:
 
 ## Keywords
 
-- [value-chain map][6]
-- [value-chain stack][7]
-- [value-chain concern][8]
-- [cell][9]
-- [lit cell][10]
+- [value-chain map][7]
+- [value-chain stack][8]
+- [value-chain concern][9]
+- [cell][10]
+- [lit cell][11]
 
 Terms the cited ADRs define:
 
-- [go test module][11], defined by [ADR-AUTO-GO#2][12]
+- [go test module][12], defined by [ADR-AUTO-GO#2][13]
 
 [1]: ../../../adr/automation/go/go-test-artifacts.md
 [2]: ../../../adr/principles/one-living-version.md
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
 [5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../../adr/glossary.md#value-chain-map
-[7]: ../../../adr/glossary.md#value-chain-stack
-[8]: ../../../adr/glossary.md#value-chain-concern
-[9]: ../../../adr/glossary.md#cell
-[10]: ../../../adr/glossary.md#lit-cell
-[11]: ../../../adr/glossary.md#go-test-module
-[12]: ../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2
+[6]: ../../design/a-sibling-is-an-idea-never-a-reference.md
+[7]: ../../../adr/glossary.md#value-chain-map
+[8]: ../../../adr/glossary.md#value-chain-stack
+[9]: ../../../adr/glossary.md#value-chain-concern
+[10]: ../../../adr/glossary.md#cell
+[11]: ../../../adr/glossary.md#lit-cell
+[12]: ../../../adr/glossary.md#go-test-module
+[13]: ../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2

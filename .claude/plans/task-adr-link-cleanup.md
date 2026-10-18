@@ -21,7 +21,9 @@ catzc:
     moduletype: settings
   edges:
     cites:
+      - ADR-AUTO-CACHE#1
       - ADR-PIPE-NAME#{1,4}
+      - ADR-REPO-AGENTS#6
       - ADR-REPO-HELP#3
       - ADR-REPO-VOCAB#1
 ---
@@ -73,13 +75,20 @@ ledger with stable keys, the pilot review of the pipelines slice (88 rows).
        `ADR-PIPE-NAME#1, #2, #3, #4 and #6` and `ADR-PIPE-NAME#4`; Format-Links aligned, Format-FileMeta followed, `LINKS issues=0`,
        `FILEMETA issues=0`, `GLOSSARY issues=0`, `SPELL issues=0` (`out/test-links/20261018-111351`); the two ledger rows carry
        `Applied: 2026-10-18`, a column the ledger gains here. The remaining slices, about 6,100 editable rows under the sample-then-stop
-       review, stay open.
+       review, stay open. Slices 2 and 3, 2026-10-18: the rule-number pattern (21 rows; the plans stay as plan text, two CAF ADRs name their
+       own numbered rule and keep it, two pages narrowed: the reflection-table article names `ADR-AUTO-CACHE#1`, `#2`, `#9`, `#10` and `#8`,
+       and agent-contracts names `ADR-REPO-AGENTS#6`); the retarget signal (78 rows, 0 retargets, each a correct citation: a Supports panel,
+       an example, a rule list; closed as keep); the merge signal (122 rows in 51 groups, 118 keep since each repeat backs its own claim, 2
+       drop: a rule link followed by the same bare citation in one sentence in `native-csharp-types.md` and `cross-platform.md`).
+       `LINKS issues=0`, `FILEMETA issues=0`, `GLOSSARY issues=0`, `SPELL issues=0`, `MDLINT issues=0` on the four pages
+       (`out/test-links/20261018-111720`, `20261018-111842`), `ADRREG issues=0`. Ledger: 312 of 6,449 rows carry a verdict.
 7. [x] Step 1.4 verify after the first slice: `Get-AdrUsage` before and after (rule links fall by widen and merge count, whole-ADR links
        rise by the same, no unregistered code); ledger has no row without a verdict or unapplied; Test-Glossary and Test-Spelling on changed
        files. After Phase 1: `Get-AdrCodesFileMetaFact` drops unregistered codes from held lists (the seven placeholder heads). Check: the
        counts in the plan. Done 2026-10-18 for the first slice: `Get-AdrUsage` 7,473 rows before and 7,474 after (5,657 rule, 1,817 whole;
        head 5,190, link 2,284), the one new row the page head's rule citation that the narrow produced; unregistered codes 0 before and
-       after. The `Get-AdrCodesFileMetaFact` change is in a file session catzc-e5 holds, so it waits for that session.
+       after. The `Get-AdrCodesFileMetaFact` change is in a file session catzc-e5 holds, so it waits for that session. After slices 2 and 3:
+       7,473 rows (5,655 rule, 1,818 whole), the two dropped duplicates gone from the count; unregistered codes 0.
 8. Phase 2 per D1 to D5: Step 2.0 inventory (`out/measure-text-in-source.ps1` writes `out/source-text-ledger.csv`; the threshold setting
    with its default on the config type); 2.1 verdicts; 2.2 review in slices (every delete verdict read first); 2.3 apply one file at a time;
    2.4 verify. Check: Test-Comments, Test-FileMeta clean per file; the ledger complete.

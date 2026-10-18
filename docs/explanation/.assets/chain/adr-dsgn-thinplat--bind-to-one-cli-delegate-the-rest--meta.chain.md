@@ -1,11 +1,15 @@
-# docs/explanation/.assets/chain/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.md
+# Consumers bind to one CLI, and everything behind it is delegated to the vendor: the value-chain minimap
 
-`Value-chain minimap: adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta`
+```text
+Where ADR-DSGN-THINPLAT sit in the value chain: value-chain stack down, value-chain concerns across.
+1 of 25 cells lit.
+```
 
-![Value-chain minimap of adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.png)
+![The value-chain minimap of Consumers bind to one CLI, and everything behind it is delegated to the vendor](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.png)
 
-The value-chain minimap of the slide `adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta` (meta lens). The slide supports
-[ADR-DSGN-THINPLAT][1]; the highlight of those ADR codes selects what is lit, and each reason below names the code that selects it.
+This is the value-chain minimap in the sidebar of the meta diagram of [Consumers bind to one CLI, and everything behind it is delegated to
+the vendor][5], which explains [ADR-DSGN-THINPLAT][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns
+land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -43,18 +47,19 @@ Lit ([ADR-DSGN-TRACK#12][2]) by:
 
 ## Keywords
 
-- [value-chain map][5]
-- [value-chain stack][6]
-- [value-chain concern][7]
-- [cell][8]
-- [lit cell][9]
+- [value-chain map][6]
+- [value-chain stack][7]
+- [value-chain concern][8]
+- [cell][9]
+- [lit cell][10]
 
 [1]: ../../../adr/design/thin-platforms.md
 [2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[5]: ../../../adr/glossary.md#value-chain-map
-[6]: ../../../adr/glossary.md#value-chain-stack
-[7]: ../../../adr/glossary.md#value-chain-concern
-[8]: ../../../adr/glossary.md#cell
-[9]: ../../../adr/glossary.md#lit-cell
+[5]: ../../design/bind-to-one-cli-delegate-the-rest.md
+[6]: ../../../adr/glossary.md#value-chain-map
+[7]: ../../../adr/glossary.md#value-chain-stack
+[8]: ../../../adr/glossary.md#value-chain-concern
+[9]: ../../../adr/glossary.md#cell
+[10]: ../../../adr/glossary.md#lit-cell

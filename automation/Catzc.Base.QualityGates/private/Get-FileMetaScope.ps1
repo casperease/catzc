@@ -51,8 +51,25 @@ function Get-FileMetaScope {
     $languages = Get-Config -Config languages
     $fileKinds = Get-Config -Config file-kinds
 
+    # A file named in -Path is taken as given, tracked or new, unless git ignores it; a folder lists its tracked files.
+    $given = @($lookup | Where-Object { $_ -ne '.' -and [System.IO.File]::Exists((Join-Path $root $_)) })
+    $folders = @($lookup | Where-Object { $_ -notin $given })
+    if ($given.Count -gt 0) {
+        $quoted = foreach ($file in $given) {
+            "`"$file`""
+        }
+        # Exit 0: some paths are ignored, 1: none are; anything else is a git failure.
+        $ignoredRun = Invoke-Executable "git -C `"$root`" -c core.quotepath=off check-ignore --no-index -- $($quoted -join ' ')" -PassThru -Silent -NoAssert
+        Assert-True ($ignoredRun.ExitCode -le 1) -ErrorText "Get-FileMetaScope: git check-ignore failed ($($ignoredRun.ExitCode)): $($ignoredRun.Errors)"
+        $ignored = @($ignoredRun.Output -split "`r?`n" | Where-Object { $_ } | ForEach-Object { $_.Trim() })
+        $given = @($given | Where-Object { $_ -notin $ignored })
+    }
+    $paths = @($given) + @(if ($folders.Count -gt 0) {
+            Get-GitTrackedPath ([string[]] $folders)
+        })
+
     $candidates = [System.Collections.Generic.List[pscustomobject]]::new()
-    foreach ($tracked in @(Get-GitTrackedPath $lookup)) {
+    foreach ($tracked in $paths) {
         $carrier = $Resolver.For($tracked)
         if ($null -eq $carrier) {
             continue

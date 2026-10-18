@@ -1,12 +1,15 @@
-# docs/explanation/.assets/grid/adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.grid.md
+# A sibling is an idea, never a reference: the world-map minimap
 
-`Grid minimap: adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta`
+```text
+Where the files that cite ADR-AUTO-GO and ADR-PRIN-ONELIVE sit in the repository: tracks down, file languages across.
+6 of 324 cells lit, holding 74 files.
+```
 
-![Grid minimap of adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta](adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.grid.png)
+![The world-map minimap of A sibling is an idea, never a reference](adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta.grid.png)
 
-The grid minimap of the slide `adr-prin-onelive--a-sibling-is-an-idea-never-a-reference--meta` (meta lens). The slide supports
-[ADR-AUTO-GO][1] and [ADR-PRIN-ONELIVE][2]; the highlight of those ADR codes selects what is lit, and each reason below names the code that
-selects it.
+This is the world-map minimap in the sidebar of the meta diagram of [A sibling is an idea, never a reference][78], which explains
+[ADR-AUTO-GO][1] and [ADR-PRIN-ONELIVE][2]. It lights every cell of the world map that holds a file citing those codes, so it shows where
+the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -17,9 +20,9 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - .claude × markdown: 17 lit of 91 files
 - automation × csharp: 5 lit of 286 files
-- automation × powershell: 20 lit of 1616 files
+- automation × powershell: 20 lit of 1618 files
 - automation × yaml: 6 lit of 112 files
-- docs × markdown: 24 lit of 2218 files
+- docs × markdown: 25 lit of 2220 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
@@ -43,20 +46,19 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
   cites it at line 58 (text) and line 140 (text).
 - [.claude/plans/decisions-2026-10-16.md][7]: selected by [ADR-AUTO-GO][1]: the file cites it at line 77 (text); selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 30 (text), line 146 (text) and line 192 (text).
-- [.claude/plans/plan-adr-link-cleanup-prose-to-pages.md][8]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 127 (text) and
-  line 349 (text).
+- [.claude/plans/plan-adr-link-cleanup-prose-to-pages.md][8]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 131 (text) and
+  line 353 (text).
 - [.claude/plans/plan-assert-wait.md][9]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 97 (text), line 102 (text), line 106
   (text) and line 168 (text).
 - [.claude/plans/plan-bounded-folder-enumeration.md][10]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 188 (text), line 230
   (text) and line 370 (text).
 - [.claude/plans/plan-config-defaults.md][11]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 88 (text) and line 160 (text).
-- [.claude/plans/plan-file-head-immutable-edges-classes.md][12]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 168 (text),
-  line 300 (text) and line 409 (text).
+- [.claude/plans/plan-file-head-immutable-edges-classes.md][12]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 170 (text),
+  line 302 (text) and line 411 (text).
 - [.claude/plans/plan-file-meta-head-policy.md][13]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 68 (text).
 - [.claude/plans/plan-layers-vocabulary-rename-contracts.md][14]: selected by [ADR-AUTO-GO][1]: the file cites it at line 428 (text) and
   line 762 (text); selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 133 (text), line 258 (text) and line 710 (text).
-- [.claude/plans/plan-materialization-of-knowledge.md][15]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 45 (text) and line
-  131 (text).
+- [.claude/plans/plan-materialization-of-knowledge.md][15]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 46 (text).
 - [.claude/plans/plan-module-kinds-tracks.md][16]: selected by [ADR-AUTO-GO][1]: the file cites it at line 321 (text) and line 467 (text);
   selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 242 (text), line 283 (text), line 423 (text), line 551 (text), line 590
   (text), line 692 (text) and line 1058 (text).
@@ -66,7 +68,7 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 - [.claude/plans/prompt-module-model-1-prepare.md][20]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 41 (text).
 - [.claude/plans/questionnaire-2026-10-16.md][21]: selected by [ADR-AUTO-GO][1]: the file cites it at line 173 (text); selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 523 (text) and line 622 (text).
-- [.claude/plans/task-adr-auto-material.md][22]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 42 (text).
+- [.claude/plans/task-adr-auto-material.md][22]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 44 (text).
 
 ### automation × csharp (5 lit files)
 
@@ -129,7 +131,7 @@ powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][48]: selected by [ADR-AUTO-GO][1]: the file cites it at line 167 (text); selected by
+- [automation/Catzc.Base.Docs/configs/adrs.yml][48]: selected by [ADR-AUTO-GO][1]: the file cites it at line 168 (text); selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 53 (text).
 - [automation/Catzc.Base.Docs/configs/agents.yml][49]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 79 (body comment) and
   line 85 (text).
@@ -139,22 +141,22 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Languages/configs/glossary.yml][52]: selected by [ADR-AUTO-GO][1]: the file cites it at line 35 (text).
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][53]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 574 (text).
 
-### docs × markdown (24 lit files)
+### docs × markdown (25 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [docs/adr/automation/dora-explains.md][54]: selected by [ADR-AUTO-GO][1]: the file cites it at line 614 (text).
+- [docs/adr/automation/dora-explains.md][54]: selected by [ADR-AUTO-GO][1]: the file cites it at line 633 (text).
 - [docs/adr/automation/go/go-test-artifacts.md][1]: selected by [ADR-AUTO-GO][1]: the ADR's own file.
-- [docs/adr/glossary.md][55]: selected by [ADR-AUTO-GO][1]: the file cites it at line 667 (text).
-- [docs/adr/index.md][56]: selected by [ADR-AUTO-GO][1]: the file cites it at line 179 (text); selected by [ADR-PRIN-ONELIVE][2]: the file
+- [docs/adr/glossary.md][55]: selected by [ADR-AUTO-GO][1]: the file cites it at line 659 (text).
+- [docs/adr/index.md][56]: selected by [ADR-AUTO-GO][1]: the file cites it at line 180 (text); selected by [ADR-PRIN-ONELIVE][2]: the file
   cites it at line 72 (text).
 - [docs/adr/principles/dora-explains.md][57]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 115 (text).
 - [docs/adr/principles/one-living-version.md][2]: selected by [ADR-PRIN-ONELIVE][2]: the ADR's own file.
 - [docs/how-to/getting-started/automation/go/index.md][58]: selected by [ADR-AUTO-GO][1]: the file cites it at line 21 (text).
 - [docs/references/.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md][59]: selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 90 (text).
-- [docs/references/agent-contracts.md][60]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 42 (text).
+- [docs/references/agent-contracts.md][60]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 45 (text).
 - [docs/references/automation/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md][61]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it
   at line 18 (text) and line 28 (text).
 - [docs/references/automation/catzc-base-docs/types/CheckModes.cs.md][62]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 18
@@ -185,14 +187,15 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
   (text).
 - [docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md][75]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 38
   (text).
+- [docs/references/note-file-kind.md][76]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 54 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][3]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pipelines/ci-automation.yaml][76]: selected by [ADR-AUTO-GO][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 167 (text), `automation/Catzc.Base.Git/configs/gitignore.yml` line 120
+- [pipelines/ci-automation.yaml][77]: selected by [ADR-AUTO-GO][1]: a pipeline that cites nothing itself carries its globset's citations,
+  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 168 (text), `automation/Catzc.Base.Git/configs/gitignore.yml` line 120
   (text), `automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1` line 22 (header), `automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1` line 39
   (header), `automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 21 (header),
   `automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 73 (text), `automation/Catzc.Base.Languages/Invoke-GoTest.ps1` line
@@ -231,24 +234,24 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 ## Keywords
 
-- [world map][77]
-- [track][78]
-- [file language][79]
-- [cell][80]
-- [lit cell][81]
-- [.claude][82]: a track
-- [automation][82]: a track
-- [docs][82]: a track
-- [pipelines][82]: a track
-- [csharp][83]: a file language
-- [markdown][83]: a file language
-- [pipeline-yaml][83]: a file language
-- [powershell][83]: a file language
-- [yaml][83]: a file language
+- [world map][79]
+- [track][80]
+- [file language][81]
+- [cell][82]
+- [lit cell][83]
+- [.claude][84]: a track
+- [automation][84]: a track
+- [docs][84]: a track
+- [pipelines][84]: a track
+- [csharp][85]: a file language
+- [markdown][85]: a file language
+- [pipeline-yaml][85]: a file language
+- [powershell][85]: a file language
+- [yaml][85]: a file language
 
 Terms the cited ADRs define:
 
-- [go test module][84], defined by [ADR-AUTO-GO#2][85]
+- [go test module][86], defined by [ADR-AUTO-GO#2][87]
 
 [1]: ../../../adr/automation/go/go-test-artifacts.md
 [2]: ../../../adr/principles/one-living-version.md
@@ -325,13 +328,15 @@ Terms the cited ADRs define:
 [73]: ../../../references/automation/internal/Catzc.Internal.Importer.psm1.md
 [74]: ../../../references/automation/internal/Catzc.Internal.Loader.psm1.md
 [75]: ../../../references/automation/internal/Catzc.Internal.Vendor.psm1.md
-[76]: ../../../../pipelines/ci-automation.yaml
-[77]: ../../../adr/glossary.md#world-map
-[78]: ../../../adr/glossary.md#track
-[79]: ../../../adr/glossary.md#file-language
-[80]: ../../../adr/glossary.md#cell
-[81]: ../../../adr/glossary.md#lit-cell
-[82]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[83]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
-[84]: ../../../adr/glossary.md#go-test-module
-[85]: ../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2
+[76]: ../../../references/note-file-kind.md
+[77]: ../../../../pipelines/ci-automation.yaml
+[78]: ../../design/a-sibling-is-an-idea-never-a-reference.md
+[79]: ../../../adr/glossary.md#world-map
+[80]: ../../../adr/glossary.md#track
+[81]: ../../../adr/glossary.md#file-language
+[82]: ../../../adr/glossary.md#cell
+[83]: ../../../adr/glossary.md#lit-cell
+[84]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
+[85]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[86]: ../../../adr/glossary.md#go-test-module
+[87]: ../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2

@@ -1,19 +1,22 @@
-# docs/explanation/.assets/tree/adr-dsgn-remote--guard-and-policies-by-command--operations.tree.md
+# A person turns on the local guard with one variant; an admin syncs the server policies with one command: the tree minimap
 
-`Tree minimap: adr-dsgn-remote--guard-and-policies-by-command--operations`
+```text
+Which files cite ADR-DSGN-REMOTE: every file of the world map is a tile, grouped by top-level folder.
+5 files lit in 4 groups.
+```
 
-![Tree minimap of adr-dsgn-remote--guard-and-policies-by-command--operations](adr-dsgn-remote--guard-and-policies-by-command--operations.tree.png)
+![The tree minimap of A person turns on the local guard with one variant; an admin syncs the server policies with one command](adr-dsgn-remote--guard-and-policies-by-command--operations.tree.png)
 
-The tree minimap of the slide `adr-dsgn-remote--guard-and-policies-by-command--operations` (operations lens). The slide supports
-[ADR-DSGN-REMOTE][1]; the highlight of those ADR codes selects what is lit, and each reason below names the code that selects it.
+This is the tree minimap in the sidebar of the operations diagram of [A person turns on the local guard with one variant; an admin syncs the
+server policies with one command][6], which explains [ADR-DSGN-REMOTE][1]. It lights every file that cites those codes, grouped by folder,
+so it shows which files carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
-domain), and lights 7 files in 5 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 5 files in 4 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
-- .unordered: 2 lit files
 - adr/dsgn (docs/adr/design): 2 lit files
 - Docs (automation/Catzc.Base.Docs): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
@@ -21,20 +24,11 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 ## Why each group is lit
 
-### .unordered (2 lit files)
-
-The group holds the files of .unordered; each sits in its world-map cell and is lit by:
-
-- [.unordered/15-10-2026/plan-concern-axis.md][2], in the cell .unordered × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at
-  line 92 (text).
-- [.unordered/15-10-2026/plan-explanation-drift.md][3], in the cell .unordered × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites
-  it at line 100 (text).
-
 ### adr/dsgn (docs/adr/design, 2 lit files)
 
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
-- [docs/adr/design/dora-explains.md][4], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 143
+- [docs/adr/design/dora-explains.md][2], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 142
   (text).
 - [docs/adr/design/server-remote-integration.md][1], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the ADR's own file.
 
@@ -42,48 +36,46 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][5], in the cell automation × yaml: selected by [ADR-DSGN-REMOTE][1]: the file cites it at
-  line 97 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-DSGN-REMOTE][1]: the file cites it at
+  line 98 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][6], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 111 (text).
+- [docs/adr/index.md][4], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 113 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-automation.yaml][7], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-REMOTE][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 97 (text).
+- [pipelines/ci-automation.yaml][5], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-REMOTE][1]: a pipeline that cites nothing
+  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 98 (text).
 
 ## Keywords
 
-- [world map][8]
-- [track][9]
-- [file language][10]
-- [cell][11]
-- [lit cell][12]
-- [.unordered][13]: a track
-- [automation][13]: a track
-- [docs][13]: a track
-- [pipelines][13]: a track
-- [markdown][14]: a file language
-- [pipeline-yaml][14]: a file language
-- [yaml][14]: a file language
+- [world map][7]
+- [track][8]
+- [file language][9]
+- [cell][10]
+- [lit cell][11]
+- [automation][12]: a track
+- [docs][12]: a track
+- [pipelines][12]: a track
+- [markdown][13]: a file language
+- [pipeline-yaml][13]: a file language
+- [yaml][13]: a file language
 
 [1]: ../../../adr/design/server-remote-integration.md
-[2]: ../../../../.unordered/15-10-2026/plan-concern-axis.md
-[3]: ../../../../.unordered/15-10-2026/plan-explanation-drift.md
-[4]: ../../../adr/design/dora-explains.md
-[5]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[6]: ../../../adr/index.md
-[7]: ../../../../pipelines/ci-automation.yaml
-[8]: ../../../adr/glossary.md#world-map
-[9]: ../../../adr/glossary.md#track
-[10]: ../../../adr/glossary.md#file-language
-[11]: ../../../adr/glossary.md#cell
-[12]: ../../../adr/glossary.md#lit-cell
-[13]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[14]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[2]: ../../../adr/design/dora-explains.md
+[3]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[4]: ../../../adr/index.md
+[5]: ../../../../pipelines/ci-automation.yaml
+[6]: ../../design/guard-and-policies-by-command.md
+[7]: ../../../adr/glossary.md#world-map
+[8]: ../../../adr/glossary.md#track
+[9]: ../../../adr/glossary.md#file-language
+[10]: ../../../adr/glossary.md#cell
+[11]: ../../../adr/glossary.md#lit-cell
+[12]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
+[13]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml

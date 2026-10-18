@@ -115,4 +115,27 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
         @(& $script:scope).Count | Should -Be 0
         Should -Invoke Get-GitAttributeValue -ModuleName Catzc.Base.QualityGates -Times 0
     }
+
+    Context 'a file named in -Path' -Tag 'ADR-REPO-FILEMETA#1' {
+        BeforeEach {
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/new.gdg'), "# New`n")
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/built.gdg'), "# Built`n")
+            Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = 'docs/built.gdg'; Errors = '' } } -ModuleName Catzc.Base.QualityGates
+        }
+
+        It 'takes a new file as given, though git does not track it, and asks git for no folder listing' {
+            $found = & $script:scope (Join-Path $script:widgetRoot 'docs/new.gdg')
+            $found.Path | Should -Be @('docs/new.gdg')
+            Should -Invoke Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -Times 0
+        }
+
+        It 'leaves out a named file that git ignores' {
+            @(& $script:scope (Join-Path $script:widgetRoot 'docs/built.gdg')).Count | Should -Be 0
+        }
+
+        It 'stops on a git failure, naming it' {
+            Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 128; Output = ''; Errors = 'not a git repository' } } -ModuleName Catzc.Base.QualityGates
+            { & $script:scope (Join-Path $script:widgetRoot 'docs/new.gdg') } | Should -Throw '*check-ignore failed (128)*'
+        }
+    }
 }

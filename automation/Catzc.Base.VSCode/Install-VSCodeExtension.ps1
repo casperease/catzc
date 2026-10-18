@@ -44,7 +44,7 @@ function Install-VSCodeExtension {
     param(
         [string[]] $Name,
 
-        [string] $Root = (Join-Path $PSScriptRoot 'extensions'),
+        [string] $Root = (Get-CatzcModuleRoot -ChildPath 'extensions'),
 
         [string] $ExtensionsDirectory = (Join-Path $HOME '.vscode/extensions'),
 

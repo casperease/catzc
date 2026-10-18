@@ -1,19 +1,23 @@
-# docs/explanation/.assets/tree/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
+# Sync from the last certified commit, not from the tip of main: the tree minimap
 
-`Tree minimap: adr-dsgn-life--sync-from-the-last-certified-commit--meta`
+```text
+Which files cite ADR-DSGN-LIFE: every file of the world map is a tile, grouped by top-level folder.
+10 files lit in 7 groups.
+```
 
-![Tree minimap of adr-dsgn-life--sync-from-the-last-certified-commit--meta](adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.png)
+![The tree minimap of Sync from the last certified commit, not from the tip of main](adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.png)
 
-The tree minimap of the slide `adr-dsgn-life--sync-from-the-last-certified-commit--meta` (meta lens). The slide supports [ADR-DSGN-LIFE][1];
-the highlight of those ADR codes selects what is lit, and each reason below names the code that selects it.
+This is the tree minimap in the sidebar of the meta diagram of [Sync from the last certified commit, not from the tip of main][11], which
+explains [ADR-DSGN-LIFE][1]. It lights every file that cites those codes, grouped by folder, so it shows which files carry the decision.
+Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
-domain), and lights 11 files in 7 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 10 files in 7 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
-- .unordered: 3 lit files
+- .claude: 2 lit files
 - adr/* (the files directly in docs/adr/): 2 lit files
 - adr/dsgn (docs/adr/design): 2 lit files
 - Docs (automation/Catzc.Base.Docs): 1 lit file
@@ -23,60 +27,58 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 ## Why each group is lit
 
-### .unordered (3 lit files)
+### .claude (2 lit files)
 
-The group holds the files of .unordered; each sits in its world-map cell and is lit by:
+The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
-- [.unordered/15-10-2026/plan-adr-consistency.md][2], in the cell .unordered × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it
-  at line 100 (text), line 183 (text) and line 268 (text).
-- [.unordered/15-10-2026/plan-concern-axis.md][3], in the cell .unordered × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at
-  line 91 (text).
-- [.unordered/15-10-2026/plan-explanation-drift.md][4], in the cell .unordered × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it
-  at line 84 (text), line 86 (text), line 86 (text), line 97 (text), line 99 (text), line 101 (text) and line 101 (text).
+- [.claude/plans/plan-fast-push-followups.md][2], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
+  26 (text) and line 47 (text).
+- [.claude/plans/value-of-plan.md][3], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 22 (text)
+  and line 63 (text).
 
 ### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][5], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 218 (text).
-- [docs/adr/index.md][6], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 110 (text).
+- [docs/adr/glossary.md][4], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 272 (text).
+- [docs/adr/index.md][5], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 112 (text).
 
 ### adr/dsgn (docs/adr/design, 2 lit files)
 
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
 - [docs/adr/design/commit-lifecycle.md][1], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
-- [docs/adr/design/dora-explains.md][7], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 122 (text).
+- [docs/adr/design/dora-explains.md][6], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 121 (text).
 
 ### Docs (automation/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][8], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
-  96 (text).
+- [automation/Catzc.Base.Docs/configs/adrs.yml][7], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
+  97 (text).
 
 ### Git (automation/Catzc.Base.Git, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Git; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Git/Push-Dirty.ps1][9], in the cell automation × powershell: selected by [ADR-DSGN-LIFE][1]: the file cites it at
+- [automation/Catzc.Base.Git/Push-Dirty.ps1][8], in the cell automation × powershell: selected by [ADR-DSGN-LIFE][1]: the file cites it at
   line 21 (header) and line 26 (header).
 
 ### ModuleSystem (automation/Catzc.Base.ModuleSystem, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][10], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
-  cites it at line 69 (text).
+- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][9], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
+  cites it at line 68 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-automation.yaml][11], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 96 (text),
+- [pipelines/ci-automation.yaml][10], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
+  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 97 (text),
   `automation/Catzc.Base.Git/Push-Dirty.ps1` line 21 (header), `automation/Catzc.Base.Git/Push-Dirty.ps1` line 26 (header) and
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 69 (text).
+  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 68 (text).
 
 ## Keywords
 
@@ -85,7 +87,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [file language][14]
 - [cell][15]
 - [lit cell][16]
-- [.unordered][17]: a track
+- [.claude][17]: a track
 - [automation][17]: a track
 - [docs][17]: a track
 - [pipelines][17]: a track
@@ -99,16 +101,16 @@ Terms the cited ADRs define:
 - [occupant][19], defined by [ADR-DSGN-LIFE#5][20]
 
 [1]: ../../../adr/design/commit-lifecycle.md
-[2]: ../../../../.unordered/15-10-2026/plan-adr-consistency.md
-[3]: ../../../../.unordered/15-10-2026/plan-concern-axis.md
-[4]: ../../../../.unordered/15-10-2026/plan-explanation-drift.md
-[5]: ../../../adr/glossary.md
-[6]: ../../../adr/index.md
-[7]: ../../../adr/design/dora-explains.md
-[8]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[9]: ../../../../automation/Catzc.Base.Git/Push-Dirty.ps1
-[10]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
-[11]: ../../../../pipelines/ci-automation.yaml
+[2]: ../../../../.claude/plans/plan-fast-push-followups.md
+[3]: ../../../../.claude/plans/value-of-plan.md
+[4]: ../../../adr/glossary.md
+[5]: ../../../adr/index.md
+[6]: ../../../adr/design/dora-explains.md
+[7]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[8]: ../../../../automation/Catzc.Base.Git/Push-Dirty.ps1
+[9]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[10]: ../../../../pipelines/ci-automation.yaml
+[11]: ../../design/sync-from-the-last-certified-commit.md
 [12]: ../../../adr/glossary.md#world-map
 [13]: ../../../adr/glossary.md#track
 [14]: ../../../adr/glossary.md#file-language

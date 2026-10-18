@@ -166,7 +166,7 @@ A track ships through a deployable-unit, and each unit has one pipeline ([tracks
 
 ## The sibling model
 
-Catzc and eac, the same family in two engines, compared model by model ([tracks](../../adr/design/tracks.md),
+Catzc and eac, the same family in two languages, compared model by model ([tracks](../../adr/design/tracks.md),
 [one-living-version](../../adr/principles/one-living-version.md)). One article, one meta slide, no other lenses.
 
 | Picture      | Article                                                                              |

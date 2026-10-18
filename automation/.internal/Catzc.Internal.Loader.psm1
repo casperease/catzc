@@ -74,7 +74,11 @@ function Enable-DeferredJanitors {
         }.GetNewClosure()
     }
 
-    $previous = (Get-Command prompt -CommandType Function -ErrorAction Ignore).ScriptBlock
+    $previous = $null
+    $existing = Get-Command prompt -CommandType Function -ErrorAction Ignore
+    if ($existing) {
+        $previous = $existing.ScriptBlock
+    }
     $script:deferredJanitors = @{ Action = $Action; Previous = $previous; Rendered = 0 }
     Set-Item -Path function:global:prompt -Value { Invoke-DeferredJanitorsPrompt }
 }

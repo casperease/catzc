@@ -1,11 +1,15 @@
-# docs/explanation/.assets/chain/adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.md
+# Every stage of the bundle has a rule, and two gates check it: the value-chain minimap
 
-`Value-chain minimap: adr-auto-bundle--what-gates-each-bundle-stage--governance`
+```text
+Where ADR-AUTO-BUNDLE and ADR-PWSH-MANIFEST sit in the value chain: value-chain stack down, value-chain concerns across.
+2 of 25 cells lit.
+```
 
-![Value-chain minimap of adr-auto-bundle--what-gates-each-bundle-stage--governance](adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.png)
+![The value-chain minimap of Every stage of the bundle has a rule, and two gates check it](adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.png)
 
-The value-chain minimap of the slide `adr-auto-bundle--what-gates-each-bundle-stage--governance` (governance lens). The slide supports
-[ADR-AUTO-BUNDLE][1] and [ADR-PWSH-MANIFEST][2]; the highlight of those ADR codes selects what is lit, and each reason below names the code
+This is the value-chain minimap in the sidebar of the governance diagram of [Every stage of the bundle has a rule, and two gates check
+it][6], which explains [ADR-AUTO-BUNDLE][1] and [ADR-PWSH-MANIFEST][2]. It lights the cells of the value-chain map where the cited ADRs'
+value-chain concerns land, so it shows the part of the value chain the decision governs. Each lit cell has its reason below, naming the code
 that selects it.
 
 ## What the minimap shows
@@ -16,7 +20,7 @@ is idle, a grey box: it holds ADRs the slide does not cite, or none, because no 
 hold none). The minimap shows where the slide sits, not how many ADRs a cell holds; that count belongs to the full value-chain map.
 
 - AUTO × build: 1 lit of 6 ADRs
-- AUTO × release: 1 lit of 3 ADRs
+- AUTO × release: 1 lit of 4 ADRs
 
 ## Key
 
@@ -53,25 +57,26 @@ Lit ([ADR-DSGN-TRACK#12][3]) by:
 
 ## Keywords
 
-- [value-chain map][6]
-- [value-chain stack][7]
-- [value-chain concern][8]
-- [cell][9]
-- [lit cell][10]
+- [value-chain map][7]
+- [value-chain stack][8]
+- [value-chain concern][9]
+- [cell][10]
+- [lit cell][11]
 
 Terms the cited ADRs define:
 
-- [bundle][11], defined by [ADR-AUTO-BUNDLE#1][12]
+- [bundle][12], defined by [ADR-AUTO-BUNDLE#1][13]
 
 [1]: ../../../adr/automation/platform-bundle.md
 [2]: ../../../adr/pwsh/dynamic-module-manifests.md
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
 [5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../../adr/glossary.md#value-chain-map
-[7]: ../../../adr/glossary.md#value-chain-stack
-[8]: ../../../adr/glossary.md#value-chain-concern
-[9]: ../../../adr/glossary.md#cell
-[10]: ../../../adr/glossary.md#lit-cell
-[11]: ../../../adr/glossary.md#bundle
-[12]: ../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1
+[6]: ../../automation/what-gates-each-bundle-stage.md
+[7]: ../../../adr/glossary.md#value-chain-map
+[8]: ../../../adr/glossary.md#value-chain-stack
+[9]: ../../../adr/glossary.md#value-chain-concern
+[10]: ../../../adr/glossary.md#cell
+[11]: ../../../adr/glossary.md#lit-cell
+[12]: ../../../adr/glossary.md#bundle
+[13]: ../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1

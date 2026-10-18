@@ -262,11 +262,11 @@ module must not depend on.
 
 ### The cache-state contract
 
-The assembly is the one committed, cross-session cache of [caching](../caching.md#rule-adr-auto-cache8) (ADR-AUTO-CACHE#8): it is named for
-the combined hash of every module's sources and committed to `automation/.compiled/Catzc.Types.<hash>.dll`, so a fresh checkout and CI load
-it without Roslyn. The hash material is per file `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move
-between modules (new namespace) or a rename (new type) re-keys even when content is byte-identical, with no dependence on the repository
-root. Every process loads the assembly from a per-user shadow copy (`Import-TypesAssembly`: `%LOCALAPPDATA%\catzc\types` on Windows,
+The assembly is the one committed, cross-session cache of [caching](../caching.md#rule-adr-auto-cache8): it is named for the combined hash
+of every module's sources and committed to `automation/.compiled/Catzc.Types.<hash>.dll`, so a fresh checkout and CI load it without Roslyn.
+The hash material is per file `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move between modules
+(new namespace) or a rename (new type) re-keys even when content is byte-identical, with no dependence on the repository root. Every process
+loads the assembly from a per-user shadow copy (`Import-TypesAssembly`: `%LOCALAPPDATA%\catzc\types` on Windows,
 `~/.local/share/catzc/types` on Unix), never in place, so no session ever locks `automation/.compiled` ([why](#why-a-shadow-copy)).
 
 Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a source that changes has a different

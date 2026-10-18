@@ -34,9 +34,10 @@ catzc:
         The target roots, module name to repository-relative folder
         ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)). A module it does not name
         takes the repository root.
+      RepositoryRoot: The repository root the target roots resolve against.
     outputs: '[Catzc.Base.Contracts.ContractAsset[]]'
     examples:
-      - Get-ContractUnitAsset -Unit widget -Folder $unitFolder -Version 0.0.0 -TargetRoot @{}
+      - Get-ContractUnitAsset -Unit widget -Folder $unitFolder -Version 0.0.0 -TargetRoot @{} -RepositoryRoot $repositoryRoot
 ---
 #>
 
