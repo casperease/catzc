@@ -5,6 +5,7 @@ $script:exempt = $null
 $script:repoRoot = $null
 
 function Initialize-TrackRootLiteralData {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Runs inside the analyzer engine, whose custom rules may emit only diagnostic records; it binds the vendored YAML reader the importer already loaded and announced, and in a bare analyzer shard process there is no console session to announce to')]
     [CmdletBinding()]
     param()
 

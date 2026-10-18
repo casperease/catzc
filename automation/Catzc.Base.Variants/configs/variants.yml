@@ -19,7 +19,7 @@ tracks:
       execution_engines: [pwsh],
     }
   automation-vendor: { places: [automation/.vendor], type: vendored-code }
-  infrastructure: { places: [infrastructure], type: infrastructure, vendor: azure, languages: [bicep, yaml] }
+  infrastructure: { places: [infrastructure/templates, infrastructure/modules], type: infrastructure, vendor: azure, languages: [bicep, yaml] }
   pipelines: { places: [pipelines], type: pipelines, vendor: ado, languages: [pipeline-yaml, powershell] }
   github-workflows: { places: [.github/workflows], type: pipelines, vendor: github, languages: [yaml] }
   docs: { places: [docs], type: documentation, languages: [markdown, asset] }

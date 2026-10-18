@@ -174,17 +174,17 @@ namespace CatzcGetConfigTest {
         It 'builds a registered type with no shipped file from an empty map, and merges the repository''s fragment onto it' -Tag 'ADR-AUTO-DEFAULT#6' {
             $overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             New-Item -ItemType Directory -Path (Join-Path $overlay 'Catzc.Base.Widget/configs') | Out-Null
-            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -like 'fixfree*' } -MockWith {
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -like 'widget-bare*' } -MockWith {
                 @{ Name = $Config; Module = 'Catzc.Base.Widget'; Path = $null }
             }
             Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith {
-                [ordered]@{ fixfree = @{ type = 'CatzcGetConfigTest.FixtureConfig' }; 'fixfree-merged' = @{ type = 'CatzcGetConfigTest.FixtureConfig' } }
+                [ordered]@{ 'widget-bare' = @{ type = 'CatzcGetConfigTest.FixtureConfig' }; 'widget-bare-merged' = @{ type = 'CatzcGetConfigTest.FixtureConfig' } }
             }
             Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlay }
 
-            (Get-Config -Config fixfree).Raw.Count | Should -Be 0
-            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/fixfree-merged.yml') -Value 'limit: 5'
-            (Get-Config -Config fixfree-merged).Raw['limit'] | Should -Be 5
+            (Get-Config -Config widget-bare).Raw.Count | Should -Be 0
+            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-bare-merged.yml') -Value 'limit: 5'
+            (Get-Config -Config widget-bare-merged).Raw['limit'] | Should -Be 5
         }
     }
 

@@ -981,35 +981,35 @@ topic is the pwsh modules (working in them, their reference mirror, their integr
 it stays when its topic is automation as a subject (the ADR-AUTO explanations, which follow `docs/adr/automation`, Q4) or another track. A
 page that stays still has its moved path lines rewritten in P4.
 
-| Page                                                                                      | Topic                                                        | Verdict |
-| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------- |
-| docs/explanation/automation/*.md and *.drawio.md (62 pages: every page but the two below) | an ADR-AUTO explanation, automation as a subject             | stay    |
-| docs/explanation/automation/reference-unboxing.md                                         | PowerShell and C# unboxing (ADR-PWSH-TYPES)                  | move    |
-| docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md                    | PowerShell and C# unboxing (ADR-PWSH-TYPES)                  | move    |
-| docs/how-to/automation/apply-environment-approvals.md                                     | Azure DevOps environment approvals                           | stay    |
-| docs/how-to/automation/sort-an-import.md                                                  | sorting an import out of .unordered into the tracks          | stay    |
-| docs/how-to/automation/manual-test-plan.md                                                | the pwsh modules' integrity tests                            | move    |
-| docs/how-to/automation/manual-test-plan/*.md (13 category pages)                          | the pwsh modules' integrity tests                            | move    |
-| docs/how-to/getting-started/automation/add-a-cli-tool.md                                  | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/add-a-module.md                                    | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/debug-in-vscode.md                                 | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/run-tests-and-checks.md                            | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/vendor-a-module.md                                 | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md                           | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/BCL/index.md                                       | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/powershell/add-a-function.md                       | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/powershell/index.md                                | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/add-a-deployable-unit.md                           | a globset and its pipeline triggers                          | stay    |
-| docs/how-to/getting-started/automation/add-a-doc-chapter.md                               | a doc chapter                                                | stay    |
-| docs/how-to/getting-started/automation/add-an-infrastructure-template.md                  | a Bicep template                                             | stay    |
-| docs/how-to/getting-started/automation/faq.md                                             | the system as a whole (its S4 lines 105-111 are fixed in P4) | stay    |
-| docs/how-to/getting-started/automation/index.md                                           | getting started with the system as a whole                   | stay    |
-| docs/how-to/getting-started/automation/go/index.md                                        | the go track                                                 | stay    |
-| docs/how-to/getting-started/automation/python/index.md                                    | the python track                                             | stay    |
-| docs/references/automation/catzc-*.md (47 module articles), CLAUDE.md, index.md           | the pwsh modules (module reference mirror)                   | move    |
-| docs/references/automation/BCL/index.md, BCL/types-system.md                              | the pwsh modules' C# types                                   | move    |
-| docs/references/automation/internal/*.md (7 pages)                                        | the pwsh modules' internal infrastructure                    | move    |
-| docs/references/automation/<module>/*.drawio.md (11 diagram descriptions)                 | the pwsh modules (module reference mirror)                   | move    |
+| Page                                                                                          | Topic                                                        | Verdict |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------- |
+| `docs/explanation/automation/*.md` and `*.drawio.md` (62 pages: every page but the two below) | an ADR-AUTO explanation, automation as a subject             | stay    |
+| docs/explanation/automation/reference-unboxing.md                                             | PowerShell and C# unboxing (ADR-PWSH-TYPES)                  | move    |
+| docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md                        | PowerShell and C# unboxing (ADR-PWSH-TYPES)                  | move    |
+| docs/how-to/automation/apply-environment-approvals.md                                         | Azure DevOps environment approvals                           | stay    |
+| docs/how-to/automation/sort-an-import.md                                                      | sorting an import out of .unordered into the tracks          | stay    |
+| docs/how-to/automation/manual-test-plan.md                                                    | the pwsh modules' integrity tests                            | move    |
+| docs/how-to/automation/manual-test-plan/*.md (13 category pages)                              | the pwsh modules' integrity tests                            | move    |
+| docs/how-to/getting-started/automation/add-a-cli-tool.md                                      | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/add-a-module.md                                        | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/debug-in-vscode.md                                     | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/run-tests-and-checks.md                                | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/vendor-a-module.md                                     | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md                               | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/BCL/index.md                                           | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/powershell/add-a-function.md                           | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/powershell/index.md                                    | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/add-a-deployable-unit.md                               | a globset and its pipeline triggers                          | stay    |
+| docs/how-to/getting-started/automation/add-a-doc-chapter.md                                   | a doc chapter                                                | stay    |
+| docs/how-to/getting-started/automation/add-an-infrastructure-template.md                      | a Bicep template                                             | stay    |
+| docs/how-to/getting-started/automation/faq.md                                                 | the system as a whole (its S4 lines 105-111 are fixed in P4) | stay    |
+| docs/how-to/getting-started/automation/index.md                                               | getting started with the system as a whole                   | stay    |
+| docs/how-to/getting-started/automation/go/index.md                                            | the go track                                                 | stay    |
+| docs/how-to/getting-started/automation/python/index.md                                        | the python track                                             | stay    |
+| docs/references/automation/catzc-*.md (47 module articles), CLAUDE.md, index.md               | the pwsh modules (module reference mirror)                   | move    |
+| docs/references/automation/BCL/index.md, BCL/types-system.md                                  | the pwsh modules' C# types                                   | move    |
+| docs/references/automation/internal/*.md (7 pages)                                            | the pwsh modules' internal infrastructure                    | move    |
+| `docs/references/automation/<module>/*.drawio.md` (11 diagram descriptions)                   | the pwsh modules (module reference mirror)                   | move    |
 
 The page-by-page list behind the grouped rows is regenerable from out/layers-p3-table.ps1 over the same tree. The estimate above (56 hand
 pages in the reference mirror, 62 elsewhere) undercounted: the 47 module articles and 11 diagram descriptions are hand pages too.

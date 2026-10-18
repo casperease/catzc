@@ -52,8 +52,8 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
     }
 
     It 'requires the two keys no head is without' {
-        $script:parts['immutable']['required'] | Should -Be @('path', 'kind')
+        $script:parts['immutable']['required'] | Should -Be @('path', 'role')
         $script:sample['catzc']['immutable'].Keys | Should -Contain 'path'
-        $script:sample['catzc']['immutable'].Keys | Should -Contain 'kind'
+        $script:sample['catzc']['immutable'].Keys | Should -Contain 'role'
     }
 }

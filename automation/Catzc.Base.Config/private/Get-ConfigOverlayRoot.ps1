@@ -10,7 +10,8 @@ function Get-ConfigOverlayRoot {
             Get-CatzcOverlayRoot
         }
         else {
-            # Source mode reads only this repository's own config fragments, under .catzc/<the modules folder> (ADR-CATS#5).
+            # Source mode reads only this repository's own config fragments, under .catzc/<the modules folder>
+            # ([ADR-CATS#5](/docs/adr/principles/cats-and-catzc.md#rule-adr-cats5)).
             $fragmentRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryRoot) ".catzc/$(Split-Path -Leaf (Get-CatzcModulesRoot))"))
             if ([System.IO.Directory]::Exists($fragmentRoot)) {
                 $fragmentRoot

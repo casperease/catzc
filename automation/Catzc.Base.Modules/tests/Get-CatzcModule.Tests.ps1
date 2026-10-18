@@ -147,4 +147,16 @@ Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-M
             @($module.unplaced) | Should -HaveCount 0 -Because "$($module.name) holds a file in no layout row: $($module.unplaced -join ', ')"
         }
     }
+
+    It 'resolves every template folder and every Bicep module file of the infrastructure track' -Tag 'ADR-DSGN-MODTYPE#1' {
+        $root = Get-RepositoryRoot
+        $templates = @([System.IO.Directory]::EnumerateDirectories((Join-Path $root 'infrastructure/templates')).ForEach({ [System.IO.Path]::GetFileName($_) }))
+        $bicepModules = @([System.IO.Directory]::EnumerateFiles((Join-Path $root 'infrastructure/modules'), '*.bicep').ForEach({ [System.IO.Path]::GetFileNameWithoutExtension($_) }))
+        $names = @(Get-CatzcModule -TrackType infrastructure).ForEach({ $_.name })
+        $templates.Count | Should -BeGreaterThan 0
+        $bicepModules.Count | Should -BeGreaterThan 0
+        foreach ($name in $templates + $bicepModules) {
+            $names | Should -Contain $name
+        }
+    }
 }

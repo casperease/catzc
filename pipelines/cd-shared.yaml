@@ -42,6 +42,13 @@ stages:
           vmImage: ubuntu-latest
         steps:
           - checkout: self
+            fetchDepth: 0 # Test-GlobSetAffected diffs real refs (ADR-FLOW-CD-GLOBS#9)
+
+          - template: /pipelines/steps/invoke-automation.yaml
+            parameters:
+              DisplayName: "Test-GlobSetAffected shared (AFFECTED)"
+              StepName: Changes
+              RunCommand: "Set-AdoPipelineVariable AFFECTED (Test-GlobSetAffected shared) -IsOutput"
 
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
@@ -68,7 +75,8 @@ stages:
   - stage: Deploy_Foundation
     displayName: "Deploy foundation → nsub, psub"
     dependsOn: CI
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    # Skipped when the shared unit is untouched; the later Deploy stages chain on this one, so they skip with it.
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(dependencies.CI.outputs['Build.Changes.AFFECTED'], 'True'))
     jobs:
       - deployment: Foundation_nsub
         displayName: "foundation → nsub (nonprod sub)"

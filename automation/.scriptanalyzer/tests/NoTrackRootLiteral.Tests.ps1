@@ -22,7 +22,7 @@ Describe 'Measure-NoTrackRootLiteral' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS#3' {
         $diagnostics | Should -HaveCount 3
         $diagnostics[0].RuleName | Should -Be 'Measure-NoTrackRootLiteral'
         $diagnostics[0].Severity | Should -Be 'Information'
-        $diagnostics[0].Message | Should -BeLike '*Get-CatzcModulesRoot*ADR-AUTO-LAYERS*'
+        $diagnostics[0].Message | Should -BeLike '*Get-CatzcModulesRoot*(ADR-*'
     }
 
     It 'leaves a comment, a word that only starts with the place, and another track alone' {

@@ -29,11 +29,18 @@ parameters:
     default: ""
     displayName: "Step display name (auto-set from RunCommand for single-line commands)"
 
+  - name: StepName
+    type: string
+    default: ""
+    displayName: "Step name, so a later stage can read the step's output variables (empty = unnamed)"
+
 steps:
   # --- Mode: none → PowerShell@2 ---
   - ${{ if eq(parameters.Mode, 'none') }}:
       - task: PowerShell@2
         displayName: "${{ coalesce(parameters.DisplayName, parameters.RunCommand) }}"
+        ${{ if parameters.StepName }}:
+          name: ${{ parameters.StepName }}
         inputs:
           targetType: inline
           script: |
@@ -54,6 +61,8 @@ steps:
   - ${{ if eq(parameters.Mode, 'azcli') }}:
       - task: AzureCLI@2
         displayName: "${{ coalesce(parameters.DisplayName, parameters.RunCommand) }}"
+        ${{ if parameters.StepName }}:
+          name: ${{ parameters.StepName }}
         inputs:
           azureSubscription: ${{ parameters.ServiceConnection }}
           scriptType: pscore
@@ -75,6 +84,8 @@ steps:
   - ${{ if eq(parameters.Mode, 'azps') }}:
       - task: AzurePowerShell@5
         displayName: "${{ coalesce(parameters.DisplayName, parameters.RunCommand) }}"
+        ${{ if parameters.StepName }}:
+          name: ${{ parameters.StepName }}
         inputs:
           azureSubscription: ${{ parameters.ServiceConnection }}
           ScriptType: InlineScript
