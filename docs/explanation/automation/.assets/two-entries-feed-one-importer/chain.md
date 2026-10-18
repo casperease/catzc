@@ -19,7 +19,7 @@ Where ADR-AUTO-BUNDLE sits in the value chain: value-chain stack down, value-cha
 2 of 25 cells lit.
 ```
 
-![The value-chain minimap of Two entry scripts feed one importer, and the importer leaves once the load is done](adr-auto-bundle--two-entries-feed-one-importer--architecture.chain.png)
+![The value-chain minimap of Two entry scripts feed one importer, and the importer leaves once the load is done](chain.png)
 
 This is the value-chain minimap in the sidebar of the architecture diagram of [Two entry scripts feed one importer, and the importer leaves
 once the load is done][5], which explains [ADR-AUTO-BUNDLE][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain
@@ -81,15 +81,15 @@ Terms the cited ADRs define:
 
 - [bundle][11], defined by [ADR-AUTO-BUNDLE#1][12]
 
-[1]: ../../../adr/automation/platform-bundle.md
-[2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[5]: ../../automation/two-entries-feed-one-importer.md
-[6]: ../../../adr/glossary.md#value-chain-map
-[7]: ../../../adr/glossary.md#value-chain-stack
-[8]: ../../../adr/glossary.md#value-chain-concern
-[9]: ../../../adr/glossary.md#cell
-[10]: ../../../adr/glossary.md#lit-cell
-[11]: ../../../adr/glossary.md#bundle
-[12]: ../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1
+[1]: ../../../../adr/automation/platform-bundle.md
+[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
+[5]: ../../two-entries-feed-one-importer.md
+[6]: ../../../../adr/glossary.md#value-chain-map
+[7]: ../../../../adr/glossary.md#value-chain-stack
+[8]: ../../../../adr/glossary.md#value-chain-concern
+[9]: ../../../../adr/glossary.md#cell
+[10]: ../../../../adr/glossary.md#lit-cell
+[11]: ../../../../adr/glossary.md#bundle
+[12]: ../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1

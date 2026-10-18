@@ -17,9 +17,9 @@ output root, slash-separated, with no `.` or `..` segments, so it reads the same
 in binding form: a normalized absolute path that exists only on the line that reads, writes, or hands the path to a tool. Two functions, and
 only two, move a path from one form to the other, so normalization is a guarantee rather than a hope.
 
-![A path has two forms, never a third](../.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png)
+![A path has two forms, never a third](.assets/two-forms-never-a-third/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](two-forms-never-a-third.drawio.md).
+The diagram is described element by element in [its asset description](.assets/two-forms-never-a-third/diagram.drawio.md).
 
 ## Walkthrough
 

@@ -34,7 +34,7 @@ Describe 'Test-GitHubWorkflowTriggerGlob' -Tag 'L0', 'logic' {
 
         $result = Test-GitHubWorkflowTriggerGlob -Name widget -WorkflowPath '.github/workflows/ci-widget.yml' -PassThru -OutputFolder (Join-Path $TestDrive 'gh')
         $result.Subject | Should -Be 'github-workflow-trigger-glob'
-        $result.GlobSet | Should -Be 'widget'
+        $result.Facts['GlobSet'] | Should -Be 'widget'
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -Be 'widget: workflow file not found: .github/workflows/ci-widget.yml'
     }

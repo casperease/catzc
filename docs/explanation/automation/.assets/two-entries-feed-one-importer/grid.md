@@ -19,7 +19,7 @@ Where the files that cite ADR-AUTO-BUNDLE sit in the repository: tracks down, fi
 6 of 342 cells lit, holding 25 files.
 ```
 
-![The world-map minimap of Two entry scripts feed one importer, and the importer leaves once the load is done](adr-auto-bundle--two-entries-feed-one-importer--architecture.grid.png)
+![The world-map minimap of Two entry scripts feed one importer, and the importer leaves once the load is done](grid.png)
 
 This is the world-map minimap in the sidebar of the architecture diagram of [Two entry scripts feed one importer, and the importer leaves
 once the load is done][29], which explains [ADR-AUTO-BUNDLE][1]. It lights every cell of the world map that holds a file citing those codes,
@@ -146,41 +146,41 @@ Terms the cited ADRs define:
 
 - [bundle][37], defined by [ADR-AUTO-BUNDLE#1][38]
 
-[1]: ../../../adr/automation/platform-bundle.md
-[2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
-[6]: ../../../../.claude/plans/plan-module-kinds-tracks.md
-[7]: ../../../../.claude/plans/prompt-module-model-1-prepare.md
-[8]: ../../../../pwsh/Catzc.Base.Exporter/Build-Modules.ps1
-[9]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[10]: ../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
-[11]: ../../../adr/automation/dora-explains.md
-[12]: ../../../adr/glossary.md
-[13]: ../../../adr/index.md
-[14]: ../../../references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
-[15]: ../../../references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md
-[16]: ../../../references/pwsh/catzc-base-exporter/Build-Modules.ps1.md
-[17]: ../../../references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md
-[18]: ../../../references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md
-[19]: ../../../references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md
-[20]: ../../../references/pwsh/catzc-base-exporter/configs/exporter.yml.md
-[21]: ../../../references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
-[22]: ../../../references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md
-[23]: ../../../references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
-[24]: ../../../references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
-[25]: ../../../references/pwsh/internal/Catzc.Internal.Builder.psm1.md
-[26]: ../../../references/pwsh/internal/assets/Import-Catzc.ps1.md
-[27]: ../../../../.github/workflows/ci-automation.yml
-[28]: ../../../../pipelines/ci-automation.yaml
-[29]: ../../automation/two-entries-feed-one-importer.md
-[30]: ../../../adr/glossary.md#world-map
-[31]: ../../../adr/glossary.md#track
-[32]: ../../../adr/glossary.md#file-language
-[33]: ../../../adr/glossary.md#cell
-[34]: ../../../adr/glossary.md#lit-cell
-[35]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[36]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[37]: ../../../adr/glossary.md#bundle
-[38]: ../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1
+[1]: ../../../../adr/automation/platform-bundle.md
+[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[5]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
+[6]: ../../../../../.claude/plans/plan-module-kinds-tracks.md
+[7]: ../../../../../.claude/plans/prompt-module-model-1-prepare.md
+[8]: ../../../../../pwsh/Catzc.Base.Exporter/Build-Modules.ps1
+[9]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[10]: ../../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
+[11]: ../../../../adr/automation/dora-explains.md
+[12]: ../../../../adr/glossary.md
+[13]: ../../../../adr/index.md
+[14]: ../../../../references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
+[15]: ../../../../references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md
+[16]: ../../../../references/pwsh/catzc-base-exporter/Build-Modules.ps1.md
+[17]: ../../../../references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md
+[18]: ../../../../references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md
+[19]: ../../../../references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md
+[20]: ../../../../references/pwsh/catzc-base-exporter/configs/exporter.yml.md
+[21]: ../../../../references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
+[22]: ../../../../references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md
+[23]: ../../../../references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
+[24]: ../../../../references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
+[25]: ../../../../references/pwsh/internal/Catzc.Internal.Builder.psm1.md
+[26]: ../../../../references/pwsh/internal/assets/Import-Catzc.ps1.md
+[27]: ../../../../../.github/workflows/ci-automation.yml
+[28]: ../../../../../pipelines/ci-automation.yaml
+[29]: ../../two-entries-feed-one-importer.md
+[30]: ../../../../adr/glossary.md#world-map
+[31]: ../../../../adr/glossary.md#track
+[32]: ../../../../adr/glossary.md#file-language
+[33]: ../../../../adr/glossary.md#cell
+[34]: ../../../../adr/glossary.md#lit-cell
+[35]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[36]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[37]: ../../../../adr/glossary.md#bundle
+[38]: ../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1

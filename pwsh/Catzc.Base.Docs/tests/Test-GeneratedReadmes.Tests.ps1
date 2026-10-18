@@ -35,7 +35,7 @@ Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
     It 'passes when every generated README is ignored, not tracked, and current' {
         $result = Test-GeneratedReadmes -OutputFolder $script:out -PassThru
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
-        $result.Readmes | Should -Be 2
+        $result.Facts['Readmes'] | Should -Be 2
     }
 
     It 'throws once naming an unignored, a tracked, and a stale README' {
@@ -107,7 +107,7 @@ Describe 'Generated READMEs are gitignored, untracked, and current' -Tag 'L2', '
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
-        $script:result.Readmes | Should -BeGreaterThan 0
+        $script:result.Facts['Readmes'] | Should -BeGreaterThan 0
     }
 
     It 'ignores every generated README, keeps it out of git, and keeps it current with its source' {

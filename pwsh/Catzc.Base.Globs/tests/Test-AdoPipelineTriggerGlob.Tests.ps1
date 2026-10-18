@@ -42,7 +42,7 @@ Describe 'Test-AdoPipelineTriggerGlob' -Tag 'L0', 'logic' {
 
         $result = Test-AdoPipelineTriggerGlob -Name gadget -PassThru -OutputFolder (Join-Path $TestDrive 'ado')
         $result.Subject | Should -Be 'ado-pipeline-trigger-glob'
-        $result.Pipelines | Should -Be 1
+        $result.Facts['Pipelines'] | Should -Be 1
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -BeLike '*on trigger.paths.exclude, pr.paths.include'
     }

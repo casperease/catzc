@@ -19,7 +19,7 @@ Where the files that cite ADR-AUTO-PATH sit in the repository: tracks down, file
 5 of 342 cells lit, holding 37 files.
 ```
 
-![The world-map minimap of A path has two forms, never a third, and one pair of crossers moves it between them](adr-auto-path--two-forms-never-a-third--meta.grid.png)
+![The world-map minimap of A path has two forms, never a third, and one pair of crossers moves it between them](../../automation/.assets/two-forms-never-a-third/grid.png)
 
 This is the world-map minimap in the sidebar of the meta diagram of [A path has two forms, never a third, and one pair of crossers moves it
 between them][41], which explains [ADR-AUTO-PATH][1]. It lights every cell of the world map that holds a file citing those codes, so it

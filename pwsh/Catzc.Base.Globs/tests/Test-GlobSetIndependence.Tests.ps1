@@ -50,8 +50,8 @@ Describe 'Test-GlobSetIndependence' -Tag 'L0', 'logic' {
         $result = Test-GlobSetIndependence -PassThru -OutputFolder (Join-Path $TestDrive 'gi')
         $result.Subject | Should -Be 'globset-independence'
         $result.IssueCount | Should -Be 1
-        $result.GlobSets | Should -Be 2
-        $result.Files | Should -Be 4
+        $result.Facts['GlobSets'] | Should -Be 2
+        $result.Facts['Files'] | Should -Be 4
     }
 
     It 'does not check across layers' {

@@ -1,5 +1,3 @@
-# Approval checks, applied by Sync-AdoEnvironmentApprovals (docs/how-to/automation/apply-environment-approvals.md): each unit's
-# release-uat (RC) and pre-prod (RBC) gate, then the prod-tier environments. The apply creates an environment that does not exist yet.
 approver_group:
   name: Prod Approvers
   members: []

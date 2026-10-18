@@ -39,11 +39,11 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
         $result = Test-ValueChainMap -OutputFolder $script:out -PassThru
         $result.Subject | Should -Be 'value-chain-map'
         $result.IssueCount | Should -Be 0
-        $result.Adrs | Should -Be 2
-        $result.Rows | Should -Be ([Catzc.Base.Docs.AdrsConfig]::Stacks.Count)
-        $result.Columns | Should -Be ([Catzc.Base.Docs.AdrsConfig]::Concerns.Count)
-        $result.NonEmptyCells | Should -Be 3
-        $result.Labels | Should -Be 3
+        $result.Facts['Adrs'] | Should -Be 2
+        $result.Facts['Rows'] | Should -Be ([Catzc.Base.Docs.AdrsConfig]::Stacks.Count)
+        $result.Facts['Columns'] | Should -Be ([Catzc.Base.Docs.AdrsConfig]::Concerns.Count)
+        $result.Facts['NonEmptyCells'] | Should -Be 3
+        $result.Facts['Labels'] | Should -Be 3
     }
 
     It 'reports axes that are not the registry''s closed sets, a stray row, and an ADR in no cell' -Tag 'ADR-DSGN-TRACK#14', 'ADR-DSGN-TRACK#15' {

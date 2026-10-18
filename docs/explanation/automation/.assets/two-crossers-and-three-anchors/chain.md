@@ -19,7 +19,7 @@ Where ADR-AUTO-PATH sits in the value chain: value-chain stack down, value-chain
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of Two crossers anchor on two roots, and a published artifact anchors on its artifact root](adr-auto-path--two-crossers-and-three-anchors--architecture.chain.png)
+![The value-chain minimap of Two crossers anchor on two roots, and a published artifact anchors on its artifact root](chain.png)
 
 This is the value-chain minimap in the sidebar of the architecture diagram of [Two crossers anchor on two roots, and a published artifact
 anchors on its artifact root][2], which explains [ADR-AUTO-PATH][1]. It lights the cells of the value-chain map where the cited ADRs'
@@ -59,12 +59,12 @@ Terms the cited ADRs define:
 
 - [published artifact][8], defined by [ADR-AUTO-PATH#10][9]
 
-[1]: ../../../adr/automation/path-representation.md
-[2]: ../../automation/two-crossers-and-three-anchors.md
-[3]: ../../../adr/glossary.md#value-chain-map
-[4]: ../../../adr/glossary.md#value-chain-stack
-[5]: ../../../adr/glossary.md#value-chain-concern
-[6]: ../../../adr/glossary.md#cell
-[7]: ../../../adr/glossary.md#lit-cell
-[8]: ../../../adr/glossary.md#published-artifact
-[9]: ../../../adr/automation/path-representation.md#rule-adr-auto-path10
+[1]: ../../../../adr/automation/path-representation.md
+[2]: ../../two-crossers-and-three-anchors.md
+[3]: ../../../../adr/glossary.md#value-chain-map
+[4]: ../../../../adr/glossary.md#value-chain-stack
+[5]: ../../../../adr/glossary.md#value-chain-concern
+[6]: ../../../../adr/glossary.md#cell
+[7]: ../../../../adr/glossary.md#lit-cell
+[8]: ../../../../adr/glossary.md#published-artifact
+[9]: ../../../../adr/automation/path-representation.md#rule-adr-auto-path10

@@ -17,7 +17,7 @@ Describe 'Test-GlobSetTriggerCoverage' -Tag 'L0', 'logic' {
     It 'passes when every member of every pipeline-bound set matches an include' {
         $result = Test-GlobSetTriggerCoverage -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.GlobSets | Should -Be 1
+        $result.Facts['GlobSets'] | Should -Be 1
         Should -Invoke Get-GlobSetFile -ModuleName Catzc.Base.Globs -Times 0 -ParameterFilter { $Name -eq 'gadget' }
     }
 

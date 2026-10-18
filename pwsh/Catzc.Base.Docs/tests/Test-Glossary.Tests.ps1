@@ -34,8 +34,8 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
         $result = Test-Glossary -OutputFolder $script:out -PassThru
         $result.Subject | Should -Be 'glossary'
         $result.IssueCount | Should -Be 0
-        $result.ConceptCount | Should -Be 2
-        $result.SourceCount | Should -Be 1
+        $result.Facts['ConceptCount'] | Should -Be 2
+        $result.Facts['SourceCount'] | Should -Be 1
         [System.IO.File]::ReadAllText((Join-Path $result.ReportPath 'glossary.md')) | Should -Match 'no glossary issues'
         (Get-Content (Join-Path $script:out 'latest.txt')) | Should -Be (Split-Path $result.ReportPath -Leaf)
     }

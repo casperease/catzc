@@ -28,9 +28,9 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.Subject | Should -Be 'contracts'
         $result.IssueCount | Should -Be 0
-        $result.Assets | Should -Be 0
-        $result.FailedAssets | Should -Be 0
-        $result.Version | Should -Be '0.0.0'
+        $result.Facts['Assets'] | Should -Be 0
+        $result.Facts['FailedAssets'] | Should -Be 0
+        $result.Facts['Version'] | Should -Be '0.0.0'
     }
 
     It 'passes when every asset holds' -Tag 'ADR-REPO-CONTRACT#4' {
@@ -39,8 +39,8 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         { Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out } | Should -Not -Throw
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Assets | Should -Be 1
-        $result.FailedAssets | Should -Be 0
+        $result.Facts['Assets'] | Should -Be 1
+        $result.Facts['FailedAssets'] | Should -Be 0
     }
 
     It 'throws once, naming the asset and its finding, when an asset fails' -Tag 'ADR-REPO-CONTRACT#4', 'ADR-AUTO-TEST#35' {
@@ -58,8 +58,8 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         Add-File 'docs/widget.md' '# Widget'
         Add-File 'docs/sprocket.md' '# Sprocket'
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
-        $result.Assets | Should -Be 3
-        $result.FailedAssets | Should -Be 2
+        $result.Facts['Assets'] | Should -Be 3
+        $result.Facts['FailedAssets'] | Should -Be 2
         $result.IssueCount | Should -Be $result.Issues.Count
         $result.Issues | Should -Contain $script:missing
         @($result.Issues | Where-Object { $_ -like 'contracts/widget/0.0.0/Catzc.Widget/docs/widget.md (Fragment, DependedOn): *' }).Count |
@@ -85,9 +85,9 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         Add-File 'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.sample.json' '{'
         Add-File 'docs/widget.md' '# Widget'
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
-        $result.Assets | Should -Be 2
-        $result.PinnedAssets | Should -Be 0
-        $result.FailedAssets | Should -Be 2
+        $result.Facts['Assets'] | Should -Be 2
+        $result.Facts['PinnedAssets'] | Should -Be 0
+        $result.Facts['FailedAssets'] | Should -Be 2
         $result.Issues | Should -Contain $script:missing
         @($result.Issues | Where-Object { $_ -like 'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.sample.json (Sample, Provided): *' }).Count |
             Should -BeGreaterThan 0
@@ -102,10 +102,10 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         Add-File 'docs/widget.md' '# Widget'
 
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
-        $result.Assets | Should -Be 3
-        $result.PinnedAssets | Should -Be 1
-        $result.ReleasedFolders | Should -Be 1
-        $result.FailedAssets | Should -Be 2
+        $result.Facts['Assets'] | Should -Be 3
+        $result.Facts['PinnedAssets'] | Should -Be 1
+        $result.Facts['ReleasedFolders'] | Should -Be 1
+        $result.Facts['FailedAssets'] | Should -Be 2
         @($result.Issues | Where-Object { $_ -like 'contracts/widget/1.0.0/Catzc.Widget/rest/gadget.sample.json (Sample, Provided, pinned): *' }).Count |
             Should -BeGreaterThan 0
         @($result.Issues | Where-Object { $_ -like 'contracts/widget/0.0.0/Catzc.Widget/docs/sprocket.md (Presence, DependedOn): *' }).Count |
@@ -120,9 +120,9 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         Add-File 'docs/widget.md' '# Widget'
 
         $result = Test-Contracts -Version 1.0.0 -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
-        $result.Version | Should -Be '1.0.0'
-        $result.Assets | Should -Be 1
-        $result.PinnedAssets | Should -Be 0
+        $result.Facts['Version'] | Should -Be '1.0.0'
+        $result.Facts['Assets'] | Should -Be 1
+        $result.Facts['PinnedAssets'] | Should -Be 0
         $result.Issues | Should -Be @("contracts/widget/1.0.0/Catzc.Widget/docs/gadget.md (Presence, DependedOn): the target 'docs/gadget.md' does not exist: 'docs' holds no 'gadget.md'.")
     }
 
@@ -130,7 +130,7 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         Add-File 'contracts/widget/0.0.0/Catzc.Widget/docs/widget.md'
         Add-File 'docs/widget.md' '# Widget'
         $result = Test-Contracts -Version 1.0.0 -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
-        $result.Assets | Should -Be 0
+        $result.Facts['Assets'] | Should -Be 0
         $result.Issues | Should -Be @("contracts/widget/1.0.0/ does not exist, so release 1.0.0 of 'widget' is not checked; a release freezes the draft with Publish-ContractRelease before it runs Test-Contracts -Version (ADR-REPO-CONTRACT#5).")
     }
 
@@ -139,7 +139,7 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         Add-File 'docs/widget.md' '# Widget'
         $null = Publish-ContractRelease -Unit widget -Version 1.0.0 -RepositoryRoot $script:root
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
-        $result.ReleasedFolders | Should -Be 1
+        $result.Facts['ReleasedFolders'] | Should -Be 1
         $result.IssueCount | Should -Be 0
     }
 
@@ -164,7 +164,7 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -BeLike "contracts/ does not list — contracts/widget: 'draft' is not a version folder*"
-        $result.Assets | Should -Be 0
+        $result.Facts['Assets'] | Should -Be 0
     }
 
     It 'reports each outermost dot-prefixed folder under contracts/ as one issue' -Tag 'ADR-REPO-CONTRACT#10' {
@@ -185,7 +185,7 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
         Add-File '.gadget/flows/build.yml' (@('widget: gadget', 'gadget: widget') -join "`n")
         $result = Test-Contracts -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
-        $result.Assets | Should -Be 2
+        $result.Facts['Assets'] | Should -Be 2
     }
 
     It 'rejects a version that is not three numbers' {

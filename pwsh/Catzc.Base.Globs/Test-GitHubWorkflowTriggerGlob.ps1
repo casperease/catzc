@@ -1,6 +1,6 @@
 function Test-GitHubWorkflowTriggerGlob {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [Parameter(Mandatory, Position = 0)]
         [ArgumentCompleter({ (Get-Config -Config globs).Names })]

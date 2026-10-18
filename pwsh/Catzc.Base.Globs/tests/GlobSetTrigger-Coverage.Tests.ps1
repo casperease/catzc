@@ -1,7 +1,7 @@
 Describe 'Native-trigger projection coverage' -Tag 'L2', 'integrity', 'source-only' {
     It 'ADO includes cover every member of every pipeline-bound set (include-only is a safe superset)' {
         $result = Test-GlobSetTriggerCoverage -PassThru -OutputFolder (Join-Path $TestDrive 'glob-set-trigger-coverage')
-        $result.GlobSets | Should -BeGreaterThan 0
+        $result.Facts['GlobSets'] | Should -BeGreaterThan 0
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

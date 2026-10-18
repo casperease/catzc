@@ -54,9 +54,9 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $result = Test-AgentDefinitions -OutputFolder $out -PassThru
         $result.Issues | Should -BeNullOrEmpty
         $result.IssueCount | Should -Be 0
-        $result.Agents | Should -Be 2
-        $result.Files | Should -Be 2
-        $result.Capabilities | Should -Be 1
+        $result.Facts['Agents'] | Should -Be 2
+        $result.Facts['Files'] | Should -Be 2
+        $result.Facts['Capabilities'] | Should -Be 1
     }
 
     It 'reports a body over the roof, a key outside the robot set, and a key out of the fixed order' -Tag 'ADR-REPO-AGENTS#6' {

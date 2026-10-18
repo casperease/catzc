@@ -47,17 +47,17 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
         $result = Test-WorldMap -OutputFolder $script:out -PassThru
         $result.Subject | Should -Be 'world-map'
         $result.IssueCount | Should -Be 0
-        $result.Files | Should -Be 4
-        $result.Tracks | Should -Be 2
-        $result.FileLanguages | Should -Be 2
-        $result.StackViolations | Should -Be 0
-        $result.Labels | Should -Be 2
+        $result.Facts['Files'] | Should -Be 4
+        $result.Facts['Tracks'] | Should -Be 2
+        $result.Facts['FileLanguages'] | Should -Be 2
+        $result.Facts['StackViolations'] | Should -Be 0
+        $result.Facts['Labels'] | Should -Be 2
     }
 
     It 'reports one issue per stack-violation cell, naming its count and its first file' -Tag 'ADR-DSGN-TRACK#3' {
         $script:map = $script:brokenMap
         $result = Test-WorldMap -OutputFolder $script:out -PassThru
-        $result.StackViolations | Should -Be 2
+        $result.Facts['StackViolations'] | Should -Be 2
         $result.Issues | Should -Contain "stack violation: widgets x gadget-text holds 2 live file(s) outside the track's file languages, e.g. widgets/Alpha/a.txt (ADR-DSGN-TRACK#3)"
     }
 
