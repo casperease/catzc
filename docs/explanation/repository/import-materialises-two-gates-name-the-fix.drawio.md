@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The import materialises every root file; two gates catch drift: the diagram described
+# The import materialises every root file; two gates catch drift and name the fix: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

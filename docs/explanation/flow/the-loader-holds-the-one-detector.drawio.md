@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The loader holds the one detector: the diagram described
+# The detector lives in the loader, which both run modes import first and keep loaded: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands, then down to two more.

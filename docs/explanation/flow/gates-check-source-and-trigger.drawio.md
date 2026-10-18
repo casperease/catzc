@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Gates check the source and the trigger only: the diagram described
+# Gates check the source of each globset and the trigger, but not the git reflection or the identity: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through five bands.

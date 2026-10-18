@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The customer CD pipeline builds once, then deploys prod itself: the diagram described
+# The customer CD pipeline builds once, then deploys the prod tier itself: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands.

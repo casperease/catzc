@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A pipeline step only names a command: the diagram described
+# A pipeline step only names a command that a developer can run locally: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right along one row, then up from a lower band.

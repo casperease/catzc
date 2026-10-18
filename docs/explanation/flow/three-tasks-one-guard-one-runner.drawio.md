@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Three tasks, one guard, one runner: the diagram described
+# Three tasks share one guard, and one runner imports, traps, sanitizes and invokes: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through two bands side by side.

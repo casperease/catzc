@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The runner is the only seam into PowerShell: the diagram described
+# The runner is the only seam from pipeline YAML into PowerShell: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands, with a fourth band below.

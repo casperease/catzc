@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# ScanProgram() feeds three role functions: the diagram described
+# One method, GlobSet.ScanProgram(), feeds all three globset role functions: the diagram described
 
 ```text
 A 1572 x 560 diagram, read left to right through four bands.

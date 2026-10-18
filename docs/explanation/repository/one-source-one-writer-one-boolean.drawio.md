@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One source of truth, one writer, one boolean: the diagram described
+# Every managed root file has one source of truth, one writer, and one boolean that decides git membership: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

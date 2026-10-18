@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A gate checks overlap for units and modules: the diagram described
+# A gate checks overlap for units and modules, and loose-filesets are exempt: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands.

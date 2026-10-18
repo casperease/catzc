@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The optIn filter, then link, copy or render: the diagram described
+# The optIn filter, then link, copy or render, through two write primitives: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

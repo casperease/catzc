@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Print the projection, then drift names the filter: the diagram described
+# Print the projection, and a drifted pipeline fails naming the filter that differs: the diagram described
 
 ```text
 A 1572 x 720 diagram, read top to bottom through three bands.

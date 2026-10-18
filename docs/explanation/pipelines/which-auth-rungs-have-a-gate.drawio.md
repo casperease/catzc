@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Which auth rungs have a gate: the diagram described
+# The PAT proof and the empty-token assert have no gate: the diagram described
 
 ```text
 A 1572 x 620 diagram in two bands side by side, HEADER FUNCTION and CROSS-CUTTING.

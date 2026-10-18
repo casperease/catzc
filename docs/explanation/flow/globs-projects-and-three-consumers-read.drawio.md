@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Catzc.Base.Globs projects, three consumers read: the diagram described
+# Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it: the diagram described
 
 ```text
 A 1572 x 660 diagram, read top to bottom through three bands.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Four checks, three returns, no fall-through: the diagram described
+# The header function is four checks and three returns, and none falls through on failure: the diagram described
 
 ```text
 A 1572 x 690 diagram, read top to bottom inside one band, CODE ORDER.

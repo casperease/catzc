@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# apex: thirteen rules, seven includes, six excludes: the diagram described
+# The apex unit flattens to 13 rules, 13 GitHub paths, and 7 Azure DevOps includes with 6 excludes: the diagram described
 
 ```text
 A 1572 x 720 diagram, read top to bottom through three bands.

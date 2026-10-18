@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# CD binds through units, CI binds track sets: the diagram described
+# CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands.

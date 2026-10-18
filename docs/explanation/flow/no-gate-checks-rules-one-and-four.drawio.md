@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# No gate checks the runner rules 1 or 4: the diagram described
+# No gate checks the runner rules 1 or 4, and the step template breaks rule 3: the diagram described
 
 ```text
 A 1572 x 600 diagram: a row of four glyphs above a row of three gates, each gate's edge rising to the glyph above it.

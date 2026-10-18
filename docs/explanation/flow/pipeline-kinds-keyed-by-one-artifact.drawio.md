@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# CI, CD and DEPLOY keyed together by one artifact: the diagram described
+# CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands.

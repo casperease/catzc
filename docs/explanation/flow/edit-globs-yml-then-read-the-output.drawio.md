@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Edit globs.yml, then read the output: the diagram described
+# You edit globs.yml, and every other step prints what cats derived from it: the diagram described
 
 ```text
 A 1572 x 560 diagram, read left to right through four bands.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Catzc.Base.Globs owns config, types and roles: the diagram described
+# Catzc.Base.Globs computes every globset role from one typed registry: the diagram described
 
 ```text
 A 1572 x 560 diagram, read left to right through two bands.

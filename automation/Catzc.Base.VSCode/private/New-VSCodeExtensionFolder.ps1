@@ -8,7 +8,6 @@ catzc:
     name: new-vs-code-extension-folder
     filetype: ps1
     kind: function
-    subkind: writer
     language: powershell
     track: automation
     tracktype: modules

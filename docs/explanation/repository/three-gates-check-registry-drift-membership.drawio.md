@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Three gates check the registry, the drift and the git membership: the diagram described
+# Three gates check the registry, the drift and the git membership; one rule has no gate: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

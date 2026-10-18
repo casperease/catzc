@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One gate checks the raw-read rule: the diagram described
+# The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right across two bands, then down to a third.

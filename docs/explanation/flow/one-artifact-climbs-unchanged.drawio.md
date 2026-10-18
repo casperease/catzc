@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One artifact climbs to production unchanged: the diagram described
+# One artifact is built once and climbs to production unchanged: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through two bands.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One unit, one pipeline; tracks ship through units: the diagram described
+# A track ships through a deployable-unit, and each unit has one pipeline: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands.

@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Declare or add a folder, and the gate names overlaps: the diagram described
+# Declare a unit or add a module folder, and the gate names every overlap: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands, the gate at top right.

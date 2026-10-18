@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Tracks and deployable-units have a gate; one unit to one pipeline is held by review: the diagram described
+# Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone: the diagram described
 
 ```text
 A 1572 x 600 diagram, three bands side by side, each read top to bottom.

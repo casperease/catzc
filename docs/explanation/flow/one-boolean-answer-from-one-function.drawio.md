@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One boolean answer from one function: the diagram described
+# One function answers "am I in a pipeline?", and every branch on context asks it: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands, then down to a fourth.

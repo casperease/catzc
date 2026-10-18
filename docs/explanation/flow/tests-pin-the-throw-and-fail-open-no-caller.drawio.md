@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Tests pin the throw and the fail-open, no caller: the diagram described
+# Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it: the diagram described
 
 ```text
 A 1572 x 760 diagram, read top to bottom through four bands, each band a row with the governed glyph left and its gate right.

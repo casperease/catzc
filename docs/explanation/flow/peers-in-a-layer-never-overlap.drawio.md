@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Peers never overlap, except loose-filesets: the diagram described
+# Peers in a layer never share a file, except in the loose-fileset layer: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands.

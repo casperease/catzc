@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Globs asks the loader for the context and git for the diff: the diagram described
+# Catzc.Base.Globs owns the check, the loader names the context, and git names the change: the diagram described
 
 ```text
 A 1572 x 680 diagram, read top to bottom from a module band into two bands below it, with a caller band to the right.

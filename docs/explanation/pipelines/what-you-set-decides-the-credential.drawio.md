@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# What you set decides the credential: the diagram described
+# What you set decides the credential, and each wrong setup stops with its own message: the diagram described
 
 ```text
 A 1572 x 620 diagram, read top to bottom inside one band, WHAT YOU SET.

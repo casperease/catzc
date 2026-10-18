@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Every doubt fails open to proceed: the diagram described
+# "Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom through three bands.

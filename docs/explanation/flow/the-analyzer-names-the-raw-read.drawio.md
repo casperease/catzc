@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The analyzer names the raw read: the diagram described
+# A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right along two stacked bands.

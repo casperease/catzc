@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A merge to main runs CD to prod: the diagram described
+# A merge to main runs the CD pipeline all the way to prod, with no approval: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through four bands, with a failures band below.

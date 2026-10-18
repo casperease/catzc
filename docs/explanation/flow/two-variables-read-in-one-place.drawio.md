@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Two variables read in one place: the diagram described
+# Two variables, one reader, 24 callers, and one analyzer rule for every other read: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands, then left to right along a fourth.

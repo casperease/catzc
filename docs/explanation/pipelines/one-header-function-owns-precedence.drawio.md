@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One function owns the precedence: the diagram described
+# One function owns the credential precedence, and ado.yml anchors every proof: the diagram described
 
 ```text
 A 1572 x 690 diagram, read top to bottom into one band, HEADER FUNCTION.

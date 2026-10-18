@@ -24,7 +24,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Drift has a gate, generation is ADR-only: the diagram described
+# Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands.

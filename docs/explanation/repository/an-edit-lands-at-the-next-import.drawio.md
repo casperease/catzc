@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# An edit to a variant lands at the next import: the diagram described
+# An edit to a variant lands at the next import, and a wrong value fails once, at load: the diagram described
 
 ```text
 A 1572 x 736 diagram, read top to bottom through four bands, with failures to the right.

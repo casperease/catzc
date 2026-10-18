@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One registry, one writer, two write primitives: the diagram described
+# One registry, one writer, two write primitives, two kinds of target: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through four bands under one span bar.

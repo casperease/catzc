@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Two layers declared, the third derived: the diagram described
+# Every globset carries one of three layers, and only two are declared: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands under two span bars.

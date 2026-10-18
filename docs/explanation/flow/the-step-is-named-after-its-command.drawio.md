@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The step is named after its command: the diagram described
+# The Azure DevOps step is named after its command, and its log echoes the command before it runs: the diagram described
 
 ```text
 A 1572 x 620 diagram, read left to right along one row, with drops below it.

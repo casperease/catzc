@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One program, three views derived live: the diagram described
+# A globset is one ordered program, and its three views are derived live, never committed: the diagram described
 
 ```text
 A 1572 x 560 diagram, read left to right through three bands.

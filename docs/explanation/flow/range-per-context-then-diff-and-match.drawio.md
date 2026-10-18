@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Range per context, then diff and match: the diagram described
+# Check the name, pick the range per context, then diff git and match the paths: the diagram described
 
 ```text
 A 1572 x 800 diagram, read top to bottom through four bands.

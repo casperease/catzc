@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# The first configured credential wins: the diagram described
+# The first configured credential wins, and it must prove its org: the diagram described
 
 ```text
 A 1572 x 610 diagram, read top to bottom inside one band, PRECEDENCE.

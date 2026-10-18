@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Test-GlobSetIndependence groups by layer: the diagram described
+# Test-GlobSetIndependence groups every set by layer and tests each same-layer pair: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands, the checks on the right.

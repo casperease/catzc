@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# One flattened scan program, two vendor dialects: the diagram described
+# One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps: the diagram described
 
 ```text
 A 1572 x 650 diagram, read top to bottom through two bands.

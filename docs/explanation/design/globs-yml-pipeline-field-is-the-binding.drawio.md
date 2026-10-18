@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# globs.yml's pipeline: field is the binding: the diagram described
+# One field in globs.yml, pipeline:, binds a set to its pipeline file: the diagram described
 
 ```text
 A 1572 x 640 diagram: one file holding four named sets, read left to right into a band of runners.

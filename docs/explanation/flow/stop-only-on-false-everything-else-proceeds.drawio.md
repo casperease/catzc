@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# Stop only on $false, everything else proceeds: the diagram described
+# A stage returns only on $false; a doubt prints a message and proceeds; a typo throws: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom through three bands.

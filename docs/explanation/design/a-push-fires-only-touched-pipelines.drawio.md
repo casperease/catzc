@@ -22,7 +22,7 @@ catzc:
       - docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
 ---
 
-# A push fires only the pipelines it touches: the diagram described
+# A push starts only the pipelines whose globset it touches: the diagram described
 
 ```text
 A 1572 x 740 diagram, read left to right through three bands above a full-width band.
