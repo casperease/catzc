@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "89cec3e3bcb5"
+    with_body_sha: "5adad97c8ab2"
     repo_status: locked
     path: docs/explanation/repository/.assets/one-registry-one-writer-two-primitives/tree.md
     source: docs/explanation/repository/.assets/one-registry-one-writer-two-primitives/diagram.drawio.png
@@ -16,19 +16,19 @@ catzc:
 
 ```text
 Which files cite ADR-REPO-ROOTCFG: every file of the world map is a tile, grouped by top-level folder.
-40 files lit in 7 groups.
+39 files lit in 6 groups.
 ```
 
 ![The tree minimap of One registry, one writer, two write primitives, two kinds of target](tree.png)
 
 This is the tree minimap in the sidebar of the architecture diagram of [One registry, one writer, two write primitives, two kinds of
-target][41], which explains [ADR-REPO-ROOTCFG][1]. It lights every file that cites those codes, grouped by folder, so it shows which files
+target][40], which explains [ADR-REPO-ROOTCFG][1]. It lights every file that cites those codes, grouped by folder, so it shows which files
 carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
-domain), and lights 40 files in 7 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 39 files in 6 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 33 lit files
@@ -36,7 +36,6 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 - adr/* (the files directly in docs/adr/): 1 lit file
 - pipelines: 1 lit file
 - Docs (pwsh/Catzc.Base.Docs): 1 lit file
-- QualityGates (pwsh/Catzc.Base.QualityGates): 1 lit file
 - VSCode (pwsh/Catzc.Base.VSCode): 1 lit file
 
 ## Why each group is lit
@@ -131,9 +130,8 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][37], in the cell pipelines × pipeline-yaml: selected by [ADR-REPO-ROOTCFG][1]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 301 (text),
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 607 (text) and `pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs` line 8
-  (body comment).
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 301 (text) and
+  `pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs` line 8 (body comment).
 
 ### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
 
@@ -142,34 +140,27 @@ The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map ce
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][38], in the cell pwsh × yaml: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 301
   (text).
 
-### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][39], in the cell pwsh × yaml: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
-  at line 607 (text).
-
 ### VSCode (pwsh/Catzc.Base.VSCode, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.VSCode; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs][40], in the cell pwsh × csharp: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
+- [pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs][39], in the cell pwsh × csharp: selected by [ADR-REPO-ROOTCFG][1]: the file cites it
   at line 8 (body comment) (a passing mention only).
 
 ## Keywords
 
-- [world map][42]
-- [track][43]
-- [file language][44]
-- [cell][45]
-- [lit cell][46]
-- [docs][47]: a track
-- [pipelines][47]: a track
-- [pwsh][47]: a track
-- [csharp][48]: a file language
-- [markdown][48]: a file language
-- [pipeline-yaml][48]: a file language
-- [yaml][48]: a file language
+- [world map][41]
+- [track][42]
+- [file language][43]
+- [cell][44]
+- [lit cell][45]
+- [docs][46]: a track
+- [pipelines][46]: a track
+- [pwsh][46]: a track
+- [csharp][47]: a file language
+- [markdown][47]: a file language
+- [pipeline-yaml][47]: a file language
+- [yaml][47]: a file language
 
 [1]: ../../../../adr/repository/generated-root-configs.md
 [2]: ../../../../references/pwsh/catzc-base-files/Set-FileLink.ps1.md
@@ -209,13 +200,12 @@ The group holds the files of pwsh/Catzc.Base.VSCode; each sits in its world-map 
 [36]: ../../../../adr/index.md
 [37]: ../../../../../pipelines/ci-automation.yaml
 [38]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[39]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[40]: ../../../../../pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs
-[41]: ../../one-registry-one-writer-two-primitives.md
-[42]: ../../../../adr/glossary.md#world-map
-[43]: ../../../../adr/glossary.md#track
-[44]: ../../../../adr/glossary.md#file-language
-[45]: ../../../../adr/glossary.md#cell
-[46]: ../../../../adr/glossary.md#lit-cell
-[47]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[48]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[39]: ../../../../../pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs
+[40]: ../../one-registry-one-writer-two-primitives.md
+[41]: ../../../../adr/glossary.md#world-map
+[42]: ../../../../adr/glossary.md#track
+[43]: ../../../../adr/glossary.md#file-language
+[44]: ../../../../adr/glossary.md#cell
+[45]: ../../../../adr/glossary.md#lit-cell
+[46]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[47]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

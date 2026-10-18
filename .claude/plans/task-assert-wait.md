@@ -50,13 +50,19 @@ file caused by peers, the 110 ms first-tick source (Q3), help, and the ADR pair 
        bolds it. Check: Test-Links on the touched pages. Corrected 2026-10-17: ADR-REPO-HELP#1 makes the head's `config` part the whole
        help, so there is nothing beyond it; the head's parameter entries now name the registry defaults (step 3), and `watchpoint` waits for
        step 7.
-7. After the first measured run (`importer.ps1 -DiagnoseBlocking`, the user's, task-user-runs-and-commits step 5; the Test-Automation points
+7. Code half landed 2026-10-18 by session catzc-93, verdict: "Watch-Blocking.Tests 16/16; TimeoutsConfig.Tests, Invoke-TestRun.Tests,
+   PesterRunner.Tests and Import-AllModules.Tests pass under Invoke-TestFile in a fresh pwsh; no Assert-Wait anywhere outside
+   .claude/plans and the generated .assets pages; Test-Spelling 0" (renamed by plain mv: the user's `git add` records it). Open: the ADR
+   half, written in the named form now that the rule renaming landed; held by catzc-93. Original step: After the first measured run
+   (`importer.ps1 -DiagnoseBlocking`, the user's, task-user-runs-and-commits step 5; the Test-Automation points
    are read only if the final full run carries the switch, and nothing waits on that): `ADR-AUTO-FAILFAST#8` (mark a suspected block with a
    watchpoint, then bound it) and `ADR-PWSH-ASSERT#7` (the pwsh form) through adrs.yml and `Build-AdrIndex`; present tense. In the same
    change, D17 (2026-10-18): `Assert-Wait.ps1` becomes `Watch-Blocking.ps1` with its test file, the `.psd1` export, every call site and the
    help, the assert subkind of file-kinds.yml untouched. Check: Test-AdrRegistry, Test-Links clean; the function head cites #8;
    `Watch-Blocking.Tests.ps1` passes 16 of 16; a grep for `Assert-Wait` over the tree finds nothing.
-8. After that run: each watchpoint that found a block becomes a `timeouts.yml` limit with `Invoke-WithTimeout`; every other `Assert-Wait`
+8. [x] Landed 2026-10-18 by session catzc-93 (the same verdict as step 7): no watchpoint found a block, so all eight calls are deleted
+   (Importer.psm1 four, Invoke-TestRun four); the switch and Watch-Blocking stay as the mark/measure/bound/remove mechanism. Original
+   step: After that run: each watchpoint that found a block becomes a `timeouts.yml` limit with `Invoke-WithTimeout`; every other `Assert-Wait`
    call is deleted; the `-DiagnoseBlocking` switch stays. Check: grep `Assert-Wait` outside its own module and tests finds no call without a
    recorded finding.
 9. Tick the plan's steps; it is deleted in task-closing-sweep. Check: grep `- [ ]` counts zero.
@@ -64,3 +70,7 @@ file caused by peers, the 110 ms first-tick source (Q3), help, and the ADR pair 
 ## Report
 
 As report-fixed.
+
+- 2026-10-18, session catzc-93: the measured run (`importer.ps1 -DiagnoseBlocking`, `out/diagnose-blocking.txt`) found no block; the four
+  importer watchpoints' worst ticks were 12, 12, 13 and 14 ms late, the timer's resolution. The four Invoke-TestRun watchpoints were never
+  measured (no full run carried the switch). All eight calls are deleted; `-DiagnoseBlocking` and `Watch-Blocking` stay as the mechanism.

@@ -14,41 +14,50 @@ decoration for the run environment, then the environment's pwsh default (ADR-AUT
 
 ### Rule ADR-PWSH-ASSERT-ENTRYASSERTCALLS
 
-In pwsh, the entry assertions of ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY are `Assert-*` calls at the top of the function body, directly after the `param` block
-and before any statement that uses a parameter, for what the `[Parameter]` and `Validate*` attributes do not express.
+In pwsh, the entry assertions of ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY are `Assert-*` calls at the top of the function body, directly after
+the `param` block and before any statement that uses a parameter, for what the `[Parameter]` and `Validate*` attributes do not express.
 
 - [Guard placement](#guard-placement)
 
 ### Rule ADR-PWSH-ASSERT-EXTERNALCALLSTHROUGHRUNNER
 
-In pwsh, the external calls of ADR-AUTO-FAILFAST-ASSERTAFTEREXTERNALCALLS are native tools run through `Invoke-Executable`, file reads such as `Get-Content`, and
-REST and cloud calls. The result is held in a named local and asserted on the next line, before it is passed on or returned.
-`Invoke-Executable` asserts the exit code itself (ADR-PWSH-AUTOVAR-EXITCODECYCLE), so its caller asserts the output.
+In pwsh, the external calls of ADR-AUTO-FAILFAST-ASSERTAFTEREXTERNALCALLS are native tools run through `Invoke-Executable`, file reads such
+as `Get-Content`, and REST and cloud calls. The result is held in a named local and asserted on the next line, before it is passed on or
+returned. `Invoke-Executable` asserts the exit code itself (ADR-PWSH-AUTOVAR-EXITCODECYCLE), so its caller asserts the output.
 
 - [Guard placement](#guard-placement)
 
 ### Rule ADR-PWSH-ASSERT-NOINLINETHROWCHECK
 
-In pwsh, the inline check ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY rules out is `if (-not $x) { throw '...' }` around a precondition: the precondition is an
-`Assert-*` call instead. `throw` is for a failure that is not an assumption check (ADR-PWSH-ERROR-THROWNOTWRITEERROR).
+In pwsh, the inline check ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY rules out is `if (-not $x) { throw '...' }` around a precondition: the
+precondition is an `Assert-*` call instead. `throw` is for a failure that is not an assumption check (ADR-PWSH-ERROR-THROWNOTWRITEERROR).
 
 - [The Assert library](#the-assert-library)
 
 ### Rule ADR-PWSH-ASSERT-NOCATCHAROUNDASSERT
 
-In pwsh, no `try`/`catch` or `trap` encloses an `Assert-*` call to absorb its failure (ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS). A test proves an assertion
-fires with `Should -Throw`, which is the one place an assertion failure is caught.
+In pwsh, no `try`/`catch` or `trap` encloses an `Assert-*` call to absorb its failure (ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS). A test
+proves an assertion fires with `Should -Throw`, which is the one place an assertion failure is caught.
 
 - [Catching an assertion](#catching-an-assertion)
 
 ### Rule ADR-PWSH-ASSERT-TWOWAITBOUNDS
 
-In pwsh, the waits ADR-AUTO-FAILFAST-BOUNDEVERYWAIT bounds are bounded in two ways. A native tool runs through `Invoke-Executable`, which kills the child
-process tree at its executable's limit. In-process work runs as a script block passed to `Invoke-WithTimeout`, `Assert-CompletesWithin`, or
-`Test-CompletesWithin`, with `-Budget <guid>` when it carries an exempted budget. No wait is left open: no `Wait-Job`, `WaitForExit()`, or
-polling loop without a limit.
+In pwsh, the waits ADR-AUTO-FAILFAST-BOUNDEVERYWAIT bounds are bounded in two ways. A native tool runs through `Invoke-Executable`, which
+kills the child process tree at its executable's limit. In-process work runs as a script block passed to `Invoke-WithTimeout`,
+`Assert-CompletesWithin`, or `Test-CompletesWithin`, with `-Budget <guid>` when it carries an exempted budget. No wait is left open: no
+`Wait-Job`, `WaitForExit()`, or polling loop without a limit.
 
 - [Bounding a wait](#bounding-a-wait)
+
+### Rule ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH
+
+In pwsh, the watchpoint of ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND is a `Watch-Blocking` call behind the entry's `-DiagnoseBlocking` switch,
+`if ($DiagnoseBlocking) { Watch-Blocking }`, standing where a writer exists, after the modules load. It writes its ticks and one closing
+`Write-Message -Warning` line, and throws only for an invalid argument. Once its run is read the call is deleted: a block it found is
+bounded through `Invoke-WithTimeout` with a `timeouts.yml` limit, and the switch stays.
+
+- [Standing a watchpoint](#standing-a-watchpoint)
 
 ## Context
 
@@ -96,8 +105,9 @@ function Invoke-Poetry {
 
 The entry guards sit directly after the `param` block, so a reader sees the function's preconditions before its work. They cover what the
 parameter attributes cannot: `[Parameter(Mandatory)]` rejects a missing argument but not a whitespace one, and `[ValidateScript]` runs again
-on every reassignment ([automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-pwsh-autovar-novalidatedreassignment)), so a check that has to hold
-once, at entry, is an assertion. The output guard follows the external call on the next line, before `$result` leaves the function.
+on every reassignment ([automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-pwsh-autovar-novalidatedreassignment)), so a
+check that has to hold once, at entry, is an assertion. The output guard follows the external call on the next line, before `$result` leaves
+the function.
 
 ### Catching an assertion
 
@@ -127,9 +137,9 @@ created: whole seconds above zero, and a pipeline limit at least the devbox one.
 
 ### Bounding a wait
 
-[fail-fast-with-asserts](../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait) bounds every wait. In pwsh the two kinds of wait
-have one helper each. A native tool is a child process, so `Invoke-Executable` owns its limit and kills the whole process tree when it is
-reached. Work inside the session — a long loop, a scan, a call into a module — is passed as a script block:
+[fail-fast-with-asserts](../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait) bounds every wait. In pwsh the two
+kinds of wait have one helper each. A native tool is a child process, so `Invoke-Executable` owns its limit and kills the whole process tree
+when it is reached. Work inside the session — a long loop, a scan, a call into a module — is passed as a script block:
 
 ```powershell
 $report = Invoke-WithTimeout { Get-WidgetReport -Path $Path } -Activity 'widget report'
@@ -141,19 +151,36 @@ returns the block's output and, past the limit, stops it and throws an error nam
 form, and `Test-CompletesWithin` returns whether the block finished in time. A `Wait-Job`, a `WaitForExit()`, or a `while` loop polling for
 a condition, each with no limit of its own, is the unbounded wait the rule exists to remove.
 
+### Standing a watchpoint
+
+A suspected block in a startup gets one line where it is suspected, behind the switch the entry already carries:
+
+```powershell
+Assert-CatzcRunModeExclusive -ModulesRoot $modulesRoot
+if ($DiagnoseBlocking) {
+    Watch-Blocking
+}
+```
+
+`Watch-Blocking` holds the thread for its configured duration (the `wait` keys of `timeouts.yml`, one second by default) in ten ticks and
+writes each tick through `Write-Message`: when it was due, when it ran, and how late. Its closing line is `Write-Message -Warning`, not the
+`Write-Warning` cmdlet, because the importer makes warnings stop the session and a watchpoint must let go. A free thread runs each tick a
+few milliseconds late, the timer's resolution; a held one misses the schedule. The call stands for one measured run and is deleted after it.
+
 ## Decision
 
 In pwsh, assumptions are asserted with the `Assert-*` functions: input guards directly after the `param` block, output guards on the line
 after an external call, never an inline `if`/`throw` for a precondition, and never a `try`/`catch` around an assertion outside a test. A
 function that bounds its own long work declares its limit with the `TimeLimit` attribute and reads it through `Get-TimeoutSeconds`. A native
 tool is bounded by `Invoke-Executable`, and in-process work by passing it as a script block to `Invoke-WithTimeout` or its assertion and
-test forms.
+test forms. A suspected block is found with a `Watch-Blocking` call behind `-DiagnoseBlocking`, deleted once its run is read.
 
 ### How this is enforced
 
 - **`Catzc.Base.Asserts`** — the `Assert-*` library, the one way a precondition is checked.
 - **`Catzc.Base.Timeouts.TimeLimitAttribute`** — rejects a limit that is not a positive whole number of seconds, or a pipeline limit below
-  the devbox one, when the function is defined; **`Get-TimeoutSeconds -Command`** reads the decoration in the order of ADR-PWSH-ASSERT-DECLAREDTIMELIMIT.
+  the devbox one, when the function is defined; **`Get-TimeoutSeconds -Command`** reads the decoration in the order of
+  ADR-PWSH-ASSERT-DECLAREDTIMELIMIT.
 - **Code review** — guard placement, an inline `if`/`throw` that should be an assertion, a `try`/`catch` around an assertion, and a number
   literal as a timeout default are review concerns, against this ADR.
 

@@ -171,31 +171,31 @@ them all).
 
 ## Open steps
 
-- [x] 1. Write `docs/adr/repository/adr-code-language.md` (`ADR-REPO-ADRCODE`) with the grammar as its 8 rules and register it in `adrs.yml`.
-      Add the `code_language` check to `Test-AdrRegistry` (segment form, domain segment, numbered rule headings, sibling uniqueness), in
-      `report` mode in `adr-checks.yml`, so today's tree reports and never fails. The index's "Citing a rule" and ADR-REPO-LINK keep the `#`
-      form until step 6, because it is the live spelling until then. Check: the `Test-AdrRegistry` and `AdrChecksConfig` test files pass;
-      `Test-AdrRegistry` and `Test-Links` on the new ADR clean.
+- [x] 1. Write `docs/adr/repository/adr-code-language.md` (`ADR-REPO-ADRCODE`) with the grammar as its 8 rules and register it in
+     `adrs.yml`. Add the `code_language` check to `Test-AdrRegistry` (segment form, domain segment, numbered rule headings, sibling
+     uniqueness), in `report` mode in `adr-checks.yml`, so today's tree reports and never fails. The index's "Citing a rule" and
+     ADR-REPO-LINK keep the `#` form until step 6, because it is the live spelling until then. Check: the `Test-AdrRegistry` and
+     `AdrChecksConfig` test files pass; `Test-AdrRegistry` and `Test-Links` on the new ADR clean.
 - [x] 2. Write the slug map: one `ADR-X:<n> → ADR-X-<SLUG>` line for all 1645 rules, as a reviewable file in `out/`, written per domain and
-      reviewed by the user one domain at a time before anything is rewritten. Spelled-out slugs, vendor item ids for CAF/WAF. Check: no
-      duplicate under any parent, and no slug that equals a child ADR's name (`ADR-FLOW-CD`).
+     reviewed by the user one domain at a time before anything is rewritten. Spelled-out slugs, vendor item ids for CAF/WAF. Check: no
+     duplicate under any parent, and no slug that equals a child ADR's name (`ADR-FLOW-CD`).
 - [x] 3. Rename the codes: the three domain moves (`ADR-CATS`, `ADR-AI`, `ADR-PRIN-PROCESS`) and the 17 CAF/WAF codes into their group
-      level, through `Update-AdrCitation -CodeMap`; the flow domain's `code` in `adrs.yml` goes from `FLOW-CD` to `FLOW` (its ADR codes
-      stay; `ADR-FLOW-CD` is then the ADR `CD` with its four sibling ADRs below it). Message the orchestrator first. Check: `Test-Links` and `Test-AdrRegistry` on the moved
-      ADRs.
-- [ ] 4. First, `Test-Spelling` takes the segments of every registered code and rule heading as known words, read from `adrs.yml` and the
-      registries at run time, and the hand-written code-body entries leave `terminology.yml` in the same change (open question 1). Then
-      rewrite the registries: each ADR's `### Rule` headings take their slugs, one ADR file at a time. Check: the `Test-Spelling` test file
-      passes; `Test-Spelling` clean on `docs/adr`; `Test-AdrRegistry` on each rewritten file.
+     level, through `Update-AdrCitation -CodeMap`; the flow domain's `code` in `adrs.yml` goes from `FLOW-CD` to `FLOW` (its ADR codes stay;
+     `ADR-FLOW-CD` is then the ADR `CD` with its four sibling ADRs below it). Message the orchestrator first. Check: `Test-Links` and
+     `Test-AdrRegistry` on the moved ADRs.
+- [x] 4. First, `Test-Spelling` takes the segments of every registered code and rule heading as known words, read from `adrs.yml` and the
+     registries at run time, and the hand-written code-body entries leave `terminology.yml` in the same change (open question 1). Then
+     rewrite the registries: each ADR's `### Rule` headings take their slugs, one ADR file at a time. Check: the `Test-Spelling` test file
+     passes; `Test-Spelling` clean on `docs/adr`; `Test-AdrRegistry` on each rewritten file.
 - [ ] 5. Rewrite the citations through `Update-AdrCitation -RuleMap`, one area at a time in the order `docs/adr`, `pwsh`,
-      `docs/explanation`, `docs/references` (heads regenerate), `contracts`, `.claude`. Message the orchestrator first. In
-      `contracts/EXTERNAL-azure/0.1.0/` the `.frozen` record is refreshed in the same change. Check: `Test-Links` per area, `Test-Contracts`
-      clean, and `git grep -E 'ADR-[A-Z-]+[#:][0-9{]'` counts zero at the end.
+     `docs/explanation`, `docs/references` (heads regenerate), `contracts`, `.claude`. Message the orchestrator first. In
+     `contracts/EXTERNAL-azure/0.1.0/` the `.frozen` record is refreshed in the same change. Check: `Test-Links` per area, `Test-Contracts`
+     clean, and `git grep -E 'ADR-[A-Z-]+[#:][0-9{]'` counts zero at the end.
 - [ ] 6. Replace the parsers (`AdrCodeForm`, `RULE_COLON`, the `:`→`#` replaces) in the same change as their callers and remove the `#`
-      form; restate the index's "Citing a rule" and trim ADR-REPO-LINK to the link forms; switch `code_language` to `gate`. Check:
-      `AdrCodeForm.Tests.ps1`, `Update-AdrCitation.Tests.ps1`, the glossary and link test files pass; `Test-AdrRegistry` clean in gate mode.
+     form; restate the index's "Citing a rule" and trim ADR-REPO-LINK to the link forms; switch `code_language` to `gate`. Check:
+     `AdrCodeForm.Tests.ps1`, `Update-AdrCitation.Tests.ps1`, the glossary and link test files pass; `Test-AdrRegistry` clean in gate mode.
 - [ ] 7. Move this plan's decisions into the ADR and delete the plan. Check: `Test-AdrRegistry` and `Test-Links` clean on the ADR;
-      `git grep plan-adr-code-language` finds no link left.
+     `git grep plan-adr-code-language` finds no link left.
 
 ## Decisions
 
@@ -222,10 +222,10 @@ Recorded 2026-10-18 with the user:
    derived from `adrs.yml` and the registries at run time, and the hand entries for code bodies go in the same change. Needed before step 2.
    Decided 2026-10-18 by the orchestrator on the user's delegation: the recommendation, as one mechanism read from the registry
    (ADR-PRIN-ONELIVE: the hand entries are deleted in the same change, no fallback).
-2. **WAF and CAF rule names** (found in step 2): WAF rules carry Microsoft's ids (`RE:01`), CAF rules carry none in the tree. Decided by
-   the orchestrator on the user's delegation, 2026-10-18: the WAF ADR segment is the short pillar code (`RE`, `SE`, `CO`, `OE`, `PE`) and a
-   rule is the vendor id without the colon (`ADR-AZ-WAF-RE-RE01`); CAF rules take spelled-out names (the plan's fallback).
+2. **WAF and CAF rule names** (found in step 2): WAF rules carry Microsoft's ids (`RE:01`), CAF rules carry none in the tree. Decided by the
+   orchestrator on the user's delegation, 2026-10-18: the WAF ADR segment is the short pillar code (`RE`, `SE`, `CO`, `OE`, `PE`) and a rule
+   is the vendor id without the colon (`ADR-AZ-WAF-RE-RE01`); CAF rules take spelled-out names (the plan's fallback).
 3. **CAF rule names** (found in step 2): decided by the orchestrator on the user's delegation, 2026-10-18: each CAF rule's name is derived
-   mechanically from its vendor checklist title, upper-cased and joined with the English stop words of one list dropped; a collision
-   under one ADR keeps the full title for both. No collision occurred. `ADR-PRIN-PROCESS` becomes `ADR-PROC-AGILEPRINCIPLES`, because
+   mechanically from its vendor checklist title, upper-cased and joined with the English stop words of one list dropped; a collision under
+   one ADR keeps the full title for both. No collision occurred. `ADR-PRIN-PROCESS` becomes `ADR-PROC-AGILEPRINCIPLES`, because
    `ADR-PROC-AGILE` exists.

@@ -437,7 +437,8 @@ public sealed class AdrCitationRewriter
 
     static string NamedAnchor(string name) => "rule-" + name.ToLowerInvariant();
 
-    static int Number(string digits) => int.Parse(digits, NumberStyles.None, CultureInfo.InvariantCulture);
+    // A number too long for any rule, such as a hash fragment that happens to follow a code, maps to no rule.
+    static int Number(string digits) => int.TryParse(digits, NumberStyles.None, CultureInfo.InvariantCulture, out int number) ? number : -1;
 
     static List<int> LineStarts(string text)
     {

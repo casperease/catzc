@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2587a44ed93f"
+    with_body_sha: "53b766b086fd"
     repo_status: locked
     path: docs/explanation/repository/.assets/one-registry-one-writer-two-primitives/grid.md
     source: docs/explanation/repository/.assets/one-registry-one-writer-two-primitives/diagram.drawio.png
@@ -16,13 +16,13 @@ catzc:
 
 ```text
 Where the files that cite ADR-REPO-ROOTCFG sit in the repository: tracks down, file languages across.
-4 of 342 cells lit, holding 40 files.
+4 of 342 cells lit, holding 39 files.
 ```
 
 ![The world-map minimap of One registry, one writer, two write primitives, two kinds of target](grid.png)
 
 This is the world-map minimap in the sidebar of the architecture diagram of [One registry, one writer, two write primitives, two kinds of
-target][44], which explains [ADR-REPO-ROOTCFG][1]. It lights every cell of the world map that holds a file citing those codes, so it shows
+target][43], which explains [ADR-REPO-ROOTCFG][1]. It lights every cell of the world map that holds a file citing those codes, so it shows
 where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
@@ -32,10 +32,10 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- docs × markdown: 36 lit of 2761 files
-- pipelines × pipeline-yaml: 1 lit of 13 files
+- docs × markdown: 36 lit of 2763 files
+- pipelines × pipeline-yaml: 1 lit of 14 files
 - pwsh × csharp: 1 lit of 293 files, touched
-- pwsh × yaml: 2 lit of 115 files
+- pwsh × yaml: 1 lit of 115 files
 
 ## Key
 
@@ -125,9 +125,8 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][40]: selected by [ADR-REPO-ROOTCFG][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 301 (text),
-  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 607 (text) and `pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs` line 8
-  (body comment).
+  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 301 (text) and
+  `pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs` line 8 (body comment).
 
 ### pwsh × csharp (1 lit file, touched)
 
@@ -137,28 +136,27 @@ Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); th
 - [pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs][41]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 8 (body comment) (a
   passing mention only).
 
-### pwsh × yaml (2 lit files)
+### pwsh × yaml (1 lit file)
 
 Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pwsh/Catzc.Base.Docs/configs/adrs.yml][42]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 301 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][43]: selected by [ADR-REPO-ROOTCFG][1]: the file cites it at line 607 (text).
 
 ## Keywords
 
-- [world map][45]
-- [track][46]
-- [file language][47]
-- [cell][48]
-- [lit cell][49]
-- [docs][50]: a track
-- [pipelines][50]: a track
-- [pwsh][50]: a track
-- [csharp][51]: a file language
-- [markdown][51]: a file language
-- [pipeline-yaml][51]: a file language
-- [yaml][51]: a file language
+- [world map][44]
+- [track][45]
+- [file language][46]
+- [cell][47]
+- [lit cell][48]
+- [docs][49]: a track
+- [pipelines][49]: a track
+- [pwsh][49]: a track
+- [csharp][50]: a file language
+- [markdown][50]: a file language
+- [pipeline-yaml][50]: a file language
+- [yaml][50]: a file language
 
 [1]: ../../../../adr/repository/generated-root-configs.md
 [2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -202,12 +200,11 @@ Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][2]); th
 [40]: ../../../../../pipelines/ci-automation.yaml
 [41]: ../../../../../pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs
 [42]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[43]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[44]: ../../one-registry-one-writer-two-primitives.md
-[45]: ../../../../adr/glossary.md#world-map
-[46]: ../../../../adr/glossary.md#track
-[47]: ../../../../adr/glossary.md#file-language
-[48]: ../../../../adr/glossary.md#cell
-[49]: ../../../../adr/glossary.md#lit-cell
-[50]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[51]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[43]: ../../one-registry-one-writer-two-primitives.md
+[44]: ../../../../adr/glossary.md#world-map
+[45]: ../../../../adr/glossary.md#track
+[46]: ../../../../adr/glossary.md#file-language
+[47]: ../../../../adr/glossary.md#cell
+[48]: ../../../../adr/glossary.md#lit-cell
+[49]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[50]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

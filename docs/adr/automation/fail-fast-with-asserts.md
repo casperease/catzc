@@ -53,16 +53,25 @@ function's expectations — more reliable than a comment because it executes.
 
 Bound every wait. Every external call and every unbounded piece of work runs inside a time safeguard, so a hang fails fast with a message
 naming the limit instead of waiting forever. The limits live in one config (`timeouts.yml`, owned by `Catzc.Base.Timeouts`), keyed by run
-environment (devbox | pipeline) and execution engine ([ADR-AUTO-ENGINE-THREEENGINES](execution-engines.md#rule-adr-auto-engine-threeengines)), with sensible
-defaults declared on its config type — deliberately tight on a devbox — plus per-executable entries, and no "no limit" value.
-`Invoke-Executable` kills a child process tree at its executable's limit; `Invoke-WithTimeout` / `Assert-CompletesWithin` /
-`Test-CompletesWithin` stop a piece of in-process work at its limit. The bash limits bound every shell call an agent makes, foreground and
-background, and a hook denies a call outside them. Code that legitimately runs longer while it is tuned carries an immutable budget GUID and
-is exempted in `timeout-exemptions.yml`, which raises its limit to a ceiling but never lifts it; an agent's shell call carries no budget, so
-it takes no exemption.
+environment (devbox | pipeline) and execution engine
+([ADR-AUTO-ENGINE-THREEENGINES](execution-engines.md#rule-adr-auto-engine-threeengines)), with sensible defaults declared on its config type
+— deliberately tight on a devbox — plus per-executable entries, and no "no limit" value. `Invoke-Executable` kills a child process tree at
+its executable's limit; `Invoke-WithTimeout` / `Assert-CompletesWithin` / `Test-CompletesWithin` stop a piece of in-process work at its
+limit. The bash limits bound every shell call an agent makes, foreground and background, and a hook denies a call outside them. Code that
+legitimately runs longer while it is tuned carries an immutable budget GUID and is exempted in `timeout-exemptions.yml`, which raises its
+limit to a ceiling but never lifts it; an agent's shell call carries no budget, so it takes no exemption.
 
 - [A hang is the slowest failure](#a-hang-is-the-slowest-failure)
 - [Bounding an agent's shell calls](#bounding-an-agents-shell-calls)
+
+### Rule ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND
+
+Mark a suspected block with a watchpoint, then bound it. Where a block is suspected but not yet found, a watchpoint stands there for one
+measured run: it holds the thread on a fixed schedule and reports how late each tick ran, so a block shows as late ticks at a known place. A
+block it finds becomes a time limit (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT) and the watchpoint is removed; a watchpoint that finds no block is
+removed too. A watchpoint is a diagnostic behind a switch, never a standing cost, and it stops nothing.
+
+- [A watchpoint finds the block a limit then bounds](#a-watchpoint-finds-the-block-a-limit-then-bounds)
 
 ## Context
 
@@ -146,8 +155,8 @@ There is no "no limit" value, because an unbounded wait is exactly the failure t
 Two axes decide a limit, and both are read from the session rather than passed in. The run environment (devbox or pipeline,
 `Get-RunEnvironment`) sets how tight it is: a devbox has a person to tune with, a pipeline has nobody watching and longer ordinary builds.
 The shell (one of the execution engines) sets what it bounds: pwsh code bounds its own script blocks and processes, and the agent hook
-bounds bash calls ([assert-idioms](../pwsh/assert-idioms.md#rule-adr-pwsh-assert-twowaitbounds) gives the pwsh forms). A caller can pin the environment
-with an `-EnvironmentAssertIs` guard, which verifies and never selects.
+bounds bash calls ([assert-idioms](../pwsh/assert-idioms.md#rule-adr-pwsh-assert-twowaitbounds) gives the pwsh forms). A caller can pin the
+environment with an `-EnvironmentAssertIs` guard, which verifies and never selects.
 
 An exemption is for work that is known to be slow while it is fixed. It names the work by an immutable budget GUID — registered in the
 managed-GUID registry ([ADR-AUTO-GUIDS](managed-guids.md)), one at a time or as an inclusive range of a minted family — and carries the
@@ -159,6 +168,17 @@ beside its own code rather than as a number literal in a default, where config c
 reader cannot find it. The more specific settings win in order — an exemption while the work is tuned, a `commands` entry in `timeouts.yml`
 when a machine needs a different value, the function's own declaration otherwise, and the environment's default for a function that declares
 nothing. Each setting is current and states something different; none is a fallback for an old shape.
+
+### A watchpoint finds the block a limit then bounds
+
+A limit is placed where the wait is, and a block that holds a thread without a known cause has no place yet. A watchpoint finds one: a call
+that waits on a schedule of its own and reports each tick against it. A thread that is free keeps the schedule within the timer's
+resolution, a few milliseconds; a thread held by something else misses it, and the late ticks say where. The watchpoint itself never bounds
+anything and never fails the run: it reports, and a person or an agent reads the report.
+
+Each watchpoint costs its full duration on every run that turns it on, so it stands only behind a diagnostic switch and only until the run
+is read. Then it goes either way: a block it found is bounded by a limit in `timeouts.yml` at the place it named, and a place that kept its
+schedule was not the block. The switch outlives its watchpoints, ready for the next suspicion.
 
 ### Bounding an agent's shell calls
 
@@ -189,7 +209,8 @@ The hook compiles the module's own config and verdict types (`TimeoutsConfig`, `
 A configuration value is asserted at the first level that can see what is wrong, so each level checks only what the ones before it cannot:
 
 1. **Construct-time**, the config type's constructor: the shape, the enums and patterns, and each key's posture, so a required key that is
-   missing throws naming the key and where to add it ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
+   missing throws naming the key and where to add it
+   ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 2. **Load-time**, `Get-Config`: the fragment merged onto the shipped file, and a sealed config refusing one
    ([ADR-AUTO-OVERLAY-CONFIGFRAGMENT](consumer-overlay.md#rule-adr-auto-overlay-configfragment)).
 3. **Cross-config**, the PowerShell validators and `Test-ConfigValidators`: what holds across configs, such as a name one config declares
@@ -205,7 +226,7 @@ see what it needs, so the ladder is where a new check is placed, not a list of e
 
 Use inline assertions pervasively throughout all automation code. Every assumption about inputs, state, and external results must be
 asserted at the point where the assumption is made, through the assertion library, and an assertion failure is never caught; every wait is
-bounded by a configured time limit.
+bounded by a configured time limit, and a block not yet found is found with a watchpoint before it is bounded.
 
 ## Consequences
 

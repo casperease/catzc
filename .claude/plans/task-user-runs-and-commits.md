@@ -59,6 +59,9 @@ Order: the commits and git operations first, the remote runs next, the final ful
    task-explanation-drift-gaps steps 2 and 3 ticked.
 8. After task-layers-classification-flip step 7 (P6) lands: re-point the Azure DevOps pipeline definitions, the GitHub required checks and
    any bookmarks from `ci-automation` to `ci-pwsh` the same day. Check: the triggers fire on the next push.
+8b. Record the plain moves of 2026-10-18 as renames with `git add` on both paths: Catzc.Base.Modules/Test-AspectDeclaration.ps1 and
+   its test into Catzc.Base.Variants (catzc-fb), and Catzc.Base.Timeouts' Assert-Wait.ps1, its test and their two pages into
+   Watch-Blocking (catzc-93). Check: `git status` shows them as renames.
 9. The final full run, last of all, after every other task has landed: a new `pwsh` session, `. ./importer.ps1`, then `Test-Automation` once
    over the whole repository, by hand. Read its report in `out/test-automation` for the two real-repo failures reported earlier (the
    drawio.yml live-yaml test, RootConfig New-GitAttributes) and for any finding in the head shape, the class selectors, the path split

@@ -1,3 +1,17 @@
+---
+catzc:
+  immutable:
+    with_body_sha: "502668308372"
+    repo_status: locked
+    path: docs/explanation/design/.assets/manifest-and-aspects-from-one-folder/tree.md
+    source: docs/explanation/design/.assets/manifest-and-aspects-from-one-folder/diagram.drawio.png
+    role: asset-description
+    language: markdown
+    filetype: md
+    track: docs
+    tracktype: documentation
+---
+
 # The manifest and the aspects both come from one folder: the tree minimap
 
 ```text
