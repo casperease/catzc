@@ -13,7 +13,7 @@ the source, so an edit through either path lands in the one authored file.
 
 ### Rule ADR-REPO-ROOTCFG:2
 
-The registry is `automation/Catzc.Base.RootConfig/configs/rootconfig.yml` — validated by the `RootConfigFiles` type, materialised by
+The registry is `pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml` — validated by the `RootConfigFiles` type, materialised by
 `Build-RootConfig`, the single writer. **Opt-out is the default**: an entry (or a root file) not opted in stays hand-authored and committed;
 `optIn: true` is the explicit takeover switch. The target-to-source pairing is not restated anywhere else.
 

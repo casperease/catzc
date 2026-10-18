@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/Test-Markdownlint.ps1
+# pwsh/Catzc.Base.QualityGates/Test-Markdownlint.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Lints the repository's Markdown with markdownlint-cli2 and writes a report under
 ### description
 
 Runs markdownlint-cli2 over the repository's in-scope Markdown, applying the single root rule set at /.markdownlint.yml (auto-discovered by
-markdownlint-cli2). Excludes transient and out-of-scope trees (out/, automation/.vendor/ and every other .vendor/ tree, node_modules/,
+markdownlint-cli2). Excludes transient and out-of-scope trees (out/, pwsh/.vendor/ and every other .vendor/ tree, node_modules/,
 docs/notes/) and the generated README copy-ins (`**/README.md`, a derived artifact linted at its docs/ source instead) via negation globs —
 markdownlint-cli2 does not apply .markdownlintignore to globs passed on the command line, so the exclusions are passed explicitly. The root
 .markdownlintignore mirrors these for the editor extension's benefit.

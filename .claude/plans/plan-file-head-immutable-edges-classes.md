@@ -6,10 +6,10 @@ plan:
   waits_on: the user's Test-FileMeta and full Test-Automation runs
   targets:
     [
-      automation/Catzc.Base.QualityGates/configs/file-meta.yml,
-      automation/Catzc.Base.QualityGates,
-      automation/Catzc.Base.Globs/configs/file-kinds.yml,
-      automation/Catzc.Base.Variants/configs/module-types.yml,
+      pwsh/Catzc.Base.QualityGates/configs/file-meta.yml,
+      pwsh/Catzc.Base.QualityGates,
+      pwsh/Catzc.Base.Globs/configs/file-kinds.yml,
+      pwsh/Catzc.Base.Variants/configs/module-types.yml,
       contracts/catzc/0.0.0,
       docs/adr/repository/file-meta.md,
     ]
@@ -45,4 +45,4 @@ The head is the carrier every other plan writes into; this plan settled its shap
 ## Refs
 
 - docs/adr/repository/file-meta.md, docs/adr/repository/code-file-meta.md
-- automation/Catzc.Base.Globs/configs/file-kinds.yml, automation/Catzc.Base.QualityGates/configs/file-meta.yml
+- pwsh/Catzc.Base.Globs/configs/file-kinds.yml, pwsh/Catzc.Base.QualityGates/configs/file-meta.yml

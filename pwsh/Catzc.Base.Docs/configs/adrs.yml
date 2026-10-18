@@ -160,7 +160,7 @@ domains:
     description: >-
       PowerShell 7 as one of catzc's execution engines: how the automation rules are realised in pwsh — module files and manifests,
       parameter and error design, streams and console output, caching in script scope, working directory and environment mechanics,
-      cross-platform pwsh, the analyzer, and Pester. It applies the engine-agnostic `pwsh/` rules to one engine and never redefines
+      cross-platform pwsh, the analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines
       them.
     depends_on: [research, principles, process, design, automation]
     stack: AUTO

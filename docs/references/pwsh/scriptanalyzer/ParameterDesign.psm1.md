@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/ParameterDesign.psm1
+# pwsh/.scriptanalyzer/ParameterDesign.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -13,7 +13,7 @@ Above `function Test-ModuleFunctionFile {`, written with `#`.
     ([ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md)).
 .DESCRIPTION
     Two checks over the functions in a module function file — a.ps1 directly under automation/<Module>/ (public) or...
-    [comment:1](/docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/scriptanalyzer/ParameterDesign.psm1.md#comment1)
 ```
 
 ## comment:2

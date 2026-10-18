@@ -6,11 +6,11 @@ task:
   blocked_on: "the user's Test-Automation run (step 9); D01 to D05 were confirmed 2026-10-18"
   targets:
     [
-      automation/Catzc.Base.Modules,
-      automation/Catzc.Base.ModuleSystem,
-      automation/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml,
+      pwsh/Catzc.Base.Modules,
+      pwsh/Catzc.Base.ModuleSystem,
+      pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml,
       docs/adr/automation/module-model.md,
-      docs/references/automation,
+      docs/references/pwsh,
     ]
 ---
 
@@ -30,7 +30,7 @@ edits need a fresh pwsh; gates in the background under the time safeguard.
   up in plan-module-model-closeout and follows D03, since it is the rule 6 scope the user confirms.
 - Step 4: `Get-CatzcModule -TrackType infrastructure` returns no module; the reason (places below the track root count as internal) and the
   decision it needs are recorded as an open step in plan-module-kinds-tracks.
-- Step 5: the reference page `docs/references/automation/catzc-base-modules.md` written in the five-part shape and listed in index.md;
+- Step 5: the reference page `docs/references/pwsh/catzc-base-modules.md` written in the five-part shape and listed in index.md;
   Format-Code run on it (a dry run changes nothing more), index.md dry run unchanged; `No spelling issues found.`
   (`out/test-spelling/20261017-175756`), `No markdownlint issues found.` (`out/test-markdownlint/20261017-175756`), `No links issues found.`
   on the page; index.md's link to it is `[Untracked]` until the commit.
@@ -64,10 +64,10 @@ edits need a fresh pwsh; gates in the background under the time safeguard.
 4. [x] Step 10 of prompt-module-model-2-implement.md, the infrastructure track: read the step; either
        `Get-CatzcModule -TrackType infrastructure` returns the track from variants.yml with a test, or the step is recorded as out of scope
        in `plan-module-kinds-tracks.md` with the reason. Check: the test passes, or the recorded line exists.
-5. [x] `docs/references/automation/catzc-base-modules.md`: run the reference generator that builds the sibling module pages (grep how
+5. [x] `docs/references/pwsh/catzc-base-modules.md`: run the reference generator that builds the sibling module pages (grep how
        `catzc-base-modulesystem.md` is produced: Build-Readme or the comments exporter); if it is hand-authored, write it in that shape and
-       list it in `docs/references/automation/index.md`. Check: Test-Links, Test-Spelling clean; Format-Code leaves it unchanged.
-6. [x] `Catzc.Types.csproj` first line: run `Format-FileMeta` then `Format-Code` on `automation/.internal/assets/Catzc.Types.csproj` in the
+       list it in `docs/references/pwsh/index.md`. Check: Test-Links, Test-Spelling clean; Format-Code leaves it unchanged.
+6. [x] `Catzc.Types.csproj` first line: run `Format-FileMeta` then `Format-Code` on `pwsh/.internal/assets/Catzc.Types.csproj` in the
        background and diff the first line after each; the step that drops the processing-instruction name is fixed in its carrier
        (`file-carriers.yml` `msbuild-project`, or `PropertyHead.cs`). Check: both runs leave the first line intact; `PropertyHead.Tests.ps1`
        passes.

@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/AnnounceStateChange.psm1
+# pwsh/.scriptanalyzer/AnnounceStateChange.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Above `function Test-CommandParameter {`, written with `#`.
     Custom PSScriptAnalyzer rule: a function that changes the session's state must announce it.
 .DESCRIPTION
     The rule checks that a writer runs with the change, not what the line says; that wording stays a review concern.
-    [comment:1](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/scriptanalyzer/AnnounceStateChange.psm1.md#comment1)
 ```
 
 ## comment:2
@@ -60,5 +60,5 @@ Above `function Measure-PersistentWriteThroughSeam {`, written with `#`.
     Custom PSScriptAnalyzer rule: persistent environment and registry writes go only through their seams.
 .DESCRIPTION
     Persistent environment and registry writes go through one mockable seam, so only its own test touches real state.
-    [comment:6](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment6)
+    [comment:6](/docs/references/pwsh/scriptanalyzer/AnnounceStateChange.psm1.md#comment6)
 ```

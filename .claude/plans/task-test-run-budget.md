@@ -7,9 +7,9 @@ task:
   targets:
     [
       docs/adr/repository/uniform-formatting.md,
-      automation/Catzc.Base.QualityGates,
-      automation/Catzc.Base.Engines,
-      automation/Catzc.Base.Timeouts/configs/timeouts.yml,
+      pwsh/Catzc.Base.QualityGates,
+      pwsh/Catzc.Base.Engines,
+      pwsh/Catzc.Base.Timeouts/configs/timeouts.yml,
     ]
 ---
 

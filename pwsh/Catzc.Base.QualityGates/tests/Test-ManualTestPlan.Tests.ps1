@@ -6,7 +6,7 @@ Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
             [System.IO.File]::WriteAllText($full, $Content)
         }
-        $script:planFolder = 'docs/how-to/automation/manual-test-plan'
+        $script:planFolder = 'docs/how-to/pwsh/manual-test-plan'
         $script:planPath = "$planFolder/widgets.md"
         $script:widgetRow = '| 1 | widget-modules/Widget/tests/Get-Widget.Tests.ps1 | Widget integrity |'
         $script:gadgetRow = '| 2 | widget-modules/Widget/tests/Get-Widget.Tests.ps1 | Gadget check |'

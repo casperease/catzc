@@ -4,7 +4,7 @@ plan:
   value: high
   reviewed: 2026-10-16
   waits_on: P4 folder move waits for the user's explicit go (D10)
-  targets: [automation, docs/adr/automation, docs/adr/repository, contracts, automation/Catzc.Base.Docs/configs]
+  targets: [automation, docs/adr/automation, docs/adr/repository, contracts, pwsh/Catzc.Base.Docs/configs]
 ---
 
 # Automation is the abstract term; the PowerShell track is named pwsh; public commands get contracts
@@ -193,7 +193,7 @@ Reading (say so if wrong; the plan is built so only the map in section 3 changes
 
 - **Automation** stays as the name of the abstract thing: the commands and behaviours and their doctrine (the ADR domain `automation`, code
   `AUTO`, `ADR-AUTO-*`). What leaves the word is everything that meant "the PowerShell implementation": the root folder `automation/`, the
-  track key `automation`, "the automation modules / layer", `docs/references/automation/` (a mirror of that folder), the overlay path, build
+  track key `automation`, "the automation modules / layer", `docs/references/pwsh/` (a mirror of that folder), the overlay path, build
   output folders.
 - The renamed thing is a **track named by its stack**, like `go/`, `python/`, `bash/` (ADR-DSGN-TRACK#3: one stack per track).
 - `auto` stays as the engine value that leaves a choice open (ADR-AUTO-ENGINE#7) and also becomes the value for the language and the mix.
@@ -229,7 +229,7 @@ Reading (say so if wrong; the plan is built so only the map in section 3 changes
 | folder `automation/`                                                                                                  | `<TRACK>/` = **`pwsh/`** (Q1, decided)                                                   | a track is named by its stack; PowerShell hosts the C# types (`ADR-PWSH-TYPES`); parallels `bash/ go/ python/`, `docs/adr/pwsh/`, `ADR-PWSH-*` |
 | track key `automation` (`variants.yml`, every head's `track:`)                                                        | `<TRACK>`                                                                                | rename key and root together                                                                                                                   |
 | globset `automation`, `pipeline: ci-automation`                                                                       | `<TRACK>`, `ci-<TRACK>`                                                                  | late wave (S6) because of external bindings                                                                                                    |
-| `docs/references/automation/`                                                                                         | `docs/references/<TRACK>/`                                                               | generated mirror; `comments.yml` / `readme.yml` decide                                                                                         |
+| `docs/references/pwsh/`                                                                                               | `docs/references/<TRACK>/`                                                               | generated mirror; `comments.yml` / `readme.yml` decide                                                                                         |
 | `docs/explanation/automation`, `docs/how-to/automation`, `docs/how-to/getting-started/automation`                     | per page: pwsh topic -> `<TRACK>`, abstract topic -> stays                               | worker table, Q4                                                                                                                               |
 | `.catzc/automation/<Module>/` (consumer overlay)                                                                      | `.catzc/<TRACK>/<Module>/`                                                               | mirrors the code root; no fallback (ADR-PRIN-ONELIVE); Q5                                                                                      |
 | `out/automation/built`, `out/automation/packages`                                                                     | `out/<TRACK>/built`, `.../packages`                                                      | configured in `output-formats.yml`; Q6                                                                                                         |
@@ -284,7 +284,7 @@ unchanged.
 ### P3 Content roots and docs classification (still no rename)
 
 - Split S1 from S2 on the docs side: classify every hand page in `docs/explanation/automation`, `docs/how-to/automation`,
-  `docs/how-to/getting-started/automation` and the 56 hand pages inside `docs/references/automation` (a table: page, topic, move or stay).
+  `docs/how-to/getting-started/automation` and the 56 hand pages inside `docs/references/pwsh` (a table: page, topic, move or stay).
 - List the ADR rules of worklist section 7 and draft their new wording against the placeholder `<TRACK>`; the edit itself waits for P4 so
   ADRs always describe the present tree.
 - Prepare the diagram list (12 PNG names, sidecars) and ask for the go before any render.
@@ -298,7 +298,7 @@ stale index (memory trap).
 
 Order (it follows the boot dependency; the importer must work before any generator runs):
 
-1. `git mv automation <TRACK>`; `git mv docs/references/automation docs/references/<TRACK>` (so regenerated pages land in place).
+1. `git mv automation <TRACK>`; `git mv docs/references/pwsh docs/references/<TRACK>` (so regenerated pages land in place).
 2. Edit the **bootstrap set** by hand: the importer constant, the hook csproj, `BashSafeguard` and `GlobsConfig` constants. Then restore
    `importer.ps1` line 37 by hand once (it is generated; the generator cannot run until the importer loads). Smoke-test with a plain
    `pwsh -NoProfile` import in the background under `timeout`.
@@ -785,7 +785,7 @@ whole point is to shrink these numbers.
 
 | Sense                        | Example                                                                                                                                                                                                               | Disposition                                                           |
 | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| **S1 track folder**          | `automation/`, `track: automation`, globset `automation`, `docs/references/automation/` mirror, `.catzc/automation/`, `out/automation/built`                                                                          | **rename to `<TRACK>`**                                               |
+| **S1 track folder**          | `automation/`, `track: automation`, globset `automation`, `docs/references/pwsh/` mirror, `.catzc/automation/`, `out/automation/built`                                                                                | **rename to `<TRACK>`**                                               |
 | **S2 ADR domain / row**      | `docs/adr/automation/`, code `AUTO`, `ADR-AUTO-*` (about 10,450 occurrences), `adrs.yml` domain `automation`, stack row `AUTO`                                                                                        | **keep** (automation is the abstract term)                            |
 | **S3 value-chain concern**   | `concern: [automation, ...]`, `AdrsConfig.Concerns`, `ADR-DSGN-TRACK#15`                                                                                                                                              | **keep** (Q-L4)                                                       |
 | **S4 pwsh implementation**   | `Get-AutomationModules`, `-AutomationRoot`, "the automation modules", "PowerShell automation"                                                                                                                         | **rename** to the module/track word                                   |
@@ -806,10 +806,10 @@ whole point is to shrink these numbers.
   Hand lines: S1 about 1,370 (330 files), S2/S3 about 420, S4 about 680 (160 files, 472 of them the `Test-Automation` family = S5), S6 21,
   S7 3, S8 about 160, citations 1,546 mentions.
 - Docs outside `docs/adr`: 2,214 files (1,083 generated, 1,131 hand: 864 are `.assets` diagram files and sidecars). 267 real prose files;
-  200 of them hold 1,937 hits, 79% paths. Four folders named `automation`: `docs/references/automation` (1,093 files, 1,037 generated),
+  200 of them hold 1,937 hits, 79% paths. Four folders named `automation`: `docs/references/pwsh` (1,093 files, 1,037 generated),
   `docs/explanation/automation` (32), `docs/how-to/automation` (14), `docs/how-to/getting-started/automation` (16). 330 hand link targets
-  contain the word, 217 of them into `docs/adr/automation` (S2, stay). `docs/references/automation/` is linked from 2,216 files (mostly
-  derived `page:` heads).
+  contain the word, 217 of them into `docs/adr/automation` (S2, stay). `docs/references/pwsh/` is linked from 2,216 files (mostly derived
+  `page:` heads).
 - ADRs outside `docs/adr/automation/`: 994 hand lines: 325 domain links + 163 code citations (S2, stay), about 160 track paths (S1), about
   215 S8, 16 pipeline names (S6), 56 "PowerShell automation" phrases + 46 command names (S4/S5).
 - Outside `automation/` and `docs/`: 131 tracked files, about 75 unit-name hits, 6 load-bearing trigger paths, 10 csproj paths, 1 importer
@@ -820,13 +820,13 @@ whole point is to shrink these numbers.
 
 Bootstrap constants (cannot be derived; read before any registry loads), to be reduced by the funnel phase to the smallest set:
 
-| Place                                                                                                                            | Fact                                                                                                                 |
-| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `automation/.internal/Catzc.Internal.Importer.psm1:71,208,212,218`                                                               | `$automationFolder = 'automation'`, `.catzc/automation`                                                              |
-| `importer.ps1:37` (generated by `New-Importer.ps1:61,97,110` from the psm1)                                                      | `Import-Module (Join-Path $PSScriptRoot 'automation/.internal/Catzc.Internal.Loader.psm1')`: if stale, nothing loads |
-| `Catzc.Base.Timeouts/types/BashSafeguard.cs:29`, `Catzc.Base.Globs/types/GlobsConfig.cs:33`                                      | C# path constants for `timeouts.yml` and `globs.yml` (the Bash hook program has no importer)                         |
-| `.claude/hooks/Assert-BashTimeout/Assert-BashTimeout.csproj:27-39`                                                               | 9 linked sources + YamlDotNet HintPath under `../../../automation/`                                                  |
-| `Catzc.Internal.Builder.psm1:173,222,266-278,374,403-442,755,762`, `Catzc.Internal.TestKit.psm1:39,79,104`, `Bootstrap.psm1:508` | folder literals                                                                                                      |
+| Place                                                                                                                            | Fact                                                                                                           |
+| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `pwsh/.internal/Catzc.Internal.Importer.psm1:71,208,212,218`                                                                     | `$automationFolder = 'automation'`, `.catzc/automation`                                                        |
+| `importer.ps1:37` (generated by `New-Importer.ps1:61,97,110` from the psm1)                                                      | `Import-Module (Join-Path $PSScriptRoot 'pwsh/.internal/Catzc.Internal.Loader.psm1')`: if stale, nothing loads |
+| `Catzc.Base.Timeouts/types/BashSafeguard.cs:29`, `Catzc.Base.Globs/types/GlobsConfig.cs:33`                                      | C# path constants for `timeouts.yml` and `globs.yml` (the Bash hook program has no importer)                   |
+| `.claude/hooks/Assert-BashTimeout/Assert-BashTimeout.csproj:27-39`                                                               | 9 linked sources + YamlDotNet HintPath under `../../../automation/`                                            |
+| `Catzc.Internal.Builder.psm1:173,222,266-278,374,403-442,755,762`, `Catzc.Internal.TestKit.psm1:39,79,104`, `Bootstrap.psm1:508` | folder literals                                                                                                |
 
 Data registries (the "single source" set; edit each file once, then regenerate):
 
@@ -837,7 +837,7 @@ Data registries (the "single source" set; edit each file once, then regenerate):
 | globset                  | `Catzc.Base.Globs/configs/globs.yml:17-22` (`automation`, `pipeline: ci-automation`)                                                                                                                              | key + include + pipeline (S6, late)                                                                                                                                                                                                                                  |
 | file kinds               | `file-kinds.yml:44,50,53,56,59,62,63,66,72,85,97`                                                                                                                                                                 | 11 globs                                                                                                                                                                                                                                                             |
 | comment pages            | `Catzc.Base.QualityGates/configs/comments.yml:36-47`; `CommentsConfig.cs:62,65` (second copy)                                                                                                                     | source -> docs mapping                                                                                                                                                                                                                                               |
-| readme mapping           | `Catzc.Base.Docs/configs/readme.yml:17-18`                                                                                                                                                                        | `glob: automation/*` -> `docs/references/automation/{kebab}.md`                                                                                                                                                                                                      |
+| readme mapping           | `Catzc.Base.Docs/configs/readme.yml:17-18`                                                                                                                                                                        | `glob: pwsh/*` -> `docs/references/pwsh/{kebab}.md`                                                                                                                                                                                                                  |
 | file meta                | `file-meta.yml:57,77-78`                                                                                                                                                                                          | generator path, relatives patterns                                                                                                                                                                                                                                   |
 | contracts                | `Catzc.Base.Contracts/configs/contracts.yml:20`                                                                                                                                                                   | target root of `Catzc.Base.Globs`                                                                                                                                                                                                                                    |
 | root config              | `Catzc.Base.RootConfig/configs/rootconfig.yml:18-133` (about 40 source paths)                                                                                                                                     | source column                                                                                                                                                                                                                                                        |
@@ -897,8 +897,8 @@ A function rename is a file rename (one function per file) plus its test file pl
    free of needing Bash during it.
 2. `importer.ps1:37` (and its generator's constant): if stale nothing loads, in any session or CI.
 3. CI triggers fire silently never if stale: `.github/workflows/ci-automation.yml:23,26`, `pipelines/ci-automation.yaml:20,26`,
-   `pipelines/ci-automation-expected-failures.yaml:20,26` (`paths: [automation/**]`). Their depended-on contract assets pin the file
-   **names**, so renames move the fragments together: `contracts/catzc/0.0.0/Catzc.Tooling.Github/workflows/{ci,release}-automation.yml`,
+   `pipelines/ci-automation-expected-failures.yaml:20,26` (`paths: [pwsh/**]`). Their depended-on contract assets pin the file **names**, so
+   renames move the fragments together: `contracts/catzc/0.0.0/Catzc.Tooling.Github/workflows/{ci,release}-automation.yml`,
    `Catzc.Azure.DevOps/pipelines/ci-automation*.yaml`.
 4. Other contract assets: `Catzc.Base.Globs/configs/file-kinds.yml:1` (header), `Catzc.Base.QualityGates/head.sample.yml`
    (`track: automation`, 2 paths), `head.schema.json` (check the `track` pattern).
@@ -906,15 +906,15 @@ A function rename is a file rename (one function per file) plus its test file pl
    `session-cost-audit.md:74`, `.claude/CLAUDE.md` (lines 18,19,22,46,49,52-54,62,79,82,85,98,100,132),
    `.claude/drawio/minimaps/render.py:267-268,349,364`, `describe.py:43-44,291`, `STYLE.md:171,229,245,294,305,581`.
 6. Generated root files must land in the same change (regenerate, never hand-edit): `.gitignore`, `.gitattributes`
-   (`automation/.compiled/** binary`, `linguist-generated`, `automation/.vendor/** linguist-vendored`, the `catzc-meta` exemptions; a stale
-   `.compiled` pattern can text-convert the committed DLL and break its byte-exact hash), `importer.ps1`, `importer.sh` prose, `.cspell/*`,
-   `.gitkeep` heads, `go.work`, `go.mod`, `pyproject.toml`; untracked but regenerated on import: `.vscode/*`, `cspell.yml`, `catzc.sln`
+   (`pwsh/.compiled/** binary`, `linguist-generated`, `pwsh/.vendor/** linguist-vendored`, the `catzc-meta` exemptions; a stale `.compiled`
+   pattern can text-convert the committed DLL and break its byte-exact hash), `importer.ps1`, `importer.sh` prose, `.cspell/*`, `.gitkeep`
+   heads, `go.work`, `go.mod`, `pyproject.toml`; untracked but regenerated on import: `.vscode/*`, `cspell.yml`, `catzc.sln`
    (`automation\.internal\assets\Catzc.Types.csproj`).
 7. `README` badge `.github/README.md:13` and external bindings outside git: Azure DevOps pipeline definitions point at
    `pipelines/ci-automation.yaml`; GitHub required checks. Only the pipeline rename (S6) touches these.
 8. Step template `pipelines/steps/invoke-automation.yaml` has 60 references: **kept** (S6), so no change.
 9. `infrastructure/`, `bash/`, `go/`, `python/` hold no folder path (they go through the root importers); only two prose links into
-   `docs/references/automation/`.
+   `docs/references/pwsh/`.
 
 ## 7. ADR rules that state the folder as a fixed fact (edit once each, cited by code)
 
@@ -930,7 +930,7 @@ only). Plus about 160 path lines across `azure/`, `configuration/`, `flow/`, `pw
 Read from the tree with out/layers-p3-rules.ps1. `<TRACK>` is the modules track's new place (`pwsh`, D24). Each line: the rule, where,
 today's phrase -> the wording after P4.
 
-- ADR-DSGN-TRACK#1 (tracks.md:8-9): "a root folder (`automation`), a path inside one (`.github/workflows`, `automation/.vendor`)" -> "a root
+- ADR-DSGN-TRACK#1 (tracks.md:8-9): "a root folder (`automation`), a path inside one (`.github/workflows`, `pwsh/.vendor`)" -> "a root
   folder (`<TRACK>`), a path inside one (`.github/workflows`, `<TRACK>/.vendor`)".
 - ADR-DSGN-TRACK#2 (tracks.md:18, 22, 25): "`modules` (`automation`, the core ...)" -> "`modules` (`<TRACK>`, the core ...)";
   "`automation/`, where the builder reads its modules" -> "`<TRACK>/`, where ..."; "every yml/config file across automation" -> "across the
@@ -945,9 +945,9 @@ today's phrase -> the wording after P4.
   "`<RepositoryRoot>/out/<TRACK>/built/<bundle>/`" (Q6).
 - ADR-DSGN-ASPECT#3 (module-aspects.md:28): "A **code** track (`automation`)" -> "A **code** track (`<TRACK>`)".
 - ADR-DSGN-ASPECT#5 (module-aspects.md:51): "files under `automation/` that no" -> "files under `<TRACK>/` that no".
-- ADR-REPO-FOLDERS#4 (conventional-folders.md:32, 37, and the Level 2 section): "`automation/.internal|.scriptanalyzer|.vendor|.compiled/`.
-  Under `automation/`" -> the same under `<TRACK>/`; the heading "Level 2: `automation/`" and its anchor `#level-2-automation` -> `<TRACK>`
-  (its in-file and cross-file links follow).
+- ADR-REPO-FOLDERS#4 (conventional-folders.md:32, 37, and the Level 2 section): "`pwsh/.internal|.scriptanalyzer|.vendor|.compiled/`. Under
+  `automation/`" -> the same under `<TRACK>/`; the heading "Level 2: `automation/`" and its anchor `#level-2-automation` -> `<TRACK>` (its
+  in-file and cross-file links follow).
 - ADR-REPO-FILEMETA#12: no folder fact left in the rule (the module-model rewrite removed it); no edit.
 - ADR-REPO-CODEMETA#2 (code-file-meta.md:21): "the folder under `automation/`" -> "the folder under the modules track's place"; folder-free,
   so it survives the next move too.
@@ -956,15 +956,15 @@ today's phrase -> the wording after P4.
 - ADR-AUTO-OVERLAY#2, #3, #9 (consumer-overlay.md:17, 24, 76): "`.catzc/automation/`" -> "`.catzc/<TRACK>/`" in all three.
 - ADR-AUTO-PARITY#1 (devbox-pipeline-parity.md:7): "The `automation` track **is a CLI**" -> "The `<TRACK>` track **is a CLI**"; lines 9-10
   ("pipeline-only automation", "devbox-only automation") use the abstract term (S2) and stay.
-- ADR-AUTO-DEPS#1 (controlling-systemwide-deps.md:7): "`automation/Catzc.Base.Execution/configs/tools.yml`" -> "the `tools.yml` of
+- ADR-AUTO-DEPS#1 (controlling-systemwide-deps.md:7): "`pwsh/Catzc.Base.Execution/configs/tools.yml`" -> "the `tools.yml` of
   Catzc.Base.Execution"; folder-free.
 - ADR-REPO-CONTRACT#2 (api-contracts.md:24): `release-automation.yml` is a kept pipeline name (Q2); no edit.
 
 ## 8. Docs (hand-written), by what to do
 
-- Generated and follow their sources: `docs/references/automation/**` (1,037 of 1,093) via `comments.yml` + `readme.yml` +
-  `Export-Comments`; every `page:` head. The folder must be moved (`git mv`) before regenerating so pages regenerate in place (the writer
-  removes only pages it wrote).
+- Generated and follow their sources: `docs/references/pwsh/**` (1,037 of 1,093) via `comments.yml` + `readme.yml` + `Export-Comments`;
+  every `page:` head. The folder must be moved (`git mv`) before regenerating so pages regenerate in place (the writer removes only pages it
+  wrote).
 - Hand pages inside it (56) and the other three `automation` doc folders (62 files): classify page by page (a worker table): pwsh-track
   topic -> move to `<TRACK>`, abstract topic -> keep the name (it is S2). `docs/how-to/getting-started/automation/faq.md:105-111` is real S4
   prose.
@@ -981,35 +981,35 @@ topic is the pwsh modules (working in them, their reference mirror, their integr
 it stays when its topic is automation as a subject (the ADR-AUTO explanations, which follow `docs/adr/automation`, Q4) or another track. A
 page that stays still has its moved path lines rewritten in P4.
 
-| Page                                                                                          | Topic                                                        | Verdict |
-| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------- |
-| `docs/explanation/automation/*.md` and `*.drawio.md` (62 pages: every page but the two below) | an ADR-AUTO explanation, automation as a subject             | stay    |
-| docs/explanation/automation/reference-unboxing.md                                             | PowerShell and C# unboxing (ADR-PWSH-TYPES)                  | move    |
-| docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md                        | PowerShell and C# unboxing (ADR-PWSH-TYPES)                  | move    |
-| docs/how-to/automation/apply-environment-approvals.md                                         | Azure DevOps environment approvals                           | stay    |
-| docs/how-to/automation/sort-an-import.md                                                      | sorting an import out of .unordered into the tracks          | stay    |
-| docs/how-to/automation/manual-test-plan.md                                                    | the pwsh modules' integrity tests                            | move    |
-| docs/how-to/automation/manual-test-plan/*.md (13 category pages)                              | the pwsh modules' integrity tests                            | move    |
-| docs/how-to/getting-started/automation/add-a-cli-tool.md                                      | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/add-a-module.md                                        | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/debug-in-vscode.md                                     | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/run-tests-and-checks.md                                | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/vendor-a-module.md                                     | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md                               | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/BCL/index.md                                           | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/powershell/add-a-function.md                           | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/powershell/index.md                                    | working in the pwsh modules                                  | move    |
-| docs/how-to/getting-started/automation/add-a-deployable-unit.md                               | a globset and its pipeline triggers                          | stay    |
-| docs/how-to/getting-started/automation/add-a-doc-chapter.md                                   | a doc chapter                                                | stay    |
-| docs/how-to/getting-started/automation/add-an-infrastructure-template.md                      | a Bicep template                                             | stay    |
-| docs/how-to/getting-started/automation/faq.md                                                 | the system as a whole (its S4 lines 105-111 are fixed in P4) | stay    |
-| docs/how-to/getting-started/automation/index.md                                               | getting started with the system as a whole                   | stay    |
-| docs/how-to/getting-started/automation/go/index.md                                            | the go track                                                 | stay    |
-| docs/how-to/getting-started/automation/python/index.md                                        | the python track                                             | stay    |
-| docs/references/automation/catzc-*.md (47 module articles), CLAUDE.md, index.md               | the pwsh modules (module reference mirror)                   | move    |
-| docs/references/automation/BCL/index.md, BCL/types-system.md                                  | the pwsh modules' C# types                                   | move    |
-| docs/references/automation/internal/*.md (7 pages)                                            | the pwsh modules' internal infrastructure                    | move    |
-| `docs/references/automation/<module>/*.drawio.md` (11 diagram descriptions)                   | the pwsh modules (module reference mirror)                   | move    |
+| Page                                                                                    | Topic                                                        | Verdict |
+| --------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------- |
+| `docs/explanation/pwsh/*.md` and `*.drawio.md` (62 pages: every page but the two below) | an ADR-AUTO explanation, automation as a subject             | stay    |
+| docs/explanation/pwsh/reference-unboxing.md                                             | PowerShell and C# unboxing (ADR-PWSH-TYPES)                  | move    |
+| docs/explanation/pwsh/unboxing-is-cheap-and-crossings-are-not.md                        | PowerShell and C# unboxing (ADR-PWSH-TYPES)                  | move    |
+| docs/how-to/automation/apply-environment-approvals.md                                   | Azure DevOps environment approvals                           | stay    |
+| docs/how-to/automation/sort-an-import.md                                                | sorting an import out of .unordered into the tracks          | stay    |
+| docs/how-to/pwsh/manual-test-plan.md                                                    | the pwsh modules' integrity tests                            | move    |
+| docs/how-to/pwsh/manual-test-plan/\*.md (13 category pages)                             | the pwsh modules' integrity tests                            | move    |
+| docs/how-to/getting-started/pwsh/add-a-cli-tool.md                                      | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/pwsh/add-a-module.md                                        | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/pwsh/debug-in-vscode.md                                     | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/pwsh/run-tests-and-checks.md                                | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/pwsh/vendor-a-module.md                                     | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/pwsh/BCL/add-a-dotnet-type.md                               | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/pwsh/BCL/index.md                                           | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/pwsh/powershell/add-a-function.md                           | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/pwsh/powershell/index.md                                    | working in the pwsh modules                                  | move    |
+| docs/how-to/getting-started/automation/add-a-deployable-unit.md                         | a globset and its pipeline triggers                          | stay    |
+| docs/how-to/getting-started/automation/add-a-doc-chapter.md                             | a doc chapter                                                | stay    |
+| docs/how-to/getting-started/automation/add-an-infrastructure-template.md                | a Bicep template                                             | stay    |
+| docs/how-to/getting-started/automation/faq.md                                           | the system as a whole (its S4 lines 105-111 are fixed in P4) | stay    |
+| docs/how-to/getting-started/automation/index.md                                         | getting started with the system as a whole                   | stay    |
+| docs/how-to/getting-started/automation/go/index.md                                      | the go track                                                 | stay    |
+| docs/how-to/getting-started/automation/python/index.md                                  | the python track                                             | stay    |
+| docs/references/pwsh/catzc-\*.md (47 module articles), CLAUDE.md, index.md              | the pwsh modules (module reference mirror)                   | move    |
+| docs/references/pwsh/BCL/index.md, BCL/types-system.md                                  | the pwsh modules' C# types                                   | move    |
+| docs/references/pwsh/internal/\*.md (7 pages)                                           | the pwsh modules' internal infrastructure                    | move    |
+| `docs/references/pwsh/<module>/*.drawio.md` (11 diagram descriptions)                   | the pwsh modules (module reference mirror)                   | move    |
 
 The page-by-page list behind the grouped rows is regenerable from out/layers-p3-table.ps1 over the same tree. The estimate above (56 hand
 pages in the reference mirror, 62 elsewhere) undercounted: the 47 module articles and 11 diagram descriptions are hand pages too.
@@ -1021,7 +1021,7 @@ pages in the reference mirror, 62 elsewhere) undercounted: the 47 module article
 `Build-ContractReference` -> `Test-GeneratedFiles` (verifies all registered writers in dry-run). Generators with the folder hard-coded in
 their **own** source (fix before running): `Build-AdrIndex.ps1:267`, `Build-TerminologyDictionary.ps1:110`,
 `Build-EnglishDictionary.ps1:132`, `Test-GeneratedFiles.ps1:117,120`, `New-Importer.ps1`, `Format-Types.ps1:82`,
-`Get-ReadmeMappings.ps1:67`, `Build-Readme.ps1:83` (comment), `Sync-GeneratedFile` help and `gitignore.yml:87-90` (`automation/.compiled`),
+`Get-ReadmeMappings.ps1:67`, `Build-Readme.ps1:83` (comment), `Sync-GeneratedFile` help and `gitignore.yml:87-90` (`pwsh/.compiled`),
 `Build-Modules:96`, `Export-Catzc:87`, `Install-Catzc:71`.
 
 ## 10. Do-not-sweep list
@@ -1029,4 +1029,4 @@ their **own** source (fix before running): `Build-AdrIndex.ps1:267`, `Build-Term
 `System.Management.Automation` (140), `NoAutomaticVariableMisuse.psm1`, CAF/WAF/DORA titles and anchors (`#deployment-automation`,
 `platform-automation-and-devops.md`, 94 hits), "Cloud Automation Toolkit", Exporter `-Version auto`, `jidoka`, `.markdownlint.yml`
 "auto-enable", `Get-AutoControlledGlobs` (name keeps "Auto"; prose "the automation itself" there means the tooling: reword, do not rename),
-`docs/adr/automation/**` paths and `ADR-AUTO-*` codes, `.unordered/**`, `docs/references/pipelines/*automation*` pages until S6.
+`docs/adr/pwsh/**` paths and `ADR-AUTO-*` codes, `.unordered/**`, `docs/references/pipelines/*automation*` pages until S6.

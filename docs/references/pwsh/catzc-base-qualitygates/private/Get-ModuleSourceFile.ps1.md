@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/private/Get-ModuleSourceFile.ps1
+# pwsh/Catzc.Base.QualityGates/private/Get-ModuleSourceFile.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -55,6 +55,6 @@ Above `$importerPath = Join-Path $root 'importer.ps1'`, written with `#`.
 ```text
 Authored files outside the module tree that still ship and run with it meet the same bar: the root
 importer.ps1 and the analyzer config under .internal/assets. The analyzer config is the ONE authored
-.psd1 (committed, not a generated manifest); generated module manifests (automation/**/*.psd1) are
+.psd1 (committed, not a generated manifest); generated module manifests (pwsh/**/*.psd1) are
 gitignored build output and are deliberately absent.
 ```

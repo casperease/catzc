@@ -4,7 +4,7 @@ plan:
   value: highest
   reviewed: 2026-10-18
   waits_on: the user's commit of the gitattributes template rename
-  targets: [automation/Catzc.Base.QualityGates, automation/Catzc.Base.Languages, docs/adr/repository, .claude/CLAUDE.md, .unordered]
+  targets: [pwsh/Catzc.Base.QualityGates, pwsh/Catzc.Base.Languages, docs/adr/repository, .claude/CLAUDE.md, .unordered]
 ---
 
 # Plans that stay true, body-sha only where it earns it, .unordered as the import landing zone

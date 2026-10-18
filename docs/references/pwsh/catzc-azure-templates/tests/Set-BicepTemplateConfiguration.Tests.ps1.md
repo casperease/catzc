@@ -1,4 +1,4 @@
-# automation/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
+# pwsh/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
 
 <!-- cspell:ignore toolong gmweutstsmplst alweutstsmplst -->
 

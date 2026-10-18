@@ -60,7 +60,7 @@ steps:
 ```
 
 - Runs identically on Windows, Linux, and macOS — CI covers all three.
-- No install step: every dependency is vendored under `automation/.vendor/`.
+- No install step: every dependency is vendored under `pwsh/.vendor/`.
 - `$ErrorActionPreference = 'Stop'` is set globally, so an error becomes a non-zero exit code automatically.
 - No network calls at import time — safe behind corporate proxies and in air-gapped environments.
 
@@ -151,7 +151,7 @@ Short, focused how-to articles for the common jobs:
 | Vendor a third-party PowerShell module    | [Vendor a module](vendor-a-module.md)                               |
 | Write a new doc chapter or ADR            | [Add a doc chapter](add-a-doc-chapter.md)                           |
 
-Looking for what a specific module does rather than how to do a task? See the [module reference](../../../references/automation/index.md).
+Looking for what a specific module does rather than how to do a task? See the [module reference](../../../references/pwsh/index.md).
 
 ---
 

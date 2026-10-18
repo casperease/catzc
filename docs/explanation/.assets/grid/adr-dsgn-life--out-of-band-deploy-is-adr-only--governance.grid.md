@@ -61,13 +61,13 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][8]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78 (text); selected by
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][8]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78 (text); selected by
   [ADR-DSGN-VISUAL][2]: the file cites it at line 77 (text).
-- [automation/Catzc.Base.Docs/configs/agents.yml][9]: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 28 (text), line 28 (body
+- [pwsh/Catzc.Base.Docs/configs/agents.yml][9]: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 28 (text), line 28 (body
   comment), line 34 (text) and line 39 (text).
-- [automation/Catzc.Base.Docs/configs/capabilities.yml][10]: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 67 (text), line 72
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][10]: selected by [ADR-DSGN-VISUAL][2]: the file cites it at line 67 (text), line 72
   (text), line 77 (text), line 77 (body comment) and line 82 (text).
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 49 (text).
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 49 (text).
 
 ### docs × markdown (6 lit files)
 
@@ -81,7 +81,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [docs/adr/glossary.md][13]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 272 (text).
 - [docs/adr/index.md][14]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 112 (text); selected by [ADR-DSGN-VISUAL][2]: the file
   cites it at line 111 (text).
-- [docs/references/automation/catzc-base-git/Push-Dirty.ps1.md][15]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][15]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 14 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -89,14 +89,14 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][16]: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-VISUAL][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 77 (text),
-  `automation/Catzc.Base.Docs/configs/agents.yml` line 28 (text), `automation/Catzc.Base.Docs/configs/agents.yml` line 28 (body comment),
-  `automation/Catzc.Base.Docs/configs/agents.yml` line 34 (text), `automation/Catzc.Base.Docs/configs/agents.yml` line 39 (text),
-  `automation/Catzc.Base.Docs/configs/capabilities.yml` line 67 (text), `automation/Catzc.Base.Docs/configs/capabilities.yml` line 72
-  (text), `automation/Catzc.Base.Docs/configs/capabilities.yml` line 77 (text), `automation/Catzc.Base.Docs/configs/capabilities.yml` line
-  77 (body comment) and `automation/Catzc.Base.Docs/configs/capabilities.yml` line 82 (text).
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-VISUAL][2]: a pipeline that cites nothing
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 77 (text),
+  `pwsh/Catzc.Base.Docs/configs/agents.yml` line 28 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 28 (body comment),
+  `pwsh/Catzc.Base.Docs/configs/agents.yml` line 34 (text), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 39 (text),
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 67 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 72
+  (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 77 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line
+  77 (body comment) and `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 82 (text).
 
 ## Keywords
 
@@ -124,14 +124,14 @@ Terms the cited ADRs define:
 [5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [6]: ../../../../.claude/plans/plan-fast-push-followups.md
 [7]: ../../../../.claude/plans/value-of-plan.md
-[8]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[9]: ../../../../automation/Catzc.Base.Docs/configs/agents.yml
-[10]: ../../../../automation/Catzc.Base.Docs/configs/capabilities.yml
-[11]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[8]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[9]: ../../../../pwsh/Catzc.Base.Docs/configs/agents.yml
+[10]: ../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
+[11]: ../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
 [12]: ../../../adr/design/dora-explains.md
 [13]: ../../../adr/glossary.md
 [14]: ../../../adr/index.md
-[15]: ../../../references/automation/catzc-base-git/Push-Dirty.ps1.md
+[15]: ../../../references/pwsh/catzc-base-git/Push-Dirty.ps1.md
 [16]: ../../../../pipelines/ci-automation.yaml
 [17]: ../../design/out-of-band-deploy-is-adr-only.md
 [18]: ../../../adr/glossary.md#world-map
@@ -139,7 +139,7 @@ Terms the cited ADRs define:
 [20]: ../../../adr/glossary.md#file-language
 [21]: ../../../adr/glossary.md#cell
 [22]: ../../../adr/glossary.md#lit-cell
-[23]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[24]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[23]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[24]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
 [25]: ../../../adr/glossary.md#occupant
 [26]: ../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5

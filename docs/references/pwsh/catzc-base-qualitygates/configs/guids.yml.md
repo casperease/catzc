@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/configs/guids.yml
+# pwsh/Catzc.Base.QualityGates/configs/guids.yml
 
 <!-- cspell:ignore oilzstgq -->
 

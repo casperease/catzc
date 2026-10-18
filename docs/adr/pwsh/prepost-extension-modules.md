@@ -191,12 +191,12 @@ There are **no default hooks**. `assets/PrePost.psm1` is a copy-in starter only 
 
 - A template with no special needs ships zero PowerShell — just `main.bicep`, `options.yml`, and `configuration/<slot>.yml`. No hook runs,
   which is correct.
-- A template that needs a hook adds **one file** (`PrePost.psm1`), copied from `automation/Catzc.Azure.Templates/assets/PrePost.psm1`,
+- A template that needs a hook adds **one file** (`PrePost.psm1`), copied from `pwsh/Catzc.Azure.Templates/assets/PrePost.psm1`,
   keeping the hooks it needs. No central registry, no manifest, no import wiring.
 - Production code never depends on the asset module: the only PrePost code that runs is a template's own. The asset is pure reference data.
 - The `.psm1` extension is reserved for narrow, well-defined uses — never for a module's function files: the `.internal` shared modules
-  (`automation/.internal/*.psm1`), the custom PSScriptAnalyzer rule modules (`automation/.scriptanalyzer/*.psm1`), the PrePost starter
-  (`automation/Catzc.Azure.Templates/assets/PrePost.psm1`, a copy-in reference), and per-template extension points
+  (`pwsh/.internal/*.psm1`), the custom PSScriptAnalyzer rule modules (`pwsh/.scriptanalyzer/*.psm1`), the PrePost starter
+  (`pwsh/Catzc.Azure.Templates/assets/PrePost.psm1`, a copy-in reference), and per-template extension points
   (`infrastructure/templates/<template>/PrePost.psm1`).
 - Future extension points of the same shape (a small group of related hooks loaded on demand from a consumer-supplied module) can reuse this
   pattern: a starter file plus a per-consumer module, invoked only when present.

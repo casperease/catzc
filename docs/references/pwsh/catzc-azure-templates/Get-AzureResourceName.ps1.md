@@ -1,4 +1,4 @@
-# automation/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+# pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
 
 <!-- cspell:ignore weuzctsmplst -->
 

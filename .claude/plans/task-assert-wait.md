@@ -6,9 +6,9 @@ task:
   blocked_on: nothing; steps 6 and 7 wait for the first measured run
   targets:
     [
-      automation/Catzc.Base.Timeouts,
-      automation/.internal/Catzc.Internal.Importer.psm1,
-      automation/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1,
+      pwsh/Catzc.Base.Timeouts,
+      pwsh/.internal/Catzc.Internal.Importer.psm1,
+      pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1,
       docs/adr/automation/fail-fast-with-asserts.md,
       docs/adr/pwsh/assert-idioms.md,
     ]
@@ -22,7 +22,7 @@ file caused by peers, the 110 ms first-tick source (Q3), help, and the ADR pair 
 
 ## Steps
 
-1. [x] `automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs`: a `wait` map with `seconds` (default 1) and `millisecs` (default 1), one
+1. [x] `pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs`: a `wait` map with `seconds` (default 1) and `millisecs` (default 1), one
        pair, not keyed by environment; an unknown key under `wait` and a zero or negative value are rejected at construction naming the key.
        Check: the file compiles in a fresh pwsh. Done 2026-10-17: `wait`, `WaitDefaultSeconds`, `WaitDefaultMillisecs`, `ReadWait`; compiled
        by the import of `out/t024-a.ps1`.

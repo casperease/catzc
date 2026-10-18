@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/NoRawConsoleWrite.psm1
+# pwsh/.scriptanalyzer/NoRawConsoleWrite.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Above `function Measure-NoRawConsoleWrite {`, written with `#`.
     Custom PSScriptAnalyzer rule: forbid writing to the console past the information stream.
 .DESCRIPTION
     A raw write bypasses the stream, so it escapes output control, Pester silencing and the caller header.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/scriptanalyzer/NoRawConsoleWrite.psm1.md#comment1)
 ```
 
 ## comment:2

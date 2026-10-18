@@ -33,11 +33,11 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 - docs (docs/ outside docs/adr/): 20 lit files
 - .claude: 12 lit files
-- Docs (automation/Catzc.Base.Docs): 3 lit files
-- Folders (automation/Catzc.Base.Folders): 2 lit files
-- Slides (automation/Catzc.Base.Slides): 2 lit files
+- Docs (pwsh/Catzc.Base.Docs): 3 lit files
+- Folders (pwsh/Catzc.Base.Folders): 2 lit files
+- Slides (pwsh/Catzc.Base.Slides): 2 lit files
 - adr/auto (docs/adr/automation): 2 lit files
-- QualityGates (automation/Catzc.Base.QualityGates): 1 lit file
+- QualityGates (pwsh/Catzc.Base.QualityGates): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
 - pipelines: 1 lit file
 
@@ -52,41 +52,41 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md][3], in the cell docs ×
   markdown: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 45 (text), line 58 (text), line 61 (text), line 62 (text) and line
   62 (text).
-- [docs/references/automation/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md][4], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md][4], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 22 (text).
-- [docs/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][5], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][5], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 102 (text).
-- [docs/references/automation/catzc-base-docs/Test-Glossary.ps1.md][6], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the
+- [docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md][6], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the
   file cites it at line 27 (text).
-- [docs/references/automation/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md][7], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md][7], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 15 (text).
-- [docs/references/automation/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md][8], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md][8], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 13 (text).
-- [docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md][9], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md][9], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 37 (text).
-- [docs/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md][10], in the cell docs × markdown:
+- [docs/references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md][10], in the cell docs × markdown:
   selected by [ADR-AUTO-FAILFAST][1]: the file cites it at line 32 (text) and line 100 (text).
-- [docs/references/automation/catzc-base-git/Import-RepositoryWithHistory.ps1.md][11], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md][11], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 22 (text).
-- [docs/references/automation/catzc-base-globs/Test-GlobSetAffected.ps1.md][12], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][12], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 25 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][13], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md][13], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 16 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md][14], in the cell docs × markdown: selected
+- [docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md][14], in the cell docs × markdown: selected
   by [ADR-AUTO-FAILFAST][1]: the file cites it at line 25 (text).
-- [docs/references/automation/catzc-base-timeouts/Assert-Wait.ps1.md][15], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]:
+- [docs/references/pwsh/catzc-base-timeouts/Assert-Wait.ps1.md][15], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]:
   the file cites it at line 23 (text) and line 24 (text).
-- [docs/references/automation/catzc-base-timeouts/Get-TestTimeLimits.ps1.md][16], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md][16], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 16 (text).
-- [docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md][17], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md][17], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 12 (text).
-- [docs/references/automation/catzc-base-typessystem.md][18], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file
+- [docs/references/pwsh/catzc-base-typessystem.md][18], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file
   cites it at line 64 (text).
-- [docs/references/automation/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md][19], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md][19], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 15 (text).
-- [docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md][20], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md][20], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 15 (text).
-- [docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md][21], in the cell docs × markdown: selected by
+- [docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md][21], in the cell docs × markdown: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 12 (text).
 
 ### .claude (12 lit files)
@@ -117,33 +117,33 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 - [.claude/plans/task-import-landing-zone.md][33], in the cell .claude × markdown: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at
   line 42 (text).
 
-### Docs (automation/Catzc.Base.Docs, 3 lit files)
+### Docs (pwsh/Catzc.Base.Docs, 3 lit files)
 
-The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][34], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][34], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it at
   line 132 (text).
-- [automation/Catzc.Base.Docs/configs/agents.yml][35], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it
+- [pwsh/Catzc.Base.Docs/configs/agents.yml][35], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file cites it
   at line 55 (body comment) and line 76 (text).
-- [automation/Catzc.Base.Docs/configs/capabilities.yml][36], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][36], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the file
   cites it at line 4 (text).
 
-### Folders (automation/Catzc.Base.Folders, 2 lit files)
+### Folders (pwsh/Catzc.Base.Folders, 2 lit files)
 
-The group holds the files of automation/Catzc.Base.Folders; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Folders; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1][37], in the cell automation × powershell: selected by
+- [pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1][37], in the cell automation × powershell: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 47 (text).
-- [automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1][38], in the cell automation × powershell: selected by
+- [pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1][38], in the cell automation × powershell: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 64 (text).
 
-### Slides (automation/Catzc.Base.Slides, 2 lit files)
+### Slides (pwsh/Catzc.Base.Slides, 2 lit files)
 
-The group holds the files of automation/Catzc.Base.Slides; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Slides; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][39], in the cell automation × powershell: selected by
+- [pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1][39], in the cell automation × powershell: selected by
   [ADR-AUTO-FAILFAST][1]: the file cites it at line 145 (text) and line 153 (text).
-- [automation/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][40], in the cell automation × powershell: selected by [ADR-AUTO-FAILFAST][1]:
+- [pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1][40], in the cell automation × powershell: selected by [ADR-AUTO-FAILFAST][1]:
   the file cites it at line 44 (text).
 
 ### adr/auto (docs/adr/automation, 2 lit files)
@@ -154,11 +154,11 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
   (text).
 - [docs/adr/automation/fail-fast-with-asserts.md][1], in the cell docs × markdown: selected by [ADR-AUTO-FAILFAST][1]: the ADR's own file.
 
-### QualityGates (automation/Catzc.Base.QualityGates, 1 lit file)
+### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.QualityGates/configs/terminology.yml][42], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][42], in the cell automation × yaml: selected by [ADR-AUTO-FAILFAST][1]: the
   file cites it at line 583 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
@@ -172,14 +172,14 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][44], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-FAILFAST][1]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 132 (text),
-  `automation/Catzc.Base.Docs/configs/agents.yml` line 55 (body comment), `automation/Catzc.Base.Docs/configs/agents.yml` line 76 (text),
-  `automation/Catzc.Base.Docs/configs/capabilities.yml` line 4 (text), `automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 47
-  (text), `automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 64 (text),
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 583 (text),
-  `automation/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 145 (text),
-  `automation/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 153 (text) and
-  `automation/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44 (text).
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 132 (text),
+  `pwsh/Catzc.Base.Docs/configs/agents.yml` line 55 (body comment), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 76 (text),
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 4 (text), `pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1` line 47
+  (text), `pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1` line 64 (text),
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 583 (text),
+  `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 145 (text),
+  `pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` line 153 (text) and
+  `pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1` line 44 (text).
 
 ## Keywords
 
@@ -200,24 +200,24 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [1]: ../../../adr/automation/fail-fast-with-asserts.md
 [2]: ../../../references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md
 [3]: ../../../references/.assets/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md
-[4]: ../../../references/automation/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
-[5]: ../../../references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
-[6]: ../../../references/automation/catzc-base-docs/Test-Glossary.ps1.md
-[7]: ../../../references/automation/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md
-[8]: ../../../references/automation/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
-[9]: ../../../references/automation/catzc-base-engines/types/ExecutionEngine.cs.md
-[10]: ../../../references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
-[11]: ../../../references/automation/catzc-base-git/Import-RepositoryWithHistory.ps1.md
-[12]: ../../../references/automation/catzc-base-globs/Test-GlobSetAffected.ps1.md
-[13]: ../../../references/automation/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md
-[14]: ../../../references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md
-[15]: ../../../references/automation/catzc-base-timeouts/Assert-Wait.ps1.md
-[16]: ../../../references/automation/catzc-base-timeouts/Get-TestTimeLimits.ps1.md
-[17]: ../../../references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
-[18]: ../../../references/automation/catzc-base-typessystem.md
-[19]: ../../../references/automation/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md
-[20]: ../../../references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
-[21]: ../../../references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md
+[4]: ../../../references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
+[5]: ../../../references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+[6]: ../../../references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
+[7]: ../../../references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md
+[8]: ../../../references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
+[9]: ../../../references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
+[10]: ../../../references/pwsh/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+[11]: ../../../references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
+[12]: ../../../references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
+[13]: ../../../references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md
+[14]: ../../../references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md
+[15]: ../../../references/pwsh/catzc-base-timeouts/Assert-Wait.ps1.md
+[16]: ../../../references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md
+[17]: ../../../references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md
+[18]: ../../../references/pwsh/catzc-base-typessystem.md
+[19]: ../../../references/pwsh/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md
+[20]: ../../../references/pwsh/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
+[21]: ../../../references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md
 [22]: ../../../../.claude/CLAUDE.md
 [23]: ../../../../.claude/plans/decisions-2026-10-16.md
 [24]: ../../../../.claude/plans/plan-assert-wait.md
@@ -230,15 +230,15 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [31]: ../../../../.claude/plans/task-assert-wait.md
 [32]: ../../../../.claude/plans/task-config-defaults-postures.md
 [33]: ../../../../.claude/plans/task-import-landing-zone.md
-[34]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[35]: ../../../../automation/Catzc.Base.Docs/configs/agents.yml
-[36]: ../../../../automation/Catzc.Base.Docs/configs/capabilities.yml
-[37]: ../../../../automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
-[38]: ../../../../automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
-[39]: ../../../../automation/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
-[40]: ../../../../automation/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
+[34]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[35]: ../../../../pwsh/Catzc.Base.Docs/configs/agents.yml
+[36]: ../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
+[37]: ../../../../pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
+[38]: ../../../../pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
+[39]: ../../../../pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
+[40]: ../../../../pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
 [41]: ../../../adr/automation/dora-explains.md
-[42]: ../../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
+[42]: ../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
 [43]: ../../../adr/index.md
 [44]: ../../../../pipelines/ci-automation.yaml
 [45]: ../../automation/a-shell-call-carries-its-limit-or-is-denied.md
@@ -247,5 +247,5 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [48]: ../../../adr/glossary.md#file-language
 [49]: ../../../adr/glossary.md#cell
 [50]: ../../../adr/glossary.md#lit-cell
-[51]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[52]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[51]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[52]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/NoForEachObjectControlFlow.psm1
+# pwsh/.scriptanalyzer/NoForEachObjectControlFlow.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Above `function Measure-NoForEachObjectControlFlow {`, written with `#`.
     Custom PSScriptAnalyzer rule: forbid return, break, continue inside ForEach-Object.
 .DESCRIPTION
     Inside a ForEach-Object scriptblock return acts like continue and break ends the script, unlike in a foreach loop.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment1)
 ```
 
 ## comment:2

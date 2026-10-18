@@ -184,7 +184,7 @@ silently does something else too.
 
 ### How this is enforced
 
-- **Custom PSScriptAnalyzer rule `Measure-FunctionLength`** (`automation/.scriptanalyzer/FunctionLength.psm1`) — warns when a function body
+- **Custom PSScriptAnalyzer rule `Measure-FunctionLength`** (`pwsh/.scriptanalyzer/FunctionLength.psm1`) — warns when a function body
   exceeds 300 lines. A function that long is almost certainly doing too much. The limit counts the body only (opening brace to closing
   brace) — comment-based help placed before the function is not counted.
 

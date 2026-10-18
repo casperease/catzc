@@ -241,7 +241,7 @@ Options: a) the user points at where it shows; b) it is the language-id versus e
 
 "under ex. automation" in a peer-edited file. Options: a) fix it now; b) leave to the peer. Decision:
 
-### Q47 Format-Code and automation/.compiled
+### Q47 Format-Code and pwsh/.compiled
 
 Test-Formatting flags the compiled types .json. Options: a) the formatter skips .compiled; b) format the json too; c) read the ADR first and
 follow it. Decision:

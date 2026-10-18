@@ -31,7 +31,7 @@ to source.
 
 ### Rule ADR-REPO-OUTDIR:5
 
-The combined compiled-type prebuild at `automation/.compiled/` is not transient output: it is a committed, deterministic, hash-keyed
+The combined compiled-type prebuild at `pwsh/.compiled/` is not transient output: it is a committed, deterministic, hash-keyed
 vendored artifact (one assembly for the whole repository) and lives there on purpose. Only the `*.tmp` compile scratch is gitignored.
 
 - [Decision](#decision)

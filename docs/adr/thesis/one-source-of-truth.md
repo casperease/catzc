@@ -122,7 +122,7 @@ seen from inside the trunk. The tracks and deployable-units that bound a product
 ### Pins at the repository boundary
 
 Synchronisation exists in one place, the repository boundary, and in one form, a pin. A dependency that crosses the boundary inward is
-pinned to an explicit version the consumer controls: tool versions in `tools.yml`, vendored modules in `automation/.vendor/`, and
+pinned to an explicit version the consumer controls: tool versions in `tools.yml`, vendored modules in `pwsh/.vendor/`, and
 depended-on contracts. It is then stitched into an immutable artifact at build time: the bundle
 ([platform-bundle](../automation/platform-bundle.md)) and the release candidate (ADR-FLOW-CD#14).
 

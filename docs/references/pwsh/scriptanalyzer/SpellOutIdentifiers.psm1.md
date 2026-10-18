@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/SpellOutIdentifiers.psm1
+# pwsh/.scriptanalyzer/SpellOutIdentifiers.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Above `$script:oracleReady = $false   # declared at load so the guard reads it..
     Custom PSScriptAnalyzer rule: enforce spelled-out identifier names — no invented local abbreviations.
 .DESCRIPTION
     Tokenizing with no length floor catches short coined names that the spelling check lets pass.
-    [comment:1](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment1)
 ```
 
 ## comment:2
@@ -24,7 +24,7 @@ Bring the oracle type into THIS runspace and load its dictionary, once. This mus
 time, not at module load: PSScriptAnalyzer resolves and runs custom rules in its own runspace, whose
 type-resolution table does not inherit assemblies the importer loaded in the parent — and the analyzer
 shards are bare pwsh processes with neither our module system nor $env:RepositoryRoot. So resolve paths
-from $PSScriptRoot (this file lives at automation/.scriptanalyzer/) and load the current committed types
+from $PSScriptRoot (this file lives at pwsh/.scriptanalyzer/) and load the current committed types
 assembly here. Idempotent: guarded by a module-scope flag, and the load is skipped when the type already resolves.
 ```
 

@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/private/Get-EnglishDictionaryDrift.ps1
+# pwsh/Catzc.Base.QualityGates/private/Get-EnglishDictionaryDrift.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -31,5 +31,5 @@ The cspell version tools.yml pins (a prefix: '10' matches a stamp of '10.0.1').
 ### example 1
 
 ```powershell
-Get-EnglishDictionaryDrift -AssetsFolder (Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/assets') -PinnedCspell '10'
+Get-EnglishDictionaryDrift -AssetsFolder (Join-Path (Get-RepositoryRoot) 'pwsh/Catzc.Base.QualityGates/assets') -PinnedCspell '10'
 ```

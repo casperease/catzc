@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/VariableCasing.psm1
+# pwsh/.scriptanalyzer/VariableCasing.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Above `$script:skipVariables = [System.Collections.Generic.HashSet[string]]::new
     Custom PSScriptAnalyzer rule: enforce variable casing conventions.
 .DESCRIPTION
     Scriptblock parameters and automatic variables are skipped, as their names are not the author's choice.
-    [comment:1](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/scriptanalyzer/VariableCasing.psm1.md#comment1)
 ```
 
 ## comment:2

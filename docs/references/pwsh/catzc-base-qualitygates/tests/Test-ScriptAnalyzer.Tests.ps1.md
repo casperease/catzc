@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
+# pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -34,7 +34,7 @@ throwaway files with nothing mocked, so it reads
 the shipped settings file (<code root>/.internal/assets/PSScriptAnalyzerSettings.psd1) and the vendored
 analyzer (<code root>/.vendor) — integrity, and not source-only, so it runs in the source and the build run.
 The repo-wide "all module code is analyzer-clean" check is the sharded L2 'PSScriptAnalyzer' test in
-automation/.internal/tests — not duplicated here.
+pwsh/.internal/tests — not duplicated here.
 greedy: the real analyzer fans out Start-Job pwsh processes of its own — stacked on the parallel pool
 that oversubscribes the box (see the test-automation ADR's greedy tag).
 ```

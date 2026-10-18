@@ -6,8 +6,8 @@ plan:
   waits_on: the user's run of out/delete-probes-batch1.ps1, and a yes for batch two
   targets:
     [
-      automation/Catzc.Base.Reports/configs/output-formats.yml,
-      automation/Catzc.Base.Reports,
+      pwsh/Catzc.Base.Reports/configs/output-formats.yml,
+      pwsh/Catzc.Base.Reports,
       docs/adr/repository/dedicated-output-directory.md,
     ]
 ---

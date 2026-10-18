@@ -136,7 +136,7 @@ From a nested ADR folder, `docs/adr/automation/BCL/<name>.md`:
 [fast feedback](../../../references/dora/core-model.md#fast-feedback)
 ```
 
-From a sibling reference, `docs/references/automation/<module>.md`:
+From a sibling reference, `docs/references/pwsh/<module>.md`:
 
 ```markdown
 [working in small batches](../dora/capabilities.md#working-in-small-batches)

@@ -59,10 +59,10 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][7]: selected by [ADR-AZ-CLI][1]: the file cites it at line 258 (text); selected by
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][7]: selected by [ADR-AZ-CLI][1]: the file cites it at line 258 (text); selected by
   [ADR-DSGN-THINPLAT][2]: the file cites it at line 75 (text).
-- [automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][8]: selected by [ADR-AZ-CLI][1]: the file cites it at line 7 (text).
-- [automation/Catzc.Base.QualityGates/configs/terminology.yml][9]: selected by [ADR-AZ-CLI][1]: the file cites it at line 565 (text);
+- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][8]: selected by [ADR-AZ-CLI][1]: the file cites it at line 7 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][9]: selected by [ADR-AZ-CLI][1]: the file cites it at line 565 (text);
   selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 657 (text).
 
 ### docs × markdown (15 lit files)
@@ -78,22 +78,22 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
   cites it at line 109 (text).
 - [docs/references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md][13]: selected by [ADR-AZ-CLI][1]:
   the file cites it at line 60 (text).
-- [docs/references/automation/catzc-azure-cli/Assert-AzCliBicep.ps1.md][14]: selected by [ADR-AZ-CLI][1]: the file cites it at line 18
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md][14]: selected by [ADR-AZ-CLI][1]: the file cites it at line 18
   (text).
-- [docs/references/automation/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][15]: selected by [ADR-AZ-CLI][1]: the file cites it at line 22
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][15]: selected by [ADR-AZ-CLI][1]: the file cites it at line 22
   (text).
-- [docs/references/automation/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md][16]: selected by [ADR-AZ-CLI][1]: the file cites it
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md][16]: selected by [ADR-AZ-CLI][1]: the file cites it
   at line 21 (text).
-- [docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md][17]: selected by [ADR-AZ-CLI][1]: the file cites it
+- [docs/references/pwsh/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md][17]: selected by [ADR-AZ-CLI][1]: the file cites it
   at line 26 (text).
-- [docs/references/automation/catzc-azure-cli/Install-AzCliBicep.ps1.md][18]: selected by [ADR-AZ-CLI][1]: the file cites it at line 18
+- [docs/references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md][18]: selected by [ADR-AZ-CLI][1]: the file cites it at line 18
   (text).
-- [docs/references/automation/catzc-azure-cli/Test-AzCliBicep.ps1.md][19]: selected by [ADR-AZ-CLI][1]: the file cites it at line 23 (text).
-- [docs/references/automation/catzc-azure-cli/Test-AzCliCanAccess.ps1.md][20]: selected by [ADR-AZ-CLI][1]: the file cites it at line 22
+- [docs/references/pwsh/catzc-azure-cli/Test-AzCliBicep.ps1.md][19]: selected by [ADR-AZ-CLI][1]: the file cites it at line 23 (text).
+- [docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md][20]: selected by [ADR-AZ-CLI][1]: the file cites it at line 22
   (text).
-- [docs/references/automation/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md][21]: selected by [ADR-AZ-CLI][1]: the file cites it
+- [docs/references/pwsh/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md][21]: selected by [ADR-AZ-CLI][1]: the file cites it
   at line 21 (text).
-- [docs/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][22]: selected by [ADR-AZ-CLI][1]: the file cites
+- [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][22]: selected by [ADR-AZ-CLI][1]: the file cites
   it at line 101 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
@@ -102,11 +102,11 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][23]: selected by [ADR-AZ-CLI][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 258 (text),
-  `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 7 (text) and
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 565 (text); selected by [ADR-DSGN-THINPLAT][2]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 657 (text).
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 258 (text),
+  `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 7 (text) and
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 565 (text); selected by [ADR-DSGN-THINPLAT][2]: a pipeline that cites
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 657 (text).
 
 ## Keywords
 
@@ -129,22 +129,22 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
 [5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [6]: ../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
-[7]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[8]: ../../../../automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-[9]: ../../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
+[7]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[8]: ../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+[9]: ../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
 [10]: ../../../adr/azure/dora-explains.md
 [11]: ../../../adr/design/dora-explains.md
 [12]: ../../../adr/index.md
 [13]: ../../../references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md
-[14]: ../../../references/automation/catzc-azure-cli/Assert-AzCliBicep.ps1.md
-[15]: ../../../references/automation/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
-[16]: ../../../references/automation/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
-[17]: ../../../references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
-[18]: ../../../references/automation/catzc-azure-cli/Install-AzCliBicep.ps1.md
-[19]: ../../../references/automation/catzc-azure-cli/Test-AzCliBicep.ps1.md
-[20]: ../../../references/automation/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
-[21]: ../../../references/automation/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md
-[22]: ../../../references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+[14]: ../../../references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md
+[15]: ../../../references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
+[16]: ../../../references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
+[17]: ../../../references/pwsh/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
+[18]: ../../../references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md
+[19]: ../../../references/pwsh/catzc-azure-cli/Test-AzCliBicep.ps1.md
+[20]: ../../../references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
+[21]: ../../../references/pwsh/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md
+[22]: ../../../references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
 [23]: ../../../../pipelines/ci-automation.yaml
 [24]: ../../design/what-keeps-the-platform-thin.md
 [25]: ../../../adr/glossary.md#world-map
@@ -152,5 +152,5 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 [27]: ../../../adr/glossary.md#file-language
 [28]: ../../../adr/glossary.md#cell
 [29]: ../../../adr/glossary.md#lit-cell
-[30]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[31]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[30]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[31]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

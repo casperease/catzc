@@ -1,4 +1,4 @@
-# automation/Catzc.Base.RootConfig/configs/rootconfig.yml
+# pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -38,7 +38,7 @@ Above `- target: importer.ps1`, written with `#`.
 importer.ps1 has TWO valid source-of-truth forms, swapped by editing this entry alone:
   generator: New-Importer  — the live form: the full shim, rendered from the Invoke-Importer overlay's
                              param block on every import (the drift guard in New-Importer.Tests.ps1).
-  source: automation/Catzc.Base.RootConfig/assets/root/importer.ps1 (comment: none)
+  source: pwsh/Catzc.Base.RootConfig/assets/root/importer.ps1 (comment: none)
                            — the SEED form for a first check-in: a minimal bootstrap that just performs
                              one full import; the importer tail's Build-RootConfig then materialises
                              whatever THIS entry names, so switching back to the generator self-heals

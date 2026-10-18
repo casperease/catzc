@@ -1,4 +1,4 @@
-# automation/.internal/Catzc.Internal.TestKit.psm1
+# pwsh/.internal/Catzc.Internal.TestKit.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -80,7 +80,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceState
     Remove-BuiltCatzcRoot.
 .DESCRIPTION
     The build is never loaded here: assemblies and env vars are process-global, so only a child pwsh reaches it.
-    [comment:3](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment3)
+    [comment:3](/docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md#comment3)
 ```
 
 ## comment:7
@@ -93,7 +93,7 @@ Above `[CmdletBinding()]` (occurrence 5), written with `#`.
     return the block's output.
 .DESCRIPTION
     Results return in a CliXml file, never stdout, so importer console lines cannot corrupt them.
-    [comment:4](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment4)
+    [comment:4](/docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md#comment4)
 ```
 
 ## comment:8

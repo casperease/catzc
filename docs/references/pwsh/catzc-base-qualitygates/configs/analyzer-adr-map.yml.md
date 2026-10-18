@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+# pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -13,7 +13,7 @@ the [index](/docs/adr/index.md) '#' form (ADR-<CODE>#<n>). This is the source fo
 Test-Automation rule-coverage report (Get-AnalyzerAdrCoverage): a rule listed here is credited as
 mechanically enforced on every run, because the L2 PSScriptAnalyzer gate runs inside Test-Automation.
 
-Both kinds appear: the custom Measure-* rules (automation/.scriptanalyzer/*.psm1) and the enabled built-ins.
+Both kinds appear: the custom Measure-* rules (pwsh/.scriptanalyzer/*.psm1) and the enabled built-ins.
 A rule that maps to no ADR is simply absent. Every custom analyzer rule MUST appear here (integrity-tested),
 so a new custom rule cannot ship unmapped; a built-in appears only when it genuinely enforces an ADR and is
 enabled in PSScriptAnalyzerSettings.psd1. Shape is validated at load (the AnalyzerAdrMapConfig type); id

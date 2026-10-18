@@ -2,7 +2,7 @@
 
 Every line below was re-read on 2026-10-17 against the files as they stand; none of the scout's line numbers is reused (for example the
 cache check sits at `Get-Config.ps1:92-94`, and the type construction at `:116-117`). A change to a file head or a comment moves them, so
-re-grep before landing. Paths are relative to `automation/Catzc.Base.Config/` unless they start with `automation/` or `docs/`.
+re-grep before landing. Paths are relative to `pwsh/Catzc.Base.Config/` unless they start with `automation/` or `docs/`.
 
 ## Boxes
 
@@ -10,7 +10,7 @@ re-grep before landing. Paths are relative to `automation/Catzc.Base.Config/` un
 | --- | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- | --------- |
 | B1  | `Get-Config` is a public function (code unit)                                                          | `Get-Config.ps1:57` at the module root                                                                          | confirmed |
 | B2  | `Resolve-ConfigEntry` is private and returns the entry (Name, Module, Path)                            | `private/Resolve-ConfigEntry.ps1:42`; `Get-Config.ps1:75`                                                       | confirmed |
-| B3  | `Get-ConfigOverlayRoot` is private and wraps `Get-CatzcOverlayRoot` (build mode)                       | `private/Get-ConfigOverlayRoot.ps1:34,41`; `automation/Catzc.Base.Repository/Get-CatzcOverlayRoot.ps1:39,44-51` | confirmed |
+| B3  | `Get-ConfigOverlayRoot` is private and wraps `Get-CatzcOverlayRoot` (build mode)                       | `private/Get-ConfigOverlayRoot.ps1:34,41`; `pwsh/Catzc.Base.Repository/Get-CatzcOverlayRoot.ps1:39,44-51` | confirmed |
 | B4  | `Get-ConfigRegistry` is private and returns `configs.yml`'s `configs:` map                             | `private/Get-ConfigRegistry.ps1:36,45,51,54-55`                                                                 | confirmed |
 | B5  | `configs.yml` is the registry: name → `type:` and optional `overridable:`                              | `configs/configs.yml:20-23`                                                                                     | confirmed |
 | B6  | Gate `overridable: false?`: sealed only when a fragment exists and the entry says `overridable: false` | `Get-Config.ps1:100-102`                                                                                        | confirmed |
@@ -42,7 +42,7 @@ re-grep before landing. Paths are relative to `automation/Catzc.Base.Config/` un
 | C5  | An unregistered config returns the raw map, unbuilt                                                    | `Get-Config.ps1:113-114`                                                                                                                                                                | confirmed |
 | C6  | Five configs are sealed: configs, glossary, dependencies, profiles, exporter                           | `configs/configs.yml:23,70,79,84,97`                                                                                                                                                    | confirmed |
 | C7  | The registry is validated by `ConfigsConfig` when read                                                 | `private/Get-ConfigRegistry.ps1:52`                                                                                                                                                     | confirmed |
-| C8  | ADR: `Catzc.Base.Config` refuses a sealed fragment via `ConfigsConfig.sealedConfigs`                   | `docs/adr/automation/consumer-overlay.md:186-187`; `Get-Config.ps1:101-102` (reads `sealedConfigs`); `automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1:56` (reads it the same way) | confirmed |
+| C8  | ADR: `Catzc.Base.Config` refuses a sealed fragment via `ConfigsConfig.sealedConfigs`                   | `docs/adr/automation/consumer-overlay.md:186-187`; `Get-Config.ps1:101-102` (reads `sealedConfigs`); `pwsh/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1:56` (reads it the same way) | confirmed |
 | C9  | ADR-AUTO-OVERLAY#7: sealed configs are declared once in the registry (`overridable: false`)            | `docs/adr/automation/consumer-overlay.md:81-85`; `configs/configs.yml`                                                                                                                  | confirmed |
 | C10 | Supports: ADR-AUTO-OVERLAY, ADR-PWSH-CACHE#4, ADR-AUTO-ASSETDEP#1, cited by the drawn code             | `Get-Config.ps1:21-22`; `private/Merge-ConfigFragment.ps1:21`; `private/Get-ConfigRegistry.ps1:22-23`                                                                                   | confirmed |
 

@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Globs/Get-FileKind.ps1
+# pwsh/Catzc.Base.Globs/Get-FileKind.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -27,7 +27,7 @@ A repository-relative path ('/' or '\' separated).
 ### example 1
 
 ```powershell
-(Get-FileKind 'automation/Catzc.Base.Variants/Test-GitWorkspace.ps1')   # -> Class function/gate
+(Get-FileKind 'pwsh/Catzc.Base.Variants/Test-GitWorkspace.ps1')   # -> Class function/gate
 ```
 
 ### example 2

@@ -1,4 +1,4 @@
-# automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
+# pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -13,9 +13,9 @@ pathway, separate from the runtime's Add-Type compile.
 ### description
 
 The runtime compiles every `automation/<Module>/types/*.cs` at import with Add-Type (Import-CSharpTypes), and that path is never touched
-here. This is the SECOND, editor-facing pathway: it drives `dotnet build` over the committed automation/.internal/assets/Catzc.Types.csproj
+here. This is the SECOND, editor-facing pathway: it drives `dotnet build` over the committed pwsh/.internal/assets/Catzc.Types.csproj
 (auto-loaded in the editor via the root catzc.sln). That build does two things Add-Type does not — it runs the Roslyn analyzers
-(EnableNETAnalyzers), and it runs the project's stamp task, which FAILS when the committed `automation/.compiled/Catzc.Types.<hash>.dll` is
+(EnableNETAnalyzers), and it runs the project's stamp task, which FAILS when the committed `pwsh/.compiled/Catzc.Types.<hash>.dll` is
 stale versus the sources. So a green build both warms Dev Kit's IntelliSense — making Go-to-Symbol (Ctrl+T) and F12 over the C# types
 resolve to source, the backtrack a bare type accelerator cannot give — and verifies the IDE project matches the runtime prebuild.
 

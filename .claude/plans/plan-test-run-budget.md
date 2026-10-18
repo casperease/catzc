@@ -3,7 +3,7 @@ plan:
   status: active
   value: medium
   reviewed: 2026-10-18
-  targets: [automation/Catzc.Base.QualityGates, automation/Catzc.Base.Engines, automation/Catzc.Base.Timeouts/configs]
+  targets: [pwsh/Catzc.Base.QualityGates, pwsh/Catzc.Base.Engines, pwsh/Catzc.Base.Timeouts/configs]
 ---
 
 # The full test run under its 180 s roof
@@ -52,5 +52,5 @@ so the value is a suite that proves the same in less time. The user runs full su
 
 ## Refs
 
-- automation/Catzc.Base.Timeouts/configs/timeouts.yml
+- pwsh/Catzc.Base.Timeouts/configs/timeouts.yml
 - docs/adr/repository/uniform-formatting.md

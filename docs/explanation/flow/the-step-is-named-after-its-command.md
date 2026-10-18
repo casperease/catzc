@@ -39,7 +39,7 @@ The diagram is described element by element in [its asset description](the-step-
 
 Set the pipeline variable `System.Debug` to `true` for verbose output and the full `Write-EnvironmentDiagnostic`; otherwise the log carries
 the shorter `Write-AdoEnvironmentDiagnostic`. The `ci-automation-expected-failures.yaml` pipeline exercises the trap and a copy of the guard
-on every `automation/**` change.
+on every `pwsh/**` change.
 
 ## Why it holds
 

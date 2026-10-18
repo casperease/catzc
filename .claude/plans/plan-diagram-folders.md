@@ -4,7 +4,7 @@ plan:
   value: high
   reviewed: 2026-10-18
   blocked_on: the user's review of the out/ pilot (out/diagram-pilot/configuration/.assets/)
-  targets: [docs/explanation, .claude/drawio, automation/Catzc.Base.Slides, automation/Catzc.Base.Globs, docs/adr/repository]
+  targets: [docs/explanation, .claude/drawio, pwsh/Catzc.Base.Slides, pwsh/Catzc.Base.Globs, docs/adr/repository]
 ---
 
 # Every diagram is one folder beside its article, rebuilt by one command on that folder

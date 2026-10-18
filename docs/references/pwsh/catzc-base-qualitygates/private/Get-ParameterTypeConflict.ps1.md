@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/private/Get-ParameterTypeConflict.ps1
+# pwsh/Catzc.Base.QualityGates/private/Get-ParameterTypeConflict.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -29,7 +29,7 @@ declaring functions sorted ordinally.
 ### example 1
 
 ```powershell
-Get-ParameterTypeConflict -Path (Get-ChildPath automation/Catzc.Widget -File -Filter '*.ps1' -Depth 1)
+Get-ParameterTypeConflict -Path (Get-ChildPath pwsh/Catzc.Widget -File -Filter '*.ps1' -Depth 1)
 ```
 
 ## comment:1

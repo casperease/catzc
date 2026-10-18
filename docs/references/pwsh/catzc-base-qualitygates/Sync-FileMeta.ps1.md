@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/Sync-FileMeta.ps1
+# pwsh/Catzc.Base.QualityGates/Sync-FileMeta.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -45,5 +45,5 @@ Sync-FileMeta docs/explanation/file-meta.md
 ### example 2
 
 ```powershell
-Sync-FileMeta automation/Catzc.Widget/Get-Widget.ps1 -DryRun -PassThru
+Sync-FileMeta pwsh/Catzc.Widget/Get-Widget.ps1 -DryRun -PassThru
 ```

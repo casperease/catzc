@@ -447,7 +447,7 @@ takeaway is the three templates `foundation`, `discovery` (the landing zone), an
 One design answers most of this record. The landing zones form a hub-and-spoke network per subscription: a hub in each shared subscription
 (`shared_nonprod`, `shared_prod`), a spoke in each customer subscription, each spoke peered statically and on both sides to the hub of its
 tier ([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2), [ADR-AZ-LZ#7](../landing-zones.md#rule-adr-az-lz7)). Every range lives in
-`automation/Catzc.Azure/configs/network.yml` — hubs 10.0.0.0/16 and 10.1.0.0/16, spokes 10.100.0.0/16 to 10.103.0.0/16 — validated by
+`pwsh/Catzc.Azure/configs/network.yml` — hubs 10.0.0.0/16 and 10.1.0.0/16, spokes 10.100.0.0/16 to 10.103.0.0/16 — validated by
 `NetworkConfig` and its range arithmetic `NetworkCidr`, and joined to `azure.yml` by `Test-AzureNetworkPlan`
 ([ADR-AZ-NETWORK#5](../azure-network-model.md#rule-adr-az-network5), [ADR-AZ-NETWORK#6](../azure-network-model.md#rule-adr-az-network6)).
 That file is the repository's IP address management. Each workload subnet has a network security group that allows traffic inside the

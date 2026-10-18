@@ -2,7 +2,7 @@
 
 A CD run must not reach a prod-tier environment unattended ([ADR-FLOW-CD](../../adr/flow/cd-discipline-and-promotion-flow.md)). Every
 prod-tier Azure DevOps environment therefore carries one **Approval** check, approved by one **approver group** of named people. All of it
-is declared in one config, `automation/Catzc.Azure.DevOps/configs/environment-approvals.yml`, and one command applies the config to Azure
+is declared in one config, `pwsh/Catzc.Azure.DevOps/configs/environment-approvals.yml`, and one command applies the config to Azure
 DevOps. Nothing is set by hand in the Azure DevOps portal: the config is the truth, and the apply makes the organization match it.
 
 ## The config

@@ -34,7 +34,7 @@ The diagram is described element by element in [its asset description](two-decla
 4. **Reserved umbrellas.** `internal`, `vendor`, `compiled` and `scriptanalyzer` cover the dot-folders under `automation/`.
    `Get-ModuleGlobSet` builds them with the layer `loose-fileset`, so they sit in this layer although nobody declares them.
 5. **Module sets.** Each of the 40 module folders derives two aspect sets, `<kebab>-live` and `<kebab>-tests`, and each of the 7 internal
-   shared modules under `automation/.internal/` derives one single-file set: 87 sets in all. The folder, or the file, is the registration.
+   shared modules under `pwsh/.internal/` derives one single-file set: 87 sets in all. The folder, or the file, is the registration.
 6. **module-leftovers.** The catch-all holds every tracked file under `automation/` that no module folder and no dot-folder owns. It is the
    complement of the explicit module sets, so it is disjoint from them by construction, and it holds no files in today's tree.
 

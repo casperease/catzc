@@ -94,82 +94,82 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][4
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][4]); the extension `.cs` names the file language csharp
 ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
 
-- [automation/Catzc.Base.Docs/types/AdrsConfig.cs][22]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15 (body comment) (a
+- [pwsh/Catzc.Base.Docs/types/AdrsConfig.cs][22]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15 (body comment) (a
   passing mention only).
-- [automation/Catzc.Base.Globs/types/GlobPattern.cs][23]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 23 (text), line 27
+- [pwsh/Catzc.Base.Globs/types/GlobPattern.cs][23]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 23 (text), line 27
   (text), line 31 (text), line 43 (text), line 47 (text) and line 56 (text).
-- [automation/Catzc.Base.Globs/types/GlobSet.cs][24]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 54 (text).
-- [automation/Catzc.Base.Globs/types/GlobsConfig.cs][25]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 73 (text), line 136
+- [pwsh/Catzc.Base.Globs/types/GlobSet.cs][24]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 54 (text).
+- [pwsh/Catzc.Base.Globs/types/GlobsConfig.cs][25]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 73 (text), line 136
   (text), line 140 (text) and line 154 (text).
-- [automation/Catzc.Base.Maps/types/ValueChainCell.cs][26]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 9 (body comment) and
+- [pwsh/Catzc.Base.Maps/types/ValueChainCell.cs][26]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 9 (body comment) and
   line 12 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Variants/types/ModulePlace.cs][27]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 6 (body comment) (a
+- [pwsh/Catzc.Base.Variants/types/ModulePlace.cs][27]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 6 (body comment) (a
   passing mention only).
-- [automation/Catzc.Base.Variants/types/ModuleTypeEntry.cs][28]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 5 (body comment)
+- [pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs][28]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 5 (body comment)
   (a passing mention only).
-- [automation/Catzc.Base.Variants/types/ModuleTypesConfig.cs][29]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 10 (body
+- [pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs][29]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 10 (body
   comment) (a passing mention only).
-- [automation/Catzc.Base.Variants/types/PathModule.cs][30]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 3 (body comment) (a
+- [pwsh/Catzc.Base.Variants/types/PathModule.cs][30]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 3 (body comment) (a
   passing mention only).
-- [automation/Catzc.Base.Variants/types/VariantsConfig.cs][31]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 268 (text).
+- [pwsh/Catzc.Base.Variants/types/VariantsConfig.cs][31]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 268 (text).
 
 ### automation × powershell (28 lit files)
 
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][4]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
 
-- [automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1][32]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 108 (text)
+- [pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1][32]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 108 (text)
   and line 108 (body comment).
-- [automation/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1][33]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 1
+- [pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1][33]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 1
   (text).
-- [automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1][34]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 42 (text).
-- [automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1][35]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 2
+- [pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1][34]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 42 (text).
+- [pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1][35]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 2
   (text) and line 4 (text).
-- [automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1][36]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 58
+- [pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1][36]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 58
   (text).
-- [automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1][37]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 9 (text).
-- [automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][38]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 41 (text);
+- [pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1][37]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 9 (text).
+- [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][38]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 41 (text);
   selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 53 (text), line 66 (text), line 77 (text) and line 89 (text).
-- [automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1][39]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 111
+- [pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1][39]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 111
   (text), line 123 (text) and line 161 (text).
-- [automation/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1][40]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 1
+- [pwsh/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1][40]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 1
   (text).
-- [automation/Catzc.Base.Maps/Test-ValueChainMap.ps1][41]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15 (text), line 16
+- [pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1][41]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15 (text), line 16
   (text), line 26 (text), line 29 (text) and line 46 (text).
-- [automation/Catzc.Base.Maps/Test-WorldMap.ps1][42]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 26 (text), line 45 (text),
+- [pwsh/Catzc.Base.Maps/Test-WorldMap.ps1][42]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 26 (text), line 45 (text),
   line 62 (text), line 66 (text) and line 67 (text).
-- [automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1][43]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 17
+- [pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1][43]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 17
   (text), line 23 (text) and line 42 (text).
-- [automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1][44]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 17 (text),
+- [pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1][44]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 17 (text),
   line 36 (text) and line 36 (body comment).
-- [automation/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1][45]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 89 (text).
-- [automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][46]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 74
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1][45]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 89 (text).
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][46]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 74
   (text).
-- [automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1][47]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 49 (text),
+- [pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1][47]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 49 (text),
   line 49 (body comment), line 53 (text), line 54 (text), line 55 (text), line 56 (text), line 60 (text), line 63 (text), line 80 (text),
   line 80 (body comment) and line 80 (body comment).
-- [automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1][48]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 57 (text), line
+- [pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1][48]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 57 (text), line
   61 (text), line 64 (text), line 68 (text), line 69 (text), line 73 (text), line 82 (text), line 83 (text), line 87 (text), line 91 (text),
   line 92 (text), line 111 (text), line 111 (body comment) and line 111 (body comment).
-- [automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1][49]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15
+- [pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1][49]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15
   (text), line 22 (text), line 28 (text), line 45 (text) and line 45 (body comment).
-- [automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1][50]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 17
+- [pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1][50]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 17
   (text), line 26 (text), line 31 (text) and line 39 (text).
-- [automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1][51]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 69
+- [pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1][51]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 69
   (text), line 113 (text) and line 127 (text).
-- [automation/Catzc.Base.QualityGates/Test-Plans.ps1][52]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 45 (text).
-- [automation/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1][53]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [pwsh/Catzc.Base.QualityGates/Test-Plans.ps1][52]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 45 (text).
+- [pwsh/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1][53]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 1 (text).
-- [automation/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1][54]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [pwsh/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1][54]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 1 (text).
-- [automation/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1][55]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [pwsh/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1][55]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   1 (text).
-- [automation/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1][56]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 47 (body
+- [pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1][56]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 47 (body
   comment), line 89 (body comment) and line 93 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1][57]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 1 (text)
+- [pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1][57]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 1 (text)
   and line 52 (text).
-- [automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1][58]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 71 (text).
-- [automation/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1][59]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 1
+- [pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1][58]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 71 (text).
+- [pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1][59]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 1
   (text).
 
 ### automation × yaml (9 lit files)
@@ -177,23 +177,23 @@ powershell ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][4]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][60]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 74 (text); selected by
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][60]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 74 (text); selected by
   [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 101 (text); selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 294 (text).
-- [automation/Catzc.Base.Docs/configs/agents.yml][61]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 28 (body comment), line
+- [pwsh/Catzc.Base.Docs/configs/agents.yml][61]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 28 (body comment), line
   34 (body comment) and line 39 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Docs/configs/capabilities.yml][62]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 67 (body comment)
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][62]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 67 (body comment)
   and line 77 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Docs/configs/glossary.yml][63]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 43 (text).
-- [automation/Catzc.Base.Languages/configs/glossary.yml][64]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 5 (text).
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][65]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 5 (text), line
+- [pwsh/Catzc.Base.Docs/configs/glossary.yml][63]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 43 (text).
+- [pwsh/Catzc.Base.Languages/configs/glossary.yml][64]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 5 (text).
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][65]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 5 (text), line
   62 (text), line 70 (text), line 79 (text), line 88 (text), line 94 (text), line 190 (text), line 200 (text), line 211 (text), line 234
   (text), line 247 (text), line 261 (text), line 276 (text), line 289 (text), line 301 (text), line 314 (text), line 316 (text) and line 328
   (text).
-- [automation/Catzc.Base.QualityGates/configs/source-conventions.yml][66]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 7
+- [pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml][66]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 7
   (text).
-- [automation/Catzc.Base.QualityGates/configs/terminology.yml][67]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 297 (text)
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][67]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 297 (text)
   and line 300 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 1216 (text).
-- [automation/Catzc.Base.Variants/configs/track-types.yml][68]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 42 (text).
+- [pwsh/Catzc.Base.Variants/configs/track-types.yml][68]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 42 (text).
 
 ### docs × markdown (128 lit files)
 
@@ -212,232 +212,232 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][4]); th
   file cites it at line 133 (text); selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 318 (text).
 - [docs/adr/repository/conventional-folders.md][3]: selected by [ADR-REPO-FOLDERS][3]: the ADR's own file.
 - [docs/adr/repository/dora-explains.md][73]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 11 (text).
-- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][74]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16
+- [docs/how-to/pwsh/manual-test-plan/pipelines-and-globs.md][74]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16
   (text).
-- [docs/how-to/automation/manual-test-plan/repository-conventions.md][75]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 17
+- [docs/how-to/pwsh/manual-test-plan/repository-conventions.md][75]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 17
   (text), line 23 (text), line 23 (text), line 26 (text), line 26 (text), line 28 (text), line 28 (text), line 28 (text), line 29 (text),
   line 30 (text) and line 32 (text).
 - [docs/how-to/automation/sort-an-import.md][76]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 4 (text).
 - [docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md][77]: selected by
   [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 55 (text).
-- [docs/references/automation/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md][78]: selected by [ADR-FLOW-CD-GLOBS][2]:
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md][78]: selected by [ADR-FLOW-CD-GLOBS][2]:
   the file cites it at line 17 (text).
-- [docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][79]: selected by
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][79]: selected by
   [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 14 (text) and line 74 (text).
-- [docs/references/automation/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md][80]: selected by
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md][80]: selected by
   [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 15 (text).
-- [docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][81]: selected by [ADR-FLOW-CD-GLOBS][2]:
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][81]: selected by [ADR-FLOW-CD-GLOBS][2]:
   the file cites it at line 15 (text).
-- [docs/references/automation/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md][82]: selected by
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md][82]: selected by
   [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 16 (text).
-- [docs/references/automation/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md][83]: selected by [ADR-REPO-FOLDERS][3]: the
+- [docs/references/pwsh/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md][83]: selected by [ADR-REPO-FOLDERS][3]: the
   file cites it at line 16 (text).
-- [docs/references/automation/catzc-base-docs/configs/adrs.yml.md][84]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 21 (text)
+- [docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md][84]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 21 (text)
   and line 22 (text).
-- [docs/references/automation/catzc-base-docs/private/Get-CatsModules.ps1.md][85]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at
+- [docs/references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md][85]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at
   line 15 (text).
-- [docs/references/automation/catzc-base-docs/types/AdrDomain.cs.md][86]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 16
+- [docs/references/pwsh/catzc-base-docs/types/AdrDomain.cs.md][86]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 16
   (text) and line 17 (text).
-- [docs/references/automation/catzc-base-docs/types/AdrRuleSet.cs.md][87]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 18
+- [docs/references/pwsh/catzc-base-docs/types/AdrRuleSet.cs.md][87]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 18
   (text).
-- [docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md][88]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 32
+- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][88]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 32
   (text), line 35 (text) and line 47 (text).
-- [docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md][89]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
+- [docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md][89]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
   line 14 (text).
-- [docs/references/automation/catzc-base-git/Import-RepositoryWithHistory.ps1.md][90]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md][90]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 14 (text).
-- [docs/references/automation/catzc-base-globs.md][91]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 27 (text).
-- [docs/references/automation/catzc-base-globs/Get-ChangedGlobSet.ps1.md][92]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
+- [docs/references/pwsh/catzc-base-globs.md][91]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 27 (text).
+- [docs/references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md][92]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
   15 (text) and line 27 (text).
-- [docs/references/automation/catzc-base-globs/Get-GlobSet.ps1.md][93]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 14
+- [docs/references/pwsh/catzc-base-globs/Get-GlobSet.ps1.md][93]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 14
   (text).
-- [docs/references/automation/catzc-base-globs/Get-GlobSetChangeRange.ps1.md][94]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
+- [docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md][94]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
   line 26 (text).
-- [docs/references/automation/catzc-base-globs/Get-GlobSetFile.ps1.md][95]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 14
+- [docs/references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md][95]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 14
   (text) and line 16 (text).
-- [docs/references/automation/catzc-base-globs/Get-GlobSetHash.ps1.md][96]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20
+- [docs/references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md][96]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 20
   (text).
-- [docs/references/automation/catzc-base-globs/Get-GlobSetTrigger.ps1.md][97]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
+- [docs/references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md][97]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
   15 (text), line 29 (text) and line 30 (text).
-- [docs/references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md][98]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
+- [docs/references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md][98]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
   line 14 (text).
-- [docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md][99]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
+- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][99]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
   58 (text), line 61 (text) and line 109 (text).
-- [docs/references/automation/catzc-base-globs/Get-TrackedFile.ps1.md][100]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
+- [docs/references/pwsh/catzc-base-globs/Get-TrackedFile.ps1.md][100]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
   15 (text).
-- [docs/references/automation/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md][101]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
+- [docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md][101]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
   it at line 24 (text) and line 25 (text).
-- [docs/references/automation/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md][102]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md][102]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 24 (text) and line 25 (text).
-- [docs/references/automation/catzc-base-globs/Test-GlobSetAffected.ps1.md][103]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md][103]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
   line 17 (text) and line 20 (text).
-- [docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md][104]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md][104]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
   at line 18 (text), line 56 (text) and line 66 (text).
-- [docs/references/automation/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md][105]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
+- [docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md][105]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
   it at line 15 (text).
-- [docs/references/automation/catzc-base-globs/configs/globs.yml.md][106]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 105
+- [docs/references/pwsh/catzc-base-globs/configs/globs.yml.md][106]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 105
   (text); selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 12 (text), line 17 (text), line 25 (text), line 27 (text), line 41
   (text), line 71 (text) and line 85 (text).
-- [docs/references/automation/catzc-base-globs/private/Get-ChangedFile.ps1.md][107]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
+- [docs/references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md][107]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
   at line 14 (text).
-- [docs/references/automation/catzc-base-globs/private/Get-GlobSetMember.ps1.md][108]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
+- [docs/references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md][108]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
   at line 14 (text).
-- [docs/references/automation/catzc-base-globs/private/Get-PipelineTrigger.ps1.md][109]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
+- [docs/references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md][109]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
   it at line 16 (text).
-- [docs/references/automation/catzc-base-globs/private/Test-GlobListEqual.ps1.md][110]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
+- [docs/references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md][110]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
   it at line 18 (text).
-- [docs/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md][111]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][111]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 33 (text) and line 108 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md][112]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
+- [docs/references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md][112]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
   it at line 13 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md][113]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [docs/references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md][113]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 12 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md][114]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
+- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md][114]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
   it at line 12 (text) and line 13 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md][115]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
+- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md][115]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
   it at line 13 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md][116]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md][116]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 12 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md][117]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md][117]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 12 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md][118]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [docs/references/pwsh/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md][118]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 12 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md][119]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
+- [docs/references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md][119]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites
   it at line 11 (text).
-- [docs/references/automation/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md][120]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [docs/references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md][120]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 12 (text).
-- [docs/references/automation/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md][121]: selected by [ADR-FLOW-CD-GLOBS][2]: the
+- [docs/references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md][121]: selected by [ADR-FLOW-CD-GLOBS][2]: the
   file cites it at line 12 (text).
-- [docs/references/automation/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md][122]: selected by [ADR-FLOW-CD-GLOBS][2]: the
+- [docs/references/pwsh/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md][122]: selected by [ADR-FLOW-CD-GLOBS][2]: the
   file cites it at line 13 (text).
-- [docs/references/automation/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md][123]: selected by [ADR-FLOW-CD-GLOBS][2]: the
+- [docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md][123]: selected by [ADR-FLOW-CD-GLOBS][2]: the
   file cites it at line 13 (text).
-- [docs/references/automation/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md][124]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [docs/references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md][124]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 11 (text) and line 13 (text).
-- [docs/references/automation/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md][125]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
+- [docs/references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md][125]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it
   at line 12 (text) and line 14 (text).
-- [docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md][126]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md][126]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 14 (text), line 16 (text) and line 25 (text).
-- [docs/references/automation/catzc-base-globs/types/Aspect.cs.md][127]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19
+- [docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md][127]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 19
   (text).
-- [docs/references/automation/catzc-base-globs/types/DurableHash.cs.md][128]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
+- [docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md][128]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
   11 (text) and line 17 (text).
-- [docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md][129]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
+- [docs/references/pwsh/catzc-base-globs/types/GlobPattern.cs.md][129]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
   17 (text), line 18 (text) and line 19 (text).
-- [docs/references/automation/catzc-base-globs/types/GlobSet.cs.md][130]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 13
+- [docs/references/pwsh/catzc-base-globs/types/GlobSet.cs.md][130]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 13
   (text), line 15 (text), line 16 (text), line 22 (text), line 25 (text), line 27 (text), line 30 (text), line 38 (text), line 47 (text),
   line 65 (text), line 82 (text), line 92 (text), line 116 (text) and line 124 (text).
-- [docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md][131]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
+- [docs/references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md][131]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line
   13 (text), line 17 (text), line 20 (text) and line 39 (text).
-- [docs/references/automation/catzc-base-languages.md][132]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 45 (text) and line
+- [docs/references/pwsh/catzc-base-languages.md][132]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line 45 (text) and line
   75 (text).
-- [docs/references/automation/catzc-base-languages/Get-FileLanguage.ps1.md][133]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-languages/Get-FileLanguage.ps1.md][133]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   15 (text).
-- [docs/references/automation/catzc-base-languages/Get-PathFileType.ps1.md][134]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-languages/Get-PathFileType.ps1.md][134]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   17 (text).
-- [docs/references/automation/catzc-base-languages/configs/languages.yml.md][135]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-languages/configs/languages.yml.md][135]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 12 (text).
-- [docs/references/automation/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md][136]: selected by [ADR-DSGN-TRACK][1]: the file
+- [docs/references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md][136]: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 13 (text).
-- [docs/references/automation/catzc-base-languages/types/BashConfig.cs.md][137]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at
+- [docs/references/pwsh/catzc-base-languages/types/BashConfig.cs.md][137]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at
   line 22 (text).
-- [docs/references/automation/catzc-base-languages/types/FileLanguage.cs.md][138]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-languages/types/FileLanguage.cs.md][138]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 12 (text).
-- [docs/references/automation/catzc-base-languages/types/GoConfig.cs.md][139]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line
+- [docs/references/pwsh/catzc-base-languages/types/GoConfig.cs.md][139]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line
   25 (text).
-- [docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md][140]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-languages/types/LanguagesConfig.cs.md][140]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 12 (text).
-- [docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md][141]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at
+- [docs/references/pwsh/catzc-base-languages/types/PythonConfig.cs.md][141]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at
   line 25 (text).
-- [docs/references/automation/catzc-base-maps.md][142]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 66 (text), line 68 (text)
+- [docs/references/pwsh/catzc-base-maps.md][142]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 66 (text), line 68 (text)
   and line 80 (text).
-- [docs/references/automation/catzc-base-maps/Export-WorldMapPdf.ps1.md][143]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 20
+- [docs/references/pwsh/catzc-base-maps/Export-WorldMapPdf.ps1.md][143]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 20
   (text), line 21 (text), line 23 (text) and line 60 (text).
-- [docs/references/automation/catzc-base-maps/Get-ValueChainHighlight.ps1.md][144]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][144]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 16 (text), line 17 (text) and line 43 (text).
-- [docs/references/automation/catzc-base-maps/Get-ValueChainMap.ps1.md][145]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 14
+- [docs/references/pwsh/catzc-base-maps/Get-ValueChainMap.ps1.md][145]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 14
   (text), line 16 (text) and line 17 (text).
-- [docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md][146]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15
+- [docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md][146]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15
   (text), line 16 (text) and line 26 (text).
-- [docs/references/automation/catzc-base-maps/Get-WorldMapHighlight.ps1.md][147]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md][147]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   20 (text) and line 60 (text).
-- [docs/references/automation/catzc-base-maps/Test-ValueChainMap.ps1.md][148]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 20
+- [docs/references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md][148]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 20
   (text), line 22 (text), line 25 (text) and line 28 (text).
-- [docs/references/automation/catzc-base-maps/Test-WorldMap.ps1.md][149]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 18
+- [docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md][149]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 18
   (text), line 21 (text), line 25 (text), line 28 (text) and line 29 (text).
-- [docs/references/automation/catzc-base-maps/configs/maps.yml.md][150]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 36
+- [docs/references/pwsh/catzc-base-maps/configs/maps.yml.md][150]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 36
   (text), line 42 (text), line 44 (text) and line 49 (text).
-- [docs/references/automation/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md][151]: selected by [ADR-DSGN-TRACK][1]: the file cites it
+- [docs/references/pwsh/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md][151]: selected by [ADR-DSGN-TRACK][1]: the file cites it
   at line 17 (text) and line 18 (text).
-- [docs/references/automation/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md][152]: selected by [ADR-DSGN-TRACK][1]: the file
+- [docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md][152]: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 12 (text) and line 13 (text).
-- [docs/references/automation/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md][153]: selected by [ADR-DSGN-TRACK][1]: the file cites it
+- [docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md][153]: selected by [ADR-DSGN-TRACK][1]: the file cites it
   at line 12 (text).
-- [docs/references/automation/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md][154]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md][154]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 12 (text).
-- [docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md][155]: selected by [ADR-DSGN-TRACK][1]: the file cites
+- [docs/references/pwsh/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md][155]: selected by [ADR-DSGN-TRACK][1]: the file cites
   it at line 12 (text), line 13 (text) and line 14 (text).
-- [docs/references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md][156]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md][156]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 12 (text) and line 13 (text).
-- [docs/references/automation/catzc-base-maps/tests/types/ValueChainHighlight.Tests.ps1.md][157]: selected by [ADR-DSGN-TRACK][1]: the file
+- [docs/references/pwsh/catzc-base-maps/tests/types/ValueChainHighlight.Tests.ps1.md][157]: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 12 (text) and line 13 (text).
-- [docs/references/automation/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md][158]: selected by [ADR-DSGN-TRACK][1]: the file cites
+- [docs/references/pwsh/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md][158]: selected by [ADR-DSGN-TRACK][1]: the file cites
   it at line 12 (text).
-- [docs/references/automation/catzc-base-maps/types/MapCell.cs.md][159]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 12
+- [docs/references/pwsh/catzc-base-maps/types/MapCell.cs.md][159]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 12
   (text), line 13 (text) and line 14 (text).
-- [docs/references/automation/catzc-base-maps/types/MapsLabels.cs.md][160]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15
+- [docs/references/pwsh/catzc-base-maps/types/MapsLabels.cs.md][160]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15
   (text), line 16 (text) and line 20 (text).
-- [docs/references/automation/catzc-base-maps/types/ValueChainCell.cs.md][161]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-maps/types/ValueChainCell.cs.md][161]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   12 (text) and line 13 (text).
-- [docs/references/automation/catzc-base-maps/types/ValueChainHighlight.cs.md][162]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-maps/types/ValueChainHighlight.cs.md][162]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 12 (text) and line 13 (text).
-- [docs/references/automation/catzc-base-maps/types/ValueChainMap.cs.md][163]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 12
+- [docs/references/pwsh/catzc-base-maps/types/ValueChainMap.cs.md][163]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 12
   (text), line 13 (text) and line 15 (text).
-- [docs/references/automation/catzc-base-maps/types/ValueChainReason.cs.md][164]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-maps/types/ValueChainReason.cs.md][164]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   12 (text) and line 14 (text).
-- [docs/references/automation/catzc-base-maps/types/WorldMap.cs.md][165]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 13
+- [docs/references/pwsh/catzc-base-maps/types/WorldMap.cs.md][165]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 13
   (text) and line 14 (text).
-- [docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md][166]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md][166]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   18 (text), line 19 (text), line 22 (text) and line 65 (text).
-- [docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md][167]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-maps/types/WorldMapGridLayout.cs.md][167]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 13 (text) and line 14 (text).
-- [docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md][168]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md][168]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 12 (text).
-- [docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md][169]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 14
+- [docs/references/pwsh/catzc-base-maps/types/WorldMapPdf.cs.md][169]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 14
   (text), line 15 (text) and line 16 (text).
-- [docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md][170]: selected by [ADR-REPO-FOLDERS][3]: the file cites
+- [docs/references/pwsh/catzc-base-modulesystem/Test-FolderConventions.ps1.md][170]: selected by [ADR-REPO-FOLDERS][3]: the file cites
   it at line 16 (text) and line 68 (text).
-- [docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md][171]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md][171]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at
   line 97 (text).
-- [docs/references/automation/catzc-base-qualitygates/Test-Plans.ps1.md][172]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md][172]: selected by [ADR-REPO-FOLDERS][3]: the file cites it at line
   18 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Get-ContentExemptPath.ps1.md][173]: selected by [ADR-DSGN-TRACK][1]: the file
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ContentExemptPath.ps1.md][173]: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 19 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Get-FileTypeFileMetaFact.ps1.md][174]: selected by [ADR-DSGN-TRACK][1]: the
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-FileTypeFileMetaFact.ps1.md][174]: selected by [ADR-DSGN-TRACK][1]: the
   file cites it at line 14 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md][175]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md][175]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 15 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md][176]: selected by [ADR-DSGN-TRACK][1]: the
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md][176]: selected by [ADR-DSGN-TRACK][1]: the
   file cites it at line 15 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][177]: selected by [ADR-FLOW-CD-GLOBS][2]:
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][177]: selected by [ADR-FLOW-CD-GLOBS][2]:
   the file cites it at line 80 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Get-ModuleTypeFileMetaFact.ps1.md][178]: selected by [ADR-DSGN-TRACK][1]: the
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleTypeFileMetaFact.ps1.md][178]: selected by [ADR-DSGN-TRACK][1]: the
   file cites it at line 14 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Get-TrackFileMetaFact.ps1.md][179]: selected by [ADR-DSGN-TRACK][1]: the file
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-TrackFileMetaFact.ps1.md][179]: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 15 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md][180]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
+- [docs/references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md][180]: selected by [ADR-FLOW-CD-GLOBS][2]: the file
   cites it at line 17 (text).
-- [docs/references/automation/catzc-base-variants/Get-PathModule.ps1.md][181]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15
+- [docs/references/pwsh/catzc-base-variants/Get-PathModule.ps1.md][181]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 15
   (text).
-- [docs/references/automation/catzc-base-variants/Get-Track.ps1.md][182]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 14
+- [docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md][182]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 14
   (text), line 16 (text) and line 19 (text).
-- [docs/references/automation/catzc-base-variants/configs/variants.yml.md][183]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][183]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   75 (text), line 78 (text) and line 80 (text).
-- [docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md][184]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md][184]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line
   11 (text) and line 13 (text).
-- [docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md][185]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][185]: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 32 (text), line 35 (text) and line 37 (text).
-- [docs/references/automation/claude-drawio/minimaps/highlights.ps1.md][186]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 51
+- [docs/references/pwsh/claude-drawio/minimaps/highlights.ps1.md][186]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 51
   (text).
 - [docs/references/note-file-kind.md][187]: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 20 (text), line 34 (text) and line 37
   (text).
@@ -463,108 +463,108 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
 
 - [pipelines/ci-automation.yaml][195]: selected by [ADR-DSGN-TRACK][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 74 (text),
-  `automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1` line 108 (text),
-  `automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1` line 108 (body comment), `automation/Catzc.Base.Docs/types/AdrsConfig.cs`
-  line 15 (body comment), `automation/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1` line 1 (text),
-  `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 41 (text), `automation/Catzc.Base.Languages/configs/glossary.yml`
-  line 5 (text), `automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1` line 111 (text),
-  `automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1` line 123 (text),
-  `automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1` line 161 (text),
-  `automation/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1` line 1 (text), `automation/Catzc.Base.Maps/Test-ValueChainMap.ps1` line
-  15 (text), `automation/Catzc.Base.Maps/Test-ValueChainMap.ps1` line 16 (text), `automation/Catzc.Base.Maps/Test-ValueChainMap.ps1` line 26
-  (text), `automation/Catzc.Base.Maps/Test-ValueChainMap.ps1` line 29 (text), `automation/Catzc.Base.Maps/Test-ValueChainMap.ps1` line 46
-  (text), `automation/Catzc.Base.Maps/Test-WorldMap.ps1` line 26 (text), `automation/Catzc.Base.Maps/Test-WorldMap.ps1` line 45 (text),
-  `automation/Catzc.Base.Maps/Test-WorldMap.ps1` line 62 (text), `automation/Catzc.Base.Maps/Test-WorldMap.ps1` line 66 (text),
-  `automation/Catzc.Base.Maps/Test-WorldMap.ps1` line 67 (text), `automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1` line
-  17 (text), `automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1` line 23 (text),
-  `automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1` line 42 (text),
-  `automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1` line 17 (text),
-  `automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1` line 36 (text),
-  `automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1` line 36 (body comment),
-  `automation/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1` line 89 (text),
-  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 74 (text),
-  `automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 49 (text),
-  `automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 49 (body comment),
-  `automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 53 (text),
-  `automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 54 (text),
-  `automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 55 (text),
-  `automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 56 (text),
-  `automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 60 (text),
-  `automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 63 (text),
-  `automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 80 (text),
-  `automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 80 (body comment),
-  `automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 80 (body comment),
-  `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 57 (text), `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line
-  61 (text), `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 64 (text),
-  `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 68 (text), `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line
-  69 (text), `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 73 (text),
-  `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 82 (text), `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line
-  83 (text), `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 87 (text),
-  `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 91 (text), `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line
-  92 (text), `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 111 (text),
-  `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 111 (body comment),
-  `automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 111 (body comment),
-  `automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1` line 15 (text),
-  `automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1` line 22 (text),
-  `automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1` line 28 (text),
-  `automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1` line 45 (text),
-  `automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1` line 45 (body comment),
-  `automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1` line 17 (text),
-  `automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1` line 26 (text),
-  `automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1` line 31 (text),
-  `automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1` line 39 (text),
-  `automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1` line 69 (text),
-  `automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1` line 113 (text),
-  `automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1` line 127 (text), `automation/Catzc.Base.Maps/types/ValueChainCell.cs`
-  line 9 (body comment), `automation/Catzc.Base.Maps/types/ValueChainCell.cs` line 12 (body comment),
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 5 (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 62
-  (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 70 (text),
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 79 (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line
-  88 (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 94 (text),
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 190 (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line
-  200 (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 211 (text),
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 234 (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line
-  247 (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 261 (text),
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 276 (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line
-  289 (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 301 (text),
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 314 (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line
-  316 (text), `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 328 (text),
-  `automation/Catzc.Base.QualityGates/configs/source-conventions.yml` line 7 (text),
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 297 (text), `automation/Catzc.Base.QualityGates/configs/terminology.yml`
-  line 300 (text), `automation/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1` line 1 (text),
-  `automation/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1` line 1 (text),
-  `automation/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1` line 1 (text),
-  `automation/Catzc.Base.Variants/configs/track-types.yml` line 42 (text), `automation/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1`
-  line 1 (text), `automation/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1` line 52 (text),
-  `automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1` line 71 (text),
-  `automation/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1` line 1 (text),
-  `automation/Catzc.Base.Variants/types/ModulePlace.cs` line 6 (body comment), `automation/Catzc.Base.Variants/types/ModuleTypeEntry.cs`
-  line 5 (body comment), `automation/Catzc.Base.Variants/types/ModuleTypesConfig.cs` line 10 (body comment),
-  `automation/Catzc.Base.Variants/types/PathModule.cs` line 3 (body comment) and `automation/Catzc.Base.Variants/types/VariantsConfig.cs`
+  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 74 (text),
+  `pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1` line 108 (text),
+  `pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1` line 108 (body comment), `pwsh/Catzc.Base.Docs/types/AdrsConfig.cs`
+  line 15 (body comment), `pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1` line 1 (text),
+  `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 41 (text), `pwsh/Catzc.Base.Languages/configs/glossary.yml`
+  line 5 (text), `pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1` line 111 (text),
+  `pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1` line 123 (text),
+  `pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1` line 161 (text),
+  `pwsh/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1` line 1 (text), `pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1` line
+  15 (text), `pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1` line 16 (text), `pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1` line 26
+  (text), `pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1` line 29 (text), `pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1` line 46
+  (text), `pwsh/Catzc.Base.Maps/Test-WorldMap.ps1` line 26 (text), `pwsh/Catzc.Base.Maps/Test-WorldMap.ps1` line 45 (text),
+  `pwsh/Catzc.Base.Maps/Test-WorldMap.ps1` line 62 (text), `pwsh/Catzc.Base.Maps/Test-WorldMap.ps1` line 66 (text),
+  `pwsh/Catzc.Base.Maps/Test-WorldMap.ps1` line 67 (text), `pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1` line
+  17 (text), `pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1` line 23 (text),
+  `pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1` line 42 (text),
+  `pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1` line 17 (text),
+  `pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1` line 36 (text),
+  `pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1` line 36 (body comment),
+  `pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1` line 89 (text),
+  `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 74 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 49 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 49 (body comment),
+  `pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 53 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 54 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 55 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 56 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 60 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 63 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 80 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 80 (body comment),
+  `pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1` line 80 (body comment),
+  `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 57 (text), `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line
+  61 (text), `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 64 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 68 (text), `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line
+  69 (text), `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 73 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 82 (text), `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line
+  83 (text), `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 87 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 91 (text), `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line
+  92 (text), `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 111 (text),
+  `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 111 (body comment),
+  `pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1` line 111 (body comment),
+  `pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1` line 15 (text),
+  `pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1` line 22 (text),
+  `pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1` line 28 (text),
+  `pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1` line 45 (text),
+  `pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1` line 45 (body comment),
+  `pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1` line 17 (text),
+  `pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1` line 26 (text),
+  `pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1` line 31 (text),
+  `pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1` line 39 (text),
+  `pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1` line 69 (text),
+  `pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1` line 113 (text),
+  `pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1` line 127 (text), `pwsh/Catzc.Base.Maps/types/ValueChainCell.cs`
+  line 9 (body comment), `pwsh/Catzc.Base.Maps/types/ValueChainCell.cs` line 12 (body comment),
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 5 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 62
+  (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 70 (text),
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 79 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line
+  88 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 94 (text),
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 190 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line
+  200 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 211 (text),
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 234 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line
+  247 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 261 (text),
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 276 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line
+  289 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 301 (text),
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 314 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line
+  316 (text), `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 328 (text),
+  `pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml` line 7 (text),
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 297 (text), `pwsh/Catzc.Base.QualityGates/configs/terminology.yml`
+  line 300 (text), `pwsh/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1` line 1 (text),
+  `pwsh/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1` line 1 (text),
+  `pwsh/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1` line 1 (text),
+  `pwsh/Catzc.Base.Variants/configs/track-types.yml` line 42 (text), `pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1`
+  line 1 (text), `pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1` line 52 (text),
+  `pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1` line 71 (text),
+  `pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1` line 1 (text),
+  `pwsh/Catzc.Base.Variants/types/ModulePlace.cs` line 6 (body comment), `pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs`
+  line 5 (body comment), `pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs` line 10 (body comment),
+  `pwsh/Catzc.Base.Variants/types/PathModule.cs` line 3 (body comment) and `pwsh/Catzc.Base.Variants/types/VariantsConfig.cs`
   line 268 (text); selected by [ADR-FLOW-CD-GLOBS][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it
-  at `automation/Catzc.Base.Docs/configs/adrs.yml` line 101 (text), `automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1` line 42
-  (text), `automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 2 (text),
-  `automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 4 (text),
-  `automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1` line 58 (text),
-  `automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1` line 9 (text), `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1`
-  line 53 (text), `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 66 (text),
-  `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 77 (text),
-  `automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 89 (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 23
-  (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 27 (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 31
-  (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 43 (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 47
-  (text), `automation/Catzc.Base.Globs/types/GlobPattern.cs` line 56 (text), `automation/Catzc.Base.Globs/types/GlobSet.cs` line 54 (text),
-  `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 73 (text), `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 136 (text),
-  `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 140 (text), `automation/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 1216 (text); selected by [ADR-REPO-FOLDERS][3]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 294 (text),
-  `automation/Catzc.Base.Docs/configs/agents.yml` line 28 (body comment), `automation/Catzc.Base.Docs/configs/agents.yml` line 34 (body
-  comment), `automation/Catzc.Base.Docs/configs/agents.yml` line 39 (body comment), `automation/Catzc.Base.Docs/configs/capabilities.yml`
-  line 67 (body comment), `automation/Catzc.Base.Docs/configs/capabilities.yml` line 77 (body comment),
-  `automation/Catzc.Base.Docs/configs/glossary.yml` line 43 (text), `automation/Catzc.Base.QualityGates/Test-Plans.ps1` line 45 (text),
-  `automation/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1` line 47 (body comment),
-  `automation/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1` line 89 (body comment) and
-  `automation/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1` line 93 (body comment).
+  at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 101 (text), `pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1` line 42
+  (text), `pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 2 (text),
+  `pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1` line 4 (text),
+  `pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1` line 58 (text),
+  `pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1` line 9 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1`
+  line 53 (text), `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 66 (text),
+  `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 77 (text),
+  `pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1` line 89 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 23
+  (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 27 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 31
+  (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 43 (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 47
+  (text), `pwsh/Catzc.Base.Globs/types/GlobPattern.cs` line 56 (text), `pwsh/Catzc.Base.Globs/types/GlobSet.cs` line 54 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 73 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 136 (text),
+  `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 140 (text), `pwsh/Catzc.Base.Globs/types/GlobsConfig.cs` line 154 (text) and
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 1216 (text); selected by [ADR-REPO-FOLDERS][3]: a pipeline that cites
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 294 (text),
+  `pwsh/Catzc.Base.Docs/configs/agents.yml` line 28 (body comment), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 34 (body
+  comment), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 39 (body comment), `pwsh/Catzc.Base.Docs/configs/capabilities.yml`
+  line 67 (body comment), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 77 (body comment),
+  `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 43 (text), `pwsh/Catzc.Base.QualityGates/Test-Plans.ps1` line 45 (text),
+  `pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1` line 47 (body comment),
+  `pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1` line 89 (body comment) and
+  `pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1` line 93 (body comment).
 
 ## Keywords
 
@@ -627,171 +627,171 @@ Terms the cited ADRs define:
 [19]: ../../../../.claude/plans/questionnaire-fundamental-2-2026-10-16.md
 [20]: ../../../../.claude/plans/task-file-head-leftovers.md
 [21]: ../../../../.claude/plans/task-import-landing-zone.md
-[22]: ../../../../automation/Catzc.Base.Docs/types/AdrsConfig.cs
-[23]: ../../../../automation/Catzc.Base.Globs/types/GlobPattern.cs
-[24]: ../../../../automation/Catzc.Base.Globs/types/GlobSet.cs
-[25]: ../../../../automation/Catzc.Base.Globs/types/GlobsConfig.cs
-[26]: ../../../../automation/Catzc.Base.Maps/types/ValueChainCell.cs
-[27]: ../../../../automation/Catzc.Base.Variants/types/ModulePlace.cs
-[28]: ../../../../automation/Catzc.Base.Variants/types/ModuleTypeEntry.cs
-[29]: ../../../../automation/Catzc.Base.Variants/types/ModuleTypesConfig.cs
-[30]: ../../../../automation/Catzc.Base.Variants/types/PathModule.cs
-[31]: ../../../../automation/Catzc.Base.Variants/types/VariantsConfig.cs
-[32]: ../../../../automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
-[33]: ../../../../automation/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
-[34]: ../../../../automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
-[35]: ../../../../automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
-[36]: ../../../../automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
-[37]: ../../../../automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
-[38]: ../../../../automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-[39]: ../../../../automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-[40]: ../../../../automation/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1
-[41]: ../../../../automation/Catzc.Base.Maps/Test-ValueChainMap.ps1
-[42]: ../../../../automation/Catzc.Base.Maps/Test-WorldMap.ps1
-[43]: ../../../../automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
-[44]: ../../../../automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
-[45]: ../../../../automation/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
-[46]: ../../../../automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[47]: ../../../../automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
-[48]: ../../../../automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
-[49]: ../../../../automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
-[50]: ../../../../automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
-[51]: ../../../../automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
-[52]: ../../../../automation/Catzc.Base.QualityGates/Test-Plans.ps1
-[53]: ../../../../automation/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1
-[54]: ../../../../automation/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1
-[55]: ../../../../automation/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1
-[56]: ../../../../automation/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
-[57]: ../../../../automation/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
-[58]: ../../../../automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
-[59]: ../../../../automation/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
-[60]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[61]: ../../../../automation/Catzc.Base.Docs/configs/agents.yml
-[62]: ../../../../automation/Catzc.Base.Docs/configs/capabilities.yml
-[63]: ../../../../automation/Catzc.Base.Docs/configs/glossary.yml
-[64]: ../../../../automation/Catzc.Base.Languages/configs/glossary.yml
-[65]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
-[66]: ../../../../automation/Catzc.Base.QualityGates/configs/source-conventions.yml
-[67]: ../../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
-[68]: ../../../../automation/Catzc.Base.Variants/configs/track-types.yml
+[22]: ../../../../pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+[23]: ../../../../pwsh/Catzc.Base.Globs/types/GlobPattern.cs
+[24]: ../../../../pwsh/Catzc.Base.Globs/types/GlobSet.cs
+[25]: ../../../../pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+[26]: ../../../../pwsh/Catzc.Base.Maps/types/ValueChainCell.cs
+[27]: ../../../../pwsh/Catzc.Base.Variants/types/ModulePlace.cs
+[28]: ../../../../pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs
+[29]: ../../../../pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs
+[30]: ../../../../pwsh/Catzc.Base.Variants/types/PathModule.cs
+[31]: ../../../../pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+[32]: ../../../../pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
+[33]: ../../../../pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
+[34]: ../../../../pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+[35]: ../../../../pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
+[36]: ../../../../pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
+[37]: ../../../../pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+[38]: ../../../../pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+[39]: ../../../../pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
+[40]: ../../../../pwsh/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1
+[41]: ../../../../pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1
+[42]: ../../../../pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+[43]: ../../../../pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
+[44]: ../../../../pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
+[45]: ../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
+[46]: ../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[47]: ../../../../pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+[48]: ../../../../pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+[49]: ../../../../pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
+[50]: ../../../../pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
+[51]: ../../../../pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
+[52]: ../../../../pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
+[53]: ../../../../pwsh/Catzc.Base.QualityGates/tests/Get-FileTypeFileMetaFact.Tests.ps1
+[54]: ../../../../pwsh/Catzc.Base.QualityGates/tests/Get-ModuleTypeFileMetaFact.Tests.ps1
+[55]: ../../../../pwsh/Catzc.Base.QualityGates/tests/Get-TrackFileMetaFact.Tests.ps1
+[56]: ../../../../pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
+[57]: ../../../../pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
+[58]: ../../../../pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
+[59]: ../../../../pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
+[60]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[61]: ../../../../pwsh/Catzc.Base.Docs/configs/agents.yml
+[62]: ../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
+[63]: ../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
+[64]: ../../../../pwsh/Catzc.Base.Languages/configs/glossary.yml
+[65]: ../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[66]: ../../../../pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml
+[67]: ../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+[68]: ../../../../pwsh/Catzc.Base.Variants/configs/track-types.yml
 [69]: ../../../adr/design/dora-explains.md
 [70]: ../../../adr/flow/dora-explains.md
 [71]: ../../../adr/glossary.md
 [72]: ../../../adr/index.md
 [73]: ../../../adr/repository/dora-explains.md
-[74]: ../../../how-to/automation/manual-test-plan/pipelines-and-globs.md
-[75]: ../../../how-to/automation/manual-test-plan/repository-conventions.md
+[74]: ../../../how-to/pwsh/manual-test-plan/pipelines-and-globs.md
+[75]: ../../../how-to/pwsh/manual-test-plan/repository-conventions.md
 [76]: ../../../how-to/automation/sort-an-import.md
 [77]: ../../../references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
-[78]: ../../../references/automation/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md
-[79]: ../../../references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
-[80]: ../../../references/automation/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md
-[81]: ../../../references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
-[82]: ../../../references/automation/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md
-[83]: ../../../references/automation/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md
-[84]: ../../../references/automation/catzc-base-docs/configs/adrs.yml.md
-[85]: ../../../references/automation/catzc-base-docs/private/Get-CatsModules.ps1.md
-[86]: ../../../references/automation/catzc-base-docs/types/AdrDomain.cs.md
-[87]: ../../../references/automation/catzc-base-docs/types/AdrRuleSet.cs.md
-[88]: ../../../references/automation/catzc-base-docs/types/AdrsConfig.cs.md
-[89]: ../../../references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md
-[90]: ../../../references/automation/catzc-base-git/Import-RepositoryWithHistory.ps1.md
-[91]: ../../../references/automation/catzc-base-globs.md
-[92]: ../../../references/automation/catzc-base-globs/Get-ChangedGlobSet.ps1.md
-[93]: ../../../references/automation/catzc-base-globs/Get-GlobSet.ps1.md
-[94]: ../../../references/automation/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
-[95]: ../../../references/automation/catzc-base-globs/Get-GlobSetFile.ps1.md
-[96]: ../../../references/automation/catzc-base-globs/Get-GlobSetHash.ps1.md
-[97]: ../../../references/automation/catzc-base-globs/Get-GlobSetTrigger.ps1.md
-[98]: ../../../references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md
-[99]: ../../../references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md
-[100]: ../../../references/automation/catzc-base-globs/Get-TrackedFile.ps1.md
-[101]: ../../../references/automation/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
-[102]: ../../../references/automation/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md
-[103]: ../../../references/automation/catzc-base-globs/Test-GlobSetAffected.ps1.md
-[104]: ../../../references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md
-[105]: ../../../references/automation/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md
-[106]: ../../../references/automation/catzc-base-globs/configs/globs.yml.md
-[107]: ../../../references/automation/catzc-base-globs/private/Get-ChangedFile.ps1.md
-[108]: ../../../references/automation/catzc-base-globs/private/Get-GlobSetMember.ps1.md
-[109]: ../../../references/automation/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
-[110]: ../../../references/automation/catzc-base-globs/private/Test-GlobListEqual.ps1.md
-[111]: ../../../references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
-[112]: ../../../references/automation/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
-[113]: ../../../references/automation/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
-[114]: ../../../references/automation/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md
-[115]: ../../../references/automation/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md
-[116]: ../../../references/automation/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md
-[117]: ../../../references/automation/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md
-[118]: ../../../references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md
-[119]: ../../../references/automation/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md
-[120]: ../../../references/automation/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md
-[121]: ../../../references/automation/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
-[122]: ../../../references/automation/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md
-[123]: ../../../references/automation/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
-[124]: ../../../references/automation/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md
-[125]: ../../../references/automation/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md
-[126]: ../../../references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
-[127]: ../../../references/automation/catzc-base-globs/types/Aspect.cs.md
-[128]: ../../../references/automation/catzc-base-globs/types/DurableHash.cs.md
-[129]: ../../../references/automation/catzc-base-globs/types/GlobPattern.cs.md
-[130]: ../../../references/automation/catzc-base-globs/types/GlobSet.cs.md
-[131]: ../../../references/automation/catzc-base-globs/types/GlobsConfig.cs.md
-[132]: ../../../references/automation/catzc-base-languages.md
-[133]: ../../../references/automation/catzc-base-languages/Get-FileLanguage.ps1.md
-[134]: ../../../references/automation/catzc-base-languages/Get-PathFileType.ps1.md
-[135]: ../../../references/automation/catzc-base-languages/configs/languages.yml.md
-[136]: ../../../references/automation/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
-[137]: ../../../references/automation/catzc-base-languages/types/BashConfig.cs.md
-[138]: ../../../references/automation/catzc-base-languages/types/FileLanguage.cs.md
-[139]: ../../../references/automation/catzc-base-languages/types/GoConfig.cs.md
-[140]: ../../../references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
-[141]: ../../../references/automation/catzc-base-languages/types/PythonConfig.cs.md
-[142]: ../../../references/automation/catzc-base-maps.md
-[143]: ../../../references/automation/catzc-base-maps/Export-WorldMapPdf.ps1.md
-[144]: ../../../references/automation/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-[145]: ../../../references/automation/catzc-base-maps/Get-ValueChainMap.ps1.md
-[146]: ../../../references/automation/catzc-base-maps/Get-WorldMap.ps1.md
-[147]: ../../../references/automation/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-[148]: ../../../references/automation/catzc-base-maps/Test-ValueChainMap.ps1.md
-[149]: ../../../references/automation/catzc-base-maps/Test-WorldMap.ps1.md
-[150]: ../../../references/automation/catzc-base-maps/configs/maps.yml.md
-[151]: ../../../references/automation/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md
-[152]: ../../../references/automation/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md
-[153]: ../../../references/automation/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md
-[154]: ../../../references/automation/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md
-[155]: ../../../references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
-[156]: ../../../references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
-[157]: ../../../references/automation/catzc-base-maps/tests/types/ValueChainHighlight.Tests.ps1.md
-[158]: ../../../references/automation/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md
-[159]: ../../../references/automation/catzc-base-maps/types/MapCell.cs.md
-[160]: ../../../references/automation/catzc-base-maps/types/MapsLabels.cs.md
-[161]: ../../../references/automation/catzc-base-maps/types/ValueChainCell.cs.md
-[162]: ../../../references/automation/catzc-base-maps/types/ValueChainHighlight.cs.md
-[163]: ../../../references/automation/catzc-base-maps/types/ValueChainMap.cs.md
-[164]: ../../../references/automation/catzc-base-maps/types/ValueChainReason.cs.md
-[165]: ../../../references/automation/catzc-base-maps/types/WorldMap.cs.md
-[166]: ../../../references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md
-[167]: ../../../references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md
-[168]: ../../../references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md
-[169]: ../../../references/automation/catzc-base-maps/types/WorldMapPdf.cs.md
-[170]: ../../../references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md
-[171]: ../../../references/automation/catzc-base-qualitygates/Test-Automation.ps1.md
-[172]: ../../../references/automation/catzc-base-qualitygates/Test-Plans.ps1.md
-[173]: ../../../references/automation/catzc-base-qualitygates/private/Get-ContentExemptPath.ps1.md
-[174]: ../../../references/automation/catzc-base-qualitygates/private/Get-FileTypeFileMetaFact.ps1.md
-[175]: ../../../references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md
-[176]: ../../../references/automation/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md
-[177]: ../../../references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md
-[178]: ../../../references/automation/catzc-base-qualitygates/private/Get-ModuleTypeFileMetaFact.ps1.md
-[179]: ../../../references/automation/catzc-base-qualitygates/private/Get-TrackFileMetaFact.ps1.md
-[180]: ../../../references/automation/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md
-[181]: ../../../references/automation/catzc-base-variants/Get-PathModule.ps1.md
-[182]: ../../../references/automation/catzc-base-variants/Get-Track.ps1.md
-[183]: ../../../references/automation/catzc-base-variants/configs/variants.yml.md
-[184]: ../../../references/automation/catzc-base-variants/types/VariantTrack.cs.md
-[185]: ../../../references/automation/catzc-base-variants/types/VariantsConfig.cs.md
-[186]: ../../../references/automation/claude-drawio/minimaps/highlights.ps1.md
+[78]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md
+[79]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
+[80]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md
+[81]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
+[82]: ../../../references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md
+[83]: ../../../references/pwsh/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md
+[84]: ../../../references/pwsh/catzc-base-docs/configs/adrs.yml.md
+[85]: ../../../references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md
+[86]: ../../../references/pwsh/catzc-base-docs/types/AdrDomain.cs.md
+[87]: ../../../references/pwsh/catzc-base-docs/types/AdrRuleSet.cs.md
+[88]: ../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+[89]: ../../../references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md
+[90]: ../../../references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
+[91]: ../../../references/pwsh/catzc-base-globs.md
+[92]: ../../../references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md
+[93]: ../../../references/pwsh/catzc-base-globs/Get-GlobSet.ps1.md
+[94]: ../../../references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
+[95]: ../../../references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md
+[96]: ../../../references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md
+[97]: ../../../references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md
+[98]: ../../../references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md
+[99]: ../../../references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+[100]: ../../../references/pwsh/catzc-base-globs/Get-TrackedFile.ps1.md
+[101]: ../../../references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
+[102]: ../../../references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md
+[103]: ../../../references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
+[104]: ../../../references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md
+[105]: ../../../references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md
+[106]: ../../../references/pwsh/catzc-base-globs/configs/globs.yml.md
+[107]: ../../../references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md
+[108]: ../../../references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
+[109]: ../../../references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
+[110]: ../../../references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md
+[111]: ../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[112]: ../../../references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
+[113]: ../../../references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
+[114]: ../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md
+[115]: ../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md
+[116]: ../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md
+[117]: ../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md
+[118]: ../../../references/pwsh/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md
+[119]: ../../../references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md
+[120]: ../../../references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md
+[121]: ../../../references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
+[122]: ../../../references/pwsh/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md
+[123]: ../../../references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
+[124]: ../../../references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md
+[125]: ../../../references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md
+[126]: ../../../references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
+[127]: ../../../references/pwsh/catzc-base-globs/types/Aspect.cs.md
+[128]: ../../../references/pwsh/catzc-base-globs/types/DurableHash.cs.md
+[129]: ../../../references/pwsh/catzc-base-globs/types/GlobPattern.cs.md
+[130]: ../../../references/pwsh/catzc-base-globs/types/GlobSet.cs.md
+[131]: ../../../references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md
+[132]: ../../../references/pwsh/catzc-base-languages.md
+[133]: ../../../references/pwsh/catzc-base-languages/Get-FileLanguage.ps1.md
+[134]: ../../../references/pwsh/catzc-base-languages/Get-PathFileType.ps1.md
+[135]: ../../../references/pwsh/catzc-base-languages/configs/languages.yml.md
+[136]: ../../../references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
+[137]: ../../../references/pwsh/catzc-base-languages/types/BashConfig.cs.md
+[138]: ../../../references/pwsh/catzc-base-languages/types/FileLanguage.cs.md
+[139]: ../../../references/pwsh/catzc-base-languages/types/GoConfig.cs.md
+[140]: ../../../references/pwsh/catzc-base-languages/types/LanguagesConfig.cs.md
+[141]: ../../../references/pwsh/catzc-base-languages/types/PythonConfig.cs.md
+[142]: ../../../references/pwsh/catzc-base-maps.md
+[143]: ../../../references/pwsh/catzc-base-maps/Export-WorldMapPdf.ps1.md
+[144]: ../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+[145]: ../../../references/pwsh/catzc-base-maps/Get-ValueChainMap.ps1.md
+[146]: ../../../references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md
+[147]: ../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+[148]: ../../../references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md
+[149]: ../../../references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md
+[150]: ../../../references/pwsh/catzc-base-maps/configs/maps.yml.md
+[151]: ../../../references/pwsh/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md
+[152]: ../../../references/pwsh/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md
+[153]: ../../../references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md
+[154]: ../../../references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md
+[155]: ../../../references/pwsh/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
+[156]: ../../../references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
+[157]: ../../../references/pwsh/catzc-base-maps/tests/types/ValueChainHighlight.Tests.ps1.md
+[158]: ../../../references/pwsh/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md
+[159]: ../../../references/pwsh/catzc-base-maps/types/MapCell.cs.md
+[160]: ../../../references/pwsh/catzc-base-maps/types/MapsLabels.cs.md
+[161]: ../../../references/pwsh/catzc-base-maps/types/ValueChainCell.cs.md
+[162]: ../../../references/pwsh/catzc-base-maps/types/ValueChainHighlight.cs.md
+[163]: ../../../references/pwsh/catzc-base-maps/types/ValueChainMap.cs.md
+[164]: ../../../references/pwsh/catzc-base-maps/types/ValueChainReason.cs.md
+[165]: ../../../references/pwsh/catzc-base-maps/types/WorldMap.cs.md
+[166]: ../../../references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md
+[167]: ../../../references/pwsh/catzc-base-maps/types/WorldMapGridLayout.cs.md
+[168]: ../../../references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md
+[169]: ../../../references/pwsh/catzc-base-maps/types/WorldMapPdf.cs.md
+[170]: ../../../references/pwsh/catzc-base-modulesystem/Test-FolderConventions.ps1.md
+[171]: ../../../references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md
+[172]: ../../../references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md
+[173]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-ContentExemptPath.ps1.md
+[174]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-FileTypeFileMetaFact.ps1.md
+[175]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md
+[176]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md
+[177]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md
+[178]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-ModuleTypeFileMetaFact.ps1.md
+[179]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-TrackFileMetaFact.ps1.md
+[180]: ../../../references/pwsh/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md
+[181]: ../../../references/pwsh/catzc-base-variants/Get-PathModule.ps1.md
+[182]: ../../../references/pwsh/catzc-base-variants/Get-Track.ps1.md
+[183]: ../../../references/pwsh/catzc-base-variants/configs/variants.yml.md
+[184]: ../../../references/pwsh/catzc-base-variants/types/VariantTrack.cs.md
+[185]: ../../../references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+[186]: ../../../references/pwsh/claude-drawio/minimaps/highlights.ps1.md
 [187]: ../../../references/note-file-kind.md
 [188]: ../../../references/pipelines/cd-apex.yaml.md
 [189]: ../../../references/pipelines/cd-flux.yaml.md
@@ -807,8 +807,8 @@ Terms the cited ADRs define:
 [199]: ../../../adr/glossary.md#file-language
 [200]: ../../../adr/glossary.md#cell
 [201]: ../../../adr/glossary.md#lit-cell
-[202]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[203]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[202]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[203]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
 [204]: ../../../adr/design/tracks.md#rule-adr-dsgn-track10
 [205]: ../../../adr/glossary.md#deployable-unit
 [206]: ../../../adr/design/tracks.md#rule-adr-dsgn-track5

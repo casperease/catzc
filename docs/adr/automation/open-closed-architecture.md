@@ -114,7 +114,7 @@ The platform must remain open for extension and closed for modification. Concret
 
 ### How this is enforced
 
-- **`Import-AllModules`** (`automation/.internal/Catzc.Internal.Bootstrap.psm1`) discovers every non-dot folder under `automation/` as a
+- **`Import-AllModules`** (`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) discovers every non-dot folder under `automation/` as a
   module and generates its manifest with `New-DynamicManifest`, so a new module or function needs no registration anywhere. Before any
   module loads it fails fast on a duplicate export or a shadowed shipped command, the one seam where convention alone cannot guarantee a
   single meaning per name ([dynamic-module-manifests](../pwsh/dynamic-module-manifests.md)).

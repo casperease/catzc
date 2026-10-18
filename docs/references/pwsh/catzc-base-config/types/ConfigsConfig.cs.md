@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Config/types/ConfigsConfig.cs
+# pwsh/Catzc.Base.Config/types/ConfigsConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.

@@ -4,7 +4,7 @@
 
 Every line below was re-read on 2026-10-15 after the comment export. The wave-9 scout's line numbers had all moved (for example the
 Invoke-TestRun call moved from `Test-Automation.ps1:187` to `:148`), so none of the scout's numbers is reused. `condense-comments` may move
-them again, so re-grep before landing. Paths are relative to `automation/Catzc.Base.QualityGates/` unless they start with `automation/` or
+them again, so re-grep before landing. Paths are relative to `pwsh/Catzc.Base.QualityGates/` unless they start with `automation/` or
 `docs/`.
 
 ## Boxes

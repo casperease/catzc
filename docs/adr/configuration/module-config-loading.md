@@ -11,7 +11,7 @@ directly or keeps its own `$script:` config cache.
 
 ### Rule ADR-CONF-LOADING:2
 
-Existence is discovered, not declared — a private seam (`Resolve-ConfigEntry`) scans `automation/*/configs/` for `<name>.yml` and resolves
+Existence is discovered, not declared — a private seam (`Resolve-ConfigEntry`) scans `pwsh/*/configs/` for `<name>.yml` and resolves
 it to its owning module. A name is global; `-Module` is only for disambiguating the same name in several modules, and
 `Get-Config -Config <name> -ListOwners` lists those modules — for a config that modules opt into by shipping it.
 
@@ -63,7 +63,7 @@ reader wrapper would force callers to know which wrapper owns which config and t
 There is **one** public reader: **`Get-Config -Config <name> [-Module]`** (in `Catzc.Base.Config`). Every config read goes through it; no
 other function reads a config file or keeps its own config cache. It:
 
-1. resolves the name to its owning module and file path via the private seam `Resolve-ConfigEntry`, which scans `automation/*/configs/` for
+1. resolves the name to its owning module and file path via the private seam `Resolve-ConfigEntry`, which scans `pwsh/*/configs/` for
    `<name>.yml`;
 2. returns the cached object if `$script:configCache` already has the resolved path (same reference every call);
 3. asserts the file exists and parses it as an ordered dictionary (`ConvertFrom-Yaml -Ordered`);

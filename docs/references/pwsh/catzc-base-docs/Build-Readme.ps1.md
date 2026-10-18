@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Docs/Build-Readme.ps1
+# pwsh/Catzc.Base.Docs/Build-Readme.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -27,7 +27,7 @@ See [ADR-REPO-README](../../../adr/repository/generated-readmes.md) and
 
 ### parameter `Folder`
 
-Generate only the mapping whose target folder equals this repo-relative path (e.g. 'automation/Catzc.Azure.DevOps'). Throws when it matches
+Generate only the mapping whose target folder equals this repo-relative path (e.g. 'pwsh/Catzc.Azure.DevOps'). Throws when it matches
 no mapping. Default: every mapping.
 
 ### parameter `DryRun`
@@ -64,7 +64,7 @@ Reports which mapped READMEs are stale without touching them.
 ### example 3
 
 ```powershell
-Build-Readme 'automation/Catzc.Azure.DevOps'
+Build-Readme 'pwsh/Catzc.Azure.DevOps'
 Generates only that folder's README.
 ```
 

@@ -29,7 +29,7 @@ is in [native-csharp-types](../../../../adr/automation/BCL/native-csharp-types.m
 
 ## Example: a plain result type
 
-This is `automation/Catzc.Base.Execution/types/CliResult.cs` — the object `Invoke-Executable -PassThru` returns. Note the file-scoped
+This is `pwsh/Catzc.Base.Execution/types/CliResult.cs` — the object `Invoke-Executable -PassThru` returns. Note the file-scoped
 `namespace Catzc.Base.Execution;` matching the module, and the filename matching the class.
 
 ```csharp
@@ -73,7 +73,7 @@ Because that is a cross-module reference, the owning module must declare `Catzc.
 `How compilation and caching work`
 
 - Every module's `types/*.cs` compile into **one** assembly for the whole repository, committed at
-  `automation/.compiled/Catzc.Types.<hash>.dll`. The hash is derived from every type's source, so a fresh checkout and CI load the committed
+  `pwsh/.compiled/Catzc.Types.<hash>.dll`. The hash is derived from every type's source, so a fresh checkout and CI load the committed
   DLL **without** invoking the Roslyn compiler — only an author who edits a source pays the sub-second recompile, once.
 - Because types share one assembly, a type in any module may reference a type in any other — but the reference is governed by the module
   dependency graph, checked by `Get-CSharpTypeDependency` + the `Test-ModuleDependency` quality gate in an L1 integrity test.

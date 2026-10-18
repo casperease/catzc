@@ -76,9 +76,9 @@ Modules are layered — a module may only call into the modules it declares in `
 
 ## Beyond the modules
 
-Two reference areas cover the parts of `automation/` that are not themselves `automation/*` modules:
+Two reference areas cover the parts of `automation/` that are not themselves `pwsh/*` modules:
 
-- [Internal (`.psm1` shared infrastructure)](internal/index.md) — the loader and shared libraries under `automation/.internal/` that run the
+- [Internal (`.psm1` shared infrastructure)](internal/index.md) — the loader and shared libraries under `pwsh/.internal/` that run the
   import sequence and load every module above.
 - [BCL (C# / .NET types)](BCL/index.md) — the native C# type system those loaders compile and load.
 

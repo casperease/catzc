@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/NoWriteErrorOrWarning.psm1
+# pwsh/.scriptanalyzer/NoWriteErrorOrWarning.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Above `function Measure-NoWriteErrorOrWarning {`, written with `#`.
     Custom PSScriptAnalyzer rule: forbid Write-Error and Write-Warning.
 .DESCRIPTION
     All errors are terminating — use throw or Assert-*.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoWriteErrorOrWarning.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/scriptanalyzer/NoWriteErrorOrWarning.psm1.md#comment1)
 ```
 
 ## comment:2

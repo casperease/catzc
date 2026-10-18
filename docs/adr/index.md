@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "216d7d1bf409"
-    with_inputs_sha: "3dd3f6a0870f3d337203fee3fd32a79a372ff8d3000c62ca81d1a03c5838de6e"
+    with_body_sha: "6f94cf63f8dd"
+    with_inputs_sha: "97b9cd6f28cf03fcf316c247f3310715fd8c1b6939943045c098752d17e89812"
     repo_status: locked
     path: docs/adr/index.md
     source: pwsh/Catzc.Base.Docs/configs/adrs.yml
@@ -189,7 +189,7 @@ domains build on it.
 
 PowerShell 7 as one of catzc's execution engines: how the automation rules are realised in pwsh — module files and manifests, parameter and
 error design, streams and console output, caching in script scope, working directory and environment mechanics, cross-platform pwsh, the
-analyzer, and Pester. It applies the engine-agnostic `pwsh/` rules to one engine and never redefines them.
+analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines them.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`.
 

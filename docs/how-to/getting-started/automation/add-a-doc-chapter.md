@@ -69,7 +69,7 @@ ADRs capture a decision so it can be cited and enforced. They follow a fixed sha
    `### Rule <code>:<n>` entries, each a one-paragraph normative summary that links to the prose section justifying it. These are what other
    code and docs cite as `<code>#<n>` (e.g. `ADR-PWSH-ERROR#3`).
 3. **Then the prose**: `## Context`, `## Decision`, optionally `## How this is enforced`, `## Consequences`.
-4. **Register it.** Add the ruleset to its domain in `automation/Catzc.Base.Docs/configs/adrs.yml` (the next import regenerates the code →
+4. **Register it.** Add the ruleset to its domain in `pwsh/Catzc.Base.Docs/configs/adrs.yml` (the next import regenerates the code →
    ADR table in `docs/adr/index.md`), and add a bullet under the right section of [`docs/index.md`](../../../index.md).
 
 ### ADR authoring conventions

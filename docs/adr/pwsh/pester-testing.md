@@ -185,11 +185,11 @@ A hermetic logic test (both seams isolated, fixture identities):
 ```powershell
 Describe 'Get-AzureEnvironment' -Tag 'L1', 'logic' {
     BeforeEach {
-        Mock Get-BicepTemplatesRoot { Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates' } -ModuleName Catzc.Azure.Templates
+        Mock Get-BicepTemplatesRoot { Join-Path (Get-RepositoryRoot) 'pwsh/Catzc.Azure.Templates/tests/assets/templates' } -ModuleName Catzc.Azure.Templates
         # Redirect the 'azure' config to the fixture file via the discovery seam.
         Mock Resolve-ConfigEntry {
             @{ Name = 'azure'; Module = 'Catzc.Azure.Templates'
-               Path = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/config/azure.yml' }
+               Path = Join-Path (Get-RepositoryRoot) 'pwsh/Catzc.Azure.Templates/tests/assets/config/azure.yml' }
         } -ParameterFilter { $Config -eq 'azure' } -ModuleName Catzc.Base.Config
     }
     It 'resolves the environment identity against a named subscription' {

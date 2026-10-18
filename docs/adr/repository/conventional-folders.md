@@ -29,7 +29,7 @@ The root set is closed. Adding a top-level directory is a deliberate architectur
 ### Rule ADR-REPO-FOLDERS:4
 
 Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.git/`, `.go/` (the default Go root
-when the repository has no `go/` folder), and `automation/.internal|.scriptanalyzer|.vendor|.compiled/`. Under `automation/` it is enforced
+when the repository has no `go/` folder), and `pwsh/.internal|.scriptanalyzer|.vendor|.compiled/`. Under `automation/` it is enforced
 mechanically by `Import-AllModules` (dot-prefixed directories are excluded from module discovery); elsewhere it is the same convention
 applied repo-wide.
 
@@ -191,7 +191,7 @@ inject dependencies so you can test against fakes. In a mono-repo's internal too
   you to find where `$testFolderName` is defined and confirm it is `'tests'`.
 
 The codebase does this consistently: `New-DynamicManifest` hardcodes `'private'`, `Test-Automation` hardcodes `'tests'`, `Import-AllModules`
-filters on `'^\.'`, `Install-VendorModule` hardcodes `'automation/.vendor'`, and the importer (`importer.ps1` and its `Invoke-Importer`
+filters on `'^\.'`, `Install-VendorModule` hardcodes `'pwsh/.vendor'`, and the importer (`importer.ps1` and its `Invoke-Importer`
 overlay) hardcodes `'.internal'` and `'.vendor'`.
 
 ### A test-language root as a setting
@@ -259,7 +259,7 @@ a reader infers it (_semantic_).
 level, and each has its own conventional sub-layout:
 
 **`docs/`** holds five folders. `adr/` is the Architecture Decision Records, one subfolder per domain declared in
-`automation/Catzc.Base.Docs/configs/adrs.yml`: `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`,
+`pwsh/Catzc.Base.Docs/configs/adrs.yml`: `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`,
 `configuration/`, `pipelines/`, `github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that
 registry and describes each domain, so the registry — not this paragraph — is the authoritative list of domains. `references/` holds the
 authored reference articles, including the sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the
@@ -271,7 +271,7 @@ pages own their own `.assets/` (`explanation/.assets/`, `references/.assets/`). 
 `<name>.drawio.verify.md` record, so every drawn claim stays checkable against the code; and its minimap images, each with a sister `.md`
 that gives the reason for every lit cell. Its `<name>.drawio.md` description sits beside the article or reference page that embeds it, so
 its words travel with the page. Diagrams drawn from a module's source sit under `references/.assets/automation/<module>/`, with their
-descriptions in `references/automation/<module>/`, next to the module's reference article that embeds them.
+descriptions in `references/pwsh/<module>/`, next to the module's reference article that embeds them.
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's
@@ -326,7 +326,7 @@ the same convention the dot-prefix carries inside `automation/` (Level 2): a lea
 
 The repository _root_ is itself conventional beyond its folders: `importer.ps1` and `importer.sh` (the entry points), `.editorconfig`,
 `.gitattributes`, `.gitignore`, `dotnet-tools.json`, `catzc.sln`, `cspell.yml` (the repo-wide spell-check dictionary), and `LICENSE` each
-have a fixed, name-inferred role. (The authored PSScriptAnalyzer config lives under `automation/.internal/assets/`, alongside the IDE-only
+have a fixed, name-inferred role. (The authored PSScriptAnalyzer config lives under `pwsh/.internal/assets/`, alongside the IDE-only
 C# project — see [native-csharp-types](../automation/BCL/native-csharp-types.md) — not at the root.) Adding a new top-level directory is a
 conscious architectural decision — an amendment to this ADR — not a casual act.
 
@@ -371,7 +371,7 @@ file-scoped `namespace <module>;`** — derived from its `types/` folder, writte
 `Test-Formatting`, so the fully-qualified type is `<module>.<filename>` (`types/CliRunner.cs` in `Catzc.Base.Execution` →
 `Catzc.Base.Execution.CliRunner`). The loader identifies the type from the filename with no source parsing — one type per file (the analogue
 of one-function-per-file) — and rejects a dotted filename or a missing, mismatched, or block-scoped namespace. Every module's sources
-compile together into **one** committed assembly for the whole repository, `automation/.compiled/Catzc.Types.<hash>.dll` (vendored,
+compile together into **one** committed assembly for the whole repository, `pwsh/.compiled/Catzc.Types.<hash>.dll` (vendored,
 hash-keyed, like `.vendor/`), so a fresh checkout and CI load it without invoking Roslyn. A module with no native types has no `types/`
 folder. The full contract — the single combined assembly, `namespace = module`, the cross-module references governed by the dependency
 graph, the cache-state behaviour, the fail-fast on edit, and the one shared `DictionaryRecord` data-record base — lives in its own ADR,
@@ -405,7 +405,7 @@ organize content — the internal structure is freeform. The module's own config
 is a flat, kebab-case `.yml` file (`<kebab-name>.yml`, never `.yaml`); the folder is flat, with no subdirectories. Module functions read
 these files through `Get-Config`, which locates them under the module's folder in the active code root (in source mode,
 `Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` in `Catzc.Base.Execution` resolves to
-`automation/Catzc.Base.Execution/configs/tools.yml`). A module's own config goes in `configs/`, and `assets/` is reserved for templates,
+`pwsh/Catzc.Base.Execution/configs/tools.yml`). A module's own config goes in `configs/`, and `assets/` is reserved for templates,
 scripts, schemas, fixtures, and other consumable assets. Live examples: `Catzc.Base.Execution/configs/tools.yml`,
 `Catzc.Base.ModuleSystem/configs/dependencies.yml`, `Catzc.Azure.DevOps/configs/{ado,pipeline-env}.yml`,
 `Catzc.Azure/configs/{azure,network}.yml`. This is enforced by `Test-FolderConventions.Tests.ps1`, which allows `configs/` as a module

@@ -61,9 +61,9 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][8]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78 (text); selected by
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][8]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78 (text); selected by
   [ADR-DSGN-REMOTE][2]: the file cites it at line 79 (text).
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][9]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 49 (text).
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][9]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 49 (text).
 
 ### docs × markdown (6 lit files)
 
@@ -77,7 +77,7 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [docs/adr/glossary.md][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 272 (text).
 - [docs/adr/index.md][12]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 112 (text); selected by [ADR-DSGN-REMOTE][2]: the file
   cites it at line 113 (text).
-- [docs/references/automation/catzc-base-git/Push-Dirty.ps1.md][13]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][13]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 14 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
@@ -85,9 +85,9 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][14]: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 79 (text).
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 79 (text).
 
 ## Keywords
 
@@ -115,12 +115,12 @@ Terms the cited ADRs define:
 [5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [6]: ../../../../.claude/plans/plan-fast-push-followups.md
 [7]: ../../../../.claude/plans/value-of-plan.md
-[8]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[9]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[8]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[9]: ../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
 [10]: ../../../adr/design/dora-explains.md
 [11]: ../../../adr/glossary.md
 [12]: ../../../adr/index.md
-[13]: ../../../references/automation/catzc-base-git/Push-Dirty.ps1.md
+[13]: ../../../references/pwsh/catzc-base-git/Push-Dirty.ps1.md
 [14]: ../../../../pipelines/ci-automation.yaml
 [15]: ../../design/clients-bridge-to-one-server.md
 [16]: ../../../adr/glossary.md#world-map
@@ -128,7 +128,7 @@ Terms the cited ADRs define:
 [18]: ../../../adr/glossary.md#file-language
 [19]: ../../../adr/glossary.md#cell
 [20]: ../../../adr/glossary.md#lit-cell
-[21]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[22]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[21]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[22]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
 [23]: ../../../adr/glossary.md#occupant
 [24]: ../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5

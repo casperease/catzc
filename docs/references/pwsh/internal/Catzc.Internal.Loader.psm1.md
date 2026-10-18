@@ -1,4 +1,4 @@
-# automation/.internal/Catzc.Internal.Loader.psm1
+# pwsh/.internal/Catzc.Internal.Loader.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -29,7 +29,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceState
     Loads a .internal shared module once into the global session (idempotent).
 .DESCRIPTION
     Idempotent, so a hot-path cover function pays nothing; only the importer's first load passes -Force.
-    [comment:2](/docs/references/automation/internal/Catzc.Internal.Loader.psm1.md#comment2)
+    [comment:2](/docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md#comment2)
 .PARAMETER Name
     The bare area name of the shared module — 'Types' resolves to .internal/Catzc.Internal.Types.psm1.
 .PARAMETER Force
@@ -48,7 +48,7 @@ Above `[CmdletBinding()]` (occurrence 2), written with `#`.
     Returns true if the current session is running inside a CI/CD pipeline.
 .DESCRIPTION
     It lives in the always-loaded loader so the bootstrap pre-pass and every module ask the same function.
-    [comment:3](/docs/references/automation/internal/Catzc.Internal.Loader.psm1.md#comment3)
+    [comment:3](/docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md#comment3)
 .EXAMPLE
     Test-IsRunningInPipeline
 .EXAMPLE

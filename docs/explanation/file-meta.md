@@ -41,7 +41,7 @@ Three things can sit in front matter, and only the first is a fact:
 
 ## Where each fact comes from
 
-Every imprinted kind is an entry of `automation/Catzc.Base.QualityGates/configs/file-meta.yml` with a `Get-<Kind>FileMetaFact` processor
+Every imprinted kind is an entry of `pwsh/Catzc.Base.QualityGates/configs/file-meta.yml` with a `Get-<Kind>FileMetaFact` processor
 ([ADR-REPO-FILEMETA#2](../adr/repository/file-meta.md#rule-adr-repo-filemeta2),
 [ADR-REPO-FILEMETA#4](../adr/repository/file-meta.md#rule-adr-repo-filemeta4)), and each derives from outside the head:
 

@@ -22,7 +22,7 @@ file is a constant, not per-file data, so declaring it once is the rule (ADR-PRI
 ## Where it lives now
 
 - The CLAUDE.md session-start line names ADR-AI before the ADR index, so every session and every robot reads it first.
-- A top-level `contracts:` entry in `automation/Catzc.Base.Docs/configs/agents.yml`, beside `standard:`, is the data form the gate can read
+- A top-level `contracts:` entry in `pwsh/Catzc.Base.Docs/configs/agents.yml`, beside `standard:`, is the data form the gate can read
   when a check needs it.
 - This page holds the meaning and the context of the key. When ADR-AI is written, its Context section absorbs this page and the page is
   deleted (ADR-PRIN-ONELIVE).

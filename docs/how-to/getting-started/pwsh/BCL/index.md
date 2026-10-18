@@ -4,7 +4,7 @@ Guides for working with the native C# types the automation platform loads. Langu
 `automation/`.
 
 For what **BCL** (the .NET Base Class Library) is, and the authoritative sources from Microsoft, see the
-[BCL automation reference](../../../../references/automation/BCL/index.md). The design behind the platform's C# types is the
+[BCL automation reference](../../../../references/pwsh/BCL/index.md). The design behind the platform's C# types is the
 [native-csharp-types](../../../../adr/automation/BCL/native-csharp-types.md) ADR.
 
 - [Add a C# type](add-a-dotnet-type.md) — drop a `.cs` in a module's `types/` folder and load it at import.

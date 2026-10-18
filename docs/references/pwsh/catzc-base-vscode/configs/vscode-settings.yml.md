@@ -1,4 +1,4 @@
-# automation/Catzc.Base.VSCode/configs/vscode-settings.yml
+# pwsh/Catzc.Base.VSCode/configs/vscode-settings.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -77,9 +77,9 @@ Break one-line blocks (if ($x) { ... }) across multiple lines on format, so no b
 Above `search.exclude:`, written with `#`.
 
 ```text
-Exclude vendored modules and generated module manifests from search. Manifests (automation/**/*.psd1)
+Exclude vendored modules and generated module manifests from search. Manifests (pwsh/**/*.psd1)
 are gitignored build output — canonical by their generator (Bootstrap) — so they are not authored here
-and should not clutter search. The authored analyzer config lives under automation/.internal/assets and
+and should not clutter search. The authored analyzer config lives under pwsh/.internal/assets and
 would fall under that glob, so it is explicitly un-excluded (a more specific `false` wins) to keep it
 searchable and visible. The managed root-config targets are injected into this map at render time.
 ```

@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/Test-Change.ps1
+# pwsh/Catzc.Base.QualityGates/Test-Change.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -71,5 +71,5 @@ Test-Change -DryRun
 ### example 3
 
 ```powershell
-(Test-Change 'automation/Catzc.Base.Files/Get-GitChangedPath.ps1' -PassThru).Issues
+(Test-Change 'pwsh/Catzc.Base.Files/Get-GitChangedPath.ps1' -PassThru).Issues
 ```

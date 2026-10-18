@@ -7,9 +7,9 @@ plan:
     nothing; Q1-Q5 are answered below, and the open steps are the config move, a green Test-Automation file and the first measured run
   targets:
     [
-      automation/Catzc.Base.Timeouts,
-      automation/.internal/Catzc.Internal.Importer.psm1,
-      automation/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1,
+      pwsh/Catzc.Base.Timeouts,
+      pwsh/.internal/Catzc.Internal.Importer.psm1,
+      pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1,
     ]
 ---
 
@@ -44,7 +44,7 @@ leads to, not the function. It needs one ADR pair and one L0 test file.
 ## Needed docs
 
 - `ADR-AUTO-FAILFAST#8`: mark a suspected block with a watchpoint, then bound it (Q5). `ADR-PWSH-ASSERT#7`: the pwsh form. Both go through
-  `automation/Catzc.Base.Docs/configs/adrs.yml` and `Build-AdrIndex`; present tense, no history.
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `Build-AdrIndex`; present tense, no history.
 - Function help for `Assert-Wait` (ADR-REPO-HELP); a glossary entry only if `watchpoint` becomes a defined term (`glossary-keeper`).
 - The `timeouts.yml` page documents the new `wait` keys (Q1).
 
@@ -141,5 +141,5 @@ One file at a time, each verified before the next (`.claude/CLAUDE.md`, Editing)
 - docs/adr/pwsh/assert-idioms.md (ADR-PWSH-ASSERT#6)
 - docs/adr/automation/console-output-matters.md (ADR-AUTO-CONSOLE#7, #10)
 - docs/adr/principles/one-living-version.md (ADR-PRIN-ONELIVE)
-- automation/Catzc.Base.Timeouts/Assert-CompletesWithin.ps1, automation/Catzc.Base.Writers/Write-Message.ps1
-- automation/Catzc.Base.Execution/Invoke-WithProgress.ps1 (the heartbeat thread Q3 may reuse)
+- pwsh/Catzc.Base.Timeouts/Assert-CompletesWithin.ps1, pwsh/Catzc.Base.Writers/Write-Message.ps1
+- pwsh/Catzc.Base.Execution/Invoke-WithProgress.ps1 (the heartbeat thread Q3 may reuse)

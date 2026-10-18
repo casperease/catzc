@@ -3,7 +3,7 @@
 ```text
 A push starts only the pipelines whose globset holds a changed file.
 
-1  automation/**                a change here fires ci-automation on the PR and the merge
+1  pwsh/**                a change here fires ci-automation on the PR and the merge
 2  ci-automation                runs Test-Automation -Level 2 -EnforceTimings
 3  ci-infrastructure            fired by infrastructure/**; checks and builds three templates
 4  A change re-keys the units   a foundation or modules edit reaches all four units
@@ -24,7 +24,7 @@ The diagram is described element by element in [its asset description](a-push-fi
 
 ## Walkthrough
 
-1. **`automation/**`.** A change here fires `ci-automation`, on a pull request to main (`pr:`) and on the merge (`trigger:`). The GitHub
+1. **`pwsh/**`.** A change here fires `ci-automation`, on a pull request to main (`pr:`) and on the merge (`trigger:`). The GitHub
    workflow `ci-automation.yml` and the pipeline `ci-automation-expected-failures` carry the same path filter and start too.
 2. **ci-automation.** Runs `Test-Automation -Level 2 -EnforceTimings`, among its other jobs.
 3. **ci-infrastructure.** Any change under `infrastructure/**` fires it. It runs `Assert-BicepTemplate` and then `Build-Bicep` for each of

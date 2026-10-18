@@ -1,4 +1,4 @@
-# automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleIndexed.Tests.ps1
+# pwsh/Catzc.Azure.Templates/tests/Build-Bicep.SampleIndexed.Tests.ps1
 
 <!-- cspell:ignore weutstsidxst -->
 

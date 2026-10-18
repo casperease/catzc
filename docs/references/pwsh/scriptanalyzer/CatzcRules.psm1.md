@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/CatzcRules.psm1
+# pwsh/.scriptanalyzer/CatzcRules.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -21,7 +21,7 @@ Above `function Measure-CatzcRules {`, written with `#`.
     The one custom PSScriptAnalyzer rule the settings load: runs every repository check once per file.
 .DESCRIPTION
     One entry rule acting only on the root block, so each check runs once per file instead of once per script block.
-    [comment:2](/docs/references/automation/scriptanalyzer/CatzcRules.psm1.md#comment2)
+    [comment:2](/docs/references/pwsh/scriptanalyzer/CatzcRules.psm1.md#comment2)
 .PARAMETER ScriptBlockAst
     The script block the engine hands the rule; only a file's root block (no parent) is acted on.
 ```

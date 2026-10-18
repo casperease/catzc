@@ -64,15 +64,15 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][8]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 33 (text).
-- [automation/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1][9]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 1 (header).
+- [pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][8]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 33 (text).
+- [pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1][9]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 1 (header).
 
 ### automation × yaml (1 lit file)
 
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][10]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 83 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][10]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 83 (text).
 
 ### docs × markdown (13 lit files)
 
@@ -84,23 +84,23 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/index.md][12]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 117 (text).
 - [docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md][13]: selected by
   [ADR-DSGN-ASPECT][1]: the file cites it at line 55 (text).
-- [docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md][14]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 16
+- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][14]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 16
   (text) and line 69 (text).
-- [docs/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md][15]: selected by [ADR-DSGN-ASPECT][1]: the file
+- [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][15]: selected by [ADR-DSGN-ASPECT][1]: the file
   cites it at line 109 (text).
-- [docs/references/automation/catzc-base-globs/tests/types/Aspect.Tests.ps1.md][16]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md][16]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at
   line 11 (text).
-- [docs/references/automation/catzc-base-globs/types/Aspect.cs.md][17]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 11
+- [docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md][17]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 11
   (text), line 24 (text) and line 52 (text).
-- [docs/references/automation/catzc-base-modules/Get-Aspect.ps1.md][18]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 15
+- [docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md][18]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 15
   (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][19]: selected by [ADR-DSGN-ASPECT][1]:
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md][19]: selected by [ADR-DSGN-ASPECT][1]:
   the file cites it at line 50 (text).
-- [docs/references/automation/catzc-base-variants/configs/variants.yml.md][20]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][20]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line
   61 (text).
-- [docs/references/automation/catzc-base-variants/types/VariantAspect.cs.md][21]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md][21]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at
   line 12 (text).
-- [docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md][22]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][22]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at
   line 28 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
@@ -109,9 +109,9 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][23]: selected by [ADR-DSGN-ASPECT][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 83 (text),
-  `automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 33 (text) and
-  `automation/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1` line 1 (header).
+  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 83 (text),
+  `pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 33 (text) and
+  `pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1` line 1 (header).
 
 ## Keywords
 
@@ -136,21 +136,21 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [5]: ../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
 [6]: ../../../../.claude/plans/plan-module-kinds-tracks.md
 [7]: ../../../../.claude/plans/prompt-module-model-1-prepare.md
-[8]: ../../../../automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
-[9]: ../../../../automation/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-[10]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[8]: ../../../../pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+[9]: ../../../../pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
+[10]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [11]: ../../../adr/design/dora-explains.md
 [12]: ../../../adr/index.md
 [13]: ../../../references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
-[14]: ../../../references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md
-[15]: ../../../references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
-[16]: ../../../references/automation/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
-[17]: ../../../references/automation/catzc-base-globs/types/Aspect.cs.md
-[18]: ../../../references/automation/catzc-base-modules/Get-Aspect.ps1.md
-[19]: ../../../references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md
-[20]: ../../../references/automation/catzc-base-variants/configs/variants.yml.md
-[21]: ../../../references/automation/catzc-base-variants/types/VariantAspect.cs.md
-[22]: ../../../references/automation/catzc-base-variants/types/VariantsConfig.cs.md
+[14]: ../../../references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+[15]: ../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[16]: ../../../references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
+[17]: ../../../references/pwsh/catzc-base-globs/types/Aspect.cs.md
+[18]: ../../../references/pwsh/catzc-base-modules/Get-Aspect.ps1.md
+[19]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md
+[20]: ../../../references/pwsh/catzc-base-variants/configs/variants.yml.md
+[21]: ../../../references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
+[22]: ../../../references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
 [23]: ../../../../pipelines/ci-automation.yaml
 [24]: ../../design/every-file-in-exactly-one-aspect.md
 [25]: ../../../adr/glossary.md#world-map
@@ -158,5 +158,5 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [27]: ../../../adr/glossary.md#file-language
 [28]: ../../../adr/glossary.md#cell
 [29]: ../../../adr/glossary.md#lit-cell
-[30]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[31]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[30]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[31]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

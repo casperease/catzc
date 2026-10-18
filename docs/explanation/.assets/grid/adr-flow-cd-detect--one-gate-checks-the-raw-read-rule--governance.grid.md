@@ -51,8 +51,8 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 99 (text).
-- [automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][6]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 11
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 99 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][6]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 11
   (text).
 
 ### docs × markdown (8 lit files)
@@ -65,13 +65,13 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/index.md][8]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at line 131 (text).
 - [docs/references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md][9]: selected by
   [ADR-FLOW-CD-DETECT][1]: the file cites it at line 55 (text).
-- [docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md][10]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md][10]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites
   it at line 58 (text).
-- [docs/references/automation/catzc-base-globs/Get-GlobSetChangeRange.ps1.md][11]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md][11]: selected by [ADR-FLOW-CD-DETECT][1]: the file cites it at
   line 15 (text).
-- [docs/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md][12]: selected by [ADR-FLOW-CD-DETECT][1]: the file
+- [docs/references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md][12]: selected by [ADR-FLOW-CD-DETECT][1]: the file
   cites it at line 26 (text) and line 109 (text).
-- [docs/references/automation/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md][13]: selected by [ADR-FLOW-CD-DETECT][1]: the file
+- [docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md][13]: selected by [ADR-FLOW-CD-DETECT][1]: the file
   cites it at line 11 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
@@ -80,8 +80,8 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][14]: selected by [ADR-FLOW-CD-DETECT][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 99 (text) and
-  `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 11 (text).
+  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 99 (text) and
+  `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 11 (text).
 
 ## Keywords
 
@@ -101,15 +101,15 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[6]: ../../../../automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+[5]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[6]: ../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
 [7]: ../../../adr/flow/dora-explains.md
 [8]: ../../../adr/index.md
 [9]: ../../../references/.assets/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
-[10]: ../../../references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
-[11]: ../../../references/automation/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
-[12]: ../../../references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
-[13]: ../../../references/automation/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
+[10]: ../../../references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
+[11]: ../../../references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
+[12]: ../../../references/pwsh/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+[13]: ../../../references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
 [14]: ../../../../pipelines/ci-automation.yaml
 [15]: ../../flow/one-gate-checks-the-raw-read-rule.md
 [16]: ../../../adr/glossary.md#world-map
@@ -117,5 +117,5 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [18]: ../../../adr/glossary.md#file-language
 [19]: ../../../adr/glossary.md#cell
 [20]: ../../../adr/glossary.md#lit-cell
-[21]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[22]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[21]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[22]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

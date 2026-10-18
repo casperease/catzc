@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/NoRawPipelineDetection.psm1
+# pwsh/.scriptanalyzer/NoRawPipelineDetection.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Above `function Measure-NoRawPipelineDetection {`, written with `#`.
     Custom PSScriptAnalyzer rule: forbid raw pipeline-detection env reads.
 .DESCRIPTION
     One detector owns the agent variables, so the checked set stays hidden and both platforms are always covered.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/scriptanalyzer/NoRawPipelineDetection.psm1.md#comment1)
 ```
 
 ## comment:2

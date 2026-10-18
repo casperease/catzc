@@ -35,5 +35,5 @@ metadata:
    `Build-Glossary`, `Build-AdrIndex`) then `Test-GeneratedFiles -PassThru`; never the full `Test-Automation`.
 3. Shared files are the coordinator's unless the brief names them owned: `dependencies.yml`, `configs.yml`, `rootconfig.yml`,
    `gitignore.yml`, `globs.yml`, `terminology.yml`, `guids.yml`, every `glossary.yml`, `docs/adr/glossary.md`, `docs/adr/index.md`,
-   `docs/how-to/automation/manual-test-plan/**`; an entry needed there goes in the report as the exact lines under asks, tested meanwhile
+   `docs/how-to/pwsh/manual-test-plan/**`; an entry needed there goes in the report as the exact lines under asks, tested meanwhile
    with mocks or fixtures.

@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
+# pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -20,7 +20,7 @@ drift from what the owners actually generate. It is the union of:
 - the conventional generated-artifact classes: the dynamic module manifests (`automation/<Module>/<Module>.psd1`), the generated READMEs
   (every gitignored README.md is a generated copy by the generated-readmes contract — a hand-authored README is only safe once opted in and
   committed), the generated cspell dictionaries (.cspell/), the transient output root (out/ — disposable by the dedicated-output-directory
-  contract), the IDE-only C# project's build output (bin/obj under automation/.internal/assets), the compiled-type `*.tmp` scratch, and the
+  contract), the IDE-only C# project's build output (bin/obj under pwsh/.internal/assets), the compiled-type `*.tmp` scratch, and the
   drawio editor's autosave shadows ('`.$*.drawio.png.bkp`' beside a committed .drawio.png asset).
 
 Minus the exclusions, written gitignore-style with a leading '!': a path matching an exclusion is never auto-controlled, whatever else it

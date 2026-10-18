@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
+# pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
 
 <!-- cspell:ignore ngadget -->
 

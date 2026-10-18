@@ -72,42 +72,42 @@ catzc:
       - docs/explanation/index.md
       - docs/explanation/pipelines/index.md
       - docs/explanation/repository/index.md
-      - docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
-      - docs/how-to/getting-started/automation/add-a-cli-tool.md
+      - docs/how-to/getting-started/pwsh/BCL/add-a-dotnet-type.md
+      - docs/how-to/getting-started/pwsh/add-a-cli-tool.md
       - docs/how-to/getting-started/automation/add-a-doc-chapter.md
-      - docs/how-to/getting-started/automation/add-a-module.md
+      - docs/how-to/getting-started/pwsh/add-a-module.md
       - docs/how-to/getting-started/automation/add-an-infrastructure-template.md
-      - docs/how-to/getting-started/automation/debug-in-vscode.md
+      - docs/how-to/getting-started/pwsh/debug-in-vscode.md
       - docs/how-to/getting-started/automation/faq.md
       - docs/how-to/getting-started/automation/index.md
-      - docs/how-to/getting-started/automation/powershell/add-a-function.md
-      - docs/how-to/getting-started/automation/run-tests-and-checks.md
-      - docs/how-to/getting-started/automation/vendor-a-module.md
-      - docs/references/automation/catzc-azure-cli.md
-      - docs/references/automation/catzc-azure-devops.md
-      - docs/references/automation/catzc-azure-firewall.md
-      - docs/references/automation/catzc-azure-templates.md
-      - docs/references/automation/catzc-azure.md
-      - docs/references/automation/catzc-base-asserts.md
-      - docs/references/automation/catzc-base-config.md
-      - docs/references/automation/catzc-base-environment.md
-      - docs/references/automation/catzc-base-execution.md
-      - docs/references/automation/catzc-base-files.md
-      - docs/references/automation/catzc-base-git.md
-      - docs/references/automation/catzc-base-modulesystem.md
-      - docs/references/automation/catzc-base-objects.md
-      - docs/references/automation/catzc-base-qualitygates.md
-      - docs/references/automation/catzc-base-repository.md
-      - docs/references/automation/catzc-base-rootconfig.md
-      - docs/references/automation/catzc-base-typessystem.md
-      - docs/references/automation/catzc-base-vscode.md
-      - docs/references/automation/catzc-base-writers.md
-      - docs/references/automation/catzc-tooling-core.md
-      - docs/references/automation/catzc-tooling-node.md
-      - docs/references/automation/catzc-tooling-provisioning.md
-      - docs/references/automation/catzc-tooling-python.md
-      - docs/references/automation/catzc-tooling-toolchain.md
-      - docs/references/automation/index.md
+      - docs/how-to/getting-started/pwsh/powershell/add-a-function.md
+      - docs/how-to/getting-started/pwsh/run-tests-and-checks.md
+      - docs/how-to/getting-started/pwsh/vendor-a-module.md
+      - docs/references/pwsh/catzc-azure-cli.md
+      - docs/references/pwsh/catzc-azure-devops.md
+      - docs/references/pwsh/catzc-azure-firewall.md
+      - docs/references/pwsh/catzc-azure-templates.md
+      - docs/references/pwsh/catzc-azure.md
+      - docs/references/pwsh/catzc-base-asserts.md
+      - docs/references/pwsh/catzc-base-config.md
+      - docs/references/pwsh/catzc-base-environment.md
+      - docs/references/pwsh/catzc-base-execution.md
+      - docs/references/pwsh/catzc-base-files.md
+      - docs/references/pwsh/catzc-base-git.md
+      - docs/references/pwsh/catzc-base-modulesystem.md
+      - docs/references/pwsh/catzc-base-objects.md
+      - docs/references/pwsh/catzc-base-qualitygates.md
+      - docs/references/pwsh/catzc-base-repository.md
+      - docs/references/pwsh/catzc-base-rootconfig.md
+      - docs/references/pwsh/catzc-base-typessystem.md
+      - docs/references/pwsh/catzc-base-vscode.md
+      - docs/references/pwsh/catzc-base-writers.md
+      - docs/references/pwsh/catzc-tooling-core.md
+      - docs/references/pwsh/catzc-tooling-node.md
+      - docs/references/pwsh/catzc-tooling-provisioning.md
+      - docs/references/pwsh/catzc-tooling-python.md
+      - docs/references/pwsh/catzc-tooling-toolchain.md
+      - docs/references/pwsh/index.md
 ---
 
 # Documentation
@@ -125,14 +125,14 @@ this add ceremony?" and "Can the author get this wrong?".
 New here? Start with the [**automation getting-started guide**](how-to/getting-started/automation/index.md) — how to load the system, use it
 in a script and in CI, and the task index. Its how-to articles:
 
-- [Add a function](how-to/getting-started/automation/powershell/add-a-function.md)
-- [Add a module](how-to/getting-started/automation/add-a-module.md)
-- [Add a C# type](how-to/getting-started/automation/BCL/add-a-dotnet-type.md)
+- [Add a function](how-to/getting-started/pwsh/powershell/add-a-function.md)
+- [Add a module](how-to/getting-started/pwsh/add-a-module.md)
+- [Add a C# type](how-to/getting-started/pwsh/BCL/add-a-dotnet-type.md)
 - [Add an infrastructure template](how-to/getting-started/automation/add-an-infrastructure-template.md)
-- [Run tests and checks](how-to/getting-started/automation/run-tests-and-checks.md)
-- [Debug in VS Code](how-to/getting-started/automation/debug-in-vscode.md)
-- [Add a CLI tool](how-to/getting-started/automation/add-a-cli-tool.md)
-- [Vendor a module](how-to/getting-started/automation/vendor-a-module.md)
+- [Run tests and checks](how-to/getting-started/pwsh/run-tests-and-checks.md)
+- [Debug in VS Code](how-to/getting-started/pwsh/debug-in-vscode.md)
+- [Add a CLI tool](how-to/getting-started/pwsh/add-a-cli-tool.md)
+- [Vendor a module](how-to/getting-started/pwsh/vendor-a-module.md)
 - [Add a doc chapter](how-to/getting-started/automation/add-a-doc-chapter.md)
 
 ## Explanation
@@ -150,25 +150,25 @@ the diagrams. By ADR domain:
 
 ## Module reference
 
-Per-module reference, written responsibilities-first — each [article](references/automation/index.md) declares the module's
+Per-module reference, written responsibilities-first — each [article](references/pwsh/index.md) declares the module's
 responsibilities, describes it in those terms, and sorts its functions and configs into them:
 
-- [Catzc.Base.Asserts](references/automation/catzc-base-asserts.md),
-  [Catzc.Base.Repository](references/automation/catzc-base-repository.md),
-  [Catzc.Base.Environment](references/automation/catzc-base-environment.md),
-  [Catzc.Base.Objects](references/automation/catzc-base-objects.md), [Catzc.Base.Writers](references/automation/catzc-base-writers.md),
-  [Catzc.Base.Config](references/automation/catzc-base-config.md), [Catzc.Base.Execution](references/automation/catzc-base-execution.md),
-  [Catzc.Base.Files](references/automation/catzc-base-files.md), [Catzc.Base.TypesSystem](references/automation/catzc-base-typessystem.md),
-  [Catzc.Base.ModuleSystem](references/automation/catzc-base-modulesystem.md),
-  [Catzc.Base.QualityGates](references/automation/catzc-base-qualitygates.md), [Catzc.Base.Git](references/automation/catzc-base-git.md),
-  [Catzc.Base.VSCode](references/automation/catzc-base-vscode.md), [Catzc.Base.RootConfig](references/automation/catzc-base-rootconfig.md)
-- [Catzc.Tooling.Core](references/automation/catzc-tooling-core.md), [Catzc.Tooling.Python](references/automation/catzc-tooling-python.md),
-  [Catzc.Tooling.Node](references/automation/catzc-tooling-node.md),
-  [Catzc.Tooling.Toolchain](references/automation/catzc-tooling-toolchain.md),
-  [Catzc.Tooling.Provisioning](references/automation/catzc-tooling-provisioning.md)
-- [Catzc.Azure](references/automation/catzc-azure.md), [Catzc.Azure.Cli](references/automation/catzc-azure-cli.md),
-  [Catzc.Azure.DevOps](references/automation/catzc-azure-devops.md), [Catzc.Azure.Firewall](references/automation/catzc-azure-firewall.md),
-  [Catzc.Azure.Templates](references/automation/catzc-azure-templates.md)
+- [Catzc.Base.Asserts](references/pwsh/catzc-base-asserts.md),
+  [Catzc.Base.Repository](references/pwsh/catzc-base-repository.md),
+  [Catzc.Base.Environment](references/pwsh/catzc-base-environment.md),
+  [Catzc.Base.Objects](references/pwsh/catzc-base-objects.md), [Catzc.Base.Writers](references/pwsh/catzc-base-writers.md),
+  [Catzc.Base.Config](references/pwsh/catzc-base-config.md), [Catzc.Base.Execution](references/pwsh/catzc-base-execution.md),
+  [Catzc.Base.Files](references/pwsh/catzc-base-files.md), [Catzc.Base.TypesSystem](references/pwsh/catzc-base-typessystem.md),
+  [Catzc.Base.ModuleSystem](references/pwsh/catzc-base-modulesystem.md),
+  [Catzc.Base.QualityGates](references/pwsh/catzc-base-qualitygates.md), [Catzc.Base.Git](references/pwsh/catzc-base-git.md),
+  [Catzc.Base.VSCode](references/pwsh/catzc-base-vscode.md), [Catzc.Base.RootConfig](references/pwsh/catzc-base-rootconfig.md)
+- [Catzc.Tooling.Core](references/pwsh/catzc-tooling-core.md), [Catzc.Tooling.Python](references/pwsh/catzc-tooling-python.md),
+  [Catzc.Tooling.Node](references/pwsh/catzc-tooling-node.md),
+  [Catzc.Tooling.Toolchain](references/pwsh/catzc-tooling-toolchain.md),
+  [Catzc.Tooling.Provisioning](references/pwsh/catzc-tooling-provisioning.md)
+- [Catzc.Azure](references/pwsh/catzc-azure.md), [Catzc.Azure.Cli](references/pwsh/catzc-azure-cli.md),
+  [Catzc.Azure.DevOps](references/pwsh/catzc-azure-devops.md), [Catzc.Azure.Firewall](references/pwsh/catzc-azure-firewall.md),
+  [Catzc.Azure.Templates](references/pwsh/catzc-azure-templates.md)
 
 ## Automation ADRs
 

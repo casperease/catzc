@@ -117,7 +117,7 @@ the coverage check is red, so the change cannot merge ([poka-yoke](../principles
 ### How this is enforced
 
 - **`Get-CatzcModuleRoot`** (`Catzc.Base.Repository`) — the one helper for a module's own content.
-- **`Measure-NoScriptRootAnchor`** (`automation/.scriptanalyzer/`) — flags `$PSScriptRoot` in module function files.
+- **`Measure-NoScriptRootAnchor`** (`pwsh/.scriptanalyzer/`) — flags `$PSScriptRoot` in module function files.
 - **`Get-InternalAssetDependency`** (`Catzc.Base.ModuleSystem`) — derives the inventory from the code.
 - **The coverage check** — an integrity test over the inventory, in both test runs (ADR-AUTO-ASSETDEP#4).
 - **The presence check** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output (ADR-AUTO-ASSETDEP#4).

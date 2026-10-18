@@ -15,7 +15,7 @@ elseif (-not $env:RepositoryRoot) {
     $env:RepositoryRoot = (Get-Location).ProviderPath
 }
 
-# The code root: this build. Invoke-Importer -Bundle honours it instead of deriving <RepositoryRoot>/automation.
+# The code root: this build. Invoke-Importer -Bundle honours it instead of deriving <RepositoryRoot>/pwsh.
 $env:CatzcModulesRoot = $PSScriptRoot
 
 # Load the .internal shared-code loader of this build, then the importer overlay, and delegate. The importer

@@ -6,8 +6,8 @@ task:
   blocked_on: nothing; the probe deletions (steps 5 and 6) are the user's runs
   targets:
     [
-      automation/Catzc.Base.Reports/configs/output-formats.yml,
-      automation/Catzc.Base.Reports,
+      pwsh/Catzc.Base.Reports/configs/output-formats.yml,
+      pwsh/Catzc.Base.Reports,
       docs/adr/repository/dedicated-output-directory.md,
       out,
     ]
@@ -18,7 +18,7 @@ task:
 Decided (Q71 to Q74): the six out/ areas with their numbers are registered in output-formats.yml; sessions live under
 `out/sessions/<session>/`; `time-safeguard.log` is never pruned; only `Clear-Output` prunes. The harvest of 2026-10-16 judged 260 scripts:
 235 probes (delete in approved batches), 20 reruns (kept, named by their plans), 5 tool candidates (open steps in their owning plans). The
-config lives at `automation/Catzc.Base.Reports/configs/output-formats.yml` (the plan head says Writers; correct the head in step 1).
+config lives at `pwsh/Catzc.Base.Reports/configs/output-formats.yml` (the plan head says Writers; correct the head in step 1).
 
 ## Steps
 

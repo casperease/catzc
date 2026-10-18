@@ -4,7 +4,7 @@ plan:
   value: medium
   reviewed: 2026-10-17
   blocked_on: nothing; the first three steps are checks and fixes, the last is the user's
-  targets: [automation/Catzc.Base.Git/Push-Dirty.ps1, automation/Catzc.Base.VSCode, docs/adr/design/commit-lifecycle.md]
+  targets: [pwsh/Catzc.Base.Git/Push-Dirty.ps1, pwsh/Catzc.Base.VSCode, docs/adr/design/commit-lifecycle.md]
 ---
 
 # Fast push to main: what is left

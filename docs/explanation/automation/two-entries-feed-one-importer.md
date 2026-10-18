@@ -30,7 +30,7 @@ The diagram is described element by element in [its asset description](two-entri
 1. **importer.ps1.** The source-mode entry is a generated shim that `New-Importer` renders, as `rootconfig.yml` declares. It sets
    `$env:RepositoryRoot`, loads `Catzc.Internal.Loader` by path, imports the importer, calls `Invoke-Importer`, and removes the importer
    again in its `finally` block.
-2. **Import-Catzc.ps1.** The build-mode entry is authored once under `automation/.internal/assets/` and copied into every build. It calls
+2. **Import-Catzc.ps1.** The build-mode entry is authored once under `pwsh/.internal/assets/` and copied into every build. It calls
    `Invoke-Importer -Bundle`. A build's `Catzc.psm1` dot-sources the same file, so `Import-Module Catzc` sets up the same session.
 3. **Two roots.** The working root, `$env:RepositoryRoot`, is where `out/` and repo-relative paths resolve. The code root,
    `$env:CatzcModulesRoot`, is where the loaded code lives, and config, type and vendor discovery follow it. Source mode derives the code

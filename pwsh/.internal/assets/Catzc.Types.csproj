@@ -19,14 +19,14 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    with_body_sha: "3edf424a2b1d"
+    with_body_sha: c756cfdd5ee9
     repo_status: locked
     path: pwsh/.internal/assets/Catzc.Types.csproj
     source: pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
     role: asset
     language: xml
     filetype: csproj
-    track: automation
+    track: pwsh
     tracktype: modules
     module: Catzc.Internal.Assets
     moduletype: pwsh-folder

@@ -1,8 +1,8 @@
 Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'logic' {
     BeforeAll {
-        $script:config = Join-Path $TestDrive 'repo/automation/Catzc.Widget/tests/assets/config'
+        $script:config = Join-Path $TestDrive 'repo/pwsh/Catzc.Widget/tests/assets/config'
         [void][System.IO.Directory]::CreateDirectory($script:config)
-        [void][System.IO.Directory]::CreateDirectory((Join-Path $TestDrive 'repo/automation/Catzc.Widget/configs'))
+        [void][System.IO.Directory]::CreateDirectory((Join-Path $TestDrive 'repo/pwsh/Catzc.Widget/configs'))
         $script:azure = @'
 org: wdg
 bicep_min_version: "0.30.0"
@@ -37,7 +37,7 @@ customers:
     details: Gizmo Fixture Co
 '@
         # A shipped config of the same name is not a fixture: only tests/assets/config/ is read.
-        [System.IO.File]::WriteAllText((Join-Path $TestDrive 'repo/automation/Catzc.Widget/configs/customer.yml'), "customers: {}`n")
+        [System.IO.File]::WriteAllText((Join-Path $TestDrive 'repo/pwsh/Catzc.Widget/configs/customer.yml'), "customers: {}`n")
     }
 
     BeforeEach {

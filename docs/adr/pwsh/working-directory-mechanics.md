@@ -129,12 +129,12 @@ Paths resolve from the code root (`Get-CatzcModuleRoot`, with a literal `-ChildP
 
 ### How this is enforced
 
-- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`automation/.scriptanalyzer/NeverDependOnPwd.psm1`) — flags bare
+- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — flags bare
   `Set-Location`/`cd` calls (ADR-PWSH-PWD#2) and `$PWD` references (ADR-AUTO-NOPWD#1). Runs as one of the L2 tests via
   `Test-ScriptAnalyzer.Tests.ps1`.
-- **Custom PSScriptAnalyzer rule `Measure-NoScriptRootAnchor`** (`automation/.scriptanalyzer/NoScriptRootAnchor.psm1`) — flags
+- **Custom PSScriptAnalyzer rule `Measure-NoScriptRootAnchor`** (`pwsh/.scriptanalyzer/NoScriptRootAnchor.psm1`) — flags
   `$PSScriptRoot` in module function files (ADR-PWSH-PWD#4), exempting tests, `assets/`, and `.internal`.
-- **Custom PSScriptAnalyzer rule `Measure-NoEnvRepositoryRoot`** (`automation/.scriptanalyzer/NoEnvRepositoryRoot.psm1`) — flags a
+- **Custom PSScriptAnalyzer rule `Measure-NoEnvRepositoryRoot`** (`pwsh/.scriptanalyzer/NoEnvRepositoryRoot.psm1`) — flags a
   `$env:RepositoryRoot` read in a module function file (ADR-PWSH-PWD#6).
 
 ## Consequences

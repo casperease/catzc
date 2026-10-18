@@ -86,7 +86,7 @@ Markdown. The head is small, because every key in it is a key that can drift.
 ---
 catzc:
   immutable:
-    path: automation/Catzc.Base.Languages/types/FileLanguage.cs
+    path: pwsh/Catzc.Base.Languages/types/FileLanguage.cs
     role: type
     module: Catzc.Base.Languages
   edges:
@@ -105,7 +105,7 @@ using System;
 ---
 catzc:
   immutable:
-    path: automation/Catzc.Base.QualityGates/private/Get-WidgetFact.ps1
+    path: pwsh/Catzc.Base.QualityGates/private/Get-WidgetFact.ps1
     role: function
     module: Catzc.Base.QualityGates
     visibility: private

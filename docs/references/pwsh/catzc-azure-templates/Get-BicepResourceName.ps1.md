@@ -1,4 +1,4 @@
-# automation/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+# pwsh/Catzc.Azure.Templates/Get-BicepResourceName.ps1
 
 <!-- cspell:ignore deweuzctsmplst -->
 

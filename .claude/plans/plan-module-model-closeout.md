@@ -5,7 +5,7 @@ plan:
   reviewed: 2026-10-17
   next: the handler ids for rule 6 (task-module-model-closeout)
   targets:
-    [automation/Catzc.Base.Modules, automation/Catzc.Base.ModuleSystem, docs/adr/automation/module-model.md, docs/references/automation]
+    [pwsh/Catzc.Base.Modules, pwsh/Catzc.Base.ModuleSystem, docs/adr/automation/module-model.md, docs/references/automation]
 ---
 
 # Module model: close-out after the implement run
@@ -47,7 +47,7 @@ verification found.
       its type are declared and deployable, but `Get-CatzcModule -TrackType infrastructure` returns no module, because the bicep module
       type's places (`infrastructure/templates`, `infrastructure/modules`) sit below the track's place `infrastructure` and the resolver
       treats a nested place as internal unless `-IncludeInternal`; the extension is a design step there (check: the recorded line exists).
-- [x] Catzc.Base.Modules gets its reference page. Done 2026-10-17 (its task): `docs/references/automation/catzc-base-modules.md`, two
+- [x] Catzc.Base.Modules gets its reference page. Done 2026-10-17 (its task): `docs/references/pwsh/catzc-base-modules.md`, two
       responsibilities (module resolution, aspect classification), listed in index.md. Check: Format-Code run on it and a dry run changes
       nothing more, index.md dry run unchanged; Test-Spelling, Test-Markdownlint, Test-Links clean (`out/test-spelling/20261017-175756`,
       `out/test-markdownlint/20261017-175756`); index.md's link to it reports `[Untracked]` until the page is committed.
@@ -55,7 +55,7 @@ verification found.
       grep waits_on in .claude/plans shows neither file). Done 2026-10-18: config-defaults has none; layers waits only on the P4 go (D10).
 - [ ] The user runs the whole Test-Automation and reads the two real-repo failures an agent reported (the drawio.yml live-yaml test and
       RootConfig New-GitAttributes) (check: the run's report lists neither).
-- [x] The head of automation/.internal/assets/Catzc.Types.csproj. Done 2026-10-17 (its task): the file no longer carries a processing
+- [x] The head of pwsh/.internal/assets/Catzc.Types.csproj. Done 2026-10-17 (its task): the file no longer carries a processing
       instruction; its head is the CDATA `CatzcMeta` property of the `msbuild-project` carrier (plan-csproj-xml-head), and its first line is
       the IDE comment `<!--`. Format-FileMeta then Format-Code both left that first line as it was (`out/t011-csproj-first-line.ps1`).
 - [x] Decide the minimaps of the other slides: keep the rebuild or revert it (check: git status under docs/.assets/explanation lists only

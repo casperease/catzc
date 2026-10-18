@@ -1,19 +1,19 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f7a926d21ab4
+#     with_body_sha: "46bf4ac56731"
 #     repo_status: locked
 #     path: contracts/.gitkeep
-#     source: automation/Catzc.Base.Docs/assets/gitkeep
+#     source: pwsh/Catzc.Base.Docs/assets/gitkeep
 #     role: other
 #     track: contracts
 #     tracktype: contracts
-#     generator: automation/Catzc.Base.Docs/Build-GitKeep.ps1
+#     generator: pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
 # ---
 
 This .gitkeep keeps its otherwise-empty (or content-ignored) folder tracked in git.
 
-GENERATED — every .gitkeep is reproduced from automation/Catzc.Base.Docs/assets/gitkeep on import
+GENERATED — every .gitkeep is reproduced from pwsh/Catzc.Base.Docs/assets/gitkeep on import
 (Build-GitKeep); edit that source, never a copy. Everything worth knowing about this folder is in its
 README.md, generated from the folder's docs/references article — an integrity test guarantees the article
 exists (see docs/adr/repository/generated-readmes.md).

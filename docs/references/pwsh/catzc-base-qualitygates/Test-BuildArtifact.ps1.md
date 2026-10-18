@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
+# pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -23,7 +23,7 @@ deletes it. Every issue is prefixed with its facet:
             manifests, the content hash), so a failed bundle check arrives here as Build-Modules' throw,
             one issue per violation — and the build ships the full type set (its typesHash equals the
             source tree's combined hash, whatever modules are selected).
-[types]     The committed automation/.compiled assembly is the current one (Get-CommittedTypesDrift) —
+[types]     The committed pwsh/.compiled assembly is the current one (Get-CommittedTypesDrift) —
             the DLL every build copies. Needs no build.
 [load]      The build loads cold in a fresh pwsh (Invoke-BuildArtifactProbe): build mode with the build as
             the code root and the repository as the working root; every built module once, from the build

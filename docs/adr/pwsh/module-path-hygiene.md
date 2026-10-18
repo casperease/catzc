@@ -58,7 +58,7 @@ one-time helper that points the user module path at local disk — the importer 
 
 ### What the importer does
 
-The vendor loader (`Import-VendorModules` in `automation/.internal/Catzc.Internal.Vendor.psm1`) makes the vendored copy of each dependency
+The vendor loader (`Import-VendorModules` in `pwsh/.internal/Catzc.Internal.Vendor.psm1`) makes the vendored copy of each dependency
 win, by **surgical removal** — not a wholesale rebuild:
 
 - For each vendored module, if a copy is already loaded from somewhere other than `.vendor/`, it is removed (`Remove-Module`) so the
@@ -80,7 +80,7 @@ a UNC/network share, and point the user at the one-time fix below (see `Invoke-I
 
 `The one-time fix for network user paths`
 
-The slow-network-path problem is solved by `automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`, a one-time helper the user
+The slow-network-path problem is solved by `pwsh/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`, a one-time helper the user
 runs themselves. It writes a user-scope `powershell.config.json` (under `Documents\PowerShell`, even when that is on DFS) that overrides the
 CurrentUser module path to a local directory (`$env:LOCALAPPDATA\PowerShell\Modules`). PowerShell reads that single config file once at
 startup — fast — instead of recursively scanning a network share on every lookup.
@@ -116,7 +116,7 @@ intact so the core modules stay discoverable, is read once at startup rather tha
 
 ### How this is enforced
 
-- **`Import-VendorModules`** (in `automation/.internal/Catzc.Internal.Vendor.psm1`) — strips each vendored module's folder from
+- **`Import-VendorModules`** (in `pwsh/.internal/Catzc.Internal.Vendor.psm1`) — strips each vendored module's folder from
   `$env:PSModulePath` and unloads any non-vendored copy before importing the vendored one, so the vendored version always wins.
 - **`importer.ps1`** — warns when `$env:PSModulePath` contains a network share and points the user at `Set-LocalPSModulePath.ps1` to fix it
   permanently.

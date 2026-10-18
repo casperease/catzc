@@ -7,10 +7,10 @@ task:
   targets:
     [
       docs/adr/repository,
-      automation/Catzc.Base.Contracts,
+      pwsh/Catzc.Base.Contracts,
       contracts/catzc/0.0.0,
-      automation/Catzc.Base.RootConfig,
-      automation/Catzc.Base.Languages,
+      pwsh/Catzc.Base.RootConfig,
+      pwsh/Catzc.Base.Languages,
     ]
 ---
 

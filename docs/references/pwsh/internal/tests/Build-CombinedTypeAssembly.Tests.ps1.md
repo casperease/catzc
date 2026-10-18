@@ -1,4 +1,4 @@
-# automation/.internal/tests/Build-CombinedTypeAssembly.Tests.ps1
+# pwsh/.internal/tests/Build-CombinedTypeAssembly.Tests.ps1
 
 <!-- cspell:ignore npublic -->
 

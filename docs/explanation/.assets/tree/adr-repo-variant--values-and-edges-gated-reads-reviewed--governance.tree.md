@@ -34,8 +34,8 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 - docs (docs/ outside docs/adr/): 3 lit files
 - adr/repo (docs/adr/repository): 2 lit files
 - .claude: 1 lit file
-- Docs (automation/Catzc.Base.Docs): 1 lit file
-- ModuleSystem (automation/Catzc.Base.ModuleSystem): 1 lit file
+- Docs (pwsh/Catzc.Base.Docs): 1 lit file
+- ModuleSystem (pwsh/Catzc.Base.ModuleSystem): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
 - pipelines: 1 lit file
 
@@ -45,11 +45,11 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][2], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][2], in the cell docs × markdown: selected by
   [ADR-REPO-VARIANT][1]: the file cites it at line 39 (text).
-- [docs/references/automation/catzc-base-variants/configs/variants.yml.md][3], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][3], in the cell docs × markdown: selected by
   [ADR-REPO-VARIANT][1]: the file cites it at line 11 (text).
-- [docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md][4], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][4], in the cell docs × markdown: selected by
   [ADR-REPO-VARIANT][1]: the file cites it at line 11 (text).
 
 ### adr/repo (docs/adr/repository, 2 lit files)
@@ -67,18 +67,18 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 - [.claude/plans/plan-module-kinds-tracks.md][6], in the cell .claude × markdown: selected by [ADR-REPO-VARIANT][1]: the file cites it at
   line 877 (text) and line 931 (text).
 
-### Docs (automation/Catzc.Base.Docs, 1 lit file)
+### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][7], in the cell automation × yaml: selected by [ADR-REPO-VARIANT][1]: the file cites it at
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][7], in the cell automation × yaml: selected by [ADR-REPO-VARIANT][1]: the file cites it at
   line 303 (text).
 
-### ModuleSystem (automation/Catzc.Base.ModuleSystem, 1 lit file)
+### ModuleSystem (pwsh/Catzc.Base.ModuleSystem, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][8], in the cell automation × powershell: selected by [ADR-REPO-VARIANT][1]:
+- [pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][8], in the cell automation × powershell: selected by [ADR-REPO-VARIANT][1]:
   the file cites it at line 44 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
@@ -92,8 +92,8 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][10], in the cell pipelines × pipeline-yaml: selected by [ADR-REPO-VARIANT][1]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 303 (text) and
-  `automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 44 (text).
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 303 (text) and
+  `pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 44 (text).
 
 ## Keywords
 
@@ -112,13 +112,13 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [yaml][18]: a file language
 
 [1]: ../../../adr/repository/repo-variants.md
-[2]: ../../../references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
-[3]: ../../../references/automation/catzc-base-variants/configs/variants.yml.md
-[4]: ../../../references/automation/catzc-base-variants/types/VariantsConfig.cs.md
+[2]: ../../../references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
+[3]: ../../../references/pwsh/catzc-base-variants/configs/variants.yml.md
+[4]: ../../../references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
 [5]: ../../../adr/repository/dora-explains.md
 [6]: ../../../../.claude/plans/plan-module-kinds-tracks.md
-[7]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[8]: ../../../../automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
+[7]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[8]: ../../../../pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
 [9]: ../../../adr/index.md
 [10]: ../../../../pipelines/ci-automation.yaml
 [11]: ../../repository/values-and-edges-gated-reads-reviewed.md
@@ -127,5 +127,5 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [14]: ../../../adr/glossary.md#file-language
 [15]: ../../../adr/glossary.md#cell
 [16]: ../../../adr/glossary.md#lit-cell
-[17]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[18]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[17]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[18]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

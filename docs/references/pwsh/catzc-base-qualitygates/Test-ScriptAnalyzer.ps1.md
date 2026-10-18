@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1
+# pwsh/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -16,7 +16,7 @@ Runs PSScriptAnalyzer over the same automation file set the analyzer test covers
 loaded code root (Get-CatzcModulesRoot) — so the result matches what the editor and CI see.
 
 This is the interactive, report-style sibling of the L2 'PSScriptAnalyzer' Pester test
-(automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1): both shard the analysis across background processes (see
+(pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1): both shard the analysis across background processes (see
 Get-ScriptAnalyzerDiagnostics) so a full-tree run finishes in ~15-30s with live progress rather than ~90s of silence. It is also the verify
 counterpart to Format-Code -Language powershell — Format-Code FIXES the auto-fixable formatting, Test-ScriptAnalyzer only reports and never
 rewrites files.
@@ -63,7 +63,7 @@ $result.IssueCount
 ### example 3
 
 ```powershell
-Test-ScriptAnalyzer -Path automation/Catzc.Base.QualityGates
+Test-ScriptAnalyzer -Path pwsh/Catzc.Base.QualityGates
 Analyze just one module.
 ```
 

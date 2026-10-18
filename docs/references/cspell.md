@@ -3,14 +3,14 @@
 Generated cspell word lists — **do not edit, do not commit.**
 
 Each `<category>.txt` in `.cspell/` is a cspell dictionary generated from the single source of truth,
-[`terminology.yml`](../../automation/Catzc.Base.QualityGates/configs/terminology.yml) — the approved-vocabulary registry — by
+[`terminology.yml`](../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml) — the approved-vocabulary registry — by
 `Build-TerminologyDictionary` (module `Catzc.Base.QualityGates`). One file is emitted per vocabulary category defined in the registry, and
 the root `cspell.yml` references them as separate dictionaries (one `dictionaryDefinition` per category — that list must match the
 registry's `categories:`).
 
 ## How these files exist
 
-- **Source of truth:** `automation/Catzc.Base.QualityGates/configs/terminology.yml`. Add or remove vocabulary there — never in the generated
+- **Source of truth:** `pwsh/Catzc.Base.QualityGates/configs/terminology.yml`. Add or remove vocabulary there — never in the generated
   lists.
 - **Generator:** `Build-TerminologyDictionary` writes `.cspell/<category>.txt`, each with a `#` header comment naming this source. The
   importer runs it on every load (see `importer.ps1`), so the lists stay current.

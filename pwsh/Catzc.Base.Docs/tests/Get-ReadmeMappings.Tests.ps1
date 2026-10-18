@@ -3,7 +3,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         # The source-tree guard is its own unit (below); here the fixture stands in for the source tree in either run mode.
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
         $script:root = Join-Path $TestDrive ([guid]::NewGuid())
-        foreach ($d in 'widgets/Catzc.Azure.DevOps', 'widgets/Catzc.Base.Files', 'widgets/Catzc.NoDoc', 'widgets/.vendor', 'docs/references/automation') {
+        foreach ($d in 'widgets/Catzc.Azure.DevOps', 'widgets/Catzc.Base.Files', 'widgets/Catzc.NoDoc', 'widgets/.vendor', 'docs/references/pwsh') {
             [System.IO.Directory]::CreateDirectory((Join-Path $script:root $d)) | Out-Null
         }
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/references/pwsh/catzc-azure-devops.md'), '# x')

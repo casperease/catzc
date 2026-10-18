@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/Invoke-TestFile.ps1
+# pwsh/Catzc.Base.QualityGates/Invoke-TestFile.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -22,7 +22,7 @@ session caches, no state left by earlier commands, and its own top scope set str
 Invoke-Pester from an interactive session runs the same tests against whatever that session has accumulated; this entry point closes that
 gap.
 
-Use it for the manual single-check flow in docs/how-to/automation/manual-test-plan.md: pass the row's test file and (optionally) its
+Use it for the manual single-check flow in docs/how-to/pwsh/manual-test-plan.md: pass the row's test file and (optionally) its
 FullNameFilter. No category exclusion is applied — a hand-run of a named check should run exactly that check. The run's artifacts (worker
 script, results-shard-0.xml, rows-shard-0.json, run.json) land in a timestamped folder under out/test-file/. run.json is the same state
 record Test-Automation writes (Write-TestRunManifest): 'running' when the worker starts, then 'passed', 'failed' or 'crashed' on every exit
@@ -83,13 +83,13 @@ message (Write-TestRunFailures): each failed test, and each file that failed bef
 ### example 1
 
 ```powershell
-Invoke-TestFile automation/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
+Invoke-TestFile pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
 ```
 
 ### example 2
 
 ```powershell
-Invoke-TestFile automation/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1 -FullNameFilter 'Generated README copy-ins'
+Invoke-TestFile pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1 -FullNameFilter 'Generated README copy-ins'
 ```
 
 ## comment:1

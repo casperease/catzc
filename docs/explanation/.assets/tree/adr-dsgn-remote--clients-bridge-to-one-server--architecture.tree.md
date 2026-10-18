@@ -34,8 +34,8 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 - adr/dsgn (docs/adr/design): 3 lit files
 - .claude: 2 lit files
 - adr/* (the files directly in docs/adr/): 2 lit files
-- Docs (automation/Catzc.Base.Docs): 1 lit file
-- ModuleSystem (automation/Catzc.Base.ModuleSystem): 1 lit file
+- Docs (pwsh/Catzc.Base.Docs): 1 lit file
+- ModuleSystem (pwsh/Catzc.Base.ModuleSystem): 1 lit file
 - docs (docs/ outside docs/adr/): 1 lit file
 - pipelines: 1 lit file
 
@@ -66,25 +66,25 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 - [docs/adr/index.md][7], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 112 (text); selected by
   [ADR-DSGN-REMOTE][2]: the file cites it at line 113 (text).
 
-### Docs (automation/Catzc.Base.Docs, 1 lit file)
+### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][8], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][8], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at line
   78 (text); selected by [ADR-DSGN-REMOTE][2]: the file cites it at line 79 (text).
 
-### ModuleSystem (automation/Catzc.Base.ModuleSystem, 1 lit file)
+### ModuleSystem (pwsh/Catzc.Base.ModuleSystem, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][9], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][9], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
   cites it at line 49 (text).
 
 ### docs (docs/ outside docs/adr/, 1 lit file)
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/references/automation/catzc-base-git/Push-Dirty.ps1.md][10], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file
+- [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][10], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file
   cites it at line 14 (text).
 
 ### pipelines (1 lit file)
@@ -92,9 +92,9 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][11], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 79 (text).
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 79 (text).
 
 ## Keywords
 
@@ -122,9 +122,9 @@ Terms the cited ADRs define:
 [5]: ../../../../.claude/plans/value-of-plan.md
 [6]: ../../../adr/glossary.md
 [7]: ../../../adr/index.md
-[8]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[9]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
-[10]: ../../../references/automation/catzc-base-git/Push-Dirty.ps1.md
+[8]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[9]: ../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[10]: ../../../references/pwsh/catzc-base-git/Push-Dirty.ps1.md
 [11]: ../../../../pipelines/ci-automation.yaml
 [12]: ../../design/clients-bridge-to-one-server.md
 [13]: ../../../adr/glossary.md#world-map
@@ -132,7 +132,7 @@ Terms the cited ADRs define:
 [15]: ../../../adr/glossary.md#file-language
 [16]: ../../../adr/glossary.md#cell
 [17]: ../../../adr/glossary.md#lit-cell
-[18]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[19]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[18]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[19]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
 [20]: ../../../adr/glossary.md#occupant
 [21]: ../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5

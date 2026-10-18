@@ -2,7 +2,7 @@
 
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's numbers is reused (for example the `allowedKeys`
 line moved from `Read-BicepTemplateOptions.ps1:52` to `:32`, and `Invoke-AzCli bicep build` from `Build-Bicep.ps1:160` to `:144`).
-`condense-comments` may move them again, so re-grep before landing. Paths are relative to `automation/Catzc.Azure.Templates/` unless they
+`condense-comments` may move them again, so re-grep before landing. Paths are relative to `pwsh/Catzc.Azure.Templates/` unless they
 start with `automation/` or `docs/`.
 
 ## Boxes
@@ -20,7 +20,7 @@ start with `automation/` or `docs/`.
 | B9  | `BicepTemplate` is a C# type built once per folder                              | `types/BicepTemplate.cs:10`; `Get-BicepTemplates.ps1:189`                                                                                                                 | confirmed |
 | B10 | `Resolve-BicepParameterAddresses` is private (name elided on the slide)         | `private/Resolve-BicepParameterAddresses.ps1`                                                                                                                             | confirmed |
 | B11 | One `parameters.<config>.json` is written per slot (band EACH SLOT)             | `Build-Bicep.ps1:89,138-139`; name from `private/Get-BicepParametersFileName.ps1:34-39` (`parameters.<customer>.<config>.json` for a customer slot)                       | confirmed |
-| B12 | `Invoke-AzCli` lives in the other module `Catzc.Azure.Cli` (catzc module frame) | `automation/Catzc.Azure.Cli/Invoke-AzCli.ps1`                                                                                                                             | confirmed |
+| B12 | `Invoke-AzCli` lives in the other module `Catzc.Azure.Cli` (catzc module frame) | `pwsh/Catzc.Azure.Cli/Invoke-AzCli.ps1`                                                                                                                             | confirmed |
 
 ## Edges (flow: runs next, in code order)
 

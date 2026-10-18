@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1
+# pwsh/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1
 
 <!-- cspell:ignore oilzstgq -->
 

@@ -19,7 +19,7 @@ shared library code: the shim removes it once `Invoke-Importer` returns.
    [Types](catzc-internal-types.md), and [Vendor](catzc-internal-vendor.md) (with `-Force`, honouring the re-import invalidation boundary).
 4. **Dependencies and modules** — install the custom error view, load the vendored dependencies (`Import-VendorModules`, deferring Pester
    and PSScriptAnalyzer as lazy), optionally wipe the compiled type DLLs first (`-ClearCompiledTypes`), then discover and import every
-   `automation/*` module (`Import-AllModules`, which compiles the combined C# type assembly once before any module's functions).
+   `pwsh/*` module (`Import-AllModules`, which compiles the combined C# type assembly once before any module's functions).
 5. **Post-import janitors** — keep the derived artifacts current and the session honest: the type-cache tidy (`Clear-ModuleTypeCache`), the
    generated READMEs (`Build-Readme`), the cSpell dictionaries (`Build-TerminologyDictionary`), the managed root config files
    (`Build-RootConfig`), the session-PATH reconcile (`Sync-SessionTools`), and a Windows warning when `PSModulePath` contains a network
@@ -32,7 +32,7 @@ diverge. The switches are the toolset's load surface: `-ExportPrivates` (export 
 `-AllowWarnings`, `-DiagnoseLoadTime` (per-stage timings and an end-of-load summary), `-ClearCompiledTypes` (rebuild every C# type from
 source), and `-SkipJanitors` (a lean load for a copied subset, e.g. `Test-InIsolation`). `-Verbose` shows the importer's state-change record
 and the type-cache janitor's report. Nothing about committing is a switch: who is running decides (`Get-SessionActor`, ADR-AUTO-TYPES#13) —
-a person's import commits the generated `automation/.compiled`, an agent's announces it, and a pipeline's or a test-run snapshot's never
+a person's import commits the generated `pwsh/.compiled`, an agent's announces it, and a pipeline's or a test-run snapshot's never
 commits.
 
 ## Functions

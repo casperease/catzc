@@ -1,4 +1,4 @@
-# automation/.internal/Catzc.Internal.Builder.psm1
+# pwsh/.internal/Catzc.Internal.Builder.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -69,7 +69,7 @@ Above `[CmdletBinding()]`, written with `#`.
     marked with whether git stores it with LF-only line endings.
 .DESCRIPTION
     An untracked file that is not ignored ships and dirties the tree, which a pipeline refuses.
-    [comment:7](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment7)
+    [comment:7](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment7)
 .OUTPUTS
     [System.Collections.Generic.Dictionary[string, bool]] source-root-relative, forward-slashed path -> LF-only.
 ```
@@ -83,7 +83,7 @@ Above `[CmdletBinding()]` (occurrence 2), written with `#`.
     Returns whether the source root differs from its commit: a modified, staged, deleted or untracked file.
 .DESCRIPTION
     Content decides, not stat data: a checkout with other line endings is still the same commit.
-    [comment:8](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment8)
+    [comment:8](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment8)
 ```
 
 ## comment:9
@@ -123,7 +123,7 @@ Above `[CmdletBinding()]` (occurrence 6), written with `#`.
     Returns every call and config read of the selected modules that lands outside the selection.
 .DESCRIPTION
     Proves the closure from the code, because dependencies.yml leaves an unlisted module unconstrained.
-    [comment:9](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment9)
+    [comment:9](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment9)
 ```
 
 ## comment:13
@@ -144,7 +144,7 @@ Above `[CmdletBinding()]` (occurrence 7), written with `#`.
     Merges one source module's function files into the text of its built <Module>.functions.ps1.
 .DESCRIPTION
     Same order as the source manifest's NestedModules, so load semantics match source mode.
-    [comment:11](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment11)
+    [comment:11](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment11)
 ```
 
 ## comment:15
@@ -175,7 +175,7 @@ Above `[CmdletBinding()]` (occurrence 8), written with `#`.
     Folder names (at any depth) whose contents are skipped — e.g. tests.
 .PARAMETER IncludeUntracked
     Only the types folders take it: their sources must equal the type set that the DLL name proves.
-    [comment:13](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment13)
+    [comment:13](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment13)
 ```
 
 ## comment:17
@@ -196,7 +196,7 @@ Above `[CmdletBinding()]` (occurrence 9), written with `#`.
     Computes every file a build writes, from the source tree alone, and collects every reason it cannot.
 .DESCRIPTION
     Reads sources and writes nothing, so the plan can be checked or returned before any write.
-    [comment:14](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment14)
+    [comment:14](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment14)
 ```
 
 ## comment:19
@@ -230,7 +230,7 @@ Above `[CmdletBinding()]` (occurrence 10), written with `#`.
     Renders the package manifest Catzc.psd1 as canonical, deterministic text.
 .DESCRIPTION
     Not New-ModuleManifest, whose generation date would make the same commit yield different bytes.
-    [comment:17](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment17)
+    [comment:17](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment17)
 ```
 
 ## comment:22
@@ -242,7 +242,7 @@ Above `[CmdletBinding()]` (occurrence 11), written with `#`.
     Copies a file, only when the target is missing or differs. Returns whether it wrote.
 .DESCRIPTION
     Normalize yields the bytes git stores for an LF-only file, whatever line endings the checkout wrote.
-    [comment:18](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment18)
+    [comment:18](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment18)
 ```
 
 ## comment:23
@@ -254,7 +254,7 @@ Above `[CmdletBinding()]` (occurrence 12), written with `#`.
     Deletes every file under the build root that the plan does not name, then every emptied folder.
 .DESCRIPTION
     A file that cannot be deleted fails the build with its path, rather than leave a second types DLL.
-    [comment:19](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment19)
+    [comment:19](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment19)
 ```
 
 ## comment:24
@@ -314,7 +314,7 @@ Above `[CmdletBinding()]` (occurrence 15), written with `#`.
     Builds the selected modules into one installable, versioned Catzc package — build mode's code root.
 .DESCRIPTION
     The engine writes no console output; its caller reports the result.
-    [comment:22](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment22)
+    [comment:22](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment22)
 .PARAMETER Module
     Explicit module names. Combined with -ModuleProfile; at least one of the two is required.
 .PARAMETER ModuleProfile
@@ -323,7 +323,7 @@ Above `[CmdletBinding()]` (occurrence 15), written with `#`.
     The resolved MAJOR.MINOR.PATCH version (the engine never resolves 'auto').
 .PARAMETER VendorPolicy
     Full also ships the analyzer rules and settings, because the build run executes the tests.
-    [comment:23](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment23)
+    [comment:23](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment23)
 .PARAMETER Destination
     The parent folder; the build goes to <Destination>/Catzc/<Version>/.
 .PARAMETER Bundle
@@ -332,7 +332,7 @@ Above `[CmdletBinding()]` (occurrence 15), written with `#`.
     Catzc.psd1 metadata: Guid, Author, CompanyName, Description, Tags, ProjectUri, LicenseUri.
 .PARAMETER DryRun
     A dry run still runs every check, since all checks run before anything is written.
-    [comment:24](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment24)
+    [comment:24](/docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md#comment24)
 .OUTPUTS
     [pscustomobject] BuildRoot, Version, Modules, TypesHash, ContentHash ($null under -DryRun), FileCount,
     Dirty, DryRun.

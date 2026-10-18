@@ -1,4 +1,4 @@
-# automation/Catzc.Base.VSCode/configs/vscode-extensions.yml
+# pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml
 
 <!-- cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp tomoki redhat Anson Levett -->
 <!-- cspell:ignore iliazeus gopls -->

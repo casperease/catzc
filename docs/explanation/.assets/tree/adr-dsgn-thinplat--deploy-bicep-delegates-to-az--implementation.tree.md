@@ -32,8 +32,8 @@ domain), and lights 6 files in 5 groups, filled in ink. A lit ADR file has a whi
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - adr/dsgn (docs/adr/design): 2 lit files
-- Docs (automation/Catzc.Base.Docs): 1 lit file
-- QualityGates (automation/Catzc.Base.QualityGates): 1 lit file
+- Docs (pwsh/Catzc.Base.Docs): 1 lit file
+- QualityGates (pwsh/Catzc.Base.QualityGates): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
 - pipelines: 1 lit file
 
@@ -47,18 +47,18 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
   (text).
 - [docs/adr/design/thin-platforms.md][1], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][1]: the ADR's own file.
 
-### Docs (automation/Catzc.Base.Docs, 1 lit file)
+### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at
   line 75 (text).
 
-### QualityGates (automation/Catzc.Base.QualityGates, 1 lit file)
+### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.QualityGates/configs/terminology.yml][4], in the cell automation × yaml: selected by [ADR-DSGN-THINPLAT][1]: the
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][4], in the cell automation × yaml: selected by [ADR-DSGN-THINPLAT][1]: the
   file cites it at line 657 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
@@ -72,8 +72,8 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][6], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-THINPLAT][1]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 657 (text).
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 657 (text).
 
 ## Keywords
 
@@ -91,8 +91,8 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 [1]: ../../../adr/design/thin-platforms.md
 [2]: ../../../adr/design/dora-explains.md
-[3]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[4]: ../../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
+[3]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[4]: ../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
 [5]: ../../../adr/index.md
 [6]: ../../../../pipelines/ci-automation.yaml
 [7]: ../../design/deploy-bicep-delegates-to-az.md
@@ -101,5 +101,5 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [10]: ../../../adr/glossary.md#file-language
 [11]: ../../../adr/glossary.md#cell
 [12]: ../../../adr/glossary.md#lit-cell
-[13]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[14]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[13]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[14]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

@@ -28,7 +28,7 @@ Move one file or one folder per step, then run the gates that hold the place it 
 2. Move it with `git mv`, so `git log --follow` keeps its history:
 
    ```powershell
-   git mv .unordered/widget-tools/Spin-Widget.ps1 automation/Catzc.Widget/Spin-Widget.ps1
+   git mv .unordered/widget-tools/Spin-Widget.ps1 pwsh/Catzc.Widget/Spin-Widget.ps1
    ```
 
 3. Bring the file to the domain rules of its new place: its head, its tests, its links. Run that module's tests and the gates for its file

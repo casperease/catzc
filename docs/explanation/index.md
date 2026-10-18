@@ -13,7 +13,7 @@ repository      how managed root files and repository variants are kept in shape
 ```
 
 The documentation has four kinds of article. An [ADR](../adr/index.md) records a decision and the rules it sets. A
-[how-to](../how-to/getting-started/automation/index.md) walks through one task. A [reference](../references/automation/index.md) describes a
+[how-to](../how-to/getting-started/automation/index.md) walks through one task. A [reference](../references/pwsh/index.md) describes a
 module's responsibilities. An **explanation** article shows how one part of cats works and why it holds: each one narrates a single diagram,
 step by step, and points back to the ADR rules the diagram supports.
 

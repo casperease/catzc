@@ -5,7 +5,7 @@ plan:
   value: medium
   reviewed: 2026-10-18
   waits_on: the user's full test run, which confirms the level-2 rerun of 2026-10-17
-  targets: [automation/Catzc.Base.Folders, automation/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
+  targets: [pwsh/Catzc.Base.Folders, pwsh/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
 ---
 
 # Bounded folder enumeration: raw .NET, depth 2 by default, nothing deeply loaded

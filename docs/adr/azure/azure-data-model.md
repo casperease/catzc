@@ -103,7 +103,7 @@ an unknown key or mode. Templates read it by config address.
 
 | Layer                       | Source of truth                                                   | Entities                                                |
 | --------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------- |
-| 1 — Identity / topology     | `automation/Catzc.Azure/configs/azure.yml` (one declarative file) | tenant, customer, environment, subscription             |
+| 1 — Identity / topology     | `pwsh/Catzc.Azure/configs/azure.yml` (one declarative file) | tenant, customer, environment, subscription             |
 | 2 — Templating / deployment | the `infrastructure/templates/<name>/` filesystem (discovered)    | template, options, slot (per-RG config), deploy context |
 
 A third global asset, `configs/network.yml`, carries the cross-cutting IP plan (per-environment vnet / subnet ranges) alongside `azure.yml`.

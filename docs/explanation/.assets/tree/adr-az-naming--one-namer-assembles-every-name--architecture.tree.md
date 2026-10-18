@@ -32,9 +32,9 @@ domain), and lights 22 files in 6 groups, filled in ink. A lit ADR file has a wh
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 15 lit files
-- Docs (automation/Catzc.Base.Docs): 2 lit files
+- Docs (pwsh/Catzc.Base.Docs): 2 lit files
 - adr/azure (docs/adr/azure): 2 lit files
-- Az.Templates (automation/Catzc.Azure.Templates): 1 lit file
+- Az.Templates (pwsh/Catzc.Azure.Templates): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
 - pipelines: 1 lit file
 
@@ -50,38 +50,38 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
   selected by [ADR-AZ-NAMING][1]: the file cites it at line 43 (text).
 - [docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md][4], in the cell docs × markdown:
   selected by [ADR-AZ-NAMING][1]: the file cites it at line 54 (text).
-- [docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md][5], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md][5], in the cell docs × markdown: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 97 (text), line 108 (text) and line 127 (text).
-- [docs/references/automation/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md][6], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md][6], in the cell docs × markdown: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 29 (text) and line 32 (text).
-- [docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md][7], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md][7], in the cell docs × markdown: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 76 (text).
-- [docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md][8], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][8], in the cell docs × markdown: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 142 (text).
-- [docs/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][9], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][9], in the cell docs × markdown: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 28 (text) and line 94 (text).
-- [docs/references/automation/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md][10], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md][10], in the cell docs × markdown: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 14 (text).
-- [docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md][11], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md][11], in the cell docs × markdown: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 12 (text), line 32 (text) and line 64 (text).
-- [docs/references/automation/catzc-azure/configs/azure.yml.md][12], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the file
+- [docs/references/pwsh/catzc-azure/configs/azure.yml.md][12], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the file
   cites it at line 32 (text), line 77 (text) and line 110 (text).
-- [docs/references/automation/catzc-azure/configs/customer.yml.md][13], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the
+- [docs/references/pwsh/catzc-azure/configs/customer.yml.md][13], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the
   file cites it at line 19 (text).
-- [docs/references/automation/catzc-azure/types/AzureConfig.cs.md][14], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the
+- [docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md][14], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the
   file cites it at line 28 (text).
-- [docs/references/automation/catzc-azure/types/AzureEnvironmentRecord.cs.md][15], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md][15], in the cell docs × markdown: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 12 (text).
-- [docs/references/automation/catzc-base-variants/configs/variants.yml.md][16], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]:
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][16], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]:
   the file cites it at line 23 (text).
 
-### Docs (automation/Catzc.Base.Docs, 2 lit files)
+### Docs (pwsh/Catzc.Base.Docs, 2 lit files)
 
-The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/Build-AdrIndex.ps1][17], in the cell automation × powershell: selected by [ADR-AZ-NAMING][1]: the file cites
+- [pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1][17], in the cell automation × powershell: selected by [ADR-AZ-NAMING][1]: the file cites
   it at line 39 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Docs/configs/adrs.yml][18], in the cell automation × yaml: selected by [ADR-AZ-NAMING][1]: the file cites it at
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][18], in the cell automation × yaml: selected by [ADR-AZ-NAMING][1]: the file cites it at
   line 257 (text).
 
 ### adr/azure (docs/adr/azure, 2 lit files)
@@ -91,11 +91,11 @@ The group holds the files of docs/adr/azure; each sits in its world-map cell and
 - [docs/adr/azure/azure-naming-standard.md][1], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the ADR's own file.
 - [docs/adr/azure/dora-explains.md][19], in the cell docs × markdown: selected by [ADR-AZ-NAMING][1]: the file cites it at line 43 (text).
 
-### Az.Templates (automation/Catzc.Azure.Templates, 1 lit file)
+### Az.Templates (pwsh/Catzc.Azure.Templates, 1 lit file)
 
-The group holds the files of automation/Catzc.Azure.Templates; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Azure.Templates; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1][20], in the cell automation × powershell: selected by
+- [pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1][20], in the cell automation × powershell: selected by
   [ADR-AZ-NAMING][1]: the file cites it at line 46 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
@@ -110,8 +110,8 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][22], in the cell pipelines × pipeline-yaml: selected by [ADR-AZ-NAMING][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1` line 46
-  (text), `automation/Catzc.Base.Docs/Build-AdrIndex.ps1` line 39 (body comment) and `automation/Catzc.Base.Docs/configs/adrs.yml` line 257
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1` line 46
+  (text), `pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1` line 39 (body comment) and `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 257
   (text).
 
 ## Keywords
@@ -133,22 +133,22 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [2]: ../../../how-to/getting-started/automation/add-a-doc-chapter.md
 [3]: ../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
 [4]: ../../../references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
-[5]: ../../../references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md
-[6]: ../../../references/automation/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md
-[7]: ../../../references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md
-[8]: ../../../references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md
-[9]: ../../../references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
-[10]: ../../../references/automation/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
-[11]: ../../../references/automation/catzc-azure-templates/types/BicepShortName.cs.md
-[12]: ../../../references/automation/catzc-azure/configs/azure.yml.md
-[13]: ../../../references/automation/catzc-azure/configs/customer.yml.md
-[14]: ../../../references/automation/catzc-azure/types/AzureConfig.cs.md
-[15]: ../../../references/automation/catzc-azure/types/AzureEnvironmentRecord.cs.md
-[16]: ../../../references/automation/catzc-base-variants/configs/variants.yml.md
-[17]: ../../../../automation/Catzc.Base.Docs/Build-AdrIndex.ps1
-[18]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[5]: ../../../references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md
+[6]: ../../../references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md
+[7]: ../../../references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md
+[8]: ../../../references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
+[9]: ../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[10]: ../../../references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
+[11]: ../../../references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md
+[12]: ../../../references/pwsh/catzc-azure/configs/azure.yml.md
+[13]: ../../../references/pwsh/catzc-azure/configs/customer.yml.md
+[14]: ../../../references/pwsh/catzc-azure/types/AzureConfig.cs.md
+[15]: ../../../references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
+[16]: ../../../references/pwsh/catzc-base-variants/configs/variants.yml.md
+[17]: ../../../../pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
+[18]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [19]: ../../../adr/azure/dora-explains.md
-[20]: ../../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
+[20]: ../../../../pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
 [21]: ../../../adr/index.md
 [22]: ../../../../pipelines/ci-automation.yaml
 [23]: ../../azure/one-namer-assembles-every-name.md
@@ -157,5 +157,5 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [26]: ../../../adr/glossary.md#file-language
 [27]: ../../../adr/glossary.md#cell
 [28]: ../../../adr/glossary.md#lit-cell
-[29]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[30]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[29]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[30]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

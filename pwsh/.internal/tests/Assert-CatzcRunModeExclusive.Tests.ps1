@@ -97,8 +97,8 @@ Describe 'Assert-CatzcRunModeExclusive' -Tag 'L0', 'logic' {
 
     It 'throws naming every offender, its ModuleBase, the active root, and the other root' {
         Mock Get-ForeignCatzcModule {
-            [pscustomobject]@{ Name = 'Catzc.Widget'; ModuleBase = 'C:/other/automation/Catzc.Widget' }
-            [pscustomobject]@{ Name = 'Catzc.Gadget'; ModuleBase = 'C:/other/automation/Catzc.Gadget' }
+            [pscustomobject]@{ Name = 'Catzc.Widget'; ModuleBase = 'C:/other/pwsh/Catzc.Widget' }
+            [pscustomobject]@{ Name = 'Catzc.Gadget'; ModuleBase = 'C:/other/pwsh/Catzc.Gadget' }
         } -ModuleName Catzc.Internal.Importer
         $message = $null
         try {
@@ -108,8 +108,8 @@ Describe 'Assert-CatzcRunModeExclusive' -Tag 'L0', 'logic' {
             $message = $_.Exception.Message
         }
         $message | Should -BeLike "*active CatzcModulesRoot is 'C:/active/automation'*2 loaded catzc module(s) come from another root ('C:?other?automation')*"
-        $message | Should -BeLike '*Catzc.Widget (C:/other/automation/Catzc.Widget)*'
-        $message | Should -BeLike '*Catzc.Gadget (C:/other/automation/Catzc.Gadget)*'
+        $message | Should -BeLike '*Catzc.Widget (C:/other/pwsh/Catzc.Widget)*'
+        $message | Should -BeLike '*Catzc.Gadget (C:/other/pwsh/Catzc.Gadget)*'
     }
 
     It 'throws on a real catzc module loaded from outside the active root (no mock)' {

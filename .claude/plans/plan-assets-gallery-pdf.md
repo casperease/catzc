@@ -39,4 +39,4 @@ unchanged. The PDF is for a person in a PDF viewer (`review-pdf` in `output-form
 ## Refs
 
 - .claude/drawio/gallery_pdf.py
-- automation/Catzc.Base.Reports/configs/output-formats.yml (`review-pdf`)
+- pwsh/Catzc.Base.Reports/configs/output-formats.yml (`review-pdf`)

@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Docs/Build-AdrIndex.ps1
+# pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ domain structure.
 
 ### description
 
-index.md is a derived projection of automation/Catzc.Base.Docs/configs/adrs.yml: authored preamble and authoring-convention prose wrapped
+index.md is a derived projection of pwsh/Catzc.Base.Docs/configs/adrs.yml: authored preamble and authoring-convention prose wrapped
 around one code-registry table per domain (in declared order). Every ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format
 Get-CatsAdrIndex parses and the citation grammar Show-Cats presents. Each link path is resolved to the real `docs/adr/<domain>/**/<slug>.md`
 file.

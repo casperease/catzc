@@ -6,7 +6,7 @@
 
 A **track** is a named, on-disk cluster of module contents: the tracked files of one concern, selected by the **place** or places the track
 declares ([ADR-DSGN-TRACKTYPE#4](track-types.md#rule-adr-dsgn-tracktype4)). A place is a root folder (`automation`), a path inside one
-(`.github/workflows`, `automation/.vendor`), or a root folder of a tool (`.claude`). Every tracked file lies in exactly one track, found by
+(`.github/workflows`, `pwsh/.vendor`), or a root folder of a tool (`.claude`). Every tracked file lies in exactly one track, found by
 the longest place that contains it ([ADR-DSGN-TRACKTYPE#5](track-types.md#rule-adr-dsgn-tracktype5)), or is a root file (ADR-DSGN-TRACK#7);
 `out/` holds gitignored output and is in none. Tracks are what this mono repository is composed of.
 

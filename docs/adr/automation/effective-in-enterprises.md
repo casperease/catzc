@@ -56,11 +56,11 @@ re-confirm. Enumeration is native `.NET` and ~1–7ms, so it is never the cause;
 
 **Source and build answer it differently.** Source stays one function per file: that is the form a developer reads, reviews, and diffs, so a
 devbox in source mode pays the cold scan, and its mitigation is environmental — an antivirus exclusion for the repository working copy and
-`automation/.vendor/`. The **installed build** is merged per module ([platform-bundle](platform-bundle.md),
+`pwsh/.vendor/`. The **installed build** is merged per module ([platform-bundle](platform-bundle.md),
 [run-modes](../design/run-modes.md)): `Build-Modules` writes each module's functions into one generated function file, so a machine that
 runs the installed `Catzc` opens one function file per module instead of one per function. That is the code-level answer to the cold-import
 antivirus cost, and it needs no exclusion. (The C# in the `types/` folders ship a committed, hash-keyed prebuilt DLL in
-`automation/.compiled/`, so a fresh checkout and CI load it without invoking Roslyn — only a developer who edits a type source pays the
+`pwsh/.compiled/`, so a fresh checkout and CI load it without invoking Roslyn — only a developer who edits a type source pays the
 `~0.5s` compile, once — but that is secondary to the per-file scan.)
 
 ## Decision
@@ -72,7 +72,7 @@ path, and no gallery at runtime — is the PowerShell layer: [module-path-hygien
 
 ### How this is enforced
 
-- **Vendoring** — every module dependency is committed under `automation/.vendor/`
+- **Vendoring** — every module dependency is committed under `pwsh/.vendor/`
   ([controlling-module-dependencies](controlling-module-dependencies.md#rule-adr-auto-depm8)), so a run needs no network.
 - **`Install-VendorModule`** — the only supported way to add a vendored module; it runs once at authoring time, not at runtime.
 - **User-space installers** — the tool installers use per-user package managers; `Test-ToolRequiresElevation` answers whether a tool's

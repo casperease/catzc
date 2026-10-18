@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6a564f6431b0"
-    with_inputs_sha: "8aa0547922cf2de61def3c4de1d4430927a2263d8169d79e26dcf169cca0732b"
+    with_body_sha: "4f1c4e5b8c4b"
+    with_inputs_sha: "29715d9a930ba7085d678fca27787da361860218dc70ede131a6353d9b0ce9c7"
     repo_status: locked
     path: docs/references/contracts/EXTERNAL-azure.md
     source: contracts/EXTERNAL-azure
@@ -11,7 +11,7 @@ catzc:
     filetype: md
     track: docs
     tracktype: documentation
-    generator: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
+    generator: pwsh/Catzc.Base.Contracts/Build-ContractReference.ps1
 ---
 
 # docs/references/contracts/EXTERNAL-azure.md
@@ -36,9 +36,9 @@ Layout, kinds, and directions: [api-contracts](../../adr/repository/api-contract
 
 The draft: the one mutable version folder ([ADR-REPO-CONTRACT#5](../../adr/repository/api-contracts.md#rule-adr-repo-contract5)).
 
-| Module                  | Asset                                                | Target                                                                    | Direction   | Kind   | Signature |
-| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- | ----------- | ------ | --------- |
-| `Catzc.Azure.Templates` | `tests/assets/parameter-model/main.json.schema.json` | `automation/Catzc.Azure.Templates/tests/assets/parameter-model/main.json` | depended-on | schema | none      |
+| Module                  | Asset                                                | Target                                                              | Direction   | Kind   | Signature |
+| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------- | ----------- | ------ | --------- |
+| `Catzc.Azure.Templates` | `tests/assets/parameter-model/main.json.schema.json` | `pwsh/Catzc.Azure.Templates/tests/assets/parameter-model/main.json` | depended-on | schema | none      |
 
 Notes:
 
@@ -52,9 +52,9 @@ Notes:
 
 Released, so frozen by its `.frozen` record ([ADR-REPO-CONTRACT#5](../../adr/repository/api-contracts.md#rule-adr-repo-contract5)).
 
-| Module                  | Asset                                                | Target                                                                    | Direction   | Kind   | Signature |
-| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- | ----------- | ------ | --------- |
-| `Catzc.Azure.Templates` | `tests/assets/parameter-model/main.json.schema.json` | `automation/Catzc.Azure.Templates/tests/assets/parameter-model/main.json` | depended-on | schema | none      |
+| Module                  | Asset                                                | Target                                                              | Direction   | Kind   | Signature |
+| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------- | ----------- | ------ | --------- |
+| `Catzc.Azure.Templates` | `tests/assets/parameter-model/main.json.schema.json` | `pwsh/Catzc.Azure.Templates/tests/assets/parameter-model/main.json` | depended-on | schema | none      |
 
 Notes:
 

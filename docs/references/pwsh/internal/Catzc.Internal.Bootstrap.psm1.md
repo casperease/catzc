@@ -1,4 +1,4 @@
-# automation/.internal/Catzc.Internal.Bootstrap.psm1
+# pwsh/.internal/Catzc.Internal.Bootstrap.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Above `function Write-ImporterMessage {`, written with `#`.
     Writes a bootstrap/importer console message, prefixed to match Write-Message's [Caller] style.
 .DESCRIPTION
     Runs before Write-Message exists, so this is the bootstrap's one writer chokepoint, silent during a Pester run.
-    [comment:1](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment1)
 .PARAMETER Message
     The message text.
 .PARAMETER ForegroundColor
@@ -39,7 +39,7 @@ Above `function Set-ImporterVerbosity {`, written with `#`.
     Sets whether the importer's state-change lines (Write-ImporterMessage -StateChange) are shown.
 .DESCRIPTION
     The bootstrap and vendor functions do not inherit -Verbose, so Invoke-Importer hands the setting over here once.
-    [comment:3](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment3)
+    [comment:3](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment3)
 .PARAMETER Enabled
     Show the state-change lines on the verbose stream.
 ```
@@ -53,7 +53,7 @@ Above `function Clear-CompiledType {`, written with `#`.
     Deletes the compiled C# type assembly so the next import rebuilds it from source.
 .DESCRIPTION
     Unlike Clear-ModuleTypeCache it wipes every build before import in any context, skipping only locked DLLs.
-    [comment:4](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment4)
+    [comment:4](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment4)
 .PARAMETER ModulesRoot
     Path to the automation directory (the parent of .compiled/).
 ```
@@ -67,7 +67,7 @@ Above `function New-DynamicManifest {`, written with `#`.
     Writes a module's generated <Module>.psd1 and returns its path.
 .DESCRIPTION
     A caller whose module is not one function per file passes both lists explicitly, and the folder is not enumerated.
-    [comment:5](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment5)
+    [comment:5](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment5)
 .PARAMETER ModulePath
     The module folder; the manifest is <ModulePath>/<leaf>.psd1.
 .PARAMETER ExportPrivates
@@ -128,7 +128,7 @@ Above `[CmdletBinding()]` (occurrence 4), written with `#`.
     Writes rendered manifest text to its .psd1 only when it differs, and returns the path.
 .DESCRIPTION
     An unchanged module yields identical bytes and no write, so parallel workers never race on the manifest files.
-    [comment:10](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment10)
+    [comment:10](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment10)
 ```
 
 ## comment:11
@@ -140,7 +140,7 @@ Above `[CmdletBinding()]` (occurrence 5), written with `#`.
     Renders a module manifest hashtable as canonical .psd1 text.
 .DESCRIPTION
     Canonical by construction: the alignment column derives from the longest key and the text is formatter-stable.
-    [comment:11](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment11)
+    [comment:11](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment11)
 ```
 
 ## comment:12
@@ -162,7 +162,7 @@ Above `function Import-CSharpTypes {`, written with `#`.
     Compiles and loads EVERY module's native C# types (types/*.cs) into ONE hash-keyed assembly.
 .DESCRIPTION
     One assembly lets a type in one module reference a type in another; the module graph is policed by tests.
-    [comment:13](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment13)
+    [comment:13](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment13)
 .PARAMETER ModulesRoot
     The automation directory. Its non-dot subfolders are the modules; the assembly is written to its .compiled/.
 .PARAMETER DiagnoseLoadTime
@@ -316,7 +316,7 @@ Above `function Assert-UniqueModuleFunctionName {`, written with `#`.
     (vendored/built-in) command that is already imported.
 .DESCRIPTION
     PowerShell silently lets the last imported command shadow the rest, so this turns a clash into a loud failure.
-    [comment:26](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment26)
+    [comment:26](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment26)
 .PARAMETER ModuleDirs
     The discovered module directories (dot-prefixed infrastructure already excluded).
 .PARAMETER ExportPrivates
@@ -355,7 +355,7 @@ Above `function Get-ForeignCatzcModule {`, written with `#`.
     Returns every loaded catzc module that does not come from the given code root.
 .DESCRIPTION
     The package module also belongs when its ModuleBase is the root's parent, since its code root is automation/.
-    [comment:29](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment29)
+    [comment:29](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment29)
 .PARAMETER ModulesRoot
     The active code root (CatzcModulesRoot).
 .PARAMETER IncludeInternal
@@ -371,7 +371,7 @@ Above `function Import-AllModules {`, written with `#`.
     Imports all module directories under a given root path.
 .DESCRIPTION
     Running importer modules are never touched mid-load; the exclusivity assert reports any that are foreign.
-    [comment:30](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment30)
+    [comment:30](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment30)
 .PARAMETER ModulesRoot
     Path to the directory containing module folders.
 ```

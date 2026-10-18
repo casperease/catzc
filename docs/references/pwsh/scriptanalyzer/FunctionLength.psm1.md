@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/FunctionLength.psm1
+# pwsh/.scriptanalyzer/FunctionLength.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Above `function Measure-FunctionLength {`, written with `#`.
     Custom PSScriptAnalyzer rule: function body must not exceed 300 lines.
 .DESCRIPTION
     Help placed before the function is outside the braces, so it never counts toward the limit.
-    [comment:1](/docs/references/automation/scriptanalyzer/FunctionLength.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/scriptanalyzer/FunctionLength.psm1.md#comment1)
 ```
 
 ## comment:2

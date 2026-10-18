@@ -1,4 +1,4 @@
-# automation/.internal/Catzc.Internal.Importer.psm1
+# pwsh/.internal/Catzc.Internal.Importer.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -27,7 +27,7 @@ Above `function Invoke-Importer {`, written with `#`.
     Runs the toolset's whole load sequence — the single living copy of the importer body.
 .DESCRIPTION
     The parameter block is asserted to match importer.ps1, which New-Importer generates from it.
-    [comment:2](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment2)
+    [comment:2](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment2)
 .PARAMETER ExportPrivates
     Export private (private/) functions too, so tests can reach them.
 .PARAMETER AllowWarnings
@@ -40,10 +40,10 @@ Above `function Invoke-Importer {`, written with `#`.
     Skip the post-import janitors and the PSModulePath check — a lean load for a copied subset.
 .PARAMETER CleanClone
     The clean keeps and reports any untracked file that is not the automation's to delete.
-    [comment:3](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment3)
+    [comment:3](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment3)
 .PARAMETER Bundle
     Only the bundle bootstrap passes it, so an inherited CatzcModulesRoot never diverts a mono repo or fixture load.
-    [comment:4](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment4)
+    [comment:4](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment4)
 .EXAMPLE
     Invoke-Importer -DiagnoseLoadTime
 ```
@@ -211,7 +211,7 @@ Above `if (-not $SkipJanitors -and $IsWindows) {`, written with `#`.
 ```text
 Warn if PSModulePath contains a network share. The permanent fix is a one-time
 script that writes a local PSModulePath to the user-scope powershell.config.json.
-See: automation/Catzc.Base.Environment/assets/README.md
+See: pwsh/Catzc.Base.Environment/assets/README.md
 ```
 
 ## comment:20
@@ -241,7 +241,7 @@ Above `function Invoke-ConsumerOverlay {`, written with `#`.
     Throws unless every loaded catzc module comes from the active code root.
 .DESCRIPTION
     Every loaded Catzc module must sit under the active CatzcModulesRoot, the predicate the eviction sweep uses.
-    [comment:24](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment24)
+    [comment:24](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment24)
 .PARAMETER ModulesRoot
     The active code root.
 ```
@@ -255,7 +255,7 @@ Above `[CmdletBinding()]` (occurrence 2), written with `#`.
     Applies a consumer's overlay at the end of a bundle load, or stops the load when the bundle cannot.
 .DESCRIPTION
     A bundle without the overlay module cannot apply overrides, so the load stops instead of ignoring them.
-    [comment:25](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment25)
+    [comment:25](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment25)
 .PARAMETER RepositoryRoot
     The working root of the load.
 ```
@@ -269,7 +269,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawConsoleW
     Makes a redirected session write UTF-8, so a captured log has one encoding.
 .DESCRIPTION
     A redirected host writes the OEM codepage while relays stream UTF-8, which mangled box drawing in logs.
-    [comment:26](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment26)
+    [comment:26](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment26)
 ```
 
 ## comment:25
@@ -281,7 +281,7 @@ Above `function Invoke-TypeCacheJanitor {`, written with `#`.
     Writes the -DiagnoseLoadTime summary: file-read and parse totals, and the three slowest load stages.
 .DESCRIPTION
     It writes through the transient bootstrap, so it must run while that is still loaded.
-    [comment:27](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment27)
+    [comment:27](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment27)
 ```
 
 ## comment:26
@@ -293,7 +293,7 @@ Above `[CmdletBinding()]` (occurrence 5), written with `#`.
     Runs the post-import type-cache janitor (Clear-ModuleTypeCache) without ever failing the load.
 .DESCRIPTION
     A superseded build it cannot delete is one red line, never a failed load.
-    [comment:28](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment28)
+    [comment:28](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment28)
 .PARAMETER ShowReport
     Show the janitor's end-state report.
 ```
@@ -307,7 +307,7 @@ Above `[CmdletBinding()]` (occurrence 6), written with `#`.
     Publishes the agent Bash time-safeguard hook when its C# source changed, without ever failing the load.
 .DESCRIPTION
     A checkout without the hook's code or dotnet is told, never stopped: Install-Dotnet needs this import.
-    [comment:29](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment29)
+    [comment:29](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment29)
 ```
 
 ## comment:28
@@ -319,7 +319,7 @@ Above `[CmdletBinding()]` (occurrence 7), written with `#`.
     Runs the post-import janitors in their fixed order, from the opt-in deep clean to the commit of what changed.
 .DESCRIPTION
     Every janitor is a fast no-op on a clean tree and guarded by presence, so the bootstrap sandbox runs a subset.
-    [comment:30](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment30)
+    [comment:30](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment30)
 .PARAMETER CleanClone
     Run the whitelisted deep clean (Reset-GitCleanFxd) first, so the janitors below rematerialise what it removed.
 .PARAMETER ShowStateChanges
@@ -424,7 +424,7 @@ Above `[CmdletBinding()]` (occurrence 8), written with `#`.
     Writes one -DiagnoseLoadTime stage line: the milliseconds since the previous stage, then restarts the clock.
 .DESCRIPTION
     A call before the clock exists starts it instead of throwing on the unset variable.
-    [comment:40](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment40)
+    [comment:40](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment40)
 .PARAMETER Step
     The stage just finished.
 ```
@@ -447,7 +447,7 @@ Above `$top = $global:__CatzcLoadTimings | Sort-Object Ms -Descending |...`, wri
 ```text
 The native C# type compile/load (every module's types/*.cs via Import-CSharpTypes) appears as one
 'types (combined)' row below; a 'compile+load' row is a cold cache (Roslyn), a 'cache load' row reused
-the committed automation/.compiled DLL.
+the committed pwsh/.compiled DLL.
 ```
 
 ## comment:40

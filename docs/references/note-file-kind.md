@@ -2,7 +2,7 @@
 
 ## What the key said
 
-The file-kinds registry (`automation/Catzc.Base.Globs/configs/file-kinds.yml`) carried one kind for the unordered track:
+The file-kinds registry (`pwsh/Catzc.Base.Globs/configs/file-kinds.yml`) carried one kind for the unordered track:
 
 ```yaml
 note:
@@ -28,7 +28,7 @@ PowerShell file, so a separate kind for "a file in this folder" says nothing the
 
 ## Where it lives now
 
-- The exemption moved to the track: the `unordered` entry of `automation/Catzc.Base.Variants/configs/track-types.yml` declares
+- The exemption moved to the track: the `unordered` entry of `pwsh/Catzc.Base.Variants/configs/track-types.yml` declares
   `git: { attributes: [catzc-unordered], why: ... }`, and `New-GitAttributes` writes `.unordered/** catzc-unordered` for every place of
   every track of that type. `Get-ContentExemptPath` and `source-conventions.yml` name the `catzc-unordered` class.
 - The track and its terms (unordered track, import, landing address, sorting) are ADR-DSGN-TRACK#17 and the ModuleSystem glossary.

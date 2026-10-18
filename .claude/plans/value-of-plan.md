@@ -169,7 +169,7 @@ next:
 - 2026-10-16 15:22, unboxing: P1 to P3 done, the commit step (Clear-ModuleTypeCache, one DLL), the five-file test scope, the
   Test-ShippedTypes flag, the optional ADR line, P4 and P5 unplanned until a go. Landed in plan-unboxing, together with findings F1 to F7
   recovered from the deleted findings file (F8 and F9 were not read before deletion and are lost from this folder; the shipped article and
-  docs/explanation/automation/reference-unboxing.md are where to look).
+  docs/explanation/pwsh/reference-unboxing.md are where to look).
 
 - 2026-10-16 15:22 (arrived after the deletion round), head path split: three changes done and tested (module-type ids, catzc_bundle key,
   path split into folder, name, filetype), four optional leftovers (spelling gate and coined word, the user's gate runs, whether generated

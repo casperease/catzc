@@ -51,12 +51,12 @@ cache entry on first call, never at import, because importer time is a protected
 ### Rule ADR-AUTO-CACHE:8
 
 The compiled-type prebuild is the one committed, cross-session cache: one assembly for the whole repository, committed as
-`automation/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources, so a fresh checkout and CI
+`pwsh/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources, so a fresh checkout and CI
 load it without compiling, and editing any source re-keys it. The hash material is, per source file,
 `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even when the
 content is byte-identical, and the key does not depend on the repository root. Every process loads the assembly from a per-user,
 content-addressed shadow copy (`%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix), never in place: an
-uncommitted derivative of the committed assembly, so no session ever locks `automation/.compiled`.
+uncommitted derivative of the committed assembly, so no session ever locks `pwsh/.compiled`.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
 

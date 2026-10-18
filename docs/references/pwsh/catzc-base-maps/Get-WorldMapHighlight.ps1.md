@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+# pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -63,5 +63,5 @@ Get-WorldMapHighlight -Adr 'ADR-DSGN-TRACK#3' -AsJson
 ### example 4
 
 ```powershell
-Get-WorldMapHighlight -Path 'pipelines/ci-automation.yaml', 'automation/Catzc.Base.Maps/Get-WorldMap.ps1'
+Get-WorldMapHighlight -Path 'pipelines/ci-automation.yaml', 'pwsh/Catzc.Base.Maps/Get-WorldMap.ps1'
 ```

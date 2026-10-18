@@ -4,11 +4,11 @@
 #     with_body_sha: "0e656aab9aa6"
 #     repo_status: locked
 #     path: importer.sh
-#     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
+#     source: pwsh/Catzc.Base.RootConfig/assets/root/importer.sh
 #     role: script
 #     language: bash
 #     filetype: sh
-#     generator: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
+#     generator: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
 # ---
 
 # shellcheck shell=bash

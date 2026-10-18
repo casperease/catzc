@@ -1,4 +1,4 @@
-# automation/.internal/assets/Import-Catzc.ps1
+# pwsh/.internal/assets/Import-Catzc.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Loads this Catzc build into the session — build mode's entry point.
 ### description
 
 The initializer of a built Catzc package ([ADR-DSGN-RUNMODE](../../../../adr/design/run-modes.md),
-[ADR-AUTO-BUNDLE](../../../../adr/automation/platform-bundle.md)). Authored once under automation/.internal/assets/ and copied verbatim into
+[ADR-AUTO-BUNDLE](../../../../adr/automation/platform-bundle.md)). Authored once under pwsh/.internal/assets/ and copied verbatim into
 every build by Invoke-ModuleBuild; the build's Catzc.psm1 dot-sources it, so `Import-Module Catzc` and dot-sourcing this file set up the
 same session. Dot-source it (. `<build>/Import-Catzc.ps1`) so its $global:/$env: effects land in the caller's session.
 

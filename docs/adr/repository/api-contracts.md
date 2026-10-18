@@ -195,7 +195,7 @@ unit's record, written by `Publish-ContractRelease -Unit EXTERNAL-<moniker> -Ver
 contracts/
   EXTERNAL-azure/                                     # an external unit: the vendor's shape
     0.0.0/                                            # the draft, checked and edited
-      Catzc.Azure.Templates/                          # target root automation/Catzc.Azure.Templates
+      Catzc.Azure.Templates/                          # target root pwsh/Catzc.Azure.Templates
         tests/assets/parameter-model/main.json.schema.json   # schema: the compiled template validates against it
     0.1.0/                                            # the draft frozen
 ```

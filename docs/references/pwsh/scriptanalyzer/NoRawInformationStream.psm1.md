@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/NoRawInformationStream.psm1
+# pwsh/.scriptanalyzer/NoRawInformationStream.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Above `function Measure-NoRawInformationStream {`, written with `#`.
     Custom PSScriptAnalyzer rule: forbid calling Write-Information directly.
 .DESCRIPTION
     A direct Write-Information skips the Pester guard, so its output leaks into test output and loses the caller header.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoRawInformationStream.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/scriptanalyzer/NoRawInformationStream.psm1.md#comment1)
 ```
 
 ## comment:2

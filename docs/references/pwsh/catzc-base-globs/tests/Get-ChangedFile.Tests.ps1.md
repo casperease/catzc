@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
+# pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
 
 <!-- cspell:ignore nsrc -->
 

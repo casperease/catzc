@@ -4,7 +4,7 @@ task:
   plans: [plan-layers-vocabulary-rename-contracts]
   value: high
   blocked_on: P3 after task-layers-funnel; P4 and P6 on the user's explicit go (D10), in a quiet window with no peer-dirty files
-  targets: [docs/explanation/automation, docs/how-to/automation, docs/references/automation, automation, .catzc, out, .github, pipelines]
+  targets: [docs/explanation/automation, docs/how-to/automation, docs/references/pwsh, automation, .catzc, out, .github, pipelines]
 ---
 
 # Task: layers P3 classification, then the flip P4 and the pipeline names P6
@@ -18,7 +18,7 @@ pipeline names the same day the user re-points Azure DevOps and GitHub. P8 diagr
 1. [x] Done 2026-10-18: the table is in the plan's section 8 (P3 classification), 165 hand pages, 94 move and 71 stay; the reference mirror
        holds 69 hand pages, not 56 (the module articles and diagram descriptions count). Original step: P3 classification table in the plan:
        every hand page in `docs/explanation/automation`, `docs/how-to/automation`, `docs/how-to/getting-started/automation` and the 56 hand
-       pages inside `docs/references/automation`: page, topic, move (a pwsh topic) or stay (an abstract topic). `docs/adr/automation` stays
+       pages inside `docs/references/pwsh`: page, topic, move (a pwsh topic) or stay (an abstract topic). `docs/adr/automation` stays
        (Q4). Check: every page has a row; report and stop.
 2. [x] Done 2026-10-18: the drafts are in the plan's section 7 (P3 wording drafts), 22 rules: 18 reworded, ADR-DSGN-RUNMODE#6,
        ADR-REPO-FILEMETA#12 and ADR-REPO-CONTRACT#2 need no edit, ADR-DSGN-TRACK#5 lands with P6. Original step: ADR rules that state the
@@ -36,7 +36,7 @@ pipeline names the same day the user re-points Azure DevOps and GitHub. P8 diagr
      each true.
 4. P4, the user runs: `git mv automation pwsh`; `.catzc/<track>` becomes `.catzc/pwsh`; build outputs `out/pwsh/built` and
    `out/pwsh/packages` (Q6); the tracks registry row and the one bootstrap constant change to pwsh; `Build-RootConfig` regenerates
-   importer.ps1; the docs mirror `docs/references/automation` follows the folder for the moved pages of step 1. One source edit per step,
+   importer.ps1; the docs mirror `docs/references/pwsh` follows the folder for the moved pages of step 1. One source edit per step,
    generators after. Check: the P0 baseline gates green again (Test-GeneratedFiles, Test-Links, Test-Contracts, Test-WorldMap).
 5. The ADR rules of step 2 edited to the present tree. Check: Test-AdrRegistry, Test-Links, Test-AdrEngineNeutrality clean.
 6. P5 guards: avoid-phrasings for the retired uses ("automation folder", "automation track", "automation modules", "automation layer",

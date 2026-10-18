@@ -5,7 +5,7 @@
 ### Rule ADR-AUTO-DEPM:1
 
 A module dependency (`ADR-AUTO-DEPM`) is code the toolset is built from. Its internal edges — module A needing module B among the
-repository's own modules — are declared in `automation/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list,
+repository's own modules — are declared in `pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list,
 and an actual edge with no declaration fails the build.
 
 - [The declared graph](#the-declared-graph)
@@ -63,7 +63,7 @@ against exactly the code that commit holds. An external dependency is pinned to 
 ### Rule ADR-AUTO-DEPM:8
 
 Internal module dependencies are vendored and named. The code is in-tree — the toolset's own modules, and third-party modules vendored under
-`automation/.vendor/` — and every edge is declared by name in `dependencies.yml` (ADR-AUTO-DEPM#1). The repository alone is the internal
+`pwsh/.vendor/` — and every edge is declared by name in `dependencies.yml` (ADR-AUTO-DEPM#1). The repository alone is the internal
 dependency set; there is nothing to fetch.
 
 - [Internal: vendored and named](#internal-vendored-and-named)
@@ -100,7 +100,7 @@ mechanically, not by review vigilance — and it keeps a single, legible answer 
 ## Decision
 
 Module dependencies are declared in one place and checked against the code. The declaration lives in
-`automation/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the actual function-call and C# type edges are extracted and checked against
+`pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the actual function-call and C# type edges are extracted and checked against
 it.
 
 ### The declared graph
@@ -175,7 +175,7 @@ single version, not a `2.x` range or `latest` — so its feed resolves the same 
 ### Internal: vendored and named
 
 An internal module dependency is visible in the repository two ways at once. It is **vendored** — the code is in-tree, whether the toolset's
-own modules under `automation/` or a third-party module checked in under `automation/.vendor/<Name>/<Version>/`
+own modules under `automation/` or a third-party module checked in under `pwsh/.vendor/<Name>/<Version>/`
 ([vend](../pwsh/vendor-toolset-dependencies.md)) — so loading is a path read with no network. And it is **named** — the edge is declared in
 `dependencies.yml` and checked (the graph rules above). Vendored gives the code; named gives the layering. Together they make the repository
 alone the internal dependency set: nothing is fetched and nothing is resolved.
@@ -200,7 +200,7 @@ describes, and adding or moving a dependency is a reviewed change.
 
 ## How this is enforced
 
-- **`dependencies.yml`** (`automation/Catzc.Base.ModuleSystem/configs/`) — the single declared allow-list of module edges, with its
+- **`dependencies.yml`** (`pwsh/Catzc.Base.ModuleSystem/configs/`) — the single declared allow-list of module edges, with its
   `groups:` and `modules:` sections.
 - **`DependenciesConfig`** — the config type that validates the declaration at load: resolvable targets, closed groups, acyclic module and
   group graphs.
@@ -210,7 +210,7 @@ describes, and adding or moving a dependency is a reviewed change.
   its L1 integrity test on any finding.
 - **Code review** — enforces `ADR-AUTO-DEPM#5`: a new edge is declared in the same change as the code, not deferred.
 - **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](../pwsh/vendor-toolset-dependencies.md)) — pin a vendored internal
-  dependency by its `automation/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM#8`).
+  dependency by its `pwsh/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM#8`).
 - **Pinning** — the commit pins every internal dependency; an external dependency carries its exact version in the stitch config, reviewed
   in the diff (`ADR-AUTO-DEPM#7`).
 

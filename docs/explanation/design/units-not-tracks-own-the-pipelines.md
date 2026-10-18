@@ -3,7 +3,7 @@
 ```text
 The four CD pipelines bind deployable-units; the two CI pipelines bind the track sets themselves.
 
-1  automation                   the core track, a loose-fileset over automation/**
+1  automation                   the core track, a loose-fileset over pwsh/**
 2  infrastructure rests on it   the adapter track rests on the core, never the reverse
 3  automation -> ci-automation  the track set carries pipeline: itself, with no unit between
 4  foundation base unit         a reduced composition of infrastructure; binds no pipeline
@@ -25,7 +25,7 @@ The diagram is described element by element in [its asset description](units-not
 ## Walkthrough
 
 1. **automation.** The core track: it defines the internal ports every other track rests on. In `globs.yml` it is a globset of the
-   `loose-fileset` layer that selects `automation/**`. Of the eleven tracks cats declares, only `automation` and `infrastructure` have a
+   `loose-fileset` layer that selects `pwsh/**`. Of the eleven tracks cats declares, only `automation` and `infrastructure` have a
    globset of their own.
 2. **infrastructure rests on automation.** `infrastructure` is an adapter track: it rests on `automation` for context and execution, never
    the reverse, and `ci-infrastructure` runs automation commands such as `Assert-BicepTemplate` and `Build-Bicep`. No gate checks this

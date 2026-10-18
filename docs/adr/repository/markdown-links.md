@@ -135,7 +135,7 @@ own (the index, a domain's `dora-explains`) takes the file name as its text.
 
 VS Code's built-in link detection does not read markdown links outside `.md` files, so a code link needs one workspace rule to be
 Ctrl+clickable. The repository's VS Code registries carry it, version-controlled like every other editor setting: the extension
-recommendations (`automation/Catzc.Base.VSCode/configs/vscode-extensions.yml`) recommend Regex Robin, and the workspace settings
+recommendations (`pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml`) recommend Regex Robin, and the workspace settings
 (`vscode-settings.yml`) hold one `regexrobin.rules` entry that matches `[…](/docs/adr/<path>.md…)` in any language and opens
 `file:///${workspaceFolder}/docs/adr/<path>.md`. The rule relies only on the repository's own layout — every target exists at its rooted
 path in the checked-out workspace — so it works in any clone without per-user setup beyond installing the recommended extension. The

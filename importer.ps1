@@ -2,19 +2,19 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9773c30253d5"
+    with_body_sha: "9a33aed3a828"
     repo_status: locked
     path: importer.ps1
-    source: automation/.internal/Catzc.Internal.Importer.psm1
+    source: pwsh/.internal/Catzc.Internal.Importer.psm1
     role: script
     language: powershell
     filetype: ps1
-    generator: automation/Catzc.Base.ModuleSystem/New-Importer.ps1
+    generator: pwsh/Catzc.Base.ModuleSystem/New-Importer.ps1
 ---
 #>
 
 # This shim carries only the importer's outer parameter form and delegates the whole load sequence to
-# Invoke-Importer in automation/.internal/Catzc.Internal.Importer.psm1 (the single living copy). It is
+# Invoke-Importer in pwsh/.internal/Catzc.Internal.Importer.psm1 (the single living copy). It is
 # dot-sourced (. ./importer.ps1), so its $global:/$env: effects land in the caller's session.
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Invoke-Importer announces RepositoryRoot on its Roots line, the first point a writer is loaded')]
 [CmdletBinding()]

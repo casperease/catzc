@@ -64,7 +64,7 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][10]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 138 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][10]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 138 (text).
 
 ### docs × markdown (8 lit files)
 
@@ -76,13 +76,13 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/index.md][12]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 169 (text).
 - [docs/references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md][13]: selected by
   [ADR-AUTO-DEPM][1]: the file cites it at line 47 (text), line 54 (text), line 54 (text), line 71 (text) and line 73 (text).
-- [docs/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][14]: selected by [ADR-AUTO-DEPM][1]: the
+- [docs/references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md][14]: selected by [ADR-AUTO-DEPM][1]: the
   file cites it at line 110 (text) and line 114 (text).
-- [docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md][15]: selected by [ADR-AUTO-DEPM][1]: the file cites it
+- [docs/references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md][15]: selected by [ADR-AUTO-DEPM][1]: the file cites it
   at line 12 (text).
-- [docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md][16]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md][16]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
   line 15 (text).
-- [docs/references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md][17]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md][17]: selected by [ADR-AUTO-DEPM][1]: the file cites it at
   line 13 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
@@ -91,7 +91,7 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][18]: selected by [ADR-AUTO-DEPM][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 138 (text).
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 138 (text).
 
 ## Keywords
 
@@ -117,14 +117,14 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [7]: ../../../../.claude/plans/plan-module-kinds-tracks.md
 [8]: ../../../../.claude/plans/prompt-k8s-kinds-2-implement.md
 [9]: ../../../../.claude/plans/prompt-module-model-1-prepare.md
-[10]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[10]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [11]: ../../../adr/automation/dora-explains.md
 [12]: ../../../adr/index.md
 [13]: ../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
-[14]: ../../../references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
-[15]: ../../../references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
-[16]: ../../../references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
-[17]: ../../../references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md
+[14]: ../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[15]: ../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
+[16]: ../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
+[17]: ../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md
 [18]: ../../../../pipelines/ci-automation.yaml
 [19]: ../../automation/two-sections-unioned-into-one-allow-set.md
 [20]: ../../../adr/glossary.md#world-map
@@ -132,5 +132,5 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [22]: ../../../adr/glossary.md#file-language
 [23]: ../../../adr/glossary.md#cell
 [24]: ../../../adr/glossary.md#lit-cell
-[25]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[26]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[25]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[26]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

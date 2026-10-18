@@ -65,16 +65,16 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][4
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][4]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
 
-- [automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][10]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 44 (text).
+- [pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][10]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 44 (text).
 
 ### automation × yaml (2 lit files)
 
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][4]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78 (text); selected by
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 78 (text); selected by
   [ADR-DSGN-REMOTE][2]: the file cites it at line 79 (text); selected by [ADR-REPO-VARIANT][3]: the file cites it at line 303 (text).
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][12]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 49 (text).
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][12]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 49 (text).
 
 ### docs × markdown (11 lit files)
 
@@ -90,12 +90,12 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][4]); th
   cites it at line 113 (text); selected by [ADR-REPO-VARIANT][3]: the file cites it at line 327 (text).
 - [docs/adr/repository/dora-explains.md][16]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 165 (text).
 - [docs/adr/repository/repo-variants.md][3]: selected by [ADR-REPO-VARIANT][3]: the ADR's own file.
-- [docs/references/automation/catzc-base-git/Push-Dirty.ps1.md][17]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 14 (text).
-- [docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][18]: selected by [ADR-REPO-VARIANT][3]: the file cites it
+- [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][17]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 14 (text).
+- [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][18]: selected by [ADR-REPO-VARIANT][3]: the file cites it
   at line 39 (text).
-- [docs/references/automation/catzc-base-variants/configs/variants.yml.md][19]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][19]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line
   11 (text).
-- [docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md][20]: selected by [ADR-REPO-VARIANT][3]: the file cites it at
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][20]: selected by [ADR-REPO-VARIANT][3]: the file cites it at
   line 11 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
@@ -104,11 +104,11 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
 
 - [pipelines/ci-automation.yaml][21]: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 79 (text); selected by
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-DSGN-REMOTE][2]: a pipeline that cites nothing
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 79 (text); selected by
   [ADR-REPO-VARIANT][3]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
-  `automation/Catzc.Base.Docs/configs/adrs.yml` line 303 (text) and `automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 44
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 303 (text) and `pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 44
   (text).
 
 ## Keywords
@@ -140,17 +140,17 @@ Terms the cited ADRs define:
 [7]: ../../../../.claude/plans/plan-fast-push-followups.md
 [8]: ../../../../.claude/plans/plan-module-kinds-tracks.md
 [9]: ../../../../.claude/plans/value-of-plan.md
-[10]: ../../../../automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
-[11]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[12]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[10]: ../../../../pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
+[11]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[12]: ../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
 [13]: ../../../adr/design/dora-explains.md
 [14]: ../../../adr/glossary.md
 [15]: ../../../adr/index.md
 [16]: ../../../adr/repository/dora-explains.md
-[17]: ../../../references/automation/catzc-base-git/Push-Dirty.ps1.md
-[18]: ../../../references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
-[19]: ../../../references/automation/catzc-base-variants/configs/variants.yml.md
-[20]: ../../../references/automation/catzc-base-variants/types/VariantsConfig.cs.md
+[17]: ../../../references/pwsh/catzc-base-git/Push-Dirty.ps1.md
+[18]: ../../../references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
+[19]: ../../../references/pwsh/catzc-base-variants/configs/variants.yml.md
+[20]: ../../../references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
 [21]: ../../../../pipelines/ci-automation.yaml
 [22]: ../../design/ingress-gated-the-rest-by-review.md
 [23]: ../../../adr/glossary.md#world-map
@@ -158,7 +158,7 @@ Terms the cited ADRs define:
 [25]: ../../../adr/glossary.md#file-language
 [26]: ../../../adr/glossary.md#cell
 [27]: ../../../adr/glossary.md#lit-cell
-[28]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[29]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[28]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[29]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
 [30]: ../../../adr/glossary.md#occupant
 [31]: ../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5

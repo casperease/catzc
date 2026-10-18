@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/types/CommentPageMap.cs
+# pwsh/Catzc.Base.QualityGates/types/CommentPageMap.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -14,13 +14,13 @@ folder. A comment page is the one living copy of a file's long comments
 docs/references like every other authored source
 ([ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)).
   source — a repository-relative folder (`pipelines`), or `<prefix>/*` for each immediate, non-dot-prefixed
-           subfolder of the prefix (`automation/*`), the same convention readme.yml uses
+           subfolder of the prefix (`pwsh/*`), the same convention readme.yml uses
   docs   — the docs folder the pages go under, starting with `docs/`; with a `/*` source it may carry `{kebab}`,
            the matched subfolder's leaf name lowercased with dots turned to hyphens
-           (automation/Catzc.Base.QualityGates -> catzc-base-qualitygates)
+           (pwsh/Catzc.Base.QualityGates -> catzc-base-qualitygates)
 The page of a file is `<docs>/<path relative to the matched folder>.md`, so
-automation/Catzc.Base.QualityGates/private/Get-FormatScope.ps1 ->
-docs/references/automation/catzc-base-qualitygates/private/Get-FormatScope.ps1.md: the extension stays in the name,
+pwsh/Catzc.Base.QualityGates/private/Get-FormatScope.ps1 ->
+docs/references/pwsh/catzc-base-qualitygates/private/Get-FormatScope.ps1.md: the extension stays in the name,
 so a page maps back to exactly one file. Property names mirror the YAML keys
 ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 ```

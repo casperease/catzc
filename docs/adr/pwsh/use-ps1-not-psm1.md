@@ -12,8 +12,8 @@ private functions see each other without imports.
 
 ### Rule ADR-PWSH-USEPS:2
 
-Reserve `.psm1` for genuine module or standalone files only — the `automation/.internal/*.psm1` shared modules, the
-`automation/.scriptanalyzer/*.psm1` analyzer rules, the `PrePost.psm1` starter, and per-template `PrePost.psm1`, the only `.psm1` under
+Reserve `.psm1` for genuine module or standalone files only — the `pwsh/.internal/*.psm1` shared modules, the
+`pwsh/.scriptanalyzer/*.psm1` analyzer rules, the `PrePost.psm1` starter, and per-template `PrePost.psm1`, the only `.psm1` under
 `infrastructure/` — never for a per-function file inside a module. All other PowerShell code is in `.ps1` files.
 
 - [Decision](#decision)
@@ -57,11 +57,11 @@ it, and Microsoft's official documentation endorses it.
 Use `.ps1` for all function files. Reserve `.psm1` for genuine module or standalone files — never for a per-function file inside a module.
 The sanctioned `.psm1` files are:
 
-- The `automation/.internal/*.psm1` shared modules — `Catzc.Internal.Loader` (the always-loaded entry point that provides
+- The `pwsh/.internal/*.psm1` shared modules — `Catzc.Internal.Loader` (the always-loaded entry point that provides
   `Import-InternalModule`), `Catzc.Internal.Importer` (the load sequence, `Invoke-Importer`), `Catzc.Internal.Bootstrap` (module discovery
   and loading: `Import-AllModules`, `New-DynamicManifest`, `Import-CSharpTypes`), `Catzc.Internal.Vendor` (`Import-VendorModules`),
   `Catzc.Internal.TestKit` (an on-demand Pester fixture library), and `Catzc.Internal.Types`.
-- The custom PSScriptAnalyzer rule modules under `automation/.scriptanalyzer/` (e.g. `FunctionLength.psm1`, `VariableCasing.psm1`) —
+- The custom PSScriptAnalyzer rule modules under `pwsh/.scriptanalyzer/` (e.g. `FunctionLength.psm1`, `VariableCasing.psm1`) —
   standalone analyzer rule modules, not module function files.
 - Per-template `PrePost.psm1` files (the `Catzc.Azure.Templates/assets/PrePost.psm1` starter and any
   `infrastructure/templates/<name>/PrePost.psm1`) — see [`prepost-extension-modules`](prepost-extension-modules.md).
@@ -71,7 +71,7 @@ None of these are per-function files within a module, so the rule above is intac
 ### Source and the generated build
 
 The toolset runs in two modes ([run-modes](../design/run-modes.md)). In source mode the generated manifest lists every `.ps1` function file
-of a module in its `PrivateData`, and its one `NestedModules` entry, the shared loader `automation/.internal/assets/Import-ModuleFiles.ps1`,
+of a module in its `PrivateData`, and its one `NestedModules` entry, the shared loader `pwsh/.internal/assets/Import-ModuleFiles.ps1`,
 parses each file in memory and dot-sources it into the module's session state
 ([dynamic-module-manifests](dynamic-module-manifests.md#regenerated-manifests)). In build mode `Build-Modules` concatenates the same files —
 `private/` first, then the root, each in ordinal order and each preceded by a `# source:` marker line naming its source path — into one

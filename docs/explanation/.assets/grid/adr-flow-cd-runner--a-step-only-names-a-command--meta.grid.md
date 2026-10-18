@@ -59,7 +59,7 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][6]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 98 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][6]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 98 (text).
 
 ### docs × markdown (4 lit files)
 
@@ -77,7 +77,7 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][10]: selected by [ADR-FLOW-CD-RUNNER][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 98 (text).
+  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 98 (text).
 
 ## Keywords
 
@@ -99,7 +99,7 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [5]: ../../../../.claude/CLAUDE.md
-[6]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[6]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [7]: ../../../adr/flow/dora-explains.md
 [8]: ../../../adr/index.md
 [9]: ../../../references/pipelines/steps/invoke-automation.yaml.md
@@ -110,5 +110,5 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [14]: ../../../adr/glossary.md#file-language
 [15]: ../../../adr/glossary.md#cell
 [16]: ../../../adr/glossary.md#lit-cell
-[17]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[18]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[17]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[18]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

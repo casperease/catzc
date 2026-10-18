@@ -76,7 +76,7 @@ which names the engine owns, the analyzer rule that checks them, and the blessed
 
 `How Measure-SpellOutIdentifiers reads a file`
 
-`Measure-SpellOutIdentifiers` lives in `automation/.scriptanalyzer/SpellOutIdentifiers.psm1` and runs inside the L2 `Test-ScriptAnalyzer`
+`Measure-SpellOutIdentifiers` lives in `pwsh/.scriptanalyzer/SpellOutIdentifiers.psm1` and runs inside the L2 `Test-ScriptAnalyzer`
 quality gate. Per file it:
 
 - reads every variable reference and every function definition from the script's syntax tree;

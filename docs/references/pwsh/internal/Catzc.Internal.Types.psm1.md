@@ -1,4 +1,4 @@
-# automation/.internal/Catzc.Internal.Types.psm1
+# pwsh/.internal/Catzc.Internal.Types.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -10,10 +10,10 @@ Above `function Get-CombinedTypeHash {`, written with `#`.
 ```text
 .SYNOPSIS
     The single implementation of the combined C# type-source hash — enumerate, order, and hash every module's
-    types/*.cs the way the committed automation/.compiled/Catzc.Types.<hash>.dll is keyed.
+    types/*.cs the way the committed pwsh/.compiled/Catzc.Types.<hash>.dll is keyed.
 .DESCRIPTION
     Loader and janitor must agree on this hash byte for byte, or the janitor plans the live build for deletion.
-    [comment:1](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment1)
 ```
 
 ## comment:2
@@ -28,7 +28,7 @@ Above `[CmdletBinding()]`, written with `#`.
     The automation directory. Its non-dot subfolders are the modules whose types/*.cs are hashed.
 .PARAMETER Module
     Omitted, every non-dot module is hashed; a named module without a types folder contributes nothing.
-    [comment:2](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment2)
+    [comment:2](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment2)
 .OUTPUTS
     [pscustomobject] with:
       CombinedHash  the 8-char lowercase hex hash (the Catzc.Types.<hash>.dll key), or $null when no module
@@ -102,7 +102,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '
     current.
 .DESCRIPTION
     A loaded assembly cannot be swapped in a running process, so a source edited after loading stays stale.
-    [comment:8](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment8)
+    [comment:8](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment8)
 .PARAMETER ModulesRoot
     The code root (an automation/ folder) whose type sources to compare.
 .PARAMETER HashResult
@@ -130,7 +130,7 @@ Above `[CmdletBinding()]` (occurrence 3), written with `#`.
     Compiles the selected modules' C# type sources into one hash-named assembly on disk, without loading it.
 .DESCRIPTION
     Compiles a frozen copy of the sources, so a save mid-compile cannot make the DLL name differ from its bytes.
-    [comment:10](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment10)
+    [comment:10](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment10)
 .PARAMETER ModulesRoot
     The automation directory whose non-dot module folders hold the types/*.cs sources.
 .PARAMETER Module
@@ -155,7 +155,7 @@ Above `[OutputType([string])]`, written with `#`.
     The per-user folder that holds the shadow copies of the combined types assembly.
 .DESCRIPTION
     Shared by every session and clone: a copy is named by its source hash, so equal names mean equal types.
-    [comment:11](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment11)
+    [comment:11](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment11)
 .OUTPUTS
     [string] The folder path (not created here).
 .EXAMPLE
@@ -171,14 +171,14 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessFor
     Loads a combined types assembly from a per-user shadow copy, never from the file it is given.
 .DESCRIPTION
     Windows locks a loaded DLL, so loading in place would pin a superseded build; every load uses a shadow copy.
-    [comment:12](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment12)
+    [comment:12](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment12)
 .PARAMETER Path
-    The assembly to load (normally automation/.compiled/Catzc.Types.<hash>.dll, or a bundle's prebuilt copy).
+    The assembly to load (normally pwsh/.compiled/Catzc.Types.<hash>.dll, or a bundle's prebuilt copy).
 .PARAMETER ShadowRoot
     The shadow folder. Defaults to Get-TypesShadowRoot; tests pass a throwaway folder.
 .PARAMETER PruneAfter
     The age bound keeps a copy another process just wrote but not yet loaded from being pruned under it.
-    [comment:13](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment13)
+    [comment:13](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment13)
 .PARAMETER ShadowCopy
     $false loads the given file in place, for a system that does not lock a loaded file.
 .OUTPUTS

@@ -56,7 +56,7 @@ tests. The terminology registry's per-category `scope` is the machine-readable *
 ### Rule ADR-REPO-LANG:7
 
 Matching is **exact and conservative**. A distinctive live identity (customer, subscription, org, template, project) is flagged as a bare
-string literal that IS the token, not a substring or path segment (`'automation/Catzc.X'` never trips the deployable-unit name
+string literal that IS the token, not a substring or path segment (`'pwsh/Catzc.X'` never trips the deployable-unit name
 `automation`); an ambiguous one — an environment name like `test`/`dev` — is flagged only where it is bound to an identity parameter
 (`-Environment`/`-Env`/ `-Shortcode`), never as prose. Structural names that collide with folder literals (deployable-unit/pipeline names)
 are out of scope. The reverse boundary — a **fixture** identity in a shipped config **value** — is enforced the mirror way, by walking the
@@ -147,7 +147,7 @@ machine-readable statement of intent; the gate consumes it, and a later step can
 
 ### Exact, conservative, staged
 
-The gate matches a string literal that **is** a live identity, never a substring — a repository path `automation/Catzc.X` does not trip the
+The gate matches a string literal that **is** a live identity, never a substring — a repository path `pwsh/Catzc.X` does not trip the
 deployable-unit name `automation`. Structural names that collide with folder literals are left out of the forbidden set entirely, because a
 name a test must legitimately type is not an identity leak. Distinctive identities (customers, subscriptions, org, templates, ADO project)
 match exactly wherever they appear; ambiguous environment names, pervasive in test prose, match only in an identity-parameter position; and

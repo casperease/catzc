@@ -36,10 +36,10 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 - adr/* (the files directly in docs/adr/): 2 lit files
 - adr/dsgn (docs/adr/design): 2 lit files
 - adr/flow (docs/adr/flow): 2 lit files
-- Docs (automation/Catzc.Base.Docs): 1 lit file
-- Maps (automation/Catzc.Base.Maps): 1 lit file
-- ModuleSystem (automation/Catzc.Base.ModuleSystem): 1 lit file
-- QualityGates (automation/Catzc.Base.QualityGates): 1 lit file
+- Docs (pwsh/Catzc.Base.Docs): 1 lit file
+- Maps (pwsh/Catzc.Base.Maps): 1 lit file
+- ModuleSystem (pwsh/Catzc.Base.ModuleSystem): 1 lit file
+- QualityGates (pwsh/Catzc.Base.QualityGates): 1 lit file
 - pipelines: 1 lit file
 
 ## Why each group is lit
@@ -48,17 +48,17 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/references/automation/catzc-base-docs/configs/adrs.yml.md][3], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file
+- [docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md][3], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file
   cites it at line 40 (text).
-- [docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md][4], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the
+- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][4], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the
   file cites it at line 28 (text), line 29 (text), line 57 (text) and line 58 (text).
-- [docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md][5], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]:
+- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][5], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]:
   the file cites it at line 34 (text).
-- [docs/references/automation/catzc-base-git/Push-Dirty.ps1.md][6], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file
+- [docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md][6], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][1]: the file
   cites it at line 14 (text).
-- [docs/references/automation/catzc-base-maps/Get-ValueChainHighlight.ps1.md][7], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]:
+- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][7], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]:
   the file cites it at line 37 (text).
-- [docs/references/automation/catzc-base-maps/Get-WorldMapHighlight.ps1.md][8], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]:
+- [docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md][8], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]:
   the file cites it at line 54 (text).
 
 ### .claude (3 lit files)
@@ -93,32 +93,32 @@ The group holds the files of docs/adr/flow; each sits in its world-map cell and 
 - [docs/adr/flow/cd-discipline-and-promotion-flow.md][2], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the ADR's own file.
 - [docs/adr/flow/dora-explains.md][15], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file cites it at line 11 (text).
 
-### Docs (automation/Catzc.Base.Docs, 1 lit file)
+### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][16], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][16], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file cites it at
   line 78 (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 97 (text).
 
-### Maps (automation/Catzc.Base.Maps, 1 lit file)
+### Maps (pwsh/Catzc.Base.Maps, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.Maps; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Maps; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][17], in the cell automation × powershell: selected by [ADR-FLOW-CD][2]:
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][17], in the cell automation × powershell: selected by [ADR-FLOW-CD][2]:
   the file cites it at line 70 (text) and line 71 (text).
 
-### ModuleSystem (automation/Catzc.Base.ModuleSystem, 1 lit file)
+### ModuleSystem (pwsh/Catzc.Base.ModuleSystem, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][18], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][18], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][1]: the file
   cites it at line 49 (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 18 (text).
 
-### QualityGates (automation/Catzc.Base.QualityGates, 1 lit file)
+### QualityGates (pwsh/Catzc.Base.QualityGates, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.QualityGates/configs/glossary.yml][19], in the cell automation × yaml: selected by [ADR-FLOW-CD][2]: the file cites
+- [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][19], in the cell automation × yaml: selected by [ADR-FLOW-CD][2]: the file cites
   it at line 58 (text).
 
 ### pipelines (1 lit file)
@@ -126,12 +126,12 @@ The group holds the files of automation/Catzc.Base.QualityGates; each sits in it
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][20], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-LIFE][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-FLOW-CD][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 97 (text),
-  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text),
-  `automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text),
-  `automation/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18 (text) and `automation/Catzc.Base.QualityGates/configs/glossary.yml`
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 78 (text) and
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 49 (text); selected by [ADR-FLOW-CD][2]: a pipeline that cites nothing
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 97 (text),
+  `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 70 (text),
+  `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text),
+  `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18 (text) and `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
   line 58 (text).
 
 ## Keywords
@@ -158,12 +158,12 @@ Terms the cited ADRs define:
 
 [1]: ../../../adr/design/commit-lifecycle.md
 [2]: ../../../adr/flow/cd-discipline-and-promotion-flow.md
-[3]: ../../../references/automation/catzc-base-docs/configs/adrs.yml.md
-[4]: ../../../references/automation/catzc-base-docs/types/AdrsConfig.cs.md
-[5]: ../../../references/automation/catzc-base-docs/types/GlossaryConcept.cs.md
-[6]: ../../../references/automation/catzc-base-git/Push-Dirty.ps1.md
-[7]: ../../../references/automation/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-[8]: ../../../references/automation/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+[3]: ../../../references/pwsh/catzc-base-docs/configs/adrs.yml.md
+[4]: ../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+[5]: ../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
+[6]: ../../../references/pwsh/catzc-base-git/Push-Dirty.ps1.md
+[7]: ../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+[8]: ../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
 [9]: ../../../../.claude/CLAUDE.md
 [10]: ../../../../.claude/plans/plan-fast-push-followups.md
 [11]: ../../../../.claude/plans/value-of-plan.md
@@ -171,10 +171,10 @@ Terms the cited ADRs define:
 [13]: ../../../adr/index.md
 [14]: ../../../adr/design/dora-explains.md
 [15]: ../../../adr/flow/dora-explains.md
-[16]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[17]: ../../../../automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[18]: ../../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
-[19]: ../../../../automation/Catzc.Base.QualityGates/configs/glossary.yml
+[16]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[17]: ../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[18]: ../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[19]: ../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
 [20]: ../../../../pipelines/ci-automation.yaml
 [21]: ../../design/integrators-depend-on-an-occupant.md
 [22]: ../../../adr/glossary.md#world-map
@@ -182,8 +182,8 @@ Terms the cited ADRs define:
 [24]: ../../../adr/glossary.md#file-language
 [25]: ../../../adr/glossary.md#cell
 [26]: ../../../adr/glossary.md#lit-cell
-[27]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[28]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[27]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[28]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
 [29]: ../../../adr/glossary.md#gate
 [30]: ../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
 [31]: ../../../adr/glossary.md#occupant

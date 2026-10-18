@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Languages/Get-FileLanguage.ps1
+# pwsh/Catzc.Base.Languages/Get-FileLanguage.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -41,5 +41,5 @@ Get-FileLanguage
 ### example 3
 
 ```powershell
-(Get-FileLanguage -Path 'automation/Catzc.Base.Languages/Get-FileLanguage.ps1').name   # -> powershell
+(Get-FileLanguage -Path 'pwsh/Catzc.Base.Languages/Get-FileLanguage.ps1').name   # -> powershell
 ```

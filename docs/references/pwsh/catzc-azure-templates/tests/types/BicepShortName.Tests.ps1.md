@@ -1,4 +1,4 @@
-# automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
+# pwsh/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
 
 <!-- cspell:ignore deriv abcdef gadge gadgetry getry gadg -->
 

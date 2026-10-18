@@ -19,7 +19,7 @@ objects (those live in [Catzc.Base.Objects](catzc-base-objects.md)). The design 
 ### responsibility:1 — Config loading and caching
 
 The unified path from a config name to a validated, cached object. `Get-Config` discovers the file by scanning
-`automation/*/configs/<name>.yml` (via the private `Resolve-ConfigEntry` seam), parses it as an ordered dictionary, constructs its
+`pwsh/*/configs/<name>.yml` (via the private `Resolve-ConfigEntry` seam), parses it as an ordered dictionary, constructs its
 registered C# config type — which maps and validates it — and stores the result keyed by resolved file path; a config with no registered
 type comes back raw. Every subsequent call for the same name returns the cached reference; the file is read once per session. Unknown and
 ambiguous names throw immediately; there is no silent fall-through. The full design — discovery, typed configs, poka-yoke table — is in

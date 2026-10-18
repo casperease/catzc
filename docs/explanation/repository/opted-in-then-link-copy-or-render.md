@@ -27,7 +27,7 @@ The diagram is described element by element in [its asset description](opted-in-
 
 ## Walkthrough
 
-1. **rootconfig.yml.** `Get-Config -Config rootconfig` loads the registry from `automation/Catzc.Base.RootConfig/configs/`. Every path in it
+1. **rootconfig.yml.** `Get-Config -Config rootconfig` loads the registry from `pwsh/Catzc.Base.RootConfig/configs/`. Every path in it
    is repository-root-relative and forward-slashed.
 2. **RootConfigFiles.** The `rootconfig` config is typed `Catzc.Base.RootConfig.RootConfigFiles`, so loading it constructs every entry as a
    `RootConfigFile`: exactly one of `source` or `generator`; a wildcard target only with a `generator`; `sources` only with a `generator`;

@@ -1,4 +1,4 @@
-# automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
+# pwsh/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
 
 <!-- cspell:ignore nbeta nmodule -->
 

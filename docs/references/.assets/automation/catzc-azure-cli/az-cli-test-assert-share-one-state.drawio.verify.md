@@ -5,13 +5,13 @@
 Every line below was re-read on 2026-10-15 after the comment export. All the brief's line numbers had moved (for example
 `Get-AzCliConnectionState.ps1:47,49` is now `:34,43`, `Assert-AzCliCanAccess.ps1:32-33` is now `:25-26`, and the drift comment at
 `Assert-AzCliConnected.ps1:7-8` now lives on its comment page). `condense-comments` may move them again, so re-grep before landing. Paths
-are relative to `automation/Catzc.Azure.Cli/` unless they start with `automation/` or `docs/`.
+are relative to `pwsh/Catzc.Azure.Cli/` unless they start with `automation/` or `docs/`.
 
 ## Boxes
 
 | #   | Claim (box)                                                                   | Source (`file:line`)                                                                                                                                                                                                                       | Status    |
 | --- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- |
-| B1  | `Get-AzureSubscription` is a public function of module `Catzc.Azure` (frame)  | `automation/Catzc.Azure/Get-AzureSubscription.ps1:18`; reads azure.yml at `:27` (`Get-Config -Config azure`)                                                                                                                               | confirmed |
+| B1  | `Get-AzureSubscription` is a public function of module `Catzc.Azure` (frame)  | `pwsh/Catzc.Azure/Get-AzureSubscription.ps1:18`; reads azure.yml at `:27` (`Get-Config -Config azure`)                                                                                                                               | confirmed |
 | B2  | `Test-AzCliIsConnected` is public, takes a subscription name from azure.yml   | `Test-AzCliIsConnected.ps1:12,17-19`                                                                                                                                                                                                       | confirmed |
 | B3  | `Assert-AzCliIsConnected` is public, takes a subscription name from azure.yml | `Assert-AzCliIsConnected.ps1:15,19-21`                                                                                                                                                                                                     | confirmed |
 | B4  | `Test-AzCliConnected` is public and generic (ids by argument)                 | `Test-AzCliConnected.ps1:16,19-25`                                                                                                                                                                                                         | confirmed |
@@ -51,15 +51,15 @@ are relative to `automation/Catzc.Azure.Cli/` unless they start with `automation
 | S5  | `Test-AzCliBicep` → `Get-AzCliBicepState`                                          | `Test-AzCliBicep.ps1:16`                                                                  | confirmed |
 | S6  | `Assert-AzCliBicep` → `Get-AzCliBicepState` (after its own `Assert-Tool 'az_cli'`) | `Assert-AzCliBicep.ps1:19,21`                                                             | confirmed |
 | S7  | The bicep state reads its minimum from azure.yml itself, not through a wrapper     | `private/Get-AzCliBicepState.ps1:13` (`Get-AzureBicepMinVersion`, module Catzc.Azure)     | confirmed |
-| S8  | "Both Assert/Test share Get-AzCliConnectionState"                                  | `docs/references/automation/catzc-azure-cli/Assert-AzCliConnected.ps1.md:16`; code E6, E7 | confirmed |
+| S8  | "Both Assert/Test share Get-AzCliConnectionState"                                  | `docs/references/pwsh/catzc-azure-cli/Assert-AzCliConnected.ps1.md:16`; code E6, E7 | confirmed |
 
 ## Sidebar
 
 | #   | Claim                                        | Source (`file:line`)                                                                                                                       | Status    |
 | --- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------- |
 | C1  | ADR-AZ-CLI#1 is cited by the drawn code      | `Test-AzCliSubscriptionAccessible.ps1:6`, `Get-AzCliSubscriptionAccessState.ps1:6`, `Test-AzCliBicep.ps1:6`, `Assert-AzCliCanAccess.ps1:7` | confirmed |
-| C2  | ADR-AZ-DATAMOD#4 is cited by the drawn code  | `automation/Catzc.Azure/Get-AzureSubscription.ps1:6` (bare ADR-AZ-DATAMOD at `Assert-AzCliIsConnected.ps1:6`, `Test-AzCliCanAccess.ps1:6`) | confirmed |
-| C3  | ADR-AZ-CUSTOMER is cited by the drawn code   | `automation/Catzc.Azure/Get-AzureSubscription.ps1:7,34`                                                                                    | confirmed |
+| C2  | ADR-AZ-DATAMOD#4 is cited by the drawn code  | `pwsh/Catzc.Azure/Get-AzureSubscription.ps1:6` (bare ADR-AZ-DATAMOD at `Assert-AzCliIsConnected.ps1:6`, `Test-AzCliCanAccess.ps1:6`) | confirmed |
+| C3  | ADR-AZ-CUSTOMER is cited by the drawn code   | `pwsh/Catzc.Azure/Get-AzureSubscription.ps1:7,34`                                                                                    | confirmed |
 | C4  | ADR-AUTO-FAILFAST is cited by the drawn code | `Assert-AzCliSubscriptionAccessible.ps1:7`                                                                                                 | confirmed |
 | C5  | ADR-AUTO-ENTERP is cited by the drawn code   | `Test-AzCliBicep.ps1:7`, `Assert-AzCliBicep.ps1:7`                                                                                         | confirmed |
 | C6  | ADR-AUTO-PRELOG#5 is cited by the drawn code | `private/Get-AzCliBicepState.ps1:16`                                                                                                       | confirmed |
@@ -81,7 +81,7 @@ code.
 
 ## Drift
 
-- The comment of `Assert-AzCliConnected` (`docs/references/automation/catzc-azure-cli/Assert-AzCliConnected.ps1.md:15-16`) says the
+- The comment of `Assert-AzCliConnected` (`docs/references/pwsh/catzc-azure-cli/Assert-AzCliConnected.ps1.md:15-16`) says the
   config-aware `Assert-AzCliIsConnected` "delegates here". The code of `Assert-AzCliIsConnected` calls `Get-AzCliConnectionState` directly
   (`Assert-AzCliIsConnected.ps1:26`) and throws its own messages. Its own comment page (`Assert-AzCliIsConnected.ps1.md:16`) says so
   correctly. The two comments disagree; the code agrees with the second.

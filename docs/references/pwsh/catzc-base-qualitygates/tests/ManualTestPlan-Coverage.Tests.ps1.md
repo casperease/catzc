@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1
+# pwsh/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Manual test plan covers every integrity check' -Tag 'L1',...`, written with `#`.
 
 ```text
-Keeps the manual test plan's category files (docs/how-to/automation/manual-test-plan/) in sync with the tests, through its quality gate
+Keeps the manual test plan's category files (docs/how-to/pwsh/manual-test-plan/) in sync with the tests, through its quality gate
 (Test-ManualTestPlan — [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). The gate
 derives the integrity blocks by PARSING the test files, never by booting Pester discovery
 ([ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16)). It is self-referential: this

@@ -1,4 +1,4 @@
-# automation/.internal/tests/Import-CSharpTypes.Tests.ps1
+# pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -173,7 +173,7 @@ genuinely separate C# implementation of the same hash; see native-csharp-types).
 Above `It 'is exactly one committed assembly whose hash matches the current sources...`, written with `#`.
 
 ```text
-Drift guard: the importer (which ran before this test file) rebuilds automation/.compiled/Catzc.Types.<hash>.dll
+Drift guard: the importer (which ran before this test file) rebuilds pwsh/.compiled/Catzc.Types.<hash>.dll
 from source whenever a types/*.cs changed, and every build copies that DLL. Test-BuildArtifact's types facet
 checks it is exactly one assembly named for the current sources' hash, with no pending git change (a
 forgotten commit of the prebuilt assembly stays red until it is committed). source-only: it reads the

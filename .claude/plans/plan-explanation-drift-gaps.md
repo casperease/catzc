@@ -5,14 +5,14 @@ plan:
   reviewed: 2026-10-18
   targets:
     [
-      automation/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1,
-      automation/Catzc.Base.Maps/Get-WorldMap.ps1,
-      automation/Catzc.Base.Globs/Test-GlobSetAffected.ps1,
-      automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1,
-      automation/Catzc.Azure.DevOps,
-      automation/Catzc.Base.Repository/Resolve-RepoPath.ps1,
-      automation/Catzc.Base.Timeouts,
-      automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml,
+      pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1,
+      pwsh/Catzc.Base.Maps/Get-WorldMap.ps1,
+      pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1,
+      pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1,
+      pwsh/Catzc.Azure.DevOps,
+      pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1,
+      pwsh/Catzc.Base.Timeouts,
+      pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml,
       .claude/hooks/Assert-BashTimeout/Program.cs,
       pipelines,
       docs/adr/design/run-modes.md,
@@ -117,7 +117,7 @@ Each decision becomes an ADR rule, or an ADR amendment, in the change that lands
 
 When a step lands, remove its claim from every article that states it (search `docs/explanation` for the function name) in the same change.
 
-- [ ] `automation/Catzc.Base.Modules/Get-Aspect.ps1` and `Test-AspectDeclaration.ps1`: move both into `Catzc.Base.Variants` and read through
+- [ ] `pwsh/Catzc.Base.Modules/Get-Aspect.ps1` and `Test-AspectDeclaration.ps1`: move both into `Catzc.Base.Variants` and read through
       the private `Get-Variant`, so `aspects` has one read path like every other variant (ADR-REPO-VARIANT); the Variants count of exported
       primitives in `docs/explanation/repository/` and its slide changes with it (check: the Variants and Maps L0 tests pass, and no file
       outside Catzc.Base.Variants reads `(Get-Config -Config variants)`).
@@ -125,7 +125,7 @@ When a step lands, remove its claim from every article that states it (search `d
       writing `AFFECTED=True` in `cd-apex` and `AFFECTED=False` in `cd-shared`, whose deploy stages then skip (check: those two run logs).
 - [ ] Q2 `pipelines/ci-automation.yaml` on a real run: the `BuildArtifact` job runs on main and passes, and is skipped on a PR (check: one
       main run and one PR run).
-- [ ] Q3 `automation/Catzc.Azure.DevOps/configs/environment-approvals.yml`: the user lists the approvers under `approver_group.members` and
+- [ ] Q3 `pwsh/Catzc.Azure.DevOps/configs/environment-approvals.yml`: the user lists the approvers under `approver_group.members` and
       runs the apply (`Sync-AdoEnvironmentApprovals -DryRun`, then without); then the lifecycle articles drop the "prod with no gate" claims
       (check: a second apply reports Unchanged for the group and all three checks, and a CD run to `shared-psub` waits for approval).
 - [ ] Q4 the five slides that draw what is no longer true. Three draw what the run-modes ADR no longer names:

@@ -6,10 +6,10 @@ task:
   blocked_on: nothing; step 5 is the user's by hand
   targets:
     [
-      automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1,
-      automation/Catzc.Base.CodeMeta,
-      docs/references/automation/catzc-base-codemeta,
-      automation/Catzc.Base.Git/Push-Dirty.ps1,
+      pwsh/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1,
+      pwsh/Catzc.Base.CodeMeta,
+      docs/references/pwsh/catzc-base-codemeta,
+      pwsh/Catzc.Base.Git/Push-Dirty.ps1,
     ]
 ---
 
@@ -30,7 +30,7 @@ user's.
        expectations gain the keys; if the head is wrong for fixture files, the generator is fixed. One file. Check:
        `Build-RootConfig.Tests.ps1` passes. 2026-10-18: `[Invoke-TestFile] Passed` (`out/test-file/20261018-120150-e2c30e`); neither side
        changed.
-3. [x] `docs/references/automation/catzc-base-codemeta/types/PropertyHead.md` (or its generated source): describe the XML form (a CDATA
+3. [x] `docs/references/pwsh/catzc-base-codemeta/types/PropertyHead.md` (or its generated source): describe the XML form (a CDATA
        property `CatzcMeta` in the first `PropertyGroup Label="catzc"`) beside the JSON form. If the page is generated from the type's
        comments, edit the comment in `PropertyHead.cs` and regenerate. Check: Test-Links, Test-GeneratedFiles clean. In the tree: the page
        (`PropertyHead.cs.md`, generated from the type's comments) already names the CDATA property of the labelled first PropertyGroup.

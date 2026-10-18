@@ -123,7 +123,7 @@ Sub-group labels and config rows look like this (DevBox lifecycle verbs; `config
 - After editing, run, from the repo root:
 
   ```powershell
-  Format-Code -Language markdown -Path docs/references/automation   # aligns tables, wraps prose
+  Format-Code -Language markdown -Path docs/references/pwsh   # aligns tables, wraps prose
   Test-Markdownlint
   Test-Spelling
   ```

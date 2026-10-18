@@ -53,9 +53,9 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1][5]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 46
+- [pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1][5]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 46
   (text).
-- [automation/Catzc.Base.Docs/Build-AdrIndex.ps1][6]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 39 (body comment) (a passing
+- [pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1][6]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 39 (body comment) (a passing
   mention only).
 
 ### automation × yaml (1 lit file)
@@ -63,7 +63,7 @@ powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][7]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 257 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][7]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 257 (text).
 
 ### docs × markdown (18 lit files)
 
@@ -78,27 +78,27 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
   [ADR-AZ-NAMING][1]: the file cites it at line 43 (text).
 - [docs/references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md][12]: selected by [ADR-AZ-NAMING][1]:
   the file cites it at line 54 (text).
-- [docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md][13]: selected by [ADR-AZ-NAMING][1]: the file cites it at
+- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md][13]: selected by [ADR-AZ-NAMING][1]: the file cites it at
   line 97 (text), line 108 (text) and line 127 (text).
-- [docs/references/automation/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md][14]: selected by [ADR-AZ-NAMING][1]: the file cites it
+- [docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md][14]: selected by [ADR-AZ-NAMING][1]: the file cites it
   at line 29 (text) and line 32 (text).
-- [docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md][15]: selected by [ADR-AZ-NAMING][1]: the file cites it at
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md][15]: selected by [ADR-AZ-NAMING][1]: the file cites it at
   line 76 (text).
-- [docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md][16]: selected by [ADR-AZ-NAMING][1]: the file cites it at
+- [docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md][16]: selected by [ADR-AZ-NAMING][1]: the file cites it at
   line 142 (text).
-- [docs/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][17]: selected by [ADR-AZ-NAMING][1]: the file
+- [docs/references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md][17]: selected by [ADR-AZ-NAMING][1]: the file
   cites it at line 28 (text) and line 94 (text).
-- [docs/references/automation/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md][18]: selected by [ADR-AZ-NAMING][1]: the file
+- [docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md][18]: selected by [ADR-AZ-NAMING][1]: the file
   cites it at line 14 (text).
-- [docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md][19]: selected by [ADR-AZ-NAMING][1]: the file cites it at
+- [docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md][19]: selected by [ADR-AZ-NAMING][1]: the file cites it at
   line 12 (text), line 32 (text) and line 64 (text).
-- [docs/references/automation/catzc-azure/configs/azure.yml.md][20]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 32 (text),
+- [docs/references/pwsh/catzc-azure/configs/azure.yml.md][20]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 32 (text),
   line 77 (text) and line 110 (text).
-- [docs/references/automation/catzc-azure/configs/customer.yml.md][21]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 19 (text).
-- [docs/references/automation/catzc-azure/types/AzureConfig.cs.md][22]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 28 (text).
-- [docs/references/automation/catzc-azure/types/AzureEnvironmentRecord.cs.md][23]: selected by [ADR-AZ-NAMING][1]: the file cites it at line
+- [docs/references/pwsh/catzc-azure/configs/customer.yml.md][21]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 19 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md][22]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 28 (text).
+- [docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md][23]: selected by [ADR-AZ-NAMING][1]: the file cites it at line
   12 (text).
-- [docs/references/automation/catzc-base-variants/configs/variants.yml.md][24]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 23
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][24]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 23
   (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
@@ -107,8 +107,8 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][25]: selected by [ADR-AZ-NAMING][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1` line 46 (text),
-  `automation/Catzc.Base.Docs/Build-AdrIndex.ps1` line 39 (body comment) and `automation/Catzc.Base.Docs/configs/adrs.yml` line 257 (text).
+  which cite it at `pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1` line 46 (text),
+  `pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1` line 39 (body comment) and `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 257 (text).
 
 ## Keywords
 
@@ -129,26 +129,26 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
-[6]: ../../../../automation/Catzc.Base.Docs/Build-AdrIndex.ps1
-[7]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[5]: ../../../../pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
+[6]: ../../../../pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
+[7]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [8]: ../../../adr/azure/dora-explains.md
 [9]: ../../../adr/index.md
 [10]: ../../../how-to/getting-started/automation/add-a-doc-chapter.md
 [11]: ../../../references/.assets/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
 [12]: ../../../references/.assets/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
-[13]: ../../../references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md
-[14]: ../../../references/automation/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md
-[15]: ../../../references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md
-[16]: ../../../references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md
-[17]: ../../../references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
-[18]: ../../../references/automation/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
-[19]: ../../../references/automation/catzc-azure-templates/types/BicepShortName.cs.md
-[20]: ../../../references/automation/catzc-azure/configs/azure.yml.md
-[21]: ../../../references/automation/catzc-azure/configs/customer.yml.md
-[22]: ../../../references/automation/catzc-azure/types/AzureConfig.cs.md
-[23]: ../../../references/automation/catzc-azure/types/AzureEnvironmentRecord.cs.md
-[24]: ../../../references/automation/catzc-base-variants/configs/variants.yml.md
+[13]: ../../../references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md
+[14]: ../../../references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md
+[15]: ../../../references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md
+[16]: ../../../references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
+[17]: ../../../references/pwsh/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+[18]: ../../../references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
+[19]: ../../../references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md
+[20]: ../../../references/pwsh/catzc-azure/configs/azure.yml.md
+[21]: ../../../references/pwsh/catzc-azure/configs/customer.yml.md
+[22]: ../../../references/pwsh/catzc-azure/types/AzureConfig.cs.md
+[23]: ../../../references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
+[24]: ../../../references/pwsh/catzc-base-variants/configs/variants.yml.md
 [25]: ../../../../pipelines/ci-automation.yaml
 [26]: ../../azure/names-are-pure-and-never-truncated.md
 [27]: ../../../adr/glossary.md#world-map
@@ -156,5 +156,5 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [29]: ../../../adr/glossary.md#file-language
 [30]: ../../../adr/glossary.md#cell
 [31]: ../../../adr/glossary.md#lit-cell
-[32]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[33]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[32]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[33]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

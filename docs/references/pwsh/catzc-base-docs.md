@@ -35,7 +35,7 @@ generated README is gitignored, untracked, and current with its source.
 ### responsibility:2 — README map
 
 Which folder is generated from which source. The map is `readme.yml`: a glob `patterns` list whose every matched folder derives its source
-by convention (the folder's leaf name, kebab-cased — `automation/*` → `docs/references/automation/<kebab>.md`), plus explicit `mappings` for
+by convention (the folder's leaf name, kebab-cased — `pwsh/*` → `docs/references/pwsh/<kebab>.md`), plus explicit `mappings` for
 the folders that follow no convention (an explicit mapping wins over a pattern). It is validated when it loads so a malformed or duplicated
 entry can never produce a run, and its patterns are expanded against the filesystem to the concrete folder-to-source list before generation.
 The map is the single place the folder-to-source pairing is stated; the generator reads it through [Catzc.Base.Config](catzc-base-config.md)

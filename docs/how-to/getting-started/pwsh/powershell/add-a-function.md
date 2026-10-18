@@ -120,8 +120,8 @@ spellings of one rule: the **tag** uses `#` (`ADR-PWSH-ERROR#3`, the citation fo
 `Rules` column you can filter by a citation to find every test that enforces it.
 
 Citing is one of **two** ways a rule gets mechanical coverage; the other is a PSScriptAnalyzer rule. So when you add a **custom analyzer
-rule** (`automation/.scriptanalyzer/*.psm1`), map it to the rule id(s) it enforces in
-`automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` — an integrity test fails if a custom rule is left unmapped.
+rule** (`pwsh/.scriptanalyzer/*.psm1`), map it to the rule id(s) it enforces in
+`pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` — an integrity test fails if a custom rule is left unmapped.
 
 Then:
 

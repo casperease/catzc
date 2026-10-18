@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/configs/comments.yml
+# pwsh/Catzc.Base.QualityGates/configs/comments.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -58,7 +58,7 @@ subfolder of the prefix (dot-prefixed folders never match, so .vendor is out and
 listed by name); `docs` is the
 folder under docs/ the pages go under, and with a `/*` source `{kebab}` is the matched subfolder's leaf name,
 lowercased with dots turned to hyphens. The page keeps the file's name and extension plus `.md`
-(automation/Catzc.Base.QualityGates/Format-Code.ps1 -> docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md).
+(pwsh/Catzc.Base.QualityGates/Format-Code.ps1 -> docs/references/pwsh/catzc-base-qualitygates/Format-Code.ps1.md).
 ```
 
 ## comment:6

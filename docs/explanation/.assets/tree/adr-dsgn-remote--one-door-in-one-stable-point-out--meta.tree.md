@@ -32,7 +32,7 @@ domain), and lights 5 files in 4 groups, filled in ink. A lit ADR file has a whi
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - adr/dsgn (docs/adr/design): 2 lit files
-- Docs (automation/Catzc.Base.Docs): 1 lit file
+- Docs (pwsh/Catzc.Base.Docs): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
 - pipelines: 1 lit file
 
@@ -46,11 +46,11 @@ The group holds the files of docs/adr/design; each sits in its world-map cell an
   (text).
 - [docs/adr/design/server-remote-integration.md][1], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the ADR's own file.
 
-### Docs (automation/Catzc.Base.Docs, 1 lit file)
+### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-DSGN-REMOTE][1]: the file cites it at
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-DSGN-REMOTE][1]: the file cites it at
   line 79 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
@@ -64,7 +64,7 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][5], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-REMOTE][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 79 (text).
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 79 (text).
 
 ## Keywords
 
@@ -82,7 +82,7 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 [1]: ../../../adr/design/server-remote-integration.md
 [2]: ../../../adr/design/dora-explains.md
-[3]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[3]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [4]: ../../../adr/index.md
 [5]: ../../../../pipelines/ci-automation.yaml
 [6]: ../../design/one-door-in-one-stable-point-out.md
@@ -91,5 +91,5 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [9]: ../../../adr/glossary.md#file-language
 [10]: ../../../adr/glossary.md#cell
 [11]: ../../../adr/glossary.md#lit-cell
-[12]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[13]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[12]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[13]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

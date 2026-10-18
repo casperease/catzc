@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Languages/Get-PathFileType.ps1
+# pwsh/Catzc.Base.Languages/Get-PathFileType.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -27,7 +27,7 @@ A repository-relative or absolute path ('/' or '\' separated).
 ### example 1
 
 ```powershell
-(Get-PathFileType 'automation/.internal/Catzc.Internal.Types.psm1')   # -> psm1
+(Get-PathFileType 'pwsh/.internal/Catzc.Internal.Types.psm1')   # -> psm1
 ```
 
 ### example 2

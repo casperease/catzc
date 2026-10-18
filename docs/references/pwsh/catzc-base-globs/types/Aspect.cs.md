@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Globs/types/Aspect.cs
+# pwsh/Catzc.Base.Globs/types/Aspect.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -38,7 +38,7 @@ first-match slice. PowerShell (Get-ModuleAspect) builds the GlobSet from these.
 Above `public static IReadOnlyList<CompiledAspect> Compile(IReadOnlyList<Aspect>...`, written with `//`.
 
 ```text
-Compile the ordered aspect convention onto a unit root (e.g. "automation/Catzc.Base.Globs"): each
+Compile the ordered aspect convention onto a unit root (e.g. "pwsh/Catzc.Base.Globs"): each
 aspect's Include is its own patterns, Exclude is every earlier aspect's patterns, all prefixed by the
 unit root. The last aspect (the '**' catch-all) thus becomes "everything under the root minus every
 earlier aspect" — the remainder.

@@ -5,7 +5,7 @@
 ### Rule ADR-AUTO-GUIDS:1
 
 Every GUID literal in tracked text — code, configs, fixtures, pipelines, docs — is registered in the managed-GUID registry,
-`automation/Catzc.Base.QualityGates/configs/guids.yml`. No exceptions by location: a GUID in the tree is configuration
+`pwsh/Catzc.Base.QualityGates/configs/guids.yml`. No exceptions by location: a GUID in the tree is configuration
 ([everything-as-code](../principles/everything-as-code.md)), and an unbound GUID is drift.
 
 - [The registry](#the-registry)

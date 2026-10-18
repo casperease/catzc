@@ -1,7 +1,7 @@
 # Catzc.Internal.Types
 
 The single implementation of the combined C# type-source hash. Its one export, `Get-CombinedTypeHash`, enumerates, orders, and hashes every
-module's `types/*.cs` exactly the way the committed `automation/.compiled/Catzc.Types.<hash>.dll` is keyed. It lives in `.internal` because
+module's `types/*.cs` exactly the way the committed `pwsh/.compiled/Catzc.Types.<hash>.dll` is keyed. It lives in `.internal` because
 two layers must agree on that hash byte-for-byte — the **loader** ([`Import-CSharpTypes`](catzc-internal-bootstrap.md), which builds and
 keys the DLL) and the **cache janitor** (`Clear-ModuleTypeCache`, a `Catzc` module, which decides which DLLs to keep). The algorithm used to
 be copied into both and mirrored again in tests, with a standing "keep them identical" note; it now lives here once and both call it through

@@ -8,7 +8,7 @@
 #     role: script
 #     language: bash
 #     filetype: sh
-#     generator: automation/Catzc.Base.Contracts/New-CatsCommandLookup.ps1
+#     generator: pwsh/Catzc.Base.Contracts/New-CatsCommandLookup.ps1
 # ---
 
 # shellcheck shell=bash

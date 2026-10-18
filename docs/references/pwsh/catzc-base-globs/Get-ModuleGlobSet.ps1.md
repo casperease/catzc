@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+# pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -20,7 +20,7 @@ shippable surface (functions, private helpers, types, configs), 'tests' its veri
 ([ADR-AUTO-GO#2](../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2),
 [ADR-AUTO-PY#2](../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2),
 [ADR-AUTO-BASH#2](../../../adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2)); the two are disjoint and cover the folder. The
-whole-module set is their union (a test-only change never re-keys live). Every internal shared module `automation/.internal/<Name>.psm1`
+whole-module set is their union (a test-only change never re-keys live). Every internal shared module `pwsh/.internal/<Name>.psm1`
 derives a single-file set (no tests aspect) by the same kebab convention (Catzc.Internal.Bootstrap -> 'catzc-internal-bootstrap'). The
 reserved names cover the dot-prefixed infrastructure every module's test results also depend on: 'internal', 'vendor', 'compiled',
 'scriptanalyzer'. Derived sets bound the scope of protection and blast radius
@@ -45,7 +45,7 @@ Get-ModuleGlobSet -Name Catzc.Base.Globs
 ### example 2
 
 ```powershell
-(Get-ModuleGlobSet -Name compiled).Matches('automation/.compiled/Catzc.Types.abc12345.dll')
+(Get-ModuleGlobSet -Name compiled).Matches('pwsh/.compiled/Catzc.Types.abc12345.dll')
 ```
 
 ## comment:1
@@ -91,7 +91,7 @@ never its live aspect.
 Above `$internalRoot = [System.IO.Path]::Combine($automationRoot, '.internal')`, written with `#`.
 
 ```text
-The internal shared modules: one single-file set per automation/.internal/<Name>.psm1 — the file is
+The internal shared modules: one single-file set per pwsh/.internal/<Name>.psm1 — the file is
 the registration, exactly as the folder is for a module. The whole-folder 'internal' scope above
 remains the protection dependency; these carry the per-module identity.
 ```

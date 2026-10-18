@@ -1,4 +1,4 @@
-# automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
+# pwsh/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
 
 <!-- cspell:ignore lockedtool -->
 

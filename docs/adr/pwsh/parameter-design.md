@@ -105,7 +105,7 @@ declares the configured value as its default. Secondary inputs are named paramet
 
 - **The doctrine layer** — what defaults exist and where they come from is [sensible-defaults](../automation/sensible-defaults.md)
   (`ADR-AUTO-DEFAULT`); this ADR only fixes the parameter mechanics.
-- **Custom PSScriptAnalyzer rules** (`automation/.scriptanalyzer/ParameterDesign.psm1`) — `Measure-PrimaryArgumentPosition` flags a function
+- **Custom PSScriptAnalyzer rules** (`pwsh/.scriptanalyzer/ParameterDesign.psm1`) — `Measure-PrimaryArgumentPosition` flags a function
   whose one mandatory parameter lacks `Position = 0` (ADR-PWSH-PARAM#2), and `Measure-ParameterFillIn` flags a body that fills an empty
   parameter in (ADR-PWSH-PARAM#4).
 - **The exemplars** — the `Invoke-*` family (`Invoke-Executable`, `Invoke-Poetry`, `Invoke-Python`) is the pattern new functions copy.

@@ -36,7 +36,7 @@ The diagram is described element by element in [its asset description](sync-poin
 6. **On-demand (L3).** The on-demand environment where CD runs the L3 system-level end-to-end tests before it rolls the artifact onto the
    always-on environment (ADR-FLOW-CD#5). No pipeline defines it.
 7. **ci-automation.** The one gate on the ladder that code enforces: BVT. It runs on every push to main and on pull requests to main that
-   touch `automation/**`, in Azure DevOps and in GitHub Actions, and it runs `Test-Automation -Level 2`. A failing run rejects the commit
+   touch `pwsh/**`, in Azure DevOps and in GitHub Actions, and it runs `Test-Automation -Level 2`. A failing run rejects the commit
    automatically, as BVT should (ADR-DSGN-LIFE#2).
 8. **Dirty HEAD.** Commit 10, the tip of main, which entered `main-UAT` and failed there. Nothing syncs from it (ADR-DSGN-LIFE#7), and it
    feeds nothing downstream (ADR-DSGN-LIFE#8). It keeps the blue of the state it carried into `main-UAT`.

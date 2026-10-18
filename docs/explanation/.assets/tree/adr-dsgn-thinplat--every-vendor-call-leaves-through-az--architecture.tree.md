@@ -32,11 +32,11 @@ domain), and lights 20 files in 8 groups, filled in ink. A lit ADR file has a wh
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 10 lit files
-- QualityGates (automation/Catzc.Base.QualityGates): 2 lit files
+- QualityGates (pwsh/Catzc.Base.QualityGates): 2 lit files
 - adr/azure (docs/adr/azure): 2 lit files
 - adr/dsgn (docs/adr/design): 2 lit files
 - .claude: 1 lit file
-- Docs (automation/Catzc.Base.Docs): 1 lit file
+- Docs (pwsh/Catzc.Base.Docs): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
 - pipelines: 1 lit file
 
@@ -48,32 +48,32 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 
 - [docs/references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md][3], in the cell docs × markdown:
   selected by [ADR-AZ-CLI][1]: the file cites it at line 60 (text).
-- [docs/references/automation/catzc-azure-cli/Assert-AzCliBicep.ps1.md][4], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md][4], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the
   file cites it at line 18 (text).
-- [docs/references/automation/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][5], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]:
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md][5], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]:
   the file cites it at line 22 (text).
-- [docs/references/automation/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md][6], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md][6], in the cell docs × markdown: selected by
   [ADR-AZ-CLI][1]: the file cites it at line 21 (text).
-- [docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md][7], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md][7], in the cell docs × markdown: selected by
   [ADR-AZ-CLI][1]: the file cites it at line 26 (text).
-- [docs/references/automation/catzc-azure-cli/Install-AzCliBicep.ps1.md][8], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the
+- [docs/references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md][8], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the
   file cites it at line 18 (text).
-- [docs/references/automation/catzc-azure-cli/Test-AzCliBicep.ps1.md][9], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file
+- [docs/references/pwsh/catzc-azure-cli/Test-AzCliBicep.ps1.md][9], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file
   cites it at line 23 (text).
-- [docs/references/automation/catzc-azure-cli/Test-AzCliCanAccess.ps1.md][10], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the
+- [docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md][10], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the
   file cites it at line 22 (text).
-- [docs/references/automation/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md][11], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md][11], in the cell docs × markdown: selected by
   [ADR-AZ-CLI][1]: the file cites it at line 21 (text).
-- [docs/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][12], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][12], in the cell docs × markdown: selected by
   [ADR-AZ-CLI][1]: the file cites it at line 101 (text).
 
-### QualityGates (automation/Catzc.Base.QualityGates, 2 lit files)
+### QualityGates (pwsh/Catzc.Base.QualityGates, 2 lit files)
 
-The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][13], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the
+- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][13], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the
   file cites it at line 7 (text).
-- [automation/Catzc.Base.QualityGates/configs/terminology.yml][14], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][14], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file
   cites it at line 565 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 657 (text).
 
 ### adr/azure (docs/adr/azure, 2 lit files)
@@ -98,11 +98,11 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 - [.claude/plans/plan-adr-link-cleanup-prose-to-pages.md][17], in the cell .claude × markdown: selected by [ADR-AZ-CLI][1]: the file cites
   it at line 158 (text).
 
-### Docs (automation/Catzc.Base.Docs, 1 lit file)
+### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][18], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file cites it at line
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][18], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file cites it at line
   258 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 75 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
@@ -117,11 +117,11 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][20], in the cell pipelines × pipeline-yaml: selected by [ADR-AZ-CLI][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 258 (text),
-  `automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 7 (text) and
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 565 (text); selected by [ADR-DSGN-THINPLAT][2]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 657 (text).
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 258 (text),
+  `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 7 (text) and
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 565 (text); selected by [ADR-DSGN-THINPLAT][2]: a pipeline that cites
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 657 (text).
 
 ## Keywords
 
@@ -141,21 +141,21 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [1]: ../../../adr/azure/prefer-az-cli.md
 [2]: ../../../adr/design/thin-platforms.md
 [3]: ../../../references/.assets/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md
-[4]: ../../../references/automation/catzc-azure-cli/Assert-AzCliBicep.ps1.md
-[5]: ../../../references/automation/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
-[6]: ../../../references/automation/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
-[7]: ../../../references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
-[8]: ../../../references/automation/catzc-azure-cli/Install-AzCliBicep.ps1.md
-[9]: ../../../references/automation/catzc-azure-cli/Test-AzCliBicep.ps1.md
-[10]: ../../../references/automation/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
-[11]: ../../../references/automation/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md
-[12]: ../../../references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
-[13]: ../../../../automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-[14]: ../../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
+[4]: ../../../references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md
+[5]: ../../../references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
+[6]: ../../../references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
+[7]: ../../../references/pwsh/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
+[8]: ../../../references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md
+[9]: ../../../references/pwsh/catzc-azure-cli/Test-AzCliBicep.ps1.md
+[10]: ../../../references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
+[11]: ../../../references/pwsh/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md
+[12]: ../../../references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+[13]: ../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+[14]: ../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
 [15]: ../../../adr/azure/dora-explains.md
 [16]: ../../../adr/design/dora-explains.md
 [17]: ../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
-[18]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[18]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [19]: ../../../adr/index.md
 [20]: ../../../../pipelines/ci-automation.yaml
 [21]: ../../design/every-vendor-call-leaves-through-az.md
@@ -164,5 +164,5 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [24]: ../../../adr/glossary.md#file-language
 [25]: ../../../adr/glossary.md#cell
 [26]: ../../../adr/glossary.md#lit-cell
-[27]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[28]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[27]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[28]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

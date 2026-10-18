@@ -39,7 +39,7 @@ The diagram is described element by element in [its asset description](globs-pro
 6. **Get-BuildValidationPathFilter.** The build-validation policy lives server-side. `Register-AdoBuildValidation` fills its
    `filenamePatterns` from this function, which takes the ordered GitHub list and anchors every pattern with a leading `/`.
 7. **.github/workflows/\*.yml.** A workflow declares the GitHub list in `on.push.paths` and `on.pull_request.paths`. Today one workflow,
-   `ci-automation.yml`, binds the `automation` set with `automation/**`. No code writes the workflow; the pairing is kept by hand.
+   `ci-automation.yml`, binds the `automation` set with `pwsh/**`. No code writes the workflow; the pairing is kept by hand.
 8. **pipelines/\*.yaml.** Each pipeline-bound globset names its `pipelines/<pipeline>.yaml`, whose `trigger:` and `pr:` path filters declare
    the Azure DevOps lists. Six sets bind a pipeline today, and no code writes the pipeline file either.
 

@@ -1,4 +1,4 @@
-# automation/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
+# pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -11,7 +11,7 @@ Removes superseded compiled C# type assemblies, keeping the current combined bui
 
 ### description
 
-The single combined assembly in automation/.compiled/ (`Catzc.Types.<combinedHash8>.dll`) is committed to source control (a deterministic,
+The single combined assembly in pwsh/.compiled/ (`Catzc.Types.<combinedHash8>.dll`) is committed to source control (a deterministic,
 hash-keyed prebuild — like .vendor), so a fresh checkout and CI load it without invoking Roslyn. This tidies the cache: it keeps the one
 assembly whose name matches the current combined hash of every module's `types/*.cs` and deletes the rest — older builds left over from a
 previous version of a type. The current build is never deleted, so the committed file stays put on every platform.

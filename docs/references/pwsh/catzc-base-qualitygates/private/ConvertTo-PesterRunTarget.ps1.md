@@ -1,4 +1,4 @@
-# automation/Catzc.Base.QualityGates/private/ConvertTo-PesterRunTarget.ps1
+# pwsh/Catzc.Base.QualityGates/private/ConvertTo-PesterRunTarget.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -13,7 +13,7 @@ Splits a run's paths into the Pester run paths and the language bridge container
 
 A test run's paths are tests/ folders and `*.Tests.ps1` files, which Pester runs by path, and the test folders of the test languages beside
 PowerShell (Get-LanguageTestFolders: Go, Python), which have no Pester file of their own: each runs through the one shared language bridge,
-automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1, as a Pester container whose data names the language (Language), the folder
+pwsh/Catzc.Base.QualityGates/tests/Language.Bridge.ps1, as a Pester container whose data names the language (Language), the folder
 (TestFolder), the engine entry the tests start (EntryScript), the tool that runs them (Executable, that language's entry of
 -LanguageExecutable), and the executables of the other execution engines the tests also run under (EngineExecutable: one entry per engine
 other than pwsh, by its name, empty for an engine the source session did not find). Get-TestRunFile reads the folder back from a test's

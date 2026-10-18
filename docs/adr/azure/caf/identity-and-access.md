@@ -540,7 +540,7 @@ Summary (ours): When extending on-premises AD DS into Azure, define each Azure r
 #### What 4 means here
 
 There is no on-premises directory to extend and no on-premises connectivity. Were one added, the subnet objects would come from the ranges
-of `automation/Catzc.Azure/configs/network.yml`, the one home of every address ([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2)).
+of `pwsh/Catzc.Azure/configs/network.yml`, the one home of every address ([ADR-AZ-LZ#2](../landing-zones.md#rule-adr-az-lz2)).
 
 ##### 4 status
 

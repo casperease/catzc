@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Docs/configs/readme.yml
+# pwsh/Catzc.Base.Docs/configs/readme.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -19,7 +19,7 @@ hand-authored, committed README (opt-out) and is un-ignored in .gitignore.
 Two ways a folder gets a source:
   patterns:  a glob whose every matched folder derives its source by CONVENTION — the `{kebab}` placeholder
              is the matched folder's leaf name, lowercased with dots turned to hyphens
-             (automation/Catzc.Azure.DevOps -> docs/references/automation/catzc-azure-devops.md). Only a
+             (pwsh/Catzc.Azure.DevOps -> docs/references/pwsh/catzc-azure-devops.md). Only a
              trailing `/*` is supported: `<prefix>/*` matches the immediate, non-dot-prefixed subdirectories
              of `<prefix>` (so .vendor/.internal/… never match). A matched folder whose derived source does
              not exist is skipped (no README generated), so a module with no reference article yet is fine.

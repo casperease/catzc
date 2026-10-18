@@ -10,7 +10,7 @@ registration, no manifest, no edit to any loader (see [open-closed-architecture]
 2. Add public functions as `Verb-Noun.ps1` files at the module root (see [Add a function](powershell/add-a-function.md)).
 3. Add the optional well-known subfolders only as needed (table below).
 4. If the module calls functions or uses C# types from another module, declare that edge in
-   `automation/Catzc.Base.ModuleSystem/configs/dependencies.yml`.
+   `pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`.
 5. Re-run the importer (`. ./importer.ps1`) and run `Test-Automation`.
 
 ## The well-known subfolders
@@ -33,7 +33,7 @@ A module with no private helpers has no `private/`; a module with no config has 
 ## Minimum viable module
 
 ```text
-automation/Catzc.Azure.Storage/
+pwsh/Catzc.Azure.Storage/
   New-StorageContainers.ps1        # function New-StorageContainers
   Get-StorageAccount.ps1           # function Get-StorageAccount
   private/
@@ -49,7 +49,7 @@ That is the whole setup. The bootstrap module generates the `.psd1` manifest fro
 
 The repository shares one global, collision-free function namespace — two modules cannot export the same function name, and the import fails
 loudly if they try. Allowed **module-to-module** dependencies are declared as a directed acyclic graph in
-`automation/Catzc.Base.ModuleSystem/configs/dependencies.yml`:
+`pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`:
 
 ```yaml
 modules:

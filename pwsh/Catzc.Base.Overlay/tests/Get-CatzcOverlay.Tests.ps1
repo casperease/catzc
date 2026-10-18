@@ -31,7 +31,7 @@ Describe 'Get-CatzcOverlay' -Tag 'L0', 'logic' {
             'LocalTest|Catzc.Base.Widget|tests/Get-Widget.Tests.ps1|'
             'LocalModule|Widget.Local|Widget.Local|'
         )
-        ($entries | Where-Object Kind -EQ 'ConfigFragment').RelativePath | Should -Be '.catzc/automation/Catzc.Base.Widget/configs/widget.yml'
+        ($entries | Where-Object Kind -EQ 'ConfigFragment').RelativePath | Should -Be '.catzc/pwsh/Catzc.Base.Widget/configs/widget.yml'
     }
 
     It 'returns nothing when there is no overlay' {

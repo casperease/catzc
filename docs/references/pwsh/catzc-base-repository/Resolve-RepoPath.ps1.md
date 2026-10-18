@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Repository/Resolve-RepoPath.ps1
+# pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -33,7 +33,7 @@ All results are normalized to a full path.
 ### example 1
 
 ```powershell
-Resolve-RepoPath 'automation/Catzc.Base.Repository/Get-RepositoryFile.ps1'
+Resolve-RepoPath 'pwsh/Catzc.Base.Repository/Get-RepositoryFile.ps1'
 ```
 
 ### example 2

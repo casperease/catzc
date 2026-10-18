@@ -1,4 +1,4 @@
-# automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
+# pwsh/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
 
 <!-- cspell:ignore brkn -->
 

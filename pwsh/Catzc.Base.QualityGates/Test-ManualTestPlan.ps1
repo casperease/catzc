@@ -10,7 +10,7 @@ function Test-ManualTestPlan {
     Assert-SourceTree
     $repositoryRoot = Get-RepositoryRoot
     $modulesRoot = Join-Path $repositoryRoot (Get-CatzcModulesFolder)
-    $planRelative = 'docs/how-to/automation/manual-test-plan'
+    $planRelative = 'docs/how-to/pwsh/manual-test-plan'
     $planPath = Join-Path $repositoryRoot $planRelative
     $maxCategories = 13
     $isCommand = { param($node) $node -is [System.Management.Automation.Language.CommandAst] }

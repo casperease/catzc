@@ -33,11 +33,11 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 - docs (docs/ outside docs/adr/): 6 lit files
 - .claude: 4 lit files
-- Az.DevOps (automation/Catzc.Azure.DevOps): 2 lit files
-- RootConfig (automation/Catzc.Base.RootConfig): 2 lit files
+- Az.DevOps (pwsh/Catzc.Azure.DevOps): 2 lit files
+- RootConfig (pwsh/Catzc.Base.RootConfig): 2 lit files
 - adr/flow (docs/adr/flow): 2 lit files
 - adr/pipe (docs/adr/pipelines): 2 lit files
-- Docs (automation/Catzc.Base.Docs): 1 lit file
+- Docs (pwsh/Catzc.Base.Docs): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
 - pipelines: 1 lit file
 
@@ -47,14 +47,14 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][3], in the cell docs × markdown: selected by [ADR-PIPE-NAME][2]: the file
+- [docs/how-to/pwsh/manual-test-plan/pipelines-and-globs.md][3], in the cell docs × markdown: selected by [ADR-PIPE-NAME][2]: the file
   cites it at line 14 (text).
-- [docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md][4], in the cell docs × markdown: selected by [ADR-PIPE-NAME][2]: the
+- [docs/references/pwsh/catzc-azure-devops/Test-Pipelines.ps1.md][4], in the cell docs × markdown: selected by [ADR-PIPE-NAME][2]: the
   file cites it at line 15 (text), line 22 (text), line 25 (text), line 29 (text), line 32 (text), line 34 (text), line 40 (text), line 76
   (text), line 86 (text), line 96 (text), line 105 (text), line 114 (text) and line 123 (text).
-- [docs/references/automation/catzc-azure-devops/private/Get-PipelineTemplateReference.ps1.md][5], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-azure-devops/private/Get-PipelineTemplateReference.ps1.md][5], in the cell docs × markdown: selected by
   [ADR-PIPE-NAME][2]: the file cites it at line 23 (text).
-- [docs/references/automation/catzc-base-languages/configs/languages.yml.md][6], in the cell docs × markdown: selected by
+- [docs/references/pwsh/catzc-base-languages/configs/languages.yml.md][6], in the cell docs × markdown: selected by
   [ADR-PIPE-NAME][2]: the file cites it at line 45 (text).
 - [docs/references/pipelines/extends/cd-customer.yaml.md][7], in the cell docs × markdown: selected by [ADR-PIPE-NAME][2]: the file cites it
   at line 13 (text).
@@ -73,25 +73,25 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 - [.claude/plans/task-adr-link-cleanup.md][12], in the cell .claude × markdown: selected by [ADR-PIPE-NAME][2]: the file cites it at line 54
   (text) and line 54 (text).
 
-### Az.DevOps (automation/Catzc.Azure.DevOps, 2 lit files)
+### Az.DevOps (pwsh/Catzc.Azure.DevOps, 2 lit files)
 
-The group holds the files of automation/Catzc.Azure.DevOps; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Azure.DevOps; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Azure.DevOps/Test-Pipelines.ps1][13], in the cell automation × powershell: selected by [ADR-PIPE-NAME][2]: the file
+- [pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1][13], in the cell automation × powershell: selected by [ADR-PIPE-NAME][2]: the file
   cites it at line 51 (text), line 56 (text), line 63 (text), line 68 (text), line 71 (text), line 75 (text), line 78 (text) and line 85
   (text).
-- [automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1][14], in the cell automation × powershell: selected by [ADR-PIPE-NAME][2]:
+- [pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1][14], in the cell automation × powershell: selected by [ADR-PIPE-NAME][2]:
   the file cites it at line 47 (text), line 48 (text), line 57 (text), line 60 (text), line 64 (text), line 72 (text), line 74 (text), line
   77 (text), line 79 (text), line 82 (text), line 84 (text), line 87 (text), line 89 (text), line 92 (text), line 94 (text), line 102
   (text), line 105 (text), line 116 (text) and line 121 (text).
 
-### RootConfig (automation/Catzc.Base.RootConfig, 2 lit files)
+### RootConfig (pwsh/Catzc.Base.RootConfig, 2 lit files)
 
-The group holds the files of automation/Catzc.Base.RootConfig; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.RootConfig; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][15], in the cell automation × yaml: selected by [ADR-PIPE-NAME][2]: the
+- [pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][15], in the cell automation × yaml: selected by [ADR-PIPE-NAME][2]: the
   file cites it at line 9 (header).
-- [automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml][16], in the cell automation × yaml: selected by [ADR-PIPE-NAME][2]: the
+- [pwsh/Catzc.Base.RootConfig/assets/root/.prettierrc.yml][16], in the cell automation × yaml: selected by [ADR-PIPE-NAME][2]: the
   file cites it at line 8 (header).
 
 ### adr/flow (docs/adr/flow, 2 lit files)
@@ -110,11 +110,11 @@ The group holds the files of docs/adr/pipelines; each sits in its world-map cell
   (text).
 - [docs/adr/pipelines/pipeline-naming-and-placement.md][2], in the cell docs × markdown: selected by [ADR-PIPE-NAME][2]: the ADR's own file.
 
-### Docs (automation/Catzc.Base.Docs, 1 lit file)
+### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
 
-The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][19], in the cell automation × yaml: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][19], in the cell automation × yaml: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it
   at line 98 (text); selected by [ADR-PIPE-NAME][2]: the file cites it at line 225 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
@@ -129,33 +129,33 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][21], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-RUNNER][1]: a pipeline that cites
-  nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 98 (text); selected by
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 98 (text); selected by
   [ADR-PIPE-NAME][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
-  `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 51 (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 56 (text),
-  `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 63 (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 68 (text),
-  `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 71 (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 75 (text),
-  `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 78 (text), `automation/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 85 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 47 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 48 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 57 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 60 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 64 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 72 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 74 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 77 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 79 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 82 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 84 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 87 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 89 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 92 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 94 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 102 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 105 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 116 (text),
-  `automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 121 (text), `automation/Catzc.Base.Docs/configs/adrs.yml` line 225
-  (text), `automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml` line 9 (header) and
-  `automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml` line 8 (header).
+  `pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 51 (text), `pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 56 (text),
+  `pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 63 (text), `pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 68 (text),
+  `pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 71 (text), `pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 75 (text),
+  `pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 78 (text), `pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1` line 85 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 47 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 48 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 57 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 60 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 64 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 72 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 74 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 77 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 79 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 82 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 84 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 87 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 89 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 92 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 94 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 102 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 105 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 116 (text),
+  `pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1` line 121 (text), `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 225
+  (text), `pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml` line 9 (header) and
+  `pwsh/Catzc.Base.RootConfig/assets/root/.prettierrc.yml` line 8 (header).
 
 ## Keywords
 
@@ -175,23 +175,23 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 
 [1]: ../../../adr/flow/pipeline-runner-pattern.md
 [2]: ../../../adr/pipelines/pipeline-naming-and-placement.md
-[3]: ../../../how-to/automation/manual-test-plan/pipelines-and-globs.md
-[4]: ../../../references/automation/catzc-azure-devops/Test-Pipelines.ps1.md
-[5]: ../../../references/automation/catzc-azure-devops/private/Get-PipelineTemplateReference.ps1.md
-[6]: ../../../references/automation/catzc-base-languages/configs/languages.yml.md
+[3]: ../../../how-to/pwsh/manual-test-plan/pipelines-and-globs.md
+[4]: ../../../references/pwsh/catzc-azure-devops/Test-Pipelines.ps1.md
+[5]: ../../../references/pwsh/catzc-azure-devops/private/Get-PipelineTemplateReference.ps1.md
+[6]: ../../../references/pwsh/catzc-base-languages/configs/languages.yml.md
 [7]: ../../../references/pipelines/extends/cd-customer.yaml.md
 [8]: ../../../references/pipelines/steps/invoke-automation.yaml.md
 [9]: ../../../../.claude/CLAUDE.md
 [10]: ../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
 [11]: ../../../../.claude/plans/prompt-adr-links-and-plans-continue.md
 [12]: ../../../../.claude/plans/task-adr-link-cleanup.md
-[13]: ../../../../automation/Catzc.Azure.DevOps/Test-Pipelines.ps1
-[14]: ../../../../automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-[15]: ../../../../automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
-[16]: ../../../../automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
+[13]: ../../../../pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
+[14]: ../../../../pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
+[15]: ../../../../pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
+[16]: ../../../../pwsh/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
 [17]: ../../../adr/flow/dora-explains.md
 [18]: ../../../adr/pipelines/dora-explains.md
-[19]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[19]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [20]: ../../../adr/index.md
 [21]: ../../../../pipelines/ci-automation.yaml
 [22]: ../../flow/no-gate-checks-rules-one-and-four.md
@@ -200,5 +200,5 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [25]: ../../../adr/glossary.md#file-language
 [26]: ../../../adr/glossary.md#cell
 [27]: ../../../adr/glossary.md#lit-cell
-[28]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[29]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[28]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[29]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

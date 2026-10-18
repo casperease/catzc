@@ -7,17 +7,17 @@ plan:
   blocked_on: the commit of the changed types
   targets:
     [
-      automation/Catzc.Base.Contracts/types,
-      automation/Catzc.Base.Objects/types,
-      automation/.compiled,
-      docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md,
+      pwsh/Catzc.Base.Contracts/types,
+      pwsh/Catzc.Base.Objects/types,
+      pwsh/.compiled,
+      docs/explanation/pwsh/unboxing-is-cheap-and-crossings-are-not.md,
     ]
 ---
 
 # Unboxing: P1 to P3 shipped; P4 and P5 wait for a go
 
 P1 to P3 are finished and the shipped article carries the figures; task-unboxing-closeout carries what is left. The long reference is
-docs/explanation/automation/reference-unboxing.md.
+docs/explanation/pwsh/reference-unboxing.md.
 
 ## Why its value is low-medium
 
@@ -31,7 +31,7 @@ allocation, else it is reverted.
 - P1 to P3 as above; 110 of 110 tests pass across ContractValue, ContractSchema, ContractFragment, DictionaryRecord and ConsoleText.
 - Get-CommentScope timed at 158 ms for its loop, under the 200 ms bar, so unchanged (no-go recorded).
 - Two earlier evidence files the prompt names, plan-unboxing-findings.md and analysis-boxing.md, were deleted from out/ on 2026-10-16 with
-  the user's yes, as done work. Their findings live in the shipped article and in docs/explanation/automation/reference-unboxing.md. The
+  the user's yes, as done work. Their findings live in the shipped article and in docs/explanation/pwsh/reference-unboxing.md. The
   benchmark scripts bench-unboxing.ps1, bench-unboxing.cs, bench-unboxing.log and run-unboxing-tests.ps1 stay in out/ as scripts.
 
 ## Findings carried from out/plan-unboxing-findings.md (deleted today; F1 to F7 recovered from a read before deletion, F8 and F9 not)
@@ -66,7 +66,7 @@ allocation, else it is reverted.
 
 ## Needed tests
 
-- automation/.compiled holds exactly one Catzc.Types.*.dll after the user commits it.
+- pwsh/.compiled holds exactly one Catzc.Types.*.dll after the user commits it.
 - Gate findings peer sessions reported in this work's files (2026-10-16 15:03 and 15:14), not fixed by anyone yet: the Test-Glossary finding
   is the phrase "full suite" in the unboxing article (the sanctioned form is "all tests", as the earlier dora-explains fix shows);
   Test-Markdownlint findings in the same article; Test-Links bare citations in TypeShape.cs (Format-Links aligns them).
@@ -85,5 +85,5 @@ allocation, else it is reverted.
 
 ## Refs
 
-- docs/explanation/automation/reference-unboxing.md
-- docs/explanation/automation/unboxing-is-cheap-and-crossings-are-not.md
+- docs/explanation/pwsh/reference-unboxing.md
+- docs/explanation/pwsh/unboxing-is-cheap-and-crossings-are-not.md

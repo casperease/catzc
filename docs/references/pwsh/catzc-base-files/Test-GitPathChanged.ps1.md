@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Files/Test-GitPathChanged.ps1
+# pwsh/Catzc.Base.Files/Test-GitPathChanged.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -29,11 +29,11 @@ The repository-relative, '/'-separated paths (files or folders) to check.
 ### example 1
 
 ```powershell
-Test-GitPathChanged 'automation/.compiled'
+Test-GitPathChanged 'pwsh/.compiled'
 ```
 
 ### example 2
 
 ```powershell
-Test-GitPathChanged 'automation/.compiled', 'out'
+Test-GitPathChanged 'pwsh/.compiled', 'out'
 ```

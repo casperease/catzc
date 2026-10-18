@@ -28,7 +28,7 @@ Describe 'Build-CommentView' -Tag 'L0', 'logic' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)) | Out-Null
         $written = @(Build-CommentView -RepositoryRoot $root -Path (Join-Path $root (Get-CatzcModulesFolder)))
-        $written | Should -Be @('out/annotated/automation/Catzc.Widget/Get-Widget.ps1')
+        $written | Should -Be @('out/annotated/pwsh/Catzc.Widget/Get-Widget.ps1')
         [System.IO.File]::ReadAllText((Join-Path $root $written[0])) | Should -BeExactly $source
     }
 

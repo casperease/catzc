@@ -4,7 +4,7 @@ task:
   plans: [plan-bounded-folder-enumeration]
   value: medium
   blocked_on: step 2 is the user's full run
-  targets: [automation/Catzc.Base.Folders, automation/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
+  targets: [pwsh/Catzc.Base.Folders, pwsh/.scriptanalyzer/NoUnboundedEnumeration.psm1, docs/adr/pwsh/bounded-enumeration.md]
 ---
 
 # Task: bounded enumeration closed

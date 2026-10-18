@@ -1,4 +1,4 @@
-# automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1
+# pwsh/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -38,5 +38,5 @@ The call's shared parse of each script; a caller checking many files passes one 
 ### example 1
 
 ```powershell
-Get-FunctionFileViolation -Path ./automation/Catzc.Base.Widget/Get-Widget.ps1 -RelativePath automation/Catzc.Base.Widget/Get-Widget.ps1
+Get-FunctionFileViolation -Path ./pwsh/Catzc.Base.Widget/Get-Widget.ps1 -RelativePath pwsh/Catzc.Base.Widget/Get-Widget.ps1
 ```

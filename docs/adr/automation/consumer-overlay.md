@@ -103,8 +103,8 @@ output goes to the working root's `out/`, like every other output.
 
 ### The location is the meaning
 
-`.catzc/automation/` mirrors the bundle's code root, path for path. `.catzc/automation/Catzc.Azure/configs/azure.yml` changes the bundled
-`Catzc.Azure/configs/azure.yml`; `.catzc/automation/Catzc.Azure.Cli/Invoke-AzCli.ps1` replaces the public function `Invoke-AzCli` of
+`.catzc/automation/` mirrors the bundle's code root, path for path. `.catzc/pwsh/Catzc.Azure/configs/azure.yml` changes the bundled
+`Catzc.Azure/configs/azure.yml`; `.catzc/pwsh/Catzc.Azure.Cli/Invoke-AzCli.ps1` replaces the public function `Invoke-AzCli` of
 `Catzc.Azure.Cli`. Because the path is the declaration, there is nothing to register and nothing that can disagree with the files.
 `Get-CatzcOverlay` lists what the overlay holds, each entry classified by where it sits.
 

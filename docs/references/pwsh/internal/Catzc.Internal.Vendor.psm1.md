@@ -1,4 +1,4 @@
-# automation/.internal/Catzc.Internal.Vendor.psm1
+# pwsh/.internal/Catzc.Internal.Vendor.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -10,7 +10,7 @@ Above `Set-StrictMode -Version Latest   # this module's scope: every function he
 ```text
 Catzc.Internal.Vendor — the shared vendor-module loader.
 
-Loading the vendored modules under automation/.vendor/<Name>/<Version>/ happens BEFORE any Catzc module
+Loading the vendored modules under pwsh/.vendor/<Name>/<Version>/ happens BEFORE any Catzc module
 exists (the importer loads vendor dependencies first), so the implementation cannot live in a Catzc module.
 It also must be callable AFTER import by the Catzc.Base.Vendor cover functions that delegate to it — the
 single home for what both layers share (see
@@ -28,12 +28,12 @@ Above `function Import-VendorModules {`, written with `#`.
     Imports third-party modules from a vendor directory.
 .DESCRIPTION
     The system copy leaves PSModulePath first so the vendored version wins; a changed on-disk version needs a restart.
-    [comment:2](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment2)
+    [comment:2](/docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md#comment2)
 .PARAMETER VendorRoot
     Path to the vendor directory. Skips silently if the path does not exist.
 .PARAMETER Lazy
     Deferred modules cost nothing at startup and still autoload on first use, since the vendor root heads PSModulePath.
-    [comment:3](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment3)
+    [comment:3](/docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md#comment3)
 .PARAMETER DiagnoseLoadTime
     Emit a per-vendor-module import time (surfaced by importer.ps1 -DiagnoseLoadTime).
 .EXAMPLE

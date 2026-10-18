@@ -88,9 +88,9 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.cs` names the file language csharp
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [automation/Catzc.Base.QualityGates/types/CommentBlockKind.cs][22]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 5 (body
+- [pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs][22]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 5 (body
   comment) (a passing mention only).
-- [automation/Catzc.Base.QualityGates/types/CommentEngine.cs][23]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 12 (body
+- [pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs][23]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 12 (body
   comment) (a passing mention only).
 
 ### automation × powershell (4 lit files)
@@ -98,11 +98,11 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [automation/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1][24]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 1 (text).
-- [automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][25]: selected by [ADR-AUTO-GO][1]: the file cites it at line 45 (text).
-- [automation/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1][26]: selected by [ADR-AUTO-GO][1]: the file cites it at line 75
+- [pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1][24]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 1 (text).
+- [pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][25]: selected by [ADR-AUTO-GO][1]: the file cites it at line 45 (text).
+- [pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1][26]: selected by [ADR-AUTO-GO][1]: the file cites it at line 75
   (text).
-- [automation/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1][27]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line
+- [pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1][27]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line
   1 (header).
 
 ### automation × yaml (6 lit files)
@@ -110,15 +110,15 @@ powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][28]: selected by [ADR-AUTO-GO][1]: the file cites it at line 149 (text); selected by
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][28]: selected by [ADR-AUTO-GO][1]: the file cites it at line 149 (text); selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 34 (text).
-- [automation/Catzc.Base.Docs/configs/agents.yml][29]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 60 (body comment) and
+- [pwsh/Catzc.Base.Docs/configs/agents.yml][29]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 60 (body comment) and
   line 66 (text).
-- [automation/Catzc.Base.Docs/configs/capabilities.yml][30]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 87 (text) and line
+- [pwsh/Catzc.Base.Docs/configs/capabilities.yml][30]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 87 (text) and line
   92 (text).
-- [automation/Catzc.Base.Git/configs/gitignore.yml][31]: selected by [ADR-AUTO-GO][1]: the file cites it at line 101 (text).
-- [automation/Catzc.Base.Languages/configs/glossary.yml][32]: selected by [ADR-AUTO-GO][1]: the file cites it at line 16 (text).
-- [automation/Catzc.Base.QualityGates/configs/terminology.yml][33]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 555 (text).
+- [pwsh/Catzc.Base.Git/configs/gitignore.yml][31]: selected by [ADR-AUTO-GO][1]: the file cites it at line 101 (text).
+- [pwsh/Catzc.Base.Languages/configs/glossary.yml][32]: selected by [ADR-AUTO-GO][1]: the file cites it at line 16 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][33]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 555 (text).
 
 ### docs × markdown (35 lit files)
 
@@ -136,55 +136,55 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 - [docs/references/.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md][39]: selected by
   [ADR-PRIN-ONELIVE][2]: the file cites it at line 72 (text).
 - [docs/references/agent-contracts.md][40]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 28 (text).
-- [docs/references/automation/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md][41]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it
+- [docs/references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md][41]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it
   at line 8 (text).
-- [docs/references/automation/catzc-base-docs/types/CheckModes.cs.md][42]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 13
+- [docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md][42]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 13
   (text).
-- [docs/references/automation/catzc-base-files/Get-InputStamp.ps1.md][43]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 23
+- [docs/references/pwsh/catzc-base-files/Get-InputStamp.ps1.md][43]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 23
   (text).
-- [docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md][44]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line
+- [docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md][44]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line
   26 (text).
-- [docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md][45]: selected by [ADR-AUTO-GO][1]: the file cites it at line 20
+- [docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md][45]: selected by [ADR-AUTO-GO][1]: the file cites it at line 20
   (text) and line 82 (text).
-- [docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md][46]: selected by [ADR-AUTO-GO][1]: the file cites it at line 100
+- [docs/references/pwsh/catzc-base-languages/Invoke-GoTest.ps1.md][46]: selected by [ADR-AUTO-GO][1]: the file cites it at line 100
   (text).
-- [docs/references/automation/catzc-base-languages/Test-GeneratedFileCurrent.ps1.md][47]: selected by [ADR-PRIN-ONELIVE][2]: the file cites
+- [docs/references/pwsh/catzc-base-languages/Test-GeneratedFileCurrent.ps1.md][47]: selected by [ADR-PRIN-ONELIVE][2]: the file cites
   it at line 21 (text).
-- [docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md][48]: selected by [ADR-AUTO-GO][1]: the file cites it
+- [docs/references/pwsh/catzc-base-languages/private/Get-EngineContract.ps1.md][48]: selected by [ADR-AUTO-GO][1]: the file cites it
   at line 16 (text).
-- [docs/references/automation/catzc-base-qualitygates/Build-CommentView.ps1.md][49]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at
+- [docs/references/pwsh/catzc-base-qualitygates/Build-CommentView.ps1.md][49]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at
   line 15 (text).
-- [docs/references/automation/catzc-base-qualitygates/Export-Comments.ps1.md][50]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at
+- [docs/references/pwsh/catzc-base-qualitygates/Export-Comments.ps1.md][50]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at
   line 16 (text).
-- [docs/references/automation/catzc-base-qualitygates/Test-Comments.ps1.md][51]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at
+- [docs/references/pwsh/catzc-base-qualitygates/Test-Comments.ps1.md][51]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at
   line 16 (text).
-- [docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md][52]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at
+- [docs/references/pwsh/catzc-base-qualitygates/configs/comments.yml.md][52]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at
   line 15 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md][53]: selected by [ADR-AUTO-GO][1]: the file
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md][53]: selected by [ADR-AUTO-GO][1]: the file
   cites it at line 17 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md][54]: selected by [ADR-AUTO-GO][1]: the file
+- [docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md][54]: selected by [ADR-AUTO-GO][1]: the file
   cites it at line 20 (text).
-- [docs/references/automation/catzc-base-qualitygates/private/Invoke-Gofmt.ps1.md][55]: selected by [ADR-AUTO-GO][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-qualitygates/private/Invoke-Gofmt.ps1.md][55]: selected by [ADR-AUTO-GO][1]: the file cites it at
   line 15 (text).
-- [docs/references/automation/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md][56]: selected by [ADR-PRIN-ONELIVE][2]: the file
+- [docs/references/pwsh/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md][56]: selected by [ADR-PRIN-ONELIVE][2]: the file
   cites it at line 14 (text).
-- [docs/references/automation/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md][57]: selected by [ADR-PRIN-ONELIVE][2]: the file
+- [docs/references/pwsh/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md][57]: selected by [ADR-PRIN-ONELIVE][2]: the file
   cites it at line 14 (text).
-- [docs/references/automation/catzc-base-qualitygates/tests/Test-Comments.Tests.ps1.md][58]: selected by [ADR-PRIN-ONELIVE][2]: the file
+- [docs/references/pwsh/catzc-base-qualitygates/tests/Test-Comments.Tests.ps1.md][58]: selected by [ADR-PRIN-ONELIVE][2]: the file
   cites it at line 12 (text).
-- [docs/references/automation/catzc-base-qualitygates/types/CommentPageMap.cs.md][59]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it
+- [docs/references/pwsh/catzc-base-qualitygates/types/CommentPageMap.cs.md][59]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it
   at line 13 (text).
-- [docs/references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md][60]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it
+- [docs/references/pwsh/catzc-base-qualitygates/types/CommentsConfig.cs.md][60]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it
   at line 15 (text).
-- [docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md][61]: selected by [ADR-AUTO-GO][1]: the file
+- [docs/references/pwsh/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md][61]: selected by [ADR-AUTO-GO][1]: the file
   cites it at line 73 (text).
-- [docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md][62]: selected by [ADR-AUTO-GO][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-vscode/configs/vscode-settings.yml.md][62]: selected by [ADR-AUTO-GO][1]: the file cites it at line
   182 (text).
-- [docs/references/automation/internal/Catzc.Internal.Importer.psm1.md][63]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 16
+- [docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md][63]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 16
   (text).
-- [docs/references/automation/internal/Catzc.Internal.Loader.psm1.md][64]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 16
+- [docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md][64]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 16
   (text).
-- [docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md][65]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 17
+- [docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md][65]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 17
   (text).
 - [docs/references/note-file-kind.md][66]: selected by [ADR-PRIN-ONELIVE][2]: the file cites it at line 37 (text).
 
@@ -194,18 +194,18 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [pipelines/ci-automation.yaml][67]: selected by [ADR-AUTO-GO][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 149 (text), `automation/Catzc.Base.Git/configs/gitignore.yml` line 101
-  (text), `automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 45 (text),
-  `automation/Catzc.Base.Languages/configs/glossary.yml` line 16 (text) and
-  `automation/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1` line 75 (text); selected by [ADR-PRIN-ONELIVE][2]: a pipeline
-  that cites nothing itself carries its globset's citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 34 (text),
-  `automation/Catzc.Base.Docs/configs/agents.yml` line 60 (body comment), `automation/Catzc.Base.Docs/configs/agents.yml` line 66 (text),
-  `automation/Catzc.Base.Docs/configs/capabilities.yml` line 87 (text), `automation/Catzc.Base.Docs/configs/capabilities.yml` line 92
-  (text), `automation/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1` line 1 (text),
-  `automation/Catzc.Base.QualityGates/configs/terminology.yml` line 555 (text),
-  `automation/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1` line 1 (header),
-  `automation/Catzc.Base.QualityGates/types/CommentBlockKind.cs` line 5 (body comment) and
-  `automation/Catzc.Base.QualityGates/types/CommentEngine.cs` line 12 (body comment).
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 149 (text), `pwsh/Catzc.Base.Git/configs/gitignore.yml` line 101
+  (text), `pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1` line 45 (text),
+  `pwsh/Catzc.Base.Languages/configs/glossary.yml` line 16 (text) and
+  `pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1` line 75 (text); selected by [ADR-PRIN-ONELIVE][2]: a pipeline
+  that cites nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 34 (text),
+  `pwsh/Catzc.Base.Docs/configs/agents.yml` line 60 (body comment), `pwsh/Catzc.Base.Docs/configs/agents.yml` line 66 (text),
+  `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 87 (text), `pwsh/Catzc.Base.Docs/configs/capabilities.yml` line 92
+  (text), `pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1` line 1 (text),
+  `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 555 (text),
+  `pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1` line 1 (header),
+  `pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs` line 5 (body comment) and
+  `pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs` line 12 (body comment).
 
 ## Keywords
 
@@ -249,18 +249,18 @@ Terms the cited ADRs define:
 [19]: ../../../../.claude/plans/prompt-module-model-1-prepare.md
 [20]: ../../../../.claude/plans/questionnaire-2026-10-16.md
 [21]: ../../../../.claude/plans/task-adr-auto-material.md
-[22]: ../../../../automation/Catzc.Base.QualityGates/types/CommentBlockKind.cs
-[23]: ../../../../automation/Catzc.Base.QualityGates/types/CommentEngine.cs
-[24]: ../../../../automation/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
-[25]: ../../../../automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
-[26]: ../../../../automation/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1
-[27]: ../../../../automation/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
-[28]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[29]: ../../../../automation/Catzc.Base.Docs/configs/agents.yml
-[30]: ../../../../automation/Catzc.Base.Docs/configs/capabilities.yml
-[31]: ../../../../automation/Catzc.Base.Git/configs/gitignore.yml
-[32]: ../../../../automation/Catzc.Base.Languages/configs/glossary.yml
-[33]: ../../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
+[22]: ../../../../pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs
+[23]: ../../../../pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs
+[24]: ../../../../pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
+[25]: ../../../../pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+[26]: ../../../../pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1
+[27]: ../../../../pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
+[28]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[29]: ../../../../pwsh/Catzc.Base.Docs/configs/agents.yml
+[30]: ../../../../pwsh/Catzc.Base.Docs/configs/capabilities.yml
+[31]: ../../../../pwsh/Catzc.Base.Git/configs/gitignore.yml
+[32]: ../../../../pwsh/Catzc.Base.Languages/configs/glossary.yml
+[33]: ../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
 [34]: ../../../adr/automation/dora-explains.md
 [35]: ../../../adr/glossary.md
 [36]: ../../../adr/index.md
@@ -268,31 +268,31 @@ Terms the cited ADRs define:
 [38]: ../../../how-to/getting-started/automation/go/index.md
 [39]: ../../../references/.assets/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md
 [40]: ../../../references/agent-contracts.md
-[41]: ../../../references/automation/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
-[42]: ../../../references/automation/catzc-base-docs/types/CheckModes.cs.md
-[43]: ../../../references/automation/catzc-base-files/Get-InputStamp.ps1.md
-[44]: ../../../references/automation/catzc-base-files/Write-FileIfChanged.ps1.md
-[45]: ../../../references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md
-[46]: ../../../references/automation/catzc-base-languages/Invoke-GoTest.ps1.md
-[47]: ../../../references/automation/catzc-base-languages/Test-GeneratedFileCurrent.ps1.md
-[48]: ../../../references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md
-[49]: ../../../references/automation/catzc-base-qualitygates/Build-CommentView.ps1.md
-[50]: ../../../references/automation/catzc-base-qualitygates/Export-Comments.ps1.md
-[51]: ../../../references/automation/catzc-base-qualitygates/Test-Comments.ps1.md
-[52]: ../../../references/automation/catzc-base-qualitygates/configs/comments.yml.md
-[53]: ../../../references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md
-[54]: ../../../references/automation/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md
-[55]: ../../../references/automation/catzc-base-qualitygates/private/Invoke-Gofmt.ps1.md
-[56]: ../../../references/automation/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md
-[57]: ../../../references/automation/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md
-[58]: ../../../references/automation/catzc-base-qualitygates/tests/Test-Comments.Tests.ps1.md
-[59]: ../../../references/automation/catzc-base-qualitygates/types/CommentPageMap.cs.md
-[60]: ../../../references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md
-[61]: ../../../references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
-[62]: ../../../references/automation/catzc-base-vscode/configs/vscode-settings.yml.md
-[63]: ../../../references/automation/internal/Catzc.Internal.Importer.psm1.md
-[64]: ../../../references/automation/internal/Catzc.Internal.Loader.psm1.md
-[65]: ../../../references/automation/internal/Catzc.Internal.Vendor.psm1.md
+[41]: ../../../references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
+[42]: ../../../references/pwsh/catzc-base-docs/types/CheckModes.cs.md
+[43]: ../../../references/pwsh/catzc-base-files/Get-InputStamp.ps1.md
+[44]: ../../../references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md
+[45]: ../../../references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+[46]: ../../../references/pwsh/catzc-base-languages/Invoke-GoTest.ps1.md
+[47]: ../../../references/pwsh/catzc-base-languages/Test-GeneratedFileCurrent.ps1.md
+[48]: ../../../references/pwsh/catzc-base-languages/private/Get-EngineContract.ps1.md
+[49]: ../../../references/pwsh/catzc-base-qualitygates/Build-CommentView.ps1.md
+[50]: ../../../references/pwsh/catzc-base-qualitygates/Export-Comments.ps1.md
+[51]: ../../../references/pwsh/catzc-base-qualitygates/Test-Comments.ps1.md
+[52]: ../../../references/pwsh/catzc-base-qualitygates/configs/comments.yml.md
+[53]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md
+[54]: ../../../references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md
+[55]: ../../../references/pwsh/catzc-base-qualitygates/private/Invoke-Gofmt.ps1.md
+[56]: ../../../references/pwsh/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md
+[57]: ../../../references/pwsh/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md
+[58]: ../../../references/pwsh/catzc-base-qualitygates/tests/Test-Comments.Tests.ps1.md
+[59]: ../../../references/pwsh/catzc-base-qualitygates/types/CommentPageMap.cs.md
+[60]: ../../../references/pwsh/catzc-base-qualitygates/types/CommentsConfig.cs.md
+[61]: ../../../references/pwsh/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
+[62]: ../../../references/pwsh/catzc-base-vscode/configs/vscode-settings.yml.md
+[63]: ../../../references/pwsh/internal/Catzc.Internal.Importer.psm1.md
+[64]: ../../../references/pwsh/internal/Catzc.Internal.Loader.psm1.md
+[65]: ../../../references/pwsh/internal/Catzc.Internal.Vendor.psm1.md
 [66]: ../../../references/note-file-kind.md
 [67]: ../../../../pipelines/ci-automation.yaml
 [68]: ../../design/a-sibling-is-an-idea-never-a-reference.md
@@ -301,7 +301,7 @@ Terms the cited ADRs define:
 [71]: ../../../adr/glossary.md#file-language
 [72]: ../../../adr/glossary.md#cell
 [73]: ../../../adr/glossary.md#lit-cell
-[74]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[75]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[74]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[75]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
 [76]: ../../../adr/glossary.md#go-test-module
 [77]: ../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2

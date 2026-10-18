@@ -9,7 +9,7 @@ Above `on:`, written with `#`.
 
 ```text
 Trigger = the 'automation' globset projected into GitHub-native path filters (Get-GlobSetTrigger,
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)): the track is its own root folder (automation/**), so this fires exactly — and
+[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)): the track is its own root folder (pwsh/**), so this fires exactly — and
 only starts at
 all — on a real change to the module system. No committed marker to go stale across a squash merge.
 ```
@@ -19,7 +19,7 @@ all — on a real change to the module system. No committed marker to go stale a
 Above `workflow_dispatch:`, written with `#`.
 
 ```text
-On-demand run: the push/PR triggers fire only on automation/** changes, so a fix to the workflow itself
+On-demand run: the push/PR triggers fire only on pwsh/** changes, so a fix to the workflow itself
 (or the tool pins it depends on) can't be validated without this. Lets a run be kicked off manually.
 ```
 

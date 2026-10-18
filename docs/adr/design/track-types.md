@@ -66,7 +66,7 @@ file head never carries the track's role, places or languages: a reader looks th
 
 ### Rule ADR-DSGN-TRACKTYPE:7
 
-A track of **vendored code** holds code written by a third party that the repository does not author, such as `automation/.vendor` and
+A track of **vendored code** holds code written by a third party that the repository does not author, such as `pwsh/.vendor` and
 `bash/.vendor`. It is nested under another track's root and gets its files by the longest place
 ([ADR-DSGN-TRACKTYPE#5](#rule-adr-dsgn-tracktype5)), so the track beside it never holds them. Its files are never live
 ([ADR-DSGN-TRACK#11](tracks.md#rule-adr-dsgn-track11)).

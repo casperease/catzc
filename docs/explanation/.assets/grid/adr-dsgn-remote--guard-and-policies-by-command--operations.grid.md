@@ -52,7 +52,7 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 79 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 79 (text).
 
 ### docs × markdown (3 lit files)
 
@@ -69,7 +69,7 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][8]: selected by [ADR-DSGN-REMOTE][1]: a pipeline that cites nothing itself carries its globset's citations,
-  which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 79 (text).
+  which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 79 (text).
 
 ## Keywords
 
@@ -89,7 +89,7 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[5]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [6]: ../../../adr/design/dora-explains.md
 [7]: ../../../adr/index.md
 [8]: ../../../../pipelines/ci-automation.yaml
@@ -99,5 +99,5 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [12]: ../../../adr/glossary.md#file-language
 [13]: ../../../adr/glossary.md#cell
 [14]: ../../../adr/glossary.md#lit-cell
-[15]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[16]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[15]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[16]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

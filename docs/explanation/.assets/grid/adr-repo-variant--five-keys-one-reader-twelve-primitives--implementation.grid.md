@@ -62,14 +62,14 @@ Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][2
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.ps1` names the file language
 powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][6]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 44 (text).
+- [pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1][6]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 44 (text).
 
 ### automation × yaml (1 lit file)
 
 Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][2]); the extension `.yml` names the file language yaml
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][7]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 303 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][7]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 303 (text).
 
 ### docs × markdown (6 lit files)
 
@@ -79,11 +79,11 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 - [docs/adr/index.md][8]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 327 (text).
 - [docs/adr/repository/dora-explains.md][9]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line 165 (text).
 - [docs/adr/repository/repo-variants.md][1]: selected by [ADR-REPO-VARIANT][1]: the ADR's own file.
-- [docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][10]: selected by [ADR-REPO-VARIANT][1]: the file cites it
+- [docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md][10]: selected by [ADR-REPO-VARIANT][1]: the file cites it
   at line 39 (text).
-- [docs/references/automation/catzc-base-variants/configs/variants.yml.md][11]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line
+- [docs/references/pwsh/catzc-base-variants/configs/variants.yml.md][11]: selected by [ADR-REPO-VARIANT][1]: the file cites it at line
   11 (text).
-- [docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md][12]: selected by [ADR-REPO-VARIANT][1]: the file cites it at
+- [docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md][12]: selected by [ADR-REPO-VARIANT][1]: the file cites it at
   line 11 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
@@ -92,8 +92,8 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [pipelines/ci-automation.yaml][13]: selected by [ADR-REPO-VARIANT][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `automation/Catzc.Base.Docs/configs/adrs.yml` line 303 (text) and
-  `automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 44 (text).
+  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 303 (text) and
+  `pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1` line 44 (text).
 
 ## Keywords
 
@@ -116,13 +116,13 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
 [4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [5]: ../../../../.claude/plans/plan-module-kinds-tracks.md
-[6]: ../../../../automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
-[7]: ../../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[6]: ../../../../pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
+[7]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [8]: ../../../adr/index.md
 [9]: ../../../adr/repository/dora-explains.md
-[10]: ../../../references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
-[11]: ../../../references/automation/catzc-base-variants/configs/variants.yml.md
-[12]: ../../../references/automation/catzc-base-variants/types/VariantsConfig.cs.md
+[10]: ../../../references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
+[11]: ../../../references/pwsh/catzc-base-variants/configs/variants.yml.md
+[12]: ../../../references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
 [13]: ../../../../pipelines/ci-automation.yaml
 [14]: ../../repository/five-keys-one-reader-twelve-primitives.md
 [15]: ../../../adr/glossary.md#world-map
@@ -130,5 +130,5 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [17]: ../../../adr/glossary.md#file-language
 [18]: ../../../adr/glossary.md#cell
 [19]: ../../../adr/glossary.md#lit-cell
-[20]: ../../../../automation/Catzc.Base.Variants/configs/variants.yml
-[21]: ../../../../automation/Catzc.Base.Languages/configs/languages.yml
+[20]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[21]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

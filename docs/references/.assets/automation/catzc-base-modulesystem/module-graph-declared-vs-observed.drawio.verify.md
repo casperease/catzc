@@ -5,7 +5,7 @@
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's numbers is reused without a re-grep. Several had
 moved (`Get-ModuleDependencyConfig.ps1:19` is now `:13`, `Get-ModuleProfile.ps1:50` is now `:45`, `Copy-Automation.ps1:87` is now `:68`,
 `Get-FunctionDependency.ps1:68` is now `:63`, `Test-ModuleCycles.ps1:30` is now `:26`). `condense-comments` may move them again, so re-grep
-before landing. Paths are relative to `automation/Catzc.Base.ModuleSystem/` unless they start with `automation/` or `docs/`.
+before landing. Paths are relative to `pwsh/Catzc.Base.ModuleSystem/` unless they start with `automation/` or `docs/`.
 
 ## Boxes
 
@@ -15,7 +15,7 @@ before landing. Paths are relative to `automation/Catzc.Base.ModuleSystem/` unle
 | B2  | `Get-ModuleDependencyConfig` is private and returns the `modules:` section          | `private/Get-ModuleDependencyConfig.ps1:10,13`                               | confirmed |
 | B3  | `Get-ModuleDependencyMap` is private and expands groups to member modules           | `private/Get-ModuleDependencyMap.ps1:14,24-27,55-63`                         | confirmed |
 | B4  | `Get-ModuleOrder` is public and topologically sorts the map (Kahn)                  | `Get-ModuleOrder.ps1:47,56,58-93`                                            | confirmed |
-| B5  | `Get-TestAutomationTestPaths` is private in `Catzc.Base.QualityGates`               | `automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1` | confirmed |
+| B5  | `Get-TestAutomationTestPaths` is private in `Catzc.Base.QualityGates`               | `pwsh/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1` | confirmed |
 | B6  | `Get-ModuleDependencyClosure` is private, breadth-first over the map                | `private/Get-ModuleDependencyClosure.ps1:14,21,30-39`                        | confirmed |
 | B7  | `Get-FunctionDependency` is public and parses every `.ps1` into an AST              | `Get-FunctionDependency.ps1:17,63`                                           | confirmed |
 | B8  | `Get-ModuleDependency` is public and collapses calls to cross-module edges          | `Get-ModuleDependency.ps1:14,34-36`                                          | confirmed |
@@ -29,7 +29,7 @@ before landing. Paths are relative to `automation/Catzc.Base.ModuleSystem/` unle
 | E1  | `dependencies.yml` → `Get-ModuleDependencyConfig`               | `private/Get-ModuleDependencyConfig.ps1:13` (`Get-Config -Config dependencies`) | confirmed |
 | E2  | `Get-ModuleDependencyConfig` → `Get-ModuleDependencyMap`        | `private/Get-ModuleDependencyMap.ps1:21`                                        | confirmed |
 | E3  | `Get-ModuleDependencyMap` → `Get-ModuleOrder`                   | `Get-ModuleOrder.ps1:56`                                                        | confirmed |
-| E4  | `Get-ModuleOrder` → `Get-TestAutomationTestPaths`               | `automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1:92` | confirmed |
+| E4  | `Get-ModuleOrder` → `Get-TestAutomationTestPaths`               | `pwsh/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1:92` | confirmed |
 | E5  | `Get-ModuleDependencyMap` → `Get-ModuleDependencyClosure`       | `private/Get-ModuleDependencyClosure.ps1:21`                                    | confirmed |
 | E6  | `Get-FunctionDependency` → `Get-ModuleDependency`               | `Get-ModuleDependency.ps1:31` (when nothing is piped in)                        | confirmed |
 | E7  | `Get-ModuleDependency` → `Get-ModuleDependencyViolations`       | `private/Get-ModuleDependencyViolations.ps1:19`                                 | confirmed |
@@ -43,15 +43,15 @@ before landing. Paths are relative to `automation/Catzc.Base.ModuleSystem/` unle
 | C1  | The map adds group-internal layering and per-module allowed deps, a group expanded to members                                              | `private/Get-ModuleDependencyMap.ps1:36-46,48-69`                                                                     | confirmed    |
 | C2  | The map also reads the groups through `Get-ModuleGroupConfig` (cut)                                                                        | `private/Get-ModuleDependencyMap.ps1:20`; `private/Get-ModuleGroupConfig.ps1:14`                                      | confirmed    |
 | C3  | `Get-ModuleOrder` throws on a cycle in the declared graph                                                                                  | `Get-ModuleOrder.ps1:95-98`                                                                                           | confirmed    |
-| C4  | `Get-TestAutomationTestPaths` catches that throw and falls back to ordinal order, verbose only                                             | `automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1:62-70`                                    | confirmed    |
+| C4  | `Get-TestAutomationTestPaths` catches that throw and falls back to ordinal order, verbose only                                             | `pwsh/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1:62-70`                                    | confirmed    |
 | C5  | Integrity "fails fast" (ADR-AUTO-DEPM#4); the test-order fallback swallows the declared-graph throw                                        | `docs/adr/automation/controlling-module-dependencies.md:33`; `Get-TestAutomationTestPaths.ps1:65-69`                  | contradicted |
-| C6  | The closure closes the profiles: `Get-ModuleProfile` calls it (cut), and `Copy-Automation` and `Test-InIsolation` call `Get-ModuleProfile` | `Get-ModuleProfile.ps1:45`; `Copy-Automation.ps1:68`; `automation/Catzc.Base.QualityGates/Test-InIsolation.ps1:71,74` | confirmed    |
+| C6  | The closure closes the profiles: `Get-ModuleProfile` calls it (cut), and `Copy-Automation` and `Test-InIsolation` call `Get-ModuleProfile` | `Get-ModuleProfile.ps1:45`; `Copy-Automation.ps1:68`; `pwsh/Catzc.Base.QualityGates/Test-InIsolation.ps1:71,74` | confirmed    |
 | C7  | `Get-ModuleDependencyViolations` resolves the allow-list itself (its own group expansion), not through the map                             | `private/Get-ModuleDependencyViolations.ps1:24-58`                                                                    | confirmed    |
 | C8  | It also checks C# type edges from `Get-CSharpTypeDependency` (module Catzc.Base.TypesSystem; cut)                                          | `private/Get-ModuleDependencyViolations.ps1:90-100`                                                                   | confirmed    |
 | C9  | `Test-ModuleDependency` is the gate that reports the violations (cut)                                                                      | `Test-ModuleDependency.ps1:6,29`                                                                                      | confirmed    |
 | C10 | The declared graph is acyclic by load-time validation (the `DependenciesConfig` type)                                                      | `docs/adr/automation/controlling-module-dependencies.md:31-34`; `configs/dependencies.yml:1`                          | ADR-only     |
 | C11 | Supports: ADR-AUTO-TEST#4, #35, ADR-AUTO-CACHE#2, #4, #5, #6, ADR-PWSH-CACHE#4, ADR-PWSH-PESTER#9, ADR-DSGN-RUNMODE                        | `Get-FunctionDependency.ps1:6,25-29,33,42`; `Test-ModuleCycles.ps1:6`                                                 | confirmed    |
-| C12 | No drawn file cites ADR-AUTO-DEPM, the ADR that governs this graph                                                                         | grep `ADR-AUTO-DEPM` over `automation/Catzc.Base.ModuleSystem/**/*.ps1`: no hit                                       | confirmed    |
+| C12 | No drawn file cites ADR-AUTO-DEPM, the ADR that governs this graph                                                                         | grep `ADR-AUTO-DEPM` over `pwsh/Catzc.Base.ModuleSystem/**/*.ps1`: no hit                                       | confirmed    |
 
 Counts: 31 claims, 29 confirmed, 1 contradicted, 1 ADR-only.
 

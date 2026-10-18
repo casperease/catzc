@@ -1,4 +1,4 @@
-# automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+# pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
 
 <!-- cspell:ignore toolong -->
 

@@ -1,4 +1,4 @@
-# automation/.scriptanalyzer/NeverDependOnPwd.psm1
+# pwsh/.scriptanalyzer/NeverDependOnPwd.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Above `function Measure-NeverDependOnPwd {`, written with `#`.
     Custom PSScriptAnalyzer rule: never depend on $PWD.
 .DESCRIPTION
     Push-Location and Pop-Location pass: they restore the caller's directory, a bare Set-Location does not.
-    [comment:1](/docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md#comment1)
+    [comment:1](/docs/references/pwsh/scriptanalyzer/NeverDependOnPwd.psm1.md#comment1)
 ```
 
 ## comment:2

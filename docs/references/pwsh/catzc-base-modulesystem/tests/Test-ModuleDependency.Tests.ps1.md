@@ -1,4 +1,4 @@
-# automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
+# pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
 
 <!-- cspell:ignore tpols -->
 

@@ -1,6 +1,6 @@
 # Catzc.Base.Vendor
 
-Owns the vendored third-party PowerShell modules under `automation/.vendor/` — adding them, removing them, and proving they can be restored
+Owns the vendored third-party PowerShell modules under `pwsh/.vendor/` — adding them, removing them, and proving they can be restored
 from the network. Vendoring checks each dependency's exact version straight into the repository so a load needs no gallery query
 (deterministic, fast, offline; see [vendor-toolset-dependencies](../../adr/pwsh/vendor-toolset-dependencies.md)); this module is the
 lifecycle around that committed set. It deliberately does **not** load them at import time — that is the internal, pre-module-system loader
@@ -19,7 +19,7 @@ lifecycle around that committed set. It deliberately does **not** load them at i
 ### responsibility:1 — Vendored-module lifecycle
 
 Adding a module to the committed vendor set and removing modules from it. Adding downloads an exact version from the source into the
-`automation/.vendor/<Name>/<Version>/` layout the loader expects and strips the legacy .NET Framework folders a PowerShell 7 toolset never
+`pwsh/.vendor/<Name>/<Version>/` layout the loader expects and strips the legacy .NET Framework folders a PowerShell 7 toolset never
 uses; it is the only supported way to introduce a vendored dependency, and the result is committed. Removal is guarded: it never deletes a
 module the source cannot restore (responsibility:2), and defaults to a dry run — it reports what would go and the exact command to recreate
 it, deleting only when explicitly armed.
