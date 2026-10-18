@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "573ee1b20d36"
+    with_body_sha: ba87f736bcc1
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.chain.md
-    source: docs/explanation/.assets/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png
+    path: docs/explanation/design/.assets/every-vendor-call-leaves-through-az/chain.md
+    source: docs/explanation/design/.assets/every-vendor-call-leaves-through-az/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

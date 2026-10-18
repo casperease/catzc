@@ -1,6 +1,7 @@
 approver_group:
   name: Prod Approvers
-  members: []
+  members:
+    - prod-approver@example.com
 timeout_hours: 24
 environments:
   - shared-release-uat

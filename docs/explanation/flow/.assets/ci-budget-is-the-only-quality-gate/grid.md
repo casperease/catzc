@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ef558ac54724
+    with_body_sha: dc6794436177
     repo_status: locked
-    path: docs/explanation/.assets/grid/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.grid.md
-    source: docs/explanation/.assets/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png
+    path: docs/explanation/flow/.assets/ci-budget-is-the-only-quality-gate/grid.md
+    source: docs/explanation/flow/.assets/ci-budget-is-the-only-quality-gate/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -16,13 +16,13 @@ catzc:
 
 ```text
 Where the files that cite ADR-FLOW-CD and ADR-FLOW-CD-TYPE sit in the repository: tracks down, file languages across.
-5 of 342 cells lit, holding 27 files.
+5 of 342 cells lit, holding 36 files.
 ```
 
 ![The world-map minimap of The CI budget is the only promotion rule a quality gate checks](grid.png)
 
 This is the world-map minimap in the sidebar of the governance diagram of [The CI budget is the only promotion rule a quality gate
-checks][31], which explains [ADR-FLOW-CD][1] and [ADR-FLOW-CD-TYPE][2]. It lights every cell of the world map that holds a file citing those
+checks][40], which explains [ADR-FLOW-CD][1] and [ADR-FLOW-CD-TYPE][2]. It lights every cell of the world map that holds a file citing those
 codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
@@ -32,11 +32,11 @@ only by passing mentions (citations in body comments, not in a file's header or 
 grey box: it holds files the slide's ADR codes do not select, or no file at all (288 of the 342 cells hold none). The minimap shows where
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
-- .claude × markdown: 2 lit of 90 files
-- automation × powershell: 1 lit of 1629 files
-- automation × yaml: 3 lit of 112 files
-- docs × markdown: 20 lit of 2742 files
-- pipelines × pipeline-yaml: 1 lit of 9 files
+- .claude × markdown: 7 lit of 89 files
+- docs × markdown: 24 lit of 2761 files
+- pipelines × pipeline-yaml: 1 lit of 11 files
+- pwsh × powershell: 1 lit of 1649 files
+- pwsh × yaml: 3 lit of 115 files
 
 ## Key
 
@@ -49,104 +49,115 @@ A lit row prints its track's name; a lit column prints a short code, the first e
 
 ## Why each cell is lit
 
-### .claude × markdown (2 lit files)
+### .claude × markdown (7 lit files)
 
 Placed: the root folder `.claude/` names the track .claude ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [.claude/CLAUDE.md][6]: selected by [ADR-FLOW-CD][1]: the file cites it at line 55 (text).
-- [.claude/plans/plan-module-kinds-tracks.md][7]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 546 (text) and line 549
-  (text).
+- [.claude/plans/plan-adr-code-language.md][7]: selected by [ADR-FLOW-CD][1]: the file cites it at line 126 (text), line 127 (text), line
+  128 (text), line 181 (text) and line 184 (text).
+- [.claude/plans/plan-explanation-drift-gaps.md][8]: selected by [ADR-FLOW-CD][1]: the file cites it at line 36 (text) and line 79 (text).
+- [.claude/plans/plan-promotion-ladder.md][9]: selected by [ADR-FLOW-CD][1]: the file cites it at line 12 (text), line 34 (text) and line 78
+  (text); selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 60 (text).
+- [.claude/plans/prompt-promotion-ladder-1-build.md][10]: selected by [ADR-FLOW-CD][1]: the file cites it at line 20 (text).
+- [.claude/plans/task-loose-ends.md][11]: selected by [ADR-FLOW-CD][1]: the file cites it at line 55 (text).
+- [.claude/plans/value-of-plan.md][12]: selected by [ADR-FLOW-CD][1]: the file cites it at line 36 (text).
 
-### automation × powershell (1 lit file)
-
-Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.ps1` names the file language
-powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
-
-- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][8]: selected by [ADR-FLOW-CD][1]: the file cites it at line 70 (text) and
-  line 71 (text).
-
-### automation × yaml (3 lit files)
-
-Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRACK#1][3]); the extension `.yml` names the file language yaml
-([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
-
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][9]: selected by [ADR-FLOW-CD][1]: the file cites it at line 97 (text); selected by
-  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 100 (text).
-- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][10]: selected by [ADR-FLOW-CD][1]: the file cites it at line 18 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][11]: selected by [ADR-FLOW-CD][1]: the file cites it at line 58 (text).
-
-### docs × markdown (20 lit files)
+### docs × markdown (24 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 - [docs/adr/flow/cd-discipline-and-promotion-flow.md][1]: selected by [ADR-FLOW-CD][1]: the ADR's own file.
-- [docs/adr/flow/dora-explains.md][12]: selected by [ADR-FLOW-CD][1]: the file cites it at line 11 (text); selected by
+- [docs/adr/flow/dora-explains.md][13]: selected by [ADR-FLOW-CD][1]: the file cites it at line 11 (text); selected by
   [ADR-FLOW-CD-TYPE][2]: the file cites it at line 67 (text).
 - [docs/adr/flow/pipeline-types.md][2]: selected by [ADR-FLOW-CD-TYPE][2]: the ADR's own file.
-- [docs/adr/glossary.md][13]: selected by [ADR-FLOW-CD][1]: the file cites it at line 497 (text) and line 510 (text).
-- [docs/adr/index.md][14]: selected by [ADR-FLOW-CD][1]: the file cites it at line 129 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file
+- [docs/adr/glossary.md][14]: selected by [ADR-FLOW-CD][1]: the file cites it at line 505 (text) and line 518 (text).
+- [docs/adr/index.md][15]: selected by [ADR-FLOW-CD][1]: the file cites it at line 129 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file
   cites it at line 132 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md][15]: selected by [ADR-FLOW-CD-TYPE][2]: the file
+- [docs/how-to/automation/apply-environment-approvals.md][16]: selected by [ADR-FLOW-CD][1]: the file cites it at line 4 (text).
+- [docs/references/pipelines/cd-shared.yaml.md][17]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text).
+- [docs/references/pipelines/ci-infrastructure.yaml.md][18]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text).
+- [docs/references/pipelines/stages/deploy-unit.yaml.md][19]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 11 (text).
+- [docs/references/pipelines/steps/download-artifact.yaml.md][20]: selected by [ADR-FLOW-CD][1]: the file cites it at line 12 (text).
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md][21]: selected by [ADR-FLOW-CD-TYPE][2]: the file
   cites it at line 15 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][16]: selected by [ADR-FLOW-CD-TYPE][2]: the
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md][22]: selected by [ADR-FLOW-CD-TYPE][2]: the
   file cites it at line 16 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][17]: selected by [ADR-FLOW-CD-TYPE][2]: the file
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md][23]: selected by [ADR-FLOW-CD-TYPE][2]: the file
   cites it at line 12 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md][18]: selected by
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md][24]: selected by
   [ADR-FLOW-CD-TYPE][2]: the file cites it at line 19 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md][19]: selected by [ADR-FLOW-CD-TYPE][2]: the
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md][25]: selected by [ADR-FLOW-CD-TYPE][2]: the
   file cites it at line 13 (text).
-- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][20]: selected by [ADR-FLOW-CD-TYPE][2]: the
+- [docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md][26]: selected by [ADR-FLOW-CD-TYPE][2]: the
   file cites it at line 12 (text).
-- [docs/references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md][21]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 14
+- [docs/references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md][27]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 14
   (text).
-- [docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md][22]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites
+- [docs/references/pwsh/catzc-azure-devops/Sync-AdoEnvironmentApprovals.ps1.md][28]: selected by [ADR-FLOW-CD][1]: the file cites it at line
+  15 (text).
+- [docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md][29]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites
   it at line 26 (text).
-- [docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md][23]: selected by [ADR-FLOW-CD][1]: the file cites it at line 40 (text).
-- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][24]: selected by [ADR-FLOW-CD][1]: the file cites it at line 28 (text), line
+- [docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md][30]: selected by [ADR-FLOW-CD][1]: the file cites it at line 40 (text).
+- [docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md][31]: selected by [ADR-FLOW-CD][1]: the file cites it at line 28 (text), line
   29 (text), line 57 (text) and line 58 (text).
-- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][25]: selected by [ADR-FLOW-CD][1]: the file cites it at line 34 (text).
-- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][26]: selected by [ADR-FLOW-CD][1]: the file cites it at line 37
+- [docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md][32]: selected by [ADR-FLOW-CD][1]: the file cites it at line 34 (text).
+- [docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md][33]: selected by [ADR-FLOW-CD][1]: the file cites it at line 37
   (text).
-- [docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md][27]: selected by [ADR-FLOW-CD][1]: the file cites it at line 54
+- [docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md][34]: selected by [ADR-FLOW-CD][1]: the file cites it at line 54
   (text).
-- [docs/references/pipelines/cd-shared.yaml.md][28]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text).
-- [docs/references/pipelines/ci-infrastructure.yaml.md][29]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 12 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][3]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pipelines/ci-automation.yaml][30]: selected by [ADR-FLOW-CD][1]: a pipeline that cites nothing itself carries its globset's citations,
+- [pipelines/ci-automation.yaml][35]: selected by [ADR-FLOW-CD][1]: a pipeline that cites nothing itself carries its globset's citations,
   which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 97 (text), `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line
   70 (text), `pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` line 71 (text),
   `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml` line 18 (text) and `pwsh/Catzc.Base.QualityGates/configs/glossary.yml` line 58 (text);
   selected by [ADR-FLOW-CD-TYPE][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
   `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 100 (text).
 
+### pwsh × powershell (1 lit file)
+
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][3]); the extension `.ps1` names the file language powershell
+([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
+
+- [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][36]: selected by [ADR-FLOW-CD][1]: the file cites it at line 70 (text) and
+  line 71 (text).
+
+### pwsh × yaml (3 lit files)
+
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK#1][3]); the extension `.yml` names the file language yaml
+([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
+
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][37]: selected by [ADR-FLOW-CD][1]: the file cites it at line 97 (text); selected by
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 100 (text).
+- [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml][38]: selected by [ADR-FLOW-CD][1]: the file cites it at line 18 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/glossary.yml][39]: selected by [ADR-FLOW-CD][1]: the file cites it at line 58 (text).
+
 ## Keywords
 
-- [world map][32]
-- [track][33]
-- [file language][34]
-- [cell][35]
-- [lit cell][36]
-- [.claude][37]: a track
-- [automation][37]: a track
-- [docs][37]: a track
-- [pipelines][37]: a track
-- [markdown][38]: a file language
-- [pipeline-yaml][38]: a file language
-- [powershell][38]: a file language
-- [yaml][38]: a file language
+- [world map][41]
+- [track][42]
+- [file language][43]
+- [cell][44]
+- [lit cell][45]
+- [.claude][46]: a track
+- [docs][46]: a track
+- [pipelines][46]: a track
+- [pwsh][46]: a track
+- [markdown][47]: a file language
+- [pipeline-yaml][47]: a file language
+- [powershell][47]: a file language
+- [yaml][47]: a file language
 
 Terms the cited ADRs define:
 
-- [gate][39], defined by [ADR-FLOW-CD#13][40]
-- [release candidate][41], defined by [ADR-FLOW-CD#14][42]
+- [gate][48], defined by [ADR-FLOW-CD#13][49]
+- [release candidate][50], defined by [ADR-FLOW-CD#14][51]
 
 [1]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md
 [2]: ../../../../adr/flow/pipeline-types.md
@@ -154,39 +165,48 @@ Terms the cited ADRs define:
 [4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
 [5]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
 [6]: ../../../../../.claude/CLAUDE.md
-[7]: ../../../../../.claude/plans/plan-module-kinds-tracks.md
-[8]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[9]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[10]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-[11]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-[12]: ../../../../adr/flow/dora-explains.md
-[13]: ../../../../adr/glossary.md
-[14]: ../../../../adr/index.md
-[15]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md
-[16]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
-[17]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
-[18]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md
-[19]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md
-[20]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
-[21]: ../../../../references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md
-[22]: ../../../../references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
-[23]: ../../../../references/pwsh/catzc-base-docs/configs/adrs.yml.md
-[24]: ../../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
-[25]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
-[26]: ../../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-[27]: ../../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-[28]: ../../../../references/pipelines/cd-shared.yaml.md
-[29]: ../../../../references/pipelines/ci-infrastructure.yaml.md
-[30]: ../../../../../pipelines/ci-automation.yaml
-[31]: ../../ci-budget-is-the-only-quality-gate.md
-[32]: ../../../../adr/glossary.md#world-map
-[33]: ../../../../adr/glossary.md#track
-[34]: ../../../../adr/glossary.md#file-language
-[35]: ../../../../adr/glossary.md#cell
-[36]: ../../../../adr/glossary.md#lit-cell
-[37]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[38]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[39]: ../../../../adr/glossary.md#gate
-[40]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[41]: ../../../../adr/glossary.md#release-candidate
-[42]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[7]: ../../../../../.claude/plans/plan-adr-code-language.md
+[8]: ../../../../../.claude/plans/plan-explanation-drift-gaps.md
+[9]: ../../../../../.claude/plans/plan-promotion-ladder.md
+[10]: ../../../../../.claude/plans/prompt-promotion-ladder-1-build.md
+[11]: ../../../../../.claude/plans/task-loose-ends.md
+[12]: ../../../../../.claude/plans/value-of-plan.md
+[13]: ../../../../adr/flow/dora-explains.md
+[14]: ../../../../adr/glossary.md
+[15]: ../../../../adr/index.md
+[16]: ../../../../how-to/automation/apply-environment-approvals.md
+[17]: ../../../../references/pipelines/cd-shared.yaml.md
+[18]: ../../../../references/pipelines/ci-infrastructure.yaml.md
+[19]: ../../../../references/pipelines/stages/deploy-unit.yaml.md
+[20]: ../../../../references/pipelines/steps/download-artifact.yaml.md
+[21]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md
+[22]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
+[23]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
+[24]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md
+[25]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md
+[26]: ../../../../references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
+[27]: ../../../../references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md
+[28]: ../../../../references/pwsh/catzc-azure-devops/Sync-AdoEnvironmentApprovals.ps1.md
+[29]: ../../../../references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
+[30]: ../../../../references/pwsh/catzc-base-docs/configs/adrs.yml.md
+[31]: ../../../../references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+[32]: ../../../../references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
+[33]: ../../../../references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+[34]: ../../../../references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+[35]: ../../../../../pipelines/ci-automation.yaml
+[36]: ../../../../../pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[37]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[38]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[39]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+[40]: ../../ci-budget-is-the-only-quality-gate.md
+[41]: ../../../../adr/glossary.md#world-map
+[42]: ../../../../adr/glossary.md#track
+[43]: ../../../../adr/glossary.md#file-language
+[44]: ../../../../adr/glossary.md#cell
+[45]: ../../../../adr/glossary.md#lit-cell
+[46]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[47]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[48]: ../../../../adr/glossary.md#gate
+[49]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[50]: ../../../../adr/glossary.md#release-candidate
+[51]: ../../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14

@@ -70,12 +70,16 @@ round's test home for the kit.
    it; git grep 'under `automation/` by module' over its .assets: 0". Automation verdict: "30 diagram folders moved and rendered (one
    W_JOIN on build-then-place-with-one-command, a missing palette.json in its work folder, re-rendered clean); LINKS 0, FILEMETA 0,
    SPELLING 0 over the 152 pages in and linking into it; git grep 'under `automation/` by module' over its .assets: 0"; the script now
-   resumes from leftover flat files and retries `git mv` on an index lock. In progress: azure, design, flow. Left after them:
+   resumes from leftover flat files and retries `git mv` on an index lock. Azure verdict: "15 diagram folders moved and rendered (45
+   stages clean, 0 orphans); LINKS 0, FILEMETA 0, SPELLING 0 over 76 pages; git grep 'under `automation/` by module' over its .assets: 0".
+   All 149 diagrams are moved; design, flow, pipelines and repository render next. Left after them:
    azure, design (two batches), flow, pipelines, repository. Original step: Migration, one article folder at a time through the move command, `docs/explanation/configuration` first (the pilot's source): each
    diagram's nine files assembled under `<article-folder>/.assets/<name>/` with role names, the description inside, then
    `Build-Diagrams -Path` on each new folder. Check: `Test-Links`, `Test-FileMeta`, `Test-Spelling` clean on the folder before the next; the
    article folders done are listed in the plan as they land.
-7. `glyphs.drawio.png` and `glyphs.drawio.md` into `docs/explanation/.assets/glyphs/` under role names. Check: every page that links it
+7. [x] Landed 2026-10-18 by session catzc-fb, verdict: "glyphs.drawio.png and glyphs.drawio.md moved to
+   docs/explanation/.assets/glyphs/{diagram.drawio.png,diagram.drawio.md}; docs/explanation/index.md re-pointed; LINKS 0 over both pages;
+   file-carriers.yml drops the flat explanation pattern and the glyphs exclusion". Original step: `glyphs.drawio.png` and `glyphs.drawio.md` into `docs/explanation/.assets/glyphs/` under role names. Check: every page that links it
    resolves (`Test-Links` over docs/explanation).
 8. Delete the emptied `docs/explanation/.assets/{grid,tree,chain}/`; `Build-Diagrams.ps1.md` help and `catzc-base-slides.md`
    responsibility:4 follow the parameter. Check: `git ls-files docs/explanation/.assets` lists only `glyphs/`; `Test-Links` on the two

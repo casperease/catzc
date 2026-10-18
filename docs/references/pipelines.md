@@ -80,7 +80,7 @@ environment per deployable-unit, with one occupant:
 The approval checks are declared in `environment-approvals.yml` and applied by `Sync-AdoEnvironmentApprovals`
 ([apply-environment-approvals](../how-to/automation/apply-environment-approvals.md)). DEPLOY takes the exact artifact CI built, by the CI
 run id that the certifying CD run records, and never rebuilds it. The CD pipelines above deploy the non-prod and prod-tier targets of a
-stage in one run; the main-uat, release-uat and pre-prod environments and the DEPLOY pipeline are not in the repo yet.
+stage in one run; main-uat is the `dev` deploy of each CD.
 
 ## Adding a real pipeline
 

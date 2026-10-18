@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e4feb12d9941
+    with_body_sha: "334f7a6ca65b"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.chain.md
-    source: docs/explanation/.assets/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.png
+    path: docs/explanation/design/.assets/deploy-and-integrate-share-only-the-topic/chain.md
+    source: docs/explanation/design/.assets/deploy-and-integrate-share-only-the-topic/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -98,6 +98,7 @@ Lit ([ADR-DSGN-TRACK#12][3]) by:
 Terms the cited ADRs define:
 
 - [occupant][12], defined by [ADR-DSGN-LIFE#5][13]
+- [staging slot][14], defined by [ADR-DSGN-LIFE#5][13]
 
 [1]: ../../../../adr/design/commit-lifecycle.md
 [2]: ../../../../adr/design/visual-design.md
@@ -112,3 +113,4 @@ Terms the cited ADRs define:
 [11]: ../../../../adr/glossary.md#lit-cell
 [12]: ../../../../adr/glossary.md#occupant
 [13]: ../../../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[14]: ../../../../adr/glossary.md#staging-slot

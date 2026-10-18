@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c7aebc7bb436
+    with_body_sha: af28f77614c6
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png
+    path: docs/explanation/flow/.assets/globs-asks-loader-for-context-and-git-for-diff/chain.md
+    source: docs/explanation/flow/.assets/globs-asks-loader-for-context-and-git-for-diff/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "08dc4e85f066"
+    with_body_sha: "67bc5b0f3f29"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.chain.md
-    source: docs/explanation/.assets/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.png
+    path: docs/explanation/design/.assets/deploy-bicep-delegates-to-az/chain.md
+    source: docs/explanation/design/.assets/deploy-bicep-delegates-to-az/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a1854e28f896
+    with_body_sha: e9fec6882966
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-runner--a-step-only-names-a-command--meta.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png
+    path: docs/explanation/flow/.assets/a-step-only-names-a-command/chain.md
+    source: docs/explanation/flow/.assets/a-step-only-names-a-command/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

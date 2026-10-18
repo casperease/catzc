@@ -1,0 +1,27 @@
+trigger: none
+pr: none
+
+parameters:
+  - name: CiRunId
+    displayName: "Run id of the certifying cd-shared run (its CI stage built the artifact)"
+    type: string
+  - name: Target
+    displayName: "The rung to deploy"
+    type: string
+    values: [release-uat]
+
+stages:
+  # release-uat is test; the RC approval check on shared-release-uat holds the job for its certifier (ADR-FLOW-CD#9).
+  - ${{ if eq(parameters.Target, 'release-uat') }}:
+      - template: /pipelines/stages/deploy-unit.yaml
+        parameters:
+          Unit: shared
+          Expeditions:
+            - {
+                env: test,
+                adoEnvironment: shared-release-uat,
+                serviceConnection: sc-shared-nonprod,
+                subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000,
+              }
+          ArtifactPipeline: cd-shared
+          RunId: ${{ parameters.CiRunId }}

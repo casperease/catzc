@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bad1ba110a74
+    with_body_sha: "2bc4ac0ee094"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png
+    path: docs/explanation/flow/.assets/declare-or-add-folder-gate-names-overlaps/chain.md
+    source: docs/explanation/flow/.assets/declare-or-add-folder-gate-names-overlaps/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

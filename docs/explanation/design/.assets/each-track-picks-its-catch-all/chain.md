@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: af4e162aaf72
+    with_body_sha: f04605364ea4
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
+    path: docs/explanation/design/.assets/each-track-picks-its-catch-all/chain.md
+    source: docs/explanation/design/.assets/each-track-picks-its-catch-all/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

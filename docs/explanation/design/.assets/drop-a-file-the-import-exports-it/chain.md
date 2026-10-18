@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b6742f809289
+    with_body_sha: e73eb4703f21
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png
+    path: docs/explanation/design/.assets/drop-a-file-the-import-exports-it/chain.md
+    source: docs/explanation/design/.assets/drop-a-file-the-import-exports-it/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

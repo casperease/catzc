@@ -81,6 +81,6 @@ Recorded 2026-10-18 with the user:
       rebuild step names `Build-Diagrams -Path` (check: its L0 tests pass, dry run lists the call set per folder).
 - [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 5). ADR-REPO-FOLDERS, ADR-REPO-SLIDES#7 and `file-kinds.yml` restated (check: Test-AdrRegistry, Test-Links, the file-kind reachability
       test).
-- [ ] `glyphs.drawio.png`, the shared glyph legend, into `docs/explanation/.assets/glyphs/` (check: every page that links it resolves).
+- [x] Done 2026-10-18 (catzc-fb; verdict in task-diagram-folders step 7). `glyphs.drawio.png`, the shared glyph legend, into `docs/explanation/.assets/glyphs/` (check: every page that links it resolves).
 - [ ] Delete the emptied `docs/explanation/.assets/{grid,tree,chain}/` and this plan (check: `git ls-files docs/explanation/.assets` lists
       only `glyphs/`; Test-Plans clean).

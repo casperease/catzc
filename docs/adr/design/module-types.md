@@ -4,7 +4,7 @@
 
 ### Rule ADR-DSGN-MODTYPE:1
 
-A **module** is a named unit placed in a track: a PowerShell module is a folder under `automation` or one `psm1` file, a Bicep module is a
+A **module** is a named unit placed in a track: a PowerShell module is a folder under `pwsh/` or one `psm1` file, a Bicep module is a
 template folder or one reusable `bicep` file, and a holder track's module is the holder itself (the vendor settings, the ADO pipelines, the
 GitHub workflows). A file in no module, such as a documentation page, has neither `module` nor `moduletype`.
 

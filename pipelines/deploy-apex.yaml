@@ -1,0 +1,42 @@
+trigger: none
+pr: none
+
+parameters:
+  - name: CiRunId
+    displayName: "Run id of the certifying cd-apex run (its CI stage built the artifact)"
+    type: string
+  - name: Target
+    displayName: "The rung to deploy"
+    type: string
+    values: [prod]
+
+stages:
+  # Stage the exact artifact in pre-prod, the inactive slot of prod, then activate it to prod (ADR-FLOW-CD#12).
+  - ${{ if eq(parameters.Target, 'prod') }}:
+      - template: /pipelines/stages/deploy-unit.yaml
+        parameters:
+          Unit: apex
+          StageSuffix: _preprod
+          Expeditions:
+            - {
+                env: preprod,
+                adoEnvironment: apex-pre-prod,
+                serviceConnection: sc-apex-prod,
+                subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000,
+              }
+          ArtifactPipeline: cd-apex
+          RunId: ${{ parameters.CiRunId }}
+      - template: /pipelines/stages/deploy-unit.yaml
+        parameters:
+          Unit: apex
+          StageSuffix: _prod
+          Expeditions:
+            - {
+                env: prod,
+                adoEnvironment: apex-prod,
+                serviceConnection: sc-apex-prod,
+                subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000,
+              }
+          DependsOn: [Deploy_Expedition_preprod]
+          ArtifactPipeline: cd-apex
+          RunId: ${{ parameters.CiRunId }}

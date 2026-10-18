@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c394c2d2da81
+    with_body_sha: c32eaec67dd0
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.png
+    path: docs/explanation/flow/.assets/edit-globs-yml-then-read-the-output/chain.md
+    source: docs/explanation/flow/.assets/edit-globs-yml-then-read-the-output/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

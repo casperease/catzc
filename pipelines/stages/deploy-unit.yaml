@@ -25,10 +25,13 @@ parameters:
   - name: RunId
     type: string
     default: ""
+  - name: StageSuffix
+    type: string
+    default: ""
 
 stages:
   - ${{ if gt(length(parameters.Foundations), 0) }}:
-      - stage: Deploy_Foundation
+      - stage: Deploy_Foundation${{ parameters.StageSuffix }}
         displayName: "Deploy foundation (${{ parameters.Unit }})"
         dependsOn: ${{ parameters.DependsOn }}
         condition: ${{ parameters.FirstCondition }}
@@ -62,10 +65,10 @@ stages:
                               f.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/foundation"'
 
   - ${{ if gt(length(parameters.Discoveries), 0) }}:
-      - stage: Deploy_Discovery
+      - stage: Deploy_Discovery${{ parameters.StageSuffix }}
         displayName: "Deploy discovery (${{ parameters.Unit }})"
         ${{ if gt(length(parameters.Foundations), 0) }}:
-          dependsOn: Deploy_Foundation
+          dependsOn: Deploy_Foundation${{ parameters.StageSuffix }}
           condition: ${{ parameters.Condition }}
         ${{ else }}:
           dependsOn: ${{ parameters.DependsOn }}
@@ -100,13 +103,13 @@ stages:
                               d.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
   - ${{ if gt(length(parameters.Expeditions), 0) }}:
-      - stage: Deploy_Expedition
+      - stage: Deploy_Expedition${{ parameters.StageSuffix }}
         displayName: "Deploy expedition (${{ parameters.Unit }})"
         ${{ if gt(length(parameters.Discoveries), 0) }}:
-          dependsOn: Deploy_Discovery
+          dependsOn: Deploy_Discovery${{ parameters.StageSuffix }}
           condition: ${{ parameters.Condition }}
         ${{ elseif gt(length(parameters.Foundations), 0) }}:
-          dependsOn: Deploy_Foundation
+          dependsOn: Deploy_Foundation${{ parameters.StageSuffix }}
           condition: ${{ parameters.Condition }}
         ${{ else }}:
           dependsOn: ${{ parameters.DependsOn }}

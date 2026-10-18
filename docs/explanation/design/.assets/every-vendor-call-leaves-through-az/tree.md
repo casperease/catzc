@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a0b449056d0e
+    with_body_sha: a6d3aa3088b0
     repo_status: locked
-    path: docs/explanation/.assets/tree/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.tree.md
-    source: docs/explanation/.assets/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png
+    path: docs/explanation/design/.assets/every-vendor-call-leaves-through-az/tree.md
+    source: docs/explanation/design/.assets/every-vendor-call-leaves-through-az/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -27,18 +27,18 @@ carry the decision. Each lit group has its reason below, naming the code that se
 
 ## What the minimap shows
 
-The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
+The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
 domain), and lights 20 files in 8 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 10 lit files
-- QualityGates (pwsh/Catzc.Base.QualityGates): 2 lit files
 - adr/azure (docs/adr/azure): 2 lit files
 - adr/dsgn (docs/adr/design): 2 lit files
+- QualityGates (pwsh/Catzc.Base.QualityGates): 2 lit files
 - .claude: 1 lit file
-- Docs (pwsh/Catzc.Base.Docs): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
 - pipelines: 1 lit file
+- Docs (pwsh/Catzc.Base.Docs): 1 lit file
 
 ## Why each group is lit
 
@@ -67,60 +67,60 @@ The group holds the files of docs/ outside docs/adr/; each sits in its world-map
 - [docs/references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md][12], in the cell docs × markdown: selected by
   [ADR-AZ-CLI][1]: the file cites it at line 101 (text).
 
-### QualityGates (pwsh/Catzc.Base.QualityGates, 2 lit files)
-
-The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][13], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file
-  cites it at line 7 (text).
-- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][14], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file cites it
-  at line 565 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 657 (text).
-
 ### adr/azure (docs/adr/azure, 2 lit files)
 
 The group holds the files of docs/adr/azure; each sits in its world-map cell and is lit by:
 
-- [docs/adr/azure/dora-explains.md][15], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it at line 94 (text).
+- [docs/adr/azure/dora-explains.md][13], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it at line 94 (text).
 - [docs/adr/azure/prefer-az-cli.md][1], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the ADR's own file.
 
 ### adr/dsgn (docs/adr/design, 2 lit files)
 
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
-- [docs/adr/design/dora-explains.md][16], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 27
+- [docs/adr/design/dora-explains.md][14], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 27
   (text).
 - [docs/adr/design/thin-platforms.md][2], in the cell docs × markdown: selected by [ADR-DSGN-THINPLAT][2]: the ADR's own file.
+
+### QualityGates (pwsh/Catzc.Base.QualityGates, 2 lit files)
+
+The group holds the files of pwsh/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml][15], in the cell pwsh × yaml: selected by [ADR-AZ-CLI][1]: the file cites it
+  at line 7 (text).
+- [pwsh/Catzc.Base.QualityGates/configs/terminology.yml][16], in the cell pwsh × yaml: selected by [ADR-AZ-CLI][1]: the file cites it at
+  line 567 (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 661 (text).
 
 ### .claude (1 lit file)
 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
-- [.claude/plans/plan-adr-link-cleanup-prose-to-pages.md][17], in the cell .claude × markdown: selected by [ADR-AZ-CLI][1]: the file cites
-  it at line 158 (text).
-
-### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
-
-The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
-
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][18], in the cell automation × yaml: selected by [ADR-AZ-CLI][1]: the file cites it at line 258
-  (text); selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 75 (text).
+- [.claude/plans/plan-explanation-drift-gaps.md][17], in the cell .claude × markdown: selected by [ADR-AZ-CLI][1]: the file cites it at line
+  46 (text), line 54 (text) and line 114 (text).
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][19], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it at line 283 (text); selected by
+- [docs/adr/index.md][18], in the cell docs × markdown: selected by [ADR-AZ-CLI][1]: the file cites it at line 283 (text); selected by
   [ADR-DSGN-THINPLAT][2]: the file cites it at line 109 (text).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-automation.yaml][20], in the cell pipelines × pipeline-yaml: selected by [ADR-AZ-CLI][1]: a pipeline that cites nothing
+- [pipelines/ci-automation.yaml][19], in the cell pipelines × pipeline-yaml: selected by [ADR-AZ-CLI][1]: a pipeline that cites nothing
   itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 258 (text),
   `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml` line 7 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line
-  565 (text); selected by [ADR-DSGN-THINPLAT][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
-  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 657 (text).
+  567 (text); selected by [ADR-DSGN-THINPLAT][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 75 (text) and `pwsh/Catzc.Base.QualityGates/configs/terminology.yml` line 661 (text).
+
+### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
+
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][20], in the cell pwsh × yaml: selected by [ADR-AZ-CLI][1]: the file cites it at line 258 (text);
+  selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 75 (text).
 
 ## Keywords
 
@@ -130,9 +130,9 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [cell][25]
 - [lit cell][26]
 - [.claude][27]: a track
-- [automation][27]: a track
 - [docs][27]: a track
 - [pipelines][27]: a track
+- [pwsh][27]: a track
 - [markdown][28]: a file language
 - [pipeline-yaml][28]: a file language
 - [yaml][28]: a file language
@@ -149,14 +149,14 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 [10]: ../../../../references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
 [11]: ../../../../references/pwsh/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md
 [12]: ../../../../references/pwsh/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
-[13]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-[14]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-[15]: ../../../../adr/azure/dora-explains.md
-[16]: ../../../../adr/design/dora-explains.md
-[17]: ../../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
-[18]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[19]: ../../../../adr/index.md
-[20]: ../../../../../pipelines/ci-automation.yaml
+[13]: ../../../../adr/azure/dora-explains.md
+[14]: ../../../../adr/design/dora-explains.md
+[15]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+[16]: ../../../../../pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+[17]: ../../../../../.claude/plans/plan-explanation-drift-gaps.md
+[18]: ../../../../adr/index.md
+[19]: ../../../../../pipelines/ci-automation.yaml
+[20]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [21]: ../../every-vendor-call-leaves-through-az.md
 [22]: ../../../../adr/glossary.md#world-map
 [23]: ../../../../adr/glossary.md#track

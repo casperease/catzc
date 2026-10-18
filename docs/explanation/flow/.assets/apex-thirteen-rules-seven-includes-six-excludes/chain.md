@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0d51bdea9fb9"
+    with_body_sha: d5d7dee4f642
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png
+    path: docs/explanation/flow/.assets/apex-thirteen-rules-seven-includes-six-excludes/chain.md
+    source: docs/explanation/flow/.assets/apex-thirteen-rules-seven-includes-six-excludes/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

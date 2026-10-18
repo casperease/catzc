@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e0a9bad86011
+    with_body_sha: "80620d380c2c"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png
+    path: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/chain.md
+    source: docs/explanation/flow/.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

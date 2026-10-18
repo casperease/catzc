@@ -65,6 +65,10 @@ staging and the DEPLOY pipeline have no code. Every explanation article on the l
 - [ ] main-uat is `dev` (decided 2026-10-18: main-uat = dev, release-uat = test, pre-prod = preprod, prod = prod): rename each unit's
       `<unit>-dev` ADO environment to `<unit>-main-uat` in the deploy lists and the ladder docs, so the rung has its own environment name
       (check: Test-Pipelines clean; the rename in Azure DevOps itself is the user's).
+- [ ] The missing rung configs, the user's infra decision (each is a new resource group): apex `test.yml` (release-uat) and `preprod.yml`
+      (pre-prod, which `deploy-apex` stages through before prod), nova `test.yml`, and a flux expedition at all. Until they exist,
+      `deploy-apex`'s pre-prod job has no config to deploy and nova and flux have no DEPLOY pipeline (check: the configs build with
+      Build-Bicep; deploy-nova and deploy-flux follow deploy-shared's shape; Test-Pipelines clean).
 
 ## Open questions
 

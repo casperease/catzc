@@ -176,7 +176,7 @@ them all).
       `report` mode in `adr-checks.yml`, so today's tree reports and never fails. The index's "Citing a rule" and ADR-REPO-LINK keep the `#`
       form until step 6, because it is the live spelling until then. Check: the `Test-AdrRegistry` and `AdrChecksConfig` test files pass;
       `Test-AdrRegistry` and `Test-Links` on the new ADR clean.
-- [ ] 2. Write the slug map: one `ADR-X:<n> → ADR-X-<SLUG>` line for all 1645 rules, as a reviewable file in `out/`, written per domain and
+- [x] 2. Write the slug map: one `ADR-X:<n> → ADR-X-<SLUG>` line for all 1645 rules, as a reviewable file in `out/`, written per domain and
       reviewed by the user one domain at a time before anything is rewritten. Spelled-out slugs, vendor item ids for CAF/WAF. Check: no
       duplicate under any parent, and no slug that equals a child ADR's name (`ADR-FLOW-CD`).
 - [ ] 3. Rename the codes: the three domain moves (`ADR-CATS`, `ADR-AI`, `ADR-PRIN-PROCESS`) and the 17 CAF/WAF codes into their group

@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "044d81a71fce"
+    with_body_sha: f119b6bcacdc
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.chain.md
-    source: docs/explanation/.assets/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
+    path: docs/explanation/flow/.assets/every-doubt-fails-open-to-proceed/chain.md
+    source: docs/explanation/flow/.assets/every-doubt-fails-open-to-proceed/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

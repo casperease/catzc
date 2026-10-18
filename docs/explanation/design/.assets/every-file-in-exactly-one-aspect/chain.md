@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "40d88d4b3f1b"
+    with_body_sha: b26e0b1179d4
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.chain.md
-    source: docs/explanation/.assets/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png
+    path: docs/explanation/design/.assets/every-file-in-exactly-one-aspect/chain.md
+    source: docs/explanation/design/.assets/every-file-in-exactly-one-aspect/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
