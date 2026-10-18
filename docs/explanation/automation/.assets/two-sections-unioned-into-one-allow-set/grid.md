@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7327b1cd6bc9"
+    with_body_sha: "758bf8b57b8c"
     repo_status: locked
-    path: docs/explanation/.assets/grid/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.grid.md
-    source: docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
+    path: docs/explanation/.assets/grid/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.grid.md
+    source: docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -12,18 +12,18 @@ catzc:
     tracktype: documentation
 ---
 
-# An undeclared module edge fails the gate with one line per issue: the world-map minimap
+# Two sections of dependencies.yml are unioned into one allow-set per source module: the world-map minimap
 
 ```text
 Where the files that cite ADR-AUTO-DEPM sit in the repository: tracks down, file languages across.
 4 of 342 cells lit, holding 15 files.
 ```
 
-![The world-map minimap of An undeclared module edge fails the gate with one line per issue](adr-auto-depm--undeclared-edge-fails-with-one-line--operations.grid.png)
+![The world-map minimap of Two sections of dependencies.yml are unioned into one allow-set per source module](grid.png)
 
-This is the world-map minimap in the sidebar of the operations diagram of [An undeclared module edge fails the gate with one line per
-issue][19], which explains [ADR-AUTO-DEPM][1]. It lights every cell of the world map that holds a file citing those codes, so it shows where
-the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
+This is the world-map minimap in the sidebar of the implementation diagram of [Two sections of dependencies.yml are unioned into one
+allow-set per source module][19], which explains [ADR-AUTO-DEPM][1]. It lights every cell of the world map that holds a file citing those
+codes, so it shows where the decision lives in the repository. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -108,29 +108,29 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 - [pipeline-yaml][26]: a file language
 - [yaml][26]: a file language
 
-[1]: ../../../adr/automation/controlling-module-dependencies.md
-[2]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[5]: ../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
-[6]: ../../../../.claude/plans/plan-assert-wait.md
-[7]: ../../../../.claude/plans/plan-module-kinds-tracks.md
-[8]: ../../../../.claude/plans/prompt-k8s-kinds-2-implement.md
-[9]: ../../../../.claude/plans/prompt-module-model-1-prepare.md
-[10]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[11]: ../../../adr/automation/dora-explains.md
-[12]: ../../../adr/index.md
-[13]: ../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
-[14]: ../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
-[15]: ../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
-[16]: ../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
-[17]: ../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md
-[18]: ../../../../pipelines/ci-automation.yaml
-[19]: ../../automation/undeclared-edge-fails-with-one-line.md
-[20]: ../../../adr/glossary.md#world-map
-[21]: ../../../adr/glossary.md#track
-[22]: ../../../adr/glossary.md#file-language
-[23]: ../../../adr/glossary.md#cell
-[24]: ../../../adr/glossary.md#lit-cell
-[25]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[26]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[1]: ../../../../adr/automation/controlling-module-dependencies.md
+[2]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[5]: ../../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
+[6]: ../../../../../.claude/plans/plan-assert-wait.md
+[7]: ../../../../../.claude/plans/plan-module-kinds-tracks.md
+[8]: ../../../../../.claude/plans/prompt-k8s-kinds-2-implement.md
+[9]: ../../../../../.claude/plans/prompt-module-model-1-prepare.md
+[10]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[11]: ../../../../adr/automation/dora-explains.md
+[12]: ../../../../adr/index.md
+[13]: ../../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
+[14]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[15]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
+[16]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
+[17]: ../../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md
+[18]: ../../../../../pipelines/ci-automation.yaml
+[19]: ../../two-sections-unioned-into-one-allow-set.md
+[20]: ../../../../adr/glossary.md#world-map
+[21]: ../../../../adr/glossary.md#track
+[22]: ../../../../adr/glossary.md#file-language
+[23]: ../../../../adr/glossary.md#cell
+[24]: ../../../../adr/glossary.md#lit-cell
+[25]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[26]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

@@ -1,6 +1,6 @@
 function Test-FolderConventions {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [string] $OutputFolder,
 

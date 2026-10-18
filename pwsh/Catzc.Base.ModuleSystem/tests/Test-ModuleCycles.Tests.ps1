@@ -12,8 +12,8 @@ Describe 'Test-ModuleCycles' -Tag 'L0', 'logic' {
         }
         $result = Test-ModuleCycles -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Modules | Should -Be 3
-        $result.Edges | Should -Be 3
+        $result.Facts['Modules'] | Should -Be 3
+        $result.Facts['Edges'] | Should -Be 3
     }
 
     It 'throws once naming every module on a cycle or called from one' {

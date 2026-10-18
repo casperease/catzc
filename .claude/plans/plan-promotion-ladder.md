@@ -41,7 +41,11 @@ staging and the DEPLOY pipeline have no code. Every explanation article on the l
   `<unit>-release-uat` (RC) and `<unit>-pre-prod` (RBC) for all four units (shared, apex, nova, flux), approved by the same group; the
   apply creates a missing environment (reported Created, skipped under -DryRun) instead of throwing; main-uat needs no entry (a unit's
   CD creates it on its first deploy).
-- [ ] The environments: the main-uat and release-uat environments per unit and their RC/RBC approval checks as config entries applied by
+- [x] Landed 2026-10-18 by session catzc-59, verdict: "Sync-AdoEnvironmentCheck.Tests passed (7 cases incl. create-when-missing,
+      Created reported, DryRun skips), Sync-AdoEnvironmentApprovals.Tests passed (new: an Environment row before its check),
+      EnvironmentApprovalsConfig.Tests passed in a fresh pwsh, Test-ScriptAnalyzer ok on the 4 files, the real config loads (11
+      environments)". No live apply. For the user's apply: `approver_group.members` is still empty, so the apply refuses until approvers
+      are listed. Original step: The environments: the main-uat and release-uat environments per unit and their RC/RBC approval checks as config entries applied by
       `Sync-AdoEnvironmentApprovals` (check: its L0 tests pass; the apply itself is the user's run).
 - [ ] Pre-prod: the staging slot in the prod subscription, declared in the azure config and inactive until activated (check: the
       resolver's L0 tests pass; Test-Contracts clean).

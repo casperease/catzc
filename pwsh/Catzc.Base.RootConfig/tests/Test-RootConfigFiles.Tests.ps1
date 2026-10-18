@@ -31,7 +31,7 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
     It 'passes when the registry, .gitignore, git tracking, and the link mechanism agree' {
         $result = Test-RootConfigFiles -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Files | Should -Be 2
+        $result.Facts['Files'] | Should -Be 2
     }
 
     It 'throws once naming every disagreement' {
@@ -58,7 +58,7 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         $script:entries += [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; generator = 'New-Widget'; committed = $false; copyAsLink = $false }
         $script:ignored = @('widget.json', 'widgets/alpha/gadget.txt')
         $result = Test-RootConfigFiles -OutputFolder $out -PassThru
-        $result.Files | Should -Be 4
+        $result.Facts['Files'] | Should -Be 4
         $result.Issues | Should -Be @('widgets/beta/gadget.txt: committed:false but no .gitignore rule ignores it')
         Should -Invoke Get-RootConfigRenderedFile -ModuleName Catzc.Base.RootConfig -Times 1 -Exactly
     }

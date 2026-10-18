@@ -4,7 +4,7 @@ Describe 'Folder & file conventions' -Tag 'L0', 'integrity' {
     }
 
     It 'the scan found modules (guards the checks below against a silent no-op)' {
-        $result.Modules | Should -BeGreaterThan 3
+        $result.Facts['Modules'] | Should -BeGreaterThan 3
     }
 
     It 'reports no folder or file convention issues' {

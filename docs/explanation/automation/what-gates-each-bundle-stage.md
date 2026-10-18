@@ -19,9 +19,9 @@ checks them, and two gates do the checking. `Assert-CatzcBundle` verifies every 
 build run `Test-CatzcBuild` runs the same tests against a fresh build that the source run runs against the source tree. One kind of code
 root, cached, is stated by an ADR and made by no code.
 
-![Every stage has a rule, two gates check it](../.assets/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.png)
+![Every stage has a rule, two gates check it](.assets/what-gates-each-bundle-stage/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](what-gates-each-bundle-stage.drawio.md).
+The diagram is described element by element in [its asset description](.assets/what-gates-each-bundle-stage/diagram.drawio.md).
 
 ## Walkthrough
 

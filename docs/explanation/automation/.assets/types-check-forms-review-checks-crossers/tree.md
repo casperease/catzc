@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ad702c57c1e9
+    with_body_sha: "80b052273b62"
     repo_status: locked
-    path: docs/explanation/.assets/tree/adr-auto-path--two-forms-never-a-third--meta.tree.md
-    source: docs/explanation/.assets/adr-auto-path--two-forms-never-a-third--meta.drawio.png
+    path: docs/explanation/.assets/tree/adr-auto-path--types-check-forms-review-checks-crossers--governance.tree.md
+    source: docs/explanation/.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -12,18 +12,18 @@ catzc:
     tracktype: documentation
 ---
 
-# A path has two forms, never a third, and one pair of crossers moves it between them: the tree minimap
+# Three types check path forms at construction, and the crossing rules are left to review: the tree minimap
 
 ```text
 Which files cite ADR-AUTO-PATH: every file of the world map is a tile, grouped by top-level folder.
 37 files lit in 10 groups.
 ```
 
-![The tree minimap of A path has two forms, never a third, and one pair of crossers moves it between them](adr-auto-path--two-forms-never-a-third--meta.tree.png)
+![The tree minimap of Three types check path forms at construction, and the crossing rules are left to review](tree.png)
 
-This is the tree minimap in the sidebar of the meta diagram of [A path has two forms, never a third, and one pair of crossers moves it
-between them][38], which explains [ADR-AUTO-PATH][1]. It lights every file that cites those codes, grouped by folder, so it shows which
-files carry the decision. Each lit group has its reason below, naming the code that selects it.
+This is the tree minimap in the sidebar of the governance diagram of [Three types check path forms at construction, and the crossing rules
+are left to review][38], which explains [ADR-AUTO-PATH][1]. It lights every file that cites those codes, grouped by folder, so it shows
+which files carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -188,50 +188,50 @@ Terms the cited ADRs define:
 
 - [published artifact][46], defined by [ADR-AUTO-PATH#10][47]
 
-[1]: ../../../adr/automation/path-representation.md
-[2]: ../../../references/pwsh/catzc-base-contracts/Get-Contract.ps1.md
-[3]: ../../../references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
-[4]: ../../../references/pwsh/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md
-[5]: ../../../references/pwsh/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md
-[6]: ../../../references/pwsh/catzc-base-contracts/types/ContractAsset.cs.md
-[7]: ../../../references/pwsh/catzc-base-docs/configs/readme.yml.md
-[8]: ../../../references/pwsh/catzc-base-docs/types/DocMapping.cs.md
-[9]: ../../../references/pwsh/catzc-base-docs/types/DocPattern.cs.md
-[10]: ../../../references/pwsh/catzc-base-modulesystem/Copy-Automation.ps1.md
-[11]: ../../../references/pwsh/catzc-base-objects/types/ArtifactRef.cs.md
-[12]: ../../../references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md
-[13]: ../../../references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
-[14]: ../../../references/pwsh/catzc-base-repository/Get-RepositoryFile.ps1.md
-[15]: ../../../references/pwsh/catzc-base-repository/Get-RepositoryFolder.ps1.md
-[16]: ../../../references/pwsh/catzc-base-repository/Resolve-RepoPath.ps1.md
-[17]: ../../../references/pwsh/catzc-base-rootconfig/configs/rootconfig.yml.md
-[18]: ../../../references/pwsh/catzc-base-rootconfig/types/RootConfigFile.cs.md
-[19]: ../../../references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md
-[20]: ../../../references/pwsh/catzc-tooling-inspiration/private/Resolve-InspirationRoot.ps1.md
-[21]: ../../../references/pwsh/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md
-[22]: ../../../references/pwsh/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md
-[23]: ../../../references/pwsh/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md
-[24]: ../../../references/pwsh/catzc-tooling-inspiration/types/Inspiration.cs.md
-[25]: ../../../references/pwsh/catzc-tooling-inspiration/types/InspirationRoot.cs.md
-[26]: ../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
-[27]: ../../../../.claude/skills/catzc-module/SKILL.md
-[28]: ../../../../pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
-[29]: ../../../../pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
-[30]: ../../../adr/glossary.md
-[31]: ../../../adr/index.md
-[32]: ../../../adr/automation/dora-explains.md
-[33]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[34]: ../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-[35]: ../../../../pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
-[36]: ../../../../pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1
-[37]: ../../../../pipelines/ci-automation.yaml
-[38]: ../../automation/two-forms-never-a-third.md
-[39]: ../../../adr/glossary.md#world-map
-[40]: ../../../adr/glossary.md#track
-[41]: ../../../adr/glossary.md#file-language
-[42]: ../../../adr/glossary.md#cell
-[43]: ../../../adr/glossary.md#lit-cell
-[44]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[45]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[46]: ../../../adr/glossary.md#published-artifact
-[47]: ../../../adr/automation/path-representation.md#rule-adr-auto-path10
+[1]: ../../../../adr/automation/path-representation.md
+[2]: ../../../../references/pwsh/catzc-base-contracts/Get-Contract.ps1.md
+[3]: ../../../../references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
+[4]: ../../../../references/pwsh/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md
+[5]: ../../../../references/pwsh/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md
+[6]: ../../../../references/pwsh/catzc-base-contracts/types/ContractAsset.cs.md
+[7]: ../../../../references/pwsh/catzc-base-docs/configs/readme.yml.md
+[8]: ../../../../references/pwsh/catzc-base-docs/types/DocMapping.cs.md
+[9]: ../../../../references/pwsh/catzc-base-docs/types/DocPattern.cs.md
+[10]: ../../../../references/pwsh/catzc-base-modulesystem/Copy-Automation.ps1.md
+[11]: ../../../../references/pwsh/catzc-base-objects/types/ArtifactRef.cs.md
+[12]: ../../../../references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md
+[13]: ../../../../references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
+[14]: ../../../../references/pwsh/catzc-base-repository/Get-RepositoryFile.ps1.md
+[15]: ../../../../references/pwsh/catzc-base-repository/Get-RepositoryFolder.ps1.md
+[16]: ../../../../references/pwsh/catzc-base-repository/Resolve-RepoPath.ps1.md
+[17]: ../../../../references/pwsh/catzc-base-rootconfig/configs/rootconfig.yml.md
+[18]: ../../../../references/pwsh/catzc-base-rootconfig/types/RootConfigFile.cs.md
+[19]: ../../../../references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md
+[20]: ../../../../references/pwsh/catzc-tooling-inspiration/private/Resolve-InspirationRoot.ps1.md
+[21]: ../../../../references/pwsh/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md
+[22]: ../../../../references/pwsh/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md
+[23]: ../../../../references/pwsh/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md
+[24]: ../../../../references/pwsh/catzc-tooling-inspiration/types/Inspiration.cs.md
+[25]: ../../../../references/pwsh/catzc-tooling-inspiration/types/InspirationRoot.cs.md
+[26]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
+[27]: ../../../../../.claude/skills/catzc-module/SKILL.md
+[28]: ../../../../../pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
+[29]: ../../../../../pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
+[30]: ../../../../adr/glossary.md
+[31]: ../../../../adr/index.md
+[32]: ../../../../adr/automation/dora-explains.md
+[33]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[34]: ../../../../../pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+[35]: ../../../../../pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
+[36]: ../../../../../pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1
+[37]: ../../../../../pipelines/ci-automation.yaml
+[38]: ../../types-check-forms-review-checks-crossers.md
+[39]: ../../../../adr/glossary.md#world-map
+[40]: ../../../../adr/glossary.md#track
+[41]: ../../../../adr/glossary.md#file-language
+[42]: ../../../../adr/glossary.md#cell
+[43]: ../../../../adr/glossary.md#lit-cell
+[44]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[45]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[46]: ../../../../adr/glossary.md#published-artifact
+[47]: ../../../../adr/automation/path-representation.md#rule-adr-auto-path10

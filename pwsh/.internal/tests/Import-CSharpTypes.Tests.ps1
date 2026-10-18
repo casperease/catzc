@@ -417,7 +417,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
 Describe 'shipped C# types' -Tag 'L0', 'integrity' {
     It 'every shipped C# type resolves after import (Test-ShippedTypes quality gate)' {
         $result = Test-ShippedTypes -PassThru -OutputFolder (Join-Path $TestDrive 'shipped-types')
-        $result.Types | Should -BeGreaterThan 0 -Because 'the gate must find shipped C# type sources (no silent no-op)'
+        $result.Facts['Types'] | Should -BeGreaterThan 0 -Because 'the gate must find shipped C# type sources (no silent no-op)'
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 

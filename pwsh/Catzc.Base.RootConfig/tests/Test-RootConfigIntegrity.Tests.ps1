@@ -28,7 +28,7 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
-        $result.Files | Should -BeGreaterThan 0
+        $result.Facts['Files'] | Should -BeGreaterThan 0
     }
 
     It 'agrees with the registry on git tracking, .gitignore, and the link mechanism' {
@@ -42,7 +42,7 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
 Describe 'Root PSScriptAnalyzerSettings.psd1 link' -Tag 'L1', 'integrity', 'source-only' {
     It 'parses as a settings hashtable through the link' {
         $result = Test-RootAnalyzerSettings -PassThru -OutputFolder (Join-Path $TestDrive 'root-analyzer-settings')
-        if (-not $result.Checked) {
+        if (-not $result.Facts['Checked']) {
             Set-ItResult -Skipped -Because 'entry_not_opted_in'; return
         }
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")

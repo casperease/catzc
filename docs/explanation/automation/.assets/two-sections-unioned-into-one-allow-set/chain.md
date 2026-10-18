@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f898d5febc88
+    with_body_sha: "393fccdd9ff6"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.chain.md
-    source: docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
+    path: docs/explanation/.assets/chain/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.chain.md
+    source: docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -12,18 +12,18 @@ catzc:
     tracktype: documentation
 ---
 
-# An undeclared module edge fails the gate with one line per issue: the value-chain minimap
+# Two sections of dependencies.yml are unioned into one allow-set per source module: the value-chain minimap
 
 ```text
 Where ADR-AUTO-DEPM sits in the value chain: value-chain stack down, value-chain concerns across.
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of An undeclared module edge fails the gate with one line per issue](adr-auto-depm--undeclared-edge-fails-with-one-line--operations.chain.png)
+![The value-chain minimap of Two sections of dependencies.yml are unioned into one allow-set per source module](chain.png)
 
-This is the value-chain minimap in the sidebar of the operations diagram of [An undeclared module edge fails the gate with one line per
-issue][2], which explains [ADR-AUTO-DEPM][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns land, so
-it shows the part of the value chain the decision governs. Nothing is lit, so no reason follows.
+This is the value-chain minimap in the sidebar of the implementation diagram of [Two sections of dependencies.yml are unioned into one
+allow-set per source module][2], which explains [ADR-AUTO-DEPM][1]. It lights the cells of the value-chain map where the cited ADRs'
+value-chain concerns land, so it shows the part of the value chain the decision governs. Nothing is lit, so no reason follows.
 
 ## What the minimap shows
 
@@ -55,10 +55,10 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - [cell][6]
 - [lit cell][7]
 
-[1]: ../../../adr/automation/controlling-module-dependencies.md
-[2]: ../../automation/undeclared-edge-fails-with-one-line.md
-[3]: ../../../adr/glossary.md#value-chain-map
-[4]: ../../../adr/glossary.md#value-chain-stack
-[5]: ../../../adr/glossary.md#value-chain-concern
-[6]: ../../../adr/glossary.md#cell
-[7]: ../../../adr/glossary.md#lit-cell
+[1]: ../../../../adr/automation/controlling-module-dependencies.md
+[2]: ../../two-sections-unioned-into-one-allow-set.md
+[3]: ../../../../adr/glossary.md#value-chain-map
+[4]: ../../../../adr/glossary.md#value-chain-stack
+[5]: ../../../../adr/glossary.md#value-chain-concern
+[6]: ../../../../adr/glossary.md#cell
+[7]: ../../../../adr/glossary.md#lit-cell

@@ -18,7 +18,7 @@ Describe 'Test-RootAnalyzerSettings' -Tag 'L0', 'logic' {
     It 'passes when the root file parses as a non-empty settings hashtable' {
         $result = Test-RootAnalyzerSettings -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Checked | Should -BeTrue
+        $result.Facts['Checked'] | Should -BeTrue
     }
 
     It 'checks nothing when the entry is not opted in' {
@@ -26,7 +26,7 @@ Describe 'Test-RootAnalyzerSettings' -Tag 'L0', 'logic' {
         Remove-Item $settingsPath
         $result = Test-RootAnalyzerSettings -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Checked | Should -BeFalse
+        $result.Facts['Checked'] | Should -BeFalse
     }
 
     It 'throws when the root file does not parse' {

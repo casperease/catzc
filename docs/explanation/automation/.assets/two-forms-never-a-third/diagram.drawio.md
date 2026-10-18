@@ -66,9 +66,9 @@ The sidebar is generated, never described here. It holds three minimaps and the 
 [Get-AdrCitationMap](../../../../references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)). To rebuild it, run the fail-forward renderer with
 minimaps on this slide (`.claude/drawio/drawio_forward.py <slide> --minimaps`): it derives the codes from the slide, computes the
 highlights, draws the three minimaps and writes their sister descriptions,
-[world map](../../../.assets/grid/adr-auto-path--two-forms-never-a-third--meta.grid.md),
-[tree](../../../.assets/tree/adr-auto-path--two-forms-never-a-third--meta.tree.md) and
-[value-chain map](../../../.assets/chain/adr-auto-path--two-forms-never-a-third--meta.chain.md), which hold the reason for every lit cell or group
+[world map](grid.md),
+[tree](tree.md) and
+[value-chain map](chain.md), which hold the reason for every lit cell or group
 as of that build.
 
 - **Lens badge:** META, with "Supports ADR-AUTO-PATH" beneath it.

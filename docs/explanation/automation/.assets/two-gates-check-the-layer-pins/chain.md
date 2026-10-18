@@ -19,7 +19,7 @@ Where ADR-AUTO-DEPM and ADR-AUTO-TEST sit in the value chain: value-chain stack 
 1 of 25 cells lit.
 ```
 
-![The value-chain minimap of Two gates check the layer pins, and one rule is left to review](adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.png)
+![The value-chain minimap of Two gates check the layer pins, and one rule is left to review](chain.png)
 
 This is the value-chain minimap in the sidebar of the governance diagram of [Two gates check the layer pins, and one rule is left to
 review][6], which explains [ADR-AUTO-DEPM][1] and [ADR-AUTO-TEST][2]. It lights the cells of the value-chain map where the cited ADRs'
@@ -83,38 +83,38 @@ Terms the cited ADRs define:
 - [tier][32], defined by [ADR-AUTO-TEST#13][33]
 - [vertical test][34], defined by [ADR-AUTO-TEST#38][35]
 
-[1]: ../../../adr/automation/controlling-module-dependencies.md
-[2]: ../../../adr/automation/test-automation.md
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../automation/two-gates-check-the-layer-pins.md
-[7]: ../../../adr/glossary.md#value-chain-map
-[8]: ../../../adr/glossary.md#value-chain-stack
-[9]: ../../../adr/glossary.md#value-chain-concern
-[10]: ../../../adr/glossary.md#cell
-[11]: ../../../adr/glossary.md#lit-cell
-[12]: ../../../adr/glossary.md#all-tests
-[13]: ../../../adr/automation/test-automation.md#rule-adr-auto-test36
-[14]: ../../../adr/glossary.md#build-verification-test
-[15]: ../../../adr/automation/test-automation.md#rule-adr-auto-test24
-[16]: ../../../adr/glossary.md#category
-[17]: ../../../adr/automation/test-automation.md#rule-adr-auto-test1
-[18]: ../../../adr/glossary.md#phase
-[19]: ../../../adr/automation/test-automation.md#rule-adr-auto-test26
-[20]: ../../../adr/glossary.md#quality-gate
-[21]: ../../../adr/automation/test-automation.md#rule-adr-auto-test35
-[22]: ../../../adr/glossary.md#test
-[23]: ../../../adr/automation/test-automation.md#rule-adr-auto-test42
-[24]: ../../../adr/glossary.md#test-file
-[25]: ../../../adr/automation/test-automation.md#rule-adr-auto-test43
-[26]: ../../../adr/glossary.md#test-run
-[27]: ../../../adr/automation/test-automation.md#rule-adr-auto-test34
-[28]: ../../../adr/glossary.md#test-suite
-[29]: ../../../adr/automation/test-automation.md#rule-adr-auto-test37
-[30]: ../../../adr/glossary.md#testing-in-production
-[31]: ../../../adr/automation/test-automation.md#rule-adr-auto-test41
-[32]: ../../../adr/glossary.md#tier
-[33]: ../../../adr/automation/test-automation.md#rule-adr-auto-test13
-[34]: ../../../adr/glossary.md#vertical-test
-[35]: ../../../adr/automation/test-automation.md#rule-adr-auto-test38
+[1]: ../../../../adr/automation/controlling-module-dependencies.md
+[2]: ../../../../adr/automation/test-automation.md
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
+[5]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
+[6]: ../../two-gates-check-the-layer-pins.md
+[7]: ../../../../adr/glossary.md#value-chain-map
+[8]: ../../../../adr/glossary.md#value-chain-stack
+[9]: ../../../../adr/glossary.md#value-chain-concern
+[10]: ../../../../adr/glossary.md#cell
+[11]: ../../../../adr/glossary.md#lit-cell
+[12]: ../../../../adr/glossary.md#all-tests
+[13]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test36
+[14]: ../../../../adr/glossary.md#build-verification-test
+[15]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test24
+[16]: ../../../../adr/glossary.md#category
+[17]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test1
+[18]: ../../../../adr/glossary.md#phase
+[19]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test26
+[20]: ../../../../adr/glossary.md#quality-gate
+[21]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test35
+[22]: ../../../../adr/glossary.md#test
+[23]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test42
+[24]: ../../../../adr/glossary.md#test-file
+[25]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test43
+[26]: ../../../../adr/glossary.md#test-run
+[27]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test34
+[28]: ../../../../adr/glossary.md#test-suite
+[29]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test37
+[30]: ../../../../adr/glossary.md#testing-in-production
+[31]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test41
+[32]: ../../../../adr/glossary.md#tier
+[33]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test13
+[34]: ../../../../adr/glossary.md#vertical-test
+[35]: ../../../../adr/automation/test-automation.md#rule-adr-auto-test38

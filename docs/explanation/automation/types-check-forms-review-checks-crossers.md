@@ -20,9 +20,9 @@ by `InspirationRoot`, or a published artifact created by `ArtifactRef` cannot ca
 throws when it is built. The rules about how a path crosses the boundary, through the two crossers and only at the point of use, have no
 gate at all: code review holds them, and the ADR says why a static rule would be noise.
 
-![Three types check path forms at construction](../.assets/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.png)
+![Three types check path forms at construction](.assets/types-check-forms-review-checks-crossers/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](types-check-forms-review-checks-crossers.drawio.md).
+The diagram is described element by element in [its asset description](.assets/types-check-forms-review-checks-crossers/diagram.drawio.md).
 
 ## Walkthrough
 

@@ -19,7 +19,7 @@ Where ADR-AUTO-BUNDLE and ADR-PWSH-MANIFEST sit in the value chain: value-chain 
 2 of 25 cells lit.
 ```
 
-![The value-chain minimap of Every stage of the bundle has a rule, and two gates check it](adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.png)
+![The value-chain minimap of Every stage of the bundle has a rule, and two gates check it](chain.png)
 
 This is the value-chain minimap in the sidebar of the governance diagram of [Every stage of the bundle has a rule, and two gates check
 it][6], which explains [ADR-AUTO-BUNDLE][1] and [ADR-PWSH-MANIFEST][2]. It lights the cells of the value-chain map where the cited ADRs'
@@ -81,16 +81,16 @@ Terms the cited ADRs define:
 
 - [bundle][12], defined by [ADR-AUTO-BUNDLE#1][13]
 
-[1]: ../../../adr/automation/platform-bundle.md
-[2]: ../../../adr/pwsh/dynamic-module-manifests.md
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track14
-[5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track15
-[6]: ../../automation/what-gates-each-bundle-stage.md
-[7]: ../../../adr/glossary.md#value-chain-map
-[8]: ../../../adr/glossary.md#value-chain-stack
-[9]: ../../../adr/glossary.md#value-chain-concern
-[10]: ../../../adr/glossary.md#cell
-[11]: ../../../adr/glossary.md#lit-cell
-[12]: ../../../adr/glossary.md#bundle
-[13]: ../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1
+[1]: ../../../../adr/automation/platform-bundle.md
+[2]: ../../../../adr/pwsh/dynamic-module-manifests.md
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track14
+[5]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track15
+[6]: ../../what-gates-each-bundle-stage.md
+[7]: ../../../../adr/glossary.md#value-chain-map
+[8]: ../../../../adr/glossary.md#value-chain-stack
+[9]: ../../../../adr/glossary.md#value-chain-concern
+[10]: ../../../../adr/glossary.md#cell
+[11]: ../../../../adr/glossary.md#lit-cell
+[12]: ../../../../adr/glossary.md#bundle
+[13]: ../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1

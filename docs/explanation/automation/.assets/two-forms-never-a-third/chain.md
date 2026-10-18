@@ -19,7 +19,7 @@ Where ADR-AUTO-PATH sits in the value chain: value-chain stack down, value-chain
 No cell is lit: the cited ADRs land only in the automation concern, which the AUTO row already names.
 ```
 
-![The value-chain minimap of A path has two forms, never a third, and one pair of crossers moves it between them](adr-auto-path--two-forms-never-a-third--meta.chain.png)
+![The value-chain minimap of A path has two forms, never a third, and one pair of crossers moves it between them](chain.png)
 
 This is the value-chain minimap in the sidebar of the meta diagram of [A path has two forms, never a third, and one pair of crossers moves
 it between them][2], which explains [ADR-AUTO-PATH][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain
@@ -59,12 +59,12 @@ Terms the cited ADRs define:
 
 - [published artifact][8], defined by [ADR-AUTO-PATH#10][9]
 
-[1]: ../../../adr/automation/path-representation.md
-[2]: ../../automation/two-forms-never-a-third.md
-[3]: ../../../adr/glossary.md#value-chain-map
-[4]: ../../../adr/glossary.md#value-chain-stack
-[5]: ../../../adr/glossary.md#value-chain-concern
-[6]: ../../../adr/glossary.md#cell
-[7]: ../../../adr/glossary.md#lit-cell
-[8]: ../../../adr/glossary.md#published-artifact
-[9]: ../../../adr/automation/path-representation.md#rule-adr-auto-path10
+[1]: ../../../../adr/automation/path-representation.md
+[2]: ../../two-forms-never-a-third.md
+[3]: ../../../../adr/glossary.md#value-chain-map
+[4]: ../../../../adr/glossary.md#value-chain-stack
+[5]: ../../../../adr/glossary.md#value-chain-concern
+[6]: ../../../../adr/glossary.md#cell
+[7]: ../../../../adr/glossary.md#lit-cell
+[8]: ../../../../adr/glossary.md#published-artifact
+[9]: ../../../../adr/automation/path-representation.md#rule-adr-auto-path10

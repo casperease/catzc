@@ -45,7 +45,12 @@ Order: the commits and git operations first, the remote runs next, the final ful
    importer watchpoint's worst tick is in the report; task-assert-wait steps 7 and 8 unblock.
 6. `pwsh/Catzc.Azure.DevOps/configs/environment-approvals.yml`: list the approvers under `approver_group.members`, run
    `Sync-AdoEnvironmentApprovals -DryRun`, then without. Check: a second apply reports Unchanged for the group and all three checks, and a
-   CD run to `shared-psub` waits for approval; task-explanation-drift-gaps step 4 ticked.
+   CD run to `shared-psub` waits for approval; task-explanation-drift-gaps step 4 ticked. Since 2026-10-18 the config lists 11
+   environments (release-uat with RC and pre-prod with RBC for shared, apex, nova and flux, plus the three prod-tier ones), and the apply
+   creates a missing environment (Kind=Environment, Created); the second apply reports Unchanged for all 11.
+6b. Delete the 35 `out/test-links/20261016-2012*` report folders (the user said yes 2026-10-18; a session's permission check refused the
+   `rm -rf`, so it is the user's): `rm -rf out/test-links/20261016-2012*`. Check: `ls -d out/test-links/20261016-2012*` lists nothing;
+   plan-clear-actions' step ticked.
 7. One CD run on main touching only `apex`, one main run and one PR run of `pipelines/ci-automation.yaml`. Check: `AFFECTED=True` in
    `cd-apex`, `AFFECTED=False` in `cd-shared` with its deploy stages skipped; `BuildArtifact` runs on main and is skipped on the PR;
    task-explanation-drift-gaps steps 2 and 3 ticked.

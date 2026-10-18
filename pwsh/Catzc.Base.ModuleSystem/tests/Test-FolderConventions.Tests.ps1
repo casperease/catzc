@@ -23,7 +23,7 @@ Describe 'Test-FolderConventions' -Tag 'L0', 'logic' {
     It 'passes a conventional tree and counts its modules (dot folders are not modules)' {
         $result = Test-FolderConventions -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Modules | Should -Be 2
+        $result.Facts['Modules'] | Should -Be 2
     }
 
     It 'throws once listing every convention break' {

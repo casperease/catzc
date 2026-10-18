@@ -17,9 +17,9 @@ Supports ADR-AUTO-DEPM#3, #4 and #5 (operations lens).
 module graph. A broken declaration stops the run before any edge is checked. Otherwise a report lands in `out/`, and every undeclared edge
 or unknown module becomes one listed line in a single failure. The fix is always the same: declare the edge, or remove the call.
 
-![An undeclared edge fails with one line](../.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png)
+![An undeclared edge fails with one line](.assets/undeclared-edge-fails-with-one-line/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](undeclared-edge-fails-with-one-line.drawio.md).
+The diagram is described element by element in [its asset description](.assets/undeclared-edge-fails-with-one-line/diagram.drawio.md).
 
 ## Walkthrough
 

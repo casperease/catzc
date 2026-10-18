@@ -23,7 +23,7 @@ Describe 'Test-ShippedTypes' -Tag 'L0', 'logic' {
     It 'returns the result and counts every type file under -PassThru' {
         $result = Test-ShippedTypes -OutputFolder $out -PassThru
         $result.Subject | Should -Be 'shipped-types'
-        $result.Types | Should -Be 2
+        $result.Facts['Types'] | Should -Be 2
         $result.IssueCount | Should -Be 1
     }
 }

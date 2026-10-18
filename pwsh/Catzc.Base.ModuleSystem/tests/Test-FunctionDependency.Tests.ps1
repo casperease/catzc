@@ -45,7 +45,7 @@ Describe 'Test-FunctionDependency (fixture roots)' -Tag 'L0', 'logic', 'source-o
         $result = Test-FunctionDependency -ModulesRoot $root -OutputFolder $reportBase -PassThru
         $result.Subject | Should -Be 'function-dependency'
         $result.IssueCount | Should -Be 1
-        $result.FunctionCount | Should -Be 1
+        $result.Facts['FunctionCount'] | Should -Be 1
         Test-Path (Join-Path $result.ReportPath 'function-dependency.md') | Should -BeTrue
     }
 

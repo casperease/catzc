@@ -45,7 +45,7 @@ Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {
     It 'passes when every binary is stored as -text under an explicit binary rule, and counts only the binaries' {
         $result = Test-CheckedInBinaries -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Binaries | Should -Be 3
+        $result.Facts['Binaries'] | Should -Be 3
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
             $Command -match ' check-attr binary -- "widgets/.vendor/Widget/widget.dll" "widgets/.vendor/Widget/gadget.dll" "docs/widget.pdf"$'
         }
@@ -115,7 +115,7 @@ Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2', 'integr
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
-        $result.Binaries | Should -BeGreaterThan 0
+        $result.Facts['Binaries'] | Should -BeGreaterThan 0
     }
 
     It 'stores every binary byte-exact under an explicit binary attribute' {

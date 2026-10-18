@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d586509ca94d
+    with_body_sha: "37666fd7ef6c"
     repo_status: locked
-    path: docs/explanation/.assets/tree/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.tree.md
-    source: docs/explanation/.assets/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
+    path: docs/explanation/.assets/tree/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.tree.md
+    source: docs/explanation/.assets/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -12,18 +12,18 @@ catzc:
     tracktype: documentation
 ---
 
-# An undeclared module edge fails the gate with one line per issue: the tree minimap
+# Two sections of dependencies.yml are unioned into one allow-set per source module: the tree minimap
 
 ```text
 Which files cite ADR-AUTO-DEPM: every file of the world map is a tile, grouped by top-level folder.
 15 files lit in 6 groups.
 ```
 
-![The tree minimap of An undeclared module edge fails the gate with one line per issue](adr-auto-depm--undeclared-edge-fails-with-one-line--operations.tree.png)
+![The tree minimap of Two sections of dependencies.yml are unioned into one allow-set per source module](tree.png)
 
-This is the tree minimap in the sidebar of the operations diagram of [An undeclared module edge fails the gate with one line per issue][16],
-which explains [ADR-AUTO-DEPM][1]. It lights every file that cites those codes, grouped by folder, so it shows which files carry the
-decision. Each lit group has its reason below, naming the code that selects it.
+This is the tree minimap in the sidebar of the implementation diagram of [Two sections of dependencies.yml are unioned into one allow-set
+per source module][16], which explains [ADR-AUTO-DEPM][1]. It lights every file that cites those codes, grouped by folder, so it shows which
+files carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
@@ -116,26 +116,26 @@ The group holds the files of pipelines; each sits in its world-map cell and is l
 - [pipeline-yaml][23]: a file language
 - [yaml][23]: a file language
 
-[1]: ../../../adr/automation/controlling-module-dependencies.md
-[2]: ../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
-[3]: ../../../../.claude/plans/plan-assert-wait.md
-[4]: ../../../../.claude/plans/plan-module-kinds-tracks.md
-[5]: ../../../../.claude/plans/prompt-k8s-kinds-2-implement.md
-[6]: ../../../../.claude/plans/prompt-module-model-1-prepare.md
-[7]: ../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
-[8]: ../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
-[9]: ../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
-[10]: ../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
-[11]: ../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md
-[12]: ../../../adr/automation/dora-explains.md
-[13]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[14]: ../../../adr/index.md
-[15]: ../../../../pipelines/ci-automation.yaml
-[16]: ../../automation/undeclared-edge-fails-with-one-line.md
-[17]: ../../../adr/glossary.md#world-map
-[18]: ../../../adr/glossary.md#track
-[19]: ../../../adr/glossary.md#file-language
-[20]: ../../../adr/glossary.md#cell
-[21]: ../../../adr/glossary.md#lit-cell
-[22]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[23]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[1]: ../../../../adr/automation/controlling-module-dependencies.md
+[2]: ../../../../../.claude/plans/plan-adr-link-cleanup-prose-to-pages.md
+[3]: ../../../../../.claude/plans/plan-assert-wait.md
+[4]: ../../../../../.claude/plans/plan-module-kinds-tracks.md
+[5]: ../../../../../.claude/plans/prompt-k8s-kinds-2-implement.md
+[6]: ../../../../../.claude/plans/prompt-module-model-1-prepare.md
+[7]: ../../../../references/.assets/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
+[8]: ../../../../references/pwsh/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+[9]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md
+[10]: ../../../../references/pwsh/catzc-base-modulesystem/types/DependencyGraph.cs.md
+[11]: ../../../../references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md
+[12]: ../../../../adr/automation/dora-explains.md
+[13]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[14]: ../../../../adr/index.md
+[15]: ../../../../../pipelines/ci-automation.yaml
+[16]: ../../two-sections-unioned-into-one-allow-set.md
+[17]: ../../../../adr/glossary.md#world-map
+[18]: ../../../../adr/glossary.md#track
+[19]: ../../../../adr/glossary.md#file-language
+[20]: ../../../../adr/glossary.md#cell
+[21]: ../../../../adr/glossary.md#lit-cell
+[22]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[23]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

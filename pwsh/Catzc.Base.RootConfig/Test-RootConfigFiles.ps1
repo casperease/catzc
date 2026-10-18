@@ -1,6 +1,6 @@
 function Test-RootConfigFiles {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [string] $OutputFolder,
 

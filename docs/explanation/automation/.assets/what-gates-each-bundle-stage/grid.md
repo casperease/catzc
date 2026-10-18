@@ -19,7 +19,7 @@ Where the files that cite ADR-AUTO-BUNDLE and ADR-PWSH-MANIFEST sit in the repos
 7 of 342 cells lit, holding 30 files.
 ```
 
-![The world-map minimap of Every stage of the bundle has a rule, and two gates check it](adr-auto-bundle--what-gates-each-bundle-stage--governance.grid.png)
+![The world-map minimap of Every stage of the bundle has a rule, and two gates check it](grid.png)
 
 This is the world-map minimap in the sidebar of the governance diagram of [Every stage of the bundle has a rule, and two gates check
 it][35], which explains [ADR-AUTO-BUNDLE][1] and [ADR-PWSH-MANIFEST][2]. It lights every cell of the world map that holds a file citing
@@ -167,48 +167,48 @@ Terms the cited ADRs define:
 
 - [bundle][44], defined by [ADR-AUTO-BUNDLE#1][45]
 
-[1]: ../../../adr/automation/platform-bundle.md
-[2]: ../../../adr/pwsh/dynamic-module-manifests.md
-[3]: ../../../adr/design/tracks.md#rule-adr-dsgn-track1
-[4]: ../../../adr/design/tracks.md#rule-adr-dsgn-track6
-[5]: ../../../adr/design/tracks.md#rule-adr-dsgn-track12
-[6]: ../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
-[7]: ../../../../.claude/plans/plan-module-kinds-tracks.md
-[8]: ../../../../.claude/plans/prompt-module-model-1-prepare.md
-[9]: ../../../../pwsh/.internal/assets/Import-ModuleFiles.ps1
-[10]: ../../../../pwsh/Catzc.Base.Exporter/Build-Modules.ps1
-[11]: ../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[12]: ../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
-[13]: ../../../adr/automation/dora-explains.md
-[14]: ../../../adr/glossary.md
-[15]: ../../../adr/index.md
-[16]: ../../../adr/pwsh/dora-explains.md
-[17]: ../../../references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
-[18]: ../../../references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md
-[19]: ../../../references/pwsh/catzc-base-exporter/Build-Modules.ps1.md
-[20]: ../../../references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md
-[21]: ../../../references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md
-[22]: ../../../references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md
-[23]: ../../../references/pwsh/catzc-base-exporter/configs/exporter.yml.md
-[24]: ../../../references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
-[25]: ../../../references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md
-[26]: ../../../references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
-[27]: ../../../references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
-[28]: ../../../references/pwsh/catzc-base-overlay/Get-FunctionFileViolation.ps1.md
-[29]: ../../../references/pwsh/internal/Catzc.Internal.Builder.psm1.md
-[30]: ../../../references/pwsh/internal/assets/Import-Catzc.ps1.md
-[31]: ../../../../.github/workflows/ci-automation.yml
-[32]: ../../../../pipelines/ci-automation.yaml
-[33]: ../../../adr/design/tracks.md#rule-adr-dsgn-track7
-[34]: ../../../../importer.ps1
-[35]: ../../automation/what-gates-each-bundle-stage.md
-[36]: ../../../adr/glossary.md#world-map
-[37]: ../../../adr/glossary.md#track
-[38]: ../../../adr/glossary.md#file-language
-[39]: ../../../adr/glossary.md#cell
-[40]: ../../../adr/glossary.md#lit-cell
-[41]: ../../../adr/glossary.md#root-file
-[42]: ../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[43]: ../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
-[44]: ../../../adr/glossary.md#bundle
-[45]: ../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1
+[1]: ../../../../adr/automation/platform-bundle.md
+[2]: ../../../../adr/pwsh/dynamic-module-manifests.md
+[3]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track1
+[4]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track6
+[5]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track12
+[6]: ../../../../../.claude/plans/plan-layers-vocabulary-rename-contracts.md
+[7]: ../../../../../.claude/plans/plan-module-kinds-tracks.md
+[8]: ../../../../../.claude/plans/prompt-module-model-1-prepare.md
+[9]: ../../../../../pwsh/.internal/assets/Import-ModuleFiles.ps1
+[10]: ../../../../../pwsh/Catzc.Base.Exporter/Build-Modules.ps1
+[11]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[12]: ../../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
+[13]: ../../../../adr/automation/dora-explains.md
+[14]: ../../../../adr/glossary.md
+[15]: ../../../../adr/index.md
+[16]: ../../../../adr/pwsh/dora-explains.md
+[17]: ../../../../references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
+[18]: ../../../../references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md
+[19]: ../../../../references/pwsh/catzc-base-exporter/Build-Modules.ps1.md
+[20]: ../../../../references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md
+[21]: ../../../../references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md
+[22]: ../../../../references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md
+[23]: ../../../../references/pwsh/catzc-base-exporter/configs/exporter.yml.md
+[24]: ../../../../references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
+[25]: ../../../../references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md
+[26]: ../../../../references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
+[27]: ../../../../references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
+[28]: ../../../../references/pwsh/catzc-base-overlay/Get-FunctionFileViolation.ps1.md
+[29]: ../../../../references/pwsh/internal/Catzc.Internal.Builder.psm1.md
+[30]: ../../../../references/pwsh/internal/assets/Import-Catzc.ps1.md
+[31]: ../../../../../.github/workflows/ci-automation.yml
+[32]: ../../../../../pipelines/ci-automation.yaml
+[33]: ../../../../adr/design/tracks.md#rule-adr-dsgn-track7
+[34]: ../../../../../importer.ps1
+[35]: ../../what-gates-each-bundle-stage.md
+[36]: ../../../../adr/glossary.md#world-map
+[37]: ../../../../adr/glossary.md#track
+[38]: ../../../../adr/glossary.md#file-language
+[39]: ../../../../adr/glossary.md#cell
+[40]: ../../../../adr/glossary.md#lit-cell
+[41]: ../../../../adr/glossary.md#root-file
+[42]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[43]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[44]: ../../../../adr/glossary.md#bundle
+[45]: ../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle1
