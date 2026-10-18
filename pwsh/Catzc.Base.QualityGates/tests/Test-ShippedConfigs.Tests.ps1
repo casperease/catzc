@@ -35,8 +35,8 @@ Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {
 
         $result = Test-ShippedConfigs -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
-        $result.Configs | Should -Be 3
-        $result.Types | Should -Be 3
+        $result.Facts['Configs'] | Should -Be 3
+        $result.Facts['Types'] | Should -Be 3
         Should -Invoke Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'gadget' -and $Module -eq 'TstGadget' } -Times 1
     }
 

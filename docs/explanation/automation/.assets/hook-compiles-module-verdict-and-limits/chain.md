@@ -1,10 +1,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "57aac95386b6"
+    with_body_sha: "31275720e349"
     repo_status: locked
-    path: docs/explanation/.assets/chain/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.chain.md
-    source: docs/explanation/.assets/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
+    path: docs/explanation/automation/.assets/hook-compiles-module-verdict-and-limits/chain.md
+    source: docs/explanation/automation/.assets/hook-compiles-module-verdict-and-limits/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md

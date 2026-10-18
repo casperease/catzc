@@ -50,7 +50,7 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
 
     It 'checks the tracked scripts and importer.sh, analysing all but the vendored ones' {
         $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
-        $result.Scripts | Should -Be 3
+        $result.Facts['Scripts'] | Should -Be 3
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             $Command -eq '"C:\widget\shellcheck.exe" --format=gcc --external-sources "importer.sh" "widget/run.sh"'
         }
@@ -114,7 +114,7 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
 
         It 'takes the LF and executable-bit checks' {
             $result = Test-ShellScripts -PassThru -OutputFolder $script:reportFolder
-            $result.Scripts | Should -Be 4
+            $result.Facts['Scripts'] | Should -Be 4
             $result.Issues | Should -Contain 'gadget/crlf.zsh: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)'
             $result.Issues | Should -Contain 'gadget/run.zsh: has a shebang but is not executable in git (mode 100644) — run: git update-index --chmod=+x gadget/run.zsh'
         }

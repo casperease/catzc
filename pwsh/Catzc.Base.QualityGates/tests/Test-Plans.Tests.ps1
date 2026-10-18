@@ -35,9 +35,9 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
     It 'passes a folder whose files keep every rule, and counts the files, plans and tasks' {
         $result = Invoke-Gate
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
-        $result.Files | Should -Be 5
-        $result.Plans | Should -Be 1
-        $result.Tasks | Should -Be 1
+        $result.Facts['Files'] | Should -Be 5
+        $result.Facts['Plans'] | Should -Be 1
+        $result.Facts['Tasks'] | Should -Be 1
     }
 
     It 'names a file the folder does not accept, so a name never carries an order' -Tag 'ADR-REPO-PLANS#1' {

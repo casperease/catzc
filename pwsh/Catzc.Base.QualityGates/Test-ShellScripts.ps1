@@ -1,6 +1,6 @@
 function Test-ShellScripts {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [string[]] $ShellCheckExclude = @("$(Get-CatzcModulesFolder)/*/assets/scripts/dotnet-install.sh"),
 

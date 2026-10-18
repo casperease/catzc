@@ -29,7 +29,7 @@ Describe 'Test-ParameterConsistency' -Tag 'L0', 'logic' {
             '-Count: one name, more than one type — [int] in Get-Widget; [string] in Set-Gadget. Give it one type, or exempt it in parameter-consistency.yml with the reason'
             "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/configs/parameter-consistency.yml: -Gone is exempt but no longer conflicts — remove the entry"
         )
-        $result.Exempt | Should -Be 2
+        $result.Facts['Exempt'] | Should -Be 2
     }
 }
 
@@ -39,7 +39,7 @@ Describe 'Parameter consistency of the public functions' -Tag 'L0', 'integrity',
     }
 
     It 'the scan read the public functions (guards the check below against a silent no-op)' {
-        $script:result.Functions | Should -BeGreaterThan 100
+        $script:result.Facts['Functions'] | Should -BeGreaterThan 100
     }
 
     It 'gives every parameter name one type, apart from the exempt names, and exempts only real conflicts' {
