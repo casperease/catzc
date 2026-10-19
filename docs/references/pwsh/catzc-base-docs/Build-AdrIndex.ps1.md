@@ -85,11 +85,3 @@ One aligned code-registry table per domain, in declared order. Rows carry the ba
 code and the slug link in the exact shape Get-CatsAdrIndex parses.
 ```
 
-## comment:4
-
-Above `$inputsSha = Get-InputStamp -Path @(`, written with `#`.
-
-```text
-Every input of the page: the registry, the ADR files the slugs resolve to, and the code that renders. An unchanged stamp means the page on
-disk was written from exactly these, so nothing is read or rendered. The generated pages beside the ADRs (the index, the glossary, the READMEs) are outputs, not inputs.
-```

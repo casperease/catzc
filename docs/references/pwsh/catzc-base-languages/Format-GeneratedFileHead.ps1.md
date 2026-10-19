@@ -38,11 +38,6 @@ The command that composed the content, when one did; the head names the path of 
 
 The repository-relative authored file or files the content comes from, when it has any.
 
-### parameter `InputsSha`
-
-The stamp (Get-InputStamp) of every input the generator read, when it skips an unchanged build; the head carries it as with_inputs_sha,
-which Test-GeneratedFileCurrent compares. Default: none, and the key is left out.
-
 ### parameter `FileKind`
 
 The kind of Path by its role: what Get-FileKind returns for it (kind, and subkind when it has one). The caller reads it, since the registry

@@ -122,49 +122,43 @@ would otherwise repeat the pwsh-only shape.
 - `pwsh/.scriptanalyzer/NoTrackRootLiteral.psm1`: the roots no string may spell are the engine track's places, read by `execution_engines`,
   so the 93 fixture literals `python/`, `go/` and `bash/` in tests stay legal (check owed: `Test-ScriptAnalyzer` on one file).
 
+- `Get-LanguageTestFolders.ps1`: the languages come from the registry (`tests` runner, its `pattern`), each root from the language's own
+  config, and a module's own `tests/` folder yields a record beside the holder's (`Get-LanguageTestFolders.Tests.ps1`:
+  `[Invoke-TestFile] Passed (in-place)`, 20:08).
+- `Invoke-PythonTest.ps1`, `Invoke-GoTest.ps1`, `Invoke-BashTest.ps1`: `-Folder` runs the folder the record names, the holder's or a
+  module's own, with the generated member file at the module root; `Get-LanguageTestOutcomes` and `Language.Bridge.ps1` hand the folder down
+  (the three runners' tests and `Get-LanguageTestOutcomes.Tests.ps1`: `[Invoke-TestFile] Passed (in-place)`, 20:10).
+- `New-PythonProject.ps1`, `PythonConfig.cs`, `python.yml`, `Invoke-RootConfigGenerator.ps1`: every module folder of the python track is a
+  workspace member with its `pyproject.toml` at the module root; `extra_paths` is gone from the config, the type, the workspace and the
+  editor settings. `New-GoWorkspace.ps1`, `GoConfig.cs`, `go.yml`: every module folder of the go track is a `go.work` member with its
+  `go.mod`; `module_root` is `catzc/go`, the holder's modules `<module_root>/tests/<folder>` as before. `rootconfig.yml` adds the two
+  module-member targets (`New-PythonProject`, `PythonConfig`, `New-GoWorkspace`, `GoConfig`, `Build-RootConfig` tests:
+  `[Invoke-TestFile] Passed (snapshot)`, 20:15).
+- `Assert-CatzcBundle.ps1`: the comment names the layout. `Test-ModuleDependency`: `No module-dependency issues found.` (20:07), which
+  clears the two undeclared type dependencies the holder modules had caused; `Test-ScriptAnalyzer` on the resolver and the re-pointed
+  commands: `No script-analyzer issues found.` (20:07).
+- The ADRs: ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE with its section and enforcement; ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES,
+  ADR-DSGN-TRACK-ONETRACKTYPE and ADR-DSGN-TRACK-STACKVIOLATION without `verification`; ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES and
+  ADR-DSGN-MODTYPE-DEPLOYABLEORHOLDERMODULE with the language track's own module; ADR-AUTO-PY-TESTARTIFACTSONLY,
+  ADR-AUTO-GO-TESTARTIFACTSONLY and ADR-AUTO-BASH-TESTARTIFACTSONLY retired for `*-MODULESBYLAYOUT`, the one citing article re-pointed by
+  hand; the glossary's "verification track" retired for "language track" (`Test-AdrRegistry`: `No adr-registry issues found.`; `Test-Links`
+  on the changed pages, the index and the glossary: `No links issues found.`, 20:23; `Build-AdrIndex` and `Build-Glossary` rerun).
+  `Test-Glossary` reports two `G6` wordings in `docs/adr/flow/cd-discipline-and-promotion-flow.md:449` and
+  `docs/adr/flow/pipeline-concept.md:53`, files of other sessions, none of this plan's.
+- The heads step was moot: no tracked file of the three tracks carries a head (checked by grep, 2026-10-19).
+
+- The generated pages: `Format-Code` over the touched sources rewrote their comment pages, five new parameters got their help subsection by
+  hand (`-Folder` on the three runners and `Get-LanguageTestOutcomes`, `-EngineTrack` on `Get-CatzcModule`), three pages re-point the code
+  line their comment sits above, and the Maps reference article drops the retired type (`Test-Comments` on the touched sources:
+  `No comments issues found.`; `Test-GeneratedFiles`: `No generated-files issues found.`; `Test-Links` on the pages:
+  `No links issues found.`, 20:27). Left as found: `Resolve-ImportMix.ps1` has no comment page for its help, a file of the importer-mix
+  session.
+
 ## Open steps
 
-- [ ] `pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1`: the languages are those of the registry with a `tests` runner,
-      each root from `Get-Config -Config <language>` and each pattern from the registry; a module's own `tests/` under a language track
-      yields a record for that module (check: `Get-LanguageTestFolders.Tests.ps1` passes with a fixture language and a module-own folder).
-- [ ] `pwsh/Catzc.Base.Languages/Invoke-PythonTest.ps1`: runs the folder the record names, the holder's `tests/<kebab>` or a module's own
-      `tests/` (check: `Invoke-PythonTest.Tests.ps1` covers both folders).
-- [ ] `pwsh/Catzc.Base.Languages/Invoke-GoTest.ps1`: the same two folder shapes (check: `Invoke-GoTest.Tests.ps1`).
-- [ ] `pwsh/Catzc.Base.Languages/Invoke-BashTest.ps1`: the same two folder shapes (check: `Invoke-BashTest.Tests.ps1`).
-- [ ] `pwsh/Catzc.Base.Languages/New-PythonProject.ps1`: every module folder under the Python root is a workspace member beside `tests/*`,
-      each with its generated member `pyproject.toml`; `extra_paths` goes (check: `New-PythonProject.Tests.ps1` renders a member for a
-      fixture module folder; the rendered root names no `extraPaths`).
-- [ ] `pwsh/Catzc.Base.Languages/types/PythonConfig.cs`: `extra_paths` removed from the keys and the type (check: `PythonConfig.Tests.ps1`;
-      `git grep extra_paths` finds nothing).
-- [ ] `pwsh/Catzc.Base.Languages/configs/python.yml`: the `extra_paths` block removed (check: `Build-RootConfig` regenerates
-      `python/pyproject.toml` without `extraPaths`; `Test-GeneratedFiles` on it passes).
-- [ ] `pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1`: every module folder under the Go root is a `go.work` member beside `tests/*` (check:
-      `New-GoWorkspace.Tests.ps1` renders a member for a fixture module folder).
-- [ ] `pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1`: the comment at line 37 names the layout, not the verification type (check:
-      `Assert-CatzcBundle.Tests.ps1` passes).
-- [ ] `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`: "verification track" retires; "language track" enters, defined by the new rule
-      (check: `Test-Glossary` clean; `Build-Glossary` run).
-- [ ] `docs/adr/automation/module-model.md`: new rule ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE: a language track holds its modules as folders
-      under its root, its own test holder under `<root>/tests/<kebab>` declared `except` on the place, a module's own tests under its
-      `tests/`; nothing branches on a language or a type id; a new language is registry entries and one config (check: `Test-Adr` on the
-      file; the index lists the code).
-- [ ] `docs/adr/design/track-types.md`: ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES drops `verification`, the `modules` definition reads as the
-      registry's (check: `Test-Adr`, `Test-Links` on the file).
-- [ ] `docs/adr/design/module-types.md`: ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES lists the new admits;
-      ADR-DSGN-MODTYPE-DEPLOYABLEORHOLDERMODULE says a language track's own module is the track's name (check: `Test-Adr`, `Test-Links`).
-- [ ] `docs/adr/automation/python/python-test-artifacts.md`: ADR-AUTO-PY-TESTARTIFACTSONLY retires; ADR-AUTO-PY-MODULESBYLAYOUT takes its
-      place: a Python module exists by layout under the python track, ships only what `files.yml` packages, and the black-box tests keep
-      their holder; the `.claude/` carve-out goes (check: `Test-Adr`; `Update-AdrCitation` re-cites the retired code; the index lists the
-      new one).
-- [ ] `docs/adr/automation/go/go-test-artifacts.md`: ADR-AUTO-GO-TESTARTIFACTSONLY retires for ADR-AUTO-GO-MODULESBYLAYOUT, the same shape
-      (check: `Test-Adr`; `Update-AdrCitation`).
-- [ ] `docs/adr/automation/bash/bash-test-artifacts.md`: ADR-AUTO-BASH-TESTARTIFACTSONLY retires for ADR-AUTO-BASH-MODULESBYLAYOUT (check:
-      `Test-Adr`; `Update-AdrCitation`).
-- [ ] The heads of the tracked files of the three tracks (`python/tests/**`, `go/**`, `bash/**`) carry `tracktype: modules` after
-      `Sync-FileMeta` over those paths, one track at a time (check: `Test-FileMeta` on each track's paths passes).
-- [ ] The generated pages of the edited sources are regenerated: `Format-Code` over the touched `.ps1`, `.cs` and `.yml` files rewrites
-      their `docs/references/**` comment pages, and `Test-ScriptAnalyzer` runs on `Get-CatzcModule.ps1` (check: `Test-GeneratedFiles` and
-      `Test-Comments` on the touched files pass; the analyzer reports nothing).
+- [ ] `plan-diagram-engine`'s first step rewrites `out/run-user-git-diagrams.ps1` so `.claude/drawio` lands in the python layout: `*.py` at
+      the module root, `configs/drawio.yml`, `assets/` for the xml, html and style guide, `tests/` for the three test files (check: the
+      diagram plan's step names the folders; this plan is then done and deleted, ADR-REPO-PLANS-DONEPLANDELETED).
 
 ## Refs
 

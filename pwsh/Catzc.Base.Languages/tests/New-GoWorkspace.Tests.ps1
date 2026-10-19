@@ -9,20 +9,30 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
         # A folder holding only generated files is not a Go module.
         $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'go/tests/catzc-leftover') -Force
         Set-Content -LiteralPath (Join-Path $script:root 'go/tests/catzc-leftover/go.mod') -Value 'module stale'
+        # A module of the go track is a member too; a module folder without Go code is not.
+        foreach ($file in 'go/Widget.Kit/kit.go', 'go/Widget.Empty/notes.md') {
+            $path = Join-Path $script:root $file
+            $null = New-Item -ItemType Directory -Path (Split-Path $path -Parent) -Force
+            Set-Content -LiteralPath $path -Value 'package kit'
+        }
 
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:root }
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.go.version' } { '1.23' }
         Mock Get-Config -ModuleName Catzc.Base.Languages {
             [Catzc.Base.Languages.GoConfig]::new([ordered]@{
-                    module_root  = 'acme/go/tests'
+                    module_root  = 'acme/go'
                     dependencies = [ordered]@{ 'example.com/widget' = 'v1.2.3'; 'example.com/assert' = 'v0.4.0' }
                 })
         }
         Mock Invoke-Executable -ModuleName Catzc.Base.Languages { throw 'rendering must not run a process' }
     }
 
-    It 'renders go.work first, then one go.mod per Go test folder in ordinal folder order' {
-        @(New-GoWorkspace).Target | Should -Be @('go.work', 'go/tests/catzc-gadget/go.mod', 'go/tests/catzc-widget/go.mod')
+    It 'renders go.work first, then one go.mod per Go test folder and per module, test folders then modules in ordinal order' {
+        @(New-GoWorkspace).Target | Should -Be @('go.work', 'go/tests/catzc-gadget/go.mod', 'go/tests/catzc-widget/go.mod', 'go/Widget.Kit/go.mod')
+    }
+
+    It 'renders a module member''s go.mod with its module path under the module root' {
+        (New-GoWorkspace -Target 'go/Widget.Kit/go.mod').Content | Should -Match "^module acme/go/Widget.Kit`n"
     }
 
     It 'renders go.work with the go directive from the tools.yml pin and the sorted use entries' {
@@ -32,6 +42,7 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
             'use ('
             "`t./go/tests/catzc-gadget"
             "`t./go/tests/catzc-widget"
+            "`t./go/Widget.Kit"
             ')'
         ) -join "`n"
         (New-GoWorkspace -Target 'go.work').Content | Should -BeExactly ($expected + "`n")

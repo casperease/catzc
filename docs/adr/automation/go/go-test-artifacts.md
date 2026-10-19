@@ -1,22 +1,24 @@
-# ADR: Go test artifacts — black-box tests of the engine, never shipped
+# ADR: Go modules and test artifacts — modules by layout, black-box tests of the engine, nothing shipped unpackaged
 
 ## Rules: ADR-AUTO-GO
 
-### Rule ADR-AUTO-GO-TESTARTIFACTSONLY
+### Rule ADR-AUTO-GO-MODULESBYLAYOUT
 
-Go code in the repository is test artifacts and nothing else: `*_test.go` files that verify the engine from outside. No module, function, or
-tool is written in Go, and no Go file ships — the Go root lies outside the code root, so `Build-Modules` never sees it and no bundle holds a
-Go file, by construction.
+Go code in the repository is either a module of the `go` track, a folder under the Go root that exists by the layout
+(ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE), or a black-box test under the track's test holder,
+`<root>/tests/<module>/`. A Go module ships only what `files.yml` packages, and a test file never ships: the builder's input is the engine's
+track, so no bundle holds a Go file by construction. No function of the engine is written in Go; a Go module is a tool of the repository
+that the engine runs as a process.
 
-- [Test artifacts only](#test-artifacts-only)
+- [Modules by layout](#modules-by-layout)
 
 ### Rule ADR-AUTO-GO-ONEGOROOT
 
 The Go tests live under one Go root, a repository-relative folder declared by `go.yml`'s `root` with a sensible default: `go` when the
-repository has a `go/` folder (the `go` verification track), else the dot-prefixed `.go`. A **Go test module** is the folder
-`<root>/tests/<module>/`, one per catzc module and named for it in kebab case (`Catzc.Base.Repository` → `catzc-base-repository`), holding
-that module's Go tests as one Go module. `go.work` sits at the repository root and lists every Go test module explicitly, and every go
-command runs inside its module folder, so every editor loads either layout with no setting.
+repository has a `go/` folder (the `go` track), else the dot-prefixed `.go`. A **Go test module** is the folder `<root>/tests/<module>/`,
+one per catzc module and named for it in kebab case (`Catzc.Base.Repository` → `catzc-base-repository`), holding that module's Go tests as
+one Go module. `go.work` sits at the repository root and lists every Go test module explicitly, and every go command runs inside its module
+folder, so every editor loads either layout with no setting.
 
 - [The layout](#the-layout)
 
@@ -83,27 +85,27 @@ it starts the engine, sends it commands, and reads what comes back. Go suits the
 with no framework to install, a machine-readable event stream (`go test -json`), and fast parallel test runs.
 
 The risk of a second language is a second tech-stack spreading through the repository: Go helpers beside the PowerShell functions, a Go
-build in the bundle, a second set of committed module files to keep in step. The rules below hold Go to test artifacts, keep everything
-Go-specific but the tests generated, and run the tests through the harness every other test runs through.
+build in the bundle, a second set of committed module files to keep in step. The rules below hold Go to modules by layout and test
+artifacts, keep everything Go-specific but the code generated, and run the tests through the harness every other test runs through.
 
-### Test artifacts only
+### Modules by layout
 
-Go code exists only as tests. The engine is PowerShell and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a Go test
-verifies it from outside, as a black box, and nothing in the engine calls Go. Because the Go root lies outside the code root, the builder's
-input holds no Go file, so no check is needed to keep Go out of a bundle — the layout is the guarantee
-([platform-bundle](../platform-bundle.md)).
+The `go` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a module
+is a folder under the Go root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays PowerShell
+and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a Go test verifies it from outside, as a black box, and nothing
+in the engine calls Go. The builder reads the engine's track, so no bundle holds a Go file unless `files.yml` packages it — the layout is
+the guarantee ([platform-bundle](../platform-bundle.md)).
 
 ### The layout
 
 The Go root is the one folder every Go file lives under. When the repository has a `go/` folder, that folder is the root, and it is the `go`
-track, of the verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)). Otherwise the root is `.go/`,
-dot-prefixed as the tooling folders are
-([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)). The default is declared once, on
-the `GoConfig` type ([sensible-defaults](../sensible-defaults.md)), and `go.yml` declares a `root` only to place the Go root elsewhere.
+track ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)). Otherwise the root is `.go/`, dot-prefixed as the tooling folders
+are ([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)). The default is declared once,
+on the `GoConfig` type ([sensible-defaults](../sensible-defaults.md)), and `go.yml` declares a `root` only to place the Go root elsewhere.
 
 Under the root, `tests/<module>/` holds one Go test module per catzc module, named for that module in kebab case — the same convention that
 lets the harness map a Go test module to its catzc module with no mapping file. Each folder is its own Go module, with the module path
-`<module_root>/<folder>` (`catzc/go/tests/<folder>` by default).
+`<module_root>/tests/<folder>` (`catzc/go/tests/<folder>` by default); a module folder of the track is `<module_root>/<Module>`.
 
 `go.work` stays at the repository root, the place an editor's Go language server (gopls in VS Code, GoLand, vim) looks for a workspace with
 no setting. Its `use` entries name every Go test module explicitly rather than by a pattern, nothing hides the Go root from the editor, and
@@ -187,18 +189,20 @@ the spelling check reads `*.go`. The glossary checks read PowerShell, through it
 
 ## Decision
 
-Go is the repository's black-box test language and nothing else (ADR-AUTO-GO-TESTARTIFACTSONLY). Its tests live in one Go test module per
-catzc module under the Go root (ADR-AUTO-GO-ONEGOROOT), start the engine from the entry the run names (ADR-AUTO-GO-BLACKBOXTESTS), build
-against a generated, gitignored workspace (ADR-AUTO-GO-GENERATEDWORKSPACE) at the one pinned Go version (ADR-AUTO-GO-ONEGOVERSION) with the
-managed toolchain (ADR-AUTO-GO-MANAGEDTOOLCHAIN), and run through `Test-Automation` as `L2` tests (ADR-AUTO-GO-LANGUAGEBRIDGE), under the
-checks that read Go (ADR-AUTO-GO-GOCHECKS).
+Go is a language track whose modules exist by the layout and ship only what is packaged, and the repository's first black-box test language
+(ADR-AUTO-GO-MODULESBYLAYOUT). Its tests of the engine live in one Go test module per catzc module under the Go root
+(ADR-AUTO-GO-ONEGOROOT), start the engine from the entry the run names (ADR-AUTO-GO-BLACKBOXTESTS), build against a generated, gitignored
+workspace (ADR-AUTO-GO-GENERATEDWORKSPACE) at the one pinned Go version (ADR-AUTO-GO-ONEGOVERSION) with the managed toolchain
+(ADR-AUTO-GO-MANAGEDTOOLCHAIN), and run through `Test-Automation` as `L2` tests (ADR-AUTO-GO-LANGUAGEBRIDGE), under the checks that read Go
+(ADR-AUTO-GO-GOCHECKS).
 
 ### How this is enforced
 
 - **`GoConfig`** (`Catzc.Base.Languages`) validates `go.yml` at load and declares the defaults once: the Go root (`ResolveRoot`), the
   module-path prefix, and the test dependencies.
-- **`New-GoWorkspace`** renders `go.work` and every `go.mod`, and throws when a Go test module is not named in kebab case or the `tools.yml`
-  pin is not a Go language version. **`Build-RootConfig`** writes them, and **`Test-GeneratedFiles`** reports a stale one.
+- **`New-GoWorkspace`** renders `go.work` and every `go.mod`, one per Go test module and one per module of the track, and throws when a Go
+  test module is not named in kebab case or the `tools.yml` pin is not a Go language version. **`Build-RootConfig`** writes them, and
+  **`Test-GeneratedFiles`** reports a stale one.
 - **`Invoke-GoTest`** locates the managed `go` through **`Resolve-ToolExecutable`** and **`Find-Executable`** (`Catzc.Base.Execution`), sets
   the engine contract for its go commands only, and returns one `GoTestResult` per Go test with its category.
 - **The gitignore registry** (`gitignore.yml`) ignores the generated workspace and its checksum files.

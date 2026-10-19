@@ -9,19 +9,6 @@ function Build-AdrIndex {
         [switch] $PassThru
     )
 
-    $inputsSha = Get-InputStamp -Path @(
-        (Get-CatzcModuleRoot 'configs/adrs.yml')
-        (Get-CatzcModuleRoot 'configs/adr-index.yml')
-        (Resolve-RepoPath 'docs/adr')
-        (Get-Command Build-AdrIndex).ScriptBlock.File
-        (Get-Command Format-MarkdownParagraph).ScriptBlock.File
-        (Get-CatzcModuleRoot 'types')
-    ) -Exclude '*/docs/adr/index.md', '*/docs/adr/glossary.md', '*/README.md'
-    $indexPath = Resolve-RepoPath 'docs/adr/index.md'
-    if (-not $PassThru -and (Test-GeneratedFileCurrent -Path $indexPath -InputsSha $inputsSha)) {
-        return ConvertTo-RepoRelativePath $indexPath
-    }
-
     # The authored text around the generated tables is data in adr-index.yml, never prose in this function.
     $index = Get-Config -Config adr-index
     $preamble = $index.preamble
@@ -118,7 +105,7 @@ function Build-AdrIndex {
 
     $content = (& $reflow $preamble) + "`n`n" + ($sections -join "`n`n") + "`n`n" + (& $reflow $conventions) + "`n"
 
-    $content = Format-GeneratedFileHead -Text $content -Path 'docs/adr/index.md' -Generator Build-AdrIndex -InputsSha $inputsSha -Source (ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/adrs.yml')) -FileKind (Get-FileKind 'docs/adr/index.md')
+    $content = Format-GeneratedFileHead -Text $content -Path 'docs/adr/index.md' -Generator Build-AdrIndex -Source (ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/adrs.yml')) -FileKind (Get-FileKind 'docs/adr/index.md')
     $target = Resolve-RepoPath 'docs/adr/index.md'
     $changed = Write-FileIfChanged $target $content -DryRun:$DryRun
 

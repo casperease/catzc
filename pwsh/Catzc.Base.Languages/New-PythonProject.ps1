@@ -33,7 +33,25 @@ function New-PythonProject {
         }
     }
     $folders.Sort([System.StringComparer]::Ordinal)
-    if ($folders.Count -eq 0) {
+
+    # One member per module of the track: a folder the module-type registry names as a module, holding Python code.
+    $modules = [System.Collections.Generic.List[string]]::new()
+    $pythonFull = Join-Path $repositoryRoot $pythonRoot
+    if (Test-Path -LiteralPath $pythonFull -PathType Container) {
+        foreach ($folderPath in @(Get-ChildPath $pythonFull -Directory -Depth 1)) {
+            $folderName = [System.IO.Path]::GetFileName($folderPath)
+            $placed = Get-PathModule "$pythonRoot/$folderName/_"
+            if ($null -eq $placed -or $placed.name -cne $folderName) {
+                continue
+            }
+            if (-not @(Get-ChildPath $folderPath -File -Filter '*.py' -Depth 3).Count) {
+                continue
+            }
+            $modules.Add($folderName)
+        }
+    }
+    $modules.Sort([System.StringComparer]::Ordinal)
+    if ($folders.Count -eq 0 -and $modules.Count -eq 0) {
         return
     }
 
@@ -45,6 +63,9 @@ function New-PythonProject {
     foreach ($folder in $folders) {
         $workspace.Add("    `"tests/$folder`",")
     }
+    foreach ($module in $modules) {
+        $workspace.Add("    `"$module`",")
+    }
     $workspace.Add(']')
     $workspace.Add('')
     $workspace.Add('[tool.ruff]')
@@ -54,19 +75,19 @@ function New-PythonProject {
     $workspace.Add('[tool.pyright]')
     $workspace.Add("pythonVersion = `"$pythonVersion`"")
     $workspace.Add("typeCheckingMode = `"$($config.type_checking)`"")
-    if ($config.extra_paths.Count -gt 0) {
-        $pythonFull = Join-Path $repositoryRoot $pythonRoot
-        $extraPaths = foreach ($extraPath in $config.extra_paths) {
-            "`"$([System.IO.Path]::GetRelativePath($pythonFull, (Join-Path $repositoryRoot $extraPath)).Replace('\', '/'))`""
-        }
-        $workspace.Add("extraPaths = [$($extraPaths -join ', ')]")
-    }
     $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/pyproject.toml", ($workspace -join "`n") + "`n"))
 
-    foreach ($folder in $folders) {
+    # The members: the test holder's folders, each named by its folder, then the modules, each named by its name in kebab case.
+    $members = @(foreach ($folder in $folders) {
+            [pscustomobject]@{ Name = $folder; Folder = "tests/$folder" }
+        }) +
+    @(foreach ($module in $modules) {
+            [pscustomobject]@{ Name = $module.ToLowerInvariant().Replace('.', '-'); Folder = $module }
+        })
+    foreach ($entry in $members) {
         $member = [System.Collections.Generic.List[string]]::new()
         $member.Add('[project]')
-        $member.Add("name = `"$folder`"")
+        $member.Add("name = `"$($entry.Name)`"")
         $member.Add('version = "0.0.0"')
         $member.Add("requires-python = `"==$pythonVersion.*`"")
         $member.Add('dependencies = [')
@@ -78,7 +99,7 @@ function New-PythonProject {
         $member.Add('')
         $member.Add('[tool.uv]')
         $member.Add('package = false')
-        $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/tests/$folder/pyproject.toml", ($member -join "`n") + "`n"))
+        $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/$($entry.Folder)/pyproject.toml", ($member -join "`n") + "`n"))
     }
 
     foreach ($file in $files) {

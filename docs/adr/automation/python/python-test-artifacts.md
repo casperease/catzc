@@ -1,25 +1,26 @@
-# ADR: Python test artifacts — black-box tests of the engine, never shipped
+# ADR: Python modules and test artifacts — modules by layout, black-box tests of the engine, nothing shipped unpackaged
 
 ## Rules: ADR-AUTO-PY
 
-### Rule ADR-AUTO-PY-TESTARTIFACTSONLY
+### Rule ADR-AUTO-PY-MODULESBYLAYOUT
 
-Python code in the repository is test artifacts and nothing else: `test_*.py` files that verify the engine from outside. No module,
-function, or tool of the engine is written in Python, and no Python test file ships — the Python root lies outside the code root, so
-`Build-Modules` never sees it and no bundle holds a Python test, by construction. Python-based tools the repository uses (the Azure CLI,
-Poetry) are tools, installed through uv (ADR-AUTO-UVPY-TWOINSTALLSHAPES); they are not code of the repository. The agent helpers under
-`.claude/` (the draw.io scripts) are configuration of the agent tool, outside every track, and outside this rule; they take every Python
-check (ADR-AUTO-PY-EVERYFILELINTED).
+Python code in the repository is either a module of the `python` track, a folder under the Python root that exists by the layout
+(ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE), or a black-box test under the track's test holder,
+`<root>/tests/<module>/`. A Python module ships only what `files.yml` packages, and a test file never ships: the builder's input is the
+engine's track, so no bundle holds a Python file by construction. No function of the engine is written in Python; the engine is PowerShell
+and C#, and a Python module is a tool of the repository, such as the diagram renderer, that the engine runs as a process. Python-based tools
+the repository uses (the Azure CLI, Poetry) are tools, installed through uv (ADR-AUTO-UVPY-TWOINSTALLSHAPES); they are not code of the
+repository. Every `.py` file takes every Python check (ADR-AUTO-PY-EVERYFILELINTED).
 
-- [Test artifacts only](#test-artifacts-only)
+- [Modules by layout](#modules-by-layout)
 
 ### Rule ADR-AUTO-PY-ONEPYTHONROOT
 
 The Python tests live under one Python root, a repository-relative folder declared by `python.yml`'s `root` with the sensible default every
-test language's root takes: `python` when the repository has a `python/` folder (the `python` verification track), else the dot-prefixed
-`.python`. A **Python test folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in kebab case
-(`Catzc.Base.Repository` → `catzc-base-repository`), holding that module's `test_*.py` files. A Python test is a top-level `test*` function;
-a parametrised test is one test.
+test language's root takes: `python` when the repository has a `python/` folder (the `python` track), else the dot-prefixed `.python`. A
+**Python test folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in kebab case (`Catzc.Base.Repository`
+→ `catzc-base-repository`), holding that module's `test_*.py` files. A Python test is a top-level `test*` function; a parametrised test is
+one test.
 
 - [The layout](#the-layout)
 
@@ -97,21 +98,24 @@ the repository's one Python handler ([uv-python-handler](../uv-python-handler.md
 dependencies user-space on every platform.
 
 The risks are the ones Go carried, and one more. Python projects tend to grow: a package, a virtual environment per folder, a lock file to
-keep in step, a test framework plugin per need. The rules below hold Python to test artifacts, keep one generated workspace with one
-environment for every test folder, and run the tests through the same bridge as Go, so a third language adds an entry, not a mechanism.
+keep in step, a test framework plugin per need. The rules below hold Python to modules by layout and test artifacts, keep one generated
+workspace with one environment for every member, and run the tests through the same bridge as Go, so a third language adds an entry, not a
+mechanism.
 
-### Test artifacts only
+### Modules by layout
 
-Python code exists only as tests. The engine is PowerShell and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a
-Python test verifies it from outside, as a black box. Because the Python root lies outside the code root, the builder's input holds no
-Python test, so no check is needed to keep one out of a bundle ([platform-bundle](../platform-bundle.md)). The Python-based tools the devbox
-installs are a separate matter: they are tools, each installed in isolation through uv, and nothing here changes how.
+The `python` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a
+module is a folder under the Python root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays
+PowerShell and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a Python module is a tool the engine runs as a
+process, and a Python test verifies the engine from outside, as a black box. The builder reads the engine's track, so no bundle holds a
+Python file unless `files.yml` packages it ([platform-bundle](../platform-bundle.md)). The Python-based tools the devbox installs are a
+separate matter: they are tools, each installed in isolation through uv, and nothing here changes how.
 
 ### The layout
 
-The Python root is the one folder every Python test lives under. When the repository has a `python/` folder, that folder is the root, and it
-is the `python` track, of the verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)). Otherwise the root is
-`.python/`, dot-prefixed as the tooling folders are. This is the one convention every test language's root follows, Go's included
+The Python root is the one folder every Python file lives under. When the repository has a `python/` folder, that folder is the root, and it
+is the `python` track ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)). Otherwise the root is `.python/`, dot-prefixed as
+the tooling folders are. This is the one convention every test language's root follows, Go's included
 ([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders-literalnames)): the default is declared once, on the
 `PythonConfig` type ([sensible-defaults](../sensible-defaults.md)), `PythonConfig.ResolveRoot` is the one resolver every caller asks, and
 `python.yml` declares a `root` only to place the Python root elsewhere.
@@ -194,20 +198,20 @@ never a gap.
 
 ## Decision
 
-Python is a black-box test language and nothing else (ADR-AUTO-PY-TESTARTIFACTSONLY). Its tests live in one Python test folder per catzc
-module under the Python root (ADR-AUTO-PY-ONEPYTHONROOT), start the engine from the entry the run names (ADR-AUTO-PY-BLACKBOXTESTS), run in
-one generated, gitignored uv workspace (ADR-AUTO-PY-GENERATEDWORKSPACE) at the one pinned Python version (ADR-AUTO-PY-ONEPYTHONVERSION) with
-the managed tools (ADR-AUTO-PY-MANAGEDTOOLS), and run through `Test-Automation` as `L2` tests through the language bridge
-(ADR-AUTO-PY-LANGUAGEBRIDGE), under the checks that read Python (ADR-AUTO-PY-EVERYFILELINTED) and one type check shared with the editor
-(ADR-AUTO-PY-EVERYFILETYPECHECKED).
+Python is a language track whose modules exist by the layout and ship only what is packaged, and a black-box test language
+(ADR-AUTO-PY-MODULESBYLAYOUT). Its tests of the engine live in one Python test folder per catzc module under the Python root
+(ADR-AUTO-PY-ONEPYTHONROOT), start the engine from the entry the run names (ADR-AUTO-PY-BLACKBOXTESTS), run in one generated, gitignored uv
+workspace (ADR-AUTO-PY-GENERATEDWORKSPACE) at the one pinned Python version (ADR-AUTO-PY-ONEPYTHONVERSION) with the managed tools
+(ADR-AUTO-PY-MANAGEDTOOLS), and run through `Test-Automation` as `L2` tests through the language bridge (ADR-AUTO-PY-LANGUAGEBRIDGE), under
+the checks that read Python (ADR-AUTO-PY-EVERYFILELINTED) and one type check shared with the editor (ADR-AUTO-PY-EVERYFILETYPECHECKED).
 
 ### How this is enforced
 
 - **`PythonConfig`** (`Catzc.Base.Languages`) validates `python.yml` at load, requires the pyright, pytest and ruff pins, and declares the
   Python root's default once (`ResolveRoot`) and the type-checking mode's (`type_checking`).
-- **`New-PythonProject`** renders the workspace root and one member per Python test folder, and throws when a folder is not named in kebab
-  case or the `tools.yml` pin is not a Python minor version. **`Build-RootConfig`** writes them, and **`Test-GeneratedFiles`** reports a
-  stale one.
+- **`New-PythonProject`** renders the workspace root and one member per Python test folder and per module of the track, and throws when a
+  test folder is not named in kebab case or the `tools.yml` pin is not a Python minor version. **`Build-RootConfig`** writes them, and
+  **`Test-GeneratedFiles`** reports a stale one.
 - **`Invoke-PythonTest`** runs the managed uv with `UV_PYTHON_DOWNLOADS=never`, sets the engine contract for its uv commands only, and
   returns one `PythonTestResult` per test function with its category.
 - **The gitignore registry** (`gitignore.yml`) ignores the environment, the lock, and the caches.

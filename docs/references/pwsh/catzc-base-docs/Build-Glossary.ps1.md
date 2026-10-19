@@ -47,12 +47,3 @@ Return { Path; Changed; DryRun; ConceptCount } instead of the path.
 ```powershell
 Build-Glossary -DryRun -PassThru
 ```
-
-## comment:1
-
-Above `$inputsSha = Get-InputStamp -Path @(`, written with `#`.
-
-```text
-Every input of the page: the glossary sources, the domain order, the ADR files the defining rules link into, and the code that renders.
-An unchanged stamp means the page on disk was written from exactly these, so nothing is read or rendered. -PassThru wants the concept count, so it renders.
-```

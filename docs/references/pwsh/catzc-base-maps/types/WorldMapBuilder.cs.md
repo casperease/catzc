@@ -58,9 +58,9 @@ The track with the longest place that contains a '/'-separated path
 
 ## comment:4
 
-Above `private static readonly string[] NeverLiveTypes = { "verification",...`, written with `//`.
+Above `private static readonly string[] NeverLiveTypes = { "vendored-code" };`, written with `//`.
 
 ```text
-Track types whose files are never live: test-only projects and code written by a third party
-([ADR-DSGN-TRACK-STACKVIOLATION](/docs/adr/design/tracks.md#rule-adr-dsgn-track-stackviolation)).
+Track types whose files are never live: code written by a third party; a test file is never live by its track's aspects, whatever the
+track's type ([ADR-DSGN-TRACK-STACKVIOLATION](/docs/adr/design/tracks.md#rule-adr-dsgn-track-stackviolation)).
 ```

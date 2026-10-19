@@ -72,21 +72,23 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         (Build-Glossary -Path $script:page -DryRun -PassThru -Silent).Changed | Should -BeFalse
     }
 
-    It 'records the inputs stamp in the head and renders nothing again while the inputs are unchanged' {
+    It 'records the body hash in the head, never an inputs stamp, and renders on every run' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
         Remove-Item $script:page -ErrorAction Ignore
         Build-Glossary -Path $script:page -Silent | Out-Null
-        [System.IO.File]::ReadAllText($script:page) | Should -Match 'with_inputs_sha: "?[0-9a-f]{64}'
-        Build-Glossary -Path $script:page -Silent | Out-Null
-        Should -Invoke Get-Glossary -ModuleName Catzc.Base.Docs -Times 1 -Exactly -Scope It
+        $text = [System.IO.File]::ReadAllText($script:page)
+        $text | Should -Match 'with_body_sha: "?[0-9a-f]{12}'
+        $text | Should -Not -Match 'with_inputs_sha'
+        (Build-Glossary -Path $script:page -PassThru -Silent).Changed | Should -BeFalse
+        Should -Invoke Get-Glossary -ModuleName Catzc.Base.Docs -Times 2 -Exactly -Scope It
     }
 
-    It 'renders again when the page carries a different inputs stamp' {
+    It 'rewrites a page whose body went stale, and its body hash with it' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
         Remove-Item $script:page -ErrorAction Ignore
         Build-Glossary -Path $script:page -Silent | Out-Null
-        $stale = [System.IO.File]::ReadAllText($script:page) -replace 'with_inputs_sha: "?[0-9a-f]{64}"?', ('with_inputs_sha: ' + ('0' * 64))
-        [System.IO.File]::WriteAllText($script:page, $stale)
-        Build-Glossary -Path $script:page -Silent | Out-Null
-        Should -Invoke Get-Glossary -ModuleName Catzc.Base.Docs -Times 2 -Exactly -Scope It
+        $fresh = [System.IO.File]::ReadAllText($script:page)
+        [System.IO.File]::WriteAllText($script:page, $fresh + "stale line`n")
+        (Build-Glossary -Path $script:page -PassThru -Silent).Changed | Should -BeTrue
+        [System.IO.File]::ReadAllText($script:page) | Should -BeExactly $fresh
     }
 
     It 'reports drift without writing under -DryRun' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
@@ -108,7 +110,7 @@ Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 's
 }
 
 Describe 'Build-Glossary — shipped configs/adrs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
-    It 'finds the domain registry and the type sources it stamps in the loaded module' {
+    It 'finds the domain registry and the type sources in the loaded module' {
         $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/adrs.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
         @($registry['domains'].Keys).Count | Should -BeGreaterThan 0
         [System.IO.Directory]::EnumerateFiles((Get-CatzcModuleRoot 'types' -Module Catzc.Base.Docs), '*.cs') | Should -Not -BeNullOrEmpty

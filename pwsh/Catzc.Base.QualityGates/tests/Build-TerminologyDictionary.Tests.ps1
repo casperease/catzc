@@ -47,11 +47,12 @@ Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity',
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
-    It 'each generated dictionary carries the inputs stamp, and a second call skips the rebuild' {
+    It 'each generated dictionary carries the body hash and no inputs stamp, and a second run writes nothing' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
         Build-TerminologyDictionary -Silent | Out-Null
-        $inputsSha = Get-InputStamp -Path (Get-CatzcModuleRoot 'configs/terminology.yml' -Module Catzc.Base.QualityGates), (Get-Command Build-TerminologyDictionary).ScriptBlock.File
         foreach ($category in (Get-Config -Config terminology).categories) {
-            Test-GeneratedFileCurrent -Path (Join-Path (Get-RepositoryRoot) ".cspell/$category.txt") -InputsSha $inputsSha | Should -BeTrue -Because "$category carries the stamp"
+            $text = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) ".cspell/$category.txt"))
+            $text | Should -Match 'with_body_sha: "?[0-9a-f]{12}' -Because "$category carries the body hash"
+            $text | Should -Not -Match 'with_inputs_sha' -Because "$category carries no inputs stamp"
         }
         @(Build-TerminologyDictionary -Silent -PassThru | Where-Object Changed) | Should -BeNullOrEmpty
     }
@@ -75,7 +76,7 @@ Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity',
 }
 
 Describe 'Build-TerminologyDictionary — shipped configs/terminology.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
-    It 'finds the registry it stamps in the loaded module' {
+    It 'finds the registry it names as its source in the loaded module' {
         $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/terminology.yml' -Module Catzc.Base.QualityGates)) | ConvertFrom-Yaml -Ordered
         @($registry['categories'].Keys).Count | Should -BeGreaterThan 0
     }

@@ -1,15 +1,4 @@
 concepts:
-  verification track:
-    key: verification_track
-    domain: design
-    defined_by: ADR-DSGN-TRACK-ONETRACKTYPE
-    short:
-      A test-only track — it verifies the core from outside, ships nothing, and is out of every bundle by construction; go is the first.
-    realized_by: { kind: prose-only }
-    relations:
-      kind_of: [track]
-    contrasts:
-      track: A track is any root concern; a verification track is the test-only class that ships nothing.
   go test module:
     key: go_test_module
     domain: automation

@@ -59,6 +59,11 @@ by default. Every test runs once per engine.
 The engine's executable the run's source session located; empty for an engine it did not find, whose run of the tests then skips with
 `tool_<engine>_missing`. pwsh, the engine running the harness, needs none.
 
+### parameter `Folder`
+
+The test folder the discovery named, a module's own `tests/` or the holder's, handed to the runner as its `-Folder`; when empty the runner
+finds the holder's folder of the module itself.
+
 ### outputs
 
 `[hashtable]` Case key -> `[pscustomobject]` { Outcome (pass|fail|skip); Reason (the skip key, or empty); Message (the failure text, or the

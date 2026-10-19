@@ -5,12 +5,12 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `module_root: catzc/go/tests`, written with `#`.
+Above `module_root: catzc/go`, written with `#`.
 
 ```text
-The Go test workspace — the one declared source that New-GoWorkspace renders the repository-root go.work and every
-<root>/tests/<folder>/go.mod from. Go code in this repository is test artifacts only: one Go module per catzc module,
-under <root>/tests/<module-in-kebab>/, and nothing Go-specific is committed but the *_test.go files.
+The Go workspace — the one declared source that New-GoWorkspace renders the repository-root go.work and every go.mod
+from: one per test module under <root>/tests/<module-in-kebab>/ and one per module folder of the go track, and
+nothing Go-specific is committed but the Go files themselves.
 
 Every key is optional: an omitted key takes the sensible default declared once on
 Catzc.Base.Languages.GoConfig ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
@@ -23,7 +23,7 @@ installed.
 
 ## comment:2
 
-Above `module_root: catzc/go/tests`, written with `#`.
+Above `module_root: catzc/go`, written with `#`.
 
 ```text
 root — the Go root folder, repository-relative: the test modules live in <root>/tests/<module>/, and go.work stays at
@@ -34,11 +34,11 @@ Declare it (e.g. `root: test/go`) only to place the Go root elsewhere.
 
 ## comment:3
 
-Above `module_root: catzc/go/tests`, written with `#`.
+Above `module_root: catzc/go`, written with `#`.
 
 ```text
-The module-path prefix: the folder <root>/tests/<folder>/ is the Go module <module_root>/<folder>. Default:
-catzc/go/tests.
+The module-path prefix: a test folder <root>/tests/<folder>/ is the Go module <module_root>/tests/<folder>, and a
+module folder <root>/<Module>/ of the track is <module_root>/<Module>. Default: catzc/go.
 ```
 
 ## comment:4

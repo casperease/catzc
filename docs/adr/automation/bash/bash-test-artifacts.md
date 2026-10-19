@@ -1,22 +1,24 @@
-# ADR: Bash test artifacts — black-box tests of the engine through cats, run by a vendored bats
+# ADR: Bash modules and test artifacts — modules by layout, black-box tests of the engine through cats, run by a vendored bats
 
 ## Rules: ADR-AUTO-BASH
 
-### Rule ADR-AUTO-BASH-TESTARTIFACTSONLY
+### Rule ADR-AUTO-BASH-MODULESBYLAYOUT
 
-Bash code in the repository's test tracks is test artifacts and nothing else: `.bats` files that verify the engine from outside, the way a
-Bash user reaches it. No module or function of the engine is written in Bash, and no Bash test file ships — the Bash root lies outside the
-code root, so `Build-Modules` never sees it. The repository's other shell scripts (`importer.sh`, the vendored installers under
-`assets/scripts/`) are not tests, and this rule does not cover them; they take the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
+Bash code in the `bash` track is either a module of the track, a folder under the Bash root that exists by the layout
+(ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE), or a black-box test under the track's test holder,
+`<root>/tests/<module>/`: `.bats` files that verify the engine from outside, the way a Bash user reaches it. A Bash module ships only what
+`files.yml` packages, and a test file never ships: the builder's input is the engine's track. No function of the engine is written in Bash.
+The repository's other shell scripts (`importer.sh`, the vendored installers under `assets/scripts/`) are not tests, and this rule does not
+cover them; they take the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
 
-- [Test artifacts only](#test-artifacts-only)
+- [Modules by layout](#modules-by-layout)
 
 ### Rule ADR-AUTO-BASH-ONEBASHROOT
 
 The Bash tests live under one Bash root, a repository-relative folder declared by `bash.yml`'s `root` with the sensible default every test
-language's root takes: `bash` when the repository has a `bash/` folder (the `bash` verification track), else the dot-prefixed `.bash`. A
-**Bash test folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in kebab case, holding that module's
-`.bats` files. A Bash test is one `@test "<name>" {` line; a name starting with `integrity:` makes it an integrity test.
+language's root takes: `bash` when the repository has a `bash/` folder (the `bash` track), else the dot-prefixed `.bash`. A **Bash test
+folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in kebab case, holding that module's `.bats` files. A
+Bash test is one `@test "<name>" {` line; a name starting with `integrity:` makes it an integrity test.
 
 - [The layout](#the-layout)
 
@@ -65,20 +67,21 @@ The engine is verified from outside by tests in other languages ([go test artifa
 loads `importer.sh` and types `cats <command>`, and that path — the dispatcher's quoting, its root detection, its exit codes — needs tests
 written the way the user writes commands: in Bash.
 
-### Test artifacts only
+### Modules by layout
 
-Bash code in a test track exists only as tests. The engine is PowerShell and C#
-([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a Bash test verifies it from outside. Because the Bash root lies
-outside the code root, no Bash test reaches a bundle ([platform-bundle](../platform-bundle.md)).
+The `bash` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a module
+is a folder under the Bash root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays
+PowerShell and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a Bash test verifies it from outside. The builder
+reads the engine's track, so no Bash test reaches a bundle, and a Bash module reaches one only when `files.yml` packages it
+([platform-bundle](../platform-bundle.md)).
 
 ### The layout
 
 The Bash root follows the one convention every test language's root follows
 ([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders-literalnames)): `bash/` when present — the `bash`
-track, of the verification class ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)) — else `.bash/`. The default is
-declared once, on the `BashConfig` type, and `BashConfig.ResolveRoot` is the one resolver every caller asks. Under the root,
-`tests/<module>/` holds one Bash test folder per catzc module, named in kebab case, the convention shared with the Go and Python test
-folders.
+track ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)) — else `.bash/`. The default is declared once, on the `BashConfig`
+type, and `BashConfig.ResolveRoot` is the one resolver every caller asks. Under the root, `tests/<module>/` holds one Bash test folder per
+catzc module, named in kebab case, the convention shared with the Go and Python test folders.
 
 A Bash test is declared on one line, `@test "<name>" {`, so the bridge reads it from the source without running bats. Its name is free text,
 so the integrity marker is a prefix of the name, `integrity:`, decided in one place (the `BashTestResult` type).
@@ -127,11 +130,11 @@ runs ([execution-engines](../execution-engines.md#rule-adr-auto-engine-startenvi
 
 ## Decision
 
-Bash is a black-box test language for the path a Bash user takes and nothing else (ADR-AUTO-BASH-TESTARTIFACTSONLY). Its tests live in one
-Bash test folder per catzc module under the Bash root (ADR-AUTO-BASH-ONEBASHROOT), call catzc through `importer.sh` and `cats` from the
-entry the run names (ADR-AUTO-BASH-BLACKBOXTESTS), run on a vendored, pinned bats-core (ADR-AUTO-BASH-VENDOREDBATS) through
-`Test-Automation` as `L2` tests through the language bridge (ADR-AUTO-BASH-LANGUAGEBRIDGE), and every shell script takes the shell-script
-checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
+Bash is a language track whose modules exist by the layout and ship only what is packaged, and the black-box test language for the path a
+Bash user takes (ADR-AUTO-BASH-MODULESBYLAYOUT). Its tests of the engine live in one Bash test folder per catzc module under the Bash root
+(ADR-AUTO-BASH-ONEBASHROOT), call catzc through `importer.sh` and `cats` from the entry the run names (ADR-AUTO-BASH-BLACKBOXTESTS), run on
+a vendored, pinned bats-core (ADR-AUTO-BASH-VENDOREDBATS) through `Test-Automation` as `L2` tests through the language bridge
+(ADR-AUTO-BASH-LANGUAGEBRIDGE), and every shell script takes the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
 
 ### How this is enforced
 

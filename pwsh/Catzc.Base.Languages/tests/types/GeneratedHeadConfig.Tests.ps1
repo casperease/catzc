@@ -20,8 +20,8 @@ Describe 'Catzc.Base.Languages.GeneratedHeadConfig' -Tag 'L0', 'logic' {
         [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'role', 'subkind') }).order | Should -Be @('path', 'role', 'subkind')
     }
 
-    It 'knows the inputs stamp key' {
-        [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('with_inputs_sha', 'path', 'role') }).order | Should -Be @('with_inputs_sha', 'path', 'role')
+    It 'rejects the dropped inputs stamp key: the body hash is a head''s one currency fact' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
+        { [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('with_inputs_sha', 'path', 'role') }) } | Should -Throw "*unknown head key 'with_inputs_sha'*"
     }
 
     It 'declares the one warning once, as a default a config may replace, and a blank value keeps the default' {
@@ -31,6 +31,6 @@ Describe 'Catzc.Base.Languages.GeneratedHeadConfig' -Tag 'L0', 'logic' {
     }
 
     It 'loads the shipped generated-head.yml' {
-        (Get-Config -Config generated-head).order | Should -Be @('with_body_sha', 'with_inputs_sha', 'warning', 'repo_status', 'path', 'source', 'role', 'subkind', 'language', 'filetype', 'track', 'tracktype', 'vendor', 'module', 'moduletype', 'generator')
+        (Get-Config -Config generated-head).order | Should -Be @('with_body_sha', 'warning', 'repo_status', 'path', 'source', 'role', 'subkind', 'language', 'filetype', 'track', 'tracktype', 'vendor', 'module', 'moduletype', 'generator')
     }
 }

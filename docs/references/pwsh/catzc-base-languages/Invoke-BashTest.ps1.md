@@ -43,6 +43,11 @@ The PowerShell entry for a build run: the build's Import-Catzc.ps1. Default: the
 The bash to run, already located by the caller: a test run passes the bash its source session resolved, because a build run's engine does
 not carry the tools.yml entry. Default: located here by Resolve-EngineExecutable.
 
+### parameter `Folder`
+
+The test folder to run, repository-relative or absolute: the holder's `<root>/tests/<kebab>` or a module's own `tests/` folder. Default: the
+holder's folder of the module.
+
 ### outputs
 
 `[Catzc.Base.Languages.BashTestResult]` One record per Bash test.

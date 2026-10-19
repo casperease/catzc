@@ -97,8 +97,9 @@ concepts:
       track type.
     realized_by: { kind: prose-only }
     contrasts:
-      verification track:
-        A verification track is one type of track — test-only, shipping nothing; a track is any cluster of module contents.
+      language track:
+        A language track is a modules track of one language, holding its modules and its test holder alike; a track is any cluster of module
+        contents.
       deployable-unit:
         A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is the cluster of module contents
         itself.
@@ -124,6 +125,18 @@ concepts:
     contrasts:
       track: A track is the cluster of module contents and the concern it holds; a module is one named unit placed in it.
       module type: A module type is the sort of module found at a place; a module is one unit of that sort.
+  language track:
+    key: language_track
+    domain: automation
+    defined_by: ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE
+    short:
+      A modules track of one language — pwsh, python, go, bash — holding its modules as folders under its root and its own test holder under
+      tests/, the same way for every language.
+    realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Variants/configs/module-types.yml" }
+    contrasts:
+      track:
+        A track is any named cluster of module contents; a language track is one whose modules are written in one language and resolved
+        alike.
   layout:
     key: layout
     domain: automation
@@ -140,7 +153,7 @@ concepts:
     defined_by: ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES
     short:
       The sort of cluster a track is, one of a closed set — modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts,
-      documentation, verification, or unordered.
+      documentation, or unordered.
     realized_by: { kind: prose-only }
     contrasts:
       track: A track is the named cluster of module contents; a track type is the sort it is, declared once for every track of that sort.

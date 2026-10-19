@@ -59,8 +59,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The globs, relative to a module root, that place the live files: the live rows' patterns.
     public IReadOnlyList<string> LivePatterns() => layout.Where(r => r.live).SelectMany(r => r.Patterns()).ToArray();
 
-    // A track is laid out when its primary language, the first it declares, owns a live layout row; its modules exist by that layout.
-    // A language whose only rows are never live (markdown's readme) lays out no module.
     public bool IsLaidOut(IEnumerable trackLanguages)
     {
         string primary = null;

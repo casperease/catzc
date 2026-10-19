@@ -69,15 +69,6 @@ Build-ContractReference -DryRun -PassThru
 
 ## comment:1
 
-Above `$inputsSha = Get-InputStamp -Root $RepositoryRoot -Path @(`, written with `#`.
-
-```text
-The assets, this module and the paragraph filler are the whole input: when every page this writer emitted already carries
-their stamp, nothing is read or written. A unit added or removed changes the assets, so its stamp moves and every page rebuilds.
-```
-
-## comment:2
-
 Above `$signatures = @{}`, written with `#`.
 
 ```text

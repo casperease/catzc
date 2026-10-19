@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c3023f436023
+#     with_body_sha: e2ad0678b502
 #     warning: "Do Not Edit, this file is generated"
 #     repo_status: locked
 #     path: ".gitignore"
@@ -57,8 +57,10 @@ pwsh/**/*.psd1
 /.vscode/azure-pipelines-schema.json
 /go.work
 /*/tests/*/go.mod
+/*/*/go.mod
 /*/pyproject.toml
 /*/tests/*/pyproject.toml
+/*/*/pyproject.toml
 /.vscode/markdown-preview-dark.css
 /.editorconfig
 /.markdownlint.yml

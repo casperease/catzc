@@ -24,8 +24,8 @@ the subject of [tracks](../../adr/design/tracks.md).
 
 Building the world map: one row per track and one for the root files, one column per file language and one for the unlisted files, and every
 tracked file in exactly one cell. The root folder of a file gives its track and its extension gives its file language. A cell that holds a
-live file whose file language its track does not declare is a stack violation; test files, vendored files, and the files of a verification
-track never make one. The map is returned as an object or as JSON, so a tool reads it without PowerShell.
+live file whose file language its track does not declare is a stack violation; test files and vendored files never make one. The map is
+returned as an object or as JSON, so a tool reads it without PowerShell.
 
 ### responsibility:2 — Lit cells
 

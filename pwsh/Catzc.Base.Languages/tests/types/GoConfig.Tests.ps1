@@ -18,7 +18,7 @@ Describe 'GoConfig' -Tag 'L0' {
         It 'treats a key set to null like an omitted key' {
             $config = [Catzc.Base.Languages.GoConfig]::new([ordered]@{ root = $null; module_root = $null; dependencies = $null })
             $config.root | Should -BeNullOrEmpty
-            $config.module_root | Should -Be 'catzc/go/tests'
+            $config.module_root | Should -Be 'catzc/go'
         }
 
         It 'maps every key' {

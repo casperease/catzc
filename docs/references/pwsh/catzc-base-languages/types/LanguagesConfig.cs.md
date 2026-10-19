@@ -116,3 +116,12 @@ Above `private static LanguageTestRunner ReadTests(string name, object value,...
 A language's test runner: a runner command, the parameter its executable binds to, and either the tools that must resolve or the
 one engine the tests run under, never both and never neither.
 ```
+
+## comment:10
+
+Above `public bool IsLaidOut(IEnumerable trackLanguages)`, written with `//`.
+
+```text
+A track is laid out when its primary language, the first it declares, owns a live layout row; its modules exist by that layout.
+A language whose only rows are never live (markdown's readme) lays out no module.
+```

@@ -13,7 +13,6 @@ function Build-AdrCodeDictionary {
     $adrs = Get-Config -Config adrs
     $index = Get-AdrFileIndex @($adrs.RuleSets) -AdrRoot $adrRoot
     $files = [string[]] @($index.Relative | ForEach-Object { [System.IO.Path]::Combine($index.Root, $_) })
-    $inputsSha = Get-InputStamp -Path (@((Get-CatzcModuleRoot 'configs/adrs.yml'), (Get-Command Build-AdrCodeDictionary).ScriptBlock.File) + $files)
     $relative = '.cspell/adr-codes.txt'
     $path = Join-Path (Get-RepositoryRoot) $relative
 
@@ -41,7 +40,7 @@ function Build-AdrCodeDictionary {
     else {
         ''
     }
-    $content = Format-GeneratedFileHead -Text $text -Path $relative -Carrier word-list -Generator Build-AdrCodeDictionary -Source (ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/adrs.yml')) -FileKind (Get-FileKind $relative) -InputsSha $inputsSha
+    $content = Format-GeneratedFileHead -Text $text -Path $relative -Carrier word-list -Generator Build-AdrCodeDictionary -Source (ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/adrs.yml')) -FileKind (Get-FileKind $relative)
     $existing = if (Test-Path -LiteralPath $path) {
         [System.IO.File]::ReadAllText($path)
     }

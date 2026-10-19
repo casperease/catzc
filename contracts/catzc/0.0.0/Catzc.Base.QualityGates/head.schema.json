@@ -16,7 +16,7 @@
           "additionalProperties": false,
           "properties": {
             "with_body_sha": { "type": "string" },
-            "with_inputs_sha": { "type": "string" },
+            "warning": { "type": "string" },
             "repo_status": { "type": "string", "enum": ["clean", "locked"] },
             "path": { "type": "string" },
             "folder": { "type": "string" },

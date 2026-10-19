@@ -46,7 +46,7 @@ Describe 'Build-AdrCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-ADRCODE-NAMEDNO
 }
 
 Describe 'Build-AdrCodeDictionary — shipped configs/adrs.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
-    It 'finds the domain registry it stamps in the loaded module' {
+    It 'finds the domain registry it names as its source in the loaded module' {
         $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/adrs.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
         @($registry['domains'].Keys).Count | Should -BeGreaterThan 0
     }

@@ -44,17 +44,20 @@ plans stay the durable record; task files and this master are derived from them 
 ## Chunks
 
 Open, in execution order. Held chunks (the orchestrator, 2026-10-19): adr-automation-split by catzc-64 (generated-file-heads landed but for
-one diagram pointer), ado-and-cicd-docs by catzc-2f, catzc-08 stopped with nothing in hand until the split's folder move lands
-(importer-mix, rungs-registry and the contract drift test landed; the importer-mix plan in `out/delete-done-plans.ps1`);
-iac-and-repo-placement waits while catzc-cc's isolated track holds `pwsh/Catzc.Base.Variants`; done work is pruned (git holds it).
-`out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and prompts. A chunk without a task file is executed from
-its plan's open steps directly.
+one diagram pointer), ado-and-cicd-docs by catzc-2f, catzc-08 stopped with nothing in hand until set 8 or set 9 lands
+(generated-heads-body-sha-only landed but for the user's set 9 deletion) (importer-mix, rungs-registry and the contract drift test landed;
+the importer-mix plan in `out/delete-done-plans.ps1`); iac-and-repo-placement waits while catzc-cc's isolated track holds
+`pwsh/Catzc.Base.Variants`; done work is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task
+files and prompts. A chunk without a task file is executed from its plan's open steps directly.
 
 - generated-file-heads -> plan-generated-file-heads.md: landed 2026-10-19 but for its one pointer item, the diagram track's (see the
   isolated note below).
 - ado-and-cicd-docs -> plan-ado-and-cicd-docs.md: the `variants.yml` re-point and the caller sweep around the user's `git mv` of
   `pipelines/` to `.ado/pipelines/`; the 23 ado rules to `docs/adr/ado`, the four concept rules into the CI/CD concept ADR in
   `docs/adr/flow`, the ado wording.
+- generated-heads-body-sha-only -> plan-generated-heads-body-sha-only.md: the dropped-key page, `Format-GeneratedFileHead` without
+  `-InputsSha`, the five generators one at a time, `Test-GeneratedFileCurrent` deleted whole, config and schema, then one regeneration; its
+  `Build-AdrIndex` step waits for adr-automation-split's first step, which holds that file.
 - adr-automation-split -> plan-adr-automation-split.md: `docs/adr/pwsh/` into `docs/adr/automation/pwsh/` around the user's `git mv`, then
   the flat automation files by the plan's table, then the index and `adrs.yml`.
 - layers-stray-rules -> plan-layers-vocabulary-rename-contracts.md, the stray-rules step: the twelve stray pwsh rules to their twins; after

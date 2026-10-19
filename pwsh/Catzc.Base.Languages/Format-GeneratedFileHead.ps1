@@ -15,8 +15,6 @@ function Format-GeneratedFileHead {
 
         [string[]] $Source = @(),
 
-        [string] $InputsSha,
-
         [Parameter(Mandatory)]
         [object] $FileKind,
 
@@ -95,9 +93,6 @@ function Format-GeneratedFileHead {
         }
     }
     $values['with_body_sha'] = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($body)
-    if ($InputsSha) {
-        $values['with_inputs_sha'] = $InputsSha
-    }
     $facts = [ordered]@{}
     foreach ($key in $Head.order) {
         if ($values.ContainsKey($key)) {

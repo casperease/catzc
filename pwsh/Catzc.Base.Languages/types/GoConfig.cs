@@ -15,7 +15,7 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
     // The Go root otherwise: the dot-prefixed tooling folder.
     public const string FallbackRoot = ".go";
 
-    public const string DefaultModuleRoot = "catzc/go/tests";
+    public const string DefaultModuleRoot = "catzc/go";
 
     private const string Failed = "go config validation failed:\n";
     private static readonly string[] AllowedKeys = { "root", "module_root", "dependencies" };
@@ -26,7 +26,6 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
 
     public string root { get; }
 
-    // The module-path prefix: a folder <root>/tests/<folder>/ is the Go module <module_root>/<folder>.
     public string module_root { get; }
 
     public IReadOnlyDictionary<string, string> dependencies { get; }

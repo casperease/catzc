@@ -43,6 +43,11 @@ Only the tracks of these track types ('modules' is the code track). Defaults to 
 
 Also return the modules of nested places, such as the internal modules under the code track.
 
+### parameter `EngineTrack`
+
+Only the track whose modules run under the engine this resolver runs in, named by its `execution_engines`: the modules the importer loads
+and the dependency graph declares, the ones the relocatable modules root holds.
+
 ### parameter `RepositoryRoot`
 
 The tree to resolve in, holding the tracks' places. Defaults to the loaded code root for the code track and the repository root for any

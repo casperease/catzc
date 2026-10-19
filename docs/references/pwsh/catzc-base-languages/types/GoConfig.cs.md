@@ -55,3 +55,12 @@ Above `public string ResolveRoot(string repositoryRoot)`, written with `//`.
 The Go root folder for a repository, repository-relative: the declared root, else 'go' when the repository has
 a go/ folder, else '.go'.
 ```
+
+## comment:5
+
+Above `public string module_root { get; }`, written with `//`.
+
+```text
+The module-path prefix: a test folder <root>/tests/<folder>/ is the Go module <module_root>/tests/<folder>, and a module
+folder <root>/<Module>/ of the track is <module_root>/<Module>.
+```

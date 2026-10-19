@@ -36,9 +36,9 @@ load, which a test holds to the layout.
 A module's languages are the file languages of its live files, and each must be one the track declares
 ([ADR-DSGN-TRACK-FILELANGUAGE](../design/tracks.md#rule-adr-dsgn-track-filelanguage)); a file in another language is a stack violation
 ([ADR-DSGN-TRACK-STACKVIOLATION](../design/tracks.md#rule-adr-dsgn-track-stackviolation)). Languages are modelled in general, whatever they
-are: a track admits a language by declaring it, and the Go, Python and Bash rules keep those languages to the test artifacts of the
-verification tracks. The formatter, the checks and the test handler of a file language are declared once per language in `languages.yml`,
-and a command that needs them reads them there ([ADR-PRIN-CONFIG](../principles/configure-not-program.md)).
+are: a track admits a language by declaring it, and the Go, Python and Bash rules say what each language's track holds beyond its modules.
+The formatter, the checks and the test handler of a file language are declared once per language in `languages.yml`, and a command that
+needs them reads them there ([ADR-PRIN-CONFIG](../principles/configure-not-program.md)).
 
 - [Languages](#languages)
 
@@ -81,6 +81,20 @@ is `pwsh`. This is the namespace of the module as an object; the C# namespace of
 ([ADR-AUTO-TYPES-NAMESPACEISMODULE](BCL/native-csharp-types.md#rule-adr-auto-types-namespaceismodule)).
 
 - [Namespace](#namespace)
+
+### Rule ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE
+
+A **language track** is a `modules` track of one language (`pwsh`, `python`, `go`, `bash`, a future `javascript`), and every language track
+holds its modules the same way, pwsh being one language among the others: a module is a non-dot folder directly under the track's root,
+named by the folder; the track's own test holder, `<root>/tests/<kebab>`, one folder per catzc module tested from outside, is declared
+`except` on the folder place in `module-types.yml`, so it resolves to the track's own module, the root place, and never to a module named
+`tests`; a module's own tests sit in its `tests/` folder, the shared layout row, and run through the same bridge as the holder's folders. No
+command branches on a language or on a track-type id: the engine's track is the one whose `execution_engines` name the engine the resolver
+runs in, the one the relocatable modules root holds; a laid-out track is one whose primary language owns a live layout row; and a new
+language is registry entries, a track in `variants.yml`, a module type with its places, layout rows and a `tests` entry with its test-file
+`pattern` in `languages.yml`, and one config of its own (`python.yml`, `go.yml`, `bash.yml`), never a branch.
+
+- [Every language track alike](#every-language-track-alike)
 
 ## Context
 
@@ -143,6 +157,18 @@ not a branch.
 The track is already a fact the resolver returns for every module, so the namespace adds no declaration: it is the track, read the same way.
 A name that also spelled the track would state one fact twice, and the copy in the name would go stale whenever a module's track changes.
 
+### Every language track alike
+
+The pwsh track carries the tooling, and for a while it was the only track that held modules: the other language tracks were each one holder
+of black-box test projects, and three commands branched on the `modules` id to find "the" modules. That shape made the first module outside
+pwsh impossible without a special case, and every later language would have repeated it. The model is generic on paper, a track declared
+once, a type that admits module types, a module type with places, a layout per language, so the fix is to let it be generic in practice: the
+language tracks take the same type, the same folder place and the same layout rows, and the one thing pwsh never had, a test holder at the
+track root, is declared on the place as the track's own folder rather than carried by a track type of its own. What was specific to pwsh,
+the relocatable modules root, is tied to the fact that makes it special, the engine its modules run under, so the resolver reads
+`execution_engines` and never a type id. A third language is then a rehearsal the resolver's tests already run: a fixture track of another
+name, with its folder place, its `except` and one layout row, resolves with no code change.
+
 ## Decision
 
 Resolve every module of a deployable track through its track with one resolver
@@ -151,8 +177,10 @@ report what the layout does not place ([ADR-AUTO-MODULE-EXISTSBYLAYOUT](#rule-ad
 files and keep them within the track's declared languages ([ADR-AUTO-MODULE-LANGUAGESFROMFILES](#rule-adr-auto-module-languagesfromfiles));
 declare engines on the track with a per-module override ([ADR-AUTO-MODULE-ENGINESUBSET](#rule-adr-auto-module-enginesubset)); sort the graph
 once ([ADR-AUTO-MODULE-TOPOLOGICALORDER](#rule-adr-auto-module-topologicalorder)); resolve checks and tests by language
-([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](#rule-adr-auto-module-checksbylanguage)); and take a module's namespace from its track
-([ADR-AUTO-MODULE-NAMESPACEISTRACK](#rule-adr-auto-module-namespaceistrack)).
+([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](#rule-adr-auto-module-checksbylanguage)); take a module's namespace from its track
+([ADR-AUTO-MODULE-NAMESPACEISTRACK](#rule-adr-auto-module-namespaceistrack)); and hold every language track alike, with its test holder
+declared on the place and the engine's track read from its engines
+([ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE](#rule-adr-auto-module-everylanguagetrackalike)).
 
 ### How this is enforced
 
@@ -166,10 +194,17 @@ once ([ADR-AUTO-MODULE-TOPOLOGICALORDER](#rule-adr-auto-module-topologicalorder)
 - **`Get-ChangeCheckPlan`** resolves the checks of a changed file from its language's `checks` list in `languages.yml`, so `Test-Change`
   runs a gate because the registry names it for the language, never because a command names the language
   ([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](#rule-adr-auto-module-checksbylanguage)).
-- **`Get-LanguageTestOutcomes`** runs a test-artifact language's tests through the runner its `tests` entry in `languages.yml` names, and
+- **`Get-LanguageTestOutcomes`** runs a language's tests through the runner its `tests` entry in `languages.yml` names, and
   `Get-LanguageTestExecutable` resolves the tools that entry lists, so a new test language is a registry entry and its runner; the config
-  type fails the load on an entry that names both tools and an engine, or neither
+  type fails the load on an entry that names both tools and an engine, or neither, or no test-file `pattern`
   ([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](#rule-adr-auto-module-checksbylanguage)).
+- **`Get-CatzcModule -EngineTrack`** returns the modules of the track whose `execution_engines` name the running engine, the modules the
+  importer loads and the dependency graph declares, and anchors that track alone on the relocatable modules root; **`ModulePlace`** reads
+  `except` on a folder place and names no module for an excepted folder; **`Get-LanguageTestFolders`** reads the languages with a `tests`
+  entry from the registry, each root from the language's own config and each pattern from the entry, and yields a module's own `tests/`
+  folder beside the holder's; **`New-PythonProject`** and **`New-GoWorkspace`** make every module folder of their track a workspace member;
+  and the resolver's tests resolve a third fixture language with no code change
+  ([ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE](#rule-adr-auto-module-everylanguagetrackalike)).
 
 ## Consequences
 

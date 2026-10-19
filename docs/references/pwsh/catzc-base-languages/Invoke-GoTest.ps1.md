@@ -63,6 +63,11 @@ The execution engine the tests start: pwsh (default) or bash, which reaches catz
 
 The engine's executable, already located by the caller. Default: located here by Resolve-EngineExecutable.
 
+### parameter `Folder`
+
+The test folder to run, repository-relative or absolute: the holder's `<root>/tests/<kebab>` or a module's own `tests/` folder, whose
+generated `go.mod` sits at the module root. Default: the holder's folder of the module.
+
 ### outputs
 
 `[Catzc.Base.Languages.GoTestResult]` One record per Go test.
@@ -98,4 +103,13 @@ How the tests start the engine (Get-EngineContract) is an external contract with
 commands only, then restored. GOTOOLCHAIN=local keeps go on the managed binary just checked: without it, go
 reads go.work's go directive and silently downloads that toolchain instead
 ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
+```
+
+## comment:3
+
+Above `$relative = if ($Folder) {`, written with `#`.
+
+```text
+The test folder: the one named, a module's own tests/ or the holder's, else the holder's tests/<kebab> of the module
+under the Go root from go.yml (GoConfig.ResolveRoot: the declared root, else go/ when present, else .go/).
 ```

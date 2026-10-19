@@ -9,17 +9,23 @@ module_types:
     places:
       - { root: pwsh/.internal, name: file, extension: psm1, internal: true }
   python:
-    definition: A Python module, a folder under the track folder named by the folder; the track's own files, its test holder among them, are the track's module.
+    definition:
+      A Python module, a folder under the track folder named by the folder; the track's own files, its test holder among them, are the
+      track's module.
     places:
       - { root: python, name: folder, except: [tests] }
       - { root: python, name: root }
   go:
-    definition: A Go module, a folder under the track folder named by the folder; the track's own files, its test holder among them, are the track's module.
+    definition:
+      A Go module, a folder under the track folder named by the folder; the track's own files, its test holder among them, are the track's
+      module.
     places:
       - { root: go, name: folder, except: [tests] }
       - { root: go, name: root }
   bash:
-    definition: A Bash module, a folder under the track folder named by the folder; the track's own files, its test holder among them, are the track's module.
+    definition:
+      A Bash module, a folder under the track folder named by the folder; the track's own files, its test holder among them, are the track's
+      module.
     places:
       - { root: bash, name: folder, except: [tests] }
       - { root: bash, name: root }

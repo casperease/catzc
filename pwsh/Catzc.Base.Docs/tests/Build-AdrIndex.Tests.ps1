@@ -10,10 +10,11 @@ Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'sourc
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
-    It 'the on-disk index carries the stamp of the inputs it is built from, so an unchanged build is skipped' {
+    It 'the on-disk index carries the body hash and no inputs stamp, and a second run writes nothing' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
         Build-AdrIndex -Silent | Out-Null
         $head = [System.IO.File]::ReadAllText((Join-Path $script:adrRoot 'index.md'))
-        $head | Should -Match 'with_inputs_sha: "?[0-9a-f]{64}'
+        $head | Should -Match 'with_body_sha: "?[0-9a-f]{12}'
+        $head | Should -Not -Match 'with_inputs_sha'
         (Build-AdrIndex -Silent -PassThru).Changed | Should -BeFalse
     }
 
@@ -47,7 +48,7 @@ Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'sourc
 }
 
 Describe 'Build-AdrIndex — shipped configs/adrs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
-    It 'finds the domain registry and the type sources it stamps in the loaded module' {
+    It 'finds the domain registry and the type sources in the loaded module' {
         $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/adrs.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
         @($registry['domains'].Keys).Count | Should -BeGreaterThan 0
         [System.IO.Directory]::EnumerateFiles((Get-CatzcModuleRoot 'types' -Module Catzc.Base.Docs), '*.cs') | Should -Not -BeNullOrEmpty

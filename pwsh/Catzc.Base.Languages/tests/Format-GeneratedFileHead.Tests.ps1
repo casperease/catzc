@@ -45,12 +45,11 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
         $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: `"9534a2e15c8b`"`n#     warning: `"$script:warning`"`n#     repo_status: locked`n#     path: docs/gen.wdg`n#     source: docs/widget.yml`n#     role: widget`n#     language: widget`n#     filetype: wdg`n#     track: docs`n#     tracktype: documentation`n#     generator: widgets/Catzc.Widget/New-Widget.ps1`n# ---`n`nwidget body`n"
     }
 
-    It 'writes the inputs stamp right after the body hash when given, and leaves it out otherwise' {
-        $stamp = 'f' * 64
-        $with = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -InputsSha $stamp -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $with | Should -BeLike "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: *`n#     with_inputs_sha: *$stamp*`n#     warning: `"$script:warning`"`n#     repo_status: locked`n*"
-        $without = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $without | Should -Not -BeLike '*with_inputs_sha*'
+    It 'never writes an inputs stamp: the body hash is the head''s one currency fact' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
+        $head = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
+        $head | Should -BeLike "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: *`n#     warning: `"$script:warning`"`n#     repo_status: locked`n*"
+        $head | Should -Not -BeLike '*with_inputs_sha*'
+        (Get-Command Format-GeneratedFileHead).Parameters.Keys | Should -Not -Contain 'InputsSha'
     }
 
     It 'leaves the generator and the source out when the file has none, and lists several sources' {

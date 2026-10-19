@@ -107,7 +107,7 @@ copy would write is checked for a conflict.
 
 ## comment:3
 
-Above `$codePlace = @(Get-Track).Where({ $_.type -ceq 'modules' })[0].places[0]`, written with `#`.
+Above `$codePlace = Get-CatzcModulesFolder`, written with `#`.
 
 ```text
 Repository-root-relative sources: each selected module's folder + its packages' paths (minus excluded). A module's folder is

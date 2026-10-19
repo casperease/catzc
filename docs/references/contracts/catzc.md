@@ -2,7 +2,6 @@
 catzc:
   immutable:
     with_body_sha: fbd979f25d35
-    with_inputs_sha: b431fb130a461cc9f72747d0678107463a2594bd6f368ec5c753e4c4d2ddf3f1
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/references/contracts/catzc.md

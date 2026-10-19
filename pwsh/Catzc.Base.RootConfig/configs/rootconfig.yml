@@ -65,6 +65,14 @@ files:
       - pwsh/Catzc.Base.Execution/configs/tools.yml
     carrier: go-workspace
     optIn: true
+  # A module of the go track is a go.work member with its own go.mod at the module root.
+  - target: "*/*/go.mod"
+    generator: New-GoWorkspace
+    sources:
+      - pwsh/Catzc.Base.Languages/configs/go.yml
+      - pwsh/Catzc.Base.Execution/configs/tools.yml
+    carrier: go-workspace
+    optIn: true
   - target: "*/pyproject.toml"
     generator: New-PythonProject
     sources:
@@ -73,6 +81,14 @@ files:
     carrier: toml
     optIn: true
   - target: "*/tests/*/pyproject.toml"
+    generator: New-PythonProject
+    sources:
+      - pwsh/Catzc.Base.Languages/configs/python.yml
+      - pwsh/Catzc.Base.Execution/configs/tools.yml
+    carrier: toml
+    optIn: true
+  # A module of the python track is a workspace member with its own pyproject.toml at the module root.
+  - target: "*/*/pyproject.toml"
     generator: New-PythonProject
     sources:
       - pwsh/Catzc.Base.Languages/configs/python.yml

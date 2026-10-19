@@ -11,7 +11,8 @@ function New-GoWorkspace {
         throw "tools.yml go.version '$goVersion' is not a Go language version for the go directive (1.N or 1.N.P, e.g. '1.27')."
     }
     $repositoryRoot = Get-RepositoryRoot
-    $testsRelative = "$($config.ResolveRoot($repositoryRoot))/tests"
+    $goRelative = $config.ResolveRoot($repositoryRoot)
+    $testsRelative = "$goRelative/tests"
     $testsRoot = Join-Path $repositoryRoot $testsRelative
 
     # One Go module per folder that holds Go code; a folder left with only generated files is not a module.
@@ -34,23 +35,49 @@ function New-GoWorkspace {
     }
     $folders.Sort([System.StringComparer]::Ordinal)
 
+    # One Go module per module folder of the track: a folder the module-type registry names as a module, holding Go code.
+    $modules = [System.Collections.Generic.List[string]]::new()
+    $goRoot = Join-Path $repositoryRoot $goRelative
+    if (Test-Path -LiteralPath $goRoot -PathType Container) {
+        foreach ($folderPath in @(Get-ChildPath $goRoot -Directory -Depth 1)) {
+            $folderName = [System.IO.Path]::GetFileName($folderPath)
+            $placed = Get-PathModule "$goRelative/$folderName/_"
+            if ($null -eq $placed -or $placed.name -cne $folderName) {
+                continue
+            }
+            if (-not @(Get-ChildPath $folderPath -File -Filter '*.go' -Depth 3).Count) {
+                continue
+            }
+            $modules.Add($folderName)
+        }
+    }
+    $modules.Sort([System.StringComparer]::Ordinal)
+
+    # The members: the test holder's folders under tests/, then the modules, each with its module path under module_root.
+    $members = @(foreach ($folder in $folders) {
+            [pscustomobject]@{ Folder = "$testsRelative/$folder"; Path = "$($config.module_root)/tests/$folder" }
+        }) +
+    @(foreach ($module in $modules) {
+            [pscustomobject]@{ Folder = "$goRelative/$module"; Path = "$($config.module_root)/$module" }
+        })
+
     $files = [System.Collections.Generic.List[Catzc.Base.Languages.GoWorkspaceFile]]::new()
 
     $work = [System.Collections.Generic.List[string]]::new()
     $work.Add("go $goVersion")
-    if ($folders.Count -gt 0) {
+    if ($members.Count -gt 0) {
         $work.Add('')
         $work.Add('use (')
-        foreach ($folder in $folders) {
-            $work.Add("`t./$testsRelative/$folder")
+        foreach ($member in $members) {
+            $work.Add("`t./$($member.Folder)")
         }
         $work.Add(')')
     }
     $files.Add([Catzc.Base.Languages.GoWorkspaceFile]::new('go.work', ($work -join "`n") + "`n"))
 
-    foreach ($folder in $folders) {
+    foreach ($member in $members) {
         $mod = [System.Collections.Generic.List[string]]::new()
-        $mod.Add("module $($config.module_root)/$folder")
+        $mod.Add("module $($member.Path)")
         $mod.Add('')
         $mod.Add("go $goVersion")
         if ($config.dependencies.Count -gt 0) {
@@ -62,7 +89,7 @@ function New-GoWorkspace {
             }
             $mod.Add(')')
         }
-        $files.Add([Catzc.Base.Languages.GoWorkspaceFile]::new("$testsRelative/$folder/go.mod", ($mod -join "`n") + "`n"))
+        $files.Add([Catzc.Base.Languages.GoWorkspaceFile]::new("$($member.Folder)/go.mod", ($mod -join "`n") + "`n"))
     }
 
     foreach ($file in $files) {

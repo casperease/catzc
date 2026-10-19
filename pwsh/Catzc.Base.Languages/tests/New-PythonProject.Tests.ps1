@@ -9,6 +9,12 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
         # A folder left with only a generated file is not a member.
         $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'python/tests/catzc-leftover') -Force
         Set-Content -LiteralPath (Join-Path $script:root 'python/tests/catzc-leftover/pyproject.toml') -Value '[project]'
+        # A module of the python track is a member too; a module folder without Python code, and a dot folder, are not.
+        foreach ($file in 'python/Widget.Kit/kit.py', 'python/Widget.Empty/notes.md', 'python/.venv/lib/site.py') {
+            $path = Join-Path $script:root $file
+            $null = New-Item -ItemType Directory -Path (Split-Path $path) -Force
+            Set-Content -LiteralPath $path -Value 'kit = 1'
+        }
     }
 
     BeforeEach {
@@ -19,8 +25,8 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.python.version' } { $script:pin }
     }
 
-    It 'renders the workspace root and one member per test folder, root first, members in folder order' {
-        @(New-PythonProject).Target | Should -Be @('python/pyproject.toml', 'python/tests/catzc-gadget/pyproject.toml', 'python/tests/catzc-widget/pyproject.toml')
+    It 'renders the workspace root and one member per test folder and per module, root first, test folders then modules in order' {
+        @(New-PythonProject).Target | Should -Be @('python/pyproject.toml', 'python/tests/catzc-gadget/pyproject.toml', 'python/tests/catzc-widget/pyproject.toml', 'python/Widget.Kit/pyproject.toml')
     }
 
     It 'renders a virtual workspace root naming every member, with the ruff and pyright settings' {
@@ -29,6 +35,7 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
                     'members = ['
                     '    "tests/catzc-gadget",'
                     '    "tests/catzc-widget",'
+                    '    "Widget.Kit",'
                     ']'
                     ''
                     '[tool.ruff]'
@@ -46,10 +53,10 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
         (New-PythonProject -Target 'python/pyproject.toml').Content | Should -Match '(?m)^typeCheckingMode = "strict"$'
     }
 
-    It 'renders the declared extra paths relative to the workspace root' {
-        $script:python['extra_paths'] = @('.widget/scripts', '.widget/scripts/gadget')
-        (New-PythonProject -Target 'python/pyproject.toml').Content |
-            Should -Match '(?m)^extraPaths = \["\.\./\.widget/scripts", "\.\./\.widget/scripts/gadget"\]$'
+    It 'renders a module member named for the module in kebab case, at the module root' {
+        $content = (New-PythonProject -Target 'python/Widget.Kit/pyproject.toml').Content
+        $content | Should -Match '(?m)^name = "widget-kit"$'
+        $content | Should -Match '(?m)^package = false$'
     }
 
     It 'renders each member named for its folder, at the python pin, with the pinned dependencies in name order' {

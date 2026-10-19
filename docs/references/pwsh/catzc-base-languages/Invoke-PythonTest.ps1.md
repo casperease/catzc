@@ -66,6 +66,11 @@ The execution engine the tests start: pwsh (default) or bash, which reaches catz
 
 The engine's executable, already located by the caller. Default: located here by Resolve-EngineExecutable.
 
+### parameter `Folder`
+
+The test folder to run, repository-relative or absolute: the holder's `<root>/tests/<kebab>` or a module's own `tests/` folder, whose
+generated `pyproject.toml` sits at the module root. Default: the holder's folder of the module.
+
 ### outputs
 
 `[Catzc.Base.Languages.PythonTestResult]` One record per Python test.

@@ -8,7 +8,7 @@ Two siblings of one family, catzc and eac, compared model by model: where they m
 3  the parting     rules as ADRs or as specifications; a place where imports land, or none
 4  the crossing    an idea is named where it is used and rebuilt to this repository's rules
 
-Supports ADR-PRIN-ONELIVE-ONEVERSION and ADR-PRIN-ONELIVE-HISTORYINGIT, ADR-AUTO-GO-TESTARTIFACTSONLY, ADR-PRIN-CATS-CATZCISSOURCENAME and ADR-PRIN-CATS-CATSISPERSONNAME, and ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER, ADR-DSGN-TRACK-ONETECHSTACK, ADR-DSGN-TRACK-DEPLOYABLEUNIT and ADR-DSGN-TRACK-UNORDEREDTRACK.
+Supports ADR-PRIN-ONELIVE-ONEVERSION and ADR-PRIN-ONELIVE-HISTORYINGIT, ADR-AUTO-GO-MODULESBYLAYOUT, ADR-PRIN-CATS-CATZCISSOURCENAME and ADR-PRIN-CATS-CATSISPERSONNAME, and ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER, ADR-DSGN-TRACK-ONETECHSTACK, ADR-DSGN-TRACK-DEPLOYABLEUNIT and ADR-DSGN-TRACK-UNORDEREDTRACK.
 ```
 
 Cats has a sibling. The eac repository is the same project family built in Go: a repository automation CLI, an extension CLI for
@@ -42,10 +42,10 @@ specifications, `.feature` files under `specs/`, one folder per rule (`one-modul
 run as tests. The two forms carry the same discipline in different grammars.
 
 The engines differ by decision, not by accident. Catzc is PowerShell with the C# types it hosts
-([ADR-DSGN-TRACK-ONETECHSTACK](../../adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)), and Go in catzc is test artifacts and nothing
-else ([ADR-AUTO-GO-TESTARTIFACTSONLY](../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-testartifactsonly)). Eac is Go. A Go
-idea read in eac beyond that scope is a question for the user, never a precedent. The two names of this system, cats to a person and catzc
-in code ([ADR-PRIN-CATS-CATZCISSOURCENAME](../../adr/principles/cats-and-catzc.md#rule-adr-prin-cats-catzcissourcename),
+([ADR-DSGN-TRACK-ONETECHSTACK](../../adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)), and Go in catzc is modules by layout and test
+artifacts, never the engine ([ADR-AUTO-GO-MODULESBYLAYOUT](../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-modulesbylayout)).
+Eac is Go. A Go idea read in eac beyond that scope is a question for the user, never a precedent. The two names of this system, cats to a
+person and catzc in code ([ADR-PRIN-CATS-CATZCISSOURCENAME](../../adr/principles/cats-and-catzc.md#rule-adr-prin-cats-catzcissourcename),
 [ADR-PRIN-CATS-CATSISPERSONNAME](../../adr/principles/cats-and-catzc.md#rule-adr-prin-cats-catsispersonname)), have their counterpart in
 eac's two names for its two CLIs, so a reader of either repository meets the same habit: one name per audience.
 

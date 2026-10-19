@@ -1,8 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: deab627cdc69
-    with_inputs_sha: "9e6c6ce4d46329337f66212a728db2d300083cdf51be2770005c3dc7b91fd851"
+    with_body_sha: "64f57c9dd49a"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -362,6 +361,8 @@ type.
     the cluster of module contents itself.
   - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a track is the cluster the
     file lives in, and its tech-stack is a set of file languages.
+  - [language track](#language-track): A language track is a modules track of one language, holding its modules and its test holder alike; a
+    track is any cluster of module contents.
   - [module](#module): A module is one named unit placed in a track; a track is the cluster of module contents and the concern it holds.
   - [module type](#module-type): A module type is the sort of module found at a place; a track is a cluster of places and the concern it
     holds.
@@ -372,13 +373,11 @@ type.
   - [track type](#track-type): A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
   - [value-chain concern](#value-chain-concern): A value-chain concern is where along delivery a decision acts; a track is a concern of the
     repository, the cluster where files live.
-  - [verification track](#verification-track): A verification track is one type of track — test-only, shipping nothing; a track is any
-    cluster of module contents.
 
 ### track type
 
 The sort of cluster a track is, one of a closed set — modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts,
-documentation, verification, or unordered.
+documentation, or unordered.
 
 - **Defined by:** [ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES](design/track-types.md#rule-adr-dsgn-tracktype-closedsetoftypes)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -473,17 +472,6 @@ Code written by a third party that the repository does not author, held in a tra
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
   - [vendor](#vendor): A vendor is the platform that reads a track's files; vendored code is code written by a third party.
-
-### verification track
-
-A test-only track — it verifies the core from outside, ships nothing, and is out of every bundle by construction; go is the first.
-
-- **Defined by:** [ADR-DSGN-TRACK-ONETRACKTYPE](design/tracks.md#rule-adr-dsgn-track-onetracktype)
-- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
-- **Source:** `pwsh/Catzc.Base.Languages/configs/glossary.yml`
-- **Kind of:** [track](#track)
-- **Contrasts:**
-  - [track](#track): A track is any root concern; a verification track is the test-only class that ships nothing.
 
 ### world map
 
@@ -724,6 +712,18 @@ modules the session loads.
     into a session.
   - [run mode](#run-mode): A run mode says where the importer reads the modules from; the importer decides which modules, languages and
     engines load.
+
+### language track
+
+A modules track of one language — pwsh, python, go, bash — holding its modules as folders under its root and its own test holder under
+tests/, the same way for every language.
+
+- **Defined by:** [ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE](automation/module-model.md#rule-adr-auto-module-everylanguagetrackalike)
+- **Realized by:** config-key `pwsh/Catzc.Base.Variants/configs/module-types.yml`
+- **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [track](#track): A track is any named cluster of module contents; a language track is one whose modules are written in one language and
+    resolved alike.
 
 ### layout
 

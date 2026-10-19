@@ -1,6 +1,7 @@
 track_types:
   modules:
-    definition: Deployable modules of one language's track, collected into the bundles files.yml declares; a module with no package ships nothing.
+    definition:
+      Deployable modules of one language's track, collected into the bundles files.yml declares; a module with no package ships nothing.
     role: deployable
     admits: [pwsh-folder, pwsh-psm1, python, go, bash]
   infrastructure:

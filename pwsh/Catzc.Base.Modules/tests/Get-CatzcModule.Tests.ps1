@@ -78,12 +78,12 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
         $modules.type | Should -Be @('widget-folder', 'widget-folder', 'gizmo-folder', 'shelf-folder', 'shelf-folder')
     }
 
-    It 'returns the modules of the track whose modules run under this engine when asked for the engine track' -Tag 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE' {
+    It 'returns the modules of the track whose modules run under this engine when asked for the engine track' -Tag 'ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE' {
         (Get-CatzcModule -EngineTrack -RepositoryRoot $script:root).name | Should -Be @('Gadget', 'Sprocket')
         (Get-CatzcModule -EngineTrack -Track gizmos -RepositoryRoot $script:root) | Should -BeNullOrEmpty
     }
 
-    It 'gives a language track its folder modules and the track''s own module, every file in exactly one of them' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
+    It 'gives a language track its folder modules and the track''s own module, every file in exactly one of them' -Tag 'ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE' {
         $kit = Get-CatzcModule -Name Gadget.Kit -RepositoryRoot $script:root
         $kit.shape | Should -Be 'folder'
         $kit.root | Should -Be 'shelf/Gadget.Kit'

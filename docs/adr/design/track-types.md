@@ -5,11 +5,11 @@
 ### Rule ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES
 
 A **track type** is the sort of cluster a track is, and it is one of a closed set, each with a one-sentence definition: `modules`,
-`infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`, `contracts`, `documentation`, `verification` and `unordered`.
-Configuration is no track type: it is a file role (the `config` kind), static files kept in the repository inside a module or inside a
-vendor-settings track, and it follows its owner. A track has exactly one type. A new tech-stack that ships (a `services` or `frontend`
-track, [ADR-DSGN-TRACK-ONETECHSTACK](tracks.md#rule-adr-dsgn-track-onetechstack)) adds its type to the set in the same change that opens the
-track, never before it.
+`infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`, `contracts`, `documentation` and `unordered`. Configuration is no track
+type: it is a file role (the `config` kind), static files kept in the repository inside a module or inside a vendor-settings track, and it
+follows its owner. A track has exactly one type. A new tech-stack that ships (a `services` or `frontend` track,
+[ADR-DSGN-TRACK-ONETECHSTACK](tracks.md#rule-adr-dsgn-track-onetechstack)) adds its type to the set in the same change that opens the track,
+never before it.
 
 - [Track types](#track-types)
 
@@ -84,12 +84,13 @@ name for the type of track, declared once, makes that difference a fact a gate c
 
 ### Track types
 
-`modules` holds PowerShell and C# modules; `infrastructure` holds Bicep templates and reusable Bicep modules; `pipelines` holds pipeline
-definitions, Azure DevOps or GitHub Actions by vendor; `vendor-settings` holds the settings of one tool the repository configures;
-`vendored-code` holds code written by a third party; `contracts` holds the repository's boundary contracts, in both directions;
-`documentation` holds the ADRs, references and guides; `verification` holds the black-box test projects (Go, Python, Bash); `unordered` is
-where imports land ([ADR-DSGN-TRACK-UNORDEREDTRACK](tracks.md#rule-adr-dsgn-track-unorderedtrack)). Configuration is a file role, not a
-type: `configs/*.yml` belongs to its module's track and `settings.json` to its vendor-settings track.
+`modules` holds the modules of one language's track, PowerShell with the C# it hosts, Python, Go or Bash, each track with its own test
+holder of black-box tests, and what ships of it is what `files.yml` packages; `infrastructure` holds Bicep templates and reusable Bicep
+modules; `pipelines` holds pipeline definitions, Azure DevOps or GitHub Actions by vendor; `vendor-settings` holds the settings of one tool
+the repository configures; `vendored-code` holds code written by a third party; `contracts` holds the repository's boundary contracts, in
+both directions; `documentation` holds the ADRs, references and guides; `unordered` is where imports land
+([ADR-DSGN-TRACK-UNORDEREDTRACK](tracks.md#rule-adr-dsgn-track-unorderedtrack)). Configuration is a file role, not a type: `configs/*.yml`
+belongs to its module's track and `settings.json` to its vendor-settings track.
 
 ### Deployable and holder tracks
 

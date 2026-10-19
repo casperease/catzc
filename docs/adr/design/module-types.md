@@ -23,10 +23,10 @@ place's root). `module` and `moduletype` are read from the registry and never gu
 
 Each track type **admits** a set of module types, declared on the track type
 ([ADR-DSGN-TRACKTYPE-DECLAREDONCE](track-types.md#rule-adr-dsgn-tracktype-declaredonce)), and a module's type must be admitted by the type
-of the track that holds it: `modules` admits `pwsh-folder` and `pwsh-psm1`, `infrastructure` admits `bicep`, `pipelines` admits `pipeline`
-(the track's vendor says which platform), `vendor-settings` admits `settings`, `vendored-code` admits the module types of the track it is
-nested in, and `verification` admits `python`, `go` and `bash`. A module of a type its track does not admit is a load failure, so a second
-stack inside a track shows as a violation without reading the file
+of the track that holds it: `modules` admits `pwsh-folder`, `pwsh-psm1`, `python`, `go` and `bash`, one module type per language track,
+`infrastructure` admits `bicep`, `pipelines` admits `pipeline` (the track's vendor says which platform), `vendor-settings` admits
+`settings`, and `vendored-code` admits the module types of the track it is nested in. A module of a type its track does not admit is a load
+failure, so a second stack inside a track shows as a violation without reading the file
 ([ADR-DSGN-TRACK-ONETECHSTACK](tracks.md#rule-adr-dsgn-track-onetechstack)).
 
 - [Types and tracks](#types-and-tracks)
@@ -34,8 +34,9 @@ stack inside a track shows as a violation without reading the file
 ### Rule ADR-DSGN-MODTYPE-DEPLOYABLEORHOLDERMODULE
 
 A deployable track's module is a unit of delivery; a holder track's module is the holder itself, one module per track, so its `module` is
-the track's name. A module's bundle (`catzc_bundle`) is read from the exporter registry for a module of a deployable track and is left out
-for a holder's, so a head never lists a bundle for a file that is not bundled.
+the track's name. A language track has, beside its folder modules, its own module, the root place named by the track, which holds what no
+folder module holds: the test holder and the generated project files. A module's bundle (`catzc_bundle`) is read from the exporter registry
+for a module of a deployable track and is left out for a holder's, so a head never lists a bundle for a file that is not bundled.
 
 - [Types and tracks](#types-and-tracks)
 

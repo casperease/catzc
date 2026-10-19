@@ -106,12 +106,13 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         @(Build-ContractReference -RepositoryRoot $script:root -DryRun -PassThru -Silent | Where-Object Changed) | Should -BeNullOrEmpty
     }
 
-    It 'skips the rebuild when every page carries the stamp of the unchanged inputs, and rebuilds when an asset changes' {
+    It 'renders on every run, heads each page with the body hash and no inputs stamp, and writes nothing the second time' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
-        Mock Get-Contract -ModuleName Catzc.Base.Contracts { throw 'rebuilt' }
-        { Build-ContractReference -RepositoryRoot $script:root -Silent } | Should -Not -Throw
-        Add-File 'contracts/widget/1.2.0/Catzc.Widget/.widget/extra.yml' "widget: 1`n"
-        { Build-ContractReference -RepositoryRoot $script:root -Silent } | Should -Throw 'rebuilt'
+        (Read-Page) | Should -Match 'with_body_sha: "?[0-9a-f]{12}'
+        (Read-Page) | Should -Not -Match 'with_inputs_sha'
+        $second = @(Build-ContractReference -RepositoryRoot $script:root -PassThru -Silent)
+        $second | Should -Not -BeNullOrEmpty -Because 'the second run renders every page again'
+        @($second | Where-Object Changed) | Should -BeNullOrEmpty
     }
 
     It 'reports drift without writing under -DryRun' {

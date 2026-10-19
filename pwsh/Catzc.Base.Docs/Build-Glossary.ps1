@@ -11,18 +11,6 @@ function Build-Glossary {
         [switch] $PassThru
     )
 
-    $inputsSha = Get-InputStamp -Path @(
-        @(Get-Config -Config glossary -ListOwners | ForEach-Object Path)
-        (Get-CatzcModuleRoot 'configs/adrs.yml')
-        (Resolve-RepoPath 'docs/adr')
-        (Get-Command Build-Glossary).ScriptBlock.File
-        (Get-Command Format-MarkdownParagraph).ScriptBlock.File
-        (Get-CatzcModuleRoot 'types')
-    ) -Exclude ([System.Management.Automation.WildcardPattern]::Escape($Path)), '*/docs/adr/index.md', '*/docs/adr/glossary.md', '*/README.md'
-    if (-not $PassThru -and (Test-GeneratedFileCurrent -Path $Path -InputsSha $inputsSha)) {
-        return ConvertTo-RepoRelativePath $Path
-    }
-
     $entries = Get-Glossary
     $citations = Get-AdrCitationMap
     $relationLabels = [ordered]@{ kind_of = 'Kind of'; part_of = 'Part of'; selected_by = 'Selected by' }
@@ -129,7 +117,7 @@ function Build-Glossary {
     }
 
     $glossaryPath = ConvertTo-RepoRelativePath $Path
-    $content = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path $glossaryPath -Generator Build-Glossary -InputsSha $inputsSha -FileKind (Get-FileKind $glossaryPath)
+    $content = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path $glossaryPath -Generator Build-Glossary -FileKind (Get-FileKind $glossaryPath)
     $changed = Write-FileIfChanged $Path $content -DryRun:$DryRun
 
     $relativePath = ConvertTo-RepoRelativePath $Path
