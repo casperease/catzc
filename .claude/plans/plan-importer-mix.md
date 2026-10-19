@@ -23,8 +23,8 @@ instead of each re-deciding, and that a second engine or language has one place 
   ADR-AUTO-ENVVAR allows an external contract.
 - Values: `auto` (default) or an explicit list. `auto` for engines is pwsh plus every POSIX engine whose executable exists (a missing zsh is
   skipped and reported); `auto` for languages is the executable languages of the loaded modules.
-- Result: one `ImportMix { Languages, Engines, Modules }` record for the session, read by `Get-ImportMix`; the test runner reads engines from
-  it, the builder reads modules.
+- Result: one `ImportMix { Languages, Engines, Modules }` record for the session, read by `Get-ImportMix`; the test runner reads engines
+  from it, the builder reads modules.
 - Effects in cost order: report only; module selection by language; entry files follow the mix (`importer.sh` only when a POSIX engine is in
   the mix); languages beyond powershell and csharp throw `NotImplemented` when configured.
 - `ExecutionEngines` stays a compiled C# model (closed set); languages stay config; no regrouping of AUTO files by layer; the concern
@@ -40,8 +40,8 @@ instead of each re-deciding, and that a second engine or language has one place 
       Test-GeneratedFiles clean).
 - [ ] L5: the entry files follow the mix (check: Test-GeneratedFiles proves `importer.sh` is generated only with a POSIX engine in the mix).
 - [ ] The per-language facts the importer needs (`build`, `test`, `layout` handlers) go in `languages.yml` beside `formatter`, `checks` and
-      `executable`; whether `FileLanguage` rejects unknown keys is checked first, and a new key edits the type before the config (check:
-      the config loads in a fresh `pwsh`; the importer throws `NotImplemented` for a configured language without a handler).
+      `executable`; whether `FileLanguage` rejects unknown keys is checked first, and a new key edits the type before the config (check: the
+      config loads in a fresh `pwsh`; the importer throws `NotImplemented` for a configured language without a handler).
 
 ## Refs
 

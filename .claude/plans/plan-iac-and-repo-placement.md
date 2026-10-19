@@ -60,15 +60,9 @@ kinds are defined.
 - [ ] Write the ADR rules that define a repo: mono-repo, consumer repo, no repo, with `eac`'s docs as inspiration only, and re-point the
       four bare "mono-repository" uses to the rule (check: Test-Adr clean; the rules sit in `docs/adr/repository` and the index lists the
       codes).
-- [ ] After the renderer steps of `plan-diagram-engine`, write the explanation article and diagram of the three kinds, working slug
-      `three-kinds-of-infrastructure-code` in `docs/explanation/azure`: templates, configs and reusable modules, what each holds, and how a
-      template pulls its configs and modules together (check: the diagram is put from its yml declaration and passes Test-Diagrams; the
-      article cites the ADR rules that define each kind).
-- [ ] After the same renderer steps, write the four management diagrams, each its own article and folder in `docs/explanation/azure`,
-      working slugs `change-one-configuration-slot`, `a-module-change-fans-out-to-its-templates`, `add-a-template`,
-      `add-an-environment-slot` (check: each is put from its yml declaration, names the track place it edits as a span bar from the IaC
-      kinds vocabulary, and is reviewed by the user).
 
 ## Refs
 
 - docs/adr/design/tracks.md (ADR-DSGN-TRACK, 18 rules); the bundle exporter note in memory (`Catzc.Base.Exporter`) for the anchor split.
+- The five explanation diagrams this plan decided (the three kinds, and the four management diagrams) are authored by `plan-diagram-engine`,
+  the isolated diagram track, after the two ADR rule steps above land; this plan closes on its four steps alone.

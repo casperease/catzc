@@ -1,10 +1,11 @@
 ---
 plan:
-  status: blocked
+  status: active
   value: high
   reviewed: 2026-10-19
-  waits_on: the user's CD proof run (task-user-runs-and-commits step 2) and the rungs registry step of plan-diagram-engine
-  targets: [pipelines, docs/adr/design/commit-lifecycle.md, docs/adr/flow/cd-discipline-and-promotion-flow.md]
+  waits_on:
+    the rename and the certifying check wait on the user's CD proof run (task-user-runs-and-commits step 2); the registry step is takeable
+  targets: [pipelines, pwsh, docs/adr/design/commit-lifecycle.md, docs/adr/flow/cd-discipline-and-promotion-flow.md]
 ---
 
 # The promotion ladder: from one CD run to main-uat, release-uat, pre-prod and DEPLOY
@@ -32,10 +33,14 @@ Until the ladder runs, the ADRs' promotion rules are proven by no real run, and 
 
 ## Open steps
 
+- [ ] Declare the rungs registry: one yml with its C# config type in a new module `pwsh/Catzc.Base.Flow` (declared in `dependencies.yml`;
+      the type carries the defaults; no Base module owns pipeline detection today) with the four rungs main-uat, release-uat, pre-prod and
+      prod, each with its gate and the environment suffix it maps to, read by `Catzc.Azure.DevOps` for its environment names and by the
+      lifecycle minimap of `plan-diagram-engine` (check: an L0 test on the type; `environment-approvals.yml` derives its environment names
+      from it; Test-ModuleDependency clean). Takeable now; the user's proof run is not needed for it.
 - [ ] main-uat is `dev`: rename each unit's `<unit>-dev` ADO environment to `<unit>-main-uat` in the deploy lists and the ladder docs, so
-      the rung has its own environment name; the names derive from the rungs registry `plan-diagram-engine` declares (one yml of the four
-      rungs, their gates and environment suffixes), so this step lands after that one (check: Test-Pipelines clean; the rename in Azure
-      DevOps itself is the user's).
+      the rung has its own environment name, derived from the registry above (check: Test-Pipelines clean; the rename in Azure DevOps itself
+      is the user's).
 - [ ] The certifying check: the DEPLOY pipelines of shared, apex and nova read the `<unit>-pre-prod` environment's deployment history for
       the commit before deploying, and the rule in `docs/adr/flow/cd-discipline-and-promotion-flow.md` names the history as the record
       (check: Test-Pipelines and Test-Adr clean; a DEPLOY run of a commit never deployed to pre-prod stops at that check on the user's proof

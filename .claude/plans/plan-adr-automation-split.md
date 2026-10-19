@@ -39,8 +39,8 @@ duplicates the home the pwsh rules should have under `automation/`.
       command is reworded to the command's role (check: Test-Adr, Test-Links and Test-AdrEngineNeutrality clean after each file;
       `Test-AdrEngineNeutrality` is the one judge of what counts as pwsh text, so a row it disagrees with is re-cut, not argued).
 - [ ] Update the index's sources, `pwsh/Catzc.Base.Docs/configs/adrs.yml` (the paths) and `adr-index.yml` (the authoring conventions), and
-      regenerate `docs/adr/index.md` with `Build-AdrIndex`; the index is a locked generated file, never edited by hand. The convention states
-      the layout as a rule: `automation/` holds engine-neutral rules, `automation/<language>/` the language's, and the codes stay
+      regenerate `docs/adr/index.md` with `Build-AdrIndex`; the index is a locked generated file, never edited by hand. The convention
+      states the layout as a rule: `automation/` holds engine-neutral rules, `automation/<language>/` the language's, and the codes stay
       (ADR-REPO-PLANS-DECISIONSBECOMERULES) (check: Test-Adr clean; the regenerated index lists every code once and the convention names the
       four language folders).
 

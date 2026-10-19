@@ -55,16 +55,15 @@ Open, in execution order. Nothing below is held by a session; done work is prune
   the flat automation files by the plan's table, then the index and `adrs.yml`.
 - layers-stray-rules -> plan-layers-vocabulary-rename-contracts.md, steps 2 and 3: the twelve stray pwsh rules to their twins and the
   contract drift test; after adr-automation-split's first step.
-- diagram-engine -> plan-diagram-engine.md: the move to `python/Catzc.Diagrams`, the yml declaration with its two directions (put and get)
-  and the drift gate, the file-fact command, the minimap contract, the rungs registry, the theme selector, the eight minimaps and the
-  ADR-REPO-SLIDES rules, then get over all 166 diagrams, the fix list it yields, and the ADR-DSGN-LIFE move. No open question remains.
-- iac-and-repo-placement -> plan-iac-and-repo-placement.md: the three IaC places in `variants.yml` and the two ADR rule sets now; the five
-  explanation diagrams after diagram-engine's renderer steps.
+- iac-and-repo-placement -> plan-iac-and-repo-placement.md: the three IaC places in `variants.yml`, the literal paths re-pointed, and the
+  two ADR rule sets; its five diagrams are the diagram track's.
 - importer-mix -> plan-importer-mix.md: L3 report-only, then L4, L5 and the per-language facts.
+- rungs-registry -> plan-promotion-ladder.md, step 1: the new `Catzc.Base.Flow` module with the four rungs, their gates and environment
+  suffixes; takeable now, and the diagram track's last minimap reads it.
 - explanation-drift-gaps -> task-explanation-drift-gaps.md: the Q1 to Q3 proofs from the user's runs (blocked_on task-user-runs-and-commits
   steps 1 and 2).
-- promotion-ladder -> plan-promotion-ladder.md: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying record, after the user's CD
-  proof run.
+- promotion-ladder -> plan-promotion-ladder.md, steps 2 and 3: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying check, after
+  the user's CD proof run.
 - layers-classification-flip -> task-layers-classification-flip.md: P6, the `ci-automation` pipeline rename and the `automation` layer
   form's retirement, on the day the user re-points the external definitions.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
@@ -72,3 +71,7 @@ Open, in execution order. Nothing below is held by a session; done work is prune
   run, the master and the task files go with the last plan.
 
 A new plan or paste adds its chunk as a pointer line at the position its dependencies and value give it.
+
+Isolated, outside the order above (the user, 2026-10-19): plan-diagram-engine.md is taken by its own session from its own open steps, in
+their order; no chunk above waits on it, and it waits on nothing above except the rungs registry step of promotion-ladder for its last
+minimap and the IaC rule steps for its last two diagrams. Its moves of tracked files are still listed in task-user-runs-and-commits.

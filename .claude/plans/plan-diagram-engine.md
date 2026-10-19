@@ -28,6 +28,12 @@ The diagram and slide code is proof of concept and lives in `.claude/drawio` and
 `.drawio.png` with correct embedded XML and raster; a person may also edit the `.drawio.png` in the draw.io editor and fold the edit back
 into the yml. The minimaps are redefined first; the diagram fix list waits for that.
 
+This plan is an **isolated track** (the user, 2026-10-19): it sits outside the master's chunk order, is taken by its own session, and no
+other chunk waits on any step here. The two things it once shared with other plans are cut: the rungs registry is declared by
+`plan-promotion-ladder` (this plan's lifecycle minimap reads it once it exists, and is built last), and the five IaC explanation diagrams of
+`plan-iac-and-repo-placement` are authored here, in the content list below. The other plans keep using today's renderer
+(`Build-Diagrams -Path`) to regenerate `.assets` pages until this plan's engine replaces it.
+
 ## Why its value is high
 
 Every diagram and slide depends on it, and the fix list below cannot be judged until the renderer is correct.
@@ -48,10 +54,9 @@ Every diagram and slide depends on it, and the fix list below cannot be judged u
   `drawio.yml` `renderer.page`), chosen by a `-Theme` selector on the build commands with the default declared once on the config type, and
   no style names a colour, only a token. Only the default theme's raster is committed; the other renders on demand to `out/`.
   `migrate_dark.py`, the one-way light-to-dark migration, goes.
-- The lifecycle rungs get a registry: one yml with main-uat, release-uat, pre-prod and prod, each with its gate and the environment suffix
-  it maps to, in a new vendor-neutral module `Catzc.Base.Flow` (no Base module owns pipeline detection today; `Test-IsRunningInPipeline` is
-  not a file under `pwsh/`), read by the lifecycle position minimap, `plan-promotion-ladder`'s rename and `Catzc.Azure.DevOps` for its
-  environment names.
+- The lifecycle rungs get a registry, declared by `plan-promotion-ladder` in a new vendor-neutral module `Catzc.Base.Flow`: one yml with
+  main-uat, release-uat, pre-prod and prod, each with its gate and the environment suffix it maps to. This plan's lifecycle position minimap
+  reads it and is built after it exists; nothing here declares it.
 - The span-bar labels and the flow direction come from closed vocabularies in the renderer's config: a `vocabularies:` block names each list
   (axis words, rungs, layers, tracks, IaC kinds), each read from its registry where one exists, and a label outside them fails validation.
 - The ADR home of every decision here is ADR-REPO-SLIDES, `docs/adr/repository/slides-as-markdown.md`: its seven rules already cover the
@@ -153,10 +158,9 @@ that fails it (a glyph outside the library, an element get cannot name) is the r
       type in `pwsh/Catzc.Base.Maps/types/`, cut from the `WorldMap.ToJson()` shape (`WorldMap.cs:114`: tracks, file_languages, cells of
       track by file_language, files with citations) and `WorldMapHighlight.ToJson()` (`WorldMapHighlight.cs:126`: kind, requested, lit cells
       with sources) (check: the grid, code locations and axis serialize to it; a test per minimap).
-- [ ] Declare the rungs registry, one yml with its C# config type in a new module `pwsh/Catzc.Base.Flow` (declared in `dependencies.yml`;
-      the type carries the defaults), and read it from the lifecycle position data function (check: an L0 test on the type; the minimap's
-      test lights a cell per rung from `cites` edges; `environment-approvals.yml` derives its environment names from it;
-      Test-ModuleDependency clean).
+- [ ] The lifecycle position data function reads the rungs registry of `Catzc.Base.Flow` once `plan-promotion-ladder` has declared it; until
+      then this minimap is the last of the eight to be built (check: the minimap's test lights a cell per rung from `cites` edges; the
+      registry is read through `Get-Config`, never a literal list).
 - [ ] Make the theme a selector: one token set per theme in the renderer config, `-Theme` on `Build-Diagrams` and `Build-SlideDeck` with the
       default declared once on `SlidesConfig`, every style a token reference, `migrate_dark.py` removed, the non-default theme rendered to
       `out/` (check: one diagram and one slide render in both themes from the same declaration in a test; `git grep` of a hex colour under
@@ -184,6 +188,13 @@ that fails it (a glyph outside the library, an element get cannot name) is the r
       by the user; blocked on the renderer steps).
 - [ ] Move ADR-DSGN-LIFE to `docs/adr/flow` with `Update-AdrCitation` re-citing its codes (check: Test-Adr and Test-Links clean;
       `plan-promotion-ladder` re-points its target).
+- [ ] The IaC explanation diagram of the three kinds, from `plan-iac-and-repo-placement`: article and yml declaration under
+      `docs/explanation/azure`, working slug `three-kinds-of-infrastructure-code`: templates, configs and reusable modules, what each holds,
+      and how a template pulls its configs and modules together (check: the diagram is put from its declaration and passes `Test-Diagrams`;
+      the article cites the ADR rules that plan writes for each kind, so it lands after them).
+- [ ] The four IaC management diagrams, each its own article and folder under `docs/explanation/azure`, working slugs
+      `change-one-configuration-slot`, `a-module-change-fans-out-to-its-templates`, `add-a-template`, `add-an-environment-slot` (check: each
+      is put from its declaration, names the track place it edits as a span bar from the IaC kinds vocabulary, and is reviewed by the user).
 
 ## Where each minimap's data comes from
 
