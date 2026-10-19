@@ -24,6 +24,11 @@ kinds are defined.
   template (`main.bicep`, `options.yml`) with its `configuration/` beside it, and `infrastructure/modules/` holds the reusable modules; the
   `infrastructure` track already declares both places with `vendor: azure`.
 - The three kinds are named as track places, so any repo can map each one elsewhere: IaC templates, IaC configs, IaC reusable modules.
+- Diagrams (explanation, under `docs/explanation/azure`, each an article plus a `.assets/<slug>/` diagram folder, working names that the
+  user may rename): one diagram of the three kinds and how they relate, and several diagrams of managing infrastructure through them: change
+  a configuration slot, change a reusable module and see its fan-out to the templates that use it, add a template, add an environment slot.
+  A configuration slot is one `<env>[-<slot>].yml` file of a template that deploys one subscription's resource group (the glossary term).
+  They are authored in the markdown source format of `plan-diagram-engine` and wait for its renderer.
 
 ## Open steps
 
@@ -33,6 +38,14 @@ kinds are defined.
       `docs/adr/azure` and the index lists the code).
 - [ ] Write the ADR rules that define a repo: mono-repo, consumer repo, no repo, with `eac`'s docs as inspiration only (check: Test-Adr
       clean; the rules sit in `docs/adr/repository` and the index lists the codes).
+
+- [ ] After the renderer steps of `plan-diagram-engine`, write the explanation article and diagram of the three kinds, working slug
+      `three-kinds-of-infrastructure-code` in `docs/explanation/azure`: templates, configs and reusable modules, what each holds, and how a
+      template pulls its configs and modules together (check: the diagram renders from its markdown; the article cites the ADR rules that
+      define each kind).
+- [ ] After the same renderer steps, write the four management diagrams, each its own article and folder in `docs/explanation/azure`:
+      changing a configuration slot, changing a reusable module with its fan-out to the templates that use it, adding a template, and adding
+      an environment slot (check: each renders from its markdown and names the track place it edits; the user reviews each one).
 
 ## Refs
 

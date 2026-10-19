@@ -38,6 +38,11 @@ Every diagram and slide depends on it, and the fix list below cannot be judged u
 - Minimap data is generated from well-defined functions, never drawn by hand.
 - The nine minimaps: grid, code locations, axis, and six more (layer stack, lifecycle position, track placement, engine strip, module
   neighbourhood, actor strip), each derived from a function over a config.
+- Minimap data is computed in PowerShell and drawn in Python: `Catzc.Base.Maps` gets one data function per minimap, built on the file-fact
+  functions, and returns JSON as the world map does today; the Python module reads that JSON and draws, and never parses a head
+  (ADR-REPO-FILEMETA-NOREADBACK: facts are derived from the registries, git and the disk, never read back from a file's head).
+- A diagram's subject is the ADR codes in its subtitle plus the files that cite them; every minimap is a projection of that subject's files
+  and their facts onto its axes, so a lit cell always has a reason a function can state.
 - Two pools, overlapping on the grid: explanation diagrams pick from axis, lifecycle position, layer stack, actor strip and grid; reference
   diagrams pick from code locations, track placement, engine strip, module neighbourhood and grid.
 - Redefinitions: the legend is simplified, much less text; the tree becomes the more generic **code locations** view that still shows which
@@ -58,12 +63,37 @@ Every diagram and slide depends on it, and the fix list below cannot be judged u
       to png and back to the same md facts, in a test).
 - [ ] Redefine the legend, code locations and axis as above, and write the sister files from the same data (check: the minimap tests pass;
       each lit cell has its reason).
+- [ ] Expose the file facts through one public read-only command in the module that owns them (today `Get-FileMetaFact` is private to
+      `Catzc.Base.QualityGates`), returning the facts the imprint would write without writing a head (check: its output equals the imprint's
+      for ten sample files; stripping every head changes no output, ADR-REPO-FILEMETA-NOREADBACK).
+- [ ] Define the minimap data contract once: one JSON shape for a minimap (axes, cells, lit cells each with its reason), validated by a C#
+      type in `Catzc.Base.Maps` (check: the grid, code locations and axis serialize to it; a test per minimap).
+- [ ] Check each further minimap against the registry it needs (the table below) and, for a minimap with none, decide with the user whether
+      to define a registry or drop the minimap (check: the table has a registry or a decision for every row).
 - [ ] Build the six further minimaps, each with its data function and a test on its data, and the two pools as the kind defaults (check:
       each minimap renders from its function with no hand-drawn cell).
 - [ ] Rework the data of every existing diagram's minimaps on the new definition (check: re-render one folder, review, then the rest).
 - [ ] Fix the four diagrams below once the steps above are done, one diagram at a time (check: each is re-rendered from its markdown and
       reviewed by the user; blocked on the renderer steps).
 - [ ] Move ADR-DSGN-LIFE to `docs/adr/flow` with `Update-AdrCitation` re-citing its codes (check: Test-Adr and Test-Links clean).
+
+## Where each minimap's data comes from
+
+The facts below are the ones the file-meta kinds already produce (`file-meta.yml`): `file-path`, `file-name`, `file-type`, `file-role`,
+`file-language`, `track`, `track-type`, `vendor`, `module-name`, `module-type`, `catzc-bundle`, `visibility`, and the edges `cites`,
+`defines`, `links`, `page`, `test`. Status is what was checked on 2026-10-19; "unchecked" rows are the registry check step.
+
+| Minimap              | Projection                                                 | Facts and registries                                              | Status                                                               |
+| -------------------- | ---------------------------------------------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------- |
+| grid                 | track by file language                                     | `track`, `file-language`, the world map                           | exists (`Get-WorldMap`, `Get-WorldMapHighlight`)                     |
+| code locations       | tracks, modules and folders the subject's files sit in     | `track`, `module-name`, `module-type`, `file-path`, `cites` edges | facts exist; the generic view replaces the static treemap frame      |
+| axis                 | ADR domain down, build/qc/release/deploy/access across     | the ADR registry (domain, concern), `cites` edges                 | exists as the value-chain map; the new axes are a re-cut (unchecked) |
+| layer stack          | which layer of the allow-list the subject's modules sit in | `module-name`, the layers declaration (ADR-AUTO-LAYERS)           | unchecked: which config holds module to layer                        |
+| lifecycle position   | the rung of the commit lifecycle the subject concerns      | ADR-DSGN-LIFE rungs, `cites` edges                                | unchecked: the rungs are prose until a registry holds them           |
+| track placement      | which tracks, track types and vendors the files sit in     | `track`, `track-type`, `vendor`                                   | facts exist                                                          |
+| engine strip         | which file languages and engines the subject touches       | `file-language`, the execution engines registry                   | facts exist; the engine registry is unchecked                        |
+| module neighbourhood | the subject's modules and their dependency edges           | `module-name`, module dependency declarations                     | unchecked: where module dependencies are declared                    |
+| actor strip          | who acts: user, agent, pipeline, tool                      | none found                                                        | no registry found; define one with the user or drop the minimap      |
 
 ## The diagram fix list (waits on the renderer)
 
