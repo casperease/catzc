@@ -32,11 +32,11 @@ The pipeline wiring of the affected check and the post-merge BVT is proven only 
 
 When a step lands, remove its claim from every article that states it (search `docs/explanation` for the function name) in the same change.
 
-- [ ] `pipelines/cd-shared.yaml` and `pipelines/extends/cd-customer.yaml` on a real run: a run on main touching only `apex` shows the
-      `Changes` step writing `AFFECTED=True` in `cd-apex` and `AFFECTED=False` in `cd-shared`, whose deploy stages then skip (check: those
-      two run logs).
-- [ ] `pipelines/ci-automation.yaml` on a real run: the `BuildArtifact` job runs `Test-BuildArtifact` on main and passes, and is skipped on
-      a PR (check: one main run and one PR run).
+- [ ] `.ado/pipelines/cd-shared.yaml` and `.ado/pipelines/extends/cd-customer.yaml` on a real run: a run on main touching only `apex` shows
+      the `Changes` step writing `AFFECTED=True` in `cd-apex` and `AFFECTED=False` in `cd-shared`, whose deploy stages then skip (check:
+      those two run logs).
+- [ ] `.ado/pipelines/ci-automation.yaml` on a real run: the `BuildArtifact` job runs `Test-BuildArtifact` on main and passes, and is
+      skipped on a PR (check: one main run and one PR run).
 - [ ] `pwsh/Catzc.Azure.DevOps/configs/environment-approvals.yml`: the user lists the approvers under `approver_group.members` and runs the
       apply (`Sync-AdoEnvironmentApprovals -DryRun`, then without); then the lifecycle articles drop the "prod with no gate" claims. The
       group's description is written at creation only, since a Graph group patch needs a JSON-patch content type the REST caller does not
@@ -46,4 +46,3 @@ When a step lands, remove its claim from every article that states it (search `d
 
 - The articles' "Where the code and the ADR differ" sections under `docs/explanation/` hold each gap in the reader's words.
 - `pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1` and `docs/how-to/automation/apply-environment-approvals.md` (the Q3 apply).
-- `plan-ado-and-cicd-docs` moves `pipelines/` to `.ado/pipelines/`; the paths above re-point when it lands.

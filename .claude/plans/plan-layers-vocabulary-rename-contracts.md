@@ -11,7 +11,7 @@ plan:
 
 `automation/` is `pwsh/`, ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER and ADR-REPO-CMDCONTRACT are written, the contracted command set is in
 `contracts/`, and the glossary carries the avoid-phrasings of the retired layer words (P5). Open: P6, the externally bound pipeline names
-and the last old layer form; the stray pwsh rules still in AUTO ADRs; and the contract drift test.
+and the last old layer form.
 
 ## Why its value is high
 
@@ -48,25 +48,6 @@ by naming which public functions are contracted. Every later plan speaks this vo
       and anchors, "Cloud Automation Toolkit", Exporter `-Version auto`, `jidoka`, `.markdownlint.yml` "auto-enable",
       `Get-AutoControlledGlobs` (the name keeps "Auto"), `ADR-AUTO-*` codes and paths, `.unordered/**`. The user's go first (check:
       Test-Pipelines, Test-Contracts and Test-Glossary clean; the triggers fire on the next push after the user re-points the bindings).
-- [x] Superseded 2026-10-19 by plan-adr-automation-split's sort step (Test-AdrEngineNeutrality reports 0 over these rule summaries, so they
-      stay in AUTO): The stray pwsh rules in AUTO ADRs, one rule at a time: ADR-AUTO-TEST-SAFESEAMSWAPS, ADR-AUTO-TEST-PROCESSTRIPWIRE,
-      ADR-AUTO-TEST-FILEPARALLELISM, ADR-AUTO-TEST-ONESCHEDULINGPOOL, ADR-AUTO-TEST-RUNSNEVERWAIT, ADR-AUTO-EXTEND-MANDATORYCONVENTIONS,
-      ADR-AUTO-CACHE-IMPORTERINVALIDATES, ADR-AUTO-CACHE-LAZYBYDEFAULT and the session-cache model, ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING,
-      ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES, ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES, ADR-AUTO-NOPWD-ONEROOTACCESSOR; each moves to its
-      `ADR-PWSH-*` twin with `Update-AdrCitation` or is reworded engine-neutral, and `Test-AdrEngineNeutrality` fails AUTO text with pwsh
-      syntax (check: Test-Adr and Test-AdrEngineNeutrality clean after each rule; this step lands after `plan-adr-automation-split` moves
-      the pwsh ADRs, so each twin has its final home). Re-cut 2026-10-19 by the orchestrator on the user's delegation: the gate reports 0
-      issues over these rule summaries, so every one stays in AUTO and only its PowerShell mechanics move to the twin as Decision prose,
-      inside plan-adr-automation-split's sort step; this step closes as superseded when the last of them lands.
-- [x] The contract drift test, `python/tests/catzc-base-repository/test_contract_drift.py` — verdict:
-      `Invoke-PythonTest -Module     Catzc.Base.Repository` passes all 4 tests on the tree under pwsh, and both drift tests pass under bash;
-      ruff and Test-PythonTypes are clean. On a copy whose `Get-RepositoryFile.command.yml` renames `Path` to `File`, `test_contract_drift`
-      fails with "the caller passes -Path, which the contract does not name" and "the contract makes -File mandatory, but the caller does
-      not pass it".
-- The drift test reads the call shape through the one reader, `(Get-CommandContract ...).Signature`, never by parsing the asset
-  (ADR-REPO-CMDCONTRACT-ONEREADER). It reads from `CATZC_REPOSITORY_ROOT`, which is how a copy is proven, and single-quotes the expression
-  for a POSIX engine's `cats`. It sits in the existing Python test folder, so it needs no registration entry. Recommended by catzc-08,
-  2026-10-19.
 
 ## Refs
 
