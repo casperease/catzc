@@ -23,8 +23,6 @@ a generator for its output and writes the same head over it. Two primitives in `
 
 ![The optIn filter, then link, copy or render, through two write primitives](.assets/opted-in-then-link-copy-or-render/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/opted-in-then-link-copy-or-render/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **rootconfig.yml.** `Get-Config -Config rootconfig` loads the registry from `pwsh/Catzc.Base.RootConfig/configs/`. Every path in it is

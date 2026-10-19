@@ -20,8 +20,6 @@ setting, never a hand-typed or truncated name.
 
 ![Nobody types an Azure name: cats derives it, and a bad name stops with an error](.assets/names-are-derived-never-typed/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/names-are-derived-never-typed/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **variants.yml.** Its `ado_naming` variant picks the component order for every name, `standard` by default. Changing it re-spells every

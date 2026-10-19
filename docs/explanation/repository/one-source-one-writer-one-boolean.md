@@ -18,8 +18,6 @@ stays tracked is one boolean per entry, not a second system.
 
 ![Every managed root file has one source of truth, one writer, and one boolean that decides git membership](.assets/one-source-one-writer-one-boolean/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-source-one-writer-one-boolean/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Source of truth.** Every entry names exactly one: an authored file that is copied or linked out, or a generator function whose rendered

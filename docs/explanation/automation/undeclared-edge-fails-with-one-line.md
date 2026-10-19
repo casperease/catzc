@@ -19,8 +19,6 @@ or unknown module becomes one listed line in a single failure. The fix is always
 
 ![An undeclared edge fails with one line](.assets/undeclared-edge-fails-with-one-line/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/undeclared-edge-fails-with-one-line/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Test-Automation.** The usual entry point. Its L1 integrity test (tagged `L1`, `integrity` and `source-only`) runs the gate, so every

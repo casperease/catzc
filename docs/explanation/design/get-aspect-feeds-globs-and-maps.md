@@ -24,8 +24,6 @@ The code that validates the order sits in the config type, before either caller 
 
 ![Get-Aspect feeds Globs and Maps](.assets/get-aspect-feeds-globs-and-maps/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/get-aspect-feeds-globs-and-maps/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **variants.yml.** The `aspects` entry of the repo-wide variants: `infrastructure` lists `tests: ["**/tests/**"]` and then `live: ["**"]`.

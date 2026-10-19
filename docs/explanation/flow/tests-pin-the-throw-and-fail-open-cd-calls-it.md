@@ -22,9 +22,6 @@ stage that runs the check first, is wired into the CD pipelines, and no gate che
 
 ![Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate](.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/diagram.drawio.png)
 
-The diagram is described element by element in
-[its asset description](.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Test-GlobSetAffected.** The check carries two rules. The globset-trigger rule says it throws on an undeclared unit name and fails open

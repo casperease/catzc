@@ -20,8 +20,6 @@ either passes or names every same-layer pair that shares a file.
 
 ![Declare or add a folder, and the gate names overlaps](.assets/declare-or-add-folder-gate-names-overlaps/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/declare-or-add-folder-gate-names-overlaps/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **globs.yml: deployable-unit.** To add or recompose a unit, edit an entry with `layer: deployable-unit`, its `include:` and `exclude:`

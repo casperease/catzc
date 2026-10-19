@@ -18,8 +18,6 @@ seam itself: one step asserts that the detector answers true and prints where th
 
 ![The analyzer names the raw read](.assets/the-analyzer-names-the-raw-read/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/the-analyzer-names-the-raw-read/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Test-ScriptAnalyzer.** Run it from a session that has dot-sourced the importer. It analyzes the automation PowerShell with the one

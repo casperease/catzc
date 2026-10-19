@@ -1,0 +1,57 @@
+description: >-
+  A pipeline signs in through its service connection and pins the subscription it expects; a developer sets the session with az
+  account set; Deploy-Bicep resolves the session, prints the deployment context, or stops with one of three errors.
+about:
+  lens: operations
+  adrs: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+  tracks: [pwsh]
+  languages: [powershell]
+  modules: [Catzc.Azure.Templates, Catzc.Azure.Cli]
+  files:
+    - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+    - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+    - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+content:
+  title: A pipeline pins the subscription it expects; a devbox picks the target with az account set
+  kind: explanation
+  relation: feeds the next step
+  bands:
+    - { id: band-entry, label: ENTRY }
+    - { id: band-command, label: COMMAND }
+    - { id: band-outcome, label: OUTCOME }
+  groups:
+    - { id: grp-errors, label: three errors, in: band-outcome }
+  glyphs:
+    - { id: x-connection, kind: external, label: service connection, in: band-entry }
+    - { id: x-account, kind: external, label: az account set, in: band-entry }
+    - { id: g-deploy, kind: code, label: Deploy-Bicep, in: band-command }
+    - { id: r-context, kind: result, label: deployment context, in: band-outcome }
+    - { id: f-no-assert, kind: failure, label: no assert in a pipeline, in: grp-errors }
+    - { id: f-undeclared, kind: failure, label: undeclared subscription, in: grp-errors }
+    - { id: f-wrong, kind: failure, label: wrong subscription, in: grp-errors }
+  edges:
+    - { from: x-connection, to: g-deploy }
+    - { from: x-account, to: g-deploy }
+    - { from: g-deploy, to: r-context }
+    - { from: g-deploy, to: grp-errors, kind: fail }
+  markers:
+    - { at: x-connection, number: 1 }
+    - { at: x-account, number: 2 }
+    - { at: g-deploy, number: 3 }
+    - { at: r-context, number: 4 }
+    - { at: f-no-assert, number: 5 }
+    - { at: f-undeclared, number: 6 }
+    - { at: f-wrong, number: 7 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-entry: { x: 20, y: 84, w: 400, h: 340 }
+  band-command: { x: 440, y: 84, w: 320, h: 340 }
+  band-outcome: { x: 780, y: 84, w: 500, h: 340 }
+  x-connection: { x: 100, y: 144, w: 200, h: 52 }
+  x-account: { x: 100, y: 254, w: 200, h: 52 }
+  g-deploy: { x: 520, y: 184, w: 160, h: 44 }
+  r-context: { x: 820, y: 134, w: 240, h: 44 }
+  grp-errors: { x: 810, y: 204, w: 300, h: 200 }
+  f-no-assert: { x: 840, y: 246, w: 240, h: 44 }
+  f-undeclared: { x: 840, y: 298, w: 240, h: 44 }
+  f-wrong: { x: 840, y: 350, w: 240, h: 44 }

@@ -20,8 +20,6 @@ predicted, compared and reproduced without looking anything up in Azure.
 
 ![An Azure name is a pure function of its components, and it is never truncated](.assets/names-are-pure-and-never-truncated/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/names-are-pure-and-never-truncated/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Fixed components.** A name is built from one canonical set of components in a fixed order, with the environment first, so names sort by

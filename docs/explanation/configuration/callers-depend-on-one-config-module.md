@@ -20,8 +20,6 @@ where the file lives, never wrapped, and reading a config is global access with 
 
 ![Callers in any module read config through one module](.assets/callers-depend-on-one-config-module/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/callers-depend-on-one-config-module/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **caller.** A caller is any function in any module. Outside their tests, 26 of the 39 other modules call `Get-Config` or

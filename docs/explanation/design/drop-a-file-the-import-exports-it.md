@@ -20,8 +20,6 @@ and each failure they raise names the file or function at fault.
 
 ![Drop a file, the next import exports it](.assets/drop-a-file-the-import-exports-it/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/drop-a-file-the-import-exports-it/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Verb-Noun.ps1.** The author adds one file, `Verb-Noun.ps1` at the module root or `private/<Verb-Noun>.ps1`. Nothing else is edited: the

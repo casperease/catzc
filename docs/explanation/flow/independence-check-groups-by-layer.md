@@ -21,8 +21,6 @@ decides whether it is ever compared with anything. All paths below are under `pw
 
 ![Test-GlobSetIndependence groups by layer](.assets/independence-check-groups-by-layer/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/independence-check-groups-by-layer/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **deployable-unit sets.** The five entries in `configs/globs.yml` with `layer: deployable-unit`, loaded by `GlobsConfig` and returned by

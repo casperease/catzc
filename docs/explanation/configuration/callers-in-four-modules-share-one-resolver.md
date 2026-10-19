@@ -19,9 +19,6 @@ committed `configs/<name>.yml` in the module that ships it.
 
 ![Callers in four modules dereference an address through Catzc.Base.Config](.assets/callers-in-four-modules-share-one-resolver/diagram.drawio.png)
 
-The diagram is described element by element in
-[its asset description](.assets/callers-in-four-modules-share-one-resolver/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Callers.** Four modules dereference addresses. `Catzc.Tooling.Environment` resolves the `global.…` entries of `Write-EnvironmentSet`'s

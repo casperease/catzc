@@ -19,8 +19,7 @@ session set-up. The unload has neither a rule nor a gate.
 
 ![Every load stage but the unload has an ADR rule](.assets/rule-and-gate-per-load-stage/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/rule-and-gate-per-load-stage/diagram.drawio.md). Each stage
-has its own band, and a stage's gate sits in its band beside the rules it checks.
+Each stage has its own band, and a stage's gate sits in its band beside the rules it checks.
 
 ## Walkthrough
 

@@ -20,8 +20,6 @@ template or the task.
 
 ![The runner is the only seam into PowerShell](.assets/the-runner-is-the-only-seam/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/the-runner-is-the-only-seam/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Pipeline YAML.** The `ci-*` and `cd-*` root pipelines declare what to run and never hold PowerShell. Six of the seven root pipelines

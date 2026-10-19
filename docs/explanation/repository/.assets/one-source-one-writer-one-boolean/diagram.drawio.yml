@@ -1,0 +1,50 @@
+description: >-
+  A source of truth and the registry feed the single writer, which reproduces every opted-in root file; one boolean per entry sends it to a
+  gitignored or a tracked target.
+about:
+  lens: meta
+  adrs:
+    - ADR-REPO-ROOTCFG-FULLYMANAGED
+    - ADR-REPO-ROOTCFG-REGISTRY
+    - ADR-REPO-ROOTCFG-COMMITTEDFLAG
+    - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+  tracks: [pwsh]
+  languages: []
+  modules: [Catzc.Base.RootConfig]
+  files:
+    - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+content:
+  title: Every managed root file has one source of truth, one writer, and one boolean that decides git membership
+  kind: explanation
+  relation: feeds the next step
+  bands:
+    - { id: band-source, label: SOURCE OF TRUTH }
+    - { id: band-materialise, label: MATERIALISE }
+    - { id: band-target, label: TARGET }
+  glyphs:
+    - { id: g-source, kind: file, label: source of truth, in: band-source }
+    - { id: g-registry, kind: file, label: registry, in: band-source }
+    - { id: g-writer, kind: code, label: single writer, in: band-materialise }
+    - { id: r-gitignored, kind: result, label: gitignored target, in: band-target }
+    - { id: r-tracked, kind: result, label: tracked target, in: band-target }
+  edges:
+    - { from: g-source, to: g-writer }
+    - { from: g-registry, to: g-writer }
+    - { from: g-writer, to: r-gitignored, label: 19/23 }
+    - { from: g-writer, to: r-tracked, label: 4/23 }
+  markers:
+    - { at: g-source, number: 1 }
+    - { at: g-registry, number: 2 }
+    - { at: g-writer, number: 3 }
+    - { at: r-gitignored, number: 4 }
+    - { at: r-tracked, number: 5 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-source: { x: 20, y: 84, w: 380, h: 340 }
+  band-materialise: { x: 420, y: 84, w: 380, h: 340 }
+  band-target: { x: 820, y: 84, w: 460, h: 340 }
+  g-source: { x: 130, y: 150, w: 200, h: 52 }
+  g-registry: { x: 130, y: 300, w: 200, h: 52 }
+  g-writer: { x: 500, y: 190, w: 220, h: 100 }
+  r-gitignored: { x: 960, y: 150, w: 220, h: 44 }
+  r-tracked: { x: 960, y: 300, w: 220, h: 44 }

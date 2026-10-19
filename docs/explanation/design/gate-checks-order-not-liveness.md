@@ -20,8 +20,6 @@ partition check that the ADR describes exists in code, but only unit tests on fi
 
 ![The gate checks order, not liveness](.assets/gate-checks-order-not-liveness/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/gate-checks-order-not-liveness/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **live, in the pwsh track.** The closed convention of ADR-DSGN-ASPECT-ASPECTSAREDERIVED: folder-scoped patterns that never reach

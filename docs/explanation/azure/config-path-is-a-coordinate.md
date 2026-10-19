@@ -19,8 +19,6 @@ resolution is one-to-one all the way through, listing the `configuration/` tree 
 
 ![A config file's path is a coordinate that resolves to one subscription and one resource group](.assets/config-path-is-a-coordinate/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/config-path-is-a-coordinate/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Root config.** A file at the configuration root, `configuration/<env>[-<slot>].yml`, is a deployment of the shared platform. Its

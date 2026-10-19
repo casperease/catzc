@@ -1,0 +1,76 @@
+description: >-
+  The eight naming rules and where code holds them: seven behind a check that throws, from template discovery through the resolver
+  and the namer's registry, format and length checks, and one, that no subscription enters a name, held by construction.
+about:
+  lens: governance
+  adrs:
+    - ADR-AZ-NAMING-DETERMINISTICNAMES
+    - ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS
+    - ADR-AZ-NAMING-ENVIRONMENTFIRST
+    - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+    - ADR-AZ-NAMING-ORDERISVARIANT
+    - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+    - ADR-AZ-NAMING-NEVERTRUNCATE
+    - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+  tracks: [pwsh]
+  languages: [powershell, csharp]
+  modules: [Catzc.Azure.Templates]
+  files:
+    - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
+    - pwsh/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+    - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+content:
+  title: Code holds all eight naming rules, seven of them behind a check that throws
+  kind: explanation
+  flow: top-to-bottom
+  relation: the next check
+  bands:
+    - { id: band-discovery, label: DISCOVERY }
+    - { id: band-resolver, label: RESOLVER }
+    - { id: band-namer, label: NAMER }
+  glyphs:
+    - { id: g-short-name, kind: gate, label: BicepShortName, in: band-discovery }
+    - { id: g-resource-name, kind: code, label: Get-BicepResourceName, in: band-resolver }
+    - { id: g-lookups, kind: gate, label: registry lookups, in: band-namer }
+    - { id: g-format, kind: gate, label: format checks, in: band-namer }
+    - { id: g-length, kind: gate, label: length limit, in: band-namer }
+    - { id: r-name, kind: result, label: the name, in: band-namer }
+    - { id: f-throw, kind: failure, label: throw, in: band-namer }
+  edges:
+    - { from: g-short-name, to: g-resource-name }
+    - { from: g-resource-name, to: g-lookups }
+    - { from: g-lookups, to: g-format }
+    - { from: g-format, to: g-length }
+    - { from: g-length, to: r-name }
+    - { from: g-short-name, to: f-throw, kind: fail }
+    - { from: g-lookups, to: f-throw, kind: fail }
+    - { from: g-format, to: f-throw, kind: fail }
+    - { from: g-length, to: f-throw, kind: fail }
+  markers:
+    - { at: g-short-name, number: 1 }
+    - { at: g-resource-name, number: 2 }
+    - { at: g-lookups, number: 3 }
+    - { at: g-format, number: 4 }
+    - { at: g-length, number: 5 }
+    - { at: f-throw, number: 6 }
+  chips:
+    - { at: g-short-name, kind: rule, rule: ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS }
+    - { at: g-resource-name, kind: rule, rule: ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT, gated: false }
+    - { at: g-lookups, kind: rule, rule: ADR-AZ-NAMING-PATTERNPERRESOURCETYPE }
+    - { at: g-lookups, kind: rule, rule: ADR-AZ-NAMING-ORDERISVARIANT }
+    - { at: g-format, kind: rule, rule: ADR-AZ-NAMING-DETERMINISTICNAMES }
+    - { at: g-format, kind: rule, rule: ADR-AZ-NAMING-ENVIRONMENTFIRST }
+    - { at: g-format, kind: rule, rule: ADR-AZ-NAMING-LOWERCASECOMPONENTS }
+    - { at: g-length, kind: rule, rule: ADR-AZ-NAMING-NEVERTRUNCATE }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-discovery: { x: 20, y: 84, w: 1260, h: 120 }
+  band-resolver: { x: 20, y: 214, w: 1260, h: 90 }
+  band-namer: { x: 20, y: 314, w: 1260, h: 440 }
+  g-short-name: { x: 300, y: 112, w: 200, h: 68 }
+  g-resource-name: { x: 300, y: 246, w: 200, h: 44 }
+  g-lookups: { x: 300, y: 344, w: 200, h: 68 }
+  g-format: { x: 300, y: 464, w: 200, h: 68 }
+  g-length: { x: 300, y: 584, w: 200, h: 68 }
+  r-name: { x: 300, y: 694, w: 200, h: 44 }
+  f-throw: { x: 800, y: 470, w: 220, h: 44 }

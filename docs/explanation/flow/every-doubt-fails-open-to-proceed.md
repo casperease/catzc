@@ -19,8 +19,6 @@ safe, a wrong skip is an un-deployed change, so every doubt proceeds.
 
 ![Every doubt fails open to proceed](.assets/every-doubt-fails-open-to-proceed/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/every-doubt-fails-open-to-proceed/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Git at real refs.** The question is asked between a reference commit and the commit being built, both read from the repository as it is

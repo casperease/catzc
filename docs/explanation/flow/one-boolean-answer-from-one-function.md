@@ -18,8 +18,6 @@ answers true or false, and an analyzer rule makes sure nobody reads the signal a
 
 ![One function answers whether the code is in a pipeline](.assets/one-boolean-answer-from-one-function/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-boolean-answer-from-one-function/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Pipeline agent.** The Azure DevOps agent sets `TF_BUILD` on every pipeline run, and the GitHub Actions runner sets `GITHUB_ACTIONS`.

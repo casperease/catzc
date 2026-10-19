@@ -19,8 +19,6 @@ about its history.
 
 ![One door in, one stable point out](.assets/one-door-in-one-stable-point-out/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-door-in-one-stable-point-out/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Local clone.** A developer's working copy is a bridge to the server remote, not a second truth. It pushes toward the pull request, and

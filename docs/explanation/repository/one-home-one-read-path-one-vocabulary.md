@@ -17,8 +17,6 @@ and one guard vocabulary, and nothing reads the file it lives in directly.
 
 ![A repo-wide switch has one home, one read path and one guard vocabulary](.assets/one-home-one-read-path-one-vocabulary/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-home-one-read-path-one-vocabulary/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **One home.** A variant is a key in one file, a growing dictionary that gains a key whenever a new repo-wide switch is genuinely needed.

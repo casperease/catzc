@@ -22,8 +22,6 @@ held by the code that derives it.
 
 ![Two ADRs rule the coordinate; one shared check and the integrity tests hold them](.assets/coordinate-rules-and-their-gates/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/coordinate-rules-and-their-gates/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Config file.** The path `configuration/[<customer>/]<env>[-<slot>].yml` is ruled three times: the root is the shared platform and a

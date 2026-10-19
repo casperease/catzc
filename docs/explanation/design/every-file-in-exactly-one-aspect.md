@@ -19,8 +19,6 @@ identity.
 
 ![Every module file is in exactly one aspect](.assets/every-file-in-exactly-one-aspect/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/every-file-in-exactly-one-aspect/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Module folder.** Every tracked file of the module. The aspects split it into a true partition: pairwise disjoint and jointly

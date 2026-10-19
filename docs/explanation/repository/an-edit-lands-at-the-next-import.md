@@ -22,8 +22,6 @@ and the repository is not in the state the guard requires.
 
 ![An edit to a variant lands at the next import](.assets/an-edit-lands-at-the-next-import/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/an-edit-lands-at-the-next-import/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **variants.yml.** Set the key: `have_customers: all`, a list of names, or `false`; `git_workspace: main-via-pr` when the repository goes

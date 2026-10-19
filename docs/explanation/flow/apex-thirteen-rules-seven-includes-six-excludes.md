@@ -24,9 +24,6 @@ of 13 rules. `Get-GlobSetTrigger` walks that program once: the GitHub list is th
 
 ![apex: 13 rules, 13 GitHub paths, 7 ADO includes and 6 excludes](.assets/apex-thirteen-rules-seven-includes-six-excludes/diagram.drawio.png)
 
-The diagram is described element by element in
-[its asset description](.assets/apex-thirteen-rules-seven-includes-six-excludes/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **globs.yml.** `apex` is a `deployable-unit` with `pipeline: cd-apex`. It composes `template-azure-subscription-foundation`,

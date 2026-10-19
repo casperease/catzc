@@ -19,8 +19,6 @@ build run `Test-CatzcBuild` runs the same tests against a fresh build that the s
 
 ![Every stage has a rule, two gates check it](.assets/what-gates-each-bundle-stage/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/what-gates-each-bundle-stage/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Build-Modules.** Three rules shape the build. The selection is closure-expanded over the declared dependencies

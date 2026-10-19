@@ -21,8 +21,6 @@ resolves the version, calls `Invoke-ModuleBuild`, and runs `Assert-CatzcBundle` 
 
 ![Build, verify, then copy the folder](.assets/build-verify-then-copy-the-folder/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/build-verify-then-copy-the-folder/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **exporter.yml.** The exporter's one config holds the devbox placeholder version `6.6.666`, the pipeline `MAJOR.MINOR` (`0.1`), the

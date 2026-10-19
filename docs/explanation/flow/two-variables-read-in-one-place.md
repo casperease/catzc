@@ -23,8 +23,6 @@ other read of those two variables into an error.
 
 ![Two variables read in one place](.assets/two-variables-read-in-one-place/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/two-variables-read-in-one-place/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Azure DevOps agent.** Sets `TF_BUILD` to `True` on every pipeline run.

@@ -22,8 +22,6 @@ time-safeguard hook, repeats the test on its own.
 
 ![The detector lives in the loader](.assets/the-loader-holds-the-one-detector/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/the-loader-holds-the-one-detector/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Azure DevOps agent.** Sets `TF_BUILD` on every pipeline run.

@@ -18,8 +18,6 @@ of a config parses and types the file; every later read gets the same object bac
 
 ![Every config read goes through one reader and one session cache](.assets/one-reader-one-cache-per-session/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-reader-one-cache-per-session/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **One reader.** Every config read goes through one reader, whether it asks for a whole config by name or for one node by its address. The

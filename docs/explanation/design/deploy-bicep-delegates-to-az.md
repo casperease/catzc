@@ -23,8 +23,6 @@ the lookup; az and Bicep do the work, which is what keeps the platform thin.
 
 ![Deploy-Bicep hands every vendor step to az](.assets/deploy-bicep-delegates-to-az/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/deploy-bicep-delegates-to-az/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **AzureCLI@2.** How a pipeline signs az in. A step built from `invoke-automation.yaml` with `Mode: azcli` runs on the AzureCLI@2 task,

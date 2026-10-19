@@ -20,8 +20,6 @@ governed one.
 
 ![One artifact is built once and climbs to production unchanged](.assets/one-artifact-climbs-unchanged/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-artifact-climbs-unchanged/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Build & verify.** The CI discipline integrates every change into main fast, within a 5–10 minute integration budget on a team basis.

@@ -20,8 +20,6 @@ the promotion ladder.
 
 ![The deploy path and the integration path share only the topic commit](.assets/deploy-and-integrate-share-only-the-topic/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/deploy-and-integrate-share-only-the-topic/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Topic commit.** A commit that still lives on a topic branch. It is brown, the development colour, which is never an integrated mainline

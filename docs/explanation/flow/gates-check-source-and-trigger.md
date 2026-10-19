@@ -22,8 +22,6 @@ worth knowing before relying on either.
 
 ![Gates check the source of each globset and the trigger only](.assets/gates-check-source-and-trigger/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/gates-check-source-and-trigger/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Registry.** `globs.yml` is the one source of truth (#1). Every set carries a layer (#7), and same-layer sets never overlap on their own

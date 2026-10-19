@@ -23,8 +23,6 @@ itself, and it reads the GitHub list rather than the Azure DevOps lists.
 
 ![Catzc.Base.Globs projects, three consumers read](.assets/globs-projects-and-three-consumers-read/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/globs-projects-and-three-consumers-read/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **globs.yml.** The registry holds every globset: its name, layer, `include:` and `exclude:` patterns, optional `compose:` references and,

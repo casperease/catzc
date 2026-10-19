@@ -24,8 +24,6 @@ given mistake produces.
 
 ![The namer looks up, forms, checks and renders a name in that order](.assets/lookup-form-check-render-in-order/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/lookup-form-check-render-in-order/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Deploy-Bicep.** The in-tree caller. It calls `Get-BicepDeploymentContext`, which for a resource-group template calls the private

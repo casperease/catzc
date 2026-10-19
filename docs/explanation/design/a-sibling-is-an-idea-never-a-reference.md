@@ -32,8 +32,6 @@ passes before it lands here as a rule.
 4. **The result.** What passes is rebuilt to catzc's rules, one living version with nothing ported alongside, and lands in catzc as a rule.
    At the foot of the right band, what catzc keeps as its own: a rule is an ADR cited by code, and `.unordered` is where an import lands.
 
-The diagram's glyphs and edges are listed in [its description](.assets/a-sibling-is-an-idea-never-a-reference/diagram.drawio.md).
-
 ## The family
 
 Both repositories hold one thesis: a rule is code, and a gate proves it. Catzc states its rules as ADRs, each rule with a code

@@ -19,8 +19,6 @@ the one the decision is named for, has no gate at all and is left to code review
 
 ![Values and module edges pass a quality gate; the no-direct-read rule is left to review](.assets/values-and-edges-gated-reads-reviewed/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/values-and-edges-gated-reads-reviewed/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **variants.yml.** Rule 1 makes the file the one home of every repo-wide switch: a growing dictionary whose keys are known. Any other

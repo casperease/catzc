@@ -21,8 +21,6 @@ that deploys.
 
 ![Every Deploy stage is main-only](.assets/every-deploy-stage-is-main-only/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/every-deploy-stage-is-main-only/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Topic branch.** The work starts on a topic branch with a pull request into main. Every CD root pipeline, `cd-apex.yaml`,

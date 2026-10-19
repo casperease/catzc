@@ -1,0 +1,47 @@
+description: >-
+  One artifact is built and verified once, tested in non-prod, and let into production by a manual gate, so production runs exactly the
+  bytes non-prod certified; today the CD pipelines also deploy production themselves, past the gate.
+about:
+  lens: meta
+  adrs:
+    - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
+    - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+    - ADR-FLOW-CD-CDSTAYSINNONPROD
+    - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
+    - ADR-FLOW-CD-TWORELEASEGATES
+    - ADR-FLOW-CD-GATEDEFINED
+  tracks: [ado-pipelines]
+content:
+  title: One artifact is built once and climbs to production unchanged
+  kind: explanation
+  relation: the artifact moves on
+  bands:
+    - { id: band-automated, label: AUTOMATED }
+    - { id: band-governed, label: GOVERNED }
+  glyphs:
+    - { id: g-build, kind: runner, label: build & verify, in: band-automated }
+    - { id: r-artifact, kind: result, label: tagged artifact, in: band-automated }
+    - { id: e-non-prod, kind: env, label: non-prod, in: band-automated }
+    - { id: a-human-gate, kind: adronly, label: human gate, in: band-governed }
+    - { id: e-production, kind: env, label: production, in: band-governed }
+  edges:
+    - { from: g-build, to: r-artifact }
+    - { from: r-artifact, to: e-non-prod }
+    - { from: e-non-prod, to: a-human-gate, kind: adr }
+    - { from: a-human-gate, to: e-production, kind: adr }
+    - { from: r-artifact, to: e-production, label: 6 · the shortcut }
+  markers:
+    - { at: g-build, number: 1 }
+    - { at: r-artifact, number: 2 }
+    - { at: e-non-prod, number: 3 }
+    - { at: a-human-gate, number: 4 }
+    - { at: e-production, number: 5 }
+  minimaps: [code-locations, grid, axis]
+layout:
+  band-automated: { x: 20, y: 108, w: 760, h: 240 }
+  band-governed: { x: 800, y: 108, w: 480, h: 240 }
+  g-build: { x: 50, y: 150, w: 170, h: 56 }
+  r-artifact: { x: 280, y: 156, w: 170, h: 44 }
+  e-non-prod: { x: 510, y: 130, w: 190, h: 56 }
+  a-human-gate: { x: 880, y: 130, w: 130, h: 64 }
+  e-production: { x: 1060, y: 260, w: 190, h: 56 }

@@ -23,9 +23,6 @@ example: its coordinate is customer `apex`, environment `nsub`, base slot, and i
 
 ![Discovery resolves every config file's coordinate through one shared check](.assets/coordinate-resolved-file-by-file-at-discovery/diagram.drawio.png)
 
-The diagram is described element by element in
-[its asset description](.assets/coordinate-resolved-file-by-file-at-discovery/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **`configuration/apex/nsub.yml`.** The file lives under the `foundation` template. Its subfolder, `apex`, is its customer; its name,

@@ -18,8 +18,6 @@ never picks one.
 
 ![The az session is the deploy target, and the guard only checks it](.assets/the-session-is-the-deploy-target/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/the-session-is-the-deploy-target/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Az session.** The az CLI's active subscription. In a pipeline it is the subscription the service connection logged into; on a devbox

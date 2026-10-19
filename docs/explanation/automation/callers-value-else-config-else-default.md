@@ -20,8 +20,6 @@ tuned, and nothing removes it, because there is no "no limit" value.
 
 ![Every wait is bounded: the caller's value, else the config, else the default](.assets/callers-value-else-config-else-default/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/callers-value-else-config-else-default/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **The caller.** The function that is about to wait may name its own limit, as `-Seconds` on `Invoke-WithTimeout` or `-TimeoutSeconds` on

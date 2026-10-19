@@ -1,0 +1,66 @@
+description: >-
+  One reverse lookup in Catzc.Azure.Cli turns the az session's subscription id into the identity azure.yml declares, and the
+  identity module and the templating module read that identity instead of asking the session again.
+about:
+  lens: architecture
+  adrs:
+    - ADR-AZ-DATAMOD-CUSTOMERAXIS
+    - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+    - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+  tracks: [pwsh, infrastructure]
+  languages: [powershell, yaml]
+  modules: [Catzc.Azure.Cli, Catzc.Azure.Templates]
+  files:
+    - pwsh/Catzc.Azure/configs/azure.yml
+    - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+    - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+    - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+    - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
+content:
+  title: One reverse lookup in Catzc.Azure.Cli hands the session to every module
+  kind: explanation
+  relation: feeds
+  bands:
+    - { id: band-session, label: SESSION }
+    - { id: band-identity, label: IDENTITY }
+    - { id: band-templates, label: TEMPLATES }
+  glyphs:
+    - { id: x-connection, kind: external, label: service connection, in: band-session }
+    - { id: x-session, kind: external, label: az session, in: band-session }
+    - { id: g-cli, kind: code, label: Catzc.Azure.Cli, in: band-identity }
+    - { id: g-azure-file, kind: file, label: azure.yml, in: band-identity }
+    - { id: g-azure, kind: code, label: Catzc.Azure, in: band-identity }
+    - { id: g-templates, kind: code, label: Catzc.Azure.Templates, in: band-templates }
+    - { id: g-tree, kind: file, label: configuration tree, in: band-templates }
+    - { id: r-group, kind: result, label: resource-group name, in: band-templates }
+  edges:
+    - { from: x-connection, to: x-session }
+    - { from: x-session, to: g-cli }
+    - { from: g-azure-file, to: g-azure }
+    - { from: g-azure, to: g-cli }
+    - { from: g-cli, to: g-templates }
+    - { from: g-azure, to: g-templates }
+    - { from: g-tree, to: g-templates }
+    - { from: g-templates, to: r-group }
+  markers:
+    - { at: x-connection, number: 1 }
+    - { at: x-session, number: 2 }
+    - { at: g-cli, number: 3 }
+    - { at: g-azure-file, number: 4 }
+    - { at: g-azure, number: 5 }
+    - { at: g-templates, number: 6 }
+    - { at: g-tree, number: 7 }
+    - { at: r-group, number: 8 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-session: { x: 20, y: 84, w: 380, h: 340 }
+  band-identity: { x: 420, y: 84, w: 420, h: 340 }
+  band-templates: { x: 860, y: 84, w: 420, h: 340 }
+  x-connection: { x: 50, y: 144, w: 150, h: 44 }
+  x-session: { x: 240, y: 144, w: 130, h: 44 }
+  g-cli: { x: 640, y: 144, w: 170, h: 44 }
+  g-azure-file: { x: 450, y: 266, w: 130, h: 52 }
+  g-azure: { x: 640, y: 272, w: 170, h: 44 }
+  g-templates: { x: 880, y: 144, w: 190, h: 170 }
+  g-tree: { x: 900, y: 354, w: 150, h: 52 }
+  r-group: { x: 1100, y: 144, w: 170, h: 44 }

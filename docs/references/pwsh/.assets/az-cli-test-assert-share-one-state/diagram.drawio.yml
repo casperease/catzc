@@ -1,0 +1,77 @@
+description: >-
+  Each of the three az checks has a Test and an Assert half that call one state function, which runs az once through the shared runner; the
+  config-aware wrappers look the subscription up in Catzc.Azure first.
+about:
+  lens: source
+  adrs: [ADR-AZ-CLI, ADR-AZ-DATAMOD, ADR-AZ-CUSTOMER, ADR-AUTO-FAILFAST, ADR-AUTO-ENTERP, ADR-AUTO-PRELOG]
+  tracks: [pwsh]
+  languages: [powershell]
+  modules: [Catzc.Azure.Cli]
+  files:
+    - pwsh/Catzc.Azure/Get-AzureSubscription.ps1
+    - pwsh/Catzc.Azure.Cli/Get-AzCliConnectionState.ps1
+    - pwsh/Catzc.Azure.Cli/Invoke-AzCli.ps1
+content:
+  title: "Three az checks: Test and Assert share one state call"
+  kind: reference
+  flow: top-to-bottom
+  relation: calls
+  bands:
+    - { id: band-azure, label: CATZC.AZURE }
+    - { id: band-connection, label: CONNECTION }
+    - { id: band-access, label: ACCESS }
+    - { id: band-bicep, label: BICEP }
+    - { id: band-shared, label: SHARED }
+  glyphs:
+    - { id: g-subscription, kind: code, label: Get-AzureSubscription, in: band-azure }
+    - { id: g-test-is-connected, kind: code, label: Test-AzCliIsConnected, in: band-connection }
+    - { id: g-assert-is-connected, kind: code, label: Assert-AzCliIsConnected, in: band-connection }
+    - { id: g-test-connected, kind: code, label: Test-AzCliConnected, in: band-connection }
+    - { id: g-assert-connected, kind: code, label: Assert-AzCliConnected, in: band-connection }
+    - { id: g-connection-state, kind: code, label: Get-AzCliConnectionState, in: band-connection }
+    - { id: g-access-state, kind: set, label: SubscriptionAccessState, in: band-access }
+    - { id: g-bicep-state, kind: set, label: BicepState, in: band-bicep }
+    - { id: g-invoke, kind: code, label: Invoke-AzCli, in: band-shared }
+    - { id: g-az, kind: external, label: az, in: band-shared }
+  edges:
+    - { from: g-test-is-connected, to: g-subscription }
+    - { from: g-assert-is-connected, to: g-subscription }
+    - { from: g-access-state, to: g-subscription }
+    - { from: g-test-is-connected, to: g-test-connected }
+    - { from: g-test-connected, to: g-connection-state }
+    - { from: g-assert-connected, to: g-connection-state }
+    - { from: g-assert-is-connected, to: g-connection-state }
+    - { from: g-connection-state, to: g-invoke }
+    - { from: g-access-state, to: g-invoke }
+    - { from: g-bicep-state, to: g-invoke }
+    - { from: g-invoke, to: g-az }
+  markers:
+    - { at: g-subscription, number: 1 }
+    - { at: g-test-is-connected, number: 2 }
+    - { at: g-assert-is-connected, number: 3 }
+    - { at: g-test-connected, number: 4 }
+    - { at: g-connection-state, number: 5 }
+    - { at: g-access-state, number: 6 }
+    - { at: g-bicep-state, number: 7 }
+    - { at: g-invoke, number: 8 }
+    - { at: g-az, number: 9 }
+  chips:
+    - { at: g-access-state, kind: count, text: "5" }
+    - { at: g-bicep-state, kind: count, text: "3" }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-azure: { x: 20, y: 84, w: 1060, h: 84 }
+  band-connection: { x: 20, y: 188, w: 560, h: 310 }
+  band-access: { x: 600, y: 188, w: 220, h: 310 }
+  band-bicep: { x: 840, y: 188, w: 240, h: 310 }
+  band-shared: { x: 20, y: 518, w: 1060, h: 180 }
+  g-subscription: { x: 140, y: 122, w: 640, h: 40 }
+  g-test-is-connected: { x: 60, y: 232, w: 200, h: 44 }
+  g-assert-is-connected: { x: 320, y: 232, w: 220, h: 44 }
+  g-test-connected: { x: 60, y: 332, w: 200, h: 44 }
+  g-assert-connected: { x: 320, y: 332, w: 200, h: 44 }
+  g-connection-state: { x: 60, y: 432, w: 480, h: 44 }
+  g-access-state: { x: 620, y: 232, w: 180, h: 250 }
+  g-bicep-state: { x: 860, y: 332, w: 200, h: 150 }
+  g-invoke: { x: 240, y: 556, w: 760, h: 44 }
+  g-az: { x: 560, y: 640, w: 120, h: 44 }

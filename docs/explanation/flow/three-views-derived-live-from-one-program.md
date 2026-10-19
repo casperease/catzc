@@ -18,8 +18,6 @@ protection identity are read-outs of it, recomputed when asked, so nothing store
 
 ![One program, three views derived live, none committed](.assets/three-views-derived-live-from-one-program/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/three-views-derived-live-from-one-program/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Registry.** The one place where named areas-of-control are declared.

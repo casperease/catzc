@@ -22,8 +22,6 @@ drift between its two callers.
 
 ![The templating and identity config layers join through one shared check and one resolver](.assets/two-layers-join-through-one-resolver/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/two-layers-join-through-one-resolver/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **`configuration/` tree.** Every template under `infrastructure/templates/<name>/` carries a `configuration/` folder: root files for the

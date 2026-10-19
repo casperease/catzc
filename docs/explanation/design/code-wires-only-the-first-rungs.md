@@ -21,8 +21,6 @@ merge, and the CI engine that verifies the commit and publishes its artifact. Af
 
 ![The pipelines wire only topic, landed and BVT; past BVT there is no ladder](.assets/code-wires-only-the-first-rungs/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/code-wires-only-the-first-rungs/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **pr: [main].** Pre-commit build validation of the brown topic commit. Every `ci-*.yaml` and `cd-*.yaml` pipeline runs on pull requests

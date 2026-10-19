@@ -22,8 +22,6 @@ build is a second run mode of the same modules, and not a second product.
 
 ![Two code roots feed one importer, which loads the same modules](.assets/two-roots-one-importer-same-modules/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/two-roots-one-importer-same-modules/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **importer.ps1.** The source-mode entry script sits at the repository root and is dot-sourced (`. ./importer.ps1`). It is a small

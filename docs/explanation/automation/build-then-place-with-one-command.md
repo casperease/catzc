@@ -21,8 +21,6 @@ or `Export-Catzc -To nuget`. A build that fails its integrity check throws with 
 
 ![Build, then place with one command](.assets/build-then-place-with-one-command/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/build-then-place-with-one-command/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **. ./importer.ps1.** Building needs the source mode, so the session starts by dot-sourcing the importer at the repository root. The

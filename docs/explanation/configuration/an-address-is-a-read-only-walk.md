@@ -19,8 +19,6 @@ at the call that made it.
 
 ![A config address is a read-only walk over the one cached config](.assets/an-address-is-a-read-only-walk/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/an-address-is-a-read-only-walk/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Caller.** A caller is code in cats that holds an address as a string: `global.`, then the config's global name, then the keys to walk,

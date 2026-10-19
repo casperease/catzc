@@ -22,8 +22,6 @@ source-tree tool run in a build.
 
 ![Each run mode has one entry script, and a mixed session throws](.assets/one-entry-script-per-mode/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-entry-script-per-mode/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **`. ./importer.ps1`.** Dot-sourced at the repository root, it loads the modules from `<RepositoryRoot>/pwsh/`. The CI and release

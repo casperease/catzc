@@ -1,0 +1,66 @@
+description: >-
+  Every stage of the bundle follows a rule and two gates check it: the integrity gate on every build and again before every install, and the
+  build run that repeats the same tests against a fresh build.
+about:
+  lens: governance
+  adrs:
+    - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+    - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+    - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+    - ADR-AUTO-BUNDLE-AUTOVERSION
+    - ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
+    - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
+  tracks: [pwsh]
+  languages: [powershell]
+  modules: [Catzc.Base.Exporter]
+  files:
+    - pwsh/Catzc.Base.Exporter/Build-Modules.ps1
+    - pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
+    - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+content:
+  title: Every stage of the bundle has a rule, and two gates check it
+  kind: explanation
+  relation: feeds or runs the next step
+  bands:
+    - { id: band-build, label: BUILD }
+    - { id: band-bundle, label: BUNDLE }
+    - { id: band-roots, label: CODE ROOTS }
+  groups:
+    - { id: grp-copies, label: " ", in: band-roots }
+  glyphs:
+    - { id: g-build, kind: code, label: Build-Modules, in: band-build }
+    - { id: g-assert, kind: gate, label: Assert-CatzcBundle, in: band-build }
+    - { id: g-test-build, kind: gate, label: Test-CatzcBuild, in: band-build }
+    - { id: r-temporary, kind: result, label: Temporary build, in: band-bundle }
+    - { id: r-installed, kind: result, label: Installed · saved, in: grp-copies }
+  edges:
+    - { from: g-build, to: g-assert }
+    - { from: g-assert, to: r-temporary }
+    - { from: r-temporary, to: grp-copies }
+    - { from: g-test-build, to: g-build }
+    - { from: grp-copies, to: g-assert, label: checked again }
+  markers:
+    - { at: g-build, number: 1 }
+    - { at: g-assert, number: 2 }
+    - { at: r-temporary, number: 3 }
+    - { at: r-installed, number: 4 }
+    - { at: grp-copies, number: 5 }
+    - { at: g-test-build, number: 6 }
+  chips:
+    - { at: g-build, kind: rule, rule: ADR-AUTO-BUNDLE-BUNDLEISBUILD }
+    - { at: g-build, kind: rule, rule: ADR-AUTO-BUNDLE-AUTOVERSION }
+    - { at: g-build, kind: rule, rule: ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS }
+    - { at: g-assert, kind: rule, rule: ADR-AUTO-BUNDLE-IMMUTABLEBUILD }
+    - { at: r-installed, kind: rule, rule: ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL }
+    - { at: g-test-build, kind: rule, rule: ADR-AUTO-TEST-SAMETESTSBOTHRUNS }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-build: { x: 20, y: 84, w: 700, h: 300 }
+  band-bundle: { x: 740, y: 84, w: 230, h: 300 }
+  band-roots: { x: 990, y: 84, w: 290, h: 300 }
+  g-build: { x: 140, y: 180, w: 180, h: 44 }
+  g-assert: { x: 500, y: 168, w: 200, h: 68 }
+  g-test-build: { x: 130, y: 290, w: 200, h: 68 }
+  r-temporary: { x: 760, y: 290, w: 190, h: 44 }
+  grp-copies: { x: 1010, y: 130, w: 250, h: 150 }
+  r-installed: { x: 1030, y: 180, w: 210, h: 44 }

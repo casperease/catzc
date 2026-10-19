@@ -17,8 +17,6 @@ which cuts across the others, is the only exemption, and across layers one file 
 
 ![Peers in a layer never overlap, except loose-filesets](.assets/peers-in-a-layer-never-overlap/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/peers-in-a-layer-never-overlap/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **What ships.** The `deployable-unit` layer is declared: one boundary per unit that ships. A unit never consumes another unit's files.

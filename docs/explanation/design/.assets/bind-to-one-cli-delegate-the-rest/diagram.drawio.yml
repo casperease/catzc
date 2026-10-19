@@ -1,0 +1,45 @@
+description: >-
+  A consumer binds to one command-line interface, which hands the work to the vendor's own tooling, which talks to the cloud vendor
+  substrate behind it.
+about:
+  lens: meta
+  adrs:
+    - ADR-DSGN-THINPLAT-THINPLATFORM
+    - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+    - ADR-DSGN-THINPLAT-PLATFORMASCLI
+    - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+  tracks: [pwsh, infrastructure]
+content:
+  title: Consumers bind to one CLI, and everything behind it is delegated to the vendor
+  kind: explanation
+  flow: top-to-bottom
+  relation: uses
+  bands:
+    - { id: band-consumers, label: CONSUMERS }
+    - { id: band-cli, label: CLI SURFACE }
+    - { id: band-delegated, label: DELEGATED }
+    - { id: band-vendor, label: VENDOR SUBSTRATE }
+  glyphs:
+    - { id: a-developer, kind: actor, label: developer, in: band-consumers }
+    - { id: c-surface, kind: code, label: one CLI, in: band-cli }
+    - { id: x-tooling, kind: external, label: vendor tooling, in: band-delegated }
+    - { id: e-vendor, kind: env, label: cloud vendor, in: band-vendor }
+  edges:
+    - { from: a-developer, to: c-surface }
+    - { from: c-surface, to: x-tooling }
+    - { from: x-tooling, to: e-vendor }
+  markers:
+    - { at: a-developer, number: 1 }
+    - { at: c-surface, number: 2 }
+    - { at: x-tooling, number: 3 }
+    - { at: e-vendor, number: 4 }
+  minimaps: [code-locations, grid, axis]
+layout:
+  band-consumers: { x: 20, y: 84, w: 1260, h: 120 }
+  band-cli: { x: 20, y: 224, w: 1260, h: 120 }
+  band-delegated: { x: 20, y: 364, w: 1260, h: 120 }
+  band-vendor: { x: 20, y: 504, w: 1260, h: 120 }
+  a-developer: { x: 570, y: 124, w: 140, h: 64 }
+  c-surface: { x: 490, y: 270, w: 300, h: 44 }
+  x-tooling: { x: 490, y: 410, w: 300, h: 44 }
+  e-vendor: { x: 490, y: 548, w: 300, h: 52 }

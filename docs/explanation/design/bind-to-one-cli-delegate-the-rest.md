@@ -17,8 +17,6 @@ the cloud. The invariant is delegation, not reimplementation, and the consequent
 
 ![Bind to one CLI; delegate the rest to the vendor](.assets/bind-to-one-cli-delegate-the-rest/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/bind-to-one-cli-delegate-the-rest/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Developer.** The consumer who runs the platform. A CD pipeline runs the same commands, so what a developer types is exactly what the

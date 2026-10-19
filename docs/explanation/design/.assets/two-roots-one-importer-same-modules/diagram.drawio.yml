@@ -1,0 +1,66 @@
+description: >-
+  The source tree and a built package are two code roots, each with its own entry script, that feed one importer; it loads the same modules
+  in both modes, and each module finds its files through the code root it is handed.
+about:
+  lens: architecture
+  adrs:
+    - ADR-DSGN-RUNMODE-TWORUNMODES
+    - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+    - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
+    - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+  tracks: [pwsh]
+  languages: [powershell]
+  modules: [Catzc.Base.Exporter, Catzc.Base.Repository]
+  files:
+    - importer.ps1
+    - pwsh/.internal/assets/Import-Catzc.ps1
+    - pwsh/.internal/Catzc.Internal.Importer.psm1
+    - pwsh/Catzc.Base.Repository/Get-CatzcRunMode.ps1
+content:
+  title: Two code roots feed one importer, which loads the same modules
+  kind: explanation
+  relation: hands on the code root
+  bands:
+    - { id: band-source, label: SOURCE }
+    - { id: band-build, label: BUILD }
+    - { id: band-importer, label: ONE IMPORTER }
+    - { id: band-modules, label: SAME MODULES }
+  glyphs:
+    - { id: g-importer, kind: code, label: importer.ps1, in: band-source }
+    - { id: g-source-root, kind: store, label: "<RepositoryRoot>/pwsh", in: band-source }
+    - { id: g-import-catzc, kind: code, label: Import-Catzc.ps1, in: band-build }
+    - { id: g-exporter, kind: code, label: Catzc.Base.Exporter, in: band-build }
+    - { id: g-bundle-root, kind: store, label: "Catzc/<v>", in: band-build }
+    - { id: g-internal, kind: code, label: Catzc.Internal, in: band-importer }
+    - { id: g-modules, kind: set, label: Catzc.* modules, in: band-modules }
+    - { id: g-repository, kind: code, label: Catzc.Base.Repository, in: band-modules }
+  edges:
+    - { from: g-importer, to: g-source-root }
+    - { from: g-import-catzc, to: g-bundle-root }
+    - { from: g-source-root, to: g-internal }
+    - { from: g-bundle-root, to: g-internal }
+    - { from: g-internal, to: g-modules, kind: thick }
+    - { from: g-repository, to: g-modules, kind: thick }
+  markers:
+    - { at: g-importer, number: 1 }
+    - { at: g-source-root, number: 2 }
+    - { at: g-import-catzc, number: 3 }
+    - { at: g-exporter, number: 4 }
+    - { at: g-bundle-root, number: 5 }
+    - { at: g-internal, number: 6 }
+    - { at: g-modules, number: 7 }
+    - { at: g-repository, number: 8 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-source: { x: 20, y: 84, w: 380, h: 210 }
+  band-build: { x: 420, y: 84, w: 860, h: 210 }
+  band-importer: { x: 20, y: 314, w: 1260, h: 100 }
+  band-modules: { x: 20, y: 434, w: 1260, h: 120 }
+  g-importer: { x: 80, y: 130, w: 260, h: 44 }
+  g-source-root: { x: 80, y: 220, w: 260, h: 56 }
+  g-import-catzc: { x: 900, y: 130, w: 280, h: 44 }
+  g-exporter: { x: 470, y: 190, w: 260, h: 44 }
+  g-bundle-root: { x: 900, y: 220, w: 280, h: 56 }
+  g-internal: { x: 340, y: 350, w: 560, h: 44 }
+  g-modules: { x: 200, y: 470, w: 300, h: 44 }
+  g-repository: { x: 700, y: 470, w: 280, h: 44 }

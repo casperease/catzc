@@ -1,0 +1,59 @@
+description: >-
+  Get-Aspect answers each track's aspect order from variants.yml, naming the remainder: the code track ends in tests, the deployment track
+  ends in live, and a wrong order fails the next time the config loads.
+about:
+  lens: operations
+  adrs: [ADR-DSGN-ASPECT-TRACKPICKSCATCHALL]
+  tracks: [pwsh, infrastructure]
+  languages: [powershell, yaml]
+  modules: [Catzc.Base.Modules, Catzc.Base.Variants]
+  files:
+    - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
+    - pwsh/Catzc.Base.Variants/configs/variants.yml
+content:
+  title: Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads
+  kind: explanation
+  relation: feeds
+  bands:
+    - { id: band-config, label: THE CONFIG }
+    - { id: band-code, label: PWSH }
+    - { id: band-deployment, label: INFRASTRUCTURE }
+  glyphs:
+    - { id: f-variants, kind: file, label: variants.yml, in: band-config }
+    - { id: f-last-aspect, kind: failure, label: "the last aspect must be '**'", in: band-config }
+    - { id: c-code-aspect, kind: code, label: Get-Aspect -Track pwsh, in: band-code }
+    - { id: s-code-live, kind: set, label: live, in: band-code }
+    - { id: s-code-tests, kind: set, label: tests, in: band-code }
+    - { id: c-deployment-aspect, kind: code, label: Get-Aspect -Track infrastructure, in: band-deployment }
+    - { id: s-deployment-tests, kind: set, label: tests, in: band-deployment }
+    - { id: s-deployment-live, kind: set, label: live, in: band-deployment }
+  edges:
+    - { from: f-variants, to: f-last-aspect, kind: fail }
+    - { from: f-variants, to: c-code-aspect }
+    - { from: f-variants, to: c-deployment-aspect }
+    - { from: c-code-aspect, to: s-code-live, kind: thick }
+    - { from: s-code-live, to: s-code-tests, kind: thick }
+    - { from: c-deployment-aspect, to: s-deployment-tests, kind: thick }
+    - { from: s-deployment-tests, to: s-deployment-live, kind: thick }
+  markers:
+    - { at: f-variants, number: 1 }
+    - { at: f-last-aspect, number: 2 }
+    - { at: c-code-aspect, number: 3 }
+    - { at: s-code-live, number: 4 }
+    - { at: s-code-tests, number: 5 }
+    - { at: c-deployment-aspect, number: 6 }
+    - { at: s-deployment-tests, number: 7 }
+    - { at: s-deployment-live, number: 8 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-config: { x: 20, y: 84, w: 1260, h: 110 }
+  band-code: { x: 20, y: 214, w: 610, h: 290 }
+  band-deployment: { x: 650, y: 214, w: 630, h: 290 }
+  f-variants: { x: 200, y: 124, w: 760, h: 52 }
+  f-last-aspect: { x: 990, y: 128, w: 270, h: 44 }
+  c-code-aspect: { x: 115, y: 260, w: 420, h: 44 }
+  s-code-live: { x: 115, y: 350, w: 420, h: 44 }
+  s-code-tests: { x: 115, y: 430, w: 420, h: 44 }
+  c-deployment-aspect: { x: 765, y: 260, w: 420, h: 44 }
+  s-deployment-tests: { x: 765, y: 350, w: 420, h: 44 }
+  s-deployment-live: { x: 765, y: 430, w: 420, h: 44 }

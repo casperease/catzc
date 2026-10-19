@@ -1,0 +1,76 @@
+description: >-
+  Get-Config stays fast because three script-scope caches stand behind it, each filled once and kept until re-import: the name
+  index, the parsed configs keyed by path, and the type registry.
+about:
+  lens: implementation
+  adrs:
+    - ADR-CONF-LOADING-ONEREADER
+    - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+    - ADR-CONF-LOADING-CACHEBYPATH
+    - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+  tracks: [pwsh]
+  languages: [powershell, yaml]
+  modules: [Catzc.Base.Config]
+  files:
+    - pwsh/Catzc.Base.Config/Get-Config.ps1
+    - pwsh/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
+    - pwsh/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
+    - pwsh/Catzc.Base.Config/configs/configs.yml
+content:
+  title: Three session caches back the one config reader
+  kind: explanation
+  relation: call order
+  bands:
+    - { id: band-chain, label: CALL CHAIN }
+    - { id: band-index, label: INDEX }
+    - { id: band-miss, label: MISS }
+    - { id: band-registry, label: REGISTRY }
+  glyphs:
+    - { id: g-reader, kind: code, label: Get-Config, in: band-chain }
+    - { id: g-entry, kind: code, label: Resolve-ConfigEntry, in: band-chain }
+    - { id: s-cache, kind: store, label: "$script:configCache", in: band-chain }
+    - { id: r-same, kind: result, label: same reference, in: band-chain }
+    - { id: s-index, kind: store, label: "$script:configIndex", in: band-index }
+    - { id: g-file, kind: file, label: configs/<name>.yml, in: band-miss }
+    - { id: g-type, kind: code, label: "[type]::new($raw)", in: band-miss }
+    - { id: g-registry-file, kind: file, label: configs.yml, in: band-registry }
+    - { id: g-registry, kind: code, label: Get-ConfigRegistry, in: band-registry }
+    - { id: s-registry, kind: store, label: "$script:configRegistryCache", in: band-registry }
+  edges:
+    - { from: g-reader, to: g-entry }
+    - { from: g-entry, to: s-cache }
+    - { from: s-cache, to: r-same }
+    - { from: g-entry, to: s-index }
+    - { from: s-cache, to: g-file }
+    - { from: g-file, to: g-type }
+    - { from: g-type, to: s-cache }
+    - { from: g-registry-file, to: g-registry }
+    - { from: g-registry, to: s-registry }
+    - { from: g-registry, to: g-type }
+  markers:
+    - { at: g-reader, number: 1 }
+    - { at: g-entry, number: 2 }
+    - { at: s-index, number: 3 }
+    - { at: s-cache, number: 4 }
+    - { at: r-same, number: 5 }
+    - { at: g-file, number: 6 }
+    - { at: g-type, number: 7 }
+    - { at: g-registry-file, number: 8 }
+    - { at: g-registry, number: 9 }
+    - { at: s-registry, number: 10 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-chain: { x: 20, y: 84, w: 1260, h: 120 }
+  band-index: { x: 20, y: 224, w: 520, h: 120 }
+  band-miss: { x: 560, y: 224, w: 720, h: 120 }
+  band-registry: { x: 560, y: 364, w: 720, h: 130 }
+  g-reader: { x: 40, y: 130, w: 180, h: 44 }
+  g-entry: { x: 300, y: 130, w: 200, h: 44 }
+  s-cache: { x: 600, y: 122, w: 280, h: 60 }
+  r-same: { x: 1060, y: 130, w: 200, h: 44 }
+  s-index: { x: 310, y: 268, w: 180, h: 60 }
+  g-file: { x: 600, y: 272, w: 160, h: 52 }
+  g-type: { x: 820, y: 276, w: 200, h: 44 }
+  g-registry-file: { x: 600, y: 412, w: 160, h: 52 }
+  g-registry: { x: 820, y: 416, w: 200, h: 44 }
+  s-registry: { x: 1040, y: 408, w: 230, h: 60 }

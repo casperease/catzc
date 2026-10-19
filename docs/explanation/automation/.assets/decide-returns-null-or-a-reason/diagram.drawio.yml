@@ -1,0 +1,65 @@
+description: >-
+  The bash hook's program loads the limits and the run environment, hands the call to Decide, and acts on what comes back: nothing to let
+  the call through, or a reason that becomes a denial and one line in the blocker log.
+about:
+  lens: implementation
+  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+  tracks: [.claude, pwsh]
+  languages: [csharp, yaml]
+  modules: [Catzc.Base.Timeouts]
+  files:
+    - .claude/hooks/Assert-BashTimeout/Program.cs
+    - pwsh/Catzc.Base.Timeouts/configs/timeouts.yml
+    - pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
+    - pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs
+    - pwsh/Catzc.Base.Timeouts/types/BoundedCommand.cs
+content:
+  title: Main loads the limits and the run environment, then Decide returns null or a reason
+  kind: explanation
+  flow: top-to-bottom
+  relation: feeds the next step
+  bands:
+    - { id: band-load, label: LOAD }
+    - { id: band-decide, label: DECIDE }
+    - { id: band-verdict, label: VERDICT }
+    - { id: band-log, label: LOG }
+  glyphs:
+    - { id: g-timeouts, kind: file, label: timeouts.yml, in: band-load }
+    - { id: g-config, kind: code, label: TimeoutsConfig, in: band-load }
+    - { id: g-environment, kind: code, label: BashSafeguard.EnvironmentOf, in: band-load }
+    - { id: g-decide, kind: code, label: BashSafeguard.Decide, in: band-decide }
+    - { id: g-bounded, kind: code, label: BoundedCommand.Check, in: band-decide }
+    - { id: r-through, kind: result, label: "let through, no output", in: band-verdict }
+    - { id: f-deny, kind: failure, label: "DenyOutput: deny + reason", in: band-verdict }
+    - { id: g-log, kind: file, label: out/time-safeguard.log, in: band-log }
+  edges:
+    - { from: g-timeouts, to: g-config }
+    - { from: g-config, to: g-decide }
+    - { from: g-environment, to: g-decide }
+    - { from: g-decide, to: g-bounded }
+    - { from: g-decide, to: r-through }
+    - { from: g-decide, to: f-deny, kind: fail }
+    - { from: f-deny, to: g-log }
+  markers:
+    - { at: g-timeouts, number: 1 }
+    - { at: g-config, number: 2 }
+    - { at: g-environment, number: 3 }
+    - { at: g-decide, number: 4 }
+    - { at: g-bounded, number: 5 }
+    - { at: r-through, number: 6 }
+    - { at: f-deny, number: 7 }
+    - { at: g-log, number: 8 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-load: { x: 20, y: 84, w: 1260, h: 110 }
+  band-decide: { x: 20, y: 214, w: 1260, h: 110 }
+  band-verdict: { x: 20, y: 344, w: 1260, h: 110 }
+  band-log: { x: 20, y: 474, w: 1260, h: 110 }
+  g-timeouts: { x: 300, y: 126, w: 130, h: 52 }
+  g-config: { x: 480, y: 130, w: 150, h: 44 }
+  g-environment: { x: 690, y: 130, w: 200, h: 44 }
+  g-decide: { x: 480, y: 250, w: 410, h: 44 }
+  g-bounded: { x: 1010, y: 250, w: 170, h: 44 }
+  r-through: { x: 470, y: 380, w: 170, h: 44 }
+  f-deny: { x: 695, y: 380, w: 190, h: 44 }
+  g-log: { x: 710, y: 512, w: 160, h: 52 }

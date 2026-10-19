@@ -21,8 +21,6 @@ reads left to right in one row, each kind or gate beside the rule that governs i
 
 ![The CI budget is the only promotion rule a quality gate checks](.assets/ci-budget-is-the-only-quality-gate/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/ci-budget-is-the-only-quality-gate/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **CI inner loop.** Getting a change into main must clear its build-validation within a 5–10 minute integration cycle, on a team basis.

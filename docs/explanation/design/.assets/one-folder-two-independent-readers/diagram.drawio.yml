@@ -1,0 +1,64 @@
+description: >-
+  One module folder is read by two components that never read each other: the loader derives the manifest and so what the module exports,
+  and the globs engine derives the live and tests sets and so what ships.
+about:
+  lens: architecture
+  adrs:
+    - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+    - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+    - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
+  tracks: [pwsh]
+  languages: [powershell, csharp]
+  modules: [Catzc.Base.Variants, Catzc.Base.Globs]
+  files:
+    - pwsh/.internal/Catzc.Internal.Bootstrap.psm1
+    - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+    - pwsh/Catzc.Base.Globs/types/Aspect.cs
+content:
+  title: One module folder has two independent readers
+  kind: explanation
+  relation: reads, then derives
+  bands:
+    - { id: band-root, label: ONE FOLDER }
+    - { id: band-visibility, label: VISIBILITY }
+    - { id: band-aspects, label: ASPECTS }
+  glyphs:
+    - { id: g-root, kind: code, label: "pwsh/<Module>/", in: band-root }
+    - { id: g-bootstrap, kind: code, label: Catzc.Internal.Bootstrap, in: band-visibility }
+    - { id: g-psd1, kind: file, label: "<Module>.psd1", in: band-visibility }
+    - { id: g-variants, kind: code, label: Catzc.Base.Variants, in: band-aspects }
+    - { id: g-globs, kind: code, label: Catzc.Base.Globs, in: band-aspects }
+    - { id: g-live, kind: set, label: "<module>-live", in: band-aspects }
+    - { id: g-tests, kind: set, label: "<module>-tests", in: band-aspects }
+    - { id: g-locks, kind: adronly, label: aspect sha locks, in: band-aspects }
+  edges:
+    - { from: g-root, to: g-bootstrap }
+    - { from: g-bootstrap, to: g-psd1 }
+    - { from: g-variants, to: g-globs }
+    - { from: g-root, to: g-globs }
+    - { from: g-globs, to: g-live, kind: thick }
+    - { from: g-globs, to: g-tests, kind: thick }
+    - { from: g-live, to: g-locks, kind: adr }
+    - { from: g-tests, to: g-locks, kind: adr }
+  markers:
+    - { at: g-root, number: 1 }
+    - { at: g-bootstrap, number: 2 }
+    - { at: g-psd1, number: 3 }
+    - { at: g-variants, number: 4 }
+    - { at: g-globs, number: 5 }
+    - { at: g-live, number: 6 }
+    - { at: g-tests, number: 7 }
+    - { at: g-locks, number: 8 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-root: { x: 20, y: 84, w: 240, h: 500 }
+  band-visibility: { x: 280, y: 84, w: 1000, h: 150 }
+  band-aspects: { x: 280, y: 254, w: 1000, h: 330 }
+  g-root: { x: 40, y: 300, w: 200, h: 44 }
+  g-bootstrap: { x: 330, y: 148, w: 260, h: 44 }
+  g-psd1: { x: 700, y: 141, w: 240, h: 58 }
+  g-variants: { x: 330, y: 285, w: 260, h: 44 }
+  g-globs: { x: 330, y: 430, w: 260, h: 60 }
+  g-live: { x: 700, y: 400, w: 220, h: 44 }
+  g-tests: { x: 700, y: 480, w: 220, h: 44 }
+  g-locks: { x: 1020, y: 430, w: 200, h: 60 }

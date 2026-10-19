@@ -1,0 +1,70 @@
+description: >-
+  The cats load runs in six stages; each stage but the last carries the ADR rules it follows and the test or review that gates them, and the
+  unload carries neither.
+about:
+  lens: governance
+  adrs:
+    - ADR-AUTO-BUNDLE-TWOROOTS
+    - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+    - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+    - ADR-PWSH-ERROR-STOPONERROR
+    - ADR-PRIN-ONELIVE-ONEVERSION
+    - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
+    - ADR-REPO-ROOTCFG-FULLYMANAGED
+    - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+    - ADR-DSGN-RUNMODE-NEVERCOEXIST
+    - ADR-AUTO-TYPES-JANITORSBYCALLER
+  tracks: [pwsh]
+  languages: [powershell]
+  files:
+    - importer.ps1
+    - pwsh/.internal/Catzc.Internal.Importer.psm1
+content:
+  title: Every load stage but the unload has an ADR rule and a gate
+  kind: explanation
+  flow: top-to-bottom
+  relation: is checked by
+  bands:
+    - { id: band-shim, label: SHIM }
+    - { id: band-session, label: SESSION }
+    - { id: band-load, label: LOAD }
+    - { id: band-mode, label: RUN MODE }
+    - { id: band-janitors, label: JANITORS }
+    - { id: band-unload, label: UNLOAD }
+  glyphs:
+    - { id: g-shim, kind: gate, label: New-Importer.Tests, in: band-shim }
+    - { id: g-session, kind: gate, label: code review, in: band-session }
+    - { id: g-load, kind: gate, label: Import-AllModules.Tests, in: band-load }
+    - { id: g-mode, kind: gate, label: Assert-CatzcRunModeExclusive.Tests, in: band-mode }
+    - { id: g-janitors, kind: gate, label: Invoke-TypeCacheJanitor.Tests, in: band-janitors }
+  markers:
+    - { at: g-shim, number: 1 }
+    - { at: g-session, number: 2 }
+    - { at: g-load, number: 3 }
+    - { at: g-mode, number: 4 }
+    - { at: g-janitors, number: 5 }
+    - { at: band-unload, number: 6 }
+  chips:
+    - { at: g-shim, kind: rule, rule: ADR-REPO-ROOTCFG-FULLYMANAGED }
+    - { at: g-shim, kind: rule, rule: ADR-PRIN-ONELIVE-ONEVERSION }
+    - { at: g-session, kind: rule, rule: ADR-PWSH-ERROR-STOPONERROR }
+    - { at: g-session, kind: rule, rule: ADR-AUTO-BUNDLE-TWOROOTS }
+    - { at: g-session, kind: rule, rule: ADR-AUTO-BUNDLE-BUNDLEISSESSION }
+    - { at: g-load, kind: rule, rule: ADR-AUTO-BUNDLE-ONELIVINGIMPORTER }
+    - { at: g-load, kind: rule, rule: ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE }
+    - { at: g-mode, kind: rule, rule: ADR-DSGN-RUNMODE-NEVERCOEXIST }
+    - { at: g-janitors, kind: rule, rule: ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION }
+    - { at: g-janitors, kind: rule, rule: ADR-AUTO-TYPES-JANITORSBYCALLER }
+  minimaps: [code-locations, grid, axis]
+layout:
+  band-shim: { x: 20, y: 124, w: 1260, h: 70 }
+  band-session: { x: 20, y: 204, w: 1260, h: 70 }
+  band-load: { x: 20, y: 284, w: 1260, h: 70 }
+  band-mode: { x: 20, y: 364, w: 1260, h: 70 }
+  band-janitors: { x: 20, y: 444, w: 1260, h: 70 }
+  band-unload: { x: 20, y: 524, w: 1260, h: 70 }
+  g-shim: { x: 600, y: 136, w: 400, h: 48 }
+  g-session: { x: 600, y: 216, w: 400, h: 48 }
+  g-load: { x: 600, y: 296, w: 400, h: 48 }
+  g-mode: { x: 600, y: 376, w: 400, h: 48 }
+  g-janitors: { x: 600, y: 456, w: 400, h: 48 }

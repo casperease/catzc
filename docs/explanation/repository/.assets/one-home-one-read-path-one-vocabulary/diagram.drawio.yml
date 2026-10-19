@@ -1,0 +1,45 @@
+description: >-
+  A repo-wide switch lives in one file, is read through one private reader, is asked through one guard vocabulary, and is called from any
+  module above Config.
+about:
+  lens: meta
+  adrs: [ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS]
+  tracks: [pwsh]
+  languages: []
+  modules: [Catzc.Base.Variants]
+  files:
+    - pwsh/Catzc.Base.Variants/configs/variants.yml
+content:
+  title: A repo-wide switch has one home, one read path and one guard vocabulary
+  kind: explanation
+  flow: top-to-bottom
+  relation: feeds
+  bands:
+    - { id: band-variant, label: VARIANT }
+    - { id: band-reader, label: READER }
+    - { id: band-primitives, label: PRIMITIVES }
+    - { id: band-callers, label: CALLERS }
+  glyphs:
+    - { id: g-home, kind: file, label: one home, in: band-variant }
+    - { id: g-read-path, kind: code, label: one read path, in: band-reader }
+    - { id: g-vocabulary, kind: code, label: one guard vocabulary, in: band-primitives }
+    - { id: g-callers, kind: set, label: any module above Config, in: band-callers }
+  edges:
+    - { from: g-home, to: g-read-path }
+    - { from: g-read-path, to: g-vocabulary }
+    - { from: g-vocabulary, to: g-callers, kind: thick }
+  markers:
+    - { at: g-home, number: 1 }
+    - { at: g-read-path, number: 2 }
+    - { at: g-vocabulary, number: 3 }
+    - { at: g-callers, number: 4 }
+  minimaps: [code-locations, grid, axis]
+layout:
+  band-variant: { x: 20, y: 84, w: 1240, h: 80 }
+  band-reader: { x: 20, y: 184, w: 1240, h: 80 }
+  band-primitives: { x: 20, y: 284, w: 1240, h: 80 }
+  band-callers: { x: 20, y: 384, w: 1240, h: 80 }
+  g-home: { x: 540, y: 112, w: 190, h: 44 }
+  g-read-path: { x: 540, y: 212, w: 190, h: 44 }
+  g-vocabulary: { x: 540, y: 312, w: 190, h: 44 }
+  g-callers: { x: 520, y: 412, w: 230, h: 44 }

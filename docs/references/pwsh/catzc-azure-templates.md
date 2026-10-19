@@ -69,9 +69,9 @@ Build (responsibility 4) and deploy (responsibility 5) are the two execution pha
 immutable artifact and never touches the cloud, while deploy is the only place state changes. Both phases call the template's optional
 extension hooks at the right moments — preparation merges global configuration into the parameter set at build time, and the pre/post-deploy
 hooks bracket the deployment — which is how a template injects a secret reference or provisions a queue without that logic leaking into the
-engine (see [prepost-extension-modules](../../adr/automation/pwsh/prepost-extension-modules.md)). A value that belongs to the repository rather than to
-one template, such as the policy enforcement mode, needs no hook: a template's configuration names it by its config address, and build
-renders the addressed value into the parameter file (see
+engine (see [prepost-extension-modules](../../adr/automation/pwsh/prepost-extension-modules.md)). A value that belongs to the repository
+rather than to one template, such as the policy enforcement mode, needs no hook: a template's configuration names it by its config address,
+and build renders the addressed value into the parameter file (see
 [data-model](../../adr/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress) and
 [config-value-addressing](../../adr/configuration/config-value-addressing.md)). Deploy leans on the session-verification checks before it
 acts, so a deployment can never run against the wrong subscription.
@@ -85,10 +85,7 @@ module.
 The first diagram below draws template discovery and the build from the source. A template is a folder, and its `options.yml` may override
 only five derived defaults, under a strict schema. The build writes one parameters file per slot and then compiles the template once. The
 second diagram draws a deployment. It works on one immutable context (the plan, the artifacts and the environment), resolved from the live
-az session against `azure.yml`. A dry run stops at the what-if; otherwise the deployment is created. Each slide has a description:
-[template discovery](.assets/bicep-template-is-a-folder/diagram.drawio.md) and
-[deployment](.assets/bicep-deploy-one-immutable-context/diagram.drawio.md).
-
+az session against `azure.yml`. A dry run stops at the what-if; otherwise the deployment is created.
 ![A template is a folder; options.yml overrides five defaults](.assets/bicep-template-is-a-folder/diagram.drawio.png)
 
 ![One immutable context, resolved from the az session](.assets/bicep-deploy-one-immutable-context/diagram.drawio.png)

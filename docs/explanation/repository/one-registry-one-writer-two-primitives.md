@@ -22,8 +22,6 @@ RootConfig module to the Files module and to the modules that hold the generator
 
 ![One registry, one writer, two write primitives, two kinds of target](.assets/one-registry-one-writer-two-primitives/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-registry-one-writer-two-primitives/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Authored source files.** A `source` entry names a config file kept under `pwsh/`, most of them in `Catzc.Base.RootConfig/assets/root/`.

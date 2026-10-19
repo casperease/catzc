@@ -23,8 +23,6 @@ the order shown. The way out has no chain at all: no function returns the last v
 
 ![A local guard and ADO policies, no resolver](.assets/local-guard-and-server-policies/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/local-guard-and-server-policies/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **`variants.yml`.** The repo-wide variants file sets `git_workspace: main-direct`. The `VariantsConfig` type accepts only `main-direct`

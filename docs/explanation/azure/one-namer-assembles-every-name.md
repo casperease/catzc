@@ -21,8 +21,6 @@ is the resource-group name the deploy uses. Because nothing else builds names, a
 
 ![One resolver gathers the components and one namer assembles every Azure name](.assets/one-namer-assembles-every-name/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-namer-assembles-every-name/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **azure.yml and customer.yml.** The `Catzc.Azure` configs. `azure.yml` supplies the environment's readable name and its 2-char shortcode,

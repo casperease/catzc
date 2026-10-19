@@ -23,8 +23,6 @@ identity resolved here.
 
 ![Get-BicepDeploymentContext reads the session, guards it, then picks the slot](.assets/read-the-session-guard-then-pick-slot/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/read-the-session-guard-then-pick-slot/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Get-CurrentAzSubscription.** Runs `az account show` and returns the session's active subscription as an object with its id, name and

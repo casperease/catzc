@@ -21,8 +21,6 @@ their files, so the limits it reads and the verdict it gives are the ones `Get-T
 
 ![The hook compiles the module's own verdict and limits](.assets/hook-compiles-module-verdict-and-limits/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/hook-compiles-module-verdict-and-limits/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Bash tool.** Claude Code runs shell commands through its Bash tool. The repository's `.claude/settings.json` registers a `PreToolUse`

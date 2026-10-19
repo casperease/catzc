@@ -22,9 +22,6 @@ the ADR states, tells a reviewer where a mistake would slip through.
 
 ![Partition integrity runs only in unit tests](.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.png)
 
-The diagram is described element by element in
-[its asset description](.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **pwsh/&lt;Module&gt;/.** The module folder every stage starts from. Two quality gates read it, and the import guard reads it before

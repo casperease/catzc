@@ -21,8 +21,6 @@ other half of the decision, picking the last verified commit to integrate from.
 
 ![Flip git_workspace; sync the ADO policies](.assets/guard-and-policies-by-command/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/guard-and-policies-by-command/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **`variants.yml`.** Set `git_workspace: main-via-pr` in the repo-wide variants file. The shipped value is `main-direct`, the solo-author

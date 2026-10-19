@@ -22,8 +22,6 @@ misstates a config path.
 
 ![Four gates hold the session rule; the customer and the name hold by construction](.assets/four-gates-hold-the-session-rule/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/four-gates-hold-the-session-rule/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Assert given in a pipeline.** `Deploy-Bicep` checks, before resolving anything, that a pipeline run carries `-SubscriptionIdAssertIs`,

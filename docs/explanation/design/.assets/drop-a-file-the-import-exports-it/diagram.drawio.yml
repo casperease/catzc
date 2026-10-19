@@ -1,0 +1,54 @@
+description: >-
+  A dropped Verb-Noun file needs no registration: the next import exports it, or throws on a name collision, the module's aspect sets place
+  it in the live set, and the quality gates report a non-conventional file.
+about:
+  lens: operations
+  adrs: [ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS, ADR-DSGN-ASPECT-ASPECTSAREDERIVED]
+  tracks: [pwsh]
+  languages: [powershell]
+  modules: [Catzc.Base.Globs]
+  files:
+    - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+content:
+  title: Drop a file, and the next import exports it
+  kind: explanation
+  relation: runs, then yields
+  bands:
+    - { id: band-file, label: THE FILE }
+    - { id: band-import, label: EVERY IMPORT }
+    - { id: band-aspect, label: WHICH ASPECT }
+  glyphs:
+    - { id: c-file, kind: code, label: Verb-Noun.ps1, in: band-file }
+    - { id: g-quality, kind: gate, label: Quality gates, in: band-file }
+    - { id: c-importer, kind: code, label: . ./importer.ps1, in: band-import }
+    - { id: r-exported, kind: result, label: Verb-Noun exported, in: band-import }
+    - { id: f-collision, kind: failure, label: Function name collision(s), in: band-import }
+    - { id: c-globset, kind: code, label: Get-ModuleGlobSet, in: band-aspect }
+    - { id: r-live, kind: result, label: "in <kebab>-live", in: band-aspect }
+  edges:
+    - { from: c-file, to: c-importer }
+    - { from: c-importer, to: r-exported }
+    - { from: c-importer, to: f-collision, kind: fail }
+    - { from: c-file, to: c-globset }
+    - { from: c-globset, to: r-live }
+    - { from: c-file, to: g-quality }
+  markers:
+    - { at: c-file, number: 1 }
+    - { at: c-importer, number: 2 }
+    - { at: r-exported, number: 3 }
+    - { at: f-collision, number: 4 }
+    - { at: c-globset, number: 5 }
+    - { at: r-live, number: 6 }
+    - { at: g-quality, number: 7 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-file: { x: 20, y: 84, w: 240, h: 400 }
+  band-import: { x: 280, y: 84, w: 540, h: 400 }
+  band-aspect: { x: 840, y: 84, w: 440, h: 400 }
+  c-file: { x: 40, y: 140, w: 200, h: 220 }
+  g-quality: { x: 60, y: 390, w: 160, h: 72 }
+  c-importer: { x: 300, y: 150, w: 200, h: 44 }
+  r-exported: { x: 560, y: 150, w: 240, h: 44 }
+  f-collision: { x: 560, y: 230, w: 240, h: 44 }
+  c-globset: { x: 860, y: 300, w: 190, h: 44 }
+  r-live: { x: 1070, y: 300, w: 190, h: 44 }

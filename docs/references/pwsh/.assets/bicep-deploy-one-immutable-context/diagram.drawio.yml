@@ -1,0 +1,88 @@
+description: >-
+  Deploy-Bicep resolves one immutable deployment context from the az session and the Azure config, then builds, deploys through the az
+  runner and sets the tracking tags, all from that one context.
+about:
+  lens: source
+  adrs:
+    - ADR-AZ-DATAMOD-CUSTOMERAXIS
+    - ADR-AZ-DATAMOD-VALUEBYADDRESS
+    - ADR-AZ-SESSION
+    - ADR-AUTO-DRYRUN
+    - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+    - ADR-PWSH-PREPOST
+  tracks: [pwsh]
+  languages: [powershell, csharp]
+  modules: [Catzc.Azure.Templates, Catzc.Azure.Cli]
+  files:
+    - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+    - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+    - pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
+    - pwsh/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
+    - pwsh/Catzc.Azure.Templates/types/BicepDeploymentPlan.cs
+    - pwsh/Catzc.Azure.Templates/types/BicepArtifacts.cs
+    - pwsh/Catzc.Azure.Templates/types/BicepDeploymentContext.cs
+    - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+    - pwsh/Catzc.Azure.Cli/Invoke-AzCli.ps1
+    - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
+content:
+  title: One immutable context, resolved from the az session
+  kind: reference
+  relation: calls
+  bands:
+    - { id: band-entry, label: ENTRY }
+    - { id: band-resolve, label: RESOLVE }
+    - { id: band-deploy, label: DEPLOY }
+  groups:
+    - { id: grp-types, label: context types, in: band-resolve }
+    - { id: grp-cli, label: Catzc.Azure.Cli, in: band-resolve }
+    - { id: grp-azure, label: Catzc.Azure, in: band-resolve }
+  glyphs:
+    - { id: g-deploy, kind: code, label: Deploy-Bicep, in: band-entry }
+    - { id: g-context, kind: code, label: Get-BicepDeploymentContext, in: band-resolve }
+    - { id: t-plan, kind: type, label: BicepDeploymentPlan, in: grp-types }
+    - { id: t-artifacts, kind: type, label: BicepArtifacts, in: grp-types }
+    - { id: t-context, kind: type, label: BicepDeploymentContext, in: grp-types }
+    - { id: g-build, kind: code, label: Build-Bicep, in: band-resolve }
+    - { id: g-session-sub, kind: code, label: Get-AzCliSessionSubscription, in: grp-cli }
+    - { id: g-invoke, kind: code, label: Invoke-AzCli, in: grp-cli }
+    - { id: g-environment, kind: code, label: Get-AzureEnvironment, in: grp-azure }
+    - { id: g-tracking, kind: code, label: Set-BicepTrackingTagSet, in: band-deploy }
+  edges:
+    - { from: g-deploy, to: g-context }
+    - { from: g-context, to: grp-types }
+    - { from: g-context, to: g-build }
+    - { from: g-context, to: g-session-sub }
+    - { from: g-context, to: g-environment }
+    - { from: g-build, to: g-invoke }
+    - { from: g-deploy, to: g-invoke }
+    - { from: g-deploy, to: g-tracking }
+    - { from: g-tracking, to: g-invoke }
+    - { from: g-tracking, to: g-session-sub }
+    - { from: g-tracking, to: g-environment }
+  markers:
+    - { at: g-deploy, number: 1 }
+    - { at: g-context, number: 2 }
+    - { at: g-session-sub, number: 3 }
+    - { at: g-environment, number: 4 }
+    - { at: g-build, number: 5 }
+    - { at: t-context, number: 6 }
+    - { at: g-invoke, number: 7 }
+    - { at: g-tracking, number: 8 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-entry: { x: 20, y: 84, w: 190, h: 500 }
+  band-resolve: { x: 220, y: 84, w: 1060, h: 290 }
+  band-deploy: { x: 220, y: 394, w: 1060, h: 190 }
+  g-deploy: { x: 40, y: 300, w: 150, h: 44 }
+  g-context: { x: 250, y: 124, w: 220, h: 44 }
+  grp-types: { x: 540, y: 104, w: 720, h: 84 }
+  t-plan: { x: 560, y: 134, w: 200, h: 44 }
+  t-artifacts: { x: 790, y: 134, w: 180, h: 44 }
+  t-context: { x: 1000, y: 134, w: 240, h: 44 }
+  g-build: { x: 260, y: 275, w: 200, h: 44 }
+  grp-cli: { x: 520, y: 225, w: 290, h: 310 }
+  g-session-sub: { x: 545, y: 275, w: 240, h: 44 }
+  g-invoke: { x: 580, y: 465, w: 160, h: 44 }
+  grp-azure: { x: 840, y: 225, w: 260, h: 120 }
+  g-environment: { x: 860, y: 275, w: 220, h: 44 }
+  g-tracking: { x: 880, y: 465, w: 230, h: 44 }

@@ -21,8 +21,6 @@ check something nearby rather than the rule itself.
 
 ![No gate checks rules 1 or 4; the template breaks 3](.assets/no-gate-checks-rules-one-and-four/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/no-gate-checks-rules-one-and-four/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Pipeline YAML.** Rule 1 says YAML steps never contain inline PowerShell. It holds today: the only inline scripts under

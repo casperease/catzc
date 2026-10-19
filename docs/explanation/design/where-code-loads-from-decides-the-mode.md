@@ -18,8 +18,6 @@ is in. The place the code was loaded from is the answer, so the mode can never d
 
 ![Where the code loads from decides the run mode](.assets/where-code-loads-from-decides-the-mode/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/where-code-loads-from-decides-the-mode/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **The repository.** Source mode reads every module in place from the repository, one function per file. This is the form for the people

@@ -21,8 +21,6 @@ is about to act on, and stops with one of three errors when the session is missi
 
 ![A pipeline pins the subscription it expects; a devbox picks the target with az account set](.assets/pipeline-pins-devbox-picks-the-target/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/pipeline-pins-devbox-picks-the-target/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Service connection.** A pipeline deploy step is an `AzureCLI@2` task whose `azureSubscription` names the service connection. The shared

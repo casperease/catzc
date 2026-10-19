@@ -21,8 +21,6 @@ globset edit before any pipeline runs.
 
 ![Edit globs.yml, then read the output](.assets/edit-globs-yml-then-read-the-output/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/edit-globs-yml-then-read-the-output/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **globs.yml.** Add or change a globset. Adding files to a unit, or a whole customer, is a config edit.

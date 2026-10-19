@@ -22,9 +22,6 @@ and the other names any member file an include pattern would miss.
 
 ![Print the projection, then drift names the filter](.assets/print-projection-then-drift-names-the-filter/diagram.drawio.png)
 
-The diagram is described element by element in
-[its asset description](.assets/print-projection-then-drift-names-the-filter/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **globs.yml.** Adding or removing files from a unit, or adding a whole customer, is an edit to this file: its `include:`, `exclude:` and

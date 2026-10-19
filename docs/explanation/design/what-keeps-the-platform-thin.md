@@ -22,8 +22,6 @@ alone.
 
 ![Three gates guard the CLI and az; thinness has none](.assets/what-keeps-the-platform-thin/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/what-keeps-the-platform-thin/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **NoAzModuleNaming.** A custom PSScriptAnalyzer rule that flags any function named like an Az PowerShell cmdlet (`Verb-Az<Noun>`),

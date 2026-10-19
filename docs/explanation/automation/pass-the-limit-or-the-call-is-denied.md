@@ -19,8 +19,6 @@ a log so the limits can be tuned together instead of worked around.
 
 ![Pass the limit or the call is denied](.assets/pass-the-limit-or-the-call-is-denied/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/pass-the-limit-or-the-call-is-denied/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Assert-BashTimeout.** The hook runs before every Bash call, published by the importer at a devbox. A foreground call passes a `timeout`

@@ -22,9 +22,6 @@ it.
 
 ![Catzc.Base.Variants sits in Base, over Config, under every real caller](.assets/a-base-module-between-config-and-its-callers/diagram.drawio.png)
 
-The diagram is described element by element in
-[its asset description](.assets/a-base-module-between-config-and-its-callers/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **variants.yml.** The file lives in the module's own `configs/` folder and holds the five variants: `ado_naming`, `git_workspace`,

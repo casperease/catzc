@@ -1,0 +1,52 @@
+# cspell:ignore adronly
+description: >-
+  What a pipeline stage sees from one call to Test-GlobSetAffected: a boolean, at most one printed message, and one possible throw; only
+  false returns early, true and a doubt both proceed.
+about:
+  lens: operations
+  adrs: [ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
+  tracks: [pwsh, ado-pipelines]
+  languages: [powershell]
+  modules: [Catzc.Base.Globs]
+  files:
+    - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
+content:
+  title: "A stage returns only on $false; a doubt prints a message and proceeds; a typo throws"
+  kind: explanation
+  flow: top-to-bottom
+  relation: produces
+  bands:
+    - { id: band-who, label: WHO RUNS IT }
+    - { id: band-call, label: THE CALL }
+    - { id: band-returns, label: WHAT IT RETURNS AND PRINTS }
+  glyphs:
+    - { id: a-stage, kind: adronly, label: a unit's pipeline stage, in: band-who }
+    - { id: c-affected, kind: code, label: Test-GlobSetAffected apex, in: band-call }
+    - { id: x-undeclared, kind: failure, label: not a declared globset, in: band-call }
+    - { id: r-false, kind: result, label: "$false, return", in: band-returns }
+    - { id: r-true, kind: result, label: "$true, proceed", in: band-returns }
+    - { id: r-message, kind: result, label: fail-open message, in: band-returns }
+  edges:
+    - { from: a-stage, to: c-affected, kind: adr }
+    - { from: c-affected, to: r-false }
+    - { from: c-affected, to: r-true }
+    - { from: c-affected, to: r-message }
+    - { from: c-affected, to: x-undeclared, kind: fail }
+  markers:
+    - { at: a-stage, number: 1 }
+    - { at: c-affected, number: 2 }
+    - { at: r-false, number: 3 }
+    - { at: r-true, number: 4 }
+    - { at: r-message, number: 5 }
+    - { at: x-undeclared, number: 6 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-who: { x: 20, y: 84, w: 1260, h: 110 }
+  band-call: { x: 20, y: 210, w: 1260, h: 110 }
+  band-returns: { x: 20, y: 336, w: 1260, h: 120 }
+  a-stage: { x: 440, y: 122, w: 260, h: 44 }
+  c-affected: { x: 300, y: 250, w: 540, h: 44 }
+  x-undeclared: { x: 920, y: 250, w: 240, h: 44 }
+  r-false: { x: 325, y: 382, w: 150, h: 44 }
+  r-true: { x: 495, y: 382, w: 150, h: 44 }
+  r-message: { x: 665, y: 382, w: 150, h: 44 }

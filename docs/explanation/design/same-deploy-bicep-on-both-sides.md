@@ -21,8 +21,6 @@ a deployment, or one of two failures.
 
 ![A developer and a pipeline run the same Deploy-Bicep](.assets/same-deploy-bicep-on-both-sides/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/same-deploy-bicep-on-both-sides/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Connect-AzCli.** A developer's first step: it logs az in, and then the developer types `Deploy-Bicep dev sample` (or adds `-DryRun`).

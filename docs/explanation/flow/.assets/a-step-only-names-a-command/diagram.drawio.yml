@@ -1,0 +1,45 @@
+description: >-
+  A pipeline step names a command and holds no PowerShell; the pipeline task adds the authentication and the runner loads the modules once,
+  so the command runs exactly as a developer runs it after loading the modules, with no gate checking that.
+about:
+  lens: meta
+  adrs:
+    - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+    - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
+  tracks: [ado-pipelines]
+  languages: [pipeline-yaml, powershell]
+  files:
+    - .ado/pipelines/Invoke-AdoScript.ps1
+content:
+  title: A pipeline step only names a command that a developer can run locally
+  kind: explanation
+  relation: passes the command on
+  bands:
+    - { id: band-pipeline, label: PIPELINE }
+    - { id: band-developer, label: DEVELOPER }
+  glyphs:
+    - { id: g-step, kind: runner, label: pipeline step, in: band-pipeline }
+    - { id: g-task, kind: runner, label: pipeline task, in: band-pipeline }
+    - { id: g-runner, kind: code, label: runner, in: band-pipeline }
+    - { id: g-same-command, kind: code, label: same command, in: band-pipeline }
+    - { id: g-developer, kind: actor, label: developer, in: band-developer }
+  edges:
+    - { from: g-step, to: g-task }
+    - { from: g-task, to: g-runner }
+    - { from: g-runner, to: g-same-command }
+    - { from: g-developer, to: g-same-command, kind: adr }
+  markers:
+    - { at: g-step, number: 1 }
+    - { at: g-task, number: 2 }
+    - { at: g-runner, number: 3 }
+    - { at: g-same-command, number: 4 }
+    - { at: g-developer, number: 5 }
+  minimaps: [code-locations, grid, axis]
+layout:
+  band-pipeline: { x: 20, y: 84, w: 1260, h: 130 }
+  band-developer: { x: 20, y: 250, w: 1260, h: 130 }
+  g-step: { x: 60, y: 124, w: 180, h: 60 }
+  g-task: { x: 320, y: 124, w: 180, h: 60 }
+  g-runner: { x: 580, y: 124, w: 180, h: 60 }
+  g-same-command: { x: 1040, y: 124, w: 200, h: 60 }
+  g-developer: { x: 1090, y: 290, w: 100, h: 70 }

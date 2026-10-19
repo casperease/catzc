@@ -18,8 +18,6 @@ a build are set up the same way.
 
 ![Every entry runs one load sequence](.assets/every-entry-runs-one-load-sequence/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/every-entry-runs-one-load-sequence/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Enter.** A dot-sourced entry script hands over to the one importer. There are two entry scripts, one per run mode, and both end in the

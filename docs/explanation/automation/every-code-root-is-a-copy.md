@@ -22,8 +22,6 @@ outside the repository is a copy of the one verified build.
 
 ![One engine builds, every code root is a copy](.assets/every-code-root-is-a-copy/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/every-code-root-is-a-copy/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **pwsh/.** The source tree under the working root is the only input. The engine asserts that it runs in the source tree and refuses to

@@ -22,8 +22,6 @@ Bootstrap. Both entry scripts end in this one function, so this order is the loa
 
 ![Invoke-Importer loads, asserts one mode, tidies, unloads](.assets/invoke-importer-in-code-order/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/invoke-importer-in-code-order/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **importer.ps1.** The source-mode shim turns on `Set-StrictMode -Version Latest`, sets `$env:RepositoryRoot` to its own folder, imports

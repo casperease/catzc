@@ -20,8 +20,6 @@ to a lower one.
 
 ![Module dependencies form three layers, and every edge points down](.assets/three-layers-edges-point-down/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/three-layers-edges-point-down/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **AzureExt.** The top of the graph is one group: the five Azure extension modules that sit below the `Catzc.Azure` root. Inside the

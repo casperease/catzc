@@ -1,0 +1,80 @@
+description: >-
+  Discovery parses each config file's name, resolves its (customer, environment) coordinate through the one shared check, and builds a
+  slot only when exactly one subscription remains; any violation stops with one invalid-config throw.
+about:
+  lens: implementation
+  adrs:
+    - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+    - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+    - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+    - ADR-AZ-CUSTOMER-TWOBINDINGS
+    - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+  tracks: [pwsh, infrastructure]
+  languages: [powershell, csharp, yaml]
+  modules: [Catzc.Azure.Templates]
+  files:
+    - infrastructure/templates/foundation/configuration/apex/nsub.yml
+    - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+    - pwsh/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1
+    - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+    - pwsh/Catzc.Azure.Templates/private/Get-BicepSubscriptionConfigViolations.ps1
+    - pwsh/Catzc.Azure.Templates/types/BicepSlot.cs
+    - pwsh/Catzc.Azure/Get-AzureCustomer.ps1
+    - pwsh/Catzc.Azure/configs/azure.yml
+    - pwsh/Catzc.Azure/configs/customer.yml
+content:
+  title: Discovery resolves every config file's coordinate through one shared check
+  kind: explanation
+  flow: top-to-bottom
+  relation: feeds the next step
+  bands:
+    - { id: band-discovery, label: DISCOVERY }
+    - { id: band-resolver, label: RESOLVER }
+    - { id: band-identity, label: IDENTITY }
+  glyphs:
+    - { id: g-config, kind: file, label: configuration/apex/nsub.yml, in: band-discovery }
+    - { id: g-discovery, kind: code, label: Get-BicepTemplates, in: band-discovery }
+    - { id: g-resolve-name, kind: code, label: Resolve-BicepConfigName, in: band-discovery }
+    - { id: g-violations, kind: gate, label: Get-BicepSubscriptionConfigViolations, in: band-discovery }
+    - { id: f-invalid, kind: failure, label: has an invalid config, in: band-discovery }
+    - { id: g-slot, kind: type, label: BicepSlot, in: band-discovery }
+    - { id: g-candidates, kind: code, label: Get-BicepConfigSubscriptionCandidates, in: band-resolver }
+    - { id: g-customer, kind: code, label: Get-AzureCustomer, in: band-resolver }
+    - { id: g-azure, kind: file, label: azure.yml, in: band-identity }
+    - { id: g-customer-file, kind: file, label: customer.yml, in: band-identity }
+  edges:
+    - { from: g-config, to: g-discovery }
+    - { from: g-discovery, to: g-resolve-name }
+    - { from: g-resolve-name, to: g-violations }
+    - { from: g-violations, to: g-slot }
+    - { from: g-resolve-name, to: f-invalid, kind: fail }
+    - { from: g-violations, to: f-invalid, kind: fail }
+    - { from: g-candidates, to: g-violations }
+    - { from: g-customer, to: g-candidates }
+    - { from: g-azure, to: g-candidates }
+    - { from: g-customer-file, to: g-customer }
+  markers:
+    - { at: g-config, number: 1 }
+    - { at: g-discovery, number: 2 }
+    - { at: g-resolve-name, number: 3 }
+    - { at: g-azure, number: 4 }
+    - { at: g-candidates, number: 5 }
+    - { at: g-customer, number: 6 }
+    - { at: g-violations, number: 7 }
+    - { at: f-invalid, number: 8 }
+    - { at: g-slot, number: 9 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-discovery: { x: 20, y: 84, w: 1260, h: 250 }
+  band-resolver: { x: 20, y: 354, w: 1260, h: 120 }
+  band-identity: { x: 20, y: 494, w: 1260, h: 120 }
+  g-config: { x: 40, y: 134, w: 190, h: 52 }
+  g-discovery: { x: 270, y: 138, w: 180, h: 44 }
+  g-resolve-name: { x: 490, y: 138, w: 230, h: 44 }
+  g-violations: { x: 760, y: 126, w: 320, h: 68 }
+  g-slot: { x: 1120, y: 142, w: 130, h: 36 }
+  f-invalid: { x: 490, y: 244, w: 230, h: 44 }
+  g-candidates: { x: 760, y: 398, w: 320, h: 44 }
+  g-customer: { x: 1110, y: 398, w: 150, h: 44 }
+  g-azure: { x: 840, y: 538, w: 160, h: 52 }
+  g-customer-file: { x: 1110, y: 538, w: 150, h: 52 }

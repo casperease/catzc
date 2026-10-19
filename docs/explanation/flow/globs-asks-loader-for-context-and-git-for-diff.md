@@ -22,9 +22,6 @@ And it asks git for the diff, because the changed paths are read from the reposi
 
 ![Globs asks the loader for the context and git for the diff](.assets/globs-asks-loader-for-context-and-git-for-diff/diagram.drawio.png)
 
-The diagram is described element by element in
-[its asset description](.assets/globs-asks-loader-for-context-and-git-for-diff/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **A unit's pipeline stage.** The decision describes the caller: a deployable unit's stage runs the check first and returns when there is

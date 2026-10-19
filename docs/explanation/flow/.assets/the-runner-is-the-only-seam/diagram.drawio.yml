@@ -1,0 +1,59 @@
+description: >-
+  The one crossing from pipeline YAML into PowerShell: root pipelines call one step template, the template selects one task, the task calls
+  one runner script that loads the importer, and a developer reaches the same importer from a terminal.
+about:
+  lens: architecture
+  adrs:
+    - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+    - ADR-FLOW-CD-RUNNER-IMPORTONCE
+    - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+  tracks: [ado-pipelines, pwsh]
+  languages: [pipeline-yaml, powershell]
+  modules: []
+  files:
+    - .ado/pipelines/steps/invoke-automation.yaml
+    - .ado/pipelines/Invoke-AdoScript.ps1
+    - importer.ps1
+content:
+  title: The runner is the only seam from pipeline YAML into PowerShell
+  kind: explanation
+  relation: calls
+  bands:
+    - { id: band-yaml, label: YAML }
+    - { id: band-task, label: ADO TASK }
+    - { id: band-powershell, label: POWERSHELL }
+    - { id: band-developer, label: DEVELOPER }
+  glyphs:
+    - { id: f-pipeline-yaml, kind: file, label: pipeline YAML, in: band-yaml }
+    - { id: f-template, kind: file, label: invoke-automation.yaml, in: band-yaml }
+    - { id: r-task, kind: runner, label: task by Mode, in: band-task }
+    - { id: c-runner, kind: code, label: Invoke-AdoScript.ps1, in: band-powershell }
+    - { id: c-importer, kind: code, label: importer.ps1, in: band-powershell }
+    - { id: a-developer, kind: actor, label: developer, in: band-developer }
+  edges:
+    - { from: f-pipeline-yaml, to: f-template }
+    - { from: f-template, to: r-task }
+    - { from: r-task, to: c-runner }
+    - { from: c-runner, to: c-importer }
+    - { from: a-developer, to: c-importer }
+  markers:
+    - { at: f-pipeline-yaml, number: 1 }
+    - { at: f-template, number: 2 }
+    - { at: r-task, number: 3 }
+    - { at: c-runner, number: 4 }
+    - { at: c-importer, number: 5 }
+    - { at: a-developer, number: 6 }
+  chips:
+    - { at: f-pipeline-yaml, kind: count, text: "6/7" }
+  minimaps: [code-locations, grid, axis]
+layout:
+  band-yaml: { x: 20, y: 84, w: 430, h: 120 }
+  band-task: { x: 470, y: 84, w: 200, h: 120 }
+  band-powershell: { x: 690, y: 84, w: 590, h: 120 }
+  band-developer: { x: 690, y: 244, w: 590, h: 130 }
+  f-pipeline-yaml: { x: 60, y: 122, w: 150, h: 56 }
+  f-template: { x: 250, y: 122, w: 180, h: 56 }
+  r-task: { x: 490, y: 122, w: 160, h: 56 }
+  c-runner: { x: 730, y: 122, w: 200, h: 56 }
+  c-importer: { x: 1000, y: 122, w: 180, h: 56 }
+  a-developer: { x: 1040, y: 290, w: 100, h: 64 }

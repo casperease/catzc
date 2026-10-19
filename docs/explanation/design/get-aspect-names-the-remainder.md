@@ -23,8 +23,6 @@ aspect is not the bare `**`.
 
 ![Get-Aspect names the remainder](.assets/get-aspect-names-the-remainder/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/get-aspect-names-the-remainder/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **variants.yml.** The repo-wide variants of `Catzc.Base.Variants`. Its `aspects` entry holds one ordered list per declared track, today

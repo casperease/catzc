@@ -16,8 +16,6 @@ When the newest commit fails, it becomes the dirty HEAD, and nothing follows it.
 
 ![Sync from the last certified commit, not from the tip of main](.assets/sync-from-the-last-certified-commit/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/sync-from-the-last-certified-commit/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Upstream integrator.** Anyone who builds on cats from outside. It takes its commit from the sync point, and never from the tip of main.

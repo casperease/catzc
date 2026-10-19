@@ -21,8 +21,6 @@ behind them: they hold only as ADR rules.
 
 ![A gate on overlap for units and modules](.assets/overlap-gated-for-units-and-modules/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/overlap-gated-for-units-and-modules/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **No phantom unit.** A deployable-unit that is neither composed nor pipeline-bound is phantom state, and one living version

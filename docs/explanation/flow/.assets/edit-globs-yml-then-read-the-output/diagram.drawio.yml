@@ -1,0 +1,66 @@
+description: >-
+  globs.yml is the only file a person writes; the config load validates it, and three commands then print what was derived from it: the
+  projection of one set, the globsets a commit range touched, and the skip line of the test run.
+about:
+  lens: operations
+  adrs:
+    - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+  tracks: [pwsh]
+  languages: [powershell, yaml]
+  modules: [Catzc.Base.Globs, Catzc.Base.QualityGates]
+  files:
+    - pwsh/Catzc.Base.Globs/configs/globs.yml
+    - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
+    - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
+    - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
+content:
+  title: You edit globs.yml, and every other step prints what cats derived from it
+  kind: explanation
+  relation: feeds, then prints
+  bands:
+    - { id: band-edit, label: YOU EDIT }
+    - { id: band-load, label: CONFIG LOAD }
+    - { id: band-run, label: YOU RUN }
+    - { id: band-see, label: YOU SEE }
+  glyphs:
+    - { id: f-globs, kind: file, label: globs.yml, in: band-edit }
+    - { id: g-config-load, kind: gate, label: Config load, in: band-load }
+    - { id: g-trigger, kind: code, label: Get-GlobSetTrigger, in: band-run }
+    - { id: g-changed, kind: code, label: Get-ChangedGlobSet, in: band-run }
+    - { id: g-automation, kind: code, label: Test-Automation, in: band-run }
+    - { id: r-projected, kind: result, label: Projected paths, in: band-see }
+    - { id: r-touched, kind: result, label: Touched globsets, in: band-see }
+    - { id: r-skip, kind: result, label: Skip line, in: band-see }
+  edges:
+    - { from: f-globs, to: g-config-load }
+    - { from: g-config-load, to: g-trigger }
+    - { from: g-config-load, to: g-changed }
+    - { from: g-config-load, to: g-automation }
+    - { from: g-trigger, to: r-projected }
+    - { from: g-changed, to: r-touched }
+    - { from: g-automation, to: r-skip }
+  markers:
+    - { at: f-globs, number: 1 }
+    - { at: g-config-load, number: 2 }
+    - { at: g-trigger, number: 3 }
+    - { at: g-changed, number: 4 }
+    - { at: g-automation, number: 5 }
+    - { at: r-projected, number: 6 }
+    - { at: r-touched, number: 7 }
+    - { at: r-skip, number: 8 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-edit: { x: 20, y: 84, w: 220, h: 340 }
+  band-load: { x: 260, y: 84, w: 240, h: 340 }
+  band-run: { x: 520, y: 84, w: 400, h: 340 }
+  band-see: { x: 940, y: 84, w: 340, h: 340 }
+  f-globs: { x: 40, y: 222, w: 180, h: 64 }
+  g-config-load: { x: 290, y: 210, w: 180, h: 90 }
+  g-trigger: { x: 560, y: 126, w: 320, h: 56 }
+  g-changed: { x: 560, y: 226, w: 320, h: 56 }
+  g-automation: { x: 560, y: 326, w: 320, h: 56 }
+  r-projected: { x: 980, y: 126, w: 260, h: 44 }
+  r-touched: { x: 980, y: 226, w: 260, h: 44 }
+  r-skip: { x: 980, y: 326, w: 260, h: 44 }

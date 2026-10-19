@@ -1,0 +1,70 @@
+description: >-
+  The flattened scan program feeds the GitHub paths and the Azure DevOps include and exclude lists, and three quality gates check those
+  projections; the generation of the YAML filters is drawn dashed because no code and no gate holds it.
+about:
+  lens: governance
+  adrs:
+    - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+    - ADR-FLOW-CD-GLOBS-COMPOSESETS
+    - ADR-AUTO-TEST-QUALITYGATE
+  tracks: [pwsh, ado-pipelines]
+  languages: [powershell, csharp, pipeline-yaml]
+  modules: [Catzc.Base.Globs]
+  files:
+    - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+    - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+    - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+    - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+content:
+  title: Three gates check the projection, while generation is held by the ADR alone
+  kind: explanation
+  relation: feeds
+  bands:
+    - { id: band-compose, label: COMPOSE }
+    - { id: band-projection, label: PROJECTION }
+    - { id: band-checked, label: CHECKED BY }
+  glyphs:
+    - { id: r-flattened, kind: result, label: flattened scan program, in: band-compose }
+    - { id: r-github, kind: result, label: GitHub paths, in: band-projection }
+    - { id: r-ado, kind: result, label: ADO include and exclude, in: band-projection }
+    - { id: a-generated, kind: adronly, label: generated YAML filters, in: band-projection }
+    - { id: g-github-gate, kind: gate, label: Test-GitHubWorkflowTriggerGlob, in: band-checked }
+    - { id: g-ado-gate, kind: gate, label: Test-AdoPipelineTriggerGlob, in: band-checked }
+    - { id: g-coverage-gate, kind: gate, label: Test-GlobSetTriggerCoverage, in: band-checked }
+  edges:
+    - { from: r-flattened, to: r-github }
+    - { from: r-flattened, to: r-ado }
+    - { from: r-ado, to: a-generated, kind: adr }
+    - { from: r-github, to: g-github-gate }
+    - { from: r-ado, to: g-ado-gate }
+    - { from: r-ado, to: g-coverage-gate }
+  markers:
+    - { at: r-flattened, number: 1 }
+    - { at: r-github, number: 2 }
+    - { at: r-ado, number: 3 }
+    - { at: a-generated, number: 4 }
+    - { at: g-github-gate, number: 5 }
+    - { at: g-ado-gate, number: 6 }
+    - { at: g-coverage-gate, number: 7 }
+  chips:
+    - { at: r-flattened, kind: rule, rule: ADR-FLOW-CD-GLOBS-COMPOSESETS }
+    - { at: r-flattened, kind: rule, rule: ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY, gated: false }
+    - { at: r-github, kind: rule, rule: ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER }
+    - { at: r-ado, kind: rule, rule: ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER }
+    - { at: a-generated, kind: rule, rule: ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER, gated: false }
+    - { at: g-github-gate, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
+    - { at: g-ado-gate, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
+    - { at: g-coverage-gate, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-compose: { x: 20, y: 84, w: 1260, h: 120 }
+  band-projection: { x: 20, y: 224, w: 1260, h: 130 }
+  band-checked: { x: 20, y: 374, w: 1260, h: 150 }
+  r-flattened: { x: 560, y: 126, w: 640, h: 56 }
+  r-github: { x: 800, y: 270, w: 200, h: 56 }
+  r-ado: { x: 330, y: 270, w: 400, h: 56 }
+  a-generated: { x: 60, y: 270, w: 200, h: 56 }
+  g-github-gate: { x: 860, y: 416, w: 300, h: 80 }
+  g-ado-gate: { x: 240, y: 416, w: 280, h: 80 }
+  g-coverage-gate: { x: 550, y: 416, w: 280, h: 80 }

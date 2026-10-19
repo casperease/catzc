@@ -21,8 +21,6 @@ and the pwsh side share one parser and one set of defaults without sharing a pro
 
 ![One resolver serves every consumer but the hook](.assets/one-resolver-every-consumer-but-the-hook/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-resolver-every-consumer-but-the-hook/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Get-RunEnvironment.** The environment axis of the limits. It answers `Devbox` or `Pipeline` from the one pipeline-detection function,

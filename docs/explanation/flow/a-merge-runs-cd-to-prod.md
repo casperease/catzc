@@ -20,8 +20,6 @@ CI stage, the deploy stages and the environments they reach, and two failures an
 
 ![A merge to main runs the CD pipeline all the way to prod, with no approval](.assets/a-merge-runs-cd-to-prod/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/a-merge-runs-cd-to-prod/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Developer.** A pull request into main or a merge to main starts the run. The path filter is the customer's globset, projected into

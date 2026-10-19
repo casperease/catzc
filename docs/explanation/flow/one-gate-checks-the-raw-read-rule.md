@@ -18,8 +18,6 @@ one reader outside PowerShell, rest on the ADR alone.
 
 ![One gate checks the raw-read rule](.assets/one-gate-checks-the-raw-read-rule/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-gate-checks-the-raw-read-rule/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Test-IsRunningInPipeline.** Rule 4, detection is boolean, is tested, so its chip is solid. Rule 5, only two variable reads and no I/O,

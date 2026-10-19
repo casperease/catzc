@@ -21,8 +21,6 @@ and everything that reaches Azure, compiling a template included, goes out throu
 
 ![Every vendor call leaves through the az CLI](.assets/every-vendor-call-leaves-through-az/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/every-vendor-call-leaves-through-az/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Catzc.Azure.Templates.** The module behind the CLI surface for infrastructure: its public `Build-Bicep` and `Deploy-Bicep` are the

@@ -1,0 +1,77 @@
+description: >-
+  Build-RootConfig loads the registry through its validating config type, keeps the opted-in entries, and sends each one down the link
+  branch or the content-write branch, leaving a link to the source or an independent file at the root path.
+about:
+  lens: implementation
+  adrs:
+    - ADR-REPO-ROOTCFG-REGISTRY
+    - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+    - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
+    - ADR-REPO-ROOTCFG-FILESYSTEMLINK
+    - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
+  tracks: [pwsh]
+  languages: [powershell, csharp]
+  modules: [Catzc.Base.RootConfig, Catzc.Base.Files]
+  files:
+    - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+    - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+    - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
+    - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
+    - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
+    - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
+content:
+  title: The optIn filter, then link, copy or render, through two write primitives
+  kind: explanation
+  relation: calls the next step
+  bands:
+    - { id: band-source, label: SOURCE OF TRUTH }
+    - { id: band-materialise, label: MATERIALISE }
+    - { id: band-target, label: TARGET }
+  glyphs:
+    - { id: g-rootconfig-yml, kind: file, label: rootconfig.yml, in: band-source }
+    - { id: g-config-type, kind: type, label: RootConfigFiles, in: band-materialise }
+    - { id: f-validation, kind: failure, label: validation failed, in: band-materialise }
+    - { id: g-targets, kind: private, label: Get-RootConfigTargets, in: band-materialise }
+    - { id: g-build, kind: code, label: Build-RootConfig, in: band-materialise }
+    - { id: g-set-file-link, kind: code, label: Set-FileLink, in: band-materialise }
+    - { id: g-rendered-file, kind: private, label: Get-RootConfigRenderedFile, in: band-materialise }
+    - { id: g-write-if-changed, kind: code, label: Write-FileIfChanged, in: band-materialise }
+    - { id: r-link, kind: result, label: link to the source, in: band-target }
+    - { id: r-independent, kind: result, label: independent file, in: band-target }
+  edges:
+    - { from: g-rootconfig-yml, to: g-config-type }
+    - { from: g-config-type, to: f-validation, kind: fail }
+    - { from: g-config-type, to: g-targets }
+    - { from: g-targets, to: g-build }
+    - { from: g-build, to: g-set-file-link, label: 7/23 }
+    - { from: g-build, to: g-rendered-file, label: 10/23 }
+    - { from: g-build, to: g-write-if-changed, label: 6/23 }
+    - { from: g-rendered-file, to: g-write-if-changed }
+    - { from: g-set-file-link, to: r-link }
+    - { from: g-write-if-changed, to: r-independent }
+  markers:
+    - { at: g-rootconfig-yml, number: 1 }
+    - { at: g-config-type, number: 2 }
+    - { at: f-validation, number: 3 }
+    - { at: g-targets, number: 4 }
+    - { at: g-build, number: 5 }
+    - { at: g-set-file-link, number: 6 }
+    - { at: g-rendered-file, number: 7 }
+    - { at: g-write-if-changed, number: 8 }
+    - { at: r-link, number: 9 }
+    - { at: r-independent, number: 10 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-source: { x: 20, y: 100, w: 210, h: 346 }
+  band-materialise: { x: 250, y: 100, w: 820, h: 346 }
+  band-target: { x: 1090, y: 100, w: 190, h: 346 }
+  g-rootconfig-yml: { x: 50, y: 162, w: 160, h: 52 }
+  g-config-type: { x: 270, y: 166, w: 160, h: 44 }
+  f-validation: { x: 270, y: 336, w: 160, h: 44 }
+  g-targets: { x: 460, y: 166, w: 180, h: 44 }
+  g-build: { x: 670, y: 166, w: 140, h: 224 }
+  g-set-file-link: { x: 870, y: 166, w: 190, h: 44 }
+  g-rendered-file: { x: 870, y: 256, w: 190, h: 44 }
+  g-write-if-changed: { x: 870, y: 346, w: 190, h: 44 }
+  r-link: { x: 1100, y: 166, w: 170, h: 44 }
+  r-independent: { x: 1100, y: 346, w: 170, h: 44 }

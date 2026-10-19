@@ -21,8 +21,6 @@ root tells apart, so no gate is needed. A reader who wants to know which run-mod
 
 ![Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none](.assets/which-run-mode-rules-have-a-gate/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/which-run-mode-rules-have-a-gate/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Test-Automation.** The source run loads every test worker through `importer.ps1`. It runs the whole body of tests, including the parity

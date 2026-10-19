@@ -23,8 +23,6 @@ module shares, the vendored modules and the catzc modules.
 
 ![Two entries feed one importer, removed after load](.assets/two-entries-feed-one-importer/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/two-entries-feed-one-importer/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **importer.ps1.** The source-mode entry is a generated shim that `New-Importer` renders, as `rootconfig.yml` declares. It sets

@@ -22,8 +22,6 @@ it against the environment, and the namer renders its customer into the resource
 
 ![One reverse lookup in Catzc.Azure.Cli hands the session to every module](.assets/one-reverse-lookup-feeds-every-module/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-reverse-lookup-feeds-every-module/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Service connection.** A pipeline deploy runs inside an `AzureCLI@2` task whose `azureSubscription` is the service connection. Logging

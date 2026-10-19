@@ -22,8 +22,6 @@ once more, to `BoundedCommand.Check`.
 
 ![Decide returns null or a reason](.assets/decide-returns-null-or-a-reason/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/decide-returns-null-or-a-reason/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **timeouts.yml.** `Main` finds the repository root three folders up from the published program and loads

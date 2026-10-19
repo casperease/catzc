@@ -1,0 +1,42 @@
+description: >-
+  The three globset layers as bands: deployable-unit, loose-fileset and module sets, with one rule across them, peers in a layer are
+  disjoint, which a gate checks for the two boundary layers and the loose-fileset layer is exempt from.
+about:
+  lens: meta
+  adrs:
+    - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+    - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+  tracks: [pwsh, contracts]
+  languages: []
+  modules: [Catzc.Base.Globs]
+content:
+  title: Peers in a layer never share a file, except in the loose-fileset layer
+  kind: explanation
+  flow: top-to-bottom
+  relation: checks its peers
+  bands:
+    - { id: band-unit, label: DEPLOYABLE-UNIT }
+    - { id: band-loose, label: LOOSE-FILESET }
+    - { id: band-module, label: MODULE }
+  glyphs:
+    - { id: s-ships, kind: set, label: What ships, in: band-unit }
+    - { id: g-peers-disjoint, kind: gate, label: Peers disjoint, in: band-unit }
+    - { id: s-cross-cutting, kind: set, label: Cross-cutting surfaces, in: band-loose }
+    - { id: s-module-space, kind: set, label: Module space, in: band-module }
+  edges:
+    - { from: g-peers-disjoint, to: s-ships }
+    - { from: g-peers-disjoint, to: s-module-space }
+  markers:
+    - { at: s-ships, number: 1 }
+    - { at: s-cross-cutting, number: 2 }
+    - { at: s-module-space, number: 3 }
+    - { at: g-peers-disjoint, number: 4 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-unit: { x: 20, y: 84, w: 1260, h: 140 }
+  band-loose: { x: 20, y: 244, w: 1260, h: 120 }
+  band-module: { x: 20, y: 384, w: 1260, h: 140 }
+  s-ships: { x: 140, y: 140, w: 300, h: 56 }
+  g-peers-disjoint: { x: 470, y: 124, w: 180, h: 84 }
+  s-cross-cutting: { x: 140, y: 290, w: 300, h: 56 }
+  s-module-space: { x: 140, y: 440, w: 840, h: 56 }

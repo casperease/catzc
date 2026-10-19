@@ -23,8 +23,6 @@ the accessor to the `Test-` and `Assert-` guards that answer a question or stop 
 
 ![Five keys, one private reader, fifteen exported primitives](.assets/five-keys-one-reader-twelve-primitives/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/five-keys-one-reader-twelve-primitives/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **variants.yml.** `configs/variants.yml` declares `ado_naming: standard`, `git_workspace: main-direct`, `have_customers: all`, the

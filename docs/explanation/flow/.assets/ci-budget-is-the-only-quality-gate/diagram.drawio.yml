@@ -1,0 +1,75 @@
+description: >-
+  The promotion flow from the CI inner loop to deploy to prod, with the one rule a quality gate checks (the per-test limits of the CI
+  budget) set apart from the rules only a code reviewer enforces, drawn dashed.
+about:
+  lens: governance
+  adrs:
+    - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
+    - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+    - ADR-FLOW-CD-CDSTAYSINNONPROD
+    - ADR-FLOW-CD-TWORELEASEGATES
+    - ADR-FLOW-CD-PREPRODRUNG
+    - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+    - ADR-FLOW-CD-GATEDEFINED
+    - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+    - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
+    - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
+    - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
+    - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+  tracks: [pwsh, ado-pipelines]
+  languages: [powershell, pipeline-yaml]
+  modules: [Catzc.Base.QualityGates]
+  files:
+    - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
+    - .ado/pipelines/ci-automation.yaml
+content:
+  title: The CI budget is the only promotion rule a quality gate checks
+  kind: explanation
+  relation: checks
+  bands:
+    - { id: band-flow, label: FLOW }
+    - { id: band-checks, label: CHECKS }
+  groups:
+    - { id: grp-flow, label: "kinds and gates, merge to production", in: band-flow }
+  glyphs:
+    - { id: g-inner-loop, kind: runner, label: CI inner loop, in: grp-flow }
+    - { id: g-cd, kind: runner, label: CD, in: grp-flow }
+    - { id: g-rc, kind: adronly, label: RC, in: grp-flow }
+    - { id: g-deploy-non-prod, kind: adronly, label: DEPLOY-Non-Prod, in: grp-flow }
+    - { id: g-rbc, kind: adronly, label: RBC, in: grp-flow }
+    - { id: g-deploy-prod, kind: adronly, label: DEPLOY-Prod, in: grp-flow }
+    - { id: g-machine-gate, kind: gate, label: machine gate, in: band-checks }
+    - { id: g-reviewer, kind: actor, label: reviewer, in: band-checks }
+  edges:
+    - { from: g-machine-gate, to: g-inner-loop }
+    - { from: g-reviewer, to: grp-flow, kind: adr }
+  markers:
+    - { at: g-inner-loop, number: 1 }
+    - { at: g-machine-gate, number: 2 }
+    - { at: g-cd, number: 3 }
+    - { at: g-rc, number: 4 }
+    - { at: g-deploy-non-prod, number: 5 }
+    - { at: g-rbc, number: 6 }
+    - { at: g-deploy-prod, number: 7 }
+    - { at: g-reviewer, number: 8 }
+  chips:
+    - { at: g-inner-loop, kind: rule, rule: ADR-FLOW-CD-SHORTINTEGRATIONCYCLE }
+    - { at: g-machine-gate, kind: rule, rule: ADR-FLOW-CD-GATEDEFINED }
+    - { at: g-cd, kind: rule, rule: ADR-FLOW-CD-CDSTAYSINNONPROD, gated: false }
+    - { at: g-rc, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false }
+    - { at: g-deploy-non-prod, kind: rule, rule: ADR-FLOW-CD-PREPRODRUNG, gated: false }
+    - { at: g-rbc, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false }
+    - { at: g-deploy-prod, kind: rule, rule: ADR-FLOW-CD-TWOENVIRONMENTACTIVATION, gated: false }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-flow: { x: 20, y: 108, w: 1260, h: 200 }
+  band-checks: { x: 20, y: 328, w: 1260, h: 160 }
+  grp-flow: { x: 40, y: 148, w: 1220, h: 144 }
+  g-inner-loop: { x: 70, y: 210, w: 180, h: 56 }
+  g-cd: { x: 290, y: 210, w: 160, h: 56 }
+  g-rc: { x: 490, y: 206, w: 110, h: 64 }
+  g-deploy-non-prod: { x: 640, y: 210, w: 190, h: 56 }
+  g-rbc: { x: 870, y: 206, w: 110, h: 64 }
+  g-deploy-prod: { x: 1020, y: 210, w: 190, h: 56 }
+  g-machine-gate: { x: 120, y: 364, w: 220, h: 90 }
+  g-reviewer: { x: 700, y: 368, w: 120, h: 80 }

@@ -22,8 +22,6 @@ Knowing that one method sits behind all three roles tells a reader where a chang
 
 ![ScanProgram() feeds three role functions](.assets/one-scan-program-feeds-three-roles/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-scan-program-feeds-three-roles/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **globs.yml.** The `globsets:` map is read by `Get-Config -Config globs`, which returns a validated `[GlobsConfig]`.

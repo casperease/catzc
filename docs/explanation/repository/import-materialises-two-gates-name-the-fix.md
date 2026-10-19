@@ -20,9 +20,6 @@ out of step with the registry, one of two quality gates says which file and what
 
 ![The import materialises every root file; two gates catch drift and name the fix](.assets/import-materialises-two-gates-name-the-fix/diagram.drawio.png)
 
-The diagram is described element by element in
-[its asset description](.assets/import-materialises-two-gates-name-the-fix/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **importer.ps1.** The dot-sourced entry point delegates to `Invoke-Importer`, whose tail calls `Build-RootConfig -Silent` on every load.

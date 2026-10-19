@@ -23,8 +23,6 @@ use, and lives until the next import. Read in call order, the code shows where e
 
 ![Three session caches back the one config reader](.assets/three-caches-back-one-reader/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/three-caches-back-one-reader/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Get-Config.** The reader takes `-Config <name>` and an optional `-Module`; a `ValidatePattern` holds the name to kebab case. Callers

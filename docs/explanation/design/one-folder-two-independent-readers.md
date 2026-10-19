@@ -21,8 +21,6 @@ sits, so a module author shapes visibility and shipping identity with the same a
 
 ![One folder, two independent readers](.assets/one-folder-two-independent-readers/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-folder-two-independent-readers/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **pwsh/&lt;Module&gt;/.** The folder is the module. Both readers start from it, and the location of each file inside it is all either of

@@ -20,8 +20,6 @@ that apply them in dependency order. In `cd-apex`, each deploy stage reaches the
 
 ![The customer CD pipeline builds once, then deploys the prod tier itself](.assets/cd-builds-once-then-deploys-prod-itself/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/cd-builds-once-then-deploys-prod-itself/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Build-Bicep.** The `CI` stage, displayed as "CI engine — build & verify", runs `Build-Bicep <template> -Customers <customer>` once for

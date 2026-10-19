@@ -20,8 +20,6 @@ pipeline behind it.
 
 ![Merging to main is what deploys](.assets/merging-to-main-is-what-deploys/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/merging-to-main-is-what-deploys/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Push topic, open PR.** The engineer pushes a topic branch and opens a pull request into main. The CD pipelines trigger on a PR into

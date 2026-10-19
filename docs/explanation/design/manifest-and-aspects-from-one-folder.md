@@ -23,8 +23,6 @@ hand.
 
 ![Manifest and aspects from one folder](.assets/manifest-and-aspects-from-one-folder/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/manifest-and-aspects-from-one-folder/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **pwsh/&lt;Module&gt;/.** The unit root both paths read. The import walks every module folder, and the aspects compile per folder with

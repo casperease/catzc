@@ -18,8 +18,6 @@ That one invariant is what makes every pipeline step reproducible by hand.
 
 ![A pipeline step only names a command you can run locally](.assets/a-step-only-names-a-command/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/a-step-only-names-a-command/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Pipeline step.** The step names a command and nothing else. The YAML never holds PowerShell logic.

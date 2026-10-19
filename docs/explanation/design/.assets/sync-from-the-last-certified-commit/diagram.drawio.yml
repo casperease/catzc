@@ -1,0 +1,35 @@
+description: >-
+  An upstream integrator takes its commit from the one held by the always-on main-UAT environment, never from the dirty HEAD, the newest
+  commit on main, which failed there.
+about:
+  lens: meta
+  adrs:
+    - ADR-DSGN-LIFE-SYNCFROMMAINUAT
+    - ADR-DSGN-LIFE-DIRTYHEADUNSAFE
+    - ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
+  tracks: [docs]
+  files:
+    - docs/adr/design/commit-lifecycle.md
+content:
+  title: Sync from the last certified commit, not from the tip of main
+  kind: explanation
+  relation: takes its commit from
+  bands:
+    - { id: band-mainline, label: MAINLINE }
+  glyphs:
+    - { id: g-integrator, kind: adronly, label: upstream integrator, in: band-mainline }
+    - { id: g-main-uat, kind: env, label: "main-UAT holds commit 6", in: band-mainline }
+    - { id: f-dirty-head, kind: failure, label: "dirty HEAD: commit 10", in: band-mainline }
+  edges:
+    - { from: g-integrator, to: g-main-uat, kind: adr }
+    - { from: g-main-uat, to: f-dirty-head, kind: fail }
+  markers:
+    - { at: g-integrator, number: 1 }
+    - { at: g-main-uat, number: 2 }
+    - { at: f-dirty-head, number: 3 }
+  minimaps: [code-locations, grid, axis]
+layout:
+  band-mainline: { x: 20, y: 84, w: 1260, h: 240 }
+  g-integrator: { x: 100, y: 170, w: 240, h: 56 }
+  g-main-uat: { x: 520, y: 150, w: 260, h: 96 }
+  f-dirty-head: { x: 960, y: 172, w: 260, h: 52 }

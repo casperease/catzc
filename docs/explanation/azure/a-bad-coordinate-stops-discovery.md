@@ -23,8 +23,6 @@ in a subfolder that names no customer, stops discovery with a single line that n
 
 ![A config file that resolves to no subscription, or to two, stops discovery with one line](.assets/a-bad-coordinate-stops-discovery/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/a-bad-coordinate-stops-discovery/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **`configuration/apex/nsub.yml`.** The person creates the file under `infrastructure/templates/foundation/configuration/apex/`. The

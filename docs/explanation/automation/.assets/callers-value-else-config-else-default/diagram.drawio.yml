@@ -1,0 +1,46 @@
+description: >-
+  A wait's limit resolves in one order: the caller's value, else the config file, else the declared default; an exemption only raises it to
+  a ceiling, and one bounded wait runs under the winner.
+about:
+  lens: meta
+  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
+  tracks: [pwsh]
+  languages: [powershell, yaml]
+  modules: [Catzc.Base.Timeouts]
+  files:
+    - pwsh/Catzc.Base.Timeouts/configs/timeouts.yml
+content:
+  title: "Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it"
+  kind: explanation
+  relation: resolution order
+  bands:
+    - { id: band-limit, label: LIMIT }
+    - { id: band-raise, label: RAISE }
+    - { id: band-consumers, label: CONSUMERS }
+  glyphs:
+    - { id: g-caller, kind: code, label: the caller, in: band-limit }
+    - { id: g-config, kind: file, label: the config file, in: band-limit }
+    - { id: g-default, kind: code, label: the declared default, in: band-limit }
+    - { id: g-ceiling, kind: file, label: the exemption ceiling, in: band-raise }
+    - { id: r-wait, kind: result, label: one bounded wait, in: band-consumers }
+  edges:
+    - { from: g-caller, to: g-config }
+    - { from: g-config, to: g-default }
+    - { from: g-default, to: g-ceiling }
+    - { from: g-ceiling, to: r-wait }
+  markers:
+    - { at: g-caller, number: 1 }
+    - { at: g-config, number: 2 }
+    - { at: g-default, number: 3 }
+    - { at: g-ceiling, number: 4 }
+    - { at: r-wait, number: 5 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-limit: { x: 20, y: 84, w: 680, h: 220 }
+  band-raise: { x: 720, y: 84, w: 260, h: 220 }
+  band-consumers: { x: 1000, y: 84, w: 280, h: 220 }
+  g-caller: { x: 60, y: 170, w: 140, h: 44 }
+  g-config: { x: 260, y: 168, w: 140, h: 52 }
+  g-default: { x: 460, y: 170, w: 170, h: 44 }
+  g-ceiling: { x: 760, y: 168, w: 180, h: 52 }
+  r-wait: { x: 1050, y: 170, w: 180, h: 44 }

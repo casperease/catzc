@@ -19,8 +19,6 @@ keeps just each pattern's last select.
 
 ![One flattened scan program, two vendor dialects](.assets/one-program-two-vendor-dialects/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-program-two-vendor-dialects/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Base unit.** A base unit is a deployable unit that exists only to be composed: a shared, un-configured surface such as a template

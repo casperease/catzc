@@ -1057,6 +1057,8 @@ terms:
     - term: whatifpreference
       meaning: "PowerShell $WhatIfPreference variable"
   coined:
+    - term: adronly
+      meaning: "coined noun 'adronly' — the diagram kit's glyph kind for something an ADR states that no code runs (python/Catzc.Diagrams)"
     - term: rebaser
       meaning: "coined noun 'rebaser' — rewrites relative links for a new base folder (MarkdownLinkRebaser)"
     - term: arrayifies

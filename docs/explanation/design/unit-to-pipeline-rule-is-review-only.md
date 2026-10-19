@@ -21,8 +21,6 @@ a cross-cutting slice is a scope rather than a new track, have no check in code:
 
 ![Tracks and units are checked in code, 1-1 is review only](.assets/unit-to-pipeline-rule-is-review-only/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/unit-to-pipeline-rule-is-review-only/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **track.** A track is one root folder, named by it, with `out/` excepted; it carries one class (core, external port, adapter or

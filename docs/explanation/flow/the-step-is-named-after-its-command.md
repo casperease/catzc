@@ -20,8 +20,6 @@ failed step copies the command from the label and runs it after the importer.
 
 ![The step is named after its command](.assets/the-step-is-named-after-its-command/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/the-step-is-named-after-its-command/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Pipeline step.** The author writes a `RunCommand`, plus a `Mode` and a `DisplayName` when needed, in a step that uses the template.

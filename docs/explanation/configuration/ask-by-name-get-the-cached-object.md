@@ -21,8 +21,6 @@ parses and types the file, and every mistake throws at the call that made it, wi
 
 ![Ask for a config by name and get the cached object back](.assets/ask-by-name-get-the-cached-object/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/ask-by-name-get-the-cached-object/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Get-ConfigValue and Get-Config.** These are the commands you type: for example `Get-ConfigValue 'global.tools.cspell.version'` for one

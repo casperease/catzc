@@ -20,8 +20,6 @@ to the shared foundation fires every CD pipeline; an edit to one unit's configur
 
 ![A push fires only the pipelines it touches](.assets/a-push-fires-only-touched-pipelines/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/a-push-fires-only-touched-pipelines/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **`pwsh/**`.** A change here fires `ci-automation`, on a pull request to main (`pr:`) and on the merge (`trigger:`). The GitHub workflow

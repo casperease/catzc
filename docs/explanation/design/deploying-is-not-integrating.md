@@ -18,8 +18,6 @@ ladder. Keeping the two events apart is what lets a commit's colour stay a true 
 
 ![Deploying is not integrating](.assets/deploying-is-not-integrating/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/deploying-is-not-integrating/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Topic commit.** A commit on a topic branch, off main. It is brown, the development colour, which is never an integrated mainline state.

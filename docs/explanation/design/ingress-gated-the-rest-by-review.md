@@ -21,8 +21,6 @@ rule that governs it: R is ADR-DSGN-REMOTE, V is ADR-REPO-VARIANT and L is ADR-D
 
 ![Gates on ingress, review for the rest](.assets/ingress-gated-the-rest-by-review/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/ingress-gated-the-rest-by-review/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Local clone.** Automation on a person's clone commits the files it generates. That commit is what the local guard checks.

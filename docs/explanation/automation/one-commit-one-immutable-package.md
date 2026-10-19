@@ -19,8 +19,6 @@ package is what the build wrote, and every place the package is installed holds 
 
 ![One commit, one verified, immutable package](.assets/one-commit-one-immutable-package/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-commit-one-immutable-package/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Selected modules.** The input is a set of modules, named explicitly, by a profile, or both. The set is closure-expanded, so every

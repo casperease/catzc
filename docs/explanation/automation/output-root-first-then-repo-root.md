@@ -24,8 +24,6 @@ onto the repository root. Across a stage boundary `ArtifactRef` does the same jo
 
 ![The output root is tried first, then the repository root](.assets/output-root-first-then-repo-root/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/output-root-first-then-repo-root/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **out/template/sample/main.json.** The first test in `ConvertTo-RepoRelativePath`: after `[IO.Path]::GetFullPath`, a path under

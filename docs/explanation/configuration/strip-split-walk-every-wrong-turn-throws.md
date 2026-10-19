@@ -23,8 +23,6 @@ segment at a time. Every wrong turn throws where it happens: at parameter bindin
 
 ![Strip, split, read once, walk one segment at a time](.assets/strip-split-walk-every-wrong-turn-throws/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/strip-split-walk-every-wrong-turn-throws/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Write-EnvironmentSet.** A caller. For every entry of its `-Set` map whose value is a string starting with `global.`, it calls

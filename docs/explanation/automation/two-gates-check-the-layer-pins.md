@@ -19,8 +19,6 @@ against it. One rule, declaring a new edge in the same change as the code, has n
 
 ![Two gates check the layer pins](.assets/two-gates-check-the-layer-pins/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/two-gates-check-the-layer-pins/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **AzureExt.** Each member of the top group pins a group (Tooling, Base) or a single module (`Catzc.Azure`, `Catzc.Tooling.Core`). Its

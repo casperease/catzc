@@ -20,8 +20,6 @@ published, not just as written. One route the rule offers, exempting slow work b
 
 ![Three tests prove the hook](.assets/three-tests-prove-the-hook/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/three-tests-prove-the-hook/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **TimeoutsConfig.** The limits are keyed by run environment and shell, every value is a positive whole number of seconds, and there is no

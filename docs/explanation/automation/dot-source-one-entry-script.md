@@ -21,8 +21,6 @@ what is wrong. Otherwise a console session ends on one "Loaded in N seconds" lin
 
 ![Dot-source one entry script; a failed check stops it](.assets/dot-source-one-entry-script/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/dot-source-one-entry-script/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **`. ./importer.ps1`.** This starts the load in source mode. Useful switches are `-SkipJanitors` for a lean load, `-ClearCompiledTypes`

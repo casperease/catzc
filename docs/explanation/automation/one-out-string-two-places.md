@@ -20,8 +20,6 @@ staging directory in a pipeline job. Nobody edits the string, and nobody writes 
 
 ![One stored out/ string lands in two places](.assets/one-out-string-two-places/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-out-string-two-places/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **out/template/sample/main.json.** The stored form of an output artifact. `ConvertTo-RepoRelativePath` wrote it, and it is identical on a

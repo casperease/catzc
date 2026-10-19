@@ -21,8 +21,6 @@ before relying on it.
 
 ![Three gates check the projection; generation is ADR-only](.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Flattened scan program.** Compose puts the base first and the set's own rules last (#8); `GlobsConfig` rejects a self-reference, an

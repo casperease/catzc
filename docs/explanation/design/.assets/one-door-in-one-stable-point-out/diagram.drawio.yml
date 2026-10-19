@@ -1,0 +1,48 @@
+description: >-
+  A change enters the server's main only through a pull request, and consumers build on the last verified commit, a point that never moves,
+  never on the provisional HEAD.
+about:
+  lens: meta
+  adrs:
+    - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+    - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+    - ADR-DSGN-REMOTE-NORECONCILINGTIPS
+    - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+  tracks: [docs]
+  files:
+    - docs/adr/design/server-remote-integration.md
+content:
+  title: Changes enter through one door, and consumers build on one stable point
+  kind: explanation
+  flow: top-to-bottom
+  relation: a commit moves to
+  bands:
+    - { id: band-in, label: IN }
+    - { id: band-server, label: SERVER REMOTE }
+    - { id: band-out, label: OUT }
+  glyphs:
+    - { id: g-local-clone, kind: store, label: local clone, in: band-in }
+    - { id: g-pull-request, kind: gate, label: pull request, in: band-in }
+    - { id: g-head, kind: commit, label: HEAD, in: band-server }
+    - { id: g-verified, kind: commit, label: verified point, in: band-server }
+    - { id: g-consumers, kind: store, label: consumer clones, in: band-out }
+  edges:
+    - { from: g-local-clone, to: g-pull-request, kind: adr }
+    - { from: g-pull-request, to: g-head }
+    - { from: g-verified, to: g-consumers, kind: adr }
+  markers:
+    - { at: g-local-clone, number: 1 }
+    - { at: g-pull-request, number: 2 }
+    - { at: g-head, number: 3 }
+    - { at: g-verified, number: 4 }
+    - { at: g-consumers, number: 5 }
+  minimaps: [code-locations, grid, axis]
+layout:
+  band-in: { x: 20, y: 84, w: 1260, h: 130 }
+  band-server: { x: 20, y: 234, w: 1260, h: 130 }
+  band-out: { x: 20, y: 384, w: 1260, h: 130 }
+  g-local-clone: { x: 300, y: 128, w: 200, h: 64 }
+  g-pull-request: { x: 800, y: 112, w: 220, h: 96 }
+  g-head: { x: 800, y: 290, w: 220, h: 44 }
+  g-verified: { x: 300, y: 290, w: 220, h: 44 }
+  g-consumers: { x: 300, y: 430, w: 200, h: 64 }

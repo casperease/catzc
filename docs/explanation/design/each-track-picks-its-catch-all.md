@@ -19,8 +19,6 @@ rest, so a stray file can never silently ship. The infrastructure track declares
 
 ![Each track picks its catch-all](.assets/each-track-picks-its-catch-all/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/each-track-picks-its-catch-all/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **A tracked file of a unit.** Any file git tracks under a module folder of the pwsh track, or under a template of the infrastructure

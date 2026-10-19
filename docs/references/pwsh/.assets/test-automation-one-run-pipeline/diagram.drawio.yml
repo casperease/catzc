@@ -1,0 +1,82 @@
+description: >-
+  Both kinds of test run share one harness: it discovers the tests once, checks their tags before any run directory exists, splits the files
+  into three phases, drops protected modules, runs the workers and derives one verdict; a finally stamps run.json.
+about:
+  lens: source
+  adrs: [ADR-AUTO-TEST, ADR-REPO-PROTGLOB]
+  tracks: [pwsh]
+  languages: [powershell]
+  modules: [Catzc.Base.QualityGates]
+  files:
+    - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
+    - pwsh/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
+    - pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1
+    - pwsh/Catzc.Base.QualityGates/private/Get-TestDiscovery.ps1
+    - pwsh/Catzc.Base.QualityGates/private/Assert-TestTagGate.ps1
+    - pwsh/Catzc.Base.QualityGates/private/Split-TestAutomationFiles.ps1
+    - pwsh/Catzc.Base.QualityGates/private/Select-ProtectedTestFile.ps1
+    - pwsh/Catzc.Base.QualityGates/private/Invoke-TestAutomationWorkers.ps1
+    - pwsh/Catzc.Base.QualityGates/private/Get-TestAutomationVerdict.ps1
+content:
+  title: One discovery feeds three phases; finally stamps run.json
+  kind: reference
+  flow: top-to-bottom
+  relation: runs next (code order)
+  bands:
+    - { id: band-entry, label: ENTRY }
+    - { id: band-before, label: BEFORE TRY }
+    - { id: band-try, label: TRY }
+    - { id: band-finally, label: FINALLY }
+  glyphs:
+    - { id: g-automation, kind: code, label: Test-Automation, in: band-entry }
+    - { id: g-build, kind: code, label: Test-CatzcBuild, in: band-entry }
+    - { id: g-run, kind: private, label: Invoke-TestRun, in: band-before }
+    - { id: g-discovery, kind: private, label: Get-TestDiscovery, in: band-before }
+    - { id: g-tag-gate, kind: gate, label: Assert-TestTagGate, in: band-before }
+    - { id: g-split, kind: private, label: Split-TestAutomationFiles, in: band-try }
+    - { id: s-parallel, kind: set, label: Parallel, in: band-try }
+    - { id: s-greedy, kind: set, label: Greedy, in: band-try }
+    - { id: s-serial, kind: set, label: Serial, in: band-try }
+    - { id: g-select, kind: private, label: Select-ProtectedTestFile, in: band-try }
+    - { id: g-workers, kind: private, label: Invoke-TestAutomationWorkers, in: band-try }
+    - { id: g-verdict, kind: private, label: Get-TestAutomationVerdict, in: band-try }
+    - { id: f-run-json, kind: file, label: run.json, in: band-finally }
+  edges:
+    - { from: g-automation, to: g-run }
+    - { from: g-build, to: g-run }
+    - { from: g-run, to: g-discovery }
+    - { from: g-discovery, to: g-tag-gate }
+    - { from: g-tag-gate, to: g-split }
+    - { from: g-split, to: g-select }
+    - { from: g-select, to: g-workers }
+    - { from: g-workers, to: g-verdict }
+  markers:
+    - { at: g-run, number: 1 }
+    - { at: g-discovery, number: 2 }
+    - { at: g-tag-gate, number: 3 }
+    - { at: g-split, number: 4 }
+    - { at: g-select, number: 5 }
+    - { at: g-workers, number: 6 }
+    - { at: g-verdict, number: 7 }
+    - { at: f-run-json, number: 8 }
+  chips:
+    - { at: g-discovery, kind: count, text: "4" }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-entry: { x: 20, y: 84, w: 200, h: 140 }
+  band-before: { x: 230, y: 84, w: 1050, h: 140 }
+  band-try: { x: 20, y: 248, w: 1260, h: 140 }
+  band-finally: { x: 20, y: 408, w: 1260, h: 96 }
+  g-automation: { x: 30, y: 114, w: 150, h: 40 }
+  g-build: { x: 30, y: 166, w: 150, h: 40 }
+  g-run: { x: 290, y: 136, w: 140, h: 36 }
+  g-discovery: { x: 500, y: 136, w: 150, h: 36 }
+  g-tag-gate: { x: 722, y: 111, w: 196, h: 86 }
+  g-split: { x: 130, y: 286, w: 190, h: 36 }
+  s-parallel: { x: 130, y: 340, w: 64, h: 28 }
+  s-greedy: { x: 198, y: 340, w: 64, h: 28 }
+  s-serial: { x: 266, y: 340, w: 64, h: 28 }
+  g-select: { x: 380, y: 286, w: 185, h: 36 }
+  g-workers: { x: 625, y: 286, w: 215, h: 36 }
+  g-verdict: { x: 900, y: 286, w: 195, h: 36 }
+  f-run-json: { x: 130, y: 434, w: 110, h: 52 }

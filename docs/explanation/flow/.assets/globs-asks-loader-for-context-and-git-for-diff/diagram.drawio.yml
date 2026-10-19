@@ -1,0 +1,68 @@
+description: >-
+  The touched-unit check of the globs module asks the loader which context it runs in, to pick the reference commit, and asks git for the
+  changed paths; the pipeline stage that should call it is drawn dashed because no pipeline does.
+about:
+  lens: architecture
+  adrs:
+    - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+  tracks: [pwsh]
+  languages: [powershell, yaml]
+  modules: [Catzc.Base.Globs]
+  files:
+    - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
+    - pwsh/Catzc.Base.Globs/configs/globs.yml
+    - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
+    - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
+    - pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
+    - pwsh/.internal/Catzc.Internal.Loader.psm1
+content:
+  title: Catzc.Base.Globs owns the check, the loader names the context, and git names the change
+  kind: explanation
+  relation: asks
+  bands:
+    - { id: band-globs, label: CATZC.BASE.GLOBS }
+    - { id: band-pipeline, label: PIPELINE }
+    - { id: band-loader, label: CATZC.INTERNAL.LOADER }
+    - { id: band-outside, label: OUTSIDE CATS }
+  glyphs:
+    - { id: a-stage, kind: adronly, label: "a unit's pipeline stage", in: band-pipeline }
+    - { id: g-affected, kind: code, label: Test-GlobSetAffected, in: band-globs }
+    - { id: f-globs, kind: file, label: globs.yml, in: band-globs }
+    - { id: g-change-range, kind: code, label: Get-GlobSetChangeRange, in: band-globs }
+    - { id: g-changed-globset, kind: code, label: Get-ChangedGlobSet, in: band-globs }
+    - { id: g-changed-file, kind: code, label: Get-ChangedFile, in: band-globs }
+    - { id: g-running, kind: code, label: Test-IsRunningInPipeline, in: band-loader }
+    - { id: x-git, kind: external, label: git, in: band-outside }
+  edges:
+    - { from: a-stage, to: g-affected, kind: adr }
+    - { from: g-affected, to: f-globs }
+    - { from: g-affected, to: g-change-range }
+    - { from: g-affected, to: g-changed-globset }
+    - { from: g-change-range, to: g-running }
+    - { from: g-changed-globset, to: g-changed-file }
+    - { from: g-changed-file, to: x-git }
+  markers:
+    - { at: a-stage, number: 1 }
+    - { at: g-affected, number: 2 }
+    - { at: f-globs, number: 3 }
+    - { at: g-change-range, number: 4 }
+    - { at: g-running, number: 5 }
+    - { at: g-changed-globset, number: 6 }
+    - { at: g-changed-file, number: 7 }
+    - { at: x-git, number: 8 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-globs: { x: 20, y: 84, w: 760, h: 340 }
+  band-pipeline: { x: 800, y: 84, w: 480, h: 120 }
+  band-loader: { x: 20, y: 444, w: 380, h: 100 }
+  band-outside: { x: 420, y: 444, w: 360, h: 100 }
+  a-stage: { x: 920, y: 124, w: 240, h: 44 }
+  g-affected: { x: 250, y: 124, w: 440, h: 44 }
+  f-globs: { x: 60, y: 120, w: 140, h: 52 }
+  g-change-range: { x: 220, y: 234, w: 220, h: 44 }
+  g-changed-globset: { x: 470, y: 234, w: 220, h: 44 }
+  g-changed-file: { x: 470, y: 344, w: 220, h: 44 }
+  g-running: { x: 220, y: 472, w: 220, h: 44 }
+  x-git: { x: 520, y: 472, w: 120, h: 44 }

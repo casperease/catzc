@@ -1,0 +1,97 @@
+description: >-
+  A globset flows from the registry through the validated config load into the scan program and from there into the native projection, the
+  git reflection and the live identity; gates check the source and the trigger projection, while the git reflection and the identity are
+  held by the ADR rules alone.
+about:
+  lens: governance
+  adrs:
+    - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+    - ADR-FLOW-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
+    - ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED
+    - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+    - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+    - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+    - ADR-FLOW-CD-GLOBS-COMPOSESETS
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+    - ADR-AUTO-TEST-QUALITYGATE
+  tracks: [pwsh]
+  languages: [powershell, csharp, yaml]
+  modules: [Catzc.Base.Globs]
+  files:
+    - pwsh/Catzc.Base.Globs/configs/globs.yml
+    - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+    - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+    - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+    - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+    - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+    - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
+content:
+  title: Gates check the source of each globset and the trigger, but not the git reflection or the identity
+  kind: explanation
+  flow: top-to-bottom
+  relation: output read by the next
+  bands:
+    - { id: band-source, label: SOURCE }
+    - { id: band-load, label: LOAD }
+    - { id: band-flatten, label: FLATTEN }
+    - { id: band-roles, label: ROLES }
+    - { id: band-checked, label: CHECKED BY }
+  glyphs:
+    - { id: f-registry, kind: file, label: Registry, in: band-source }
+    - { id: g-independence, kind: gate, label: Test-GlobSetIndependence, in: band-source }
+    - { id: g-config-load, kind: gate, label: Config load, in: band-load }
+    - { id: g-scan-program, kind: code, label: Scan program, in: band-flatten }
+    - { id: g-projection, kind: code, label: Native projection, in: band-roles }
+    - { id: g-git-reflection, kind: code, label: Git reflection, in: band-roles }
+    - { id: g-live-identity, kind: code, label: Live identity, in: band-roles }
+    - { id: g-trigger-gates, kind: gate, label: Trigger gates, in: band-checked }
+  edges:
+    - { from: f-registry, to: g-independence }
+    - { from: f-registry, to: g-config-load }
+    - { from: g-config-load, to: g-scan-program }
+    - { from: g-scan-program, to: g-projection }
+    - { from: g-scan-program, to: g-git-reflection }
+    - { from: g-scan-program, to: g-live-identity }
+    - { from: g-projection, to: g-trigger-gates }
+  markers:
+    - { at: f-registry, number: 1 }
+    - { at: g-independence, number: 2 }
+    - { at: g-config-load, number: 3 }
+    - { at: g-scan-program, number: 4 }
+    - { at: g-projection, number: 5 }
+    - { at: g-trigger-gates, number: 6 }
+    - { at: g-git-reflection, number: 7 }
+    - { at: g-live-identity, number: 8 }
+  chips:
+    - { at: f-registry, kind: rule, rule: ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS }
+    - { at: f-registry, kind: rule, rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER }
+    - { at: f-registry, kind: rule, rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER }
+    - { at: g-independence, kind: rule, rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER }
+    - { at: g-independence, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
+    - { at: g-config-load, kind: rule, rule: ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED }
+    - { at: g-config-load, kind: rule, rule: ADR-FLOW-CD-GLOBS-COMPOSESETS }
+    - { at: g-scan-program, kind: rule, rule: ADR-FLOW-CD-GLOBS-REPOSITORYRELATIVEPATTERNS }
+    - { at: g-scan-program, kind: rule, rule: ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY }
+    - { at: g-scan-program, kind: rule, rule: ADR-FLOW-CD-GLOBS-COMPOSESETS }
+    - { at: g-projection, kind: rule, rule: ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER }
+    - { at: g-git-reflection, kind: rule, rule: ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
+    - { at: g-live-identity, kind: rule, rule: ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY, gated: false }
+    - { at: g-trigger-gates, kind: rule, rule: ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER }
+    - { at: g-trigger-gates, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-source: { x: 20, y: 108, w: 1260, h: 110 }
+  band-load: { x: 20, y: 232, w: 1260, h: 110 }
+  band-flatten: { x: 20, y: 356, w: 1260, h: 110 }
+  band-roles: { x: 20, y: 480, w: 1260, h: 110 }
+  band-checked: { x: 20, y: 604, w: 1260, h: 110 }
+  g-independence: { x: 80, y: 130, w: 240, h: 80 }
+  f-registry: { x: 560, y: 140, w: 200, h: 64 }
+  g-config-load: { x: 540, y: 254, w: 240, h: 80 }
+  g-scan-program: { x: 560, y: 380, w: 200, h: 64 }
+  g-projection: { x: 100, y: 506, w: 200, h: 56 }
+  g-git-reflection: { x: 330, y: 506, w: 200, h: 56 }
+  g-live-identity: { x: 560, y: 506, w: 200, h: 56 }
+  g-trigger-gates: { x: 70, y: 626, w: 260, h: 80 }

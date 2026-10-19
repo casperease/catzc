@@ -21,8 +21,6 @@ occupants, the sync point and the dirty HEAD is ADR-only, so "sync from `main-UA
 
 ![Only BVT has a gate in code; the sync-point rules are ADR-only](.assets/sync-point-rules-are-adr-only/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/sync-point-rules-are-adr-only/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Upstream integrator.** Takes its commit from the `main-UAT` occupant (ADR-DSGN-LIFE-SYNCFROMMAINUAT) and never from the dirty HEAD

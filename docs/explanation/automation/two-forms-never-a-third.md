@@ -19,8 +19,6 @@ only two, move a path from one form to the other, so normalization is a guarante
 
 ![A path has two forms, never a third](.assets/two-forms-never-a-third/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/two-forms-never-a-third/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Communication form.** A path that is returned to a caller, held on a record, written into a config or printed in a log is relative and

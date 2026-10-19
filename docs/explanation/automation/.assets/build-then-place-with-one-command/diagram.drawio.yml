@@ -1,0 +1,64 @@
+description: >-
+  A source-mode session builds the bundle, the build checks its own output, and one placement command then copies the build into a module
+  path, beside a working root, or into a package.
+about:
+  lens: operations
+  adrs: [ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-AUTOVERSION]
+  tracks: [pwsh]
+  languages: [powershell]
+  modules: [Catzc.Base.Exporter]
+  files:
+    - pwsh/Catzc.Base.Exporter/Build-Modules.ps1
+    - pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
+    - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+    - pwsh/Catzc.Base.Exporter/Export-Catzc.ps1
+content:
+  title: Build the bundle once, then place it with one command
+  kind: explanation
+  relation: feeds or runs the next step
+  bands:
+    - { id: band-source, label: SOURCE }
+    - { id: band-build, label: BUILD }
+    - { id: band-bundle, label: BUNDLE }
+    - { id: band-targets, label: TARGETS }
+  groups:
+    - { id: grp-places, label: placement commands, in: band-targets }
+  glyphs:
+    - { id: g-importer, kind: code, label: . ./importer.ps1, in: band-source }
+    - { id: g-build, kind: code, label: Build-Modules, in: band-build }
+    - { id: g-assert, kind: gate, label: Assert-CatzcBundle, in: band-build }
+    - { id: f-invalid, kind: failure, label: Catzc build ... is invalid, in: band-build }
+    - { id: r-built, kind: result, label: Built Catzc 6.6.666, in: band-bundle }
+    - { id: g-install, kind: code, label: Install-Catzc -Scope, in: grp-places }
+    - { id: g-root, kind: code, label: Export-Catzc -Root, in: grp-places }
+    - { id: g-nuget, kind: code, label: Export-Catzc -To nuget, in: grp-places }
+  edges:
+    - { from: g-importer, to: g-build }
+    - { from: g-build, to: g-assert }
+    - { from: g-assert, to: r-built }
+    - { from: g-assert, to: f-invalid, kind: fail }
+    - { from: r-built, to: grp-places }
+  markers:
+    - { at: g-importer, number: 1 }
+    - { at: g-build, number: 2 }
+    - { at: g-assert, number: 3 }
+    - { at: f-invalid, number: 4 }
+    - { at: r-built, number: 5 }
+    - { at: g-install, number: 6 }
+    - { at: g-root, number: 7 }
+    - { at: g-nuget, number: 8 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-source: { x: 20, y: 84, w: 230, h: 300 }
+  band-build: { x: 270, y: 84, w: 450, h: 300 }
+  band-bundle: { x: 740, y: 84, w: 230, h: 300 }
+  band-targets: { x: 990, y: 84, w: 290, h: 300 }
+  g-importer: { x: 40, y: 180, w: 190, h: 44 }
+  g-build: { x: 290, y: 180, w: 150, h: 44 }
+  g-assert: { x: 500, y: 168, w: 190, h: 68 }
+  f-invalid: { x: 500, y: 290, w: 190, h: 44 }
+  r-built: { x: 760, y: 180, w: 190, h: 44 }
+  grp-places: { x: 1010, y: 140, w: 250, h: 230 }
+  g-install: { x: 1030, y: 184, w: 210, h: 44 }
+  g-root: { x: 1030, y: 244, w: 210, h: 44 }
+  g-nuget: { x: 1030, y: 304, w: 210, h: 44 }

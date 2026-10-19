@@ -19,8 +19,6 @@ construction in the resolver, with no check and no dedicated test. Four comment 
 
 ![Code holds all eight naming rules, seven of them behind a check that throws](.assets/how-each-naming-rule-is-held/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/how-each-naming-rule-is-held/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **BicepShortName.** When `Get-BicepTemplates` discovers the templates, `BicepShortName` throws on a malformed `short_name` override, or

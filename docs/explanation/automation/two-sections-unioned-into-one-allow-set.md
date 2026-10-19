@@ -23,8 +23,6 @@ the code in this order shows exactly where an undeclared edge is caught.
 
 ![Two sections unioned into one allow-set](.assets/two-sections-unioned-into-one-allow-set/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/two-sections-unioned-into-one-allow-set/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **`groups:`.** Three groups, each with its own internal member-to-member map: `Base` with 26 members, `AzureExt` with 5 rooted at

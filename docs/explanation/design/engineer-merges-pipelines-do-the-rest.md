@@ -21,8 +21,6 @@ is a red result: a blocked pull request, a red CI run, or a failed deploy stage.
 
 ![An engineer runs the tests and merges; pipelines do the rest](.assets/engineer-merges-pipelines-do-the-rest/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/engineer-merges-pipelines-do-the-rest/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Test-Automation.** The engineer runs the tests on the devbox, then opens a pull request to `main`. The devbox and the pipeline run the

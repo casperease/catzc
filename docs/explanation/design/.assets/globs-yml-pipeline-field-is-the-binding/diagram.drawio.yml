@@ -1,0 +1,58 @@
+description: >-
+  One key in globs.yml, pipeline:, binds a globset to the pipeline file that carries its trigger; the unit sets bind their own CD pipelines,
+  which extend one shared customer template.
+about:
+  lens: implementation
+  adrs: [ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED, ADR-DSGN-TRACK-DEPLOYABLEUNIT]
+  tracks: [ado-pipelines]
+  languages: [pipeline-yaml, yaml]
+  modules: [Catzc.Base.Globs]
+  files:
+    - pwsh/Catzc.Base.Globs/configs/globs.yml
+    - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+content:
+  title: "One field in globs.yml, pipeline:, binds a set to its pipeline file"
+  kind: explanation
+  relation: names the next file by key
+  bands:
+    - { id: band-registry, label: THE REGISTRY }
+    - { id: band-pipelines, label: PIPELINES }
+  glyphs:
+    - { id: f-registry, kind: file, label: globs.yml, in: band-registry }
+    - { id: s-automation, kind: set, label: "automation:", in: band-registry }
+    - { id: s-infrastructure, kind: set, label: "infrastructure:", in: band-registry }
+    - { id: s-units, kind: set, label: "nova: · apex: · flux: · shared:", in: band-registry }
+    - { id: s-foundation, kind: set, label: foundation base unit, in: band-registry }
+    - { id: r-automation, kind: runner, label: ci-automation.yaml, in: band-pipelines }
+    - { id: r-infrastructure, kind: runner, label: ci-infrastructure.yaml, in: band-pipelines }
+    - { id: r-unit, kind: runner, label: "cd-<unit>.yaml", in: band-pipelines }
+    - { id: r-extends, kind: runner, label: extends/cd-customer.yaml, in: band-pipelines }
+  edges:
+    - { from: s-automation, to: r-automation }
+    - { from: s-infrastructure, to: r-infrastructure }
+    - { from: s-units, to: r-unit }
+    - { from: s-foundation, to: s-units, kind: thick }
+    - { from: r-unit, to: r-extends }
+  markers:
+    - { at: f-registry, number: 1 }
+    - { at: s-automation, number: 2 }
+    - { at: s-infrastructure, number: 3 }
+    - { at: s-units, number: 4 }
+    - { at: s-foundation, number: 5 }
+    - { at: r-unit, number: 6 }
+    - { at: r-extends, number: 7 }
+  chips:
+    - { at: r-extends, kind: count, text: "3/4" }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-registry: { x: 20, y: 84, w: 640, h: 420 }
+  band-pipelines: { x: 680, y: 84, w: 600, h: 420 }
+  f-registry: { x: 60, y: 120, w: 540, h: 40 }
+  s-automation: { x: 60, y: 180, w: 540, h: 56 }
+  s-infrastructure: { x: 60, y: 260, w: 540, h: 56 }
+  s-units: { x: 60, y: 340, w: 540, h: 56 }
+  s-foundation: { x: 60, y: 430, w: 540, h: 56 }
+  r-automation: { x: 760, y: 180, w: 260, h: 56 }
+  r-infrastructure: { x: 760, y: 260, w: 260, h: 56 }
+  r-unit: { x: 760, y: 340, w: 220, h: 56 }
+  r-extends: { x: 1020, y: 340, w: 240, h: 56 }

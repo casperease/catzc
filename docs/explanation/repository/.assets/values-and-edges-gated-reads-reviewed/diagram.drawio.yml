@@ -1,0 +1,66 @@
+description: >-
+  The variants file and the module edges each meet a gate, the config type at load and the module dependency test; the rule against reading
+  the file directly has no gate and is left to code review.
+about:
+  lens: governance
+  adrs:
+    - ADR-REPO-VARIANT-SESSIONVARIANT
+    - ADR-REPO-VARIANT-NODIRECTREADS
+    - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
+    - ADR-REPO-VARIANT-ADONAMING
+    - ADR-REPO-VARIANT-HAVECUSTOMERS
+    - ADR-REPO-VARIANT-GITWORKSPACE
+  tracks: [pwsh]
+  languages: [powershell, csharp]
+  modules: [Catzc.Base.Variants, Catzc.Base.ModuleSystem]
+  files:
+    - pwsh/Catzc.Base.Variants/configs/variants.yml
+    - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+    - pwsh/Catzc.Base.Variants/private/Get-Variant.ps1
+    - pwsh/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
+content:
+  title: Values and module edges have a gate; the no-direct-read rule is left to review
+  kind: explanation
+  flow: top-to-bottom
+  relation: is checked by
+  bands:
+    - { id: band-file, label: FILE }
+    - { id: band-reader, label: READER }
+    - { id: band-edges, label: MODULE EDGES }
+  glyphs:
+    - { id: g-variants-yml, kind: file, label: variants.yml, in: band-file }
+    - { id: g-variants-config, kind: gate, label: VariantsConfig, in: band-file }
+    - { id: g-get-variant, kind: code, label: Get-Variant, in: band-reader }
+    - { id: g-review, kind: adronly, label: Code review, in: band-reader }
+    - { id: g-variants, kind: code, label: Catzc.Base.Variants, in: band-edges }
+    - { id: g-module-dependency, kind: gate, label: Test-ModuleDependency, in: band-edges }
+  edges:
+    - { from: g-variants-yml, to: g-variants-config }
+    - { from: g-get-variant, to: g-review, kind: adr }
+    - { from: g-variants, to: g-module-dependency }
+  markers:
+    - { at: g-variants-yml, number: 1 }
+    - { at: g-variants-config, number: 2 }
+    - { at: g-get-variant, number: 3 }
+    - { at: g-review, number: 4 }
+    - { at: g-variants, number: 5 }
+    - { at: g-module-dependency, number: 6 }
+  chips:
+    - { at: g-variants-yml, kind: rule, rule: ADR-REPO-VARIANT-SESSIONVARIANT }
+    - { at: g-variants-config, kind: rule, rule: ADR-REPO-VARIANT-SESSIONVARIANT }
+    - { at: g-variants-config, kind: rule, rule: ADR-REPO-VARIANT-ADONAMING }
+    - { at: g-variants-config, kind: rule, rule: ADR-REPO-VARIANT-HAVECUSTOMERS }
+    - { at: g-variants-config, kind: rule, rule: ADR-REPO-VARIANT-GITWORKSPACE }
+    - { at: g-get-variant, kind: rule, rule: ADR-REPO-VARIANT-NODIRECTREADS, gated: false }
+    - { at: g-variants, kind: rule, rule: ADR-REPO-VARIANT-MINIMALDEPENDENCIES }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-file: { x: 20, y: 100, w: 1240, h: 110 }
+  band-reader: { x: 20, y: 230, w: 1240, h: 100 }
+  band-edges: { x: 20, y: 350, w: 1240, h: 110 }
+  g-variants-yml: { x: 310, y: 130, w: 190, h: 52 }
+  g-variants-config: { x: 680, y: 120, w: 240, h: 70 }
+  g-get-variant: { x: 310, y: 262, w: 190, h: 44 }
+  g-review: { x: 700, y: 262, w: 200, h: 44 }
+  g-variants: { x: 300, y: 384, w: 200, h: 44 }
+  g-module-dependency: { x: 680, y: 370, w: 240, h: 70 }

@@ -20,8 +20,6 @@ is one config edit in one place.
 
 ![Catzc.Base.Globs owns config, types and roles](.assets/globs-module-owns-config-and-types/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/globs-module-owns-config-and-types/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **globs.yml.** The registry ships in the module's `configs/` folder and holds the declared globsets, 10 of them today: five

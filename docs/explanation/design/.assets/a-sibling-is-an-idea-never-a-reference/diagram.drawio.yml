@@ -1,0 +1,66 @@
+# cspell:ignore adronly
+description: >-
+  Two sibling repositories share a model; an idea leaves the sibling named where it is used, the owning ADR decides, and it lands here
+  rebuilt to this repository's rules as one living version.
+about:
+  lens: meta
+  adrs:
+    - ADR-PRIN-ONELIVE-ONEVERSION
+    - ADR-PRIN-ONELIVE-HISTORYINGIT
+    - ADR-AUTO-GO-MODULESBYLAYOUT
+    - ADR-PRIN-CATS-CATZCISSOURCENAME
+    - ADR-PRIN-CATS-CATSISPERSONNAME
+    - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+    - ADR-DSGN-TRACK-ONETECHSTACK
+    - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+    - ADR-DSGN-TRACK-UNORDEREDTRACK
+  tracks: [docs]
+content:
+  title: A sibling is an idea, never a reference
+  kind: explanation
+  relation: an idea crosses
+  bands:
+    - { id: band-sibling, label: "SIBLING: EAC, GO" }
+    - { id: band-meet, label: WHERE THE MODELS MEET }
+    - { id: band-this, label: "CATZC: POWERSHELL AND C#" }
+  glyphs:
+    - { id: s-sibling, kind: store, label: "eac, the sibling repository", in: band-sibling }
+    - { id: a-sibling-own, kind: adronly, label: "keeps its own: a rule is a .feature specification, no unordered file", in: band-sibling }
+    - {
+        id: n-model,
+        kind: set,
+        label:
+          "the shared model: a module is a placement with a kind, a default is declared once, public is what a contract names, change is
+          keyed by the unit's hash, one output root",
+        in: band-meet,
+      }
+    - { id: g-owner, kind: gate, label: the owning ADR decides, in: band-meet }
+    - { id: s-this, kind: store, label: "catzc, this repository", in: band-this }
+    - { id: r-rebuilt, kind: result, label: "rebuilt to catzc's rules, one living version, nothing ported alongside", in: band-this }
+    - {
+        id: a-this-own,
+        kind: adronly,
+        label: "keeps its own: a rule is an ADR cited by code, .unordered is where an import lands",
+        in: band-this,
+      }
+  edges:
+    - { from: s-sibling, to: g-owner, label: "an idea, named where it is used" }
+    - { from: g-owner, to: r-rebuilt }
+    - { from: r-rebuilt, to: s-this, label: lands as a rule }
+  markers:
+    - { at: s-sibling, number: 1 }
+    - { at: n-model, number: 2 }
+    - { at: g-owner, number: 3 }
+    - { at: r-rebuilt, number: 4 }
+  minimaps: [code-locations, grid, axis]
+layout:
+  band-sibling: { x: 20, y: 84, w: 380, h: 340 }
+  band-meet: { x: 420, y: 84, w: 460, h: 340 }
+  band-this: { x: 900, y: 84, w: 380, h: 340 }
+  s-sibling: { x: 110, y: 130, w: 200, h: 70 }
+  a-sibling-own: { x: 40, y: 340, w: 340, h: 60 }
+  n-model: { x: 440, y: 130, w: 420, h: 84 }
+  g-owner: { x: 540, y: 280, w: 220, h: 80 }
+  s-this: { x: 990, y: 130, w: 200, h: 70 }
+  r-rebuilt: { x: 920, y: 280, w: 340, h: 56 }
+  a-this-own: { x: 920, y: 350, w: 340, h: 60 }

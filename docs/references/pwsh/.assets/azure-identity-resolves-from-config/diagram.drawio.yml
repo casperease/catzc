@@ -1,0 +1,83 @@
+description: >-
+  Azure identities resolve only from the typed azure.yml and customer.yml; the az session subscription is looked up in the azure config and
+  must match exactly one declared subscription before it reaches the subscription resolver.
+about:
+  lens: source
+  adrs: [ADR-AZ-SESSION, ADR-AZ-DATAMOD, ADR-AZ-CUSTOMER]
+  tracks: [pwsh]
+  languages: [powershell, csharp]
+  modules: [Catzc.Azure.Cli, Catzc.Base.Config]
+  files:
+    - pwsh/Catzc.Azure/configs/azure.yml
+    - pwsh/Catzc.Azure/configs/customer.yml
+    - pwsh/Catzc.Azure/types/AzureConfig.cs
+    - pwsh/Catzc.Azure/types/CustomerConfig.cs
+    - pwsh/Catzc.Azure/Get-AzureSubscription.ps1
+    - pwsh/Catzc.Azure/Get-AzureCustomer.ps1
+    - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
+    - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+    - pwsh/Catzc.Azure.Cli/Get-CurrentAzSubscription.ps1
+content:
+  title: Azure identities resolve from config; session must match one
+  kind: reference
+  relation: feeds
+  bands:
+    - { id: band-session, label: SESSION }
+    - { id: band-config, label: CONFIG }
+  groups:
+    - { id: grp-cli, label: Catzc.Azure.Cli, in: band-session }
+    - { id: grp-base-config, label: Catzc.Base.Config, in: band-config }
+    - { id: grp-resolvers, label: resolvers, in: band-config }
+  glyphs:
+    - { id: g-current-sub, kind: code, label: Get-CurrentAzSubscription, in: grp-cli }
+    - { id: g-session-sub, kind: gate, label: Get-AzCliSessionSubscription, in: grp-cli }
+    - { id: g-azure-yml, kind: file, label: azure.yml, in: band-config }
+    - { id: g-customer-yml, kind: file, label: customer.yml, in: band-config }
+    - { id: g-get-config, kind: code, label: Get-Config, in: grp-base-config }
+    - { id: g-azure-config, kind: type, label: AzureConfig, in: band-config }
+    - { id: g-customer-config, kind: type, label: CustomerConfig, in: band-config }
+    - { id: g-azure-customer, kind: code, label: Get-AzureCustomer, in: band-config }
+    - { id: g-azure-sub, kind: code, label: Get-AzureSubscription, in: grp-resolvers }
+    - { id: g-azure-env, kind: code, label: Get-AzureEnvironment, in: grp-resolvers }
+  edges:
+    - { from: g-azure-yml, to: g-get-config }
+    - { from: g-customer-yml, to: g-get-config }
+    - { from: g-get-config, to: g-azure-config }
+    - { from: g-get-config, to: g-customer-config }
+    - { from: g-azure-config, to: g-azure-sub }
+    - { from: g-azure-config, to: g-session-sub }
+    - { from: g-customer-config, to: g-azure-customer }
+    - { from: g-azure-customer, to: g-azure-sub }
+    - { from: g-current-sub, to: g-session-sub }
+    - { from: g-session-sub, to: g-azure-sub }
+    - { from: g-azure-sub, to: g-azure-env }
+  markers:
+    - { at: g-azure-yml, number: 1 }
+    - { at: g-customer-yml, number: 2 }
+    - { at: g-get-config, number: 3 }
+    - { at: g-azure-config, number: 4 }
+    - { at: g-customer-config, number: 5 }
+    - { at: g-azure-customer, number: 6 }
+    - { at: g-azure-sub, number: 7 }
+    - { at: g-azure-env, number: 8 }
+    - { at: g-current-sub, number: 9 }
+    - { at: g-session-sub, number: 10 }
+  chips:
+    - { at: g-session-sub, kind: count, text: "1" }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-session: { x: 400, y: 84, w: 880, h: 190 }
+  band-config: { x: 20, y: 292, w: 1260, h: 220 }
+  grp-cli: { x: 604, y: 98, w: 292, h: 170 }
+  g-current-sub: { x: 645, y: 132, w: 210, h: 40 }
+  g-session-sub: { x: 622, y: 186, w: 256, h: 76 }
+  g-azure-yml: { x: 40, y: 322, w: 110, h: 46 }
+  g-customer-yml: { x: 40, y: 432, w: 110, h: 46 }
+  grp-base-config: { x: 190, y: 356, w: 180, h: 92 }
+  g-get-config: { x: 210, y: 396, w: 140, h: 40 }
+  g-azure-config: { x: 410, y: 326, w: 130, h: 40 }
+  g-customer-config: { x: 410, y: 436, w: 130, h: 40 }
+  g-azure-customer: { x: 650, y: 436, w: 200, h: 40 }
+  grp-resolvers: { x: 634, y: 302, w: 532, h: 96 }
+  g-azure-sub: { x: 650, y: 346, w: 200, h: 40 }
+  g-azure-env: { x: 950, y: 346, w: 200, h: 40 }

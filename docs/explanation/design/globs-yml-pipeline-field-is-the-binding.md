@@ -20,8 +20,6 @@ deployable-units bind the CD pipelines, and the base unit they compose binds non
 
 ![globs.yml's pipeline: field is the binding](.assets/globs-yml-pipeline-field-is-the-binding/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/globs-yml-pipeline-field-is-the-binding/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **globs.yml.** The registry at `pwsh/Catzc.Base.Globs/configs/globs.yml`. `GlobsConfig` reads it on load and rejects a layer that is not

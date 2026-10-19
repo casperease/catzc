@@ -22,8 +22,6 @@ the config, and the default on the type are tried in exactly that order.
 
 ![Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling](.assets/resolve-one-limit-in-code-order/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/resolve-one-limit-in-code-order/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Get-RunEnvironment.** The first call. It returns `Devbox` or `Pipeline`, and `-EnvironmentAssertIs` is passed through only when the

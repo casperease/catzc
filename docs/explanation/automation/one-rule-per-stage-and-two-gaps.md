@@ -22,8 +22,6 @@ that no gate bounds.
 
 ![Two rules govern every stage, tests and the hook check them, and two gaps remain](.assets/one-rule-per-stage-and-two-gaps/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-rule-per-stage-and-two-gaps/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Get-RunEnvironment.** The rule keys every limit by run environment, devbox or pipeline, and by execution engine, and both are read from

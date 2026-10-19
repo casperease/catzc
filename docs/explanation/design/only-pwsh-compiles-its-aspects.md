@@ -22,8 +22,6 @@ infrastructure convention.
 
 ![Only pwsh compiles its aspects](.assets/only-pwsh-compiles-its-aspects/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/only-pwsh-compiles-its-aspects/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **variants.yml.** The configuration file of `Catzc.Base.Variants` and the one home of every repo-wide variant. Its `aspects` entry is a

@@ -22,8 +22,6 @@ gate at all: code review holds them, and the ADR says why a static rule would be
 
 ![Three types check path forms at construction](.assets/types-check-forms-review-checks-crossers/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/types-check-forms-review-checks-crossers/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Communication form.** Four rules govern it: a path is in one of two forms (#1), a stored or transported path is relative (#2),

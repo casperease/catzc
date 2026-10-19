@@ -20,8 +20,6 @@ where a guarantee is enforced and where it is only a discipline.
 
 ![Clients bridge to one server remote](.assets/clients-bridge-to-one-server/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/clients-bridge-to-one-server/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Local clone.** A developer box and a CI agent each hold a local clone that fetches from and pushes toward the server remote. It is a

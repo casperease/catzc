@@ -22,8 +22,6 @@ inline guard before they call the runner. The runner then does four things in a 
 
 ![Three tasks, one guard, one runner](.assets/three-tasks-one-guard-one-runner/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/three-tasks-one-guard-one-runner/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **ci-automation.yaml.** A root pipeline names the template and passes a command, for example

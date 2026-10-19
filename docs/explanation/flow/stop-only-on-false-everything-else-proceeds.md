@@ -19,9 +19,6 @@ positive confirmation that there is nothing to process, and every other outcome,
 
 ![A stage returns only on $false](.assets/stop-only-on-false-everything-else-proceeds/diagram.drawio.png)
 
-The diagram is described element by element in
-[its asset description](.assets/stop-only-on-false-everything-else-proceeds/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **A unit's pipeline stage.** The decision describes the operator: a stage that runs the check first and returns early when its

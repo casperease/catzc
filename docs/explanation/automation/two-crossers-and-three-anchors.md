@@ -22,8 +22,6 @@ instead.
 
 ![Two crossers anchor on two roots](.assets/two-crossers-and-three-anchors/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/two-crossers-and-three-anchors/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Returns, records, configs.** A return value, a `DictionaryRecord` field, a deployment-context artifact or a source-controlled config
