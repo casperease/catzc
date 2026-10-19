@@ -155,9 +155,10 @@ The first segment names the deployable-unit that carries the contracts, and the 
 consumer which build of the unit and which contracts belong together, and the version folder is a self-contained snapshot of every contract
 of that unit at that version. The one such unit is `catzc`, the bundle: it is the one unit a consumer pins
 ([ADR-AUTO-BUNDLE-AUTOVERSION](../automation/platform-bundle.md#rule-adr-auto-bundle-autoversion)), and the owning modules ship in it, so
-provided and depended-on contracts alike version with it. The repository is a product mono-repository, not one monolithic application:
-inside the trunk everything is at HEAD, and a version exists only where a unit crosses the boundary. So there is no repository-wide version,
-and another deployable-unit that carries contracts gets its own `contracts/<unit>/` beside `catzc/`, with versions of its own.
+provided and depended-on contracts alike version with it. The repository is a product mono-repository
+([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)), not one monolithic application: inside the trunk
+everything is at HEAD, and a version exists only where a unit crosses the boundary. So there is no repository-wide version, and another
+deployable-unit that carries contracts gets its own `contracts/<unit>/` beside `catzc/`, with versions of its own.
 
 Inside a version folder, each owning module has its own folder: the module that talks to the outside party — `Catzc.Tooling.Github` for
 GitHub, `Catzc.Azure.DevOps` for Azure DevOps — is the one that holds the tests, and the module dependency graph governs it like any other
@@ -310,9 +311,10 @@ the configured mode says what to match, so no tree walk runs on speculation.
    contracts, so a separate number per contract forces a mapping from bundle to contract versions that the unit's version folder makes
    unnecessary.
 
-3. **One repository-wide version (`contracts/<version>/<module>/`)** — rejected: the repository is a product mono-repository, not a
-   monolithic application, so nothing versions the repository as a whole. A version exists only where a unit crosses the boundary, and each
-   such unit versions on its own; one shared version would tie every unit's contracts to one release cadence that no consumer pins.
+3. **One repository-wide version (`contracts/<version>/<module>/`)** — rejected: the repository is a product mono-repository
+   ([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)), not a monolithic application, so nothing
+   versions the repository as a whole. A version exists only where a unit crosses the boundary, and each such unit versions on its own; one
+   shared version would tie every unit's contracts to one release cadence that no consumer pins.
 
 4. **Separate trees for provided and depended-on contracts** — rejected: both directions share the layout, the asset kinds, and the test
    mechanism; two trees would duplicate all three and split one owning module's boundary in two.

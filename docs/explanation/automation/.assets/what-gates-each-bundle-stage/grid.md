@@ -67,8 +67,8 @@ markdown ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) b
 - [docs/adr/glossary.md][6]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 612 (text).
 - [docs/adr/index.md][7]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 173 (text); selected by [ADR-PWSH-MANIFEST][2]: the
   file cites it at line 201 (text).
-- [docs/adr/automation/pwsh/dora-explains.md][8]: selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 61 (text).
-- [docs/adr/automation/pwsh/dynamic-module-manifests.md][2]: selected by [ADR-PWSH-MANIFEST][2]: the ADR's own file.
+- [docs/adr/pwsh/dora-explains.md][8]: selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 61 (text).
+- [docs/adr/pwsh/dynamic-module-manifests.md][2]: selected by [ADR-PWSH-MANIFEST][2]: the ADR's own file.
 - [docs/references/pipelines/github-workflows/ci-automation.yml.md][9]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 42
   (text).
 - [docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md][10]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
@@ -151,13 +151,13 @@ file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRAC
 - [yaml][38]: a file language
 
 [1]: ../../../../adr/automation/platform-bundle.md
-[2]: ../../../../adr/automation/pwsh/dynamic-module-manifests.md
+[2]: ../../../../adr/pwsh/dynamic-module-manifests.md
 [3]: ../../../../adr/design/tracks.md
 [4]: ../../../../../.claude/plans/task-layers-classification-flip.md
 [5]: ../../../../adr/automation/dora-explains.md
 [6]: ../../../../adr/glossary.md
 [7]: ../../../../adr/index.md
-[8]: ../../../../adr/automation/pwsh/dora-explains.md
+[8]: ../../../../adr/pwsh/dora-explains.md
 [9]: ../../../../references/pipelines/github-workflows/ci-automation.yml.md
 [10]: ../../../../references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
 [11]: ../../../../references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md

@@ -13,9 +13,9 @@ explicitly documented.
 
 Enterprise environments impose constraints that developer-oriented tooling rarely accounts for:
 
-- **Home folders on network storage.** Central IT redirects `$HOME` or the Documents folder to DFS, mapped network drives, or OneDrive for
-  Business (Known Folder Move). This means any operation that touches the user profile — module discovery, profile loading, tab completion —
-  traverses the network. On a bad day this adds seconds per operation. On a DFS failover day it hangs indefinitely.
+- **Home folders on network storage.** Central IT redirects the home folder or the Documents folder to DFS, mapped network drives, or
+  OneDrive for Business (Known Folder Move). This means any operation that touches the user profile — module discovery, profile loading, tab
+  completion — traverses the network. On a bad day this adds seconds per operation. On a DFS failover day it hangs indefinitely.
 
 - **No local admin.** Developers cannot install software, modify system paths, or change Group Policy settings. The automation must work
   within the permissions they have.
@@ -84,7 +84,6 @@ path, and no gallery at runtime — belongs to the pwsh rules: [module-path-hygi
 
 - The automation works behind firewalls and proxies with no network access at runtime, and provisions fully without local admin.
 - Machine-specific slowness has environmental fixes where the source form requires them: the module-path mechanics live in
-  [module-path-hygiene](pwsh/module-path-hygiene.md), and a source-mode devbox mitigates the cold-import antivirus cost with an
-  exclusion.
+  [module-path-hygiene](pwsh/module-path-hygiene.md), and a source-mode devbox mitigates the cold-import antivirus cost with an exclusion.
 - An installed build loads one merged function file per module, so its cold import opens a few dozen function files rather than hundreds,
   while the source a developer edits keeps one function per file.

@@ -62,12 +62,12 @@ never through the folder its file happens to sit in.
 
 ### How this is enforced
 
-- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`automation/pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on `$PWD`
-  dependence. Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
-- **The language layer** — the anchor idioms, the code-root and working-root analyzer rules, and the one safe way to change directory
-  (`Push-Location`/`Pop-Location` in `try`/`finally`) are [working-directory-mechanics](pwsh/working-directory-mechanics.md)
-  (`ADR-PWSH-PWD`): the anchors of rule 1 in ADR-PWSH-PWD-NEVERDEPENDONPWD and ADR-PWSH-PWD-MODULELOCATESCONTENT, the test paths of rule 4
-  in ADR-PWSH-PWD-TESTABSOLUTEPATHS, and the working-root accessor of rule 6 in ADR-PWSH-PWD-ROOTTHROUGHACCESSOR.
+- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on dependence on the
+  current directory. Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
+- **The language layer** — the anchor idioms, the code-root and working-root analyzer rules, and the one safe way to change directory (a
+  change restored in a `finally`) are [working-directory-mechanics](pwsh/working-directory-mechanics.md) (`ADR-PWSH-PWD`): the anchors of
+  rule 1 in ADR-PWSH-PWD-NEVERDEPENDONPWD and ADR-PWSH-PWD-MODULELOCATESCONTENT, the test paths of rule 4 in ADR-PWSH-PWD-TESTABSOLUTEPATHS,
+  and the working-root accessor of rule 6 in ADR-PWSH-PWD-ROOTTHROUGHACCESSOR.
 
 ## Consequences
 

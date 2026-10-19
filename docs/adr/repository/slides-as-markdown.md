@@ -73,6 +73,29 @@ is never drawn by hand or by the draw.io CLI: a session edits a model, and the k
 
 - [One command renders every diagram](#one-command-renders-every-diagram)
 
+### Rule ADR-REPO-SLIDES-DECLARATION
+
+The **diagram declaration** is `diagram.yml` beside `diagram.drawio.png` in the diagram's folder, in two sections. `content:` says what the
+diagram shows in the kit's closed vocabulary: the title, the ADR codes, the lens, the kind, the flow, the theme, the bands, the span bars
+with the bands each covers, the groups, which may nest, the glyphs with their kind and holder, the edges, the markers, the chips, the legend
+and the three minimaps. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the kit's `drawio.yml` (the
+lenses, kinds, themes, minimap ids and span words) or in its glyph library (the glyph and edge kinds), and a value outside it fails
+validation with the list the author may choose from
+([ADR-PRIN-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-adr-prin-pokayoke-detectearliest)). A cell without a `layout:` entry is
+placed by the grid; a cell with one keeps it; a cell whose id is not in `content:` is removed.
+
+- [The declaration is the source](#the-declaration-is-the-source)
+
+### Rule ADR-REPO-SLIDES-TWODIRECTIONS
+
+Two directions join the declaration and the drawing, and both are deterministic. Put renders the yml into the model embedded in the
+`.drawio.png` and then the raster from that model, so the file stays editable in the draw.io editor. Get reads the embedded model back into
+the yml, so a hand edit in the editor is folded back before anything else reads it. Put then get returns the same yml, get then put the same
+model, and the kit's tests prove both on a fixture. A hand-moved cell comes back as a `layout:` entry; a cell that sits where the grid would
+put it needs none.
+
+- [Two directions, one truth](#two-directions-one-truth)
+
 ## Context
 
 A deck is prose with a layout. Written straight into a presentation tool, the prose is reachable only through that tool, its claims are
@@ -144,6 +167,23 @@ A slide whose raster only a session can make is a slide nobody can rebuild: the 
 whatever picture was last committed, and the model and the picture drift apart unseen. With one command over the tree, a clean checkout
 gives the same slides, a changed map or a changed rule reaches every slide that shows it, and an agent's part ends at editing a model.
 
+### The declaration is the source
+
+`A diagram is data first`
+
+A diagram that lives only as embedded XML can be reviewed only as a picture, and a change to it can be judged only by eye. The declaration
+puts what the diagram says in a few lines of yml that a pull request shows as a diff, a gate can read, and a vocabulary can bound: a span
+label, a glyph kind or a minimap id is right or it is refused with the list it should have come from. The layout stays separate, so the
+content reads without coordinates and a moved box is a one-line change.
+
+### Two directions, one truth
+
+`Edit in either, drift in neither`
+
+The draw.io editor stays the place to nudge a box; the yml stays the place to say what a diagram shows. Put and get make the two the same
+file seen two ways: a session writes yml and puts, a person drags in the editor and gets, and the tests prove each direction returns what
+the other wrote. Nothing is hand-drawn into the raster, so a raster is always the put of a declaration.
+
 ### How this is enforced
 
 - **`Build-SlideDeck`** renders a deck forward into `out/slides/<deck>/` and reports every fault (rule 3).
@@ -151,6 +191,8 @@ gives the same slides, a changed map or a changed rule reaches every slide that 
 - **`Get-FileKind`** places slide files and the kit by rule 6, and the file-kind reachability test keeps both kinds reachable.
 - **`Build-Diagrams`** rebuilds one diagram folder, or every diagram folder it finds under `docs/**/.assets/**`, through the kit's renderer,
   stage by stage, and stops on a folder two articles embed (rule 7); **`Move-Diagram`** moves a folder with its links re-pointed.
+- **`declaration.py`** of the kit validates a declaration against the closed vocabularies and runs put and get (rules 8 and 9); its tests
+  prove the two round trips, the vocabulary refusals, the nested group and the grid placement.
 
 ## Consequences
 

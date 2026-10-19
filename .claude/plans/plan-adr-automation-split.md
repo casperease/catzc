@@ -3,14 +3,14 @@ plan:
   status: active
   value: medium
   reviewed: 2026-10-19
-  targets: [docs/adr/automation, docs/adr/automation/pwsh, docs/adr/index.md, automation/pwsh/Catzc.Base.Docs/configs/adrs.yml]
+  targets: [docs/adr/automation, docs/adr/automation/pwsh, docs/adr/index.md, pwsh/Catzc.Base.Docs/configs/adrs.yml]
 ---
 
 # Separate generalized automation ADRs from the pwsh ones
 
 `docs/adr/automation/` holds the generalized automation ADRs (no PowerShell language). `docs/adr/automation/pwsh/` holds the
 PowerShell-specific ones, beside the `BCL/`, `bash/`, `go/` and `python/` folders that already sit there. `docs/references/pwsh/` holds the
-reference docs for the pwsh modules in the root `automation/pwsh/` folder.
+reference docs for the pwsh modules in the root `pwsh/` folder.
 
 ## Why its value is medium
 
@@ -33,49 +33,50 @@ The flat automation folder mixes language-agnostic rules with PowerShell example
   loads, the Docs and Maps tests pass (67 tests), Test-AdrRegistry clean, and the regenerated index body is unchanged. Step 3's convention
   states it as a rule: `automation/<language>/` is a domain folder, declared in `adrs.yml`.
 
+- The sort keeps every rule in `automation/`: Test-AdrEngineNeutrality, the one judge, reports 0 issues over the automation rule summaries
+  (2026-10-19), so the table's rule moves are re-cut, no code changes and no Update-AdrCitation runs. The PowerShell mechanics and samples
+  of the Context and Decision prose move to the pwsh twin as Decision prose where a twin exists, and are rewritten engine-neutral in place
+  where none does; no new twin ADR. The twelve stray rules of plan-layers-vocabulary-rename-contracts are sorted the same way inside the
+  sort step, and that plan's step closes as superseded when the last lands (decided by the orchestrator on the user's delegation,
+  2026-10-19).
+
 ## Open steps
 
-- [ ] Create `docs/adr/automation/pwsh/` and move the 29 files of `docs/adr/automation/pwsh/` into it (27 ADR pages, the `index.md`, and
-      `powershell-formatting.pdf` with its page); the `git mv` lines are the user's (task-user-runs-and-commits), prepared in
-      `out/run-user-git.ps1`; then `Update-AdrCitation` re-points the links in the 287 citing files outside the folder (59 under
-      `automation/pwsh/`, 224 under `docs/` of which 181 are generated `docs/references/pwsh` pages that `Build-Readme` regenerates instead,
-      4 under `.claude/`) and the `relatives:` heads, one file at a time (check: Test-Adr and Test-Links clean after each file;
-      `docs/adr/automation/pwsh/` is empty and gone at the end).
-- [ ] Sort the flat files in `docs/adr/automation/` by the table below, one file at a time: the PowerShell rules and examples go to the
-      named twin (a new twin where the table says so), the agnostic rules are reworded engine-neutral, and a rule that only names a catzc
-      command is reworded to the command's role (check: Test-Adr, Test-Links and Test-AdrEngineNeutrality clean after each file;
-      `Test-AdrEngineNeutrality` is the one judge of what counts as pwsh text, so a row it disagrees with is re-cut, not argued).
-- [ ] Update the index's sources, `automation/pwsh/Catzc.Base.Docs/configs/adrs.yml` (the paths) and `adr-index.yml` (the authoring
-      conventions), and regenerate `docs/adr/index.md` with `Build-AdrIndex`; the index is a locked generated file, never edited by hand.
-      The convention states the layout as a rule: `automation/` holds engine-neutral rules, `automation/<language>/` the language's, and the
-      codes stay (ADR-REPO-PLANS-DECISIONSBECOMERULES) (check: Test-Adr clean; the regenerated index lists every code once and the
-      convention names the four language folders).
-
-## Where each flat automation ADR goes
-
-Counted 2026-10-19: PowerShell-specific lines (`$var`, `.ps1`, Pester, `[switch]`, cmdlet names) against rule count. The sort step rewrites
-this table as it moves; a row is "stays" when the subject itself is the engine or the automation, whatever its examples use.
-
-| File                                               | Lines / rules | First cut                                                                                                                               |
-| -------------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| execution-engines.md                               | 36 / 7        | stays: the engines are its subject                                                                                                      |
-| test-automation.md                                 | 30 / 38       | split: the runner and tier rules stay; Pester mechanics to `pester-testing.md`                                                          |
-| single-responsibility-functions.md                 | 29 / 6        | split: rules stay; the poetry samples rewritten neutral or moved to a new pwsh twin                                                     |
-| avoid-deep-nesting.md                              | 25 / 5        | split: rules stay; the pipeline and `Where()` samples to a new pwsh twin                                                                |
-| open-closed-architecture.md                        | 20 / 4        | split: ADR-AUTO-EXTEND-MANDATORYCONVENTIONS and samples to `prepost-extension-modules.md`                                               |
-| caching.md                                         | 18 / 9        | split: IMPORTERINVALIDATES, LAZYBYDEFAULT and the session cache to `script-scope-caching.md`                                            |
-| idempotent-state-functions.md                      | 16 / 5        | split: samples to `idempotent-state-mechanics.md`                                                                                       |
-| controlling-module-dependencies.md                 | 15 / 10       | stays: 8 of 10 rules agnostic; UNIFIEDGRAPH and GROUPAWAREINTEGRITY name `Test-ModuleDependency` only (reword to "the dependency gate") |
-| path-representation.md                             | 14 / 11       | stays: 4 rules agnostic, 7 name a catzc converter (`Resolve-RepoPath`, `ConvertTo-RepoRelativePath`) by name only; reword to the role   |
-| console-output-matters.md                          | 10 / 11       | split: ANNOUNCE\* and SILENTTRANSIENTCHANGES to `announce-state-changes.md` (no such twin code yet; a new rule there)                   |
-| environment-variables.md                           | 11 / 7        | split: mechanics to `environment-variable-mechanics.md`                                                                                 |
-| never-depend-on-pwd.md                             | 9 / 3         | split: ONEROOTACCESSOR merges into the twin's ROOTTHROUGHACCESSOR (`working-directory-mechanics.md`), which already states it           |
-| cross-platform.md                                  | 6 / 4         | split: mechanics to `cross-platform-powershell.md`                                                                                      |
-| platform-bundle.md                                 | 12 / 7        | moves whole: 6 of 7 rules are module-manifest and `Build-Modules`/`Export-Catzc` mechanics; BUNDLEISSESSION goes with them              |
-| retry, fail-fast, log-before-invoke, tracked-files | 2 to 8        | stay: six rule paragraphs name `Invoke-Executable`, `Invoke-WithRetry`, `Invoke-WithTimeout` or `-Silent`; reword to the role           |
-| the other 18 flat files                            | under 14      | stay: hits only in Context and Decision prose or fenced samples; reworded where Test-AdrEngineNeutrality names them                     |
+- [x] Move the 29 files of `docs/adr/pwsh/` to `docs/adr/automation/pwsh/` and re-point every citation: verdict 2026-10-19, set 8 of
+      `out/run-user-git.ps1` moved them, `adrs.yml` gives the `pwsh` domain `folder: automation/pwsh`, a fresh import loads, Test-Links
+      clean over the 259 touched files, Test-AdrRegistry clean, the Docs tests pass (66). The first re-cite used `folder` rows and rewrote
+      the module root `pwsh/` to `automation/pwsh/` in 180 files; repaired by a reverse pass, a forward pass with path rows only, and a
+      restore plus link re-base of the 28 moved pages from the move commit. `Test-AdrRegistry` and `Get-AdrCitationGraphViolations` read the
+      domain folder too.
+- [x] `AdrCitationRewriter` matches a moved folder's path form only when it resolves under `docs/adr` from the citing file, so a module path
+      that shares the folder's name is never rewritten (decided by the orchestrator on the user's delegation, 2026-10-19, from catzc-2f's
+      suggestion) — verdict: a fresh full import loads (10.1 s); `Update-AdrCitation.Tests.ps1` Passed, including the new test (prose
+      `pwsh/Catzc.Widget/x.ps1` in `docs/references/` comes out unchanged) and catzc-2f's bare-word test. A match that resolves under
+      `docs/adr` still rewrites in the ADR-root form.
+- [x] Tightened (decided by the orchestrator on the user's delegation, 2026-10-19, since docs/adr pages name module paths often): a bare
+      moved-folder path is rewritten only when it also names the folder itself or a file or folder of it in the tree, at its old or its new
+      place; `Update-AdrCitation` hands the rewriter the files under `docs/adr` (`Get-ChildPath`) — verdict: a fresh full import loads (8.5
+      s); `Update-AdrCitation.Tests.ps1` Passed, including the new case (a `docs/adr` page naming `pwsh/Catzc.Widget/x.ps1` and the real
+      moved `pwsh/widget-rules.md`: only the page becomes `automation/pwsh/widget-rules.md`) and catzc-2f's bare-word test, whose moved page
+      is now in the fixture tree.
+- [ ] Pointer for plan-diagram-engine (the diagram track):
+      `docs/explanation/automation/.assets/what-gates-each-bundle-stage/{chain,grid,tree}.md` still name `docs/adr/pwsh`; they are
+      regenerated with their slide, never edited (check: the three files name `docs/adr/automation/pwsh`).
+- [x] Five pages named `automation/pwsh/<Module>` for the module root — verdict: `design/run-modes.md`,
+      `partition-integrity-runs-only-in-unit-tests.md` and the `NoScriptRootAnchor` and `ParameterDesign` analyzer pages say `pwsh/` again
+      (catzc-08, by hand; the analyzer pages' path titles too), and `internal-asset-dependencies.md` is fixed by catzc-64 in its sort; their
+      `docs/adr/automation/pwsh` links are kept. Test-Links found no issues on the four; `git grep 'automation/pwsh/<Module>'` finds
+      nothing.
+- [x] Sort the flat files in `docs/adr/automation/`: verdict 2026-10-19, every rule stays (the gate reports 0 over the rule summaries), and
+      the PowerShell samples and mechanics of the Context and Decision prose are rewritten engine-neutral in 15 files, one file per step
+      with Test-AdrRegistry, Test-Links, Test-AdrEngineNeutrality and markdownlint at 0 after each; their pwsh forms stay cited to the
+      twins. `execution-engines.md` keeps its engine table (the engines are its subject), and enforcement lists, real file names and twin
+      pointers keep their names. The twelve stray rules stay in AUTO, unchanged.
+- [x] Update the index's sources and regenerate the index: verdict 2026-10-19, `adrs.yml` gives the `pwsh` domain `folder: automation/pwsh`,
+      `adr-index.yml` states the layout as an authoring convention (`automation/` engine-neutral, a language's ADRs in
+      `automation/<language>/`, a language with its own code prefix a domain whose `folder` points there, a code naming the rule and never
+      the path), `Build-AdrIndex` regenerated `docs/adr/index.md`: 190 codes, each once, Test-AdrRegistry, Test-Links and markdownlint at 0.
 
 ## Refs
 
 - docs/adr/index.md; memory: adr-pwsh-split (the earlier ADR-PWSH split this builds on).
-- `plan-layers-vocabulary-rename-contracts` moves twelve named stray rules after this plan's first step, so each twin has its final home.

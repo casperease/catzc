@@ -8,7 +8,7 @@ An **internal asset dependency** is any read, by a module's own code, of content
 and `assets/`, another module's (a cross-module edge declared in `dependencies.yml`), `.internal/assets/`, `.vendor/`, and `.compiled/`. It
 is located only through the code-root helper — `Get-CatzcModuleRoot` with a literal child path, or `Get-CatzcModulesRoot` for the
 dot-prefixed infrastructure — never through the folder of the executing file, the working root (`Get-RepositoryRoot`), or a hand-built
-`automation/...` path. It is the code-root anchor of
+`pwsh/...` path. It is the code-root anchor of
 [ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS](never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths) applied to shipped content.
 
 - [One helper](#one-helper)
@@ -48,18 +48,17 @@ coverage check red, so the omission cannot merge.
 ## Context
 
 The toolset runs in two modes ([run-modes](../design/run-modes.md), `ADR-DSGN-RUNMODE`): source mode, loading each module from
-`automation/<Module>/`, and build mode, loading the same modules from a built package. In source mode a module's code sits next to its
-assets, so a lookup anchored on the wrong root often finds the file anyway. The same lookup fails only when the module runs from somewhere
-else — the build — which is the mode least exercised while writing the code.
+`pwsh/<Module>/`, and build mode, loading the same modules from a built package. In source mode a module's code sits next to its assets, so
+a lookup anchored on the wrong root often finds the file anyway. The same lookup fails only when the module runs from somewhere else — the
+build — which is the mode least exercised while writing the code.
 
 Three anchors give a wrong answer outside the source tree, each in its own way:
 
-- **`$PSScriptRoot`** is the folder of the executing file. In source mode that is the module folder or its `private/` folder; in build mode
-  it is the folder of the one merged `<Module>.functions.ps1`. A `'../configs/…'` hop written for a `private/` file points above the module
-  in the build.
+- **The folder of the executing file** is the module folder or its `private/` folder in source mode; in build mode it is the folder of the
+  one merged function file of the module. A `../configs/…` hop written for a `private/` file points above the module in the build.
 - **`Get-RepositoryRoot`** is the working root. In source mode the code lives under it; in an install it is the user's working folder, which
   holds no automation at all; and in a build loaded inside the repository it silently reads the source tree instead of the build.
-- **A hand-built `automation/pwsh/<Module>/…` path** bakes the source layout into the code; a build has no `automation/pwsh/` folder.
+- **A hand-built `pwsh/<Module>/…` path** bakes the source layout into the code; a build has no `pwsh/` folder.
 
 Each of these passes every source-mode test and fails in a user's installed session. The defect is invisible exactly where the code is
 written and tested, so review and source-mode tests cannot be what catches it.
@@ -79,16 +78,16 @@ in source mode, `<build>/<Module>` in build mode — joined with `-ChildPath` wh
 `assets/`, `types/`) is the same in both modes, so one call names the same file in both. The module defaults to the caller's own; an
 explicit `-Module` reads another module's content, which is a cross-module dependency and therefore an edge in `dependencies.yml`
 ([controlling-module-dependencies](controlling-module-dependencies.md)). The dot-prefixed infrastructure that is not a module — the
-`.internal` assets, the vendored modules, the compiled types — is located from `Get-CatzcModulesRoot` directly. The analyzer rule
-`Measure-NoScriptRootAnchor` bans `$PSScriptRoot` in module function files
-([working-directory-mechanics](pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), which leaves the helper as the
-only way a function can find its content. In PowerShell the helper call and that ban are ADR-PWSH-PWD-MODULELOCATESCONTENT, and the literal
-child path the inventory reads is ADR-PWSH-PWD-LITERALCHILDPATH.
+`.internal` assets, the vendored modules, the compiled types — is located from `Get-CatzcModulesRoot` directly. An analyzer rule bans the
+executing file's folder as an anchor in module function files, which leaves the helper as the only way a function can find its content. In
+PowerShell the helper call and that ban are ADR-PWSH-PWD-MODULELOCATESCONTENT
+([working-directory-mechanics](pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), and the literal child path the
+inventory reads is ADR-PWSH-PWD-LITERALCHILDPATH.
 
 ### The code is the inventory
 
 Because every call passes a literal child path, the dependency set is a pure function of the code: `Get-InternalAssetDependency` walks the
-syntax trees of the module function files and returns one `@{ Module; Function; ChildPath; File; Line }` per call site. A computed child
+syntax trees of the module function files and returns one record (module, function, child path, file, line) per call site. A computed child
 path would hide the dependency from that scan, so the literal is part of the rule. No registry file lists the dependencies — a hand-kept
 list would drift from the code it describes, and the code says everything the checks need
 ([open-closed-architecture](open-closed-architecture.md)).
@@ -107,8 +106,8 @@ exists to prove the lookup, not to re-test the logic.
 ### Two checks: coverage and presence
 
 The **coverage check** is an integrity test that runs in both test runs: for every function in the inventory it looks in that function's
-`Verb-Noun.Tests.ps1` for a test that cites `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST` and is not `source-only`, and fails with the function and
-its uncovered child paths when there is none. The **presence check** is part of `Build-Modules`' self-check
+test file for a test that cites `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST` and is not `source-only`, and fails with the function and its
+uncovered child paths when there is none. The **presence check** is part of `Build-Modules`' self-check
 ([platform-bundle](platform-bundle.md#rule-adr-auto-bundle-immutablebuild)): every inventoried (module, child path) must exist in the built
 output, so a side folder the build forgot to copy fails the build, not a user's session.
 
@@ -118,7 +117,7 @@ the coverage check is red, so the change cannot merge ([poka-yoke](../principles
 ### How this is enforced
 
 - **`Get-CatzcModuleRoot`** (`Catzc.Base.Repository`) — the one helper for a module's own content.
-- **`Measure-NoScriptRootAnchor`** (`automation/pwsh/.scriptanalyzer/`) — flags `$PSScriptRoot` in module function files.
+- **`Measure-NoScriptRootAnchor`** (`pwsh/.scriptanalyzer/`) — flags the executing file's folder as an anchor in module function files.
 - **`Get-InternalAssetDependency`** (`Catzc.Base.ModuleSystem`) — derives the inventory from the code.
 - **The coverage check** — an integrity test over the inventory, in both test runs (ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY).
 - **The presence check** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output
@@ -136,7 +135,7 @@ the coverage check is red, so the change cannot merge ([poka-yoke](../principles
 ## Related
 
 - [run-modes](../design/run-modes.md) — the two modes this rule keeps equivalent.
-- [never-depend-on-pwd](never-depend-on-pwd.md) — the code-root anchor and the `$PSScriptRoot` ban.
+- [never-depend-on-pwd](never-depend-on-pwd.md) — the code-root anchor and the ban on the executing file's folder.
 - [platform-bundle](platform-bundle.md) — the build and its self-check.
 - [test-automation](test-automation.md) — logic vs integrity tests, the two test runs, and the `source-only` tag.
 - [controlling-module-dependencies](controlling-module-dependencies.md) — the declared edge a cross-module asset read implies.

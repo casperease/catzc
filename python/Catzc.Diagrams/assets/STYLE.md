@@ -82,6 +82,7 @@ Copy them from `glyphs.xml` (`g-private`, `g-type` + `g-type-tag`, `g-module`):
 | private helper | code unit, 36 px tall, dark fill, 11 px name           | `#2F3B4A` / `#9FB3C8`              | a function in the module's `private/` folder; never dashed; text `#CDD3DC` |
 | C# type        | code unit with a `C#` tag (26 × 16) on its top-right   | `#4E6378` / `#9FB3C8`, tag on page | a class or record under `types/*.cs`                                       |
 | catzc module   | slate frame, no fill, `strokeWidth=1.5`, name top-left | none / `#9FB3C8`                   | another `Catzc.*` module the drawn code calls; its members sit inside it   |
+| nested frame   | the same frame inside a frame (`g-module-holder`)      | none / `#9FB3C8`                   | a holder's part: a track holds its modules, a module holds its members     |
 
 The private helper's dark fill is what sets it apart at preview scale. A dimmer or thinner rim on the code-unit fill was tried in the wave-9
 sample and read as identical to a code unit, so the difference is in the fill, never only in the rim. Italic labels don't show in the
@@ -206,9 +207,8 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
   `docs/references/pwsh/<module-kebab>/<stem>.drawio.md`. There is no `docs/explanation/` article: the module's reference article embeds the
   slide under `## What the module does` with a one-paragraph lead-in, and the `.drawio.md` carries the words (At a glance, Reading path,
   Glyphs, Edges, Legend, Where the code and the ADR differ).
-- **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`) and the Supports chips. With no
-  minimaps the panel has room, so put one ADR code per line: two codes joined by `·` (about 40 characters) overflow the 240 px panel at 11
-  px. Grow the `supports` cell's height to fit.
+- **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`); the ADR codes are in the
+  subtitle, their one place on a slide.
 - **Save legend rows.** Source slides reach the 8-entry legend cap fast (code unit, private helper, C# type, catzc module, file, failure,
   flow, marker). A glyph and its own edge kind share one row (`failure, and its failure path`). The `catzc module` frame needs no row when
   its label names the module.
@@ -347,12 +347,10 @@ view adds its sections in `describe.py`'s `VIEWS`.
   - `minimap-tree` image at x 1316, y 182, 240 × 180;
   - `minimap-chain` image at x 1316, y 378, 240 × 150;
   - `lens-badge` at x 1316, y 544, 240 × 24;
-  - `supports` (the ADR chips) at x 1316, y 576, 240 × ≤ 46: with the map key fixed at y 626 this holds the bold "Supports" line plus at
-    most 2 lines, so pack several ADR codes per line (`ADR-A · ADR-B`) and leave the rest to the `.md`. With more than 4 codes, put the
-    first code inline after "Supports" and set the cell at 10.5 px;
-  - `mapkey` at x 1316, y 626 (or 8 px below taller ADR chips, which `join.py` sizes at 14 px a line), 240 × 170: the minimap legend, one
-    swatch each shared by all three minimaps (lit; lit by passing mentions only; a lit ADR file, dark rim; idle), then the key to the short
-    labels (grid columns: a file language's first extension; value-chain rows: the value-chain stack; the abbreviated value-chain columns).
+  - no ADR codes: the subtitle is their one place on a slide, and the join step drops any list of them it finds in the sidebar;
+  - `mapkey` at x 1316, y 576, 240 × 170: the minimap legend, one swatch each shared by all three minimaps (lit; lit by passing mentions
+    only; a lit ADR file, dark rim; idle), then the key to the short labels (grid columns: a file language's first extension; value-chain
+    rows: the value-chain stack; the abbreviated value-chain columns).
 - **Minimap PNGs** are rendered at 2× (480 × 300, 480 × 360 and 480 × 300) and placed at 1×. Text is ≥ 9 px at 1×. Every label is
   horizontal: the grid names a lit row by its track and a lit column by its short code; the value-chain map names every row and column by
   its capital code. Lit tree groups are labelled with their full names, most lit files first; a label may run past its tile (the page-colour
@@ -485,7 +483,7 @@ minimap, lit cell, touched cell, lit tile, lens badge**. Write it after reading 
 
 The sidebar stands on its own backing, the `sidebar` token: one flat rectangle (`sidebar-bg`, no shadow) from 12 px left of the minimaps to
 the page edge, lowest in the z-order, so the column reads as a region apart from the bands. `join.py` draws it and the slide template
-carries it; the three minimaps, the lens badge, the ADR chips and the map key sit on it.
+carries it; the three minimaps, the lens badge and the map key sit on it.
 
 <The grid minimap's lit and touched cells by name (track × file language), the tree minimap's lit tiles by group label, the value-chain
 minimap's lit cells (value-chain stack × value-chain concern), the lens badge, the map key; the facts come from the slide's sister `.md`

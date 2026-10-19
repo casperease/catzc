@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "38a5ba714b13"
+    with_body_sha: "45111609ebb7"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/index.md
@@ -286,6 +286,7 @@ each citing Microsoft's page and saying what the repository does about it.
 | `ADR-AZ-SESSION`    | [az-session-verification](azure/az-session-verification.md)                   |
 | `ADR-AZ-CUSTOMER`   | [azure-customer-model](azure/azure-customer-model.md)                         |
 | `ADR-AZ-LZ`         | [landing-zones](azure/landing-zones.md)                                       |
+| `ADR-AZ-IACKIND`    | [infrastructure-kinds](azure/infrastructure-kinds.md)                         |
 | `ADR-AZ-WAF-RE`     | [reliability](azure/waf/reliability.md)                                       |
 | `ADR-AZ-WAF-SE`     | [security](azure/waf/security.md)                                             |
 | `ADR-AZ-WAF-CO`     | [cost-optimization](azure/waf/cost-optimization.md)                           |
@@ -341,6 +342,7 @@ skips a repeated scan over an unchanged globset.
 | `ADR-REPO-PROTGLOB`    | [protected-globs](repository/protected-globs.md)                       |
 | `ADR-REPO-PLANS`       | [plans](repository/plans.md)                                           |
 | `ADR-REPO-SLIDES`      | [slides-as-markdown](repository/slides-as-markdown.md)                 |
+| `ADR-REPO-REPOKIND`    | [repository-kinds](repository/repository-kinds.md)                     |
 
 ### research/
 
@@ -397,6 +399,11 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   enforcing file as a pointer, but do not reproduce value tables, pasted `@{ }` rule blocks, or per-rule on/off lists — that duplication
   drifts. Naming a value in order to justify it (for example, "UTF-8, because a BOM breaks `git diff`") is fine; a bare value list with no
   rationale is not.
+
+- **`automation/` is engine-neutral; a language's ADRs sit in `automation/<language>/`.** An ADR in `automation/` states its rules for any
+  engine, and the language's spellings and samples live in the twin under `automation/<language>/` (`Test-AdrEngineNeutrality` judges the
+  rules). A language with its own code prefix is its own domain, and its `folder` in `adrs.yml` points into `automation/`, so `ADR-PWSH-*`
+  keeps its codes while its pages sit in `automation/pwsh/`; a code names the rule, never the path.
 
 - **References point one way: code to ADR.** Code, function help, sample headers, and READMEs cite the relevant ADR; an ADR never links back
   to sample or example code, because that couples durable rationale to code churn. The "How this is enforced" sections that _name_ an

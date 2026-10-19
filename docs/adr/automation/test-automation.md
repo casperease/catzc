@@ -430,7 +430,7 @@ files and parse them (a syntax tree, or just a file name), build the list, then 
 or inspect a loaded session to derive a fact that is a pure function of the files on disk — that is slow, indirect, and couples the test to
 load mechanics instead of to the thing being checked. The shapes to copy are the `Test-SourceConventions` (global function-name uniqueness)
 and `Test-FolderConventions` quality gates: scan the tree, build the list, assert. A _logic_ test that exercises importer behaviour itself —
-the bootstrap sandbox cases in `Import-AllModules.Tests.ps1` — legitimately runs the importer, because there the loader _is_ the unit under
+the bootstrap sandbox cases of the `Import-AllModules` tests — legitimately runs the importer, because there the loader _is_ the unit under
 test, not a static fact about the files. Enforced in review.
 
 ### Generic integrity tests
@@ -447,13 +447,13 @@ cannot happen.
 The design is two-layered, and the split falls out of [ADR-AUTO-TEST-ONECATEGORY](#rule-adr-auto-test-onecategory)'s logic-vs-integrity
 line:
 
-- **Generic integrity** (`Build-Bicep.Integrity.Tests.ps1`) loops `Get-BicepTemplateNames` and asserts, for _every_ shipped template: it
+- **Generic integrity** (the `Build-Bicep` integrity tests) loops `Get-BicepTemplateNames` and asserts, for _every_ shipped template: it
   builds, it renders one parameter file per slot, each is valid, and **any** Key Vault reference present is well-formed (ARM vault-id shape,
   non-empty secret). It asserts the _shape_ of a reference, never _which_ parameter is one — that is template-specific knowledge it must not
   carry. A template added later is covered with no new test.
 - **Positive, per-template behaviour** belongs to a **logic** test on a **fixture**. The reason it cannot be generic is structural: a
   PrePost hook's contract ("`sqlAdminPassword` becomes a reference to `<short>-sql-admin-password` in the foundation vault") lives as
-  imperative code in that template's `PrePost.psm1`, not as data a generic test could read. So the mechanism is proven once, on the
+  imperative code in that template's PrePost module, not as data a generic test could read. So the mechanism is proven once, on the
   `sample-with-prepost` fixture, which injects a Key Vault reference whose secret name is derived from the _fixture's_ own `short_name` and
   whose vault id is built from the _fixture's_ resolved subscription — fixture identities (ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES),
   asserted against the fixture, binding to nothing in production.
@@ -466,8 +466,8 @@ template _name_ dimension: production identities flow into the generic check as 
 `Isolation comes from seams, not from editing production`
 
 The codebase isolates the _template tree_ behind a mockable private function, `Get-BicepTemplatesRoot`, so discovery can be redirected to a
-fixture tree. Config has its own seam: `Get-Config` (in `Catzc.Base.Config`) finds a config's file by scanning `automation/pwsh/*/configs/`
-through the private `Resolve-ConfigEntry`, so a logic test isolates a config by **mocking `Resolve-ConfigEntry`** to return a fixture
+fixture tree. Config has its own seam: `Get-Config` (in `Catzc.Base.Config`) finds a config's file by scanning `pwsh/*/configs/` through the
+private `Resolve-ConfigEntry`, so a logic test isolates a config by **mocking `Resolve-ConfigEntry`** to return a fixture
 `@{ Name; Module; Path }` pointing at a fixture file (or by mocking `Get-Config` outright). **A seam is a single function that names _where_
 an input comes from**, with one production answer and a test override; it is the [poka-yoke](../principles/poka-yoke.md) way to isolate
 without touching production data.
@@ -533,7 +533,7 @@ and a run includes every ring up to its top tier:
 flowchart TB
     subgraph ring4["L4 ring — the released system: pre-prod · production, after final approval"]
         subgraph ring3["L3 ring — state outside the repository: the cloud · the user's environment · installed tools"]
-            subgraph ring2["L2 ring — local tools: git · az bicep build · python · dotnet · Pester"]
+            subgraph ring2["L2 ring — local tools: git · az bicep build · python · dotnet · the test runner"]
                 core(["core — the code alone<br/>L0 / L1, every boundary mocked"])
             end
         end
@@ -547,15 +547,15 @@ flowchart TB
 
 - **L0 / L1 — the core.** Pure logic + orchestration wiring, with every external boundary mocked. Deterministic and hermetic. Run on every
   change. (The tier tag is mandatory — there is no default; see ADR-AUTO-TEST-TWOMANDATORYTAGS.)
-- **L2 — vertical, through the local-tool ring.** Drives a local tool for real — `git`, `az bicep build`, `python`, `dotnet`, `poetry`,
-  Pester, … No cloud. Runs on a devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool is
-  absent. The pipelines pin `-Level 2`, the CI gate's fast build validation and the BVT; `-Level 1` excludes L2 for a core-only pass.
+- **L2 — vertical, through the local-tool ring.** Drives a local tool for real — `git`, `az bicep build`, `python`, `dotnet`, `poetry`, the
+  test runner, … No cloud. Runs on a devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool
+  is absent. The pipelines pin `-Level 2`, the CI gate's fast build validation and the BVT; `-Level 1` excludes L2 for a core-only pass.
 - **L3 — vertical system tests, through both rings.** Changes or depends on state outside the repository: the real cloud APIs (maybe through
   a CLI tool, e.g. `az deployment create` / `az account show`), the user's persistent environment, installed tools. It **self-skips** when
   its prerequisite (cloud access, the platform) is missing, and runs only in the working folder itself (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE),
   so a devbox run that owns the folder includes it by default. This is the integration sliver that [fail-fast](fail-fast-with-asserts.md)
   argues you cannot rely on alone — kept thin, one test per distinct outside boundary, each a worked example of its kind (the
-  persistent-environment seam's real round trip, `Set-PermanentEnvironmentVariable.Tests.ps1`, is one). A test that only drives a local tool
+  persistent-environment seam's real round trip, the `Set-PermanentEnvironmentVariable` test, is one). A test that only drives a local tool
   inside the repository is L2.
 - **L4 — the released system, after final approval.** Checks the RBC-cleared artifact where it runs: pre-prod, then production
   (ADR-AUTO-TEST-TESTINGINPRODUCTION), the stages [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) owns. L3
@@ -622,9 +622,9 @@ exit-code contract — so each remaining test buys coverage no L0 test can. Case
 rendered values are a single skeleton plus redundant copies.
 
 `Build-Bicep` is the worked pattern. The per-template behaviour — parameter-file names, customer prefixes, indexed slots, the vnet ranges
-merged by the PrePost seam, the injected Key Vault reference — lives in the `Build-Bicep.Sample*.Tests.ps1` **L0** blocks, which mock
-`Invoke-AzCli` so no real build runs and each assertion is a sub-millisecond check on the rendered artifact. `Build-Bicep.L2.Tests.ps1` is
-the walking skeleton: a very few real-`az` builds, one per distinct compiler concern — a resource-group-scoped build wiring `main.json`
+merged by the PrePost seam, the injected Key Vault reference — lives in the `Build-Bicep` sample tests' **L0** blocks, which mock
+`Invoke-AzCli` so no real build runs and each assertion is a sub-millisecond check on the rendered artifact. The `Build-Bicep` L2 test file
+is the walking skeleton: a very few real-`az` builds, one per distinct compiler concern — a resource-group-scoped build wiring `main.json`
 alongside its parameter files, a subscription `targetScope` compiling, a reusable module inlined into `main.json` — not one per sample
 template. A new sample that varies only its inputs adds L0 rule-checks and no new real build.
 
@@ -711,9 +711,9 @@ the user's **system-test lock** — a machine-wide named mutex keyed on the user
 takes the working folder tries it without waiting: taken, the run executes L3; held, the run stays in place for every other tier, skips L3,
 and names the holder and its checkout. One run per user account runs system tests at a time, and no run ever waits. A system test still
 works on state it owns and removes it whatever happens, never on a shared value such as the user's real `JAVA_HOME`: the lock serialises the
-system tests the harness starts, not the user's own shell, a direct `Invoke-Pester`, or the leftover of a run that died before its cleanup.
-So it names each scratch resource per run (ADR-AUTO-TEST-NAMEDSCRATCHRESOURCES) — a fixed name would let one of those meet the test's own
-state, and the test would pass or fail depending on what else ran.
+system tests the harness starts, not the user's own shell, a direct call of the test runner, or the leftover of a run that died before its
+cleanup. So it names each scratch resource per run (ADR-AUTO-TEST-NAMEDSCRATCHRESOURCES) — a fixed name would let one of those meet the
+test's own state, and the test would pass or fail depending on what else ran.
 
 ### Source and build runs
 
@@ -765,8 +765,8 @@ A Python test folder runs the same way through the same bridge ([python-test-art
 ([bash-test-artifacts](bash/bash-test-artifacts.md)): each `@test` is one test, a name starting `integrity:` is `integrity`, the tests run
 on the vendored bats under the bash engine only, and without bash the bridge skips with `tool_bash_missing`. The Go and Python tests run
 once per execution engine, each title ending in `[pwsh]`, `[bash]` or `[zsh]` ([execution-engines](execution-engines.md)). The bridge is one
-mechanism with one entry per language, so a further test language adds an entry, not a second bridge; in pwsh it is one Pester container
-([pester-testing](pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)).
+mechanism with one entry per language, so a further test language adds an entry, not a second bridge; in pwsh it is one test-runner
+container ([pester-testing](pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)).
 
 ### Tests and test files
 

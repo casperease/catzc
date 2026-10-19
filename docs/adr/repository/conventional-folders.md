@@ -117,11 +117,12 @@ list that orders them.
 
 ## Context
 
-A mono-repository without a fixed folder structure degenerates into a naming negotiation. Every new module, every new config file, every new
-test file raises the same questions: where does this go? What do I call the folder? Do I need to tell something about it? The answers depend
-on who you ask, what existed before, and what the last person did. Over time the layout drifts — one module puts helpers in `internal/`,
-another in `helpers/`, a third in `util/`. Tooling cannot program against a layout that changes per module, so configuration files, path
-arguments, and environment variables proliferate to bridge the gap.
+A product mono-repository ([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)) without a fixed folder
+structure degenerates into a naming negotiation. Every new module, every new config file, every new test file raises the same questions:
+where does this go? What do I call the folder? Do I need to tell something about it? The answers depend on who you ask, what existed before,
+and what the last person did. Over time the layout drifts — one module puts helpers in `internal/`, another in `helpers/`, a third in
+`util/`. Tooling cannot program against a layout that changes per module, so configuration files, path arguments, and environment variables
+proliferate to bridge the gap.
 
 This platform takes the opposite approach. The folder structure is fixed, semantic, and the same everywhere. Tooling hardcodes the
 well-known names directly. There are no path parameters, no configuration files mapping folder names to meanings, and no per-module
@@ -175,7 +176,8 @@ folders. When the folder name IS the meaning, there is no mapping to maintain, n
 `Why hardcoding paths is a feature`
 
 The instinct from application development is that hardcoded paths are a smell. In application code, that instinct is correct — you want to
-inject dependencies so you can test against fakes. In a mono-repo's internal tooling, the calculus is different:
+inject dependencies so you can test against fakes. In the product mono-repository's internal tooling
+([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)), the calculus is different:
 
 - **The paths are not external dependencies.** They are internal conventions under our control. Nobody is going to swap in a different
   `private/` folder the way you swap a database connection. The flexibility that injection provides has no consumer.
@@ -193,6 +195,11 @@ inject dependencies so you can test against fakes. In a mono-repo's internal too
 The codebase does this consistently: `New-DynamicManifest` hardcodes `'private'`, `Test-Automation` hardcodes `'tests'`, `Import-AllModules`
 filters on `'^\.'`, `Install-VendorModule` hardcodes `'pwsh/.vendor'`, and the importer (`importer.ps1` and its `Invoke-Importer` overlay)
 hardcodes `'.internal'` and `'.vendor'`.
+
+A literal folder name is for a module-internal contract folder like these, never for a track's place: where a track's files live varies by
+repository kind ([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)), so code finds a place, or a named
+kind inside one, through the track
+([ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-adr-dsgn-track-subscribablenotpathcoupled)).
 
 ### A test-language root as a setting
 

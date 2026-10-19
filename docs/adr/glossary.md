@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "42b3d53cb4f3"
+    with_body_sha: fac45aa9f1d5
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -1201,6 +1201,18 @@ platform change is a new draft.
   - [provided contract](#provided-contract): A provided contract is a promise to an outside consumer, kept while the consumer pins that
     version of its unit; a depended-on contract records what a platform requires and follows the platform.
 
+### diagram declaration
+
+The `diagram.yml` beside a `diagram.drawio.png` — `content:` says what the diagram shows in the kit's closed vocabulary, `layout:` where a
+named cell sits; put renders it into the drawing and get reads the drawing back into it.
+
+- **Defined by:** [ADR-REPO-SLIDES-DECLARATION](repository/slides-as-markdown.md#rule-adr-repo-slides-declaration)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Slides/configs/glossary.yml`
+- **Contrasts:**
+  - [slide file](#slide-file): A slide file is markdown prose a pattern fills; a diagram declaration is yml the kit renders into a draw.io
+    model.
+
 ### domain
 
 A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its role and the domains it depends on.
@@ -1472,6 +1484,8 @@ heading a field, and its head names the pattern, the deck and the order.
 - **Source:** `pwsh/Catzc.Base.Slides/configs/glossary.yml`
 - **Contrasts:**
   - [deck file](#deck-file): The deck file names the deck's title and sections; a slide file is one slide of it.
+  - [diagram declaration](#diagram-declaration): A diagram declaration is yml the kit renders into a draw.io model; a slide file is markdown
+    prose a pattern fills.
 
 ### source
 

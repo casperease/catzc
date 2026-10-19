@@ -4,7 +4,7 @@
 
 ### Rule ADR-PWSH-VENDOR-VERSIONEDVENDORFOLDER
 
-Vendor modules into `automation/pwsh/.vendor/<ModuleName>/<Version>/`; the version folder fixes the load path and makes upgrades visible in diffs. This
+Vendor modules into `pwsh/.vendor/<ModuleName>/<Version>/`; the version folder fixes the load path and makes upgrades visible in diffs. This
 is how a third-party PowerShell module becomes an internal module dependency, vendored and named (ADR-AUTO-DEPM-INTERNALVENDORED).
 
 - [Vendoring solves all three](#vendoring-solves-all-three)
@@ -56,9 +56,9 @@ dependencies are vendored, and the gallery (or the configured feed) is reached o
 
 ## Context
 
-[controlling-module-dependencies](../automation/controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) makes every internal
+[controlling-module-dependencies](../controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) makes every internal
 module dependency vendored and named, committed in the tree with nothing to fetch, and
-[effective-in-enterprises](../automation/effective-in-enterprises.md) assumes a machine with no network access at runtime. This ADR is how
+[effective-in-enterprises](../effective-in-enterprises.md) assumes a machine with no network access at runtime. This ADR is how
 the PowerShell modules the toolset depends on are vendored.
 
 PowerShell modules from the gallery change without notice. A `2.x` version that worked yesterday can behave differently today because the
@@ -75,7 +75,7 @@ gallery resolved a different patch version on a different machine. This causes t
 
 ### Vendoring solves all three
 
-Vendoring means checking the module's files directly into the repository under `automation/pwsh/.vendor/<ModuleName>/<Version>/`, committed as every
+Vendoring means checking the module's files directly into the repository under `pwsh/.vendor/<ModuleName>/<Version>/`, committed as every
 internal dependency is (ADR-AUTO-DEPM-INTERNALVENDORED). The module loads from disk with no network call, no version resolution, and no
 surprises.
 
@@ -103,12 +103,12 @@ The Azure PowerShell modules (`Az.*`) are not vendored. They are too large (hund
 changes, and carry .NET assembly dependencies that conflict when multiple versions coexist in-process. Vendoring them would bloat the
 repository and create assembly-loading issues.
 
-See [ADR: prefer-az-cli](../azure/prefer-az-cli.md) for how we handle Azure operations without depending on Az modules.
+See [ADR: prefer-az-cli](../../azure/prefer-az-cli.md) for how we handle Azure operations without depending on Az modules.
 
 ### Pruned folders
 
 A gallery package ships content for hosts and features this toolset never uses, and every tracked byte costs on each clone and on every read
-of the whole repository: the protection identities hash every tracked file ([protected-globs](../repository/protected-globs.md)). Two kinds
+of the whole repository: the protection identities hash every tracked file ([protected-globs](../../repository/protected-globs.md)). Two kinds
 of folder are pruned:
 
 - **Legacy .NET Framework builds** (`net4x` and older). The toolset targets PowerShell 7.4+ on .NET, so it never loads them.
@@ -118,14 +118,14 @@ of folder are pruned:
 
 ## Decision
 
-All PowerShell module dependencies used by the toolset are vendored in `automation/pwsh/.vendor/`, and nothing calls the gallery at runtime. Az
+All PowerShell module dependencies used by the toolset are vendored in `pwsh/.vendor/`, and nothing calls the gallery at runtime. Az
 PowerShell modules are excluded.
 
 ### How this is enforced
 
 - **`Catzc.Base.Vendor`** — owns the vendored-module lifecycle. `Install-VendorModule` is the only supported way to add one: it downloads
   with `Save-PSResource` from the configured source (`vendor.yml` — the PowerShell Gallery by default, or a custom feed) into the correct
-  `automation/pwsh/.vendor/<Name>/<Version>/` structure, then prunes the folders the toolset never loads ([Pruned folders](#pruned-folders)). It runs
+  `pwsh/.vendor/<Name>/<Version>/` structure, then prunes the folders the toolset never loads ([Pruned folders](#pruned-folders)). It runs
   at authoring time, never at runtime. `Remove-VendorModules` deletes only after `Assert-VendorModuleAvailable` confirms the source can
   restore each target, so removal is always reversible. It uses the bundled `Microsoft.PowerShell.PSResourceGet` (PowerShell 7.4+), not a
   vendored dependency of its own.

@@ -132,16 +132,23 @@ that fails it (a glyph outside the library, an element get cannot name) is the r
   the thesis deck: `21 slide(s) rendered`, `0 fault(s)`; `Build-Diagrams -DryRun` names the new renderer path; `Test-Comments`,
   `Test-GeneratedFiles`, `Test-Links`, `Test-AgentDefinitions`: no issues (20:50).
 
+- The reference article `docs/references/python/catzc-diagrams.md` and the `python/*` pattern in `readme.yml`:
+  `Build-Readme -Folder python/Catzc.Diagrams` writes `python/Catzc.Diagrams/README.md`; `Test-Links` on both: `No links issues found.`
+  (21:09).
+- The yml declaration, `python/Catzc.Diagrams/declaration.py`: one schema (`content:` with title, adrs, lens, kind, flow, theme, bands,
+  spans over bands, groups that nest through `in`, glyphs with kind and holder, edges, markers, chips, legend, three minimaps; `layout:` per
+  named cell), one parser whose every vocabulary is closed and names the allowed values on refusal, put (yml to model XML to raster through
+  `drawio_png`, the grid placing what `layout:` does not name, the legend and sidebar derived) and get (model XML to yml by the glyph
+  library's style signatures, band containment and parent groups, a layout entry kept only where a cell sits off the grid). The vocabularies
+  live in `configs/drawio.yml` (`kinds`, `themes`, `minimaps` with the ids and the two kind defaults, `vocabularies` with the span word
+  lists); `pyyaml` joins `python.yml`; the crossbar paints rotated for top-to-bottom flow. Rules 8 and 9 of ADR-REPO-SLIDES (`DECLARATION`,
+  `TWODIRECTIONS`) and the glossary term landed with it. Checks: `tests/test_declaration.py` proves put then get the same yml, get then put
+  the same XML, a span label outside the vocabularies refused with the words, a nested group round trip, grid placement and a moved cell
+  kept, top-to-bottom, the minimap defaults and count, and the embedded png read back; kit pytest `43 passed`; ruff and pyright clean;
+  `Test-Spelling`: no issues (21:11).
+
 ## Open steps
 
-- [ ] `docs/references/python/catzc-diagrams.md`, the module's reference article in the shape `docs/references/pwsh/CLAUDE.md` gives, and a
-      `python/*` pattern in `readme.yml`, so `Build-Readme` writes the module's README like every other module's (check:
-      `Build-Readme -Folder python/Catzc.Diagrams` writes it; `Test-Links` on both passes).
-- [ ] Define the yml declaration: one schema with `content:` (`bands`, `glyphs`, `spans` with label and covered columns or bands, `groups`
-      that may nest, `minimaps` of three ids, `legend`, `flow` left-to-right default or top-to-bottom, `theme`) and `layout:` (per named
-      cell), one parser, and the two commands, **put** (yml to embedded XML to raster) and **get** (embedded XML to yml) (check: put then
-      get returns the same yml and get then put the same XML in a test; a span label outside the declared vocabularies fails validation; a
-      nested group round-trips; a cell without `layout:` is placed by the grid).
 - [ ] Add the drift gate, `Test-Diagrams`, that runs get on every committed png and fails when the result differs from the committed yml
       (check: the gate passes on a folder whose yml came from get; it fails when one label in the yml is edited and not put).
 - [ ] `Test-Diagrams` detects a conflict: when the yml differs from get of the png in `content:` and the png's XML differs from put of the
@@ -193,6 +200,17 @@ that fails it (a glyph outside the library, an element get cannot name) is the r
       `drawio-diagram-waves` and `print-artifacts` call the new skill).
 - [ ] Fix the four diagrams below once the steps above are done, one diagram at a time (check: each is put from its declaration and reviewed
       by the user; blocked on the renderer steps).
+- [ ] Re-point the four `docs/explanation/repository` pages and their slides that still describe root configs as hard links and cite the
+      retired `ADR-REPO-ROOTCFG-FILESYSTEMLINK`, to the headed copy and `ADR-REPO-ROOTCFG-HEADEDCOPY`, one page and its diagram at a time
+      (handed over from `plan-generated-file-heads`; the retired code's six hits in `one-registry-one-writer-two-primitives`,
+      `opted-in-then-link-copy-or-render` and `three-gates-check-registry-drift-membership` also fail Test-Spelling's real-repo test; check:
+      `git grep FILESYSTEMLINK docs/explanation` finds nothing; `Test-Links`, `Test-Adr` and `Test-Spelling` on the pages pass).
+- [ ] Relabel the old `pipelines/` path in three flow drawings: `apex-thirteen-rules-seven-includes-six-excludes` (element 8),
+      `globs-projects-and-three-consumers-read` (element 8) and `print-projection-then-drift-names-the-filter` (elements 3 and 8) (handed
+      over from `plan-ado-and-cicd-docs`; check: get of each png shows no `pipelines/` label; each is put and reviewed).
+- [ ] Rewrite `docs/adr/pwsh` to `docs/adr/automation/pwsh` in
+      `docs/explanation/automation/.assets/what-gates-each-bundle-stage/{chain,grid,tree}.md` (handed over from `plan-adr-automation-split`;
+      check: `Test-Links` on the three pages passes; the re-render step regenerates them from the same data afterwards).
 - [ ] Move ADR-DSGN-LIFE to `docs/adr/flow` with `Update-AdrCitation` re-citing its codes (check: Test-Adr and Test-Links clean;
       `plan-promotion-ladder` re-points its target).
 - [ ] The IaC explanation diagram of the three kinds, from `plan-iac-and-repo-placement`: article and yml declaration under
@@ -233,6 +251,7 @@ The facts below are the ones the file-meta kinds already produce (`file-meta.yml
 
 ## Refs
 
-- `.claude/drawio/drawio.yml`, `.claude/drawio/minimaps/render.py` (grid, chain, tree) and `describe.py` (the sister files).
+- `python/Catzc.Diagrams/configs/drawio.yml`, `minimap_render.py` (grid, chain, tree), `minimap_describe.py` (the sister files) and
+  `declaration.py` (the yml declaration, put and get).
 - `plan-iac-and-repo-placement` authors five explanation diagrams as yml declarations in this plan's format and waits on the renderer steps.
 - Memory: minimap-placements-reasoned, diagram-slides-symbols-plus-articles, render-nothing-without-asking.

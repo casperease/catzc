@@ -30,6 +30,14 @@ kinds are defined.
   configuration slot, change a reusable module and see its fan-out to the templates that use it, add a template, add an environment slot. A
   configuration slot is one `<env>[-<slot>].yml` file of a template that deploys one subscription's resource group (the glossary term). They
   are authored as yml declarations in the format of `plan-diagram-engine` and wait for its renderer.
+- The kinds are named by an optional `kinds:` map on a track entry (the orchestrator on the user's delegation, 2026-10-19, as catzc-08
+  recommended): kind -> place pattern, each inside one of the track's places, one `*` segment allowed
+  (`templates: infrastructure/templates`, `configs: "infrastructure/templates/*/configuration"`, `modules: infrastructure/modules`); a typed
+  `kinds` property on `VariantTrack` (snake_case mirror) and a public resolver `Get-TrackPlace -Track <name> -Kind <kind>`; track membership
+  (places, longest wins) is unchanged, and a consumer repo maps the kinds in its own `variants.yml`. Rejected: three tracks (splits one
+  tech-stack across three tracks, ADR-DSGN-TRACK-ONETECHSTACK, and still cannot place the nested configs without wildcard places), and three
+  module types in `module-types.yml` (the kinds become module shapes, not the track places decided above, and the nested configs still need
+  a pattern). The rule lands in the IaC-kinds ADR step.
 
 ## What the tree holds (checked 2026-10-19)
 
@@ -49,24 +57,41 @@ kinds are defined.
 
 ## Open steps
 
-- [ ] Split the `infrastructure` track's places in `variants.yml` into the three named kinds (templates, configs, reusable modules), with
+- [x] Split the `infrastructure` track's places in `variants.yml` into the three named kinds (templates, configs, reusable modules), with
       the configs place covering each template's `configuration/` folder (check: Test-Variants clean; Test-TrackDeclaration clean; the track
-      resolves the same files). - Open question for the user (raised by catzc-08, 2026-10-19): a track's `places` is a flat list of path
-      prefixes, so a place has no name and no wildcard, and each template's `configuration/` sits inside the template. How are the three
-      kinds named? 1. (Recommended) An optional `kinds:` map on a track entry, kind -> place pattern inside the track's places, with one `*`
-      segment allowed (`configs: infrastructure/templates/*/configuration`), typed on `VariantTrack` and read through a resolver. Track
-      membership is unchanged, and a consumer repo maps each kind in its own `variants.yml`. 2. Three tracks (templates, configs, modules):
-      against, because it splits one tech-stack across three tracks (ADR-DSGN-TRACK-ONETECHSTACK) and still cannot place the nested configs
-      without wildcard places. 3. Three module types in `module-types.yml`: against, because the kinds become module shapes, not the track
-      places the user decided, and the nested configs still need a pattern.
-- [ ] Re-point the five literal paths above to the track's places, one file at a time, starting with `Get-BicepTemplatesRoot.ps1` (check:
+      resolves the same files). The naming is decided above (a `kinds:` map, `Get-TrackPlace`). Verdict 2026-10-19: `VariantTrack.kinds` and
+      `KindPlace()`, `VariantsConfig` reads and validates `kinds:` (kebab-case kind, a pattern inside one of the track's places, at most one
+      `*` segment), `Get-TrackPlace`; VariantsConfig, Get-TrackPlace (L0 and the real three kinds) and Get-Track tests Passed in a fresh
+      import; Test-TrackDeclaration passes; all 46 infrastructure files still resolve to the `infrastructure` track. No Test-Variants gate
+      exists.
+- [x] Re-point the five literal paths above to the track's places, one file at a time, starting with `Get-BicepTemplatesRoot.ps1` (check:
       the file's test under `Invoke-TestFile` passes; `git grep "infrastructure/"` under `pwsh/` finds only `variants.yml` and comments).
-- [ ] Write the ADR rule that names the three IaC kinds and says a track, not a path, places them (check: Test-Adr clean; the rule sits in
+      Verdict 2026-10-19: `Get-BicepTemplatesRoot` and `Get-LiveIdentityTokens` resolve the templates kind, `Test-ConfigIdentityHygiene`
+      walks the track's places, `Test-Spelling` and `Export-SpellingTriage` exclude `<configs kind>/**`; Get-BicepTemplatesRoot (new),
+      Get-BicepTemplates, Assert-BicepTemplate, Get-LiveIdentityTokens, Test-ConfigIdentityHygiene and Export-SpellingTriage tests Passed;
+      Test-Spelling's L0 tests pass, and its L1 real-repository run fails on 10 words that are not in this chunk's files (a scoped run over
+      every file changed here finds none). Decided (catzc-2f [2a36a7], 2026-10-19): the grep still finds the paths in static data, which
+      cannot call the resolver and stay literal config a consumer repo edits for itself: the `file-kinds.yml` globs, the root `cspell.yml`
+      asset's `ignorePaths`, and test fixtures that declare their own paths.
+- [x] Write the ADR rule that names the three IaC kinds and says a track, not a path, places them (check: Test-Adr clean; the rule sits in
       `docs/adr/azure` and the index lists the code; it cites ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER and
-      ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
-- [ ] Write the ADR rules that define a repo: mono-repo, consumer repo, no repo, with `eac`'s docs as inspiration only, and re-point the
+      ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED). Verdict 2026-10-19: `docs/adr/azure/infrastructure-kinds.md` (ADR-AZ-IACKIND, THREEKINDS
+      and TRACKPLACESKINDS, citing both track rules) with its azure `dora-explains.md` entry and the `adrs.yml` ruleset; Build-AdrIndex
+      lists `ADR-AZ-IACKIND`; Test-AdrRegistry "No adr-registry issues found."; Test-Spelling over the two pages clean; Test-Links' one
+      issue is the new page being untracked until the user's commit.
+- [x] Write the ADR rules that define a repo: mono-repo, consumer repo, no repo, with `eac`'s docs as inspiration only, and re-point the
       four bare "mono-repository" uses to the rule (check: Test-Adr clean; the rules sit in `docs/adr/repository` and the index lists the
-      codes).
+      codes). Verdict 2026-10-19: `docs/adr/repository/repository-kinds.md` (ADR-REPO-REPOKIND-THREEKINDS, -CONSUMERREPO, -NOREPO) with its
+      `dora-explains.md` entry and `adrs.yml` ruleset; the four uses in `api-contracts.md` and `conventional-folders.md` cite
+      ADR-REPO-REPOKIND-THREEKINDS; Build-AdrIndex lists `ADR-REPO-REPOKIND`; Test-AdrRegistry, Test-Glossary, Test-Links and Test-Spelling
+      over the four pages "No … issues found." Decided (catzc-2f [2a36a7], 2026-10-19): the product mono-repository keeps its one definition
+      (ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY, the glossary term); the new ADR names it through the glossary instead of citing the thesis
+      code, because the repository domain does not depend on thesis (Test-AdrRegistry refuses the citation). From `eac`'s trunk page the
+      idea taken was naming repository kinds at all; its poly/mono split was not, since catzc's kinds are where the tooling runs, not how
+      code is split. Done (the orchestrator on the user's delegation, 2026-10-19): `conventional-folders.md`'s "hardcoded paths" section
+      says a literal folder name is for a module-internal contract folder, never for a track's place, citing ADR-REPO-REPOKIND-THREEKINDS
+      and ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED (not ADR-AZ-IACKIND, because the repository domain does not depend on azure);
+      Test-AdrRegistry, Test-Glossary, Test-Links and Test-Spelling on the page found no issues.
 
 ## Refs
 

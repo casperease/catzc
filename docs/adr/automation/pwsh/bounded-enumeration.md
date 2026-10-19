@@ -59,7 +59,7 @@ The cost grows with the repository, so a command that is fast today slows down a
 
 The walker answers "what is on disk below this folder", which includes an untracked file and leaves out a deleted one. "Which files does git
 track" is a different question with its own seam, `Get-GitTrackedPath`
-([tracked-files-from-the-index](../automation/tracked-files-from-the-index.md), `ADR-AUTO-TRACKED-ONESEAM`). Code that scopes itself by what
+([tracked-files-from-the-index](../tracked-files-from-the-index.md), `ADR-AUTO-TRACKED-ONESEAM`). Code that scopes itself by what
 is committed asks that seam and never walks the folder; code that needs what is actually present, such as a build input, a fixture tree, a
 report folder, or a freshly written file, walks.
 
@@ -98,7 +98,7 @@ nobody noticed.
 
 ### Pruned, and never through a link
 
-A search for `*.yml` below `automation/pwsh/` should not return the vendored modules' files, and a search below the repository root should not enter
+A search for `*.yml` below `pwsh/` should not return the vendored modules' files, and a search below the repository root should not enter
 `.git`. Pruning by folder name, before descending, is far cheaper than filtering a full listing afterwards.
 
 Vendor pruning is a global config value rather than a list entry or a parameter default, because the same repository question, "do searches
@@ -131,7 +131,7 @@ pruned and links never entered. Back it with a compiled type. Code that loads be
 - **`Get-ChildPath` and `FolderWalker`** — the one walk; its tests cover the default depth, an explicit depth, pruning, ordering, a missing
   root, a tree deeper than the depth that is never entered, and a link that is listed and not followed.
 - **`folder-walk` config** — `Test-ShippedConfigs` validates the shipped values against the config type that declares the defaults.
-- **Custom PSScriptAnalyzer rule `Measure-NoUnboundedEnumeration`** (`automation/pwsh/.scriptanalyzer/NoUnboundedEnumeration.psm1`, severity: Error) —
+- **Custom PSScriptAnalyzer rule `Measure-NoUnboundedEnumeration`** (`pwsh/.scriptanalyzer/NoUnboundedEnumeration.psm1`, severity: Error) —
   flags `Get-ChildItem` and its aliases on a filesystem path (ADR-PWSH-ENUM-RAWDOTNETENUMERATION) and
   `[System.IO.SearchOption]::AllDirectories` (ADR-PWSH-ENUM-ALWAYSBOUNDED). A literal provider path (`env:`, `function:`, `HKLM:`) is left
   alone, a provider listing through a variable carries a justified suppression. Test files are covered like any other code.

@@ -86,7 +86,7 @@ ADR-AUTO-PRELOG-SILENTSWITCH is the one way a call leaves it out.
 
 ## Context
 
-[console-output-matters](../automation/console-output-matters.md) decides what the console shows: status for the user running the
+[console-output-matters](../console-output-matters.md) decides what the console shows: status for the user running the
 automation, diagnostic detail for the user diagnosing it, and an announcement of every lasting change to the session. This ADR is how pwsh
 does it. Dot-sourcing `importer.ps1` into a session loads modules and a compiled types assembly, sets preferences, moves `PATH` entries, and
 points environment variables at tool homes; an installer rewrites `PATH` and the user environment; a quality gate lazy-loads Pester.
@@ -128,7 +128,7 @@ exception either. The host renders an information record to stdout exactly as it
 ### The output hierarchy
 
 PowerShell has built-in output streams and this toolset defines some more. Each carries one of the audiences of
-[console-output-matters](../automation/console-output-matters.md):
+[console-output-matters](../console-output-matters.md):
 
 | Stream                    | When to use                                                                                          | Visible by default |
 | ------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------ |
@@ -177,7 +177,7 @@ The session state of ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES, and the PowerShell
 | Line editor, type and format data             | `Set-PSReadLineOption`, `Set-PSReadLineKeyHandler`, `Update-TypeData`, `Update-FormatData`         |
 | What the next session starts with             | the user and machine environment, the PowerShell profile                                           |
 
-A .NET assembly cannot be unloaded, so the importer names the assembly it loads (`Loaded types automation/pwsh/.compiled/Catzc.Types.<hash>.dll`), the
+A .NET assembly cannot be unloaded, so the importer names the assembly it loads (`Loaded types pwsh/.compiled/Catzc.Types.<hash>.dll`), the
 vendor modules it imports, and the modules it loads, evicts, or drops, on its verbose load record (ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE).
 
 ### Announce where it happens
@@ -207,7 +207,7 @@ The exemptions of ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES, as PowerShell spells 
 
 ### Logging a command
 
-[log-before-invoke](../automation/log-before-invoke.md) decides that every external command is logged, exactly and on every run, before it
+[log-before-invoke](../log-before-invoke.md) decides that every external command is logged, exactly and on every run, before it
 runs. In pwsh that log line is a status line like any other, so it takes the status path: `Write-Message` on the information stream.
 `Invoke-Executable` writes it for every call that goes through it, and the `Invoke-*` tool wrappers inherit it. A function that starts a
 process another way has nothing writing the line for it, so it writes the line itself, with every variable expanded, right before the call:
@@ -227,7 +227,7 @@ is never routed there, and never written only when a diagnostic switch is set.
 When the toolset runs an external tool, the tool's output streams to the console as it arrives (ADR-AUTO-CONSOLE-TOOLSSPEAK), and a parallel
 test runner relays each worker's output the same way. That output is the child's own bytes, never a PowerShell record, so the C# relays
 (`Invoke-ExecutableStreamed`'s runner, the Pester worker pool) write it to the console directly, saving and restoring the console encoding
-around the run. The command that started the child is announced before it runs ([log-before-invoke](../automation/log-before-invoke.md));
+around the run. The command that started the child is announced before it runs ([log-before-invoke](../log-before-invoke.md));
 the relay honours the same Pester-run flag as the chokepoint.
 
 ### Delegated announcements
@@ -276,12 +276,12 @@ announcement is recorded with a justified suppression. Every external command is
 
 ### How this is enforced
 
-- **`Measure-NoRawConsoleWrite`** (`automation/pwsh/.scriptanalyzer/NoRawConsoleWrite.psm1`) flags every way past the information stream: `Write-Host`,
+- **`Measure-NoRawConsoleWrite`** (`pwsh/.scriptanalyzer/NoRawConsoleWrite.psm1`) flags every way past the information stream: `Write-Host`,
   `Out-Host`, `Write-Progress`, `Clear-Host`, the `[Console]` write methods and property assignments, writes through
   `[Console]::Out`/`Error`, and the `$Host.UI` writers. It supersedes the built-in `PSAvoidUsingWriteHost`, which the analyzer settings
   exclude so a `Write-Host` is reported once. Its one justified suppression is `Set-RedirectedOutputEncoding` in the importer module, the
   exception ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT names.
-- **`Measure-AnnounceStateChange`** (`automation/pwsh/.scriptanalyzer/AnnounceStateChange.psm1`) flags a state change of the kinds in the table above
+- **`Measure-AnnounceStateChange`** (`pwsh/.scriptanalyzer/AnnounceStateChange.psm1`) flags a state change of the kinds in the table above
   that no information-stream writer (or `Write-ImporterMessage -StateChange`, ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE) in the same or an
   enclosing block announces, and passes the exemptions of ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES. It checks that a change is announced; what
   the line says is a review concern.

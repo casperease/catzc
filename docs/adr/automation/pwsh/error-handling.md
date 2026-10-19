@@ -115,7 +115,7 @@ non-terminating error mechanism internally) also terminate. Between `throw` and 
 ### The Assert-* pattern
 
 A precondition is checked with the `Assert-*` library, not an inline `if ($bad) { throw "message" }`
-([ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY](../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-useassertionlibrary); the pwsh idiom
+([ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY](../fail-fast-with-asserts.md#rule-adr-auto-failfast-useassertionlibrary); the pwsh idiom
 is [assert-idioms](assert-idioms.md#rule-adr-pwsh-assert-noinlinethrowcheck)):
 
 ```powershell
@@ -144,11 +144,11 @@ catch {
 ```
 
 Functions never catch-and-continue internally. If `Invoke-Poetry` fails, it throws. Whether to retry, fall back, or abort is the caller's
-decision ([single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors)).
+decision ([single-responsibility-functions](../single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors)).
 
 ### Temporary state
 
-[single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob-explicitstatechanges) rules out a
+[single-responsibility-functions](../single-responsibility-functions.md#rule-adr-auto-onejob-explicitstatechanges) rules out a
 function that changes ambient state as a side effect. In pwsh that state is mostly variables the caller cannot see being changed:
 `$ErrorActionPreference` and the other preferences, the location, `$env:` and `$global:` variables. Setting `$ErrorActionPreference` inside
 a function changes error handling for every call it makes and, in a dot-sourced script, for its caller too; the per-call `-ErrorAction`
@@ -170,7 +170,7 @@ A restore written after the work, outside `finally`, is skipped by the first err
 
 ### Retry
 
-[retry-as-last-resort](../automation/retry-as-last-resort.md) allows a retry only for a transient external failure, never in a test, and
+[retry-as-last-resort](../retry-as-last-resort.md) allows a retry only for a transient external failure, never in a test, and
 only in a dedicated wrapper. In a Pester test, a dependency that can flake is mocked (`Mock`), or the test is an `L3` test that marks itself
 skipped with `Set-ItResult -Skipped -Because '<reason>'` when its dependency is unavailable; a loop around the call, or a re-run of the
 failed suite, would turn a real failure green.

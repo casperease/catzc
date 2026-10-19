@@ -67,6 +67,16 @@ def at(img, x, y):
     return img.getpixel((int(x) + 20, int(y) + 20))
 
 
+def near(pixel, colour, tolerance=24):
+    """True when the pixel is the colour, up to the blend the supersampled page leaves on a shape's edge."""
+    return all(abs(a - b) <= tolerance for a, b in zip(pixel, colour))
+
+
+def dark(pixel):
+    """True when the pixel is ink on the white page: a glyph stem, even one the downsample softened."""
+    return sum(pixel) < 300
+
+
 def test_draws_an_edge_given_by_points_inside_a_group_with_its_start_arrow():
     img = rendered(
         '<mxCell id="group" value="" style="group;strokeColor=none;" vertex="1" parent="1">'
@@ -75,9 +85,9 @@ def test_draws_an_edge_given_by_points_inside_a_group_with_its_start_arrow():
         '<mxGeometry relative="1" as="geometry"><mxPoint x="10" y="50" as="sourcePoint"/><mxPoint x="190" y="50" as="targetPoint"/>'
         "</mxGeometry></mxCell>"
     )
-    assert at(img, 150, 100) == RED  # the middle of the span, the group's offset added
-    assert at(img, 69, 103) == RED  # the start arrow's head widens past the 4 px line
-    assert at(img, 231, 103) != RED  # no end arrow
+    assert near(at(img, 150, 100), RED)  # the middle of the span, the group's offset added
+    assert near(at(img, 67, 102), RED)  # the start arrow's head widens past the 4 px line
+    assert not near(at(img, 231, 103), RED)  # no end arrow
 
 
 def test_routes_an_edge_through_its_waypoints_rounding_the_corners_when_rounded():
@@ -89,10 +99,10 @@ def test_routes_an_edge_through_its_waypoints_rounding_the_corners_when_rounded(
         )
 
     square, round_ = corner(0), corner(1)
-    assert at(square, 110, 20) == RED and at(square, 200, 100) == RED  # both legs follow the waypoint, not the diagonal
-    assert at(square, 110, 100) != RED
-    assert at(square, 200, 20) == RED and at(round_, 200, 20) != RED  # the rounded corner cuts the waypoint
-    assert at(round_, 110, 20) == RED and at(round_, 200, 100) == RED
+    assert near(at(square, 110, 20), RED) and near(at(square, 200, 100), RED)  # both legs follow the waypoint, not the diagonal
+    assert not near(at(square, 110, 100), RED)
+    assert near(at(square, 200, 20), RED) and not near(at(round_, 200, 20), RED)  # the rounded corner cuts the waypoint
+    assert near(at(round_, 110, 20), RED) and near(at(round_, 200, 100), RED)
 
 
 def test_draws_no_arrowhead_for_an_edge_whose_ends_meet():
@@ -111,7 +121,7 @@ def test_places_an_edge_label_at_the_middle_of_its_routed_length():
         '<mxGeometry relative="1" as="geometry"><mxPoint x="120" y="20" as="sourcePoint"/><mxPoint x="20" y="180" as="targetPoint"/>'
         '<Array as="points"><mxPoint x="20" y="20"/></Array></mxGeometry></mxCell>'
     )
-    ink = lambda x0, x1, y0, y1: any(at(img, x, y) == (0, 0, 0) for x in range(x0, x1) for y in range(y0, y1))
+    ink = lambda x0, x1, y0, y1: any(dark(at(img, x, y)) for x in range(x0, x1) for y in range(y0, y1))
     assert ink(20, 80, 30, 60)  # beside the vertical leg: the 260 px path's middle is 30 px down it, at (20, 50)
     assert not ink(50, 110, 0, 15)  # not above the first leg's middle, at (70, 20)
 
@@ -150,7 +160,7 @@ def test_draws_a_flex_arrow_as_a_filled_block_with_a_head():
         'edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="20" y="100" as="sourcePoint"/>'
         '<mxPoint x="280" y="100" as="targetPoint"/></mxGeometry></mxCell>'
     )
-    assert at(img, 120, 100) == GREEN and at(img, 120, 103) == GREEN  # the body is a filled band, not a line
-    assert at(img, 120, 112) != GREEN  # the body is width 10
-    assert at(img, 268, 108) == GREEN  # the head is wider than the body
-    assert BLUE in (at(img, 120, 95), at(img, 120, 94), at(img, 120, 96))  # its outline
+    assert near(at(img, 120, 100), GREEN) and near(at(img, 120, 103), GREEN)  # the body is a filled band, not a line
+    assert not near(at(img, 120, 112), GREEN)  # the body is width 10
+    assert near(at(img, 267, 106), GREEN)  # the head is wider than the body
+    assert any(near(at(img, 120, y), BLUE, 90) for y in (94, 95, 96))  # its outline, a hairline the downsample blends

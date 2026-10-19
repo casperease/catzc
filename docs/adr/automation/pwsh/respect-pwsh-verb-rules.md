@@ -65,7 +65,7 @@ one of the language's true strengths.
 
 **Verbs are a shared vocabulary.** When a user sees `Get-`, they know it reads without modifying. When they see `Set-`, they know it writes.
 When they see `Test-`, they know it either answers a value or state question with a boolean, or is a quality gate
-([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate), ADR-PWSH-VERBS-GATESARETEST) that reports
+([ADR-AUTO-TEST-QUALITYGATE](../test-automation.md#rule-adr-auto-test-qualitygate), ADR-PWSH-VERBS-GATESARETEST) that reports
 every issue and throws. When they see `Assert-`, they know it throws on failure. This contract is universal across every PowerShell module,
 every vendor, every team. A user who has never seen your code can predict what `Get-Config` does from the verb alone.
 

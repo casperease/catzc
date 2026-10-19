@@ -261,6 +261,7 @@ domains:
       az-session-verification: { external: ADR-AZ-SESSION, concern: [access] }
       azure-customer-model: { external: ADR-AZ-CUSTOMER }
       landing-zones: { external: ADR-AZ-LZ }
+      infrastructure-kinds: { external: ADR-AZ-IACKIND, concern: [deploy] }
       reliability: { external: ADR-AZ-WAF-RE }
       security: { external: ADR-AZ-WAF-SE }
       cost-optimization: { external: ADR-AZ-WAF-CO }
@@ -317,6 +318,7 @@ domains:
       protected-globs: { external: ADR-REPO-PROTGLOB }
       plans: { external: ADR-REPO-PLANS }
       slides-as-markdown: { external: ADR-REPO-SLIDES, concern: [quality-control] }
+      repository-kinds: { external: ADR-REPO-REPOKIND }
 
   research:
     code: DORA # 4-letter domain code; composes ADR-DORA-<NAME> — a concise, precise capability name (no doraXXX body)

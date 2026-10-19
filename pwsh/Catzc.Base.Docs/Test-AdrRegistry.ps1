@@ -41,15 +41,15 @@ function Test-AdrRegistry {
         }
     }
 
+    # The key the file index gave each page, so a page under a domain folder that points into another domain's folder is checked against its own domain.
+    $keyOfPath = @{}
+    foreach ($entry in $index.ByKey.GetEnumerator()) {
+        foreach ($path in $entry.Value) {
+            $keyOfPath[$path] = $entry.Key
+        }
+    }
     foreach ($relative in @($rulesHeadingByPath.Keys | Sort-Object)) {
-        $segments = $relative.Split('/')
-        $domainFolder = if ($segments.Count -gt 1) {
-            $segments[0]
-        }
-        else {
-            ''
-        }
-        $key = "$domainFolder/$([System.IO.Path]::GetFileNameWithoutExtension($relative))"
+        $key = $keyOfPath[$relative]
         if (-not $registeredKeys.Contains($key)) {
             $issues.Add("docs/adr/${relative}: declares '## Rules: $($rulesHeadingByPath[$relative])' but no adrs.yml rule set registers it")
         }

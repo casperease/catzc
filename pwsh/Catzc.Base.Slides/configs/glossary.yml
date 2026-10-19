@@ -9,6 +9,7 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       deck file: The deck file names the deck's title and sections; a slide file is one slide of it.
+      diagram declaration: A diagram declaration is yml the kit renders into a draw.io model; a slide file is markdown prose a pattern fills.
   deck file:
     key: deck_file
     domain: repository
@@ -33,3 +34,13 @@ concepts:
       One `patterns/<name>.html` file of the slides kit — a section in the slide format whose placeholders name the fields it takes and
       which are required; the layout of one kind of slide.
     realized_by: { kind: prose-only }
+  diagram declaration:
+    key: diagram_declaration
+    domain: repository
+    defined_by: ADR-REPO-SLIDES-DECLARATION
+    short:
+      The `diagram.yml` beside a `diagram.drawio.png` — `content:` says what the diagram shows in the kit's closed vocabulary, `layout:`
+      where a named cell sits; put renders it into the drawing and get reads the drawing back into it.
+    realized_by: { kind: prose-only }
+    contrasts:
+      slide file: A slide file is markdown prose a pattern fills; a diagram declaration is yml the kit renders into a draw.io model.

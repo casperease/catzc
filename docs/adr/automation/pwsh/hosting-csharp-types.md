@@ -68,7 +68,7 @@ which the formatter honours, so typing `$x` at the prompt shows those properties
 
 ## Context
 
-[native-csharp-types](../automation/BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`) decides what the C# types are: one type per file, a
+[native-csharp-types](../BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`) decides what the C# types are: one type per file, a
 namespace per module, one combined assembly committed under a hash name, a fixed internal model, console-ready text. Every one of those
 types runs inside a pwsh process, which compiles the assembly, loads it, and hands its objects to PowerShell code. This ADR is how that host
 binds the types: which compiler, which references, which names pwsh callers type, and what a running pwsh can and cannot do with a changed
@@ -127,7 +127,7 @@ restore the trail, and the design leans on both:
 - **The IDE project makes the C# navigable.** With `Catzc.Types.csproj` built, every `types/*.cs` is a first-class Dev Kit symbol, so
   Go-to-Symbol on `ModuleDependencyFormat` jumps to source.
 
-A short accelerator trades some of the [spell-out ADR](../automation/spell-out-names.md)'s self-describing-name value for terseness at the
+A short accelerator trades some of the [spell-out ADR](../spell-out-names.md)'s self-describing-name value for terseness at the
 call site; the `Catzc.`-namespaced, source-authored literal is what keeps it discoverable rather than opaque.
 
 ### Stale types in a pwsh process
@@ -139,7 +139,7 @@ type names would split their identity, so a `[Catzc.…]` literal would resolve 
 loaded the old types keeps them until it ends. The loader says so in the words a person acts on — restart PowerShell — and decides
 warn-or-throw in the types pre-pass, before any module loads. It asks `Test-IsRunningInPipeline` there like every other caller, so the
 detection function is one the importer has loaded before the pre-pass runs, and the pipeline-detection variables are read in one place
-([ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK](../flow/pipeline-detection.md#rule-adr-flow-cd-detect-nodirectvariablecheck)).
+([ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK](../../flow/pipeline-detection.md#rule-adr-flow-cd-detect-nodirectvariablecheck)).
 
 A person who edits a type and imports again keeps the loaded types and sees one yellow line naming the changed types; the import goes on and
 never waits on a nested shell.
@@ -174,7 +174,7 @@ pipeline), never with a nested shell. The console text is C#, because that is th
 
 ### How this is enforced
 
-- **`Import-CSharpTypes`** (`automation/pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) compiles with `Add-Type -Path`, one compilation unit per file,
+- **`Import-CSharpTypes`** (`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) compiles with `Add-Type -Path`, one compilation unit per file,
   registers each `[Catzc.Base.Objects.PSTypeAlias]` name as a type-accelerator (ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE), and registers each
   `[Catzc.Base.Objects.ConsoleDisplay]` property list as the type's default display (ADR-PWSH-TYPES-TOSTRINGOVERRIDE).
   `Import-CSharpTypes.Tests.ps1` asserts a decorated type's accelerator resolves after load.

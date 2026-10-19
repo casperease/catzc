@@ -30,16 +30,32 @@ public sealed class AdrCitationRewriter
     readonly Dictionary<string, string> ruleMap = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly Dictionary<string, string> pathMap = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly List<(string Old, string New)> folderMap = new List<(string, string)>();
+    readonly List<string> bareFolders = new List<string>();
+    readonly HashSet<string> adrFiles = new HashSet<string>(StringComparer.Ordinal);
+    readonly HashSet<string> adrFolders = new HashSet<string>(StringComparer.Ordinal);
     readonly Dictionary<string, string> newPathByCode = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly Dictionary<string, string> oldPathByCode = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly AdrCitationMap citations;
     readonly Regex reference;
 
-    public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows, AdrCitationMap citations)
+    // treeFiles are the repository-relative paths of the files under docs/adr in the tree, before or after a folder moves.
+    public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows, AdrCitationMap citations, IEnumerable<string> treeFiles)
     {
         if (codeRows == null) { throw new ArgumentNullException(nameof(codeRows)); }
         if (ruleRows == null) { throw new ArgumentNullException(nameof(ruleRows)); }
+        if (treeFiles == null) { throw new ArgumentNullException(nameof(treeFiles)); }
         this.citations = citations;
+        foreach (string file in treeFiles)
+        {
+            string adrPath = Normalize(file);
+            if (!adrPath.StartsWith(AdrRoot, StringComparison.Ordinal)) { continue; }
+            adrPath = adrPath.Substring(AdrRoot.Length);
+            adrFiles.Add(adrPath);
+            for (int slash = adrPath.LastIndexOf('/'); slash > 0; slash = adrPath.LastIndexOf('/', slash - 1))
+            {
+                adrFolders.Add(adrPath.Substring(0, slash));
+            }
+        }
 
         foreach (object row in codeRows) { AddCodeRow(Cells(row, CodeMapColumns, "code map")); }
         foreach (object row in ruleRows) { AddRuleRow(Cells(row, RuleMapColumns, "rule map")); }
@@ -47,7 +63,7 @@ public sealed class AdrCitationRewriter
 
         var literals = new List<string>(pathMap.Keys);
         // A moved folder of one segment is matched only as a path, its name followed by '/': its bare name is a word of prose.
-        var folders = new List<string>();
+        var folders = bareFolders;
         foreach ((string old, string _) in folderMap)
         {
             if (old.Contains('/')) { literals.Add(old); } else { folders.Add(old); }
@@ -150,7 +166,15 @@ public sealed class AdrCitationRewriter
             else if (match.Groups["bare"].Success)
             {
                 kind = AdrCitationChangeKind.Path;
-                replacement = RewriteReference(match.Groups["bare"].Value, Fragment(match.Groups["bareAnchor"]), Form.AdrRelative, self);
+                string written = match.Groups["bare"].Value;
+                // A moved one-segment folder's path is an ADR path only when it resolves under docs/adr from the citing file; elsewhere it names another folder of that name, such as the modules folder.
+                bool folderPath = IsBareFolderPath(written);
+                string resolved = folderPath ? Join(Resolve(Segments(ParentOf(self)), written)) : AdrRoot;
+                // It must also name the moved folder itself or a file or folder of it in the tree, so a module path such as pwsh/Catzc.X/... stays as written.
+                bool named = !folderPath || NamesMovedContent(written);
+                replacement = named && resolved != null && resolved.StartsWith(AdrRoot, StringComparison.Ordinal)
+                    ? RewriteReference(written, Fragment(match.Groups["bareAnchor"]), Form.AdrRelative, self)
+                    : null;
             }
             else if (match.Groups["numbered"].Success)
             {
@@ -415,6 +439,29 @@ public sealed class AdrCitationRewriter
             if (segment.Length > 0 && segment != ".") { segments.Add(segment); }
         }
         return segments;
+    }
+
+    // True when the path names a moved folder itself, or a file or folder of it that the tree holds at its old or its new place.
+    bool NamesMovedContent(string written)
+    {
+        string path = written.TrimEnd('/');
+        foreach ((string old, string replacement) in folderMap)
+        {
+            if (path == old) { return true; }
+            if (!path.StartsWith(old + "/", StringComparison.Ordinal)) { continue; }
+            string moved = replacement + path.Substring(old.Length);
+            return adrFiles.Contains(path) || adrFolders.Contains(path) || adrFiles.Contains(moved) || adrFolders.Contains(moved);
+        }
+        return false;
+    }
+
+    bool IsBareFolderPath(string written)
+    {
+        foreach (string folder in bareFolders)
+        {
+            if (written.StartsWith(folder + "/", StringComparison.Ordinal)) { return true; }
+        }
+        return false;
     }
 
     static string Normalize(string path) => (path ?? string.Empty).Replace('\\', '/').Trim('/');

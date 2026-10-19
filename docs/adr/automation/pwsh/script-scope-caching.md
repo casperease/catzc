@@ -5,7 +5,7 @@
 ### Rule ADR-PWSH-CACHE-SCRIPTSCOPESTATE
 
 A session cache lives in module `$script:` state, which the importer boundary of
-[ADR-AUTO-CACHE-IMPORTERINVALIDATES](../automation/caching.md#rule-adr-auto-cache-importerinvalidates) maps onto exactly: `$script:` state
+[ADR-AUTO-CACHE-IMPORTERINVALIDATES](../caching.md#rule-adr-auto-cache-importerinvalidates) maps onto exactly: `$script:` state
 is established at import and destroyed on re-import, so "re-run the importer" is the literal and only invalidation.
 
 - [The `$script:` scope](#the-script-scope)
@@ -28,7 +28,7 @@ name falls through to `$global:` when the module's cache entry is unset.
 
 ### Rule ADR-PWSH-CACHE-COMPILEDTYPEPREBUILD
 
-The compiled-type prebuild of [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild) is
+The compiled-type prebuild of [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../caching.md#rule-adr-auto-cache-compiledtypeprebuild) is
 realised by the bootstrap: `Import-CSharpTypes` (`Catzc.Internal.Bootstrap.psm1`) computes the key over every module's `types/*.cs` and
 loads the committed `Catzc.Types.<hash>.dll` whose name matches, compiling with `Add-Type` only when none does; `Import-TypesAssembly`
 (`Catzc.Internal.Types.psm1`) is the one load path, through the per-user shadow copy, for the bootstrap and the `SpellOutIdentifiers`
@@ -38,7 +38,7 @@ analyzer rule alike.
 
 ## Context
 
-[caching](../automation/caching.md) fixes the doctrine: static config reads and filesystem-derived information are cached for the session,
+[caching](../caching.md) fixes the doctrine: static config reads and filesystem-derived information are cached for the session,
 keyed by input, lazily, with the importer as the one invalidation knob. This ADR realises it in pwsh — the `$script:` idioms a cached
 function is written with.
 
@@ -56,7 +56,7 @@ alternatives both violate the doctrine structurally: `$env:` is process-global, 
 ### The idioms
 
 Static read, keyed by resolved path (as in `Get-Config`, through which every config read routes — see
-[module-config-loading](../configuration/module-config-loading.md)):
+[module-config-loading](../../configuration/module-config-loading.md)):
 
 ```powershell
 function Get-Config {
@@ -113,7 +113,7 @@ The probe costs a few microseconds per call, a small share of even the hottest c
 - **`Get-Variable -Scope Script -ValueOnly`** and **`Test-Path variable:script:x`** are correct but cost two to three times the probe, on
   the path every cache hit takes.
 - **`try { $script:x } catch { }`** is the cheapest, but it is a catch-and-continue inside a function, which
-  [single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors) forbids.
+  [single-responsibility-functions](../single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors) forbids.
 
 Only the probe changes: once the cache entry is initialised in the same function, the function reads and writes `$script:<entry>` directly.
 
@@ -123,7 +123,7 @@ A warm cache short-circuits before any dependency runs, so mocking a cached func
 fires. A test therefore mocks the **whole boundary function** and lets the cache be an implementation detail. The one exception is a test
 whose subject _is_ the cache: it resets the module-scope cache entry first
 (`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and pays the cold derive deliberately. Resetting per test everywhere
-else defeats the cache and multiplies test-run time (see [test-automation](../automation/test-automation.md)). The mocking rule, with this
+else defeats the cache and multiplies test-run time (see [test-automation](../test-automation.md)). The mocking rule, with this
 one exception, is [ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries).
 
 ### The compiled-type prebuild
@@ -131,7 +131,7 @@ one exception, is [ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](pester-testing.md#rule-
 The one cache that outlives a session is the compiled-type assembly, and it lives in no `$script:` variable: the key is its file name. The
 bootstrap's `Import-CSharpTypes` hashes the type sources, finds the committed assembly of that name, and loads it, so a fresh checkout never
 compiles; a source edit changes the name, and only then does `Add-Type` compile. Loading goes through `Import-TypesAssembly`, which copies
-the assembly to a per-user shadow folder first, so no session locks `automation/pwsh/.compiled`. The compile itself and the stale-types guard are
+the assembly to a per-user shadow folder first, so no session locks `pwsh/.compiled`. The compile itself and the stale-types guard are
 [hosting-csharp-types](hosting-csharp-types.md).
 
 ## Decision
@@ -145,9 +145,9 @@ loaded through the shadow copy.
 
 - **The exemplars** — `Get-Config` (`Catzc.Base.Config`) and `Get-BicepTemplates` (`Catzc.Azure.Templates`) are the patterns every new
   cached function copies.
-- **Custom PSScriptAnalyzer rule `Measure-NoBareCacheEntryRead`** (`automation/pwsh/.scriptanalyzer/NoBareCacheEntryRead.psm1`) — flags a `$script:`
+- **Custom PSScriptAnalyzer rule `Measure-NoBareCacheEntryRead`** (`pwsh/.scriptanalyzer/NoBareCacheEntryRead.psm1`) — flags a `$script:`
   read before the function assigns it (ADR-PWSH-CACHE-STRICTSAFEPROBE).
-- **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../automation/caching.md) (`ADR-AUTO-CACHE`);
+- **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../caching.md) (`ADR-AUTO-CACHE`);
   this ADR only fixes the storage idiom.
 - **Code review** — a cache in `$env:`/`$global:`, or a test that mocks a cached function's internals, is rejected against this ADR.
 

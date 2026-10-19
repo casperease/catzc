@@ -1,26 +1,26 @@
 # Catzc.Diagrams
 
-The diagram kit, a module of the python track. It owns the rendering of every `.drawio.png` of the repository from the model embedded in
-it, the three minimaps a slide's sidebar carries and their sister pages, and the review bundles a person reads a wave of drawings through
+The diagram kit, a module of the python track. It owns the rendering of every `.drawio.png` of the repository from the model embedded in it,
+the three minimaps a slide's sidebar carries and their sister pages, and the review bundles a person reads a wave of drawings through
 ([ADR-REPO-SLIDES](../../adr/repository/slides-as-markdown.md)). It deliberately does **not** decide anything: what a diagram shows comes
 from the tree, the maps come from `Catzc.Base.Maps`, and the one command that rebuilds a diagram folder is `Build-Diagrams` of
 `Catzc.Base.Slides`.
 
 ## Responsibilities
 
-| Responsibility   | Area    | Name                                                                           |
-| ---------------- | ------- | ------------------------------------------------------------------------------ |
-| responsibility:1 | render  | [Fail-forward render of a drawing](#responsibility1--fail-forward-render-of-a-drawing) |
-| responsibility:2 | minimap | [The minimaps of a slide](#responsibility2--the-minimaps-of-a-slide)           |
+| Responsibility   | Area    | Name                                                                                         |
+| ---------------- | ------- | -------------------------------------------------------------------------------------------- |
+| responsibility:1 | render  | [Fail-forward render of a drawing](#responsibility1--fail-forward-render-of-a-drawing)       |
+| responsibility:2 | minimap | [The minimaps of a slide](#responsibility2--the-minimaps-of-a-slide)                         |
 | responsibility:3 | kit     | [The kit: glyphs, tokens and patterns](#responsibility3--the-kit-glyphs-tokens-and-patterns) |
-| responsibility:4 | review  | [Review bundles](#responsibility4--review-bundles)                             |
+| responsibility:4 | review  | [Review bundles](#responsibility4--review-bundles)                                           |
 
 ### responsibility:1 — Fail-forward render of a drawing
 
 A `.drawio.png` carries its own draw.io model. `drawio_png.py` draws the raster from that model on the dark page, so the picture and the
 embedded XML stay honest to each other, and `drawio_forward.py` runs that render fail-forward: it always lands a source copy, a result PNG,
-the decoded model and a report under `out/drawio/`, forwards every warning, and never stops silently. Over a whole diagram folder it runs
-in stages that each fit the time safeguard: prepare, highlight, join.
+the decoded model and a report under `out/drawio/`, forwards every warning, and never stops silently. Over a whole diagram folder it runs in
+stages that each fit the time safeguard: prepare, highlight, join.
 
 ### responsibility:2 — The minimaps of a slide
 
@@ -32,10 +32,10 @@ rebuilds the slide. The module places nothing itself: every lit cell is the high
 
 ### responsibility:3 — The kit: glyphs, tokens and patterns
 
-The closed vocabulary every drawing is made of lives in the module's assets: the glyph library (`glyphs.xml`), the template slide, the
-style guide (`STYLE.md`) with the dark-theme tokens and the readability rules, the renderer's defaults (`configs/drawio.yml`: page, output
-folder, lenses, folder roles), and the slides kit (`assets/slides/`: `slides.yml`, its style guide and the patterns `Build-SlideDeck`
-fills). A maker edits a model and reads the guide; the kit draws.
+The closed vocabulary every drawing is made of lives in the module's assets: the glyph library (`glyphs.xml`), the template slide, the style
+guide (`STYLE.md`) with the dark-theme tokens and the readability rules, the renderer's defaults (`configs/drawio.yml`: page, output folder,
+lenses, folder roles), and the slides kit (`assets/slides/`: `slides.yml`, its style guide and the patterns `Build-SlideDeck` fills). A
+maker edits a model and reads the guide; the kit draws.
 
 ### responsibility:4 — Review bundles
 
@@ -63,22 +63,22 @@ on a real drawing.
 
 The module's scripts and configuration, sorted into the responsibilities above.
 
-| Responsibility                                  | Function              |
-| ----------------------------------------------- | --------------------- |
-| responsibility:1 — Fail-forward render of a drawing | `drawio_forward.py` |
-|                                                 | `drawio_png.py`       |
-|                                                 | `migrate_dark.py`     |
-| responsibility:2 — The minimaps of a slide      | `minimap_render.py`   |
-|                                                 | `minimap_describe.py` |
-|                                                 | `minimap_join.py`     |
-| responsibility:3 — The kit: glyphs, tokens and patterns | `configs/drawio.yml` |
-|                                                 | `assets/glyphs.xml`   |
-|                                                 | `assets/template-slide.xml` |
-|                                                 | `assets/STYLE.md`     |
-|                                                 | `assets/slides/slides.yml` |
-| responsibility:4 — Review bundles               | `contact_sheet.py`    |
-|                                                 | `gallery.py`          |
-|                                                 | `gallery_pdf.py`      |
-|                                                 | `atlas.py`            |
-|                                                 | `catalogue.py`        |
-|                                                 | `embed_images.py`     |
+| Responsibility                                          | Function                    |
+| ------------------------------------------------------- | --------------------------- |
+| responsibility:1 — Fail-forward render of a drawing     | `drawio_forward.py`         |
+|                                                         | `drawio_png.py`             |
+|                                                         | `migrate_dark.py`           |
+| responsibility:2 — The minimaps of a slide              | `minimap_render.py`         |
+|                                                         | `minimap_describe.py`       |
+|                                                         | `minimap_join.py`           |
+| responsibility:3 — The kit: glyphs, tokens and patterns | `configs/drawio.yml`        |
+|                                                         | `assets/glyphs.xml`         |
+|                                                         | `assets/template-slide.xml` |
+|                                                         | `assets/STYLE.md`           |
+|                                                         | `assets/slides/slides.yml`  |
+| responsibility:4 — Review bundles                       | `contact_sheet.py`          |
+|                                                         | `gallery.py`                |
+|                                                         | `gallery_pdf.py`            |
+|                                                         | `atlas.py`                  |
+|                                                         | `catalogue.py`              |
+|                                                         | `embed_images.py`           |

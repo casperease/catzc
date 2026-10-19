@@ -38,119 +38,93 @@ cannot fail in surprising ways do not need their own line.
 
 ## Context
 
-PowerShell makes it easy to chain member access, method calls, indexing, pipelines, and subexpressions into a single line. The result
-compiles and runs fine, but quickly becomes unreadable:
+Every engine makes it easy to chain member access, method calls, indexing, pipelines, and subexpressions into a single line. The result
+compiles and runs fine, but quickly becomes unreadable. The examples below are pseudo-code, written the same way whatever the engine:
 
-```powershell
+```text
 # What does this do? You have to parse it inside-out to find out.
-$name = (Get-Content $path | ConvertFrom-Json).Items.Where({ $_.Status -eq 'Active' })[0].Name.ToLower()
+name = lower(first(filter(parse(read(path)).items, item -> item.status == "active")).name)
 ```
 
-```powershell
+```text
 # Conditional with buried logic — the reader must mentally evaluate the entire
 # expression before understanding what the if-statement is actually testing.
-if ((Get-ChildPath $path -File -Filter '*.ps1' | Where-Object { $_ -notlike '*.Tests.ps1' }).Count -gt 5) {
+if count(filter(list_files(path, "*.script"), file -> not is_test(file))) > 5:
 ```
 
 The same logic, split into named steps, reads top-to-bottom:
 
-```powershell
-$config  = Get-Content $path | ConvertFrom-Json
-$active  = $config.Items.Where({ $_.Status -eq 'Active' })
-$name    = $active[0].Name.ToLower()
+```text
+config = parse(read(path))
+active = filter(config.items, item -> item.status == "active")
+name   = lower(first(active).name)
 ```
 
-```powershell
-$scripts = Get-ChildPath $path -File -Filter '*.ps1' | Where-Object { $_ -notlike '*.Tests.ps1' }
-if ($scripts.Count -gt 5) {
+```text
+scripts = filter(list_files(path, "*.script"), file -> not is_test(file))
+if count(scripts) > 5:
 ```
 
-This is not about line length or aesthetics. Deep nesting has concrete costs for debugging, assertability, and code review. The examples
-here are PowerShell; the PowerShell spellings of the step assertions (rule 3) and of the exempt simple expressions (rule 5) are
+This is not about line length or aesthetics. Deep nesting has concrete costs for debugging, assertability, and code review. The PowerShell
+spellings of the step assertions (rule 3) and of the exempt simple expressions (rule 5) are
 [powershell-formatting](pwsh/powershell-formatting.md) (ADR-PWSH-FORMAT-STEPASSERTIONS, ADR-PWSH-FORMAT-SIMPLEEXPRESSIONS).
 
 ### No performance cost
 
 `Why splitting has zero performance cost`
 
-PowerShell variables are references to .NET objects on the heap, not copies. When you write
-`$config = Get-Content $path | ConvertFrom-Json`, the variable `$config` holds a pointer to the object that already exists in memory. No
-data is duplicated. The only cost is the variable binding itself, which is a dictionary lookup — nanoseconds compared to the milliseconds
-the pipeline or method call takes.
+In every engine catzc runs on, a variable holds a reference to an object that already exists, not a copy of it. When a step's result is
+named, no data is duplicated; the only cost is the binding itself, nanoseconds against the milliseconds the read, the parse or the filter
+takes.
 
-This is true for strings, arrays, hashtables, and custom objects alike. Splitting a deeply nested expression into three intermediate
-variables does not allocate three times the memory or run three times slower. It runs the same operations in the same order and produces the
-same objects — the variables are just names for things that already exist.
+This is true for strings, lists, maps and records alike. Splitting a deeply nested expression into three named steps does not allocate three
+times the memory or run three times slower. It runs the same operations in the same order and produces the same objects — the names are just
+names for things that already exist.
 
 ### Easier debugging
 
 `Why splitting makes debugging easier`
 
-When a deeply nested expression throws, the error points at the entire line:
+When a deeply nested expression fails, the error points at the entire line: "cannot index into a null list, at line 42". Which part is null?
+The parsed result? Its items? The filter's output? The first element? You cannot tell without attaching a debugger or adding temporary
+output — both slow and error-prone.
 
-```text
-InvalidOperation: You cannot index into a null array.
-At C:\projects\catzc\automation\Catzc.Tooling.Toolchain\Install-Dotnet.ps1:42
-```
-
-Which part is null? The pipeline result? The `.Items` property? The `.Where()` output? The `[0]` index? You cannot tell without attaching a
-debugger or adding temporary `Write-Host` calls — both slow and error-prone.
-
-When each step is on its own line, the error points at the exact operation that failed:
-
-```text
-InvalidOperation: You cannot index into a null array.
-At C:\projects\catzc\automation\Catzc.Tooling.Toolchain\Install-Dotnet.ps1:44
-```
-
-Line 44 is `$name = $active[0].Name.ToLower()` — so `$active` is null or empty. The previous line produced it. The diagnosis is immediate.
+When each step is on its own line, the error points at the exact operation that failed: "cannot index into a null list, at line 44". Line 44
+is `name = lower(first(active).name)`, so `active` is empty. The previous line produced it. The diagnosis is immediate.
 
 ### Room for assertions
 
 `Why splitting enables assertions`
 
 The [fail-fast-with-asserts](fail-fast-with-asserts.md) ADR establishes that roughly every fifth line should be an assertion. You cannot
-assert intermediate values that do not exist as variables:
+assert intermediate values that do not exist as names:
 
-```powershell
-# No way to assert that the JSON parsed correctly, that Items exists,
-# or that the Where() found anything — it is all one expression.
-$name = (Get-Content $path | ConvertFrom-Json).Items.Where({ $_.Status -eq 'Active' })[0].Name.ToLower()
+```text
+# No way to assert that the file parsed, that it has items,
+# or that the filter found anything — it is all one expression.
+name = lower(first(filter(parse(read(path)).items, item -> item.status == "active")).name)
 ```
 
 Split into steps, you can inject assertions exactly where assumptions are made:
 
-```powershell
-$config = Get-Content $path | ConvertFrom-Json
-Assert-HaveProperty $config 'Items'
+```text
+config = parse(read(path))
+assert has_property(config, "items")
 
-$name = $active[0].Name.ToLower()
-Assert-NotNullOrWhitespace $name
+name = lower(first(active).name)
+assert not blank(name)
 ```
 
-There is an assert you can use "in the middle of a a complex statement":
+An assertion can also sit inside a pipeline, passing its input through when the check holds, so a step stays one line without losing its
+check.
 
-```powershell
-$active = $config.Items.Where({ $_.Status -eq 'Active' }) | Assert-PipelineCount -Minimum 1 | Select-Object -Last 1
-```
-
-Each assertion documents a precondition and catches failures at the source. Without the intermediate variables, these checks are impossible
+Each assertion documents a precondition and catches failures at the source. Without the intermediate names, these checks are impossible
 without restructuring the code anyway.
 
 ### When nesting is fine
 
-Simple, well-known expressions that read naturally do not need splitting:
-
-```powershell
-# Fine — Join-Path is self-documenting and cannot fail in surprising ways
-$settingsPath = Join-Path $env:RepositoryRoot 'pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1'
-
-# Fine — single property access on a known object
-$moduleName = $moduleDir.Name
-
-# Fine — short pipeline with two obvious stages
-$ps1Files = Get-ChildPath $path -File -Filter '*.ps1' | Sort-Object
-```
+Simple, well-known expressions that read naturally do not need splitting: a path joined onto the repository root, a single property access
+on a known object, a short pipeline with two obvious stages. They are self-documenting and cannot fail in surprising ways.
 
 The rule of thumb: if you have to scan backwards or count parentheses to understand a line, split it.
 
@@ -163,7 +137,7 @@ variables on the next line.
 
 - Lines are shorter and each does one thing — code reviews can evaluate one step at a time.
 - Error messages point at the exact operation that failed, not at a 200-character compound expression.
-- Intermediate variables create natural injection points for `Assert-*` calls, supporting the fail-fast pattern.
+- Intermediate names create natural injection points for assertions, supporting the fail-fast pattern.
 - Variable names serve as documentation for what each intermediate value represents.
 - No performance cost — variables are references, not copies.
 - Slightly more lines of code, which is a worthwhile trade for readability, debuggability, and assertability.

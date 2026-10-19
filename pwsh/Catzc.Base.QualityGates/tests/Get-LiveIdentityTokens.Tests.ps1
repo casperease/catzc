@@ -47,7 +47,8 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
             [ordered]@{ project = 'FixtureProject' }
         }
         Mock Get-RepositoryRoot { $TestDrive } -ModuleName Catzc.Base.QualityGates
-        [void][System.IO.Directory]::CreateDirectory((Join-Path $TestDrive 'infrastructure/templates/sample'))
+        Mock Get-TrackPlace -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Track -eq 'infrastructure' -and $Kind -eq 'templates' } { 'gadgets/blueprints' }
+        [void][System.IO.Directory]::CreateDirectory((Join-Path $TestDrive 'gadgets/blueprints/sample'))
     }
 
     It 'derives customers (keys and shortcodes) from customer.yml' {
@@ -91,6 +92,7 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
         $tokens = & $script:run
         $tokens.Token | Should -Contain 'FixtureProject'
         $tokens.Token | Should -Contain 'sample'
+        ($tokens | Where-Object Token -EQ 'sample').Source | Should -Be 'gadgets/blueprints' -Because 'the templates place comes from the track, not a fixed path'
     }
 
     It 'yields no config tokens when no loaded module declares any (a bundle without the owning modules)' {

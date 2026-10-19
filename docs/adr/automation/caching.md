@@ -51,12 +51,12 @@ cache entry on first call, never at import, because importer time is a protected
 ### Rule ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
 
 The compiled-type prebuild is the one committed, cross-session cache: one assembly for the whole repository, committed as
-`automation/pwsh/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources, so a fresh checkout and
-CI load it without compiling, and editing any source re-keys it. The hash material is, per source file,
-`<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even when the
-content is byte-identical, and the key does not depend on the repository root. Every process loads the assembly from a per-user,
-content-addressed shadow copy (`%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix), never in place: an
-uncommitted derivative of the committed assembly, so no session ever locks `automation/pwsh/.compiled`.
+`pwsh/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources, so a fresh checkout and CI load it
+without compiling, and editing any source re-keys it. The hash material is, per source file, `<module>|<bare type>|SHA-256(content)`,
+ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even when the content is byte-identical, and the key
+does not depend on the repository root. Every process loads the assembly from a per-user, content-addressed shadow copy
+(`%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix), never in place: an uncommitted derivative of the committed
+assembly, so no session ever locks `pwsh/.compiled`.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
 
@@ -88,7 +88,7 @@ The platform repeatedly performs two kinds of work that are **expensive to redo 
    `configs/tools.yml`, and the like. The result is a pure function of the file's bytes.
 
 2. **Filesystem-derived information.** _The result of scanning the on-disk file set and deriving Information and Meaning from it by
-   convention._ This is the platform's convention-handling: which folders are modules, which `.ps1` files are public vs `private/`, which
+   convention._ This is the platform's convention-handling: which folders are modules, which function files are public vs `private/`, which
    folders under `infrastructure/templates/` are templates, what slots and `options.yml` values they declare, whether `short_name`s are
    unique, the env-`code` → env-name map. `Information` here is a pure function of the on-disk file set (plus the static configs it reads —
    see [conventional-folders](../repository/conventional-folders.md)).
@@ -99,8 +99,8 @@ Both are deterministic functions of the repository's files.
 
 The automation runs in exactly two contexts, and both make the on-disk file set **immutable for the lifetime of a session**:
 
-- **Pipeline.** The agent checks out a static, immutable tree and runs `importer.ps1` once at the start. Files never change during the run.
-- **Devbox.** A developer dot-sources `importer.ps1` to establish a session. The standing convention is: **re-run the importer after
+- **Pipeline.** The agent checks out a static, immutable tree and runs the importer once at the start. Files never change during the run.
+- **Devbox.** A developer loads the importer into the shell to establish a session. The standing convention is: **re-run the importer after
   changing files on disk.** The importer invocation is the moment the session's view of the repository is fixed.
 
 In both runtimes the **importer invocation is the boundary** at which the file set becomes the session's truth. Nothing the automation
@@ -112,18 +112,19 @@ should react to changes the file set mid-session.
 
 It follows that **anything derived from the on-disk file set may be memoized for the lifetime of the session**, and the single, sufficient
 way to invalidate is to **re-run the importer** — which starts a fresh process (pipeline) or re-imports the modules (devbox), discarding all
-module-scoped `$script:` state. There is no need for timestamp checks, file watchers, or TTLs; the runtime contract already guarantees the
-inputs are stable, and the importer is the one knob.
+module-scoped state. There is no need for timestamp checks, file watchers, or TTLs; the runtime contract already guarantees the inputs are
+stable, and the importer is the one knob.
 
 ### Importer run-time budget
 
 `Importer run time is a protected budget`
 
 The importer is on the hot path of **every** session — every interactive shell tab a developer opens and every step a pipeline runs begins
-by dot-sourcing it. Its job is to make the module system available, fast, and nothing more: it sets error preferences and runs the bootstrap
-module to discover and import modules. It even **defers** expensive vendor modules (Pester, PSScriptAnalyzer) via lazy loading rather than
-pay for them at startup (see [vendor-toolset-dependencies](pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)), and
-it reports its own load time so regressions are visible.
+by loading it into the shell. Its job is to make the module system available, fast, and nothing more: it sets error preferences and runs the
+bootstrap module to discover and import modules. It even **defers** expensive vendor modules (the test runner, the analyzer) via lazy
+loading rather than pay for them at startup (see
+[vendor-toolset-dependencies](pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)), and it reports its own load time
+so regressions are visible.
 
 This makes importer time a budget to protect, and it sets the default for caching: **lazy.** Reading `azure.yml`, scanning
 `infrastructure/templates/`, or deriving any other config/information at import would tax every session for work most sessions never use.
@@ -137,14 +138,14 @@ functions to call.
 `options.yml`**, and re-check `short_name` global uniqueness **on every call**. A single `Deploy-Bicep` triggers it many times over: the
 `-Template` `ValidateScript`, `Get-BicepTemplate`, `Get-BicepDeploymentContext`, `Get-BicepTemplateConfiguration`,
 `Get-BicepDeploymentName`, `Get-BicepResourceGroupName`, and the completers — easily 8–10 full filesystem rescans producing an identical
-result. This is pure [waste](../principles/reduce-waste.md), and on enterprise machines where `$HOME`/repos can sit on network storage it is
-also latency that compounds (see [effective-in-enterprises](effective-in-enterprises.md)).
+result. This is pure [waste](../principles/reduce-waste.md), and on enterprise machines where the home directory and its repositories can
+sit on network storage it is also latency that compounds (see [effective-in-enterprises](effective-in-enterprises.md)).
 
-Config caching is centralized in `Get-Config`, which caches every config read lazily in `$script:configCache` keyed on the resolved file
-path, so every config read inherits one cache ([module-config-loading](../configuration/module-config-loading.md)); `Get-BicepTemplates`
-caches filesystem information per resolved root in `$script:bicepTemplatesCache`; and the bootstrap module computes module information once
-at import (eagerly, because it must — see the rule below). Computing-once applies to all filesystem-derived information; the default is
-**lazy** so the importer stays fast.
+Config caching is centralized in `Get-Config`, which caches every config read lazily in module state keyed on the resolved file path, so
+every config read inherits one cache ([module-config-loading](../configuration/module-config-loading.md)); `Get-BicepTemplates` caches
+filesystem information per resolved root in module state; and the bootstrap module computes module information once at import (eagerly,
+because it must — see the rule below). Computing-once applies to all filesystem-derived information; the default is **lazy** so the importer
+stays fast.
 
 ### What is NOT cacheable
 
@@ -198,17 +199,17 @@ the file's content and every declared input of the check (ADR-AUTO-CACHE-CHECKED
 `The storage idiom is the language layer`
 
 Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function belong to the pwsh rules,
-[script-scope-caching](pwsh/script-scope-caching.md) (`ADR-PWSH-CACHE`): module `$script:` state — never `$env:` or `$global:` — with
-`Get-Config` and `Get-BicepTemplates` as the exemplars. Its rules map onto the ones here: the importer as the only invalidation
-(ADR-AUTO-CACHE-IMPORTERINVALIDATES) is module state discarded on re-import (ADR-PWSH-CACHE-SCRIPTSCOPESTATE), and the compiled-type
-prebuild (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD) is loaded by the bootstrap functions of ADR-PWSH-CACHE-COMPILEDTYPEPREBUILD. How the prebuild
-is compiled and when a session must restart because a source changed live with the type system,
+[script-scope-caching](pwsh/script-scope-caching.md) (`ADR-PWSH-CACHE`): the module-scoped state of pwsh, never the environment or the
+global scope, with `Get-Config` and `Get-BicepTemplates` as the exemplars. Its rules map onto the ones here: the importer as the only
+invalidation (ADR-AUTO-CACHE-IMPORTERINVALIDATES) is module state discarded on re-import (ADR-PWSH-CACHE-SCRIPTSCOPESTATE), and the
+compiled-type prebuild (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD) is loaded by the bootstrap functions of ADR-PWSH-CACHE-COMPILEDTYPEPREBUILD.
+How the prebuild is compiled and when a session must restart because a source changed live with the type system,
 [native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`).
 
 ### How this is enforced
 
-- **`importer.ps1`** rebuilds the session from scratch — a fresh process or a re-import that discards module `$script:` state. This makes
-  "re-run the importer" the literal and only invalidation path.
+- **The importer** rebuilds the session from scratch — a fresh process or a re-import that discards module state. This makes "re-run the
+  importer" the literal and only invalidation path.
 - **The exemplars** (`Get-Config` and `Get-BicepTemplates`) are the patterns new cached functions copy.
 - **Code review.** Whether a function's result is a pure derivation of the static file set (cacheable) or runtime/mutable state (not) is a
   review judgment, guided by the "What is NOT cacheable" boundary above.
@@ -223,5 +224,5 @@ is compiled and when a session must restart because a source changed live with t
   developer already takes after editing files.
 - The accepted cost: a developer who edits files **without** re-importing sees stale information. This is the documented contract, not a bug
   — the importer is the boundary by design.
-- Tests inject the descriptor by mocking the cached function itself (already the established pattern), and reset the `$script:` cache entry
+- Tests inject the descriptor by mocking the cached function itself (already the established pattern), and reset the module's cache entry
   only when exercising cache behavior directly.

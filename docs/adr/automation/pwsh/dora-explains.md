@@ -1,7 +1,7 @@
 # DORA explanations — pwsh
 
 The `Dora explains` rationale for the ADRs in the `automation/pwsh/` domain, consolidated in one place. Each entry names its ADR and rule code, then
-reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
+reproduces that ADR's tie to [DORA](../../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
 the ADRs themselves; this file carries only their DORA rationale.
 
 ## The pwsh engine
@@ -14,13 +14,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > terminating preferences set once, and one importer for the source tree and the build mean every session — a devbox, a pipeline agent, an
 > installed build — fails the same way on the same mistake, so a defect surfaces where it is made rather than on another machine.
 
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — strict mode and terminating preferences make
+- [Continuous integration](../../../references/dora/capabilities.md#continuous-integration) — strict mode and terminating preferences make
   every run fail fast on the same defect.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one importer and one entry per run mode keep the load
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — one importer and one entry per run mode keep the load
   sequence in one living copy.
-- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — the same session is set up from the repository
+- [Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure) — the same session is set up from the repository
   or from an installed build.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## One function per file
 
@@ -30,13 +30,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > structure. Matching file name to function name eliminates both AST parsing and merge conflicts, makes the module's surface area visible at
 > a glance, and creates natural test-file pairing.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — file name equals function name eliminates search
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — file name equals function name eliminates search
   friction and serves as self-documenting structure.
-- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — one-function-per-file prevents merge conflicts when
+- [Loosely coupled teams](../../../references/dora/capabilities.md#loosely-coupled-teams) — one-function-per-file prevents merge conflicts when
   developers add functions in parallel.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — test files pair naturally with function files, improving test
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — test files pair naturally with function files, improving test
   coverage and organization.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## `.ps1` function files
 
@@ -49,10 +49,10 @@ the ADRs themselves; this file carries only their DORA rationale.
 > than module plumbing; `.psm1` is kept for genuine module or standalone files, so a file's extension tells a reader what kind of thing it
 > is.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — shared scope eliminates boilerplate and scope
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — shared scope eliminates boilerplate and scope
   isolation overhead.
-- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — established patterns reduce onboarding friction.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [Documentation quality](../../../references/dora/capabilities.md#documentation-quality) — established patterns reduce onboarding friction.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Dynamic module manifests
 
@@ -64,13 +64,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > editing shared files or resolving merge conflicts. Convention-based discovery (filesystem-as-manifest) eliminates the "add function, edit
 > manifest, update export list" ceremony, reducing onboarding overhead and merge conflict friction.
 
-- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — module-based architecture where new functions never
+- [Loosely coupled teams](../../../references/dora/capabilities.md#loosely-coupled-teams) — module-based architecture where new functions never
   require edits to shared infrastructure files.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — convention-based discovery (one file = one function =
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — convention-based discovery (one file = one function =
   one export) is simpler and cheaper than hand-maintained lists.
-- [Version control](../../references/dora/capabilities.md#version-control) — avoiding manifest edits prevents merge conflicts when
+- [Version control](../../../references/dora/capabilities.md#version-control) — avoiding manifest edits prevents merge conflicts when
   developers add functions in parallel.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Module-path hygiene
 
@@ -82,13 +82,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > enterprise environments. Vendoring PowerShell modules and keeping the module path local by default eliminates network round-trips, makes
 > module loading predictable, and enables fast automation everywhere.
 
-- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — running reliably in enterprise environments
+- [Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure) — running reliably in enterprise environments
   without network delays.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — deterministic, local dependencies enable consistent
+- [Deployment automation](../../../references/dora/capabilities.md#deployment-automation) — deterministic, local dependencies enable consistent
   automation across machines.
-- [Version control](../../references/dora/capabilities.md#version-control) — vendored modules are reproducible and tracked without gallery
+- [Version control](../../../references/dora/capabilities.md#version-control) — vendored modules are reproducible and tracked without gallery
   access.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Vendor toolset dependencies
 
@@ -98,13 +98,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > modules into git and never calling the PowerShell Gallery at runtime guarantees every developer and CI run uses identical code,
 > eliminating version-skew bugs and network brittleness.
 
-- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — eliminates network dependency, enables offline
+- [Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure) — eliminates network dependency, enables offline
   work.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — version pinning and explicit diffs prevent
+- [Deployment automation](../../../references/dora/capabilities.md#deployment-automation) — version pinning and explicit diffs prevent
   version-skew surprises.
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — fast disk loading and no version skew accelerate
+- [Continuous delivery](../../../references/dora/capabilities.md#continuous-delivery) — fast disk loading and no version skew accelerate
   cycles.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## PrePost extension modules
 
@@ -113,11 +113,11 @@ the ADRs themselves; this file carries only their DORA rationale.
 > DORA's research connects loosely coupled architectures to faster delivery and better team autonomy. A single, clearly-defined extension
 > point for per-template hooks allows teams to customize deployments without scattered code or central orchestration.
 
-- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — clear extension points enable independent template
+- [Loosely coupled teams](../../../references/dora/capabilities.md#loosely-coupled-teams) — clear extension points enable independent template
   customization.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — grouped hooks in one .psm1 avoid scattered,
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — grouped hooks in one .psm1 avoid scattered,
   duplicated code.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Error handling
 
@@ -129,13 +129,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > terminating errors with `throw` and self-contained assertions eliminates the "maybe wrong" middle ground, surfaces problems immediately,
 > and enables CI to fail clearly instead of succeeding with warnings.
 
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — fail-fast patterns prevent silent failures and
+- [Continuous delivery](../../../references/dora/capabilities.md#continuous-delivery) — fail-fast patterns prevent silent failures and
   corrupted state.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — two-state error handling (success or throw) is
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — two-state error handling (success or throw) is
   simpler than distinguishing warnings from errors.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — deterministic error behavior makes test assertions reliable and
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — deterministic error behavior makes test assertions reliable and
   failures easy to diagnose.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Assert idioms
 
@@ -147,13 +147,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > library at fixed places — after the param block and after each external call — and a declared time limit on long work, so failures surface
 > at their source with a consistent message and a hang ends at a known limit.
 
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — assertions and time limits stop bad state and hangs
+- [Continuous delivery](../../../references/dora/capabilities.md#continuous-delivery) — assertions and time limits stop bad state and hangs
   before they reach a deployment.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — preconditions read as the first lines of a function,
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — preconditions read as the first lines of a function,
   with one greppable message per assumption.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — a test proves an assertion fires with `Should -Throw`, and
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — a test proves an assertion fires with `Should -Throw`, and
   nothing else catches one.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Announce state changes
 
@@ -166,13 +166,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > variables it sets, explains its own state from its scrollback. A wrong tool resolution or a stale types build is diagnosed by reading, not
 > by re-running with diagnostics, which shortens the time to restore a broken environment.
 
-- [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — every state change is a recorded
+- [Monitoring and observability](../../../references/dora/capabilities.md#monitoring-and-observability) — every state change is a recorded
   event, so the session's state can be explained from its output alone.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — one writer chokepoint keeps every line out of test output, so
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — one writer chokepoint keeps every line out of test output, so
   test results stay readable and no test needs its own output guard.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — an analyzer rule names any unannounced change, so the
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — an analyzer rule names any unannounced change, so the
   rule holds as code is added rather than depending on review alone.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## No semicolons
 
@@ -183,11 +183,11 @@ the ADRs themselves; this file carries only their DORA rationale.
 > DORA's research on code maintainability shows that reducing syntactic noise and following language idioms correlates with faster code
 > review cycles and fewer defects. Semicolon-free PowerShell code reads as idiomatic, lowers cognitive load, and improves team velocity.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — idiomatic syntax reduces cognitive load and review
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — idiomatic syntax reduces cognitive load and review
   friction.
-- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — clear, consistent code patterns serve as
+- [Documentation quality](../../../references/dora/capabilities.md#documentation-quality) — clear, consistent code patterns serve as
   self-documentation.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## foreach over ForEach-Object
 
@@ -198,11 +198,11 @@ the ADRs themselves; this file carries only their DORA rationale.
 > DORA research shows that correct language semantics and predictable control flow reduce debugging time and test failures. Using foreach
 > for iteration eliminates entire classes of bugs where control flow keywords behave unexpectedly in scriptblock contexts.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — correct control flow semantics reduce cognitive load
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — correct control flow semantics reduce cognitive load
   and bugs.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — predictable iteration behavior enables reliable, non-flaky
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — predictable iteration behavior enables reliable, non-flaky
   tests.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Approved verbs
 
@@ -214,13 +214,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > alone. Using PowerShell's approved verbs as the shared vocabulary transforms function names into behavioral contracts every team member
 > recognizes.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — consistent verbs reduce cognitive load, enable
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — consistent verbs reduce cognitive load, enable
   behavior prediction.
-- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — verbs encode contracts that document behavior in
+- [Documentation quality](../../../references/dora/capabilities.md#documentation-quality) — verbs encode contracts that document behavior in
   names.
-- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — shared verbs enable independent navigation of
+- [Loosely coupled teams](../../../references/dora/capabilities.md#loosely-coupled-teams) — shared verbs enable independent navigation of
   unfamiliar code.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Automatic variable pitfalls
 
@@ -230,13 +230,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > slip through code review. Handling automatic variables safely (read immediately, capture in locals, prefer wrappers) builds the robust
 > error handling that enables high-frequency deployment.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — avoiding subtle variable-scoping bugs that slip past
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — avoiding subtle variable-scoping bugs that slip past
   code review.
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — robust error handling and consistent patterns enable
+- [Continuous delivery](../../../references/dora/capabilities.md#continuous-delivery) — robust error handling and consistent patterns enable
   safe automation at scale.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — proper error handling patterns surface failures early in
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — proper error handling patterns surface failures early in
   testing.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## `-DryRun` over ShouldProcess
 
@@ -247,13 +247,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > DORA research shows that explicit, observable return values improve test effectiveness. PowerShell's ShouldProcess narrates to the host,
 > where no test can capture it; a returned `-DryRun` plan is assertable and leaves the test run silent.
 
-- [Test automation](../../references/dora/capabilities.md#test-automation) — capturable return values enable testable assertions without
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — capturable return values enable testable assertions without
   side effects.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — explicit dry-run prevents silent failures in
+- [Deployment automation](../../../references/dora/capabilities.md#deployment-automation) — explicit dry-run prevents silent failures in
   automation.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — explicit parameters reduce hidden behavior and
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — explicit parameters reduce hidden behavior and
   implicit magic.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Identifier names
 
@@ -264,11 +264,11 @@ the ADRs themselves; this file carries only their DORA rationale.
 > Consistent, spelled-out identifiers make code searchable and self-documenting, and an analyzer that checks every variable and function
 > noun on every build turns that convention into fast feedback rather than a review argument.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one spelling per concept keeps grep and rename
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — one spelling per concept keeps grep and rename
   reliable.
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — coined names are flagged by the analyzer quality
+- [Continuous integration](../../../references/dora/capabilities.md#continuous-integration) — coined names are flagged by the analyzer quality
   gate before push.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## PowerShell formatting
 
@@ -279,11 +279,11 @@ the ADRs themselves; this file carries only their DORA rationale.
 > DORA research links consistent code formatting to improved code maintainability. Mechanical enforcement of uniform standards removes
 > variation and lets teams focus on logic rather than style.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — consistent conventions enable faster code review.
-- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — clear structure serves as living documentation.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — every analyzer rule names the ADR rule it enforces, so rule
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — consistent conventions enable faster code review.
+- [Documentation quality](../../../references/dora/capabilities.md#documentation-quality) — clear structure serves as living documentation.
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — every analyzer rule names the ADR rule it enforces, so rule
   coverage counts it.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Environment-variable mechanics
 
@@ -295,15 +295,15 @@ the ADRs themselves; this file carries only their DORA rationale.
 > variables violate both. Using scoped mechanisms (parameters, return values, `$script:` state) instead of `$env:` for internal coordination
 > provides automatic cleanup, prevents test leakage, and enables confident concurrent execution.
 
-- [Test automation](../../references/dora/capabilities.md#test-automation) — scoped, isolated state prevents order-dependent test failures
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — scoped, isolated state prevents order-dependent test failures
   and race conditions.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — proper scoping bounds state lifetime and surfaces
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — proper scoping bounds state lifetime and surfaces
   contracts at the call site.
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — predictable state isolation enables safe parallelism
+- [Continuous delivery](../../../references/dora/capabilities.md#continuous-delivery) — predictable state isolation enables safe parallelism
   and reduces deployment friction.
-- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — a secret reaches a child process only through one masked,
+- [Pervasive security](../../../references/dora/capabilities.md#pervasive-security) — a secret reaches a child process only through one masked,
   scoped seam.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Parameter design
 
@@ -315,11 +315,11 @@ the ADRs themselves; this file carries only their DORA rationale.
 > self-documenting. Positional primaries and switches for opt-in behavior surface intent at the call site, eliminating named-parameter noise
 > and making functions easier to understand and reuse.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — clear parameter surfaces reduce the burden of
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — clear parameter surfaces reduce the burden of
   understanding what each call does.
-- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — self-documenting call sites serve as examples;
+- [Documentation quality](../../../references/dora/capabilities.md#documentation-quality) — self-documenting call sites serve as examples;
   positional and switch conventions are widely understood.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Bounded enumeration
 
@@ -331,12 +331,12 @@ the ADRs themselves; this file carries only their DORA rationale.
 > grows slower with every file the repository gains. A shallow default depth, pruned folders, and one compiled walker keep each search at a
 > cost its caller chose.
 
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — a bounded search keeps the integration budget
+- [Continuous integration](../../../references/dora/capabilities.md#continuous-integration) — a bounded search keeps the integration budget
   from eroding as the tree grows.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one walk with one set of rules replaces many
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — one walk with one set of rules replaces many
   hand-written loops.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — fast, bounded listings keep all tests under their time roofs.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — fast, bounded listings keep all tests under their time roofs.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Working-directory mechanics
 
@@ -348,11 +348,11 @@ the ADRs themselves; this file carries only their DORA rationale.
 > paths to fixed locations and restoring working directory in try/finally guarantees functions compose correctly and never pollute session
 > state.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — explicit anchors eliminate hidden state pollution and
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — explicit anchors eliminate hidden state pollution and
   failures.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — location-independent functions compose and work
+- [Deployment automation](../../../references/dora/capabilities.md#deployment-automation) — location-independent functions compose and work
   everywhere.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Cross-platform PowerShell
 
@@ -364,12 +364,12 @@ the ADRs themselves; this file carries only their DORA rationale.
 > enables one codebase on Windows and Linux. Catching platform incompatibilities at analysis time rather than at runtime reduces the
 > friction of multi-platform deployment and enables confident automation across all environments.
 
-- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — running on Windows and Linux from one codebase.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — platform-agnostic patterns centralize business logic
+- [Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure) — running on Windows and Linux from one codebase.
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — platform-agnostic patterns centralize business logic
   away from environment-specific concerns.
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — analyzer catches platform breaks at analysis
+- [Continuous integration](../../../references/dora/capabilities.md#continuous-integration) — analyzer catches platform breaks at analysis
   time, before code runs on different OSes.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Script-scope caching
 
@@ -380,13 +380,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > DORA research shows that caching frequently-recomputed data improves deployment speed and reliability. Tying cache lifetime to module
 > import creates a predictable, testable contract: the same data for the entire session, with one invalidation knob.
 
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — caching eliminates redundant parsing, accelerating
+- [Continuous delivery](../../../references/dora/capabilities.md#continuous-delivery) — caching eliminates redundant parsing, accelerating
   operations.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — consistent cache lifetime ensures predictable
+- [Deployment automation](../../../references/dora/capabilities.md#deployment-automation) — consistent cache lifetime ensures predictable
   automation behavior.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — simple, isolated idiom follows one repeatable
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — simple, isolated idiom follows one repeatable
   pattern.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Pester testing
 
@@ -398,13 +398,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 > mysteriously or mock so broadly they test nothing. Isolating logic through seams (template roots, config discovery), mocking whole
 > functions only, and splitting logic from integrity tests ensures fast, reliable test feedback.
 
-- [Test automation](../../references/dora/capabilities.md#test-automation) — hermetic logic tests with seam mocks catch regressions fast
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — hermetic logic tests with seam mocks catch regressions fast
   without process-global state leakage.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — seam-based mocking keeps tests decoupled from
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — seam-based mocking keeps tests decoupled from
   implementation so refactors do not rewrite the tests.
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — splitting logic and integrity tests provides both
+- [Continuous integration](../../../references/dora/capabilities.md#continuous-integration) — splitting logic and integrity tests provides both
   fast feedback and real-world coverage.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Hosting C# types in pwsh
 
@@ -416,10 +416,10 @@ the ADRs themselves; this file carries only their DORA rationale.
 > against only the references the host guarantees keeps a fresh checkout buildable with nothing but pwsh, and a stale type is answered with
 > a new process rather than a confusing failure.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — no external packages, short source-anchored aliases,
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — no external packages, short source-anchored aliases,
   one compile path.
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — CI never runs on stale types; it throws.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [Continuous integration](../../../references/dora/capabilities.md#continuous-integration) — CI never runs on stale types; it throws.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
 ## Idempotent state mechanics
 
@@ -430,10 +430,10 @@ the ADRs themselves; this file carries only their DORA rationale.
 > paths make a re-run of any pwsh state function leave the same system and the same output, so a retried stage or a restarted setup needs no
 > cleanup first.
 
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — a deployment step that can be re-run safely is one
+- [Deployment automation](../../../references/dora/capabilities.md#deployment-automation) — a deployment step that can be re-run safely is one
   that can be retried automatically.
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — a retried CI stage converges instead of failing
+- [Continuous integration](../../../references/dora/capabilities.md#continuous-integration) — a retried CI stage converges instead of failing
   on a duplicate.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one meaning for `-Force` and one result shape per
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — one meaning for `-Force` and one result shape per
   function keep every state function readable the same way.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.

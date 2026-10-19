@@ -99,9 +99,9 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
 
 The group holds the files of docs/adr/pwsh; each sits in its world-map cell and is lit by:
 
-- [docs/adr/automation/pwsh/dora-explains.md][21], in the cell docs × markdown: selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 61
+- [docs/adr/pwsh/dora-explains.md][21], in the cell docs × markdown: selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 61
   (text).
-- [docs/adr/automation/pwsh/dynamic-module-manifests.md][2], in the cell docs × markdown: selected by [ADR-PWSH-MANIFEST][2]: the ADR's own file.
+- [docs/adr/pwsh/dynamic-module-manifests.md][2], in the cell docs × markdown: selected by [ADR-PWSH-MANIFEST][2]: the ADR's own file.
 
 ### Docs (pwsh/Catzc.Base.Docs, 2 lit files)
 
@@ -168,7 +168,7 @@ The group holds the files of pwsh/Catzc.Base.Exporter; each sits in its world-ma
 - [yaml][37]: a file language
 
 [1]: ../../../../adr/automation/platform-bundle.md
-[2]: ../../../../adr/automation/pwsh/dynamic-module-manifests.md
+[2]: ../../../../adr/pwsh/dynamic-module-manifests.md
 [3]: ../../../../references/pipelines/github-workflows/ci-automation.yml.md
 [4]: ../../../../references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
 [5]: ../../../../references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md
@@ -187,7 +187,7 @@ The group holds the files of pwsh/Catzc.Base.Exporter; each sits in its world-ma
 [18]: ../../../../adr/glossary.md
 [19]: ../../../../adr/index.md
 [20]: ../../../../adr/automation/dora-explains.md
-[21]: ../../../../adr/automation/pwsh/dora-explains.md
+[21]: ../../../../adr/pwsh/dora-explains.md
 [22]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
 [23]: ../../../../../pwsh/Catzc.Base.Docs/configs/glossary.yml
 [24]: ../../../../../importer.ps1

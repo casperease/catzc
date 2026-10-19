@@ -252,6 +252,33 @@ Describe 'VariantsConfig' -Tag 'L0' {
                     }) } | Should -Throw '*module_execution_engines must be a map*'
         }
 
+        It 'reads a track''s named kinds, a wildcard segment kept, and leaves them empty when unnamed' {
+            $config = & $script:make ([ordered]@{ tracks = [ordered]@{
+                        widget = [ordered]@{ places = @('widget/parts', 'widget/spares'); type = 'widget-works'
+                            kinds = [ordered]@{ parts = 'widget/parts'; sheets = 'widget/parts/*/sheets'; spares = 'widget/spares' }
+                        }
+                        gadget = [ordered]@{ places = @('gadget'); type = 'widget-works' }
+                    }
+                })
+            $config.tracks[0].KindPlace('sheets') | Should -BeExactly 'widget/parts/*/sheets'
+            @($config.tracks[0].kinds.Keys) | Sort-Object | Should -Be @('parts', 'sheets', 'spares')
+            $config.tracks[0].KindPlace('bolts') | Should -BeNullOrEmpty
+            @($config.tracks[1].kinds.Keys) | Should -HaveCount 0
+            $config.tracks[0].PlaceLengthOf('widget/parts/a/sheets/b.yml') | Should -Be 'widget/parts'.Length -Because 'kinds leave membership to places'
+        }
+
+        It 'throws on a kind outside the track''s places, a pattern with two wildcards or a bad segment, a bad kind name, and a non-map kinds' -ForEach @(
+            @{ Kinds = [ordered]@{ parts = 'gadget/parts' }; Message = "*place pattern 'gadget/parts' is not inside one of the track's places*" }
+            @{ Kinds = [ordered]@{ parts = 'widget/parts-extra' }; Message = "*place pattern 'widget/parts-extra' is not inside*" }
+            @{ Kinds = [ordered]@{ sheets = 'widget/parts/*/*' }; Message = "*invalid place pattern 'widget/parts/*/*'*" }
+            @{ Kinds = [ordered]@{ sheets = 'widget/parts/../sheets' }; Message = "*invalid place pattern 'widget/parts/../sheets'*" }
+            @{ Kinds = [ordered]@{ Sheets = 'widget/parts' }; Message = "*invalid kind name 'Sheets'*" }
+            @{ Kinds = @('widget/parts'); Message = '*kinds must be a map of kind -> place pattern*' }
+        ) {
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ places = @('widget/parts'); type = 'widget-works'; kinds = $Kinds } } }) } |
+                Should -Throw -ExpectedMessage $Message
+        }
+
         It 'throws when tracks is empty, not a map, or holds a non-map entry' {
             { & $script:make ([ordered]@{ tracks = [ordered]@{} }) } | Should -Throw '*at least one track*'
             { & $script:make ([ordered]@{ tracks = @('widget') }) } | Should -Throw '*invalid tracks*'

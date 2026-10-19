@@ -28,7 +28,7 @@ Describe 'Format-LongMarkdownLines' -Tag 'L0', 'logic' {
     }
 
     It 'keeps a paragraph with a hard line break as written' {
-        $text = "widget gadget widget  `ngadget"
+        $text = "widget gadget widget  `n" + 'gadget'
         Invoke-Wrap $text 10 | Should -Be $text
     }
 }

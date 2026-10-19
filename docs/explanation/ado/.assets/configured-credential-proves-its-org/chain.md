@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9af21ba3a15b"
+    with_body_sha: "4d083ed4338f"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/explanation/ado/.assets/configured-credential-proves-its-org/chain.md
@@ -16,14 +16,14 @@ catzc:
 # The first configured credential wins, and it must prove its org: the value-chain minimap
 
 ```text
-Where ADR-PIPE-AUTH sits in the value chain: value-chain stack down, value-chain concerns across.
+Where ADR-ADO-AUTH sits in the value chain: value-chain stack down, value-chain concerns across.
 1 of 25 cells lit.
 ```
 
 ![The value-chain minimap of The first configured credential wins, and it must prove its org](chain.png)
 
 This is the value-chain minimap in the sidebar of the meta diagram of [The first configured credential wins, and it must prove its org][3],
-which explains [ADR-PIPE-AUTH][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns land, so it shows
+which explains [ADR-ADO-AUTH][1]. It lights the cells of the value-chain map where the cited ADRs' value-chain concerns land, so it shows
 the part of the value chain the decision governs. Each lit cell has its reason below, naming the code that selects it.
 
 ## What the minimap shows
@@ -56,7 +56,7 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [ADR-PIPE-AUTH][1]: selected by [ADR-PIPE-AUTH][1]; its ADR domain `ado` sits on the PIPE row of the value-chain stack
+- [ADR-ADO-AUTH][1]: selected by [ADR-ADO-AUTH][1]; its ADR domain `ado` sits on the PIPE row of the value-chain stack
   ([ADR-DSGN-TRACK-VALUECHAINSTACK][2]); its own value-chain concerns (access) override its ADR domain's default (build, quality-control,
   release and deploy), so it lights the access column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][2]).
 

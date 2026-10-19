@@ -27,9 +27,16 @@ public sealed class VariantTrack
     // The modules whose engines differ from the track's: module name -> the engines it names. Empty when none differs.
     public IReadOnlyDictionary<string, IReadOnlyList<string>> module_execution_engines { get; }
 
+    // The named kinds of the track's files: kind -> a place pattern inside one of its places, one '*' segment allowed
+    // (e.g. configs -> infrastructure/templates/*/configuration). Empty when the track names none; membership is decided by places alone.
+    public IReadOnlyDictionary<string, string> kinds { get; }
+
     public VariantTrack(string name, string[] places, string type, string vendor, string[] languages, string[] executionEngines = null,
-        IDictionary<string, string[]> moduleExecutionEngines = null)
+        IDictionary<string, string[]> moduleExecutionEngines = null, IDictionary<string, string> kinds = null)
     {
+        this.kinds = kinds == null
+            ? new Dictionary<string, string>(StringComparer.Ordinal)
+            : new Dictionary<string, string>(kinds, StringComparer.Ordinal);
         this.execution_engines = executionEngines == null ? Array.Empty<string>() : (string[])executionEngines.Clone();
         Dictionary<string, IReadOnlyList<string>> overrides = new Dictionary<string, IReadOnlyList<string>>(StringComparer.Ordinal);
         if (moduleExecutionEngines != null)
@@ -49,6 +56,13 @@ public sealed class VariantTrack
     {
         IReadOnlyList<string> own;
         return module != null && module_execution_engines.TryGetValue(module, out own) ? own : execution_engines;
+    }
+
+    // The place pattern of a named kind, or null when the track does not name it.
+    public string KindPlace(string kind)
+    {
+        string pattern;
+        return kind != null && kinds.TryGetValue(kind, out pattern) ? pattern : null;
     }
 
     // The length of the longest place that contains a '/'-separated repository-relative path, or -1 when none does.

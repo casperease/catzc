@@ -18,7 +18,8 @@ function Get-AdrCitationGraphViolations {
             $domainOfCode["ADR-$($ruleSet.Code)"] = $ruleSet.Domain
         }
     }
-    $domainNames = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Adrs.Domains.Name), [System.StringComparer]::Ordinal)
+    # A link's domain is the one with the longest folder that holds its target, so a domain folder nested in another keeps its own links.
+    $folders = @($Adrs.Domains | Sort-Object -Property { $_.Folder.Length } -Descending)
 
     $ret = foreach ($domain in $Adrs.Domains) {
         $allowed = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
@@ -55,9 +56,9 @@ function Get-AdrCitationGraphViolations {
                     if (-not $target -or $target.IndexOf('/') -lt 0) {
                         continue
                     }
-                    $targetDomain = $target.Split('/')[0]
-                    if ($domainNames.Contains($targetDomain)) {
-                        $references.Add(@{ Text = $match.Groups['target'].Value; Domain = $targetDomain })
+                    $owner = $folders | Where-Object { $target.StartsWith("$($_.Folder)/", [System.StringComparison]::Ordinal) } | Select-Object -First 1
+                    if ($owner) {
+                        $references.Add(@{ Text = $match.Groups['target'].Value; Domain = $owner.Name })
                     }
                 }
 

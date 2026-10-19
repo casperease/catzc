@@ -129,7 +129,7 @@ The bundle's own code keeps calling a replaced function the way it always has, s
 a function the module already has — never adds one, which would be a new module hidden inside a bundled one. The replacement reaches every
 caller. In pwsh that takes two steps: the override file is loaded inside the module's own scope, which reaches the module's callers, its
 state, and module-scoped mocks; and a public override is published to the session, where the import had put the original, which reaches the
-session and every other module. Its script block stays bound to the module, so it runs in the module's scope wherever it is called from.
+session and every other module. Its code stays bound to the module, so it runs in the module's scope wherever it is called from.
 
 ### Asset overrides
 

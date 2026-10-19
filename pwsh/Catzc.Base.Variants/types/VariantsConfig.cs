@@ -9,7 +9,7 @@ namespace Catzc.Base.Variants;
 public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects", "tracks" };
-    private static readonly string[] AllowedTrackKeys = { "places", "type", "vendor", "languages", "execution_engines", "module_execution_engines" };
+    private static readonly string[] AllowedTrackKeys = { "places", "type", "vendor", "languages", "execution_engines", "module_execution_engines", "kinds" };
     private static readonly Regex CustomerName = new Regex("^[a-z][a-z0-9]+$");
     private static readonly Regex AspectName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex TrackName = new Regex("^\\.?[a-z][a-z0-9]*(-[a-z0-9]+)*$");
@@ -338,9 +338,51 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
 
-            result.Add(new VariantTrack(name, places.ToArray(), trackType, vendor, languages.ToArray(), engines.ToArray(), moduleEngines));
+            Dictionary<string, string> kinds = ReadKinds(name, Has(entry, "kinds") ? entry["kinds"] : null, places, errors);
+
+            result.Add(new VariantTrack(name, places.ToArray(), trackType, vendor, languages.ToArray(), engines.ToArray(), moduleEngines, kinds));
         }
         return result;
+    }
+
+    // A track's named kinds: kind -> a place pattern inside one of its places, with at most one '*' segment.
+    private static Dictionary<string, string> ReadKinds(string track, object value, List<string> places, List<string> errors)
+    {
+        Dictionary<string, string> kinds = new Dictionary<string, string>(StringComparer.Ordinal);
+        if (value == null) { return kinds; }
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add(string.Format("tracks['{0}']: kinds must be a map of kind -> place pattern (e.g. configs: widgets/*/configuration)", track));
+            return kinds;
+        }
+        foreach (object kindKey in map.Keys)
+        {
+            string kind = Text(kindKey);
+            string pattern = Text(map[kindKey]);
+            if (!AspectName.IsMatch(kind))
+            {
+                errors.Add(string.Format("tracks['{0}']: invalid kind name '{1}' (kebab-case)", track, kind));
+                continue;
+            }
+            string[] segments = pattern.Split('/');
+            int stars = segments.Count(s => s == "*");
+            bool wellFormed = segments.All(s => s == "*" || (PlacePath.IsMatch(s) && s != "." && s != ".."));
+            if (!wellFormed || stars > 1)
+            {
+                errors.Add(string.Format("tracks['{0}'].kinds['{1}']: invalid place pattern '{2}' (a repository-relative path with '/' separators and at most one '*' segment)", track, kind, pattern));
+                continue;
+            }
+            // A place has no '*', so a pattern that is a place or extends one carries its '*' after that place.
+            bool inside = places.Any(p => pattern == p || pattern.StartsWith(p + "/", StringComparison.Ordinal));
+            if (!inside)
+            {
+                errors.Add(string.Format("tracks['{0}'].kinds['{1}']: place pattern '{2}' is not inside one of the track's places ({3})", track, kind, pattern, string.Join(", ", places)));
+                continue;
+            }
+            kinds[kind] = pattern;
+        }
+        return kinds;
     }
 
     // A list of execution engines, each one of the closed set and named once. An absent list is empty: the choice is left open as auto.

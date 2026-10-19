@@ -34,8 +34,8 @@ noisy plumbing calls or commands carrying a runtime secret ADO cannot mask.
 ## Context
 
 When an external command fails, the first question is always: "What exactly did it run?" If the answer requires reading the source code,
-adding `-Verbose`, or reproducing the issue with debug flags, you have already lost minutes. In a CI pipeline where the environment is gone
-after the run, those minutes turn into a full rebuild cycle.
+turning on verbose output, or reproducing the issue with debug flags, you have already lost minutes. In a CI pipeline where the environment
+is gone after the run, those minutes turn into a full rebuild cycle.
 
 Automation is fundamentally about orchestrating external tools — `az`, `dotnet`, `winget`, `poetry`, `git`. Each of these has dozens of
 flags, and the difference between success and failure is often a single argument or a missing quote. If the exact invocation is not in the
@@ -48,8 +48,8 @@ log, you are guessing.
 **Developers will not add logging.** If logging is a conscious choice per call site, it will be missing from exactly the call that fails.
 The function that "obviously works" and does not need logging is the one that breaks at 3 AM in production.
 
-**Verbose/Debug flags are off by default.** If the command is only logged behind `-Verbose`, you will not have it when you need it. The log
-must be there on every run, not just when someone remembered to enable diagnostics.
+**Verbose/Debug flags are off by default.** If the command is only logged behind a verbose flag, you will not have it when you need it. The
+log must be there on every run, not just when someone remembered to enable diagnostics.
 
 **Copy-paste debugging.** When the log shows the exact command, you can copy it, paste it into a terminal, and run it manually. This is the
 fastest debugging workflow — no reproduction steps, no guessing what the automation actually did. If the command is paraphrased or partially
@@ -79,5 +79,5 @@ Every function that invokes an external command must log the exact command strin
 
 - Every CI log contains the exact commands that ran, in order. Debugging starts with the log, not with the source code.
 - Failed commands can be copy-pasted and re-run manually for immediate reproduction.
-- No one needs to re-run a pipeline with `-Verbose` to find out what happened — the information is already there.
+- No one needs to re-run a pipeline with verbose output to find out what happened — the information is already there.
 - Secret masking is ADO's responsibility. The automation code logs freely and ADO redacts what needs redacting.

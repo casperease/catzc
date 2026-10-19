@@ -28,7 +28,7 @@ Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'sourc
         $index = [System.IO.File]::ReadAllText((Join-Path $script:adrRoot 'index.md'))
         $flattened = $index -replace '\s+', ' '
         $missing = foreach ($domain in (Get-Config -Config adrs).Domains) {
-            $expected = "### $($domain.Name)/ $($domain.Description -replace '\s+', ' ')"
+            $expected = "### $($domain.Folder)/ $($domain.Description -replace '\s+', ' ')"
             if (-not $flattened.Contains($expected)) {
                 $domain.Name
             }

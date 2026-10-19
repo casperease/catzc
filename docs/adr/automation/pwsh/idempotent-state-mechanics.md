@@ -55,7 +55,7 @@ the function is idempotent and names a non-idempotent command it wraps, and a `.
 
 ## Context
 
-[idempotent-state-functions](../automation/idempotent-state-functions.md) (`ADR-AUTO-IDEM`) decides that every state-changing function is
+[idempotent-state-functions](../idempotent-state-functions.md) (`ADR-AUTO-IDEM`) decides that every state-changing function is
 idempotent: check before acting, prefer graceful handling, overwrite rather than append, return the resulting state, and document the
 contract. Those rules hold for every execution engine. PowerShell adds its own ways to get each one wrong: cmdlets that look alike but
 differ on a re-run, a `-Force` that means different things on different commands, and a pipeline that returns every value a function forgets
@@ -90,7 +90,7 @@ The same holds for `$env:PSModulePath`, and for any list a function writes into 
 ### Idempotent built-ins
 
 Some built-ins already converge, and a function leans on them rather than adding a guard of its own
-([idempotent-state-functions](../automation/idempotent-state-functions.md#where-it-applies) calls redundant checks waste).
+([idempotent-state-functions](../idempotent-state-functions.md#where-it-applies) calls redundant checks waste).
 `New-Item -ItemType Directory -Force` returns the existing folder instead of throwing, and `[System.IO.Directory]::CreateDirectory` does the
 same without the cmdlet's cost. The same switch on a file is not a create-if-missing: `New-Item -ItemType File -Force` replaces an existing
 file with an empty one, so a function that must keep an existing file checks `Test-Path -LiteralPath` first.
@@ -107,7 +107,7 @@ the idempotent path, and the switch is opt-in behaviour, so it is a `[switch]`
 ([parameter-design](parameter-design.md#rule-adr-pwsh-param-switchnotbool)).
 
 A destructive verb uses the same name for a different job: on `Remove-<Tool>`, `-Force` confirms the removal, and without it the function
-reports its plan ([tool-removal-lifecycle](../automation/tool-removal-lifecycle.md#rule-adr-auto-remove-doublyguarded)). The two meanings
+reports its plan ([tool-removal-lifecycle](../tool-removal-lifecycle.md#rule-adr-auto-remove-doublyguarded)). The two meanings
 never meet on one function, and each function's help states which one it has (ADR-PWSH-IDEM-CONTRACTINHELP).
 
 ### One result on both paths

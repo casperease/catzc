@@ -31,7 +31,13 @@ function Update-AdrCitation {
     $codeRows = Import-AdrCitationMapFile (Resolve-RepoPath $CodeMap) -Header 'old_code', 'new_code', 'old_path', 'new_path', 'kind'
     $ruleRows = Import-AdrCitationMapFile (Resolve-RepoPath $RuleMap) -Header 'old_rule', 'new_rule', 'kind', 'why'
     $citations = Get-AdrCitationMap -RepositoryRoot $root
-    $rewriter = [Catzc.Base.Docs.AdrCitationRewriter]::new($codeRows, $ruleRows, $citations)
+    $adrRoot = Join-Path $root 'docs/adr'
+    $treeFiles = [string[]] @(if (Test-Path -LiteralPath $adrRoot -PathType Container) {
+            foreach ($adrFile in Get-ChildPath $adrRoot -File -Depth 8) {
+                [System.IO.Path]::GetRelativePath($root, $adrFile).Replace('\', '/')
+            }
+        })
+    $rewriter = [Catzc.Base.Docs.AdrCitationRewriter]::new($codeRows, $ruleRows, $citations, $treeFiles)
 
     $bytes = [System.IO.File]::ReadAllBytes($file)
     $hasBom = $bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF

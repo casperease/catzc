@@ -107,32 +107,32 @@ either shell's view (`C:\projects\catzc` under pwsh, `/c/projects/catzc` under G
 
 A path moves through automation code in two very different roles, and conflating them is a source of bugs that keeps recurring. In one role
 a path is _data_ — a value a function returns, stores in a record, writes into a config a human reads, or prints in a log line. In the other
-it is an _address_ — the argument to `Get-Content`, `Import-Module`, or an `az` invocation that is about to touch the filesystem.
+it is an _address_ — the argument to a file read, a module import, or an `az` invocation that is about to touch the filesystem.
 
 As data, an absolute path is wrong in three ways: it is machine-specific (it embeds `C:\Users\someone\…` or `/home/vsts/work/1/s/…`, so it
-cannot be compared, committed, or moved between a workstation and a CI agent), it is noisy in logs, and it is fragile — built by `Join-Path`
+cannot be compared, committed, or moved between a workstation and a CI agent), it is noisy in logs, and it is fragile — built by a path join
 from a raw caller argument, it carries whatever `.\`, `..`, or backslash the caller passed straight through. As an address, a relative path
-is wrong the moment resolution depends on `$PWD` (see [never-depend-on-pwd](never-depend-on-pwd.md)), so binding must resolve against a
-known anchor, not the current directory.
+is wrong the moment resolution depends on the current directory (see [never-depend-on-pwd](never-depend-on-pwd.md)), so binding must resolve
+against a known anchor, not the current directory.
 
 The fix is to fix the _form_ a path takes at each boundary, rather than leaving it to each function author. This ADR complements
-[never-depend-on-pwd](never-depend-on-pwd.md) (resolve against the working root, never `$PWD`),
-[cross-platform-powershell](pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat-pathjoinprimitive) (`Join-Path` and
-`[IO.Path]::GetFullPath`, forward slashes), and [dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root,
-whose paths take the same relative form).
+[never-depend-on-pwd](never-depend-on-pwd.md) (resolve against the working root, never the current directory),
+[cross-platform-powershell](pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat-pathjoinprimitive) (the PowerShell path join and
+normalization, forward slashes), and [dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root, whose paths
+take the same relative form).
 
 ### The two forms
 
 **Communication form** — repository-root-relative or output-root-relative, `/`-separated, normalized. This is the form a path takes whenever
 it is _data_: a return value, a stored field, a logged string. It is portable (identical on every machine), comparable (two relative paths
-compare with `-eq` without `GetFullPath` gymnastics), and committable (it can live in a checked-in config or a golden file). It is produced
-by `ConvertTo-RepoRelativePath`, which runs `[IO.Path]::GetFullPath` to collapse `.`/`..`, relativizes against the output root first and
-then the repository root, and replaces backslashes with forward slashes.
+compare as plain strings without normalization gymnastics), and committable (it can live in a checked-in config or a golden file). It is
+produced by `ConvertTo-RepoRelativePath`, which normalizes the path to collapse `.`/`..`, relativizes against the output root first and then
+the repository root, and replaces backslashes with forward slashes.
 
 **Binding form** — a normalized absolute path, resolved against the repository root, that exists only on the line that uses it. It is
 produced by `Resolve-RepoPath` (or the `Get-RepositoryFile` / `Get-RepositoryFolder` binding helpers), which join onto `Get-RepositoryRoot`
-— not `$PWD` — and `GetFullPath` the result. It is never assigned to a field, returned across a boundary, or logged; the moment it would be,
-the value belongs in communication form instead.
+— not the current directory — and normalize the result. It is never assigned to a field, returned across a boundary, or logged; the moment
+it would be, the value belongs in communication form instead.
 
 ### The boundary, concretely
 
@@ -155,14 +155,14 @@ path wrapped in link syntax: the leading `/` means "the repository root" to the 
 
 Binding is the one place an absolute path is correct, and it is always local and transient:
 
-```powershell
+```text
 # stored relative (communication form) on the record …
-Import-Module (Resolve-RepoPath $ctx.artifacts.prepost_module) -Force   # … resolved to absolute only here
+import_module(resolve_repo_path(context.artifacts.prepost_module))   # … resolved to absolute only here
 ```
 
 A path handed to an external tool through `Invoke-Executable` does not even need the resolve step: those tools run from the repository root
-(the default working directory), so a repo-relative path resolves there on its own. `Resolve-RepoPath` is for the PowerShell-side consumers
-— `Import-Module`, `Get-Content`, `Test-Path` — that resolve against `$PWD` unless given an absolute path.
+(the default working directory), so a repo-relative path resolves there on its own. `Resolve-RepoPath` is for the in-process consumers — a
+module import, a file read, an existence test — that resolve against the current directory unless given an absolute path.
 
 ### Two functions
 
@@ -170,10 +170,10 @@ A path handed to an external tool through `Invoke-Executable` does not even need
 
 Every path that crosses a boundary going out goes through `ConvertTo-RepoRelativePath`, and every path that binds coming back goes through
 `Resolve-RepoPath`. The pair round-trips: relativizing a path under the root and resolving it again yields the original absolute path.
-Centralizing on the two functions is what makes normalization a guarantee rather than a hope — a hand-built
-`Join-Path $env:RepositoryRoot $Path` preserves a caller's `.\` and produces `{root}/./sub`, and a hand-rolled `-replace '\\','/'` fixes
-separators but not `..` segments. The converters fix both, in one place, so the rule cannot be half-applied. The PowerShell spellings of the
-two hand-built crossings are ADR-PWSH-XPLAT-HANDBUILTCROSSINGS.
+Centralizing on the two functions is what makes normalization a guarantee rather than a hope — a path hand-joined onto the repository root
+preserves a caller's `.\` and produces `{root}/./sub`, and a hand-rolled backslash-to-slash replace fixes separators but not `..` segments.
+The converters fix both, in one place, so the rule cannot be half-applied. The PowerShell spellings of the two hand-built crossings are
+ADR-PWSH-XPLAT-HANDBUILTCROSSINGS.
 
 ### Degradation
 
@@ -236,7 +236,7 @@ re-derivation and the stored field stays relative either way. This is why the ru
 
 Paths are communicated relative and bound absolute. `ConvertTo-RepoRelativePath` and `Resolve-RepoPath` (both in `Catzc.Base.Repository`)
 are the only sanctioned boundary crossers; `Get-RepositoryFile` and `Get-RepositoryFolder` are binding helpers that normalize. No function
-hand-builds a communicated path from `$env:RepositoryRoot` or normalizes separators by hand.
+hand-builds a communicated path from the repository-root environment variable or normalizes separators by hand.
 
 ### How this is enforced
 
@@ -255,10 +255,10 @@ hand-builds a communicated path from `$env:RepositoryRoot` or normalizes separat
   segment, or carries `{workspace}` anywhere but first, and resolves the anchor; `Resolve-InspirationRoot` binds it.
 
 - **Code review** against this ADR covers what a linter cannot. A custom PSScriptAnalyzer rule is _not_ used here: the only
-  statically-decidable signatures — a raw `$env:RepositoryRoot` read, a `Join-Path $env:RepositoryRoot …`, an ad-hoc `\`→`/` replace — are
-  each used legitimately in scores of binding sites, parameter defaults, and tests, so a blanket rule is overwhelmingly false-positive; and
-  the property that actually distinguishes a leak (a path _communicated_ rather than _bound_) is not expressible as an AST pattern.
-  Enforcement therefore lives in the types above and in review, not in a noisy rule.
+  statically-decidable signatures — a raw read of the repository-root environment variable, a path joined onto it, an ad-hoc
+  backslash-to-slash replace — are each used legitimately in scores of binding sites, parameter defaults, and tests, so a blanket rule is
+  overwhelmingly false-positive; and the property that actually distinguishes a leak (a path _communicated_ rather than _bound_) is not
+  expressible as an AST pattern. Enforcement therefore lives in the types above and in review, not in a noisy rule.
 
 ## Consequences
 
@@ -266,9 +266,9 @@ hand-builds a communicated path from `$env:RepositoryRoot` or normalizes separat
   without `GetFullPath`.
 - The `{root}/./sub` class of bug disappears, because the binding helpers and converters normalize and nothing hand-builds a communicated
   path.
-- Resolution is deterministic: binding resolves against the repository root, never `$PWD`, so a function composes the same wherever the
-  shell is standing.
+- Resolution is deterministic: binding resolves against the repository root, never the current directory, so a function composes the same
+  wherever the shell is standing.
 - There is one obvious place to look when a path is wrong — the boundary crosser that produced it — and one pair of functions to reason
-  about instead of every author's bespoke `Join-Path`.
+  about instead of every author's bespoke path join.
 - The cost is a small, explicit conversion at each boundary: relativize on the way out, resolve on the way in. The pair round-trips, so the
   cost is mechanical, not a source of new error.

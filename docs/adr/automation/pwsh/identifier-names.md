@@ -5,7 +5,7 @@
 ### Rule ADR-PWSH-NAMES-ANALYZERRULE
 
 A custom PSScriptAnalyzer rule, `Measure-SpellOutIdentifiers`, is the automatic identifier-level enforcer of
-[spell-out-names](../automation/spell-out-names.md) (`ADR-AUTO-SPELL`). It tokenizes every variable reference — assignment targets,
+[spell-out-names](../spell-out-names.md) (`ADR-AUTO-SPELL`). It tokenizes every variable reference — assignment targets,
 parameters, loop variables, and reads — and the noun of every function name (camelCase / PascalCase / snake_case), and flags any fragment
 that is neither a real English word nor an approved registry term. It applies no minimum word length, so it catches the short and compound
 coined abbreviations cspell's `minWordLength` lets through (`$rcg`, `$tfPath`) — a class left to code review alone. Its oracle is a native
@@ -52,7 +52,7 @@ for the genuinely nameless intermediate, never a licence to blur a value that ha
 ### Rule ADR-PWSH-NAMES-POWERSHELLIDENTIFIERS
 
 In PowerShell, the identifiers
-[ADR-AUTO-SPELL-FULLWORDIDENTIFIERS](../automation/spell-out-names.md#rule-adr-auto-spell-fullwordidentifiers) spells out are variable names
+[ADR-AUTO-SPELL-FULLWORDIDENTIFIERS](../spell-out-names.md#rule-adr-auto-spell-fullwordidentifiers) spells out are variable names
 (`$protocols`, not `$protos`), parameter names (`-TemplateFolderPath`), hashtable keys, and the noun of a `Verb-Noun` function name; the
 verb is one of PowerShell's approved verbs ([respect-pwsh-verb-rules](respect-pwsh-verb-rules.md)).
 
@@ -60,17 +60,17 @@ verb is one of PowerShell's approved verbs ([respect-pwsh-verb-rules](respect-pw
 
 ### Rule ADR-PWSH-NAMES-ENGINENAMES
 
-The engine's own names that [ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](../automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations)
+The engine's own names that [ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](../spell-out-names.md#rule-adr-auto-spell-allowedabbreviations)
 exempts are PowerShell's automatic and preference variables — `$_`, `$PSItem`, `$args`, `$PSCmdlet`, `$PSBoundParameters`, `$IsWindows`,
 `$ErrorActionPreference`, and the like. A drive-qualified variable (`$env:`, `$function:`, `$variable:`) names data outside our choosing,
-not an identifier ([ADR-AUTO-SPELL-IDENTIFIERSNOTDATA](../automation/spell-out-names.md#rule-adr-auto-spell-identifiersnotdata)), and is
+not an identifier ([ADR-AUTO-SPELL-IDENTIFIERSNOTDATA](../spell-out-names.md#rule-adr-auto-spell-identifiersnotdata)), and is
 never checked.
 
 - [The analyzer rule](#the-analyzer-rule)
 
 ## Context
 
-[spell-out-names](../automation/spell-out-names.md) fixes the doctrine: identifiers are spelled out in full, the curated vocabulary lives in
+[spell-out-names](../spell-out-names.md) fixes the doctrine: identifiers are spelled out in full, the curated vocabulary lives in
 one registry, and a flagged token is a review candidate. This ADR realises it in pwsh — what an identifier is in PowerShell, which names the
 engine owns, the analyzer rule that checks them, and the blessed names a local takes when it has no meaning of its own.
 
@@ -78,7 +78,7 @@ engine owns, the analyzer rule that checks them, and the blessed names a local t
 
 `How Measure-SpellOutIdentifiers reads a file`
 
-`Measure-SpellOutIdentifiers` lives in `automation/pwsh/.scriptanalyzer/SpellOutIdentifiers.psm1` and runs inside the L2 `Test-ScriptAnalyzer` quality
+`Measure-SpellOutIdentifiers` lives in `pwsh/.scriptanalyzer/SpellOutIdentifiers.psm1` and runs inside the L2 `Test-ScriptAnalyzer` quality
 gate. Per file it:
 
 - reads every variable reference and every function definition from the script's syntax tree;
@@ -89,7 +89,7 @@ gate. Per file it:
 
 The oracle accepts the fixture vocabulary (`.cspell/fixture.txt`) only when the analyzed file is a test — a `*.Tests.ps1` file or a file
 under `tests/` — so a test may use fixture names that production code may not
-([ADR-AUTO-SPELL-CATEGORYANDMEANING](../automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)). The oracle is a native type
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](../spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)). The oracle is a native type
 because a PowerShell method call costs too much to look up thousands of fragments per file; the rule loads the committed types assembly into
 the analyzer's own runspace once.
 
@@ -126,7 +126,7 @@ drive-qualified data keep their names; a local with no meaning of its own is nam
 
 - **`Measure-SpellOutIdentifiers`** (custom PSScriptAnalyzer rule, ADR-PWSH-NAMES-ANALYZERRULE) — in the L2 `Test-ScriptAnalyzer` quality
   gate; a flagged fragment is spelled out or blessed as a reviewed registry entry
-  ([ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED](../automation/spell-out-names.md#rule-adr-auto-spell-flaggedtokenreviewed)).
+  ([ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED](../spell-out-names.md#rule-adr-auto-spell-flaggedtokenreviewed)).
 - **Code review** — the role, type, and placeholder names (ADR-PWSH-NAMES-RETURNVALUEBYROLE to ADR-PWSH-NAMES-THROWAWAYINTERMEDIATES),
   coined hashtable keys, and abbreviations that are also dictionary words are review concerns.
 

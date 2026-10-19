@@ -39,14 +39,14 @@ platform itself enforces correctness — the author does not have to remember to
 
 ### What zero ceremony looks like
 
-**Adding a function:** create `Verb-Noun.ps1` in a module folder. No manifest to update, no export list to maintain, no import to add. The
-bootstrap module discovers it automatically.
+**Adding a function:** create the function's file, named for it, in a module folder. No manifest to update, no export list to maintain, no
+import to add. The bootstrap module discovers it automatically.
 
-**Adding a module:** create a folder under `automation/pwsh/`. The folder name becomes the module name. No registration, no configuration
-file.
+**Adding a module:** create a folder under the engine's code root (`pwsh/`). The folder name becomes the module name. No registration, no
+configuration file.
 
-**Using a function:** dot-source `importer.ps1`. Every function from every module is available. No `Import-Module`, no `using module`, no
-dependency declarations.
+**Using a function:** load the importer into the shell. Every function from every module is available. No module import, no `using`
+statement, no dependency declarations.
 
 **Adding an external dependency:** run `Install-VendorModule`. Commit the result. No package manager configuration, no restore step, no lock
 file.
@@ -62,8 +62,8 @@ with no import statements, and exports derived from file location
 
 ### What hard-to-fail looks like
 
-**You cannot name a file wrong.** [One function per file](pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc-onefunctionperfile) —
-`Test-Automation.Tests.ps1` validates that every file is `Verb-Noun.ps1`, contains exactly one function, and the function name matches. A
+**You cannot name a file wrong.** [One function per file](pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc-onefunctionperfile) — the
+automation tests validate that every function file is named `Verb-Noun`, contains exactly one function, and the function name matches. A
 misnamed file fails the next test run immediately.
 
 **You cannot use the wrong verb.** [Approved verbs](pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-approvedverbs) — PSScriptAnalyzer's
@@ -77,12 +77,13 @@ assumption. Bad state cannot silently propagate.
 `.editorconfig` configures the editor. PSScriptAnalyzer rules enforce brace style and variable casing. The author does not need to think
 about formatting — the tools handle it.
 
-**You cannot depend on $PWD.** [Working-directory mechanics](pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-restoresetlocation) — a
-custom PSScriptAnalyzer rule flags bare `Set-Location` calls. Functions that accidentally depend on the working directory are caught before
-they run in a different context.
+**You cannot depend on the current directory.**
+[Working-directory mechanics](pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-restoresetlocation) — a custom analyzer rule flags a
+bare change of the current directory. Functions that accidentally depend on the working directory are caught before they run in a different
+context.
 
-**You cannot publish a function that doesn't exist.** [Use .ps1 not .psm1](pwsh/use-ps1-not-psm1.md) — the bootstrap module derives exports
-from file names. There is no manifest to get out of sync — the file system is the source of truth.
+**You cannot publish a function that doesn't exist.** [Function files, not module files](pwsh/use-ps1-not-psm1.md) — the bootstrap module
+derives exports from file names. There is no manifest to get out of sync — the file system is the source of truth.
 
 **You cannot get a stale module version.**
 [Controlling module dependencies](controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) — vendored modules are checked

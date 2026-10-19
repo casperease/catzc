@@ -20,7 +20,18 @@ tracks:
     }
   pwsh-vendor: { places: [pwsh/.vendor], type: vendored-code }
   infrastructure:
-    { places: [infrastructure/templates, infrastructure/modules], type: infrastructure, vendor: azure, languages: [bicep, yaml] }
+    {
+      places: [infrastructure/templates, infrastructure/modules],
+      type: infrastructure,
+      vendor: azure,
+      languages: [bicep, yaml],
+      kinds:
+        {
+          templates: infrastructure/templates,
+          configs: "infrastructure/templates/*/configuration",
+          modules: infrastructure/modules,
+        },
+    }
   ado-pipelines: { places: [.ado/pipelines], type: pipelines, vendor: ado, languages: [pipeline-yaml, powershell] }
   github-workflows: { places: [.github/workflows], type: pipelines, vendor: github, languages: [yaml] }
   docs: { places: [docs], type: documentation, languages: [markdown, asset] }

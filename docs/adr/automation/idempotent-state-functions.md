@@ -70,42 +70,37 @@ A function that throws is still idempotent if the system state is unchanged by t
 idempotent — the thing is still absent either way. Whether a function throws or returns cleanly is an error-handling concern, not an
 idempotency concern. That said, graceful handling (guard clause + early return) is preferred because it makes re-runs seamless.
 
-```powershell
+The examples are pseudo-code; the pwsh spellings are [idempotent-state-mechanics](pwsh/idempotent-state-mechanics.md).
+
+```text
 # IDEMPOTENT — checks before acting
-function Install-Poetry {
-    $config = Get-ToolConfig -Tool 'Poetry'
-    if (Test-Command $config.Command) {
+function Install-Poetry():
+    config = Get-ToolConfig("Poetry")
+    if Test-Command(config.command):
         # Already installed — verify version and return
-        Assert-ToolVersion -Tool 'Poetry'
+        Assert-ToolVersion("Poetry")
         return
-    }
-    Invoke-Pip "install $($config.PipPackage)==$($config.Version).*"
-    Assert-Command $config.Command
-}
+    Invoke-Pip("install " + config.pip_package + "==" + config.version + ".*")
+    Assert-Command(config.command)
 
 # IDEMPOTENT — overwrites to desired state regardless of current state
-function Set-ProjectConfig {
-    $config = @{ Version = $Version; Environment = $Environment }
-    Set-Content -Path $ConfigPath -Value ($config | ConvertTo-Json)
-}
+function Set-ProjectConfig(version, environment, config_path):
+    write_file(config_path, to_json({ version, environment }))
 
 # NOT IDEMPOTENT — appends on every call
-function Set-ProjectConfig {
-    Add-Content -Path $LogPath -Value "configured at $(Get-Date)"
-    Set-Content -Path $ConfigPath -Value ($config | ConvertTo-Json)
-}
+function Set-ProjectConfig(config, config_path, log_path):
+    append_file(log_path, "configured at " + now())
+    write_file(config_path, to_json(config))
 
 # IDEMPOTENT but ungraceful — throws if already exists
-function New-ServicePrincipal {
-    az ad sp create --id $AppId    # throws if SP already exists — system state is unchanged
-}
+function New-ServicePrincipal(app_id):
+    run("az ad sp create --id " + app_id)    # throws if SP already exists — system state is unchanged
 
 # IDEMPOTENT and graceful — checks existence first (preferred)
-function New-ServicePrincipal {
-    $existing = az ad sp show --id $AppId 2>$null | ConvertFrom-Json
-    if ($existing) { return $existing }
-    az ad sp create --id $AppId | ConvertFrom-Json
-}
+function New-ServicePrincipal(app_id):
+    existing = parse_json(run("az ad sp show --id " + app_id))
+    if existing: return existing
+    return parse_json(run("az ad sp create --id " + app_id))
 ```
 
 ### Where it applies
@@ -126,7 +121,7 @@ function New-ServicePrincipal {
 preconditions and then pass through — for example `Invoke-Python` guards with `Assert-NotNullOrWhitespace` on its arguments and
 `Assert-Tool` before invoking. Those asserts protect against bad calls; they do not control what the underlying command does, so the
 wrappers cannot guarantee idempotency on their own. The calling function is responsible for ensuring idempotency — but that does not always
-mean adding extra checks. If the underlying tool already guarantees idempotency (winget skips already-installed packages, `Set-Content`
+mean adding extra checks. If the underlying tool already guarantees idempotency (winget skips already-installed packages, a whole-file write
 overwrites to the same result), lean on that contract instead of adding redundant guards. Know the tools you wrap — _unnecessary_ checks are
 waste, not safety.
 
@@ -146,14 +141,12 @@ that suppress "already exists" errors. Prefer these over separate check-then-cre
 **Guard clause with early return.** At the top of the function, check whether the desired state already exists and return immediately if so.
 This is the simplest pattern and makes the idempotency visible in the first few lines.
 
-```powershell
-function Install-Tool {
+```text
+function Install-Tool(tool, config):
     # Guard: already installed at the right version? Done.
-    if ((Test-Command $config.Command) -and (Test-ToolVersion $Tool)) {
+    if Test-Command(config.command) and Test-ToolVersion(tool):
         return
-    }
     # ... actual installation logic ...
-}
 ```
 
 ## Decision

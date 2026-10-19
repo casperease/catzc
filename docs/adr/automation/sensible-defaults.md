@@ -51,27 +51,25 @@ discipline to design every function with the "just call it" experience in mind.
 
 `What sensible defaults look like`
 
-```powershell
+The examples are pseudo-code:
+
+```text
 # GOOD — most common case needs zero arguments
-Install-Poetry                              # installs locked version
-Install-Poetry -Version '2.2'              # overrides only when needed
+Install-Poetry()                    # installs locked version
+Install-Poetry(version: "2.2")      # overrides only when needed
 
 # BAD — caller must always specify version
-Install-Poetry -Version '2.1'              # no default, mandatory every time
+Install-Poetry(version: "2.1")      # no default, mandatory every time
 ```
 
-```powershell
+```text
 # GOOD — the default is the configured value, declared on the parameter; the caller overrides if needed
-function Install-Python {
-    param([string] $Version = (Get-ToolConfig -Tool 'Python').Version)
+function Install-Python(version = Get-ToolConfig("Python").version):
     # ...
-}
 
 # BAD — caller must know the version
-function Install-Python {
-    param([Parameter(Mandatory)] [string] $Version)
+function Install-Python(version: required):
     # ...
-}
 ```
 
 How the parameter surface itself is shaped so the common call stays short — the positional primary argument, switches over booleans — is the
@@ -84,7 +82,7 @@ answer is the default. If the answer comes from configuration, read it from conf
 behavior defaults to off and the caller opts in explicitly.
 
 This does not mean making everything optional. A function that does nothing useful without a specific value should make that parameter
-mandatory. `Invoke-Poetry` without arguments would enter an interactive prompt — that is never the right default, so `$Arguments` is
+mandatory. `Invoke-Poetry` without arguments would enter an interactive prompt — that is never the right default, so its arguments are
 mandatory. The test is: **does a reasonable default exist?** If yes, use it. If no, make it mandatory.
 
 ### Where defaults come from
@@ -101,7 +99,7 @@ In order of preference:
    `Get-CatzcModuleRoot` provides the module's own folder. The function uses these anchors instead of requiring a path parameter.
 
 4. **Off, for opt-in behavior.** `-PassThru`, `-DryRun`, `-Silent`, `-NoAssert` — these default to off because the common case does not need
-   them; the caller opts in explicitly when needed (expressed as a `[switch]` — see [parameter-design](pwsh/parameter-design.md)).
+   them; the caller opts in explicitly when needed (in pwsh a switch — see [parameter-design](pwsh/parameter-design.md)).
 
 ### One resolution order
 

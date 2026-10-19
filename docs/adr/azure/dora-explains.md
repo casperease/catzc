@@ -87,6 +87,23 @@ the ADRs themselves; this file carries only their DORA rationale.
   fixed order through the CD pipelines.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## Infrastructure kinds
+
+`Infrastructure kinds — templates, configuration slots and reusable modules, placed by the track`
+
+[ADR-AZ-IACKIND](infrastructure-kinds.md)
+
+> DORA's research ties version-controlled infrastructure and a loosely coupled architecture to delivery performance. This ADR names the
+> three kinds of infrastructure code and lets the track place them, so the same tooling deploys any repository's templates without a layout
+> of its own to copy.
+
+- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — templates, slots and modules move by one config
+  edit, not a tooling change.
+- [Version control](../../references/dora/capabilities.md#version-control) — where each kind lives is one committed declaration.
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — a consumer repository keeps its own layout and
+  binds to the track, not to this repository's paths.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Az CLI over Az PowerShell
 
 `Prefer Az CLI over Az PowerShell modules`

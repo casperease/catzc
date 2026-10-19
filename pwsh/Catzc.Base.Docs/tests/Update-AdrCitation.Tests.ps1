@@ -140,11 +140,31 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
         It 'moves a one-segment folder''s path mentions and leaves its bare name in prose alone' {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
             $codeMap = & $script:writeText 'maps/folder-code-map.tsv' ($header + "`n" + (@('-', '-', 'gadgets/index.md', 'gizmos/index.md', 'folder') -join "`t") + "`n")
+            & $script:writeText 'docs/adr/gadgets/index.md' "# Gadgets`n" | Out-Null
             $text = "Three gadgets share one fragment, so gadgets need a folder: gadgets/ holds them, see gadgets/index.md.`n"
             $full = & $script:writeText 'docs/adr/widget/folder-word.md' $text
             Update-AdrCitation -Path $full -CodeMap $codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue | Out-Null
             [System.IO.File]::ReadAllText($full) |
                 Should -BeExactly "Three gadgets share one fragment, so gadgets need a folder: gizmos/ holds them, see gizmos/index.md.`n"
+        }
+
+        It 'leaves a path of a same-named folder outside docs/adr alone, such as a module path' {
+            $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
+            $codeMap = & $script:writeText 'maps/module-folder-code-map.tsv' ($header + "`n" + (@('-', '-', 'pwsh/index.md', 'automation/pwsh/index.md', 'folder') -join "`t") + "`n")
+            $text = "The loader reads pwsh/Catzc.Widget/x.ps1 and pwsh/Catzc.Widget/ before any module.`n"
+            $full = & $script:writeText 'docs/references/widget-loader.md' $text
+            Update-AdrCitation -Path $full -CodeMap $codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue | Out-Null
+            [System.IO.File]::ReadAllText($full) | Should -BeExactly $text
+        }
+
+        It 'inside docs/adr, moves a real page of the folder and leaves a module path of the same name alone' {
+            $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
+            $codeMap = & $script:writeText 'maps/module-folder-in-adr-code-map.tsv' ($header + "`n" + (@('-', '-', 'pwsh/index.md', 'automation/pwsh/index.md', 'folder') -join "`t") + "`n")
+            & $script:writeText 'docs/adr/automation/pwsh/widget-rules.md' "# Widget rules`n" | Out-Null
+            $text = "The loader reads pwsh/Catzc.Widget/x.ps1, and pwsh/widget-rules.md says why.`n"
+            $full = & $script:writeText 'docs/adr/widget/module-paths.md' $text
+            Update-AdrCitation -Path $full -CodeMap $codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue | Out-Null
+            [System.IO.File]::ReadAllText($full) | Should -BeExactly "The loader reads pwsh/Catzc.Widget/x.ps1, and automation/pwsh/widget-rules.md says why.`n"
         }
     }
 

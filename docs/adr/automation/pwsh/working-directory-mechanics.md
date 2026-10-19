@@ -4,7 +4,7 @@
 
 ### Rule ADR-PWSH-PWD-NEVERDEPENDONPWD
 
-PowerShell code applies [never-depend-on-pwd](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths)
+PowerShell code applies [never-depend-on-pwd](../never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths)
 (`ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS`) with two anchors: the code root (`Get-CatzcModuleRoot` for a module's own content,
 `Get-CatzcModulesRoot` for the dot-prefixed infrastructure, ADR-PWSH-PWD-MODULELOCATESCONTENT) and the working root (`Get-RepositoryRoot`,
 ADR-PWSH-PWD-ROOTTHROUGHACCESSOR), combined with `Join-Path` — never a path resolved against `$PWD`. `$PSScriptRoot` is the anchor only for
@@ -31,9 +31,9 @@ guarantee restoration.
 
 Module code locates its own content — its `configs/`, its `assets/`, another module's, and the dot-prefixed infrastructure (`.internal/`,
 `.vendor/`, `.compiled/`), the internal asset dependencies of
-[ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency) —
+[ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency) —
 only through `Get-CatzcModuleRoot -ChildPath '<literal>'` (or `Get-CatzcModulesRoot` for the infrastructure), never through `$PSScriptRoot`,
-`Get-RepositoryRoot`, or a `Join-Path` over a hand-built `automation/pwsh/...` path. `$PSScriptRoot` is banned in module function files (a module's
+`Get-RepositoryRoot`, or a `Join-Path` over a hand-built `pwsh/...` path. `$PSScriptRoot` is banned in module function files (a module's
 root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it. The analyzer rule `Measure-NoScriptRootAnchor` enforces the
 ban.
 
@@ -44,14 +44,14 @@ ban.
 
 A test file builds its absolute paths from `$env:RepositoryRoot`, or from `$PSScriptRoot` for its own fixtures (`tests/assets/`), never from
 `$PWD` or a relative path
-([ADR-AUTO-NOPWD-TESTSBUILDABSOLUTEPATHS](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-testsbuildabsolutepaths)).
+([ADR-AUTO-NOPWD-TESTSBUILDABSOLUTEPATHS](../never-depend-on-pwd.md#rule-adr-auto-nopwd-testsbuildabsolutepaths)).
 
 - [The anchors](#the-anchors)
 
 ### Rule ADR-PWSH-PWD-ROOTTHROUGHACCESSOR
 
 A module function file reads the working root through `Get-RepositoryRoot`, never `$env:RepositoryRoot`
-([ADR-AUTO-NOPWD-ONEROOTACCESSOR](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)). A function whose job is the
+([ADR-AUTO-NOPWD-ONEROOTACCESSOR](../never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)). A function whose job is the
 variable itself (`Test-InIsolation` swaps it for a sandbox and restores it) carries a justified suppression; tests and `.internal` keep the
 variable. The analyzer rule `Measure-NoEnvRepositoryRoot` enforces it.
 
@@ -60,7 +60,7 @@ variable. The analyzer rule `Measure-NoEnvRepositoryRoot` enforces it.
 
 ### Rule ADR-PWSH-PWD-LITERALCHILDPATH
 
-The child path of [ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)
+The child path of [ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)
 is the `-ChildPath` argument of `Get-CatzcModuleRoot`, written as one string literal at the call site — never a variable, an expression, or
 a `Join-Path` around the call. `Get-InternalAssetDependency` reads that literal from the syntax trees of the module function files, so a
 computed child path is a dependency the inventory cannot see.
@@ -69,7 +69,7 @@ computed child path is a dependency the inventory cannot see.
 
 ## Context
 
-[never-depend-on-pwd](../automation/never-depend-on-pwd.md) fixes the doctrine: every function works correctly regardless of the caller's
+[never-depend-on-pwd](../never-depend-on-pwd.md) fixes the doctrine: every function works correctly regardless of the caller's
 working directory, and module code finds its own content through the code root. This ADR realises it in pwsh — the anchor idioms that make
 paths location-independent, and the one safe way to change directory when an external tool insists on one.
 
@@ -79,8 +79,8 @@ paths location-independent, and the one safe way to change directory when an ext
   (`Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'`), correct in source mode and in the installed build alike
   ([the code root](#the-code-root)).
 - **`Get-RepositoryRoot`** gives the repository root, which `importer.ps1` sets once at bootstrap as `$env:RepositoryRoot` and treats as a
-  constant ([environment-variables](../automation/environment-variables.md)) — the anchor for repository-level paths, via the binding
-  helpers of [path-representation](../automation/path-representation.md) (`Resolve-RepoPath`, `Get-RepositoryFile`). Module code calls the
+  constant ([environment-variables](../environment-variables.md)) — the anchor for repository-level paths, via the binding
+  helpers of [path-representation](../path-representation.md) (`Resolve-RepoPath`, `Get-RepositoryFile`). Module code calls the
   accessor; tests and `.internal` read the variable.
 - **`$PSScriptRoot`** gives the directory of the current script file — the anchor for a test's own fixtures (`tests/assets/`), for a
   standalone asset script, and for the `.internal` loader, none of which is a module function file.
@@ -93,13 +93,13 @@ cmdlet argument resolves against `$PWD` and is exactly the dependence the doctri
 `The code root, not the script's folder`
 
 `$PSScriptRoot` is the folder of the file that is executing, which makes it an anchor for the file's location rather than for the module.
-The toolset runs in two modes ([run-modes](../design/run-modes.md)): in source mode a function file sits in `automation/pwsh/<Module>/` or its
+The toolset runs in two modes ([run-modes](../../design/run-modes.md)): in source mode a function file sits in `pwsh/<Module>/` or its
 `private/` folder, and in build mode the same function sits inside one merged `<Module>.functions.ps1` in the build. A
 `$PSScriptRoot`-relative lookup gives a different answer in each mode — and even within source mode it differs between a root file and a
 `private/` file, which is why such lookups carry `../` fragments. `Get-CatzcModuleRoot` answers with the module's folder under the active
 code root (`CatzcModulesRoot`) in both modes, so `Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` names the same file from any function
 of the module, in source and in build alike. Because every such lookup passes a literal child path, the lookups are also an inventory the
-build and its tests check ([internal-asset-dependencies](../automation/internal-asset-dependencies.md)).
+build and its tests check ([internal-asset-dependencies](../internal-asset-dependencies.md)).
 
 Tests, a module's `assets/` scripts, and the `.internal` loader keep `$PSScriptRoot`: tests run from the source tree by definition, an asset
 script is a standalone file that travels unmerged, and the loader is what sets the code root in the first place.
@@ -130,12 +130,12 @@ Paths resolve from the code root (`Get-CatzcModuleRoot`, with a literal `-ChildP
 
 ### How this is enforced
 
-- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`automation/pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — flags bare
+- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — flags bare
   `Set-Location`/`cd` calls (ADR-PWSH-PWD-RESTORESETLOCATION) and `$PWD` references (ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS). Runs as one of
   the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
-- **Custom PSScriptAnalyzer rule `Measure-NoScriptRootAnchor`** (`automation/pwsh/.scriptanalyzer/NoScriptRootAnchor.psm1`) — flags `$PSScriptRoot` in
+- **Custom PSScriptAnalyzer rule `Measure-NoScriptRootAnchor`** (`pwsh/.scriptanalyzer/NoScriptRootAnchor.psm1`) — flags `$PSScriptRoot` in
   module function files (ADR-PWSH-PWD-MODULELOCATESCONTENT), exempting tests, `assets/`, and `.internal`.
-- **Custom PSScriptAnalyzer rule `Measure-NoEnvRepositoryRoot`** (`automation/pwsh/.scriptanalyzer/NoEnvRepositoryRoot.psm1`) — flags a
+- **Custom PSScriptAnalyzer rule `Measure-NoEnvRepositoryRoot`** (`pwsh/.scriptanalyzer/NoEnvRepositoryRoot.psm1`) — flags a
   `$env:RepositoryRoot` read in a module function file (ADR-PWSH-PWD-ROOTTHROUGHACCESSOR).
 
 ## Consequences

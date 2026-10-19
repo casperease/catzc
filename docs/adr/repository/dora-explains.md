@@ -418,3 +418,21 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — one file per slide makes a deck change a
   reviewable diff of the slides it touches.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Repository kinds
+
+`The product mono-repository, a consumer repository, and no repository`
+
+[ADR-REPO-REPOKIND](repository-kinds.md)
+
+> DORA's research ties a loosely coupled architecture and platform engineering to delivery performance: teams consume a platform without
+> depending on its internals. Naming the three repository kinds the tooling runs in keeps every consumer on its own layout and its own pin,
+> and keeps the product mono-repository from leaking its folders into the code a consumer runs.
+
+- [Platform engineering](../../references/dora/capabilities.md#platform-engineering) — one built bundle serves every consumer repository
+  without a layout of its own to copy.
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — a consumer changes the tooling only through its
+  overlay and pins the bundle at its boundary.
+- [Version control](../../references/dora/capabilities.md#version-control) — what needs history says so where there is none, instead of
+  guessing.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

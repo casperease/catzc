@@ -42,34 +42,34 @@ not catch-and-retry/log/continue unless error handling is their single stated pu
 State changes are explicit. Functions do not mutate ambient global state — error preferences, the working directory, environment variables —
 as a side effect; a temporary change is restored before the function returns, on the failure path as well as the success path.
 
-- [Why PowerShell](#why-powershell)
+- [Why it matters in a scripting engine](#why-it-matters-in-a-scripting-engine)
 - [Violations](#violations)
 
 ## Context
 
-PowerShell makes it easy to write functions that do too much. The language encourages long pipelines, implicit state, and "helpful" side
+Scripting engines make it easy to write functions that do too much. They encourage long pipelines, implicit state, and "helpful" side
 effects. A function starts as a simple wrapper and gradually accumulates setup, validation, logging, retries, and cleanup — all in one body.
-This is the root cause of most automation bugs in PowerShell codebases.
+This is the root cause of most automation bugs.
 
 The Single Responsibility Principle (the S in SOLID) states that a function should have one reason to change. In automation code, the
 practical test is: **everything in the function must serve a single cohesive outcome.** Assertions verify preconditions for that outcome.
 Sub-steps produce intermediate results that feed the next step. If you could remove a sub-step and the remaining steps would still produce a
 valid (just different) result, that sub-step is an independent concern and belongs in a separate function.
 
-This matters more in PowerShell than in compiled languages because there is no compiler to catch the breakage — you find out at runtime,
-often in production.
+This matters more in an interpreted engine than in a compiled language because there is no compiler to catch the breakage — you find out at
+runtime, often in production.
 
-### Why PowerShell
+### Why it matters in a scripting engine
 
-`Why this is critical for PowerShell specifically`
+`Why this is critical for an interpreted engine specifically`
 
-**No compile-time safety.** A C# method that calls a renamed function fails at compile time. A PowerShell function that calls a renamed
-function fails when that line executes — which may be a rare branch that CI never hits. The more a function does, the more surface area for
-these latent failures.
+**No compile-time safety.** A compiled method that calls a renamed function fails at compile time. An interpreted function that calls a
+renamed function fails when that line executes — which may be a rare branch that CI never hits. The more a function does, the more surface
+area for these latent failures.
 
-**Implicit state is everywhere.** `$ErrorActionPreference`, `$LASTEXITCODE`, `$?`, `$PWD`, environment variables, module-scoped variables —
-all are mutable global state that any function can read or modify. A function that touches multiple concerns interacts with more state, and
-interactions between implicit state variables are the hardest bugs to diagnose.
+**Implicit state is everywhere.** The engine's error preference, the last exit code, the current directory, environment variables and
+module-level variables are all mutable global state that any function can read or modify. A function that touches multiple concerns
+interacts with more state, and interactions between implicit state variables are the hardest bugs to diagnose.
 
 **Testing multiplies combinatorially.** A function that does A then B then C needs tests for A×B×C combinations, including partial failures
 at each step. Three single-responsibility functions need A + B + C tests. The compound function is also harder to mock because it tangles
@@ -88,15 +88,15 @@ part they need because they cannot use the function without the part they do not
 
 `Patterns that violate single responsibility`
 
-| Pattern                                                    | Problem                                          | Fix                                                                      |
-| ---------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
-| `Invoke-Foo` installs Foo if missing                       | Side effect the caller did not ask for           | `Assert-Command Foo` at the top; separate `Install-Foo`                  |
-| Function changes `$PWD` to do its work                     | Leaks state to the caller                        | `Push-Location`/`Pop-Location` in `try`/`finally`, or use absolute paths |
-| Function sets `$ErrorActionPreference` globally            | Changes error handling for everything downstream | Use `-ErrorAction` on individual calls, or scope with `try`/`catch`      |
-| Function validates input, transforms it, and writes output | Three reasons to change                          | Separate `Assert-*`, `ConvertTo-*`, and `Write-*` functions              |
-| Function retries on failure with backoff                   | Retry logic tangles with business logic          | Separate `Invoke-WithRetry` that takes a scriptblock                     |
-| Function creates a resource, then configures it            | Partial failure leaves orphaned resource         | Separate `New-*` and `Set-*`; caller composes them                       |
-| Function logs before/after its work                        | Logging concerns change independently            | Use `Write-Verbose`/`Write-Debug` (built-in), or wrap at the call site   |
+| Pattern                                                    | Problem                                          | Fix                                                                  |
+| ---------------------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------- |
+| `Invoke-Foo` installs Foo if missing                       | Side effect the caller did not ask for           | `Assert-Command Foo` at the top; separate `Install-Foo`              |
+| Function changes the current directory to do its work      | Leaks state to the caller                        | Restore it in a `finally`, or use absolute paths                     |
+| Function sets the engine's error preference globally       | Changes error handling for everything downstream | Set it on the individual calls, or scope it with a `try`/`catch`     |
+| Function validates input, transforms it, and writes output | Three reasons to change                          | Separate `Assert-*`, `ConvertTo-*`, and `Write-*` functions          |
+| Function retries on failure with backoff                   | Retry logic tangles with business logic          | Separate `Invoke-WithRetry` that takes the operation as an argument  |
+| Function creates a resource, then configures it            | Partial failure leaves orphaned resource         | Separate `New-*` and `Set-*`; caller composes them                   |
+| Function logs before/after its work                        | Logging concerns change independently            | Use the engine's verbose and debug streams, or wrap at the call site |
 
 The pwsh forms of a temporary state change and of a retry wrapper are in
 [error-handling](pwsh/error-handling.md#rule-adr-pwsh-error-preferencesareambientstate).
@@ -111,37 +111,33 @@ coherent (just smaller) outcome?** If yes, that sub-step is an independent conce
 
 Assertions and precondition checks are never independent concerns — remove an `Assert-Command` and the function becomes incorrect, not
 different. They are part of the function's contract. But two operations that each leave the system in a valid state on their own (creating a
-resource, writing a file) are independent even if they happen to run in sequence.
+resource, writing a file) are independent even if they happen to run in sequence. The examples are pseudo-code:
 
-```powershell
+```text
 # FINE — one responsibility: "run poetry safely"
 # The assertions are guard clauses for the core action, not separate concerns.
 # You would never want to run poetry without checking it exists first.
-function Invoke-Poetry {
-    Assert-Command poetry
-    Assert-ToolVersion -Tool 'Poetry'
-    Invoke-Executable "poetry $Arguments" -PassThru:$PassThru
-}
+function Invoke-Poetry(arguments):
+    Assert-Command("poetry")
+    Assert-ToolVersion("Poetry")
+    Invoke-Executable("poetry " + arguments)
 ```
 
-```powershell
+```text
 # BAD — two responsibilities: "make sure poetry exists" AND "run poetry"
 # The caller asked to run a command, not install software.
 # In CI, poetry is pre-installed — this silently wastes time or breaks on permissions.
-function Invoke-Poetry {
-    if (-not (Test-Command poetry)) {
-        Install-Poetry                          # side effect the caller did not ask for
-    }
-    Invoke-Executable "poetry $Arguments"
-}
+function Invoke-Poetry(arguments):
+    if not Test-Command("poetry"):
+        Install-Poetry()                        # side effect the caller did not ask for
+    Invoke-Executable("poetry " + arguments)
 ```
 
-```powershell
+```text
 # BAD — "create infrastructure" and "write local config" tangled together
-function Initialize-Environment {
-    New-AzResourceGroup -Name $ResourceGroup -Location $Location
-    Set-Content (Join-Path $Path 'config.json') $json
-}
+function Initialize-Environment(resource_group, location, path, json):
+    New-ResourceGroup(resource_group, location)
+    write_file(path + "/config.json", json)
 # What happens when the file write fails?
 # The resource group exists, but the function threw, so the caller thinks
 # nothing happened. Re-running creates a duplicate error or silently
@@ -150,23 +146,22 @@ function Initialize-Environment {
 # resource group.
 
 # GOOD — two functions, caller composes
-New-AzResourceGroup -Name $ResourceGroup -Location $Location
-Set-Content (Join-Path $Path 'config.json') $json
+New-ResourceGroup(resource_group, location)
+write_file(path + "/config.json", json)
 # Now if the file write fails, the caller knows the resource group
 # succeeded and can decide what to do. They can also call either
 # step alone — in CI the resource group already exists, so the
 # script only writes the config file.
 ```
 
-```powershell
+```text
 # FINE — higher-level function with one cohesive goal
 # "Publish a module" is one thing, even though it involves multiple steps.
 # You would never want to pack without testing, or push without packing.
-function Publish-Module {
-    $artifact = Build-ModulePackage -Path $ModulePath
-    Test-ModulePackage -Path $artifact
-    Push-ModulePackage -Path $artifact -Repository $Repository
-}
+function Publish-Module(module_path, repository):
+    artifact = Build-ModulePackage(module_path)
+    Test-ModulePackage(artifact)
+    Push-ModulePackage(artifact, repository)
 ```
 
 The last example is key: composition into higher-level operations is expected and encouraged. Remove the build step and there is nothing to
@@ -185,8 +180,8 @@ silently does something else too.
 
 ### How this is enforced
 
-- **Custom PSScriptAnalyzer rule `Measure-FunctionLength`** (`automation/pwsh/.scriptanalyzer/FunctionLength.psm1`) — warns when a function
-  body exceeds 300 lines. A function that long is almost certainly doing too much. The limit counts the body only (opening brace to closing
+- **Custom PSScriptAnalyzer rule `Measure-FunctionLength`** (`pwsh/.scriptanalyzer/FunctionLength.psm1`) — warns when a function body
+  exceeds 300 lines. A function that long is almost certainly doing too much. The limit counts the body only (opening brace to closing
   brace) — comment-based help placed before the function is not counted.
 
 ## Consequences

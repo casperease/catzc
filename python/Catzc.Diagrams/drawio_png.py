@@ -49,17 +49,64 @@ LINE = "#AAB4C3"  # an edge or outline that sets no strokeColor: quiet ink
 SHADOW = (0, 0, 0, 77)  # the one shadow every filled shape casts (STYLE.md, Canvas): black at 30 %
 SHADOW_OFFSET = (2, 3)  # 2 px right, 3 px down
 SHADOW_BLUR = 2
+SCALE = 3  # supersampling: every shape, line and label is painted at this multiple and the page is downsampled once, so curves are smooth
+
+
+class Scaled:
+    """An ImageDraw spoken to in page pixels while it paints at SCALE times the size: coordinates, widths, radii, spacing and
+    fonts go up by SCALE on the way in, and measurements come back down, so the drawing code never sees the factor."""
+
+    def __init__(self, draw):
+        self.d = draw
+
+    @staticmethod
+    def xy(points):
+        return [tuple(v * SCALE for v in p) if isinstance(p, (tuple, list)) else p * SCALE for p in points]
+
+    @staticmethod
+    def px(width):
+        return max(1, round(width * SCALE)) if width else 0
+
+    @staticmethod
+    def big(f):
+        return big_font(f)
+
+    def rounded_rectangle(self, xy, radius=0, fill=None, outline=None, width=1):
+        self.d.rounded_rectangle(self.xy(xy), radius=radius * SCALE, fill=fill, outline=outline, width=self.px(width))
+
+    def rectangle(self, xy, fill=None, outline=None, width=1):
+        self.d.rectangle(self.xy(xy), fill=fill, outline=outline, width=self.px(width))
+
+    def ellipse(self, xy, fill=None, outline=None, width=1):
+        self.d.ellipse(self.xy(xy), fill=fill, outline=outline, width=self.px(width))
+
+    def polygon(self, xy, fill=None, outline=None, width=1):
+        self.d.polygon(self.xy(xy), fill=fill, outline=outline, width=self.px(width))
+
+    def line(self, xy, fill=None, width=1, joint=None):
+        self.d.line(self.xy(xy), fill=fill, width=self.px(width), joint=joint)
+
+    def multiline_text(self, xy, text, font, fill=None, spacing=4, align="left"):
+        self.d.multiline_text(self.xy([xy])[0], text, font=self.big(font), fill=fill, spacing=spacing * SCALE, align=align)
+
+    text = multiline_text
+
+    def multiline_textbbox(self, xy, text, font, spacing=4):
+        return tuple(v / SCALE for v in self.d.multiline_textbbox(self.xy([xy])[0], text, font=self.big(font), spacing=spacing * SCALE))
+
+    def textlength(self, text, font):
+        return self.d.textlength(text, font=self.big(font)) / SCALE
 
 
 def drop_shadow(img, box, painter, pad=8):
-    """Paint the kit's shadow of one shape onto `img` (RGBA) just before the shape itself: `painter(draw, box, colour)`
+    """Paint the kit's shadow of one shape onto `img` (RGBA, at SCALE) just before the shape itself: `painter(draw, box, colour)`
     draws the shape's silhouette, which is offset, blurred and composited so it fades into the dark page."""
     x0, y0, x1, y1 = box
-    w, h = int(x1 - x0) + 2 * pad, int(y1 - y0) + 2 * pad
+    w, h = (int(x1 - x0) + 2 * pad) * SCALE, (int(y1 - y0) + 2 * pad) * SCALE
     layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    painter(ImageDraw.Draw(layer), (pad, pad, pad + (x1 - x0), pad + (y1 - y0)), SHADOW)
-    layer = layer.filter(ImageFilter.GaussianBlur(SHADOW_BLUR))
-    left, top = int(x0) - pad + SHADOW_OFFSET[0], int(y0) - pad + SHADOW_OFFSET[1]
+    painter(Scaled(ImageDraw.Draw(layer)), (pad, pad, pad + (x1 - x0), pad + (y1 - y0)), SHADOW)
+    layer = layer.filter(ImageFilter.GaussianBlur(SHADOW_BLUR * SCALE))
+    left, top = (int(x0) - pad + SHADOW_OFFSET[0]) * SCALE, (int(y0) - pad + SHADOW_OFFSET[1]) * SCALE
     crop = (max(0, -left), max(0, -top), min(w, img.width - left), min(h, img.height - top))
     if crop[2] <= crop[0] or crop[3] <= crop[1]:
         return
@@ -168,14 +215,30 @@ def plain(value):
     return html.unescape(text).strip()
 
 
+FONTS = {}
+
+
 def font(size, bold):
     names = ["arialbd.ttf", "segoeuib.ttf"] if bold else ["arial.ttf", "segoeui.ttf"]
-    for name in names:
-        try:
-            return ImageFont.truetype(name, size)
-        except OSError:
-            pass
-    return ImageFont.load_default()
+    key = (size, bold)
+    if key not in FONTS:
+        FONTS[key] = next((f for f in (truetype(n, size) for n in names) if f), None) or ImageFont.load_default(size)
+    return FONTS[key]
+
+
+def truetype(name, size):
+    try:
+        return ImageFont.truetype(name, size)
+    except OSError:
+        return None
+
+
+def big_font(f):
+    """The same face at SCALE times the size, for painting on the supersampled page."""
+    key = ("big", f.getname(), f.size)
+    if key not in FONTS:
+        FONTS[key] = f.font_variant(size=f.size * SCALE)
+    return FONTS[key]
 
 
 def encode(model_xml, name):
@@ -246,8 +309,10 @@ def render(root, page=None):
         bg = model_bg
     else:
         bg = BACKGROUND if model_bg.lower() in ("#ffffff", "#fff", "#e6ecf2") else model_bg
-    img = Image.new("RGBA", (int(maxx - minx), int(maxy - miny)), bg)  # RGBA so each shadow composites onto what is under it
-    d = ImageDraw.Draw(img)
+    page_size = (int(maxx - minx), int(maxy - miny))
+    # RGBA so each shadow composites onto what is under it; SCALE times the page, downsampled once at the end.
+    img = Image.new("RGBA", (page_size[0] * SCALE, page_size[1] * SCALE), bg)
+    d = Scaled(ImageDraw.Draw(img))
     off = lambda x, y: (x - minx, y - miny)
 
     for cid, c in cells.items():  # vertices first, in document order (= z-order)
@@ -263,7 +328,7 @@ def render(root, page=None):
         dashed = s.get("dashed") == "1"
         if fill or stroke:
             sw_raw = float(s.get("strokeWidth", 1))
-            sw = max(1, int(sw_raw)) if sw_raw > 0 else 0  # a hairline (< 1 px, the private-helper rim) still draws 1 px
+            sw = max(0, sw_raw)  # a hairline (< 1 px, the private-helper rim) still draws, thin, on the scaled page
             box = (x0, y0, x1, y1)
             if fill and s.get("shadow") != "0":  # a filled shape casts the kit's shadow; a bare line (span bar) does not
                 drop_shadow(
@@ -278,7 +343,8 @@ def render(root, page=None):
         if s.get("shape") == "image" and uri.startswith("data:image/png,"):
             import io
             pic = Image.open(io.BytesIO(base64.b64decode(uri.split(",", 1)[1]))).convert("RGB")
-            img.paste(pic.resize((max(1, int(x1 - x0)), max(1, int(y1 - y0))), Image.Resampling.LANCZOS), (int(x0), int(y0)))
+            box = (max(1, int(x1 - x0)) * SCALE, max(1, int(y1 - y0)) * SCALE)
+            img.paste(pic.resize(box, Image.Resampling.LANCZOS), (int(x0) * SCALE, int(y0) * SCALE))
         text = plain(c.get("value"))
         if text:
             size = int(float(s.get("fontSize", 12)))
@@ -313,10 +379,14 @@ def render(root, page=None):
             return None
         pts = [a, *waypoints, b]
         if src:
-            pts[0] = clip(pts[0], pts[1], src, minx, miny)
+            pts[0] = clip(pts[0], pts[1], src, minx, miny, outline(c.get("source")))
         if dst:
-            pts[-1] = clip(pts[-1], pts[-2], dst, minx, miny)
+            pts[-1] = clip(pts[-1], pts[-2], dst, minx, miny, outline(c.get("target")))
         return pts
+
+    def outline(cid):  # the shape an edge end is cut at: a diamond, an ellipse, or the box
+        s = style_map(cells[cid].get("style")) if cid in cells else {}
+        return "rhombus" if "rhombus" in s else ("ellipse" if "ellipse" in s else "box")
 
     for cid, c in cells.items():
         if c.get("edge") != "1":
@@ -344,16 +414,23 @@ def render(root, page=None):
             mx, my = halfway(pts)
             f = font(int(float(s.get("fontSize", 11))), False)
             d.text((mx + 4, my - 14), label, font=f, fill=color(s.get("fontColor"), INK))
-    return img
+    return img.resize(page_size, Image.Resampling.LANCZOS)
 
 
-def clip(p, q, box, minx, miny):
+def clip(p, q, box, minx, miny, shape="box"):
+    """Where the line from the box's centre towards q leaves the shape: the box's edge, a diamond's edge or an ellipse's rim."""
     x, y, w, h = box[0] - minx, box[1] - miny, box[2], box[3]
     cx, cy = x + w / 2, y + h / 2
     dx, dy = q[0] - cx, q[1] - cy
     if dx == 0 and dy == 0:
         return p
-    t = min((w / 2) / abs(dx) if dx else 1e9, (h / 2) / abs(dy) if dy else 1e9)
+    rx, ry = w / 2, h / 2
+    if shape == "rhombus" and rx and ry:
+        t = 1 / (abs(dx) / rx + abs(dy) / ry)
+    elif shape == "ellipse" and rx and ry:
+        t = 1 / ((dx / rx) ** 2 + (dy / ry) ** 2) ** 0.5
+    else:
+        t = min(rx / abs(dx) if dx else 1e9, ry / abs(dy) if dy else 1e9)
     return (cx + dx * t, cy + dy * t)
 
 

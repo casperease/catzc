@@ -2,7 +2,7 @@
 """Join the three minimaps into each slide: lay out the sidebar, embed the PNGs, and rebuild the slide.
 
 For every slide of the list: rewrite its source XML's sidebar (the minimap-grid, minimap-tree and minimap-chain image
-cells, the lens badge, the ADR chips and a map key below them; assets/STYLE.md, "Limits"), embed
+cells, the lens badge and a map key below them; assets/STYLE.md, "Limits"), embed
 <folder>/{grid,tree,chain}.png as data URIs, write the XML back, and build <folder>/diagram.drawio.png, the folder being the slide
 list's `folder`. Fails loudly on any missing piece.
 
@@ -26,15 +26,15 @@ TOOLS = Path(__file__).resolve().parent
 REPO = TOOLS.parents[1]
 VIEWS = ("grid", "tree", "chain")
 X, WIDTH = 1316, 240
-# The sidebar, top to bottom: cell id -> (y, height). The map key follows at MAPKEY_Y, or below taller ADR chips.
+# The sidebar, top to bottom: cell id -> (y, height). The map key follows at MAPKEY_Y. The ADR codes are not repeated here:
+# the slide's subtitle is their one place.
 SIDEBAR = {
     "minimap-grid": (16, 150),
     "minimap-tree": (182, 180),
     "minimap-chain": (378, 150),
     "lens-badge": (544, 24),
-    "supports": (576, 38),
 }
-MAPKEY_Y = 626
+MAPKEY_Y = 576
 # The dark-theme tokens (assets/STYLE.md): ink, panel border, the page, and the legend panel fill, for the sidebar's
 # chrome; and the minimap tokens ("Colours (minimaps only)"): the minimap page, idle cell and cell border, which the map
 # key's swatches show, so a swatch matches the cell it explains.
@@ -134,16 +134,11 @@ def lay_out_sidebar(model, palette, concerns):
             raise SystemExit(f"the slide has no {cell_id} cell")
         attrs = re.sub(r'\s(x|y|width|height)="[^"]*"', "", match.group(2))
         model = model[: match.start(2)] + f' x="{X}" y="{y}" width="{WIDTH}" height="{height}"' + attrs + model[match.end(2) :]
-    # Drop the slide's own map key, the panel and its swatch rows (template-slide.xml names the rows mk-*), before adding a fresh one.
-    model = re.sub(r'\s*<mxCell id="(?:mapkey|mk-)[^"]*"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.DOTALL)
-    # The ADR chips grow with their lines (11 px text, 14 px a line); the map key starts below them.
-    supports = found(r'<mxCell id="supports" value="([^"]*)".*?</mxCell>', model, "supports cell", re.DOTALL)
-    lines = supports.group(1).count("&lt;br&gt;") + 1
-    height = max(SIDEBAR["supports"][1], lines * 14 + 4)
-    model = model.replace(supports.group(0), re.sub(r'height="[^"]*"', f'height="{height}"', supports.group(0), count=1))
-    supports = found(r'<mxCell id="supports".*?</mxCell>', model, "supports cell", re.DOTALL)
-    top = max(MAPKEY_Y, SIDEBAR["supports"][0] + height + 8)
-    model = model[: supports.end()] + "\n    " + map_key(palette, concerns, top) + model[supports.end() :]
+    # Drop the slide's own map key, the panel and its swatch rows (template-slide.xml names the rows mk-*), and any list of
+    # the ADR codes in the sidebar (the subtitle holds them), before adding a fresh map key below the lens badge.
+    model = re.sub(r'\s*<mxCell id="(?:mapkey|mk-|supports)[^"]*"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.DOTALL)
+    badge = found(r'<mxCell id="lens-badge".*?</mxCell>', model, "lens-badge cell", re.DOTALL)
+    model = model[: badge.end()] + "\n    " + map_key(palette, concerns, MAPKEY_Y) + model[badge.end() :]
     return add_sidebar_backing(model)
 
 

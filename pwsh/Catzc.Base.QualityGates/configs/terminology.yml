@@ -70,6 +70,12 @@ terms:
       meaning: "--junitxml — pytest's option that writes a JUnit XML report"
     - term: ruff
       meaning: "ruff — the Python formatter and linter the Python tests are checked with"
+    - term: pyyaml
+      meaning: "PyYAML — the Python YAML library, a pinned test dependency in python.yml"
+    - term: supersampling
+      meaning: "supersampling — rendering an image above its target size and scaling it down, so edges come out smooth"
+    - term: supersampled
+      meaning: "supersampled — rendered by supersampling, above the target size and scaled down"
     - term: outputjson
       meaning: "--outputjson — pyright's option that prints its diagnostics as one JSON report (Test-PythonTypes)"
     - term: pyproject

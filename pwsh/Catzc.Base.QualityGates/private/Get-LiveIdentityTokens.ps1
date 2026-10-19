@@ -76,11 +76,12 @@ function Get-LiveIdentityTokens {
         }
     }
 
-    # Shipped template names (infrastructure/templates/<name>).
-    $templatesRoot = Join-Path (Get-RepositoryRoot) 'infrastructure/templates'
+    # Shipped template names (<templates place>/<name>).
+    $templatesPlace = Get-TrackPlace -Track infrastructure -Kind templates
+    $templatesRoot = Join-Path (Get-RepositoryRoot) $templatesPlace
     if ([System.IO.Directory]::Exists($templatesRoot)) {
         foreach ($dir in [System.IO.Directory]::EnumerateDirectories($templatesRoot)) {
-            & $add ([System.IO.Path]::GetFileName($dir)) 'template' 'infrastructure/templates' 'a fixture template (sample)'
+            & $add ([System.IO.Path]::GetFileName($dir)) 'template' $templatesPlace 'a fixture template (sample)'
         }
     }
 

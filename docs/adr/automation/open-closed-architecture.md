@@ -41,19 +41,19 @@ them.**
 Module systems typically require hand-maintained manifests, explicit import lists, or registration steps — edit-to-extend workflows that
 create merge conflicts, stale registrations, and "I added it but forgot to register it" bugs. This platform eliminates that entire class of
 problems: the bootstrap module derives every registration from the filesystem, and the importer discovers modules by convention. Adding
-capability never requires touching existing code. The PowerShell mechanics — the generated `.psd1` manifests and the collision-free function
+capability never requires touching existing code. The PowerShell mechanics — the generated module manifests and the collision-free function
 namespace — are the language layer, [dynamic-module-manifests](pwsh/dynamic-module-manifests.md) (`ADR-PWSH-MANIFEST`).
 
 ### How the platform does it
 
 `How the platform implements open/closed`
 
-| Extension point            | How you extend it                        | What you never modify                    |
-| -------------------------- | ---------------------------------------- | ---------------------------------------- |
-| Add a function to a module | Create `Verb-Noun.ps1` in the module dir | No manifest, no export list, no loader   |
-| Add a private helper       | Create `Verb-Noun.ps1` in `private/`     | No manifest, no export list, no loader   |
-| Add a new module           | Create a folder under `pwsh/` | Not `importer.ps1`, not `Bootstrap.psm1` |
-| Add a vendor dependency    | Drop the module in `.vendor/`            | Not `importer.ps1`, not `Bootstrap.psm1` |
+| Extension point            | How you extend it                                       | What you never modify                      |
+| -------------------------- | ------------------------------------------------------- | ------------------------------------------ |
+| Add a function to a module | Create the function's file, named for it, in the module | No manifest, no export list, no loader     |
+| Add a private helper       | Create the function's file in `private/`                | No manifest, no export list, no loader     |
+| Add a new module           | Create a folder under the engine's code root            | Not the importer, not the bootstrap module |
+| Add a vendor dependency    | Drop the module in `.vendor/`                           | Not the importer, not the bootstrap module |
 
 Every row follows the same pattern: the extension is a new file or folder, and the infrastructure discovers it automatically.
 
@@ -63,18 +63,18 @@ Every row follows the same pattern: the extension is a new file or folder, and t
 
 | Pattern                                                         | Problem                                                    | Fix                                                                        |
 | --------------------------------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Adding an `if` branch in `importer.ps1` for a special module    | Infrastructure now has module-specific knowledge           | Make the module conform to the convention, or add a general-purpose hook   |
-| Hand-maintaining a `.psd1` with an explicit `FunctionsToExport` | Second source of truth that drifts from the filesystem     | Let `New-DynamicManifest` generate it                                      |
+| Adding an `if` branch in the importer for a special module      | Infrastructure now has module-specific knowledge           | Make the module conform to the convention, or add a general-purpose hook   |
+| Hand-maintaining a module manifest with an explicit export list | Second source of truth that drifts from the filesystem     | Let `New-DynamicManifest` generate it                                      |
 | A loader script that lists modules in a specific order          | Adding a module requires editing the loader                | If ordering matters, encode it in naming convention or dependency metadata |
-| A central "registry" hashtable mapping names to functions       | Every new function requires editing the registry           | Use `Get-Command -Module` or convention-based lookup                       |
-| Checking module names in conditionals (`if ($mod -eq 'Foo')`)   | Infrastructure is coupled to a specific module's existence | Use a capability check or convention instead of a name check               |
+| A central registry map from names to functions                  | Every new function requires editing the registry           | Use the engine's command lookup by module, or a convention-based lookup    |
+| Checking module names in conditionals (`if module == "Foo"`)    | Infrastructure is coupled to a specific module's existence | Use a capability check or convention instead of a name check               |
 
 ### Convention over configuration
 
 The open/closed guarantee rests on conventions:
 
-- **File name = function name.** `Get-Foo.ps1` exports `Get-Foo`. No mapping table needed.
-- **Folder = module.** A directory under `pwsh/` with `.ps1` files is a module. No registration needed.
+- **File name = function name.** The file named `Get-Foo` exports `Get-Foo`. No mapping table needed.
+- **Folder = module.** A directory under the engine's code root that holds function files is a module. No registration needed.
 - **Root = public, `private/` = private.** Export visibility is determined by file location. No attribute or annotation needed.
 
 In PowerShell these conventions are [one-function-per-file](pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc-onefunctionperfile) and the
@@ -102,9 +102,9 @@ and actual intra-group edges must be a subset of the declared internal map. The 
 
 The platform must remain open for extension and closed for modification. Concretely:
 
-- **Growth is additive.** A new function is a new `Verb-Noun.ps1` file, a new module is a new folder under `pwsh/`, a new vendor
-  dependency is a new folder under `.vendor/`, and a new root concern is a new track. None of these edits `importer.ps1`, the bootstrap
-  module, or any other module's files (ADR-AUTO-EXTEND-ADDNOTEDIT).
+- **Growth is additive.** A new function is a new function file named for it, a new module is a new folder under the engine's code root, a
+  new vendor dependency is a new folder under `.vendor/`, and a new root concern is a new track. None of these edits the importer, the
+  bootstrap module, or any other module's files (ADR-AUTO-EXTEND-ADDNOTEDIT).
 - **The infrastructure knows conventions, not content.** The importer and the bootstrap module discover modules, exports, and visibility
   from names and locations alone; they never name a specific module, function, or business rule
   (ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE).
@@ -116,10 +116,10 @@ The platform must remain open for extension and closed for modification. Concret
 
 ### How this is enforced
 
-- **`Import-AllModules`** (`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) discovers every non-dot folder under
-  `pwsh/` as a module and generates its manifest with `New-DynamicManifest`, so a new module or function needs no registration
-  anywhere. Before any module loads it fails fast on a duplicate export or a shadowed shipped command, the one seam where convention alone
-  cannot guarantee a single meaning per name ([dynamic-module-manifests](pwsh/dynamic-module-manifests.md)).
+- **`Import-AllModules`** (`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) discovers every non-dot folder under `pwsh/` as a module and
+  generates its manifest with `New-DynamicManifest`, so a new module or function needs no registration anywhere. Before any module loads it
+  fails fast on a duplicate export or a shadowed shipped command, the one seam where convention alone cannot guarantee a single meaning per
+  name ([dynamic-module-manifests](pwsh/dynamic-module-manifests.md)).
 - **`Test-Automation.Tests.ps1`** and **`Test-FolderConventions.Tests.ps1`** fail the test run on a file, function, or folder that breaks
   the naming and placement conventions, so non-conforming code is caught rather than silently skipped
   ([one-function-per-file](pwsh/one-function-per-file.md), [conventional-folders](../repository/conventional-folders.md)).

@@ -1,4 +1,4 @@
-# cspell:ignore minimaps mxfile pnginfo adronly
+# cspell:ignore minimaps mxfile pnginfo adronly mapkey
 """The declaration of a diagram: the yml beside its .drawio.png, and the two directions between them.
 
 A diagram folder holds `diagram.yml`, the declaration, and `diagram.drawio.png`, the drawing. The declaration has two sections:
@@ -19,16 +19,14 @@ fails validation with the list the author may choose from, so the errors teach t
 """
 
 import html
-import re
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import yaml
+from drawio_png import DEFAULTS, decode, encode, mxfile_chunk, plain, render, style_map
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
-
-from drawio_png import DEFAULTS, decode, encode, mxfile_chunk, plain, render, style_map
 
 KIT = Path(__file__).resolve().parent
 SLIDE = "diagram.drawio.png"
@@ -41,7 +39,7 @@ GAP, PAD, LABEL_ROW, ROW_GAP, COL_GAP = 20, 20, 40, 36, 40
 SIDEBAR_X, SIDEBAR_W = 1316, 240
 SIDEBAR = (("minimap-grid", 16, 150), ("minimap-tree", 182, 180), ("minimap-chain", 378, 150))
 # The style keys that identify a glyph kind: the shape and the two colours, with the marks that set a variant apart.
-SIGNATURE_KEYS = ("shape", "rounded", "arcSize", "fillColor", "strokeColor", "dashed", "strokeWidth", "fontColor")
+SIGNATURE_KEYS = ("shape", "ellipse", "rhombus", "rounded", "arcSize", "fillColor", "strokeColor", "dashed", "strokeWidth", "fontColor", "fontSize", "fontStyle", "align")
 TEXT = "text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;"
 TITLE = "text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#DDE2E9;"
 SUBTITLE = "text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#949FAE;"
@@ -52,8 +50,6 @@ ANCHOR = "text;html=1;strokeColor=none;fillColor=none;"
 SIDEBAR_BG = "rounded=1;arcSize=2;html=1;fillColor=#2E2823;strokeColor=#453C33;shadow=0;"
 MINIMAP = "shape=image;imageAspect=0;rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#262E3B;strokeColor=#3A4555;dashed=1;fontColor=#949FAE;fontSize=11;"
 BADGE = "rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#1E2430;fillColor=#E6EAF0;strokeColor=none;"
-SUPPORTS = "text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=#CDD3DC;"
-MINIMAP_NAMES = {"minimap-grid": "world map", "minimap-tree": "tree", "minimap-chain": "value-chain map"}
 
 
 class DeclarationError(ValueError):
@@ -71,11 +67,15 @@ def library():
     """The kit's closed vocabulary from the glyph library: glyph kinds, edge kinds, the marker and the chips, each with its verbatim
     style, its legend phrase and its default size."""
     root = ET.parse(KIT / "assets" / "glyphs.xml").getroot()
-    cells = {c.get("id"): c for c in root.iter("mxCell") if c.get("id")}
-    geometry = lambda c: tuple(int(float(c.find("mxGeometry").get(k, 0))) for k in ("width", "height"))
+    cells = {str(c.get("id")): c for c in root.iter("mxCell") if c.get("id")}
+
+    def geometry(c):
+        g = c.find("mxGeometry")
+        return tuple(int(float(g.get(k, 0))) for k in ("width", "height")) if g is not None else (0, 0)
+
     glyphs, edges, marks = {}, {}, {}
     for cid, c in cells.items():
-        if cid.startswith("g-") and not cid.endswith(("-text", "-tag", "-member")):
+        if cid.startswith("g-") and not cid.endswith(("-text", "-tag", "-member", "-holder")):
             kind = cid[2:]
             glyphs[kind] = {"style": c.get("style"), "phrase": plain(c.get("value")), "size": geometry(c)}
         elif cid.startswith("e-") and c.get("edge") == "1":
@@ -126,7 +126,7 @@ def normalise(raw, where="the declaration"):
     for key in content:
         if key not in CONTENT_KEYS:
             choices(f"{where}: content key", key, CONTENT_KEYS)
-    out = {"title": str(content.get("title", "")).strip()}
+    out: dict = {"title": str(content.get("title", "")).strip()}
     if not out["title"]:
         raise DeclarationError(f"{where}: content.title is the finding the reader leaves with; it is empty")
     out["adrs"] = [str(a) for a in (content.get("adrs") or [])]
@@ -313,7 +313,7 @@ def place(declaration):
     cells = []
     # The chrome: title and subtitle.
     cells.append(cell("title", content["title"], TITLE, PAGE["x"], PAGE["title_y"], PAGE["width"], 30))
-    subtitle = " &#183; ".join(content["adrs"] + [content["lens"]])
+    subtitle = " · ".join(content["adrs"] + [content["lens"]])
     cells.append(cell("subtitle", subtitle, SUBTITLE, PAGE["x"], PAGE["subtitle_y"], PAGE["width"] - 20, 20))
     # The bands along the flow: side by side left to right, or stacked top to bottom.
     band_box = {}
@@ -322,7 +322,7 @@ def place(declaration):
         width = PAGE["width"] - (left - PAGE["x"])
         y = PAGE["band_y"] - (24 if not has_spans else 0)
         for b in bands:
-            inner_w, inner_h = grid_size(b["id"], width - 2 * PAD)
+            inner_h = grid_size(b["id"], width - 2 * PAD)[1]
             h = max(inner_h + LABEL_ROW + PAD, 120)
             band_box[b["id"]] = layout.get(b["id"], {"x": left, "y": y, "w": width, "h": h})
             y = band_box[b["id"]]["y"] + band_box[b["id"]]["h"] + GAP
@@ -407,13 +407,13 @@ def place(declaration):
         sx, sy = PAGE["x"] + 16 + col * col_w, legend_y + 30 + row * 28
         cells.extend(swatch(eid, sx, sy))
         cells.append(cell(f"lg-{eid}-t", phrase, TEXT, sx + 48, sy - 1, col_w - 56, 20))
-    # The sidebar: the three minimaps, the lens badge, the supports line and the map key; the join step fills the images.
+    # The sidebar: the three minimaps and the lens badge; the join step fills the images and adds the map key. The ADR codes
+    # live in the subtitle alone.
     height = max(PAGE["min_height"], legend_y + legend_h + GAP)
     cells.insert(0, cell("sidebar-bg", "", SIDEBAR_BG, SIDEBAR_X - 12, 4, SIDEBAR_W + 24, height - 8))
-    for cid, y, h in SIDEBAR:
-        cells.append(cell(cid, MINIMAP_NAMES[cid], MINIMAP, SIDEBAR_X, y, SIDEBAR_W, h))
+    for (cid, y, h), minimap in zip(SIDEBAR, content["minimaps"]):
+        cells.append(cell(cid, minimap, MINIMAP, SIDEBAR_X, y, SIDEBAR_W, h))
     cells.append(cell("lens-badge", DEFAULTS["lenses"][content["lens"]], BADGE, SIDEBAR_X, 544, SIDEBAR_W, 24))
-    cells.append(cell("supports", "<b>Supports</b> " + " &#183; ".join(content["adrs"]), SUPPORTS, SIDEBAR_X, 576, SIDEBAR_W, 38))
     return cells, height
 
 
@@ -517,29 +517,32 @@ def model_of(folder):
 def get(model, kind=None):
     """The declaration a model states, in the kit's vocabulary; a cell the vocabulary cannot name fails the direction."""
     root = ET.fromstring(model)
-    cells = {c.get("id"): c for c in root.iter("mxCell") if c.get("id") not in (None, "0", "1")}
+    cells = {str(c.get("id")): c for c in root.iter("mxCell") if c.get("id") not in (None, "0", "1")}
     geo = {}
     for cid, c in cells.items():
         g = c.find("mxGeometry")
         if c.get("edge") == "1" or g is None:
             continue
         x, y = float(g.get("x", 0)), float(g.get("y", 0))
-        parent = cells.get(c.get("parent"))
+        parent = cells.get(c.get("parent") or "")
         while parent is not None:
             pg = parent.find("mxGeometry")
             if pg is None:
                 break
             x, y = x + float(pg.get("x", 0)), y + float(pg.get("y", 0))
-            parent = cells.get(parent.get("parent"))
+            parent = cells.get(parent.get("parent") or "")
         geo[cid] = {"x": int(x), "y": int(y), "w": int(float(g.get("width", 0))), "h": int(float(g.get("height", 0)))}
     glyph_sigs = {k: signature(v["style"]) for k, v in LIB["glyphs"].items()}
     mark_sigs = {k: signature(v["style"]) for k, v in LIB["marks"].items()}
     module_sig = signature(LIB["module"])
-    content = {"title": "", "adrs": [], "lens": "meta", "kind": kind or KINDS[0], "flow": FLOWS[0], "theme": tuple(DEFAULTS["themes"])[0], "bands": [], "spans": [], "groups": [], "glyphs": [], "edges": [], "markers": [], "chips": [], "legend": "auto"}
+    content: dict = {"title": "", "adrs": [], "lens": "meta", "kind": kind or KINDS[0], "flow": FLOWS[0]}
+    content.update({"theme": next(iter(DEFAULTS["themes"])), "bands": [], "spans": [], "groups": [], "glyphs": []})
+    content.update({"edges": [], "markers": [], "chips": [], "legend": "auto"})
+    content["minimaps"] = [plain(cells[cid].get("value")) for cid, _, _ in SIDEBAR if cid in cells]
     layout = {}
     unnamed = []
     bands, groups, glyphs, bars, labels, markers, chips = [], [], [], [], [], [], []
-    derived = ("sidebar-bg", "legend", "lens-badge", "supports", "mapkey")
+    derived = ("sidebar-bg", "legend", "lens-badge", "mapkey")
     for cid, c in cells.items():
         style, value = c.get("style") or "", plain(c.get("value"))
         if c.get("edge") == "1" or cid in derived or cid.startswith(("lg-", "mk-", "minimap-")) or cid.endswith("-tag"):
@@ -563,7 +566,9 @@ def get(model, kind=None):
             chips.append(cid)
         else:
             kinds = [k for k, sig in sorted(glyph_sigs.items(), key=lambda kv: -len(kv[1])) if matches(sig, style)]
-            if kinds:
+            if f"{cid}-tag" in cells and "type" in kinds:
+                glyphs.append((cid, "type"))
+            elif kinds:
                 glyphs.append((cid, kinds[0]))
             else:
                 unnamed.append(cid)
@@ -584,10 +589,23 @@ def get(model, kind=None):
         candidates = [b for b in bands if inside(geo[cid], geo[b])]
         return candidates[0] if candidates else (bands[0] if bands else None)
 
-    for g in sorted(groups, key=lambda g: (geo[g]["y"], geo[g]["x"])):
-        content["groups"].append({"id": g, "label": plain(cells[g].get("value")), "in": holder_of(g)})
+    # Groups and glyphs come holder by holder, depth first (a band, then the groups inside it, each with the groups inside it),
+    # row-major inside each holder.
+    holders = {h: holder_of(h) for h in groups}
+    order = []
+
+    def walk(holder_id):
+        order.append(holder_id)
+        for g in sorted((g for g in groups if holders[g] == holder_id), key=lambda g: (geo[g]["y"], geo[g]["x"])):
+            walk(g)
+
+    for b in bands:
+        walk(b)
+    rank = {h: i for i, h in enumerate(order)}
+    for g in sorted(groups, key=lambda g: (rank[holders[g]], geo[g]["y"], geo[g]["x"])):
+        content["groups"].append({"id": g, "label": plain(cells[g].get("value")), "in": holders[g]})
         layout[g] = geo[g]
-    for cid, k in sorted(glyphs, key=lambda t: (geo[t[0]]["y"], geo[t[0]]["x"])):
+    for cid, k in sorted(glyphs, key=lambda t: (rank[holder_of(t[0])], geo[t[0]]["y"], geo[t[0]]["x"])):
         content["glyphs"].append({"id": cid, "kind": k, "label": plain(cells[cid].get("value")), "in": holder_of(cid)})
         layout[cid] = geo[cid]
     for bar in bars:
@@ -612,7 +630,11 @@ def get(model, kind=None):
         if not kinds:
             raise DeclarationError(f"get cannot name the edge {cid} in the kit's vocabulary")
         content["edges"].append({"from": c.get("source"), "to": c.get("target"), "kind": kinds[0], "label": plain(c.get("value"))})
-    return normalise({"content": content, "layout": layout}, where="the drawing")
+    declaration = normalise({"content": content, "layout": layout}, where="the drawing")
+    # A cell that sits where the grid would put it needs no layout entry: the layout keeps only what a hand moved.
+    grid = {c["id"]: {k: c[k] for k in ("x", "y", "w", "h")} for c in place({"content": declaration["content"], "layout": {}})[0] if not c["edge"]}
+    declaration["layout"] = {cid: box for cid, box in declaration["layout"].items() if grid.get(cid) != box}
+    return declaration
 
 
 def main():

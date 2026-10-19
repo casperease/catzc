@@ -168,9 +168,6 @@
     <mxCell id="lens-badge" value="ARCH" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#1E2430;fillColor=#E6EAF0;strokeColor=none;" vertex="1" parent="1">
       <mxGeometry x="1316" y="470" width="240" height="24" as="geometry" />
     </mxCell>
-    <mxCell id="supports" value="&lt;b&gt;Supports&lt;/b&gt; ADR-WIDGET-DEMO" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=#CDD3DC;" vertex="1" parent="1">
-      <mxGeometry x="1316" y="500" width="240" height="20" as="geometry" />
-    </mxCell>
     <mxCell id="mapkey" value="&lt;b&gt;Map key&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#222A36;strokeColor=#3A4555;align=left;verticalAlign=top;spacing=8;fontSize=11;fontColor=#CDD3DC;" vertex="1" parent="1">
       <mxGeometry x="1316" y="528" width="240" height="100" as="geometry" />
     </mxCell>

@@ -4,7 +4,7 @@
 
 ### Rule ADR-PWSH-PREPOST-STARTERREFERENCE
 
-`Catzc.Azure.Templates/assets/PrePost.psm1` is a starter reference, not loaded by any code. It is one of the few `.psm1` files under `automation/pwsh/`
+`Catzc.Azure.Templates/assets/PrePost.psm1` is a starter reference, not loaded by any code. It is one of the few `.psm1` files under `pwsh/`
 (ADR-PWSH-USEPS-MODULEFILESRESERVED), but it is data authors copy, not an imported module.
 
 - [The copy-in starter](#the-copy-in-starter)
@@ -134,10 +134,10 @@ infrastructure/templates/<template>/
 hook the module does not export — or a template with no `PrePost.psm1` at all — is skipped (the step no-ops in code).
 
 Invoking through the module's exported command object (rather than a bare `Invoke-Bicep*` call) keeps the call dynamic: production code
-under `automation/pwsh/` contains **no reference** to hook functions that live only in template folders, so static analysis (`Test-FunctionDependency`)
+under `pwsh/` contains **no reference** to hook functions that live only in template folders, so static analysis (`Test-FunctionDependency`)
 stays clean.
 
-Per-template modules do NOT live under `automation/pwsh/` and are NOT loaded by the bootstrap module. They are loaded on demand. The `.psm1` extension
+Per-template modules do NOT live under `pwsh/` and are NOT loaded by the bootstrap module. They are loaded on demand. The `.psm1` extension
 is exactly the right tool: an isolated scope that can be cleanly imported, expose any subset of three exports, and be discarded.
 
 ### No conflict with use-ps1-not-psm1
@@ -146,14 +146,14 @@ is exactly the right tool: an isolated scope that can be cleanly imported, expos
 Why this does not conflict with `use-ps1-not-psm1`
 ```
 
-[`use-ps1-not-psm1`](use-ps1-not-psm1.md) governs **function files inside `automation/pwsh/`** that declare the module's regular per-function exports.
+[`use-ps1-not-psm1`](use-ps1-not-psm1.md) governs **function files inside `pwsh/`** that declare the module's regular per-function exports.
 Its goal is shared scope across one module's internals.
 
-Neither `assets/PrePost.psm1` nor `infrastructure/templates/<name>/PrePost.psm1` is a "function file inside a `automation/pwsh/` module":
+Neither `assets/PrePost.psm1` nor `infrastructure/templates/<name>/PrePost.psm1` is a "function file inside a `pwsh/` module":
 
 - The asset is a **reference file** (a starter shipped as a module). It is never imported by production code — only copied by authors — and
   is not auto-scanned as a `.ps1`.
-- The per-template module lives **outside `automation/pwsh/`** entirely, in `infrastructure/`.
+- The per-template module lives **outside `pwsh/`** entirely, in `infrastructure/`.
 
 The `use-ps1-not-psm1` "shared scope across module internals" use case and this ADR's "isolated extension point loaded on demand" use case
 have requirements for scope that differ. The two ADRs apply in different parts of the repo and do not contradict each other.
@@ -191,12 +191,12 @@ There are **no default hooks**. `assets/PrePost.psm1` is a copy-in starter only 
 
 - A template with no special needs ships zero PowerShell — just `main.bicep`, `options.yml`, and `configuration/<slot>.yml`. No hook runs,
   which is correct.
-- A template that needs a hook adds **one file** (`PrePost.psm1`), copied from `automation/pwsh/Catzc.Azure.Templates/assets/PrePost.psm1`, keeping the
+- A template that needs a hook adds **one file** (`PrePost.psm1`), copied from `pwsh/Catzc.Azure.Templates/assets/PrePost.psm1`, keeping the
   hooks it needs. No central registry, no manifest, no import wiring.
 - Production code never depends on the asset module: the only PrePost code that runs is a template's own. The asset is pure reference data.
 - The `.psm1` extension is reserved for narrow, well-defined uses — never for a module's function files: the `.internal` shared modules
-  (`automation/pwsh/.internal/*.psm1`), the custom PSScriptAnalyzer rule modules (`automation/pwsh/.scriptanalyzer/*.psm1`), the PrePost starter
-  (`automation/pwsh/Catzc.Azure.Templates/assets/PrePost.psm1`, a copy-in reference), and per-template extension points
+  (`pwsh/.internal/*.psm1`), the custom PSScriptAnalyzer rule modules (`pwsh/.scriptanalyzer/*.psm1`), the PrePost starter
+  (`pwsh/Catzc.Azure.Templates/assets/PrePost.psm1`, a copy-in reference), and per-template extension points
   (`infrastructure/templates/<template>/PrePost.psm1`).
 - Future extension points of the same shape (a small group of related hooks loaded on demand from a consumer-supplied module) can reuse this
   pattern: a starter file plus a per-consumer module, invoked only when present.
