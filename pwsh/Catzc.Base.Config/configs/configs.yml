@@ -69,6 +69,8 @@ configs:
   profiles:
     type: Catzc.Base.ModuleSystem.ProfilesConfig
     overridable: false
+  importer:
+    type: Catzc.Base.ModuleSystem.ImporterConfig
   analyzer-adr-map:
     type: Catzc.Base.QualityGates.AnalyzerAdrMapConfig
   vendor:

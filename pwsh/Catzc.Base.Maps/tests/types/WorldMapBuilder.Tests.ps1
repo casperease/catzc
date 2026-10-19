@@ -5,7 +5,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'infrastructure', $null, @('widget-config'))
             [Catzc.Base.Variants.VariantTrack]::new('probes', @('probes'), 'verification', $null, @())
             [Catzc.Base.Variants.VariantTrack]::new('docs', @('docs'), 'documentation', $null, @('notes'))
-            [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::PipelinesTrack, @('pipelines'), 'pipelines', $null, @('gadget-pipe'))
+            [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::AdoPipelinesTrack, @('pipelines'), 'pipelines', $null, @('gadget-pipe'))
         )
         $script:languages = @(
             [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)
@@ -99,12 +99,12 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         }
 
         It 'orders the axes ordinally with the bucket last, and the cells row by row' {
-            $script:map.Tracks | Should -Be @('docs', 'gadgets', 'pipelines', 'probes', 'widgets', '(no track)')
+            $script:map.Tracks | Should -Be @('ado-pipelines', 'docs', 'gadgets', 'probes', 'widgets', '(no track)')
             $script:map.FileLanguages | Should -Be @('gadget-pipe', 'notes', 'probe-lang', 'widget-config', 'widget-script', '(other)')
             $script:map.Cells.Count | Should -Be 36
-            $script:map.Cells[0].Track | Should -Be 'docs'
+            $script:map.Cells[0].Track | Should -Be 'ado-pipelines'
             $script:map.Cells[0].FileLanguage | Should -Be 'gadget-pipe'
-            $script:map.Cells[6].Track | Should -Be 'gadgets'
+            $script:map.Cells[12].Track | Should -Be 'gadgets'
             $script:map.Placements[0].Path | Should -Be 'README.md'
         }
 
@@ -223,7 +223,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
 
         It 'renders console-ready' {
             "$($script:map)" | Should -BeLike 'WorldMap {*FileCount = 20*'
-            "$($script:map.Cells[0])" | Should -BeLike 'MapCell {*Track = docs*'
+            "$($script:map.Cells[0])" | Should -BeLike 'MapCell {*Track = ado-pipelines*'
             "$($script:map.Placements[0])" | Should -BeLike 'MapPlacement {*Path = README.md*'
         }
     }

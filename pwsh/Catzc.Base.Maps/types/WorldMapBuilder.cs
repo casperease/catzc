@@ -9,7 +9,7 @@ namespace Catzc.Base.Maps;
 public static class WorldMapBuilder
 {
     // The track whose files fall back to their globset's citations.
-    public const string PipelinesTrack = "pipelines";
+    public const string AdoPipelinesTrack = "ado-pipelines";
 
     public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages, IEnumerable paths, IDictionary aspects, IDictionary adrIndex,
         IDictionary adrFiles, IDictionary texts, IDictionary rootOwners, IEnumerable globSets, IEnumerable citationExclude = null)
@@ -81,7 +81,7 @@ public static class WorldMapBuilder
 
             string adr;
             adrByPath.TryGetValue(path, out adr);
-            Catzc.Base.Globs.GlobSet pipelineSet = track != null && string.Equals(track.name, PipelinesTrack, StringComparison.Ordinal) &&
+            Catzc.Base.Globs.GlobSet pipelineSet = track != null && string.Equals(track.name, AdoPipelinesTrack, StringComparison.Ordinal) &&
                 ownCitations[path].Length == 0 ? PipelineSet(path, globSetList) : null;
             string basis;
             string[] citations;

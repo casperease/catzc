@@ -20,27 +20,42 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
                     stamp    = @{ carrier = 'none'; reason = 'written whole' }
                     data     = @{ carrier = 'property'; property = '//' }
                     sprocket = @{ files = @('**/sprocket'); carrier = 'comment-head'; line = '//' }
-                    schema   = @{ files = @('**/*.schema.dat'); carrier = 'property'; property = '$comment'; strip = @('GENERATED FILE') }
+                    schema   = @{ files = @('**/*.schema.dat'); carrier = 'property'; property = '$comment'; strip = @((Get-Config -Config generated-head).warning) }
                 }
             })
+        $script:warning = (Get-Config -Config generated-head).warning
+    }
+
+    It 'writes the one declared warning into every head, whatever the carrier' {
+        $arguments = @{ FileKind = $script:role; Carriers = $script:carriers; Languages = $script:languages }
+        $heads = @(
+            Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.wdg' @arguments
+            Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.gdg' @arguments
+            Format-GeneratedFileHead -Text "body`n" -Path 'sprocket' -Carrier sprocket @arguments
+            Format-GeneratedFileHead -Text "{`n  `"a`": 1`n}`n" -Path 'docs/gen.dat' @arguments
+        )
+        foreach ($head in $heads) {
+            $head | Should -BeLike "*warning: *$script:warning*"
+        }
+        $script:warning | Should -BeExactly ([Catzc.Base.Languages.GeneratedHeadConfig]::DefaultWarning)
     }
 
     It 'writes the unified head with the generator and the source, in the comment style of the file language' {
         $text = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -Generator New-Widget -Source 'docs/widget.yml' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: `"9534a2e15c8b`"`n#     repo_status: locked`n#     path: docs/gen.wdg`n#     source: docs/widget.yml`n#     role: widget`n#     language: widget`n#     filetype: wdg`n#     track: docs`n#     tracktype: documentation`n#     generator: widgets/Catzc.Widget/New-Widget.ps1`n# ---`n`nwidget body`n"
+        $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: `"9534a2e15c8b`"`n#     warning: `"$script:warning`"`n#     repo_status: locked`n#     path: docs/gen.wdg`n#     source: docs/widget.yml`n#     role: widget`n#     language: widget`n#     filetype: wdg`n#     track: docs`n#     tracktype: documentation`n#     generator: widgets/Catzc.Widget/New-Widget.ps1`n# ---`n`nwidget body`n"
     }
 
     It 'writes the inputs stamp right after the body hash when given, and leaves it out otherwise' {
         $stamp = 'f' * 64
         $with = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -InputsSha $stamp -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $with | Should -BeLike "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: *`n#     with_inputs_sha: *$stamp*`n#     repo_status: locked`n*"
+        $with | Should -BeLike "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: *`n#     with_inputs_sha: *$stamp*`n#     warning: `"$script:warning`"`n#     repo_status: locked`n*"
         $without = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
         $without | Should -Not -BeLike '*with_inputs_sha*'
     }
 
     It 'leaves the generator and the source out when the file has none, and lists several sources' {
         $bare = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.gdg' -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $bare | Should -BeExactly "/*`n---`ncatzc:`n  immutable:`n    with_body_sha: `"9e2ec912af5d`"`n    repo_status: locked`n    path: docs/gen.gdg`n    role: widget`n    language: gadget`n    filetype: gdg`n    track: docs`n    tracktype: documentation`n---`n*/`n`nbody`n"
+        $bare | Should -BeExactly "/*`n---`ncatzc:`n  immutable:`n    with_body_sha: `"9e2ec912af5d`"`n    warning: `"$script:warning`"`n    repo_status: locked`n    path: docs/gen.gdg`n    role: widget`n    language: gadget`n    filetype: gdg`n    track: docs`n    tracktype: documentation`n---`n*/`n`nbody`n"
 
         $many = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.gdg' -Generator New-Gadget -Source 'a/one.yml', 'a/two.yml' -FileKind $script:narrowRole -Carriers $script:carriers -Languages $script:languages
         $many | Should -BeLike "*    source:`n      - a/one.yml`n      - a/two.yml`n    role: gadget`n    subkind: cog`n    language: gadget`n    filetype: gdg`n    track: docs`n    tracktype: documentation`n    generator: widgets/Catzc.Widget/New-Gadget.ps1`n---*"
@@ -73,7 +88,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
         $arguments = @{ Path = 'docs/gen.wdg'; FileKind = $script:role; Carriers = $script:carriers; Languages = $script:languages }
         $once = Format-GeneratedFileHead -Text "body`n" @arguments
         # The block renderer quotes a value YAML would not read back as the same string, so a hash that opens with a digit is quoted.
-        $once | Should -BeLike "*#   immutable:`n#     with_body_sha: `"9e2ec912af5d`"`n#     repo_status: locked`n#     path: docs/gen.wdg`n*"
+        $once | Should -BeLike "*#   immutable:`n#     with_body_sha: `"9e2ec912af5d`"`n#     warning: `"$script:warning`"`n#     repo_status: locked`n#     path: docs/gen.wdg`n*"
         Format-GeneratedFileHead -Text $once @arguments | Should -BeLike '*with_body_sha: "9e2ec912af5d"*'
         Format-GeneratedFileHead -Text "body`r`n" @arguments | Should -BeLike '*with_body_sha: "9e2ec912af5d"*'
         Format-GeneratedFileHead -Text "other`n" @arguments | Should -Not -BeLike '*with_body_sha: "9e2ec912af5d"*'
@@ -92,11 +107,11 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
     }
 
     It 'writes a property carrier into JSON, replacing an old banner its carrier strips' {
-        $json = "{`n  `"`$comment`": `"GENERATED FILE - do not edit.`",`n  `"type`": `"object`"`n}`n"
-        $bare = Format-PropertyMetaHead -Text $json -Property '$comment' -Strip @('GENERATED FILE') -Immutable ([ordered]@{})
+        $json = "{`n  `"`$comment`": `"$script:warning`",`n  `"type`": `"object`"`n}`n"
+        $bare = Format-PropertyMetaHead -Text $json -Property '$comment' -Strip @($script:warning) -Immutable ([ordered]@{})
         $hash = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($bare)
         $text = Format-GeneratedFileHead -Text $json -Path 'docs/gen.schema.dat' -Carrier schema -Generator New-Schema -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  immutable:\n    with_body_sha: \`"$hash\`"\n    repo_status: locked\n    path: docs/gen.schema.dat\n    role: widget\n    language: data\n    filetype: dat\n    track: docs\n    tracktype: documentation\n    generator: widgets/Catzc.Widget/New-Schema.ps1`",`n  `"type`": `"object`"`n}`n"
+        $text | Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  immutable:\n    with_body_sha: \`"$hash\`"\n    warning: \`"$script:warning\`"\n    repo_status: locked\n    path: docs/gen.schema.dat\n    role: widget\n    language: data\n    filetype: dat\n    track: docs\n    tracktype: documentation\n    generator: widgets/Catzc.Widget/New-Schema.ps1`",`n  `"type`": `"object`"`n}`n"
     }
 
     It 'refuses a carrier that holds no head, and an undeclared carrier' {

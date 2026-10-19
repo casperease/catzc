@@ -24,7 +24,13 @@ Describe 'Catzc.Base.Languages.GeneratedHeadConfig' -Tag 'L0', 'logic' {
         [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('with_inputs_sha', 'path', 'role') }).order | Should -Be @('with_inputs_sha', 'path', 'role')
     }
 
+    It 'declares the one warning once, as a default a config may replace, and a blank value keeps the default' {
+        [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'role') }).warning | Should -BeExactly 'Do Not Edit, this file is generated'
+        [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'role'); warning = 'widget' }).warning | Should -BeExactly 'widget'
+        [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('path', 'role'); warning = ' ' }).warning | Should -BeExactly 'Do Not Edit, this file is generated'
+    }
+
     It 'loads the shipped generated-head.yml' {
-        (Get-Config -Config generated-head).order | Should -Be @('with_body_sha', 'with_inputs_sha', 'repo_status', 'path', 'source', 'role', 'subkind', 'language', 'filetype', 'track', 'tracktype', 'vendor', 'module', 'moduletype', 'generator')
+        (Get-Config -Config generated-head).order | Should -Be @('with_body_sha', 'with_inputs_sha', 'warning', 'repo_status', 'path', 'source', 'role', 'subkind', 'language', 'filetype', 'track', 'tracktype', 'vendor', 'module', 'moduletype', 'generator')
     }
 }

@@ -9,11 +9,18 @@ namespace Catzc.Base.Languages;
 
 public sealed class GeneratedHeadConfig : Catzc.Base.Objects.DictionaryRecord
 {
+    // The one string every generated head carries, so a reader of any tracked generated file is told not to edit it.
+    public const string DefaultWarning = "Do Not Edit, this file is generated";
+
     private const string Failed = "generated-head configuration validation failed:\n";
-    private static readonly string[] Known = ["with_body_sha", "with_inputs_sha", "repo_status", "path", "source", "role", "subkind", "language", "filetype", "track", "tracktype", "vendor", "module", "moduletype", "generator"];
+    private static readonly string[] Known = ["with_body_sha", "with_inputs_sha", "warning", "repo_status", "path", "source", "role", "subkind", "language", "filetype", "track", "tracktype", "vendor", "module", "moduletype", "generator"];
+    private static readonly string[] TopLevel = ["keys", "warning"];
 
     // The head keys in writing order.
     public string[] order { get; }
+
+    // The value of the head's `warning` key.
+    public string warning { get; }
 
     public GeneratedHeadConfig(IDictionary raw)
     {
@@ -22,8 +29,9 @@ public sealed class GeneratedHeadConfig : Catzc.Base.Objects.DictionaryRecord
         foreach (object k in raw.Keys)
         {
             string name = k == null ? null : k.ToString();
-            if (name != "keys") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: keys)", k)); }
+            if (Array.IndexOf(TopLevel, name) < 0) { errors.Add(string.Format("unknown top-level key '{0}' (allowed: {1})", k, string.Join(", ", TopLevel))); }
         }
+        warning = OptStr(raw, "warning") ?? DefaultWarning;
         string[] listed = StrArr(raw, "keys");
         foreach (string key in listed)
         {

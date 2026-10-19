@@ -1,0 +1,8 @@
+# Every key is optional: an omitted key takes the default declared once on ImporterConfig, and the importer's -Languages and -Engines
+# switches override it. A value is auto, or a list of names.
+
+# auto: the executable languages of the loaded modules.
+languages: auto
+
+# auto: pwsh and every other execution engine whose executable is present; a missing one is skipped and reported.
+engines: auto

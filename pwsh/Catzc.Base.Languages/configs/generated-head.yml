@@ -1,6 +1,7 @@
 keys:
   - with_body_sha
   - with_inputs_sha
+  - warning
   - repo_status
   - path
   - source

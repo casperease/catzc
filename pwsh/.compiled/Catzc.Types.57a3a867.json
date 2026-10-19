@@ -1,5 +1,5 @@
 {
-  "hash": "f6031acc",
+  "hash": "57a3a867",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1032,6 +1032,16 @@
     },
     {
       "name": "Catzc.Base.ModuleSystem.GithubArtifactsTarget",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ImportMix",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.ModuleSystem.ImporterConfig",
       "aliases": [],
       "display": []
     },

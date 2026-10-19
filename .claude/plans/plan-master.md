@@ -43,8 +43,9 @@ plans stay the durable record; task files and this master are derived from them 
 
 ## Chunks
 
-Open, in execution order. Nothing below is held by a session; done work is pruned (git holds it). `out/delete-done-plans.ps1` holds the
-`git rm` lines of the done plans, task files and prompts. A chunk without a task file is executed from its plan's open steps directly.
+Open, in execution order. Held chunks (the orchestrator, 2026-10-19): generated-file-heads by catzc-64, ado-and-cicd-docs by catzc-2f,
+importer-mix by catzc-08; done work is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task
+files and prompts. A chunk without a task file is executed from its plan's open steps directly.
 
 - generated-file-heads -> plan-generated-file-heads.md: the one warning string, the README generator's head-only provenance, the other
   tracked generators, the `Test-RootConfigFiles` branch, then the seven `copyAsLink` root files one at a time, `.editorconfig` the pilot.
