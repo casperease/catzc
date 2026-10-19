@@ -4,7 +4,7 @@ plan:
   value: high
   reviewed: 2026-10-19
   waits_on: the user's pipeline runs and the approval apply (task-user-runs-and-commits steps 1 and 2)
-  targets: [pipelines, pwsh/Catzc.Azure.DevOps, docs/explanation]
+  targets: [.ado/pipelines, pwsh/Catzc.Azure.DevOps, docs/explanation]
 ---
 
 # Explanation drift: the gaps between the code and the ADRs

@@ -7,11 +7,11 @@ No gate checks the runner rules 1 or 4, and the step template breaks rule 3.
 2  step template                rule 3: a thin wrapper; its guard contradicts it
 3  runner                       rule 2: import once, run in the same scope; holds
 4  same RunCommand              rule 4: developer-reproducible; no gate checks it
-5  Test-Pipelines               checks ADR-PIPE-NAME rule 4 (absolute template paths), no runner rule
+5  Test-Pipelines               checks ADR-ADO-NAME rule 4 (absolute template paths), no runner rule
 6  expected-failures 1b         replays its own copy of the template's guard
 7  expected-failures - Pester   steps 1a and 1c prove the trap; Pester covers the sanitizer
 
-Supports ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL, ADR-FLOW-CD-RUNNER-IMPORTONCE, ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES and ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE, and ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH (governance lens).
+Supports ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL, ADR-FLOW-CD-RUNNER-IMPORTONCE, ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES and ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE, and ADR-ADO-NAME-ABSOLUTETEMPLATEPATH (governance lens).
 ```
 
 The pipeline runner pattern has four rules, one for each stage a pipeline step passes through: the YAML, the step template, the runner and
@@ -25,7 +25,7 @@ The diagram is described element by element in [its asset description](.assets/n
 
 ## Walkthrough
 
-1. **Pipeline YAML.** Rule 1 says YAML steps never contain inline PowerShell. It holds today: the only inline scripts under `pipelines/` are
+1. **Pipeline YAML.** Rule 1 says YAML steps never contain inline PowerShell. It holds today: the only inline scripts under `ado/` are
    the template's own tasks and the expected-failures pipeline. No gate checks it, so only the ADR keeps it.
 2. **Step template.** Rule 3 says the template is a thin wrapper with no logic. The code contradicts it: each of the template's three tasks
    runs `Set-StrictMode` and a guard that throws on a multiline `RunCommand` without a `DisplayName`.
@@ -33,9 +33,9 @@ The diagram is described element by element in [its asset description](.assets/n
    both.
 4. **Same RunCommand.** Rule 4 says whatever string appears in `RunCommand` can be pasted into a local terminal after the importer. No code
    replays a `RunCommand` outside the runner, so only the ADR keeps it, and no gate stands below it.
-5. **Test-Pipelines.** The pipeline-layout check runs over `pipelines/` and checks ADR-PIPE-NAME-TYPEPREFIX,
-   ADR-PIPE-NAME-FLATPIPELINESFOLDER, ADR-PIPE-NAME-TEMPLATEKINDFOLDER, ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH and
-   ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION. The one that touches this stage is ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH, that templates are
+5. **Test-Pipelines.** The pipeline-layout check runs over `ado/` and checks ADR-FLOW-CD-PIPELINE-TYPEPREFIX,
+   ADR-ADO-NAME-FLATPIPELINESFOLDER, ADR-ADO-NAME-TEMPLATEKINDFOLDER, ADR-ADO-NAME-ABSOLUTETEMPLATEPATH and
+   ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION. The one that touches this stage is ADR-ADO-NAME-ABSOLUTETEMPLATEPATH, that templates are
    referenced by absolute path. It checks no runner rule. Its L1 test requires zero violations over the real tree.
 6. **Expected-failures 1b.** Step 1b of `ci-automation-expected-failures.yaml` proves that a multiline command without a display name
    throws, but it replays its own copy of the guard rather than running the template's. The pipeline itself is the sanctioned exception to
@@ -51,7 +51,7 @@ The diagram is described element by element in [its asset description](.assets/n
 - Step templates are thin wrappers that add pipeline concerns and never contain logic (ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES).
 - Every command is developer-reproducible: the `RunCommand` string runs as-is in a terminal after the importer
   (ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE).
-- Templates are referenced by an absolute path under `/pipelines/` (ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH).
+- Templates are referenced by an absolute path under `/pipelines/` (ADR-ADO-NAME-ABSOLUTETEMPLATEPATH).
 
 ## Where the code and the ADR differ
 
@@ -62,7 +62,7 @@ The diagram is described element by element in [its asset description](.assets/n
 ## See also
 
 - [Pipeline runner pattern](../../adr/flow/pipeline-runner-pattern.md) — the decision this article explains.
-- [Pipeline naming and placement](../../adr/pipelines/pipeline-naming-and-placement.md) — the rules `Test-Pipelines` checks.
+- [Pipeline naming and placement](../../adr/ado/pipeline-naming-and-placement.md) — the rules `Test-Pipelines` checks.
 - The other lenses on the same runner: [meta](a-step-only-names-a-command.md), [architecture](the-runner-is-the-only-seam.md),
   [implementation](three-tasks-one-guard-one-runner.md) and [operations](the-step-is-named-after-its-command.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

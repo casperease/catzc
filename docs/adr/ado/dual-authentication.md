@@ -1,8 +1,8 @@
 # ADR: Dual authentication — pipeline system token vs. local Az token
 
-## Rules: ADR-PIPE-AUTH
+## Rules: ADR-ADO-AUTH
 
-### Rule ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE
+### Rule ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
 
 Select the credential by which one is configured, in fixed precedence (in-pipeline token → PAT → az CLI), with no fallback on auth failure —
 the failure of the source that was selected raises its own error rather than degrading to the next.
@@ -10,20 +10,20 @@ the failure of the source that was selected raises its own error rather than deg
 - [Pattern](#pattern)
 - [Decision](#decision)
 
-### Rule ADR-PIPE-AUTH-PROVETARGET
+### Rule ADR-ADO-AUTH-PROVETARGET
 
 Each source must prove it targets the configured org/tenant before returning a header (assert `SYSTEM_COLLECTIONURI`, build PAT URLs from
 `Organization`, assert the az session tenant), so a present credential never resolves to a different org by accident.
 
 - [Pattern](#pattern)
 
-### Rule ADR-PIPE-AUTH-EXPLICITDETECTION
+### Rule ADR-ADO-AUTH-EXPLICITDETECTION
 
 Make pipeline detection explicit: use `Test-IsRunningInPipeline` to guard the in-pipeline token source.
 
 - [Pattern](#pattern)
 
-### Rule ADR-PIPE-AUTH-SEPARATETOKENFUNCTION
+### Rule ADR-ADO-AUTH-SEPARATETOKENFUNCTION
 
 Keep token acquisition in a separate function. API-calling functions never inline token logic — they call `Get-AdoAuthorizationHeader`,
 which encapsulates the precedence.
@@ -31,26 +31,19 @@ which encapsulates the precedence.
 - [Why this matters](#why-this-matters)
 - [Pattern](#pattern)
 
-### Rule ADR-PIPE-AUTH-ASSERTWHENNOTOKEN
+### Rule ADR-ADO-AUTH-ASSERTWHENNOTOKEN
 
 Assert when the last source yields nothing: if the az CLI path produces no token, surface the actionable causes (set
 `$env:AZURE_DEVOPS_PAT`, or `Connect-AzCli` with an Entra ID account).
 
 - [Pattern](#pattern)
 
-### Rule ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN
+### Rule ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
 
 Step templates map the system token: `invoke-automation.yaml` maps `SYSTEM_ACCESSTOKEN: $(System.AccessToken)` when `ExposeAccessToken` is
 set. Functions read the mapped `$env:SYSTEM_ACCESSTOKEN`, never `System.AccessToken` directly.
 
 - [Step template integration](#step-template-integration)
-
-### Rule ADR-PIPE-AUTH-NOSTOREDTOKENS
-
-Never store tokens in variables beyond the request. Acquire the token, build the header, make the call — do not cache tokens in `$script:`
-variables or pass them between functions.
-
-- [Pattern](#pattern)
 
 ## Context
 

@@ -12,7 +12,7 @@ function Test-RootConfigFiles {
     $entries = @(foreach ($entry in @(Get-RootConfigTargets -Config (Get-Config -Config rootconfig))) {
             if ([System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($entry.target)) {
                 foreach ($file in @(Get-RootConfigRenderedFile -Entry $entry)) {
-                    [pscustomobject]@{ target = $file.Target; source = $entry.source; committed = [bool] $entry.committed; copyAsLink = [bool] $entry.copyAsLink }
+                    [pscustomobject]@{ target = $file.Target; source = $entry.source; carrier = $entry.carrier; committed = [bool] $entry.committed; copyAsLink = [bool] $entry.copyAsLink }
                 }
             }
             else {
@@ -80,6 +80,16 @@ function Test-RootConfigFiles {
         }
         elseif ($item -and $item.LinkType) {
             $issues.Add("${target}: a link, but must be a real, independent file — re-run the importer (Build-RootConfig rewrites it)")
+        }
+        elseif ($entry.source) {
+            # A copy is its template under the generated head, byte for byte once the line endings are LF.
+            $expected = Get-RootConfigCopyContent -Entry $entry -SourcePath (Join-Path $repositoryRoot $entry.source)
+            if (-not $item) {
+                $issues.Add("${target}: missing — re-run the importer (Build-RootConfig copies $($entry.source))")
+            }
+            elseif (([System.IO.File]::ReadAllText($targetPath) -replace "`r", '') -cne $expected) {
+                $issues.Add("${target}: differs from $($entry.source) under its generated head — edit the template, then re-run the importer")
+            }
         }
     }
 

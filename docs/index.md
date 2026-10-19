@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d5554114166b
+    with_body_sha: abe6b6462f1a
     repo_status: locked
     path: docs/index.md
     folder: docs
@@ -13,6 +13,9 @@ catzc:
     tracktype: documentation
   edges:
     links:
+      - docs/adr/ado/custom-template-discipline.md
+      - docs/adr/ado/dual-authentication.md
+      - docs/adr/ado/pipeline-variables.md
       - docs/adr/automation/avoid-deep-nesting.md
       - docs/adr/automation/caching.md
       - docs/adr/automation/console-output-matters.md
@@ -36,9 +39,6 @@ catzc:
       - docs/adr/azure/prefer-az-cli.md
       - docs/adr/flow/pipeline-detection.md
       - docs/adr/flow/pipeline-runner-pattern.md
-      - docs/adr/pipelines/custom-template-discipline.md
-      - docs/adr/pipelines/dual-authentication.md
-      - docs/adr/pipelines/pipeline-variables.md
       - docs/adr/pwsh/assert-idioms.md
       - docs/adr/pwsh/automatic-variable-pitfalls.md
       - docs/adr/pwsh/avoid-using-semicolons.md
@@ -64,13 +64,13 @@ catzc:
       - docs/adr/repository/conventional-folders.md
       - docs/adr/repository/dedicated-output-directory.md
       - docs/adr/repository/uniform-formatting.md
+      - docs/explanation/ado/index.md
       - docs/explanation/automation/index.md
       - docs/explanation/azure/index.md
       - docs/explanation/configuration/index.md
       - docs/explanation/design/index.md
       - docs/explanation/flow/index.md
       - docs/explanation/index.md
-      - docs/explanation/pipelines/index.md
       - docs/explanation/repository/index.md
       - docs/how-to/getting-started/automation/add-a-doc-chapter.md
       - docs/how-to/getting-started/automation/add-an-infrastructure-template.md
@@ -140,12 +140,12 @@ in a script and in CI, and the task index. Its how-to articles:
 How cats works and why, one diagram per article — start at the [**explanation index**](explanation/index.md), which also shows how to read
 the diagrams. By ADR domain:
 
+- [Ado](explanation/ado/index.md) — how Azure DevOps calls prove their credentials
 - [Automation](explanation/automation/index.md) — module dependencies, the importer, and the bundle
 - [Azure](explanation/azure/index.md) — how Azure resource names are assembled
 - [Configuration](explanation/configuration/index.md) — how configuration is read, cached and addressed
 - [Design](explanation/design/index.md) — the commit lifecycle, run modes, module aspects, tracks, the thin platform, the server remote
 - [Flow](explanation/flow/index.md) — promotion, the pipeline runner, and the globsets that trigger pipelines
-- [Pipelines](explanation/pipelines/index.md) — how Azure DevOps calls prove their credentials
 - [Repository](explanation/repository/index.md) — how managed root files and repository variants are kept in shape
 
 ## Module reference
@@ -247,10 +247,10 @@ The "why" and "how" behind the automation and its pwsh engine.
 How Azure DevOps pipelines interact with the catzc commands.
 
 - [Pipeline runner pattern](adr/flow/pipeline-runner-pattern.md) — all pipeline steps invoke PowerShell through a single runner
-- [Custom template discipline](adr/pipelines/custom-template-discipline.md) — when and how to use ADO templates
-- [Pipeline variables](adr/pipelines/pipeline-variables.md) — setting ADO output variables from PowerShell
+- [Custom template discipline](adr/ado/custom-template-discipline.md) — when and how to use ADO templates
+- [Pipeline variables](adr/ado/pipeline-variables.md) — setting ADO output variables from PowerShell
 - [Pipeline detection](adr/flow/pipeline-detection.md) — how functions adapt to pipeline vs. local context
-- [Dual authentication](adr/pipelines/dual-authentication.md) — pipeline system token vs. local Az token
+- [Dual authentication](adr/ado/dual-authentication.md) — pipeline system token vs. local Az token
 
 ## Terminology
 

@@ -4,8 +4,8 @@ patterns:
 mappings:
   - folder: docs/adr
     source: docs/adr/index.md
-  - folder: pipelines
-    source: docs/references/pipelines.md
+  - folder: .ado/pipelines
+    source: docs/references/ado/pipelines.md
   - folder: infrastructure
     source: docs/references/infrastructure/overview.md
   - folder: infrastructure/modules
@@ -22,9 +22,9 @@ mappings:
     source: docs/references/cspell.md
   - folder: contracts
     source: docs/references/contracts.md
-  - folder: pipelines/jobs
-    source: docs/references/pipelines/template-folders.md
-  - folder: pipelines/stages
-    source: docs/references/pipelines/template-folders.md
-  - folder: pipelines/variables
-    source: docs/references/pipelines/template-folders.md
+  - folder: .ado/pipelines/jobs
+    source: docs/references/ado/pipelines/template-folders.md
+  - folder: .ado/pipelines/stages
+    source: docs/references/ado/pipelines/template-folders.md
+  - folder: .ado/pipelines/variables
+    source: docs/references/ado/pipelines/template-folders.md

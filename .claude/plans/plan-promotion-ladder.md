@@ -5,7 +5,7 @@ plan:
   reviewed: 2026-10-19
   waits_on:
     the rename and the certifying check wait on the user's CD proof run (task-user-runs-and-commits step 2); the registry step is takeable
-  targets: [pipelines, pwsh, docs/adr/design/commit-lifecycle.md, docs/adr/flow/cd-discipline-and-promotion-flow.md]
+  targets: [.ado/pipelines, pwsh, docs/adr/design/commit-lifecycle.md, docs/adr/flow/cd-discipline-and-promotion-flow.md]
 ---
 
 # The promotion ladder: from one CD run to main-uat, release-uat, pre-prod and DEPLOY

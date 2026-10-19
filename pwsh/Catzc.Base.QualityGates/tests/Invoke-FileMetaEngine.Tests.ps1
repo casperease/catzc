@@ -1,11 +1,13 @@
 Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-REPO-CODEMETA-SAMEENGINE' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'engine-repository'
+        # The banner a property carrier strips is the one warning every generated head carries.
+        $script:warning = (Get-Config -Config generated-head).warning
         $carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{
                 carriers = [ordered]@{
                     powershell = @{ carrier = 'comment-head'; block = @('<#', '#>') }
                     markdown   = @{ carrier = 'front-matter' }
-                    json       = @{ carrier = 'property'; property = '//'; strip = @('GENERATED FILE') }
+                    json       = @{ carrier = 'property'; property = '//'; strip = @($script:warning) }
                     picture    = @{ files = @('**/*.pic'); carrier = 'sidecar'; sidecar = '{base}.md' }
                     chart      = @{ files = @('**/*.chart'); carrier = 'sidecar'; sidecar = 'docs/pages/*/{stem}.chart.md' }
                     skill      = @{ files = @('docs/skills/**/SKILL.md'); carrier = 'front-matter'; key = 'metadata.catzc' }
@@ -144,7 +146,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
     }
 
     It 'replaces an old banner a property carrier strips, and reports a foreign value of the property' {
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/banner.json'), "{`n  `"//`": `"GENERATED FILE - do not edit.`",`n  `"name`": `"widget`"`n}`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/banner.json'), "{`n  `"//`": `"$script:warning`",`n  `"name`": `"widget`"`n}`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/note.json'), "{`n  `"//`": `"a note someone wrote`"`n}`n")
         $banner = & $script:run @([pscustomobject]@{ Path = 'docs/banner.json'; Carrier = $script:property })
         $banner.Files[0].Fixed | Should -BeExactly "{`n  `"//`": `"catzc:\n  immutable:\n    path: docs/banner.json`",`n  `"name`": `"widget`"`n}`n"

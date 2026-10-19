@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Catzc.Base.Variants;
@@ -17,13 +18,17 @@ public sealed class ModulePlace
     public string prefix { get; }
     public bool @internal { get; }
 
-    public ModulePlace(string root, string name, string extension, string prefix, bool @internal)
+    // The folders directly under a folder place's root that are the track's own and never a module, such as its test holder.
+    public IReadOnlyList<string> except { get; }
+
+    public ModulePlace(string root, string name, string extension, string prefix, bool @internal, IReadOnlyList<string> except)
     {
         this.root = root;
         this.name = name;
         this.extension = extension;
         this.prefix = prefix;
         this.@internal = @internal;
+        this.except = except ?? Array.Empty<string>();
     }
 
     // The module name this place gives a '/'-separated repository-relative path, or null when the path is not in the place.

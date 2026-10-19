@@ -98,6 +98,16 @@ of them. A comment page is no generated file: it is an authored file
 
 - [Generated files](#generated-files)
 
+### Rule ADR-REPO-FILEMETA-PROVENANCEINHEAD
+
+A generator puts its provenance in the head and nowhere else: the `generator`, the `source` and the `warning`, the one string "Do Not Edit,
+this file is generated" that every generated head carries, declared once as the default of the head's config type (`GeneratedHeadConfig`,
+[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)) and written in the
+file's own carrier. The body below the head is the content alone: no "generated from" line, no link to the source and no "edit the source"
+note, since each would be a second statement of what the head says.
+
+- [Generated files](#generated-files)
+
 ### Rule ADR-REPO-FILEMETA-JSONCARRIER
 
 A JSON file has no comments, so its carrier is an ignored top-level property that the carrier registry names (`//`, or `$comment` for a JSON
@@ -286,8 +296,9 @@ the reader that hands the declarations down.
 A generated file is rewritten whole on every run, and the drift check compares it with what its writer would compose now. If an imprint step
 wrote the head afterwards, the two would disagree on every run, so the writer writes the head itself, with the same function every writer
 calls. The head says how to regenerate the file: which command composed it and which authored files it comes from, so a reader who finds a
-generated file knows where to edit. The carrier is the file class's own, named by the root-config entry or found from the file language, and
-no banner is hand-worded, because a banner would be a second statement of what the head says.
+generated file knows where to edit, and it carries the one warning, so a reader is told not to edit the file in the same words everywhere.
+The carrier is the file class's own, named by the root-config entry or found from the file language, and no banner is hand-worded, because a
+banner would be a second statement of what the head says.
 
 ### Property and sidecar carriers
 

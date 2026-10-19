@@ -103,3 +103,21 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — one unit change is one `globs.yml` edit, its
   area of control computed, not argued.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Pipeline concept
+
+`Pipelines — the vendor-neutral CI/CD pipeline concept`
+
+[ADR-FLOW-CD-PIPELINE](pipeline-concept.md)
+
+> DORA's research links deployment automation and code maintainability to faster, safer delivery. One vendor-neutral rule set for naming,
+> typing and reading a pipeline keeps every delivery platform's pipelines reviewable from the file alone, and a token that lives for one
+> request keeps the pipeline's credentials out of logs and later steps.
+
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — a pipeline whose type and role read from its name
+  and its flat YAML is automation a reviewer can trust.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one naming and extension convention across vendors
+  keeps the pipeline files classifiable without opening them.
+- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — a credential that never outlives its request cannot leak
+  into a log or a later step.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

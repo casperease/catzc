@@ -1,10 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1440e4eadb25"
+    with_body_sha: "8395b37792c0"
+    warning: "Do Not Edit, this file is generated"
     repo_status: locked
-    path: docs/explanation/pipelines/.assets/one-header-function-owns-precedence/tree.md
-    source: docs/explanation/pipelines/.assets/one-header-function-owns-precedence/diagram.drawio.png
+    path: docs/explanation/ado/.assets/one-header-function-owns-precedence/tree.md
+    source: docs/explanation/ado/.assets/one-header-function-owns-precedence/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -16,79 +17,88 @@ catzc:
 
 ```text
 Which files cite ADR-PIPE-AUTH: every file of the world map is a tile, grouped by top-level folder.
-5 files lit in 4 groups.
+6 files lit in 5 groups.
 ```
 
 ![The tree minimap of One function owns the credential precedence, and ado.yml anchors every proof](tree.png)
 
 This is the tree minimap in the sidebar of the architecture diagram of [One function owns the credential precedence, and ado.yml anchors
-every proof][6], which explains [ADR-PIPE-AUTH][1]. It lights every file that cites those codes, grouped by folder, so it shows which files
+every proof][7], which explains [ADR-PIPE-AUTH][1]. It lights every file that cites those codes, grouped by folder, so it shows which files
 carry the decision. Each lit group has its reason below, naming the code that selects it.
 
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
-domain), and lights 5 files in 4 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 6 files in 5 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
-- adr/pipe (docs/adr/pipelines): 2 lit files
+- adr/ado (docs/adr/ado): 2 lit files
+- .ado: 1 lit file
+- .claude: 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
-- pipelines: 1 lit file
 - Docs (pwsh/Catzc.Base.Docs): 1 lit file
 
 ## Why each group is lit
 
-### adr/pipe (docs/adr/pipelines, 2 lit files)
+### adr/ado (docs/adr/ado, 2 lit files)
 
-The group holds the files of docs/adr/pipelines; each sits in its world-map cell and is lit by:
+The group holds the files of docs/adr/ado; each sits in its world-map cell and is lit by:
 
-- [docs/adr/pipelines/dora-explains.md][2], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 11
+- [docs/adr/ado/dora-explains.md][2], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 11 (text).
+- [docs/adr/ado/dual-authentication.md][1], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the ADR's own file.
+
+### .ado (1 lit file)
+
+The group holds the files of .ado; each sits in its world-map cell and is lit by:
+
+- [.ado/pipelines/ci-automation.yaml][3], in the cell ado-pipelines × pipeline-yaml: selected by [ADR-PIPE-AUTH][1]: a pipeline that cites
+  nothing itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 223 (text).
+
+### .claude (1 lit file)
+
+The group holds the files of .claude; each sits in its world-map cell and is lit by:
+
+- [.claude/plans/plan-ado-and-cicd-docs.md][4], in the cell .claude × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 51
   (text).
-- [docs/adr/pipelines/dual-authentication.md][1], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the ADR's own file.
 
 ### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][3], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 250 (text).
-
-### pipelines (1 lit file)
-
-The group holds the files of pipelines; each sits in its world-map cell and is lit by:
-
-- [pipelines/ci-automation.yaml][4], in the cell pipelines × pipeline-yaml: selected by [ADR-PIPE-AUTH][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 223 (text).
+- [docs/adr/index.md][5], in the cell docs × markdown: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 251 (text).
 
 ### Docs (pwsh/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [pwsh/Catzc.Base.Docs/configs/adrs.yml][5], in the cell pwsh × yaml: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 223 (text).
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][6], in the cell pwsh × yaml: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 223 (text).
 
 ## Keywords
 
-- [world map][7]
-- [track][8]
-- [file language][9]
-- [cell][10]
-- [lit cell][11]
-- [docs][12]: a track
-- [pipelines][12]: a track
-- [pwsh][12]: a track
-- [markdown][13]: a file language
-- [pipeline-yaml][13]: a file language
-- [yaml][13]: a file language
+- [world map][8]
+- [track][9]
+- [file language][10]
+- [cell][11]
+- [lit cell][12]
+- [.claude][13]: a track
+- [ado-pipelines][13]: a track
+- [docs][13]: a track
+- [pwsh][13]: a track
+- [markdown][14]: a file language
+- [pipeline-yaml][14]: a file language
+- [yaml][14]: a file language
 
-[1]: ../../../../adr/pipelines/dual-authentication.md
-[2]: ../../../../adr/pipelines/dora-explains.md
-[3]: ../../../../adr/index.md
-[4]: ../../../../../pipelines/ci-automation.yaml
-[5]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
-[6]: ../../one-header-function-owns-precedence.md
-[7]: ../../../../adr/glossary.md#world-map
-[8]: ../../../../adr/glossary.md#track
-[9]: ../../../../adr/glossary.md#file-language
-[10]: ../../../../adr/glossary.md#cell
-[11]: ../../../../adr/glossary.md#lit-cell
-[12]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
-[13]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml
+[1]: ../../../../adr/ado/dual-authentication.md
+[2]: ../../../../adr/ado/dora-explains.md
+[3]: ../../../../../.ado/pipelines/ci-automation.yaml
+[4]: ../../../../../.claude/plans/plan-ado-and-cicd-docs.md
+[5]: ../../../../adr/index.md
+[6]: ../../../../../pwsh/Catzc.Base.Docs/configs/adrs.yml
+[7]: ../../one-header-function-owns-precedence.md
+[8]: ../../../../adr/glossary.md#world-map
+[9]: ../../../../adr/glossary.md#track
+[10]: ../../../../adr/glossary.md#file-language
+[11]: ../../../../adr/glossary.md#cell
+[12]: ../../../../adr/glossary.md#lit-cell
+[13]: ../../../../../pwsh/Catzc.Base.Variants/configs/variants.yml
+[14]: ../../../../../pwsh/Catzc.Base.Languages/configs/languages.yml

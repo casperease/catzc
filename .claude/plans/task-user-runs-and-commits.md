@@ -4,7 +4,7 @@ task:
   plans: [plan-explanation-drift-gaps]
   value: highest
   blocked_on: nothing; every step is the user's own commit, git operation or remote run, and the last is the final session's full run
-  targets: [.claude/plans, out, pipelines]
+  targets: [.claude/plans, out, .ado/pipelines]
 ---
 
 # Task: the user's commits, git operations, remote runs, and the one final full run
@@ -23,7 +23,7 @@ Order: the commits and git operations first, the remote runs next, the final ful
    11 environments (release-uat with RC and pre-prod with RBC for shared, apex, nova and flux, plus the three prod-tier ones), and the apply
    creates a missing environment (Kind=Environment, Created). Check: a second apply reports Unchanged for the group, all three checks and
    all 11 environments, and a CD run to `shared-psub` waits for approval; task-explanation-drift-gaps step 3 ticked.
-2. One CD run on main touching only `apex`, one main run and one PR run of `pipelines/ci-automation.yaml`. Check: `AFFECTED=True` in
+2. One CD run on main touching only `apex`, one main run and one PR run of `.ado/pipelines/ci-automation.yaml`. Check: `AFFECTED=True` in
    `cd-apex`, `AFFECTED=False` in `cd-shared` with its deploy stages skipped; `BuildArtifact` runs on main and is skipped on the PR;
    task-explanation-drift-gaps steps 1 and 2 ticked.
 3. After task-layers-classification-flip step 1 (P6) lands: re-point the Azure DevOps pipeline definitions, the GitHub required checks and
@@ -37,7 +37,10 @@ Order: the commits and git operations first, the remote runs next, the final ful
    to its assets (plan-diagram-engine); `docs/adr/design/commit-lifecycle.md` with its `.assets/commit-lifecycle-states/` to
    `docs/adr/flow/` (plan-diagram-engine). Check: after each set, `git status --short` shows renames (`R`), not deletes and adds, and the
    plan's next step is taken.
-6. The final full run: done 2026-10-18 (`out/test-automation/20261018-213325`, 0 failed); the run budget proven by the run of 21:47 (155.8
+6. After the `pipelines/` to `.ado/pipelines/` move landed (2026-10-19, done): re-register each pipeline's YAML path in Azure DevOps itself,
+   since the definitions point at `pipelines/<name>.yaml` and the files now sit under `.ado/pipelines/` (the YAML's own repo-rooted paths
+   followed the move). Check: the next push triggers every pipeline from its new path.
+7. The final full run: done 2026-10-18 (`out/test-automation/20261018-213325`, 0 failed); the run budget proven by the run of 21:47 (155.8
    s). It runs again, in a fresh session, when the chunks above have landed, as the one full-repo proof.
 
 ## Report

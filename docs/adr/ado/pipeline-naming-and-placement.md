@@ -1,64 +1,51 @@
 # ADR: Pipeline naming and placement
 
-## Rules: ADR-PIPE-NAME
+## Rules: ADR-ADO-NAME
 
-### Rule ADR-PIPE-NAME-TYPEPREFIX
+### Rule ADR-ADO-NAME-FLATPIPELINESFOLDER
 
-A pipeline's filename starts with its type — the first hyphen-delimited token is `cron`, `ci`, `cd`, `cde`, `deploy`, or `input`. No other
-prefixes.
+Pipelines live flat in `ado/` — never nested into subfolders; the type prefix is the grouping. The per-kind folders hold templates
+only, never registrable ado.
 
-- [Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`](#1-flat-pipelines)
+- [Pipelines live flat in `ado/`, named `<type>-<name>.yaml`](#1-flat-pipelines)
 
-### Rule ADR-PIPE-NAME-FLATPIPELINESFOLDER
-
-Pipelines live flat in `pipelines/` — never nested into subfolders; the type prefix is the grouping. The per-kind folders hold templates
-only, never registrable pipelines.
-
-- [Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`](#1-flat-pipelines)
-
-### Rule ADR-PIPE-NAME-TEMPLATEKINDFOLDER
+### Rule ADR-ADO-NAME-TEMPLATEKINDFOLDER
 
 A template lives in the folder for its kind (`steps/`, `jobs/`, `stages/`, `variables/`, `extends/`); the folder name is the contract — do
 not invent other template folders.
 
 - [Template fragments live in per-kind folders](#2-per-kind-template-folders)
 
-### Rule ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH
+### Rule ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
 
 Templates are referenced by absolute path (`/pipelines/<kind>/<name>.yaml`) — fragments via `template:`, whole-pipeline templates via
 `extends:`.
 
 - [Template fragments live in per-kind folders](#2-per-kind-template-folders)
 
-### Rule ADR-PIPE-NAME-EXTENDSISNOTPIPELINE
+### Rule ADR-ADO-NAME-EXTENDSISNOTPIPELINE
 
 An `extends` template is not a pipeline — it defines structure, not an entry point. What gets registered is the thin root
 `<type>-<name>.yaml` pipeline that extends it.
 
 - [Template fragments live in per-kind folders](#2-per-kind-template-folders)
 
-### Rule ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION
+### Rule ADR-ADO-NAME-RUNNERLOCATION
 
-Executable YAML is `.yaml`; config/data our code parses is `.yml`. Never mix the two.
-
-- [`.yaml` = executable artifact, `.yml` = config data](#3-yaml-vs-yml)
-
-### Rule ADR-PIPE-NAME-RUNNERLOCATION
-
-The runner `Invoke-AdoScript.ps1` stays at the `pipelines/` root — a `.ps1`, not a pipeline or fragment, so it takes no type prefix and is
+The runner `Invoke-AdoScript.ps1` stays at the `ado/` root — a `.ps1`, not a pipeline or fragment, so it takes no type prefix and is
 exempt from the `.yaml` rule.
 
 - [Resulting layout](#resulting-layout)
 
 ## Context
 
-The `pipelines/` tree holds two structurally different things: **pipelines** (the entry-point YAML you register and queue in ADO) and
-**template fragments** (the reusable `steps` / `jobs` / `stages` / `variables` that pipelines include). Without a fixed layout these mix in
-one folder, the include-kind of a fragment is invisible until you open it, and pipelines are not distinguishable from fragments or grouped
+The `ado/` tree holds two structurally different things: **ado** (the entry-point YAML you register and queue in ADO) and
+**template fragments** (the reusable `steps` / `jobs` / `stages` / `variables` that ado include). Without a fixed layout these mix in
+one folder, the include-kind of a fragment is invisible until you open it, and ado are not distinguishable from fragments or grouped
 by type.
 
 A pipeline's type (cron / ci / cd / cde / deploy / input — see [pipeline-types](../flow/pipeline-types.md)) is not a folder; it is encoded
-as the **first part of the filename** (`ci-automation.yaml`), so a flat listing of `pipelines/` already groups and reveals pipelines by
+as the **first part of the filename** (`ci-automation.yaml`), so a flat listing of `ado/` already groups and reveals ado by
 type. Fragments, by contrast, are grouped by folder. The filename and the folder are the contract.
 
 This is the same argument as [conventional-folders](../repository/conventional-folders.md): a fixed, semantic layout where the folder name
@@ -69,27 +56,27 @@ an executable ADO artifact or data our code reads.
 
 ## Decision
 
-### 1. Flat pipelines
+### 1. Flat ado
 
 ```text
-1. Pipelines live flat in `pipelines/`, named `<type>-<name>.yaml`
+1. Pipelines live flat in `ado/`, named `<type>-<name>.yaml`
 ```
 
-A pipeline (the file ADO registers and runs) sits directly in `pipelines/`, not in a subfolder. Its name **starts with its type** — one of
+A pipeline (the file ADO registers and runs) sits directly in `ado/`, not in a subfolder. Its name **starts with its type** — one of
 `cron`, `ci`, `cd`, `cde`, `deploy`, `input` — followed by a descriptive name:
 
 ```text
-pipelines/ci-automation.yaml
-pipelines/cd-shared.yaml
-pipelines/cde-frontend.yaml
-pipelines/cron-cert-rotation.yaml
-pipelines/deploy-release-certification.yaml
-pipelines/input-environment-request.yaml
+ado/ci-automation.yaml
+ado/cd-shared.yaml
+ado/cde-frontend.yaml
+ado/cron-cert-rotation.yaml
+ado/deploy-release-certification.yaml
+ado/input-environment-request.yaml
 ```
 
-The type prefix makes a directory listing of `pipelines/` an index of every pipeline grouped by type.
+The type prefix makes a directory listing of `ado/` an index of every pipeline grouped by type.
 
-The prefix is the **authoring convention** — what a human reads and what `pipelines/` groups by. It is not how the inventory tooling decides
+The prefix is the **authoring convention** — what a human reads and what `ado/` groups by. It is not how the inventory tooling decides
 what a file is. `Get-AdoYamlFiles` / `Get-AdoYamlInventory` classify each YAML file as Pipeline / Template (with subtype) from its
 **top-level YAML keys** (strong signals such as `trigger`, `pr`, `schedules`, `extends`; template signals such as `parameters` + a
 `stages`/`jobs`/ `steps`/`variables` body), then `Get-AdoYamlInventory` cross-references **ADO registration data** to resolve anything still
@@ -106,11 +93,11 @@ consumption site:
 
 | Folder                 | Template kind            | Consumed under |
 | ---------------------- | ------------------------ | -------------- |
-| `pipelines/steps/`     | step templates           | `steps:`       |
-| `pipelines/jobs/`      | job templates            | `jobs:`        |
-| `pipelines/stages/`    | stage templates          | `stages:`      |
-| `pipelines/variables/` | variable templates       | `variables:`   |
-| `pipelines/extends/`   | whole-pipeline templates | `extends:`     |
+| `ado/steps/`     | step templates           | `steps:`       |
+| `ado/jobs/`      | job templates            | `jobs:`        |
+| `ado/stages/`    | stage templates          | `stages:`      |
+| `ado/variables/` | variable templates       | `variables:`   |
+| `ado/extends/`   | whole-pipeline templates | `extends:`     |
 
 A reader (and a reviewer) knows from the path alone what a template is and where it plugs in. Templates are referenced by **absolute path**
 from the repo root (`/pipelines/<kind>/<name>.yaml`), per [custom-template-discipline](custom-template-discipline.md).
@@ -121,7 +108,7 @@ proactively. See [custom-template-discipline](custom-template-discipline.md).
 
 **`extends/` is the whole-pipeline case.** An `extends` template defines an entire (usually multi-stage) pipeline; a thin pipeline at the
 root supplies only parameters: `extends: { template: /pipelines/extends/<name>.yaml, parameters: { ... } }`. This is the sanctioned
-mechanism when many pipelines must share one governed structure — e.g. **customer CD**, where every customer's pipeline extends a single
+mechanism when many ado must share one governed structure — e.g. **customer CD**, where every customer's pipeline extends a single
 `extends/cd-customer.yaml` and passes only meta selection criteria (the customer key, the environment). It still answers to
 [custom-template-discipline](custom-template-discipline.md): it earns its existence through genuine, proven many-pipeline reuse, and its
 parameters are meta keys only — never config the catzc commands can derive.
@@ -132,7 +119,7 @@ parameters are meta keys only — never config the catzc commands can derive.
 3. `.yaml` = executable artifact, `.yml` = config data
 ```
 
-- **`.yaml`** — pipelines and template fragments. Anything ADO executes.
+- **`.yaml`** — ado and template fragments. Anything ADO executes.
 - **`.yml`** — configuration/data files our own code reads (`azure.yml`, `options.yml`, `tools.yml`, `ado.yml`, a template's
   `configuration/<env>.yml`, …).
 
@@ -142,7 +129,7 @@ where every config file is already `.yml`.
 ### Resulting layout
 
 ```text
-pipelines/
+ado/
   Invoke-AdoScript.ps1          # the runner (see pipeline-runner-pattern) — not a pipeline
   ci-automation.yaml            # pipeline  (<type>-<name>.yaml)
   cd-shared.yaml                # pipeline
@@ -160,7 +147,7 @@ pipelines/
 
 ### Exceptions
 
-- **GitHub Actions** keep their own ecosystem convention under `.github/workflows/` (e.g. a `.yml` workflow). This ADR governs `pipelines/`
+- **GitHub Actions** keep their own ecosystem convention under `.github/workflows/` (e.g. a `.yml` workflow). This ADR governs `ado/`
   (Azure DevOps), not `.github/`.
 
 ## How this is enforced
@@ -168,25 +155,25 @@ pipelines/
 - **Code review** against this ADR, at the PR gate, is the primary enforcement — the uniform layout makes a misplaced fragment or a
   mis-typed pipeline name visible at a glance.
 - **`Get-AdoYamlFiles` / `Get-AdoYamlInventory`** scan and classify YAML by top-level-key heuristics (plus ADO registration data, in the
-  inventory), distinguishing pipelines from fragments by _structure_ rather than by filename prefix. A pipeline that is not at the root, or
+  inventory), distinguishing ado from fragments by _structure_ rather than by filename prefix. A pipeline that is not at the root, or
   a fragment outside its kind folder, stands out against the convention.
 - **The filename prefix is the authoring contract, not the classifier.** A pipeline's type is its filename prefix for readers and for the
   directory index; the tooling above derives Pipeline-vs-Template from YAML keys and ADO data. A pipeline whose prefix disagrees with its
   structure or its ADO registration is visible as a convention break at review.
 - **`Test-Pipelines`** — an offline quality gate
-  ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)) that checks the `pipelines/` tree against
-  this ADR: the type prefix (ADR-PIPE-NAME-TYPEPREFIX), flat placement and the closed set of per-kind template folders with matching
-  fragment kinds (ADR-PIPE-NAME-FLATPIPELINESFOLDER, ADR-PIPE-NAME-TEMPLATEKINDFOLDER), the `.yaml` extension
-  (ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION), and absolute `/pipelines/...` template references (ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH). It
+  ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)) that checks the `ado/` tree against
+  this ADR: the type prefix (ADR-FLOW-CD-PIPELINE-TYPEPREFIX), flat placement and the closed set of per-kind template folders with matching
+  fragment kinds (ADR-ADO-NAME-FLATPIPELINESFOLDER, ADR-ADO-NAME-TEMPLATEKINDFOLDER), the `.yaml` extension
+  (ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION), and absolute `/pipelines/...` template references (ADR-ADO-NAME-ABSOLUTETEMPLATEPATH). It
   collects one issue per violation, each naming its rule code, and throws once listing them all; its L1 integrity test requires zero issues
   over the real tree, so a mis-named or misplaced pipeline fails CI, not just review.
 
 ## Consequences
 
-- A listing of `pipelines/` is a typed index of every pipeline; the per-kind folders are a typed index of every fragment. No file needs
+- A listing of `ado/` is a typed index of every pipeline; the per-kind folders are a typed index of every fragment. No file needs
   opening to learn what it is.
 - The include-kind of a fragment is unambiguous from its path, so an author cannot include a job template where a step template belongs
   without it being obvious.
 - Extension alone classifies a file as executable (`.yaml`) or data (`.yml`), which keeps tooling and `grep` honest.
-- The layout is rigid by design (the cost of [conventional-folders](../repository/conventional-folders.md)): pipelines cannot be foldered by
+- The layout is rigid by design (the cost of [conventional-folders](../repository/conventional-folders.md)): ado cannot be foldered by
   team or domain, and fragment folders are a closed set. The predictability is worth more than the flexibility.

@@ -93,8 +93,8 @@ Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
     }
 
     It 'replaces an old value that starts with a strip opener' {
-        $text = '{"//": "GENERATED FILE — do not edit.", "name": "widget"}'
-        $head = [Catzc.Base.CodeMeta.PropertyHead]::Parse($text, '//', [string[]] @('GENERATED FILE'))
+        $text = '{"//": "WIDGET BANNER — gadget.", "name": "widget"}'
+        $head = [Catzc.Base.CodeMeta.PropertyHead]::Parse($text, '//', [string[]] @('WIDGET BANNER'))
         $head.Foreign | Should -BeFalse
         $head.WithFacts($script:facts, $script:none) | Should -BeExactly ('{' + $script:member + ', "name": "widget"}')
     }

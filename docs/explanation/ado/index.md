@@ -1,4 +1,4 @@
-# Pipelines explanations
+# Ado explanations
 
 ```text
 How Azure DevOps REST calls choose and prove their credentials.
@@ -6,12 +6,12 @@ How Azure DevOps REST calls choose and prove their credentials.
 Azure DevOps auth precedence   the first configured credential wins, and it must prove its org
 ```
 
-These articles explain decisions from the [pipelines ADR domain](../../adr/index.md#pipelines). Each article narrates one diagram; the
+These articles explain decisions from the [ado ADR domain](../../adr/index.md#ado). Each article narrates one diagram; the
 [explanation index](../index.md) says how to read them.
 
 ## Azure DevOps auth precedence
 
-The first configured credential wins, and it must prove its org ([dual-authentication](../../adr/pipelines/dual-authentication.md)).
+The first configured credential wins, and it must prove its org ([dual-authentication](../../adr/ado/dual-authentication.md)).
 
 | Lens           | Article                                                                                                                        |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------ |

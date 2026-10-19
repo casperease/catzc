@@ -12,7 +12,7 @@ parameters:
 
 stages:
   - ${{ if eq(parameters.Target, 'release-uat') }}:
-      - template: /pipelines/stages/deploy-unit.yaml
+      - template: /.ado/pipelines/stages/deploy-unit.yaml
         parameters:
           Unit: shared
           Expeditions:

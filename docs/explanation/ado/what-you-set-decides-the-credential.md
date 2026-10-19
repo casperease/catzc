@@ -12,7 +12,7 @@ What you set decides the credential, and each wrong setup stops with its own mes
 7  No ADO token available     the message when the session yields no token
 8  Authorization header       what a working setup gives the REST call
 
-Supports ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-PIPE-AUTH-PROVETARGET, ADR-PIPE-AUTH-ASSERTWHENNOTOKEN and ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN (operations lens).
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-ASSERTWHENNOTOKEN and ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN (operations lens).
 ```
 
 Anyone who runs an Azure DevOps REST function in cats, from a pipeline or a terminal, gets its credential from one ladder. The first thing
@@ -26,7 +26,7 @@ failure carries a verbatim fragment of its message; the full messages are quoted
 
 ## Walkthrough
 
-1. **ExposeAccessToken: true.** In a pipeline, a step built on `pipelines/steps/invoke-automation.yaml` with `ExposeAccessToken: true` maps
+1. **ExposeAccessToken: true.** In a pipeline, a step built on `ado/steps/invoke-automation.yaml` with `ExposeAccessToken: true` maps
    `SYSTEM_ACCESSTOKEN` into that step, in every Mode, and the step log shows the line "ExposeAccessToken: true". A step without the flag
    never sees the token, so the YAML itself shows which steps have API access.
 2. **does not match ado.yml.** If the pipeline's collection is not the organization in `ado.yml`, the call stops with "Pipeline collection
@@ -45,11 +45,11 @@ failure carries a verbatim fragment of its message; the full messages are quoted
 ## Why it holds
 
 - The first configured credential is used, and a configured one that fails stops the call rather than dropping to the next
-  (ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE).
-- The pipeline token and the az CLI session must prove they belong to the organization and tenant in `ado.yml` (ADR-PIPE-AUTH-PROVETARGET).
-- When nothing yields a token, the message names the two fixes (ADR-PIPE-AUTH-ASSERTWHENNOTOKEN).
+  (ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE).
+- The pipeline token and the az CLI session must prove they belong to the organization and tenant in `ado.yml` (ADR-ADO-AUTH-PROVETARGET).
+- When nothing yields a token, the message names the two fixes (ADR-ADO-AUTH-ASSERTWHENNOTOKEN).
 - The step template, not the function, decides whether a step gets the token, so the pipeline YAML is the audit trail
-  (ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN).
+  (ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN).
 
 ## Where the code and the ADR differ
 
@@ -58,8 +58,8 @@ The ADR's step-template sample shows only the `PowerShell@2` task, while `invoke
 
 ## See also
 
-- [Dual authentication](../../adr/pipelines/dual-authentication.md) — the decision this article explains.
+- [Dual authentication](../../adr/ado/dual-authentication.md) — the decision this article explains.
 - The other lenses on the same precedence: [meta](configured-credential-proves-its-org.md),
   [architecture](one-header-function-owns-precedence.md), [implementation](three-guarded-early-returns.md) and
   [governance](which-auth-rungs-have-a-gate.md).
-- [The pipelines explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)
+- [The ado explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -23,7 +23,7 @@ jobs:
         displayName: "Trap: Assert-True $false"
         inputs:
           targetType: inline
-          script: . './pipelines/Invoke-AdoScript.ps1' -Command 'Assert-True $false'
+          script: . './.ado/pipelines/Invoke-AdoScript.ps1' -Command 'Assert-True $false'
           pwsh: true
         continueOnError: true
 
@@ -42,7 +42,7 @@ jobs:
             if ($command.Contains("`n") -and -not $displayName) {
                 throw "Multiline RunCommand requires DisplayName parameter."
             }
-            . './pipelines/Invoke-AdoScript.ps1' -Command $command
+            . './.ado/pipelines/Invoke-AdoScript.ps1' -Command $command
         continueOnError: true
 
       # 1c: Invoke-Executable non-zero exit code throws
@@ -50,7 +50,7 @@ jobs:
         displayName: "Trap: non-zero exit code"
         inputs:
           targetType: inline
-          script: . './pipelines/Invoke-AdoScript.ps1' -Command 'Invoke-Executable "bash -c exit\ 1" -Silent'
+          script: . './.ado/pipelines/Invoke-AdoScript.ps1' -Command 'Invoke-Executable "bash -c exit\ 1" -Silent'
           pwsh: true
         continueOnError: true
 
@@ -59,7 +59,7 @@ jobs:
         displayName: "Guard: Install-Python blocked in CI"
         inputs:
           targetType: inline
-          script: . './pipelines/Invoke-AdoScript.ps1' -Command 'Install-Python'
+          script: . './.ado/pipelines/Invoke-AdoScript.ps1' -Command 'Install-Python'
           pwsh: true
         continueOnError: true
 
@@ -68,7 +68,7 @@ jobs:
         displayName: "Guard: Install-Dotnet blocked in CI"
         inputs:
           targetType: inline
-          script: . './pipelines/Invoke-AdoScript.ps1' -Command 'Install-Dotnet'
+          script: . './.ado/pipelines/Invoke-AdoScript.ps1' -Command 'Install-Dotnet'
           pwsh: true
         continueOnError: true
 
@@ -77,6 +77,6 @@ jobs:
         displayName: "Guard: Install-NodeJs blocked in CI"
         inputs:
           targetType: inline
-          script: . './pipelines/Invoke-AdoScript.ps1' -Command 'Install-NodeJs'
+          script: . './.ado/pipelines/Invoke-AdoScript.ps1' -Command 'Install-NodeJs'
           pwsh: true
         continueOnError: true

@@ -15,8 +15,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
-        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'generated-head' } { [Catzc.Base.Languages.GeneratedHeadConfig]::new(@{ keys = @('path', 'role') }) }
-        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -ne 'generated-head' } {
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'readme' } {
             [pscustomobject]@{
                 patterns = @()
                 mappings = @(
@@ -34,23 +33,21 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         Remove-Item $script:readme -Force -ErrorAction Ignore
     }
 
-    It 'generates a plain-file copy whose links resolve from the README folder, under a meta block and a line naming the source' -Tag 'ADR-REPO-README-WORKINGLINKS' {
+    It 'generates a plain-file copy whose links resolve from the README folder, under a generated head naming the source' -Tag 'ADR-REPO-README-WORKINGLINKS' {
         Build-Readme | Out-Null
         (Get-Item -LiteralPath $script:readme -Force).LinkType | Should -BeNullOrEmpty
-        [System.IO.File]::ReadAllText($script:readme) | Should -BeExactly (@(
-                '---'
-                'catzc:'
-                '  immutable:'
-                '    role: readme'
-                '---'
-                ''
-                '# Fixture Title'
-                ''
-                '> Generated from [docs/references/pwsh/foo.md](../../docs/references/pwsh/foo.md) — edit the source;'
-                ''
-                'Prose with a [sibling link](../../docs/references/pwsh/catzc-base-asserts.md) that resolves at the source location.'
-                ''
-            ) -join "`n")
+        $text = [System.IO.File]::ReadAllText($script:readme)
+        $body = @(
+            '# Fixture Title'
+            ''
+            'Prose with a [sibling link](../../docs/references/pwsh/catzc-base-asserts.md) that resolves at the source location.'
+            ''
+        ) -join "`n"
+        $text | Should -MatchExactly ('^---\ncatzc:\n  immutable:\n(    [^\n]*\n)+---\n\n' + [regex]::Escape($body) + '$')
+        $text | Should -BeLike "*`n    warning: `"$((Get-Config -Config generated-head).warning)`"`n*"
+        $text | Should -BeLike "*`n    source: docs/references/pwsh/foo.md`n*"
+        $text | Should -BeLike "*`n    role: readme`n*"
+        $text | Should -Not -BeLike '*Generated from*'
     }
 
     It 'leaves the source''s front matter, its meta block included, out of the copy' -Tag 'ADR-REPO-README-WORKINGLINKS' {
@@ -73,7 +70,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
 
         $result = Build-Readme -PassThru
         $result[0].Changed | Should -BeTrue
-        [System.IO.File]::ReadAllText($script:readme) | Should -BeLike '*Generated from*'
+        [System.IO.File]::ReadAllText($script:readme) | Should -BeLike '*    source: docs/references/pwsh/foo.md*'
     }
 
     It 'is idempotent — a second run changes nothing' {
@@ -89,7 +86,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         Build-Readme | Out-Null
 
         [System.IO.File]::ReadAllText($script:source) | Should -BeExactly $before
-        [System.IO.File]::ReadAllText($script:readme) | Should -BeLike '*Generated from*'
+        [System.IO.File]::ReadAllText($script:readme) | Should -BeLike '*    source: docs/references/pwsh/foo.md*'
         (Get-Item -LiteralPath $script:source).LinkType | Should -BeNullOrEmpty -Because 'the source is no longer one of two hard-linked names'
     }
 

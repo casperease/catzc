@@ -21,7 +21,7 @@ function Build-RootConfig {
 
     $config = Get-Config -Config rootconfig
 
-    $entries = @(Get-RootConfigTargets -Config $config)
+    $entries = @(Get-RootConfigTargets -Config $config -FollowMix)
     if ($Target) {
         # An entry is selected by its own target, or — for a wildcard entry — by one path its pattern matches.
         $entries = @($entries | Where-Object {
@@ -66,12 +66,7 @@ function Build-RootConfig {
         }
         elseif ($entry.source) {
             # Content from an authored source file, with the generated-file head naming the source.
-            $sourcePath = Resolve-RepoPath $entry.source
-            Assert-PathExist $sourcePath
-
-            # Normalize the source to LF so composition is line-ending agnostic (the write itself canonicalises).
-            $content = [System.IO.File]::ReadAllText($sourcePath) -replace "`r`n", "`n" -replace "`r", "`n"
-            $content = Format-GeneratedFileHead -Text $content -Path $entry.target -Carrier $entry.carrier -Generator Build-RootConfig -Source $entry.source -FileKind (Get-FileKind $entry.target)
+            $content = Get-RootConfigCopyContent -Entry $entry -SourcePath (Resolve-RepoPath $entry.source)
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $content; From = $entry.source })
         }
         else {

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0ac84c8dabfe"
+    with_body_sha: "2f253655e0c6"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: importer.ps1
@@ -26,7 +26,9 @@ param(
     [switch] $ClearCompiledTypes,
     [switch] $SkipJanitors,
     [switch] $CleanClone,
-    [switch] $Bundle
+    [switch] $Bundle,
+    [string[]] $Languages,
+    [string[]] $Engines
 )
 
 Set-StrictMode -Version Latest

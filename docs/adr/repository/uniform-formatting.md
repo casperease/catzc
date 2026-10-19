@@ -94,7 +94,7 @@ every run, and `Test-FileMeta` checks it, over the files the scope rule selects
 
 ## Context
 
-The repository holds many file types — PowerShell (`.ps1`/`.psm1`/`.psd1`), Bicep, YAML pipelines, Markdown, JSON, C#. When formatting is
+The repository holds many file types — PowerShell (`.ps1`/`.psm1`/`.psd1`), Bicep, YAML ado, Markdown, JSON, C#. When formatting is
 inconsistent, every pull request carries two kinds of change: the actual logic change and incidental formatting noise. Reviewers must
 mentally separate the two, and they will miss real changes hidden in reformatting. This is the single biggest waste of review time in any
 codebase without enforced formatting — and it is not language-specific, so the fix must not be either.
@@ -126,7 +126,7 @@ engine and an analyzer. The exact per-language values live in `.editorconfig`, a
 file-language registry, `pwsh/Catzc.Base.Languages/configs/languages.yml`; this ADR restates neither. Beyond the engines, PowerShell is
 governed by `PSScriptAnalyzerSettings.psd1` (see [powershell-formatting](../pwsh/powershell-formatting.md)), Markdown by
 `.markdownlint.yml`, and pipeline YAML by the naming-and-placement check `Test-Pipelines`
-([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md)).
+([pipeline-naming-and-placement](../ado/pipeline-naming-and-placement.md)).
 
 ### Formatting is configured per language
 
@@ -209,7 +209,7 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
   in the L2 tests (see [powershell-formatting](../pwsh/powershell-formatting.md)). For Markdown it is markdownlint (`.markdownlint.yml`),
   formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (the same engine as Markdown, checked by
   the `Test-Formatting` gate in an L2 test) plus the naming-and-placement quality gate `Test-Pipelines`
-  ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md), an L1 integrity test) — both run in every CI test run, so
+  ([pipeline-naming-and-placement](../ado/pipeline-naming-and-placement.md), an L1 integrity test) — both run in every CI test run, so
   drifted or misplaced pipeline YAML fails CI.
 - **The file-language registry** — `languages.yml` names each language's formatter engine or the reason it has none, validated at load
   (`LanguagesConfig`); `Format-Code` runs the engines and `Test-Formatting` reports every file an engine would change, and an L0 integrity

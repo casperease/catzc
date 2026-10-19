@@ -1,8 +1,10 @@
 ---
 plan:
-  status: active
+  status: blocked
   value: high
   reviewed: 2026-10-19
+  blocked_on:
+    plan-module-system-per-language, which lets a language track hold a module before python/Catzc.Diagrams lands (the user, 2026-10-19)
   targets:
     [
       .claude/drawio,

@@ -4,10 +4,15 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         [void][System.IO.Directory]::CreateDirectory((Join-Path $root 'src'))
         [System.IO.File]::WriteAllText((Join-Path $root 'src/widget.json'), '{}')
         [System.IO.File]::WriteAllText((Join-Path $root 'src/gadget.json'), '{ "a": 1 }')
-        [System.IO.File]::WriteAllText((Join-Path $root 'gadget.json'), '{}')
         [System.IO.File]::WriteAllText((Join-Path $root 'sprocket.json'), '{}')
         New-Item -ItemType HardLink -Path (Join-Path $root 'widget.json') -Value (Join-Path $root 'src/widget.json') | Out-Null
         New-Item -ItemType HardLink -Path (Join-Path $root 'cog.json') -Value (Join-Path $root 'src/widget.json') | Out-Null
+        # The managed copy is its template under the generated head, as Build-RootConfig writes it.
+        $script:gadgetCopy = InModuleScope Catzc.Base.RootConfig -Parameters @{ Source = (Join-Path $root 'src/gadget.json') } {
+            param($Source)
+            Get-RootConfigCopyContent -Entry ([pscustomobject]@{ target = 'gadget.json'; source = 'src/gadget.json'; carrier = $null }) -SourcePath $Source
+        }
+        [System.IO.File]::WriteAllText((Join-Path $root 'gadget.json'), $script:gadgetCopy)
         $script:out = Join-Path $TestDrive 'out'
     }
 
@@ -16,8 +21,8 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-Config -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Config -eq 'rootconfig' } { [pscustomobject]@{} }
         $script:entries = @(
-            [pscustomobject]@{ target = 'widget.json'; source = 'src/widget.json'; committed = $false; copyAsLink = $true }
-            [pscustomobject]@{ target = 'gadget.json'; source = 'src/gadget.json'; committed = $true; copyAsLink = $false }
+            [pscustomobject]@{ target = 'widget.json'; source = 'src/widget.json'; carrier = $null; committed = $false; copyAsLink = $true }
+            [pscustomobject]@{ target = 'gadget.json'; source = 'src/gadget.json'; carrier = $null; committed = $true; copyAsLink = $false }
         )
         Mock Get-RootConfigTargets -ModuleName Catzc.Base.RootConfig { $entries }
         $script:ignored = @('widget.json')
@@ -35,8 +40,8 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
     }
 
     It 'throws once naming every disagreement' {
-        $script:entries += [pscustomobject]@{ target = 'sprocket.json'; source = 'src/widget.json'; committed = $false; copyAsLink = $true }
-        $script:entries += [pscustomobject]@{ target = 'cog.json'; source = 'src/widget.json'; committed = $true; copyAsLink = $false }
+        $script:entries += [pscustomobject]@{ target = 'sprocket.json'; source = 'src/widget.json'; carrier = $null; committed = $false; copyAsLink = $true }
+        $script:entries += [pscustomobject]@{ target = 'cog.json'; source = 'src/widget.json'; carrier = $null; committed = $true; copyAsLink = $false }
         $script:ignored = @('widget.json', 'cog.json')
         $script:tracked = @('gadget.json', 'sprocket.json')
         $thrown = { Test-RootConfigFiles -OutputFolder $out } | Should -Throw -PassThru
@@ -50,12 +55,26 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         $message | Should -Match 'cog.json: a link, but must be a real, independent file'
     }
 
+    It 'passes a copy that is its template under the head, and fails a copy with any other difference or none at all' {
+        $gadget = Join-Path $TestDrive 'repo/gadget.json'
+        (Test-RootConfigFiles -OutputFolder $out -PassThru).IssueCount | Should -Be 0
+        try {
+            [System.IO.File]::WriteAllText($gadget, $script:gadgetCopy + "edited`n")
+            (Test-RootConfigFiles -OutputFolder $out -PassThru).Issues | Should -Be @('gadget.json: differs from src/gadget.json under its generated head — edit the template, then re-run the importer')
+            [System.IO.File]::Delete($gadget)
+            (Test-RootConfigFiles -OutputFolder $out -PassThru).Issues | Should -Be @('gadget.json: missing — re-run the importer (Build-RootConfig copies src/gadget.json)')
+        }
+        finally {
+            [System.IO.File]::WriteAllText($gadget, $script:gadgetCopy)
+        }
+    }
+
     It 'checks a wildcard entry per file its generator renders' {
         Mock Get-RootConfigRenderedFile -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{ Target = 'widgets/alpha/gadget.txt'; Content = "alpha`n" }
             [pscustomobject]@{ Target = 'widgets/beta/gadget.txt'; Content = "beta`n" }
         }
-        $script:entries += [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; generator = 'New-Widget'; committed = $false; copyAsLink = $false }
+        $script:entries += [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; generator = 'New-Widget'; carrier = $null; committed = $false; copyAsLink = $false }
         $script:ignored = @('widget.json', 'widgets/alpha/gadget.txt')
         $result = Test-RootConfigFiles -OutputFolder $out -PassThru
         $result.Facts['Files'] | Should -Be 4

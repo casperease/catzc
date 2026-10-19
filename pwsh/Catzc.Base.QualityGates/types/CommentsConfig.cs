@@ -36,7 +36,7 @@ public sealed class CommentsConfig
     public static readonly IReadOnlyList<(string source, string docs)> DefaultPages = new[]
     {
         ("pwsh/*", "docs/references/pwsh/{kebab}"),
-        ("pipelines", "docs/references/pipelines"),
+        (".ado/pipelines", "docs/references/ado/pipelines"),
         ("infrastructure", "docs/references/infrastructure"),
         (".claude/hooks", "docs/references/pwsh/claude-hooks"),
     };

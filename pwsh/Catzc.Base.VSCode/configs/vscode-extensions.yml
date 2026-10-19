@@ -6,7 +6,7 @@ recommendations:
   - DavidAnson.vscode-markdownlint
   # Kusto syntax highlighting for KQL snippets in docs and Azure work.
   - rosshamish.kuskus-kusto-syntax-highlighting
-  # Azure Pipelines YAML schema for pipelines/*.yaml.
+  # Azure Pipelines YAML schema for .ado/pipelines/*.yaml.
   - ms-azure-devops.azure-pipelines
   # Azure resource browsing for the deployed templates.
   - ms-azuretools.vscode-azureresourcegroups

@@ -11,7 +11,7 @@ One function owns the credential precedence, and ado.yml anchors every proof.
 6  Catzc.Azure.Cli         the module whose Assert-AzCliConnected checks the session
 7  ado.yml                 the config every proof is checked against
 
-Supports ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-PIPE-AUTH-PROVETARGET, ADR-PIPE-AUTH-SEPARATETOKENFUNCTION and ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN (architecture lens).
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-SEPARATETOKENFUNCTION and ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN (architecture lens).
 ```
 
 Cats calls the Azure DevOps REST API from several modules, but only one function, `Get-AdoAuthorizationHeader`, decides which credential a
@@ -42,11 +42,11 @@ The diagram is described element by element in [its asset description](.assets/o
 
 ## Why it holds
 
-- The precedence is fixed, top to bottom, and a source that fails raises its own error (ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE).
-- Each source proves it targets the configured organization or tenant before it returns a header (ADR-PIPE-AUTH-PROVETARGET).
-- Token acquisition lives in one separate function, and API-calling functions never inline it (ADR-PIPE-AUTH-SEPARATETOKENFUNCTION).
+- The precedence is fixed, top to bottom, and a source that fails raises its own error (ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE).
+- Each source proves it targets the configured organization or tenant before it returns a header (ADR-ADO-AUTH-PROVETARGET).
+- Token acquisition lives in one separate function, and API-calling functions never inline it (ADR-ADO-AUTH-SEPARATETOKENFUNCTION).
 - The step template maps the system token, and functions read only the mapped `$env:SYSTEM_ACCESSTOKEN`
-  (ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN).
+  (ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN).
 
 ## Where the code and the ADR differ
 
@@ -55,8 +55,8 @@ value, and nothing checks it against the header's source.
 
 ## See also
 
-- [Dual authentication](../../adr/pipelines/dual-authentication.md) — the decision this article explains.
+- [Dual authentication](../../adr/ado/dual-authentication.md) — the decision this article explains.
 - The other lenses on the same precedence: [meta](configured-credential-proves-its-org.md),
   [implementation](three-guarded-early-returns.md), [operations](what-you-set-decides-the-credential.md) and
   [governance](which-auth-rungs-have-a-gate.md).
-- [The pipelines explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)
+- [The ado explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

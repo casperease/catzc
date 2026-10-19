@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f57c448b52f5
+#     with_body_sha: "59c2ad296862"
 #     warning: "Do Not Edit, this file is generated"
 #     repo_status: locked
 #     path: ".gitattributes"
@@ -95,7 +95,7 @@ pwsh/.compiled/** linguist-generated
 *.md linguist-detectable
 *.md linguist-documentation=false
 # GitHub (linguist): YAML, JSON and XML are "data" and "markup" languages, outside the statistics by default. Here the
-# YAML module configs, the Azure DevOps pipelines (pipelines/, *.yaml), the GitHub workflows (.github/workflows/), the
+# YAML module configs, the azure devops pipelines (.ado/pipelines/, *.yaml), the GitHub workflows (.github/workflows/), the
 # JSON, the XML/XSD schemas and the .NET project files are authored and reviewed like source, so they count in. Test
 # fixture trees and the frozen contract copies are data or duplicates, so they stay out (the later rules win).
 *.yml    linguist-detectable

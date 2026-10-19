@@ -55,20 +55,20 @@ attributes to catching problems while they are still cheap to fix.
 
 The requirement is not merely having a security team but distributing security work across the lifecycle: InfoSec involved during design as
 a gating review, preapproved libraries and toolchains that make the secure choice the default choice, and automated security tests running
-in the same pipelines as functional tests — so vulnerability detection happens at scale without a manual review on every change.
+in the same ado as functional tests — so vulnerability detection happens at scale without a manual review on every change.
 
 ## Why it matters
 
 DORA's research ties pervasive security to delivery performance through the cost curve of when a defect is found. A security concern raised
 at design time costs a conversation; the same concern found after release costs an architectural change, an emergency patch, and the trust
-the incident spends. Embedding security into continuous integration and deployment pipelines lets teams discover and address defects
+the incident spends. Embedding security into continuous integration and deployment ado lets teams discover and address defects
 earlier, avoiding the expensive rework that surfaces only once a problem reaches production.
 
 ## How to apply
 
 This platform realizes the capability where it has concrete surface. Authentication code proves every credential against the configured org
 and tenant before it is used, rather than trusting a token that merely authenticates somewhere
-([ADR-PIPE-AUTH](../pipelines/dual-authentication.md)); session verification is layered so automation checks a session is pointed at the
+([ADR-ADO-AUTH](../ado/dual-authentication.md)); session verification is layered so automation checks a session is pointed at the
 config-declared target before any deployment proceeds ([ADR-AZ-SESSION](../azure/az-session-verification.md)); and tool installation uses a
 platform-native, hash-verified, reviewed package manager instead of a structurally weaker alternative
 ([ADR-AUTO-PKGMGR](../automation/use-proper-package-managers.md)). Each of these treats a security property as a built-in, automatically

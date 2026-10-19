@@ -86,11 +86,10 @@ files:
     optIn: true
   - target: .editorconfig
     source: pwsh/Catzc.Base.RootConfig/assets/root/.editorconfig
-    copyAsLink: true
+    carrier: dotfile
     optIn: true
   - target: .markdownlint.yml
     source: pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
-    copyAsLink: true
     optIn: true
   - target: .markdownlintignore
     source: pwsh/Catzc.Base.RootConfig/assets/root/.markdownlintignore
@@ -98,7 +97,6 @@ files:
     optIn: true
   - target: .prettierrc.yml
     source: pwsh/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
-    copyAsLink: true
     optIn: true
   - target: .prettierignore
     source: pwsh/Catzc.Base.RootConfig/assets/root/.prettierignore
@@ -122,7 +120,6 @@ files:
     optIn: true
   - target: catzc.sln
     source: pwsh/Catzc.Base.RootConfig/assets/root/catzc.sln
-    copyAsLink: true
     optIn: true
   - target: .gitattributes
     generator: New-GitAttributes

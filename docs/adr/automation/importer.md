@@ -11,6 +11,14 @@ model names, every entry generated from one source and never hand-edited
 
 - [One entry per engine](#one-entry-per-engine)
 
+### Rule ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX
+
+An engine's importer entry is generated only when one of the engines it serves is in the mix: `importer.sh` only with a POSIX engine.
+Which engines an entry serves comes from the engine model's importer entry, never from a key beside the generated file, so the fact lives
+once ([ADR-AUTO-ENGINE-IMPORTERENTRY](execution-engines.md#rule-adr-auto-engine-importerentry)).
+
+- [One entry per engine](#one-entry-per-engine)
+
 ### Rule ADR-AUTO-IMPORTER-DECIDESMIX
 
 The importer decides the mix a session loads: which languages, which engines and which modules. Each input resolves in the one order of a
@@ -30,10 +38,28 @@ again what the importer decided ([ADR-AUTO-BUNDLE-ONELIVINGIMPORTER](platform-bu
 
 - [The mix](#the-mix)
 
+### Rule ADR-AUTO-IMPORTER-RESOLVEDAFTERLOAD
+
+The importer loads every module of the code root, resolves the mix once from the loaded toolset, keeps it as the session's record, and then
+removes the modules outside the mix. The decision reads the same module model, languages configuration and engine locator as every other
+command, so there is no second, pre-load copy of them.
+
+- [Deciding after the load](#deciding-after-the-load)
+
+### Rule ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES
+
+A module's code languages are the executable languages of the files that a language's own layout row places; the shared rows, assets and
+tests, never count ([ADR-AUTO-MODULE-EXISTSBYLAYOUT](module-model.md#rule-adr-auto-module-existsbylayout)). A module is in the mix when
+every code language of it is; a module with one outside the mix is not loaded. Assets are data a module ships, and tests run under the test
+runner, so neither decides whether the module runs.
+
+- [Deciding after the load](#deciding-after-the-load)
+
 ### Rule ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS
 
 A language the configuration names and the importer has no handler for stops the import with a NotImplemented error that names the language;
-the handled implementation languages are PowerShell with its hosted C#, Bash, Python and Go
+a language is handled when it is executable and its layout rows place it in a module or its tests runner runs it, so the handled
+implementation languages are PowerShell with its hosted C#, Bash, Python and Go
 ([ADR-AUTO-MODULE-LANGUAGESFROMFILES](module-model.md#rule-adr-auto-module-languagesfromfiles)). A new language is a handler and a registry
 entry, never a branch
 ([ADR-AUTO-EXTEND-CONTENTAGNOSTICINFRASTRUCTURE](open-closed-architecture.md#rule-adr-auto-extend-contentagnosticinfrastructure)).
@@ -62,6 +88,8 @@ three parts of one thing. This ADR names the importer as the one that decides, a
 An engine reaches catzc through a script it can run: pwsh dot-sources `importer.ps1`, the other engines dot-source `importer.sh`, which
 dispatches to the `cats` command. Both are root configs written by a generator from one source, so a change to what the importer does is one
 edit, and `Test-GeneratedFiles` reports the drift when a copy is stale ([generated-root-configs](../repository/generated-root-configs.md)).
+An entry exists for the engines the session serves: with pwsh alone in the mix, `importer.sh` is not managed, because no engine would run
+it.
 
 ### The mix
 
@@ -69,6 +97,14 @@ Languages, engines and modules are three axes of one choice. The order of resolu
 the importer wins, configuration comes second, and the default declared once on the config type comes last, so a devbox, a pipeline and a
 consumer each get the same answer from the same inputs ([devbox-pipeline-parity](devbox-pipeline-parity.md)). The result is kept for the
 session and read, never recomputed: a test runner that re-decided the engines could disagree with the loader that chose the modules.
+
+### Deciding after the load
+
+Deciding the mix needs the module model, the languages configuration and the engine locator, and those are modules themselves. Deciding
+after the load uses them as they are. A two-phase load, with the deciding modules first and the rest filtered, carries a second load path.
+A file-extension map inside the importer is a second living version of the languages configuration
+([one-living-version](../principles/one-living-version.md)). Loading a module and then removing it costs time only when the mix leaves
+modules out. Counting a module's asset or test files would let an explicit mix drop a module for a script it only ships.
 
 ### Growth by entry
 
@@ -83,7 +119,7 @@ the default; the result is one record per session that the test runner and the b
 
 ## Consequences
 
-- The importer loads every module of the code root under pwsh, with PowerShell and its hosted C# as the languages; that is the mix the rules
-  above describe, and an importer configuration with a readable mix record makes it a setting instead of a fact of the code.
+- `importer.yml` in `Catzc.Base.ModuleSystem` holds the importer configuration, `ImporterConfig` declares its defaults, `Set-ImportMix`
+  resolves and keeps the record, and `Get-ImportMix` reads it.
 - `importer.ps1` and `importer.sh` stay generated; a hand edit is drift that `Test-GeneratedFiles` reports.
 - A test runner or a builder that selects engines or modules on its own is a defect against rule 3.

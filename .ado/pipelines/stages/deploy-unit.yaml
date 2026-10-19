@@ -50,12 +50,12 @@ stages:
                     deploy:
                       steps:
                         - checkout: self
-                        - template: /pipelines/steps/download-artifact.yaml
+                        - template: /.ado/pipelines/steps/download-artifact.yaml
                           parameters:
                             Artifact: foundation
                             ArtifactPipeline: ${{ parameters.ArtifactPipeline }}
                             RunId: ${{ parameters.RunId }}
-                        - template: /pipelines/steps/invoke-automation.yaml
+                        - template: /.ado/pipelines/steps/invoke-automation.yaml
                           parameters:
                             DisplayName: "Deploy-Bicep ${{ f.env }} foundation (session target, assert ${{ f.subscriptionIdAssertIs }})"
                             Mode: azcli
@@ -88,12 +88,12 @@ stages:
                     deploy:
                       steps:
                         - checkout: self
-                        - template: /pipelines/steps/download-artifact.yaml
+                        - template: /.ado/pipelines/steps/download-artifact.yaml
                           parameters:
                             Artifact: discovery
                             ArtifactPipeline: ${{ parameters.ArtifactPipeline }}
                             RunId: ${{ parameters.RunId }}
-                        - template: /pipelines/steps/invoke-automation.yaml
+                        - template: /.ado/pipelines/steps/invoke-automation.yaml
                           parameters:
                             DisplayName: "Deploy-Bicep ${{ d.env }} discovery (session target, assert ${{ d.subscriptionIdAssertIs }})"
                             Mode: azcli
@@ -130,12 +130,12 @@ stages:
                         deploy:
                           steps:
                             - checkout: self
-                            - template: /pipelines/steps/download-artifact.yaml
+                            - template: /.ado/pipelines/steps/download-artifact.yaml
                               parameters:
                                 Artifact: expedition
                                 ArtifactPipeline: ${{ parameters.ArtifactPipeline }}
                                 RunId: ${{ parameters.RunId }}
-                            - template: /pipelines/steps/invoke-automation.yaml
+                            - template: /.ado/pipelines/steps/invoke-automation.yaml
                               parameters:
                                 DisplayName:
                                   "Deploy-Bicep ${{ w.env }} expedition -Slot ${{ w.slot }} (session target, assert ${{
@@ -159,12 +159,12 @@ stages:
                         deploy:
                           steps:
                             - checkout: self
-                            - template: /pipelines/steps/download-artifact.yaml
+                            - template: /.ado/pipelines/steps/download-artifact.yaml
                               parameters:
                                 Artifact: expedition
                                 ArtifactPipeline: ${{ parameters.ArtifactPipeline }}
                                 RunId: ${{ parameters.RunId }}
-                            - template: /pipelines/steps/invoke-automation.yaml
+                            - template: /.ado/pipelines/steps/invoke-automation.yaml
                               parameters:
                                 DisplayName: "Deploy-Bicep ${{ w.env }} expedition (session target, assert ${{ w.subscriptionIdAssertIs }})"
                                 Mode: azcli

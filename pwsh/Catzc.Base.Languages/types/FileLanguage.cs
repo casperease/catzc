@@ -38,6 +38,9 @@ public sealed class FileLanguage
     // Whether a command may be implemented in the language ([ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION](/docs/adr/automation/layers.md#rule-adr-auto-layers-commandispublicfunction)); false unless the entry says true.
     public bool executable { get; }
 
+    // Whether the importer has a handler for the language: an executable language whose layout rows place it in a module, or whose tests runner runs it ([ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS](/docs/adr/automation/importer.md#rule-adr-auto-importer-unhandledlanguagestops)).
+    public bool handled => executable && (layout.Count > 0 || tests != null);
+
     public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder,
         string[] checks, string[] imprint = null, LayoutRow[] layout = null, LanguageTestRunner tests = null, bool executable = false)
     {

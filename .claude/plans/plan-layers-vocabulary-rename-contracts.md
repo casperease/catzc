@@ -40,7 +40,7 @@ by naming which public functions are contracted. Every later plan speaks this vo
 
 - [ ] P6 pipeline and unit names, one atomic set (task-layers-classification-flip step 1): `ci-automation` -> `ci-pwsh`,
       `ci-automation-expected-failures` -> `ci-pwsh-expected-failures` in `.github/workflows/ci-automation.yml`,
-      `pipelines/ci-automation.yaml`, `pipelines/ci-automation-expected-failures.yaml`, the globset and `pipeline:` key, their name-keyed
+      `.ado/pipelines/ci-automation.yaml`, `.ado/pipelines/ci-automation-expected-failures.yaml`, the globset and `pipeline:` key, their name-keyed
       contract fragments under `contracts/catzc/0.0.0/` (the assets pin the file names, so the fragments move with the files),
       `docs/references/pipelines/*`, the `.github/README.md` badge, the `Test-GitHubWorkflowTriggerGlob` and `Register-AdoPipeline`
       examples, and ADR-DSGN-TRACK-DEPLOYABLEUNIT's "as `ci-automation` binds the automation track". With it, the `automation` form leaves

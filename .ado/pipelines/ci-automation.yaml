@@ -23,17 +23,17 @@ jobs:
           version: "22.x"
         displayName: "Activate Node.js 22"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Install-Cspell (npm, depends on Node.js)"
           RunCommand: "Install-Cspell -Force"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Install-Markdownlint (npm, depends on Node.js)"
           RunCommand: "Install-Markdownlint -Force"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           RunCommand: "Test-Automation -Level 2 -EnforceTimings"
 
@@ -45,7 +45,7 @@ jobs:
       - checkout: self
 
       # 2a: Multiline command via YAML pipe operator
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Multiline: templates config"
           RunCommand: |
@@ -55,7 +55,7 @@ jobs:
             Write-Message "Environments: $($envs.Count)"
 
       # 2b: Invoke-Executable output capture and PassThru
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "CliCommand: output capture"
           RunCommand: |
@@ -66,7 +66,7 @@ jobs:
             Write-Message "CliCommand output: $($result.Output)"
 
       # 2c: Invoke-Executable stderr separation
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "CliCommand: stderr separation"
           RunCommand: |
@@ -77,7 +77,7 @@ jobs:
             Assert-True ($result.Full -match 'err')
 
       # 2d: Invoke-Executable exit code assertion
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "CliCommand: exit code assertion"
           RunCommand: |
@@ -88,7 +88,7 @@ jobs:
             Assert-True ($result.ExitCode -eq 42)
 
       # 2e: Pipeline detection and output root
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Pipeline detection and output root"
           RunCommand: |
@@ -99,7 +99,7 @@ jobs:
             Write-Message "OutputRoot: $outRoot"
 
       # 2f: Set-AdoPipelineVariable integration
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Set-AdoPipelineVariable integration"
           RunCommand: |
@@ -108,7 +108,7 @@ jobs:
             Set-AdoPipelineVariable -Name 'sanitized.name' -Value 'ok' -SanitizeName
 
       # 2g: DryRun mode on tool wrappers (no tools needed)
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "DryRun: tool wrappers"
           RunCommand: |
@@ -120,12 +120,12 @@ jobs:
             Assert-True ($azCmd -match 'account show')
 
       # 2h: Write-Header renders with colored stars in pipeline
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           RunCommand: 'Write-Header "Hello from pipeline"; Write-Header; Write-Footer;'
 
       # 2i: Module loading and function discovery
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Module loading and discovery"
           RunCommand: |
@@ -137,7 +137,7 @@ jobs:
             Write-Message "Loaded $($modules.Count) Catzc modules"
 
       # 2j: Write-Exception outputs exception type and message
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Write-Exception: type and message"
           RunCommand: |
@@ -155,7 +155,7 @@ jobs:
       - checkout: self
 
       # 3a: Mode azcli — az CLI is pre-authenticated
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Mode azcli: az account show"
           RunCommand: |
@@ -168,7 +168,7 @@ jobs:
           ServiceConnection: "sc-azure-test"
 
       # 3b: Mode azps — Az PowerShell modules authenticated
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Mode azps: Get-AzContext"
           RunCommand: |
@@ -180,7 +180,7 @@ jobs:
           ServiceConnection: "sc-azure-test"
 
       # 3c: ExposeAccessToken — SYSTEM_ACCESSTOKEN is mapped
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "ExposeAccessToken: token available"
           RunCommand: |
@@ -211,51 +211,51 @@ jobs:
         displayName: "Activate Node.js 22"
 
       # Snapshot before installing
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Tools status (before)"
           RunCommand: 'Get-ToolsStatus | Write-Object -Name "Before"'
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Install-AzCli (pip, depends on Python)"
           RunCommand: "Install-AzCli -Force"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Install-Poetry (pip, depends on Python)"
           RunCommand: "Install-Poetry -Force"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           RunCommand: "Install-Terraform -Force"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           RunCommand: "Install-Java -Force"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Install-PySpark (pip, depends on Java)"
           RunCommand: "Install-PySpark -Force"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Install-Cspell (npm, depends on Node.js)"
           RunCommand: "Install-Cspell -Force"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Install-Markdownlint (npm, depends on Node.js)"
           RunCommand: "Install-Markdownlint -Force"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Install-Prettier (npm, depends on Node.js)"
           RunCommand: "Install-Prettier -Force"
 
       # Snapshot after installing
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Tools status (after)"
           RunCommand: 'Get-ToolsStatus | Write-Object -Name "After"'
@@ -268,7 +268,7 @@ jobs:
       - checkout: self
 
       # 5a: Simple types
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Write-Object: simple types"
           RunCommand: |
@@ -279,7 +279,7 @@ jobs:
             Write-Object $true -Name 'Bool'
 
       # 5b: Flat array
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Write-Object: flat array"
           RunCommand: |
@@ -288,7 +288,7 @@ jobs:
             Write-Object @(1, 2, 3, 4, 5) -Name 'IntArray'
 
       # 5c: Nested hashtable (depth 4)
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Write-Object: nested hashtable"
           RunCommand: |
@@ -315,7 +315,7 @@ jobs:
             Write-Object $ht -Name 'InfraConfig'
 
       # 5d: PSCustomObject (depth 3)
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Write-Object: PSCustomObject"
           RunCommand: |
@@ -337,7 +337,7 @@ jobs:
             Write-Object $obj -Name 'ServiceInfo'
 
       # 5e: Array of PSCustomObjects
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Write-Object: array of objects"
           RunCommand: |
@@ -363,7 +363,7 @@ jobs:
             Write-Object $customers -Name 'Customers'
 
       # 5f: OrderedDictionary (depth 3)
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Write-Object: ordered dictionary"
           RunCommand: |
@@ -386,7 +386,7 @@ jobs:
             Write-Object $config -Name 'PipelineConfig'
 
       # 5g: Splat (hashtable used as parameter splat)
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Write-Object: splat hashtable"
           RunCommand: |
@@ -401,7 +401,7 @@ jobs:
             Write-Object $splat -Name 'Get-ChildItem splat'
 
       # 5h: Azure configuration from real YAML
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Write-Object: real azure config"
           RunCommand: |
@@ -410,7 +410,7 @@ jobs:
             Write-Object $azure -Name 'AzureConfiguration'
 
       # 5i: Mixed-type array
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Write-Object: mixed-type array"
           RunCommand: |
@@ -435,7 +435,7 @@ jobs:
             Write-Object $mixed -Name 'MixedArray'
 
       # 5j: ConvertTo-FlatSettingSet — nested config flattened to dot-notation
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Write-Object: flattened settings"
           RunCommand: |
@@ -470,6 +470,6 @@ jobs:
           version: "10.x"
         displayName: "Activate .NET 10"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           RunCommand: "Test-BuildArtifact"

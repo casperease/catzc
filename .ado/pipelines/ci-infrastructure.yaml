@@ -18,34 +18,34 @@ jobs:
     steps:
       - checkout: self
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Assert-BicepTemplate foundation"
           RunCommand: "Assert-BicepTemplate foundation"
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Build-Bicep foundation (compile + render + verify)"
           RunCommand: "Build-Bicep foundation"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Assert-BicepTemplate discovery"
           RunCommand: "Assert-BicepTemplate discovery"
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Build-Bicep discovery (compile + render + verify)"
           RunCommand: "Build-Bicep discovery"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Assert-BicepTemplate expedition"
           RunCommand: "Assert-BicepTemplate expedition"
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Build-Bicep expedition (compile + render + verify)"
           RunCommand: "Build-Bicep expedition"
 
-      - template: /pipelines/steps/invoke-automation.yaml
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Test-Automation -Suite infrastructure"
           RunCommand: "Test-Automation -Suite infrastructure"

@@ -1,10 +1,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "30984c3c8b11"
+    with_body_sha: "9af21ba3a15b"
+    warning: "Do Not Edit, this file is generated"
     repo_status: locked
-    path: docs/explanation/pipelines/.assets/configured-credential-proves-its-org/chain.md
-    source: docs/explanation/pipelines/.assets/configured-credential-proves-its-org/diagram.drawio.png
+    path: docs/explanation/ado/.assets/configured-credential-proves-its-org/chain.md
+    source: docs/explanation/ado/.assets/configured-credential-proves-its-org/diagram.drawio.png
     role: asset-description
     language: markdown
     filetype: md
@@ -55,7 +56,7 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 
-- [ADR-PIPE-AUTH][1]: selected by [ADR-PIPE-AUTH][1]; its ADR domain `pipelines` sits on the PIPE row of the value-chain stack
+- [ADR-PIPE-AUTH][1]: selected by [ADR-PIPE-AUTH][1]; its ADR domain `ado` sits on the PIPE row of the value-chain stack
   ([ADR-DSGN-TRACK-VALUECHAINSTACK][2]); its own value-chain concerns (access) override its ADR domain's default (build, quality-control,
   release and deploy), so it lights the access column ([ADR-DSGN-TRACK-VALUECHAINCONCERN][2]).
 
@@ -67,7 +68,7 @@ Lit ([ADR-DSGN-TRACK-LITCELL][2]) by:
 - [cell][7]
 - [lit cell][8]
 
-[1]: ../../../../adr/pipelines/dual-authentication.md
+[1]: ../../../../adr/ado/dual-authentication.md
 [2]: ../../../../adr/design/tracks.md
 [3]: ../../configured-credential-proves-its-org.md
 [4]: ../../../../adr/glossary.md#value-chain-map

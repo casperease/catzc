@@ -1,22 +1,22 @@
 # ADR: Custom template discipline — when and how to use ADO templates
 
-## Rules: ADR-PIPE-TEMPLATE
+## Rules: ADR-ADO-TEMPLATE
 
-### Rule ADR-PIPE-TEMPLATE-SELFCONTAINEDDEFAULT
+### Rule ADR-ADO-TEMPLATE-SELFCONTAINEDDEFAULT
 
 Default to a self-contained pipeline; do not create templates speculatively. Extract a template only when a fragment is genuinely reusable,
-proven by the rule of three (at least three real pipelines need the same fragment).
+proven by the rule of three (at least three real ado need the same fragment).
 
 - [What goes wrong](#what-goes-wrong)
 - [Anti-patterns](#anti-patterns)
 
-### Rule ADR-PIPE-TEMPLATE-ABSOLUTEPATHS
+### Rule ADR-ADO-TEMPLATE-ABSOLUTEPATHS
 
 Template paths are always absolute, rooted at the repository root (`template: /pipelines/path/to/template.yaml`). Never use relative paths.
 
 - [Anti-patterns](#anti-patterns)
 
-### Rule ADR-PIPE-TEMPLATE-PIPELINECONCERNSONLY
+### Rule ADR-ADO-TEMPLATE-PIPELINECONCERNSONLY
 
 Templates encapsulate pipeline concerns only (task selection, service connection wiring, gates, pool selection, checkout, token mapping,
 artifacts). They must not carry automation logic, configuration resolution, business rules, or string formatting.
@@ -24,7 +24,7 @@ artifacts). They must not carry automation logic, configuration resolution, busi
 - [What templates are good at](#what-templates-are-good-at)
 - [What goes wrong](#what-goes-wrong)
 
-### Rule ADR-PIPE-TEMPLATE-CONTROLORSELECTIONPARAMETERS
+### Rule ADR-ADO-TEMPLATE-CONTROLORSELECTIONPARAMETERS
 
 Template parameters are either ADO controls or meta selection criteria (customer, environment, subscription type). The looked-up values the
 catzc commands can derive from those keys must not be pipeline parameters.
@@ -32,7 +32,7 @@ catzc commands can derive from those keys must not be pipeline parameters.
 - [Parameters select](#parameters-select)
 - [The parameter needle-through problem](#the-parameter-needle-through-problem)
 
-### Rule ADR-PIPE-TEMPLATE-MINIMALNESTING
+### Rule ADR-ADO-TEMPLATE-MINIMALNESTING
 
 Minimize nesting depth. A pipeline file calls a step or job template directly; one level of inclusion is normal, two is a warning sign,
 three is a design problem. A template that exists only to forward parameters should not exist.
@@ -40,25 +40,18 @@ three is a design problem. A template that exists only to forward parameters sho
 - [What goes wrong](#what-goes-wrong)
 - [Anti-patterns](#anti-patterns)
 
-### Rule ADR-PIPE-TEMPLATE-VARIABLESFORPLUMBING
+### Rule ADR-ADO-TEMPLATE-VARIABLESFORPLUMBING
 
 Variables are for ADO plumbing (build numbers, artifact paths, output variables, conditional expressions). Do not use variables to transport
 script configuration — that comes from the catzc configuration system.
 
 - [Variables are not configuration](#variables-are-not-configuration)
 
-### Rule ADR-PIPE-TEMPLATE-FLATREADABLEYAML
-
-Keep YAML flat and readable: a pipeline file reads top-to-bottom as stages, jobs, and steps, and a reviewer understands what it does without
-opening other files.
-
-- [What to use instead](#what-to-use-instead)
-
 ## Context
 
-Azure DevOps YAML templates (`template:` references) allow pipelines to share structure — stages, jobs, steps, and variables. They are a
+Azure DevOps YAML templates (`template:` references) allow ado to share structure — stages, jobs, steps, and variables. They are a
 powerful reuse mechanism for pipeline concerns. They are also frequently misused as a general-purpose abstraction layer, wrapping automation
-logic in YAML indirection that makes pipelines opaque, brittle, and impossible to review.
+logic in YAML indirection that makes ado opaque, brittle, and impossible to review.
 
 This ADR defines when templates add value, when they cause harm, and what to use instead.
 
@@ -93,7 +86,7 @@ indirection that the reader must open and mentally inline. If the wrapped step i
 could invoke the runner directly.
 
 **Deep nesting.** Template A calls template B calls template C. Each layer passes parameters through. The pipeline definition is now spread
-across four files. A reviewer opening the PR sees a change to template B and has no way to know which pipelines are affected without tracing
+across four files. A reviewer opening the PR sees a change to template B and has no way to know which ado are affected without tracing
 every consumer of A, B, and C. ADO has no built-in validation or expansion tooling for templates [^1] — the only way to understand what runs
 is to mentally inline the entire tree.
 
@@ -221,7 +214,7 @@ A template is extracted only when a fragment is proven to be genuinely, generall
 
 ### Anti-patterns
 
-**The speculative template.** A fragment extracted because it _might_ be reused, or to keep a pipeline "DRY," before three real pipelines
+**The speculative template.** A fragment extracted because it _might_ be reused, or to keep a pipeline "DRY," before three real ado
 actually need the same thing. It trades a readable inline page for a layer of indirection against a reuse that may never arrive. Leave the
 YAML inline until the third real consumer exists, then extract.
 
@@ -257,7 +250,7 @@ resolution context shifts at each level, making the actual file path a puzzle. A
 - Configuration lives in one place (the catzc configuration), not split between YAML variables, variable groups, and template parameters.
 - Moving files does not break template references, because all paths are absolute.
 - Nested template trees are eliminated, removing the parameter pass-through boilerplate and the mental inlining tax.
-- New pipelines are easy to write: pick the step template, write the `RunCommand`, set the `Mode` and `ServiceConnection`. Done.
+- New ado are easy to write: pick the step template, write the `RunCommand`, set the `Mode` and `ServiceConnection`. Done.
 - The cost is that templates cannot be used for automation-level "reuse" — but that reuse is always illusory. The real reuse lives in the
   PowerShell functions, where it is testable, composable, and locally executable.
 
@@ -266,7 +259,7 @@ resolution context shifts at each level, making the actual file path a puzzle. A
 [^1]:
     Richard Bown,
     [Azure DevOps YAML Pipelines: The Land of Confusion](https://richardwbown.com/azure-devops-yaml-pipelines-the-land-of-confusion/) —
-    "Azure DevOps has no built-in (pre-commit) validation mechanism for yaml pipelines." Without expansion or validation tooling, nested
+    "Azure DevOps has no built-in (pre-commit) validation mechanism for yaml ado." Without expansion or validation tooling, nested
     templates force slow feedback loops through pipeline runs.
 
 [^2]:

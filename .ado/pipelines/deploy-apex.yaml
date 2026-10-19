@@ -12,7 +12,7 @@ parameters:
 
 stages:
   - ${{ if eq(parameters.Target, 'release-uat') }}:
-      - template: /pipelines/stages/deploy-unit.yaml
+      - template: /.ado/pipelines/stages/deploy-unit.yaml
         parameters:
           Unit: apex
           Expeditions:
@@ -25,7 +25,7 @@ stages:
           ArtifactPipeline: cd-apex
           RunId: ${{ parameters.CiRunId }}
   - ${{ if eq(parameters.Target, 'prod') }}:
-      - template: /pipelines/stages/deploy-unit.yaml
+      - template: /.ado/pipelines/stages/deploy-unit.yaml
         parameters:
           Unit: apex
           StageSuffix: _preprod
@@ -38,7 +38,7 @@ stages:
               }
           ArtifactPipeline: cd-apex
           RunId: ${{ parameters.CiRunId }}
-      - template: /pipelines/stages/deploy-unit.yaml
+      - template: /.ado/pipelines/stages/deploy-unit.yaml
         parameters:
           Unit: apex
           StageSuffix: _prod

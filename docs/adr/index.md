@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cc470b7043c1
-    with_inputs_sha: "4c3ddee5818e56e0a08b41bb8d83282d0b8b78c4ae94ba095010931b898ef89c"
+    with_body_sha: "7d7eb2fcb5c5"
+    with_inputs_sha: bd68e61a3a582e61c3c7cef0b6a85bec1238607180211d14220171127b74b73f
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/index.md
@@ -119,19 +119,21 @@ domains realise it.
 
 ### flow/
 
-The vendor-neutral delivery-flow model: continuous integration as a discipline with a 5–10 minute integration budget, the closed set of
-pipeline types (CRON, CI, CD, CDe, DEPLOY, INPUT) keyed together by one immutable tagged artifact, how pipelines invoke automation and
-detect their context, and how globsets project into native trigger filters. The pipelines (Azure DevOps) and github domains implement it.
+The vendor-neutral delivery-flow model: what a CI/CD pipeline is, continuous integration as a discipline with a 5–10 minute integration
+budget, the closed set of pipeline types (CRON, CI, CD, CDe, DEPLOY, INPUT) keyed together by one immutable tagged artifact, how pipelines
+invoke automation and detect their context, and how globsets project into native trigger filters. The ado (Azure DevOps) and github domains
+implement it.
 
 **Role:** `architecture` — **depends on:** `research`, `principles`, `process`, `design`.
 
-| Code                 | ADR                                                                          |
-| -------------------- | ---------------------------------------------------------------------------- |
-| `ADR-FLOW-CD`        | [cd-discipline-and-promotion-flow](flow/cd-discipline-and-promotion-flow.md) |
-| `ADR-FLOW-CD-RUNNER` | [pipeline-runner-pattern](flow/pipeline-runner-pattern.md)                   |
-| `ADR-FLOW-CD-DETECT` | [pipeline-detection](flow/pipeline-detection.md)                             |
-| `ADR-FLOW-CD-TYPE`   | [pipeline-types](flow/pipeline-types.md)                                     |
-| `ADR-FLOW-CD-GLOBS`  | [durable-sha-globs](flow/durable-sha-globs.md)                               |
+| Code                   | ADR                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------- |
+| `ADR-FLOW-CD`          | [cd-discipline-and-promotion-flow](flow/cd-discipline-and-promotion-flow.md) |
+| `ADR-FLOW-CD-RUNNER`   | [pipeline-runner-pattern](flow/pipeline-runner-pattern.md)                   |
+| `ADR-FLOW-CD-DETECT`   | [pipeline-detection](flow/pipeline-detection.md)                             |
+| `ADR-FLOW-CD-TYPE`     | [pipeline-types](flow/pipeline-types.md)                                     |
+| `ADR-FLOW-CD-GLOBS`    | [durable-sha-globs](flow/durable-sha-globs.md)                               |
+| `ADR-FLOW-CD-PIPELINE` | [pipeline-concept](flow/pipeline-concept.md)                                 |
 
 ### automation/
 
@@ -139,7 +141,7 @@ The catzc CLI and module system and the rules for building it: devbox/pipeline p
 assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, the module model, test automation, the
 merged, installable build, the five layers of the automation and the importer that decides a session's mix, stated for any execution engine.
 Language layers live in `BCL/` (native C# types) and `go/`, `python/`, and `bash/` (black-box test artifacts). It turns the research,
-principles, process, and design domains into enforced code; the pwsh domain realises it in PowerShell, and the pipelines, github, and azure
+principles, process, and design domains into enforced code; the pwsh domain realises it in PowerShell, and the ado, github, and azure
 domains build on it.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`.
@@ -246,18 +248,18 @@ warranted. It binds the vendor-neutral `flow/` rules to Azure DevOps without red
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`, `flow`.
 
-| Code                | ADR                                                                   |
-| ------------------- | --------------------------------------------------------------------- |
-| `ADR-PIPE-AUTH`     | [dual-authentication](ado/dual-authentication.md)                     |
-| `ADR-PIPE-VAR`      | [pipeline-variables](ado/pipeline-variables.md)                       |
-| `ADR-PIPE-NAME`     | [pipeline-naming-and-placement](ado/pipeline-naming-and-placement.md) |
-| `ADR-PIPE-TEMPLATE` | [custom-template-discipline](ado/custom-template-discipline.md)       |
+| Code               | ADR                                                                   |
+| ------------------ | --------------------------------------------------------------------- |
+| `ADR-ADO-AUTH`     | [dual-authentication](ado/dual-authentication.md)                     |
+| `ADR-ADO-VAR`      | [pipeline-variables](ado/pipeline-variables.md)                       |
+| `ADR-ADO-NAME`     | [pipeline-naming-and-placement](ado/pipeline-naming-and-placement.md) |
+| `ADR-ADO-TEMPLATE` | [custom-template-discipline](ado/custom-template-discipline.md)       |
 
 ### github/
 
 The GitHub extensions to the flow model: the manually dispatched release workflow that builds the catzc package and publishes it to GitHub
 Releases, GitHub Packages, and optionally the PowerShell Gallery. It applies the `flow/` rules to GitHub Actions under `.github/workflows/`
-and publishes the bundle the automation domain defines; `pipelines/` is its Azure DevOps counterpart.
+and publishes the bundle the automation domain defines; `ado/` is its Azure DevOps counterpart.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`, `flow`.
 

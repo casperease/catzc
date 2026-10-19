@@ -9,13 +9,15 @@ function Test-Pipelines {
         [switch] $PassThru
     )
 
+    $place = (Get-Track -Name ado-pipelines).places[0]
     $pipelinesRoot = if ($Path) {
         $Path
     }
     else {
-        Join-Path (Get-RepositoryRoot) 'pipelines'
+        Join-Path (Get-RepositoryRoot) $place
     }
     Assert-PathExist $pipelinesRoot -PathType Container
+    $templatePrefix = "/$place/"
 
     $typePrefixes = @('cron', 'ci', 'cd', 'cde', 'deploy', 'input')
     $templateFolders = @('steps', 'jobs', 'stages', 'variables', 'extends')
@@ -27,7 +29,7 @@ function Test-Pipelines {
 
     function New-Violation {
         param($RelativePath, $Rule, $Message)
-        "[$Rule] pipelines/${RelativePath}: $Message"
+        "[$Rule] $place/${RelativePath}: $Message"
     }
 
     foreach ($record in $records) {
@@ -48,45 +50,45 @@ function Test-Pipelines {
 
         # A parse failure is itself a violation — a pipeline that ADO cannot read is not compliant.
         if ($record.ParseError) {
-            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME' -Message "YAML failed to parse: $($record.ParseError)"))
+            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME' -Message "YAML failed to parse: $($record.ParseError)"))
             continue
         }
 
         if ($extension -eq '.yml') {
-            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
+            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
             continue
         }
 
         if ($segments.Count -eq 0) {
             $prefix = ($name -split '-', 2)[0]
             if ($prefix -notin $typePrefixes) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-TYPEPREFIX' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-FLOW-CD-PIPELINE-TYPEPREFIX' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
             }
         }
         else {
             if ($topFolder -notin $templateFolders) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-TEMPLATEKINDFOLDER' -Message "Template folder '$topFolder' is not one of: $($templateFolders -join ' | ')."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-TEMPLATEKINDFOLDER' -Message "Template folder '$topFolder' is not one of: $($templateFolders -join ' | ')."))
             }
             elseif ($segments.Count -gt 1) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-FLATPIPELINESFOLDER' -Message "Templates live directly in '$topFolder/', not nested deeper ('$dir/')."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-FLATPIPELINESFOLDER' -Message "Templates live directly in '$topFolder/', not nested deeper ('$dir/')."))
             }
             else {
                 if ($record.Classification -eq 'Pipeline') {
-                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-FLATPIPELINESFOLDER' -Message "A pipeline (trigger/pr/… shape) must live flat in pipelines/, not inside '$topFolder/'."))
+                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-FLATPIPELINESFOLDER' -Message "A pipeline (trigger/pr/… shape) must live flat in $place/, not inside '$topFolder/'."))
                 }
                 elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and "$($record.TemplateType)" -ne $folderKind[$topFolder]) {
-                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-TEMPLATEKINDFOLDER' -Message "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
+                    $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-TEMPLATEKINDFOLDER' -Message "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
                 }
             }
         }
 
         foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {
-            if ($ref -notmatch '^/pipelines/') {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH' -Message "Template reference '$ref' must be an absolute path starting with /pipelines/."))
+            if (-not $ref.StartsWith($templatePrefix, [System.StringComparison]::Ordinal)) {
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-ABSOLUTETEMPLATEPATH' -Message "Template reference '$ref' must be an absolute path starting with $templatePrefix."))
             }
         }
     }
 
-    Write-QualityGateReport -Subject pipelines -Title Test-Pipelines -Issues $violations.ToArray() `
+    Write-QualityGateReport -Subject ado -Title Test-Pipelines -Issues $violations.ToArray() `
         -Facts ([ordered]@{ Files = $records.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

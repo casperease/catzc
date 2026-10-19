@@ -330,7 +330,7 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 
 - **The taxonomy is the review checklist.** A new ADO artifact is classified as CRON / CI / CD / CDe / DEPLOY / INPUT at review. An artifact
   that cannot be cleanly classified does not merge until it can.
-- **The pipelines in `pipelines/`** are the canonical shape for each type — the patterns new pipelines copy, the way the exemplars work
+- **The ado in `ado/`** are the canonical shape for each type — the patterns new ado copy, the way the exemplars work
   elsewhere in this codebase.
 - **Naming.** Pipeline definitions name their type so the artifact's category is visible at a glance, not inferred from its YAML.
 
@@ -347,9 +347,9 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 - CI and CD stay coherent because they are the same engine plus or minus a deploy — there is one definition of "build and verify," used
   twice.
 - The pre-commit gate stays fast (5–10 min) because slow system-level tests have a named home: the CD post-commit deploy path.
-- Self-service is preserved but relocated: INPUT pipelines give users a form, and the form's output is a reviewable git diff, not an
+- Self-service is preserved but relocated: INPUT ado give users a form, and the form's output is a reviewable git diff, not an
   unreviewed runtime mutation of the cloud.
-- One decision is deliberately left open: whether INPUT pipelines land their commit via PR or directly. The invariant (input → commit → CD)
+- One decision is deliberately left open: whether INPUT ado land their commit via PR or directly. The invariant (input → commit → CD)
   holds regardless; the choice is recorded here so it is made on purpose, not by default.
 
 ## Related
@@ -357,9 +357,9 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 - [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the design layer above this taxonomy: CI as a
   discipline, and how CI / CD / CDe / DEPLOY key together into a promotion flow via the tagged artifact.
 - [pipeline-runner-pattern](pipeline-runner-pattern.md) — how all six invoke PowerShell.
-- [custom-template-discipline](../pipelines/custom-template-discipline.md) — YAML carries ADO concerns only.
-- [pipeline-detection](pipeline-detection.md), [pipeline-variables](../pipelines/pipeline-variables.md),
-  [dual-authentication](../pipelines/dual-authentication.md) — mechanics every type relies on.
+- [custom-template-discipline](../ado/custom-template-discipline.md) — YAML carries ADO concerns only.
+- [pipeline-detection](pipeline-detection.md), [pipeline-variables](../ado/pipeline-variables.md),
+  [dual-authentication](../ado/dual-authentication.md) — mechanics every type relies on.
 - [durable-sha-globs](durable-sha-globs.md) — the globset projection every unit-scoped trigger registers on.
 - [test-automation](../automation/test-automation.md) — the L2/L3 tiers the CI engine runs.
 - DORA: [continuous integration](../../references/dora/capabilities.md#continuous-integration),

@@ -9,10 +9,10 @@ The PAT proof and the empty-token assert have no gate, and neither do #4 and #7.
 4  az CLI                  #2 checked by two L0 tests; the #5 empty-token assert has none
 5  invoke-automation.yaml  #6, checked by a step in the AzureAuthTests job
 
-Supports ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-PIPE-AUTH-PROVETARGET, ADR-PIPE-AUTH-EXPLICITDETECTION, ADR-PIPE-AUTH-SEPARATETOKENFUNCTION, ADR-PIPE-AUTH-ASSERTWHENNOTOKEN, ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN and ADR-PIPE-AUTH-NOSTOREDTOKENS (governance lens).
+Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION, ADR-ADO-AUTH-SEPARATETOKENFUNCTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN, ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN and ADR-FLOW-CD-PIPELINE-NOSTOREDTOKENS (governance lens).
 ```
 
-ADR-PIPE-AUTH has seven rules, and tests check only some of them. The L0 tests of `Get-AdoAuthorizationHeader` cover the pipeline and az CLI
+ADR-ADO-AUTH has seven rules, and tests check only some of them. The L0 tests of `Get-AdoAuthorizationHeader` cover the pipeline and az CLI
 proofs, and one CI step checks that the token mapping works. The PAT's binding to the org, the empty-token assert, the one-function rule and
 the no-caching rule have no gate at all.
 
@@ -34,31 +34,31 @@ The diagram is described element by element in [its asset description](.assets/w
    "propagates the assertion failure when the session is in the wrong tenant". The #5 empty-token assert runs in the code, but no test
    covers it.
 5. **invoke-automation.yaml.** #6, the token mapping in the step template, is checked by the step "ExposeAccessToken: token available" in
-   the `AzureAuthTests` job of `pipelines/ci-automation.yaml`. It asserts only that the token is non-empty when `ExposeAccessToken` is true.
+   the `AzureAuthTests` job of `ado/ci-automation.yaml`. It asserts only that the token is non-empty when `ExposeAccessToken` is true.
 
-No analyzer rule cites ADR-PIPE-AUTH. The analyzer rule `Measure-NoRawPipelineDetection` forbids raw reads of the pipeline variables outside
+No analyzer rule cites ADR-ADO-AUTH. The analyzer rule `Measure-NoRawPipelineDetection` forbids raw reads of the pipeline variables outside
 `Test-IsRunningInPipeline`, which supports #3, but it is mapped to ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK.
 
 ## Why it holds
 
-- The credential is chosen in a fixed order with no fallback on failure (ADR-PIPE-AUTH-FIXEDCREDENTIALPRECEDENCE).
-- Each source proves its org or tenant before it returns a header (ADR-PIPE-AUTH-PROVETARGET).
-- Pipeline detection goes through `Test-IsRunningInPipeline` (ADR-PIPE-AUTH-EXPLICITDETECTION).
-- API functions call the header function and never inline token logic (ADR-PIPE-AUTH-SEPARATETOKENFUNCTION).
-- An empty az CLI result raises an actionable error (ADR-PIPE-AUTH-ASSERTWHENNOTOKEN).
-- The step template maps the system token when `ExposeAccessToken` is set (ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN).
-- Tokens are never kept beyond the request (ADR-PIPE-AUTH-NOSTOREDTOKENS).
+- The credential is chosen in a fixed order with no fallback on failure (ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE).
+- Each source proves its org or tenant before it returns a header (ADR-ADO-AUTH-PROVETARGET).
+- Pipeline detection goes through `Test-IsRunningInPipeline` (ADR-ADO-AUTH-EXPLICITDETECTION).
+- API functions call the header function and never inline token logic (ADR-ADO-AUTH-SEPARATETOKENFUNCTION).
+- An empty az CLI result raises an actionable error (ADR-ADO-AUTH-ASSERTWHENNOTOKEN).
+- The step template maps the system token when `ExposeAccessToken` is set (ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN).
+- Tokens are never kept beyond the request (ADR-FLOW-CD-PIPELINE-NOSTOREDTOKENS).
 
 ## Where the code and the ADR differ
 
-- ADR-PIPE-AUTH-SEPARATETOKENFUNCTION, ADR-PIPE-AUTH-ASSERTWHENNOTOKEN and ADR-PIPE-AUTH-NOSTOREDTOKENS have no gate: no test and no
+- ADR-ADO-AUTH-SEPARATETOKENFUNCTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN and ADR-FLOW-CD-PIPELINE-NOSTOREDTOKENS have no gate: no test and no
   analyzer rule.
-- The PAT half of ADR-PIPE-AUTH-PROVETARGET holds only by default, because every API function accepts an `-Organization` override.
+- The PAT half of ADR-ADO-AUTH-PROVETARGET holds only by default, because every API function accepts an `-Organization` override.
 
 ## See also
 
-- [Dual authentication](../../adr/pipelines/dual-authentication.md) — the decision this article explains.
+- [Dual authentication](../../adr/ado/dual-authentication.md) — the decision this article explains.
 - The other lenses on the same precedence: [meta](configured-credential-proves-its-org.md),
   [architecture](one-header-function-owns-precedence.md), [implementation](three-guarded-early-returns.md) and
   [operations](what-you-set-decides-the-credential.md).
-- [The pipelines explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)
+- [The ado explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

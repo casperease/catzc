@@ -3,8 +3,7 @@ plan:
   status: active
   value: high
   reviewed: 2026-10-19
-  targets:
-    [pipelines, pwsh/Catzc.Base.Variants/configs/variants.yml, docs/adr/flow, docs/adr/pipelines, docs/explanation/pipelines, contracts]
+  targets: [.ado/pipelines, pwsh/Catzc.Base.Variants/configs/variants.yml, docs/adr/flow, docs/adr/ado, docs/explanation/ado, contracts]
 ---
 
 # Move the ado pipelines into `.ado` and separate them from the CI/CD pipeline concept
@@ -32,6 +31,24 @@ marker, unlike the other vendor folders.
   through its generator, not by hand.
 - The track key follows too (the user, 2026-10-19): `pipelines:` in `variants.yml` becomes `ado-pipelines:`, as `github-workflows` already
   names its vendor; the type `pipelines` stays the concept, and every consumer that names the track is re-pointed in the same change.
+- The repository-rooted paths inside the moved tree follow it (catzc-64 for the orchestrator, 2026-10-19): every `template: /pipelines/…`
+  becomes `template: /.ado/pipelines/…` and every `./pipelines/Invoke-AdoScript.ps1` becomes `./.ado/pipelines/Invoke-AdoScript.ps1`,
+  because Azure DevOps resolves both from the repository root and the old paths no longer exist; `Test-Pipelines` derives the root and the
+  template prefix from the `ado-pipelines` track's place instead of a literal. Re-registering the pipelines' YAML paths in Azure DevOps is
+  the user's.
+- The `adrs.yml` domain key follows the ADR file move at once (catzc-64, approved by the orchestrator, 2026-10-19): `pipelines` becomes
+  `ado` and `languages.yml` `adr_folder` follows, because `Build-AdrIndex` reads the domain's folder from its key and the importer stopped
+  on the missing folder; the codes stay `ADR-PIPE-*` until the re-cite step.
+- The new codes (catzc-64, 2026-10-19): the domain code is `ADO` (`ADR-ADO-AUTH`, `-VAR`, `-NAME`, `-TEMPLATE`, file names kept), and the
+  concept ADR is `docs/adr/flow/pipeline-concept.md` as `ADR-FLOW-CD-PIPELINE`, in the `ADR-FLOW-CD-*` family beside RUNNER, DETECT, TYPE
+  and GLOBS; the four concept rules keep their names (`ADR-FLOW-CD-PIPELINE-TYPEPREFIX`, `-EXECUTABLEYAMLEXTENSION`, `-FLATREADABLEYAML`,
+  `-NOSTOREDTOKENS`). The re-cite maps are `out/ado-code-map.tsv` and `out/ado-rule-map.tsv`. The value-chain `stack: PIPE` row is a stack
+  name, not a code, and stays. The idea of a pipeline as the automated path from commit to production, one per deployable unit and run on
+  change detection, came from `eac`'s CD-model pages, rebuilt from catzc's own rules (ADR-PRIN-ONELIVE).
+- The reference pages follow the place (catzc-64, 2026-10-19): `docs/references/pipelines(.md)` moves to
+  `docs/references/ado/pipelines(.md)` and the GitHub workflow comment pages leave it for `docs/references/github/workflows`; the contract
+  fragments move to `Catzc.Azure.DevOps/.ado/pipelines/`, because a fragment's path inside its module folder is its target's path. All three
+  are user `git mv` sets (4–6 of `out/run-user-git.ps1`); the configs naming their targets are re-pointed only after a set lands.
 
 ## What the tree holds (checked 2026-10-19)
 

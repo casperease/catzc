@@ -1,43 +1,43 @@
 # ADR: Pipeline variable interface — setting ADO output variables from PowerShell
 
-## Rules: ADR-PIPE-VAR
+## Rules: ADR-ADO-VAR
 
-### Rule ADR-PIPE-VAR-NORAWLOGGINGCOMMANDS
+### Rule ADR-ADO-VAR-NORAWLOGGINGCOMMANDS
 
 Never write raw `##vso[task.setvariable]` strings. Use `Set-AdoPipelineVariable`, which handles name validation, flags, and logging.
 
 - [Why this needs a function](#why-this-needs-a-function)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-PIPE-VAR-NOPUNCTUATIONINNAMES
+### Rule ADR-ADO-VAR-NOPUNCTUATIONINNAMES
 
 Variable names must not contain `.`, `-`, or `'` — ADO rewrites them during downstream resolution, so they are rejected by default. Use
 underscores directly; pass `-SanitizeName` only when such characters are unavoidable.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPE-VAR-OUTPUTACROSSJOBS
+### Rule ADR-ADO-VAR-OUTPUTACROSSJOBS
 
 Always use `-IsOutput` when the variable must cross job boundaries; without it the variable is step-local and downstream jobs see an empty
 string.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPE-VAR-SECRETSMASKED
+### Rule ADR-ADO-VAR-SECRETSMASKED
 
 Always use `-IsSecret` for sensitive values to mask them in ADO logs; the function replaces the value with `***` in its own output when the
 flag is set.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPE-VAR-PASCALCASENAMES
+### Rule ADR-ADO-VAR-PASCALCASENAMES
 
 Variable names use PascalCase: ADO names are case-insensitive, but PascalCase matches the parameter convention and reads clearly in YAML
 output references.
 
 - [Functions](#functions)
 
-### Rule ADR-PIPE-VAR-NOOPOUTSIDEPIPELINES
+### Rule ADR-ADO-VAR-NOOPOUTSIDEPIPELINES
 
 Rely on the no-op-outside-pipelines behavior: `Set-AdoPipelineVariable` checks `Test-IsRunningInPipeline` and skips emission locally, so no
 `if (Test-IsRunningInPipeline)` guards are needed at call sites.
@@ -46,7 +46,7 @@ Rely on the no-op-outside-pipelines behavior: `Set-AdoPipelineVariable` checks `
 
 ## Context
 
-Azure DevOps pipelines communicate between steps and jobs through pipeline variables. The mechanism is a logging command written to stdout:
+Azure DevOps ado communicate between steps and jobs through pipeline variables. The mechanism is a logging command written to stdout:
 
 ```text
 ##vso[task.setvariable variable=MyVar;isOutput=true]MyValue
@@ -115,7 +115,7 @@ automation code portable: the same function runs locally (silently skipping the 
   `##vso[task.setvariable]` strings out of automation code: search for `Set-AdoPipelineVariable` to find every variable the automation sets,
   and for `##vso` to confirm no raw command bypasses the function.
 - **PSScriptAnalyzer.** The custom rule `Measure-NoRawVsoCommand` (`pwsh/.scriptanalyzer/NoRawVsoCommand.psm1`) flags any string literal
-  containing a raw `##vso[task.` command (ADR-PIPE-VAR-NORAWLOGGINGCOMMANDS).
+  containing a raw `##vso[task.` command (ADR-ADO-VAR-NORAWLOGGINGCOMMANDS).
 
 ## Consequences
 
@@ -123,5 +123,5 @@ automation code portable: the same function runs locally (silently skipping the 
   site instead of being silently rewritten to an empty variable.
 - Secret masking is a flag, not a syntax detail to remember. Sensitive values cannot be accidentally logged.
 - Pipeline variable usage is greppable: search for `Set-AdoPipelineVariable` to find every variable the automation sets.
-- The same code runs locally and in pipelines without conditional guards. Local runs silently skip the ADO commands.
+- The same code runs locally and in ado without conditional guards. Local runs silently skip the ADO commands.
 - Output variable semantics are explicit in the function call, not hidden in a `##vso` flag string.

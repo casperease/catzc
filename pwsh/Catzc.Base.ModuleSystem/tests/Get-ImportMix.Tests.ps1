@@ -1,34 +1,26 @@
 Describe 'Get-ImportMix' -Tag 'L0', 'logic' {
-    BeforeAll {
-        Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'importer' } {
-            [Catzc.Base.ModuleSystem.ImporterConfig]::new(@{})
+    BeforeEach {
+        InModuleScope Catzc.Base.ModuleSystem { $script:importMix = $null }
+        Mock Resolve-ImportMix -ModuleName Catzc.Base.ModuleSystem {
+            [Catzc.Base.ModuleSystem.ImportMix]::new(@('widget'), @('pwsh'), @('Widget.Alpha'), @(), @())
         }
-        Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'languages' } {
-            [pscustomobject]@{ languages = @(
-                    [pscustomobject]@{ name = 'widget'; executable = $true }
-                    [pscustomobject]@{ name = 'gadget'; executable = $false }
-                ) }
-        }
-        Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
-            [Catzc.Base.Modules.Module]::new('Widget.Alpha', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Widget.Alpha', 'folder', $null,
-                [string[]] @('gadget', 'widget'), $null, $null)
-        }
-        Mock Resolve-EngineExecutable -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Engine -eq 'zsh' } { throw 'not found' }
-        Mock Resolve-EngineExecutable -ModuleName Catzc.Base.ModuleSystem { "/widgetry/$Engine" }
     }
 
-    It 'reports the session''s mix from the configuration and the located engines' -Tag 'ADR-AUTO-IMPORTER-DECIDESMIX' {
-        $mix = Get-ImportMix
-        $mix | Should -BeOfType ([Catzc.Base.ModuleSystem.ImportMix])
-        $mix.engines | Should -Be @('pwsh', 'bash')
-        $mix.skipped_engines | Should -Be @('zsh')
-        $mix.languages | Should -Be @('widget')
-        $mix.modules | Should -Be @('Widget.Alpha')
+    AfterAll {
+        InModuleScope Catzc.Base.ModuleSystem { $script:importMix = $null }
     }
 
-    It 'takes the caller''s -Languages and -Engines over the configuration' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-        $mix = Get-ImportMix -Languages gadget -Engines pwsh
-        $mix.languages | Should -Be @('gadget')
-        $mix.engines | Should -Be @('pwsh')
+    It 'returns the record Set-ImportMix kept for the session, without resolving again' -Tag 'ADR-AUTO-IMPORTER-ONEMIXRECORD' {
+        InModuleScope Catzc.Base.ModuleSystem {
+            $script:importMix = [Catzc.Base.ModuleSystem.ImportMix]::new(@('gadget'), @('pwsh'), @('Widget.Beta'), @(), @())
+        }
+        (Get-ImportMix).languages | Should -Be @('gadget')
+        Should -Invoke Resolve-ImportMix -ModuleName Catzc.Base.ModuleSystem -Times 0
+    }
+
+    It 'resolves the record from the configuration once when none is kept' -Tag 'ADR-AUTO-IMPORTER-ONEMIXRECORD' {
+        (Get-ImportMix).modules | Should -Be @('Widget.Alpha')
+        (Get-ImportMix).modules | Should -Be @('Widget.Alpha')
+        Should -Invoke Resolve-ImportMix -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
     }
 }

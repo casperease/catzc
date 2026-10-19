@@ -83,10 +83,10 @@ kinds:
     files: ["pwsh/**/configs/*.yml"]
   pipeline-template:
     definition: A reusable pipeline template that pipelines extend.
-    files: ["pipelines/*/*.yaml"]
+    files: [".ado/pipelines/*/*.yaml"]
   pipeline:
     definition: A pipeline definition that a delivery platform runs.
-    files: ["pipelines/*.yaml", ".github/workflows/*.yml"]
+    files: [".ado/pipelines/*.yaml", ".github/workflows/*.yml"]
   hook:
     definition: A hook that the assistant tooling runs on an event.
     files: [".claude/hooks/**"]

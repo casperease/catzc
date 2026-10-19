@@ -45,27 +45,27 @@ stages:
             # Test-GlobSetAffected diffs real refs ([ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-changecomputedfromgit))
             fetchDepth: 0
 
-          - template: /pipelines/steps/invoke-automation.yaml
+          - template: /.ado/pipelines/steps/invoke-automation.yaml
             parameters:
               DisplayName: "Test-GlobSetAffected shared (AFFECTED)"
               StepName: Changes
               RunCommand: "Set-AdoPipelineVariable AFFECTED (Test-GlobSetAffected shared) -IsOutput"
 
-          - template: /pipelines/steps/invoke-automation.yaml
+          - template: /.ado/pipelines/steps/invoke-automation.yaml
             parameters:
               DisplayName: "Build-Bicep foundation -Shared"
               RunCommand: "Build-Bicep foundation -Shared"
           - publish: out/template/foundation
             artifact: foundation
 
-          - template: /pipelines/steps/invoke-automation.yaml
+          - template: /.ado/pipelines/steps/invoke-automation.yaml
             parameters:
               DisplayName: "Build-Bicep discovery -Shared"
               RunCommand: "Build-Bicep discovery -Shared"
           - publish: out/template/discovery
             artifact: discovery
 
-          - template: /pipelines/steps/invoke-automation.yaml
+          - template: /.ado/pipelines/steps/invoke-automation.yaml
             parameters:
               DisplayName: "Build-Bicep expedition -Shared"
               RunCommand: "Build-Bicep expedition -Shared"
@@ -73,7 +73,7 @@ stages:
             artifact: expedition
 
   # --- Deploy foundation → discovery → expedition, main only: the unit's one deploy path, shared with its DEPLOY ---------------
-  - template: /pipelines/stages/deploy-unit.yaml
+  - template: /.ado/pipelines/stages/deploy-unit.yaml
     parameters:
       Unit: shared
       Foundations:

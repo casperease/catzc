@@ -12,8 +12,8 @@ Describe 'Format-PropertyMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRIN
     }
 
     It 'replaces an old value named by -Strip' {
-        $text = '{"$comment": "GENERATED FILE — do not edit."}'
-        Format-PropertyMetaHead -Text $text -Property '$comment' -Strip 'GENERATED FILE' -Immutable ([ordered]@{ path = 'a/b.json' }) |
+        $text = '{"$comment": "WIDGET BANNER — gadget."}'
+        Format-PropertyMetaHead -Text $text -Property '$comment' -Strip 'WIDGET BANNER' -Immutable ([ordered]@{ path = 'a/b.json' }) |
             Should -BeExactly '{"$comment": "catzc:\n  immutable:\n    path: a/b.json"}'
     }
 }

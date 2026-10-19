@@ -20,8 +20,8 @@ keep_run:
 pages:
   - source: pwsh/*
     docs: docs/references/pwsh/{kebab}
-  - source: pipelines
-    docs: docs/references/pipelines
+  - source: .ado/pipelines
+    docs: docs/references/ado/pipelines
   - source: infrastructure
     docs: docs/references/infrastructure
   - source: .claude/hooks
@@ -31,7 +31,7 @@ pages:
   - source: .claude/slides
     docs: docs/references/pwsh/claude-slides
   - source: .github/workflows
-    docs: docs/references/pipelines/github-workflows
+    docs: docs/references/github/workflows
   - source: pwsh/.scriptanalyzer
     docs: docs/references/pwsh/scriptanalyzer
   - source: pwsh/.internal

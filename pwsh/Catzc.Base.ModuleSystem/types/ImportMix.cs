@@ -22,19 +22,24 @@ public sealed class ImportMix
     // The engines auto left out because their executable is not present; empty for an explicit list.
     public IReadOnlyList<string> skipped_engines { get; }
 
-    public ImportMix(string[] languages, string[] engines, string[] modules, string[] skippedEngines)
+    // The modules left out because one of their code languages is outside the mix, in ordinal order.
+    public IReadOnlyList<string> skipped_modules { get; }
+
+    public ImportMix(string[] languages, string[] engines, string[] modules, string[] skippedEngines, string[] skippedModules)
     {
         this.languages = Copy(languages);
         this.engines = Copy(engines);
         this.modules = Copy(modules);
         skipped_engines = Copy(skippedEngines);
+        skipped_modules = Copy(skippedModules);
     }
 
     // Each axis is the caller's value when given, else the configuration's, where auto resolves from the session's facts:
-    // presentEngines are the engines whose executable is located, moduleLanguages maps each module to its file languages, and
-    // knownLanguages and executableLanguages are the language names of the languages configuration, in its order.
+    // presentEngines are the engines whose executable is located, moduleLanguages maps each module to its code languages, and
+    // knownLanguages, executableLanguages and handledLanguages are the language names of the languages configuration, in its order. A
+    // module is in the mix when every code language of it is; an explicit language without a handler stops the resolution.
     public static ImportMix Resolve(ImporterConfig config, string[] callerLanguages, string[] callerEngines, string[] presentEngines,
-        IDictionary moduleLanguages, string[] knownLanguages, string[] executableLanguages)
+        IDictionary moduleLanguages, string[] knownLanguages, string[] executableLanguages, string[] handledLanguages)
     {
         if (config == null) { throw new ArgumentNullException(nameof(config)); }
         IReadOnlyList<string> engineAxis = callerEngines != null ? Array.AsReadOnly(callerEngines) : config.engines;
@@ -42,6 +47,7 @@ public sealed class ImportMix
         string[] present = presentEngines ?? Array.Empty<string>();
         string[] known = knownLanguages ?? Array.Empty<string>();
         string[] executable = executableLanguages ?? Array.Empty<string>();
+        string[] handled = handledLanguages ?? Array.Empty<string>();
 
         List<string> engines = new List<string>();
         List<string> skipped = new List<string>();
@@ -69,20 +75,21 @@ public sealed class ImportMix
             }
         }
 
-        List<string> modules = new List<string>();
+        Dictionary<string, List<string>> live = new Dictionary<string, List<string>>(StringComparer.Ordinal);
         HashSet<string> moduleLanguageNames = new HashSet<string>(StringComparer.Ordinal);
         if (moduleLanguages != null)
         {
             foreach (DictionaryEntry entry in moduleLanguages)
             {
-                modules.Add(Convert.ToString(entry.Key, CultureInfo.InvariantCulture));
-                if (entry.Value is IEnumerable names && !(entry.Value is string))
+                List<string> names = new List<string>();
+                if (entry.Value is IEnumerable values && !(entry.Value is string))
                 {
-                    foreach (object name in names) { moduleLanguageNames.Add(Convert.ToString(name, CultureInfo.InvariantCulture)); }
+                    foreach (object value in values) { names.Add(Convert.ToString(value, CultureInfo.InvariantCulture)); }
                 }
+                live[Convert.ToString(entry.Key, CultureInfo.InvariantCulture)] = names;
+                moduleLanguageNames.UnionWith(names);
             }
         }
-        modules.Sort(StringComparer.Ordinal);
 
         List<string> languages = new List<string>();
         if (ImporterConfig.IsAuto(languageAxis))
@@ -101,6 +108,11 @@ public sealed class ImportMix
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
                         "'{0}' is not a language of the languages configuration (one of: {1})", name, string.Join(", ", known)));
                 }
+                if (Array.IndexOf(handled, name) < 0)
+                {
+                    throw new NotImplementedException(string.Format(CultureInfo.InvariantCulture,
+                        "The mix names the language '{0}', which the importer has no handler for (handled: {1}).", name, string.Join(", ", handled)));
+                }
             }
             foreach (string name in known)
             {
@@ -108,7 +120,16 @@ public sealed class ImportMix
             }
         }
 
-        return new ImportMix(languages.ToArray(), engines.ToArray(), modules.ToArray(), skipped.ToArray());
+        List<string> modules = new List<string>();
+        List<string> skippedModules = new List<string>();
+        foreach (KeyValuePair<string, List<string>> module in live)
+        {
+            if (module.Value.TrueForAll(languages.Contains)) { modules.Add(module.Key); } else { skippedModules.Add(module.Key); }
+        }
+        modules.Sort(StringComparer.Ordinal);
+        skippedModules.Sort(StringComparer.Ordinal);
+
+        return new ImportMix(languages.ToArray(), engines.ToArray(), modules.ToArray(), skipped.ToArray(), skippedModules.ToArray());
     }
 
     private static bool Contains(IReadOnlyList<string> items, string item)

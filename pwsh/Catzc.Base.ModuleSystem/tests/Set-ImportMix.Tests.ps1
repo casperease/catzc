@@ -1,0 +1,52 @@
+Describe 'Set-ImportMix' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:loaded = [System.Collections.Generic.List[string]]::new()
+    }
+
+    BeforeEach {
+        InModuleScope Catzc.Base.ModuleSystem { $script:importMix = $null }
+        $script:loaded.Clear()
+        $script:loaded.AddRange([string[]] @('Widget.Alpha', 'Widget.Beta'))
+        Mock Resolve-ImportMix -ModuleName Catzc.Base.ModuleSystem {
+            [Catzc.Base.ModuleSystem.ImportMix]::new(@('widget'), @('pwsh'), @('Widget.Alpha'), @(), @('Widget.Beta', 'Widget.Gamma'))
+        }
+        Mock Get-Module -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Name } { if ($script:loaded.Contains($Name[0])) { [pscustomobject]@{ Name = $Name[0] } } }
+        Mock Remove-Module -ModuleName Catzc.Base.ModuleSystem { [void] $script:loaded.Remove($Name[0]) }
+        Mock Write-Message -ModuleName Catzc.Base.ModuleSystem {}
+    }
+
+    AfterAll {
+        InModuleScope Catzc.Base.ModuleSystem { $script:importMix = $null }
+    }
+
+    It 'removes a loaded module whose code languages are outside the mix, and keeps the rest' -Tag 'ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES' {
+        $mix = Set-ImportMix -Languages widget
+        $mix.skipped_modules | Should -Be @('Widget.Beta', 'Widget.Gamma')
+        $script:loaded | Should -Be @('Widget.Alpha')
+        Should -Invoke Remove-Module -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter { $Message -like '*Removed 1 module(s)*Widget.Beta*' }
+    }
+
+    It 'keeps the mix as the session record Get-ImportMix returns' -Tag 'ADR-AUTO-IMPORTER-ONEMIXRECORD' {
+        $mix = Set-ImportMix
+        Get-ImportMix | Should -Be $mix
+    }
+
+    It 'passes only the axes the caller gave' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+        [void] (Set-ImportMix -Engines pwsh)
+        Should -Invoke Resolve-ImportMix -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter { $Engines -eq 'pwsh' -and $null -eq $Languages }
+    }
+
+    It 'announces nothing when no module is removed' {
+        $script:loaded.Clear()
+        [void] (Set-ImportMix)
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0
+    }
+
+    It '-DryRun reports the mix and changes nothing' -Tag 'ADR-AUTO-DRYRUN' {
+        $mix = Set-ImportMix -DryRun
+        $mix.skipped_modules | Should -Contain 'Widget.Beta'
+        $script:loaded | Should -Be @('Widget.Alpha', 'Widget.Beta')
+        InModuleScope Catzc.Base.ModuleSystem { $script:importMix } | Should -BeNullOrEmpty
+    }
+}

@@ -1,6 +1,7 @@
 Describe 'Test-AdoPipelineTriggerGlob' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot { 'X:/repo' } -ModuleName Catzc.Base.Globs
+        Mock Get-Track { [pscustomobject]@{ places = @('gizmo/pipes') } } -ModuleName Catzc.Base.Globs
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
@@ -31,8 +32,8 @@ Describe 'Test-AdoPipelineTriggerGlob' -Tag 'L0', 'logic' {
 
         $thrown = { Test-AdoPipelineTriggerGlob -OutputFolder (Join-Path $TestDrive 'ado') } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-AdoPipelineTriggerGlob failed: 2 issue(s)*'
-        $thrown.Exception.Message | Should -Match 'gadget: pipelines/cd-gadget\.yaml trigger drifted .* on trigger\.paths\.include'
-        $thrown.Exception.Message | Should -Match 'widget: pipeline file not found: pipelines/cd-widget\.yaml'
+        $thrown.Exception.Message | Should -Match 'gadget: gizmo/pipes/cd-gadget\.yaml trigger drifted .* on trigger\.paths\.include'
+        $thrown.Exception.Message | Should -Match 'widget: pipeline file not found: gizmo/pipes/cd-widget\.yaml'
     }
 
     It 'names every drifted filter of a pipeline under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {

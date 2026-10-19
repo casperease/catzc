@@ -53,11 +53,11 @@ the reason for every lit cell.
 
 The articles are grouped by the ADR domain of the decision they explain:
 
+- [Ado](ado/index.md) — how Azure DevOps calls prove their credentials.
 - [Automation](automation/index.md) — module dependencies, the importer, and the bundle.
 - [Azure](azure/index.md) — how Azure resource names are assembled.
 - [Configuration](configuration/index.md) — how configuration is read, cached and addressed.
 - [Design](design/index.md) — the commit lifecycle, run modes, module aspects, tracks, the thin platform, and the server remote.
 - [Flow](flow/index.md) — promotion, the pipeline runner, and the globsets that trigger pipelines.
-- [Pipelines](pipelines/index.md) — how Azure DevOps calls prove their credentials.
 - [Repository](repository/index.md) — how managed root files and repository variants are kept in shape.
 - [Thesis](thesis/index.md) — the product thesis as a deck of slide files.

@@ -43,7 +43,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
             Should -Be 'docs/references/pwsh/catzc-widget-gadgets/private/Get-Gadget.ps1.md'
         $config.PageFor('pwsh/Catzc.Widget.Gadgets/configs/gadgets.yml') |
             Should -Be 'docs/references/pwsh/catzc-widget-gadgets/configs/gadgets.yml.md'
-        $config.PageFor('pipelines/widget/build.yaml') | Should -Be 'docs/references/pipelines/widget/build.yaml.md'
+        $config.PageFor('.ado/pipelines/widget/build.yaml') | Should -Be 'docs/references/ado/pipelines/widget/build.yaml.md'
         $config.PageFor('.claude/hooks/Gadget/Program.cs') | Should -Be 'docs/references/pwsh/claude-hooks/Gadget/Program.cs.md'
     }
 

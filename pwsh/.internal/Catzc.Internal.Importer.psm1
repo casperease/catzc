@@ -17,7 +17,11 @@ function Invoke-Importer {
 
         [switch] $CleanClone,
 
-        [switch] $Bundle
+        [switch] $Bundle,
+
+        [string[]] $Languages,
+
+        [string[]] $Engines
     )
 
     if ($PSVersionTable.PSVersion -lt [version]'7.4') {
@@ -138,19 +142,54 @@ function Invoke-Importer {
             Write-LoadTime 'All modules loaded'
         }
 
+        # The mix is resolved once the modules are loaded and kept as the session record; the modules outside it are removed.
+        $mixArgs = @{}
+        foreach ($axis in 'Languages', 'Engines') {
+            if ($PSBoundParameters.ContainsKey($axis)) {
+                $mixArgs[$axis] = $PSBoundParameters[$axis]
+            }
+        }
+        $setImportMix = Get-Command Set-ImportMix -ErrorAction Ignore
+        if (-not $setImportMix -and $mixArgs.Count -gt 0) {
+            throw "The importer was given -$(@($mixArgs.Keys) -join ' and -'), but this toolset does not carry Catzc.Base.ModuleSystem, which decides the mix."
+        }
+        $deferMix = $setImportMix -and $hostKind -eq 'console' -and $mixArgs.Count -eq 0
+        if ($setImportMix -and -not $deferMix) {
+            [void] (& $setImportMix @mixArgs)
+            if ($DiagnoseLoadTime) {
+                Write-LoadTime 'Import mix resolved'
+            }
+        }
+
         if ($DiagnoseLoadTime) {
             Write-LoadTimeSummary
         }
 
-        if (-not $SkipJanitors) {
-            if ($hostKind -eq 'console' -and -not $CleanClone) {
-                # A console import stays types-free: the janitors call catzc commands, so they run once the first prompt has shown.
-                Enable-DeferredJanitors -ShowStateChanges:$showStateChanges
-                Write-Verbose 'Janitors deferred until the first prompt has shown'
-            }
-            else {
-                Invoke-ImporterJanitors -CleanClone:$CleanClone -ShowStateChanges:$showStateChanges
-            }
+        $deferJanitors = -not $SkipJanitors -and $hostKind -eq 'console' -and -not $CleanClone
+        if ($deferMix) {
+            # A console import stays types-free: the mix needs the types, so it is resolved once the first prompt has shown, before the janitors.
+            $show = $showStateChanges
+            Enable-DeferredJanitors -Action {
+                [void] (Set-ImportMix)
+                if ($deferJanitors) {
+                    Import-InternalModule Importer -Force
+                    try {
+                        & (Get-Module Catzc.Internal.Importer) { param($showStateChanges) Invoke-ImporterJanitors -ShowStateChanges:$showStateChanges } $show
+                    }
+                    finally {
+                        Remove-Module Catzc.Internal.Importer -Force -ErrorAction SilentlyContinue
+                    }
+                }
+            }.GetNewClosure()
+            Write-Verbose 'Import mix deferred until the first prompt has shown'
+        }
+        elseif ($deferJanitors) {
+            # A console import stays types-free: the janitors call catzc commands, so they run once the first prompt has shown.
+            Enable-DeferredJanitors -ShowStateChanges:$showStateChanges
+            Write-Verbose 'Janitors deferred until the first prompt has shown'
+        }
+        if (-not $SkipJanitors -and -not $deferJanitors) {
+            Invoke-ImporterJanitors -CleanClone:$CleanClone -ShowStateChanges:$showStateChanges
         }
 
         if (-not $SkipJanitors -and $IsWindows) {

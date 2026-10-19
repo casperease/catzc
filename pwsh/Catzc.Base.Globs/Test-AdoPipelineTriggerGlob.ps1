@@ -11,6 +11,7 @@ function Test-AdoPipelineTriggerGlob {
     )
 
     $root = Get-RepositoryRoot
+    $place = (Get-Track -Name ado-pipelines).places[0]
     $sets = if ($PSBoundParameters.ContainsKey('Name')) {
         Get-GlobSet -Name $Name
     }
@@ -27,8 +28,8 @@ function Test-AdoPipelineTriggerGlob {
         $checked++
 
         $expected = Get-GlobSetTrigger -GlobSet $set
-        $relative = "pipelines/$($set.Pipeline).yaml"
-        $path = [System.IO.Path]::Combine($root, 'pipelines', "$($set.Pipeline).yaml")
+        $relative = "$place/$($set.Pipeline).yaml"
+        $path = [System.IO.Path]::Combine($root, $place, "$($set.Pipeline).yaml")
 
         if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
             $issues.Add("$($set.Name): pipeline file not found: $relative")

@@ -1,6 +1,6 @@
-# DORA explanations — pipelines
+# DORA explanations — ado
 
-The `Dora explains` rationale for the ADRs in the `pipelines/` domain, consolidated in one place. Each entry names its ADR and rule code,
+The `Dora explains` rationale for the ADRs in the `ado/` domain, consolidated in one place. Each entry names its ADR and rule code,
 then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions
 live in the ADRs themselves; this file carries only their DORA rationale.
 
@@ -8,7 +8,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 `Dual authentication — pipeline system token vs. local Az token`
 
-[ADR-PIPE-AUTH](dual-authentication.md)
+[ADR-ADO-AUTH](dual-authentication.md)
 
 > DORA's research links explicit security controls and clear error handling to both high delivery performance and low change failure rates.
 > This ADR's discipline of deterministic credential selection with mandatory org/tenant proof prevents silent auth failures and audit gaps
@@ -26,7 +26,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 `Pipeline variable interface — setting ADO output variables from PowerShell`
 
-[ADR-PIPE-VAR](pipeline-variables.md)
+[ADR-ADO-VAR](pipeline-variables.md)
 
 > DORA's research links explicit validation and observability to reduced defects and faster incident resolution. This ADR's discipline of
 > centralizing pipeline variable manipulation in a validated function makes variable usage greppable and testable, prevents silent failures
@@ -42,13 +42,13 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 ## Pipeline naming and placement
 
-[ADR-PIPE-NAME](pipeline-naming-and-placement.md)
+[ADR-ADO-NAME](pipeline-naming-and-placement.md)
 
 > DORA's research links code organization and consistency to faster review cycles and lower defect introduction rates. This ADR's semantic
-> layout convention — type-prefixed pipelines in one flat directory and per-kind template folders — eliminates guesswork about structure,
-> enables tooling and audits to be predictable, and keeps the `pipelines/` directory self-indexing and greppable without opening files.
+> layout convention — type-prefixed ado in one flat directory and per-kind template folders — eliminates guesswork about structure,
+> enables tooling and audits to be predictable, and keeps the `ado/` directory self-indexing and greppable without opening files.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — conventional layout keeps pipelines organized and
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — conventional layout keeps ado organized and
   instantly classifiable by type.
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — the directory structure documents what each file is
   without opening it.
@@ -60,7 +60,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 `Custom template discipline — when and how to use ADO templates`
 
-[ADR-PIPE-TEMPLATE](custom-template-discipline.md)
+[ADR-ADO-TEMPLATE](custom-template-discipline.md)
 
 > DORA's research links code clarity to delivery speed and quality. Excessive template abstraction and parameter forwarding slow reviews,
 > introduce maintenance costs, and obscure pipeline behavior. This ADR's discipline of keeping templates focused on pipeline concerns keeps
@@ -68,7 +68,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — flat, reviewable pipeline code reduces cycle time.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — direct step references and shallow nesting keep
-  pipelines readable.
-- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — simpler pipelines require less review
+  ado readable.
+- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — simpler ado require less review
   friction.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

@@ -16,7 +16,7 @@ Azure DevOps environments and their checks are created outside it.
 
 ### Rule ADR-AZ-CAF-DEVOPS-KEEPEVERYKINDCODEUNDERVERSIONCONTROL
 
-Realised: templates, modules, configs, policy assignments, pipelines, automation, and ADRs all live in one Git repository.
+Realised: templates, modules, configs, policy assignments, ado, automation, and ADRs all live in one Git repository.
 
 - [2 — Keep every kind of code under version control](#2--keep-every-kind-of-code-under-version-control)
 
@@ -37,10 +37,10 @@ Partly realised: the branching strategy is trunk-based and the build-validation 
 
 ### Rule ADR-AZ-CAF-DEVOPS-TESTDEPLOYTHROUGHPIPELINES
 
-Partly realised: a CI pipeline builds and tests every template and globset-triggered CD pipelines deploy them in order; production deploys
+Partly realised: a CI pipeline builds and tests every template and globset-triggered CD ado deploy them in order; production deploys
 in the same stage as non-production instead of by promotion.
 
-- [5 — Test and deploy through pipelines](#5--test-and-deploy-through-pipelines)
+- [5 — Test and deploy through ado](#5--test-and-deploy-through-pipelines)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-AZ-CAF-DEVOPS-AUTOMATEPROVISIONINGMANAGEMENT
@@ -66,7 +66,7 @@ with `foundation` as the base an accelerator would otherwise provide.
 
 ### Rule ADR-AZ-CAF-DEVOPS-MAKEQUICKFIXESCODETOO
 
-Partly realised: every fix, urgent or not, is a commit that the same pipelines deploy; a written emergency-change procedure is planned.
+Partly realised: every fix, urgent or not, is a commit that the same ado deploy; a written emergency-change procedure is planned.
 
 - [9 — Make quick fixes in code too](#9--make-quick-fixes-in-code-too)
 
@@ -112,13 +112,13 @@ Not adopted, because the repository improves continuously from evidence rather t
 
 ### Rule ADR-AZ-CAF-DEVOPS-MEASUREDELIVERYCHOSENMETRICS
 
-Partly realised: the delivery metrics are DORA's; nothing in the repository collects them from the pipelines, which is planned.
+Partly realised: the delivery metrics are DORA's; nothing in the repository collects them from the ado, which is planned.
 
 - [16 — Measure delivery with chosen metrics](#16--measure-delivery-with-chosen-metrics)
 
 ### Rule ADR-AZ-CAF-DEVOPS-CHOOSETOOLCHAINDELIBERATELY
 
-Realised: the toolchain is chosen once and pinned — Git, Azure DevOps and GitHub pipelines, Bicep, the az CLI, Pester — and installed the
+Realised: the toolchain is chosen once and pinned — Git, Azure DevOps and GitHub ado, Bicep, the az CLI, Pester — and installed the
 same way on a devbox and in a pipeline.
 
 - [17 — Choose the toolchain deliberately](#17--choose-the-toolchain-deliberately)
@@ -146,7 +146,7 @@ templates and their configs.
 ### Rule ADR-AZ-CAF-DEVOPS-DEPLOYGOVERNTHROUGHINFRASTRUCTUREASCODE
 
 Realised: all Azure infrastructure is declarative Bicep with shared modules and one config per configuration slot, deployed only by
-pipelines.
+ado.
 
 - [21 — Deploy and govern through infrastructure as code](#21--deploy-and-govern-through-infrastructure-as-code)
 - [How this is enforced](#how-this-is-enforced)
@@ -216,7 +216,7 @@ credentials, one identity per template and environment, and a read-only identity
 
 ### Rule ADR-AZ-CAF-DEVOPS-TAKEPIPELINESECRETSFROMKEYVAULT
 
-Realised: pipelines hold no secret; the one deploy-time secret is a Key Vault reference resolved by Azure Resource Manager.
+Realised: ado hold no secret; the one deploy-time secret is a Key Vault reference resolved by Azure Resource Manager.
 
 - [31 — Take pipeline secrets from Key Vault](#31--take-pipeline-secrets-from-key-vault)
 - [How this is enforced](#how-this-is-enforced)
@@ -243,14 +243,14 @@ Partly realised: `Deploy-Bicep -DryRun` runs the Azure what-if preview; running 
 
 ### Rule ADR-AZ-CAF-DEVOPS-ROLLBACKGIT
 
-Partly realised: a rollback is a revert commit that the same pipelines deploy; deploying an earlier commit's artifact by a DEPLOY pipeline,
+Partly realised: a rollback is a revert commit that the same ado deploy; deploying an earlier commit's artifact by a DEPLOY pipeline,
 and removing what a revert takes out of a template, are planned.
 
 - [35 — Roll back with Git](#35--roll-back-with-git)
 
 ### Rule ADR-AZ-CAF-DEVOPS-ALLAZUREDEVOPSTOOLCHAIN
 
-Partly realised: the infrastructure pipelines run on Azure DevOps; planning and collaboration tools belong to the operating organisation.
+Partly realised: the infrastructure ado run on Azure DevOps; planning and collaboration tools belong to the operating organisation.
 
 - [36 — An all Azure DevOps toolchain](#36--an-all-azure-devops-toolchain)
 
@@ -268,13 +268,13 @@ to weigh and design recommendations; the landing zone that a subscription receiv
 ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)).
 
 The platform automation and DevOps design area applies DevOps to the landing zone itself: it is provisioned, changed, and operated as code,
-through version control, review, and pipelines, by a team with a deliberate toolchain. This is where the repository is strongest, because
+through version control, review, and ado, by a team with a deliberate toolchain. This is where the repository is strongest, because
 its delivery machinery exists for its own reasons: everything as code ([ADR-PRIN-EAC](../../principles/everything-as-code.md)), one living
 version on one trunk ([ADR-PRIN-ONELIVE](../../principles/one-living-version.md)), the CI discipline and promotion flow
 ([ADR-FLOW-CD](../../flow/cd-discipline-and-promotion-flow.md)), the six pipeline types ([ADR-FLOW-CD-TYPE](../../flow/pipeline-types.md)),
 the runner ([ADR-FLOW-CD-RUNNER](../../flow/pipeline-runner-pattern.md)), deployable units as globsets
-([ADR-FLOW-CD-GLOBS](../../flow/durable-sha-globs.md)), pipeline layout ([ADR-PIPE-NAME](../../pipelines/pipeline-naming-and-placement.md),
-[ADR-PIPE-TEMPLATE](../../pipelines/custom-template-discipline.md)), and the test tiers
+([ADR-FLOW-CD-GLOBS](../../flow/durable-sha-globs.md)), pipeline layout ([ADR-ADO-NAME](../../ado/pipeline-naming-and-placement.md),
+[ADR-ADO-TEMPLATE](../../ado/custom-template-discipline.md)), and the test tiers
 ([ADR-AUTO-TEST](../../automation/test-automation.md)). The Operational Excellence review of the same machinery is
 [ADR-AZ-WAF-OE](../waf/operational-excellence.md); the rules below cite those decisions rather than derive them again, and name the gap
 where a CAF item asks for more.
@@ -298,7 +298,7 @@ test environment, separate identities for test and production, and automated che
 [Test-driven development](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-test-driven-development)
 for landing zones uses policy and resource queries as tests, which bears on [28](#28--unit-test-infrastructure-code-as-well). The
 [DevOps security considerations](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/security-considerations-overview)
-ask pipelines to sign in to Azure by workload identity federation rather than a stored secret, to use one identity per application and
+ask ado to sign in to Azure by workload identity federation rather than a stored secret, to use one identity per application and
 environment, to give the what-if or plan step its own read-only identity, to put approvals on the service connection, and to keep secrets in
 a secret store; they bear on [30](#30--give-pipeline-connections-only-the-access-they-need) and
 [31](#31--take-pipeline-secrets-from-key-vault). The pages on DevOps team topologies and on role-based access for DevOps tools describe how
@@ -306,9 +306,9 @@ an organisation arranges its teams and tool permissions, which belongs to the op
 
 The example basis is the repository's three templates: `foundation` (a Log Analytics workspace and a Key Vault per subscription),
 `discovery` (the landing zone), and `expedition` (a workload that lands in it,
-[ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). They are delivered by `pipelines/ci-infrastructure.yaml`
-(the CI pipeline for all three), `pipelines/cd-shared.yaml` (the shared platform), and the thin customer pipelines `cd-apex.yaml`,
-`cd-nova.yaml`, and `cd-flux.yaml`, which extend `pipelines/extends/cd-customer.yaml`. Every takeaway below points at what those do, or says
+[ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). They are delivered by `ado/ci-infrastructure.yaml`
+(the CI pipeline for all three), `ado/cd-shared.yaml` (the shared platform), and the thin customer ado `cd-apex.yaml`,
+`cd-nova.yaml`, and `cd-flux.yaml`, which extend `ado/extends/cd-customer.yaml`. Every takeaway below points at what those do, or says
 plainly what they do not.
 
 ### 1 — Express the platform and its processes as code
@@ -324,11 +324,11 @@ Summary (ours): Treat the platform, its documentation, its deployment, and its t
 This is [ADR-PRIN-EAC-EVERYTHINGINVERSIONCONTROL](../../principles/everything-as-code.md#rule-adr-prin-eac-everythinginversioncontrol):
 every artifact needed to build, test, deploy, or operate the system lives in version control. The templates under
 `infrastructure/templates/`, the shared modules under `infrastructure/modules/`, the configs under each template's `configuration/`, the
-repository-wide settings in `azure.yml`, `network.yml`, and `customer.yml`, the pipelines under `pipelines/`, the automation under `pwsh/`,
+repository-wide settings in `azure.yml`, `network.yml`, and `customer.yml`, the ado under `ado/`, the automation under `pwsh/`,
 the tests beside it, and the ADRs that decide them are all files in one repository. The build-validation policies are config too
 (`build-validation.yml`, applied by `Sync-AdoBuildValidations`), and a pipeline is registered from its file by `Register-AdoPipeline`.
 
-What stays outside is Azure DevOps state the pipelines depend on: the service connections (`sc-shared-nonprod`, `sc-apex-prod`, …), the
+What stays outside is Azure DevOps state the ado depend on: the service connections (`sc-shared-nonprod`, `sc-apex-prod`, …), the
 environments the deployment jobs name, and any check or approval on either. They are created in the Azure DevOps portal, which
 [ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../../principles/everything-as-code.md#rule-adr-prin-eac-nostateoutsideversioncontrol) counts as
 configuration outside version control. The break-glass SQL password is outside on purpose: it is a secret, and the repository holds only its
@@ -370,7 +370,7 @@ versioned the same way.
 
 ##### 2 status
 
-Realised — infrastructure, policy, configuration, pipelines, and documentation are all versioned in one Git repository.
+Realised — infrastructure, policy, configuration, ado, and documentation are all versioned in one Git repository.
 
 ### 3 — Have a second person review every change
 
@@ -393,7 +393,7 @@ starts to apply when the variant flips.
 
 ##### 3 in `foundation`
 
-A change to it runs `ci-infrastructure.yaml` and the CD pipelines' builds as pull-request checks under `main-via-pr`; no reviewer is
+A change to it runs `ci-infrastructure.yaml` and the CD ado' builds as pull-request checks under `main-via-pr`; no reviewer is
 required.
 
 ##### 3 in `discovery`
@@ -446,7 +446,7 @@ As for `foundation`.
 Partly realised — the trunk and its build-validation policies are code, while the protection that forces every merge through a pull request
 is a server setting outside the repository.
 
-### 5 — Test and deploy through pipelines
+### 5 — Test and deploy through ado
 
 ```text
 CAF platform automation and DevOps — Automation, Platform automation design recommendation — recommendation 5
@@ -456,21 +456,21 @@ Summary (ours): Automate testing and the deployment to each environment with con
 
 #### What 5 means here
 
-The repository's pipelines follow its types ([ADR-FLOW-CD-TYPE](../../flow/pipeline-types.md)) and layout
-([ADR-PIPE-NAME](../../pipelines/pipeline-naming-and-placement.md)). `ci-infrastructure.yaml` is the CI pipeline: build and verify, no
+The repository's ado follow its types ([ADR-FLOW-CD-TYPE](../../flow/pipeline-types.md)) and layout
+([ADR-ADO-NAME](../../ado/pipeline-naming-and-placement.md)). `ci-infrastructure.yaml` is the CI pipeline: build and verify, no
 deploy. Each CD pipeline runs the same CI engine
 ([ADR-FLOW-CD-TYPE-ONECIENGINE](../../flow/pipeline-types.md#rule-adr-flow-cd-type-oneciengine)), publishes one artifact per template, and
 deploys those artifacts unchanged
 ([ADR-FLOW-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-separatepipelinekinds)); the customer
 CD structure is one extends template, the sanctioned large-template case
-([ADR-PIPE-TEMPLATE](../../pipelines/custom-template-discipline.md)). Every step calls automation through the runner
+([ADR-ADO-TEMPLATE](../../ado/custom-template-discipline.md)). Every step calls automation through the runner
 ([ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL](../../flow/pipeline-runner-pattern.md#rule-adr-flow-cd-runner-noinlinepowershell)), so a pipeline
 command can be run unchanged on a devbox.
 
 The gap is the direction CD takes. The flow model keeps CD within non-production and reaches production through a DEPLOY pipeline behind a
 manual gate ([ADR-FLOW-CD-CDSTAYSINNONPROD](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-cdstaysinnonprod),
 [ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-prodprogressionisdeploy)); the shipped
-CD pipelines deploy non-production and production side by side in the same stage, and `pipelines/` holds no DEPLOY pipeline.
+CD ado deploy non-production and production side by side in the same stage, and `ado/` holds no DEPLOY pipeline.
 [ADR-AZ-WAF-OE-OE06](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe06) records the same gap; which way it closes — CD plus DEPLOY,
 or a CDe with an internal approval
 ([ADR-FLOW-CD-TYPE-CDESHARESDEPLOYPATH](../../flow/pipeline-types.md#rule-adr-flow-cd-type-cdesharesdeploypath)) — is a per-unit governance
@@ -482,7 +482,7 @@ The first deploy stage of every CD pipeline: `nsub` and `psub` deploy as two job
 
 ##### 5 in `discovery`
 
-The second deploy stage, after `foundation`; the hubs deploy from `cd-shared.yaml`, the spokes from the customer pipelines.
+The second deploy stage, after `foundation`; the hubs deploy from `cd-shared.yaml`, the spokes from the customer ado.
 
 ##### 5 in `expedition`
 
@@ -490,7 +490,7 @@ The last deploy stage, one job per configuration slot; for `apex`, `dev`, `dev-b
 
 ##### 5 status
 
-Partly realised — CI and build-once CD pipelines exist for every template, while production is reached in the same stage as non-production
+Partly realised — CI and build-once CD ado exist for every template, while production is reached in the same stage as non-production
 instead of by promotion; the choice between DEPLOY and CDe is open.
 
 ### 6 — Automate provisioning and management
@@ -504,7 +504,7 @@ Summary (ours): Automate the provisioning, configuration, and management of the 
 
 #### What 6 means here
 
-Everything inside a subscription is automated: `Deploy-Bicep` creates the resource group and deploys the template, and the pipelines run it
+Everything inside a subscription is automated: `Deploy-Bicep` creates the resource group and deploys the template, and the ado run it
 for every configuration slot. Routine work is a function, run the same way on a devbox and in a pipeline
 ([ADR-AZ-WAF-OE-OE02](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe02),
 [ADR-AZ-WAF-OE-OE10](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe10)).
@@ -571,7 +571,7 @@ Summary (ours): Plan to deploy in stages, adding your own automation over the ac
 
 There is no accelerator to build on, but the staged approach is how the templates are arranged: each template is one rate of change, and
 each is deployed on top of the one before ([ADR-AZ-WAF-OE-OE05](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe05)). `foundation` is
-the base every subscription receives, `discovery` the landing zone over it, and `expedition` a workload in that. The CD pipelines encode the
+the base every subscription receives, `discovery` the landing zone over it, and `expedition` a workload in that. The CD ado encode the
 order with stage dependencies, so a template never deploys before what it builds on.
 
 ##### 8 in `foundation`
@@ -623,7 +623,7 @@ A fix can land first in a special slot (`dev-blu`) and then in the base slots, e
 
 ##### 9 status
 
-Partly realised — every fix is a commit deployed by the pipelines, while an emergency-change procedure and the follow-up record are planned
+Partly realised — every fix is a commit deployed by the ado, while an emergency-change procedure and the follow-up record are planned
 (follow-up).
 
 ### 10 — Manage Azure Policy as code
@@ -801,13 +801,13 @@ The delivery metrics are DORA's ([metrics](../../../references/dora/metrics.md))
 [change lead time](../../../references/dora/metrics.md#change-lead-time),
 [deployment frequency](../../../references/dora/metrics.md#deployment-frequency),
 [failed deployment recovery time](../../../references/dora/metrics.md#failed-deployment-recovery-time), and
-[change fail rate](../../../references/dora/metrics.md#change-fail-rate). The pipelines carry what they need — each deploy tags its target
+[change fail rate](../../../references/dora/metrics.md#change-fail-rate). The ado carry what they need — each deploy tags its target
 with the commit, the build, and the branch (`Set-BicepTrackingTagSet`) — but no function or pipeline collects and reports them. Business and
 quality metrics belong to the operating organisation.
 
 ##### 16 status
 
-Partly realised — the DORA metrics are the chosen measures, while collecting them from the pipelines is planned (follow-up).
+Partly realised — the DORA metrics are the chosen measures, while collecting them from the ado is planned (follow-up).
 
 ### 17 — Choose the toolchain deliberately
 
@@ -1149,7 +1149,7 @@ Realised — every job runs on a Microsoft-hosted agent.
 ```text
 CAF platform automation and DevOps — Development lifecycle, Automated builds: Design recommendations — recommendation 30
 Source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-development-lifecycle (retrieved 2026-10-15)
-Summary (ours): When pipelines connect to Azure through service connections or stored secrets, limit each connection to the resources it
+Summary (ours): When ado connect to Azure through service connections or stored secrets, limit each connection to the resources it
   needs.
 ```
 
@@ -1166,7 +1166,7 @@ does not name.
 The DevOps security page asks for more, and the repository does not show it. How a service connection signs in — workload identity
 federation or a stored secret — is set where the connection is created, outside the repository, and nothing here records it. The identity is
 one per subscription, shared by all three templates and every environment the subscription serves (`nsub`, `dev`, `test`), not one per
-template and environment. There is no separate read-only identity for previews, because the pipelines run none (see
+template and environment. There is no separate read-only identity for previews, because the ado run none (see
 [34](#34--preview-each-deployment-before-it-runs)). And the rights each connection holds, and any approval on it, are granted outside the
 repository.
 
@@ -1198,16 +1198,16 @@ Summary (ours): Pull credentials, certificates, and keys from Key Vault into pip
 
 #### What 31 means here
 
-The pipelines hold no secret at all. The one secret a deploy needs, the break-glass SQL password, is a Key Vault reference in the
+The ado hold no secret at all. The one secret a deploy needs, the break-glass SQL password, is a Key Vault reference in the
 `expedition` config, which Azure Resource Manager resolves at deploy time from `foundation`'s vault
 ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins),
 [ADR-AZ-WAF-SE-SE09](../waf/security.md#rule-adr-az-waf-se-se09)); it never passes through a pipeline variable. A `secureString` parameter
 must be such a reference, never a literal, or the build fails
 ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). The Azure DevOps access token reaches a
 step only when its template asks for it
-([ADR-PIPE-AUTH-TEMPLATESMAPSYSTEMTOKEN](../../pipelines/dual-authentication.md#rule-adr-pipe-auth-templatesmapsystemtoken)), and pipeline
+([ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN](../../ado/dual-authentication.md#rule-adr-ado-auth-templatesmapsystemtoken)), and pipeline
 variables never carry script configuration
-([ADR-PIPE-TEMPLATE-VARIABLESFORPLUMBING](../../pipelines/custom-template-discipline.md#rule-adr-pipe-template-variablesforplumbing)). What
+([ADR-ADO-TEMPLATE-VARIABLESFORPLUMBING](../../ado/custom-template-discipline.md#rule-adr-ado-template-variablesforplumbing)). What
 is missing is a secret scan of every change, which [ADR-AZ-WAF-OE-OE03](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe03) plans.
 
 ##### 31 in `foundation`
@@ -1244,7 +1244,7 @@ non-production configs (`dev`, `test`) and a customer's `dev` are production-lik
 environment class. The flow model asks for more before an artifact counts as integrated: a deploy to an on-demand environment with L3 system
 tests, then the always-on non-production environment
 ([ADR-FLOW-CD-CDSTAYSINNONPROD](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-cdstaysinnonprod),
-[ADR-FLOW-CD-INNERANDOUTERLOOP](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-innerandouterloop)); the pipelines have no
+[ADR-FLOW-CD-INNERANDOUTERLOOP](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-innerandouterloop)); the ado have no
 on-demand environment and no system test.
 
 ##### 32 in `foundation`
@@ -1311,7 +1311,7 @@ Summary (ours): Before deploying infrastructure code, preview what it will creat
 #### What 34 means here
 
 `Deploy-Bicep -DryRun` runs Azure's server-side what-if preview and stops before the deploy
-([ADR-AUTO-DRYRUN](../../automation/dry-run.md)), so the preview exists and runs the same way on a devbox. The pipelines do not call it:
+([ADR-AUTO-DRYRUN](../../automation/dry-run.md)), so the preview exists and runs the same way on a devbox. The ado do not call it:
 each deploy job runs `Deploy-Bicep` directly, a gap [ADR-AZ-WAF-OE-OE11](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe11) records.
 A preview in the pipeline would run under its own read-only identity, as the DevOps security page suggests (see
 [30](#30--give-pipeline-connections-only-the-access-they-need)).
@@ -1342,7 +1342,7 @@ Summary (ours): Roll back by Git's undo operations: revert, discard, or reset.
 
 #### What 35 means here
 
-On the shared trunk the undo is a revert: a new commit that the same CI and CD pipelines build and deploy, so a rollback is tested like any
+On the shared trunk the undo is a revert: a new commit that the same CI and CD ado build and deploy, so a rollback is tested like any
 change. Resetting `main` is not used, because history lives in Git and the trunk is never rewritten
 ([ADR-PRIN-ONELIVE-HISTORYINGIT](../../principles/one-living-version.md#rule-adr-prin-onelive-historyingit)). The flow model's faster path
 is to deploy the artifact of the commit before
@@ -1364,7 +1364,7 @@ A revert redeploys each slot; a resource dropped from the template stays in the 
 
 ##### 35 status
 
-Partly realised — a rollback is a revert deployed by the pipelines, while redeploying an earlier artifact and removing what a template no
+Partly realised — a rollback is a revert deployed by the ado, while redeploying an earlier artifact and removing what a template no
 longer declares are planned (follow-up).
 
 ### 36 — An all Azure DevOps toolchain
@@ -1378,7 +1378,7 @@ Summary (ours): A toolchain covers planning, CI and CD with infrastructure as co
 
 #### What 36 means here
 
-The infrastructure's pipelines are Azure DevOps Pipelines, and the repository automates Azure DevOps through its own modules
+The infrastructure's ado are Azure DevOps Pipelines, and the repository automates Azure DevOps through its own modules
 (`Catzc.Azure.DevOps`, `Catzc.Azure.DevOps.BuildValidation`). Planning, boards, and collaboration tools are the operating organisation's
 choice; nothing in the repository depends on one.
 
@@ -1429,12 +1429,12 @@ Checks that exist:
 - `build-validation.yml`, applied by `Sync-AdoBuildValidations`, binds each declared globset to its pipeline as a blocking build validation
   on `main`; `Test-AdoPipelineTriggerGlob` keeps each pipeline's trigger equal to its globset's projection
   ([ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter)).
-- `Test-Pipelines` holds the pipeline naming and placement ([ADR-PIPE-NAME](../../pipelines/pipeline-naming-and-placement.md)).
+- `Test-Pipelines` holds the pipeline naming and placement ([ADR-ADO-NAME](../../ado/pipeline-naming-and-placement.md)).
 - `Deploy-Bicep` asserts the target subscription with `-SubscriptionIdAssertIs` and tags every deployed resource group or subscription with
   its commit, build, and branch (`Set-BicepTrackingTagSet`).
 - `Test-ManagedGuids` fails an unregistered GUID, so a policy definition id enters `discovery/main.bicep` only with its `guids.yml` entry
   ([ADR-AUTO-GUIDS](../../automation/managed-guids.md)).
-- The CD pipelines' stage dependencies deploy `foundation`, then `discovery`, then `expedition`, and only on `main`.
+- The CD ado' stage dependencies deploy `foundation`, then `discovery`, then `expedition`, and only on `main`.
 
 Planned (follow-up), none of which exists:
 
@@ -1448,7 +1448,7 @@ Planned (follow-up), none of which exists:
   ADR-AZ-CAF-DEVOPS-DEPLOYTHROUGHPIPELINEENVIRONMENTS).
 - The Bicep linter as a quality gate and L3 system tests of deployed templates (ADR-AZ-CAF-DEVOPS-UNITTESTINFRASTRUCTURECODEASWELL).
 - A secret scan of every change (ADR-AZ-CAF-DEVOPS-TAKEPIPELINESECRETSFROMKEYVAULT, tracked under ADR-AZ-WAF-OE-OE03).
-- Collecting the DORA metrics from the pipelines (ADR-AZ-CAF-DEVOPS-MEASUREDELIVERYCHOSENMETRICS).
+- Collecting the DORA metrics from the ado (ADR-AZ-CAF-DEVOPS-MEASUREDELIVERYCHOSENMETRICS).
 
 ## Consequences
 

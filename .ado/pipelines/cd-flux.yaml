@@ -37,7 +37,7 @@ pr:
       - infrastructure/templates/expedition/configuration/*/**
 
 extends:
-  template: /pipelines/extends/cd-customer.yaml
+  template: /.ado/pipelines/extends/cd-customer.yaml
   parameters:
     Customer: flux
     Foundations:
