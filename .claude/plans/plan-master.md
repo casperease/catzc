@@ -44,7 +44,7 @@ plans stay the durable record; task files and this master are derived from them 
 ## Chunks
 
 Open, in execution order. Held chunks (the orchestrator, 2026-10-19): generated-file-heads by catzc-64, ado-and-cicd-docs by catzc-2f,
-importer-mix by catzc-08; done work is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task
+rungs-registry by catzc-08 (importer-mix landed, its plan in `out/delete-done-plans.ps1`); iac-and-repo-placement waits while catzc-cc's isolated track holds `pwsh/Catzc.Base.Variants`; done work is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task
 files and prompts. A chunk without a task file is executed from its plan's open steps directly.
 
 - generated-file-heads -> plan-generated-file-heads.md: the one warning string, the README generator's head-only provenance, the other
@@ -58,7 +58,6 @@ files and prompts. A chunk without a task file is executed from its plan's open 
   contract drift test; after adr-automation-split's first step.
 - iac-and-repo-placement -> plan-iac-and-repo-placement.md: the three IaC places in `variants.yml`, the literal paths re-pointed, and the
   two ADR rule sets; its five diagrams are the diagram track's.
-- importer-mix -> plan-importer-mix.md: L3 report-only, then L4, L5 and the per-language facts.
 - rungs-registry -> plan-promotion-ladder.md, step 1: the new `Catzc.Base.Flow` module with the four rungs, their gates and environment
   suffixes; takeable now, and the diagram track's last minimap reads it.
 - explanation-drift-gaps -> task-explanation-drift-gaps.md: the Q1 to Q3 proofs from the user's runs (blocked_on task-user-runs-and-commits

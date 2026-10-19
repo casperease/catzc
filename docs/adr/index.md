@@ -2,7 +2,7 @@
 catzc:
   immutable:
     with_body_sha: "7d7eb2fcb5c5"
-    with_inputs_sha: bd68e61a3a582e61c3c7cef0b6a85bec1238607180211d14220171127b74b73f
+    with_inputs_sha: cac7d15414de3c6fcd3ae369ab7ff6838c190fcef8316b1d8c20ac22439c75f3
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/index.md

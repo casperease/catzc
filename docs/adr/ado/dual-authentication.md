@@ -1,4 +1,4 @@
-# ADR: Dual authentication — pipeline system token vs. local Az token
+# ADR: Dual authentication — ado pipeline system token vs. local Az token
 
 ## Rules: ADR-ADO-AUTH
 
@@ -50,8 +50,8 @@ set. Functions read the mapped `$env:SYSTEM_ACCESSTOKEN`, never `System.AccessTo
 Automation code that calls Azure DevOps REST APIs (environments, approvals, wikis) needs a bearer (or Basic) `Authorization` header. The
 credential that is available depends on where the code runs and how the operator has configured it:
 
-- **In a pipeline:** ADO injects `System.AccessToken` — a short-lived OAuth token scoped to the pipeline's identity. It is available as
-  `$env:SYSTEM_ACCESSTOKEN` when the step template maps it explicitly.
+- **In an ado pipeline:** ADO injects `System.AccessToken` — a short-lived OAuth token scoped to the ado pipeline's identity. It is
+  available as `$env:SYSTEM_ACCESSTOKEN` when the step template maps it explicitly.
 
 - **With a PAT:** An operator (locally or in CI) may set `$env:AZURE_DEVOPS_PAT` — a Personal Access Token used as HTTP Basic auth.
 
@@ -65,8 +65,8 @@ first fails to authenticate — leads to silent auth failures that manifest as o
 ### Why this matters
 
 A function calling the ADO REST API must include an `Authorization` header. If the function hardcodes `$env:SYSTEM_ACCESSTOKEN`, it fails
-locally. If it hardcodes `az account get-access-token`, it fails in the pipeline (the Az CLI may not be installed, or the agent identity may
-not have the scope it needs), and ignores an operator-supplied PAT.
+locally. If it hardcodes `az account get-access-token`, it fails in the ado pipeline (the Az CLI may not be installed, or the agent identity
+may not have the scope it needs), and ignores an operator-supplied PAT.
 
 The dual-auth pattern makes credential selection explicit and deterministic, and proves every credential is aimed at the _configured_
 organization/tenant (`ado.yml`) before a header is returned.
@@ -84,8 +84,8 @@ by accident."
 The precedence (highest first), each with its own org/tenant proof:
 
 1. **In-pipeline agent token** — when `Test-IsRunningInPipeline` is true _and_ `$env:SYSTEM_ACCESSTOKEN` is set: assert
-   `$env:SYSTEM_COLLECTIONURI` matches `ado.yml` `organization` (the agent token is scoped to the org the pipeline runs in — prove that is
-   the configured org), then return `Bearer <SYSTEM_ACCESSTOKEN>`.
+   `$env:SYSTEM_COLLECTIONURI` matches `ado.yml` `organization` (the agent token is scoped to the org the ado pipeline runs in — prove that
+   is the configured org), then return `Bearer <SYSTEM_ACCESSTOKEN>`.
 2. **PAT** — when `$env:AZURE_DEVOPS_PAT` is set: return Basic auth. A PAT carries no ambient org signal, so it is bound to the configured
    org by construction — every API URL is built from `ado.yml` `organization`.
 3. **az CLI** — otherwise: `Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant` proves the az session is in the Entra directory
@@ -146,7 +146,7 @@ steps:
     inputs:
       targetType: inline
       script: |
-        . './pipelines/Invoke-AdoScript.ps1' -Command '${{ parameters.RunCommand }}' -ExposeAccessToken:$${{ parameters.ExposeAccessToken }}
+        . './.ado/pipelines/Invoke-AdoScript.ps1' -Command '${{ parameters.RunCommand }}' -ExposeAccessToken:$${{ parameters.ExposeAccessToken }}
       pwsh: true
     ${{ if parameters.ExposeAccessToken }}:
       env:
@@ -164,5 +164,5 @@ security audit trail.
   accident.
 - Auth failures produce clear error messages naming the specific missing credential.
 - Functions are portable — they run in both contexts without modification.
-- The step template controls token visibility, making it auditable which pipeline steps have API access.
+- The step template controls token visibility, making it auditable which ado pipeline steps have API access.
 - No token caching or refresh logic — tokens are acquired fresh per call, matching their short-lived nature.

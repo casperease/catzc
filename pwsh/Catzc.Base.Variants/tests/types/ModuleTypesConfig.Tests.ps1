@@ -15,6 +15,13 @@ Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
                 }
                 'widget-file'   = [ordered]@{ definition = 'A widget that is one file.'; places = @(@{ root = 'widgetry/.core'; name = 'file'; extension = 'wdg' }) }
                 'widget-tool'   = [ordered]@{ definition = 'A tool dot-folder.'; places = @(@{ root = '.gizmo/deep'; name = 'root' }, @{ root = '.gizmo'; name = 'root' }) }
+                'widget-shelf'  = [ordered]@{
+                    definition = 'A shelf whose folders are modules, except the ones the track keeps for itself.'
+                    places     = @(
+                        @{ root = 'shelf'; name = 'folder'; except = @('tests', 'assets') }
+                        @{ root = 'shelf'; name = 'root' }
+                    )
+                }
             })
     }
 
@@ -86,6 +93,27 @@ Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
         It 'reads a backslash path' {
             $script:config.Resolve('widgetry\Gadget\Cog.ps1').name | Should -BeExactly 'Gadget'
         }
+
+        It 'leaves a folder the place excepts to the root place behind it, and names every other folder' -ForEach @(
+            @{ Path = 'shelf/tests/gadget-kit/test_gadget.py'; Name = 'shelf'; Tail = 'tests/gadget-kit/test_gadget.py' }
+            @{ Path = 'shelf/assets/cog.png'; Name = 'shelf'; Tail = 'assets/cog.png' }
+            @{ Path = 'shelf/Gadget.Kit/gadget.py'; Name = 'Gadget.Kit'; Tail = 'gadget.py' }
+            @{ Path = 'shelf/project.toml'; Name = 'shelf'; Tail = 'project.toml' }
+        ) {
+            $module = $script:config.Resolve($Path)
+            $module.name | Should -BeExactly $Name
+            $module.type | Should -BeExactly 'widget-shelf'
+            $module.tail | Should -BeExactly $Tail
+        }
+    }
+
+    Context 'except' {
+        It 'reads the excepted folders of a folder place and leaves every other place with none' {
+            $places = $script:config.types[3].places
+            @($places[0].except) | Should -Be @('tests', 'assets')
+            @($places[1].except) | Should -HaveCount 0
+            @($script:config.types[0].places[0].except) | Should -HaveCount 0
+        }
     }
 
     Context 'internal places' {
@@ -114,6 +142,11 @@ Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
             @{ Name = 'an extension on a folder place'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'folder'; extension = 'wdg' }) } }; Message = '*only a file place has an extension*' }
             @{ Name = 'a prefix on a root place'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'root'; prefix = 'X.' }) } }; Message = '*only a folder place has a prefix*' }
             @{ Name = 'an internal that is no boolean'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'root'; internal = 'yes' }) } }; Message = '*internal is true or false*' }
+            @{ Name = 'an except on a root place'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'root'; except = @('tests') }) } }; Message = '*only a folder place has an except*' }
+            @{ Name = 'an except on a file place'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'file'; extension = 'wdg'; except = @('tests') }) } }; Message = '*only a folder place has an except*' }
+            @{ Name = 'an except that is no list'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'folder'; except = 'tests' }) } }; Message = '*except is a list of folder names*' }
+            @{ Name = 'an except entry with a path'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'folder'; except = @('tests/deep') }) } }; Message = '*one folder name directly under the root*' }
+            @{ Name = 'an except entry named twice'; Types = @{ 'widget-x' = @{ definition = 'A widget.'; places = @(@{ root = 'a'; name = 'folder'; except = @('tests', 'tests') }) } }; Message = '*except names ''tests'' twice*' }
         ) {
             { New-Config $Types } | Should -Throw $Message
         }

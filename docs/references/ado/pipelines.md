@@ -1,14 +1,14 @@
-# pipelines
+# ado pipelines
 
-Azure DevOps pipelines and the templates they include. Two ADRs govern this folder:
+The azure devops pipelines under `.ado/pipelines/` and the templates they include. Two ADRs govern this folder:
 
-- [pipeline-types](../adr/flow/pipeline-types.md) — the four types of pipeline.
-- [pipeline-naming-and-placement](../adr/pipelines/pipeline-naming-and-placement.md) — the layout and naming rules below.
+- [pipeline-types](../../adr/flow/pipeline-types.md) — the four types of pipeline.
+- [pipeline-naming-and-placement](../../adr/ado/pipeline-naming-and-placement.md) — the layout and naming rules below.
 
 ## Layout
 
 ```text
-pipelines/
+.ado/pipelines/
   Invoke-AdoScript.ps1   # the runner (see pipeline-runner-pattern)
   <type>-<name>.yaml     # pipelines (flat in root; type ∈ cron|ci|cd|input)
   steps/     *.yaml      # step templates
@@ -21,7 +21,7 @@ pipelines/
 Pipelines are flat in the root and named for their type. Templates live in the folder for their ADO kind
 (`steps`/`jobs`/`stages`/`variables` are fragments; `extends` is a whole-pipeline template a thin pipeline extends). Executable YAML is
 `.yaml`; config/data our code reads is `.yml`. Templates are the exception, not the default — see
-[custom-template-discipline](../adr/pipelines/custom-template-discipline.md).
+[custom-template-discipline](../../adr/ado/custom-template-discipline.md).
 
 ## The six types
 
@@ -44,7 +44,7 @@ Real:
 Infrastructure (foundation / discovery / expedition) — **reference shapes**, not yet registered. The CI build path runs as-is
 (`az bicep build` is offline, no auth); the CD deploy paths need real service connections and a non-placeholder `azure.yml` (the shipped one
 has placeholder subscription GUIDs; the `sc-…` names are illustrative). They wire the templates that the infra plan (`out/infra-plan.md`)
-built, per the [pipeline-types](../adr/flow/pipeline-types.md) and [naming-and-placement](../adr/pipelines/pipeline-naming-and-placement.md)
+built, per the [pipeline-types](../../adr/flow/pipeline-types.md) and [naming-and-placement](../../adr/ado/pipeline-naming-and-placement.md)
 ADRs:
 
 - `ci-infrastructure.yaml` — CI engine for all three templates (`Assert-BicepTemplate` + `Build-Bicep`), no deploy. Registered on the
@@ -59,7 +59,7 @@ ADRs:
   (`${{ each }}` over three flat lists), foundation first (it owns the per-subscription Key Vault). foundation and discovery deploy per
   subscription (`nsub`/`psub`); an expedition entry is an environment with an optional slot, and an empty expedition list skips its build
   and stage. Adding a spoke runs hub → spoke → hub again across `cd-shared` and the customer CD, by hand
-  ([landing-zones](../adr/azure/landing-zones.md)).
+  ([landing-zones](../../adr/azure/landing-zones.md)).
 - `stages/deploy-unit.yaml` — the one deploy path of a unit (foundation → discovery → expedition), called by its CD and by its DEPLOY, so
   the two never fork; the artifact comes from the current run (CD) or from the certifying CD run by its id (DEPLOY).
 - `deploy-shared.yaml`, `deploy-apex.yaml`, `deploy-nova.yaml` — DEPLOY, run by hand with the run id of the certifying CD run. Target
@@ -71,8 +71,8 @@ canonical shapes to copy.
 
 ## The promotion ladder
 
-A commit climbs one rung at a time ([commit-lifecycle](../adr/design/commit-lifecycle.md),
-[cd-discipline-and-promotion-flow](../adr/flow/cd-discipline-and-promotion-flow.md)). Each always-on rung is its own Azure DevOps
+A commit climbs one rung at a time ([commit-lifecycle](../../adr/design/commit-lifecycle.md),
+[cd-discipline-and-promotion-flow](../../adr/flow/cd-discipline-and-promotion-flow.md)). Each always-on rung is its own Azure DevOps
 environment per deployable-unit, with one occupant:
 
 | Rung        | Environment                                          | Deployed by                     | Gate before it                             |
@@ -83,7 +83,7 @@ environment per deployable-unit, with one occupant:
 | production  | the prod-tier environments (`*-psub`, apex's `prod`) | DEPLOY, activating the pre-prod | the prod approval gate                     |
 
 The approval checks are declared in `environment-approvals.yml` and applied by `Sync-AdoEnvironmentApprovals`
-([apply-environment-approvals](../how-to/automation/apply-environment-approvals.md)). DEPLOY takes the exact artifact CI built, by the CI
+([apply-environment-approvals](../../how-to/automation/apply-environment-approvals.md)). DEPLOY takes the exact artifact CI built, by the CI
 run id that the certifying CD run records, and never rebuilds it. The CD pipelines above deploy the non-prod and prod-tier targets of a
 stage in one run; main-uat is the `dev` deploy of each CD.
 
@@ -93,10 +93,10 @@ stage in one run; main-uat is the `dev` deploy of each CD.
    `cd-shared.yaml` as a starting point).
 2. Set its `trigger:`/`pr:` path filters to the unit's native projection — `(Get-GlobSetTrigger -Name <globset>).AdoInclude`/`.AdoExclude`
    generates the exact `paths:` block from `globs.yml`; the drift quality gate keeps it honest (see
-   [durable-sha-globs](../adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger) and the
-   [add-a-deployable-unit](../how-to/getting-started/automation/add-a-deployable-unit.md) how-to).
+   [durable-sha-globs](../../adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger) and the
+   [add-a-deployable-unit](../../how-to/getting-started/automation/add-a-deployable-unit.md) how-to).
 3. Set real `ServiceConnection` names and ensure `azure.yml` has real subscription IDs.
-4. Register it: `Register-AdoPipeline '<Name>' 'pipelines/<type>-<name>.yaml'`.
+4. Register it: `Register-AdoPipeline '<Name>' '.ado/pipelines/<type>-<name>.yaml'`.
 5. For CI/CD, set it as the branch's build validation (the pre-commit half): `Register-AdoBuildValidation <globset>` sets the policy's path
    filter to the same native projection.
 
@@ -105,5 +105,5 @@ stage in one run; main-uat is the `dev` deploy of each CD.
 `Open decision — INPUT: PR vs direct push`
 
 How an INPUT pipeline lands its commit (open a PR vs push directly) is **not yet decided** — see
-[pipeline-types](../adr/flow/pipeline-types.md). Either way the output is a commit, and deployment happens only via CD against version
+[pipeline-types](../../adr/flow/pipeline-types.md). Either way the output is a commit, and deployment happens only via CD against version
 control.

@@ -51,7 +51,7 @@ public sealed class ModulePlace
         int firstSlash = rest.IndexOf('/');
         if (firstSlash <= 0) { return null; }
         string folder = rest.Substring(0, firstSlash);
-        if (folder.StartsWith(".", StringComparison.Ordinal)) { return null; }
+        if (folder.StartsWith(".", StringComparison.Ordinal) || except.Contains(folder)) { return null; }
         return string.IsNullOrEmpty(prefix) ? folder : prefix + Pascal(folder);
     }
 

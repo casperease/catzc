@@ -63,6 +63,10 @@ Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic
         @{ Path = 'python/tests/catzc-base-repository/test_repository.py'; Name = 'python'; Type = 'python' }
         @{ Path = 'go/tests/catzc-base-repository/repository_test.go'; Name = 'go'; Type = 'go' }
         @{ Path = 'bash/tests/catzc-base-repository/repository.bats'; Name = 'bash'; Type = 'bash' }
+        @{ Path = 'python/pyproject.toml'; Name = 'python'; Type = 'python' }
+        @{ Path = 'python/Widget.Gadget/gadget.py'; Name = 'Widget.Gadget'; Type = 'python' }
+        @{ Path = 'go/Widget.Gadget/gadget.go'; Name = 'Widget.Gadget'; Type = 'go' }
+        @{ Path = 'bash/Widget.Gadget/gadget.sh'; Name = 'Widget.Gadget'; Type = 'bash' }
         @{ Path = 'infrastructure/templates/sample/main.bicep'; Name = 'sample'; Type = 'bicep' }
         @{ Path = 'infrastructure/modules/storage.bicep'; Name = 'storage'; Type = 'bicep' }
     ) {

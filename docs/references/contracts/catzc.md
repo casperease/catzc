@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f7b9bd643143
-    with_inputs_sha: "0186b41c7a3501b369baccf316e1dc5de20d76a5ad374330c6c3b2bce72abcbc"
+    with_body_sha: fbd979f25d35
+    with_inputs_sha: fa70b556e417be57e48b4fac42c44fc3574edc9fc354a138ee44634351b1b516
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/references/contracts/catzc.md
@@ -172,38 +172,38 @@ Notes:
 - `Catzc.Azure/Test-AzureNetworkPlan.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
   Test-AzureNetworkPlan, the quality gate that checks the network plan against the azure config's environments and subscriptions and returns
   its result under -PassThru.
-- `Catzc.Azure.DevOps/.ado/pipelines/cd-apex.yaml`: Depended-on fragment of pipelines/cd-apex.yaml
+- `Catzc.Azure.DevOps/.ado/pipelines/cd-apex.yaml`: Depended-on fragment of .ado/pipelines/cd-apex.yaml
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, honoured only there, and the `extends` root with its `template`. A null value
   pins only that the key exists. Source: <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
-- `Catzc.Azure.DevOps/.ado/pipelines/cd-flux.yaml`: Depended-on fragment of pipelines/cd-flux.yaml
+- `Catzc.Azure.DevOps/.ado/pipelines/cd-flux.yaml`: Depended-on fragment of .ado/pipelines/cd-flux.yaml
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, honoured only there, and the `extends` root with its `template`. A null value
   pins only that the key exists. Source: <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
-- `Catzc.Azure.DevOps/.ado/pipelines/cd-nova.yaml`: Depended-on fragment of pipelines/cd-nova.yaml
+- `Catzc.Azure.DevOps/.ado/pipelines/cd-nova.yaml`: Depended-on fragment of .ado/pipelines/cd-nova.yaml
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, honoured only there, and the `extends` root with its `template`. A null value
   pins only that the key exists. Source: <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
-- `Catzc.Azure.DevOps/.ado/pipelines/cd-shared.yaml`: Depended-on fragment of pipelines/cd-shared.yaml
+- `Catzc.Azure.DevOps/.ado/pipelines/cd-shared.yaml`: Depended-on fragment of .ado/pipelines/cd-shared.yaml
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, and the `stages` root. A null value pins only that the key exists. Source:
   <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
 - `Catzc.Azure.DevOps/.ado/pipelines/ci-automation-expected-failures.yaml`: Depended-on fragment of
-  pipelines/ci-automation-expected-failures.yaml
+  .ado/pipelines/ci-automation-expected-failures.yaml
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, and the `jobs` root. A null value pins only that the key exists. Source:
   <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
-- `Catzc.Azure.DevOps/.ado/pipelines/ci-automation.yaml`: Depended-on fragment of pipelines/ci-automation.yaml
+- `Catzc.Azure.DevOps/.ado/pipelines/ci-automation.yaml`: Depended-on fragment of .ado/pipelines/ci-automation.yaml
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, and the `jobs` root. A null value pins only that the key exists. Source:
   <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
-- `Catzc.Azure.DevOps/.ado/pipelines/ci-infrastructure.yaml`: Depended-on fragment of pipelines/ci-infrastructure.yaml
+- `Catzc.Azure.DevOps/.ado/pipelines/ci-infrastructure.yaml`: Depended-on fragment of .ado/pipelines/ci-infrastructure.yaml
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, and the `jobs` root. A null value pins only that the key exists. Source:
   <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
 - `Catzc.Azure.DevOps/Test-Pipelines.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
-  Test-Pipelines, the quality gate that checks the pipelines/ tree against the naming-and-placement contract and returns its result under
-  -PassThru.
+  Test-Pipelines, the quality gate that checks the .ado/pipelines/ tree against the naming-and-placement contract and returns its result
+  under -PassThru.
 - `Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.command.yml`: Provided command contract
   (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Register-AdoBuildValidation, which creates or updates the build-validation
   branch policy tied to a globset. Branch, Project, Organization and RepositoryName default to the configured values, computed defaults the

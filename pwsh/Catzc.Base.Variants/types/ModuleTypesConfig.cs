@@ -61,13 +61,13 @@ public sealed class ModuleTypesConfig
 
     static ModulePlace ParsePlace(string where, IDictionary place)
     {
-        if (place == null) { throw new ArgumentException(where + ": a place must be a map of root, name, and optionally extension, prefix and internal"); }
+        if (place == null) { throw new ArgumentException(where + ": a place must be a map of root, name, and optionally extension, prefix, internal and except"); }
         foreach (object key in place.Keys)
         {
             string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-            if (name != "root" && name != "name" && name != "extension" && name != "prefix" && name != "internal")
+            if (name != "root" && name != "name" && name != "extension" && name != "prefix" && name != "internal" && name != "except")
             {
-                throw new ArgumentException(where + ": unknown place key '" + name + "' (allowed: root, name, extension, prefix, internal)");
+                throw new ArgumentException(where + ": unknown place key '" + name + "' (allowed: root, name, extension, prefix, internal, except)");
             }
         }
         string root = place.Contains("root") ? Convert.ToString(place["root"], CultureInfo.InvariantCulture) : null;
@@ -94,7 +94,23 @@ public sealed class ModuleTypesConfig
             if (!(place["internal"] is bool flag)) { throw new ArgumentException(where + ": a place's internal is true or false"); }
             isInternal = flag;
         }
-        return new ModulePlace(root, naming, extension, prefix, isInternal);
+        var except = new List<string>();
+        if (place.Contains("except") && place["except"] != null)
+        {
+            if (naming != "folder") { throw new ArgumentException(where + ": only a folder place has an except"); }
+            if (!(place["except"] is IEnumerable items) || place["except"] is string) { throw new ArgumentException(where + ": a place's except is a list of folder names"); }
+            foreach (object item in items)
+            {
+                string folder = Convert.ToString(item, CultureInfo.InvariantCulture);
+                if (string.IsNullOrWhiteSpace(folder) || folder.Contains('/') || folder.Contains('\\'))
+                {
+                    throw new ArgumentException(where + ": an except entry is one folder name directly under the root, not '" + folder + "'");
+                }
+                if (except.Contains(folder)) { throw new ArgumentException(where + ": except names '" + folder + "' twice"); }
+                except.Add(folder);
+            }
+        }
+        return new ModulePlace(root, naming, extension, prefix, isInternal, except);
     }
 
     // The module a repository-relative path is placed in, or null when no module type places it.
