@@ -19,9 +19,6 @@ safeguard relies on.
 
 ![A shell call carries its limit or is denied](.assets/a-shell-call-carries-its-limit-or-is-denied/diagram.drawio.png)
 
-The diagram is described element by element in
-[its asset description](.assets/a-shell-call-carries-its-limit-or-is-denied/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Coding agent.** The caller is an AI coding agent: the main session at a devbox, a subagent it launched, or an agent running inside a

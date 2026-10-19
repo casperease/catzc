@@ -22,8 +22,6 @@ in code.
 
 ![A run past its limit stops with a message that names the limit](.assets/a-stopped-run-names-its-limit/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/a-stopped-run-names-its-limit/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Agent.** Every Bash call a coding agent makes is judged by the hook before it runs. A foreground call passes a `timeout` of at most the

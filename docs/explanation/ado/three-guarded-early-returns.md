@@ -20,8 +20,6 @@ return. Every check either returns a header, passes control on, or throws; a che
 
 ![Four checks in code order, three returns and three throws](.assets/three-guarded-early-returns/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/three-guarded-early-returns/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Test-IsRunningInPipeline.** The first rung runs when `(Test-IsRunningInPipeline) -and $env:SYSTEM_ACCESSTOKEN` holds. The guard is true

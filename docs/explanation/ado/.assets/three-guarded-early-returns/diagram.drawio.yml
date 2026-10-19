@@ -1,0 +1,68 @@
+description: >-
+  The header function's four checks in code order: three return a header, three throw, and no check falls through to the next on failure.
+about:
+  lens: implementation
+  adrs:
+    - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+    - ADR-ADO-AUTH-PROVETARGET
+    - ADR-ADO-AUTH-EXPLICITDETECTION
+    - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+  tracks: [pwsh]
+  languages: [powershell]
+  modules: [Catzc.Azure.DevOps, Catzc.Azure.Cli, Catzc.Base.Repository, Catzc.Base.Asserts]
+  files:
+    - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+    - pwsh/Catzc.Azure.Cli/Assert-AzCliConnected.ps1
+    - pwsh/Catzc.Base.Asserts/Assert-NotNullOrWhitespace.ps1
+content:
+  title: The header function is four checks and three returns, and none falls through on failure
+  kind: explanation
+  relation: what comes next
+  bands:
+    - { id: band-returns, label: RETURNS }
+    - { id: band-check, label: CHECK }
+    - { id: band-throws, label: THROWS }
+  glyphs:
+    - { id: g-pipeline, kind: gate, label: Test-IsRunningInPipeline, in: band-check }
+    - { id: g-pat, kind: gate, label: "$env:AZURE_DEVOPS_PAT", in: band-check }
+    - { id: g-azcli, kind: gate, label: Assert-AzCliConnected, in: band-check }
+    - { id: g-not-empty, kind: gate, label: Assert-NotNullOrWhitespace, in: band-check }
+    - { id: r-bearer, kind: result, label: Bearer SYSTEM_ACCESSTOKEN, in: band-returns }
+    - { id: r-basic, kind: result, label: "Basic $base64", in: band-returns }
+    - { id: r-output, kind: result, label: "Bearer $result.Output", in: band-returns }
+    - { id: f-mismatch, kind: failure, label: does not match ado.yml, in: band-throws }
+    - { id: f-context, kind: failure, label: "Not logged in, wrong context", in: band-throws }
+    - { id: f-no-token, kind: failure, label: No ADO token available, in: band-throws }
+  edges:
+    - { from: g-pipeline, to: g-pat }
+    - { from: g-pat, to: g-azcli }
+    - { from: g-azcli, to: g-not-empty }
+    - { from: g-pipeline, to: r-bearer }
+    - { from: g-pat, to: r-basic }
+    - { from: g-not-empty, to: r-output }
+    - { from: g-pipeline, to: f-mismatch, kind: fail }
+    - { from: g-azcli, to: f-context, kind: fail }
+    - { from: g-not-empty, to: f-no-token, kind: fail }
+  markers:
+    - { at: g-pipeline, number: 1 }
+    - { at: f-mismatch, number: 2 }
+    - { at: g-pat, number: 3 }
+    - { at: g-azcli, number: 4 }
+    - { at: f-context, number: 5 }
+    - { at: g-not-empty, number: 6 }
+    - { at: f-no-token, number: 7 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-returns: { x: 20, y: 84, w: 300, h: 456 }
+  band-check: { x: 340, y: 84, w: 560, h: 456 }
+  band-throws: { x: 920, y: 84, w: 360, h: 456 }
+  g-pipeline: { x: 450, y: 128, w: 340, h: 64 }
+  g-pat: { x: 450, y: 238, w: 340, h: 64 }
+  g-azcli: { x: 450, y: 348, w: 340, h: 64 }
+  g-not-empty: { x: 450, y: 458, w: 340, h: 64 }
+  r-bearer: { x: 50, y: 138, w: 240, h: 44 }
+  r-basic: { x: 50, y: 248, w: 240, h: 44 }
+  r-output: { x: 50, y: 468, w: 240, h: 44 }
+  f-mismatch: { x: 950, y: 138, w: 300, h: 44 }
+  f-context: { x: 950, y: 358, w: 300, h: 44 }
+  f-no-token: { x: 950, y: 468, w: 300, h: 44 }

@@ -47,8 +47,9 @@ MAPKEY_BOTTOM = MAPKEY_Y + 82 + 16  # its bottom, and the sidebar's pad under it
 # The style keys that identify a glyph kind: the shape and the two colours, with the marks that set a variant apart.
 SIGNATURE_KEYS = ("shape", "ellipse", "rhombus", "rounded", "arcSize", "fillColor", "strokeColor", "dashed", "strokeWidth", "fontColor", "fontSize", "fontStyle", "align")
 TEXT = "text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;"
+KEY = "text;html=1;align=left;verticalAlign=middle;fontSize=10;fontStyle=1;fontColor=#B0BAC7;"
 TITLE = "text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#DDE2E9;"
-SUBTITLE = "text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#949FAE;"
+SUBTITLE = "text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=12;fontColor=#949FAE;"  # wraps to a second line
 BAND = "rounded=1;html=1;arcSize=3;fillColor=#262E3B;strokeColor=#3A4555;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=#B0BAC7;"
 LEGEND = "rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#222A36;strokeColor=#3A4555;align=left;verticalAlign=top;spacing=8;fontSize=11;fontColor=#CDD3DC;"
 SPAN_LABEL = "text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#B0BAC7;"
@@ -222,17 +223,26 @@ def normalise(raw, where="the declaration"):
     out["markers"] = []
     for m in content.get("markers") or []:
         marker = entry(m, ("at", "number"), where, "marker")
-        if ids.get(marker["at"]) != "glyph":
-            choices(f"{where}: marker at", marker["at"], [i for i, k in ids.items() if k == "glyph"])
+        if ids.get(marker["at"]) is None:  # a marker numbers a glyph, a group or a whole band
+            choices(f"{where}: marker at", marker["at"], tuple(ids))
         marker["number"] = int(marker["number"])
         out["markers"].append(marker)
+    # A rule chip names a rule the diagram covers and prints its number in about.adrs; dashed (gated: false) when no gate checks it.
+    # A count chip prints a number. Either sits on a glyph, a group or a band.
     out["chips"] = []
     for c in content.get("chips") or []:
-        chip = entry(c, ("at", "kind", "text"), where, "chip")
-        if chip["kind"] not in ("rule", "count"):
-            choices(f"{where}: chip at '{chip['at']}' kind", chip["kind"], ("rule", "count"))
-        if ids.get(chip["at"]) != "glyph":
-            choices(f"{where}: chip at", chip["at"], [i for i, k in ids.items() if k == "glyph"])
+        chip_kind = c.get("kind") if isinstance(c, dict) else None
+        if chip_kind == "rule":
+            gated = c.get("gated", True) is not False
+            chip = entry({k: v for k, v in c.items() if k != "gated"}, ("at", "kind", "rule"), where, "chip")
+            if not gated:
+                chip["gated"] = False
+        elif chip_kind == "count":
+            chip = entry(c, ("at", "kind", "text"), where, "chip")
+        else:
+            choices(f"{where}: chip kind", chip_kind, ("rule", "count"))
+        if ids.get(chip["at"]) is None:
+            choices(f"{where}: chip at", chip["at"], tuple(ids))
         out["chips"].append(chip)
     legend = content.get("legend", "auto")
     if legend != "auto":
@@ -262,6 +272,9 @@ def normalise(raw, where="the declaration"):
     for problem in minimaps.problems(about):
         raise DeclarationError(f"{where}: {problem}")
     out["adrs"] = about["adrs"]
+    for chip in out["chips"]:
+        if chip["kind"] == "rule" and chip["rule"] not in about["adrs"]:
+            choices(f"{where}: rule chip at '{chip['at']}' rule", chip["rule"], about["adrs"])
     layout = {}
     for cid, box in (raw.get("layout") or {}).items():
         if cid not in ids:
@@ -364,7 +377,7 @@ def place(declaration):
     cells.append(cell("lens-badge", content["lens"].upper(), BADGE, PAGE["x"], PAGE["title_y"] + 4, chip_w, 22))
     title_x = PAGE["x"] + chip_w + 12
     cells.append(cell("title", content["title"], TITLE, title_x, PAGE["title_y"], PAGE["width"] - (title_x - PAGE["x"]), 30))
-    cells.append(cell("subtitle", " · ".join(content["adrs"]), SUBTITLE, PAGE["x"], PAGE["subtitle_y"], PAGE["width"] - 20, 20))
+    cells.append(cell("subtitle", " · ".join(content["adrs"]), SUBTITLE, PAGE["x"], PAGE["subtitle_y"] - 4, PAGE["width"] - 20, 34))
     # The bands along the flow: side by side left to right, or stacked top to bottom.
     band_box = {}
     if vertical:
@@ -439,27 +452,49 @@ def place(declaration):
         box = box_of[m["at"]]
         size = LIB["marks"]["marker"]["size"]
         kind = next((g["kind"] for g in content["glyphs"] if g["id"] == m["at"]), "")
-        # A diamond's corner is empty space, so its marker sits beside its top point; any other glyph's on its top-left corner.
-        mx, my = (box["x"] + box["w"] // 2 - 40, box["y"] - 4) if kind == "gate" else (box["x"] - 10, box["y"] - 11)
+        # A diamond's corner is empty space, so its marker sits beside its top point. Any other glyph's sits on the top corner away
+        # from the edges that arrive at it: top-left unless they come in from the left.
+        sources = [box_of[e["from"]] for e in content["edges"] if e["to"] == m["at"] and e["from"] in box_of]
+        from_left = sources and sum(s["x"] + s["w"] / 2 for s in sources) / len(sources) < box["x"]
+        if kind == "gate":
+            mx, my = box["x"] + box["w"] // 2 - 40, box["y"] - 4
+        elif not kind:  # a band or a group: just inside its top-left corner, so it never widens the page
+            mx, my = box["x"] + 4, box["y"] - 11
+        else:
+            mx, my = (box["x"] + box["w"] - 12, box["y"] - 11) if from_left else (box["x"] - 10, box["y"] - 11)
         cells.append(cell(f"mark-{m['number']}", str(m["number"]), LIB["marks"]["marker"]["style"], mx, my, size[0], size[1]))
+    placed = {}
     for c in content["chips"]:
         box = box_of[c["at"]]
         mark = LIB["marks"][c["kind"]]
-        cx, cy = (box["x"] + box["w"] - 26, box["y"] - 9) if c["kind"] == "rule" else (box["x"] + box["w"] - 18, box["y"] + box["h"] - 9)
-        cells.append(cell(f"chip-{c['kind']}-{c['at']}", c["text"], mark["style"], cx, cy, mark["size"][0], mark["size"][1]))
+        k = placed[c["at"], c["kind"]] = placed.get((c["at"], c["kind"]), -1) + 1  # several chips on one place stand in a row
+        if c["kind"] == "rule":
+            cx, cy = box["x"] + box["w"] - 30 - k * 34, box["y"] - 9
+            value, style = f"#{content['adrs'].index(c['rule']) + 1}", mark["style"] + ("" if c.get("gated", True) else "dashed=1;")
+        else:
+            cx, cy = box["x"] + box["w"] - 18 - k * 34, box["y"] + box["h"] - 9
+            value, style = c["text"], mark["style"]
+        cells.append(cell(f"chip-{c['kind']}-{c['at']}-{k}", value, style, cx, cy, mark["size"][0], mark["size"][1]))
     # The legend below the bands: the kinds the diagram uses, in columns.
     legend_y = content_bottom + GAP
     entries = legend_entries(content)
     rows = 3
     columns = max(1, (len(entries) + rows - 1) // rows)
     col_w = min(240, (PAGE["width"] - 32) // columns)
-    legend_h = 30 + rows * 28 if entries else 48
+    # The rule key: every rule a chip names, by its number in about.adrs, three to a column under the entries.
+    keyed = [r for r in content["adrs"] if any(c["kind"] == "rule" and c["rule"] == r for c in content["chips"])]
+    key_rows = (len(keyed) + 2) // 3
+    legend_h = (30 + rows * 28 if entries else 48) + (key_rows * 16 + 8 if keyed else 0)
     cells.append(cell("legend", "<b>Legend</b>", LEGEND, PAGE["x"], legend_y, PAGE["width"], legend_h))
     for i, (eid, swatch, phrase) in enumerate(entries):
         col, row = divmod(i, rows)
         sx, sy = PAGE["x"] + 16 + col * col_w, legend_y + 30 + row * 28
         cells.extend(swatch(eid, sx, sy))
         cells.append(cell(f"lg-{eid}-t", phrase, TEXT, sx + 48, sy - 1, col_w - 56, 20))
+    for i, rule in enumerate(keyed):
+        col, row = divmod(i, key_rows)
+        number = content["adrs"].index(rule) + 1
+        cells.append(cell(f"lg-key-{number}", f"#{number}  {rule}", KEY, PAGE["x"] + 16 + col * 410, legend_y + 30 + rows * 28 + row * 16, 400, 16))
     # The sidebar: the three minimaps, drawn from their claims and embedded, the lens badge and the map key. The ADR codes live in
     # the subtitle alone.
     height = max(PAGE["min_height"], legend_y + legend_h + GAP, MAPKEY_BOTTOM)
@@ -512,6 +547,10 @@ def legend_entries(content):
         entries.append(("marker", mark_swatch("marker", "1"), LIB["marks"]["marker"]["phrase"]))
     for kind in dict.fromkeys(c["kind"] for c in content["chips"]):
         entries.append((f"chip-{kind}", mark_swatch(kind, "#2" if kind == "rule" else "87"), LIB["marks"][kind]["phrase"]))
+    if any(c["kind"] == "rule" and not c.get("gated", True) for c in content["chips"]):
+        mark = LIB["marks"]["rule"]
+        dashed = lambda eid, x, y: [cell(f"lg-{eid}", "#2", mark["style"] + "dashed=1;", x + 4, y - 2, mark["size"][0], mark["size"][1])]
+        entries.append(("chip-rule-adr", dashed, "dashed rule chip: ADR-only (no gate)"))
     if wanted is not None:
         entries = [e for e in entries if e[2] in wanted]
     return entries
@@ -681,18 +720,32 @@ def get(model, kind=None):
         over = [b for b in bands if (geo[b]["y"] >= box["y"] - 2 and geo[b]["y"] + geo[b]["h"] <= box["y"] + box["h"] + 2) if vertical] if vertical else [b for b in bands if geo[b]["x"] >= box["x"] - 2 and geo[b]["x"] + geo[b]["w"] <= box["x"] + box["w"] + 2]
         content["spans"].append({"id": bar, "label": plain(cells[near[0]].get("value")) if near else "", "over": over})
     glyph_ids = [g[0] for g in glyphs]
-    nearest = lambda box, corner: min(glyph_ids, key=lambda g: abs(corner(geo[g])[0] - (box["x"] + box["w"] / 2)) + abs(corner(geo[g])[1] - (box["y"] + box["h"] / 2))) if glyph_ids else None
     kind_of = dict(glyphs)
-    # Where put centres a glyph's marker: beside a diamond's top point, on any other glyph's top-left corner.
-    anchor = {g: ((geo[g]["x"] + geo[g]["w"] // 2 - 29, geo[g]["y"] + 7) if kind_of[g] == "gate" else (geo[g]["x"] + 1, geo[g]["y"])) for g in glyph_ids}
+    # Where put centres a glyph's marker: beside a diamond's top point, on any other glyph's top-left or top-right corner.
+    def anchors(g):
+        x, y, w = geo[g]["x"], geo[g]["y"], geo[g]["w"]
+        if g not in kind_of:  # a band or a group: just inside its top-left corner
+            return [(x + 15, y)]
+        return [(x + w // 2 - 29, y + 7)] if kind_of[g] == "gate" else [(x + 1, y), (x + w - 1, y)]
+
+    holders = glyph_ids + groups + bands  # a marker numbers a glyph first, else a group or a band whose corner it sits on
     for m in sorted(markers, key=lambda m: int(plain(cells[m].get("value")))):
         centre = (geo[m]["x"] + geo[m]["w"] / 2, geo[m]["y"] + geo[m]["h"] / 2)
-        at = min(glyph_ids, key=lambda g: abs(anchor[g][0] - centre[0]) + abs(anchor[g][1] - centre[1]))
+        at = min(holders, key=lambda g: min(abs(a[0] - centre[0]) + abs(a[1] - centre[1]) for a in anchors(g)))
         content["markers"].append({"at": at, "number": int(plain(cells[m].get("value")))})
-    for ch in chips:
-        kind = "rule" if matches(mark_sigs["rule"], cells[ch].get("style") or "") else "count"
-        corner = (lambda g: (g["x"] + g["w"], g["y"])) if kind == "rule" else (lambda g: (g["x"] + g["w"], g["y"] + g["h"]))
-        content["chips"].append({"at": nearest(geo[ch], corner), "kind": kind, "text": plain(cells[ch].get("value"))})
+    # A chip's id is chip-<kind>-<place>-<n>, so the place it sits on is read from the id, in the order put drew them.
+    for ch in sorted(chips, key=lambda c: (c.rsplit("-", 1)[0], int(c.rsplit("-", 1)[1]) if c.rsplit("-", 1)[1].isdigit() else 0)):
+        style = cells[ch].get("style") or ""
+        kind = "rule" if matches(mark_sigs["rule"], style) else "count"
+        at = ch.removeprefix(f"chip-{kind}-").rsplit("-", 1)[0]
+        value = plain(cells[ch].get("value"))
+        if kind == "rule":
+            chip = {"at": at, "kind": "rule", "rule": adrs[int(value.lstrip("#")) - 1]}
+            if style_map(style).get("dashed") == "1":
+                chip["gated"] = False
+        else:
+            chip = {"at": at, "kind": "count", "text": value}
+        content["chips"].append(chip)
     edge_sigs = {k: signature(v["style"]) for k, v in LIB["edges"].items()}
     for cid, c in cells.items():
         if c.get("edge") != "1" or cid.startswith("lg-"):

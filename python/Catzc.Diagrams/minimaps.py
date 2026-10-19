@@ -233,7 +233,8 @@ def draw_module_neighbourhood(d, width, height, about):
         box(d, (box_x, y, box_x + box_w, y + 16), LIT)
         text(d, (box_x + 4, y + 2), fit(d, short(module), 9, box_w - 8, bold=True), 9, LIT_INK, bold=True)
         users = [m for m, deps in uses.items() if module in deps and m not in lit]
-        shown = users[:3] + ([f"+{len(users) - 3} more"] if len(users) > 3 else [])
+        room = max(1, int((pitch - 4) // 11))  # the lines that fit before the next module's row
+        shown = users if len(users) <= room else users[: room - 1] + [f"+{len(users) - room + 1} more"]
         for j, name in enumerate(shown):
             text(d, (4, y + 1 + j * 11), fit(d, short(name), 8, box_x - 22), 8, DIM_INK)
         if users:
@@ -241,7 +242,7 @@ def draw_module_neighbourhood(d, width, height, about):
         outside = [m for m in uses.get(module, []) if m not in lit]
         if outside:
             line = "uses " + ", ".join(short(m) for m in outside)
-            text(d, (box_x + 4, y + 18), fit(d, line, 8, box_w - 8), 8, DIM_INK)
+            text(d, (box_x + 4, y + 18), fit(d, line, 8, box_w / 2 - 12), 8, DIM_INK)
         if i + 1 < len(lit) and lit[i + 1] in uses.get(module, []):
             mid = box_x + box_w / 2
             arrow(d, (mid, y + 16), (mid, y + pitch - 1), LIT)
@@ -277,6 +278,9 @@ def draw_axis(d, width, height, about):
             x = label_w + j * cell_w
             here = f"{stack}/{concern}" in lit
             box(d, (x + 1, y + 1, x + cell_w - 1, y + cell_h - 1), LIT if here else PANEL, None if here else RIM, 2)
+        # A rule whose concern runs through every stage (automation) has no column: its whole row is outlined instead.
+        if any(place.startswith(stack + "/") and place.split("/", 1)[1] not in concerns for place in lit):
+            box(d, (label_w, y, width - 8, y + cell_h), None, LIT, 3)
 
 
 def draw_grid(d, width, height, about):

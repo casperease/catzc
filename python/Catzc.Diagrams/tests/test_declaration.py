@@ -43,7 +43,7 @@ content:
     - { at: widget-a, number: 1 }
     - { at: gadget-gate, number: 2 }
   chips:
-    - { at: gadget-gate, kind: rule, text: "#2" }
+    - { at: gadget-gate, kind: count, text: "87" }
 """
 
 
@@ -209,3 +209,27 @@ def test_get_into_the_folder_keeps_the_description_the_drawing_cannot_carry(tmp_
 def test_a_folder_without_its_source_fails_naming_the_file(tmp_path):
     with pytest.raises(declaration.DeclarationError, match="no diagram.drawio.yml"):
         declaration.load(tmp_path)
+
+
+def test_rule_chips_number_their_rule_and_round_trip_with_the_key_in_the_legend():
+    raw = claimed()
+    rules = list(declaration.minimaps.adrs())[:2]
+    raw["about"]["adrs"] = rules
+    raw["content"]["chips"] = [
+        {"at": "gadget-gate", "kind": "rule", "rule": rules[1]},
+        {"at": "gadget-gate", "kind": "rule", "rule": rules[0], "gated": False},
+        {"at": "group-kit", "kind": "rule", "rule": rules[0]},
+    ]
+    first = declaration.normalise(raw)
+    model = declaration.put(first)
+    assert 'value="#2"' in model and model.count("dashed=1;") >= 2  # the ADR-only chip and its legend swatch
+    assert f"#1  {rules[0]}" in model and f"#2  {rules[1]}" in model
+    back = declaration.get(model, kind="explanation")
+    assert back["content"]["chips"] == first["content"]["chips"]
+
+
+def test_a_rule_chip_names_a_rule_the_diagram_covers():
+    raw = claimed()
+    raw["content"]["chips"] = [{"at": "gadget-gate", "kind": "rule", "rule": "ADR-WIDGET-ELSEWHERE"}]
+    with pytest.raises(declaration.DeclarationError, match="rule chip at 'gadget-gate' rule 'ADR-WIDGET-ELSEWHERE' is not one of"):
+        declaration.normalise(raw)

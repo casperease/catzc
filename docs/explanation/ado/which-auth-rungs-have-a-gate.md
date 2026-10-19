@@ -18,8 +18,6 @@ the org, the empty-token assert, the one-function rule and the no-caching rule h
 
 ![Which auth rungs have a gate](.assets/which-auth-rungs-have-a-gate/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/which-auth-rungs-have-a-gate/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **The header function's own rules.** #1 governs the whole ladder: a fixed order, and no fallback when the source it picks fails. The two
