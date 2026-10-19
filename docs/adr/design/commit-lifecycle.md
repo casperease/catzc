@@ -61,22 +61,23 @@ of that environment right now.
 
 - [One occupant per environment](#one-occupant-per-environment)
 
-### Rule ADR-DSGN-LIFE-SYNCFROMMAINUAT
+### Rule ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD
 
-**The stable integration point is the current `main-UAT` commit, and upstream integrators sync from it — never from HEAD.** `main-UAT` holds
-the latest commit certified onto the always-on non-prod environment; that commit, not the raw tip of main, is what external or upstream
-consumers integrate against for stability. "Sync from main-UAT" is the safe default because that commit has cleared every gate that a
-machine decides, up to and including the always-on environment.
+**The stable integration point is the BVT-verified server head, and upstream integrators sync from it — never from the raw HEAD.** The
+BVT-verified server head is the newest commit on the server's main that the BVT has verified and no later stage has failed. It is also the
+commit that goes into `main-UAT` first, so once it is deployed it is the `main-UAT` occupant too: the commit synced from and the commit
+`main-UAT` takes are one. Nobody syncs from a landed head the BVT has not judged yet (ADR-DSGN-LIFE-LANDEDUNTILFAILED) or from a dirty HEAD
+(ADR-DSGN-LIFE-DIRTYHEADUNSAFE).
 
-- [Sync from main-UAT, not HEAD](#sync-from-main-uat-not-head)
+- [Sync from the verified head](#sync-from-the-verified-head)
 
 ### Rule ADR-DSGN-LIFE-DIRTYHEADUNSAFE
 
 **The dirty HEAD is the latest commit on main and is not a source that is safe to sync or promote from.** HEAD is simply the newest commit;
 it may have _failed_ a downstream stage (for example, died in `main-UAT`). Such a commit is the **dirty HEAD**: it is the tip of main, but
-it must not be synced from and cannot be promoted downstream. Consumers who naively track HEAD are pointed instead at the stable `main-UAT`
-occupant (ADR-DSGN-LIFE-SYNCFROMMAINUAT). "Latest" and "safe to build on" are different questions, and the model keeps them separate. A
-newest commit that no stage has judged yet is _landed_, not dirty (ADR-DSGN-LIFE-LANDEDUNTILFAILED).
+it must not be synced from and cannot be promoted downstream. Consumers who naively track HEAD are pointed instead at the BVT-verified
+server head (ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD). "Latest" and "safe to build on" are different questions, and the model keeps them
+separate. A newest commit that no stage has judged yet is _landed_, not dirty (ADR-DSGN-LIFE-LANDEDUNTILFAILED).
 
 - [The dirty HEAD](#the-dirty-head)
 
@@ -177,25 +178,26 @@ pipeline was _moving fast_, whereas a discarded commit tells you the pipeline _c
 
 An always-on environment is a place, and a place holds one thing at a time. `main-UAT`, `release-uat`, `pre-prod`, and `production` each
 have exactly one current commit deployed, and treating them as stateful — occupant plus history — is what makes questions like "what is in
-production right now" and "what should I sync from" answerable by pointing at a single dot. A pass-through mental model, where commits
-merely flow through, cannot answer those questions; the occupant model can. What is deployed as the occupant is the release candidate built
-from its commit ([ADR-FLOW-CD-RELEASECANDIDATE](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-releasecandidate)).
+production right now" answerable by pointing at a single dot. A pass-through mental model, where commits merely flow through, cannot answer
+those questions; the occupant model can. What is deployed as the occupant is the release candidate built from its commit
+([ADR-FLOW-CD-RELEASECANDIDATE](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-releasecandidate)).
 
-## Sync from main-UAT, not HEAD
+## Sync from the verified head
 
-Stability for consumers comes from integrating against a commit that has already been proven on the always-on non-prod environment, which is
-precisely the `main-UAT` occupant. The tip of main is younger and less proven; building on it inherits whatever has not yet been caught. The
-rule "sync from `main-UAT`" gives every upstream consumer one well-defined, continuously-updated, already-certified commit to depend on,
-decoupling their stability from the churn at HEAD.
+The problem the rule solves is working from a shared dirty head: a tip of main that nobody has judged, or that a stage has failed, hands its
+defect to everyone who builds on it. The BVT-verified server head has been proven by the BVT, and it is the newest such commit, so consumers
+build on recent work without inheriting what the BVT catches. The same commit is the one `main-UAT` takes next, so the always-on environment
+and the consumers stand on one point rather than two that drift apart. When that commit then fails in `main-UAT`, it becomes the dirty
+HEAD's case: nobody syncs from it any longer, and a fix-forward commit earns the place once the BVT verifies it.
 
-![Upstream consumers sync from the main-UAT occupant, never from HEAD](.assets/sync-point/diagram.drawio.png)
+![Upstream consumers sync from the BVT-verified server head, never from a dirty HEAD](.assets/sync-point/diagram.drawio.png)
 
 ## The dirty HEAD
 
 HEAD answers "what is newest", not "what is good", and the two diverge exactly when the newest commit has failed downstream. A commit that
 died in `main-UAT` is still the tip of main — the dirty HEAD — and a consumer or a downstream stage that follows HEAD blindly would pick up
-a known-bad commit. The model marks the dirty HEAD as unusable for sync and for downstream promotion, and redirects both to the stable
-`main-UAT` occupant, so "someone committed something broken to the tip" degrades gracefully instead of propagating.
+a known-bad commit. The model marks the dirty HEAD as unusable for sync and for downstream promotion, and redirects sync to the BVT-verified
+server head, so "someone committed something broken to the tip" degrades gracefully instead of propagating.
 
 ## Failure stops downstream
 
@@ -244,16 +246,16 @@ the response: a landed head waits for its gate; a dirty head gets a fix-forward 
 
 These commits are the canonical encoding of the model; each number is one commit's whole journey and its ending.
 
-| #   | Journey                                    | Ending                                                                 |
-| --- | ------------------------------------------ | ---------------------------------------------------------------------- |
-| 0   | progressed up the ladder to release-uat    | **discarded** — manually rejected at the RBC gate on release-uat       |
-| 1   | reached production and served there        | **retired** — decommissioned after a successor took over               |
-| 2   | progressed to L3-vertical on main          | **discarded** — auto-rejected in L3-vertical                           |
-| 3   | reached release-uat, valid                 | **superseded** — overtaken by 4's rollover                             |
-| 4   | rolled over 3 and shipped                  | **the production occupant**                                            |
-| 5   | promoted into release-uat                  | **the release-uat occupant** — the release candidate under test        |
-| 6   | promoted onto main-UAT                     | **the main-UAT occupant** — the stable point upstream syncs from       |
-| 7   | entered BVT                                | **discarded** — auto-rejected at BVT                                   |
-| 8   | landed on main, entered BVT                | **in-process** — currently being BVT-verified                          |
-| 9   | topic commit, deployed by a workflow       | **off-main** — out-of-band deployed, not yet integrated to main/master |
-| 10  | latest commit; entered main-UAT and failed | **dirty HEAD** — tip of main, not a source for sync/downstream (use 6) |
+| #   | Journey                                    | Ending                                                                    |
+| --- | ------------------------------------------ | ------------------------------------------------------------------------- |
+| 0   | progressed up the ladder to release-uat    | **discarded** — manually rejected at the RBC gate on release-uat          |
+| 1   | reached production and served there        | **retired** — decommissioned after a successor took over                  |
+| 2   | progressed to L3-vertical on main          | **discarded** — auto-rejected in L3-vertical                              |
+| 3   | reached release-uat, valid                 | **superseded** — overtaken by 4's rollover                                |
+| 4   | rolled over 3 and shipped                  | **the production occupant**                                               |
+| 5   | promoted into release-uat                  | **the release-uat occupant** — the release candidate under test           |
+| 6   | promoted onto main-UAT                     | **the main-UAT occupant** — and the BVT-verified head upstream syncs from |
+| 7   | entered BVT                                | **discarded** — auto-rejected at BVT                                      |
+| 8   | landed on main, entered BVT                | **in-process** — currently being BVT-verified                             |
+| 9   | topic commit, deployed by a workflow       | **off-main** — out-of-band deployed, not yet integrated to main/master    |
+| 10  | latest commit; entered main-UAT and failed | **dirty HEAD** — tip of main, not a source for sync/downstream (use 6)    |

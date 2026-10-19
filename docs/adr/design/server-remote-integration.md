@@ -22,8 +22,8 @@ branch's view of "main" is provisional until it is what the server holds. The se
 **Integrate from the last remote-verified commit, never from the current remote HEAD.** The tip of the server's main (its HEAD) may be a
 **dirty HEAD** — landed but still unverified, or verified-then-failed downstream (ADR-DSGN-LIFE-DIRTYHEADUNSAFE). Any consumer that builds
 on the mainline — a developer starting work, a downstream deployable-unit, an upstream integrator — syncs against the **last commit the
-server proved verified** (the stable point of ADR-DSGN-LIFE-SYNCFROMMAINUAT), not the raw tip. "Latest" and "safe to build on" are different
-questions; this rule answers the second.
+server proved verified** (the stable point of ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD), not the raw tip. "Latest" and "safe to build on" are
+different questions; this rule answers the second.
 
 - [Integrate from verified](#integrate-from-verified)
 
@@ -83,10 +83,10 @@ sanctioned path, is not "on main" in the sense that governs; it is working state
 
 The server's main advances by landing commits, but landing is not the same as being verified. At any moment the tip may be a commit whose
 gates have not run, or one that ran them and failed — a dirty HEAD (ADR-DSGN-LIFE-DIRTYHEADUNSAFE). Reading the tip therefore gives "the
-newest commit," which is precisely not "the newest commit safe to build on." The last commit the server proved verified — the stable point
-ADR-DSGN-LIFE-SYNCFROMMAINUAT names as the always-on environment's occupant — is the one to integrate from. A developer branches from it; a
-downstream unit builds against it; an upstream consumer syncs to it. The rule is uniform across every consumer of the mainline: integrate
-from the last verified commit, never the raw HEAD.
+newest commit," which is precisely not "the newest commit safe to build on." The last commit the server proved verified — the BVT-verified
+server head ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD names, which is also the commit `main-UAT` takes first — is the one to integrate from. A
+developer branches from it; a downstream unit builds against it; an upstream consumer syncs to it. The rule is uniform across every consumer
+of the mainline: integrate from the last verified commit, never the raw HEAD.
 
 ### Why verified is stable
 
@@ -120,7 +120,7 @@ the moment there is more than one author, the PR ingress is what keeps the mainl
   bypass the authenticate-and-merge path (`ADR-DSGN-REMOTE-PULLREQUESTISINGRESS`).
 - **`git_workspace` variant** — `main-via-pr` vs `main-direct` (`ADR-REPO-VARIANT-GITWORKSPACE`) selects the audited-ingress regime;
   `Sync-GeneratedFile`'s branch guard is the local half.
-- **The stable sync point** — `ADR-DSGN-LIFE-SYNCFROMMAINUAT` (integrate from the always-on environment's occupant) and
+- **The stable sync point** — `ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD` (integrate from the BVT-verified server head) and
   `ADR-DSGN-LIFE-DIRTYHEADUNSAFE` (the dirty HEAD) supply the "last verified commit" this ADR tells consumers to integrate from.
 - **Code review** — a build or workflow that pins its integration base to the remote HEAD rather than the last verified commit, or a process
   that reaches the protected branch outside a PR, is rejected against this ADR.
@@ -136,8 +136,8 @@ the moment there is more than one author, the PR ingress is what keeps the mainl
 
 ## Related
 
-- [commit-lifecycle](commit-lifecycle.md) (`ADR-DSGN-LIFE`) — the stable sync point (`ADR-DSGN-LIFE-SYNCFROMMAINUAT`) and the dirty HEAD
-  (`ADR-DSGN-LIFE-DIRTYHEADUNSAFE`) this ADR integrates from.
+- [commit-lifecycle](commit-lifecycle.md) (`ADR-DSGN-LIFE`) — the stable sync point (`ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD`) and the dirty
+  HEAD (`ADR-DSGN-LIFE-DIRTYHEADUNSAFE`) this ADR integrates from.
 - [one-living-version](../principles/one-living-version.md) (`ADR-PRIN-ONELIVE`) — trunk-based development and immutable history.
 - [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) — the audit / change-approval guarantees the server remote and PR ingress make real.
 - [repo-variants](../repository/repo-variants.md) (`ADR-REPO-VARIANT-GITWORKSPACE`) — the `git_workspace` PR-vs-Direct integration mode.

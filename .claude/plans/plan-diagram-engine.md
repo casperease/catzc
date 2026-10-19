@@ -168,11 +168,30 @@ that fails it (a glyph outside the library, an element get cannot name) is the r
   has a yml. 148 of 166 diagrams are converted by hand-written ymls (7 by this session, 141 by seven workers on `out/drawio/pass/BRIEF.md`),
   their describe pages and minimap files deleted and the article links removed; `adronly` joined the coined terms. Checks: kit pytest
   `56 passed`; all 148 put; the gates per slice clean (lint, types, links, spelling).
+- The kit gaps the later batch named (2026-10-19): an edge marker sits halfway along the edge's `via` path, in put and get; the span
+  vocabulary reads its track names from `variants.yml` (the hand list in `drawio.yml` said `pipelines`, the registry says `ado-pipelines`);
+  "declared" and "derived" stay groups, as `two-declared-layers-one-derived` draws them, since a span covers one band's items and those
+  cross bands. No converted diagram had a marker on a routed edge, so none needed a new put.
+- The sync source (the user, 2026-10-19: "the BVT verified server head is both the sync source and the main-uat source (if deployed)"): the
+  rule is renamed ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD and rewritten with its section, `server-remote-integration.md` follows, every citation
+  is re-cited by `Update-AdrCitation`, and the eight `docs/explanation/design` articles are re-pointed; the ladder of
+  `integrators-sync-from-the-bvt-verified-head` reads left to right in promotion order; the two articles whose titles named the occupant and
+  the certified commit are retitled and moved by `Move-Diagram` (`integrators-sync-from-the-bvt-verified-head`,
+  `sync-from-the-bvt-verified-head`). Checks: Test-AdrRegistry, Test-Links, Test-Spelling and Test-Glossary clean.
+- The drift gate `Test-Diagrams` (`Catzc.Base.Slides`): the kit's `declaration.py check` compares the model embedded in each png with put of
+  its yml and names the cells that differ; a differing minimap alone is stale, a fact and not an issue (ADR-REPO-SLIDES-TWODIRECTIONS says
+  so). Its first run found 29 drifted folders (subtitles after the re-cite, count chips after the corner rule, and titles where put escaped
+  an apostrophe, a kit bug fixed: labels escape `<`, `>` and `&` only); all were put again. Checks: kit pytest `64 passed`, Pester
+  `Test-Diagrams.Tests.ps1` 6 passed, the check over all 162 folders 0 drifted.
+- Two handed-over steps closed: the old `pipelines/` label reads `.ado/pipelines/cd-apex.yaml` in
+  `apex-thirteen-rules-seven-includes-six-excludes` and `print-projection-then-drift-names-the-filter`
+  (`globs-projects-and-three-consumers-read` already did), both put; the `what-gates-each-bundle-stage` `{chain,grid,tree}.md` pages that
+  cited `docs/adr/pwsh` were deleted by the conversion, so nothing is left to rewrite. The root-config pages of
+  `docs/explanation/repository` describe the headed copy (the root-config worker's pass); `git grep FILESYSTEMLINK docs/explanation` finds
+  nothing.
 
 ## Open steps
 
-- [ ] Add the drift gate, `Test-Diagrams`, that runs get on every committed png and fails when the result differs from the committed yml
-      (check: the gate passes on a folder whose yml came from get; it fails when one label in the yml is edited and not put).
 - [ ] `Test-Diagrams` detects a conflict: when the yml differs from get of the png in `content:` and the png's XML differs from put of the
       yml, the gate fails and names the diverging cells; `-FromDrawing` and put refuse the pair until the author runs get or put by name
       (check: a fixture with both sides edited fails with the cell names; get or put alone clears it).
@@ -205,16 +224,11 @@ that fails it (a glyph outside the library, an element get cannot name) is the r
       Test-Adr clean; the index lists each new ADR-REPO-SLIDES code; the plan's Decided list names no decision without a rule).
 - [ ] Build the five further minimaps, each with its data function and a test on its data, and the two pools as the kind defaults (check:
       each minimap renders from its function with no hand-drawn cell).
-- [ ] The later batch, 18 diagrams not yet converted: the 13 in `out/drawio/pass/slice-*-later.md` (10-commits-story,
-      four-domains-promote-one-artifact, integrators-depend-on-an-occupant, one-unit-one-pipeline, one-way-climb-three-endings,
-      out-of-band-deploy-is-adr-only, state-changes, units-not-tracks-own-the-pipelines, which-rung-gates-exist-in-code,
-      pipeline-kinds-keyed-by-one-artifact, range-per-context-then-diff-and-match, two-declared-layers-one-derived,
-      three-gates-check-registry-drift-membership) and the five held back (the glyph legend, the three `docs/adr` fix-list diagrams,
-      a-declared-allow-list-of-layers). The kit features they wait on: markers on edges, a commit inside an environment, edge waypoints and
-      edge labels at chosen places, more than one edge per pair, chip and marker placement control, `<` and `>` kept in titles, and
-      rule-level validation of `about.adrs` (a retired rule of a live ADR passes today: two repository ymls cite
-      `ADR-REPO-ROOTCFG-FILESYSTEMLINK`) (check: each put and reviewed; the kit's `STYLE.md` sections on the `.drawio.md` visual description
-      rewritten to the yml).
+- [ ] The last three diagrams without a yml (162 of 166 are converted; the glyph legend stays rendered from `assets/glyphs.xml`):
+      `10-commits-story` and `state-changes` (about 60 cells each; they wait on a time-axis lane with branch and merge curves, vertical gate
+      rules across lanes, lane templates and a free text note) and `commit-lifecycle-states` (rename to `commit-promotion-states` and
+      re-home with the ADR in flow, after the ADR-DSGN-LIFE move below) (check: each put and reviewed; the kit's `STYLE.md` sections on the
+      `.drawio.md` visual description rewritten to the yml).
 - [ ] `Build-Diagrams` stops treating "the one article that embeds the folder" as an input: it finds every article and slide that embeds the
       png, and the supports-drift check holds each one's Supports line against the yml's codes; ADR-REPO-SLIDES-ONEBUILDCOMMAND says so;
       `gallery_pdf.py` prints the yml's `description:` instead of the deleted describe page (check: a second article embedding one of the
@@ -229,17 +243,6 @@ that fails it (a glyph outside the library, an element get cannot name) is the r
       `drawio-diagram-waves` and `print-artifacts` call the new skill).
 - [ ] Fix the four diagrams below once the steps above are done, one diagram at a time (check: each is put from its declaration and reviewed
       by the user; blocked on the renderer steps).
-- [ ] Re-point the four `docs/explanation/repository` pages and their slides that still describe root configs as hard links and cite the
-      retired `ADR-REPO-ROOTCFG-FILESYSTEMLINK`, to the headed copy and `ADR-REPO-ROOTCFG-HEADEDCOPY`, one page and its diagram at a time
-      (handed over from `plan-generated-file-heads`; the retired code's six hits in `one-registry-one-writer-two-primitives`,
-      `opted-in-then-link-copy-or-render` and `three-gates-check-registry-drift-membership` also fail Test-Spelling's real-repo test; check:
-      `git grep FILESYSTEMLINK docs/explanation` finds nothing; `Test-Links`, `Test-Adr` and `Test-Spelling` on the pages pass).
-- [ ] Relabel the old `pipelines/` path in three flow drawings: `apex-thirteen-rules-seven-includes-six-excludes` (element 8),
-      `globs-projects-and-three-consumers-read` (element 8) and `print-projection-then-drift-names-the-filter` (elements 3 and 8) (handed
-      over from `plan-ado-and-cicd-docs`; check: get of each png shows no `pipelines/` label; each is put and reviewed).
-- [ ] Rewrite `docs/adr/pwsh` to `docs/adr/automation/pwsh` in
-      `docs/explanation/automation/.assets/what-gates-each-bundle-stage/{chain,grid,tree}.md` (handed over from `plan-adr-automation-split`;
-      check: `Test-Links` on the three pages passes; the re-render step regenerates them from the same data afterwards).
 - [ ] Move ADR-DSGN-LIFE to `docs/adr/flow` with `Update-AdrCitation` re-citing its codes (check: Test-Adr and Test-Links clean;
       `plan-promotion-ladder` re-points its target).
 - [ ] The IaC explanation diagram of the three kinds, from `plan-iac-and-repo-placement`: article and yml declaration under

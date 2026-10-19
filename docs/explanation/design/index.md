@@ -55,11 +55,11 @@ Deploying a topic commit is not integrating it ([commit-lifecycle](../../adr/des
 Upstream integrators sync from the last certified commit, not from the tip of main
 ([commit-lifecycle](../../adr/design/commit-lifecycle.md)). This diagram has no implementation or operations lens.
 
-| Lens         | Article                                                                                                                |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| meta         | [Sync from the last certified commit, not from the tip of main](sync-from-the-last-certified-commit.md)                |
-| architecture | [Upstream integrators depend on the main-UAT occupant, never on the tip of main](integrators-depend-on-an-occupant.md) |
-| governance   | [Only BVT has a gate in code; the sync-point rules are ADR-only](sync-point-rules-are-adr-only.md)                     |
+| Lens         | Article                                                                                                                            |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| meta         | [Sync from the BVT-verified head, not from the tip of main](sync-from-the-bvt-verified-head.md)                                    |
+| architecture | [Upstream integrators sync from the BVT-verified head, never from the tip of main](integrators-sync-from-the-bvt-verified-head.md) |
+| governance   | [Only BVT has a gate in code; the sync-point rules are ADR-only](sync-point-rules-are-adr-only.md)                                 |
 
 ## Run modes
 

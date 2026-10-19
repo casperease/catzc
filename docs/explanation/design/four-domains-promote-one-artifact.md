@@ -6,12 +6,12 @@ Every pipeline kind after CI promotes the one artifact CI built, and each enviro
 1  topic -> main            the GIT domain: a topic commit, then the commit landed on main
 2  CI engine                builds and verifies the landed commit once; the BVT-verified commit
 3  on-demand env            CD deploys there and runs the L3 tests; its occupant is L3-verified
-4  main-uat                 DEPLOY-Non-Prod, the RC gate on main-AT; its occupant is the sync point
+4  main-uat                 DEPLOY-Non-Prod, the RC gate on main-AT; it takes the BVT-verified sync point first
 5  release-uat              DEPLOY-Non-Prod, the RBC gate on release-AT; the release candidate under test
 6  pre-prod -> production   DEPLOY-Prod: staged inactive, then activated live
 7  tagged artifact          the one build every later domain promotes, never rebuilt
 
-Supports ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMMAINUAT, ADR-DSGN-LIFE-DIRTYHEADUNSAFE and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM (architecture lens).
+Supports ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, ADR-DSGN-LIFE-DIRTYHEADUNSAFE and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM (architecture lens).
 ```
 
 The commit ladder in cats is cut into domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod. Every domain after CI
@@ -29,7 +29,8 @@ occupant. Reading the occupants tells you what lives where right now, and which 
 3. **On-demand env.** CD deploys the artifact to an on-demand environment and runs the L3 system-level end-to-end tests there. The
    environment's occupant is blue while it holds an L3-verified commit.
 4. **main-uat.** DEPLOY-Non-Prod rolls the artifact onto the always-on `main-uat`, where it clears the RC gate on its acceptance testing,
-   `main-AT`. The `main-uat` occupant is the stable sync point: upstream integrators build on it, never on HEAD.
+   `main-AT`. The commit it takes first is the BVT-verified server head, the stable sync point that upstream integrators build on, never on
+   HEAD; once deployed, that commit is the `main-uat` occupant.
 5. **release-uat.** The release branch's environment, `release-uat`, clears the RBC gate on `release-AT`. Its light-green occupant is the
    release candidate under test.
 6. **Pre-prod to production.** DEPLOY-Prod stages the artifact inactive in `pre-prod`, then activates the same bytes live in `production`.
@@ -42,8 +43,8 @@ occupant. Reading the occupants tells you what lives where right now, and which 
 
 - Each always-on environment hosts exactly one commit, its occupant, plus a history of the commits it held before
   (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT).
-- Upstream integrators sync from the `main-uat` occupant, the latest commit certified onto the always-on non-prod environment
-  (ADR-DSGN-LIFE-SYNCFROMMAINUAT).
+- Upstream integrators sync from the BVT-verified server head, the same commit the always-on non-prod environment takes first, so the commit
+  synced from and the commit `main-uat` takes are one (ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD).
 - The tip of main is only the newest commit; when it has failed a downstream stage it is the dirty HEAD, and nobody syncs or promotes from
   it (ADR-DSGN-LIFE-DIRTYHEADUNSAFE).
 - A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).

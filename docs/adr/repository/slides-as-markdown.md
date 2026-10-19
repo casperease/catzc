@@ -93,7 +93,8 @@ Two directions join the declaration and the drawing, and both are deterministic.
 `.drawio.png` and then the raster from that model, so the file stays editable in the draw.io editor. Get reads the embedded model back into
 the yml, so a hand edit in the editor is folded back before anything else reads it. Put then get returns the same yml, get then put the same
 model, and the kit's tests prove both on a fixture. A hand-moved cell comes back as a `layout:` entry; a cell that sits where the grid would
-put it needs none.
+put it needs none. The quality gate `Test-Diagrams` fails every folder whose embedded model differs from put of its yml and names the cells
+that differ; a minimap that differs only because a registry it reads changed is stale, reported and not failed.
 
 - [Two directions, one truth](#two-directions-one-truth)
 

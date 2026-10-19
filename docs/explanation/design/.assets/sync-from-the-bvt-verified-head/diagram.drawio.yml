@@ -1,24 +1,24 @@
 description: >-
-  An upstream integrator takes its commit from the one held by the always-on main-UAT environment, never from the dirty HEAD, the newest
-  commit on main, which failed there.
+  An upstream integrator takes its commit from the BVT-verified server head, which main-UAT also takes first, never from the dirty HEAD, the
+  newest commit on main, which failed there.
 about:
   lens: meta
   adrs:
-    - ADR-DSGN-LIFE-SYNCFROMMAINUAT
+    - ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD
     - ADR-DSGN-LIFE-DIRTYHEADUNSAFE
     - ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
   tracks: [docs]
   files:
     - docs/adr/design/commit-lifecycle.md
 content:
-  title: Sync from the last certified commit, not from the tip of main
+  title: Sync from the BVT-verified head, not from the tip of main
   kind: explanation
   relation: takes its commit from
   bands:
     - { id: band-mainline, label: MAINLINE }
   glyphs:
     - { id: g-integrator, kind: adronly, label: upstream integrator, in: band-mainline }
-    - { id: g-main-uat, kind: env, label: "main-UAT holds commit 6", in: band-mainline }
+    - { id: g-main-uat, kind: env, label: "BVT-verified head: commit 6, also the main-UAT occupant", in: band-mainline }
     - { id: f-dirty-head, kind: failure, label: "dirty HEAD: commit 10", in: band-mainline }
   edges:
     - { from: g-integrator, to: g-main-uat, kind: adr }

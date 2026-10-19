@@ -23,8 +23,8 @@ RootConfig module to the Files module and to the modules that hold the generator
 
 ## Walkthrough
 
-1. **Template files.** A `source` entry names a file kept under `pwsh/`, most of them in `Catzc.Base.RootConfig/assets/root/`. The root
-   path is a copy of it under a generated-file head that names it as the source; the template itself stays the pure authored file.
+1. **Template files.** A `source` entry names a file kept under `pwsh/`, most of them in `Catzc.Base.RootConfig/assets/root/`. The root path
+   is a copy of it under a generated-file head that names it as the source; the template itself stays the pure authored file.
 2. **Generator functions.** A `generator` entry names a function that renders the file: `New-Importer`, `New-GitIgnore`,
    `New-GitAttributes`, `New-CatsCommandLookup`, the five `New-VSCode*` writers, `New-GoWorkspace` and `New-PythonProject`.
    `Invoke-RootConfigGenerator` is the one place a name is bound to its call, so an unknown name fails loudly.
@@ -33,8 +33,8 @@ RootConfig module to the Files module and to the modules that hold the generator
 4. **Build-RootConfig.** The single writer reads the registry, keeps the opted-in entries, and reproduces each target. The importer tail
    runs it on every load, silently; a clean tree is a no-op.
 5. **Write-FileIfChanged.** Every entry hands its composed content, the generated-file head over the template or the generator's output, to
-   the one shared write primitive: canonical output, a line-ending-insensitive compare, and a delete-then-write only on a real change. A
-   target still left as a link from before is deleted first, so no root file is a link.
+   the one shared write primitive: canonical output, a line-ending-insensitive compare, and a delete-then-write only on a real change.
+   Before the write, `Build-RootConfig` deletes a target still left as a link from before, so no root file is a link.
 6. **Gitignored targets.** 22 targets are gitignored, each matched by a `.gitignore` rule that `New-GitIgnore` injects from the registry.
 7. **Tracked targets.** The remaining 6 stay in git because git or the bootstrap reads them before the importer runs: `importer.ps1`,
    `.gitignore`, `.gitattributes` and `pwsh/.internal/assets/importer-commands.sh` from generators, and `importer.sh` and

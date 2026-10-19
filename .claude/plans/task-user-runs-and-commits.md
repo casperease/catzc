@@ -40,10 +40,11 @@ Order: the commits and git operations first, the remote runs next, the final ful
 6. After the `pipelines/` to `.ado/pipelines/` move landed (2026-10-19, done): re-register each pipeline's YAML path in Azure DevOps itself,
    since the definitions point at `pipelines/<name>.yaml` and the files now sit under `.ado/pipelines/` (the YAML's own repo-rooted paths
    followed the move). Check: the next push triggers every pipeline from its new path.
-7. Before the final full run, once the ado and ADR split chunks have landed: regenerate the generated diagram pages over the whole tree,
-   `Build-Diagrams -Path docs/explanation` and `Build-Diagrams -Path docs/adr`, then `Build-Readme`; 154 `.assets` folders still carry
-   `pipelines/…` or ADR-PIPE in their world-map text after the move (a generator over the whole tree is yours, like the full run; this
-   carries the last open half of the deleted plan-ado-and-cicd-docs step 5). Check: `git grep -l 'ADR-PIPE' -- docs` finds nothing.
+7. Before the final full run, once the ado and ADR split chunks have landed: `Build-Readme` over the whole tree; three generated reference
+   pages under `docs/references/pwsh` still carry ADR-PIPE (`catzc-azure-devops/Test-Pipelines.ps1.md`,
+   `catzc-azure-devops/private/Get-PipelineTemplateReference.ps1.md`, `catzc-base-languages/configs/languages.yml.md`). The diagram folders
+   need no regeneration: each is put from its yml, and `Test-Diagrams` finds none drifted (2026-10-19). Check:
+   `git grep -l 'ADR-PIPE' -- docs` finds nothing.
 8. The final full run: done 2026-10-18 (`out/test-automation/20261018-213325`, 0 failed); the run budget proven by the run of 21:47 (155.8
    s). It runs again, in a fresh session, when the chunks above have landed, as the one full-repo proof.
 

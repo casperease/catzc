@@ -3,7 +3,7 @@
 ```text
 One declared allow-list says what may depend on what, and every allowed edge points down to the vendor tool.
 
-1  Top-layer modules   the modules no other layer may depend on, one group
+1  Topmost modules     the modules no other layer may depend on, one group
 2  Vendor root module  the module of one vendor, in the middle layer
 3  Tool managers       the managers of the external tools, one group in the middle layer
 4  Base libraries      the foundation: one group that depends on nothing outside itself
@@ -22,7 +22,7 @@ vendor tool and one failure.
 
 ## Walkthrough
 
-1. **Top-layer modules.** The top of the graph is a group of modules that no other layer may depend on. Its members may use the vendor root
+1. **Topmost modules.** The top of the graph is a group of modules that no other layer may depend on. Its members may use the vendor root
    module, the tool managers and the Base libraries.
 2. **Vendor root module.** The module of one vendor sits in the middle of the graph as a single module. It may use Base.
 3. **Tool managers.** The managers of the external tools form a group in the middle of the graph. It may use Base.
@@ -34,7 +34,7 @@ vendor tool and one failure.
 
 ## A worked example: Azure
 
-In the Azure case the top-layer group is `AzureExt`, the Azure modules below the Azure root. The vendor root module is `Catzc.Azure`, the
+In the Azure case the topmost group is `AzureExt`, the Azure modules below the Azure root. The vendor root module is `Catzc.Azure`, the
 Azure root, a single module. The tool managers are the `Tooling` group, the managers of the non-vendored external tools. The foundation is
 the `Base` group, and the vendor tool at the last hop is the Az CLI, which the Azure modules reach only through Base.
 

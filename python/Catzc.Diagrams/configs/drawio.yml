@@ -29,10 +29,9 @@ minimaps: # the eight minimap ids, and the default three of each kind (declarati
   ids: grid, code-locations, axis, layer-stack, lifecycle-position, track-placement, engine-strip, module-neighbourhood
   explanation_default: grid, axis, layer-stack
   reference_default: grid, code-locations, track-placement
-vocabularies: # the closed lists a span bar's label comes from; a label outside every list fails validation with the lists
+vocabularies: # the closed lists a span bar's label comes from, with the track names read from variants.yml; a label outside every list fails validation with the lists
   stages: CI, CD, DEPLOY
   axis: build, qc, release, deploy, access
   rungs: main-uat, release-uat, pre-prod, prod
   layers: language, engine, importer
-  tracks: pwsh, python, go, bash, infrastructure, pipelines, docs, contracts
   iac: templates, configs, modules

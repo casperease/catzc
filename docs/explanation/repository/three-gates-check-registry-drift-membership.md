@@ -42,8 +42,8 @@ nowhere else.
    wildcard entry (#6, #8). It is a quality gate in the sense of ADR-AUTO-TEST-QUALITYGATE: one report, one throw listing every issue.
 8. **Test-RootConfigFiles.** The integrity check asserts, per opted-in target, that `committed` agrees with `.gitignore` and the index (#3,
    #6), that no target is a link, and that every `source` target equals its template under the generated-file head (#6, #7). The L2
-   integrity test runs it and expects zero issues. A third gate, `Test-RootAnalyzerSettings`, checks that the root analyzer settings file
-   exists and parses.
+   integrity test runs it and expects zero issues. A third quality gate, `Test-RootAnalyzerSettings`, checks that the root analyzer settings
+   file exists and parses.
 
 ## Why it holds
 

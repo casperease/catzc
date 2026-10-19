@@ -6,7 +6,7 @@ about:
   adrs:
     - ADR-DSGN-LIFE-DISCARDISTERMINAL
     - ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT
-    - ADR-DSGN-LIFE-SYNCFROMMAINUAT
+    - ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD
     - ADR-DSGN-LIFE-DIRTYHEADUNSAFE
     - ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
     - ADR-FLOW-CD-CDSTAYSINNONPROD
@@ -52,13 +52,13 @@ content:
     - { at: g-ci-automation, number: 7 }
     - { at: f-dirty-head, number: 8 }
   chips:
-    - { at: g-integrator, kind: rule, rule: ADR-DSGN-LIFE-SYNCFROMMAINUAT, gated: false }
+    - { at: g-integrator, kind: rule, rule: ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
     - { at: g-integrator, kind: rule, rule: ADR-DSGN-LIFE-DIRTYHEADUNSAFE, gated: false }
     - { at: g-production, kind: rule, rule: ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, gated: false }
     - { at: g-pre-prod, kind: rule, rule: ADR-FLOW-CD-PREPRODRUNG, gated: false }
     - { at: g-release-uat, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false }
     - { at: g-main-uat, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false }
-    - { at: g-main-uat, kind: rule, rule: ADR-DSGN-LIFE-SYNCFROMMAINUAT, gated: false }
+    - { at: g-main-uat, kind: rule, rule: ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
     - { at: g-on-demand, kind: rule, rule: ADR-FLOW-CD-CDSTAYSINNONPROD, gated: false }
     - { at: g-ci-automation, kind: rule, rule: ADR-DSGN-LIFE-DISCARDISTERMINAL }
     - { at: f-dirty-head, kind: rule, rule: ADR-DSGN-LIFE-DIRTYHEADUNSAFE, gated: false }

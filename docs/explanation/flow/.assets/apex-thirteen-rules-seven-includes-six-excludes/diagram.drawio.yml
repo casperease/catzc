@@ -35,7 +35,7 @@ content:
     - { id: r-github, kind: result, label: .GitHub, in: band-projection }
     - { id: r-include, kind: result, label: .AdoInclude, in: grp-ado-lists }
     - { id: r-exclude, kind: result, label: .AdoExclude, in: grp-ado-lists }
-    - { id: f-cd-apex, kind: file, label: pipelines/cd-apex.yaml, in: band-checked }
+    - { id: f-cd-apex, kind: file, label: .ado/pipelines/cd-apex.yaml, in: band-checked }
     - { id: g-pipeline-trigger, kind: code, label: Get-PipelineTrigger, in: band-checked }
     - { id: g-test-trigger, kind: gate, label: Test-AdoPipelineTriggerGlob, in: band-checked }
   edges:

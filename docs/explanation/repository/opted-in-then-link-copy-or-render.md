@@ -33,8 +33,8 @@ its output and writes the same head over it. One primitive in `Catzc.Base.Files`
    is touched.
 4. **Get-RootConfigTargets.** The validated entries are filtered to those with `optIn` true, in registry order. An opted-out entry is
    validated for shape but neither written nor treated as owned.
-5. **Build-RootConfig.** Per entry the writer takes the branch that applies: `source`, else `generator`. A `-Target` argument narrows the run
-   to one entry, or to one file of a wildcard entry.
+5. **Build-RootConfig.** Per entry the writer takes the branch that applies: `source`, else `generator`. A `-Target` argument narrows the
+   run to one entry, or to one file of a wildcard entry.
 6. **Get-RootConfigCopyContent.** The copy branch reads the template, normalises it to LF and writes the generated-file head over it, naming
    the template as its source. 13 entries take it.
 7. **Get-RootConfigRenderedFile.** The generator branch calls the entry's generator through `Invoke-RootConfigGenerator` and normalises the
@@ -42,8 +42,8 @@ its output and writes the same head over it. One primitive in `Catzc.Base.Files`
    which may render none. A record outside the pattern, or a literal target with anything but one file, throws naming the entry and the
    generator. Each record gets the same head, naming the generator and its sources. 15 entries take this branch.
 8. **Write-FileIfChanged.** Every file goes to `Write-FileIfChanged`: canonical LF and UTF-8 without BOM, a compare that ignores carriage
-   returns, and a delete-then-write only on a real change. A target that is still a link, left from before the headed copy, is deleted
-   first and counted as changed.
+   returns, and a delete-then-write only on a real change. Before the write, `Build-RootConfig` deletes a target that is still a link, left
+   from before the headed copy, and counts it as changed.
 9. **Headed root file.** The root path holds a real file under the generated-file head that names its template or generator. The writer
    reports `regenerated` or `unchanged`.
 

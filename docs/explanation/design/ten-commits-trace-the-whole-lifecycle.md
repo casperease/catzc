@@ -9,7 +9,7 @@ Ten numbered commits show every stage, gate, environment and ending of the commi
 4  the numbers    one digit per commit, the same in every lane, so a commit can be followed
 5  the endings    discarded, in process, an environment's occupant, or the dirty head
 
-Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, ADR-DSGN-LIFE-DISCARDISTERMINAL, ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMMAINUAT, ADR-DSGN-LIFE-DIRTYHEADUNSAFE, ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM and ADR-DSGN-LIFE-NUMBERISIDENTITY, ADR-DSGN-VISUAL-ONLYGITLANEISTIME and ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER, and ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT.
+Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, ADR-DSGN-LIFE-DISCARDISTERMINAL, ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, ADR-DSGN-LIFE-DIRTYHEADUNSAFE, ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM and ADR-DSGN-LIFE-NUMBERISIDENTITY, ADR-DSGN-VISUAL-ONLYGITLANEISTIME and ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER, and ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT.
 ```
 
 A single commit is hard to follow when the picture is organised by stage. This diagram solves that by tracing ten commits at once. Each
@@ -53,8 +53,9 @@ commit. Read together, the ten numbers show every state a commit can hold and ev
   ([ADR-DSGN-LIFE-DISCARDISTERMINAL](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-discardisterminal)).
 - Each always-on environment has exactly one occupant plus its history
   ([ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-onecommitperenvironment)).
-- Consumers sync from the main-UAT occupant, never from the tip of main
-  ([ADR-DSGN-LIFE-SYNCFROMMAINUAT](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-syncfrommainuat)).
+- Consumers sync from the BVT-verified server head, never from the tip of main; that same commit goes into main-UAT first, so commit 6 is
+  both the sync point and the main-UAT occupant
+  ([ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-syncfromverifiedhead)).
 - The tip of main can be a dirty head that is unsafe to sync or promote from
   ([ADR-DSGN-LIFE-DIRTYHEADUNSAFE](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-dirtyheadunsafe)).
 - A commit that fails a stage cannot go downstream

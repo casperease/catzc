@@ -334,3 +334,45 @@ def test_an_edge_routes_through_its_waypoints_and_a_repeat_edge_keeps_its_own_pa
     assert '<mxPoint x="400" y="520" />' in model and 'id="e-widget-a-gadget-store~2"' in model
     back = declaration.get(model, kind="explanation")
     assert [e.get("via") for e in back["content"]["edges"] if e["kind"] == "adr" and e["from"] == "widget-a"] == [[[400, 520], [900, 520]]]
+
+
+def test_a_marker_on_a_routed_edge_sits_halfway_along_its_waypoints_and_comes_back():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["edges"][1]["via"] = [[1200, 900]]
+    raw["content"]["markers"] = [{"at": "gadget-store->gadget-gate", "number": 1}]
+    first = declaration.normalise(raw)
+    cells = {c["id"]: c for c in declaration.place(first)[0]}
+    s, g = cells["gadget-store"], cells["gadget-gate"]
+    straight = round((s["x"] + s["w"] / 2 + g["x"] + g["w"] / 2) / 2 - 11), round((s["y"] + s["h"] / 2 + g["y"] + g["h"] / 2) / 2 - 11)
+    assert (cells["mark-1"]["x"], cells["mark-1"]["y"]) != straight
+    back = declaration.get(declaration.put(first), kind="explanation")
+    assert back["content"]["markers"] == first["content"]["markers"]
+
+
+def test_a_span_may_name_a_track_of_the_registry_and_nothing_else():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["spans"][0]["label"] = "ado-pipelines"
+    assert declaration.normalise(raw)["content"]["spans"][0]["label"] == "ado-pipelines"
+    raw["content"]["spans"][0]["label"] = "pipelines"
+    with pytest.raises(declaration.DeclarationError, match="ado-pipelines"):
+        declaration.normalise(raw)
+
+
+def test_drift_is_empty_after_put_and_names_the_cell_a_yml_edit_left_unput(tmp_path):
+    source = __import__("yaml").safe_load(WIDGETS)
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    declaration.put_png(tmp_path, declaration.load(tmp_path))
+    assert declaration.drift(tmp_path) == ([], [])
+    source["content"]["glyphs"][2]["label"] = "Gadget vault"
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    cells, stale = declaration.drift(tmp_path)
+    assert "gadget-store" in cells and stale == []
+
+
+def test_labels_keep_quotes_unescaped_in_the_drawing():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["title"] = "The caller's value wins"
+    first = declaration.normalise(raw)
+    model = declaration.put(first)
+    assert "&amp;#x27;" not in model
+    assert declaration.get(model, kind="explanation")["content"]["title"] == "The caller's value wins"

@@ -25,7 +25,7 @@ content:
     - { id: band-vendor, label: LAST HOP }
     - { id: band-invariant, label: INVARIANT }
   glyphs:
-    - { id: g-top, kind: set, label: Top-layer modules, in: band-top }
+    - { id: g-top, kind: set, label: Topmost modules, in: band-top }
     - { id: g-root, kind: code, label: Vendor root module, in: band-middle }
     - { id: g-tools, kind: set, label: Tool managers, in: band-middle }
     - { id: g-base, kind: set, label: Base libraries, in: band-foundation }

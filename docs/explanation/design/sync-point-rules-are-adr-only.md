@@ -3,27 +3,28 @@
 ```text
 Only the BVT rung has a gate in code; every sync-point rule is ADR-only.
 
-1  upstream integrator  syncs from the main-UAT occupant, never from the dirty HEAD; no check
+1  upstream integrator  syncs from the BVT-verified head, never from the dirty HEAD; no check
 2  production           holds one occupant, commit 4, plus a history; not recorded
 3  pre-prod             the staged rung between release-uat and production
 4  release-uat          holds commit 5; moves on through RBC, a manual gate no code runs
-5  main-UAT             holds commit 6, the sync point; moves on through RC, a manual gate no code runs
+5  main-UAT             holds commit 6, the sync point it took first; moves on through RC, a manual gate no code runs
 6  on-demand (L3)       where CD runs the L3 tests; no pipeline defines it
 7  ci-automation        the one gate code enforces: BVT, which rejects a failing commit
 8  dirty HEAD           commit 10, failed in main-UAT; nothing syncs from it
 
-Supports ADR-DSGN-LIFE-DISCARDISTERMINAL, ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMMAINUAT, ADR-DSGN-LIFE-DIRTYHEADUNSAFE and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-PREPRODRUNG (governance lens).
+Supports ADR-DSGN-LIFE-DISCARDISTERMINAL, ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, ADR-DSGN-LIFE-DIRTYHEADUNSAFE and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-PREPRODRUNG (governance lens).
 ```
 
-The sync point is the commit `main-UAT` holds: upstream integrators take it, never the tip of main. Of the rules that govern the rungs of
-the promotion ladder around it, only one has a gate in cats: the BVT rung, checked by the `ci-automation` pipeline. Every rule about
-occupants, the sync point and the dirty HEAD is ADR-only, so "sync from `main-UAT`" is a convention that no code checks.
+The sync point is the BVT-verified server head: upstream integrators take it, never the tip of main. The same commit goes into `main-UAT`
+first, so when it is deployed it is the `main-UAT` occupant. Of the rules that govern the rungs of the promotion ladder around it, only one
+has a gate in cats: the BVT rung, checked by the `ci-automation` pipeline. Every rule about occupants, the sync point and the dirty HEAD is
+ADR-only, so "sync from the BVT-verified head" is a convention that no code checks.
 
 ![Only BVT has a gate in code; the sync-point rules are ADR-only](.assets/sync-point-rules-are-adr-only/diagram.drawio.png)
 
 ## Walkthrough
 
-1. **Upstream integrator.** Takes its commit from the `main-UAT` occupant (ADR-DSGN-LIFE-SYNCFROMMAINUAT) and never from the dirty HEAD
+1. **Upstream integrator.** Takes its commit from the BVT-verified head (ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD) and never from the dirty HEAD
    (ADR-DSGN-LIFE-DIRTYHEADUNSAFE). Nothing in code checks either.
 2. **Production.** Holds one occupant, commit 4, plus a history (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT). No pipeline records which commit
    that is.
@@ -31,8 +32,9 @@ occupants, the sync point and the dirty HEAD is ADR-only, so "sync from `main-UA
    worked-example number.
 4. **Release-uat.** Holds commit 5. Its commit moves on through RBC, the manual gate on release-AT (ADR-FLOW-CD-TWORELEASEGATES). No code
    runs RBC.
-5. **main-UAT.** Holds commit 6, the stable sync point (ADR-DSGN-LIFE-SYNCFROMMAINUAT). Its commit moves on through RC, the manual gate on
-   main-AT (ADR-FLOW-CD-TWORELEASEGATES). No code runs RC.
+5. **main-UAT.** Holds commit 6, the BVT-verified head it took first, so the sync point and the occupant are one commit
+   (ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD). Its commit moves on through RC, the manual gate on main-AT (ADR-FLOW-CD-TWORELEASEGATES). No code
+   runs RC.
 6. **On-demand (L3).** The on-demand environment where CD runs the L3 system-level end-to-end tests before it rolls the artifact onto the
    always-on environment (ADR-FLOW-CD-CDSTAYSINNONPROD). No pipeline defines it.
 7. **ci-automation.** The one gate on the ladder that code enforces: BVT. It runs on every push to main and on pull requests to main that
@@ -48,8 +50,8 @@ occupants, the sync point and the dirty HEAD is ADR-only, so "sync from `main-UA
 - Each always-on environment hosts exactly one occupant plus a history (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT). The glossary defines
   "occupant" as `prose-only`, so `Test-Glossary` checks only its phrasing ("current occupant", "resident commit") and exempts it from the
   enforcement check.
-- Integrators sync from the `main-UAT` occupant, never from HEAD (ADR-DSGN-LIFE-SYNCFROMMAINUAT, ADR-DSGN-LIFE-DIRTYHEADUNSAFE), and a
-  failed commit goes nowhere downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
+- Integrators sync from the BVT-verified head, which `main-UAT` takes first, never from HEAD (ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD,
+  ADR-DSGN-LIFE-DIRTYHEADUNSAFE), and a failed commit goes nowhere downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
 - RC and RBC are manual gates at `main-UAT` and release-uat (ADR-FLOW-CD-TWORELEASEGATES); the tail runs through pre-prod
   (ADR-FLOW-CD-PREPRODRUNG); L3 runs in an on-demand environment (ADR-FLOW-CD-CDSTAYSINNONPROD).
 
@@ -65,6 +67,6 @@ on-demand L3 environment. The ADRs also spell the environment `main-UAT` in the 
 
 - [The commit lifecycle](../../adr/design/commit-lifecycle.md) — the decision this article explains.
 - [CD discipline and promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — RC, RBC, L3 and the pre-prod rung.
-- The other lenses on the same sync point: [meta](sync-from-the-last-certified-commit.md) and
-  [architecture](integrators-depend-on-an-occupant.md).
+- The other lenses on the same sync point: [meta](sync-from-the-bvt-verified-head.md) and
+  [architecture](integrators-sync-from-the-bvt-verified-head.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

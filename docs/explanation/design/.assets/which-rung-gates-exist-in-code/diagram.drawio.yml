@@ -9,7 +9,7 @@ about:
     - ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD
     - ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN
     - ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT
-    - ADR-DSGN-LIFE-SYNCFROMMAINUAT
+    - ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD
     - ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
     - ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND
     - ADR-FLOW-CD-INNERANDOUTERLOOP
@@ -80,7 +80,7 @@ content:
     - { at: c-landed, kind: rule, rule: ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND, gated: false, corner: bottom-right }
     - { at: g-bvt, kind: rule, rule: ADR-AUTO-TEST-BUILDVERIFICATIONTEST, corner: bottom-right }
     - { at: a-l3-at, kind: rule, rule: ADR-FLOW-CD-CDSTAYSINNONPROD, gated: false, corner: bottom-right }
-    - { at: c-main-uat, kind: rule, rule: ADR-DSGN-LIFE-SYNCFROMMAINUAT, gated: false }
+    - { at: c-main-uat, kind: rule, rule: ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
     - { at: a-rc, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false, corner: bottom-right }
     - { at: a-rbc, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false, corner: bottom-right }
     - { at: a-rbc, kind: rule, rule: ADR-DSGN-LIFE-DISCARDISTERMINAL, gated: false, corner: bottom-left }

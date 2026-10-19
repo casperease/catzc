@@ -12,7 +12,7 @@ Three rung checks run in code: PR build validation, the BVT and the failure stop
 7  two-slot activation       stage inactive in pre-prod, then activate live; an actuation, ADR-only
 8  failure stops downstream  each Deploy_* stage runs only when the stage before it succeeded
 
-Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, ADR-DSGN-LIFE-DISCARDISTERMINAL, ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD, ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN, ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMMAINUAT, ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM and ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND (governance lens).
+Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, ADR-DSGN-LIFE-DISCARDISTERMINAL, ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD, ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN, ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM and ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND (governance lens).
 ```
 
 Every rung of the commit ladder has an ADR rule and a gate that decides whether a commit climbs it. Lined up in ladder order, with the
@@ -34,7 +34,8 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
    `Test-Automation -Suite infrastructure`.
 4. **L3-vertical-AT.** The automated acceptance testing in an on-demand environment discards automatically when it fails. No pipeline runs
    it.
-5. **RC on main-AT.** The manual gate at `main-uat` certifies its occupant, the stable point upstream integrators sync from.
+5. **RC on main-AT.** The manual gate at `main-uat` certifies its occupant, the commit that was the BVT-verified head when it went in, which
+   is the stable point upstream integrators sync from.
 6. **RBC on release-AT.** The manual gate at `release-uat` discards a commit by hand when it rejects it.
 7. **Two-slot activation.** DEPLOY-Prod stages the artifact inactive in `pre-prod`, then activates it live. It is an actuation, not a gate,
    and the production occupant it replaces retires rather than being discarded.
@@ -49,7 +50,8 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
 - Retirement is a successful end of life, never a discard (ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD).
 - Supersession abandons a still-valid commit without rejecting it, so no gate decides it (ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
 - Each always-on environment holds one occupant, and no gate checks it (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT).
-- The `main-uat` occupant is the stable integration point (ADR-DSGN-LIFE-SYNCFROMMAINUAT).
+- The BVT-verified server head is the stable integration point, and the same commit goes into `main-uat` first
+  (ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD).
 - A commit that fails a stage cannot go downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
 - An out-of-band deploy of a topic commit is not an integration (ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND).
 - PR build validation is the inner CI gate (ADR-FLOW-CD-INNERANDOUTERLOOP); L3 runs in CD (ADR-FLOW-CD-CDSTAYSINNONPROD); RC and RBC are the

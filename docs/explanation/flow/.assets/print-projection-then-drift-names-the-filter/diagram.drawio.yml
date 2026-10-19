@@ -25,7 +25,7 @@ content:
   glyphs:
     - { id: f-globs-yml, kind: file, label: globs.yml, in: band-compose }
     - { id: c-trigger, kind: code, label: Get-GlobSetTrigger, in: band-projection }
-    - { id: f-cd-apex, kind: file, label: pipelines/cd-apex.yaml, in: band-projection }
+    - { id: f-cd-apex, kind: file, label: .ado/pipelines/cd-apex.yaml, in: band-projection }
     - { id: g-coverage, kind: gate, label: Test-GlobSetTriggerCoverage, in: band-checked }
     - { id: x-no-include, kind: failure, label: matches no ADO include, in: band-checked }
     - { id: g-trigger-glob, kind: gate, label: Test-AdoPipelineTriggerGlob, in: band-checked }

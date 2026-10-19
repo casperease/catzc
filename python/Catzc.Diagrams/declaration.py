@@ -22,6 +22,9 @@ fails validation with the list the author may choose from, so the errors teach t
 """
 
 import html
+import itertools
+import json
+import math
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -62,6 +65,18 @@ def marker_xy(box, corner):
     x = box["x"] - 10 if corner.endswith("left") else box["x"] + box["w"] - 12
     y = box["y"] - 11 if corner.startswith("top") else box["y"] + box["h"] - 11
     return x, y
+
+
+def edge_middle(a, b, via):
+    """The point halfway along an edge's path, from box a's centre through its waypoints to box b's centre."""
+    points = [(a["x"] + a["w"] / 2, a["y"] + a["h"] / 2), *map(tuple, via), (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2)]
+    legs = [((p, q), math.dist(p, q)) for p, q in itertools.pairwise(points)]
+    left = sum(length for _, length in legs) / 2
+    for (p, q), length in legs:
+        if left <= length and length:
+            return p[0] + (q[0] - p[0]) * left / length, p[1] + (q[1] - p[1]) * left / length
+        left -= length
+    return points[-1]
 
 
 def auto_corner(box, sources):
@@ -131,13 +146,16 @@ EDGE_KINDS = tuple(LIB["edges"])
 
 
 def span_vocabulary():
-    """Every span label the kit allows, flattened from the vocabularies block of drawio.yml, with the list each came from."""
+    """Every span label the kit allows, flattened from the vocabularies block of drawio.yml and the tracks of variants.yml, with the list
+    each came from."""
     words = {}
     for name, entries in DEFAULTS["vocabularies"].items():
         for word in str(entries).split(","):
             word = word.strip()
             if word:
                 words.setdefault(word, name)
+    for track in minimaps.tracks():
+        words.setdefault(track, "tracks")
     return words
 
 
@@ -439,7 +457,7 @@ def place(declaration):
     chip_w = 16 + 8 * len(content["lens"])
     cells.append(cell("lens-badge", content["lens"].upper(), BADGE, PAGE["x"], PAGE["title_y"] + 4, chip_w, 22))
     title_x = PAGE["x"] + chip_w + 12
-    cells.append(cell("title", html.escape(content["title"]), TITLE, title_x, PAGE["title_y"], PAGE["width"] - (title_x - PAGE["x"]), 30))
+    cells.append(cell("title", html.escape(content["title"], quote=False), TITLE, title_x, PAGE["title_y"], PAGE["width"] - (title_x - PAGE["x"]), 30))
     subtitle = " · ".join(content["adrs"])
     lines = max(1, -(-len(subtitle) * 7 // (PAGE["width"] - 20)))  # about 7 px a character at 12 px
     drop = (lines - 1) * 16  # the grid starts the bands this much lower under a wrapped subtitle
@@ -469,7 +487,7 @@ def place(declaration):
         content_bottom = max([bb["y"] + bb["h"] for bb in band_box.values()] + [top])
     for b in bands:
         bb = band_box[b["id"]]
-        cells.append(cell(b["id"], html.escape(b["label"]), BAND, bb["x"], bb["y"], bb["w"], bb["h"]))
+        cells.append(cell(b["id"], html.escape(b["label"], quote=False), BAND, bb["x"], bb["y"], bb["w"], bb["h"]))
     # The groups and glyphs inside their holders, by the grid unless the layout places them.
     box_of = dict(band_box)
 
@@ -486,7 +504,7 @@ def place(declaration):
                 style = glyph_lib[item["kind"]]["style"]
                 if item["kind"] == "commit":
                     style = commit_style(style, item.get("state", COMMIT_STATES[0]), item.get("ghost", False))
-                cells.append(cell(item["id"], f"<b>{html.escape(item['label'])}</b>", style, box["x"], box["y"], box["w"], box["h"], parent))
+                cells.append(cell(item["id"], f"<b>{html.escape(item['label'], quote=False)}</b>", style, box["x"], box["y"], box["w"], box["h"], parent))
                 if item["kind"] == "type":
                     tag = glyph_lib["type"]["tag"]
                     cells.append(cell(f"{item['id']}-tag", "C#", tag["style"], box["x"] + box["w"] - tag["size"][0] - 8, box["y"] - 8, tag["size"][0], tag["size"][1], parent))
@@ -496,9 +514,9 @@ def place(declaration):
                     inner = layout.get(occupant["id"]) or {"x": box["x"] + box["w"] - 30 - d - n * (d + 6), "y": box["y"] + (box["h"] - d) // 2, "w": d, "h": d}
                     box_of[occupant["id"]] = inner
                     occupant_style = commit_style(glyph_lib["commit"]["style"], occupant.get("state", COMMIT_STATES[0]), occupant.get("ghost", False))
-                    cells.append(cell(occupant["id"], f"<b>{html.escape(occupant['label'])}</b>", occupant_style, inner["x"], inner["y"], inner["w"], inner["h"], item["id"]))
+                    cells.append(cell(occupant["id"], f"<b>{html.escape(occupant['label'], quote=False)}</b>", occupant_style, inner["x"], inner["y"], inner["w"], inner["h"], item["id"]))
             else:
-                cells.append(cell(item["id"], html.escape(item["label"]), LIB["module"], box["x"], box["y"], box["w"], box["h"], parent))
+                cells.append(cell(item["id"], html.escape(item["label"], quote=False), LIB["module"], box["x"], box["y"], box["w"], box["h"], parent))
                 fill(item["id"], box["x"] + PAD, box["y"] + LABEL_ROW, box["w"] - 2 * PAD, item["id"])
             x += w + COL_GAP
             row_h = max(row_h, h)
@@ -524,7 +542,7 @@ def place(declaration):
         if vertical:
             y0, y1 = min(b["y"] for b in boxes), max(b["y"] + b["h"] for b in boxes)
             bar = cell(s["id"], "", "shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;shadow=0;rotation=90;", PAGE["x"] + 12, y0, 14, y1 - y0)
-            label = cell(f"{s['id']}-label", html.escape(s["label"]), SPAN_LABEL, PAGE["x"] - 4, (y0 + y1) // 2 - 8, 30, 16)
+            label = cell(f"{s['id']}-label", html.escape(s["label"], quote=False), SPAN_LABEL, PAGE["x"] - 4, (y0 + y1) // 2 - 8, 30, 16)
         else:
             # A span sits just above the band of what it covers, so it moves down with the bands under a wrapped subtitle; a span over
             # what an earlier span already covers stacks one level higher (CD over CI).
@@ -532,7 +550,7 @@ def place(declaration):
             span_levels.append((x0, x1))
             y = min(band_box[band_of(i)]["y"] for i in s["over"]) - 24 - level * 32
             bar = cell(s["id"], "", "shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;shadow=0;", x0, y, x1 - x0, 14)
-            label = cell(f"{s['id']}-label", html.escape(s["label"]), SPAN_LABEL, (x0 + x1) // 2 - 15, y - 18, 30, 16)
+            label = cell(f"{s['id']}-label", html.escape(s["label"], quote=False), SPAN_LABEL, (x0 + x1) // 2 - 15, y - 18, 30, 16)
         cells.extend([bar, label])
     # Room for the spans: when the topmost span label would reach into the title and subtitle, the whole drawing area moves down by
     # the shortfall; the title, the subtitle and the lens chip stay where they are.
@@ -552,16 +570,16 @@ def place(declaration):
             style = style.replace("shadow=0;", "fontColor=#CDD3DC;fontStyle=1;fontSize=11;labelBackgroundColor=#262E3B;shadow=0;")
         eid = f"e-{e['from']}-{e['to']}"
         n = sum(1 for c in cells if c["id"] == eid or c["id"].startswith(eid + "~"))  # a repeat edge between the same pair: e-…~2
-        edge = edge_cell(eid if not n else f"{eid}~{n + 1}", f"<b>{html.escape(e['label'])}</b>" if e["label"] else "", style, e["from"], e["to"])
+        edge = edge_cell(eid if not n else f"{eid}~{n + 1}", f"<b>{html.escape(e['label'], quote=False)}</b>" if e["label"] else "", style, e["from"], e["to"])
         edge["via"] = [[x, y + delta] for x, y in e.get("via", [])]  # waypoints move with the drawing area
         cells.append(edge)
     size = LIB["marks"]["marker"]["size"]
     for m in content["markers"]:
-        if m["at"] not in box_of:  # an edge `from->to`: the marker sits on the middle between its two ends
-            a, b = (box_of[end] for end in m["at"].split("->"))
-            mx = (a["x"] + a["w"] / 2 + b["x"] + b["w"] / 2) / 2 - 11
-            my = (a["y"] + a["h"] / 2 + b["y"] + b["h"] / 2) / 2 - 11
-            cells.append(cell(f"mark-{m['number']}", str(m["number"]), LIB["marks"]["marker"]["style"], round(mx), round(my), size[0], size[1]))
+        if m["at"] not in box_of:  # an edge `from->to`: the marker sits halfway along its path, through its waypoints
+            s, t = m["at"].split("->")
+            via = next(([[x, y + delta] for x, y in e.get("via", [])] for e in content["edges"] if (e["from"], e["to"]) == (s, t)), [])
+            mx, my = edge_middle(box_of[s], box_of[t], via)
+            cells.append(cell(f"mark-{m['number']}", str(m["number"]), LIB["marks"]["marker"]["style"], round(mx - 11), round(my - 11), size[0], size[1]))
             continue
         box = box_of[m["at"]]
         kind = next((g["kind"] for g in content["glyphs"] if g["id"] == m["at"]), "")
@@ -895,7 +913,12 @@ def get(model, kind=None):
     edge_ends = [(c.get("source"), c.get("target")) for cid, c in cells.items() if c.get("edge") == "1" and not cid.startswith("lg-")]
     places = [(g, name, point) for g in glyph_ids + groups + bands for name, point in anchors(g)]
     centre_of = lambda i: (geo[i]["x"] + geo[i]["w"] / 2, geo[i]["y"] + geo[i]["h"] / 2)
-    places += [(f"{s}->{t}", "edge", ((centre_of(s)[0] + centre_of(t)[0]) / 2, (centre_of(s)[1] + centre_of(t)[1]) / 2)) for s, t in edge_ends if s in geo and t in geo]
+    def via_of(c):
+        points = c.find("mxGeometry/Array")
+        return [[float(p.get("x", 0)), float(p.get("y", 0))] for p in points.findall("mxPoint")] if points is not None else []
+
+    edge_paths = [(c.get("source"), c.get("target"), via_of(c)) for cid, c in cells.items() if c.get("edge") == "1" and not cid.startswith("lg-")]
+    places += [(f"{s}->{t}", "edge", edge_middle(geo[s], geo[t], via)) for s, t, via in edge_paths if s in geo and t in geo]
     for m in sorted(markers, key=lambda m: int(plain(cells[m].get("value")))):
         centre = centre_of(m)
         at, name, _ = min(places, key=lambda p: abs(p[2][0] - centre[0]) + abs(p[2][1] - centre[1]))
@@ -943,8 +966,29 @@ def get(model, kind=None):
     return declaration
 
 
+def drift(folder):
+    """How a folder's png differs from put of its yml: the drawn cells that differ, and apart from them the minimaps, which change
+    when a registry they read changes and so are stale rather than drifted. Both empty when the png is what put would write."""
+    committed, fresh = model_of(folder), put(load(folder)).strip()
+    if committed == fresh:
+        return [], []
+    ids = lambda model: {str(c.get("id")): ET.tostring(c, encoding="unicode") for c in ET.fromstring(model).iter("mxCell")}
+    old, new = ids(committed), ids(fresh)
+    changed = sorted(i for i in old.keys() | new.keys() if old.get(i) != new.get(i))
+    stale = [i for i in changed if i.startswith("minimap-")]
+    return [i for i in changed if i not in stale], stale
+
+
 def main():
     args = sys.argv[1:]
+    if len(args) >= 2 and args[0] == "check":  # one JSON line per folder: the drifted cells, the stale minimaps, or the error
+        for folder in args[1:]:
+            try:
+                cells, stale = drift(folder)
+                print(json.dumps({"folder": folder, "drift": cells, "stale": stale}))
+            except (DeclarationError, OSError, ValueError) as error:
+                print(json.dumps({"folder": folder, "error": str(error)}))
+        return
     if len(args) < 2 or args[0] not in ("put", "get"):
         raise SystemExit(__doc__)
     direction, folder = args[0], Path(args[1])
