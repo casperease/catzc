@@ -446,7 +446,7 @@ drift, and a rung that moves to another environment becomes a search through eve
 Each rung carries the gate that guards its entry (none for main-uat, which CD deploys on merge; RC for release-uat; RBC for pre-prod; the
 prod approval gate for prod) and the configuration environment it deploys, and everything else derives from it: the approval apply builds
 `<unit>-<rung>` for the rungs behind RC and RBC. The prod tier is the exception on purpose. Its environments are named by the deploy target,
-a subscription or a prod slot, not by the rung, so `environment-approvals.yml` lists them.
+a subscription or a configuration slot, not by the rung, so `environment-approvals.yml` lists them.
 
 ## How this is enforced
 

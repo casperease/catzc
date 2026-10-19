@@ -34,10 +34,6 @@ public sealed class ImportMix
         skipped_modules = Copy(skippedModules);
     }
 
-    // Each axis is the caller's value when given, else the configuration's, where auto resolves from the session's facts:
-    // presentEngines are the engines whose executable is located, moduleLanguages maps each module to its code languages, and
-    // knownLanguages, executableLanguages and handledLanguages are the language names of the languages configuration, in its order. A
-    // module is in the mix when every code language of it is; an explicit language without a handler stops the resolution.
     public static ImportMix Resolve(ImporterConfig config, string[] callerLanguages, string[] callerEngines, string[] presentEngines,
         IDictionary moduleLanguages, string[] knownLanguages, string[] executableLanguages, string[] handledLanguages)
     {

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5ba23b71eaa9"
+    with_body_sha: f2ecf09f3159
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -1210,7 +1210,7 @@ A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its 
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `ADR domain`, `thesis domain`, `principles domain`, `process domain`, `design domain`, `flow domain`, `automation domain`,
-  `pwsh domain`, `configuration domain`, `pipelines domain`, `github domain`, `azure domain`, `repository domain`, `research domain`,
+  `pwsh domain`, `configuration domain`, `ado domain`, `github domain`, `azure domain`, `repository domain`, `research domain`,
   `axioms domain`, `architecture domain`, `implementation domain`, `optimisable domain`, `owning domain`, and the bare `domain`
 - **Contrasts:**
   - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; an ADR domain groups

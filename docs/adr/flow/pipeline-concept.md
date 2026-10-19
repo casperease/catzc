@@ -50,8 +50,8 @@ The flow domain already decides most of what a pipeline is:
   ([ADR-FLOW-CD-GATEDEFINED](cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-gatedefined)).
 
 This ADR holds the remaining rules that hold for any vendor: how a pipeline file is named, what its extension says, how its YAML reads, and
-how long a credential lives inside it. The vendor domains bind them: [ado](../ado/pipeline-naming-and-placement.md) for the azure devops
-pipelines and [github](../github/github-release.md) for the GitHub workflows.
+how long a credential lives inside it. The [ado domain](../ado/pipeline-naming-and-placement.md) binds them for the azure devops pipelines
+and the [github domain](../github/github-release.md) for the GitHub workflows.
 
 ## Decision
 

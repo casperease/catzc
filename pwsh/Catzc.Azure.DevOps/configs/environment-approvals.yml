@@ -9,7 +9,7 @@ units:
   - apex
   - nova
   - flux
-# The prod tier is named by its deploy target (the subscription or the prod slot), not by a rung, so it is listed here.
+# The prod tier is named by its deploy target (the subscription or the configuration slot), not by a rung, so it is listed here.
 prod_environments:
   - shared-psub
   - apex-psub

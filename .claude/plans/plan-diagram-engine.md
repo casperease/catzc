@@ -5,11 +5,9 @@ plan:
   reviewed: 2026-10-19
   targets:
     [
-      .claude/drawio,
-      .claude/slides,
-      .claude/drawio/minimaps,
-      python,
+      python/Catzc.Diagrams,
       pwsh/Catzc.Base.Maps,
+      pwsh/Catzc.Base.Slides,
       docs/adr/design/commit-lifecycle.md,
       docs/adr/repository/slides-as-markdown.md,
       .claude/agents,

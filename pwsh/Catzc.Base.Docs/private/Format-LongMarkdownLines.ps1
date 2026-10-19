@@ -8,8 +8,6 @@ function Format-LongMarkdownLines {
         [int] $Width = 140
     )
 
-    # A block is a paragraph, a list item or a quote; only a block with a line past the width is re-wrapped, so a copy whose lines
-    # already fit stays byte for byte what its source had. Fences, tables, headings, rules and HTML lines are never touched.
     $skip = '^\s*(\||#|---|\*\*\*|<|```|~~~)'
     $marker = '^\s*(?:[-*+]|\d+\.)\s+'
 

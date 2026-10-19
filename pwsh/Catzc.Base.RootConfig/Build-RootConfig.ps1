@@ -118,9 +118,9 @@ function Build-RootConfig {
             }
 
             [pscustomobject]@{
-                Target     = $file.Target
-                Source     = $entry.source
-                Generator  = $entry.generator
+                Target    = $file.Target
+                Source    = $entry.source
+                Generator = $entry.generator
                 Committed = [bool] $entry.committed
                 Path      = $targetPath
                 Changed   = [bool] $changed

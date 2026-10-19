@@ -1,6 +1,8 @@
 patterns:
   - glob: pwsh/*
     source: docs/references/pwsh/{kebab}.md
+  - glob: python/*
+    source: docs/references/python/{kebab}.md
 mappings:
   - folder: docs/adr
     source: docs/adr/index.md

@@ -28,7 +28,8 @@ Order: the commits and git operations first, the remote runs next, the final ful
    task-explanation-drift-gaps steps 1 and 2 ticked.
 3. After task-layers-classification-flip step 1 (P6) lands: re-point the Azure DevOps pipeline definitions, the GitHub required checks and
    any bookmarks from `ci-automation` to `ci-pwsh` the same day. Check: the triggers fire on the next push.
-4. `git add pwsh/Catzc.Base.Flow` (the new rungs registry module, 2026-10-19, with its generated README and manifest), then run
+4. `git add pwsh/Catzc.Base.Flow docs/references/pwsh/catzc-base-flow docs/references/pwsh/catzc-base-modulesystem` (the new rungs registry
+   module with its generated README and manifest, and the new comment pages of the import mix and the rungs, 2026-10-19), then run
    `out/delete-done-plans.ps1` for the done plans (plan-importer-mix.md among them) and `out/run-user-git.ps1` set 7 (the `git rm` of
    `Set-FileLink` with its test and comment pages). Check: `git status --short` shows no `??` under `pwsh/Catzc.Base.Flow` and no
    `plan-importer-mix.md` in the plans folder.
