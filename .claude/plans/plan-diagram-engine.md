@@ -130,10 +130,12 @@ pictures unchecked.
       `Catzc.Base.QualityGates`, called only by `Invoke-FileMetaEngine.ps1:137`, and returns `Immutable` and `Edges` from the
       `file-meta.yml` kinds), returning the facts the imprint would write without writing a head (check: its output equals the imprint's for
       ten sample files; stripping every head changes no output, ADR-REPO-FILEMETA-NOREADBACK).
-- [ ] Define the minimap data contract once: one JSON shape for a minimap (axes, cells, lit cells each with its reason), validated by a C#
-      type in `pwsh/Catzc.Base.Maps/types/`, cut from the `WorldMap.ToJson()` shape (`WorldMap.cs:114`: tracks, file_languages, cells of
-      track by file_language, files with citations) and `WorldMapHighlight.ToJson()` (`WorldMapHighlight.cs:126`: kind, requested, lit cells
-      with sources) (check: the grid, code locations and axis serialize to it; a test per minimap).
+- [ ] Define the minimap data contract once, as a JSON Schema in `contracts/` (ADR-REPO-CONTRACT): one shape for a minimap (axes, cells, lit
+      cells each with its reason), cut from the `WorldMap.ToJson()` shape (`WorldMap.cs:114`: tracks, file_languages, cells of track by
+      file_language, files with citations) and `WorldMapHighlight.ToJson()` (`WorldMapHighlight.cs:126`: kind, requested, lit cells with
+      sources). The PowerShell side computes the data through a C# type in `pwsh/Catzc.Base.Maps/types/` that serializes to the schema; the
+      Python kit validates the JSON it draws against the same schema with `jsonschema`, and never loads the C# type (check: the grid, code
+      locations and axis serialize to the schema in a Pester test per minimap; a kit pytest rejects a minimap JSON that breaks the schema).
 - [ ] The lifecycle position data function reads the rungs registry of `Catzc.Base.Flow` once `plan-promotion-ladder` has declared it; until
       then this minimap is the last of the eight to be built (check: the minimap's test lights a cell per rung from `cites` edges; the
       registry is read through `Get-Config`, never a literal list).
