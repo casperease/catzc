@@ -3,6 +3,7 @@
 catzc:
   immutable:
     with_body_sha: "0ac84c8dabfe"
+    warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: importer.ps1
     source: pwsh/.internal/Catzc.Internal.Importer.psm1

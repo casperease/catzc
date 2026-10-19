@@ -20,6 +20,7 @@
     <CatzcMeta><![CDATA[catzc:
   immutable:
     with_body_sha: b2daa32161e8
+    warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: pwsh/.internal/assets/Catzc.Types.csproj
     source: pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml

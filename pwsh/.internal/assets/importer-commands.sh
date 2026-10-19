@@ -2,6 +2,7 @@
 # catzc:
 #   immutable:
 #     with_body_sha: aff4b5a2e8b8
+#     warning: "Do Not Edit, this file is generated"
 #     repo_status: locked
 #     path: pwsh/.internal/assets/importer-commands.sh
 #     source: contracts/catzc/0.0.0

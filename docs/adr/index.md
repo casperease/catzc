@@ -1,8 +1,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fdcdabe91e35
-    with_inputs_sha: "791b2b36762f09b2a6d46d37e4ded89f285266a6b645fc02b701229748e78e56"
+    with_body_sha: cc470b7043c1
+    with_inputs_sha: "4c3ddee5818e56e0a08b41bb8d83282d0b8b78c4ae94ba095010931b898ef89c"
+    warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/index.md
     source: pwsh/Catzc.Base.Docs/configs/adrs.yml
@@ -237,20 +238,20 @@ implementation domain its single way to read configuration.
 | `ADR-CONF-ADDRESSING` | [config-value-addressing](configuration/config-value-addressing.md)             |
 | `ADR-CONF-MDCONTRIB`  | [markdown-config-contributions](configuration/markdown-config-contributions.md) |
 
-### pipelines/
+### ado/
 
-The Azure DevOps extensions to the flow model: how ADO REST calls select and prove their credentials, how PowerShell sets pipeline output
-variables, how pipelines and template folders are named and placed under `pipelines/`, and when an ADO YAML template is warranted. It binds
-the vendor-neutral `flow/` rules to Azure DevOps without redefining them; `github/` is its GitHub counterpart.
+The Azure DevOps extensions to the flow model: how ADO REST calls select and prove their credentials, how PowerShell sets ado pipeline
+output variables, how ado pipelines and template folders are named and placed under `.ado/pipelines/`, and when an ADO YAML template is
+warranted. It binds the vendor-neutral `flow/` rules to Azure DevOps without redefining them; `github/` is its GitHub counterpart.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`, `flow`.
 
-| Code                | ADR                                                                         |
-| ------------------- | --------------------------------------------------------------------------- |
-| `ADR-PIPE-AUTH`     | [dual-authentication](pipelines/dual-authentication.md)                     |
-| `ADR-PIPE-VAR`      | [pipeline-variables](pipelines/pipeline-variables.md)                       |
-| `ADR-PIPE-NAME`     | [pipeline-naming-and-placement](pipelines/pipeline-naming-and-placement.md) |
-| `ADR-PIPE-TEMPLATE` | [custom-template-discipline](pipelines/custom-template-discipline.md)       |
+| Code                | ADR                                                                   |
+| ------------------- | --------------------------------------------------------------------- |
+| `ADR-PIPE-AUTH`     | [dual-authentication](ado/dual-authentication.md)                     |
+| `ADR-PIPE-VAR`      | [pipeline-variables](ado/pipeline-variables.md)                       |
+| `ADR-PIPE-NAME`     | [pipeline-naming-and-placement](ado/pipeline-naming-and-placement.md) |
+| `ADR-PIPE-TEMPLATE` | [custom-template-discipline](ado/custom-template-discipline.md)       |
 
 ### github/
 

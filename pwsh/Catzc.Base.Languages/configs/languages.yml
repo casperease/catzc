@@ -77,7 +77,7 @@ languages:
     extensions: [.yaml]
     formatter: prettier
     vscode_language: azure-pipelines
-    adr_folder: pipelines
+    adr_folder: ado
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
   yaml:
     extensions: [.yml]

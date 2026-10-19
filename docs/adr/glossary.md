@@ -2,7 +2,8 @@
 catzc:
   immutable:
     with_body_sha: deab627cdc69
-    with_inputs_sha: "4374f1ac1c4abaf181674415f242bf67dd7ef5a49f0da585bc547244c2039dcf"
+    with_inputs_sha: d8e438fa4dfe0bfed29adfd9179c2efc381af46cec34eef04d3724ab552ede2e
+    warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
     role: glossary

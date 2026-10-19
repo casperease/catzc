@@ -29,7 +29,7 @@ module_types:
     definition: A set of pipeline definitions, named by the folder that holds them.
     places:
       - { root: .github/workflows, name: root }
-      - { root: pipelines, name: root }
+      - { root: .ado/pipelines, name: root }
   settings:
     definition: The settings of a tool the repository configures, named by the tool's dot-folder.
     places:

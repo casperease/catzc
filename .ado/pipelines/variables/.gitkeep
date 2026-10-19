@@ -4,7 +4,7 @@
 #     with_body_sha: "46bf4ac56731"
 #     warning: "Do Not Edit, this file is generated"
 #     repo_status: locked
-#     path: pipelines/variables/.gitkeep
+#     path: ".ado/pipelines/variables/.gitkeep"
 #     source: pwsh/Catzc.Base.Docs/assets/gitkeep
 #     role: other
 #     track: ado-pipelines
