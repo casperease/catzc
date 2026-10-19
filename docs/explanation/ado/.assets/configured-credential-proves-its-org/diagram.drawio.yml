@@ -1,13 +1,21 @@
 description: >-
   The three Azure DevOps credentials in their fixed order, as a column of gates: each returns one Authorization header or raises its own
   error, and none falls back to the next.
-content:
-  title: The first configured credential wins, and it must prove its org
+about:
+  lens: meta
   adrs:
     - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
     - ADR-ADO-AUTH-PROVETARGET
     - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
-  lens: meta
+  tracks: [pwsh, ado-pipelines]
+  languages: [powershell, pipeline-yaml]
+  modules: [Catzc.Azure.DevOps, Catzc.Azure.Cli]
+  files:
+    - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+    - pwsh/Catzc.Azure.DevOps/configs/ado.yml
+    - .ado/pipelines/steps/invoke-automation.yaml
+content:
+  title: The first configured credential wins, and it must prove its org
   kind: explanation
   relation: what comes next
   bands:
@@ -34,6 +42,7 @@ content:
     - { at: g-login, number: 3 }
     - { at: g-header, number: 4 }
     - { at: g-own, number: 5 }
+  minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-returns: { x: 20, y: 84, w: 300, h: 360 }
   band-sources: { x: 340, y: 84, w: 620, h: 360 }

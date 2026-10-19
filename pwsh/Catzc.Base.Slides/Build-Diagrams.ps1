@@ -65,7 +65,7 @@ function Build-Diagrams {
     $runs = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($folderPath in $folders) {
         foreach ($name in $stages) {
-            $arguments = "run --with pillow python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --stage $name"
+            $arguments = "run --project `"$(Join-Path $root $Kit)`" python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --stage $name"
             $run = [pscustomobject]@{ Folder = $folderPath; Article = $articles[$folderPath]; Stage = $name; ExitCode = $null; Status = 'dry-run' }
             if ($DryRun) {
                 Write-Message "Would run: uv $arguments"

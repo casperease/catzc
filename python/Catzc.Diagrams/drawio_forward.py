@@ -210,7 +210,7 @@ def slide_entry(folder, source, model_file, adrs, lens):
         "folder": rel(folder),
         "source": rel(source),
         "lens": lens,
-        "badge": DEFAULTS["lenses"][lens],
+        "badge": lens.upper(),
         "adrs": adrs,
         "xml": rel(model_file),
     }
@@ -287,6 +287,18 @@ def bulk(root, stage, migrate, start, end):
         print(f"warn E_SOURCE no diagram folder (.assets/<name>/{SLIDE}) under {root}")
         print("status error")
         return 3
+    # A folder with a declaration is put from it, minimaps included; only the folders without one take the map-processor stages.
+    import declaration
+
+    declared = [f for f in folders if (f / declaration.SOURCE).is_file()]
+    folders = [f for f in folders if f not in declared]
+    if stage in ("prepare", "all"):
+        for f in declared:
+            try:
+                print(f"put {rel(declaration.put_png(f, declaration.load(f)))}")
+            except (declaration.DeclarationError, OSError) as e:
+                warnings.append(f"W_PUT {rel(f)}: {e}")
+        counts.update(put=len(declared))
     model_of = lambda f: models / (rel(f).replace("/", "--") + ".model.xml")
     if stage in ("prepare", "all"):
         models.mkdir(parents=True, exist_ok=True)
@@ -322,7 +334,7 @@ def bulk(root, stage, migrate, start, end):
         )
         counts.update(prepared=done, listed=len(slides), skipped=skipped)
         print(f"slides {slides_json} listed={len(slides)} skipped={skipped}")
-    if stage in ("highlight", "all"):
+    if stage in ("highlight", "all") and folders:
         try:
             listed = json.loads(slides_json.read_text(encoding="utf-8"))["slides"]
             slice_json.write_text(
@@ -343,7 +355,7 @@ def bulk(root, stage, migrate, start, end):
             print(f"minimaps {out.splitlines()[-1] if out else 'rendered'}")
         except FORWARD as e:
             warnings.append(f"W_HIGHLIGHT {e}")
-    if stage in ("join", "all"):
+    if stage in ("join", "all") and folders:
         try:
             cmd = [
                 sys.executable,

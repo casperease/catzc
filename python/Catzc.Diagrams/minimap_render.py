@@ -156,6 +156,10 @@ def draw_badge(d, text, box, size):
     d.rounded_rectangle(box, radius=6, fill=BADGE)
     f = font(size, "b")
     tw = text_w(d, text, f)
+    while tw > (x1 - x0) - 8 and size > 8:  # a spelled-out lens name gets smaller type until it fits the badge
+        size -= 1
+        f = font(size, "b")
+        tw = text_w(d, text, f)
     d.text(
         ((x0 + x1) / 2 - tw / 2, (y0 + y1) / 2), text, font=f, fill=HALO, anchor="lm"
     )

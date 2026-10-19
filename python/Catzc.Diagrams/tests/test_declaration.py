@@ -1,4 +1,4 @@
-# cspell:ignore minimaps
+# cspell:ignore minimaps widgetese
 """The declaration of a diagram and its two directions: put (yml to model to raster) and get (model to yml).
 
 usage (repo root, background): timeout 120 uv run --project python python -m pytest python/Catzc.Diagrams/tests/test_declaration.py
@@ -16,10 +16,10 @@ import declaration
 from PIL import Image
 
 WIDGETS = """
+about:
+  lens: architecture
 content:
   title: Widgets flow into gadgets
-  adrs: [ADR-X-Y]
-  lens: architecture
   flow: left-to-right
   relation: feeds
   bands:
@@ -112,17 +112,67 @@ def test_top_to_bottom_stacks_the_bands_and_stands_the_span_beside_them():
     assert declaration.dump(back) == declaration.dump(first)
 
 
-def test_minimaps_default_by_kind_and_must_be_three_known_ids():
+def test_minimaps_default_by_kind_and_must_be_three_known_views():
     raw = __import__("yaml").safe_load(WIDGETS)
-    assert declaration.normalise(raw)["content"]["minimaps"] == ["grid", "axis", "layer-stack"]
+    views = lambda r: declaration.normalise(r)["content"]["minimaps"]
+    assert views(raw) == ["grid", "axis", "layer-stack"]
     raw["content"]["kind"] = "reference"
-    assert declaration.normalise(raw)["content"]["minimaps"] == ["grid", "code-locations", "track-placement"]
+    assert views(raw) == ["grid", "code-locations", "track-placement"]
     raw["content"]["minimaps"] = ["grid", "axis", "moon"]
-    with pytest.raises(declaration.DeclarationError, match="minimap 'moon' is not one of: grid, code-locations"):
+    with pytest.raises(declaration.DeclarationError, match="minimap view 'moon' is not one of: grid, code-locations"):
         declaration.normalise(raw)
     raw["content"]["minimaps"] = ["grid"]
     with pytest.raises(declaration.DeclarationError, match="exactly three"):
         declaration.normalise(raw)
+
+
+def claimed():
+    """The widget declaration about real places of this repository's registries, with three computed minimaps."""
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["about"] = {
+        "lens": "architecture",
+        "adrs": [next(iter(declaration.minimaps.adrs()))],
+        "tracks": ["python"],
+        "languages": ["python"],
+        "modules": ["Catzc.Base.Repository"],
+        "files": ["python/Catzc.Diagrams/minimaps.py"],
+    }
+    raw["content"]["minimaps"] = ["code-locations", "module-neighbourhood", "axis"]
+    return raw
+
+
+def test_every_about_name_is_checked_against_its_registry():
+    assert declaration.normalise(claimed())["about"]["tracks"] == ["python"]
+    for key, wrong, message in (
+        ("files", "python/Catzc.Diagrams/gone.py", "is not a file in the repository"),
+        ("modules", "Catzc.Widget.Nowhere", "is not one of dependencies.yml"),
+        ("tracks", "widgets", "is not one of variants.yml"),
+        ("languages", "widgetese", "is not one of languages.yml"),
+        ("adrs", "ADR-WIDGET-NOWHERE", "is not a rule of an ADR in adrs.yml"),
+    ):
+        raw = claimed()
+        raw["about"][key] = [wrong]
+        with pytest.raises(declaration.DeclarationError, match=message):
+            declaration.normalise(raw)
+
+
+def test_the_minimaps_light_what_about_names_with_a_reason():
+    about = declaration.normalise(claimed())["about"]
+    code = dict(declaration.minimaps.lights("code-locations", about))
+    assert code["python/Catzc.Diagrams/minimaps.py"] == "about.files" and "python" in code
+    assert declaration.minimaps.lights("module-neighbourhood", about) == [("Catzc.Base.Repository", "about.modules")]
+    assert all("adrs.yml" in why for _, why in declaration.minimaps.lights("axis", about))
+
+
+def test_put_embeds_each_minimap_as_a_picture_and_get_keeps_the_subject_through_save(tmp_path):
+    raw = claimed()
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    first = declaration.load(tmp_path)
+    model = declaration.put(first)
+    assert model.count("image=data:image/png,") == 3
+    declaration.put_png(tmp_path, first)
+    declaration.save(tmp_path, declaration.get(declaration.model_of(tmp_path), kind="explanation"))
+    assert declaration.dump(declaration.load(tmp_path)) == declaration.dump(first)
 
 
 def test_put_png_embeds_the_model_and_get_reads_it_back(tmp_path):

@@ -4,13 +4,13 @@ renderer:
   role: slide # a diagram folder's role when roles: names none. slide: its subtitle says `<codes> · <lens>`; legend: it names no ADR and has no subtitle
 roles: # a diagram folder's role, keyed by its repository path, only where it is not renderer.role
   docs/explanation/.assets/glyphs: legend # the glyph library, the legend every slide's glyphs come from
-lenses: # the closed set of lenses a slide's subtitle may end with (`<codes> · <lens>`), each with the badge its grid minimap prints
-  meta: META
-  architecture: ARCH
-  implementation: IMPL
-  operations: OPS
-  governance: GOV
-  source: SRC
+lenses: # the closed set of lenses a diagram is drawn through (its about.lens, the end of its subtitle), each with what it shows; the badge prints the name
+  meta: what the decision is and why
+  architecture: the parts and how they depend on each other
+  implementation: how the code carries it out
+  operations: what an operator sets and sees
+  governance: which gates check it
+  source: one responsibility of one module, drawn from the code
 kinds: # the two diagram kinds; each supplies the default three minimaps (minimaps: below)
   explanation: an explanation diagram, embedded by an article under docs/explanation
   reference: a reference diagram, embedded by a page under docs/references or docs/adr

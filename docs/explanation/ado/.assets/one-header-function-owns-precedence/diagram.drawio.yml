@@ -1,14 +1,24 @@
 description: >-
   The two ways an Azure DevOps call starts, a pipeline step through invoke-automation.yaml or a developer's shell, both reaching one header
   function whose three credentials each rest on a proof anchored in ado.yml.
-content:
-  title: One function owns the credential precedence, and ado.yml anchors every proof
+about:
+  lens: architecture
   adrs:
     - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
     - ADR-ADO-AUTH-PROVETARGET
     - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
     - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
-  lens: architecture
+  tracks: [ado-pipelines, pwsh]
+  languages: [pipeline-yaml, powershell]
+  modules: [Catzc.Azure.DevOps, Catzc.Azure.Cli]
+  files:
+    - .ado/pipelines/steps/invoke-automation.yaml
+    - pwsh/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1
+    - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+    - pwsh/Catzc.Azure.DevOps/configs/ado.yml
+    - pwsh/Catzc.Azure.Cli/Assert-AzCliConnected.ps1
+content:
+  title: One function owns the credential precedence, and ado.yml anchors every proof
   kind: explanation
   relation: uses
   bands:
@@ -50,6 +60,7 @@ content:
     - { at: g-azcli, number: 8 }
     - { at: g-cli-module, number: 9 }
     - { at: g-ado-yml, number: 10 }
+  minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-entry: { x: 20, y: 84, w: 300, h: 520 }
   band-call: { x: 340, y: 84, w: 600, h: 520 }

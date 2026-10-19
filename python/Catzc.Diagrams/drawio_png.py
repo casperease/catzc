@@ -345,7 +345,7 @@ def render(root, page=None):
             pic = Image.open(io.BytesIO(base64.b64decode(uri.split(",", 1)[1]))).convert("RGB")
             box = (max(1, int(x1 - x0)) * SCALE, max(1, int(y1 - y0)) * SCALE)
             img.paste(pic.resize(box, Image.Resampling.LANCZOS), (int(x0) * SCALE, int(y0) * SCALE))
-        text = plain(c.get("value"))
+        text = "" if s.get("noLabel") == "1" else plain(c.get("value"))  # noLabel: the value is data, as draw.io shows it
         if text:
             size = int(float(s.get("fontSize", 12)))
             bold = int(s.get("fontStyle", 0)) & 1 == 1 or "<b>" in (c.get("value") or "")

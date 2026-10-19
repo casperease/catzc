@@ -26,6 +26,7 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+import minimaps
 import yaml
 from drawio_png import DEFAULTS, decode, encode, mxfile_chunk, plain, render, style_map
 from PIL import Image
@@ -36,11 +37,13 @@ SLIDE = "diagram.drawio.png"
 SOURCE = "diagram.drawio.yml"  # the diagram's one source: its description, its content and the layout of the cells off the grid
 FLOWS = ("left-to-right", "top-to-bottom")
 KINDS = tuple(DEFAULTS["kinds"])
-CONTENT_KEYS = ("title", "adrs", "lens", "kind", "flow", "relation", "theme", "bands", "spans", "groups", "glyphs", "edges", "markers", "chips", "legend", "minimaps")
+CONTENT_KEYS = ("title", "kind", "flow", "relation", "theme", "bands", "spans", "groups", "glyphs", "edges", "markers", "chips", "legend", "minimaps")
 PAGE = {"x": 20, "width": 1260, "title_y": 14, "subtitle_y": 44, "span_y": 84, "band_y": 108, "min_height": 640}
 GAP, PAD, LABEL_ROW, ROW_GAP, COL_GAP = 20, 20, 40, 36, 40
 SIDEBAR_X, SIDEBAR_W = 1316, 240
-SIDEBAR = (("minimap-grid", 16, 150), ("minimap-tree", 182, 180), ("minimap-chain", 378, 150))
+SIDEBAR = (("minimap-1", 16, 150), ("minimap-2", 182, 180), ("minimap-3", 378, 150))
+MAPKEY_Y = 544  # the map key's panel, under the three minimaps
+MAPKEY_BOTTOM = MAPKEY_Y + 82 + 16  # its bottom, and the sidebar's pad under it
 # The style keys that identify a glyph kind: the shape and the two colours, with the marks that set a variant apart.
 SIGNATURE_KEYS = ("shape", "ellipse", "rhombus", "rounded", "arcSize", "fillColor", "strokeColor", "dashed", "strokeWidth", "fontColor", "fontSize", "fontStyle", "align")
 TEXT = "text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;"
@@ -125,12 +128,18 @@ def save(folder, declaration):
     """Write a declaration into its folder's source file. The drawing carries no description, so a declaration read back by get
     keeps the description the file already has."""
     source = Path(folder) / SOURCE
-    if not declaration.get("description") and source.is_file():
-        declaration = {**declaration, "description": (yaml.safe_load(source.read_text(encoding="utf-8")) or {}).get("description", "")}
+    if source.is_file():
+        held = normalise(yaml.safe_load(source.read_text(encoding="utf-8")) or {}, where=str(source))
+        if not declaration.get("description"):
+            declaration = {**declaration, "description": held["description"]}
+        # The drawing carries only the ADR codes of `about:` (its subtitle); the rest of the subject is kept from the source.
+        about = {"lens": declaration["about"]["lens"], **{key: declaration["about"][key] or held["about"][key] for key in minimaps.ABOUT_KEYS}}
+        declaration = {**declaration, "about": about}
     source.write_text(dump(declaration), encoding="utf-8")
 
 
-TOP_KEYS = ("description", "content", "layout")
+TOP_KEYS = ("description", "about", "content", "layout")
+ABOUT_KEYS = ("adrs", "lens", "tracks", "languages", "modules", "files")  # the lens, then the subject's lists (minimaps.ABOUT_KEYS)
 
 
 def normalise(raw, where="the declaration"):
@@ -147,10 +156,15 @@ def normalise(raw, where="the declaration"):
     out: dict = {"title": str(content.get("title", "")).strip()}
     if not out["title"]:
         raise DeclarationError(f"{where}: content.title is the finding the reader leaves with; it is empty")
-    out["adrs"] = [str(a) for a in (content.get("adrs") or [])]
-    lens = content.get("lens", "meta")
+    about_raw = raw.get("about") or {}
+    if not isinstance(about_raw, dict):
+        raise DeclarationError(f"{where}: about is a map of {', '.join(ABOUT_KEYS)}")
+    for key in about_raw:
+        if key not in ABOUT_KEYS:
+            choices(f"{where}: about key", key, ABOUT_KEYS)
+    lens = about_raw.get("lens", "meta")
     if lens not in DEFAULTS["lenses"]:
-        choices(f"{where}: lens", lens, tuple(DEFAULTS["lenses"]))
+        choices(f"{where}: about.lens", lens, tuple(DEFAULTS["lenses"]))
     out["lens"] = lens
     kind = content.get("kind", KINDS[0])
     if kind not in KINDS:
@@ -233,13 +247,21 @@ def normalise(raw, where="the declaration"):
     out["relation"] = str(content.get("relation", "") or "").strip()
     pools = DEFAULTS["minimaps"]
     allowed = tuple(str(pools["ids"]).replace(",", " ").split())
-    minimaps = content.get("minimaps") or str(pools[f"{kind}_default"]).replace(",", " ").split()
-    if len(minimaps) != 3:
-        raise DeclarationError(f"{where}: minimaps names exactly three ids of: {', '.join(allowed)}; it names {len(minimaps)}")
-    for m in minimaps:
-        if m not in allowed:
-            choices(f"{where}: minimap", m, allowed)
-    out["minimaps"] = [str(m) for m in minimaps]
+    declared = content.get("minimaps") or str(pools[f"{kind}_default"]).replace(",", " ").split()
+    if len(declared) != 3:
+        raise DeclarationError(f"{where}: minimaps names exactly three views of: {', '.join(allowed)}; it names {len(declared)}")
+    for view in declared:
+        if view not in allowed:
+            choices(f"{where}: minimap view", view, allowed)
+    if len(set(declared)) != 3:
+        raise DeclarationError(f"{where}: the three minimaps show three different views")
+    out["minimaps"] = [str(v) for v in declared]
+    # What the diagram is about: the lens it is drawn through and the subject every minimap is computed from, each name checked
+    # against its registry.
+    about = {"lens": lens, **{key: [str(v) for v in (about_raw.get(key) or [])] for key in minimaps.ABOUT_KEYS}}
+    for problem in minimaps.problems(about):
+        raise DeclarationError(f"{where}: {problem}")
+    out["adrs"] = about["adrs"]
     layout = {}
     for cid, box in (raw.get("layout") or {}).items():
         if cid not in ids:
@@ -249,7 +271,7 @@ def normalise(raw, where="the declaration"):
         layout[cid] = {k: int(box[k]) for k in ("x", "y", "w", "h")}
     # What the diagram shows, in a sentence or two, for whoever meets it outside any article; no article is named here.
     description = " ".join(str(raw.get("description", "") or "").split())
-    return {"description": description, "content": out, "layout": layout}
+    return {"description": description, "about": about, "content": out, "layout": layout}
 
 
 def entry(item, keys, where, what, optional=None):
@@ -278,6 +300,8 @@ def dump(declaration):
     content = declaration["content"]
     ordered = {k: content[k] for k in CONTENT_KEYS if k in content and content[k] not in ([], {}, "")}
     out = {"description": declaration["description"]} if declaration.get("description") else {}
+    about = declaration.get("about") or {}
+    out["about"] = {key: about[key] for key in ABOUT_KEYS if about.get(key)}
     out["content"] = ordered
     if declaration.get("layout"):
         out["layout"] = dict(declaration["layout"])
@@ -335,9 +359,12 @@ def place(declaration):
     bands = content["bands"]
     cells = []
     # The chrome: title and subtitle.
-    cells.append(cell("title", content["title"], TITLE, PAGE["x"], PAGE["title_y"], PAGE["width"], 30))
-    subtitle = " · ".join(content["adrs"] + [content["lens"]])
-    cells.append(cell("subtitle", subtitle, SUBTITLE, PAGE["x"], PAGE["subtitle_y"], PAGE["width"] - 20, 20))
+    # The lens once, as the chip that opens the title row; the subtitle under the title is the ADR codes alone.
+    chip_w = 16 + 8 * len(content["lens"])
+    cells.append(cell("lens-badge", content["lens"].upper(), BADGE, PAGE["x"], PAGE["title_y"] + 4, chip_w, 22))
+    title_x = PAGE["x"] + chip_w + 12
+    cells.append(cell("title", content["title"], TITLE, title_x, PAGE["title_y"], PAGE["width"] - (title_x - PAGE["x"]), 30))
+    cells.append(cell("subtitle", " · ".join(content["adrs"]), SUBTITLE, PAGE["x"], PAGE["subtitle_y"], PAGE["width"] - 20, 20))
     # The bands along the flow: side by side left to right, or stacked top to bottom.
     band_box = {}
     if vertical:
@@ -433,13 +460,20 @@ def place(declaration):
         sx, sy = PAGE["x"] + 16 + col * col_w, legend_y + 30 + row * 28
         cells.extend(swatch(eid, sx, sy))
         cells.append(cell(f"lg-{eid}-t", phrase, TEXT, sx + 48, sy - 1, col_w - 56, 20))
-    # The sidebar: the three minimaps and the lens badge; the join step fills the images and adds the map key. The ADR codes
-    # live in the subtitle alone.
-    height = max(PAGE["min_height"], legend_y + legend_h + GAP)
+    # The sidebar: the three minimaps, drawn from their claims and embedded, the lens badge and the map key. The ADR codes live in
+    # the subtitle alone.
+    height = max(PAGE["min_height"], legend_y + legend_h + GAP, MAPKEY_BOTTOM)
     cells.insert(0, cell("sidebar-bg", "", SIDEBAR_BG, SIDEBAR_X - 12, 4, SIDEBAR_W + 24, height - 8))
     for (cid, y, h), minimap in zip(SIDEBAR, content["minimaps"]):
-        cells.append(cell(cid, minimap, MINIMAP, SIDEBAR_X, y, SIDEBAR_W, h))
-    cells.append(cell("lens-badge", DEFAULTS["lenses"][content["lens"]], BADGE, SIDEBAR_X, 544, SIDEBAR_W, 24))
+        image = minimaps.picture(minimap, declaration.get("about") or {k: [] for k in minimaps.ABOUT_KEYS}, SIDEBAR_W, h)
+        cells.append(cell(cid, minimap, MINIMAP + f"noLabel=1;image={image};", SIDEBAR_X, y, SIDEBAR_W, h))
+    # The map key: the two marks every minimap shares.
+    cells.append(cell("mapkey", "<b>Map key</b>", LEGEND, SIDEBAR_X, MAPKEY_Y, SIDEBAR_W, 82))
+    for i, (swatch, phrase) in enumerate(((minimaps.LIT, "lit: what this diagram draws"), (minimaps.PANEL, "dim: what sits around it"))):
+        y = MAPKEY_Y + 30 + i * 24
+        rim = "none" if swatch == minimaps.LIT else minimaps.RIM
+        cells.append(cell(f"mk-{i}", "", f"rounded=1;arcSize=20;html=1;fillColor={swatch};strokeColor={rim};shadow=0;", SIDEBAR_X + 12, y, 26, 16))
+        cells.append(cell(f"mk-{i}-t", phrase, TEXT, SIDEBAR_X + 48, y - 2, SIDEBAR_W - 56, 20))
     return cells, height
 
 
@@ -562,9 +596,12 @@ def get(model, kind=None):
     glyph_sigs = {k: signature(v["style"]) for k, v in LIB["glyphs"].items()}
     mark_sigs = {k: signature(v["style"]) for k, v in LIB["marks"].items()}
     module_sig = signature(LIB["module"])
-    content: dict = {"title": "", "adrs": [], "lens": "meta", "kind": kind or KINDS[0], "flow": FLOWS[0]}
+    content: dict = {"title": "", "kind": kind or KINDS[0], "flow": FLOWS[0]}
+    lens = "meta"
+    adrs: list = []
     content.update({"theme": next(iter(DEFAULTS["themes"])), "bands": [], "spans": [], "groups": [], "glyphs": []})
     content.update({"edges": [], "markers": [], "chips": [], "legend": "auto"})
+    # The drawing carries each minimap's view, not its claims: save() keeps the claims the source already holds.
     content["minimaps"] = [plain(cells[cid].get("value")) for cid, _, _ in SIDEBAR if cid in cells]
     flow_phrase = plain(cells["lg-edge-flow-t"].get("value")) if "lg-edge-flow-t" in cells else ""
     content["relation"] = flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") else ""
@@ -572,6 +609,7 @@ def get(model, kind=None):
     unnamed = []
     bands, groups, glyphs, bars, labels, markers, chips = [], [], [], [], [], [], []
     derived = ("sidebar-bg", "legend", "lens-badge", "mapkey")
+    lens = plain(cells["lens-badge"].get("value")).lower() if "lens-badge" in cells else lens
     for cid, c in cells.items():
         style, value = c.get("style") or "", plain(c.get("value"))
         if c.get("edge") == "1" or cid in derived or cid.startswith(("lg-", "mk-", "minimap-")) or cid.endswith("-tag"):
@@ -579,8 +617,7 @@ def get(model, kind=None):
         if cid == "title":
             content["title"] = value
         elif cid == "subtitle":
-            parts = [p.strip() for p in value.split("·")]
-            content["adrs"], content["lens"] = parts[:-1], parts[-1] if parts and parts[-1] in DEFAULTS["lenses"] else content["lens"]
+            adrs = [p.strip() for p in value.split("·") if p.strip()]
         elif matches(signature(BAND), style):
             bands.append(cid)
         elif matches(module_sig, style):
@@ -664,7 +701,7 @@ def get(model, kind=None):
         if not kinds:
             raise DeclarationError(f"get cannot name the edge {cid} in the kit's vocabulary")
         content["edges"].append({"from": c.get("source"), "to": c.get("target"), "kind": kinds[0], "label": plain(c.get("value"))})
-    declaration = normalise({"content": content, "layout": layout}, where="the drawing")
+    declaration = normalise({"about": {"adrs": adrs, "lens": lens}, "content": content, "layout": layout}, where="the drawing")
     # A cell that sits where the grid would put it needs no layout entry: the layout keeps only what a hand moved.
     grid = {c["id"]: {k: c[k] for k in ("x", "y", "w", "h")} for c in place({"content": declaration["content"], "layout": {}})[0] if not c["edge"]}
     declaration["layout"] = {cid: box for cid, box in declaration["layout"].items() if grid.get(cid) != box}
