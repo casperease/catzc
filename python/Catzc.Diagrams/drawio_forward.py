@@ -10,7 +10,7 @@ the embedded model on the chosen page, or the source copy again when no model ca
 decoded model, when one exists) and <name>.render.md (the report). With --xml the given model must match the embedded
 one 100 percent after canonicalisation. With --assert every non-empty, non-heading line of the text file (a page, 66
 lines) must appear in some cell label, whitespace-folded and case-folded. With --minimaps the slide's three minimaps are
-regenerated from the map processors (Export-MinimapData, minimap_render.py, Update-MinimapPageHead, minimap_join.py) into <out_dir>/<name>/, a
+regenerated from the map processors (Export-MinimapData, minimap_render.py, minimap_join.py) into <out_dir>/<name>/, a
 diagram folder of its own: ADR codes and lens from the model's `subtitle` cell (`<codes> · <lens>`, the lens one of
 drawio.yml `lenses`), the article the one page beside the source's `.assets` that embeds it; the joined slide is
 <out_dir>/<name>/diagram.drawio.png. A slide named diagram.drawio.png is named <name> by its folder.
@@ -25,7 +25,7 @@ Rebuilds every diagram folder under <root> in place (`<article-folder>/.assets/<
 root itself when it is one), in stages that each fit the time safeguard: `prepare` (optionally migrates each slide to the
 dark tokens, extracts its model to out/drawio/bulk/<root>/models/, reads its subtitle, checks the article's Supports line,
 and writes the slide list, skipping a slide with no ADR code); `highlight` (the map processors for the listed slides, then
-grid, tree and chain as .png and .md beside each slide, each page given its generated head by Update-MinimapPageHead); `join` (the
+grid, tree and chain as .png and .md under out/drawio/minimaps/<folder>/, never in the tree); `join` (the
 sidebar laid out, the minimaps embedded, the slide rebuilt); `all` runs the three. --start/--end slice the slide list of
 the per-slide stages. Same exit codes; the report is out/drawio/bulk/<root>/bulk.md.
 """
@@ -256,7 +256,6 @@ def minimaps(src, name, model_file, out_dir):
         ],
         60,
     )
-    run(catzc_command(f"Update-MinimapPageHead -Slides '{rel(slides)}'"), 240)
     run(
         [
             sys.executable,
@@ -342,8 +341,6 @@ def bulk(root, stage, migrate, start, end):
                 120,
             )
             print(f"minimaps {out.splitlines()[-1] if out else 'rendered'}")
-            stamped = run(catzc_command(f"Update-MinimapPageHead -Slides '{rel(slice_json)}'"), 300)
-            print(stamped.splitlines()[-1] if stamped else "stamped")
         except FORWARD as e:
             warnings.append(f"W_HIGHLIGHT {e}")
     if stage in ("join", "all"):

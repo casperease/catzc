@@ -1,8 +1,15 @@
+description: >-
+  The three Azure DevOps credentials in their fixed order, as a column of gates: each returns one Authorization header or raises its own
+  error, and none falls back to the next.
 content:
   title: The first configured credential wins, and it must prove its org
-  adrs: [ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-ASSERTWHENNOTOKEN]
+  adrs:
+    - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+    - ADR-ADO-AUTH-PROVETARGET
+    - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
   lens: meta
   kind: explanation
+  relation: what comes next
   bands:
     - { id: band-returns, label: RETURNS }
     - { id: band-sources, label: FIRST CONFIGURED SOURCE }

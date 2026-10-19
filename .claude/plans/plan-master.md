@@ -44,8 +44,8 @@ plans stay the durable record; task files and this master are derived from them 
 ## Chunks
 
 Open, in execution order. Nothing is held. Landed 2026-10-19 and pruned: iac-and-repo-placement, generated-file-heads, ado-and-cicd-docs,
-adr-automation-split, importer-mix, rungs-registry, generated-heads-body-sha-only and the contract drift test; their plans' `git rm` lines
-are in `out/delete-done-plans.ps1`, and git holds the work. A chunk without a task file is executed from its plan's open steps directly.
+adr-automation-split, importer-mix, rungs-registry, generated-heads-body-sha-only and the contract drift test; their plans are deleted, and
+git holds the work. A chunk without a task file is executed from its plan's open steps directly.
 
 - explanation-drift-gaps -> task-explanation-drift-gaps.md: the Q1 to Q3 proofs from the user's runs (blocked_on task-user-runs-and-commits
   steps 1 and 2).

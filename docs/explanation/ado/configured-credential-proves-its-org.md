@@ -19,8 +19,6 @@ source.
 
 ![The first configured source wins and proves its org](.assets/configured-credential-proves-its-org/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/configured-credential-proves-its-org/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Pipeline token.** The agent's own token comes first. It exists only inside a pipeline step, and only when the step template maps it in.

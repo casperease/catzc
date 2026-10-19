@@ -21,6 +21,7 @@ content:
   adrs: [ADR-X-Y]
   lens: architecture
   flow: left-to-right
+  relation: feeds
   bands:
     - { id: band-widgets, label: Widgets }
     - { id: band-gadgets, label: Gadgets }
@@ -37,8 +38,10 @@ content:
   edges:
     - { from: widget-a, to: gadget-store, kind: flow, label: writes }
     - { from: gadget-store, to: gadget-gate, kind: fail }
+    - { from: gadget-store, to: group-kit, kind: adr }
   markers:
     - { at: widget-a, number: 1 }
+    - { at: gadget-gate, number: 2 }
   chips:
     - { at: gadget-gate, kind: rule, text: "#2" }
 """
@@ -59,6 +62,12 @@ def test_get_then_put_returns_the_same_xml():
     model = declaration.put(widgets())
     again = declaration.put(declaration.get(model, kind="explanation"))
     assert again == model
+
+
+def test_the_relation_names_the_flow_legend_and_comes_back():
+    model = declaration.put(widgets())
+    assert 'value="flow: feeds"' in model
+    assert declaration.get(model, kind="explanation")["content"]["relation"] == "feeds"
 
 
 def test_a_span_label_outside_the_vocabularies_fails_with_the_allowed_words():
@@ -124,3 +133,29 @@ def test_put_png_embeds_the_model_and_get_reads_it_back(tmp_path):
         assert img.size[0] > 1500
     back = declaration.get(declaration.model_of(tmp_path), kind="explanation")
     assert declaration.dump(back) == declaration.dump(first)
+
+
+def test_the_source_file_round_trips_through_load_and_save(tmp_path):
+    source = __import__("yaml").safe_load(WIDGETS)
+    source["description"] = "Widgets pass a gate on their way to the gadget store."
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    loaded = declaration.load(tmp_path)
+    assert loaded["description"] == "Widgets pass a gate on their way to the gadget store."
+    declaration.save(tmp_path, loaded)
+    assert declaration.dump(declaration.load(tmp_path)) == declaration.dump(loaded)
+
+
+def test_get_into_the_folder_keeps_the_description_the_drawing_cannot_carry(tmp_path):
+    source = __import__("yaml").safe_load(WIDGETS)
+    source["description"] = "Widgets pass a gate on their way to the gadget store."
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    declaration.put_png(tmp_path, declaration.load(tmp_path))
+    back = declaration.get(declaration.model_of(tmp_path), kind="explanation")
+    assert back["description"] == ""
+    declaration.save(tmp_path, back)
+    assert declaration.load(tmp_path)["description"] == "Widgets pass a gate on their way to the gadget store."
+
+
+def test_a_folder_without_its_source_fails_naming_the_file(tmp_path):
+    with pytest.raises(declaration.DeclarationError, match="no diagram.drawio.yml"):
+        declaration.load(tmp_path)

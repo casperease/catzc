@@ -28,11 +28,8 @@ Order: the commits and git operations first, the remote runs next, the final ful
    task-explanation-drift-gaps steps 1 and 2 ticked.
 3. After task-layers-classification-flip step 1 (P6) lands: re-point the Azure DevOps pipeline definitions, the GitHub required checks and
    any bookmarks from `ci-automation` to `ci-pwsh` the same day. Check: the triggers fire on the next push.
-4. `git add pwsh/Catzc.Base.Flow docs/references/pwsh/catzc-base-flow docs/references/pwsh/catzc-base-modulesystem` (the new rungs registry
-   module with its generated README and manifest, and the new comment pages of the import mix and the rungs, 2026-10-19), then run
-   `out/delete-done-plans.ps1` for the done plans (plan-importer-mix.md among them) and `out/run-user-git.ps1` set 7 (the `git rm` of
-   `Set-FileLink` with its test and comment pages). Check: `git status --short` shows no `??` under `pwsh/Catzc.Base.Flow` and no
-   `plan-importer-mix.md` in the plans folder.
+4. Commit the deleted done plans (2026-10-19: seven plans removed from `.claude/plans` by the orchestrator). The Flow module, its comment
+   pages and the move sets were committed 2026-10-19. Check: `git status --short .claude/plans` shows no `D` line.
 5. The moves of tracked files, each a `git mv` set the agent prepares in `out/run-user-git.ps1` when its chunk is ready, run by you before
    the agent's edits around the move: `pipelines/` to `.ado/pipelines/` and `docs/explanation/pipelines/` to `docs/explanation/ado/`
    (plan-ado-and-cicd-docs); `docs/adr/pwsh/*` to `docs/adr/automation/pwsh/` (plan-adr-automation-split); the `docs/adr/pipelines/*` files

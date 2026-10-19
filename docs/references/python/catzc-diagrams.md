@@ -26,9 +26,9 @@ stages that each fit the time safeguard: prepare, highlight, join.
 
 A slide's sidebar shows where it sits: two views of the world map and the value-chain map, lit for the ADR codes the slide supports. The
 data comes from the map processors through `Export-MinimapData` (`Catzc.Base.Maps`); `minimap_render.py` draws the three PNGs and
-`minimap_describe.py` writes the sister page of each, where every lit cell has the reason that lit it; `Update-MinimapPageHead`
-(`Catzc.Base.Slides`) gives each page its generated head; `minimap_join.py` lays the sidebar out in the slide's model, embeds the PNGs and
-rebuilds the slide. The module places nothing itself: every lit cell is the highlight's.
+`minimap_describe.py` writes the sister page of each, where every lit cell has the reason that lit it, both under `out/drawio/minimaps/`,
+never in the tree; `minimap_join.py` lays the sidebar out in the slide's model, embeds the PNGs and rebuilds the slide. The module places
+nothing itself: every lit cell is the highlight's.
 
 ### responsibility:3 — The kit: glyphs, tokens and patterns
 

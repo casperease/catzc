@@ -41,13 +41,23 @@ Every diagram and slide depends on it, and the fix list below cannot be judged u
 - Home: `python/Catzc.Diagrams` under the existing `python/` track (`pyproject.toml`, `uv.lock`), with the slide patterns, `STYLE.md` and
   `slides.yml` as its assets; `.claude` keeps only the agents and skills that call it. The whole of `.claude/drawio` moves (the renderer,
   the atlas, catalogue, contact sheet, gallery and migration scripts), not only the minimap code.
-- The declaration of a diagram is a yml beside its `.drawio.png`, in the same `.assets/<name>/` folder, in two sections: `content:` (bands,
-  glyphs, labels, span bars, groups, minimaps, legend, flow, theme) and `layout:` (position and size per named cell). Two directions, both
-  deterministic: **put** renders the yml into the XML embedded in the `.drawio.png` and then the raster from that XML, so the file stays
-  editable in the draw.io editor; **get** reads the embedded XML back into the yml, so a hand edit in draw.io is folded back before anything
-  else reads it. A cell without a `layout:` entry is placed by the grid; a cell with one keeps it; a cell whose name is not in `content:` is
-  removed. A drift gate fails when a committed yml and its png disagree (get of the png differs from the yml). Markdown is prose only: the
-  article, and the describe page, which becomes a page derived from the yml.
+- One source per diagram, and no markdown in the diagram folder (2026-10-19, from the user: "drawio.png + yml + whatever articles"; "the
+  diagram itself does not know its article"): the `.assets/<name>/` folder holds `diagram.drawio.yml`, the one source (`description:`, a
+  sentence or two of what the diagram shows; `content:`, the declaration: bands, glyphs, labels, span bars, groups, minimaps, legend, flow
+  and its relation, theme; `layout:`, position and size per named cell), and `diagram.drawio.png`, the render. The diagram names no article;
+  articles and slides embed the png, any number of them, and automation finds them by what links to the asset. The walkthrough lives in each
+  article that uses the diagram. Two directions, both deterministic: **put** renders the declaration into the XML embedded in the
+  `.drawio.png` and then the raster from that XML, so the file stays editable in the draw.io editor; **get** reads the embedded XML back
+  into the yml (the description kept), so a hand edit in draw.io is folded back before anything else reads it. A cell without a layout entry
+  is placed by the grid; a cell with one keeps it; a cell whose name is not in the content is removed. A drift gate fails when a committed
+  yml and its png disagree (get of the png differs from the declaration).
+- Minimaps are claims in the diagram's yml, checked, never generated files (2026-10-19, from the user): the declaration's `minimaps:` names
+  each minimap and what it lights and why; put draws from that; the drift gate recomputes the lit set from `Catzc.Base.Maps` and fails a
+  claim the repository no longer supports or a place that now cites the codes and is missing. The sister `grid`, `tree` and `chain` `.md`
+  and `.png` files (924 tracked) go: the pictures are embedded in the render, the reasons are in the page. This replaces the earlier rule
+  that every lit cell's reason sits in a checked-in generated sister page.
+- The ADR codes appear once on a diagram, in its subtitle; the sidebar carries the minimaps, the lens badge and the map key's four swatches
+  only (2026-10-19, from the user).
 - Themes are selectors: every slide and diagram renders in dark and in light; a theme is one token set (`slides.yml` `token` block today,
   `drawio.yml` `renderer.page`), chosen by a `-Theme` selector on the build commands with the default declared once on the config type, and
   no style names a colour, only a token. Only the default theme's raster is committed; the other renders on demand to `out/`.
@@ -103,9 +113,9 @@ Every diagram and slide depends on it, and the fix list below cannot be judged u
   the folder (`Build-Diagrams -FromDrawing <folder>`), and get and put stay callable alone; a tree change that makes committed minimaps
   stale is a report of `Test-Diagrams`, never a failure, and the bulk `Build-Diagrams` over the stale set regenerates them; a pair whose yml
   and png were both edited is a conflict, `Test-Diagrams` names the diverging cells and neither direction runs until the author picks one,
-  no merge; the derived describe page is committed, as the readable diff of a diagram change; the XML-centred agents and skills
-  (`drawio-png`, `write-drawio-files`, `drawio-model-edit`) are retired and one yml-editing agent plus one renderer skill replace them; a
-  validation error names the allowed values of the vocabulary it failed, so the errors teach the kit.
+  no merge; the yml is the readable diff of a diagram change; the XML-centred agents and skills (`drawio-png`, `write-drawio-files`,
+  `drawio-model-edit`) are retired and one yml-editing agent plus one renderer skill replace them; a validation error names the allowed
+  values of the vocabulary it failed, so the errors teach the kit.
 
 ## What the tree holds (checked 2026-10-19)
 
@@ -189,7 +199,15 @@ that fails it (a glyph outside the library, an element get cannot name) is the r
 - [ ] Run **get** over all 166 diagrams and 21 slides, one folder at a time, to write their first declarations, then **put** each and
       compare; write the list of the ones whose rendering differs from the drawing, with the reason per diagram (a glyph outside the
       library, an element get cannot name, a style outside the tokens) (check: the list is in this plan with a count; each entry names a
-      reason a function stated; the describe page of each folder is regenerated from the yml and equals the old one).
+      reason a function stated; each folder's describe page is deleted once its `description:` is written into the yml, and the kit's
+      `STYLE.md` sections on the `.drawio.md` visual description are rewritten to the yml).
+- [ ] `Build-Diagrams` stops treating "the one article that embeds the folder" as an input: it finds every article and slide that embeds the
+      png, and the supports-drift check holds each one's Supports line against the yml's codes; ADR-REPO-SLIDES-ONEBUILDCOMMAND says so;
+      `gallery_pdf.py` prints the yml's `description:` instead of the deleted describe page (check: a second article embedding one of the
+      two ado diagrams builds clean; Test-Adr clean). The two ado folders already hold only `diagram.drawio.yml` and the png.
+- [ ] Minimap claims: the `minimaps:` block's shape (id, lit place, reason), put drawing from it, a seeding step that drafts it from today's
+      computed data at the coarse level, the drift gate check, then the 924 sister files removed by a `git rm` script for the user (check:
+      the two ado folders hold only their page, layout file and png; the gate fails on a planted stale claim in a test).
 - [ ] Redraw each listed diagram, one at a time, the four below first, extending the glyph library or the schema only when a reason repeats
       across diagrams (check: each is put from its declaration, passes `Test-Diagrams`, and is reviewed by the user).
 - [ ] Rework the data of every existing diagram's minimaps on the new definition (check: re-render one folder, review, then the rest).

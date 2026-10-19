@@ -348,9 +348,8 @@ view adds its sections in `describe.py`'s `VIEWS`.
   - `minimap-chain` image at x 1316, y 378, 240 × 150;
   - `lens-badge` at x 1316, y 544, 240 × 24;
   - no ADR codes: the subtitle is their one place on a slide, and the join step drops any list of them it finds in the sidebar;
-  - `mapkey` at x 1316, y 576, 240 × 170: the minimap legend, one swatch each shared by all three minimaps (lit; lit by passing mentions
-    only; a lit ADR file, dark rim; idle), then the key to the short labels (grid columns: a file language's first extension; value-chain
-    rows: the value-chain stack; the abbreviated value-chain columns).
+  - `mapkey` at x 1316, y 576, 240 × 126: the minimap legend, one swatch each shared by all three minimaps (lit; lit by passing mentions
+    only; a lit ADR file, dark rim; idle), and nothing more: the minimaps' labels explain themselves.
 - **Minimap PNGs** are rendered at 2× (480 × 300, 480 × 360 and 480 × 300) and placed at 1×. Text is ≥ 9 px at 1×. Every label is
   horizontal: the grid names a lit row by its track and a lit column by its short code; the value-chain map names every row and column by
   its capital code. Lit tree groups are labelled with their full names, most lit files first; a label may run past its tile (the page-colour
@@ -382,9 +381,8 @@ view adds its sections in `describe.py`'s `VIEWS`.
   1. `Export-MinimapData -Slides <slides.json>` (a catzc command, in a session with the importer loaded) asks the map processors and writes
      the data (default `out/minimaps/`);
   2. `uv run -q --with pillow python python/Catzc.Diagrams/minimap_render.py --slides <slides.json>` draws the three minimaps and their
-     sister `.md` files into the target folder (`--target`, default `docs/explanation/.assets`; `--facts` also writes each slide's sidebar
-     facts, `--overview` the full-size tree world map of an `out/` wave), and `Update-MinimapPageHead -Slides <slides.json>` gives each
-     sister page its generated head;
+     sister `.md` files under `out/drawio/minimaps/<folder>/`, build outputs never kept in the tree (`--facts` also writes each slide's
+     sidebar facts, `--overview` the full-size tree world map of an `out/` wave);
   3. `uv run -q --with pillow python python/Catzc.Diagrams/minimap_join.py --slides <slides.json>` lays out each slide's sidebar in its
      source XML, embeds the three PNGs and builds `<target>/<stem>.drawio.png` (`--start` and `--end` slice the list to fit the time limit).
 - An `out/` wave runs the same three steps with `--target out/diagrams/<wave>`.

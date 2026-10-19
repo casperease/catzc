@@ -16,10 +16,10 @@ as needed, and last of all. `git rm` is the user's (the permission layer blocks 
 
 1. `grep -c '\- \[ \]' .claude/plans/plan-*.md`: every plan at zero is a delete candidate; read it once more for an open question or a
    "waits_on" that is not a checkbox (an open question keeps the plan). Check: a candidate list with one line per plan and its reason.
-2. For each candidate: its row removed from the value table, and its `git rm` line (with its prompt and task companions) added to
-   `out/delete-done-plans.ps1`. Check: Test-Links clean on value-of-plan.md.
-3. `out/delete-done-plans.ps1`: the `git rm` lines, nothing else; the user runs it. Check: the files are gone; Test-Links over
-   docs/explanation clean, since generated minimap pages may link a removed plan.
+2. For each candidate: its row removed from the value table, then the file deleted from disk with its prompt and task companions (the user,
+   2026-10-19: done plans are deleted directly; the user commits the deletion). Check: Test-Links clean on value-of-plan.md and over
+   docs/explanation, since generated minimap pages may link a removed plan.
+3. The user commits the deletions with the next commit. Check: `git status --short .claude/plans` shows no `D` line after it.
 4. `plan-master.md`: each pointer line whose task is complete is marked (done); when every chunk is done, the master itself has no open
    chunk and is deleted with the task files, leaving the plans folder with only live plans and value-of-plan.md. Check: Test-Plans and
    Test-Links clean on the folder.

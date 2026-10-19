@@ -1,18 +1,21 @@
 # cspell:ignore minimaps mxfile pnginfo adronly mapkey
-"""The declaration of a diagram: the yml beside its .drawio.png, and the two directions between them.
+"""The declaration of a diagram: its source beside its .drawio.png, and the two directions between them.
 
-A diagram folder holds `diagram.yml`, the declaration, and `diagram.drawio.png`, the drawing. The declaration has two sections:
-`content:` says what the diagram shows, in the closed vocabulary of the kit (bands, spans, groups, glyphs, edges, markers, chips,
-the legend, the flow, the theme, the three minimaps), and `layout:` says where a named cell sits (x, y, w, h). A cell without a
-`layout:` entry is placed by the grid; a cell with one keeps it; a cell whose id is not in `content:` is removed.
+A diagram folder holds two files: `diagram.drawio.yml`, the diagram's one source, and `diagram.drawio.png`, the drawing put from it.
+The source has three keys: `description:` says in a sentence or two what the diagram shows; `content:` says it in the closed
+vocabulary of the kit (bands, spans, groups, glyphs, edges, markers, chips, the legend, the flow and its relation, the theme, the
+three minimaps); `layout:` says where a named cell sits (x, y, w, h). A cell without a layout entry is placed by the grid; a cell
+with one keeps it; a cell whose id is not in the content is removed. The diagram names no article: articles and slides embed the
+png, any number of them, and the build finds them by what embeds it.
 
-put:  the yml becomes the mxGraphModel XML embedded in the .drawio.png, and the raster is drawn from that XML (drawio_png).
-get:  the XML embedded in the .drawio.png becomes the yml, so a hand edit in the draw.io editor is folded back before anything
-      else reads it. Both are deterministic: put then get gives the same yml, get then put the same XML.
+put:  the declaration becomes the mxGraphModel XML embedded in the .drawio.png, and the raster is drawn from that XML (drawio_png).
+get:  the XML embedded in the .drawio.png becomes the declaration again, written into the source (its description kept), so a
+      hand edit in the draw.io editor is folded back before anything else reads it. Both are deterministic: put then get gives the
+      same declaration, get then put the same XML.
 
 usage (repo root, background):
   uv run --project python python python/Catzc.Diagrams/declaration.py put <diagram folder> [--xml <out.xml>]
-  uv run --project python python python/Catzc.Diagrams/declaration.py get <diagram folder> [--yml <out.yml>]
+  uv run --project python python python/Catzc.Diagrams/declaration.py get <diagram folder>
 
 Every vocabulary (glyph kinds, edge kinds, span labels, minimap ids, flows, themes, lenses, kinds) is closed: a value outside it
 fails validation with the list the author may choose from, so the errors teach the kit.
@@ -30,10 +33,10 @@ from PIL.PngImagePlugin import PngInfo
 
 KIT = Path(__file__).resolve().parent
 SLIDE = "diagram.drawio.png"
-DECLARATION = "diagram.yml"
+SOURCE = "diagram.drawio.yml"  # the diagram's one source: its description, its content and the layout of the cells off the grid
 FLOWS = ("left-to-right", "top-to-bottom")
 KINDS = tuple(DEFAULTS["kinds"])
-CONTENT_KEYS = ("title", "adrs", "lens", "kind", "flow", "theme", "bands", "spans", "groups", "glyphs", "edges", "markers", "chips", "legend", "minimaps")
+CONTENT_KEYS = ("title", "adrs", "lens", "kind", "flow", "relation", "theme", "bands", "spans", "groups", "glyphs", "edges", "markers", "chips", "legend", "minimaps")
 PAGE = {"x": 20, "width": 1260, "title_y": 14, "subtitle_y": 44, "span_y": 84, "band_y": 108, "min_height": 640}
 GAP, PAD, LABEL_ROW, ROW_GAP, COL_GAP = 20, 20, 40, 36, 40
 SIDEBAR_X, SIDEBAR_W = 1316, 240
@@ -110,18 +113,33 @@ def span_vocabulary():
 # ---- the declaration: read, validate, normalise -------------------------------------------------------------------
 
 
-def load(path):
-    raw = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
-    return normalise(raw, where=str(path))
+def load(folder):
+    """The declaration of a diagram folder, from its one source file."""
+    source = Path(folder) / SOURCE
+    if not source.is_file():
+        raise DeclarationError(f"{folder}: no {SOURCE}, the diagram's one source")
+    return normalise(yaml.safe_load(source.read_text(encoding="utf-8")) or {}, where=str(source))
+
+
+def save(folder, declaration):
+    """Write a declaration into its folder's source file. The drawing carries no description, so a declaration read back by get
+    keeps the description the file already has."""
+    source = Path(folder) / SOURCE
+    if not declaration.get("description") and source.is_file():
+        declaration = {**declaration, "description": (yaml.safe_load(source.read_text(encoding="utf-8")) or {}).get("description", "")}
+    source.write_text(dump(declaration), encoding="utf-8")
+
+
+TOP_KEYS = ("description", "content", "layout")
 
 
 def normalise(raw, where="the declaration"):
     """The declaration with every default filled, every vocabulary checked, and every list in its canonical shape."""
     if not isinstance(raw, dict) or "content" not in raw:
-        raise DeclarationError(f"{where}: a declaration is a map with a content: section and an optional layout: section")
+        raise DeclarationError(f"{where}: a declaration is a map with a description:, a content: section and an optional layout: section")
     for key in raw:
-        if key not in ("content", "layout"):
-            choices(f"{where}: top-level key", key, ("content", "layout"))
+        if key not in TOP_KEYS:
+            choices(f"{where}: top-level key", key, TOP_KEYS)
     content = dict(raw["content"] or {})
     for key in content:
         if key not in CONTENT_KEYS:
@@ -183,9 +201,9 @@ def normalise(raw, where="the declaration"):
         edge = entry(e, ("from", "to"), where, "edge", optional={"kind": EDGE_KINDS[0], "label": ""})
         if edge["kind"] not in EDGE_KINDS:
             choices(f"{where}: edge {edge['from']} -> {edge['to']} kind", edge["kind"], EDGE_KINDS)
-        for end in ("from", "to"):
-            if ids.get(edge[end]) != "glyph":
-                choices(f"{where}: edge {end}", edge[end], [i for i, k in ids.items() if k == "glyph"])
+        for end in ("from", "to"):  # an edge joins glyphs or groups: a call into a function frame ends on the frame
+            if ids.get(edge[end]) not in ("glyph", "group"):
+                choices(f"{where}: edge {end}", edge[end], [i for i, k in ids.items() if k in ("glyph", "group")])
         out["edges"].append(edge)
     out["markers"] = []
     for m in content.get("markers") or []:
@@ -211,6 +229,8 @@ def normalise(raw, where="the declaration"):
             if phrase not in phrases:
                 choices(f"{where}: legend phrase", phrase, phrases)
     out["legend"] = legend
+    # The one relationship the flow edges mean on this diagram, named in the legend as `flow: <relation>`.
+    out["relation"] = str(content.get("relation", "") or "").strip()
     pools = DEFAULTS["minimaps"]
     allowed = tuple(str(pools["ids"]).replace(",", " ").split())
     minimaps = content.get("minimaps") or str(pools[f"{kind}_default"]).replace(",", " ").split()
@@ -227,7 +247,9 @@ def normalise(raw, where="the declaration"):
         if not isinstance(box, dict) or set(box) != {"x", "y", "w", "h"}:
             raise DeclarationError(f"{where}: layout '{cid}' is a map of x, y, w and h")
         layout[cid] = {k: int(box[k]) for k in ("x", "y", "w", "h")}
-    return {"content": out, "layout": layout}
+    # What the diagram shows, in a sentence or two, for whoever meets it outside any article; no article is named here.
+    description = " ".join(str(raw.get("description", "") or "").split())
+    return {"description": description, "content": out, "layout": layout}
 
 
 def entry(item, keys, where, what, optional=None):
@@ -252,10 +274,11 @@ def legend_phrases():
 
 
 def dump(declaration):
-    """The declaration as yml text, keys in the kit's order."""
+    """The whole declaration as the text of its source file, keys in the kit's order."""
     content = declaration["content"]
     ordered = {k: content[k] for k in CONTENT_KEYS if k in content and content[k] not in ([], {}, "")}
-    out = {"content": ordered}
+    out = {"description": declaration["description"]} if declaration.get("description") else {}
+    out["content"] = ordered
     if declaration.get("layout"):
         out["layout"] = dict(declaration["layout"])
     return yaml.safe_dump(out, sort_keys=False, allow_unicode=True, width=120)
@@ -388,7 +411,10 @@ def place(declaration):
     for m in content["markers"]:
         box = box_of[m["at"]]
         size = LIB["marks"]["marker"]["size"]
-        cells.append(cell(f"mark-{m['number']}", str(m["number"]), LIB["marks"]["marker"]["style"], box["x"] - 10, box["y"] - 11, size[0], size[1]))
+        kind = next((g["kind"] for g in content["glyphs"] if g["id"] == m["at"]), "")
+        # A diamond's corner is empty space, so its marker sits beside its top point; any other glyph's on its top-left corner.
+        mx, my = (box["x"] + box["w"] // 2 - 40, box["y"] - 4) if kind == "gate" else (box["x"] - 10, box["y"] - 11)
+        cells.append(cell(f"mark-{m['number']}", str(m["number"]), LIB["marks"]["marker"]["style"], mx, my, size[0], size[1]))
     for c in content["chips"]:
         box = box_of[c["at"]]
         mark = LIB["marks"][c["kind"]]
@@ -446,7 +472,8 @@ def legend_entries(content):
     for kind in dict.fromkeys(g["kind"] for g in content["glyphs"]):
         entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))
     for kind in dict.fromkeys(e["kind"] for e in content["edges"]):
-        entries.append((f"edge-{kind}", edge_swatch(kind), LIB["edges"][kind]["phrase"]))
+        phrase = f"flow: {content['relation']}" if kind == "flow" and content["relation"] else LIB["edges"][kind]["phrase"]
+        entries.append((f"edge-{kind}", edge_swatch(kind), phrase))
     if content["markers"]:
         entries.append(("marker", mark_swatch("marker", "1"), LIB["marks"]["marker"]["phrase"]))
     for kind in dict.fromkeys(c["kind"] for c in content["chips"]):
@@ -539,6 +566,8 @@ def get(model, kind=None):
     content.update({"theme": next(iter(DEFAULTS["themes"])), "bands": [], "spans": [], "groups": [], "glyphs": []})
     content.update({"edges": [], "markers": [], "chips": [], "legend": "auto"})
     content["minimaps"] = [plain(cells[cid].get("value")) for cid, _, _ in SIDEBAR if cid in cells]
+    flow_phrase = plain(cells["lg-edge-flow-t"].get("value")) if "lg-edge-flow-t" in cells else ""
+    content["relation"] = flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") else ""
     layout = {}
     unnamed = []
     bands, groups, glyphs, bars, labels, markers, chips = [], [], [], [], [], [], []
@@ -616,8 +645,13 @@ def get(model, kind=None):
         content["spans"].append({"id": bar, "label": plain(cells[near[0]].get("value")) if near else "", "over": over})
     glyph_ids = [g[0] for g in glyphs]
     nearest = lambda box, corner: min(glyph_ids, key=lambda g: abs(corner(geo[g])[0] - (box["x"] + box["w"] / 2)) + abs(corner(geo[g])[1] - (box["y"] + box["h"] / 2))) if glyph_ids else None
+    kind_of = dict(glyphs)
+    # Where put centres a glyph's marker: beside a diamond's top point, on any other glyph's top-left corner.
+    anchor = {g: ((geo[g]["x"] + geo[g]["w"] // 2 - 29, geo[g]["y"] + 7) if kind_of[g] == "gate" else (geo[g]["x"] + 1, geo[g]["y"])) for g in glyph_ids}
     for m in sorted(markers, key=lambda m: int(plain(cells[m].get("value")))):
-        content["markers"].append({"at": nearest(geo[m], lambda g: (g["x"], g["y"])), "number": int(plain(cells[m].get("value")))})
+        centre = (geo[m]["x"] + geo[m]["w"] / 2, geo[m]["y"] + geo[m]["h"] / 2)
+        at = min(glyph_ids, key=lambda g: abs(anchor[g][0] - centre[0]) + abs(anchor[g][1] - centre[1]))
+        content["markers"].append({"at": at, "number": int(plain(cells[m].get("value")))})
     for ch in chips:
         kind = "rule" if matches(mark_sigs["rule"], cells[ch].get("style") or "") else "count"
         corner = (lambda g: (g["x"] + g["w"], g["y"])) if kind == "rule" else (lambda g: (g["x"] + g["w"], g["y"] + g["h"]))
@@ -643,17 +677,15 @@ def main():
         raise SystemExit(__doc__)
     direction, folder = args[0], Path(args[1])
     if direction == "put":
-        declaration = load(folder / DECLARATION)
+        declaration = load(folder)
         if "--xml" in args:
             Path(args[args.index("--xml") + 1]).write_text(put(declaration), encoding="utf-8")
         dst = put_png(folder, declaration)
         print(f"put {dst}")
     else:
         kind = next((k for k in KINDS if f"/{k}/" in folder.resolve().as_posix()), None)
-        declaration = get(model_of(folder), kind)
-        target = Path(args[args.index("--yml") + 1]) if "--yml" in args else folder / DECLARATION
-        target.write_text(dump(declaration), encoding="utf-8")
-        print(f"get {target}")
+        save(folder, get(model_of(folder), kind))
+        print(f"get {folder / SOURCE}")
 
 
 if __name__ == "__main__":

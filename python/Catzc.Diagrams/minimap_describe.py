@@ -1,7 +1,8 @@
 # cspell:ignore minimaps
 """The sister .md of every minimap PNG, written by minimap_render.py from the same data the PNG is drawn from.
 
-A sister file sits next to its PNG in the slide's diagram folder (grid.png -> grid.md). Its H1 is the title of the
+A sister file sits next to its PNG under out/drawio/minimaps/<diagram folder>/ (grid.png -> grid.md), a build output kept out of the
+tree: the diagram's yml states what its minimaps light. Its H1 is the title of the
 slide's article (the one page beside the folder's `.assets` that embeds the slide) and the view (ADR-REPO-FORMAT-MARKDOWNTITLE); a text block says in two
 lines what the minimap answers and how much is lit, and an opening paragraph links the article and the cited ADRs. It
 then says what the minimap shows, and gives every lit cell or lit group its reason: what lit it (the file, or the ADR code), the steps that placed it on the map, and how the slide's ADR codes
@@ -163,8 +164,11 @@ def slide_file(slide):
 
 
 def view_file(slide, view, suffix):
-    """One minimap or its sister page in a diagram folder: <folder>/<view>.png or <folder>/<view>.md."""
-    return REPO / slide["folder"] / f"{view}.{suffix}"
+    """One minimap or its sister page, a build output under out/: out/drawio/minimaps/<folder>/<view>.png or .md. The join step
+    embeds the picture in the diagram's render; nothing of a minimap is kept in the diagram folder."""
+    path = REPO / "out" / "drawio" / "minimaps" / slide["folder"] / f"{view}.{suffix}"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    return path
 
 
 def concern_code(concern):

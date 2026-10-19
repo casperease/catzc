@@ -17,7 +17,6 @@ import json
 import re
 import subprocess
 import sys
-import textwrap
 from pathlib import Path
 
 import minimap_describe as describe
@@ -67,8 +66,8 @@ def cell(cell_id, value, style, y, height, x: float = X, width: float = WIDTH):
     )
 
 
-def map_key(palette, concerns, top):
-    """The map key at y = top: one swatch per mark the three minimaps share, and the key to their short labels."""
+def map_key(palette, top):
+    """The map key at y = top: one swatch per mark the three minimaps share."""
     lit = palette["highlight"]
     rows = [
         ("lit", f"fillColor={lit};strokeColor={lit};", "lit: what the slide's ADRs select"),
@@ -76,16 +75,7 @@ def map_key(palette, concerns, top):
         ("adr", f"fillColor={lit};strokeColor={MAP_PAGE};strokeWidth=2;", "lit ADR file (dark rim)"),
         ("idle", f"fillColor={MAP_IDLE};strokeColor={MAP_BORDER};", "idle: not selected, or empty"),
     ]
-    abbreviated = [f"{describe.concern_code(c)} {c}" for c in concerns if describe.concern_code(c) != c.upper()]
-    key = (
-        "Grid columns: a file language's first extension. Value-chain rows: the value-chain stack; columns: "
-        + ", ".join(abbreviated)
-        + "."
-    )
-    # The preview renderer does not wrap text, so the key is broken into lines here (11 px text, about 42 characters).
-    lines = textwrap.wrap(key, 42)
-    codes = "&lt;br&gt;".join(lines)
-    height = 28 + len(rows) * 23 + 14 * len(lines) + 10
+    height = 28 + len(rows) * 23 + 6
     cells = [
         cell(
             "mapkey",
@@ -101,12 +91,10 @@ def map_key(palette, concerns, top):
         size = 12 if key == "adr" else 16
         cells.append(cell(f"mapkey-{key}", "", "rounded=0;html=1;" + style, y + (18 - size) / 2, size, x=X + 12 + (26 - size) / 2, width=size))
         cells.append(cell(f"mapkey-{key}-text", text, TEXT, y - 1, 20, x=X + 48, width=WIDTH - 56))
-    cells.append(cell("mapkey-codes", codes, TEXT.replace("verticalAlign=middle", "verticalAlign=top;whiteSpace=wrap"), top + 28 + len(rows) * 23,
-                      14 * len(lines) + 4, x=X + 8, width=WIDTH - 16))
     return "\n    ".join(cells)
 
 
-def lay_out_sidebar(model, palette, concerns):
+def lay_out_sidebar(model, palette):
     """The sidebar of a slide model: the minimap image cells (minimap-stack renamed minimap-grid, minimap-chain added
     as a copy of it when missing), every sidebar cell at its SIDEBAR slot, and a fresh map key below them."""
     model = model.replace('id="minimap-stack"', 'id="minimap-grid"')
@@ -138,7 +126,7 @@ def lay_out_sidebar(model, palette, concerns):
     # the ADR codes in the sidebar (the subtitle holds them), before adding a fresh map key below the lens badge.
     model = re.sub(r'\s*<mxCell id="(?:mapkey|mk-|supports)[^"]*"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.DOTALL)
     badge = found(r'<mxCell id="lens-badge".*?</mxCell>', model, "lens-badge cell", re.DOTALL)
-    model = model[: badge.end()] + "\n    " + map_key(palette, concerns, MAPKEY_Y) + model[badge.end() :]
+    model = model[: badge.end()] + "\n    " + map_key(palette, MAPKEY_Y) + model[badge.end() :]
     return add_sidebar_backing(model)
 
 
@@ -170,7 +158,6 @@ def main():
     parser.add_argument("--end", type=int)
     args = parser.parse_args()
     palette = json.loads((REPO / args.data / "palette.json").read_text(encoding="utf-8"))
-    concerns = describe.shown_chain(json.loads((REPO / args.data / "value-chain-map.json").read_text(encoding="utf-8")))["concerns"]
     slides = json.loads((REPO / args.slides).read_text(encoding="utf-8"))["slides"][args.start : args.end]
     missing = []
     for slide in slides:
@@ -180,7 +167,7 @@ def main():
         if gaps:
             missing.append((slide["id"], gaps))
             continue
-        xml.write_text(lay_out_sidebar(xml.read_text(encoding="utf-8"), palette, concerns), encoding="utf-8")
+        xml.write_text(lay_out_sidebar(xml.read_text(encoding="utf-8"), palette), encoding="utf-8")
         pairs = [f"minimap-{view}={png}" for view, png in pngs.items()]
         subprocess.run([sys.executable, str(TOOLS / "embed_images.py"), str(xml), *pairs], check=True, stdout=subprocess.DEVNULL)
         subprocess.run(

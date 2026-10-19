@@ -1,7 +1,7 @@
 # cspell:ignore minimaps segoeui segoeuib seguisb textlength squarify Bruls rects cwid gfiles gmap gname maxw tname
 """Render the three minimaps of every slide, each with its sister .md, from the map processors' data.
 
-Per slide, into its diagram folder (the slide list's `folder`, beside diagram.drawio.png; assets/STYLE.md, "Fan-out"):
+Per slide, into out/drawio/minimaps/<folder> (the slide list's `folder`; a build output the join step embeds in diagram.drawio.png):
   grid.png   the world map's grid: tracks x file languages, the lit cells filled
   tree.png   the world map's tree: the files of the map as a treemap, the lit files filled
   chain.png  the value-chain map: value-chain stack x value-chain concerns, the lit cells filled
@@ -644,7 +644,7 @@ def main():
             json.dumps(facts, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
         )
     print(
-        f"render.py: {len(slides)} slides, {len(slides) * len(VIEWS)} minimaps and sister .md files, each beside its slide"
+        f"render.py: {len(slides)} slides, {len(slides) * len(VIEWS)} minimaps and sister .md files under out/drawio/minimaps"
     )
 
 

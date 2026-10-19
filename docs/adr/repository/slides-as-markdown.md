@@ -75,14 +75,15 @@ is never drawn by hand or by the draw.io CLI: a session edits a model, and the k
 
 ### Rule ADR-REPO-SLIDES-DECLARATION
 
-The **diagram declaration** is `diagram.yml` beside `diagram.drawio.png` in the diagram's folder, in two sections. `content:` says what the
-diagram shows in the kit's closed vocabulary: the title, the ADR codes, the lens, the kind, the flow, the theme, the bands, the span bars
-with the bands each covers, the groups, which may nest, the glyphs with their kind and holder, the edges, the markers, the chips, the legend
-and the three minimaps. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the kit's `drawio.yml` (the
-lenses, kinds, themes, minimap ids and span words) or in its glyph library (the glyph and edge kinds), and a value outside it fails
-validation with the list the author may choose from
-([ADR-PRIN-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-adr-prin-pokayoke-detectearliest)). A cell without a `layout:` entry is
-placed by the grid; a cell with one keeps it; a cell whose id is not in `content:` is removed.
+A diagram folder holds two files: the render `diagram.drawio.png` and its one source, `diagram.drawio.yml`, the **diagram declaration**.
+`description:` says in a sentence or two what the diagram shows. `content:` says it in the kit's closed vocabulary: the title, the ADR
+codes, the lens, the kind, the flow and the one relation its flow edges mean, the theme, the bands, the span bars with the bands each
+covers, the groups, which may nest, the glyphs with their kind and holder, the edges, the markers, the chips, the legend and the three
+minimaps. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the kit's `drawio.yml` (the lenses,
+kinds, themes, minimap ids and span words) or in its glyph library (the glyph and edge kinds), and a value outside it fails validation with
+the list the author may choose from ([ADR-PRIN-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-adr-prin-pokayoke-detectearliest)).
+A cell without a layout entry is placed by the grid; a cell with one keeps it; a cell whose id is not in the content is removed. A diagram
+names no article: articles and slides embed its png, any number of them, and the build finds them by what embeds it.
 
 - [The declaration is the source](#the-declaration-is-the-source)
 
