@@ -6,12 +6,11 @@ function Test-Markdownlint {
             '**/*.md'
             '!out'
             '!**/.vendor'
+            '!**/.venv'
+            '!**/.pytest_cache'
             '!docs/notes'
             '!.unordered'
             '!**/node_modules'
-            '!**/README.md'
-            '!docs/adr/index.md'
-            '!docs/adr/glossary.md'
         ),
 
         [string] $OutputFolder,

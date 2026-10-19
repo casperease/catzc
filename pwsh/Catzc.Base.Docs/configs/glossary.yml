@@ -569,7 +569,7 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
     short:
-      A provided contract asset, <module>/<Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in
+      A provided contract asset, `<module>/<Verb-Noun>.command.yml` in a unit's version folder, that states one command's call interface in
       the contract language; a command is public exactly when one names it.
     realized_by: { kind: prose-only }
     contrasts:

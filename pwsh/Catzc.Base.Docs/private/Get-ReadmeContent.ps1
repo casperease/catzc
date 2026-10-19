@@ -10,10 +10,11 @@ function Get-ReadmeContent {
     Assert-PathExist $sourcePath -PathType Leaf
     # The copy carries the article, not the source's meta block, so it opens with its title as a reader expects.
     $text = Remove-MarkdownFrontMatter -Text ([System.IO.File]::ReadAllText($sourcePath) -replace "`r", '')
-    $body = [Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase($text, $Mapping.source, $Mapping.folder)
+    # The rebased links are longer than the source's, so a line the source wrapped at the width can pass it here; wrap those blocks again.
+    $body = Format-LongMarkdownLines -Text ([Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase($text, $Mapping.source, $Mapping.folder))
 
     $sourceLink = [Catzc.Base.Docs.MarkdownLinkRebaser]::RelativeLink($Mapping.folder, $Mapping.source)
-    $banner = "> Generated from [$($Mapping.source)]($sourceLink) — edit the source;"
+    $banner = Format-LongMarkdownLines -Text "> Generated from [$($Mapping.source)]($sourceLink) — edit the source;"
 
     # The copy's own meta block says what it is, in the shape every meta block has, so a tool can tell it from an authored file.
     $meta = "---`ncatzc:`n  immutable:`n    role: $((Get-FileKind "$($Mapping.folder)/README.md").role)`n---`n`n"

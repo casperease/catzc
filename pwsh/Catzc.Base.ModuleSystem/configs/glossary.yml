@@ -53,7 +53,7 @@ concepts:
       release candidate:
         A release candidate is the artifact, the same bytes wherever it is deployed; an occupant is the commit one environment holds.
     avoid:
-      - { phrase: current occupant, say: occupant (the <environment> occupant) }
+      - { phrase: current occupant, say: occupant (the `<environment>` occupant) }
       - { phrase: current occupants, say: occupants }
       - { phrase: resident commit, say: occupant }
   unordered track:

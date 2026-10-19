@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "71aa47ff0c11"
-    with_inputs_sha: f6c82edde2b454bf0b255d72618aa279b5466a15a763861f818e6aa807f8a670
+    with_body_sha: deab627cdc69
+    with_inputs_sha: "4374f1ac1c4abaf181674415f242bf67dd7ef5a49f0da585bc547244c2039dcf"
     repo_status: locked
     path: docs/adr/glossary.md
     role: glossary
@@ -277,11 +277,11 @@ The one commit an always-on environment holds, deployed there as its release can
   - [release candidate](#release-candidate): A release candidate is the artifact, the same bytes wherever it is deployed; an occupant is the
     commit one environment holds.
 
-| Avoid               | Say instead                           |
-| ------------------- | ------------------------------------- |
-| `current occupant`  | occupant (the <environment> occupant) |
-| `current occupants` | occupants                             |
-| `resident commit`   | occupant                              |
+| Avoid               | Say instead                             |
+| ------------------- | --------------------------------------- |
+| `current occupant`  | occupant (the `<environment>` occupant) |
+| `current occupants` | occupants                               |
+| `resident commit`   | occupant                                |
 
 ### place
 
@@ -821,7 +821,7 @@ tests; each is a member of the one generated uv workspace.
 
 ### quality gate
 
-A gate checking one property of the whole repository automatically — one Test-<subject> function that reports through
+A gate checking one property of the whole repository automatically — one `Test-<subject>` function that reports through
 Write-QualityGateReport and throws once with every issue.
 
 - **Defined by:** [ADR-AUTO-TEST-QUALITYGATE](automation/test-automation.md#rule-adr-auto-test-qualitygate)
@@ -1116,7 +1116,7 @@ An ADR citation in a code comment, written as a repository-rooted markdown link 
 
 ### command contract
 
-A provided contract asset, <module>/<Verb-Noun>.command.yml in a unit's version folder, that states one command's call interface in the
+A provided contract asset, `<module>/<Verb-Noun>.command.yml` in a unit's version folder, that states one command's call interface in the
 contract language; a command is public exactly when one names it.
 
 - **Defined by:** [ADR-REPO-CMDCONTRACT-COMMANDCONTRACT](repository/command-contracts.md#rule-adr-repo-cmdcontract-commandcontract)
