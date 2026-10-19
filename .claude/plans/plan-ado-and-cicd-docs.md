@@ -88,8 +88,11 @@ marker, unlike the other vendor folders.
       2026-10-19: `Test-Pipelines` and `Test-AdoPipelineTriggerGlob` read the place from the `ado-pipelines` track; Test-Pipelines,
       Test-AdoPipelineTriggerGlob, Get-PathModule, CommentsConfig and Build-GitKeep tests Passed; the grep finds only self-contained L0
       fixtures that declare their own `pipelines` place (WorldMap*, GlobPattern, Build-GitKeep), which stay.
-- [ ] Re-point the eight contract fragments under `contracts/catzc/0.0.0/Catzc.Azure.DevOps/` as one contract change (check: Test-Contracts
-      clean; the released folders stay frozen).
+- [x] Re-point the eight contract fragments under `contracts/catzc/0.0.0/Catzc.Azure.DevOps/` as one contract change (check: Test-Contracts
+      clean; the released folders stay frozen). Verdict 2026-10-19: the fragments stay at `Catzc.Azure.DevOps/pipelines/` and
+      `contracts.yml` declares the target root `Catzc.Azure.DevOps: .ado` (a dot folder under `contracts/` is refused,
+      ADR-REPO-CONTRACT-NODOTFOLDERS); the fragment headers and `Test-Pipelines.command.yml` name `.ado/pipelines/`; Test-Contracts "No
+      contracts issues found."
 - [ ] Re-point `.gitattributes`, the three `docs/how-to` pages and the 15 non-generated `docs/explanation` articles, one file at a time; the
       307 generated `.assets` pages and the `docs/references` pages are regenerated, not edited (check: `Build-Diagrams -Path` over the
       touched folders and `Build-Readme` clean; Test-Links over docs/ clean). Done 2026-10-19: every hand-written page re-pointed (13 ADRs,

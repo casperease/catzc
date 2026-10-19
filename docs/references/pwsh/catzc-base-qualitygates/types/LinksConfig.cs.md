@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/types/LinksConfig.cs
+# automation/pwsh/Catzc.Base.QualityGates/types/LinksConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -13,7 +13,7 @@ The link-alignment settings (configs/links.yml,
 defaults: every key is optional, and an omitted key — or a fresh checkout with no file — behaves exactly like
 the default, so no function restates a value
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A Format-Links parameter overrides the
-resolved value per call ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
+resolved value per call ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
   wrap               — how an aligned comment line that outgrows its limit is wrapped (break | off; default break)
   line_limit         — per-extension limit overrides ({ .ps1: 120 }); default none, so .editorconfig decides
   default_line_limit — the limit for an extension .editorconfig gives no max_line_length (default 140, the

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Maps/types/PdfPage.cs
+# automation/pwsh/Catzc.Base.Maps/types/PdfPage.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -13,7 +13,7 @@ coordinates are PDF user space: the origin at the bottom-left corner, one unit p
 one line of operators; PdfDocument writes the lines as the page's content stream. Text goes through WinAnsi, the
 only encoding the base-14 fonts show, and a character outside it throws instead of printing a wrong glyph. Numbers
 go through PdfNumber, so the bytes do not depend on the culture
-([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)).
+([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)).
 ```
 
 ## comment:2

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
+# automation/pwsh/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -37,6 +37,6 @@ code in an L0 test's fixture data.
 Above `foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
+A whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
 fixture repository stands in for the tracked files, so nothing is pruned.
 ```

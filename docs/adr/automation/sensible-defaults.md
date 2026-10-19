@@ -75,7 +75,7 @@ function Install-Python {
 ```
 
 How the parameter surface itself is shaped so the common call stays short — the positional primary argument, switches over booleans — is the
-language layer, [parameter-design](../pwsh/parameter-design.md) (`ADR-PWSH-PARAM`).
+language layer, [parameter-design](pwsh/parameter-design.md) (`ADR-PWSH-PARAM`).
 
 ### The principle
 
@@ -91,7 +91,7 @@ mandatory. The test is: **does a reasonable default exist?** If yes, use it. If 
 
 In order of preference:
 
-1. **Configuration files.** Tool versions come from `pwsh/Catzc.Base.Execution/configs/tools.yml`. Environment settings come from
+1. **Configuration files.** Tool versions come from `automation/pwsh/Catzc.Base.Execution/configs/tools.yml`. Environment settings come from
    `Catzc.Azure/configs/azure.yml`. The function reads config internally — the caller does not need to know where the value lives.
 
 2. **Convention.** Output verbosity defaults to `Detailed`. A test run's top tier defaults to `3`, capped by its location
@@ -101,7 +101,7 @@ In order of preference:
    `Get-CatzcModuleRoot` provides the module's own folder. The function uses these anchors instead of requiring a path parameter.
 
 4. **Off, for opt-in behavior.** `-PassThru`, `-DryRun`, `-Silent`, `-NoAssert` — these default to off because the common case does not need
-   them; the caller opts in explicitly when needed (expressed as a `[switch]` — see [parameter-design](../pwsh/parameter-design.md)).
+   them; the caller opts in explicitly when needed (expressed as a `[switch]` — see [parameter-design](pwsh/parameter-design.md)).
 
 ### One resolution order
 
@@ -119,7 +119,7 @@ configuration edits, and no function restates the value. Most of the time the tw
 such as this repository enabling every customer, its entry in `configs.yml` names the key under `differs` with one sentence of reason, and
 `Test-ShippedConfigs` fails any other difference and any reason whose values agree. This is not a fallback kept for an older shape
 ([one-living-version](../principles/one-living-version.md)): it is the single declared default of an optional setting. How a PowerShell
-parameter expresses steps 1–2 is the language layer, [parameter-design](../pwsh/parameter-design.md#configurable-parameters)
+parameter expresses steps 1–2 is the language layer, [parameter-design](pwsh/parameter-design.md#configurable-parameters)
 (`ADR-PWSH-PARAM-RESOLUTIONORDER`).
 
 ## Decision

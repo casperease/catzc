@@ -70,7 +70,7 @@ to route around the cord, which is how defects reach production.
 
 ## How to apply
 
-Make the stop automatic and total. A gate that detects a problem throws ([ADR-PWSH-ERROR](../pwsh/error-handling.md)) — it does not
+Make the stop automatic and total. A gate that detects a problem throws ([ADR-PWSH-ERROR](../automation/pwsh/error-handling.md)) — it does not
 `Write-Warning` and carry on, because a warning that does not stop is a defect waved through. The commit it stopped shows red in the history
 view ([ADR-DSGN-VISUAL](../design/visual-design.md)). When the mainline is red, treat restoring it as the top priority and do not integrate
 new work onto it. When a gate goes red on your own machine, that is the system working: fix it there, where it is a one-line change, rather

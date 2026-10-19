@@ -5,8 +5,8 @@
 ### Rule ADR-AUTO-DEPM-CODEBUILTFROM
 
 A module dependency (`ADR-AUTO-DEPM`) is code the toolset is built from. Its internal edges — module A needing module B among the
-repository's own modules — are declared in `pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list, and
-an actual edge with no declaration fails the build.
+repository's own modules — are declared in `automation/pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the declaration is the
+allow-list, and an actual edge with no declaration fails the build.
 
 - [The declared graph](#the-declared-graph)
 
@@ -63,8 +63,8 @@ against exactly the code that commit holds. An external dependency is pinned to 
 ### Rule ADR-AUTO-DEPM-INTERNALVENDORED
 
 Internal module dependencies are vendored and named. The code is in-tree — the toolset's own modules, and third-party modules vendored under
-`pwsh/.vendor/` — and every edge is declared by name in `dependencies.yml` (ADR-AUTO-DEPM-CODEBUILTFROM). The repository alone is the
-internal dependency set; there is nothing to fetch.
+`automation/pwsh/.vendor/` — and every edge is declared by name in `dependencies.yml` (ADR-AUTO-DEPM-CODEBUILTFROM). The repository alone is
+the internal dependency set; there is nothing to fetch.
 
 - [Internal: vendored and named](#internal-vendored-and-named)
 
@@ -89,7 +89,7 @@ reproducible from the checkout.
 The repository is a mono-repo of modules that use one another: a function in one module calls a function in another, and a C# type in one
 module references a type in another. Left implicit, those uses form an unmanaged graph — and an unmanaged graph drifts into cycles and layer
 inversions, where a foundation module quietly comes to depend on a leaf. Neither medium the edges travel through stops this on its own:
-PowerShell imports every module into one global function namespace (see [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md)), so
+PowerShell imports every module into one global function namespace (see [dynamic-module-manifests](pwsh/dynamic-module-manifests.md)), so
 any module can call any other's function; and the C# types compile into a **single combined assembly** (see
 [native-csharp-types](BCL/native-csharp-types.md)), so the compiler does not forbid a cross-module type reference that inverts a layer.
 
@@ -100,7 +100,8 @@ mechanically, not by review vigilance — and it keeps a single, legible answer 
 ## Decision
 
 Module dependencies are declared in one place and checked against the code. The declaration lives in
-`pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the actual function-call and C# type edges are extracted and checked against it.
+`automation/pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the actual function-call and C# type edges are extracted and checked
+against it.
 
 ### The declared graph
 
@@ -119,8 +120,7 @@ unified in one graph rather than split across two declarations. `Get-ModuleDepen
 `Get-CSharpTypeDependency` the type-reference edges (the combined assembly means the C# compiler will not — see
 [native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types-referencesfollowdependencies)); `Test-ModuleDependency` unions the two
 sets and checks them against the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync. How the PowerShell
-function-call edges are extracted is
-[dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-crossmodulecalls).
+function-call edges are extracted is [dynamic-module-manifests](pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-crossmodulecalls).
 
 ### Groups and modules
 
@@ -171,13 +171,13 @@ conflated.
 Reproducibility is the point, so nothing floats. An internal dependency needs no version field — its code is in the checkout, so the commit
 is the pin: a given commit builds against exactly the code that commit holds. An external dependency carries an exact version in config — a
 single version, not a `2.x` range or `latest` — so its feed resolves the same artifact every time. This is the determinism
-[vend](../pwsh/vendor-toolset-dependencies.md) secures for vendored modules, applied to every module dependency however it arrives.
+[vend](pwsh/vendor-toolset-dependencies.md) secures for vendored modules, applied to every module dependency however it arrives.
 
 ### Internal: vendored and named
 
 An internal module dependency is visible in the repository two ways at once. It is **vendored** — the code is in-tree, whether the toolset's
-own modules under `pwsh/` or a third-party module checked in under `pwsh/.vendor/<Name>/<Version>/`
-([vend](../pwsh/vendor-toolset-dependencies.md)) — so loading is a path read with no network. And it is **named** — the edge is declared in
+own modules under `automation/pwsh/` or a third-party module checked in under `automation/pwsh/.vendor/<Name>/<Version>/`
+([vend](pwsh/vendor-toolset-dependencies.md)) — so loading is a path read with no network. And it is **named** — the edge is declared in
 `dependencies.yml` and checked (the graph rules above). Vendored gives the code; named gives the layering. Together they make the repository
 alone the internal dependency set: nothing is fetched and nothing is resolved.
 
@@ -201,8 +201,8 @@ describes, and adding or moving a dependency is a reviewed change.
 
 ## How this is enforced
 
-- **`dependencies.yml`** (`pwsh/Catzc.Base.ModuleSystem/configs/`) — the single declared allow-list of module edges, with its `groups:` and
-  `modules:` sections.
+- **`dependencies.yml`** (`automation/pwsh/Catzc.Base.ModuleSystem/configs/`) — the single declared allow-list of module edges, with its
+  `groups:` and `modules:` sections.
 - **`DependenciesConfig`** — the config type that validates the declaration at load: resolvable targets, closed groups, acyclic module and
   group graphs.
 - **`Get-ModuleDependency`** + **`Get-CSharpTypeDependency`** — extract the actual function-call and C# type-reference edges from the code.
@@ -210,8 +210,8 @@ describes, and adding or moving a dependency is a reviewed change.
   exists on disk) and the extracted edges against the declaration (allow-set membership and the group's internal-map subset rule), failing
   its L1 integrity test on any finding.
 - **Code review** — enforces `ADR-AUTO-DEPM-EXTENDBYDECLARING`: a new edge is declared in the same change as the code, not deferred.
-- **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](../pwsh/vendor-toolset-dependencies.md)) — pin a vendored internal
-  dependency by its `pwsh/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM-INTERNALVENDORED`).
+- **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](pwsh/vendor-toolset-dependencies.md)) — pin a vendored internal dependency
+  by its `automation/pwsh/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM-INTERNALVENDORED`).
 - **Pinning** — the commit pins every internal dependency; an external dependency carries its exact version in the stitch config, reviewed
   in the diff (`ADR-AUTO-DEPM-EXACTVERSIONPINS`).
 

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
+# automation/pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -38,6 +38,6 @@ Get-CatzcContentHash -Path (Join-Path (Get-OutputRoot) 'automation/built/full/Ca
 Above `$files = Get-ChildPath $rootFull -File -Depth 64 -Exclude @() -PruneVendor...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the hash
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the hash
 covers every file, so nothing is pruned and no depth drops one.
 ```

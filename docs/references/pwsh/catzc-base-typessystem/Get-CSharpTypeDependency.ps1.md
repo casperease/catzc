@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
+# automation/pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -53,7 +53,7 @@ Above `foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs')
 ```text
 [System.IO] (sorted) instead of Get-ChildItem/Get-Content — ~20ms-per-call cmdlet overhead the raw
 .NET enumeration + read avoid
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 ```
 
 ## comment:2

@@ -1,4 +1,4 @@
-# pwsh/.internal/Catzc.Internal.Bootstrap.psm1
+# automation/pwsh/.internal/Catzc.Internal.Bootstrap.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -286,7 +286,7 @@ Load the assembly if not already in the AppDomain (a reimport keeps the live cop
 Loading a binary into the session is a state change, so it is announced
 ([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on the
 importer's verbose record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)), naming
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)), naming
 the DLL; a reimport that keeps the live copy loads
 nothing and says nothing. The load goes through a per-user shadow copy (Import-TypesAssembly), never the
 .compiled file itself, so no session ever locks a build inside the repository; the message names the
@@ -354,7 +354,7 @@ Above `function Get-ForeignCatzcModule {`, written with `#`.
 .SYNOPSIS
     Returns every loaded catzc module that does not come from the given code root.
 .DESCRIPTION
-    The package module also belongs when its ModuleBase is the root's parent, since its code root is pwsh/.
+    The package module also belongs when its ModuleBase is the root's parent, since its code root is automation/pwsh/.
     [comment:29](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment29)
 .PARAMETER ModulesRoot
     The active code root (CatzcModulesRoot).
@@ -402,7 +402,7 @@ Above `$moduleDirs = [System.IO.DirectoryInfo]::new($ModulesRoot).GetDirectories
 
 ```text
 One level, inline: this module loads before the walker exists
-([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)).
+([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)).
 ```
 
 ## comment:33
@@ -471,7 +471,7 @@ Above `. $importedModule { Set-StrictMode -Version Latest }`, written with `#`.
 ```text
 A session-level Set-StrictMode does not reach module code, so strict mode is set in each module's own
 script scope, which every function in the module inherits
-([ADR-PWSH-ERROR](/docs/adr/pwsh/error-handling.md)).
+([ADR-PWSH-ERROR](/docs/adr/automation/pwsh/error-handling.md)).
 ```
 
 ## comment:39
@@ -483,7 +483,7 @@ Loading and unloading modules changes the session, so it is announced
 ([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on the
 importer's
 verbose record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)): one
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)): one
 line names
 the load, plus any module that left the session for good — evicted from another root, or gone from the tree.
 A re-import's remove-then-reload of the same modules is not a departure and is not listed.

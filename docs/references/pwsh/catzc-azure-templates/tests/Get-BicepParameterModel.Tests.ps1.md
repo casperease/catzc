@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
+# automation/pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -13,7 +13,7 @@ from a fixture main.json (tests/assets/parameter-model/main.json, widget/gadget 
 [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), and the build-when-not-current
 decision. No az: the fixture stands in for the compiled main.json, and Build-Bicep (the one az touch) is mocked.
 Discovery binds to the fixture templates and the output to this file's $TestDrive through the seams
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)).
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)).
 ```
 
 ## comment:2

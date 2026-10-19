@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
+# automation/pwsh/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -11,7 +11,7 @@ Above `[System.IO.Directory]::CreateDirectory($script:tempArtifacts) | Out-Null`
 Static fixtures + boundary mocks set up ONCE (not per test). The only per-test state is the hook
 marker files (pre-/post-called.json), cleared in BeforeEach; main.json/parameters/PrePost.psm1 never
 change, so rebuilding them every test was pure filesystem-cmdlet tax (~5 cmdlet calls × ~20ms —
-[ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). [System.IO] writes them in
+[ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). [System.IO] writes them in
 ~0.1ms.
 ```
 

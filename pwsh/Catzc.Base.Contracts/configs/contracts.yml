@@ -2,5 +2,6 @@ addressing: full-path
 
 target_roots:
   Catzc.Tooling.Github: .github
+  Catzc.Azure.DevOps: .ado
   Catzc.Base.Globs: pwsh/Catzc.Base.Globs
   Catzc.Azure.Templates: pwsh/Catzc.Azure.Templates

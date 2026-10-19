@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+# automation/pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -33,6 +33,6 @@ The bundle's exporter.yml entry (an ExporterBundle).
 Above `foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
 footprint counts every shipped byte, so nothing is pruned.
 ```

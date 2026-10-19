@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Modules/Get-CatzcModule.ps1
+# automation/pwsh/Catzc.Base.Modules/Get-CatzcModule.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -25,7 +25,7 @@ track) are left out unless -IncludeInternal asks for them. Modules come in the t
 A module's languages are those of its live files (the layout marks tests and READMEs not live). A module is laid out, and its unplaced files
 are reported, only when its track's primary language (the first it declares) owns layout rows in languages.yml.
 
-It rests on [ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded).
+It rests on [ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded).
 
 ### parameter `Name`
 

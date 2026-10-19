@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
+# automation/pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -22,7 +22,7 @@ Idempotent and fast by construction, so the importer runs it on every load besid
 (canonical output, EOL-insensitive compare, write only on drift). .gitkeep files are committed — tracking the folder is their whole job — so
 a source change lands as a reviewable diff across every location. See [ADR-REPO-README](../../../adr/repository/generated-readmes.md).
 
-It rests on [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths).
+It rests on [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths).
 
 ### parameter `DryRun`
 

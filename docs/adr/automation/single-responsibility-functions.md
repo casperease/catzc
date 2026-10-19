@@ -99,7 +99,7 @@ part they need because they cannot use the function without the part they do not
 | Function logs before/after its work                        | Logging concerns change independently            | Use `Write-Verbose`/`Write-Debug` (built-in), or wrap at the call site   |
 
 The pwsh forms of a temporary state change and of a retry wrapper are in
-[error-handling](../pwsh/error-handling.md#rule-adr-pwsh-error-preferencesareambientstate).
+[error-handling](pwsh/error-handling.md#rule-adr-pwsh-error-preferencesareambientstate).
 
 ### Composition vs mixing
 
@@ -185,8 +185,8 @@ silently does something else too.
 
 ### How this is enforced
 
-- **Custom PSScriptAnalyzer rule `Measure-FunctionLength`** (`pwsh/.scriptanalyzer/FunctionLength.psm1`) — warns when a function body
-  exceeds 300 lines. A function that long is almost certainly doing too much. The limit counts the body only (opening brace to closing
+- **Custom PSScriptAnalyzer rule `Measure-FunctionLength`** (`automation/pwsh/.scriptanalyzer/FunctionLength.psm1`) — warns when a function
+  body exceeds 300 lines. A function that long is almost certainly doing too much. The limit counts the body only (opening brace to closing
   brace) — comment-based help placed before the function is not counted.
 
 ## Consequences

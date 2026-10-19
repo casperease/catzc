@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Invoke-TestFile.ps1
+# automation/pwsh/Catzc.Base.QualityGates/Invoke-TestFile.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -61,7 +61,7 @@ The highest tier to run (alias: -Level): 3 by default, every tier but the opt-in
 
 Hard ceiling for the worker; on expiry it is killed and this throws. Defaults to this function's `[TimeLimit]` (360 s on a devbox, 600 s in
 a pipeline), unless timeouts.yml overrides it
-([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)).
+([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../adr/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)).
 
 ### parameter `Isolated`
 
@@ -85,13 +85,13 @@ message (Write-TestRunFailures): each failed test, and each file that failed bef
 ### example 1
 
 ```powershell
-Invoke-TestFile pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
+Invoke-TestFile automation/pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
 ```
 
 ### example 2
 
 ```powershell
-Invoke-TestFile pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1 -FullNameFilter 'Generated README copy-ins'
+Invoke-TestFile automation/pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1 -FullNameFilter 'Generated README copy-ins'
 ```
 
 ## comment:1

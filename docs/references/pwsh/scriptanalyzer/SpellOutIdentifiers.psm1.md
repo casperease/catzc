@@ -1,4 +1,4 @@
-# pwsh/.scriptanalyzer/SpellOutIdentifiers.psm1
+# automation/pwsh/.scriptanalyzer/SpellOutIdentifiers.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -24,7 +24,7 @@ Bring the oracle type into THIS runspace and load its dictionary, once. This mus
 time, not at module load: PSScriptAnalyzer resolves and runs custom rules in its own runspace, whose
 type-resolution table does not inherit assemblies the importer loaded in the parent — and the analyzer
 shards are bare pwsh processes with neither our module system nor $env:RepositoryRoot. So resolve paths
-from $PSScriptRoot (this file lives at pwsh/.scriptanalyzer/) and load the current committed types
+from $PSScriptRoot (this file lives at automation/pwsh/.scriptanalyzer/) and load the current committed types
 assembly here. Idempotent: guarded by a module-scope flag, and the load is skipped when the type already resolves.
 ```
 
@@ -86,7 +86,7 @@ Above `$isVariable = {`, written with `#`.
 ```text
 Every variable reference — assignment targets, parameters, loop variables, and reads — so a coined name
 is caught wherever it is defined. Predicate as a local
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```
 
 ## comment:9
@@ -104,5 +104,5 @@ Above `$isFunction = {`, written with `#`.
 
 ```text
 The noun of each function name (the verb is checked by PSUseApprovedVerbs). Predicate as a local
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```

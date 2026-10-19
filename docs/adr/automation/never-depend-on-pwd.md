@@ -53,7 +53,7 @@ therefore gives a different answer in each mode. The code root — the module's 
 both, so a module's own configs and assets resolve identically from source and from the installed build. Because every such lookup passes a
 literal child path, the lookups are also an inventory the build and its tests check
 ([internal-asset-dependencies](internal-asset-dependencies.md)). How PowerShell code reaches the code root, and which files keep the
-file-folder anchor, is [working-directory-mechanics](../pwsh/working-directory-mechanics.md#the-code-root).
+file-folder anchor, is [working-directory-mechanics](pwsh/working-directory-mechanics.md#the-code-root).
 
 ## Decision
 
@@ -62,10 +62,10 @@ never through the folder its file happens to sit in.
 
 ### How this is enforced
 
-- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on `$PWD` dependence.
-  Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
+- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`automation/pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on `$PWD`
+  dependence. Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
 - **The language layer** — the anchor idioms, the code-root and working-root analyzer rules, and the one safe way to change directory
-  (`Push-Location`/`Pop-Location` in `try`/`finally`) are [working-directory-mechanics](../pwsh/working-directory-mechanics.md)
+  (`Push-Location`/`Pop-Location` in `try`/`finally`) are [working-directory-mechanics](pwsh/working-directory-mechanics.md)
   (`ADR-PWSH-PWD`): the anchors of rule 1 in ADR-PWSH-PWD-NEVERDEPENDONPWD and ADR-PWSH-PWD-MODULELOCATESCONTENT, the test paths of rule 4
   in ADR-PWSH-PWD-TESTABSOLUTEPATHS, and the working-root accessor of rule 6 in ADR-PWSH-PWD-ROOTTHROUGHACCESSOR.
 
@@ -75,6 +75,6 @@ never through the folder its file happens to sit in.
   sitting.
 - CI pipelines and scheduled tasks work without a `cd` preamble.
 - Every path resolves from a stable anchor, so a function behaves identically wherever it is called from — the anchor idioms live in
-  [working-directory-mechanics](../pwsh/working-directory-mechanics.md).
+  [working-directory-mechanics](pwsh/working-directory-mechanics.md).
 - A module's own content resolves identically in source mode and in the installed build, because both answer through the one code-root
   helper.

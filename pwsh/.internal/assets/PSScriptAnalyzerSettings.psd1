@@ -9,8 +9,8 @@
     # One entry rule runs every custom check once per file (PSScriptAnalyzer calls a script rule once per
     # ScriptBlockAst). Add a new check module to the list in CatzcRules.psm1, not here.
     CustomRulePath      = @(
-        'pwsh/.scriptanalyzer/CatzcRules.psm1'
-        'pwsh/.scriptanalyzer/CatzcSpelling.psm1'
+        'automation/pwsh/.scriptanalyzer/CatzcRules.psm1'
+        'automation/pwsh/.scriptanalyzer/CatzcSpelling.psm1'
     )
 
     ExcludeRules        = @(
@@ -36,7 +36,7 @@
         # NRE and stay enabled.
         'PSReservedCmdletChar'
         # Superseded by the custom Measure-NoRawConsoleWrite
-        # ([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)),
+        # ([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)),
         # which flags Write-Host AND
         # every other way past the information stream ([Console]::Write, $Host.UI, Out-Host, Write-Progress, ...).
         # One rule owns the console bypass, so a Write-Host is reported once, not twice.
@@ -91,9 +91,9 @@
         #     custom rules), so it never actually checked anything — disabling is no regression.
         #   - The profiles it reads (PSScriptAnalyzer's ~280 MB compatibility_profiles/) are not vendored:
         #     Install-VendorModule prunes the folder, so the rule has nothing to load
-        #     ([ADR-PWSH-VENDOR-ONLYWHATLOADS](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-onlywhatloads)).
+        #     ([ADR-PWSH-VENDOR-ONLYWHATLOADS](/docs/adr/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-onlywhatloads)).
         #   - When it runs, PSScriptAnalyzer merges the target profiles into a single ~42 MB
-        #     union_<hash>.json written INSIDE pwsh/.vendor/PSScriptAnalyzer/.../
+        #     union_<hash>.json written INSIDE automation/pwsh/.vendor/PSScriptAnalyzer/.../
         #     compatibility_profiles/, an untracked blob after every fresh run.
         #   - With PSUseCompatibleTypes it is the slowest thing here: enabling both took the L2 analyzer
         #     test from ~28 s to ~48 s.
@@ -215,7 +215,7 @@
         # Checks that .NET types used exist in target PowerShell profiles.
         # Off for the same reasons, and via the same re-introduction steps, as PSUseCompatibleCmdlets
         # above (read that block first). This is the rule that actually emits the ~42 MB union_<hash>.json
-        # type profile into pwsh/.vendor. Re-enable it together with PSUseCompatibleCmdlets.
+        # type profile into automation/pwsh/.vendor. Re-enable it together with PSUseCompatibleCmdlets.
         PSUseCompatibleTypes                      = @{
             Enable         = $false  # OFF: emits 42 MB cache into .vendor; see PSUseCompatibleCmdlets
             TargetProfiles = @(

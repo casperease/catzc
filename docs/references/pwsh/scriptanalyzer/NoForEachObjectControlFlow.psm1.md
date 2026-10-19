@@ -1,4 +1,4 @@
-# pwsh/.scriptanalyzer/NoForEachObjectControlFlow.psm1
+# automation/pwsh/.scriptanalyzer/NoForEachObjectControlFlow.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -22,7 +22,7 @@ Above `$isForEachObjectCommand = {`, written with `#`.
 ```text
 Find all ForEach-Object / % command invocations
 Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```
 
 ## comment:3
@@ -43,7 +43,7 @@ Find return, break, continue statements that are direct children of THIS
 scriptblock — not inside a nested foreach/for/while/do/switch/function/
 scriptblock, where they would be valid.
 Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```
 
 ## comment:5

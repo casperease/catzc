@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7d7eb2fcb5c5"
+    with_body_sha: "38a5ba714b13"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/index.md
@@ -31,7 +31,7 @@ normative summary plus internal links to the prose that justifies it). The gramm
 - **Cite a rule** by its code, which names it — e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, `ADR-AUTO-CACHE-READONLYVALUES`,
   `ADR-AZ-NAMING-NEVERTRUNCATE`. A rule is never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED).
 - The code resolves to the heading's anchor, `#rule-` and the code in lower case — e.g.
-  `pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror`.
+  `automation/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror`.
 - A code selects everything below it: `ADR-PWSH` is every ADR of the domain, `ADR-PWSH-ERROR` every rule of the ADR
   (ADR-REPO-ADRCODE-CODEISSELECTOR). There is no group or range spelling; a list of rules is the list of their codes
   (ADR-REPO-ADRCODE-NOSUBSETSPELLING).
@@ -187,7 +187,7 @@ domains build on it.
 | `ADR-AUTO-LAYERS`   | [layers](automation/layers.md)                                                   |
 | `ADR-AUTO-IMPORTER` | [importer](automation/importer.md)                                               |
 
-### pwsh/
+### automation/pwsh/
 
 PowerShell 7 as one of catzc's execution engines: how the automation rules are realised in pwsh — module files and manifests, parameter and
 error design, streams and console output, caching in script scope, working directory and environment mechanics, cross-platform pwsh, the
@@ -195,34 +195,34 @@ analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one 
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`.
 
-| Code                | ADR                                                                              |
-| ------------------- | -------------------------------------------------------------------------------- |
-| `ADR-PWSH-ENGINE`   | [pwsh-engine](pwsh/pwsh-engine.md)                                               |
-| `ADR-PWSH-ONEFUNC`  | [one-function-per-file](pwsh/one-function-per-file.md)                           |
-| `ADR-PWSH-USEPS`    | [use-ps1-not-psm1](pwsh/use-ps1-not-psm1.md)                                     |
-| `ADR-PWSH-MANIFEST` | [dynamic-module-manifests](pwsh/dynamic-module-manifests.md)                     |
-| `ADR-PWSH-MODPATH`  | [module-path-hygiene](pwsh/module-path-hygiene.md)                               |
-| `ADR-PWSH-VENDOR`   | [vendor-toolset-dependencies](pwsh/vendor-toolset-dependencies.md)               |
-| `ADR-PWSH-PREPOST`  | [prepost-extension-modules](pwsh/prepost-extension-modules.md)                   |
-| `ADR-PWSH-ERROR`    | [error-handling](pwsh/error-handling.md)                                         |
-| `ADR-PWSH-ASSERT`   | [assert-idioms](pwsh/assert-idioms.md)                                           |
-| `ADR-PWSH-ANNOUNCE` | [announce-state-changes](pwsh/announce-state-changes.md)                         |
-| `ADR-PWSH-NOSEMI`   | [avoid-using-semicolons](pwsh/avoid-using-semicolons.md)                         |
-| `ADR-PWSH-FOREACH`  | [prefer-foreach-over-foreach-object](pwsh/prefer-foreach-over-foreach-object.md) |
-| `ADR-PWSH-AUTOVAR`  | [automatic-variable-pitfalls](pwsh/automatic-variable-pitfalls.md)               |
-| `ADR-PWSH-VERBS`    | [respect-pwsh-verb-rules](pwsh/respect-pwsh-verb-rules.md)                       |
-| `ADR-PWSH-DRYRUN`   | [prefer-dryrun-over-shouldprocess](pwsh/prefer-dryrun-over-shouldprocess.md)     |
-| `ADR-PWSH-NAMES`    | [identifier-names](pwsh/identifier-names.md)                                     |
-| `ADR-PWSH-FORMAT`   | [powershell-formatting](pwsh/powershell-formatting.md)                           |
-| `ADR-PWSH-ENV`      | [environment-variable-mechanics](pwsh/environment-variable-mechanics.md)         |
-| `ADR-PWSH-PARAM`    | [parameter-design](pwsh/parameter-design.md)                                     |
-| `ADR-PWSH-ENUM`     | [bounded-enumeration](pwsh/bounded-enumeration.md)                               |
-| `ADR-PWSH-PWD`      | [working-directory-mechanics](pwsh/working-directory-mechanics.md)               |
-| `ADR-PWSH-XPLAT`    | [cross-platform-powershell](pwsh/cross-platform-powershell.md)                   |
-| `ADR-PWSH-CACHE`    | [script-scope-caching](pwsh/script-scope-caching.md)                             |
-| `ADR-PWSH-PESTER`   | [pester-testing](pwsh/pester-testing.md)                                         |
-| `ADR-PWSH-TYPES`    | [hosting-csharp-types](pwsh/hosting-csharp-types.md)                             |
-| `ADR-PWSH-IDEM`     | [idempotent-state-mechanics](pwsh/idempotent-state-mechanics.md)                 |
+| Code                | ADR                                                                                         |
+| ------------------- | ------------------------------------------------------------------------------------------- |
+| `ADR-PWSH-ENGINE`   | [pwsh-engine](automation/pwsh/pwsh-engine.md)                                               |
+| `ADR-PWSH-ONEFUNC`  | [one-function-per-file](automation/pwsh/one-function-per-file.md)                           |
+| `ADR-PWSH-USEPS`    | [use-ps1-not-psm1](automation/pwsh/use-ps1-not-psm1.md)                                     |
+| `ADR-PWSH-MANIFEST` | [dynamic-module-manifests](automation/pwsh/dynamic-module-manifests.md)                     |
+| `ADR-PWSH-MODPATH`  | [module-path-hygiene](automation/pwsh/module-path-hygiene.md)                               |
+| `ADR-PWSH-VENDOR`   | [vendor-toolset-dependencies](automation/pwsh/vendor-toolset-dependencies.md)               |
+| `ADR-PWSH-PREPOST`  | [prepost-extension-modules](automation/pwsh/prepost-extension-modules.md)                   |
+| `ADR-PWSH-ERROR`    | [error-handling](automation/pwsh/error-handling.md)                                         |
+| `ADR-PWSH-ASSERT`   | [assert-idioms](automation/pwsh/assert-idioms.md)                                           |
+| `ADR-PWSH-ANNOUNCE` | [announce-state-changes](automation/pwsh/announce-state-changes.md)                         |
+| `ADR-PWSH-NOSEMI`   | [avoid-using-semicolons](automation/pwsh/avoid-using-semicolons.md)                         |
+| `ADR-PWSH-FOREACH`  | [prefer-foreach-over-foreach-object](automation/pwsh/prefer-foreach-over-foreach-object.md) |
+| `ADR-PWSH-AUTOVAR`  | [automatic-variable-pitfalls](automation/pwsh/automatic-variable-pitfalls.md)               |
+| `ADR-PWSH-VERBS`    | [respect-pwsh-verb-rules](automation/pwsh/respect-pwsh-verb-rules.md)                       |
+| `ADR-PWSH-DRYRUN`   | [prefer-dryrun-over-shouldprocess](automation/pwsh/prefer-dryrun-over-shouldprocess.md)     |
+| `ADR-PWSH-NAMES`    | [identifier-names](automation/pwsh/identifier-names.md)                                     |
+| `ADR-PWSH-FORMAT`   | [powershell-formatting](automation/pwsh/powershell-formatting.md)                           |
+| `ADR-PWSH-ENV`      | [environment-variable-mechanics](automation/pwsh/environment-variable-mechanics.md)         |
+| `ADR-PWSH-PARAM`    | [parameter-design](automation/pwsh/parameter-design.md)                                     |
+| `ADR-PWSH-ENUM`     | [bounded-enumeration](automation/pwsh/bounded-enumeration.md)                               |
+| `ADR-PWSH-PWD`      | [working-directory-mechanics](automation/pwsh/working-directory-mechanics.md)               |
+| `ADR-PWSH-XPLAT`    | [cross-platform-powershell](automation/pwsh/cross-platform-powershell.md)                   |
+| `ADR-PWSH-CACHE`    | [script-scope-caching](automation/pwsh/script-scope-caching.md)                             |
+| `ADR-PWSH-PESTER`   | [pester-testing](automation/pwsh/pester-testing.md)                                         |
+| `ADR-PWSH-TYPES`    | [hosting-csharp-types](automation/pwsh/hosting-csharp-types.md)                             |
+| `ADR-PWSH-IDEM`     | [idempotent-state-mechanics](automation/pwsh/idempotent-state-mechanics.md)                 |
 
 ### configuration/
 

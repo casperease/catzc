@@ -131,7 +131,7 @@ one exception, is [ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](pester-testing.md#rule-
 The one cache that outlives a session is the compiled-type assembly, and it lives in no `$script:` variable: the key is its file name. The
 bootstrap's `Import-CSharpTypes` hashes the type sources, finds the committed assembly of that name, and loads it, so a fresh checkout never
 compiles; a source edit changes the name, and only then does `Add-Type` compile. Loading goes through `Import-TypesAssembly`, which copies
-the assembly to a per-user shadow folder first, so no session locks `pwsh/.compiled`. The compile itself and the stale-types guard are
+the assembly to a per-user shadow folder first, so no session locks `automation/pwsh/.compiled`. The compile itself and the stale-types guard are
 [hosting-csharp-types](hosting-csharp-types.md).
 
 ## Decision
@@ -145,7 +145,7 @@ loaded through the shadow copy.
 
 - **The exemplars** — `Get-Config` (`Catzc.Base.Config`) and `Get-BicepTemplates` (`Catzc.Azure.Templates`) are the patterns every new
   cached function copies.
-- **Custom PSScriptAnalyzer rule `Measure-NoBareCacheEntryRead`** (`pwsh/.scriptanalyzer/NoBareCacheEntryRead.psm1`) — flags a `$script:`
+- **Custom PSScriptAnalyzer rule `Measure-NoBareCacheEntryRead`** (`automation/pwsh/.scriptanalyzer/NoBareCacheEntryRead.psm1`) — flags a `$script:`
   read before the function assigns it (ADR-PWSH-CACHE-STRICTSAFEPROBE).
 - **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../automation/caching.md) (`ADR-AUTO-CACHE`);
   this ADR only fixes the storage idiom.

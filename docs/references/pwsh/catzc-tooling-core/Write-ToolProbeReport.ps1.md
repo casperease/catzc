@@ -1,4 +1,4 @@
-# pwsh/Catzc.Tooling.Core/Write-ToolProbeReport.ps1
+# automation/pwsh/Catzc.Tooling.Core/Write-ToolProbeReport.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Writes a compact table of tool existence checks: where each tool was found, its 
 ### description
 
 Renders the probe records from Test-Tool -PassThru as one plain-text table through Write-Message -NoHeader
-([ADR-PWSH-ANNOUNCE-CORRECTSTREAM](../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-correctstream)): one row per tool with
+([ADR-PWSH-ANNOUNCE-CORRECTSTREAM](../../../adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-correctstream)): one row per tool with
 Found, Method (probe | path | none), Version against Required, VersionOk, ProbeMs and VersionMs, then the path. The header line names the
 session actor the checks ran as. Writes nothing for no records. With no -Probe it checks every tool in tools.yml.
 

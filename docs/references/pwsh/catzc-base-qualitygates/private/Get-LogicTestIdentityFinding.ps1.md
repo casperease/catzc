@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1
+# automation/pwsh/Catzc.Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -45,7 +45,7 @@ Above `$isCommandNode = {`, written with `#`.
 
 ```text
 Predicates bound to locals (never inlined in a .FindAll(...) call) —
-[ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound).
+[ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound).
 ```
 
 ## comment:2

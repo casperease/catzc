@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Templates/tests/Build-Bicep.L2.Tests.ps1
+# automation/pwsh/Catzc.Azure.Templates/tests/Build-Bicep.L2.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -29,7 +29,7 @@ Each It self-skips when `az` is absent
 `tool_az_missing` grammar.
 
 Isolation is the standard seam swap
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): redirect the template
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): redirect the template
 tree to tests/assets/templates and the
 azure/network configs to the fixtures, so these bind to the sample-* assets, never to shipped templates.
 greedy, not serial: it drives real `az bicep build` child processes (consuming the machine beyond this
@@ -45,7 +45,7 @@ Above `Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleN
 
 ```text
 Isolate build output to this file's throwaway $TestDrive
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)) so the real-az
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)) so the real-az
 builds never
 share out/template/<name> with the L0 sample files — removing the sharing that forced a serial tag.
 Pester auto-cleans $TestDrive, so the per-test output teardown below is belt-and-suspenders only.

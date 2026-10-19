@@ -19,7 +19,7 @@ shared library code: the shim removes it once `Invoke-Importer` returns.
    [Types](catzc-internal-types.md), and [Vendor](catzc-internal-vendor.md) (with `-Force`, honouring the re-import invalidation boundary).
 4. **Dependencies and modules** — install the custom error view, load the vendored dependencies (`Import-VendorModules`, deferring Pester
    and PSScriptAnalyzer as lazy), optionally wipe the compiled type DLLs first (`-ClearCompiledTypes`), then discover and import every
-   `pwsh/*` module (`Import-AllModules`, which compiles the combined C# type assembly once before any module's functions).
+   `automation/pwsh/*` module (`Import-AllModules`, which compiles the combined C# type assembly once before any module's functions).
 5. **Post-import janitors** — keep the derived artifacts current and the session honest: the type-cache tidy (`Clear-ModuleTypeCache`), the
    generated READMEs (`Build-Readme`), the cSpell dictionaries (`Build-TerminologyDictionary`), the managed root config files
    (`Build-RootConfig`), the session-PATH reconcile (`Sync-SessionTools`), and a Windows warning when `PSModulePath` contains a network
@@ -32,7 +32,7 @@ diverge. The switches are the toolset's load surface: `-ExportPrivates` (export 
 `-AllowWarnings`, `-DiagnoseLoadTime` (per-stage timings and an end-of-load summary), `-ClearCompiledTypes` (rebuild every C# type from
 source), and `-SkipJanitors` (a lean load for a copied subset, e.g. `Test-InIsolation`). `-Verbose` shows the importer's state-change record
 and the type-cache janitor's report. Nothing about committing is a switch: who is running decides (`Get-SessionActor`,
-ADR-AUTO-TYPES-JANITORSBYCALLER) — a person's import commits the generated `pwsh/.compiled`, an agent's announces it, and a pipeline's or a
+ADR-AUTO-TYPES-JANITORSBYCALLER) — a person's import commits the generated `automation/pwsh/.compiled`, an agent's announces it, and a pipeline's or a
 test-run snapshot's never commits.
 
 ## Functions
@@ -43,7 +43,7 @@ test-run snapshot's never commits.
 ## Related
 
 - ADR: [one-living-version](../../../adr/principles/one-living-version.md) — why the shim is a generated copy of this one body.
-- ADR: [use-ps1-not-psm1](../../../adr/pwsh/use-ps1-not-psm1.md) — the overlay is a sanctioned `.psm1`.
+- ADR: [use-ps1-not-psm1](../../../adr/automation/pwsh/use-ps1-not-psm1.md) — the overlay is a sanctioned `.psm1`.
 - Reference: [Catzc.Base.ModuleSystem](../catzc-base-modulesystem.md) — `New-Importer` generates the `importer.ps1` shim from this block;
   [Bootstrap](catzc-internal-bootstrap.md), [Vendor](catzc-internal-vendor.md), and [Types](catzc-internal-types.md) — the shared modules it
   drives; the [internal area overview](index.md).

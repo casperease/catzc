@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/private/Invoke-ScriptAnalyzerShards.ps1
+# automation/pwsh/Catzc.Base.QualityGates/private/Invoke-ScriptAnalyzerShards.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -13,7 +13,7 @@ Runs PSScriptAnalyzer over the pending files of each analyzer pass, sharded acro
 
 A single serial Invoke-ScriptAnalyzer call over the whole module tree takes ~90s and prints nothing until it finishes (it looks hung). This
 shards each pass's files across background pwsh PROCESSES — the same approach, and for the same reasons, as the L2 'PSScriptAnalyzer' test
-(pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1):
+(automation/pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1):
 
 - PSScriptAnalyzer's Helper.Initialize is not thread-safe, so ForEach-Object -Parallel (shared runspaces) races and throws. Separate
   processes are fully isolated.
@@ -22,7 +22,7 @@ shards each pass's files across background pwsh PROCESSES — the same approach,
 - Each shard imports the vendored analyzer from the loaded code root (Get-CatzcModulesRoot/.vendor).
 - Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath entries resolve (ADR
   working-directory-mechanics, rule
-  [ADR-PWSH-PWD-RESTORESETLOCATION](../../../../adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-restoresetlocation)/[ADR-PWSH-PWD-PUSHPOPINFINALLY](../../../../adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-pushpopinfinally)).
+  [ADR-PWSH-PWD-RESTORESETLOCATION](../../../../adr/automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-restoresetlocation)/[ADR-PWSH-PWD-PUSHPOPINFINALLY](../../../../adr/automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-pushpopinfinally)).
 - Each shard reads the settings file itself and applies its pass's rule selection (`IncludeRules`, or extra `ExcludeRules`): a job's
   arguments are serialized, and the settings parser wants its own types back.
 
@@ -97,7 +97,7 @@ Above `$dotted = $false`, written with `#`.
 Print a dot per interval while shards run, rather than a progress bar (ADR console-output-matters,
 rule [ADR-AUTO-CONSOLE-NOBOXDRAWING](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). The
 dots go through the writer chokepoint
-([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)), so a
+([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)), so a
 Pester run
 silences them with everything else. $dotted tracks whether any dot was written so the closing newline only
 fires when it is needed.

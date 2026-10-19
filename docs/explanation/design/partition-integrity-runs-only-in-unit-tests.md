@@ -3,7 +3,7 @@
 ```text
 Partition integrity runs only in unit tests, and the per-aspect sha lock has no mechanism.
 
-1  pwsh/<Module>/                the module folder every stage starts from
+1  automation/pwsh/<Module>/                the module folder every stage starts from
 2  Test-SourceConventions        quality gate: one function per file, one definition per name
 3  Test-FolderConventions        quality gate: only conventional module subfolders
 4  Assert-Unique...FunctionName  import guard: unique exported names, fails fast
@@ -27,7 +27,7 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **pwsh/&lt;Module&gt;/.** The module folder every stage starts from. Two quality gates read it, and the import guard reads it before
+1. **automation/pwsh/&lt;Module&gt;/.** The module folder every stage starts from. Two quality gates read it, and the import guard reads it before
    anything loads.
 2. **Test-SourceConventions.** A quality gate. It checks that each source file holds exactly one top-level function named for the file
    (ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE), and that every function name, public or private, is defined in exactly one file, the integrity
@@ -74,7 +74,7 @@ The diagram is described element by element in
 ## See also
 
 - [Module aspects](../../adr/design/module-aspects.md) — the decision this article explains. Also
-  [dynamic module manifests](../../adr/pwsh/dynamic-module-manifests.md), [one function per file](../../adr/pwsh/one-function-per-file.md),
+  [dynamic module manifests](../../adr/automation/pwsh/dynamic-module-manifests.md), [one function per file](../../adr/automation/pwsh/one-function-per-file.md),
   [conventional folders](../../adr/repository/conventional-folders.md) and [durable sha globs](../../adr/flow/durable-sha-globs.md).
 - The other lenses on the same layout: [meta](every-file-in-exactly-one-aspect.md), [architecture](one-folder-two-independent-readers.md),
   [implementation](manifest-and-aspects-from-one-folder.md) and [operations](drop-a-file-the-import-exports-it.md).

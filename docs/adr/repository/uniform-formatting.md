@@ -67,7 +67,7 @@ Each file language's formatter is configured, not coded: its entry in the file-l
 engine that formats its files, or states in `no_formatter:` why it has none. `Format-Code` runs the engines over every tracked file except
 vendored code, contract assets (`catzc-contract`, whose bytes a contract check compares and a released version freezes,
 [ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](api-contracts.md#rule-adr-repo-contract-releasedimmutable)), and the files `.gitattributes` marks
-`binary`, such as the generated output under `pwsh/.compiled`, which git stores as bytes, not text; `Test-Formatting` checks the same
+`binary`, such as the generated output under `automation/pwsh/.compiled`, which git stores as bytes, not text; `Test-Formatting` checks the same
 entries — there is no formatting command per language and no list of formatters in a check (ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG). An
 engine's entry also lists its `settings:`, and those entries are its whole cache stamp: its own settings files and the `tools.yml` keys of
 the tools it runs, nothing else, so another tool's pin edit leaves its results warm
@@ -123,8 +123,8 @@ save.
 
 The baseline is the floor. Each language adds its own `.editorconfig` section (indent width, line length) and, where it has one, a formatter
 engine and an analyzer. The exact per-language values live in `.editorconfig`, and which engine formats each language lives in the
-file-language registry, `pwsh/Catzc.Base.Languages/configs/languages.yml`; this ADR restates neither. Beyond the engines, PowerShell is
-governed by `PSScriptAnalyzerSettings.psd1` (see [powershell-formatting](../pwsh/powershell-formatting.md)), Markdown by
+file-language registry, `automation/pwsh/Catzc.Base.Languages/configs/languages.yml`; this ADR restates neither. Beyond the engines, PowerShell is
+governed by `PSScriptAnalyzerSettings.psd1` (see [powershell-formatting](../automation/pwsh/powershell-formatting.md)), Markdown by
 `.markdownlint.yml`, and pipeline YAML by the naming-and-placement check `Test-Pipelines`
 ([pipeline-naming-and-placement](../ado/pipeline-naming-and-placement.md)).
 
@@ -206,7 +206,7 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
   save.
 - **`.gitattributes`** — marks binary files so EOL/diff normalization never corrupts them; deliberately no `* text=auto`.
 - **Per-language analyzers** — each language's specific rules run in its own gate. For PowerShell this is PSScriptAnalyzer plus custom rules
-  in the L2 tests (see [powershell-formatting](../pwsh/powershell-formatting.md)). For Markdown it is markdownlint (`.markdownlint.yml`),
+  in the L2 tests (see [powershell-formatting](../automation/pwsh/powershell-formatting.md)). For Markdown it is markdownlint (`.markdownlint.yml`),
   formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (the same engine as Markdown, checked by
   the `Test-Formatting` gate in an L2 test) plus the naming-and-placement quality gate `Test-Pipelines`
   ([pipeline-naming-and-placement](../ado/pipeline-naming-and-placement.md), an L1 integrity test) — both run in every CI test run, so

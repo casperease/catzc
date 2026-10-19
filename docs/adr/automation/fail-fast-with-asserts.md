@@ -155,7 +155,7 @@ There is no "no limit" value, because an unbounded wait is exactly the failure t
 Two axes decide a limit, and both are read from the session rather than passed in. The run environment (devbox or pipeline,
 `Get-RunEnvironment`) sets how tight it is: a devbox has a person to tune with, a pipeline has nobody watching and longer ordinary builds.
 The shell (one of the execution engines) sets what it bounds: pwsh code bounds its own script blocks and processes, and the agent hook
-bounds bash calls ([assert-idioms](../pwsh/assert-idioms.md#rule-adr-pwsh-assert-twowaitbounds) gives the pwsh forms). A caller can pin the
+bounds bash calls ([assert-idioms](pwsh/assert-idioms.md#rule-adr-pwsh-assert-twowaitbounds) gives the pwsh forms). A caller can pin the
 environment with an `-EnvironmentAssertIs` guard, which verifies and never selects.
 
 An exemption is for work that is known to be slow while it is fixed. It names the work by an immutable budget GUID — registered in the

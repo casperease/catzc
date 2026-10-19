@@ -1,4 +1,4 @@
-# pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1
+# automation/pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -20,7 +20,7 @@ Above `$script:targetFiles = [System.Collections.Generic.List[string]]::new()`, 
 ```text
 Draw the exact files from the one shared selector (Get-ModuleSourceFile), so this gate cannot
 drift from Test-ScriptAnalyzer
-([ADR-PWSH-FORMAT-EVERYFILECOVERED](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format-everyfilecovered)). The
+([ADR-PWSH-FORMAT-EVERYFILECOVERED](/docs/adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-everyfilecovered)). The
 selector covers module *.ps1
 (root, private/), tests/**/*.Tests.ps1 recursively (so tests/types/ is included), the
 .internal/.scriptanalyzer infrastructure folders (bootstrap, TestKit, custom analyzer rules, and

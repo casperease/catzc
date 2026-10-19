@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1
+# automation/pwsh/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -79,7 +79,7 @@ Above `if (-not $SourceName) {`, written with `#`.
 
 ```text
 A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are
-evaluated ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
+evaluated ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 ```
 
 ## comment:2

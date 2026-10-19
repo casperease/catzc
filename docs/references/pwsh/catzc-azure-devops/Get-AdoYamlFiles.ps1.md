@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.DevOps/Get-AdoYamlFiles.ps1
+# automation/pwsh/Catzc.Azure.DevOps/Get-AdoYamlFiles.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -44,7 +44,7 @@ Above `$excludeSet = [System.Collections.Generic.HashSet[string]]::new(`, writte
 Recurse with [System.IO], PRUNING excluded directories during the walk rather than enumerating the whole
 tree (including .git / node_modules / .terraform) and filtering after — Get-ChildItem -Recurse walks every
 directory before the -Exclude post-filter ran, which dominated the scan. Raw .NET enumeration also avoids
-~20ms/call cmdlet overhead ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
+~20ms/call cmdlet overhead ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 ```
 
 ## comment:2

@@ -99,7 +99,7 @@ or `Pipeline` (a pipeline wins over an agent running in it). No switch overrides
 | Janitor action                            | Person | Agent                                        | Pipeline                       |
 | ----------------------------------------- | ------ | -------------------------------------------- | ------------------------------ |
 | Stop processes holding a superseded build | yes    | no — the stale build is reported             | no — asserts exactly one build |
-| Commit the generated `pwsh/.compiled`     | yes    | no — announces what changed, to be committed | no                             |
+| Commit the generated `automation/pwsh/.compiled`     | yes    | no — announces what changed, to be committed | no                             |
 | Regenerate the gitignored generated files | yes    | yes                                          | yes                            |
 
 The stale sessions and the repository are the person's: their session may stop the one and commit to the other. An agent leaves both to the
@@ -181,13 +181,13 @@ L1 on an undeclared edge.
 
 ## Decision
 
-Every module's `types/*.cs` are compiled together into **one** assembly, `pwsh/.compiled/Catzc.Types.<combinedHash8>.dll`, autoloaded before
+Every module's `types/*.cs` are compiled together into **one** assembly, `automation/pwsh/.compiled/Catzc.Types.<combinedHash8>.dll`, autoloaded before
 any module's functions. Each file is named for the bare type it must produce and declares the file-scoped `namespace <module>;` of its
 folder; the loader compiles the sources **as authored**, one compilation unit per file, all landing in the single assembly — so the FQN is
 `<module>.<filename>`. Types may reference each other across modules (one assembly); the dependency graph, not the compiler, governs those
 edges.
 
-The mechanism is `Import-CSharpTypes` in `pwsh/.internal/Catzc.Internal.Bootstrap.psm1`, run once as a pre-pass by `Import-AllModules`
+The mechanism is `Import-CSharpTypes` in `automation/pwsh/.internal/Catzc.Internal.Bootstrap.psm1`, run once as a pre-pass by `Import-AllModules`
 before the module loop.
 
 ### The host binding
@@ -196,7 +196,7 @@ before the module loop.
 
 The types run inside the process of the one engine that hosts them, pwsh. Which compiler builds the assembly, which assemblies a type may
 reference, the short names pwsh callers type, how a running pwsh meets a changed type, and why the console text has to live in C# are that
-host's binding, decided in [hosting-csharp-types](../../pwsh/hosting-csharp-types.md). This ADR decides what the types are; that one decides
+host's binding, decided in [hosting-csharp-types](../pwsh/hosting-csharp-types.md). This ADR decides what the types are; that one decides
 how the host carries them.
 
 ### Declared namespaces and the IDE project
@@ -210,7 +210,7 @@ textual wrap, so no `.csproj` can compile the raw sources: VS Code's C# Dev Kit 
 Turning the analyzer off, or disabling Dev Kit, would hide the rule instead of expressing it as code — the opposite of EAC.
 
 Declaring `namespace <module>;` makes each file compile cleanly on its own, so a real IDE project can analyze exactly what the runtime
-compiles. The repo ships an **IDE-only** `Catzc.Types.csproj` (under `pwsh/.internal/assets/`, a `../../**/types/*.cs` glob over every type
+compiles. The repo ships an **IDE-only** `Catzc.Types.csproj` (under `automation/pwsh/.internal/assets/`, a `../../**/types/*.cs` glob over every type
 source) and a classic root `catzc.sln` (Dev Kit loads a `.sln`, not a `.slnx`; kept at the repo root so the editor auto-loads it, and it
 references the project by relative path) that mirror the runtime compile — `Nullable` and `ImplicitUsings` off, .NET 10 — so the editor's
 feedback equals the runtime's: real namespaces (no `CA1050`), with two deliberate opt-outs stated in `.editorconfig` — `IDE1006` (snake_case
@@ -236,11 +236,11 @@ also proves the IDE project matches the runtime prebuild. It runs `dotnet` throu
 ### The cache-state contract
 
 The assembly is the one committed, cross-session cache of [caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild): it is named for
-the combined hash of every module's sources and committed to `pwsh/.compiled/Catzc.Types.<hash>.dll`, so a fresh checkout and CI load it
+the combined hash of every module's sources and committed to `automation/pwsh/.compiled/Catzc.Types.<hash>.dll`, so a fresh checkout and CI load it
 without Roslyn. The hash material is per file `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move
 between modules (new namespace) or a rename (new type) re-keys even when content is byte-identical, with no dependence on the repository
 root. Every process loads the assembly from a per-user shadow copy (`Import-TypesAssembly`: `%LOCALAPPDATA%\catzc\types` on Windows,
-`~/.local/share/catzc/types` on Unix), never in place, so no session ever locks `pwsh/.compiled` ([why](#why-a-shadow-copy)).
+`~/.local/share/catzc/types` on Unix), never in place, so no session ever locks `automation/pwsh/.compiled` ([why](#why-a-shadow-copy)).
 
 Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a source that changes has a different
 filename, so the current-hash DLL is simply absent until built. The loader resolves every state:
@@ -267,7 +267,7 @@ parents. A hand-run `Clear-ModuleTypeCache` stops nothing unless asked, because 
 decides by who is running it (ADR-AUTO-TYPES-JANITORSBYCALLER) — a person's import stops the holders, an agent's import and a pipeline never
 do. The invariant is guarded at three points:
 
-- **Devbox auto-commit:** `Sync-GeneratedFile` holds `pwsh/.compiled` back, with one red line naming the surplus DLLs, while
+- **Devbox auto-commit:** `Sync-GeneratedFile` holds `automation/pwsh/.compiled` back, with one red line naming the surplus DLLs, while
   `Clear-ModuleTypeCache -DryRun` lists anything but the current build. A surviving build never rides along as the +1 without its −1. It
   also holds the build back, with one yellow line, while any `types/*.cs` differs from HEAD: the build is named for the working tree's
   sources, so committing it first would leave HEAD with a build its own sources do not produce.
@@ -395,7 +395,7 @@ session but never decide what ships.
 
 ### How this is enforced
 
-- **`Import-CSharpTypes.Tests.ps1` and `Get-CombinedTypeHash.Tests.ps1`** (`pwsh/.internal/tests`) — the console cell verifies and defers,
+- **`Import-CSharpTypes.Tests.ps1` and `Get-CombinedTypeHash.Tests.ps1`** (`automation/pwsh/.internal/tests`) — the console cell verifies and defers,
   the first `Initialize-Types` loads, the eager cell loads at import, and the hash memo rehashes exactly the files whose length or last
   write changed (ADR-AUTO-TYPES-CONSOLEVERIFIESONLY).
 
@@ -433,7 +433,7 @@ session but never decide what ships.
   namespace (via `Test-Formatting -Language csharp`), and a `PSTypeAlias accelerators` test asserts a decorated type's accelerator resolves
   after load. `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
 
-- **`Clear-ModuleTypeCache`** keeps the current `pwsh/.compiled/Catzc.Types.<hash>.dll` and prunes the rest (deleting on a devbox only). A
+- **`Clear-ModuleTypeCache`** keeps the current `automation/pwsh/.compiled/Catzc.Types.<hash>.dll` and prunes the rest (deleting on a devbox only). A
   delete that fails throws after every deletable build is gone, naming the file and its holders; the importer reports it as one red line. In
   a pipeline it throws when a second `Catzc.Types.*.dll` is committed — a stale committed build must not reach trunk.
 
@@ -441,7 +441,7 @@ session but never decide what ships.
   analyzer rule both load through the shadow copy, so no session holds `.compiled`. `Import-TypesAssembly.Tests.ps1` covers the copy, its
   reuse, the atomic write, the concurrent-copy race, pruning, and `Location` pointing into the shadow root.
 
-- **`Sync-GeneratedFile`** (in `Catzc.Base.ModuleSystem`, the importer's auto-commit) refuses to commit `pwsh/.compiled` while it holds
+- **`Sync-GeneratedFile`** (in `Catzc.Base.ModuleSystem`, the importer's auto-commit) refuses to commit `automation/pwsh/.compiled` while it holds
   anything but the current build (the `Clear-ModuleTypeCache -DryRun` surplus). It skips with a red line, so a superseded DLL is never
   committed next to the new one, and while a type source differs from HEAD, with a yellow line, so HEAD never holds a build ahead of its
   sources. `Sync-GeneratedFile.Tests.ps1` covers the probes, both hold-backs, and the no-probe case when nothing changed.

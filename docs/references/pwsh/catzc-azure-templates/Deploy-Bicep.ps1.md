@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+# automation/pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -131,7 +131,7 @@ Above `. $prepostModule { Set-StrictMode -Version Latest }`, written with `#`.
 
 ```text
 The template's hooks run strict like every catzc module, whoever wrote them
-([ADR-PWSH-ERROR-STRICTCLEAN](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
+([ADR-PWSH-ERROR-STRICTCLEAN](/docs/adr/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
 ```
 
 ## comment:6
@@ -142,7 +142,7 @@ Above `$deployInvocation = [ordered]@{`, written with `#`.
 The deploy invocation — the arguments this deploy is acting on (incl. Mode). DryRun is passed
 as its own first-class parameter to PreDeploy (it's the side-effect kill switch — too special
 to hide in a bag). Computed descriptor objects stay separate.
-See [ADR-PWSH-PREPOST](/docs/adr/pwsh/prepost-extension-modules.md).
+See [ADR-PWSH-PREPOST](/docs/adr/automation/pwsh/prepost-extension-modules.md).
 ```
 
 ## comment:7

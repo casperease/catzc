@@ -180,7 +180,7 @@ enforced by `.editorconfig`, not `Test-ScriptAnalyzer`) — is documented inline
 A PSScriptAnalyzer rule that fails the build enforces an ADR rule on every run, so the rule-coverage report of
 [test-automation](../automation/test-automation.md#provenance-and-rule-coverage) counts it as an enforcer beside the tagged tests. The map
 from analyzer rule to citation sits with the analyzer quality gate (`Test-ScriptAnalyzer`) that runs those rules, not with the test runner:
-a custom rule is added here, in `pwsh/.scriptanalyzer/`, and its entry in `analyzer-adr-map.yml` is part of the same change.
+a custom rule is added here, in `automation/pwsh/.scriptanalyzer/`, and its entry in `analyzer-adr-map.yml` is part of the same change.
 `Test-AnalyzerAdrMap` keeps the two in step — an unmapped custom rule, or a mapped id that no ADR declares, fails it. Checking id existence
 in the gate rather than at config load is the same split the Azure customer catalogue uses
 ([azure-customer-model](../azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)): the load stays hermetic, and
@@ -213,7 +213,7 @@ Every custom analyzer rule names the ADR rule it enforces in the analyzer map.
 - **`.editorconfig`** — the `[*.{ps1,psm1,psd1}]` section sets the PowerShell indent width and max line length, on top of the `[*]`
   baseline.
 - **PSScriptAnalyzer** — the full rule set, options, and on/off rationale live in `PSScriptAnalyzerSettings.psd1` (every rule folded out
-  with inline comments). Custom analyzer rules, including `Measure-VariableCasing` (the casing rule above), live in `pwsh/.scriptanalyzer/`,
+  with inline comments). Custom analyzer rules, including `Measure-VariableCasing` (the casing rule above), live in `automation/pwsh/.scriptanalyzer/`,
   one check module each. The settings hand the engine one entry rule, `CatzcRules.psm1`, which runs every check once per file (the engine
   otherwise calls a script rule once per script block); a new check module is added to its list. Each check keeps its own rule name, so
   diagnostics and `SuppressMessageAttribute` name the check.

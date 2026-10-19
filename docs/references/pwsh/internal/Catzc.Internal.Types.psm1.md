@@ -1,4 +1,4 @@
-# pwsh/.internal/Catzc.Internal.Types.psm1
+# automation/pwsh/.internal/Catzc.Internal.Types.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -10,7 +10,7 @@ Above `function Get-CombinedTypeHash {`, written with `#`.
 ```text
 .SYNOPSIS
     The single implementation of the combined C# type-source hash — enumerate, order, and hash every module's
-    types/*.cs the way the committed pwsh/.compiled/Catzc.Types.<hash>.dll is keyed.
+    types/*.cs the way the committed automation/pwsh/.compiled/Catzc.Types.<hash>.dll is keyed.
 .DESCRIPTION
     Loader and janitor must agree on this hash byte for byte, or the janitor plans the live build for deletion.
     [comment:1](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment1)
@@ -55,7 +55,7 @@ Above `$files = [System.Collections.Generic.List[object]]::new()`, written with 
 Enumerate every non-dot module's types/*.cs. Key = "<module>/<bare type>"; Path = the source file. No
 namespace / dotted-name validation here (the loader's job). [System.IO] over Get-ChildItem for the
 ~20ms/call provider overhead the raw enumeration avoids
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 ```
 
 ## comment:5
@@ -104,7 +104,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '
     A loaded assembly cannot be swapped in a running process, so a source edited after loading stays stale.
     [comment:8](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment8)
 .PARAMETER ModulesRoot
-    The code root (a pwsh/ folder) whose type sources to compare.
+    The code root (a automation/pwsh/ folder) whose type sources to compare.
 .PARAMETER HashResult
     The Get-CombinedTypeHash result for the root, when the caller has it already; computed otherwise.
 .OUTPUTS
@@ -173,7 +173,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessFor
     Windows locks a loaded DLL, so loading in place would pin a superseded build; every load uses a shadow copy.
     [comment:12](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment12)
 .PARAMETER Path
-    The assembly to load (normally pwsh/.compiled/Catzc.Types.<hash>.dll, or a bundle's prebuilt copy).
+    The assembly to load (normally automation/pwsh/.compiled/Catzc.Types.<hash>.dll, or a bundle's prebuilt copy).
 .PARAMETER ShadowRoot
     The shadow folder. Defaults to Get-TypesShadowRoot; tests pass a throwaway folder.
 .PARAMETER PruneAfter

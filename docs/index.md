@@ -39,28 +39,28 @@ catzc:
       - docs/adr/azure/prefer-az-cli.md
       - docs/adr/flow/pipeline-detection.md
       - docs/adr/flow/pipeline-runner-pattern.md
-      - docs/adr/pwsh/assert-idioms.md
-      - docs/adr/pwsh/automatic-variable-pitfalls.md
-      - docs/adr/pwsh/avoid-using-semicolons.md
-      - docs/adr/pwsh/cross-platform-powershell.md
-      - docs/adr/pwsh/dynamic-module-manifests.md
-      - docs/adr/pwsh/environment-variable-mechanics.md
-      - docs/adr/pwsh/error-handling.md
-      - docs/adr/pwsh/hosting-csharp-types.md
-      - docs/adr/pwsh/identifier-names.md
-      - docs/adr/pwsh/module-path-hygiene.md
-      - docs/adr/pwsh/one-function-per-file.md
-      - docs/adr/pwsh/parameter-design.md
-      - docs/adr/pwsh/pester-testing.md
-      - docs/adr/pwsh/powershell-formatting.md
-      - docs/adr/pwsh/prefer-dryrun-over-shouldprocess.md
-      - docs/adr/pwsh/prefer-foreach-over-foreach-object.md
-      - docs/adr/pwsh/pwsh-engine.md
-      - docs/adr/pwsh/respect-pwsh-verb-rules.md
-      - docs/adr/pwsh/script-scope-caching.md
-      - docs/adr/pwsh/use-ps1-not-psm1.md
-      - docs/adr/pwsh/vendor-toolset-dependencies.md
-      - docs/adr/pwsh/working-directory-mechanics.md
+      - docs/adr/automation/pwsh/assert-idioms.md
+      - docs/adr/automation/pwsh/automatic-variable-pitfalls.md
+      - docs/adr/automation/pwsh/avoid-using-semicolons.md
+      - docs/adr/automation/pwsh/cross-platform-powershell.md
+      - docs/adr/automation/pwsh/dynamic-module-manifests.md
+      - docs/adr/automation/pwsh/environment-variable-mechanics.md
+      - docs/adr/automation/pwsh/error-handling.md
+      - docs/adr/automation/pwsh/hosting-csharp-types.md
+      - docs/adr/automation/pwsh/identifier-names.md
+      - docs/adr/automation/pwsh/module-path-hygiene.md
+      - docs/adr/automation/pwsh/one-function-per-file.md
+      - docs/adr/automation/pwsh/parameter-design.md
+      - docs/adr/automation/pwsh/pester-testing.md
+      - docs/adr/automation/pwsh/powershell-formatting.md
+      - docs/adr/automation/pwsh/prefer-dryrun-over-shouldprocess.md
+      - docs/adr/automation/pwsh/prefer-foreach-over-foreach-object.md
+      - docs/adr/automation/pwsh/pwsh-engine.md
+      - docs/adr/automation/pwsh/respect-pwsh-verb-rules.md
+      - docs/adr/automation/pwsh/script-scope-caching.md
+      - docs/adr/automation/pwsh/use-ps1-not-psm1.md
+      - docs/adr/automation/pwsh/vendor-toolset-dependencies.md
+      - docs/adr/automation/pwsh/working-directory-mechanics.md
       - docs/adr/repository/conventional-folders.md
       - docs/adr/repository/dedicated-output-directory.md
       - docs/adr/repository/uniform-formatting.md
@@ -177,54 +177,54 @@ The "why" and "how" behind the automation and its pwsh engine.
 - [Single-responsibility functions](adr/automation/single-responsibility-functions.md) — keep functions focused so they are easy to write,
   test, and debug
 - [Open/closed architecture](adr/automation/open-closed-architecture.md) — extend by adding files, never by editing infrastructure
-- [Dynamic module manifests](adr/pwsh/dynamic-module-manifests.md) — the pwsh rules: generated .psd1, collision-free namespace
+- [Dynamic module manifests](adr/automation/pwsh/dynamic-module-manifests.md) — the pwsh rules: generated .psd1, collision-free namespace
 - [Fail fast with assertions](adr/automation/fail-fast-with-asserts.md) — catch errors at the source, not three layers down
-- [Assert idioms](adr/pwsh/assert-idioms.md) — the pwsh rules: guards after the param block, a declared time limit on long work
+- [Assert idioms](adr/automation/pwsh/assert-idioms.md) — the pwsh rules: guards after the param block, a declared time limit on long work
 - [Retry as a last resort](adr/automation/retry-as-last-resort.md) — last-ditch only, lowest level possible, never in a test
 - [Test automation](adr/automation/test-automation.md) — isolate logic tests behind seams; bind only integrity tests to shipped assets
-- [Pester testing](adr/pwsh/pester-testing.md) — the language layer: the mock idioms, test-file conventions, and engine gotchas
+- [Pester testing](adr/automation/pwsh/pester-testing.md) — the language layer: the mock idioms, test-file conventions, and engine gotchas
 - [Idempotent state functions](adr/automation/idempotent-state-functions.md) — re-runs are always safe
 - [Sensible defaults](adr/automation/sensible-defaults.md) — the zero-arg call does the right thing
-- [Parameter design](adr/pwsh/parameter-design.md) — the pwsh rules: positional primary argument, switches over booleans
+- [Parameter design](adr/automation/pwsh/parameter-design.md) — the pwsh rules: positional primary argument, switches over booleans
 - [Console output matters](adr/automation/console-output-matters.md) — every line of output is a UX decision
-- [Error handling](adr/pwsh/error-handling.md) — fail immediately, no warnings, no middle ground
+- [Error handling](adr/automation/pwsh/error-handling.md) — fail immediately, no warnings, no middle ground
 - [Never depend on $PWD](adr/automation/never-depend-on-pwd.md) — functions work from anywhere
-- [Working-directory mechanics](adr/pwsh/working-directory-mechanics.md) — the pwsh rules: the anchors, and Push-Location/Pop-Location
+- [Working-directory mechanics](adr/automation/pwsh/working-directory-mechanics.md) — the pwsh rules: the anchors, and Push-Location/Pop-Location
 
 ### Implementation decisions
 
-- [The pwsh engine](adr/pwsh/pwsh-engine.md) — PowerShell 7.4+, strict mode in every scope, one dot-sourced importer
-- [One function per file](adr/pwsh/one-function-per-file.md) — makes discovery automatic and eliminates export ceremony
-- [Use .ps1 not .psm1](adr/pwsh/use-ps1-not-psm1.md) — shared scope without boilerplate loaders
-- [Approved verbs](adr/pwsh/respect-pwsh-verb-rules.md) — enforced naming so functions are self-documenting
+- [The pwsh engine](adr/automation/pwsh/pwsh-engine.md) — PowerShell 7.4+, strict mode in every scope, one dot-sourced importer
+- [One function per file](adr/automation/pwsh/one-function-per-file.md) — makes discovery automatic and eliminates export ceremony
+- [Use .ps1 not .psm1](adr/automation/pwsh/use-ps1-not-psm1.md) — shared scope without boilerplate loaders
+- [Approved verbs](adr/automation/pwsh/respect-pwsh-verb-rules.md) — enforced naming so functions are self-documenting
 - [Spell out names](adr/automation/spell-out-names.md) — no invented abbreviations
-- [Identifier names](adr/pwsh/identifier-names.md) — the pwsh rules: the analyzer rule that checks every variable and noun
+- [Identifier names](adr/automation/pwsh/identifier-names.md) — the pwsh rules: the analyzer rule that checks every variable and noun
 - [Uniform formatting](adr/repository/uniform-formatting.md) — the whole repo, one mechanical standard
-- [PowerShell formatting](adr/pwsh/powershell-formatting.md) — the pwsh rules over uniform-formatting
+- [PowerShell formatting](adr/automation/pwsh/powershell-formatting.md) — the pwsh rules over uniform-formatting
 - [Log before invoke](adr/automation/log-before-invoke.md) — automatic, not opt-in
-- [Vendor dependencies](adr/pwsh/vendor-toolset-dependencies.md) — determinism without a restore step, no gallery at runtime
+- [Vendor dependencies](adr/automation/pwsh/vendor-toolset-dependencies.md) — determinism without a restore step, no gallery at runtime
 - [Controlling system-wide deps](adr/automation/controlling-systemwide-deps.md) — version-locked, platform-aware, no container required
 - [Effective in enterprises](adr/automation/effective-in-enterprises.md) — no admin required
-- [Module-path hygiene](adr/pwsh/module-path-hygiene.md) — the pwsh rules: vendored copies win, network user paths fixed once
+- [Module-path hygiene](adr/automation/pwsh/module-path-hygiene.md) — the pwsh rules: vendored copies win, network user paths fixed once
 - [Prefer Az CLI](adr/azure/prefer-az-cli.md) — avoids assembly hell, no module ceremony
 - [Dry run](adr/automation/dry-run.md) — an explicit dry-run parameter on every side-effecting function
-- [Prefer -DryRun over ShouldProcess](adr/pwsh/prefer-dryrun-over-shouldprocess.md) — the pwsh rules: an explicit switch beats the
+- [Prefer -DryRun over ShouldProcess](adr/automation/pwsh/prefer-dryrun-over-shouldprocess.md) — the pwsh rules: an explicit switch beats the
   un-testable, easy-to-misuse -WhatIf/-Confirm subsystem
 - [Conventional folders](adr/repository/conventional-folders.md) — predictable layout for the whole repository: root folders, modules,
   tests, assets, and output
 - [Dedicated output directory](adr/repository/dedicated-output-directory.md) — all generated artifacts go to `out/`
 - [Environment variables](adr/automation/environment-variables.md) — when and how to use them
-- [Environment-variable mechanics](adr/pwsh/environment-variable-mechanics.md) — the pwsh rules: scoping, runspaces, test isolation
+- [Environment-variable mechanics](adr/automation/pwsh/environment-variable-mechanics.md) — the pwsh rules: scoping, runspaces, test isolation
 - [Cross-platform](adr/automation/cross-platform.md) — runs on Windows, Linux, and macOS
-- [Cross-platform PowerShell](adr/pwsh/cross-platform-powershell.md) — the language layer: Join-Path, compatible cmdlets, platform guards
-- [Script-scope caching](adr/pwsh/script-scope-caching.md) — the pwsh rules under [caching](adr/automation/caching.md): `$script:` cache
+- [Cross-platform PowerShell](adr/automation/pwsh/cross-platform-powershell.md) — the language layer: Join-Path, compatible cmdlets, platform guards
+- [Script-scope caching](adr/automation/pwsh/script-scope-caching.md) — the pwsh rules under [caching](adr/automation/caching.md): `$script:` cache
   entries, mock-the-whole-function
 - [Avoid deep nesting](adr/automation/avoid-deep-nesting.md) — flat code is readable code
-- [Avoid using semicolons](adr/pwsh/avoid-using-semicolons.md) — one statement per line
-- [Prefer foreach over ForEach-Object](adr/pwsh/prefer-foreach-over-foreach-object.md) — clarity and debuggability
-- [Automatic variable pitfalls](adr/pwsh/automatic-variable-pitfalls.md) — `$?`, `$_`, `$LASTEXITCODE` and their traps
+- [Avoid using semicolons](adr/automation/pwsh/avoid-using-semicolons.md) — one statement per line
+- [Prefer foreach over ForEach-Object](adr/automation/pwsh/prefer-foreach-over-foreach-object.md) — clarity and debuggability
+- [Automatic variable pitfalls](adr/automation/pwsh/automatic-variable-pitfalls.md) — `$?`, `$_`, `$LASTEXITCODE` and their traps
 - [Use proper package managers](adr/automation/use-proper-package-managers.md) — system tools via native package managers
-- [Hosting C# types](adr/pwsh/hosting-csharp-types.md) — the pwsh rules under native C# types: Add-Type, accelerators, stale types
+- [Hosting C# types](adr/automation/pwsh/hosting-csharp-types.md) — the pwsh rules under native C# types: Add-Type, accelerators, stale types
 
 ### SOLID principles that don't apply
 
@@ -238,9 +238,9 @@ The "why" and "how" behind the automation and its pwsh engine.
 
 - **KISS** — This is [zero ceremony, hard to fail](adr/automation/zero-ceremony-poka-yoke.md). The foundational ADR's first test — "Does
   this add ceremony?" — is the KISS test.
-- **DRY** — Enforced structurally: [dynamic module manifests](adr/pwsh/dynamic-module-manifests.md) eliminate manifest duplication,
+- **DRY** — Enforced structurally: [dynamic module manifests](adr/automation/pwsh/dynamic-module-manifests.md) eliminate manifest duplication,
   [sensible defaults](adr/automation/sensible-defaults.md) pull versions from config,
-  [one function per file](adr/pwsh/one-function-per-file.md) makes the file name the export name.
+  [one function per file](adr/automation/pwsh/one-function-per-file.md) makes the file name the export name.
 
 ## Pipeline ADRs
 

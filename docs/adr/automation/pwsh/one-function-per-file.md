@@ -18,7 +18,7 @@ Each function file pairs one-to-one with a test file named `Verb-Noun.Tests.ps1`
 
 ### Rule ADR-PWSH-ONEFUNC-GOVERNSSOURCE
 
-This rule and the `.ps1` function files of ADR-PWSH-USEPS-SCRIPTFILESFORFUNCTIONS govern **source** under `pwsh/<Module>/`. The installed
+This rule and the `.ps1` function files of ADR-PWSH-USEPS-SCRIPTFILESFORFUNCTIONS govern **source** under `automation/pwsh/<Module>/`. The installed
 build's merged `<Module>.functions.ps1` — every function of one module in one file, the module's single `NestedModules` entry — is a
 generated artifact of `Build-Modules`, derived from the one-function source files, never edited by hand and never checked in. It keeps the
 `.ps1` extension, so the module's functions share one session state as they do in source; the build asserts the rule on its input and fails

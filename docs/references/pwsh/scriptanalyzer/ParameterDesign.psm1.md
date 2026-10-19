@@ -1,4 +1,4 @@
-# pwsh/.scriptanalyzer/ParameterDesign.psm1
+# automation/pwsh/.scriptanalyzer/ParameterDesign.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -10,9 +10,9 @@ Above `function Test-ModuleFunctionFile {`, written with `#`.
 ```text
 .SYNOPSIS
     Custom PSScriptAnalyzer rules for a function's parameter surface
-    ([ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md)).
+    ([ADR-PWSH-PARAM](/docs/adr/automation/pwsh/parameter-design.md)).
 .DESCRIPTION
-    Two checks over the functions in a module function file — a.ps1 directly under pwsh/<Module>/ (public) or...
+    Two checks over the functions in a module function file — a.ps1 directly under automation/pwsh/<Module>/ (public) or...
     [comment:1](/docs/references/pwsh/scriptanalyzer/ParameterDesign.psm1.md#comment1)
 ```
 
@@ -22,7 +22,7 @@ Above `$isFunction = {`, written with `#`.
 
 ```text
 Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```
 
 ## comment:3
@@ -40,5 +40,5 @@ Above `if ($parameter.DefaultValue -and $parameter.DefaultValue.Extent.Text -mat
 
 ```text
 A [bool] whose default reads the configuration is a configurable setting
-([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)), not opt-in behaviour.
+([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)), not opt-in behaviour.
 ```

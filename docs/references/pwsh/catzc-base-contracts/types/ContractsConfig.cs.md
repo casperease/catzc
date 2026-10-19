@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Contracts/types/ContractsConfig.cs
+# automation/pwsh/Catzc.Base.Contracts/types/ContractsConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ The contracts settings (configs/contracts.yml), and the single declaration of th
 optional, and an omitted key, or a fresh checkout with no file, behaves exactly like the default, so no function
 restates a value ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A Get-Contract
 parameter overrides the resolved value per call
-([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
+([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
   addressing    how one contract asset addresses many files
                 ([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)), one of
                 AddressingModes; default full-path (an asset addresses the one real file at its own path). A mode in

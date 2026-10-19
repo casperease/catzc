@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithModule.Tests.ps1
+# automation/pwsh/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithModule.Tests.ps1
 
 <!-- cspell:ignore alweutstsmodst -->
 
@@ -21,7 +21,7 @@ Above `Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleN
 
 ```text
 Isolate build output to this file's throwaway $TestDrive via the output-root seam
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)), so
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)), so
 it never shares out/template/<name> with Build-Bicep.L2 or the other sample files — the sharing the
 'serial' tag used to work around
 ([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)). Mocking the seam removes

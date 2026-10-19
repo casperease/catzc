@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1
+# automation/pwsh/Catzc.Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -9,7 +9,7 @@ Above `Mock Get-AzCliSessionSubscription {`, written with `#`.
 
 ```text
 The deploy target is the az session's subscription
-([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries) whole-boundary
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries) whole-boundary
 mock).
 ```
 

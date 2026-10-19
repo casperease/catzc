@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Vendor/configs/vendor.yml
+# automation/pwsh/Catzc.Base.Vendor/configs/vendor.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -9,7 +9,7 @@ Above `source: PSGallery`, written with `#`.
 
 ```text
 Vendor module source — where Install-VendorModule downloads from and Remove-VendorModules validates against
-(see [ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md)). Loaded by Get-Config -Config vendor and
+(see [ADR-PWSH-VENDOR](/docs/adr/automation/pwsh/vendor-toolset-dependencies.md)). Loaded by Get-Config -Config vendor and
 validated by the VendorConfig type. Read only through the module's functions.
 ```
 

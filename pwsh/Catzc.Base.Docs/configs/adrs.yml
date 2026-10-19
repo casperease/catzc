@@ -166,6 +166,7 @@ domains:
     depends_on: [research, principles, process, design, automation]
     stack: AUTO
     concern: [automation] # the pwsh engine of the module system
+    folder: automation/pwsh
     rulesets:
       pwsh-engine: { external: ADR-PWSH-ENGINE }
       one-function-per-file: { external: ADR-PWSH-ONEFUNC }

@@ -104,7 +104,7 @@ the two mechanisms that make the platform relocatable without disturbing the sou
 living importer.
 
 This ADR is the bundle in words that hold for any engine. How it is realised in pwsh — the merged module form, the package module, and the
-build's entry script — is [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md) and [pwsh-engine](../pwsh/pwsh-engine.md).
+build's entry script — is [dynamic-module-manifests](pwsh/dynamic-module-manifests.md) and [pwsh-engine](pwsh/pwsh-engine.md).
 
 ## Decision
 
@@ -138,14 +138,14 @@ relocated — a scan that anchored on `RepositoryRoot` would look in the wrong p
 
 `The bundle boots through the importer`
 
-A bundle does not carry its own loader. Its entry — a checked-in, authored file under `pwsh/.internal/assets/`, copied verbatim into the
-build — sets the two anchors and runs the same importer the mono repo's entry runs, in its bundle mode. This is not merely to avoid a second
-copy of the load logic — it is load-order-correct. The C# types the platform uses are registered by catzc's own code before any module
-loads, and a module that names one of them at load time needs it registered first. The importer sequences this — types, then the module loop
-— and a single declarative package description that listed every module as part of one package could not, besides collapsing every module's
-private state into one shared scope. So the bundle reuses the importer, and the bundle mode only changes what it does to the filesystem:
-janitors off, each module's prebuilt manifest read rather than generated, the prebuilt DLL loaded rather than compiled, the pre-set code
-root honoured.
+A bundle does not carry its own loader. Its entry — a checked-in, authored file under `automation/pwsh/.internal/assets/`, copied verbatim
+into the build — sets the two anchors and runs the same importer the mono repo's entry runs, in its bundle mode. This is not merely to avoid
+a second copy of the load logic — it is load-order-correct. The C# types the platform uses are registered by catzc's own code before any
+module loads, and a module that names one of them at load time needs it registered first. The importer sequences this — types, then the
+module loop — and a single declarative package description that listed every module as part of one package could not, besides collapsing
+every module's private state into one shared scope. So the bundle reuses the importer, and the bundle mode only changes what it does to the
+filesystem: janitors off, each module's prebuilt manifest read rather than generated, the prebuilt DLL loaded rather than compiled, the
+pre-set code root honoured.
 
 ### The runtime payload
 
@@ -162,7 +162,7 @@ guard re-verifies the same hash in every build, and a session that switches betw
 DLL is copied from the source tree's `.compiled/` when its hash matches, and compiled only when it is missing. The vendored dependencies are
 copied verbatim from `.vendor/` per `vendor_policy`, and are never re-downloaded or republished. Default-deny keeps the verification surface
 out: no `tests/` tree travels. The exact form of the payload in pwsh is
-[dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-bundlecarriesmanifests).
+[dynamic-module-manifests](pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-bundlecarriesmanifests).
 
 ### The verified artifact
 
@@ -278,9 +278,9 @@ disk — publishing the package to GitHub or a public feed — is a deliberate, 
 - [module-aspects](../design/module-aspects.md) — the live/tests aspect the runtime payload is deliberately broader than.
 - [durable-sha-globs](../flow/durable-sha-globs.md) — the durable-SHA identity the content hash reuses.
 - [native-csharp-types](BCL/native-csharp-types.md) — the combined assembly and the type load order the bundle mode preserves.
-- [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md), [pwsh-engine](../pwsh/pwsh-engine.md) — the bundle in pwsh: the merged
-  module form, the package module, and the build's entry.
-- [use-ps1-not-psm1](../pwsh/use-ps1-not-psm1.md), [one-function-per-file](../pwsh/one-function-per-file.md) — the source rules the merged
+- [dynamic-module-manifests](pwsh/dynamic-module-manifests.md), [pwsh-engine](pwsh/pwsh-engine.md) — the bundle in pwsh: the merged module
+  form, the package module, and the build's entry.
+- [use-ps1-not-psm1](pwsh/use-ps1-not-psm1.md), [one-function-per-file](pwsh/one-function-per-file.md) — the source rules the merged
   function file is generated from.
 - [environment-variables](environment-variables.md) — the well-known-anchor rule `CatzcModulesRoot` follows.
 - [github-release](../github/github-release.md) — the release workflow that publishes the build under its calculated version.

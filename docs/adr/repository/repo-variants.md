@@ -116,7 +116,7 @@ variant that needed to cross-check another asset would belong to that asset's la
   [customer-model](../azure/azure-customer-model.md)). Keeping the enabled set in the variant (rather than deriving it from `customer.yml`)
   is what lets the `HaveCustomer(s)` primitives answer "is this customer enabled" from `Base` without reaching up into the Azure-layer
   catalogue. The plural and singular primitives split by the cardinality rule of
-  [ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS](../pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-pluralcollectionnouns).
+  [ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS](../automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-pluralcollectionnouns).
 - **`aspects`** — each track's ordered classification of a unit's files into `live` and `tests`, ending in the `**` catch-all; read by
   `Get-Aspect` and compiled per unit by `AspectPartition` ([module-aspects](../design/module-aspects.md)).
 - **`tracks`** — the repository's root concerns, one entry per root folder with its class and the file languages of its tech-stack; read by

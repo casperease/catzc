@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/private/Import-VendoredPester.ps1
+# automation/pwsh/Catzc.Base.QualityGates/private/Import-VendoredPester.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Loads the vendored Pester into the session on first use, and makes sure it is th
 ### description
 
 Pester's import is deferred at import time for speed
-([ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE](../../../../adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)); the test
+([ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE](../../../../adr/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)); the test
 entry points that need it in the parent session — for a discovery pass, or an in-session run — load it here, once. It is vendored inside the
 code tree, so it resolves from the code root
 ([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)),

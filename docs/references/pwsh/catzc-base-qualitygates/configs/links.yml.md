@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/configs/links.yml
+# automation/pwsh/Catzc.Base.QualityGates/configs/links.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -13,7 +13,7 @@ Link alignment settings for Format-Links / Test-Links ([ADR-REPO-LINK-ALIGNEDBYT
 Every key is optional: an omitted key takes the sensible default declared once on
 Catzc.Base.QualityGates.LinksConfig
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and a Format-Links parameter overrides the
-resolved value per call ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
+resolved value per call ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 ```
 
 ## comment:2

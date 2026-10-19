@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+# automation/pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -94,6 +94,6 @@ Above `foreach ($script in Get-ChildPath $moduleTarget -File -Filter "*$extensio
 
 ```text
 A named whole-tree walk
-([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every shebang
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every shebang
 script of the installed module is re-marked.
 ```

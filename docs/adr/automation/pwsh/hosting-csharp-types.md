@@ -174,7 +174,7 @@ pipeline), never with a nested shell. The console text is C#, because that is th
 
 ### How this is enforced
 
-- **`Import-CSharpTypes`** (`pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) compiles with `Add-Type -Path`, one compilation unit per file,
+- **`Import-CSharpTypes`** (`automation/pwsh/.internal/Catzc.Internal.Bootstrap.psm1`) compiles with `Add-Type -Path`, one compilation unit per file,
   registers each `[Catzc.Base.Objects.PSTypeAlias]` name as a type-accelerator (ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE), and registers each
   `[Catzc.Base.Objects.ConsoleDisplay]` property list as the type's default display (ADR-PWSH-TYPES-TOSTRINGOVERRIDE).
   `Import-CSharpTypes.Tests.ps1` asserts a decorated type's accelerator resolves after load.

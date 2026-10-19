@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1
+# automation/pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -25,7 +25,7 @@ folder that already exists, since a released folder is never written again; a un
 It writes files only: it never commits, and it does not check the assets. A release build resolves the version (Resolve-CatzcBuildVersion),
 runs this, runs Test-Contracts -Version `<version>`, and commits the folder in its own step. Publish is the approved verb for making a
 resource available to others
-([ADR-PWSH-VERBS-APPROVEDVERBS](../../../adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-approvedverbs)): the frozen folder is what
+([ADR-PWSH-VERBS-APPROVEDVERBS](../../../adr/automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-approvedverbs)): the frozen folder is what
 a consumer pins.
 
 ### parameter `Unit`
@@ -63,6 +63,6 @@ Publish-ContractRelease -Unit catzc -Version (Resolve-CatzcBuildVersion) -WhatIf
 Above `$files = [string[]] @(Get-ChildPath $draft -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
 freeze copies the whole draft, so no name is pruned and no depth drops a file.
 ```

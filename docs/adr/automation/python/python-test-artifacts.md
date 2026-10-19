@@ -166,7 +166,7 @@ A Python test runs where every other test runs: in a `Test-Automation` test run,
 protection, tiers, categories, and report ([test-automation](../test-automation.md)). The one language bridge runs `Invoke-PythonTest` once
 per mapped module — `uv sync`, `ruff check`, then `pytest` with a JUnit report, the test folder as pytest's rootdir — and turns each
 top-level test function into one test of the run, its parametrised cases folded into it, as Go folds subtests; in pwsh that test is a Pester
-`It` ([pester-testing](../../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)). Discovery reads the `test_*.py` files without
+`It` ([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)). Discovery reads the `test_*.py` files without
 running Python, so it is fast, offline, and works where uv is missing.
 
 A Python test starts a real engine through a real toolchain, so every one is `L2`. Its category comes from its name, decided in one place

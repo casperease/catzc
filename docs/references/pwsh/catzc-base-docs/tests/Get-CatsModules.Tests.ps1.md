@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1
+# automation/pwsh/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -9,7 +9,7 @@ Above `Describe 'Get-CatsModules' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-CatsModules is private, so it is exercised through the module (& (Get-Module …), per
-[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)).
+[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)).
 ```
 
 ## comment:2

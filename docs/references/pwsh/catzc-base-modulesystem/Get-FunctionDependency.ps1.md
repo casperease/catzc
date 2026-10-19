@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
+# automation/pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -65,7 +65,7 @@ Above `$script:functionDependencyCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:3
@@ -74,7 +74,7 @@ Above `$parsed = [System.Collections.Generic.List[object]]::new()`, written with
 
 ```text
 Enumerate + parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/
-call provider overhead, [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)),
+call provider overhead, [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)),
 capturing each file's top-level functions. Both the definition map and
 the call walk reuse these ASTs, so a file is read and parsed a single time (it was twice before).
 ```

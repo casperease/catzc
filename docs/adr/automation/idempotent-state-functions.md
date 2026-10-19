@@ -167,7 +167,7 @@ the same arguments must produce the same system state as running them once.
 
 The rules above hold for every execution engine. How one engine writes them — which of its commands overwrite and which append, what a
 switch that redoes the work means, how both paths of a function return the same result, and where the contract is written — is the language
-layer for that engine. For pwsh it is [idempotent-state-mechanics](../pwsh/idempotent-state-mechanics.md) (`ADR-PWSH-IDEM`).
+layer for that engine. For pwsh it is [idempotent-state-mechanics](pwsh/idempotent-state-mechanics.md) (`ADR-PWSH-IDEM`).
 
 ## Consequences
 

@@ -59,7 +59,7 @@ steps:
 ```
 
 - Runs identically on Windows, Linux, and macOS — CI covers all three.
-- No install step: every dependency is vendored under `pwsh/.vendor/`.
+- No install step: every dependency is vendored under `automation/pwsh/.vendor/`.
 - `$ErrorActionPreference = 'Stop'` is set globally, so an error becomes a non-zero exit code automatically.
 - No network calls at import time — safe behind corporate proxies and in air-gapped environments.
 
@@ -69,7 +69,7 @@ steps:
 
 The importer sets both `$ErrorActionPreference` and `$WarningPreference` to `Stop`. There are exactly two states: everything is fine
 (execution continues), or something is wrong (execution stops). No warnings, no "succeeded with warnings", no middle ground (see
-[error-handling](../../../adr/pwsh/error-handling.md)).
+[error-handling](../../../adr/automation/pwsh/error-handling.md)).
 
 - **Interactive sessions** get a prompt hook that prints a full stack trace after any failed command.
 - **Scripts** add `trap { Write-Exception $_; break }` right after the importer line for the same effect.

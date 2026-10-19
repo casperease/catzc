@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
+# automation/pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -47,7 +47,7 @@ Above `$files = foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @
 
 ```text
 Every file once, build-relative and forward-slashed: the tests/ scan and the shipped type sources read it.
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the bundle
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the bundle
 is verified in full, vendored modules included, so nothing is pruned.
 ```
 

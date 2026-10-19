@@ -35,7 +35,7 @@ cache follows.
 ## Related
 
 - ADR: [one-living-version](../../../adr/principles/one-living-version.md) — the two-layer shared code this loader exists to serve.
-- ADR: [use-ps1-not-psm1](../../../adr/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`, not a function file.
+- ADR: [use-ps1-not-psm1](../../../adr/automation/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`, not a function file.
 - ADR: [caching](../../../adr/automation/caching.md) — the re-import invalidation boundary `-Force` honours.
 - ADR: [pipeline-detection](../../../adr/flow/pipeline-detection.md) — the one detection function the loader carries.
 - Reference: the [internal area overview](index.md) and the shared modules it loads — [Types](catzc-internal-types.md),

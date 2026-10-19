@@ -8,7 +8,7 @@ function Get-ModuleFunction {
         Assert-SourceTree
     }
 
-    # [System.IO] enumeration ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths))
+    # [System.IO] enumeration ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths))
     $moduleNames = (Get-CatzcModule -EngineTrack).name
 
     $modules = Get-Module | Where-Object { $_.Name -in $moduleNames }

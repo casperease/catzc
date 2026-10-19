@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1
+# automation/pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -52,7 +52,7 @@ Above `$script:protectedGlobSets = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entries
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:2

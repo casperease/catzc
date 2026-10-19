@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1
+# automation/pwsh/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,9 +12,9 @@ Quality gate: one parameter name means one type across the public functions.
 ### description
 
 A caller learns a parameter once — `-Path` takes paths, `-TimeoutSeconds` takes whole seconds — so the same name carries the same type in
-every public function ([ADR-PWSH-PARAM](../../../adr/pwsh/parameter-design.md),
+every public function ([ADR-PWSH-PARAM](../../../adr/automation/pwsh/parameter-design.md),
 [ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). Reads every tracked public function
-file (`pwsh/<Module>/<Name>.ps1`) and reports each parameter name whose declarations disagree on their element type
+file (`automation/pwsh/<Module>/<Name>.ps1`) and reports each parameter name whose declarations disagree on their element type
 (Get-ParameterTypeConflict: `[string]` and `[string[]]` agree; untyped, `[object]` and `[psobject]` never conflict).
 
 A name that genuinely means different things in different functions is listed in parameter-consistency.yml (`exempt`) with the reason; an

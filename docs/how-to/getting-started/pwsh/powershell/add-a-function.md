@@ -5,16 +5,16 @@ manifest to edit, no export list to maintain.
 
 ## Steps
 
-1. Pick the right module folder under `pwsh/` (or [create a new module](../add-a-module.md) first).
-2. Create `pwsh/<Module>/Verb-Noun.ps1`. The **file name must equal the function name**, and the file must contain exactly one function (see
-   [one-function-per-file](../../../../adr/pwsh/one-function-per-file.md)).
-3. Create the paired test `pwsh/<Module>/tests/Verb-Noun.Tests.ps1`.
+1. Pick the right module folder under `automation/pwsh/` (or [create a new module](../add-a-module.md) first).
+2. Create `automation/pwsh/<Module>/Verb-Noun.ps1`. The **file name must equal the function name**, and the file must contain exactly one function (see
+   [one-function-per-file](../../../../adr/automation/pwsh/one-function-per-file.md)).
+3. Create the paired test `automation/pwsh/<Module>/tests/Verb-Noun.Tests.ps1`.
 4. Re-run the importer (`. ./importer.ps1`) and run `Test-Automation`.
 
 ## The shape of a function
 
 ```powershell
-# pwsh/<Module>/Get-Widgets.ps1
+# automation/pwsh/<Module>/Get-Widgets.ps1
 function Get-Widgets {
     [CmdletBinding()]
     [OutputType([object[]])]
@@ -50,19 +50,19 @@ These are enforced by PSScriptAnalyzer and the convention tests — code that br
 - **Approved verb, meaningful noun.** Use a verb from `Get-Verb` (`Get`, `New`, `Set`, `Install`, `Invoke`, `Assert`, `Test`, …). Use a
   **plural** noun when you return a collection (`Get-Widgets`) and a **singular** noun when you return one object (`Get-Widget`). The verb
   is a contract: `Get-` must not change state, `Test-` returns `[bool]`, `Assert-` throws on failure (see
-  [respect-pwsh-verb-rules](../../../../adr/pwsh/respect-pwsh-verb-rules.md)).
+  [respect-pwsh-verb-rules](../../../../adr/automation/pwsh/respect-pwsh-verb-rules.md)).
 - **Assert your assumptions.** Validate parameters at entry and results after every external call with the `Assert-*` library — never inline
   `if (-not $x) { throw }` (see [fail-fast-with-asserts](../../../../adr/automation/fail-fast-with-asserts.md)).
 - **Throw, don't warn.** Use `throw` / `Assert-*` for failure and `Write-Message` / `Write-Verbose` for information. `Write-Error` and
-  `Write-Warning` are banned (see [error-handling](../../../../adr/pwsh/error-handling.md)).
+  `Write-Warning` are banned (see [error-handling](../../../../adr/automation/pwsh/error-handling.md)).
 - **Sensible defaults.** Make the zero/low-argument call do the common thing; pull defaults from config where they live (see
   [sensible-defaults](../../../../adr/automation/sensible-defaults.md)); make the primary argument positional and use `[switch]` for opt-in
-  behavior (see [parameter-design](../../../../adr/pwsh/parameter-design.md)).
+  behavior (see [parameter-design](../../../../adr/automation/pwsh/parameter-design.md)).
 - **One responsibility.** A function does one thing its name describes. `Invoke-Widget` must not secretly install the tool — assert the
   precondition and let the caller compose (see
   [single-responsibility-functions](../../../../adr/automation/single-responsibility-functions.md)).
 - **Style.** K&R braces, 4-space indent, no trailing semicolons, `foreach` over `ForEach-Object` for anything with control flow, PascalCase
-  parameters / camelCase locals (see [powershell-formatting](../../../../adr/pwsh/powershell-formatting.md)).
+  parameters / camelCase locals (see [powershell-formatting](../../../../adr/automation/pwsh/powershell-formatting.md)).
 
 ## Reuse the base library
 
@@ -78,7 +78,7 @@ Before writing a helper, reach for what already exists in `Catzc.Base.*` and `Ca
 ## Call a private helper
 
 A `.ps1` in the module root is exported; a `.ps1` in `private/` is loaded into the same module scope but **not** exported. Public functions
-call private helpers directly — no import, no qualification. To add one, drop `pwsh/<Module>/private/Verb-Noun.ps1` (same
+call private helpers directly — no import, no qualification. To add one, drop `automation/pwsh/<Module>/private/Verb-Noun.ps1` (same
 one-function-per-file rule).
 
 ## The paired test
@@ -87,7 +87,7 @@ Every function file pairs one-to-one with a test file. Every test carries **two 
 category (`logic`/`integrity`). A run fails fast if either is missing.
 
 ```powershell
-# pwsh/<Module>/tests/Get-Widgets.Tests.ps1
+# automation/pwsh/<Module>/tests/Get-Widgets.Tests.ps1
 Describe 'Get-Widgets' -Tag 'L1', 'logic' {
     It 'returns the trimmed widgets, capped at -Limit' {
         $fixture = Join-Path $PSScriptRoot 'assets/widgets.json'
@@ -99,7 +99,7 @@ Describe 'Get-Widgets' -Tag 'L1', 'logic' {
 
 Logic tests run on fixtures/mocks and are hermetic; mock only real boundaries (filesystem location, CLIs), and mock the whole boundary
 function — see [test-automation](../../../../adr/automation/test-automation.md) for tiers and tagging, and
-[pester-testing](../../../../adr/pwsh/pester-testing.md) for the isolation idioms.
+[pester-testing](../../../../adr/automation/pwsh/pester-testing.md) for the isolation idioms.
 
 ### Citing the enforced rule
 
@@ -121,7 +121,7 @@ ADR uses `:` (`### Rule ADR-PWSH-ERROR-THROWNOTWRITEERROR`). Each run then write
 uncovered), and `tests.csv` gains a `Rules` column you can filter by a citation to find every test that enforces it.
 
 Citing is one of **two** ways a rule gets mechanical coverage; the other is a PSScriptAnalyzer rule. So when you add a **custom analyzer
-rule** (`pwsh/.scriptanalyzer/*.psm1`), map it to the rule id(s) it enforces in `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`
+rule** (`automation/pwsh/.scriptanalyzer/*.psm1`), map it to the rule id(s) it enforces in `automation/pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`
 — an integrity test fails if a custom rule is left unmapped.
 
 Then:

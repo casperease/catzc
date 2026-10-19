@@ -69,8 +69,8 @@ build, and code review rejects a bundle loader that forks the importer.
 ## See also
 
 - [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains. The stages also rest on
-  [error-handling](../../adr/pwsh/error-handling.md), [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md),
-  [hosting-csharp-types](../../adr/pwsh/hosting-csharp-types.md), [run-modes](../../adr/design/run-modes.md),
+  [error-handling](../../adr/automation/pwsh/error-handling.md), [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md),
+  [hosting-csharp-types](../../adr/automation/pwsh/hosting-csharp-types.md), [run-modes](../../adr/design/run-modes.md),
   [one-living-version](../../adr/principles/one-living-version.md) and
   [generated-root-configs](../../adr/repository/generated-root-configs.md).
 - The other lenses on the same load sequence: [meta](every-entry-runs-one-load-sequence.md),

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1
+# automation/pwsh/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -22,7 +22,7 @@ No admin required. Idempotent — safe to run repeatedly.
 
 It runs before catzc is loaded, so it writes through Write-Information directly rather than the writer chokepoint — the same information
 stream
-([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)),
+([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)),
 always shown, colour as embedded ANSI.
 
 ### example 1

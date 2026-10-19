@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
+# automation/pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -67,7 +67,7 @@ Greedy files run side by side in groups of this size, one group after another; 0
 
 Hard ceiling on each execution phase (the parallel pool, then the serial phase). On expiry every worker is killed and the run throws.
 Defaults to this function's `[TimeLimit]` (360 s on a devbox, where a full run takes about 250 s; 3600 s in a pipeline), unless timeouts.yml
-overrides it ([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)).
+overrides it ([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../adr/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)).
 
 ### parameter `Output`
 

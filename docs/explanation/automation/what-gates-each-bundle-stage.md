@@ -58,7 +58,7 @@ The diagram is described element by element in [its asset description](.assets/w
 ## See also
 
 - [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.
-- [Dynamic module manifests](../../adr/pwsh/dynamic-module-manifests.md) — the merged module form of the payload.
+- [Dynamic module manifests](../../adr/automation/pwsh/dynamic-module-manifests.md) — the merged module form of the payload.
 - [Test automation](../../adr/automation/test-automation.md) and [Run modes](../../adr/design/run-modes.md) — the build run and the build
   kinds.
 - The other lenses on the same bundle: [meta](one-commit-one-immutable-package.md), [architecture](every-code-root-is-a-copy.md),

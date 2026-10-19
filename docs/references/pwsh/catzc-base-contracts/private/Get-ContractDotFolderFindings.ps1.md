@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1
+# automation/pwsh/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -40,6 +40,6 @@ Get-ContractDotFolderFindings -RepositoryRoot $root
 Above `$folders = [string[]] @(Get-ChildPath $contractsRoot -Directory -Depth 64...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): this gate
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): this gate
 looks for stray folders, so no name is pruned and no depth hides one.
 ```

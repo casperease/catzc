@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Maps/private/Get-WorldMapOutputRoot.ps1
+# automation/pwsh/Catzc.Base.Maps/private/Get-WorldMapOutputRoot.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -15,7 +15,7 @@ The world map writes recurring files, so they land in their own folder under the
 ([ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](../../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)):
 Get-OutputRoot joined with the output_folder of configs/maps.yml (read through Get-Config, typed as Catzc.Base.Maps.MapsConfig; default
 world-map). It is also the seam a test mocks to a folder of its own
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../../../adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)).
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../../../adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)).
 
 ### parameter `EnsureExists`
 

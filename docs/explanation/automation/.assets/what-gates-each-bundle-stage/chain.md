@@ -78,7 +78,7 @@ Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 - [lit cell][9]
 
 [1]: ../../../../adr/automation/platform-bundle.md
-[2]: ../../../../adr/pwsh/dynamic-module-manifests.md
+[2]: ../../../../adr/automation/pwsh/dynamic-module-manifests.md
 [3]: ../../../../adr/design/tracks.md
 [4]: ../../what-gates-each-bundle-stage.md
 [5]: ../../../../adr/glossary.md#value-chain-map

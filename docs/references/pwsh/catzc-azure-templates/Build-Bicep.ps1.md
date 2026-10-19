@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
+# automation/pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -108,7 +108,7 @@ Above `. $prepostModule { Set-StrictMode -Version Latest }`, written with `#`.
 
 ```text
 The template's hooks run strict like every catzc module, whoever wrote them
-([ADR-PWSH-ERROR-STRICTCLEAN](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
+([ADR-PWSH-ERROR-STRICTCLEAN](/docs/adr/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
 ```
 
 ## comment:5
@@ -138,7 +138,7 @@ Above `$buildInvocation = [ordered]@{`, written with `#`.
 The build invocation for this slot — the arguments Build-Bicep is acting on. Hooks read what
 they need from it (e.g. $BuildInvocation.Customer) rather than via raw params, so adding a
 dimension never changes the hook signature.
-See [ADR-PWSH-PREPOST](/docs/adr/pwsh/prepost-extension-modules.md).
+See [ADR-PWSH-PREPOST](/docs/adr/automation/pwsh/prepost-extension-modules.md).
 ```
 
 ## comment:8

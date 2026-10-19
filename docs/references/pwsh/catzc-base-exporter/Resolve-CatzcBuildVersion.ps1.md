@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
+# automation/pwsh/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -19,7 +19,7 @@ configs/exporter.yml (Get-Config -Config exporter):
 -Version auto, on a devbox    the fixed direct_install_version placeholder (6.6.666), announced by a yellow
                               Write-Message notice — never Write-Warning, which terminates under the catzc
                               session's preferences
-                              ([ADR-PWSH-ERROR-STOPONWARNING](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error-stoponwarning)). A rebuild overwrites it in place.
+                              ([ADR-PWSH-ERROR-STOPONWARNING](/docs/adr/automation/pwsh/error-handling.md#rule-adr-pwsh-error-stoponwarning)). A rebuild overwrites it in place.
 -Version auto, in a pipeline  <the bundle's MAJOR.MINOR (exporter.yml bundles.<name>.version)>.<first-parent
                               commit count of HEAD>, so the same commit always gets the same version and
                               versions rise along main. Each bundle has its own MAJOR.MINOR line. Needs the full

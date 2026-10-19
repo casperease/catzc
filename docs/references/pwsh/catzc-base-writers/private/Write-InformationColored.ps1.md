@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Writers/private/Write-InformationColored.ps1
+# automation/pwsh/Catzc.Base.Writers/private/Write-InformationColored.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -31,7 +31,7 @@ only not writing it does. Test-Automation sets $global:__PesterRunning,
 and this guard returns before writing. Tests that need to assert writer output lift the flag for their own scope.
 
 It is also the one way to write to the console at all
-([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)):
+([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)):
 nothing in the toolset calls Write-Host, `[Console]::Write` or
 $Host.UI. -NoNewline covers the one thing those were used for — an inline
 liveness dot

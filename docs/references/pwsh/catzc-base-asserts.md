@@ -2,7 +2,7 @@
 
 The assertion library. It is the vocabulary every other module uses to state a precondition and stop the moment it is violated. It owns no
 I/O of its own and depends on nothing else — it is the bottom of the stack, the concrete embodiment of
-[fail-fast-with-asserts](../../adr/automation/fail-fast-with-asserts.md) and [error-handling](../../adr/pwsh/error-handling.md).
+[fail-fast-with-asserts](../../adr/automation/fail-fast-with-asserts.md) and [error-handling](../../adr/automation/pwsh/error-handling.md).
 
 ## Responsibilities
 
@@ -45,7 +45,7 @@ two moods: an _affirming_ form that throws on failure (the precondition the call
 boolean (the condition the caller wants to branch on). The affirming form is for "this must hold or stop"; the querying form is for "if this
 holds, do X." Picking the right mood is how a function says whether a condition is a contract or a choice — the same distinction the
 approved-verb rules draw between an affirming verb and a testing verb (see
-[respect-pwsh-verb-rules](../../adr/pwsh/respect-pwsh-verb-rules.md)).
+[respect-pwsh-verb-rules](../../adr/automation/pwsh/respect-pwsh-verb-rules.md)).
 
 The module is deliberately leaf-like: it has no private helpers and reads no configuration. That keeps it loadable and trustworthy before
 anything else in the system has initialised, which is exactly what a fail-fast foundation needs. The layers above it — the utilities, the

@@ -167,7 +167,7 @@ modes, under the same selection, ordering, protection, tiers, categories, and re
 ([test-automation](../test-automation.md#rule-adr-auto-test-languagetestmodules)). The one language bridge every test language shares (Go
 and Python, [python-test-artifacts](../python/python-test-artifacts.md)) runs `Invoke-GoTest` once per mapped module — `go mod download`,
 `go vet`, then `go test -json` — and turns each top-level Go test into one test of the run, with its subtests folded into it. In pwsh that
-test is a Pester `It` ([pester-testing](../../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)).
+test is a Pester `It` ([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)).
 
 A Go test starts a real engine through a real toolchain, so the bridge tags every one `L2`, with no per-test choice to make. Its category
 comes from its name, decided in one place (the `GoTestResult` type): a `TestIntegrity*` test reads the shipped artifacts and is `integrity`;

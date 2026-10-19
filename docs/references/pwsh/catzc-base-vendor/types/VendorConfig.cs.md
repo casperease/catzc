@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Vendor/types/VendorConfig.cs
+# automation/pwsh/Catzc.Base.Vendor/types/VendorConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 The vendor module source (configs/vendor.yml) — where Install-VendorModule downloads vendored modules from and
-Remove-VendorModules validates them against ([ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md)).
+Remove-VendorModules validates them against ([ADR-PWSH-VENDOR](/docs/adr/automation/pwsh/vendor-toolset-dependencies.md)).
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Vendor.VendorConfig), so
 Get-Config -Config vendor returns this typed record. Mirrors the YAML keys verbatim (the file's own `sourceUrl`
 spelling, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).

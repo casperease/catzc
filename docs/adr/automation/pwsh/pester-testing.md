@@ -147,7 +147,7 @@ boundary. Pester's NUnit output stays per shard (`results-shard-<N>.xml`).
 
 A shard worker's entry script is the one difference between the two test runs of ADR-AUTO-TEST-SAMETESTSBOTHRUNS: the source run's workers
 dot-source `<repo>/importer.ps1`, the build run's dot-source `<build>/Import-Catzc.ps1 -RepositoryRoot <repo>`, and both run the same
-`pwsh/<Module>/tests/*.Tests.ps1` files. `Mock -ModuleName`, `InModuleScope`, and `Get-Module` resolve the same in both, because a built
+`automation/pwsh/<Module>/tests/*.Tests.ps1` files. `Mock -ModuleName`, `InModuleScope`, and `Get-Module` resolve the same in both, because a built
 module keeps its name, its functions, and its `$script:` scope.
 
 - [The harness in Pester](#the-harness-in-pester)
@@ -189,11 +189,11 @@ A hermetic logic test (both seams isolated, fixture identities):
 ```powershell
 Describe 'Get-AzureEnvironment' -Tag 'L1', 'logic' {
     BeforeEach {
-        Mock Get-BicepTemplatesRoot { Join-Path (Get-RepositoryRoot) 'pwsh/Catzc.Azure.Templates/tests/assets/templates' } -ModuleName Catzc.Azure.Templates
+        Mock Get-BicepTemplatesRoot { Join-Path (Get-RepositoryRoot) 'automation/pwsh/Catzc.Azure.Templates/tests/assets/templates' } -ModuleName Catzc.Azure.Templates
         # Redirect the 'azure' config to the fixture file via the discovery seam.
         Mock Resolve-ConfigEntry {
             @{ Name = 'azure'; Module = 'Catzc.Azure.Templates'
-               Path = Join-Path (Get-RepositoryRoot) 'pwsh/Catzc.Azure.Templates/tests/assets/config/azure.yml' }
+               Path = Join-Path (Get-RepositoryRoot) 'automation/pwsh/Catzc.Azure.Templates/tests/assets/config/azure.yml' }
         } -ParameterFilter { $Config -eq 'azure' } -ModuleName Catzc.Base.Config
     }
     It 'resolves the environment identity against a named subscription' {

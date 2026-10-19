@@ -1,4 +1,4 @@
-# pwsh/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1
+# automation/pwsh/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -46,7 +46,7 @@ Get-PackageTreePlan -Source $staging -Destination $gitHome
 Above `$sourceDirectories = [System.Collections.Generic.List[string]]::new()`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a copy
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a copy
 plan must see every file, so no folder name is pruned and the depth is the
 config's ceiling. A real package tree reaches ten levels, and a shallower bound would silently drop files from the copy.
 ```

@@ -107,8 +107,8 @@ Every tool the toolchain manages is operated through three verbs — `Install-`,
   apt; the uv and script equivalents).
 - **`Remove-<Tool>`** is the source-agnostic, destructive eviction of an off-config install the managed pair cannot touch.
 
-The verbs keep their PowerShell contracts ([respect-pwsh-verb-rules](../pwsh/respect-pwsh-verb-rules.md)): `Uninstall-` removes a resource
-from a location the manager owns; `Remove-` deletes a resource from a container — the blunter delete, which is why the destructive operation
+The verbs keep their PowerShell contracts ([respect-pwsh-verb-rules](pwsh/respect-pwsh-verb-rules.md)): `Uninstall-` removes a resource from
+a location the manager owns; `Remove-` deletes a resource from a container — the blunter delete, which is why the destructive operation
 carries that verb rather than overloading `Uninstall-`.
 
 ### Uninstall vs Remove
@@ -218,6 +218,6 @@ when an off-config binary shadows the managed install — and only recommends `R
   extends, and `Test-ExpectedPackageManager`.
 - [use-proper-package-managers](use-proper-package-managers.md) (`ADR-AUTO-PKGMGR`) — `Uninstall-Chocolatey`, the exemplar eviction.
 - [dry-run](dry-run.md) (`ADR-AUTO-DRYRUN`) — the `-Force` dry-run guard.
-- [respect-pwsh-verb-rules](../pwsh/respect-pwsh-verb-rules.md) (`ADR-PWSH-VERBS`) — the `Uninstall-` vs `Remove-` verb contracts.
+- [respect-pwsh-verb-rules](pwsh/respect-pwsh-verb-rules.md) (`ADR-PWSH-VERBS`) — the `Uninstall-` vs `Remove-` verb contracts.
 - [uv-python-handler](uv-python-handler.md) (`ADR-AUTO-UVPY`) — the user-space goal the scoped-elevation rule serves.
 - [idempotent-state-functions](idempotent-state-functions.md) (`ADR-AUTO-IDEM`) — `Install-`/`Uninstall-`/`Remove-` are idempotent.

@@ -1,4 +1,4 @@
-# The shared loader of a source module ([ADR-PWSH-MANIFEST](/docs/adr/pwsh/dynamic-module-manifests.md)): every
+# The shared loader of a source module ([ADR-PWSH-MANIFEST](/docs/adr/automation/pwsh/dynamic-module-manifests.md)): every
 # derived <Module>.psd1 names this script as its one NestedModule and lists the module's function files in
 # PrivateData.CatzcFiles (private/ first, then the root, each group ordinal, relative to the module folder). As a
 # nested .ps1 it runs in the module's session state, so each file it dot-sources defines its function there: public

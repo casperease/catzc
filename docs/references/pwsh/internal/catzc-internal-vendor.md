@@ -1,6 +1,6 @@
 # Catzc.Internal.Vendor
 
-The shared vendored-module loader. It imports the third-party modules under `pwsh/.vendor/<Name>/<Version>/` into the session, and it lives
+The shared vendored-module loader. It imports the third-party modules under `automation/pwsh/.vendor/<Name>/<Version>/` into the session, and it lives
 in `.internal` for the same reason the other shared libraries do: vendored modules are loaded **before** any `Catzc` module exists (the
 importer loads dependencies first), so the loader cannot live in a `Catzc` module — yet it must also be callable **after** import, by the
 [Catzc.Base.Vendor](../catzc-base-vendor.md) cover functions that delegate to it. One implementation, two callers (see
@@ -9,7 +9,7 @@ not removed with the transient bootstrap — and is loaded on demand through `Im
 
 ## What it does
 
-`Import-VendorModules` imports every `pwsh/.vendor/<Name>/<Version>/` module into the global session so the vendored version wins over any
+`Import-VendorModules` imports every `automation/pwsh/.vendor/<Name>/<Version>/` module into the global session so the vendored version wins over any
 system-installed copy. For each module it:
 
 - **removes any already-loaded system copy** and strips that module's system paths from `$env:PSModulePath`, so auto-loading cannot
@@ -23,7 +23,7 @@ system-installed copy. For each module it:
   antivirus scans on first load, so isolating that cost per module makes a slow startup measurable rather than guessed at.
 
 `-VendorRoot` is the vendor directory (it skips silently when the path does not exist). Vendoring modules this way — checked-in versions
-loaded without a gallery restore — is the subject of the [vendor-toolset-dependencies](../../../adr/pwsh/vendor-toolset-dependencies.md)
+loaded without a gallery restore — is the subject of the [vendor-toolset-dependencies](../../../adr/automation/pwsh/vendor-toolset-dependencies.md)
 ADR.
 
 ## Functions
@@ -33,8 +33,8 @@ ADR.
 
 ## Related
 
-- ADR: [vendor-toolset-dependencies](../../../adr/pwsh/vendor-toolset-dependencies.md) — determinism without a restore step.
+- ADR: [vendor-toolset-dependencies](../../../adr/automation/pwsh/vendor-toolset-dependencies.md) — determinism without a restore step.
 - ADR: [one-living-version](../../../adr/principles/one-living-version.md) — why the loader is shared by both layers.
-- ADR: [use-ps1-not-psm1](../../../adr/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`.
+- ADR: [use-ps1-not-psm1](../../../adr/automation/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`.
 - Reference: [Catzc.Base.Vendor](../catzc-base-vendor.md) — the post-import cover functions that add, remove, and validate vendored modules
   and delegate here; the [internal area overview](index.md).

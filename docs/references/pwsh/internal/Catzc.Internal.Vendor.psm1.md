@@ -1,4 +1,4 @@
-# pwsh/.internal/Catzc.Internal.Vendor.psm1
+# automation/pwsh/.internal/Catzc.Internal.Vendor.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -10,7 +10,7 @@ Above `Set-StrictMode -Version Latest   # this module's scope: every function he
 ```text
 Catzc.Internal.Vendor — the shared vendor-module loader.
 
-Loading the vendored modules under pwsh/.vendor/<Name>/<Version>/ happens BEFORE any Catzc module
+Loading the vendored modules under automation/pwsh/.vendor/<Name>/<Version>/ happens BEFORE any Catzc module
 exists (the importer loads vendor dependencies first), so the implementation cannot live in a Catzc module.
 It also must be callable AFTER import by the Catzc.Base.Vendor cover functions that delegate to it — the
 single home for what both layers share (see
@@ -57,7 +57,7 @@ Above `$vendorDirs = [System.IO.DirectoryInfo]::new($VendorRoot).GetDirectories(
 
 ```text
 One level, inline: this module loads before the walker exists
-([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)).
+([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)).
 ```
 
 ## comment:5
@@ -87,5 +87,5 @@ The load, the system copy it replaced, and the PSModulePath entries it dropped a
 the session, announced on one line
 ([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on
 the importer's verbose record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
 ```

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
+# automation/pwsh/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
 
 <!-- cspell:ignore nbeta nmodule -->
 
@@ -11,7 +11,7 @@ Above `$script:fake = New-FakeRepositoryRoot -Files @{`, written with `#`.
 
 ```text
 Isolate through the seams
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): mock the
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): mock the
 config seam (Get-Config) and the generator
 dispatch, and redirect the repository root to a fixture tree (TestKit) so Resolve-RepoPath binds
 inside it.

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/Get-Glossary.ps1
+# automation/pwsh/Catzc.Base.Docs/Get-Glossary.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -20,7 +20,7 @@ Each source is validated on load by its type; the facts that span more than one 
 not reciprocal, a source git does not track — are not checked here. They belong to the glossary checks (Get-GlossarySourceViolations), so a
 reader always gets the vocabulary as declared.
 
-The result is cached for the session per repository root ([ADR-PWSH-CACHE](../../../adr/pwsh/script-scope-caching.md)); re-run the importer
+The result is cached for the session per repository root ([ADR-PWSH-CACHE](../../../adr/automation/pwsh/script-scope-caching.md)); re-run the importer
 to pick up an edited glossary. Callers treat it as read-only (the same array is returned on every call).
 
 ### outputs
@@ -39,5 +39,5 @@ Above `$script:glossaryCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```

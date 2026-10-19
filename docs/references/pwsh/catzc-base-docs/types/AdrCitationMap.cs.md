@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/types/AdrCitationMap.cs
+# automation/pwsh/Catzc.Base.Docs/types/AdrCitationMap.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -32,6 +32,6 @@ Above `int dash = code.IndexOf('-', 4);`, written with `//`.
 
 ```text
 Every hyphen-prefix of a code (ADR-AUTO for
-[ADR-PWSH-ERROR](/docs/adr/pwsh/error-handling.md)) names its domain; a domain code or a
+[ADR-PWSH-ERROR](/docs/adr/automation/pwsh/error-handling.md)) names its domain; a domain code or a
 domain wildcard (ADR-PRIN-*) is a valid mention, not an unknown ADR.
 ```

@@ -74,7 +74,7 @@ Automation is what the repository offers. A contract states a command's interfac
 ([api-contracts](../repository/api-contracts.md)). A language is what a command's source is written in. An engine is the shell the code runs
 under. The importer brings a chosen mix of them into a session. Reading down the list answers "what, interface, how written, how run, how
 assembled"; each answer stands on the one above and adds nothing to it, the stance the PowerShell rules already take toward the automation
-rules ([pwsh-engine](../pwsh/pwsh-engine.md)).
+rules ([pwsh-engine](pwsh/pwsh-engine.md)).
 
 ### What the word covers
 

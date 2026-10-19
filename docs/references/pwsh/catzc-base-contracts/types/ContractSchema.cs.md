@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Contracts/types/ContractSchema.cs
+# automation/pwsh/Catzc.Base.Contracts/types/ContractSchema.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -11,7 +11,7 @@ Above `using System;`, written with `//`.
 The schema check of a contract asset ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)):
 a value — a real file or a sample payload, parsed (ContractValue is the value model) — validates against a JSON Schema.
 The BCL carries no JSON Schema validator and no package may be added
-([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)), so this is a bounded subset,
+([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)), so this is a bounded subset,
 and it says so: a schema is an object or a boolean (true admits every value, false none), and its keywords are
   type                  a JSON type name, or an array of them: null, boolean, object, array, number, string, integer
                         (an integer is a number too)

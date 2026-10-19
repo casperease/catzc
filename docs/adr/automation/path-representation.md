@@ -117,7 +117,7 @@ known anchor, not the current directory.
 
 The fix is to fix the _form_ a path takes at each boundary, rather than leaving it to each function author. This ADR complements
 [never-depend-on-pwd](never-depend-on-pwd.md) (resolve against the working root, never `$PWD`),
-[cross-platform-powershell](../pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat-pathjoinprimitive) (`Join-Path` and
+[cross-platform-powershell](pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat-pathjoinprimitive) (`Join-Path` and
 `[IO.Path]::GetFullPath`, forward slashes), and [dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root,
 whose paths take the same relative form).
 

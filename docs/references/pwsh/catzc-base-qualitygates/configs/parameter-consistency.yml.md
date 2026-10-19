@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/configs/parameter-consistency.yml
+# automation/pwsh/Catzc.Base.QualityGates/configs/parameter-consistency.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -10,7 +10,7 @@ Above `exempt:`, written with `#`.
 ```text
 The parameter names Test-ParameterConsistency lets carry more than one type across the public functions. A name is
 exempt only when it means a different thing in different functions, each with its own type; a name that means the
-same thing everywhere takes one type instead ([ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md)).
+same thing everywhere takes one type instead ([ADR-PWSH-PARAM](/docs/adr/automation/pwsh/parameter-design.md)).
 
   exempt  parameter name (no dash) -> why the same name means different things; omitted = none exempt
 

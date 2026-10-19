@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1
+# automation/pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -26,7 +26,7 @@ It rests on
 watchpoint of
 [ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-watchpointthenbound), in
 its pwsh form
-[ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-watchblockingbehindswitch).
+[ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH](../../../adr/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-watchblockingbehindswitch).
 
 ### parameter `Seconds`
 

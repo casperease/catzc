@@ -67,7 +67,7 @@ if ($scripts.Count -gt 5) {
 
 This is not about line length or aesthetics. Deep nesting has concrete costs for debugging, assertability, and code review. The examples
 here are PowerShell; the PowerShell spellings of the step assertions (rule 3) and of the exempt simple expressions (rule 5) are
-[powershell-formatting](../pwsh/powershell-formatting.md) (ADR-PWSH-FORMAT-STEPASSERTIONS, ADR-PWSH-FORMAT-SIMPLEEXPRESSIONS).
+[powershell-formatting](pwsh/powershell-formatting.md) (ADR-PWSH-FORMAT-STEPASSERTIONS, ADR-PWSH-FORMAT-SIMPLEEXPRESSIONS).
 
 ### No performance cost
 
@@ -143,7 +143,7 @@ Simple, well-known expressions that read naturally do not need splitting:
 
 ```powershell
 # Fine — Join-Path is self-documenting and cannot fail in surprising ways
-$settingsPath = Join-Path $env:RepositoryRoot 'pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1'
+$settingsPath = Join-Path $env:RepositoryRoot 'automation/pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1'
 
 # Fine — single property access on a known object
 $moduleName = $moduleDir.Name

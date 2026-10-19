@@ -90,7 +90,7 @@ version of "a change does not pass until its tests do."
 
 The concrete authoring idioms — mocking at module boundaries, isolating through seams rather than editing production data, and the
 per-function test-file convention — are the Pester-specific layer under that doctrine
-([ADR-PWSH-PESTER](../pwsh/pester-testing.md#rule-adr-pwsh-pester-pesterframework)).
+([ADR-PWSH-PESTER](../automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-pesterframework)).
 
 ## Common pitfalls
 

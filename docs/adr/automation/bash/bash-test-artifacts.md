@@ -96,7 +96,7 @@ Bash, so it runs under the bash engine only; the Go and Python tests are the one
 
 ### A vendored runner
 
-bats-core is a set of Bash scripts with no build step. Vendoring it, as the PowerShell modules under `pwsh/.vendor/` are vendored, means a
+bats-core is a set of Bash scripts with no build step. Vendoring it, as the PowerShell modules under `automation/pwsh/.vendor/` are vendored, means a
 test run needs no installer, no network, and no admin on any platform: Git Bash on Windows runs it as it is. The pin and the archive digest
 in `bash.yml` make the copy reproducible, and `Update-BatsVendor` is the one way it changes. Only the runner's own files are kept: its
 tests, docs, and packaging are not the repository's.
@@ -109,7 +109,7 @@ pinned to LF by `.gitattributes` and carry `100755` in git.
 A Bash test runs where every other test runs: in a `Test-Automation` test run, in both run modes, under the same selection, ordering,
 protection, tiers, categories, and report ([test-automation](../test-automation.md)). The bridge runs `Invoke-BashTest` once per mapped
 module — the vendored bats with a JUnit report, from the Bash root — and turns each `@test` into one test of the run, in pwsh a Pester `It`
-([pester-testing](../../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)). Every Bash test starts a real engine through a real
+([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)). Every Bash test starts a real engine through a real
 shell, so every one is `L2`. The bash engine is located by its `tools.yml` entry
 ([execution-engines](../execution-engines.md#rule-adr-auto-engine-locateexecutable)) in the run's source session and handed down, so a build
 run tests the build without carrying the tools config.

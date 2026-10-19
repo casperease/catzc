@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Timeouts/Get-TimeoutSeconds.ps1
+# automation/pwsh/Catzc.Base.Timeouts/Get-TimeoutSeconds.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -16,7 +16,7 @@ it is the executable's own entry under `executables` when it has one, otherwise 
 limit: bash has a foreground and a -Background limit (the ones the Claude Code hook enforces, since the hook governs the Bash tool), and
 every other engine has one. With -Command it is a function's own limit, most specific first: an exemption for its `[TimeLimit]` decoration's
 budget GUID, then its entry under `commands`, then the decoration for this environment, then the environment's pwsh limit
-([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)). Every consumer of the
+([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](../../../adr/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)). Every consumer of the
 safeguard (Invoke-Executable, Invoke-WithTimeout, Assert-CompletesWithin, the hook's parity test) asks here, so tuning a limit is one edit
 to the config.
 

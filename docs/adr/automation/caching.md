@@ -51,12 +51,12 @@ cache entry on first call, never at import, because importer time is a protected
 ### Rule ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
 
 The compiled-type prebuild is the one committed, cross-session cache: one assembly for the whole repository, committed as
-`pwsh/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources, so a fresh checkout and CI load it
-without compiling, and editing any source re-keys it. The hash material is, per source file, `<module>|<bare type>|SHA-256(content)`,
-ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even when the content is byte-identical, and the key
-does not depend on the repository root. Every process loads the assembly from a per-user, content-addressed shadow copy
-(`%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix), never in place: an uncommitted derivative of the committed
-assembly, so no session ever locks `pwsh/.compiled`.
+`automation/pwsh/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources, so a fresh checkout and
+CI load it without compiling, and editing any source re-keys it. The hash material is, per source file,
+`<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even when the
+content is byte-identical, and the key does not depend on the repository root. Every process loads the assembly from a per-user,
+content-addressed shadow copy (`%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix), never in place: an
+uncommitted derivative of the committed assembly, so no session ever locks `automation/pwsh/.compiled`.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
 
@@ -122,8 +122,8 @@ inputs are stable, and the importer is the one knob.
 The importer is on the hot path of **every** session — every interactive shell tab a developer opens and every step a pipeline runs begins
 by dot-sourcing it. Its job is to make the module system available, fast, and nothing more: it sets error preferences and runs the bootstrap
 module to discover and import modules. It even **defers** expensive vendor modules (Pester, PSScriptAnalyzer) via lazy loading rather than
-pay for them at startup (see [vendor-toolset-dependencies](../pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)),
-and it reports its own load time so regressions are visible.
+pay for them at startup (see [vendor-toolset-dependencies](pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)), and
+it reports its own load time so regressions are visible.
 
 This makes importer time a budget to protect, and it sets the default for caching: **lazy.** Reading `azure.yml`, scanning
 `infrastructure/templates/`, or deriving any other config/information at import would tax every session for work most sessions never use.
@@ -189,16 +189,16 @@ pipeline's fresh checkout checks every file.
 ## Decision
 
 Cache, for the lifetime of the session, the results of (a) **static config-file reads** and (b) **filesystem-scan-derived information**.
-Store the cache in module state per the language layer ([script-scope-caching](../pwsh/script-scope-caching.md)). Invalidate only by
-re-running the importer. Never cache runtime state or objects callers mutate. Across sessions, cache only a quality check's clean verdicts,
-keyed on the file's content and every declared input of the check (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
+Store the cache in module state per the language layer ([script-scope-caching](pwsh/script-scope-caching.md)). Invalidate only by re-running
+the importer. Never cache runtime state or objects callers mutate. Across sessions, cache only a quality check's clean verdicts, keyed on
+the file's content and every declared input of the check (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).
 
 ### The storage idiom
 
 `The storage idiom is the language layer`
 
 Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function belong to the pwsh rules,
-[script-scope-caching](../pwsh/script-scope-caching.md) (`ADR-PWSH-CACHE`): module `$script:` state — never `$env:` or `$global:` — with
+[script-scope-caching](pwsh/script-scope-caching.md) (`ADR-PWSH-CACHE`): module `$script:` state — never `$env:` or `$global:` — with
 `Get-Config` and `Get-BicepTemplates` as the exemplars. Its rules map onto the ones here: the importer as the only invalidation
 (ADR-AUTO-CACHE-IMPORTERINVALIDATES) is module state discarded on re-import (ADR-PWSH-CACHE-SCRIPTSCOPESTATE), and the compiled-type
 prebuild (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD) is loaded by the bootstrap functions of ADR-PWSH-CACHE-COMPILEDTYPEPREBUILD. How the prebuild

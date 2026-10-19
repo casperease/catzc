@@ -162,7 +162,7 @@ informative.
 **Let tools speak for themselves.** When `poetry install` produces output, let it flow to the console. Do not capture and re-format it. Do
 not prefix each line. The user knows what poetry output looks like — wrapping it in your own formatting makes it harder to read and
 impossible to search for in documentation. How each engine relays a child's output is its own ADR's concern (for pwsh,
-[announce-state-changes](../pwsh/announce-state-changes.md#rule-adr-pwsh-announce-childoutputrelayed)).
+[announce-state-changes](pwsh/announce-state-changes.md#rule-adr-pwsh-announce-childoutputrelayed)).
 
 **Report outcomes, not steps.** "Poetry 2.1 installed successfully" is an outcome. "Checking if poetry is installed... Poetry is
 installed... Checking version... Version matches... Running poetry install... Done" is step-by-step narration that nobody reads. Report the

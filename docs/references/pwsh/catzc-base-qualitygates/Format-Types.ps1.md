@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Format-Types.ps1
+# automation/pwsh/Catzc.Base.QualityGates/Format-Types.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -11,7 +11,7 @@ Maintains the file-scoped namespace on each C# type source, derived from its mod
 
 ### description
 
-Every catzc C# type lives at `pwsh/<Module>/types/<Type>.cs` and belongs to namespace `<Module>` (ADR native-csharp-types). The namespace is
+Every catzc C# type lives at `automation/pwsh/<Module>/types/<Type>.cs` and belongs to namespace `<Module>` (ADR native-csharp-types). The namespace is
 NOT hand-authored: this formatter writes/repairs the `namespace <Module>;` line from the file's folder, so the folder stays the single
 source of truth and a move between modules is a safe refactor — re-running Format-Types rewrites the line to the new folder, and
 Test-Formatting (its -DryRun) fails CI on any drift. The declared namespace is what lets the editor's C# toolchain compile and analyze these
@@ -26,7 +26,7 @@ A source-tree tool: it rewrites the repository's type sources, so it throws in b
 
 ### parameter `Path`
 
-One or more files or directories to process. Defaults to every `pwsh/<Module>/types/*.cs` file.
+One or more files or directories to process. Defaults to every `automation/pwsh/<Module>/types/*.cs` file.
 
 ### parameter `DryRun`
 
@@ -58,7 +58,7 @@ Above `$modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $root...`, writte
 
 ```text
 [System.IO] enumeration: each cmdlet call on this path adds about 20ms.
-[ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)
+[ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)
 ```
 
 ## comment:2

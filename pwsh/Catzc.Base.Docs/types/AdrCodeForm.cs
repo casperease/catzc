@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Docs;
 
-// Rests on [ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies).
+// Rests on [ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies).
 public static class AdrCodeForm
 {
     static readonly Regex Code = new Regex(@"^ADR(?:-[A-Z][A-Z0-9]*)*\z", RegexOptions.Compiled | RegexOptions.CultureInvariant);

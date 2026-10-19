@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+# automation/pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -59,7 +59,7 @@ Above `$parsed = [System.Collections.Generic.List[object]]::new()`, written with
 
 ```text
 Parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/call provider
-overhead, [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)); the definition map
+overhead, [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)); the definition map
 and the call-resolution walk reuse these ASTs, so each file is read and parsed a single time. The walk itself is
 [Catzc.Base.ModuleSystem.FunctionCallCollector] — one C# pass per function, not scriptblock-predicate FindAll calls.
 ```

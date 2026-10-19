@@ -4,7 +4,7 @@
 
 ### Rule ADR-DSGN-RUNMODE-TWORUNMODES
 
-A **run mode** is how the toolset is loaded, and there are exactly two. **Source mode** loads every module from `pwsh/<Module>/` in a
+A **run mode** is how the toolset is loaded, and there are exactly two. **Source mode** loads every module from `automation/pwsh/<Module>/` in a
 repository root, entered by `importer.ps1`. **Build mode** loads the same modules from a built, installable `Catzc` package — each module's
 functions merged into one `<Module>.functions.ps1` — entered by the package's `Import-Catzc.ps1`, or by `Import-Module Catzc` for an
 installed package.
@@ -58,7 +58,7 @@ after building). The kind is never stored, and every kind loads through the same
 
 ## Context
 
-Source mode is how the toolset is developed: one function per file ([one-function-per-file](../pwsh/one-function-per-file.md)), read in
+Source mode is how the toolset is developed: one function per file ([one-function-per-file](../automation/pwsh/one-function-per-file.md)), read in
 place from the repository, with every module's manifest generated from its folder on import. That form serves the people who edit the code —
 a directory listing is the module's API, a diff touches one function, blame has one history per function.
 
@@ -120,7 +120,7 @@ validator in its owning module's scope ([module-config-loading](../configuration
 `Mock -ModuleName` or `InModuleScope` — resolves the same way in both modes.
 
 What makes this hold for content as well as code is that a module locates its own files only through the code root (`Get-CatzcModuleRoot`,
-[working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), never through the folder its
+[working-directory-mechanics](../automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), never through the folder its
 source file sits in, and that every such lookup is inventoried and tested in both modes
 ([internal-asset-dependencies](../automation/internal-asset-dependencies.md)). Tools whose job is the source tree itself — formatters,
 dependency tooling, README and dictionary generators — operate on per-function files and git by definition; they assert that they run in
@@ -131,7 +131,7 @@ source mode (`Assert-SourceTree`) and fail fast in a build rather than reading t
 `One scope per module, never shared`
 
 Merging every module into one scope, flattened, would be the simplest build and the wrong one. Module scope is a contract: each module's
-`$script:` caches belong to it alone ([script-scope-caching](../pwsh/script-scope-caching.md)), and config validation, mocks, and module
+`$script:` caches belong to it alone ([script-scope-caching](../automation/pwsh/script-scope-caching.md)), and config validation, mocks, and module
 queries all name a module. So the package `Catzc` is a container, not a scope: inside it every source module is its own PowerShell module
 with its own session state, exactly as in source mode. Two modules that hold a `$script:` cache entry of the same name never see each
 other's value, in either mode, and a scope-isolation test proves it.
@@ -142,7 +142,7 @@ other's value, in either mode, and a scope-isolation test proves it.
 
 There is no run-mode variable. `CatzcModulesRoot` is set once per load by the entry point
 ([environment-variables](../automation/environment-variables.md#rule-adr-auto-envvar-anchorssetonce)), and the mode follows from it: when
-the code root is the repository's own `pwsh/` folder, the session is in source mode; anywhere else, it is in build mode. A stored mode flag
+the code root is the repository's own `automation/pwsh/` folder, the session is in source mode; anywhere else, it is in build mode. A stored mode flag
 could disagree with the code actually loaded; a derived one cannot.
 
 ### Switching modes in one session
@@ -206,6 +206,6 @@ Switching itself is tested by child-process sequences — source to build, build
 - [internal-asset-dependencies](../automation/internal-asset-dependencies.md) — how a module's content is located and tested in both modes.
 - [test-automation](../automation/test-automation.md) — the source and build runs and the `source-only` tag.
 - [never-depend-on-pwd](../automation/never-depend-on-pwd.md) — the code-root anchor and the `$PSScriptRoot` ban in module function files.
-- [script-scope-caching](../pwsh/script-scope-caching.md) — the per-module `$script:` caches the modes keep isolated.
+- [script-scope-caching](../automation/pwsh/script-scope-caching.md) — the per-module `$script:` caches the modes keep isolated.
 - [native-csharp-types](../automation/BCL/native-csharp-types.md) — the one combined types assembly both modes share.
 - [one-living-version](../principles/one-living-version.md) — why the build is a mode of the same modules, not a second product.

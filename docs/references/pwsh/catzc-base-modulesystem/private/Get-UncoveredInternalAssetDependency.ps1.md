@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
+# automation/pwsh/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -15,7 +15,7 @@ Takes the inventory (Get-InternalAssetDependency) and, for every function in it,
 [ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest).
 The function's test files are the ones in its own module's tests/ folder named for it: `<Function>.Tests.ps1`, or
 `<Function>.<suffix>.Tests.ps1` for a cross-cutting test file
-([ADR-PWSH-PESTER-TESTFILE](../../../../adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-testfile)). Each file is parsed, never run: every It
+([ADR-PWSH-PESTER-TESTFILE](../../../../adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-testfile)). Each file is parsed, never run: every It
 block's tags are the union of its own -Tag values and those of each enclosing Describe and Context (the block chain,
 [ADR-AUTO-TEST-TWOMANDATORYTAGS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)/27). A test qualifies
 when its chain carries the citation 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' and does not carry 'source-only' — so it runs in both the source

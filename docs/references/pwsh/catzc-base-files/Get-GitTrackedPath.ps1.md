@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
+# automation/pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -36,13 +36,13 @@ in the same order and form.
 ### example 1
 
 ```powershell
-Get-GitTrackedPath 'pwsh/Catzc.Base.Docs/configs/glossary.yml'
+Get-GitTrackedPath 'automation/pwsh/Catzc.Base.Docs/configs/glossary.yml'
 ```
 
 ### example 2
 
 ```powershell
-Get-GitTrackedPath 'pwsh/Catzc.Base.Docs/configs', 'docs/adr'
+Get-GitTrackedPath 'automation/pwsh/Catzc.Base.Docs/configs', 'docs/adr'
 ```
 
 ### example 3
@@ -54,7 +54,7 @@ Get-GitTrackedPath '.'
 ### example 4
 
 ```powershell
-Get-GitTrackedPath 'pwsh' -ExecutableOnly   # the tracked files under pwsh/ stored as 100755
+Get-GitTrackedPath 'pwsh' -ExecutableOnly   # the tracked files under automation/pwsh/ stored as 100755
 ```
 
 ## comment:1
@@ -63,7 +63,7 @@ Above `$script:gitIndexCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:2

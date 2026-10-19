@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Maps/types/SquarifiedTreemap.cs
+# automation/pwsh/Catzc.Base.Maps/types/SquarifiedTreemap.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -16,7 +16,7 @@ tracks by file count with it, and each track's cells inside the track's rectangl
 The result depends only on the input: the items are taken heaviest first, ties broken by the ordinal order of their
 keys, so the same weights give the same rectangles whatever order they arrive in. An item of weight zero gets no
 rectangle; a negative, NaN or infinite weight, a duplicate or empty key, or an empty box throws. BCL only
-([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)).
+([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)).
 ```
 
 ## comment:2

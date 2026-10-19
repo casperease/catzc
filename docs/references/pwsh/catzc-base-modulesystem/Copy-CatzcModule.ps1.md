@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+# automation/pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -92,7 +92,7 @@ Above `if ([System.IO.Directory]::Exists($destinationRoot) -and...`, written wit
 
 ```text
 An emptiness probe stops at the first entry of any kind, hidden and pruned names included
-([ADR-PWSH-ENUM-RAWDOTNETENUMERATION](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-rawdotnetenumeration)).
+([ADR-PWSH-ENUM-RAWDOTNETENUMERATION](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-rawdotnetenumeration)).
 ```
 
 ## comment:2
@@ -101,7 +101,7 @@ Above `foreach ($file in Get-ChildPath $item.Source -File -Depth 64 -Exclude @()
 
 ```text
 A named whole-tree walk
-([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every file the
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every file the
 copy would write is checked for a conflict.
 ```
 

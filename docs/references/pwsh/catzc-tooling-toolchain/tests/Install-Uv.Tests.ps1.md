@@ -1,4 +1,4 @@
-# pwsh/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
+# automation/pwsh/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -20,7 +20,7 @@ Above `$script:savedHome = $env:HOME`, written with `#`.
 ```text
 The helper reads $env:HOME (the uv tool-bin anchor) and prepends to $env:PATH — snapshot both and
 restore after each test
-([ADR-PWSH-ENV-NOPESTERISOLATION](/docs/adr/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env-nopesterisolation)).
+([ADR-PWSH-ENV-NOPESTERISOLATION](/docs/adr/automation/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env-nopesterisolation)).
 ```
 
 ## comment:3

@@ -21,8 +21,8 @@ module contains and exports.
 
 Generated manifests are gitignored, never committed. `New-DynamicManifest` recomputes each module's `<Module>.psd1` from the filesystem on
 **every** import, writing only when the content differs (and deleting it when a module has no `.ps1` files left), so the manifest is a pure
-derived artifact — `pwsh/**/*.psd1` is gitignored. The only committed `.psd1` files are the vendored third-party manifests under
-`pwsh/.vendor/` and the authored analyzer settings `pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1` (both negated in `.gitignore`),
+derived artifact — `automation/pwsh/**/*.psd1` is gitignored. The only committed `.psd1` files are the vendored third-party manifests under
+`automation/pwsh/.vendor/` and the authored analyzer settings `automation/pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1` (both negated in `.gitignore`),
 which the platform does not generate.
 
 - [Regenerated manifests](#regenerated-manifests)
@@ -66,7 +66,7 @@ inside its `.vendor/`, never as `RequiredModules`.
 ### Rule ADR-PWSH-MANIFEST-CLOSEDINFRASTRUCTURE
 
 The infrastructure that stays closed (ADR-AUTO-EXTEND-ADDNOTEDIT) is, in PowerShell, the generated `importer.ps1` shim, the
-`pwsh/.internal/` modules — `Catzc.Internal.Importer` (the load sequence), `Catzc.Internal.Bootstrap` (`Import-AllModules`,
+`automation/pwsh/.internal/` modules — `Catzc.Internal.Importer` (the load sequence), `Catzc.Internal.Bootstrap` (`Import-AllModules`,
 `New-DynamicManifest`) and `Catzc.Internal.Vendor` (`Import-VendorModules`) — and the shared loader `Import-ModuleFiles.ps1`. A new function
 file, module folder, or vendored module is discovered by them; none of them is edited to admit it.
 
@@ -94,7 +94,7 @@ attribute, `Export-ModuleMember` call, or hand-written list decides what is publ
 
 Because every module shares one function namespace (ADR-PWSH-MANIFEST-NOMODULEIMPORTS), a cross-module call resolves at runtime whether its
 edge is declared or not, so the function-call edges of the module graph (ADR-AUTO-DEPM-UNIFIEDGRAPH) are read from the source:
-`Get-FunctionDependency` parses every non-test `.ps1` under `pwsh/` and maps each command call to the module that defines it, and
+`Get-FunctionDependency` parses every non-test `.ps1` under `automation/pwsh/` and maps each command call to the module that defines it, and
 `Get-ModuleDependency` collapses the cross-module calls into the module edges `Test-ModuleDependency` checks.
 
 - [Conventions in PowerShell](#conventions-in-powershell)
@@ -145,7 +145,7 @@ A module's `.psd1` is not source — it is a projection of the module's `.ps1` f
 `Import-AllModules` calls `New-DynamicManifest` for each module directory immediately before `Import-Module`, deriving
 `<Module>/<Module>.psd1` directly from the current filesystem: every root `*.ps1` (excluding `*.Tests.ps1`) becomes an exported function,
 every `private/*.ps1` a non-exported one. The files are listed, `private/` first and then the root, each group ordinal, in the manifest's
-`PrivateData.CatzcFiles`; its one `NestedModules` entry is the shared loader `pwsh/.internal/assets/Import-ModuleFiles.ps1`, which parses
+`PrivateData.CatzcFiles`; its one `NestedModules` entry is the shared loader `automation/pwsh/.internal/assets/Import-ModuleFiles.ps1`, which parses
 each listed file in memory and dot-sources it into the module's session state. Loading each file as its own nested script cost about 3 ms
 per file on top of its parse — most of the import — while the parsed script block keeps the source file and line for `Get-Command`, errors
 and stack traces. The file is written only when the recomputed content differs — a clean tree costs a read per module and no write, which is
@@ -158,12 +158,12 @@ Because the manifest is regenerated from scratch on every import, committing it 
 listing does not. So the generated manifests are gitignored, with negations for the vendored case and the authored analyzer settings:
 
 ```gitignore
-pwsh/**/*.psd1
-!pwsh/.vendor/**/*.psd1
-!pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
+automation/pwsh/**/*.psd1
+!automation/pwsh/.vendor/**/*.psd1
+!automation/pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
 ```
 
-The exception is real source from the dependency's perspective: a vendored third-party module under `pwsh/.vendor/` ships its own
+The exception is real source from the dependency's perspective: a vendored third-party module under `automation/pwsh/.vendor/` ships its own
 author-written `.psd1`, which the platform does **not** generate and which must be committed for offline reproducibility (see
 [vendor-toolset-dependencies](vendor-toolset-dependencies.md)). Ours are derived; theirs are vendored source — which is exactly why one is
 gitignored and the other is committed.
@@ -200,7 +200,7 @@ functions, same configs and assets, its own `$script:` scope ([run-modes](../des
 manifest and one merged function file instead of a folder of function files. For each selected module, `Build-Modules` merges the function
 files into one `<Module>.functions.ps1` — `private/*.ps1` in ordinal order, then the root `*.ps1` in ordinal order, the same order the
 source manifest's `PrivateData.CatzcFiles` lists, so load semantics are identical — each file verbatim behind a
-`# source: pwsh/<Module>/<path>` marker line, so an error line in the merged file maps back to its source file. The module's manifest is
+`# source: automation/pwsh/<Module>/<path>` marker line, so an error line in the merged file maps back to its source file. The module's manifest is
 generated by the same canonical emitter that the source mode uses, listing that one file and exporting only the public functions; privates
 stay internal. The merged file keeps the `.ps1` extension, so the module's functions share one session state as they do in source
 ([use-ps1-not-psm1](use-ps1-not-psm1.md)), and it is named apart from the module, so the nested script module and the manifest module never
@@ -232,7 +232,7 @@ module, whose root module dot-sources the build's entry.
 - **`Import-AllModules`** — the pre-load collision and shadow check, failing the import with every collision named.
 - **`Test-Automation.Tests.ps1`** + **`Test-FunctionDependency`** — the repository-wide unique-name integrity checks.
 - **`Get-FunctionDependency`** + **`Get-ModuleDependency`** — read the cross-module call edges from the source for `Test-ModuleDependency`.
-- **`.gitignore`** — `pwsh/**/*.psd1` with the `.vendor` negation keeps derived manifests out of git and vendored ones in.
+- **`.gitignore`** — `automation/pwsh/**/*.psd1` with the `.vendor` negation keeps derived manifests out of git and vendored ones in.
 - **`Invoke-ModuleBuild`** (`Catzc.Internal.Builder`) — writes each module's manifest and merged `.functions.ps1`, the package `Catzc.psd1`
   and `Catzc.psm1`, and `Assert-CatzcBundle` checks that every module has its manifest and merged file and that every manifest export
   resolves to a function in that file.

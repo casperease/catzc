@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Timeouts/configs/timeouts.yml
+# automation/pwsh/Catzc.Base.Timeouts/configs/timeouts.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -34,7 +34,7 @@ Limits are keyed by environment (devbox | pipeline) and shell, one of the execut
 
 A function whose work is long by nature declares its limit beside its code, as a [Catzc.Base.Timeouts.TimeLimit]
 attribute; Get-TimeoutSeconds -Command resolves an exemption, then `commands`, then the decoration, then the
-environment's pwsh limit ([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)).
+environment's pwsh limit ([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](/docs/adr/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)).
 
 Every key is optional: the sensible defaults are declared once, on TimeoutsConfig, so this file states only what
 has been tuned. The devbox defaults are deliberately tight while the blockers are tuned: a call that

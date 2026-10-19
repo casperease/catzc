@@ -48,7 +48,7 @@ record of loaded C# types; and the session `PATH` reconciled to the tools presen
 ### Rule ADR-PWSH-ENGINE-BUILDENTRY
 
 The build's entry is `Import-Catzc.ps1`, the pwsh mechanics of [platform-bundle](../automation/platform-bundle.md)
-(ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION). It is authored once, at `pwsh/.internal/assets/Import-Catzc.ps1`, and
+(ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION). It is authored once, at `automation/pwsh/.internal/assets/Import-Catzc.ps1`, and
 copied verbatim into every build; the build's generated `Catzc.psm1` dot-sources it, so `Import-Module Catzc` and
 `. <build>/Import-Catzc.ps1` set up the same session. It sets `$env:RepositoryRoot` (its `-RepositoryRoot`, else the value already set, else
 the current location) and `$env:CatzcModulesRoot` (its own folder), then calls `Invoke-Importer -Bundle`, which sets the preferences of
@@ -73,7 +73,7 @@ the engines is proven by the black-box tests and the engine-case tables
 [execution-engines](../automation/execution-engines.md) (`ADR-AUTO-ENGINE`) declares the engines, what differs between them, and how each is
 located and started. The `automation/` rules say what a function, a test, a cache, or a bundle is, in words that would hold for any engine.
 This ADR is the pwsh engine itself: the floor it requires, the session the importer establishes, and the entries that load catzc into it.
-The other ADRs of the `pwsh/` folder build on it, each realising one `automation/` rule in PowerShell.
+The other ADRs of the `automation/pwsh/` folder build on it, each realising one `automation/` rule in PowerShell.
 
 ### One engine of three
 

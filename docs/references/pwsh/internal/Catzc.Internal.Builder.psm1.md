@@ -1,4 +1,4 @@
-# pwsh/.internal/Catzc.Internal.Builder.psm1
+# automation/pwsh/.internal/Catzc.Internal.Builder.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -183,7 +183,7 @@ Above `[CmdletBinding()]` (occurrence 8), written with `#`.
 Above `foreach ($file in Get-ChildPath $sourceFull -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the build
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the build
 copies every shippable file, so nothing is pruned here.
 ```
 
@@ -262,7 +262,7 @@ Above `[CmdletBinding()]` (occurrence 12), written with `#`.
 Above `foreach ($file in @(Get-ChildPath $BuildRoot -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a stale
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a stale
 file anywhere under the build root must go, so nothing is pruned.
 ```
 

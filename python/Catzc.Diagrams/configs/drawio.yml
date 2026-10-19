@@ -11,3 +11,19 @@ lenses: # the closed set of lenses a slide's subtitle may end with (`<codes> · 
   operations: OPS
   governance: GOV
   source: SRC
+kinds: # the two diagram kinds; each supplies the default three minimaps (minimaps: below)
+  explanation: an explanation diagram, embedded by an article under docs/explanation
+  reference: a reference diagram, embedded by a page under docs/references or docs/adr
+themes: # the token sets a diagram renders in; the first is the default and the one whose raster is committed
+  dark: the dark page and the light ink of STYLE.md
+minimaps: # the eight minimap ids, and the default three of each kind (declaration.py validates the count and each id)
+  ids: grid, code-locations, axis, layer-stack, lifecycle-position, track-placement, engine-strip, module-neighbourhood
+  explanation_default: grid, axis, layer-stack
+  reference_default: grid, code-locations, track-placement
+vocabularies: # the closed lists a span bar's label comes from; a label outside every list fails validation with the lists
+  stages: CI, CD, DEPLOY
+  axis: build, qc, release, deploy, access
+  rungs: main-uat, release-uat, pre-prod, prod
+  layers: language, engine, importer
+  tracks: pwsh, python, go, bash, infrastructure, pipelines, docs, contracts
+  iac: templates, configs, modules

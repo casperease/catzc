@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Contracts/configs/contracts.yml
+# automation/pwsh/Catzc.Base.Contracts/configs/contracts.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -14,7 +14,7 @@ Every key is optional: an omitted key takes the sensible default declared once o
 Catzc.Base.Contracts.ContractsConfig
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and a Get-Contract parameter
 overrides the resolved value per call
-([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
+([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 ```
 
 ## comment:2

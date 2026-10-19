@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.ModuleSystem/New-Importer.ps1
+# automation/pwsh/Catzc.Base.ModuleSystem/New-Importer.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 ### description
 
 importer.ps1 is a thin, generated entry point: it carries the importer's public parameter form and delegates the whole load sequence to
-Invoke-Importer (pwsh/.internal/Catzc.Internal.Importer.psm1), the single living copy. This reads the overlay's parameter block straight
+Invoke-Importer (automation/pwsh/.internal/Catzc.Internal.Importer.psm1), the single living copy. This reads the overlay's parameter block straight
 from that module's source (an AST parse — the overlay is not loaded post-import) and renders the shim around a fixed template, so the shim's
 parameters can never drift from the overlay's. A drift test asserts the committed importer.ps1 equals this output.
 
@@ -77,7 +77,7 @@ Above ``$paramBlock = "$suppression`n" + "[CmdletBinding()]`n" + "param(`n" +...
 ```text
 [CmdletBinding()] makes the shim accept -Verbose (forwarded to Invoke-Importer by @PSBoundParameters), which
 shows the importer's own state-change record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
 Dot-sourced, the preference stays inside
 the import and does not leak into the caller's session.
 ```

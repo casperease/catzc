@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1
+# automation/pwsh/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -9,7 +9,7 @@ Above `$sourceText = @(`, written with `#`.
 
 ```text
 Isolate through the seams
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): mock the
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): mock the
 config seam (Get-Config) and redirect the repository
 root to a fixture tree (TestKit) so Resolve-RepoPath binds inside it.
 ```
@@ -38,7 +38,7 @@ Above `BeforeAll {` (occurrence 2), written with `#`.
 
 ```text
 The real readme.yml registry is consistent with the repository — every resolved README's source exists
-(Get-ReadmeContent asserts it), every module under pwsh/ is covered by the pattern, and the generated/committed
+(Get-ReadmeContent asserts it), every module under automation/pwsh/ is covered by the pattern, and the generated/committed
 split matches .gitignore (every mapped README is ignored; none is opted back in). Resolves through the
 public generator (Build-Readme -DryRun -PassThru) since the pattern expansion (Get-ReadmeMappings) is
 private. Closes the poka-yoke gap of the two-place "generated vs committed" convention (readme.yml <->
@@ -51,5 +51,5 @@ Above `$violations = foreach ($module in $modules) {`, written with `#`.
 
 ```text
 One Should over the violating set — a Should per module pays Pester's per-assertion cost
-times the whole pwsh/ tree.
+times the whole automation/pwsh/ tree.
 ```

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Contracts/private/Get-ContractVersionAsset.ps1
+# automation/pwsh/Catzc.Base.Contracts/private/Get-ContractVersionAsset.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -59,6 +59,6 @@ Get-ContractVersionAsset -Unit widget -Version 0.0.0 -Folder $versionFolder -Tar
 Above `$files = [string[]] @(Get-ChildPath $moduleFolder -File -Depth 64 -Exclude...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every
 asset of the version is listed, so no name is pruned and no depth drops one.
 ```

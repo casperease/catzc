@@ -88,12 +88,18 @@ def paint_shape(d, s, box, w, h, fill, stroke, sw, dashed):
         d.line([(x0, y0 + lid / 2), (x0, y1 - lid / 2)], fill=stroke, width=sw)
         d.line([(x1, y0 + lid / 2), (x1, y1 - lid / 2)], fill=stroke, width=sw)
         d.ellipse([x0, y0, x1, y0 + lid], fill=fill, outline=stroke, width=sw)
-    elif s.get("shape") == "crossbar":  # a span bar: a horizontal line with an end tick on each side
-        ym = (y0 + y1) / 2
+    elif s.get("shape") == "crossbar":  # a span bar: a line with an end tick on each side; rotated 90, it stands beside bands
         ink = stroke or LINE
-        d.line([(x0, ym), (x1, ym)], fill=ink, width=max(1, sw))
-        d.line([(x0, y0), (x0, y1)], fill=ink, width=max(1, sw))
-        d.line([(x1, y0), (x1, y1)], fill=ink, width=max(1, sw))
+        if s.get("rotation") in ("90", "-90", "270"):
+            xm = (x0 + x1) / 2
+            d.line([(xm, y0), (xm, y1)], fill=ink, width=max(1, sw))
+            d.line([(x0, y0), (x1, y0)], fill=ink, width=max(1, sw))
+            d.line([(x0, y1), (x1, y1)], fill=ink, width=max(1, sw))
+        else:
+            ym = (y0 + y1) / 2
+            d.line([(x0, ym), (x1, ym)], fill=ink, width=max(1, sw))
+            d.line([(x0, y0), (x0, y1)], fill=ink, width=max(1, sw))
+            d.line([(x1, y0), (x1, y1)], fill=ink, width=max(1, sw))
     elif s.get("shape") == "note":  # a file: a page with a folded top-right corner
         k = min(float(s.get("size", 14)), w / 3, h / 3)
         d.polygon([(x0, y0), (x1 - k, y0), (x1, y0 + k), (x1, y1), (x0, y1)], fill=fill, outline=stroke, width=sw)

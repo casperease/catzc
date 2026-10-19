@@ -91,7 +91,7 @@ subscription) sets `environment_kind: subscription`; data templates leave it at 
 
 `Optional: PrePost hooks`
 
-If the template needs build- or deploy-time logic, copy the starter `pwsh/Catzc.Azure.Templates/assets/PrePost.psm1` to
+If the template needs build- or deploy-time logic, copy the starter `automation/pwsh/Catzc.Azure.Templates/assets/PrePost.psm1` to
 `infrastructure/templates/<name>/PrePost.psm1`, keep the hook(s) you need, delete the rest. The three opt-in hooks are:
 
 - `Invoke-BicepPrepareParameterSet` — build-time. Merge global config into the per-slot parameter set before the parameter file is rendered
@@ -100,11 +100,11 @@ If the template needs build- or deploy-time logic, copy the starter `pwsh/Catzc.
 - `Invoke-BicepPostDeploy` — runs after a successful deploy. Fixups and verification.
 
 A template with no `PrePost.psm1`, or one that doesn't export a given hook, simply skips that step — there is no default. See
-[prepost-extension-modules](../../../adr/pwsh/prepost-extension-modules.md).
+[prepost-extension-modules](../../../adr/automation/pwsh/prepost-extension-modules.md).
 
 ## Where the global config lives
 
-Templates resolve identity from two shared assets in `pwsh/Catzc.Azure/configs/`:
+Templates resolve identity from two shared assets in `automation/pwsh/Catzc.Azure/configs/`:
 
 - `azure.yml` — tenants, environments, and subscriptions (the env names and shortcodes, the region codes, the `org` segment, each
   subscription's `customer`). Read via `Get-Config -Config azure`. Customer definitions live in `customer.yml` — the keys are the

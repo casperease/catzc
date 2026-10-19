@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/Get-AdrCitationMap.ps1
+# automation/pwsh/Catzc.Base.Docs/Get-AdrCitationMap.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -31,7 +31,7 @@ The repository root whose [index](../../../adr/index.md) is read. Defaults to th
 ### example 1
 
 ```powershell
-(Get-AdrCitationMap).Destination('ADR-PWSH-ERROR', 3)   # /docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror
+(Get-AdrCitationMap).Destination('ADR-PWSH-ERROR', 3)   # /docs/adr/automation/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror
 ```
 
 ## comment:1
@@ -40,5 +40,5 @@ Above `$script:adrCitationMapCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```

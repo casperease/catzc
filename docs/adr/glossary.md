@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f2ecf09f3159
+    with_body_sha: "42b3d53cb4f3"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -951,7 +951,7 @@ An L2 or L3 test that cuts from an outer ring of the test onion (local tools; ou
 
 A Describe or Context in a test file — a named group of tests whose tags and setup apply to everything inside it.
 
-- **Defined by:** [ADR-PWSH-PESTER-TESTISIT](pwsh/pester-testing.md#rule-adr-pwsh-pester-testisit)
+- **Defined by:** [ADR-PWSH-PESTER-TESTISIT](automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-testisit)
 - **Realized by:** function `Describe|Context`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Part of:** [test file](#test-file)

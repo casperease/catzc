@@ -1,4 +1,4 @@
-# pwsh/.internal/Catzc.Internal.Importer.psm1
+# automation/pwsh/.internal/Catzc.Internal.Importer.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -84,7 +84,7 @@ Above `[switch] $Bundle`, written with `#`.
 
 ```text
 Load as an installed bundle, not the mono repo. Honour the pre-set $env:CatzcModulesRoot (the bundle's
-own pwsh/, set by its Catzc.psm1) instead of deriving it from RepositoryRoot, and force
+own automation/pwsh/, set by its Catzc.psm1) instead of deriving it from RepositoryRoot, and force
 -SkipJanitors (a bundle is a read-only install with no git work tree). Only the bundle bootstrap passes
 this; the mono shim never does, so an inherited CatzcModulesRoot can never divert a mono/fixture load.
 ```
@@ -115,7 +115,7 @@ Above `$showStateChanges = $VerbosePreference -ne 'SilentlyContinue'`, written w
 
 ```text
 -Verbose shows the importer's own state-change record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)). The
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)). The
 dot-sourced shim binds it in the caller's scope, so for the import the session-wide preference is quieted,
 restored in the finally below: otherwise every Import-Module would list each function it dot-sources and exports.
 ```
@@ -143,10 +143,10 @@ Repository root — the WORKING root (out/, repo-relative paths, git), set on $e
 Above `if ($Bundle -and $env:CatzcModulesRoot) {`, written with `#`.
 
 ```text
-Catzc code anchor — the pwsh/ tree that holds the loaded modules; config, type and vendor discovery
+Catzc code anchor — the automation/pwsh/ tree that holds the loaded modules; config, type and vendor discovery
 follow THIS, not RepositoryRoot (see Get-CatzcModulesRoot). In the mono repo it equals <repoRoot>/pwsh
 and nothing pre-sets it, so it is derived here (a no-op split). An installed bundle's Catzc.psm1 pre-sets it
-to the bundle's own pwsh/, so the importer honours that — this is what makes catzc relocatable.
+to the bundle's own automation/pwsh/, so the importer honours that — this is what makes catzc relocatable.
 ```
 
 ## comment:14
@@ -173,7 +173,7 @@ error view, then the two roots and the internal modules that stay loaded — Rep
 importer.ps1 shim and the modules by Import-InternalModule, which both delegate their announcement here.
 This is the first point Write-ImporterMessage (Catzc.Internal.Bootstrap) is loaded. Like every announcement
 of the importer's own load, they go on its verbose record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
 ```
 
 ## comment:16
@@ -211,7 +211,7 @@ Above `if (-not $SkipJanitors -and $IsWindows) {`, written with `#`.
 ```text
 Warn if PSModulePath contains a network share. The permanent fix is a one-time
 script that writes a local PSModulePath to the user-scope powershell.config.json.
-See: pwsh/Catzc.Base.Environment/assets/README.md
+See: automation/pwsh/Catzc.Base.Environment/assets/README.md
 ```
 
 ## comment:20
@@ -407,10 +407,10 @@ Reconcile the session PATH to whatever tools are actually present — including 
 installer layer (e.g. nvm-managed node) — and report any running from a non-owned location on one line.
 Session-only, self-skips in CI. The importer is dot-sourced, so its PATH nudges land in the caller's live
 session. The janitor announces each nudge like any function, but at every shell open the same nudges are part
-of the load record ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)):
+of the load record ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)):
 the importer's -Verbose decides whether they are shown, so a plain import prints only the Loaded line. The
 quieting is the session-wide information preference, restored in the finally
-([ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-unannouncedchanges)): a common parameter
+([ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-unannouncedchanges)): a common parameter
 would reach only the janitor's own scope, not the writer chokepoint in Catzc.Base.Writers. Guarded: absent in
 the bootstrap sandbox (Catzc.Tooling.Core).
 ```
@@ -447,7 +447,7 @@ Above `$top = $global:__CatzcLoadTimings | Sort-Object Ms -Descending |...`, wri
 ```text
 The native C# type compile/load (every module's types/*.cs via Import-CSharpTypes) appears as one
 'types (combined)' row below; a 'compile+load' row is a cold cache (Roslyn), a 'cache load' row reused
-the committed pwsh/.compiled DLL.
+the committed automation/pwsh/.compiled DLL.
 ```
 
 ## comment:40

@@ -466,8 +466,8 @@ template _name_ dimension: production identities flow into the generic check as 
 `Isolation comes from seams, not from editing production`
 
 The codebase isolates the _template tree_ behind a mockable private function, `Get-BicepTemplatesRoot`, so discovery can be redirected to a
-fixture tree. Config has its own seam: `Get-Config` (in `Catzc.Base.Config`) finds a config's file by scanning `pwsh/*/configs/` through the
-private `Resolve-ConfigEntry`, so a logic test isolates a config by **mocking `Resolve-ConfigEntry`** to return a fixture
+fixture tree. Config has its own seam: `Get-Config` (in `Catzc.Base.Config`) finds a config's file by scanning `automation/pwsh/*/configs/`
+through the private `Resolve-ConfigEntry`, so a logic test isolates a config by **mocking `Resolve-ConfigEntry`** to return a fixture
 `@{ Name; Module; Path }` pointing at a fixture file (or by mocking `Get-Config` outright). **A seam is a single function that names _where_
 an input comes from**, with one production answer and a test override; it is the [poka-yoke](../principles/poka-yoke.md) way to isolate
 without touching production data.
@@ -517,17 +517,17 @@ the run report, mapping every rule to its enforcers and listing the genuinely-un
 two mechanisms run inside the one `Test-Automation` invocation: a tagged test (the `tests.csv` `Rules` column is the backtrack table) and an
 analyzer rule that enforces the rule on every build. Counting the analyzer rules is what makes the uncovered list honest: a rule like
 `ADR-AUTO-NOPWD` reads as covered because its custom analyzer fails the build, not falsely bare for lack of a tagged test. How each kind is
-written and mapped for pwsh is [pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-enforcerkinds). The report never fails the
-run — many rules are enforced structurally or by review, so a missing mechanical enforcer is a prompt, not a defect — but the data is shaped
-so making it a quality gate is one flag away.
+written and mapped for pwsh is [pester-testing](pwsh/pester-testing.md#rule-adr-pwsh-pester-enforcerkinds). The report never fails the run —
+many rules are enforced structurally or by review, so a missing mechanical enforcer is a prompt, not a defect — but the data is shaped so
+making it a quality gate is one flag away.
 
 ### Test tiers: the test onion
 
 Vendor test tooling is lazy-loaded to protect importer time (see
-[vendor-toolset-dependencies](../pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)). Tests are tagged by **what
-they integrate with**, not by speed — and what a test integrates with is a ring of an onion around the code (ADR-AUTO-TEST-ONIONOFRINGS).
-The core holds the code alone; each ring outward adds a kind of dependency; a vertical test cuts from its outermost ring through to the
-core, and a run includes every ring up to its top tier:
+[vendor-toolset-dependencies](pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)). Tests are tagged by **what they
+integrate with**, not by speed — and what a test integrates with is a ring of an onion around the code (ADR-AUTO-TEST-ONIONOFRINGS). The
+core holds the code alone; each ring outward adds a kind of dependency; a vertical test cuts from its outermost ring through to the core,
+and a run includes every ring up to its top tier:
 
 ```mermaid
 flowchart TB
@@ -590,7 +590,7 @@ Logic tests run on every change, so their speed compounds. Three effects dominat
   silently falls through to a smaller real tree times a different workload. The real cost shows up when the unmocked path is timed step by
   step and the calls through the mocks are counted, and it is usually the filesystem.
 
-How each of these is written in pwsh, and the engine's own filesystem cost, are [pester-testing](../pwsh/pester-testing.md)
+How each of these is written in pwsh, and the engine's own filesystem cost, are [pester-testing](pwsh/pester-testing.md)
 (ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS, ADR-PWSH-PESTER-SETUPONCEPERBLOCK to ADR-PWSH-PESTER-MEASURESLOWTESTS). Cold-import isolation is the
 one case that legitimately needs a separate **process** rather than an isolated session inside the test's own process: process-global state
 — environment variables, loaded assemblies — leaks out of anything less.
@@ -649,7 +649,7 @@ could not finish it.
 Results cross the process boundary as **rows**, not a test framework's objects: each worker reduces its own live result — where the chain of
 groups still exists for tier/category/skip-reason resolution — to plain per-test rows in a JSON sidecar, and the parent aggregates them for
 the timing check and every report. Each shard writes its own results file; summary.md and tests.csv are the merged artifacts. How a pwsh
-worker does this is [pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-pooledworkers). Files containing a `greedy`-tagged test
+worker does this is [pester-testing](pwsh/pester-testing.md#rule-adr-pwsh-pester-pooledworkers). Files containing a `greedy`-tagged test
 (ADR-AUTO-TEST-ONESCHEDULINGPOOL) follow the parallel shards as single-file shards through the pool, one per worker; files containing a
 `serial`-tagged test run last in a one-worker phase, alone.
 
@@ -728,10 +728,10 @@ into resolves the same way in both runs.
 `Test-CatzcBuild` builds the selected modules into a fresh temporary destination with the `full` vendor policy (so the test and analyzer
 tools ship with the build), then runs the parallel harness above unchanged in shape. The single seam is the entry script a shard worker
 loads: the repository's source entry for the source run, the build's own entry for the build run
-([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-shardentryscript)). Test files come from the source tree, limited to the
-built modules' `tests/`. The `Catzc.Internal.TestKit` build helpers (`New-BuiltCatzcRoot`, `Invoke-InBuiltCatzc`, `Remove-BuiltCatzcRoot`)
-give an individual test the same build in a child process — process isolation is mandatory, because loaded assemblies and environment
-variables are process-global.
+([pester-testing](pwsh/pester-testing.md#rule-adr-pwsh-pester-shardentryscript)). Test files come from the source tree, limited to the built
+modules' `tests/`. The `Catzc.Internal.TestKit` build helpers (`New-BuiltCatzcRoot`, `Invoke-InBuiltCatzc`, `Remove-BuiltCatzcRoot`) give an
+individual test the same build in a child process — process isolation is mandatory, because loaded assemblies and environment variables are
+process-global.
 
 Some tests give the same answer in both modes by construction: an integrity test that reads only the repository's files never touches the
 loaded modules. Running it twice is waste ([reduce-waste](../principles/reduce-waste.md)), so it carries `source-only` and the build run
@@ -766,7 +766,7 @@ A Python test folder runs the same way through the same bridge ([python-test-art
 on the vendored bats under the bash engine only, and without bash the bridge skips with `tool_bash_missing`. The Go and Python tests run
 once per execution engine, each title ending in `[pwsh]`, `[bash]` or `[zsh]` ([execution-engines](execution-engines.md)). The bridge is one
 mechanism with one entry per language, so a further test language adds an entry, not a second bridge; in pwsh it is one Pester container
-([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)).
+([pester-testing](pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)).
 
 ### Tests and test files
 
@@ -778,7 +778,7 @@ own smallest unit, and each maps that unit to exactly one test, so a run that mi
 
 A test file is what a run schedules (ADR-AUTO-TEST-TESTFILE). It belongs to one catzc module, which is how a selection by module reaches it,
 and it is never split: a whole file goes to one worker, and a phase tag on any of its tests moves the whole file. A module's own test files
-live in its `tests/` folder, one per function in pwsh ([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-testfile)); a Go,
+live in its `tests/` folder, one per function in pwsh ([pester-testing](pwsh/pester-testing.md#rule-adr-pwsh-pester-testfile)); a Go,
 Python, or Bash test folder counts as one test file of the module it maps to. Between the two, a test language may group tests inside a
 file, and the tags resolve along those groups (ADR-AUTO-TEST-TWOMANDATORYTAGS).
 
@@ -826,7 +826,7 @@ on by nothing). Mock only at module boundaries, mock whole functions, and let pu
 
 The doctrine above says what a test may depend on and how a run executes it; each test language says how the test is written. For pwsh — the
 seam mocks, mocking at module boundaries, testing privates through the module, the file convention, how each rule above is written in
-Pester, and the engine gotchas that repeatedly bite — that is [pester-testing](../pwsh/pester-testing.md) (`ADR-PWSH-PESTER`).
+Pester, and the engine gotchas that repeatedly bite — that is [pester-testing](pwsh/pester-testing.md) (`ADR-PWSH-PESTER`).
 
 ### How this is enforced
 
@@ -840,7 +840,7 @@ Pester, and the engine gotchas that repeatedly bite — that is [pester-testing]
   (ADR-AUTO-TEST-TESTINGINPRODUCTION).
 - **The seams exist** as mockable functions (`Get-BicepTemplatesRoot` for the template tree; `Resolve-ConfigEntry` and `Get-Config` for
   config — see [module-config-loading](../configuration/module-config-loading.md)), so isolation is a mock away and production has a single
-  pristine default. The mock idioms are [pester-testing](../pwsh/pester-testing.md) (ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS to
+  pristine default. The mock idioms are [pester-testing](pwsh/pester-testing.md) (ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS to
   ADR-PWSH-PESTER-PRIVATETHROUGHMODULE).
 - **`Test-SourceConventions`** — the quality gate that validates the test-file conventions (ADR-PWSH-PESTER-TESTFILE) and reads every skip
   reason from the syntax tree, failing any reason that is not a constrained skip key (lowercase alnum segments joined by `_`); an integrity

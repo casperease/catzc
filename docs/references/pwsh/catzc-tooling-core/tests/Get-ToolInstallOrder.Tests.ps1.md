@@ -1,4 +1,4 @@
-# pwsh/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
+# automation/pwsh/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -11,7 +11,7 @@ Above `It 'orders every dependency before its dependents (diamond + independent.
 Isolate the sort from the shipped tools.yml by mocking the config seam to a controlled graph: this
 verifies the ALGORITHM (dependencies-before-dependents, a diamond, an independent root, and cycle
 detection), never the production tool set
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)/[ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)). 'base/mid1/mid2/top/lone' are fixture
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)/[ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)). 'base/mid1/mid2/top/lone' are fixture
 identities ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) — nothing here
 binds to a real tool name.
 ```

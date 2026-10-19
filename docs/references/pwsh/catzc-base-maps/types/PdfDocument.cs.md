@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Maps/types/PdfDocument.cs
+# automation/pwsh/Catzc.Base.Maps/types/PdfDocument.cs
 
 <!-- cspell:ignore startxref endstream nendobj -->
 
@@ -11,7 +11,7 @@ Above `using System;`, written with `//`.
 
 ```text
 A minimal PDF 1.4 writer for the world-map PDFs: pages of vector rectangles, lines and base-14 Helvetica text,
-written by hand with the BCL only ([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)),
+written by hand with the BCL only ([ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies)),
 since PDF is a text format. The bytes are deterministic: no CreationDate or ModDate, a /ID taken from a SHA-256 of
 the body, numbers through PdfNumber, objects in a fixed order, and '\n' line ends, so the same pages always give the
 same file. The layout is: the catalog (1), the page tree (2), Helvetica (3) and Helvetica-Bold (4), then each page

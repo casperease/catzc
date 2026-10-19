@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1
+# automation/pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -112,7 +112,7 @@ Keep the snapshot (when the run used one) after the run, for a post-mortem.
 Above `Write-Message '.' -NoHeader -NoNewline`, written with `#`.
 
 ```text
-Liveness dots ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)): discovery
+Liveness dots ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)): discovery
 runs before the banner and takes a while, so each stage shows a dot.
 ```
 

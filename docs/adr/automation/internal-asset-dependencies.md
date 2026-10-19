@@ -59,7 +59,7 @@ Three anchors give a wrong answer outside the source tree, each in its own way:
   in the build.
 - **`Get-RepositoryRoot`** is the working root. In source mode the code lives under it; in an install it is the user's working folder, which
   holds no automation at all; and in a build loaded inside the repository it silently reads the source tree instead of the build.
-- **A hand-built `pwsh/<Module>/…` path** bakes the source layout into the code; a build has no `pwsh/` folder.
+- **A hand-built `automation/pwsh/<Module>/…` path** bakes the source layout into the code; a build has no `automation/pwsh/` folder.
 
 Each of these passes every source-mode test and fails in a user's installed session. The defect is invisible exactly where the code is
 written and tested, so review and source-mode tests cannot be what catches it.
@@ -81,9 +81,9 @@ explicit `-Module` reads another module's content, which is a cross-module depen
 ([controlling-module-dependencies](controlling-module-dependencies.md)). The dot-prefixed infrastructure that is not a module — the
 `.internal` assets, the vendored modules, the compiled types — is located from `Get-CatzcModulesRoot` directly. The analyzer rule
 `Measure-NoScriptRootAnchor` bans `$PSScriptRoot` in module function files
-([working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), which leaves the helper as
-the only way a function can find its content. In PowerShell the helper call and that ban are ADR-PWSH-PWD-MODULELOCATESCONTENT, and the
-literal child path the inventory reads is ADR-PWSH-PWD-LITERALCHILDPATH.
+([working-directory-mechanics](pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), which leaves the helper as the
+only way a function can find its content. In PowerShell the helper call and that ban are ADR-PWSH-PWD-MODULELOCATESCONTENT, and the literal
+child path the inventory reads is ADR-PWSH-PWD-LITERALCHILDPATH.
 
 ### The code is the inventory
 
@@ -118,7 +118,7 @@ the coverage check is red, so the change cannot merge ([poka-yoke](../principles
 ### How this is enforced
 
 - **`Get-CatzcModuleRoot`** (`Catzc.Base.Repository`) — the one helper for a module's own content.
-- **`Measure-NoScriptRootAnchor`** (`pwsh/.scriptanalyzer/`) — flags `$PSScriptRoot` in module function files.
+- **`Measure-NoScriptRootAnchor`** (`automation/pwsh/.scriptanalyzer/`) — flags `$PSScriptRoot` in module function files.
 - **`Get-InternalAssetDependency`** (`Catzc.Base.ModuleSystem`) — derives the inventory from the code.
 - **The coverage check** — an integrity test over the inventory, in both test runs (ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY).
 - **The presence check** — `Build-Modules` / `Assert-CatzcBundle` check every inventoried path in the built output

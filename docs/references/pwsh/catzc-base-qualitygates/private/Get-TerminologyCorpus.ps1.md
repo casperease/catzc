@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
+# automation/pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -62,7 +62,7 @@ Above `$ret = [System.Text.StringBuilder]::new()`, written with `#`.
 
 ```text
 Enumerate with [System.IO] rather than Get-ChildItem — no per-file PSObject wrapping, so a whole-tree
-scan is markedly faster ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
+scan is markedly faster ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 Directory/name filtering is done inline on the raw path string.
 ```
 

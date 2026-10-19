@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
+# automation/pwsh/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -9,9 +9,9 @@ Above `Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-ConfigRegistry is private, so it is exercised through the module (InModuleScope, per
-[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)).
+[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)).
 Each test resets the session's cache entry before and after
-([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)), so a fixture
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)), so a fixture
 registry never
 leaks into the rest of the run.
 ```

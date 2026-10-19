@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1
+# automation/pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -7,20 +7,20 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every source and test file under pwsh/ follows the naming and one-function conventions.
+Quality gate: every source and test file under automation/pwsh/ follows the naming and one-function conventions.
 
 ### description
 
 A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the
 per-function source files and the test files. It enumerates the tree once with `[System.IO]`
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)), parses each source file
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)), parses each source file
 once, and collects every issue:
 
 - every source file (a module-root .ps1, or a `private/*.ps1` not starting with '_') is named Verb-Noun, holds exactly one top-level
   function, and that function is named for the file;
 - every function name (public and private) is defined in exactly one file;
 - every test file directly under a tests/ folder is named Verb-Noun.Tests.ps1
-  ([ADR-PWSH-PESTER-TESTFILE](../../../adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-testfile));
+  ([ADR-PWSH-PESTER-TESTFILE](../../../adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-testfile));
 - every test file under tests/types/ is named for a C# type (a `types/*.cs`) of its module;
 - every literal Set-ItResult -Because reason is a constrained skip key (lowercase alnum segments joined by '_', e.g. `windows_only_<detail>`
   or `tool_<name>_missing`), never prose, so the skip report groups by a stable vocabulary. A computed reason cannot be checked statically

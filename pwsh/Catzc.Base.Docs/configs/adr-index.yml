@@ -16,7 +16,7 @@ preamble: |
   - **Cite a rule** by its code, which names it — e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, `ADR-AUTO-CACHE-READONLYVALUES`,
     `ADR-AZ-NAMING-NEVERTRUNCATE`. A rule is never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED).
   - The code resolves to the heading's anchor, `#rule-` and the code in lower case — e.g.
-    `pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror`.
+    `automation/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror`.
   - A code selects everything below it: `ADR-PWSH` is every ADR of the domain, `ADR-PWSH-ERROR` every rule of the ADR
     (ADR-REPO-ADRCODE-CODEISSELECTOR). There is no group or range spelling; a list of rules is the list of their codes
     (ADR-REPO-ADRCODE-NOSUBSETSPELLING).

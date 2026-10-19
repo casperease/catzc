@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Execution/Find-Executable.ps1
+# automation/pwsh/Catzc.Base.Execution/Find-Executable.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -21,7 +21,7 @@ The generic existence check, in two timed steps, from plain inputs:
    version is required).
 
 The version is a lazy session cache entry keyed by the executable's path, its last write time and the arguments
-([ADR-PWSH-CACHE](../../../adr/pwsh/script-scope-caching.md)), so a process starts at most once per executable per session, while a
+([ADR-PWSH-CACHE](../../../adr/automation/pwsh/script-scope-caching.md)), so a process starts at most once per executable per session, while a
 reinstall, an upgrade or a removal is seen on the next call. The locate step runs on every call: it is file checks only.
 
 The caller chooses the candidates for its platform and run environment; Resolve-ToolExecutable does that for a tools.yml entry. The record

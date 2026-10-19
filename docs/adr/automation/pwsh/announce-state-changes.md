@@ -177,7 +177,7 @@ The session state of ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES, and the PowerShell
 | Line editor, type and format data             | `Set-PSReadLineOption`, `Set-PSReadLineKeyHandler`, `Update-TypeData`, `Update-FormatData`         |
 | What the next session starts with             | the user and machine environment, the PowerShell profile                                           |
 
-A .NET assembly cannot be unloaded, so the importer names the assembly it loads (`Loaded types pwsh/.compiled/Catzc.Types.<hash>.dll`), the
+A .NET assembly cannot be unloaded, so the importer names the assembly it loads (`Loaded types automation/pwsh/.compiled/Catzc.Types.<hash>.dll`), the
 vendor modules it imports, and the modules it loads, evicts, or drops, on its verbose load record (ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE).
 
 ### Announce where it happens
@@ -276,12 +276,12 @@ announcement is recorded with a justified suppression. Every external command is
 
 ### How this is enforced
 
-- **`Measure-NoRawConsoleWrite`** (`pwsh/.scriptanalyzer/NoRawConsoleWrite.psm1`) flags every way past the information stream: `Write-Host`,
+- **`Measure-NoRawConsoleWrite`** (`automation/pwsh/.scriptanalyzer/NoRawConsoleWrite.psm1`) flags every way past the information stream: `Write-Host`,
   `Out-Host`, `Write-Progress`, `Clear-Host`, the `[Console]` write methods and property assignments, writes through
   `[Console]::Out`/`Error`, and the `$Host.UI` writers. It supersedes the built-in `PSAvoidUsingWriteHost`, which the analyzer settings
   exclude so a `Write-Host` is reported once. Its one justified suppression is `Set-RedirectedOutputEncoding` in the importer module, the
   exception ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT names.
-- **`Measure-AnnounceStateChange`** (`pwsh/.scriptanalyzer/AnnounceStateChange.psm1`) flags a state change of the kinds in the table above
+- **`Measure-AnnounceStateChange`** (`automation/pwsh/.scriptanalyzer/AnnounceStateChange.psm1`) flags a state change of the kinds in the table above
   that no information-stream writer (or `Write-ImporterMessage -StateChange`, ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE) in the same or an
   enclosing block announces, and passes the exemptions of ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES. It checks that a change is announced; what
   the line says is a review concern.

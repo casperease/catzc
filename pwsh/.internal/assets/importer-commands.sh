@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "493f08b8c285"
+#     with_body_sha: "345215a75e71"
 #     warning: "Do Not Edit, this file is generated"
 #     repo_status: locked
 #     path: pwsh/.internal/assets/importer-commands.sh
@@ -204,8 +204,6 @@ Test-Formatting	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGa
 Test-FunctionDependency	ModulesRoot	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.ModuleSystem/Test-FunctionDependency.command.yml		
 Test-FunctionDependency	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.ModuleSystem/Test-FunctionDependency.command.yml		
 Test-FunctionDependency	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.ModuleSystem/Test-FunctionDependency.command.yml		
-Test-GeneratedFileCurrent	Path	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Test-GeneratedFileCurrent.command.yml		
-Test-GeneratedFileCurrent	InputsSha	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Test-GeneratedFileCurrent.command.yml		
 Test-GeneratedFiles	Generator	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-GeneratedFiles.command.yml		
 Test-GeneratedFiles	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-GeneratedFiles.command.yml		
 Test-GeneratedFiles	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-GeneratedFiles.command.yml		

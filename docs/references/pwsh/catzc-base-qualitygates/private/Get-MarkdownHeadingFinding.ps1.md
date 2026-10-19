@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
+# automation/pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -44,5 +44,5 @@ Above `$head = $Matches['head']`, written with `#`.
 
 ```text
 Capture before the next -match overwrites $Matches
-([ADR-PWSH-AUTOVAR](/docs/adr/pwsh/automatic-variable-pitfalls.md)).
+([ADR-PWSH-AUTOVAR](/docs/adr/automation/pwsh/automatic-variable-pitfalls.md)).
 ```

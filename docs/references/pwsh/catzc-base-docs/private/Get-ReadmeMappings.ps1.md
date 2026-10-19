@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
+# automation/pwsh/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -12,7 +12,7 @@ Resolves the readme config into the concrete folder -> source README copy-in lis
 ### description
 
 Expands each `patterns` glob against the filesystem and merges the result with the explicit `mappings`. A pattern's `source` template has
-its `{kebab}` placeholder replaced with the matched folder's leaf name lowercased with dots turned to hyphens (pwsh/Catzc.Azure.DevOps ->
+its `{kebab}` placeholder replaced with the matched folder's leaf name lowercased with dots turned to hyphens (automation/pwsh/Catzc.Azure.DevOps ->
 docs/references/pwsh/catzc-azure-devops.md). A matched folder whose derived source file does not exist is skipped, so a module with no
 reference article yet simply gets no generated README — the importer runs Build-Readme on every load and must never throw when a source is
 missing. An explicit mapping WINS over a pattern that targets the same folder.
@@ -41,6 +41,6 @@ Above `foreach ($dir in ([System.IO.Directory]::EnumerateDirectories($prefixPath
 ```text
 [System.IO] (sorted) rather than Get-ChildItem — the cmdlet carries ~20ms of per-call provider
 overhead the raw .NET enumeration avoids
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). '*' excludes dot-prefixed
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). '*' excludes dot-prefixed
 infrastructure folders.
 ```
