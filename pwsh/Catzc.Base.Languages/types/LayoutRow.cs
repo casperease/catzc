@@ -15,6 +15,8 @@ public sealed class LayoutRow
     {
         new LayoutRow(null, "assets", "asset", null, true, true),
         new LayoutRow(null, "tests", "test", null, false, false),
+        // A language's generated project file at the module root (pyproject.toml, go.mod and its go.sum, uv.lock): placed, never live, never shipped.
+        new LayoutRow(null, Root, "project", new[] { ".toml", ".mod", ".sum", ".lock" }, false, false),
     };
 
     // The file language that owns the row, or null for a shared row.

@@ -2,8 +2,8 @@
 
 The slides module. It owns the render of a deck from its slide files through the patterns of the slides kit, the gate that checks every
 slide file against the rules it quotes ([ADR-REPO-SLIDES](../../adr/repository/slides-as-markdown.md)), and the one command that renders
-every draw.io slide of the repository from its source. It deliberately does **not** own the kit's content, which is authored under
-`.claude/slides/`, or the publishing of a rendered deck, which a person does after reading the render.
+every draw.io slide of the repository from its source. It deliberately does **not** own the kit's content, which is authored in the
+`Catzc.Diagrams` module of the python track, or the publishing of a rendered deck, which a person does after reading the render.
 
 ## Responsibilities
 
@@ -29,18 +29,18 @@ folders, and with no path checks every slide file under `docs/`.
 
 ### responsibility:3 — Reading the kit
 
-The module reads the kit from one configured folder, `slides` in the config registry, `.claude/slides` by default: the kit's `slides.yml`
-becomes a `SlidesKit` of tokens, faces, scale and layout, and each `patterns/<name>.html` a `SlidePattern` that knows its fields, which are
-required and how much each holds. A pattern's placeholders decide what a slide may say; the module changes for no pattern.
+The module reads the kit from one configured folder, `slides` in the config registry, `python/Catzc.Diagrams/assets/slides` by default: the
+kit's `slides.yml` becomes a `SlidesKit` of tokens, faces, scale and layout, and each `patterns/<name>.html` a `SlidePattern` that knows its
+fields, which are required and how much each holds. A pattern's placeholders decide what a slide may say; the module changes for no pattern.
 
 ### responsibility:4 — Diagram render from source
 
 Rebuilding a diagram folder, `<article-folder>/.assets/<name>/`, from what the tree holds: the model embedded in its `diagram.drawio.png`
-and the repository's maps, through the draw.io kit's renderer (`drawio_kit` in `slides.yml`, `.claude/drawio` by default), stage by stage.
-One folder is one call; the whole tree is that call repeated over every diagram folder found under `docs/**/.assets/**`, so no session
-decides anything and a rebuild from a clean checkout gives the same slides. A folder's article is the one page beside its `.assets` that
-embeds the slide: none is an orphan, reported; two stop the run. Moving a diagram moves its folder, with every relative link in it and into
-it re-pointed.
+and the repository's maps, through the draw.io kit's renderer (`drawio_kit` in `slides.yml`, `python/Catzc.Diagrams` by default), stage by
+stage. One folder is one call; the whole tree is that call repeated over every diagram folder found under `docs/**/.assets/**`, so no
+session decides anything and a rebuild from a clean checkout gives the same slides. A folder's article is the one page beside its `.assets`
+that embeds the slide: none is an orphan, reported; two stop the run. Moving a diagram moves its folder, with every relative link in it and
+into it re-pointed.
 
 ## What the module does
 
@@ -52,10 +52,11 @@ the published page is a projection that can be rebuilt from the tree at any time
 
 The functions the module exports, indexed by the responsibility each serves, and the config the module owns.
 
-| Responsibility                                | Function          |
-| --------------------------------------------- | ----------------- |
-| responsibility:1 — Fail-forward deck render   | `Build-SlideDeck` |
-| responsibility:2 — The slides quality gate    | `Test-Slides`     |
-| responsibility:3 — Reading the kit            | `slides.yml`      |
-| responsibility:4 — Diagram render from source | `Build-Diagrams`  |
-|                                               | `Move-Diagram`    |
+| Responsibility                                | Function                 |
+| --------------------------------------------- | ------------------------ |
+| responsibility:1 — Fail-forward deck render   | `Build-SlideDeck`        |
+| responsibility:2 — The slides quality gate    | `Test-Slides`            |
+| responsibility:3 — Reading the kit            | `slides.yml`             |
+| responsibility:4 — Diagram render from source | `Build-Diagrams`         |
+|                                               | `Move-Diagram`           |
+|                                               | `Update-MinimapPageHead` |

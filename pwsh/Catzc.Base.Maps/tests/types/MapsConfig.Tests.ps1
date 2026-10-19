@@ -47,7 +47,7 @@ Describe 'MapsConfig' -Tag 'L0' {
                 $config.highlight.pins.Count | Should -Be 0
                 $config.highlight.exceptions.Count | Should -Be 0
                 $config.highlight.citation_exclude | Should -Be @([Catzc.Base.Maps.MapsHighlight]::DefaultCitationExclude)
-                $config.highlight.citation_exclude | Should -Be @('docs/.assets/**', 'docs/explanation/**', '.claude/drawio/**')
+                $config.highlight.citation_exclude | Should -Be @('docs/.assets/**', 'docs/explanation/**', 'python/Catzc.Diagrams/**')
                 $config.output_folder | Should -Be ([Catzc.Base.Maps.MapsConfig]::DefaultOutputFolder)
             }
         }

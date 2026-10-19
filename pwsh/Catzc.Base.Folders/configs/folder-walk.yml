@@ -2,3 +2,5 @@
 
 # Read anywhere as global.folder-walk.prune_vendor_in_searches. When true, a search never enters the .vendor folder.
 prune_vendor_in_searches: true
+
+exclude: [.git, node_modules, out, __pycache__, .pytest_cache, .ruff_cache, .venv]

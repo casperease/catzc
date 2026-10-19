@@ -1,10 +1,8 @@
 ---
 plan:
-  status: blocked
+  status: active
   value: high
   reviewed: 2026-10-19
-  blocked_on:
-    plan-module-system-per-language, which lets a language track hold a module before python/Catzc.Diagrams lands (the user, 2026-10-19)
   targets:
     [
       .claude/drawio,
@@ -120,18 +118,27 @@ drawio export is deterministic for one XML and pinned fonts, which is what **put
 diagram is a **get**, so no drawing is redrawn to adopt the model; the round trip over the tree is the proof of the renderer, and a diagram
 that fails it (a glyph outside the library, an element get cannot name) is the real fix list, whose size is unknown until that run.
 
+## Done (2026-10-19) and why
+
+- The kit is the module `python/Catzc.Diagrams` of the python track, in the layout the module system holds every language track to
+  (plan-module-system-per-language, landed the same day): the scripts at the module root, the minimap scripts flattened to
+  `minimap_describe.py`, `minimap_render.py` and `minimap_join.py`, `configs/drawio.yml`, `assets/` for the glyph sheet, the template slide,
+  the atlas template and `STYLE.md`, `tests/` for the three test files, and the slides kit as `assets/slides/`. The user ran the `git mv`
+  set (37 renames). The two PowerShell steps are the commands `Export-MinimapData` (`Catzc.Base.Maps`) and `Update-MinimapPageHead`
+  (`Catzc.Base.Slides`), which the renderer runs in a pwsh that loads the importer. Every caller re-pointed: `SlidesConfig.cs`,
+  `slides.yml`, `MapsHighlight.cs`, `output-formats.yml`, `file-kinds.yml`, `variants.yml` (the `.claude-kits` track is gone),
+  `comments.yml` (`python/*` pages under `docs/references/python/`), `.gitattributes-template`, `terminology.yml`, the two agents and four
+  skills, ADR-REPO-SLIDES, the two reference articles, the glossary and the comment pages; the ~160 `diagram.drawio.md`, `grid.md` and
+  `tree.md` command lines still name `.claude/drawio` and are rewritten by the re-render step. Checks: pytest on the moved tests
+  `34 passed`; `Test-PythonTypes`: `No python-types issues found.`; `Test-PythonLint`: `No python-lint issues found.`; `Build-SlideDeck` on
+  the thesis deck: `21 slide(s) rendered`, `0 fault(s)`; `Build-Diagrams -DryRun` names the new renderer path; `Test-Comments`,
+  `Test-GeneratedFiles`, `Test-Links`, `Test-AgentDefinitions`: no issues (20:50).
+
 ## Open steps
 
-- [ ] Move the renderer code from `.claude/drawio` into `python/Catzc.Diagrams` with its three test files (`test_drawio_png.py`,
-      `test_gallery_pdf.py`, `test_slide_facts.py`); the two PowerShell steps in `minimaps/` (`highlights.ps1`, `stamp.ps1`) go to
-      `pwsh/Catzc.Base.Maps` and `pwsh/Catzc.Base.Slides`, since the module is Python only; the `git mv` set is the user's
-      (task-user-runs-and-commits), prepared in `out/run-user-git.ps1`; then the callers, one file each: `Build-Diagrams.ps1:20`,
-      `SlidesConfig.cs:14` (`DefaultKit`), `configs/slides.yml:1`, `python.yml:3` (`extra_paths`), `MapsHighlight.cs:9`,
-      `output-formats.yml:95,101,121,128`, `Get-FileKind.Tests.ps1:16`, `.gitattributes-template:99`, `terminology.yml:112`, the four agents
-      and four skills under `.claude/`, and the `docs/references/pwsh/claude-drawio` pages (check: pytest on the moved tests passes;
-      `git grep '\.claude/drawio'` finds only the ~20 `diagram.drawio.md` command lines, which the re-render step rewrites).
-- [ ] Move the slide assets from `.claude/slides` (`slides.yml`, `STYLE.md`, the nine `patterns/*.html`) into the module's assets (check:
-      Build-SlideDeck still renders one deck).
+- [ ] `docs/references/python/catzc-diagrams.md`, the module's reference article in the shape `docs/references/pwsh/CLAUDE.md` gives, and a
+      `python/*` pattern in `readme.yml`, so `Build-Readme` writes the module's README like every other module's (check:
+      `Build-Readme -Folder python/Catzc.Diagrams` writes it; `Test-Links` on both passes).
 - [ ] Define the yml declaration: one schema with `content:` (`bands`, `glyphs`, `spans` with label and covered columns or bands, `groups`
       that may nest, `minimaps` of three ids, `legend`, `flow` left-to-right default or top-to-bottom, `theme`) and `layout:` (per named
       cell), one parser, and the two commands, **put** (yml to embedded XML to raster) and **get** (embedded XML to yml) (check: put then

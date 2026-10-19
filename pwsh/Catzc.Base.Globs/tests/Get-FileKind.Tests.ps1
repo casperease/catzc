@@ -13,10 +13,10 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Azure.Cli/tests/assets/config/azure.yml'; Class = 'fixture/input' }
         @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Azure.Cli/tests/data/sample.yml'; Class = 'fixture' }
         @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Globs/configs/file-kinds.yml'; Class = 'config' }
-        @{ Path = '.claude/drawio/contact_sheet.py'; Class = 'drawio-kit' }
-        @{ Path = '.claude/drawio/STYLE.md'; Class = 'drawio-kit' }
-        @{ Path = '.claude/slides/patterns/rule.html'; Class = 'slides-kit' }
-        @{ Path = '.claude/slides/slides.yml'; Class = 'slides-kit' }
+        @{ Path = 'python/Catzc.Diagrams/contact_sheet.py'; Class = 'drawio-kit' }
+        @{ Path = 'python/Catzc.Diagrams/assets/STYLE.md'; Class = 'drawio-kit' }
+        @{ Path = 'python/Catzc.Diagrams/assets/slides/patterns/rule.html'; Class = 'slides-kit' }
+        @{ Path = 'python/Catzc.Diagrams/assets/slides/slides.yml'; Class = 'slides-kit' }
         @{ Path = 'tools/export.py'; Class = 'script' }
         @{ Path = 'docs/explanation/design/.assets/gadget-spins/diagram.drawio.png'; Class = 'diagram' }
         @{ Path = 'docs/explanation/design/.assets/gadget-spins/grid.md'; Class = 'asset-description' }

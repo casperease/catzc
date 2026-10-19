@@ -29,7 +29,7 @@ metadata:
 # drawio-look
 
 1. Read the PNG with the Read tool; name every band, glyph, label, marker, edge and sidebar piece in the kit's vocabulary
-   (`.claude/drawio/STYLE.md`), in reading order left to right.
+   (`python/Catzc.Diagrams/assets/STYLE.md`), in reading order left to right.
 2. Name each colour against the dark tokens of STYLE.md; a colour outside the tokens, a dark label on the dark page, or text cut by its box
    is a finding naming the cell's label.
 3. Counts come from the model, never from the picture: when a count matters, the renderer's `cells=` line or the decoded XML is the number.

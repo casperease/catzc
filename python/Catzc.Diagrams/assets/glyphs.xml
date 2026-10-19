@@ -1,0 +1,166 @@
+<!-- cspell:ignore adronly -->
+<mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="640" background="#1E2430" math="0" shadow="1">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="title" value="Glyph library: one kind, one shape, one colour, one legend phrase" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#DDE2E9;" vertex="1" parent="1">
+      <mxGeometry x="20" y="14" width="1260" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="band-things" value="THINGS" style="rounded=1;html=1;arcSize=3;fillColor=#262E3B;strokeColor=#3A4555;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=#B0BAC7;" vertex="1" parent="1">
+      <mxGeometry x="20" y="56" width="1260" height="200" as="geometry" />
+    </mxCell>
+    <mxCell id="g-code" value="&lt;b&gt;code unit&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#4E6378;strokeColor=#9FB3C8;fontColor=#DDE2E9;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="40" y="92" width="130" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="g-set" value="&lt;b&gt;named set&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#6A567E;strokeColor=#B9A6CC;fontColor=#DDE2E9;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="195" y="92" width="130" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="g-file" value="&lt;b&gt;file&lt;/b&gt;" style="shape=note;size=14;whiteSpace=wrap;html=1;fillColor=#5B7653;strokeColor=#A9C29F;fontColor=#DDE2E9;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="350" y="88" width="110" height="52" as="geometry" />
+    </mxCell>
+    <mxCell id="g-store" value="&lt;b&gt;store&lt;/b&gt;" style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=8;whiteSpace=wrap;html=1;fillColor=#4E6378;strokeColor=#9FB3C8;fontColor=#DDE2E9;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="485" y="84" width="100" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="g-runner" value="&lt;b&gt;runner&lt;/b&gt;" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#4E6378;strokeColor=#9FB3C8;fontColor=#DDE2E9;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="610" y="92" width="130" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="g-gate" value="&lt;b&gt;gate&lt;/b&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#2C3542;strokeColor=#C7D0DB;strokeWidth=3;fontColor=#CDD3DC;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="765" y="80" width="100" height="68" as="geometry" />
+    </mxCell>
+    <mxCell id="g-env" value="&lt;b&gt;environment&lt;/b&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fillColor=#2C3542;strokeColor=#C7D0DB;strokeWidth=2;fontColor=#CDD3DC;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="890" y="88" width="130" height="52" as="geometry" />
+    </mxCell>
+    <mxCell id="g-external" value="&lt;b&gt;external tool&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2C3542;strokeColor=#C7D0DB;fontColor=#CDD3DC;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="1045" y="92" width="130" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="g-result" value="&lt;b&gt;result&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#2E7D5B;strokeColor=#7FD3AE;fontColor=#DDE2E9;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="40" y="176" width="130" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="g-failure" value="&lt;b&gt;failure&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#8E2424;strokeColor=#E57373;fontColor=#EFD4D4;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="195" y="176" width="130" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="g-adronly" value="&lt;b&gt;ADR-only&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#1E2430;strokeColor=#AAB4C3;dashed=1;fontColor=#CDD3DC;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="350" y="176" width="130" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="g-actor" value="&lt;b&gt;actor&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1E2430;strokeColor=#C7D0DB;fontColor=#CDD3DC;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="505" y="172" width="60" height="52" as="geometry" />
+    </mxCell>
+    <mxCell id="g-commit" value="3" style="ellipse;html=1;fillColor=#FFE082;strokeColor=#F9A825;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#1E2430;" vertex="1" parent="1">
+      <mxGeometry x="610" y="184" width="28" height="28" as="geometry" />
+    </mxCell>
+    <mxCell id="g-commit-red" value="4" style="ellipse;html=1;fillColor=#8E2424;strokeColor=#E57373;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=#DDE2E9;" vertex="1" parent="1">
+      <mxGeometry x="646" y="184" width="28" height="28" as="geometry" />
+    </mxCell>
+    <mxCell id="g-commit-text" value="commit (locked palette; red: discarded)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="682" y="188" width="240" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="band-marks" value="LINES AND MARKS" style="rounded=1;html=1;arcSize=3;fillColor=#262E3B;strokeColor=#3A4555;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=#B0BAC7;" vertex="1" parent="1">
+      <mxGeometry x="20" y="276" width="1260" height="150" as="geometry" />
+    </mxCell>
+    <mxCell id="p-flow-a" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="40" y="322" width="1" height="1" as="geometry" />
+    </mxCell>
+    <mxCell id="p-flow-b" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="110" y="322" width="1" height="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-flow" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#AAB4C3;shadow=0;" edge="1" parent="1" source="p-flow-a" target="p-flow-b">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-flow-text" value="flow (one meaning per slide)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="120" y="312" width="180" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="p-thick-a" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="330" y="322" width="1" height="1" as="geometry" />
+    </mxCell>
+    <mxCell id="p-thick-b" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="400" y="322" width="1" height="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-thick" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#AAB4C3;strokeWidth=2.5;shadow=0;" edge="1" parent="1" source="p-thick-a" target="p-thick-b">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-thick-text" value="to a named set" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="410" y="312" width="150" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="p-adr-a" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="580" y="322" width="1" height="1" as="geometry" />
+    </mxCell>
+    <mxCell id="p-adr-b" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="650" y="322" width="1" height="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-adr" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#AAB4C3;dashed=1;shadow=0;" edge="1" parent="1" source="p-adr-a" target="p-adr-b">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-adr-text" value="ADR-only (no code)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="660" y="312" width="150" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="p-fail-a" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="830" y="322" width="1" height="1" as="geometry" />
+    </mxCell>
+    <mxCell id="p-fail-b" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="900" y="322" width="1" height="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-fail" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#E57373;shadow=0;" edge="1" parent="1" source="p-fail-a" target="p-fail-b">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-fail-text" value="failure path" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="910" y="312" width="150" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="m-marker" value="1" style="ellipse;html=1;fillColor=#E6EAF0;strokeColor=#1E2430;strokeWidth=2;fontColor=#1E2430;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="40" y="368" width="22" height="22" as="geometry" />
+    </mxCell>
+    <mxCell id="m-marker-text" value="marker: a Walkthrough step" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="72" y="369" width="180" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="m-fraction" value="&lt;b&gt;4/5&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontColor=#CDD3DC;fillColor=#1E2430;strokeColor=none;" vertex="1" parent="1">
+      <mxGeometry x="330" y="370" width="30" height="18" as="geometry" />
+    </mxCell>
+    <mxCell id="m-fraction-text" value="fraction chip" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="370" y="369" width="150" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="m-rule" value="#3" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#262E3B;strokeColor=#AAB4C3;fontColor=#CDD3DC;fontStyle=1;fontSize=10.5;" vertex="1" parent="1">
+      <mxGeometry x="580" y="370" width="30" height="18" as="geometry" />
+    </mxCell>
+    <mxCell id="m-rule-text" value="rule chip" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="620" y="369" width="150" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="span-line" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;shadow=0;" vertex="1" parent="1">
+      <mxGeometry x="830" y="372" width="120" height="14" as="geometry" />
+    </mxCell>
+    <mxCell id="span-label" value="CI" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#B0BAC7;labelBackgroundColor=#262E3B;" vertex="1" parent="1">
+      <mxGeometry x="875" y="352" width="30" height="16" as="geometry" />
+    </mxCell>
+    <mxCell id="span-text" value="span bar: stages over bands" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="960" y="369" width="200" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="m-count" value="87" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#262E3B;strokeColor=#B9A6CC;fontColor=#CDD3DC;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="40" y="400" width="30" height="18" as="geometry" />
+    </mxCell>
+    <mxCell id="m-count-text" value="count chip: members (rim = the counted glyph's rim)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="80" y="399" width="300" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="band-source" value="SOURCE LENS (code-unit family: slate, no new colour)" style="rounded=1;html=1;arcSize=3;fillColor=#262E3B;strokeColor=#3A4555;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=#B0BAC7;" vertex="1" parent="1">
+      <mxGeometry x="20" y="446" width="1260" height="130" as="geometry" />
+    </mxCell>
+    <mxCell id="g-private" value="&lt;b&gt;private helper&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#2F3B4A;strokeColor=#9FB3C8;fontColor=#CDD3DC;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="40" y="490" width="130" height="36" as="geometry" />
+    </mxCell>
+    <mxCell id="g-type" value="&lt;b&gt;C# type&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#4E6378;strokeColor=#9FB3C8;fontColor=#DDE2E9;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="195" y="486" width="130" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="g-type-tag" value="C#" style="rounded=0;html=1;fillColor=#1E2430;strokeColor=#9FB3C8;fontColor=#DDE2E9;fontStyle=1;fontSize=10.5;shadow=0;" vertex="1" parent="1">
+      <mxGeometry x="303" y="478" width="26" height="16" as="geometry" />
+    </mxCell>
+    <mxCell id="g-module" value="Catzc.Other.Module" style="rounded=1;html=1;arcSize=6;fillColor=none;strokeColor=#9FB3C8;strokeWidth=1.5;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=11;fontColor=#9FB3C8;shadow=0;" vertex="1" parent="1">
+      <mxGeometry x="350" y="474" width="220" height="90" as="geometry" />
+    </mxCell>
+    <mxCell id="g-module-member" value="&lt;b&gt;code unit&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#4E6378;strokeColor=#9FB3C8;fontColor=#DDE2E9;fontSize=12;" vertex="1" parent="g-module">
+      <mxGeometry x="20" y="34" width="130" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="g-source-text" value="private helper: dark slate fill, slate rim, smaller name (never dashed)&lt;br&gt;C# type: code unit with a C# tag&lt;br&gt;catzc module: slate frame named by the module (the slide's own module is a band)" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="600" y="480" width="660" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="footer" value="Structure in mid-tones with a light rim; neutral kinds dark with a light rim; result and failure saturated. Commits keep the locked palette (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE)." style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="20" y="590" width="1260" height="20" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>

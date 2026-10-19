@@ -5,7 +5,7 @@ description:
   is the areas or ADRs to draw for and the wave number.
 user-invocable: false
 allowed-tools: Agent, Bash, Read, Glob, Grep, Write, Edit
-paths: out/diagrams/**, .claude/drawio/**
+paths: out/diagrams/**, python/Catzc.Diagrams/**
 metadata:
   catzc:
     immutable:
@@ -35,8 +35,8 @@ metadata:
    candidates each (filename, finding, source ADR, box sketch); the lead ranks them, picks at most 12, and keeps the rest as the backlog in
    the diagram-waves plan under `.claude/plans/`; every wave launches in one message, never more than 12 agents in flight, the lead preps
    the next briefs while a wave runs and never polls or predicts.
-2. Wave N: each maker gets exactly this brief: read `.claude/drawio/STYLE.md` and its quality-bar diagram; verify each claim against the
-   ADR, code and configs into `<name>.verify.md` (claim, `file:line`, confirmed / contradicted / ADR-only); write
+2. Wave N: each maker gets exactly this brief: read `python/Catzc.Diagrams/assets/STYLE.md` and its quality-bar diagram; verify each claim
+   against the ADR, code and configs into `<name>.verify.md` (claim, `file:line`, confirmed / contradicted / ADR-only); write
    `out/diagrams/wave-N/<subfolder>/<name>.xml` to the readability rules; build with drawio-renderer, look, fix, at most 3 rebuilds; a
    description written for a slide takes the pointer form of its `.drawio.md` (codes, generators, rebuild step), never counts or file names;
    reply in at most 8 lines; the brief names the finding and a sketch in the ADR's exact terms, the time safeguard, never `docs/`, never

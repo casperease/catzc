@@ -6,7 +6,7 @@ The skill's judgement (draw the mechanism, label the arrows, one figure one clai
 to one place only: a page a session publishes with the Artifact tool. Nothing under docs/ is ever an SVG.
 
 claude.ai page      the Diagram Waves Review page and any ad-hoc page    inline SVG, the skill's mechanics
-docs/.assets        every slide an article embeds                         .drawio.png, the kit (.claude/drawio/STYLE.md)
+docs/.assets        every slide an article embeds                         .drawio.png, the kit (python/Catzc.Diagrams/assets/STYLE.md)
 ```
 
 The `/artifact-diagramming` skill is vendor know-how that Claude Code loads into a session on request. It is not one of our capabilities
@@ -18,9 +18,9 @@ own terms, and where each lesson meets or stops at the drawio.png practice our r
 A diagram in cats lives in exactly one of two lanes, and the lane decides which rules draw it.
 
 - **The docs lane.** A slide is a `.drawio.png` under `docs/.assets/`: a draw.io model embedded in a PNG, with a sister `.drawio.md` that
-  describes it element by element and an article in `docs/explanation/` that narrates it. The kit in `.claude/drawio/STYLE.md` owns its
-  words, glyphs, colours and sidebar; the kit renderer is the one way its raster is made (`write-drawio-files` step 4). The `drawio-*`
-  capabilities and the four diagram robots work only in this lane.
+  describes it element by element and an article in `docs/explanation/` that narrates it. The kit in `python/Catzc.Diagrams/assets/STYLE.md`
+  owns its words, glyphs, colours and sidebar; the kit renderer is the one way its raster is made (`write-drawio-files` step 4). The
+  `drawio-*` capabilities and the four diagram robots work only in this lane.
 - **The page lane.** A claude.ai page a session publishes with the Artifact tool. Today that is the Diagram Waves Review page the
   `print-artifacts` robot republishes through `artifact-publish`, plus any page a session draws for a reader at the user's ask. A picture
   drawn on such a page is inline SVG, and the skill's mechanics govern it. The page lane never lands a file under `docs/`, and a review

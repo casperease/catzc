@@ -12,7 +12,7 @@ The world-map highlight settings (the `highlight` section of configs/maps.yml): 
 for an ADR, the reviewed exceptions, which keep one dark, and the globs of the files whose citations light nothing
 (citation_exclude). The pin and exception lists default to empty, so the highlight follows the derived order alone;
 citation_exclude defaults to DefaultCitationExclude: the generated slide descriptions under docs/.assets/, the
-explanation articles under docs/explanation/ and the drawing tooling under .claude/drawio/, so a slide's minimap lights
+explanation articles under docs/explanation/ and the drawing tooling under python/Catzc.Diagrams/, so a slide's minimap lights
 the repository's citations of its ADRs, never the slide's own words or the tool that drew it
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). An excluded file still sits
 in its world-map cell; only its citations are ignored. The properties mirror the YAML keys, so they are snake_case

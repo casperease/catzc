@@ -14,15 +14,14 @@ deck's orders is a render failure.
 
 ### Rule ADR-REPO-SLIDES-PATTERN
 
-A **pattern** is one file, `.claude/slides/patterns/<name>.html`: one section in the slide format whose placeholders name its fields and say
-which are required. A slide names its pattern in its head. Adding a layout is a new pattern file and one line in `.claude/slides/STYLE.md`,
-never a change to the renderer
+A **pattern** is one file, `patterns/<name>.html` in the slides kit, the `assets/slides` folder of the `Catzc.Diagrams` module of the python
+track: one section in the slide format whose placeholders name its fields and say which are required. A slide names its pattern in its head.
+Adding a layout is a new pattern file and one line in the kit's `STYLE.md`, never a change to the renderer
 ([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig),
 [ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)). What
-every pattern shares, the dark tones, the faces, the type scale, the footer and the output folder, is declared once in
-`.claude/slides/slides.yml`
-([ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-adr-prin-config-defaultdeclaredonce)). A pattern is dark;
-no light background exists.
+every pattern shares, the dark tones, the faces, the type scale, the footer and the output folder, is declared once in the kit's
+`slides.yml` ([ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-adr-prin-config-defaultdeclaredonce)). A
+pattern is dark; no light background exists.
 
 - [Patterns are configuration](#patterns-are-configuration)
 
@@ -57,8 +56,8 @@ verify record of its own, because rule 4 derives what such a record would hold.
 ### Rule ADR-REPO-SLIDES-SLIDEFILEKIND
 
 `file-kinds.yml` places a slide file in the kind `slide` (`docs/**/*.slide.md`), ahead of the two documentation trees as the diagram kinds
-are, and the kit in `slides-kit` (`.claude/slides/**`). The renderer, the gate and their types live in `Catzc.Base.Slides`, and their tests
-run on neutral fixture decks, never on a real one
+are, and the kit in `slides-kit` (`python/Catzc.Diagrams/assets/slides/**`). The renderer, the gate and their types live in
+`Catzc.Base.Slides`, and their tests run on neutral fixture decks, never on a real one
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
 - [Kinds and home](#kinds-and-home)
@@ -78,10 +77,10 @@ is never drawn by hand or by the draw.io CLI: a session edits a model, and the k
 
 A deck is prose with a layout. Written straight into a presentation tool, the prose is reachable only through that tool, its claims are
 checked by nobody, and a change to a rule it quotes never reaches it. The repository already carries one answer to that problem for
-diagrams: a `.drawio.png` is drawn from a kit under `.claude/drawio/` with a style guide and a template, rendered forward into `out/`,
-described beside the article it illustrates, and never landed without a person asking. A deck is the same kind of thing with words instead
-of glyphs, so it gets the same shape: files in the tree as the truth, patterns as the vocabulary, a renderer that fails forward, and checks
-that tie every claim to the rule it states.
+diagrams: a `.drawio.png` is drawn from a kit, the `Catzc.Diagrams` module of the python track, with a style guide and a template, rendered
+forward into `out/`, described beside the article it illustrates, and never landed without a person asking. A deck is the same kind of thing
+with words instead of glyphs, so it gets the same shape: files in the tree as the truth, patterns as the vocabulary, a renderer that fails
+forward, and checks that tie every claim to the rule it states.
 
 ## Decision
 

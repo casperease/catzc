@@ -5,13 +5,13 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
         $script:second = [Catzc.Base.Engines.ExecutionEngines]::Names[1]
         $script:tracks = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                 tracks = [ordered]@{
-                    widgets = [ordered]@{ places = @('widgetry'); type = 'widget-works'; languages = @('widget-script', 'widget-data')
+                    widgets        = [ordered]@{ places = @('widgetry'); type = 'widget-works'; languages = @('widget-script', 'widget-data')
                         execution_engines = @($script:first); module_execution_engines = [ordered]@{ Gadget = @($script:first, $script:second) }
                     }
-                    gizmos  = [ordered]@{ places = @('gizmo'); type = 'gizmo-shelf'; languages = @('gizmo-script') }
-                    notes   = [ordered]@{ places = @('notes'); type = 'note-pile'; languages = @('widget-data') }
+                    gizmos         = [ordered]@{ places = @('gizmo'); type = 'gizmo-shelf'; languages = @('gizmo-script') }
+                    notes          = [ordered]@{ places = @('notes'); type = 'note-pile'; languages = @('widget-data') }
                     # A third language's track, the shape every language track takes: folder modules, the track's own test holder, a nested vendor track.
-                    shelves = [ordered]@{ places = @('shelf'); type = 'shelf-works'; languages = @('shelf-script') }
+                    shelves        = [ordered]@{ places = @('shelf'); type = 'shelf-works'; languages = @('shelf-script') }
                     'shelf-vendor' = [ordered]@{ places = @('shelf/.vendor'); type = 'note-pile'; languages = @('shelf-script') }
                 }
             }).tracks

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `kit: .claude/slides`, written with `#`.
+Above `kit: python/Catzc.Diagrams/assets/slides`, written with `#`.
 
 ```text
 Where the slides kit lives, as a repository-relative folder (ADR-REPO-SLIDES-SLIDEFILEKIND). The kit's own defaults, its patterns and its style

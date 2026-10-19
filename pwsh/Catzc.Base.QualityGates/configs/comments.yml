@@ -26,10 +26,8 @@ pages:
     docs: docs/references/infrastructure
   - source: .claude/hooks
     docs: docs/references/pwsh/claude-hooks
-  - source: .claude/drawio
-    docs: docs/references/pwsh/claude-drawio
-  - source: .claude/slides
-    docs: docs/references/pwsh/claude-slides
+  - source: python/*
+    docs: docs/references/python/{kebab}
   - source: .github/workflows
     docs: docs/references/github/workflows
   - source: pwsh/.scriptanalyzer

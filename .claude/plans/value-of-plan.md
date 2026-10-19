@@ -47,4 +47,5 @@ stale or superseded item is recorded as such, with the reason.
 `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and landed prompts; the files stay on disk until it runs.
 Added 2026-10-19: `prompt-layers-1-retire-and-rename.md` (its P5 landed, its P6 lives in task-layers-classification-flip, and it waits on a
 report that does not exist) and `prompt-master-execute-continue.md` (names task numbers and decision files that are gone; a prompt is never
-rewritten).
+rewritten). Added 2026-10-19 by the diagram track session: `plan-module-system-per-language.md`, every step landed the same day it was
+written; its decisions live in ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE and the three `*-MODULESBYLAYOUT` rules.

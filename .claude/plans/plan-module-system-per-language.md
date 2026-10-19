@@ -154,11 +154,14 @@ would otherwise repeat the pwsh-only shape.
   `No links issues found.`, 20:27). Left as found: `Resolve-ImportMix.ps1` has no comment page for its help, a file of the importer-mix
   session.
 
+- `plan-diagram-engine`'s first step landed the kit in the python layout, the first module outside pwsh, through the user's `git mv` (37
+  renames, 2026-10-19); `folder-walk.yml` excludes the Python caches from every bounded walk, so a module's files never list them; the
+  shared layout row `project` places a language's generated project file at a module root. This plan has no open step and is deleted
+  (ADR-REPO-PLANS-DONEPLANDELETED): `out/delete-done-plans.ps1` holds its `git rm` line.
+
 ## Open steps
 
-- [ ] `plan-diagram-engine`'s first step rewrites `out/run-user-git-diagrams.ps1` so `.claude/drawio` lands in the python layout: `*.py` at
-      the module root, `configs/drawio.yml`, `assets/` for the xml, html and style guide, `tests/` for the three test files (check: the
-      diagram plan's step names the folders; this plan is then done and deleted, ADR-REPO-PLANS-DONEPLANDELETED).
+None.
 
 ## Refs
 

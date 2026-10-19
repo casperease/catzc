@@ -32,8 +32,8 @@ catzc:
 
 Publish what is on disk, exactly as it is now; never draw, edit or move a diagram, never write an answer.
 
-1. Background Bash `timeout 60 uv run -q python <repo>/.claude/drawio/catalogue.py`; it writes `out/print-artifacts/catalogue.json` and
-   prints one line per diagram.
+1. Background Bash `timeout 60 uv run -q python <repo>/python/Catzc.Diagrams/catalogue.py`; it writes `out/print-artifacts/catalogue.json`
+   and prints one line per diagram.
 2. Run artifact-publish steps 1 to 3 with the page URL and that catalogue.
 3. Print the page link and one line: diagrams, drawings, and what changed since the last publish (drawings added, drawings removed).
 4. Print every drawing as a clickable local path, grouped by area, one per line, with its wave and the check-note counts when it has notes.

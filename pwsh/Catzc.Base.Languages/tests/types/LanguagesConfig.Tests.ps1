@@ -299,16 +299,19 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                     )
                 })
             $config.languages[0].layout.folder | Should -Be @('.', 'inner', 'drafts')
-            $config.layout.folder | Should -Be @('.', 'inner', 'drafts', 'assets', 'tests')
+            $config.layout.folder | Should -Be @('.', 'inner', 'drafts', 'assets', 'tests', '.')
             $config.LivePatterns() | Should -Be @('*.wdg', 'inner/**', 'assets/**')
             $config.LayoutFolders() | Should -Be @('inner', 'drafts', 'assets', 'tests')
             $config.ShippedFolders() | Should -Be @('inner', 'assets')
         }
 
-        It 'has only the shared rows when no language declares a layout' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
+        It 'has only the shared rows when no language declares a layout, the generated project file placed and never live' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             $config = & $script:one ([ordered]@{ extensions = @('.wdg') })
-            $config.layout.folder | Should -Be @('assets', 'tests')
+            $config.layout.folder | Should -Be @('assets', 'tests', '.')
             $config.LivePatterns() | Should -Be @('assets/**')
+            $config.PlaceOf('pyproject.toml').role | Should -Be 'project'
+            $config.PlaceOf('go.mod').live | Should -BeFalse
+            $config.PlaceOf('gadget.wdx') | Should -BeNullOrEmpty
         }
 
         It 'places a file by the root row of its extension or by the row that names its folder, and places none it does not know' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {

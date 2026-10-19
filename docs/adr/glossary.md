@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "64f57c9dd49a"
+    with_body_sha: "5ba23b71eaa9"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -1388,7 +1388,7 @@ The lowest model that performs a capability's steps reliably; no robot that prel
 
 ### pattern
 
-One `.claude/slides/patterns/<name>.html` file — a section in the slide format whose placeholders name the fields it takes and which are
+One `patterns/<name>.html` file of the slides kit — a section in the slide format whose placeholders name the fields it takes and which are
 required; the layout of one kind of slide.
 
 - **Defined by:** [ADR-REPO-SLIDES-PATTERN](repository/slides-as-markdown.md#rule-adr-repo-slides-pattern)

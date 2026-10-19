@@ -30,6 +30,6 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-SLIDES-PATTERN
     short:
-      One `.claude/slides/patterns/<name>.html` file — a section in the slide format whose placeholders name the fields it takes and which
-      are required; the layout of one kind of slide.
+      One `patterns/<name>.html` file of the slides kit — a section in the slide format whose placeholders name the fields it takes and
+      which are required; the layout of one kind of slide.
     realized_by: { kind: prose-only }

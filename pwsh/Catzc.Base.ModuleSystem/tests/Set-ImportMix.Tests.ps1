@@ -10,7 +10,9 @@ Describe 'Set-ImportMix' -Tag 'L0', 'logic' {
         Mock Resolve-ImportMix -ModuleName Catzc.Base.ModuleSystem {
             [Catzc.Base.ModuleSystem.ImportMix]::new(@('widget'), @('pwsh'), @('Widget.Alpha'), @(), @('Widget.Beta', 'Widget.Gamma'))
         }
-        Mock Get-Module -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Name } { if ($script:loaded.Contains($Name[0])) { [pscustomobject]@{ Name = $Name[0] } } }
+        Mock Get-Module -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Name } { if ($script:loaded.Contains($Name[0])) {
+                [pscustomobject]@{ Name = $Name[0] }
+            } }
         Mock Remove-Module -ModuleName Catzc.Base.ModuleSystem { [void] $script:loaded.Remove($Name[0]) }
         Mock Write-Message -ModuleName Catzc.Base.ModuleSystem {}
     }
@@ -43,7 +45,7 @@ Describe 'Set-ImportMix' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0
     }
 
-    It '-DryRun reports the mix and changes nothing' -Tag 'ADR-AUTO-DRYRUN' {
+    It '-DryRun reports the mix and changes nothing' -Tag 'ADR-AUTO-DRYRUN-SIDEEFFECTSTAKEDRYRUN' {
         $mix = Set-ImportMix -DryRun
         $mix.skipped_modules | Should -Contain 'Widget.Beta'
         $script:loaded | Should -Be @('Widget.Alpha', 'Widget.Beta')

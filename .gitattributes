@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "59c2ad296862"
+#     with_body_sha: "601b7ad2b049"
 #     warning: "Do Not Edit, this file is generated"
 #     repo_status: locked
 #     path: ".gitattributes"
@@ -110,7 +110,7 @@ pwsh/.compiled/** linguist-generated
 **/assets/** linguist-detectable
 **/tests/assets/** linguist-detectable=false
 /contracts/** linguist-detectable=false
-# The minimap grid, tree and chain descriptions are rendered by .claude/drawio/minimaps/render.py from the slide and
+# The minimap grid, tree and chain descriptions are rendered by python/Catzc.Diagrams/minimap_render.py from the slide and
 # its reasons: output, not authored prose — out of the statistics, and collapsed in pull-request diffs.
 /docs/**/.assets/*/grid.md     linguist-generated
 /docs/**/.assets/*/tree.md     linguist-generated

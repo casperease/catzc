@@ -92,13 +92,13 @@ formats:
   drawio-png:
     area: review
     patterns: ["diagrams/**/*.drawio.png"]
-    producer: .claude/drawio/drawio_png.py
+    producer: python/Catzc.Diagrams/drawio_png.py
     audience: a person, in any image viewer or in draw.io
     validator: { kind: drawio-png }
   drawio-model:
     area: review
     patterns: ["diagrams/**/*.xml"]
-    producer: .claude/drawio/drawio_png.py
+    producer: python/Catzc.Diagrams/drawio_png.py
     audience: draw.io, and a maker editing the drawing
     validator: { kind: drawio-model }
   minimap-stack-png:
@@ -118,14 +118,14 @@ formats:
   contact-sheet-png:
     area: review
     patterns: ["diagrams/**/*.sheet.png"]
-    producer: .claude/drawio/contact_sheet.py
+    producer: python/Catzc.Diagrams/contact_sheet.py
     audience: a person, in any image viewer
     validator: { kind: png }
     limits: { width: 1300 }
   review-pdf:
     area: review
     patterns: ["diagrams/*.pdf"]
-    producer: .claude/drawio/gallery_pdf.py
+    producer: python/Catzc.Diagrams/gallery_pdf.py
     audience: a person, in any PDF viewer
     validator: { kind: pdf }
     limits: { min_pages: 1 }

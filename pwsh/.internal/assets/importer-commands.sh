@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "47e23cd8a81a"
+#     with_body_sha: "493f08b8c285"
 #     warning: "Do Not Edit, this file is generated"
 #     repo_status: locked
 #     path: pwsh/.internal/assets/importer-commands.sh
@@ -91,11 +91,13 @@ Install-Uv	Force	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Toolchain/Inst
 Invoke-BashTest	Module	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-BashTest.command.yml		
 Invoke-BashTest	EntryScript	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-BashTest.command.yml		
 Invoke-BashTest	EngineExecutable	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-BashTest.command.yml		
+Invoke-BashTest	Folder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-BashTest.command.yml		
 Invoke-GoTest	Module	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-GoTest.command.yml		
 Invoke-GoTest	EntryScript	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-GoTest.command.yml		
 Invoke-GoTest	GoExecutable	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-GoTest.command.yml		
 Invoke-GoTest	Engine	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-GoTest.command.yml		
 Invoke-GoTest	EngineExecutable	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-GoTest.command.yml		
+Invoke-GoTest	Folder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-GoTest.command.yml		
 Invoke-Poetry	Arguments	string	0	1	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Invoke-Poetry.command.yml		
 Invoke-Poetry	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Invoke-Poetry.command.yml		
 Invoke-Poetry	NoAssert	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Tooling.Python/Invoke-Poetry.command.yml		
@@ -106,6 +108,7 @@ Invoke-PythonTest	EntryScript	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Lang
 Invoke-PythonTest	UvExecutable	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-PythonTest.command.yml		
 Invoke-PythonTest	Engine	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-PythonTest.command.yml		
 Invoke-PythonTest	EngineExecutable	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-PythonTest.command.yml		
+Invoke-PythonTest	Folder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/Invoke-PythonTest.command.yml		
 New-GoWorkspace	Target	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/New-GoWorkspace.command.yml		
 New-PythonProject	Target	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Languages/New-PythonProject.command.yml		
 Publish-ContractRelease	Unit	string	0	1	0	contracts/catzc/0.0.0/Catzc.Base.Contracts/Publish-ContractRelease.command.yml		

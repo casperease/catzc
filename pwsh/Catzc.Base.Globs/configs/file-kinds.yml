@@ -93,12 +93,12 @@ kinds:
   asset:
     definition: A file a module ships that is neither code nor config, such as the source of a root file.
     files: ["pwsh/**/assets/**"]
-  drawio-kit:
-    definition: The tooling that draws and renders the diagrams, its scripts included.
-    files: [".claude/drawio/**"]
   slides-kit:
     definition: The kit a deck is rendered from, its defaults, its style guide and its patterns.
-    files: [".claude/slides/**"]
+    files: ["python/Catzc.Diagrams/assets/slides/**"]
+  drawio-kit:
+    definition: The tooling that draws and renders the diagrams, its scripts included.
+    files: ["python/Catzc.Diagrams/**"]
   script:
     definition: A standalone script that is no function of a module.
     files: ["**/*.py", "**/*.sh", "**/*.ps1"]

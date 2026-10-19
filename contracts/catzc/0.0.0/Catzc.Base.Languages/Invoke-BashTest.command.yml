@@ -3,4 +3,5 @@ parameters:
   Module: string!
   EntryScript: string
   EngineExecutable: string
+  Folder: string
 output: Catzc.Base.Languages.BashTestResult

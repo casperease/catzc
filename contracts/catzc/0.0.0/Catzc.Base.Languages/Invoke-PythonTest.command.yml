@@ -6,4 +6,5 @@ parameters:
   UvExecutable: string
   Engine: string
   EngineExecutable: string
+  Folder: string
 output: Catzc.Base.Languages.PythonTestResult
