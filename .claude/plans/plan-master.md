@@ -43,16 +43,11 @@ plans stay the durable record; task files and this master are derived from them 
 
 ## Chunks
 
-Open, in execution order. Nothing is held. Landed 2026-10-19 and pruned: iac-and-repo-placement, generated-file-heads, ado-and-cicd-docs,
-adr-automation-split, importer-mix, rungs-registry, generated-heads-body-sha-only and the contract drift test; their plans are deleted, and
-git holds the work. A chunk without a task file is executed from its plan's open steps directly.
+Open, in execution order. Nothing is held. A chunk without a task file is executed from its plan's open steps directly.
 
-- explanation-drift-gaps -> task-explanation-drift-gaps.md: the Q1 to Q3 proofs from the user's runs (blocked_on task-user-runs-and-commits
-  steps 1 and 2).
-- promotion-ladder -> plan-promotion-ladder.md, steps 2 and 3: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying check, after
-  the user's CD proof run.
+- promotion-ladder -> plan-promotion-ladder.md: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying check.
 - layers-classification-flip -> task-layers-classification-flip.md: P6, the `ci-automation` pipeline rename and the `automation` layer
-  form's retirement, on the day the user re-points the external definitions.
+  form's retirement.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

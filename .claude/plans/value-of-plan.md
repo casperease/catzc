@@ -24,13 +24,12 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Meta plans by value (how the repository describes and governs itself)
 
-| Value   | Plan                                    | Why                                                                                                                                  | Needed docs                                                        | Needed tests                                            | State                                                          |
-| ------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------- | -------------------------------------------------------------- |
-| highest | plan-master                             | The one executable order over every open step of every plan; task files are its disposable executables.                              | ADR-REPO-PLANS names the task files (the plans ADR)                | Test-Plans over the folder (the plans ADR)              | twelve chunks, seven takeable now                              |
-| high    | plan-layers-vocabulary-rename-contracts | Settles six words and names the public API.                                                                                          | ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, ADR-REPO-CMDCONTRACT; glossary | three terminology gates; guard rule; Test-Contracts     | P6 on the user's go; stray rules open; drift test landed       |
-| high    | plan-explanation-drift-gaps             | CD deploys the prod tier with no gate today (Q3), and the ADRs promise deploy-path, run-mode and safeguard behaviour the code lacks. | the articles' drift sections                                       | the user's pipeline runs and the approval sync run      | blocked on the user's three runs                               |
-| high    | plan-promotion-ladder                   | The ADRs' ladder (main-uat, release-uat, RC/RBC, pre-prod, DEPLOY) has no code; prod waits only on the new approval check.           | ADR-DSGN-LIFE, ADR-FLOW-CD as the answers decide                   | per pipeline, a run that shows the rung                 | rungs registry landed 2026-10-19; rename and check after proof |
-| high    | plan-diagram-engine                     | Every diagram and slide needs a correct, reproducible renderer driven by a yml declaration before its fixes can be judged.           | ADR-REPO-SLIDES rules for the declaration, directions and themes   | pytest on the moved tests; Test-Diagrams; minimap tests | isolated track, its own session; 23 steps open                 |
+| Value   | Plan                                    | Why                                                                                                                        | Needed docs                                                        | Needed tests                                            | State                                                          |
+| ------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------- | -------------------------------------------------------------- |
+| highest | plan-master                             | The one executable order over every open step of every plan; task files are its disposable executables.                    | ADR-REPO-PLANS names the task files (the plans ADR)                | Test-Plans over the folder (the plans ADR)              | four chunks |
+| high    | plan-layers-vocabulary-rename-contracts | Settles six words and names the public API.                                                                                | ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, ADR-REPO-CMDCONTRACT; glossary | three terminology gates; guard rule; Test-Contracts     | P6 on the user's go |
+| high    | plan-promotion-ladder                   | The ADRs' ladder (main-uat, release-uat, RC/RBC, pre-prod, DEPLOY) has no code.                                            | ADR-DSGN-LIFE, ADR-FLOW-CD as the answers decide                   | Test-Pipelines; a test of the certifying check | two steps, both takeable |
+| high    | plan-diagram-engine                     | Every diagram and slide is rendered from its yml; the minimaps, themes and the fold-back of a drawing are still missing. | ADR-REPO-SLIDES rules for the directions, minimaps and themes | the kit's pytest; Test-Diagrams; minimap tests | isolated track, its own session; 18 steps open |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
@@ -40,7 +39,5 @@ stale or superseded item is recorded as such, with the reason.
 ## Pending deletion
 
 A done plan, task file or landed prompt is deleted from disk directly (the user, 2026-10-19: "just delete done plans"); the user commits the
-deletion. Added 2026-10-19: `prompt-layers-1-retire-and-rename.md` (its P5 landed, its P6 lives in task-layers-classification-flip, and it
-waits on a report that does not exist) and `prompt-master-execute-continue.md` (names task numbers and decision files that are gone; a
-prompt is never rewritten). Added 2026-10-19 by the diagram track session: `plan-module-system-per-language.md`, every step landed the same
-day it was written; its decisions live in ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE and the three `*-MODULESBYLAYOUT` rules.
+deletion. A plan holds only planned work that is not yet implemented (the user, 2026-10-20): no Done section, no proof of built work, no
+explanation of how the tool behaves when a team uses it; that belongs in the docs.

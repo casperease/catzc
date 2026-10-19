@@ -12,29 +12,23 @@ plan:
       docs/adr/repository/slides-as-markdown.md,
       .claude/agents,
       .claude/skills,
-      docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.png,
       docs/adr/design/.assets/commit-lifecycle-states/diagram.drawio.png,
-      docs/adr/design/.assets/sync-point/diagram.drawio.png,
-      docs/explanation/automation/.assets/a-declared-allow-list-of-layers/diagram.drawio.png,
     ]
 ---
 
-# The diagram engine: a correct, reproducible minimapper and slider, then the diagram fixes
+# The diagram engine: the rest of the minimapper and slider
 
-The diagram and slide code is proof of concept and lives in `.claude/drawio` and `.claude/slides`. It becomes one module,
-`python/Catzc.Diagrams`, whose input is a declaration: a person or an LLM edits the yml beside a diagram, runs the renderer, and gets a
-`.drawio.png` with correct embedded XML and raster; a person may also edit the `.drawio.png` in the draw.io editor and fold the edit back
-into the yml. The minimaps are redefined first; the diagram fix list waits for that.
+`python/Catzc.Diagrams` renders each diagram from the yml beside it, and a draw.io edit folds back into the yml. Open: the edit-both
+conflict and the sync from a drawing, the minimap contract and the minimaps still missing, themes, every embedding page as an input, the
+last three diagrams, the agent retirement, and the five IaC diagrams.
 
 This plan is an **isolated track** (the user, 2026-10-19): it sits outside the master's chunk order, is taken by its own session, and no
-other chunk waits on any step here. The two things it once shared with other plans are cut: the rungs registry is declared by
-`plan-promotion-ladder` (this plan's lifecycle minimap reads it once it exists, and is built last), and the five IaC explanation diagrams of
-`plan-iac-and-repo-placement` are authored here, in the content list below. The other plans keep using today's renderer
-(`Build-Diagrams -Path`) to regenerate `.assets` pages until this plan's engine replaces it.
+other chunk waits on any step here. Its lifecycle minimap reads the rungs registry, and is built last.
 
 ## Why its value is high
 
-Every diagram and slide depends on it, and the fix list below cannot be judged until the renderer is correct.
+Every diagram and slide depends on it: a renderer that cannot fold back a draw.io edit, or minimaps that are not computed, leave the
+pictures unchecked.
 
 ## Decided (2026-10-19, from the user)
 
@@ -117,79 +111,6 @@ Every diagram and slide depends on it, and the fix list below cannot be judged u
   `drawio-model-edit`) are retired and one yml-editing agent plus one renderer skill replace them; a validation error names the allowed
   values of the vocabulary it failed, so the errors teach the kit.
 
-## What the tree holds (checked 2026-10-19)
-
-166 tracked `.drawio.png` (152 under `docs/explanation`, 11 under `docs/references`, 3 under `docs/adr`), 161 describe pages written by
-`describe.py` from the drawings, and 21 slides; none has a declaration. `describe.py` already reduces every drawing to the closed vocabulary
-of the kit (bands, glyphs from the glyph library, markers, span bars, legend, sidebar), which is what **get** writes into `content:`; the
-drawio export is deterministic for one XML and pinned fonts, which is what **put** relies on. The first declaration of every existing
-diagram is a **get**, so no drawing is redrawn to adopt the model; the round trip over the tree is the proof of the renderer, and a diagram
-that fails it (a glyph outside the library, an element get cannot name) is the real fix list, whose size is unknown until that run.
-
-## Done (2026-10-19) and why
-
-- The kit is the module `python/Catzc.Diagrams` of the python track, in the layout the module system holds every language track to
-  (plan-module-system-per-language, landed the same day): the scripts at the module root, the minimap scripts flattened to
-  `minimap_describe.py`, `minimap_render.py` and `minimap_join.py`, `configs/drawio.yml`, `assets/` for the glyph sheet, the template slide,
-  the atlas template and `STYLE.md`, `tests/` for the three test files, and the slides kit as `assets/slides/`. The user ran the `git mv`
-  set (37 renames). The two PowerShell steps are the commands `Export-MinimapData` (`Catzc.Base.Maps`) and `Update-MinimapPageHead`
-  (`Catzc.Base.Slides`), which the renderer runs in a pwsh that loads the importer. Every caller re-pointed: `SlidesConfig.cs`,
-  `slides.yml`, `MapsHighlight.cs`, `output-formats.yml`, `file-kinds.yml`, `variants.yml` (the `.claude-kits` track is gone),
-  `comments.yml` (`python/*` pages under `docs/references/python/`), `.gitattributes-template`, `terminology.yml`, the two agents and four
-  skills, ADR-REPO-SLIDES, the two reference articles, the glossary and the comment pages; the ~160 `diagram.drawio.md`, `grid.md` and
-  `tree.md` command lines still name `.claude/drawio` and are rewritten by the re-render step. Checks: pytest on the moved tests
-  `34 passed`; `Test-PythonTypes`: `No python-types issues found.`; `Test-PythonLint`: `No python-lint issues found.`; `Build-SlideDeck` on
-  the thesis deck: `21 slide(s) rendered`, `0 fault(s)`; `Build-Diagrams -DryRun` names the new renderer path; `Test-Comments`,
-  `Test-GeneratedFiles`, `Test-Links`, `Test-AgentDefinitions`: no issues (20:50).
-
-- The reference article `docs/references/python/catzc-diagrams.md` and the `python/*` pattern in `readme.yml`:
-  `Build-Readme -Folder python/Catzc.Diagrams` writes `python/Catzc.Diagrams/README.md`; `Test-Links` on both: `No links issues found.`
-  (21:09).
-- The yml declaration, `python/Catzc.Diagrams/declaration.py`: one schema (`content:` with title, adrs, lens, kind, flow, theme, bands,
-  spans over bands, groups that nest through `in`, glyphs with kind and holder, edges, markers, chips, legend, three minimaps; `layout:` per
-  named cell), one parser whose every vocabulary is closed and names the allowed values on refusal, put (yml to model XML to raster through
-  `drawio_png`, the grid placing what `layout:` does not name, the legend and sidebar derived) and get (model XML to yml by the glyph
-  library's style signatures, band containment and parent groups, a layout entry kept only where a cell sits off the grid). The vocabularies
-  live in `configs/drawio.yml` (`kinds`, `themes`, `minimaps` with the ids and the two kind defaults, `vocabularies` with the span word
-  lists); `pyyaml` joins `python.yml`; the crossbar paints rotated for top-to-bottom flow. Rules 8 and 9 of ADR-REPO-SLIDES (`DECLARATION`,
-  `TWODIRECTIONS`) and the glossary term landed with it. Checks: `tests/test_declaration.py` proves put then get the same yml, get then put
-  the same XML, a span label outside the vocabularies refused with the words, a nested group round trip, grid placement and a moved cell
-  kept, top-to-bottom, the minimap defaults and count, and the embedded png read back; kit pytest `43 passed`; ruff and pyright clean;
-  `Test-Spelling`: no issues (21:11).
-- The one-source model and the conversion pass (2026-10-19, evening). Each diagram folder holds `diagram.drawio.yml` (`description:`,
-  `about:` with lens, adrs, tracks, languages, modules, files, each checked against its registry; `content:`; `layout:`) and the render; no
-  markdown, no sister files, no layout file; the diagram names no article. The kit grew: the smooth renderer (supersampled), the lens chip
-  opening the title row (the subtitle holds only the ADR codes, the sidebar no codes), minimaps computed from `about:` (code locations,
-  module neighbourhood, delivery axis, grid; the rest a labelled frame) in `minimaps.py`, the two-swatch map key, `relation:` naming the
-  flow legend, edges and markers and chips on groups and bands, numbered rule chips keyed in the legend (dashed when ungated), commit states
-  in the locked palette with ghosts (`commits:` in `drawio.yml`), spans over whole bands or the glyphs of one band, stacking, with the
-  drawing area moved down when they need room, and markers that take the corner away from arriving edges. `Update-MinimapPageHead` is
-  removed; minimap outputs land in `out/drawio/minimaps/`; `Build-Diagrams` runs the renderer in the kit's uv project and puts a folder that
-  has a yml. 148 of 166 diagrams are converted by hand-written ymls (7 by this session, 141 by seven workers on `out/drawio/pass/BRIEF.md`),
-  their describe pages and minimap files deleted and the article links removed; `adronly` joined the coined terms. Checks: kit pytest
-  `56 passed`; all 148 put; the gates per slice clean (lint, types, links, spelling).
-- The kit gaps the later batch named (2026-10-19): an edge marker sits halfway along the edge's `via` path, in put and get; the span
-  vocabulary reads its track names from `variants.yml` (the hand list in `drawio.yml` said `pipelines`, the registry says `ado-pipelines`);
-  "declared" and "derived" stay groups, as `two-declared-layers-one-derived` draws them, since a span covers one band's items and those
-  cross bands. No converted diagram had a marker on a routed edge, so none needed a new put.
-- The sync source (the user, 2026-10-19: "the BVT verified server head is both the sync source and the main-uat source (if deployed)"): the
-  rule is renamed ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD and rewritten with its section, `server-remote-integration.md` follows, every citation
-  is re-cited by `Update-AdrCitation`, and the eight `docs/explanation/design` articles are re-pointed; the ladder of
-  `integrators-sync-from-the-bvt-verified-head` reads left to right in promotion order; the two articles whose titles named the occupant and
-  the certified commit are retitled and moved by `Move-Diagram` (`integrators-sync-from-the-bvt-verified-head`,
-  `sync-from-the-bvt-verified-head`). Checks: Test-AdrRegistry, Test-Links, Test-Spelling and Test-Glossary clean.
-- The drift gate `Test-Diagrams` (`Catzc.Base.Slides`): the kit's `declaration.py check` compares the model embedded in each png with put of
-  its yml and names the cells that differ; a differing minimap alone is stale, a fact and not an issue (ADR-REPO-SLIDES-TWODIRECTIONS says
-  so). Its first run found 29 drifted folders (subtitles after the re-cite, count chips after the corner rule, and titles where put escaped
-  an apostrophe, a kit bug fixed: labels escape `<`, `>` and `&` only); all were put again. Checks: kit pytest `64 passed`, Pester
-  `Test-Diagrams.Tests.ps1` 6 passed, the check over all 162 folders 0 drifted.
-- Two handed-over steps closed: the old `pipelines/` label reads `.ado/pipelines/cd-apex.yaml` in
-  `apex-thirteen-rules-seven-includes-six-excludes` and `print-projection-then-drift-names-the-filter`
-  (`globs-projects-and-three-consumers-read` already did), both put; the `what-gates-each-bundle-stage` `{chain,grid,tree}.md` pages that
-  cited `docs/adr/pwsh` were deleted by the conversion, so nothing is left to rewrite. The root-config pages of
-  `docs/explanation/repository` describe the headed copy (the root-config worker's pass); `git grep FILESYSTEMLINK docs/explanation` finds
-  nothing.
-
 ## Open steps
 
 - [ ] `Test-Diagrams` detects a conflict: when the yml differs from get of the png in `content:` and the png's XML differs from put of the
@@ -233,16 +154,12 @@ that fails it (a glyph outside the library, an element get cannot name) is the r
       png, and the supports-drift check holds each one's Supports line against the yml's codes; ADR-REPO-SLIDES-ONEBUILDCOMMAND says so;
       `gallery_pdf.py` prints the yml's `description:` instead of the deleted describe page (check: a second article embedding one of the
       two ado diagrams builds clean; Test-Adr clean). The two ado folders already hold only `diagram.drawio.yml` and the png.
-- [ ] Redraw each listed diagram, one at a time, the four below first, extending the glyph library or the schema only when a reason repeats
-      across diagrams (check: each is put from its declaration, passes `Test-Diagrams`, and is reviewed by the user).
 - [ ] Rework the data of every existing diagram's minimaps on the new definition (check: re-render one folder, review, then the rest).
 - [ ] Retire `.claude/agents/drawio-png.md`, `.claude/agents/write-drawio-files.md` and `.claude/skills/drawio-model-edit/`, and add one
       yml-editing agent (edits `content:`, runs put in the background under the safeguard, reports the warnings) and one renderer skill
       (put, get, `-FromDrawing`, `-Theme`, `-Stale`); the registry entries in `pwsh/Catzc.Base.Docs/configs/agents.yml` and
       `capabilities.yml` and the agent list in `.claude/CLAUDE.md` change in the same step (check: Test-AgentDefinitions clean;
       `drawio-diagram-waves` and `print-artifacts` call the new skill).
-- [ ] Fix the four diagrams below once the steps above are done, one diagram at a time (check: each is put from its declaration and reviewed
-      by the user; blocked on the renderer steps).
 - [ ] Move ADR-DSGN-LIFE to `docs/adr/flow` with `Update-AdrCitation` re-citing its codes (check: Test-Adr and Test-Links clean;
       `plan-promotion-ladder` re-points its target).
 - [ ] The IaC explanation diagram of the three kinds, from `plan-iac-and-repo-placement`: article and yml declaration under
@@ -269,17 +186,6 @@ The facts below are the ones the file-meta kinds already produce (`file-meta.yml
 | track placement      | which tracks, track types and vendors the files sit in | `track`, `track-type`, `vendor`                                   | facts exist                                                          |
 | engine strip         | which file languages and engines the subject touches   | `file-language`, `ExecutionEngines.cs` (pwsh, bash, zsh)          | facts and registry exist                                             |
 | module neighbourhood | the subject's modules and their dependency edges       | `module-name`, `dependencies.yml` (`DependenciesConfig`)          | facts and registry exist                                             |
-
-## The diagram fix list (waits on the renderer)
-
-- `azure-name-assembly`: far too crowded. Keep the top row. Add a full-width `Resource Name` bracket above it. Cut the middle rows hard.
-  Keep the final row of boxed name listings, but move the type names out of the boxes as headers (Resource Groups, Storage, Virtual
-  Machine). Rework the legend. Minimaps later.
-- `commit-lifecycle-states`: solid; rename to `commit-promotion-states`, move its text into an article, and re-home it with the ADR in flow.
-- `sync-point`: it is about not working from a shared dirty head but taking the latest BVT-verified server HEAD. That head is also the next
-  candidate for main-UAT, but the diagram reads as syncing from main-UAT. Make the BVT-verified HEAD the sync source and show the main-UAT
-  queue as a separate fact.
-- `a-declared-allow-list-of-layers`: generalize as decided above.
 
 ## Refs
 

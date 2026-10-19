@@ -36,7 +36,9 @@ that apply them in dependency order. In `cd-apex`, each deploy stage reaches the
    entries only, and `cd-flux` has no expedition. The standalone `cd-shared.yaml` deploys `shared-nsub`, `shared-dev` and `shared-test`.
 6. **Prod-tier targets.** Through the `sc-<customer>-prod` service connection, `cd-apex` deploys foundation and discovery to `psub` and the
    expedition to `prod`, and `cd-shared.yaml` deploys `shared-psub`. The jobs come from `${{ each }}` and share each stage with no order
-   between them, so prod-tier jobs run beside the non-prod ones, with no gate between the environments.
+   between them, so prod-tier jobs run beside the non-prod ones. The approval check on a prod-tier environment is configured in the
+   execution engine, by the adopting team's apply of the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals`; this
+   repository ships the config and the apply but runs none (ADR-FLOW-CD-PRODAPPROVALGATE).
 
 ## Why it holds
 

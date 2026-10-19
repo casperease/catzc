@@ -1,6 +1,6 @@
 description: >-
   One artifact is built and verified once, tested in non-prod, and let into production by a manual gate, so production runs exactly the
-  bytes non-prod certified; today the CD pipelines also deploy production themselves, past the gate.
+  bytes non-prod certified; today the CD pipelines also deploy production themselves, in the same run.
 about:
   lens: meta
   adrs:

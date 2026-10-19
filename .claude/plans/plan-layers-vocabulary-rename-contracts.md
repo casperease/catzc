@@ -3,15 +3,13 @@ plan:
   status: blocked
   value: high
   reviewed: 2026-10-19
-  waits_on: P6 pipeline renames wait for the user's go, the same day the user re-points Azure DevOps and GitHub
+  waits_on: P6 pipeline renames wait for the user's go, the same day the user re-points the GitHub bindings
   targets: [pwsh, docs/adr/automation, docs/adr/repository, contracts, pwsh/Catzc.Base.Docs/configs]
 ---
 
 # Automation is the abstract term; the PowerShell track is named pwsh; public commands get contracts
 
-`automation/` is `pwsh/`, ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER and ADR-REPO-CMDCONTRACT are written, the contracted command set is in
-`contracts/`, and the glossary carries the avoid-phrasings of the retired layer words (P5). Open: P6, the externally bound pipeline names
-and the last old layer form.
+Open: P6, the externally bound pipeline names and the last old layer form.
 
 ## Why its value is high
 
@@ -23,18 +21,9 @@ by naming which public functions are contracted. Every later plan speaks this vo
 - 2026-10-16, all took the recommendation: `invoke-automation.yaml` and `release-automation.yml` keep their names (they invoke and release
   the automation, the abstract thing); `Test-Automation`, its helpers and `test-automation/` keep theirs; the concern `automation`, the
   value-chain row AUTO and the `ADR-AUTO-*` codes are never re-coded; bash, python and go stay test-artifact languages; P6 renames
-  `ci-automation`, `ci-automation-expected-failures` and the globset, and the user re-points the Azure DevOps and GitHub bindings outside
-  git the same day; nothing is rendered unasked.
-- Public API (F6, S5, D21): internal is internal to its module; the pilot contracts are hand-written; generating a contract from the ADR
-  that defines it is a direction tried on the second set.
-- 2026-10-19, the user: the importer-mix build (L3 to L5) is its own plan, `plan-importer-mix.md`; this plan closes when P6 and the two
-  steps below land.
-
-## Done
-
-- P7 (2026-10-18, D26, D27, task-command-contracts): five dead functions left the tree, the Test/Assert pair halves and debug writers stay
-  exported, the how-to-named commands the grammar can state are contracted; `CONTRACTS issues=0`, 65 contracted commands; the parameter-set
-  grammar and the QualityGateResult gate contracts landed; the test runners return TestRunResult and IsolationRunResult and are contracted.
+  `ci-automation`, `ci-automation-expected-failures` and the globset, and the user re-points the GitHub bindings outside git the same day
+  (no Azure DevOps organization is connected yet); nothing is rendered unasked.
+- This plan closes when P6 lands.
 
 ## Open steps
 

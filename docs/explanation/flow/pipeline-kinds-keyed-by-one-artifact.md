@@ -40,8 +40,9 @@ kinds rather than inside them, and it shows the path the CD pipelines in the rep
 7. **Pre-prod and production.** DEPLOY-Prod drives the RBC-cleared artifact first into pre-prod, staged but not serving, and then activates
    the same bytes live in production.
 8. **The CD run's own path to prod.** The apex and shared CD pipelines deploy the artifact to the prod tier themselves, in the same run as
-   non-prod, with no gate and no DEPLOY in between: `psub` for both, and the expedition `prod` for apex. No CD pipeline deploys a pre-prod
-   target, so the path ends on production.
+   non-prod, with no DEPLOY in between: `psub` for both, and the expedition `prod` for apex. No CD pipeline deploys a pre-prod target, so
+   the path ends on production. The approval check on a prod-tier environment is the engine's, configured by the adopting team's apply of
+   the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals` (ADR-FLOW-CD-PRODAPPROVALGATE).
 
 ## Why it holds
 
@@ -59,7 +60,7 @@ kinds rather than inside them, and it shows the path the CD pipelines in the rep
 ## Where the code and the ADR differ
 
 - The ADR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
-  run, with no gate and no DEPLOY pipeline.
+  run, with no DEPLOY pipeline.
 - The ADR gives a solo CI pipeline a tagged artifact as its output, while the pipeline-types ADR says a solo CI produces only a pass/fail
   signal; the solo CI pipelines in the repository publish no artifact.
 - The artifact carries no tag, and no pipeline runs the on-demand L3 environment, release-uat, RC, RBC or DEPLOY.

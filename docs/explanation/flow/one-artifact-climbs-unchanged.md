@@ -8,15 +8,15 @@ One artifact is built once and climbs to production unchanged.
 3  non-prod          the same bytes tested in non-prod, automated
 4  human gate        a person certifies the artifact; it clears or holds, never half
 5  production        past the gate, DEPLOY rolls the same artifact to prod
-6  the shortcut      the CD pipelines deploy production themselves today, with no gate
+6  the shortcut      the CD pipelines deploy production themselves today, in the same run
 
 Supports ADR-FLOW-CD-SHORTINTEGRATIONCYCLE, ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY, ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-GATEDEFINED (meta lens).
 ```
 
 Build-once, deploy-many is the idea at the heart of the cats promotion flow. One artifact is built and verified once, tested in non-prod,
 and then let into production by a manual gate. Because nothing downstream rebuilds it, production runs exactly the bytes that non-prod
-certified. The flow splits into an automated side and a governed side, and the CD pipelines in the repository today take a shortcut past the
-governed one.
+certified. The flow splits into an automated side and a governed side, and the CD pipelines in the repository today deploy the prod tier
+themselves, in the same run.
 
 ![One artifact is built once and climbs to production unchanged](.assets/one-artifact-climbs-unchanged/diagram.drawio.png)
 
@@ -27,11 +27,12 @@ governed one.
    a release candidate: versioned, never rebuilt, and promotable toward production.
 3. **Non-prod.** The same bytes are tested in non-prod: first an on-demand environment with system tests, then an always-on environment that
    tracks the latest main.
-4. **Manual gate.** A person certifies the artifact and decides whether it may proceed; a gate clears or holds, never half. No pipeline
-   carries this gate yet.
+4. **Manual gate.** A person certifies the artifact and decides whether it may proceed; a gate clears or holds, never half. The approval
+   check lives in the execution engine: the adopting team applies the shipped `environment-approvals.yml` with
+   `Sync-AdoEnvironmentApprovals` (ADR-FLOW-CD-PRODAPPROVALGATE), and this repository ships that tooling but runs no apply.
 5. **Production.** Past the gate, the flow leaves automation and enters DEPLOY, the pipeline that acts once the gate clears.
-6. **The shortcut.** The apex and shared CD pipelines deploy the artifact to the prod tier themselves, in the same run as non-prod, without
-   passing a gate.
+6. **The shortcut.** The apex and shared CD pipelines deploy the artifact to the prod tier themselves, in the same run as non-prod; the
+   approval check on those environments is the engine's, configured by the adopting team's apply.
 
 ## Why it holds
 
@@ -46,7 +47,7 @@ governed one.
 ## Where the code and the ADR differ
 
 - The ADR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
-  run, with no gate.
+  run.
 - No pipeline tags the artifact or runs the on-demand environment with system tests.
 
 ## See also
