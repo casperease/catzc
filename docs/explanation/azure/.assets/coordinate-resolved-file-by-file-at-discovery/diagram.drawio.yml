@@ -1,6 +1,6 @@
 description: >-
-  Discovery parses each config file's name, resolves its (customer, environment) coordinate through the one shared check, and builds a
-  slot only when exactly one subscription remains; any violation stops with one invalid-config throw.
+  Discovery parses each config file's name, resolves its (customer, environment) coordinate through the one shared check, and builds a slot
+  only when exactly one subscription remains; any violation stops with one invalid-config throw.
 about:
   lens: implementation
   adrs:

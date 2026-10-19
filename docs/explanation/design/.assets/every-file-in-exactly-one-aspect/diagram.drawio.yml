@@ -1,4 +1,3 @@
-# cspell:ignore adronly
 description: >-
   Every file of a module folder goes to exactly one aspect by ordered first match: live first by a closed convention, tests as the
   remainder, and each aspect has its own sha lock.

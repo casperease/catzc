@@ -23,7 +23,7 @@ content:
   glyphs:
     - { id: g-local-clone, kind: store, label: local clone, in: band-in }
     - { id: g-pull-request, kind: gate, label: pull request, in: band-in }
-    - { id: g-head, kind: commit, label: HEAD, in: band-server }
+    - { id: g-head, kind: commit, label: HEAD, in: band-server, state: landed }
     - { id: g-verified, kind: commit, label: verified point, in: band-server }
     - { id: g-consumers, kind: store, label: consumer clones, in: band-out }
   edges:

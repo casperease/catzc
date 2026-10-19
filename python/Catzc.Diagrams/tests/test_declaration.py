@@ -233,3 +233,104 @@ def test_a_rule_chip_names_a_rule_the_diagram_covers():
     raw["content"]["chips"] = [{"at": "gadget-gate", "kind": "rule", "rule": "ADR-WIDGET-ELSEWHERE"}]
     with pytest.raises(declaration.DeclarationError, match="rule chip at 'gadget-gate' rule 'ADR-WIDGET-ELSEWHERE' is not one of"):
         declaration.normalise(raw)
+
+
+def test_commits_draw_in_their_palette_state_and_ghosts_come_back():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["glyphs"] += [
+        {"id": "commit-one", "kind": "commit", "label": "1", "in": "band-widgets", "state": "topic"},
+        {"id": "commit-two", "kind": "commit", "label": "2", "in": "band-widgets", "state": "landed", "ghost": True},
+        {"id": "commit-three", "kind": "commit", "label": "3", "in": "band-gadgets"},
+    ]
+    first = declaration.normalise(raw)
+    model = declaration.put(first)
+    assert "fillColor=#C4915C" in model and "fillColor=#C9CCD1" in model and "opacity=60" in model
+    assert 'value="commit: topic"' in model and 'value="commit: landed (ghost)"' in model
+    back = declaration.get(model, kind="explanation")
+    commits = lambda d: {g["id"]: g for g in d["content"]["glyphs"] if g["kind"] == "commit"}
+    assert commits(back) == commits(first)
+    again = declaration.get(declaration.put(back), kind="explanation")
+    assert declaration.dump(again) == declaration.dump(back)
+
+
+def test_only_a_commit_takes_a_state_and_only_a_palette_state():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["glyphs"][0]["state"] = "topic"
+    with pytest.raises(declaration.DeclarationError, match="only a commit takes a state"):
+        declaration.normalise(raw)
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["glyphs"].append({"id": "commit-one", "kind": "commit", "label": "1", "in": "band-widgets", "state": "purple"})
+    with pytest.raises(declaration.DeclarationError, match="state 'purple' is not one of: bvt, topic, landed"):
+        declaration.normalise(raw)
+
+
+def test_a_span_sits_above_its_bands_and_a_wider_span_stacks_over_a_narrower_one():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["spans"] = [
+        {"id": "span-wide", "label": "CD", "over": ["band-widgets", "band-gadgets"]},
+        {"id": "span-narrow", "label": "CI", "over": ["band-widgets"]},
+    ]
+    cells = {c["id"]: c for c in declaration.place(declaration.normalise(raw))[0]}
+    top = cells["band-widgets"]["y"]
+    assert cells["span-narrow"]["y"] == top - 24 and cells["span-wide"]["y"] == top - 24 - 32
+
+
+def test_a_span_over_glyphs_of_one_band_covers_just_them_and_comes_back():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["spans"] = [{"id": "span-gate", "label": "CI", "over": ["gadget-gate"]}]
+    first = declaration.normalise(raw)
+    cells = {c["id"]: c for c in declaration.place(first)[0]}
+    assert cells["span-gate"]["x"] == cells["gadget-gate"]["x"] and cells["span-gate"]["w"] == cells["gadget-gate"]["w"]
+    back = declaration.get(declaration.put(first), kind="explanation")
+    assert back["content"]["spans"] == first["content"]["spans"]
+
+
+def test_a_marker_on_an_edge_and_corners_for_markers_and_chips_round_trip():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["markers"] = [
+        {"at": "widget-a", "number": 1, "corner": "bottom-left"},
+        {"at": "widget-a->gadget-store", "number": 2},
+        {"at": "gadget-store", "number": 3},
+    ]
+    raw["content"]["chips"] = [{"at": "gadget-gate", "kind": "count", "text": "87", "corner": "top-left"}]
+    first = declaration.normalise(raw)
+    cells = {c["id"]: c for c in declaration.place(first)[0]}
+    a, s = cells["widget-a"], cells["gadget-store"]
+    assert cells["mark-2"]["x"] == round((a["x"] + a["w"] / 2 + s["x"] + s["w"] / 2) / 2 - 11)
+    back = declaration.get(declaration.put(first), kind="explanation")
+    assert back["content"]["markers"] == first["content"]["markers"]
+    assert back["content"]["chips"] == first["content"]["chips"]
+
+
+def test_labels_keep_angle_brackets():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["title"] = "Widgets pass <RunCommand> to gadgets"
+    first = declaration.normalise(raw)
+    back = declaration.get(declaration.put(first), kind="explanation")
+    assert back["content"]["title"] == "Widgets pass <RunCommand> to gadgets"
+
+
+def test_a_commit_occupies_an_environment_and_comes_back():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["glyphs"] += [
+        {"id": "env-uat", "kind": "env", "label": "gadget UAT", "in": "band-gadgets"},
+        {"id": "commit-six", "kind": "commit", "label": "6", "in": "env-uat", "state": "main-uat"},
+    ]
+    first = declaration.normalise(raw)
+    model = declaration.put(first)
+    assert 'id="commit-six"' in model and 'parent="env-uat"' in model
+    back = declaration.get(model, kind="explanation")
+    occupant = next(g for g in back["content"]["glyphs"] if g["id"] == "commit-six")
+    assert occupant["in"] == "env-uat" and occupant["state"] == "main-uat"
+
+
+def test_an_edge_routes_through_its_waypoints_and_a_repeat_edge_keeps_its_own_path():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["edges"] += [
+        {"from": "widget-a", "to": "gadget-store", "kind": "adr", "via": [[400, 520], [900, 520]]},
+    ]
+    first = declaration.normalise(raw)
+    model = declaration.put(first)
+    assert '<mxPoint x="400" y="520" />' in model and 'id="e-widget-a-gadget-store~2"' in model
+    back = declaration.get(model, kind="explanation")
+    assert [e.get("via") for e in back["content"]["edges"] if e["kind"] == "adr" and e["from"] == "widget-a"] == [[[400, 520], [900, 520]]]

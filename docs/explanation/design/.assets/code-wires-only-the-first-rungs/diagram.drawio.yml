@@ -1,4 +1,3 @@
-# cspell:ignore adronly
 description: >-
   The pipelines wire only the first three rungs of the commit lifecycle: a pull request, the merge, and the CD run's own CI engine; past the
   build validation commit the deploy stages follow the template, not a rung.
@@ -20,9 +19,9 @@ content:
     - { id: span-integration, label: CI, over: [band-pre, band-post] }
     - { id: span-delivery, label: CD, over: [band-validation, band-deploy] }
   glyphs:
-    - { id: c-topic, kind: commit, label: topic, in: band-pre }
+    - { id: c-topic, kind: commit, label: topic, in: band-pre, state: topic }
     - { id: r-pull-request, kind: runner, label: "pr: [main]", in: band-pre }
-    - { id: c-landed, kind: commit, label: landed, in: band-post }
+    - { id: c-landed, kind: commit, label: landed, in: band-post, state: landed }
     - { id: r-trigger, kind: runner, label: "trigger: [main]", in: band-post }
     - { id: r-stage, kind: runner, label: CD stage CI, in: band-validation }
     - { id: c-verified, kind: commit, label: BVT, in: band-validation }

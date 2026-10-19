@@ -1,4 +1,3 @@
-# cspell:ignore adronly
 description: >-
   A client's change goes from its local clone through the server's identity model and branch policy to HEAD on the server remote, and
   consumers clone out from the verified point.
@@ -25,7 +24,7 @@ content:
     - { id: s-clone, kind: store, label: local clone, in: band-in }
     - { id: g-identity, kind: adronly, label: identity model, in: band-request }
     - { id: g-policy, kind: gate, label: branch policy, in: band-request }
-    - { id: c-head, kind: commit, label: HEAD, in: band-remote }
+    - { id: c-head, kind: commit, label: HEAD, in: band-remote, state: landed }
     - { id: c-verified, kind: commit, label: verified point, in: band-remote }
     - { id: s-consumers, kind: store, label: consumer clones, in: band-out }
   edges:

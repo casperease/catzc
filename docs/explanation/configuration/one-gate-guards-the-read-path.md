@@ -22,8 +22,8 @@ convention.
 
 ![One quality gate guards the config read path](.assets/one-gate-guards-the-read-path/diagram.drawio.png)
 
-In the walkthrough, `L` is ADR-CONF-LOADING, `A` is ADR-CONF-ADDRESSING and `T` is ADR-AUTO-TEST; the diagram's rule chips are keyed
-in its legend.
+In the walkthrough, `L` is ADR-CONF-LOADING, `A` is ADR-CONF-ADDRESSING and `T` is ADR-AUTO-TEST; the diagram's rule chips are keyed in its
+legend.
 
 ## Walkthrough
 

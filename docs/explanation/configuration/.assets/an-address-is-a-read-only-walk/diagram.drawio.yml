@@ -1,6 +1,6 @@
 description: >-
-  A global config address is a read-only walk over the one config the reader has already loaded and cached: the caller's string goes
-  through the one reader to the cached node, and a wrong address throws at the call.
+  A global config address is a read-only walk over the one config the reader has already loaded and cached: the caller's string goes through
+  the one reader to the cached node, and a wrong address throws at the call.
 about:
   lens: meta
   adrs:

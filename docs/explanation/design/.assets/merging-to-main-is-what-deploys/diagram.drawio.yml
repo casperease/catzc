@@ -24,11 +24,11 @@ content:
     - { id: span-ci, label: CI, over: band-out-of-band }
     - { id: span-cd, label: CD, over: band-after }
   glyphs:
-    - { id: g-push, kind: commit, label: "push topic, open PR", in: band-topic }
+    - { id: g-push, kind: commit, label: "push topic, open PR", in: band-topic, state: topic }
     - { id: g-pr-build, kind: runner, label: ADO PR build, in: band-out-of-band }
     - { id: g-release, kind: runner, label: "Release: Run workflow", in: band-out-of-band }
     - { id: g-deploy-topic, kind: adronly, label: deploy topic, in: band-out-of-band }
-    - { id: g-complete, kind: commit, label: complete PR, in: band-main }
+    - { id: g-complete, kind: commit, label: complete PR, in: band-main, state: landed }
     - { id: g-cd-run, kind: runner, label: ADO CD run, in: band-after }
     - { id: g-environment, kind: env, label: "<Customer>-<env>[-<slot>]", in: band-after }
   edges:

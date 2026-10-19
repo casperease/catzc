@@ -29,6 +29,10 @@ content:
   bands:
     - { id: band-flow, label: FLOW }
     - { id: band-checks, label: CHECKS }
+  spans:
+    - { id: span-ci, label: CI, over: [g-inner-loop] }
+    - { id: span-cd, label: CD, over: [g-inner-loop, g-cd] }
+    - { id: span-deploy, label: DEPLOY, over: [g-rc, g-deploy-non-prod, g-rbc, g-deploy-prod] }
   groups:
     - { id: grp-flow, label: "kinds and gates, merge to production", in: band-flow }
   glyphs:
@@ -62,14 +66,14 @@ content:
     - { at: g-deploy-prod, kind: rule, rule: ADR-FLOW-CD-TWOENVIRONMENTACTIVATION, gated: false }
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
-  band-flow: { x: 20, y: 108, w: 1260, h: 200 }
-  band-checks: { x: 20, y: 328, w: 1260, h: 160 }
-  grp-flow: { x: 40, y: 148, w: 1220, h: 144 }
-  g-inner-loop: { x: 70, y: 210, w: 180, h: 56 }
-  g-cd: { x: 290, y: 210, w: 160, h: 56 }
-  g-rc: { x: 490, y: 206, w: 110, h: 64 }
-  g-deploy-non-prod: { x: 640, y: 210, w: 190, h: 56 }
-  g-rbc: { x: 870, y: 206, w: 110, h: 64 }
-  g-deploy-prod: { x: 1020, y: 210, w: 190, h: 56 }
-  g-machine-gate: { x: 120, y: 364, w: 220, h: 90 }
-  g-reviewer: { x: 700, y: 368, w: 120, h: 80 }
+  band-flow: { x: 20, y: 152, w: 1260, h: 200 }
+  band-checks: { x: 20, y: 372, w: 1260, h: 160 }
+  grp-flow: { x: 40, y: 192, w: 1220, h: 144 }
+  g-inner-loop: { x: 70, y: 254, w: 180, h: 56 }
+  g-cd: { x: 290, y: 254, w: 160, h: 56 }
+  g-rc: { x: 490, y: 250, w: 110, h: 64 }
+  g-deploy-non-prod: { x: 640, y: 254, w: 190, h: 56 }
+  g-rbc: { x: 870, y: 250, w: 110, h: 64 }
+  g-deploy-prod: { x: 1020, y: 254, w: 190, h: 56 }
+  g-machine-gate: { x: 120, y: 408, w: 220, h: 90 }
+  g-reviewer: { x: 700, y: 412, w: 120, h: 80 }

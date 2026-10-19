@@ -1,6 +1,6 @@
 description: >-
-  Get-BicepDeploymentContext reads the az session and resolves it against azure.yml, applies the optional subscription guard, and
-  only then addresses the slot: the environment check, the configuration file and the resource-group name.
+  Get-BicepDeploymentContext reads the az session and resolves it against azure.yml, applies the optional subscription guard, and only then
+  addresses the slot: the environment check, the configuration file and the resource-group name.
 about:
   lens: implementation
   adrs:

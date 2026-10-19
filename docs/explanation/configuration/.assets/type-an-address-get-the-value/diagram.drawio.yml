@@ -1,0 +1,62 @@
+description: >-
+  Three commands dereference a global config address and show the same two things: Get-ConfigValue returns the value, Write-EnvironmentSet
+  prints it with secrets masked, and Build-Bicep renders it into a parameters file; a wrong address throws a message at the call.
+about:
+  lens: operations
+  adrs:
+    - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+    - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+    - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+    - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+  tracks: [pwsh]
+  languages: [powershell]
+  modules: [Catzc.Base.Config, Catzc.Tooling.Environment, Catzc.Azure.Templates]
+  files:
+    - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+    - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+    - pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
+content:
+  title: Type an address and get its value back; a wrong address throws its message at the call
+  kind: explanation
+  relation: prints or writes
+  bands:
+    - { id: band-command, label: COMMAND }
+    - { id: band-see, label: WHAT YOU SEE }
+    - { id: band-fail, label: FAIL FAST }
+  glyphs:
+    - { id: g-value, kind: code, label: Get-ConfigValue, in: band-command }
+    - { id: g-env, kind: code, label: Write-EnvironmentSet, in: band-command }
+    - { id: g-build, kind: code, label: Build-Bicep, in: band-command }
+    - { id: r-value, kind: result, label: "'0.43.8'", in: band-see }
+    - { id: r-lines, kind: result, label: BICEP = 0.43.8 · TOK = ***, in: band-see }
+    - { id: r-params, kind: result, label: parameters.<config>.json, in: band-see }
+    - { id: f-wrong, kind: failure, label: wrong address throws, in: band-fail }
+    - { id: f-invalid, kind: failure, label: invalid addressed parameters, in: band-fail }
+  edges:
+    - { from: g-value, to: r-value, label: "'global.azure.…'" }
+    - { from: g-env, to: r-lines, label: "-Set @{ … }" }
+    - { from: g-build, to: r-params, label: "{ address: global.… }" }
+    - { from: g-value, to: f-wrong, kind: fail }
+    - { from: g-build, to: f-invalid, kind: fail }
+  markers:
+    - { at: g-value, number: 1 }
+    - { at: r-value, number: 2 }
+    - { at: g-env, number: 3 }
+    - { at: r-lines, number: 4 }
+    - { at: g-build, number: 5 }
+    - { at: r-params, number: 6 }
+    - { at: f-wrong, number: 7 }
+    - { at: f-invalid, number: 8 }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-command: { x: 20, y: 84, w: 280, h: 380 }
+  band-see: { x: 460, y: 84, w: 400, h: 380 }
+  band-fail: { x: 880, y: 84, w: 400, h: 380 }
+  g-value: { x: 60, y: 134, w: 200, h: 44 }
+  g-env: { x: 60, y: 254, w: 200, h: 44 }
+  g-build: { x: 60, y: 374, w: 200, h: 44 }
+  r-value: { x: 500, y: 134, w: 320, h: 44 }
+  r-lines: { x: 500, y: 254, w: 320, h: 44 }
+  r-params: { x: 500, y: 374, w: 320, h: 44 }
+  f-wrong: { x: 920, y: 194, w: 320, h: 44 }
+  f-invalid: { x: 920, y: 290, w: 320, h: 44 }

@@ -1,6 +1,6 @@
 description: >-
-  Get-ConfigValue and Get-Config resolve a name to one file and answer with the session's cached object; the first read parses and
-  types the file, and a bad key, an unknown or ambiguous name or a malformed config throws at the call.
+  Get-ConfigValue and Get-Config resolve a name to one file and answer with the session's cached object; the first read parses and types the
+  file, and a bad key, an unknown or ambiguous name or a malformed config throws at the call.
 about:
   lens: operations
   adrs:

@@ -1,6 +1,6 @@
 description: >-
-  Get-Config stays fast because three script-scope caches stand behind it, each filled once and kept until re-import: the name
-  index, the parsed configs keyed by path, and the type registry.
+  Get-Config stays fast because three script-scope caches stand behind it, each filled once and kept until re-import: the name index, the
+  parsed configs keyed by path, and the type registry.
 about:
   lens: implementation
   adrs:

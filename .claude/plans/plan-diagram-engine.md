@@ -156,6 +156,18 @@ that fails it (a glyph outside the library, an element get cannot name) is the r
   the same XML, a span label outside the vocabularies refused with the words, a nested group round trip, grid placement and a moved cell
   kept, top-to-bottom, the minimap defaults and count, and the embedded png read back; kit pytest `43 passed`; ruff and pyright clean;
   `Test-Spelling`: no issues (21:11).
+- The one-source model and the conversion pass (2026-10-19, evening). Each diagram folder holds `diagram.drawio.yml` (`description:`,
+  `about:` with lens, adrs, tracks, languages, modules, files, each checked against its registry; `content:`; `layout:`) and the render; no
+  markdown, no sister files, no layout file; the diagram names no article. The kit grew: the smooth renderer (supersampled), the lens chip
+  opening the title row (the subtitle holds only the ADR codes, the sidebar no codes), minimaps computed from `about:` (code locations,
+  module neighbourhood, delivery axis, grid; the rest a labelled frame) in `minimaps.py`, the two-swatch map key, `relation:` naming the
+  flow legend, edges and markers and chips on groups and bands, numbered rule chips keyed in the legend (dashed when ungated), commit states
+  in the locked palette with ghosts (`commits:` in `drawio.yml`), spans over whole bands or the glyphs of one band, stacking, with the
+  drawing area moved down when they need room, and markers that take the corner away from arriving edges. `Update-MinimapPageHead` is
+  removed; minimap outputs land in `out/drawio/minimaps/`; `Build-Diagrams` runs the renderer in the kit's uv project and puts a folder that
+  has a yml. 148 of 166 diagrams are converted by hand-written ymls (7 by this session, 141 by seven workers on `out/drawio/pass/BRIEF.md`),
+  their describe pages and minimap files deleted and the article links removed; `adronly` joined the coined terms. Checks: kit pytest
+  `56 passed`; all 148 put; the gates per slice clean (lint, types, links, spelling).
 
 ## Open steps
 
@@ -191,23 +203,22 @@ that fails it (a glyph outside the library, an element get cannot name) is the r
       the module's patterns finds only the two token sets; the tree holds one raster per diagram).
 - [ ] Extend ADR-REPO-SLIDES with the rules the decisions above state, one rule per landing step, in the same change as the step (check:
       Test-Adr clean; the index lists each new ADR-REPO-SLIDES code; the plan's Decided list names no decision without a rule).
-- [ ] Draw the span bar from the `spans:` declaration with its label vocabulary, and give it to every existing diagram whose columns are
-      stages, rungs, layers, tracks or kinds (check: the three diagrams that carry a hand-placed `CI` bar today render it from the
-      declaration; the kit's `STYLE.md` names the vocabularies).
 - [ ] Build the five further minimaps, each with its data function and a test on its data, and the two pools as the kind defaults (check:
       each minimap renders from its function with no hand-drawn cell).
-- [ ] Run **get** over all 166 diagrams and 21 slides, one folder at a time, to write their first declarations, then **put** each and
-      compare; write the list of the ones whose rendering differs from the drawing, with the reason per diagram (a glyph outside the
-      library, an element get cannot name, a style outside the tokens) (check: the list is in this plan with a count; each entry names a
-      reason a function stated; each folder's describe page is deleted once its `description:` is written into the yml, and the kit's
-      `STYLE.md` sections on the `.drawio.md` visual description are rewritten to the yml).
+- [ ] The later batch, 18 diagrams not yet converted: the 13 in `out/drawio/pass/slice-*-later.md` (10-commits-story,
+      four-domains-promote-one-artifact, integrators-depend-on-an-occupant, one-unit-one-pipeline, one-way-climb-three-endings,
+      out-of-band-deploy-is-adr-only, state-changes, units-not-tracks-own-the-pipelines, which-rung-gates-exist-in-code,
+      pipeline-kinds-keyed-by-one-artifact, range-per-context-then-diff-and-match, two-declared-layers-one-derived,
+      three-gates-check-registry-drift-membership) and the five held back (the glyph legend, the three `docs/adr` fix-list diagrams,
+      a-declared-allow-list-of-layers). The kit features they wait on: markers on edges, a commit inside an environment, edge waypoints and
+      edge labels at chosen places, more than one edge per pair, chip and marker placement control, `<` and `>` kept in titles, and
+      rule-level validation of `about.adrs` (a retired rule of a live ADR passes today: two repository ymls cite
+      `ADR-REPO-ROOTCFG-FILESYSTEMLINK`) (check: each put and reviewed; the kit's `STYLE.md` sections on the `.drawio.md` visual description
+      rewritten to the yml).
 - [ ] `Build-Diagrams` stops treating "the one article that embeds the folder" as an input: it finds every article and slide that embeds the
       png, and the supports-drift check holds each one's Supports line against the yml's codes; ADR-REPO-SLIDES-ONEBUILDCOMMAND says so;
       `gallery_pdf.py` prints the yml's `description:` instead of the deleted describe page (check: a second article embedding one of the
       two ado diagrams builds clean; Test-Adr clean). The two ado folders already hold only `diagram.drawio.yml` and the png.
-- [ ] Minimap claims: the `minimaps:` block's shape (id, lit place, reason), put drawing from it, a seeding step that drafts it from today's
-      computed data at the coarse level, the drift gate check, then the 924 sister files removed by a `git rm` script for the user (check:
-      the two ado folders hold only their page, layout file and png; the gate fails on a planted stale claim in a test).
 - [ ] Redraw each listed diagram, one at a time, the four below first, extending the glyph library or the schema only when a reason repeats
       across diagrams (check: each is put from its declaration, passes `Test-Diagrams`, and is reviewed by the user).
 - [ ] Rework the data of every existing diagram's minimaps on the new definition (check: re-render one folder, review, then the rest).

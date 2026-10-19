@@ -1,6 +1,6 @@
 description: >-
-  The eight naming rules and where code holds them: seven behind a check that throws, from template discovery through the resolver
-  and the namer's registry, format and length checks, and one, that no subscription enters a name, held by construction.
+  The eight naming rules and where code holds them: seven behind a check that throws, from template discovery through the resolver and the
+  namer's registry, format and length checks, and one, that no subscription enters a name, held by construction.
 about:
   lens: governance
   adrs:

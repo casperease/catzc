@@ -1,6 +1,6 @@
 description: >-
-  Four throwing gates hold the rule that the az session is the deploy target; the customer and the resource-group name hold by
-  construction, with no gate, and every gate ends in a throw.
+  Four throwing gates hold the rule that the az session is the deploy target; the customer and the resource-group name hold by construction,
+  with no gate, and every gate ends in a throw.
 about:
   lens: governance
   adrs:

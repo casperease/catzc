@@ -26,7 +26,7 @@ content:
     - { id: band-targets, label: TARGETS }
   spans:
     - { id: span-ci, label: CI, over: band-ci }
-    - { id: span-cd, label: CD, over: band-deploy }
+    - { id: span-cd, label: CD, over: [band-ci, band-deploy] }
   glyphs:
     - { id: g-build-bicep, kind: runner, label: Build-Bicep, in: band-ci }
     - { id: r-foundation, kind: result, label: foundation, in: band-ci }

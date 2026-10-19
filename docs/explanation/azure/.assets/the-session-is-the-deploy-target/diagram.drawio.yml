@@ -1,6 +1,6 @@
 description: >-
-  The deploy target is the subscription the az session is signed in to; the guard states which subscription the session is expected
-  to target and only confirms it, stopping a mis-wired connection, and never selects one.
+  The deploy target is the subscription the az session is signed in to; the guard states which subscription the session is expected to
+  target and only confirms it, stopping a mis-wired connection, and never selects one.
 about:
   lens: meta
   adrs: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
@@ -21,16 +21,16 @@ content:
     - { id: x-session, kind: external, label: az session, in: band-session }
     - { id: g-guard, kind: gate, label: subscription guard, in: band-guard }
     - { id: r-target, kind: result, label: deploy target, in: band-guard }
-    - { id: f-miswired, kind: failure, label: mis-wired connection, in: band-guard }
+    - { id: f-mis-wired, kind: failure, label: mis-wired connection, in: band-guard }
   edges:
     - { from: x-session, to: g-guard }
     - { from: g-guard, to: r-target }
-    - { from: g-guard, to: f-miswired, kind: fail }
+    - { from: g-guard, to: f-mis-wired, kind: fail }
   markers:
     - { at: x-session, number: 1 }
     - { at: g-guard, number: 2 }
     - { at: r-target, number: 3 }
-    - { at: f-miswired, number: 4 }
+    - { at: f-mis-wired, number: 4 }
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-session: { x: 20, y: 84, w: 560, h: 250 }
@@ -38,4 +38,4 @@ layout:
   x-session: { x: 200, y: 156, w: 200, h: 52 }
   g-guard: { x: 700, y: 148, w: 200, h: 68 }
   r-target: { x: 1040, y: 160, w: 200, h: 44 }
-  f-miswired: { x: 700, y: 268, w: 200, h: 44 }
+  f-mis-wired: { x: 700, y: 268, w: 200, h: 44 }

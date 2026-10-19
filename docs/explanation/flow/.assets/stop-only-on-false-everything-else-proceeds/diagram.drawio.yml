@@ -1,4 +1,3 @@
-# cspell:ignore adronly
 description: >-
   What a pipeline stage sees from one call to Test-GlobSetAffected: a boolean, at most one printed message, and one possible throw; only
   false returns early, true and a doubt both proceed.

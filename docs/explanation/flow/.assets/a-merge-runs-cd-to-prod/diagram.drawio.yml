@@ -27,7 +27,7 @@ content:
     - { id: band-failures, label: FAILURES }
   spans:
     - { id: span-ci, label: CI, over: band-ci }
-    - { id: span-cd, label: CD, over: band-deploy }
+    - { id: span-cd, label: CD, over: [band-ci, band-deploy] }
   glyphs:
     - { id: g-developer, kind: actor, label: developer, in: band-trigger }
     - { id: g-build-bicep, kind: runner, label: Build-Bicep, in: band-ci }

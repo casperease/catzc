@@ -1,6 +1,6 @@
 description: >-
-  Get-AzureResourceName runs four guarded steps in code order, lookup, omit and form, format checks and render, then compares the
-  rendered length with the limit: any guard throws, an over-limit name throws, and a name within the limit is returned unchanged.
+  Get-AzureResourceName runs four guarded steps in code order, lookup, omit and form, format checks and render, then compares the rendered
+  length with the limit: any guard throws, an over-limit name throws, and a name within the limit is returned unchanged.
 about:
   lens: implementation
   adrs:

@@ -18,6 +18,10 @@ content:
   bands:
     - { id: band-automated, label: AUTOMATED }
     - { id: band-governed, label: GOVERNED }
+  spans:
+    - { id: span-ci, label: CI, over: [g-build, r-artifact] }
+    - { id: span-cd, label: CD, over: [g-build, r-artifact, e-non-prod] }
+    - { id: span-deploy, label: DEPLOY, over: [e-production] }
   glyphs:
     - { id: g-build, kind: runner, label: build & verify, in: band-automated }
     - { id: r-artifact, kind: result, label: tagged artifact, in: band-automated }

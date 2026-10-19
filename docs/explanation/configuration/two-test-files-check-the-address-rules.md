@@ -21,8 +21,7 @@ through, and that nothing an address can reach is a secret.
 
 ![Two L0 test files check the address rules](.assets/two-test-files-check-the-address-rules/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/two-test-files-check-the-address-rules/diagram.drawio.md).
-Rule chips name the rules: `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR.
+In the walkthrough, `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR; the diagram's rule chips are keyed in its legend.
 
 ## Walkthrough
 

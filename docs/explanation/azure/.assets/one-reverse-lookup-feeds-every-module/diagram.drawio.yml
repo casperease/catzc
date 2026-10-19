@@ -1,6 +1,6 @@
 description: >-
-  One reverse lookup in Catzc.Azure.Cli turns the az session's subscription id into the identity azure.yml declares, and the
-  identity module and the templating module read that identity instead of asking the session again.
+  One reverse lookup in Catzc.Azure.Cli turns the az session's subscription id into the identity azure.yml declares, and the identity module
+  and the templating module read that identity instead of asking the session again.
 about:
   lens: architecture
   adrs:

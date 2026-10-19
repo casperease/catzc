@@ -107,6 +107,17 @@ def axis():
     return stacks, ["build", "quality-control", "release", "deploy", "access"]
 
 
+@cache
+def rules():
+    """Every rule code the ADRs define: the `### Rule <code>` headings under docs/adr."""
+    found = set()
+    for page in (REPO / "docs" / "adr").rglob("*.md"):
+        for line in page.read_text(encoding="utf-8").splitlines():
+            if line.startswith("### Rule ADR-"):
+                found.add(line.removeprefix("### Rule ").split()[0])
+    return found
+
+
 def adr_of(code):
     """The ADR a rule code belongs to: the longest registered ADR code that is the code or its prefix."""
     hits = [adr for adr in adrs() if code == adr or code.startswith(adr + "-")]
@@ -117,8 +128,12 @@ def problems(about):
     """Every name in `about:` that its registry does not know, each with what the registry does know."""
     out = []
     for code in about["adrs"]:
-        if adr_of(code) is None:
+        adr = adr_of(code)
+        if adr is None:
             out.append(f"about.adrs '{code}' is not a rule of an ADR in adrs.yml")
+        elif code not in adrs() and code not in rules():
+            siblings = sorted(r for r in rules() if r.startswith(adr + "-"))
+            out.append(f"about.adrs '{code}' is not a rule of {adr}; its rules are: {', '.join(siblings)}")
     for name, known, registry_name in (("tracks", tracks(), "variants.yml"), ("languages", languages(), "languages.yml"), ("modules", dependencies(), "dependencies.yml")):
         for value in about[name]:
             if value not in known:

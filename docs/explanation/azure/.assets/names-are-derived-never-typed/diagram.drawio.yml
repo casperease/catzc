@@ -1,6 +1,6 @@
 description: >-
-  An operator changes the naming variant or a template's short name and runs a deploy or asks for a name; cats derives the name or
-  stops with an error to act on, and nobody types a name.
+  An operator changes the naming variant or a template's short name and runs a deploy or asks for a name; cats derives the name or stops
+  with an error to act on, and nobody types a name.
 about:
   lens: operations
   adrs:

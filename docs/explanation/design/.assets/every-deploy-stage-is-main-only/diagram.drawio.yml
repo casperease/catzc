@@ -1,4 +1,3 @@
-# cspell:ignore adronly
 description: >-
   A pull request run builds in a CI stage but its Deploy stages carry a main-only condition and skip, so only the run on main deploys and no
   topic commit is deployed by a pipeline.
@@ -20,11 +19,11 @@ content:
     - { id: span-integration, label: CI, over: [band-out-of-band] }
     - { id: span-delivery, label: CD, over: [band-landing] }
   glyphs:
-    - { id: c-topic, kind: commit, label: topic branch, in: band-topic }
+    - { id: c-topic, kind: commit, label: topic branch, in: band-topic, state: topic }
     - { id: r-pull-request-stage, kind: runner, label: "stage: CI", in: band-out-of-band }
     - { id: g-pull-request-condition, kind: gate, label: main only, in: band-out-of-band }
     - { id: a-deploy, kind: adronly, label: out-of-band deploy, in: band-out-of-band }
-    - { id: c-main, kind: commit, label: main, in: band-main }
+    - { id: c-main, kind: commit, label: main, in: band-main, state: landed }
     - { id: r-main-stage, kind: runner, label: "stage: CI", in: band-landing }
     - { id: g-main-condition, kind: gate, label: main only, in: band-landing }
     - { id: r-deploy, kind: runner, label: Deploy_* stages, in: band-landing }

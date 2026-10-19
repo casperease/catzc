@@ -22,8 +22,6 @@ parameters file.
 
 ![Type an address and get its value back](.assets/type-an-address-get-the-value/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/type-an-address-get-the-value/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Get-ConfigValue.** The command you type: `Get-ConfigValue -Address 'global.azure.bicep_min_version'`. Add `-Module` only for a config

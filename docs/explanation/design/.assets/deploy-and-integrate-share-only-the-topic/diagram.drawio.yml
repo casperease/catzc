@@ -1,4 +1,3 @@
-# cspell:ignore adronly
 description: >-
   The deploy path and the integration path share only the topic commit: a workflow deploys it to an environment out of band, and landing it
   on main starts the integration that ends in the build validation verified commit.
@@ -22,10 +21,10 @@ content:
   spans:
     - { id: span-integration, label: CI, over: [band-main, band-landing] }
   glyphs:
-    - { id: c-topic, kind: commit, label: topic commit, in: band-topic }
+    - { id: c-topic, kind: commit, label: topic commit, in: band-topic, state: topic }
     - { id: a-workflow, kind: adronly, label: workflow / pipeline, in: band-out-of-band }
     - { id: e-environment, kind: env, label: "environment (occupant inside)", in: band-out-of-band }
-    - { id: c-main, kind: commit, label: main, in: band-main }
+    - { id: c-main, kind: commit, label: main, in: band-main, state: landed }
     - { id: g-validation, kind: gate, label: BVT, in: band-landing }
     - { id: c-verified, kind: commit, label: BVT-verified, in: band-landing }
   edges:

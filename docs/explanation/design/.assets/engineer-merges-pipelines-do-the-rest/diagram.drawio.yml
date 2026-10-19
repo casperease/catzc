@@ -1,4 +1,3 @@
-# cspell:ignore adronly
 description: >-
   An engineer runs the tests and merges once the pull request build validation is green; the pipelines run everything after the merge, and
   each failed rung shows the person a red result.
