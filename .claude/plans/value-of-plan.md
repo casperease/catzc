@@ -1,7 +1,7 @@
 ---
 plan:
   status: active
-  reviewed: 2026-10-18
+  reviewed: 2026-10-19
   rule: value first, then needed docs and tests; job size never ranks
 ---
 
@@ -24,17 +24,18 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Meta plans by value (how the repository describes and governs itself)
 
-| Value   | Plan                                    | Why                                                                                                                                  | Needed docs                                                        | Needed tests                                        | State                                                  |
-| ------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ | --------------------------------------------------- | ------------------------------------------------------ |
-| highest | plan-master                             | The one executable order over every open step of every plan; task files are its disposable executables.                              | ADR-REPO-PLANS names the task files (the plans ADR)                | Test-Plans over the folder (the plans ADR)          | every chunk a task file                                |
-| high    | plan-layers-vocabulary-rename-contracts | Settles six words and names the public API.                                                                                          | ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, ADR-REPO-CMDCONTRACT; glossary | three terminology gates; guard rule; Test-Contracts | P6 open, on the user's go                              |
-| high    | plan-explanation-drift-gaps             | CD deploys the prod tier with no gate today (Q3), and the ADRs promise deploy-path, run-mode and safeguard behaviour the code lacks. | the articles' drift sections                                       | the user's pipeline runs and the approval sync run  | Q1 to Q3 proofs and the only-pwsh rename (the user's)  |
-| high    | plan-promotion-ladder                   | The ADRs' ladder (main-uat, release-uat, RC/RBC, pre-prod, DEPLOY) has no code; prod waits only on the new approval check.           | ADR-DSGN-LIFE, ADR-FLOW-CD as the answers decide                   | per pipeline, a run that shows the rung             | the main-uat rename and the record, after the CD proof |
-| high    | plan-diagram-engine                     | Every diagram and slide needs a correct, reproducible, markdown-driven renderer before its fixes can be judged.                      | the minimap and slide ADR rules; module README                     | pytest on the moved tests; minimap data tests       | code move, minimap redefinition and fix list open      |
-| high    | plan-generated-file-heads               | Generated tracked files carry provenance and a do-not-edit signal in the head, not the body.                                         | the head vocabulary and policy                                     | a test of the one warning string in every head      | README body noise, four config files, JSON carrier     |
-| high    | plan-ado-and-cicd-docs                  | Moves the ado vendor tree into `.ado` and separates it from the CI/CD concept in ADR-FLOW.                                           | ADR-FLOW concept ADR; ado wording                                  | Test-Pipelines; Test-Adr                            | move, caller sweep and the concept ADR open            |
-| medium  | plan-adr-automation-split               | Separates general automation ADRs from pwsh and other language ADRs.                                                                 | docs/adr/index.md; adrs.yml                                        | Test-Adr; Test-Links                                | layout decided, moves open                             |
-| medium  | plan-iac-and-repo-placement             | Settles where IaC lives and what a repo is, given tracks and exported tooling.                                                       | ADR rules in docs/adr/azure and docs/adr/repository                | Test-Variants                                       | decided; track split and ADRs open                     |
+| Value   | Plan                                    | Why                                                                                                                                  | Needed docs                                                        | Needed tests                                            | State                                                 |
+| ------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------- | ----------------------------------------------------- |
+| highest | plan-master                             | The one executable order over every open step of every plan; task files are its disposable executables.                              | ADR-REPO-PLANS names the task files (the plans ADR)                | Test-Plans over the folder (the plans ADR)              | twelve chunks, seven takeable now                     |
+| high    | plan-layers-vocabulary-rename-contracts | Settles six words and names the public API.                                                                                          | ADR-AUTO-LAYERS, ADR-AUTO-IMPORTER, ADR-REPO-CMDCONTRACT; glossary | three terminology gates; guard rule; Test-Contracts     | P6 on the user's go; stray rules and drift test open  |
+| high    | plan-explanation-drift-gaps             | CD deploys the prod tier with no gate today (Q3), and the ADRs promise deploy-path, run-mode and safeguard behaviour the code lacks. | the articles' drift sections                                       | the user's pipeline runs and the approval sync run      | blocked on the user's three runs                      |
+| high    | plan-promotion-ladder                   | The ADRs' ladder (main-uat, release-uat, RC/RBC, pre-prod, DEPLOY) has no code; prod waits only on the new approval check.           | ADR-DSGN-LIFE, ADR-FLOW-CD as the answers decide                   | per pipeline, a run that shows the rung                 | blocked on the user's CD proof run                    |
+| high    | plan-diagram-engine                     | Every diagram and slide needs a correct, reproducible renderer driven by a yml declaration before its fixes can be judged.           | ADR-REPO-SLIDES rules for the declaration, directions and themes   | pytest on the moved tests; Test-Diagrams; minimap tests | all decided; 22 steps open, the code move first       |
+| high    | plan-generated-file-heads               | Generated tracked files carry provenance and a do-not-edit signal in the head, not the body.                                         | ADR-REPO-ROOTCONFIG and the head policy                            | a test of the one warning string in every head          | the one string, README banner, seven root files       |
+| high    | plan-ado-and-cicd-docs                  | Moves the ado vendor tree into `.ado` and separates it from the CI/CD concept in ADR-FLOW.                                           | ADR-FLOW concept ADR; ado wording                                  | Test-Pipelines; Test-Adr                                | move, caller sweep and the concept ADR open           |
+| medium  | plan-adr-automation-split               | Separates general automation ADRs from pwsh and other language ADRs; the codes stay.                                                 | docs/adr/index.md; adrs.yml                                        | Test-Adr; Test-Links; Test-AdrEngineNeutrality          | table seeded; pwsh folder move and the flat sort open |
+| medium  | plan-iac-and-repo-placement             | Settles where IaC lives and what a repo is, given tracks and exported tooling.                                                       | ADR rules in docs/adr/azure and docs/adr/repository                | Test-Variants                                           | decided; track split and ADRs open; diagrams wait     |
+| medium  | plan-importer-mix                       | One ImportMix record the test runner and builder read instead of each re-deciding; the entry for a second engine or language.        | ADR-AUTO-IMPORTER (written)                                        | L0 tests on ImporterConfig and Get-ImportMix            | nothing built; L3 report-only first                   |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
@@ -43,5 +44,7 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Pending deletion
 
-`out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and landed prompts (plan-adr-code-language last); the
-files stay on disk until it runs.
+`out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and landed prompts; the files stay on disk until it runs.
+Added 2026-10-19: `prompt-layers-1-retire-and-rename.md` (its P5 landed, its P6 lives in task-layers-classification-flip, and it waits on a
+report that does not exist) and `prompt-master-execute-continue.md` (names task numbers and decision files that are gone; a prompt is never
+rewritten).

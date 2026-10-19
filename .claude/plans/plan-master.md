@@ -2,7 +2,7 @@
 plan:
   status: active
   value: highest
-  reviewed: 2026-10-18
+  reviewed: 2026-10-19
   role: master
   targets: [.claude/plans]
 ---
@@ -19,6 +19,10 @@ plans stay the durable record; task files and this master are derived from them 
   file carries it, and the plan keeps the checkbox until the work lands in the tree.
 - A task file is `task-<topic>.md`, at most 50 in the folder, one chunk each: head (`task:` with status, plans, value, blocked_on, targets),
   then numbered steps. Every step names one file, the exact edit, and the check that proves it. One file per step, verified before the next.
+  A chunk gets a task file when its plan's open steps are not executable as written; otherwise the plan's open steps are the executable.
+- A move of tracked files (`git mv`) is the user's, like every mutating git command: the plan's step names the move,
+  task-user-runs-and-commits lists it, and the agent prepares the `git mv` lines in `out/run-user-git.ps1` for the user to run, then does
+  the edits around the move.
 - The order is the position of a pointer line in the Chunks list below, and nothing else (ADR-REPO-PLANS-MASTERANDTASKS,
   ADR-REPO-FOLDERS-STABLEFILENAMES). A task name says what the task does; no name, head key or reference carries a number, so reordering the
   list renames nothing.
@@ -29,32 +33,42 @@ plans stay the durable record; task files and this master are derived from them 
 - The user's steps (a commit, a remote run, a `git mv`) are gathered in one task, task-user-runs-and-commits, so that one list is the whole
   ask of the user; every other task names the step there it waits on.
 - Checks are small and direct: one test file under `Invoke-TestFile`, one gate on named paths, a grep, a file read. No step runs
-  `Test-Automation`, a gate over the whole tree, or anything larger than the file it proves. The one full-repo proof is the last step of
-  task-user-runs-and-commits: a final new session dot-sources `importer.ps1` and runs `Test-Automation` once, by hand; every plan that
-  closes on green closes on that run and on nothing earlier.
+  `Test-Automation`, a gate over the whole tree, or anything larger than the file it proves. The one full-repo proof is the user's: a fresh
+  session dot-sources `importer.ps1` and runs `Test-Automation` once, by hand; every plan that closes on green closes on that run and on
+  nothing earlier.
 - The typed DLL under `pwsh/.compiled` changes as many agents work in the repository; no plan, step or check depends on it or on its commit.
 - A plan file edited by a task for its own reason loses its bare vocabulary terms in that edit (D15); no sweep.
-- The order below: first the decision round that unblocks the most, then the user's commits and runs that close the most plans, then the
-  agent work by value (value-of-plan.md), dependencies first, the closing sweep after every batch and last.
+- The order below: first the chunks an agent can take without the user, by value (value-of-plan.md) with dependencies first; then the chunks
+  that wait on the user's runs and commits; the closing sweep after every batch and last.
 
 ## Chunks
 
-Open, in execution order. Nothing below is held by a session; every chunk that an agent can take without the user has landed, and done work
-is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and prompts.
+Open, in execution order. Nothing below is held by a session; done work is pruned (git holds it). `out/delete-done-plans.ps1` holds the
+`git rm` lines of the done plans, task files and prompts. A chunk without a task file is executed from its plan's open steps directly.
 
-- explanation-drift-gaps -> task-explanation-drift-gaps.md: the Q1 to Q3 proofs from the user's runs; the `only-pwsh-compiles-its-aspects`
-  rename once the user has run its two `Move-Diagram` calls (a session then re-points what is left and runs the checks).
+- generated-file-heads -> plan-generated-file-heads.md: the one warning string, the README generator's head-only provenance, the other
+  tracked generators, the `Test-RootConfigFiles` branch, then the seven `copyAsLink` root files one at a time, `.editorconfig` the pilot.
+- ado-and-cicd-docs -> plan-ado-and-cicd-docs.md: the `variants.yml` re-point and the caller sweep around the user's `git mv` of
+  `pipelines/` to `.ado/pipelines/`; the 23 ado rules to `docs/adr/ado`, the four concept rules into the CI/CD concept ADR in
+  `docs/adr/flow`, the ado wording.
+- adr-automation-split -> plan-adr-automation-split.md: `docs/adr/pwsh/` into `docs/adr/automation/pwsh/` around the user's `git mv`, then
+  the flat automation files by the plan's table, then the index and `adrs.yml`.
+- layers-stray-rules -> plan-layers-vocabulary-rename-contracts.md, steps 2 and 3: the twelve stray pwsh rules to their twins and the
+  contract drift test; after adr-automation-split's first step.
+- diagram-engine -> plan-diagram-engine.md: the move to `python/Catzc.Diagrams`, the yml declaration with its two directions (put and get)
+  and the drift gate, the file-fact command, the minimap contract, the rungs registry, the theme selector, the eight minimaps and the
+  ADR-REPO-SLIDES rules, then get over all 166 diagrams, the fix list it yields, and the ADR-DSGN-LIFE move. No open question remains.
+- iac-and-repo-placement -> plan-iac-and-repo-placement.md: the three IaC places in `variants.yml` and the two ADR rule sets now; the five
+  explanation diagrams after diagram-engine's renderer steps.
+- importer-mix -> plan-importer-mix.md: L3 report-only, then L4, L5 and the per-language facts.
+- explanation-drift-gaps -> task-explanation-drift-gaps.md: the Q1 to Q3 proofs from the user's runs (blocked_on task-user-runs-and-commits
+  steps 1 and 2).
 - promotion-ladder -> plan-promotion-ladder.md: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying record, after the user's CD
   proof run.
 - layers-classification-flip -> task-layers-classification-flip.md: P6, the `ci-automation` pipeline rename and the `automation` layer
   form's retirement, on the day the user re-points the external definitions.
-- user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them. Closes the user-owned steps of the plans
-  above.
-- closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned.
-- final-full-run: done 2026-10-18 (`out/test-automation/20261018-213325`, 0 failed); the run budget is proven by the user's run of 21:47
-  (155.8 s).
-- closing-sweep, last -> task-closing-sweep.md, its last step: the plans that closed on green deleted; the master and the task files deleted
-  when every chunk is done.
+- user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
+- closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
+  run, the master and the task files go with the last plan.
 
-Every chunk is a task file, apart from promotion-ladder, whose plans are the executable. A new plan or paste adds its chunk as a pointer
-line at the position its dependencies and value give it.
+A new plan or paste adds its chunk as a pointer line at the position its dependencies and value give it.

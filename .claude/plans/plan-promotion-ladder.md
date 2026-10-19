@@ -1,8 +1,9 @@
 ---
 plan:
-  status: active
+  status: blocked
   value: high
-  reviewed: 2026-10-18
+  reviewed: 2026-10-19
+  waits_on: the user's CD proof run (task-user-runs-and-commits step 2) and the rungs registry step of plan-diagram-engine
   targets: [pipelines, docs/adr/design/commit-lifecycle.md, docs/adr/flow/cd-discipline-and-promotion-flow.md]
 ---
 
@@ -25,15 +26,24 @@ Until the ladder runs, the ADRs' promotion rules are proven by no real run, and 
   unit's CD creates it on its first deploy (delegated).
 - `approver_group.members` holds the simulated `prod-approver@example.com`, at the user's word; a live apply needs a real approver listed.
 - flux waits for a workload, so it has no DEPLOY pipeline.
+- The certifying record is the ADO environment's deployment history (the user, 2026-10-19): no `certified-<rung>` tag; a DEPLOY run checks
+  that the commit deployed to `<unit>-pre-prod` through that history, and the ADR rule names this as the ado realisation of ADR-FLOW-CD's
+  gate.
 
 ## Open steps
 
 - [ ] main-uat is `dev`: rename each unit's `<unit>-dev` ADO environment to `<unit>-main-uat` in the deploy lists and the ladder docs, so
-      the rung has its own environment name (check: Test-Pipelines clean; the rename in Azure DevOps itself is the user's).
-- [ ] The certifying record: no `certified-<rung>` build tag for now, since ADO records the deploying run in each environment's history;
-      revisit after the user's CD proof run (plan-explanation-drift-gaps) (check: the plan names the record DEPLOY reads).
+      the rung has its own environment name; the names derive from the rungs registry `plan-diagram-engine` declares (one yml of the four
+      rungs, their gates and environment suffixes), so this step lands after that one (check: Test-Pipelines clean; the rename in Azure
+      DevOps itself is the user's).
+- [ ] The certifying check: the DEPLOY pipelines of shared, apex and nova read the `<unit>-pre-prod` environment's deployment history for
+      the commit before deploying, and the rule in `docs/adr/flow/cd-discipline-and-promotion-flow.md` names the history as the record
+      (check: Test-Pipelines and Test-Adr clean; a DEPLOY run of a commit never deployed to pre-prod stops at that check on the user's proof
+      run).
 
 ## Refs
 
 - docs/adr/design/commit-lifecycle.md (ADR-DSGN-LIFE) and docs/adr/flow/cd-discipline-and-promotion-flow.md (ADR-FLOW-CD).
 - The lifecycle articles under docs/explanation/design/ and docs/explanation/flow/ hold each gap in the reader's words.
+- Two other plans move this plan's targets: `plan-ado-and-cicd-docs` moves `pipelines/` to `.ado/pipelines/`, and `plan-diagram-engine`
+  moves `commit-lifecycle.md` to `docs/adr/flow/`; the `targets` above re-point when either lands.

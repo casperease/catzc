@@ -28,8 +28,17 @@ Order: the commits and git operations first, the remote runs next, the final ful
    task-explanation-drift-gaps steps 1 and 2 ticked.
 3. After task-layers-classification-flip step 1 (P6) lands: re-point the Azure DevOps pipeline definitions, the GitHub required checks and
    any bookmarks from `ci-automation` to `ci-pwsh` the same day. Check: the triggers fire on the next push.
-4. The final full run: done 2026-10-18 (`out/test-automation/20261018-213325`, 0 failed); the run budget proven by the run of 21:47 (155.8
-   s).
+4. `git add .claude/plans/plan-importer-mix.md`, the one untracked plan, with the next plans commit. Check:
+   `git status --short .claude/plans` shows no `??` line.
+5. The moves of tracked files, each a `git mv` set the agent prepares in `out/run-user-git.ps1` when its chunk is ready, run by you before
+   the agent's edits around the move: `pipelines/` to `.ado/pipelines/` and `docs/explanation/pipelines/` to `docs/explanation/ado/`
+   (plan-ado-and-cicd-docs); `docs/adr/pwsh/*` to `docs/adr/automation/pwsh/` (plan-adr-automation-split); the `docs/adr/pipelines/*` files
+   to `docs/adr/ado/` and `docs/adr/flow/` (plan-ado-and-cicd-docs); `.claude/drawio/*` to `python/Catzc.Diagrams/` and `.claude/slides/*`
+   to its assets (plan-diagram-engine); `docs/adr/design/commit-lifecycle.md` with its `.assets/commit-lifecycle-states/` to
+   `docs/adr/flow/` (plan-diagram-engine). Check: after each set, `git status --short` shows renames (`R`), not deletes and adds, and the
+   plan's next step is taken.
+6. The final full run: done 2026-10-18 (`out/test-automation/20261018-213325`, 0 failed); the run budget proven by the run of 21:47 (155.8
+   s). It runs again, in a fresh session, when the chunks above have landed, as the one full-repo proof.
 
 ## Report
 
