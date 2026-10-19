@@ -5,13 +5,13 @@ The import materialises every managed root file, and two quality gates catch dri
 
 1  importer.ps1               the entry: dot-sourced, its tail runs the writer silently on every load
 2  Build-RootConfig           the command to run by hand, with -DryRun -PassThru to report and not write
-3  root file current          the normal outcome: every target linked or written, a clean tree a no-op
+3  root file current          the normal outcome: every target a headed file equal to what the writer composes, a clean tree a no-op
 4  Test-GeneratedFiles        the drift gate: it dry-runs the writer and reports every file it would change
 5  stale, regenerate          its issue line, ending with the exact Build-RootConfig call that fixes it
-6  Test-RootConfigFiles       the integrity gate: registry, .gitignore and the index must agree, links both ways
-7  registry and git disagree  its issue lines: git rm --cached for a tracked copy, re-run the importer for a link
+6  Test-RootConfigFiles       the integrity gate: registry, .gitignore, the index and the headed copies must agree, no target a link
+7  registry and git disagree  its issue lines: git rm --cached for a tracked copy, re-run the importer for a link or a stale copy
 
-Supports ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION and ADR-REPO-ROOTCFG-THREEWAYAGREEMENT (operations lens).
+Supports ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT and ADR-REPO-ROOTCFG-HEADEDCOPY (operations lens).
 ```
 
 A developer never writes a managed root file. Running `. ./importer.ps1` materialises every opted-in target before the prompt returns, and
@@ -25,35 +25,39 @@ out of step with the registry, one of two quality gates says which file and what
 1. **importer.ps1.** The dot-sourced entry point delegates to `Invoke-Importer`, whose tail calls `Build-RootConfig -Silent` on every load.
    The call is guarded, so a bootstrap sandbox without the module skips it, and in build mode the writer reports a skip instead of throwing,
    because a janitor never breaks the load.
-2. **Build-RootConfig.** Run by hand, the writer prints one line per managed file under `-Verbose`: `regenerated` or `unchanged` for a
-   written file, `linked` or `link current` for a link, each with the source it came from. `Build-RootConfig -DryRun -PassThru` composes the
-   same content, writes nothing, and returns one result per file saying whether it would change. `Build-RootConfig '<path>'` materialises
-   one entry, or one file of a wildcard entry, and throws when no opted-in entry targets the path.
-3. **Root file current.** The normal outcome. Every opted-in target is a link to its source or a real file equal to what the writer
-   composes, so a second run changes nothing.
+2. **Build-RootConfig.** Run by hand, the writer prints one line per managed file under `-Verbose`: `regenerated` or `unchanged` for a file,
+   `regenerated` or `unchanged`, each with the source it came from. A target still left as a link from before is deleted before the write
+   and counts as regenerated. `Build-RootConfig -DryRun -PassThru` composes the same content, writes nothing, and returns one result per
+   file saying whether it would change. `Build-RootConfig '<path>'` materialises one entry, or one file of a wildcard entry, and throws when
+   no opted-in entry targets the path.
+3. **Root file current.** The normal outcome. Every opted-in target is a real file equal to what the writer composes: the template under its
+   generated-file head, or the generator's output under it. A second run changes nothing.
 4. **Test-GeneratedFiles.** The drift check runs `Build-RootConfig -DryRun -PassThru -Silent` and turns every result that would change into
-   an issue, attributed to the generator that renders the file or to `Build-RootConfig` for a copy.
+   an issue, attributed to the generator that renders the file or to `Build-RootConfig` for a headed copy.
 5. **Stale, regenerate.** The issue reads `<path>: stale — <generator> would change it; regenerate with: Build-RootConfig '<path>'`. The
    gate writes its report under `out/test-generated-files/` and throws once listing every issue.
 6. **Test-RootConfigFiles.** The integrity check asserts every opted-in target, a wildcard entry per rendered file, against
    `git check-ignore` and the index: a `committed: false` target must be ignored and untracked, a `committed: true` target tracked and not
-   ignored, a `copyAsLink` target an effective link to its source from this OS, and any other target a real file. The L2 integrity test runs
-   it and expects zero issues.
-7. **Registry and git disagree.** Each issue names its remedy: `git rm --cached <path>` for a copy that is tracked, "re-run the importer"
-   for a link that is missing, stale or not a link, or for a copy that is still a link. A third quality gate, `Test-RootAnalyzerSettings`,
-   proves the root analyzer settings parse through their link.
+   ignored, and no target a link. A `source` target must also be its template under the generated-file head, byte for byte once the line
+   endings are LF. The L2 integrity test runs it and expects zero issues.
+7. **Registry and git disagree.** Each issue names its remedy: `git rm --cached <path>` for a gitignored artifact that is tracked, "re-run
+   the importer" for a target that is a link or a copy that is missing, and "edit the template, then re-run the importer" for a copy that
+   differs from its template under its head. A third quality gate, `Test-RootAnalyzerSettings`, proves the root analyzer settings file
+   exists and parses as a non-empty settings hashtable.
 
 ## Why it holds
 
 - Generation is idempotent and runs on every import, so the import is the only command a developer needs; a stale target is a defect the
   gates report, never a step to remember (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION).
-- The registry, `.gitignore` and git's tracked set must agree, every `copyAsLink` target must be an effective link, and no other managed
+- The registry, `.gitignore` and git's tracked set must agree, every `source` target must equal its template under the head, and no managed
   target may be a link; an integrity test asserts it from the registry outward (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).
+- A `source` target is a headed copy of its template, never a link, so a write never reaches the template (ADR-REPO-ROOTCFG-HEADEDCOPY).
 
 ## Where the code and the ADR differ
 
 ADR-REPO-ROOTCFG-THREEWAYAGREEMENT places the drift check, a generator target matching its generator's output, inside the integrity test;
-`Test-RootConfigFiles` compares no content, and the drift check is `Test-GeneratedFiles`.
+`Test-RootConfigFiles` compares the content of the `source` copies with their templates but not the output of any generator, and the
+generator drift check is `Test-GeneratedFiles`.
 
 ## See also
 

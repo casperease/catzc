@@ -22,8 +22,6 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
 
 ![Only PR build validation, the BVT and the failure stop are checked in code](.assets/which-rung-gates-exist-in-code/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/which-rung-gates-exist-in-code/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **PR build validation.** The inner CI gate runs before a topic commit may merge. Every CI and CD pipeline runs on pull requests to

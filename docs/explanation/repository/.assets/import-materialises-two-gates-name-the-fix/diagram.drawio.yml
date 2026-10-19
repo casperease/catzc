@@ -1,9 +1,9 @@
 description: >-
-  Every import runs the root-file writer, which leaves each managed root file current; the drift gate and the integrity gate each report the
-  file and the exact fix when something is out of step.
+  Every import runs the root-file writer, which leaves each managed root file a current headed file; the drift gate and the integrity gate
+  each report the file and the exact fix when something is out of step.
 about:
   lens: operations
-  adrs: [ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT]
+  adrs: [ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
   tracks: [pwsh]
   languages: [powershell]
   modules: [Catzc.Base.RootConfig, Catzc.Base.QualityGates]

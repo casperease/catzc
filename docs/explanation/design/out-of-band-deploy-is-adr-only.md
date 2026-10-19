@@ -20,8 +20,6 @@ no checker either, and none is expected.
 
 ![ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-adr-only/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/out-of-band-deploy-is-adr-only/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Topic.** A commit on a topic branch. Topic branches are drawn below the mainline, and a topic commit is brown, never grey. No gate

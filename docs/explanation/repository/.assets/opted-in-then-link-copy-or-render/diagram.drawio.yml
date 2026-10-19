@@ -1,13 +1,13 @@
 description: >-
-  Build-RootConfig loads the registry through its validating config type, keeps the opted-in entries, and sends each one down the link
-  branch or the content-write branch, leaving a link to the source or an independent file at the root path.
+  Build-RootConfig loads the registry through its validating config type, keeps the opted-in entries, and sends each one down the copy
+  branch or the generator branch; one primitive writes every file, leaving a headed root file and never a link.
 about:
   lens: implementation
   adrs:
     - ADR-REPO-ROOTCFG-REGISTRY
     - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
     - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
-    - ADR-REPO-ROOTCFG-FILESYSTEMLINK
+    - ADR-REPO-ROOTCFG-HEADEDCOPY
     - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
   tracks: [pwsh]
   languages: [powershell, csharp]
@@ -17,10 +17,11 @@ about:
     - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
     - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
     - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
+    - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigCopyContent.ps1
     - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
     - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
 content:
-  title: The optIn filter, then link, copy or render, through two write primitives
+  title: The optIn filter, then copy or render, through one write primitive
   kind: explanation
   relation: calls the next step
   bands:
@@ -33,33 +34,30 @@ content:
     - { id: f-validation, kind: failure, label: validation failed, in: band-materialise }
     - { id: g-targets, kind: private, label: Get-RootConfigTargets, in: band-materialise }
     - { id: g-build, kind: code, label: Build-RootConfig, in: band-materialise }
-    - { id: g-set-file-link, kind: code, label: Set-FileLink, in: band-materialise }
+    - { id: g-copy-content, kind: private, label: Get-RootConfigCopyContent, in: band-materialise }
     - { id: g-rendered-file, kind: private, label: Get-RootConfigRenderedFile, in: band-materialise }
     - { id: g-write-if-changed, kind: code, label: Write-FileIfChanged, in: band-materialise }
-    - { id: r-link, kind: result, label: link to the source, in: band-target }
-    - { id: r-independent, kind: result, label: independent file, in: band-target }
+    - { id: r-headed, kind: result, label: headed root file, in: band-target }
   edges:
     - { from: g-rootconfig-yml, to: g-config-type }
     - { from: g-config-type, to: f-validation, kind: fail }
     - { from: g-config-type, to: g-targets }
     - { from: g-targets, to: g-build }
-    - { from: g-build, to: g-set-file-link, label: 7/23 }
-    - { from: g-build, to: g-rendered-file, label: 10/23 }
-    - { from: g-build, to: g-write-if-changed, label: 6/23 }
+    - { from: g-build, to: g-copy-content, label: 13/28 }
+    - { from: g-build, to: g-rendered-file, label: 15/28 }
+    - { from: g-copy-content, to: g-write-if-changed }
     - { from: g-rendered-file, to: g-write-if-changed }
-    - { from: g-set-file-link, to: r-link }
-    - { from: g-write-if-changed, to: r-independent }
+    - { from: g-write-if-changed, to: r-headed }
   markers:
     - { at: g-rootconfig-yml, number: 1 }
     - { at: g-config-type, number: 2 }
     - { at: f-validation, number: 3 }
     - { at: g-targets, number: 4 }
     - { at: g-build, number: 5 }
-    - { at: g-set-file-link, number: 6 }
+    - { at: g-copy-content, number: 6 }
     - { at: g-rendered-file, number: 7 }
     - { at: g-write-if-changed, number: 8 }
-    - { at: r-link, number: 9 }
-    - { at: r-independent, number: 10 }
+    - { at: r-headed, number: 9 }
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-source: { x: 20, y: 100, w: 210, h: 346 }
@@ -70,8 +68,7 @@ layout:
   f-validation: { x: 270, y: 336, w: 160, h: 44 }
   g-targets: { x: 460, y: 166, w: 180, h: 44 }
   g-build: { x: 670, y: 166, w: 140, h: 224 }
-  g-set-file-link: { x: 870, y: 166, w: 190, h: 44 }
-  g-rendered-file: { x: 870, y: 256, w: 190, h: 44 }
-  g-write-if-changed: { x: 870, y: 346, w: 190, h: 44 }
-  r-link: { x: 1100, y: 166, w: 170, h: 44 }
-  r-independent: { x: 1100, y: 346, w: 170, h: 44 }
+  g-copy-content: { x: 860, y: 166, w: 200, h: 44 }
+  g-rendered-file: { x: 860, y: 256, w: 200, h: 44 }
+  g-write-if-changed: { x: 860, y: 346, w: 200, h: 44 }
+  r-headed: { x: 1100, y: 346, w: 170, h: 44 }

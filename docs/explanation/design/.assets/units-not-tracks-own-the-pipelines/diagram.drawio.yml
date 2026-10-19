@@ -1,0 +1,63 @@
+description: >-
+  The four CD pipelines bind deployable-units composed from the infrastructure track, while the two CI pipelines bind the automation and
+  infrastructure track sets directly, with no unit between them.
+about:
+  lens: architecture
+  adrs:
+    - ADR-DSGN-TRACK-ONETRACKTYPE
+    - ADR-DSGN-TRACK-ONETECHSTACK
+    - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+    - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+  tracks: [pwsh, infrastructure, ado-pipelines]
+  languages: [powershell, bicep, pipeline-yaml]
+  modules: []
+  files:
+    - docs/adr/design/tracks.md
+    - pwsh/Catzc.Base.Globs/configs/globs.yml
+    - .ado/pipelines/ci-automation.yaml
+    - .ado/pipelines/ci-infrastructure.yaml
+    - .ado/pipelines/cd-nova.yaml
+content:
+  title: CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly
+  kind: explanation
+  relation: binds a pipeline (pipeline:)
+  bands:
+    - { id: band-tracks, label: TRACKS }
+    - { id: band-units, label: DEPLOYABLE-UNITS }
+    - { id: band-pipelines, label: PIPELINES }
+  glyphs:
+    - { id: s-automation, kind: set, label: automation, in: band-tracks }
+    - { id: s-infrastructure, kind: set, label: infrastructure, in: band-tracks }
+    - { id: s-base, kind: set, label: foundation base unit, in: band-units }
+    - { id: s-units, kind: set, label: nova · apex · flux · shared, in: band-units }
+    - { id: r-ci-automation, kind: runner, label: ci-automation, in: band-pipelines }
+    - { id: r-ci-infrastructure, kind: runner, label: ci-infrastructure, in: band-pipelines }
+    - { id: r-cd, kind: runner, label: "cd-<unit>", in: band-pipelines }
+  edges:
+    - { from: s-automation, to: r-ci-automation }
+    - { from: s-infrastructure, to: r-ci-infrastructure }
+    - { from: s-infrastructure, to: s-base, kind: thick }
+    - { from: s-base, to: s-units, kind: thick }
+    - { from: s-units, to: r-cd }
+    - { from: s-infrastructure, to: s-automation, kind: adr }
+  markers:
+    - { at: s-automation, number: 1, corner: top-left }
+    - { at: "s-infrastructure->s-automation", number: 2 }
+    - { at: "s-automation->r-ci-automation", number: 3 }
+    - { at: s-base, number: 4 }
+    - { at: s-units, number: 5 }
+    - { at: r-cd, number: 6 }
+  chips:
+    - { at: r-cd, kind: count, text: "4" }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-tracks: { x: 20, y: 84, w: 280, h: 360 }
+  band-units: { x: 320, y: 84, w: 540, h: 360 }
+  band-pipelines: { x: 880, y: 84, w: 400, h: 360 }
+  s-automation: { x: 40, y: 130, w: 240, h: 56 }
+  s-infrastructure: { x: 40, y: 250, w: 240, h: 156 }
+  s-base: { x: 340, y: 380, w: 220, h: 56 }
+  s-units: { x: 620, y: 380, w: 220, h: 56 }
+  r-ci-automation: { x: 960, y: 130, w: 240, h: 56 }
+  r-ci-infrastructure: { x: 960, y: 300, w: 240, h: 56 }
+  r-cd: { x: 960, y: 380, w: 240, h: 56 }

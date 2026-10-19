@@ -1,56 +1,53 @@
-# One registry, one writer, two write primitives, two kinds of target
+# One registry, one writer, one write primitive, two kinds of target
 
 ```text
-Root config materialisation is one registry, one writer, two write primitives and two kinds of target.
+Root config materialisation is one registry, one writer, one write primitive and two kinds of target.
 
-1  authored source files   the config files under pwsh/ that a source entry copies or links out
-2  generator functions     the eight functions a generator entry names, bound in one dispatch
-3  rootconfig.yml          the registry: 23 entries, each with one source of truth and three booleans
+1  template files          the files under pwsh/ that a source entry copies out under a generated-file head
+2  generator functions     the eleven functions a generator entry names, bound in one dispatch
+3  rootconfig.yml          the registry: 28 entries, each with one source of truth and two booleans
 4  Build-RootConfig        the single writer, in Catzc.Base.RootConfig, run by the importer tail
-5  Set-FileLink            the link primitive in Catzc.Base.Files: 7 entries are linked
-6  Write-FileIfChanged     the content primitive in Catzc.Base.Files: 16 entries are written
-7  gitignored targets      19 targets git ignores: every link, plus 12 written copies
-8  tracked targets         4 written targets git keeps: importer.ps1, importer.sh, .gitattributes, .gitignore
+5  Write-FileIfChanged     the one write primitive, in Catzc.Base.Files: all 28 entries are written through it
+6  gitignored targets      22 targets git ignores
+7  tracked targets         6 targets git keeps, because git or the bootstrap reads them before the importer runs
 
-Supports ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION and ADR-REPO-ROOTCFG-FILESYSTEMLINK (architecture lens).
+Supports ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION and ADR-REPO-ROOTCFG-HEADEDCOPY (architecture lens).
 ```
 
 Root config materialisation in cats has four parts and one direction. Sources of truth sit under `pwsh/`; the registry in
-`Catzc.Base.RootConfig` says how each one lands; the writer in the same module reproduces every target through two primitives that
+`Catzc.Base.RootConfig` says how each one lands; the writer in the same module reproduces every target through the one write primitive that
 `Catzc.Base.Files` owns; and the targets fall into two kinds that differ by one boolean. The dependency edges point one way, from the
 RootConfig module to the Files module and to the modules that hold the generators, and nothing reads the registry back.
 
-![One registry, one writer, two write primitives, two kinds of target](.assets/one-registry-one-writer-two-primitives/diagram.drawio.png)
+![One registry, one writer, one write primitive, two kinds of target](.assets/one-registry-one-writer-two-primitives/diagram.drawio.png)
 
 ## Walkthrough
 
-1. **Authored source files.** A `source` entry names a config file kept under `pwsh/`, most of them in `Catzc.Base.RootConfig/assets/root/`.
-   The root path is reproduced from it, as a copy with a generated-file header or as a link.
-2. **Generator functions.** A `generator` entry names a function that renders the whole file, header included: `New-Importer`,
-   `New-GitIgnore`, the four `New-VSCode*` writers, `New-GoWorkspace` and `New-PythonProject`. `Invoke-RootConfigGenerator` is the one place
-   a name is bound to its call, so an unknown name fails loudly.
-3. **rootconfig.yml.** The registry lists 23 entries. Each names its target, exactly one source of truth, and the booleans `optIn`,
-   `committed` and `copyAsLink`. Nothing else in cats restates the target-to-source pairing.
+1. **Template files.** A `source` entry names a file kept under `pwsh/`, most of them in `Catzc.Base.RootConfig/assets/root/`. The root
+   path is a copy of it under a generated-file head that names it as the source; the template itself stays the pure authored file.
+2. **Generator functions.** A `generator` entry names a function that renders the file: `New-Importer`, `New-GitIgnore`,
+   `New-GitAttributes`, `New-CatsCommandLookup`, the five `New-VSCode*` writers, `New-GoWorkspace` and `New-PythonProject`.
+   `Invoke-RootConfigGenerator` is the one place a name is bound to its call, so an unknown name fails loudly.
+3. **rootconfig.yml.** The registry lists 28 entries. Each names its target, exactly one source of truth, and the booleans `optIn` and
+   `committed`. Nothing else in cats restates the target-to-source pairing.
 4. **Build-RootConfig.** The single writer reads the registry, keeps the opted-in entries, and reproduces each target. The importer tail
    runs it on every load, silently; a clean tree is a no-op.
-5. **Set-FileLink.** A `copyAsLink` entry composes no content at all: the writer asks `Catzc.Base.Files` to make the root path a filesystem
-   link to the source, so the two are one file. 7 of the 23 entries take this edge.
-6. **Write-FileIfChanged.** Every other entry hands its composed content, a header plus the source or a generator's output, to the one
-   shared write primitive: canonical output, a line-ending-insensitive compare, and a delete-then-write only on a real change. 16 of the 23
-   entries take this edge.
-7. **Gitignored targets.** Every linked target is gitignored by construction, since a link may never be committed, and so are 12 of the
-   written ones: 19 targets in all, each matched by a `.gitignore` rule that `New-GitIgnore` injects from the registry.
-8. **Tracked targets.** The remaining 4 written targets stay in git because git or the bootstrap reads them before the importer runs:
-   `importer.ps1` and `.gitignore` from generators, `importer.sh` and `.gitattributes` as header-bearing copies.
+5. **Write-FileIfChanged.** Every entry hands its composed content, the generated-file head over the template or the generator's output, to
+   the one shared write primitive: canonical output, a line-ending-insensitive compare, and a delete-then-write only on a real change. A
+   target still left as a link from before is deleted first, so no root file is a link.
+6. **Gitignored targets.** 22 targets are gitignored, each matched by a `.gitignore` rule that `New-GitIgnore` injects from the registry.
+7. **Tracked targets.** The remaining 6 stay in git because git or the bootstrap reads them before the importer runs: `importer.ps1`,
+   `.gitignore`, `.gitattributes` and `pwsh/.internal/assets/importer-commands.sh` from generators, and `importer.sh` and
+   `pwsh/.internal/assets/Catzc.Types.csproj` as headed copies.
 
 ## Why it holds
 
 - The registry is one file and `Build-RootConfig` is its single writer; the target-to-source pairing lives nowhere else
   (ADR-REPO-ROOTCFG-REGISTRY).
-- All content writes go through `Write-FileIfChanged`, whose delete-then-write can never write through a linked target into a source of
-  truth; link targets are materialised by `Set-FileLink` instead (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION).
-- A `copyAsLink` entry requires a `source`, requires `committed: false` and forbids a `comment`; `Set-FileLink` is the single mechanism
-  owner and throws rather than degrade to a copy (ADR-REPO-ROOTCFG-FILESYSTEMLINK).
+- All writes go through `Write-FileIfChanged`, whose delete-then-write never writes through a link into a source of truth
+  (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION).
+- A `source` entry is a headed copy of its template, never a link to it, since a head written into a link would land in the template
+  (ADR-REPO-ROOTCFG-HEADEDCOPY).
 
 ## See also
 

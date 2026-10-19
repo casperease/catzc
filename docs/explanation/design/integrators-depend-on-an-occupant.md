@@ -20,8 +20,6 @@ broken commit from spreading. All of this is stated by the ADRs; no pipeline in 
 
 ![Upstream integrators depend on the main-UAT occupant, never on the tip of main](.assets/integrators-depend-on-an-occupant/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/integrators-depend-on-an-occupant/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Upstream integrator.** An external or upstream consumer that builds on cats. It takes commit 6, the `main-UAT` occupant, and never the

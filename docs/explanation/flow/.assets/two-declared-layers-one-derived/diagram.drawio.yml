@@ -1,0 +1,61 @@
+description: >-
+  Every globset carries one of three layers: deployable-unit and loose-fileset sets are declared in globs.yml, module sets are derived from
+  the folders under pwsh; the reserved umbrellas are derived loose-filesets, and compose is the only edge between sets.
+about:
+  lens: architecture
+  adrs:
+    - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+    - ADR-FLOW-CD-GLOBS-COMPOSESETS
+    - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+  tracks: [pwsh, docs]
+  languages: [yaml, powershell]
+  modules: [Catzc.Base.Globs]
+  files:
+    - pwsh/Catzc.Base.Globs/configs/globs.yml
+content:
+  title: Every globset carries one of three layers, and only two are declared
+  kind: explanation
+  flow: top-to-bottom
+  relation: composes
+  bands:
+    - { id: band-unit, label: DEPLOYABLE-UNIT }
+    - { id: band-loose, label: LOOSE-FILESET }
+    - { id: band-module, label: MODULE }
+  groups:
+    - { id: grp-unit-declared, label: declared in globs.yml, in: band-unit }
+    - { id: grp-loose-declared, label: declared in globs.yml, in: band-loose }
+    - { id: grp-loose-derived, label: derived, in: band-loose }
+    - { id: grp-module-derived, label: derived, in: band-module }
+  glyphs:
+    - { id: g-configured, kind: set, label: Configured units, in: grp-unit-declared }
+    - { id: g-base, kind: set, label: Base unit, in: grp-unit-declared }
+    - { id: g-declared-loose, kind: set, label: Declared loose-filesets, in: grp-loose-declared }
+    - { id: g-umbrellas, kind: set, label: Reserved umbrellas, in: grp-loose-derived }
+    - { id: g-modules, kind: set, label: Module sets, in: grp-module-derived }
+    - { id: g-leftovers, kind: set, label: module-leftovers, in: grp-module-derived }
+  edges:
+    - { from: g-configured, to: g-base, kind: thick, label: compose }
+  markers:
+    - { at: g-configured, number: 1 }
+    - { at: g-base, number: 2 }
+    - { at: g-declared-loose, number: 3 }
+    - { at: g-umbrellas, number: 4 }
+    - { at: g-modules, number: 5 }
+    - { at: g-leftovers, number: 6 }
+  chips:
+    - { at: g-configured, kind: count, text: "4/4" }
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-unit: { x: 20, y: 84, w: 1260, h: 170 }
+  band-loose: { x: 20, y: 274, w: 1260, h: 170 }
+  band-module: { x: 20, y: 464, w: 1260, h: 170 }
+  grp-unit-declared: { x: 40, y: 124, w: 640, h: 112 }
+  grp-loose-declared: { x: 40, y: 314, w: 640, h: 112 }
+  grp-loose-derived: { x: 700, y: 314, w: 560, h: 112 }
+  grp-module-derived: { x: 700, y: 504, w: 560, h: 112 }
+  g-configured: { x: 60, y: 168, w: 220, h: 52 }
+  g-base: { x: 400, y: 168, w: 260, h: 52 }
+  g-declared-loose: { x: 60, y: 358, w: 600, h: 52 }
+  g-umbrellas: { x: 720, y: 358, w: 520, h: 52 }
+  g-modules: { x: 720, y: 548, w: 240, h: 52 }
+  g-leftovers: { x: 1000, y: 548, w: 240, h: 52 }

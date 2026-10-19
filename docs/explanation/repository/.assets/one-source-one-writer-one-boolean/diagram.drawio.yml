@@ -1,6 +1,6 @@
 description: >-
-  A source of truth and the registry feed the single writer, which reproduces every opted-in root file; one boolean per entry sends it to a
-  gitignored or a tracked target.
+  A source of truth and the registry feed the single writer, which reproduces every opted-in root file as a headed file; one boolean per
+  entry sends it to a gitignored or a tracked target.
 about:
   lens: meta
   adrs:
@@ -8,11 +8,13 @@ about:
     - ADR-REPO-ROOTCFG-REGISTRY
     - ADR-REPO-ROOTCFG-COMMITTEDFLAG
     - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+    - ADR-REPO-ROOTCFG-HEADEDCOPY
   tracks: [pwsh]
   languages: []
   modules: [Catzc.Base.RootConfig]
   files:
     - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+    - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
 content:
   title: Every managed root file has one source of truth, one writer, and one boolean that decides git membership
   kind: explanation
@@ -30,8 +32,8 @@ content:
   edges:
     - { from: g-source, to: g-writer }
     - { from: g-registry, to: g-writer }
-    - { from: g-writer, to: r-gitignored, label: 19/23 }
-    - { from: g-writer, to: r-tracked, label: 4/23 }
+    - { from: g-writer, to: r-gitignored, label: 22/28 }
+    - { from: g-writer, to: r-tracked, label: 6/28 }
   markers:
     - { at: g-source, number: 1 }
     - { at: g-registry, number: 2 }

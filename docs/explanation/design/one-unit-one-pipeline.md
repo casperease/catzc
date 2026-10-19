@@ -18,8 +18,6 @@ track except through the unit that is that track.
 
 ![One unit, one pipeline; tracks ship through units](.assets/one-unit-one-pipeline/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-unit-one-pipeline/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Track.** One root concern of the repository, mapped onto one root folder and named by it.

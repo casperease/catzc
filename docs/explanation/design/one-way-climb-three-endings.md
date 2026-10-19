@@ -18,8 +18,6 @@ or the commit delivered its value.
 
 ![A commit only climbs, then ends in one of three ways](.assets/one-way-climb-three-endings/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/one-way-climb-three-endings/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **The climb.** Eight rungs in order: topic, landed, BVT, L3, main-UAT, release-uat, pre-prod and production. A commit holds one state at

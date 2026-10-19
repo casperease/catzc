@@ -22,8 +22,6 @@ kinds rather than inside them, and it shows the path the CD pipelines in the rep
 
 ![CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact](.assets/pipeline-kinds-keyed-by-one-artifact/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/pipeline-kinds-keyed-by-one-artifact/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **CI component.** There is one CI engine, the same build-and-verify in a solo CI pipeline and at the front of every CD pipeline. In the

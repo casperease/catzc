@@ -20,8 +20,6 @@ occupant. Reading the occupants tells you what lives where right now, and which 
 
 ![Four pipeline kinds promote one artifact that CI built once](.assets/four-domains-promote-one-artifact/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/four-domains-promote-one-artifact/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Topic to main.** GIT, the domain before any pipeline, holds the first two states. A commit on a topic branch is off-main and brown;

@@ -19,8 +19,6 @@ Two layers, `deployable-unit` and `loose-fileset`, are declared in `globs.yml`. 
 
 ![Two layers declared, the third derived](.assets/two-declared-layers-one-derived/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/two-declared-layers-one-derived/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Configured units.** Four deployable-units, `nova`, `apex`, `flux` and `shared`, are a base plus their own configuration. Each binds its

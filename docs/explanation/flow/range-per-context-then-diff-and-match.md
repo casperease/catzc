@@ -22,8 +22,6 @@ globset is among the matches. Two places in that order can be in doubt, the rang
 
 ![Check the name, pick the range per context, then diff git and match the paths](.assets/range-per-context-then-diff-and-match/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/range-per-context-then-diff-and-match/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **Test-GlobSetAffected.** The entry takes one mandatory, positional `-Name`, tab-completed from the registry's names, and returns a

@@ -1,34 +1,42 @@
-# One declared allow-list says what may depend on what, and every edge points down
+# One declared allow-list says what may depend on what, and every edge points down to the vendor tool
 
 ```text
-One declared allow-list says what may depend on what, and every allowed edge points down.
+One declared allow-list says what may depend on what, and every allowed edge points down to the vendor tool.
 
-1  AzureExt         top layer: the Azure modules below the Azure root, one group
-2  Catzc.Azure      middle layer: the Azure root, one module
-3  Tooling          middle layer: the managers of the non-vendored external tools, one group
-4  Base             foundation: one group that depends on nothing outside itself
-5  Undeclared edge  any real edge the declaration does not list; it fails the build
+1  Top-layer modules   the modules no other layer may depend on, one group
+2  Vendor root module  the module of one vendor, in the middle layer
+3  Tool managers       the managers of the external tools, one group in the middle layer
+4  Base libraries      the foundation: one group that depends on nothing outside itself
+5  Vendor tool         the last hop: the call reaches the tool through Base
+6  Undeclared edge     any real edge the declaration does not list; it fails the build
 
 Supports ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY and ADR-AUTO-DEPM-EXTENDBYDECLARING (meta lens).
 ```
 
 The module dependency declaration is one file that says which module may depend on which, and cats checks the code against that file, never
 the other way round. The declaration is the allow-list: it lets each layer depend only on the layers below it, and a real edge it does not
-list fails the build. Stripped of every module and function name, the whole idea is three layers and one failure.
+list fails the build. Stripped of every module and function name and of any one vendor, the whole idea is three layers, one last hop to the
+vendor tool and one failure.
 
-![A declared allow-list whose edges point down](.assets/a-declared-allow-list-of-layers/diagram.drawio.png)
-
-The diagram is described element by element in [its asset description](.assets/a-declared-allow-list-of-layers/diagram.drawio.md).
+![A declared allow-list whose edges point down to the vendor tool](.assets/a-declared-allow-list-of-layers/diagram.drawio.png)
 
 ## Walkthrough
 
-1. **AzureExt.** The top of the graph is a group: the Azure modules that sit below the Azure root. Its members may use the Azure root, the
-   Tooling group and the Base group, and nothing outside the group may depend on it.
-2. **Catzc.Azure.** The Azure root is a single module in the middle of the graph. It may use Base.
-3. **Tooling.** The managers of the non-vendored external tools form a group in the middle of the graph. It may use Base.
-4. **Base.** The foundation is a group that depends on nothing outside itself; its members are layered only among themselves.
-5. **Undeclared edge.** An edge the declaration does not list, such as a Base library reaching up into Tooling, fails the build. The check
-   is mechanical, not a matter of review vigilance.
+1. **Top-layer modules.** The top of the graph is a group of modules that no other layer may depend on. Its members may use the vendor root
+   module, the tool managers and the Base libraries.
+2. **Vendor root module.** The module of one vendor sits in the middle of the graph as a single module. It may use Base.
+3. **Tool managers.** The managers of the external tools form a group in the middle of the graph. It may use Base.
+4. **Base libraries.** The foundation is a group that depends on nothing outside itself; its members are layered only among themselves.
+5. **Vendor tool.** The call into the vendor's own tool is the last hop, and it is made from Base: every layer above reaches the tool only
+   through the foundation, never directly.
+6. **Undeclared edge.** An edge the declaration does not list, such as a Base library reaching up into the tool managers, fails the build.
+   The check is mechanical, not a matter of review vigilance.
+
+## A worked example: Azure
+
+In the Azure case the top-layer group is `AzureExt`, the Azure modules below the Azure root. The vendor root module is `Catzc.Azure`, the
+Azure root, a single module. The tool managers are the `Tooling` group, the managers of the non-vendored external tools. The foundation is
+the `Base` group, and the vendor tool at the last hop is the Az CLI, which the Azure modules reach only through Base.
 
 ## Why it holds
 

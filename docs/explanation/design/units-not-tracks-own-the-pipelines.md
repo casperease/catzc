@@ -20,8 +20,6 @@ the globset ADR both say so.
 
 ![CD binds through units, CI binds the track sets](.assets/units-not-tracks-own-the-pipelines/diagram.drawio.png)
 
-The diagram is described element by element in [its asset description](.assets/units-not-tracks-own-the-pipelines/diagram.drawio.md).
-
 ## Walkthrough
 
 1. **automation.** The core track: it defines the internal ports every other track rests on. In `globs.yml` it is a globset of the
