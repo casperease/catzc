@@ -1,7 +1,7 @@
 function Get-ModuleDependencyMap {
     [OutputType([hashtable])]
     param(
-        [string[]] $Module = (Get-CatzcModule -TrackType modules).name
+        [string[]] $Module = (Get-CatzcModule -EngineTrack).name
     )
 
     $groups = Get-ModuleGroupConfig        # group -> (member -> [members it may depend on])

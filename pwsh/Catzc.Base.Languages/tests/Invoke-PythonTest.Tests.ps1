@@ -7,6 +7,10 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
         Set-Content -LiteralPath (Join-Path $script:pythonRoot 'pyproject.toml') -Value '[tool.uv.workspace]'
         Set-Content -LiteralPath (Join-Path $script:folder 'pyproject.toml') -Value '[project]'
         $null = New-Item -ItemType Directory -Path (Join-Path $script:pythonRoot 'tests/catzc-gadget') -Force
+        # A module of the python track with its own tests/ folder; its generated member project sits at the module root.
+        $script:ownFolder = Join-Path $script:pythonRoot 'Widget.Kit/tests'
+        $null = New-Item -ItemType Directory -Path $script:ownFolder -Force
+        Set-Content -LiteralPath (Join-Path $script:pythonRoot 'Widget.Kit/pyproject.toml') -Value '[project]'
         $script:buildEntry = Join-Path $TestDrive 'build/Import-Catzc.ps1'
         $null = New-Item -ItemType File -Path $script:buildEntry -Force
         $script:widgetReport = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/pytest-widget.xml')
@@ -96,6 +100,15 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
 
         It 'throws when the module has no Python test folder' {
             { Invoke-PythonTest Catzc.Sprocket } | Should -Throw '*python/tests/catzc-sprocket/ does not exist*'
+        }
+
+        It 'runs the named folder, a module''s own tests/ under the python track, with the member project at the module root' {
+            $null = Invoke-PythonTest Widget.Kit -Folder $script:ownFolder
+            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"Widget.Kit/tests`""
+            $script:seen.Command[2] | Should -BeLike "$script:uv run --no-sync --quiet pytest `"Widget.Kit/tests`" --rootdir `"Widget.Kit/tests`" *"
+            $null = Invoke-PythonTest Catzc.Widget -Folder 'python/tests/catzc-widget'
+            $script:seen.Command[4] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/catzc-widget`""
+            { Invoke-PythonTest Widget.Kit -Folder 'python/Widget.Nothing/tests' } | Should -Throw '*python/Widget.Nothing/tests/ does not exist*'
         }
 
         It 'never lets uv download an interpreter, and passes the engine contract loading the entry, and the root' {

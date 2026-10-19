@@ -1,8 +1,8 @@
 track_types:
   modules:
-    definition: Deployable PowerShell and C# modules, collected into the bundles the repository delivers.
+    definition: Deployable modules of one language's track, collected into the bundles files.yml declares; a module with no package ships nothing.
     role: deployable
-    admits: [pwsh-folder, pwsh-psm1]
+    admits: [pwsh-folder, pwsh-psm1, python, go, bash]
   infrastructure:
     definition: Deployable Bicep templates and reusable Bicep modules, delivered per customer and target.
     role: deployable
@@ -27,10 +27,6 @@ track_types:
     definition: The ADRs, references, guides and diagram assets for the repository's readers.
     role: holder
     admits: []
-  verification:
-    definition: Black-box test projects that verify the modules from outside and ship nothing.
-    role: holder
-    admits: [python, go, bash]
   unordered:
     definition: Where imports land with their history, one landing address each, until sorted; nothing reads or depends on it.
     role: holder

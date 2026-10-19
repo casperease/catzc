@@ -17,22 +17,13 @@ dispatch, and redirect the repository root to a fixture tree (TestKit) so Resolv
 inside it.
 ```
 
-## comment:2
-
-Above `Mock Set-FileLink -ModuleName Catzc.Base.RootConfig { $false }`, written with `#`.
-
-```text
-The link mechanism is its own unit (Set-FileLink.Tests.ps1) — here it is a mocked boundary, so these
-tests assert only that the link branch dispatches to it and skips content composition.
-```
-
 ## comment:3
 
 Above `$sourceOnDisk = Join-Path $script:fake.Root 'sources/fixture.yml'`, written with `#`.
 
 ```text
-An entry flipped back from copyAsLink: the leftover link reads the same as the source, so only the is-link
-check can convert it back into an independent file.
+A target left as a link reads the same as its source, so only the is-link check converts it into an
+independent file, and the source is never written through it.
 ```
 
 ## comment:4

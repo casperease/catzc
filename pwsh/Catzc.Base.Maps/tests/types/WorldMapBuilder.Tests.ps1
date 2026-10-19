@@ -3,7 +3,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         $script:tracks = @(
             [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script', 'widget-config'))
             [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'infrastructure', $null, @('widget-config'))
-            [Catzc.Base.Variants.VariantTrack]::new('probes', @('probes'), 'verification', $null, @())
+            [Catzc.Base.Variants.VariantTrack]::new('probes', @('probes'), 'modules', $null, @('widget-script', 'probe-lang'))
             [Catzc.Base.Variants.VariantTrack]::new('docs', @('docs'), 'documentation', $null, @('notes'))
             [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::AdoPipelinesTrack, @('pipelines'), 'pipelines', $null, @('gadget-pipe'))
         )
@@ -136,10 +136,16 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             $placement.StackViolation | Should -BeFalse
         }
 
-        It 'never flags a verification track or a vendored file' {
-            foreach ($path in 'probes/extra.ps1', 'probes/check.prb', 'widgets/.vendor/Thing/thing.json') {
+        It 'never flags a vendored file' {
+            $placement = $script:map.Placement('widgets/.vendor/Thing/thing.json')
+            $placement.Live | Should -BeFalse
+            $placement.StackViolation | Should -BeFalse
+        }
+
+        It 'reads a second language track without an aspects entry as live throughout, within its declared languages' {
+            foreach ($path in 'probes/extra.ps1', 'probes/check.prb') {
                 $placement = $script:map.Placement($path)
-                $placement.Live | Should -BeFalse -Because $path
+                $placement.Live | Should -BeTrue -Because $path
                 $placement.StackViolation | Should -BeFalse -Because $path
             }
         }

@@ -6,7 +6,7 @@ artifact derived from an authored source in this module, so the editor's behavio
 [generated-root-configs](../../adr/repository/generated-root-configs.md)). What it deliberately does **not** own is the materialisation: the
 renderers are pure functions that return content and write nothing; the `.vscode/` targets are managed entries written by
 [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s `Build-RootConfig`, which names each renderer as its entry's generator (the CSS is a
-`copyAsLink` entry — the `.vscode/` file is a link to this module's asset).
+`source` entry — the `.vscode/` file is a headed copy of this module's asset).
 
 ## Responsibilities
 

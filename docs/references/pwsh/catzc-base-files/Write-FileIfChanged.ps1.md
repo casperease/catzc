@@ -19,8 +19,7 @@ written, as UTF-8 without BOM; a missing parent directory is created. Returns wh
 caller can drive its own status line.
 
 A changed write is delete-then-write, never in-place: writing through a symbolic or hard link at the target path would tunnel the composed
-content into the link's source of truth (a Set-FileLink target that an entry stopped declaring), so the write always produces a fresh,
-independent file.
+content into the file the link points at, so the write always produces a fresh, independent file.
 
 This is the write tail every generated-artifact builder shares (Build-RootConfig, Build-GitKeep, …) — one living copy of the
 canonicalise/compare/write logic instead of one per builder (see [ADR-PRIN-ONELIVE](../../../adr/principles/one-living-version.md)). It is a

@@ -12,6 +12,8 @@ function Get-AdrFileIndex {
 
     Assert-PathExist $AdrRoot
 
+    # A page belongs to the domain with the longest folder that holds it, so a domain folder nested in another domain's folder keeps its own pages.
+    $folders = @($RuleSets.Folder | Sort-Object -Unique | Sort-Object -Property Length -Descending)
     $relativePaths = [System.Collections.Generic.List[string]]::new()
     $byKey = @{}
     # An ADR sits at most three levels below docs/adr (domain, subfolder, file); the fourth level is headroom.
@@ -25,6 +27,12 @@ function Get-AdrFileIndex {
         else {
             ''
         }
+        foreach ($folder in $folders) {
+            if ($relative.StartsWith("$folder/", [System.StringComparison]::Ordinal)) {
+                $domainFolder = $folder
+                break
+            }
+        }
         $key = "$domainFolder/$([System.IO.Path]::GetFileNameWithoutExtension($file))"
         if (-not $byKey.ContainsKey($key)) {
             $byKey[$key] = [System.Collections.Generic.List[string]]::new()
@@ -34,7 +42,7 @@ function Get-AdrFileIndex {
 
     $fileOf = @{}
     foreach ($ruleSet in $RuleSets) {
-        $key = "$($ruleSet.Domain)/$($ruleSet.Slug)"
+        $key = "$($ruleSet.Folder)/$($ruleSet.Slug)"
         if ($byKey.ContainsKey($key) -and $byKey[$key].Count -eq 1) {
             $fileOf[$ruleSet.External] = $byKey[$key][0]
         }

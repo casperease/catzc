@@ -42,7 +42,7 @@ The diagram is described element by element in [its asset description](.assets/e
    In the customer template, `Deploy_Expedition` deploys an entry with a slot to the environment `<Customer>-<env>-<slot>`, and an entry
    without one to the env's base slot, `<Customer>-<env>`.
 
-No stage in `pipelines/` is named BVT; the pipeline guide names the CI type's post-commit run on main the BVT.
+No stage in `.ado/pipelines/` is named BVT; the pipeline guide names the CI type's post-commit run on main the BVT.
 
 ## Why it holds
 

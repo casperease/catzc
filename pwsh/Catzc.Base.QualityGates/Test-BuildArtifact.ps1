@@ -2,7 +2,7 @@ function Test-BuildArtifact {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
-        [ArgumentCompleter({ (Get-CatzcModule -TrackType modules).name })]
+        [ArgumentCompleter({ (Get-CatzcModule -EngineTrack).name })]
         [string[]] $Module = @(),
 
         [string] $ModuleProfile,

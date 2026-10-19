@@ -4,6 +4,7 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
         $script:tracks = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{
                     widgets = [ordered]@{ places = @('widgetry'); type = 'modules'; languages = @('widget-script') }
                     gizmos  = [ordered]@{ places = @('gizmo'); type = 'gizmo-shelf' }
+                    shelves = [ordered]@{ places = @('shelf'); type = 'shelf-works'; languages = @('widget-script') }
                 }
             }).tracks
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
@@ -25,6 +26,12 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
         $aspects.Name | Should -Be @('live', 'tests')
         $aspects[0].Patterns | Should -Be @('*.wdg', 'inner/**', 'assets/**')
         $aspects[-1].Patterns | Should -Be @('**')
+    }
+
+    It 'derives the convention from the layout for a track of any type whose primary language is laid out' {
+        $aspects = @(Get-Aspect -Track shelves)
+        $aspects.Name | Should -Be @('live', 'tests')
+        $aspects[0].Patterns | Should -Be @('*.wdg', 'inner/**', 'assets/**')
     }
 
     It 'defaults infrastructure to live-as-catch-all (a deployment ships everything but tests/)' {
@@ -51,7 +58,7 @@ Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
 
 Describe 'Get-Aspect on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
     It 'gives the code track the five live folders the aspects were written with' {
-        $code = Get-Track | Where-Object type -CEQ 'modules'
-        (Get-Aspect -Track $code.name)[0].Patterns | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**', 'assets/**')
+        $code = Get-Track -Path (Get-CatzcModulesFolder)
+        (Get-Aspect -Track $code.name)[0].Patterns | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**', '*.py', '*.go', '*.sh', 'assets/**')
     }
 }

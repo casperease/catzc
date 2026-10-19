@@ -1,12 +1,12 @@
 # DORA explanations — ado
 
-The `Dora explains` rationale for the ADRs in the `ado/` domain, consolidated in one place. Each entry names its ADR and rule code,
-then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions
-live in the ADRs themselves; this file carries only their DORA rationale.
+The `Dora explains` rationale for the ADRs in the `ado/` domain, consolidated in one place. Each entry names its ADR and rule code, then
+reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
+the ADRs themselves; this file carries only their DORA rationale.
 
 ## Dual authentication
 
-`Dual authentication — pipeline system token vs. local Az token`
+`Dual authentication — ado pipeline system token vs. local Az token`
 
 [ADR-ADO-AUTH](dual-authentication.md)
 
@@ -45,10 +45,11 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 [ADR-ADO-NAME](pipeline-naming-and-placement.md)
 
 > DORA's research links code organization and consistency to faster review cycles and lower defect introduction rates. This ADR's semantic
-> layout convention — type-prefixed ado in one flat directory and per-kind template folders — eliminates guesswork about structure,
-> enables tooling and audits to be predictable, and keeps the `ado/` directory self-indexing and greppable without opening files.
+> layout convention — type-prefixed ado pipelines in one flat directory and per-kind template folders — eliminates guesswork about
+> structure, enables tooling and audits to be predictable, and keeps the `.ado/pipelines/` directory self-indexing and greppable without
+> opening files.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — conventional layout keeps ado organized and
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — conventional layout keeps ado pipelines organized and
   instantly classifiable by type.
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — the directory structure documents what each file is
   without opening it.
@@ -67,8 +68,8 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 > the critical path clear.
 
 - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — flat, reviewable pipeline code reduces cycle time.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — direct step references and shallow nesting keep
-  ado readable.
-- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — simpler ado require less review
-  friction.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — direct step references and shallow nesting keep ado
+  pipelines readable.
+- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — simpler ado pipelines require less
+  review friction.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

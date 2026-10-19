@@ -21,7 +21,7 @@ function Resolve-ImportMix {
     # A module's code languages are the executable languages of the files a language's own layout row places; the shared rows (assets, tests) never count.
     $languageConfig = Get-Config -Config languages
     $moduleLanguages = [ordered]@{}
-    foreach ($module in Get-CatzcModule -TrackType modules) {
+    foreach ($module in Get-CatzcModule -EngineTrack) {
         $code = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
         foreach ($file in $module.files) {
             $row = $languageConfig.PlaceOf($file)

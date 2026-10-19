@@ -28,11 +28,11 @@ role is declared on the track type, never on the track.
 A track may name the **vendor** that reads its files: the platform or tool, from a closed set declared once with a definition each (`azure`,
 `ado`, `github`, `claude`, `cspell`, `vscode`; a new vendor is an entry). A vendor is never mixed into another vendor's track, and one
 vendor may have several tracks (`github` has a `pipelines` track and a `vendor-settings` track; `claude` may split its settings from its
-tooling kit). The ADO pipelines (`pipelines/`, vendor `ado`) and the GitHub workflows (`.github/workflows`, vendor `github`) are two tracks
-of one type, `pipelines`, because each is read by a different platform and bound to a different pipeline model. The settings of each tool
-the repository configures are one `vendor-settings` track per vendor (`.claude`, `.cspell`, the `.github` files that are not workflows, and
-`.vscode` once git tracks a file in it). The `infrastructure` track has vendor `azure`. `vendor` is the platform that reads a file and never
-the third party that wrote it.
+tooling kit). The ado pipelines (`.ado/pipelines`, vendor `ado`) and the GitHub workflows (`.github/workflows`, vendor `github`) are two
+tracks of one type, `pipelines`, because each is read by a different platform and bound to a different pipeline model. The settings of each
+tool the repository configures are one `vendor-settings` track per vendor (`.claude`, `.cspell`, the `.github` files that are not workflows,
+and `.vscode` once git tracks a file in it). The `infrastructure` track has vendor `azure`. `vendor` is the platform that reads a file and
+never the third party that wrote it.
 
 - [Vendors](#vendors)
 
@@ -77,10 +77,10 @@ never live ([ADR-DSGN-TRACK-STACKVIOLATION](tracks.md#rule-adr-dsgn-track-stackv
 ## Context
 
 The repository holds more than code to deploy. Its `automation` and `infrastructure` trees are collections of modules that CI/CD delivers;
-its `pipelines/` and `.github/workflows` trees are the repository's own pipeline definitions for two different platforms; its dot-folders
-configure the tools that read them; its `.vendor` folders hold code written elsewhere. Calling all of these "root folders" hides the
-difference that matters: which tracks produce a deliverable, and which only hold a vendor's configuration or a third party's code. A name
-for the type of track, declared once, makes that difference a fact a gate can check.
+its `.ado/pipelines` and `.github/workflows` trees are the repository's own pipeline definitions for two different platforms; its
+dot-folders configure the tools that read them; its `.vendor` folders hold code written elsewhere. Calling all of these "root folders" hides
+the difference that matters: which tracks produce a deliverable, and which only hold a vendor's configuration or a third party's code. A
+name for the type of track, declared once, makes that difference a fact a gate can check.
 
 ### Track types
 

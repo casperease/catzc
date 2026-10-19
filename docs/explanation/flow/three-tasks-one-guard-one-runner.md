@@ -15,9 +15,9 @@ Three tasks share one guard, and one runner imports, traps, sanitizes and invoke
 Supports ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL, ADR-FLOW-CD-RUNNER-IMPORTONCE and ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES (implementation lens).
 ```
 
-Every pipeline step in cats runs through two files: the step template `pipelines/steps/invoke-automation.yaml` and the runner
-`pipelines/Invoke-AdoScript.ps1`. The template has three task variants, one per authentication mode, and all three carry the same inline
-guard before they call the runner. The runner then does four things in a fixed order. Read in code order, the path from a pipeline's
+Every ado pipeline step in cats runs through two files: the step template `.ado/pipelines/steps/invoke-automation.yaml` and the runner
+`.ado/pipelines/Invoke-AdoScript.ps1`. The template has three task variants, one per authentication mode, and all three carry the same
+inline guard before they call the runner. The runner then does four things in a fixed order. Read in code order, the path from a pipeline's
 `RunCommand` to the running command has no other stops.
 
 ![Three tasks, one guard, one runner](.assets/three-tasks-one-guard-one-runner/diagram.drawio.png)

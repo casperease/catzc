@@ -53,7 +53,7 @@ Pipeline steps invoke automation through the runner, never inline PowerShell (se
 
 ```yaml
 steps:
-  - template: /pipelines/steps/invoke-automation.yaml
+  - template: /.ado/pipelines/steps/invoke-automation.yaml
     parameters:
       RunCommand: "Invoke-MyFunction"
 ```
@@ -106,7 +106,7 @@ infrastructure/
 docs/
   adr/                             architecture decision records (the "why")
   how-to/                          getting-started guides + how-to articles (this guide)
-pipelines/                         Azure DevOps YAML + the runner
+.ado/pipelines/                    Azure DevOps YAML + the runner
 out/                               all generated output (gitignored)
 ```
 

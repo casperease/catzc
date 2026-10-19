@@ -172,8 +172,8 @@ contracts/
         workflows/ci-automation.yml                   # fragment of .github/workflows/ci-automation.yml: the keys GitHub reads
         workflows/ci-automation.yml.schema.json       # schema: .github/workflows/ci-automation.yml validates against it
         README.md                                     # presence of .github/README.md, the page GitHub renders
-      Catzc.Azure.DevOps/                             # target root: the repository root, the default
-        pipelines/ci-automation.yaml                  # fragment of pipelines/ci-automation.yaml: the keys Azure Pipelines reads
+      Catzc.Azure.DevOps/                             # target root .ado
+        pipelines/ci-automation.yaml                  # fragment of .ado/pipelines/ci-automation.yaml: the keys Azure Pipelines reads
         rest/build-queue.sample.json                  # sample payload: the module produces or parses it
       Catzc.Base.Widgets/
         Get-Widget.command.yml                        # command contract: the call interface of Get-Widget

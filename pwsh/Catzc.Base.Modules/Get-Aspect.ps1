@@ -11,8 +11,9 @@ function Get-Aspect {
         [Catzc.Base.Variants.VariantAspect]::new('tests', [string[]]@('**'))
     }
 
+    # A laid-out track, one whose primary language owns layout rows, derives its convention from the layout.
     $trackEntry = @(Get-Track).Where({ $_.name -ceq $Track })
-    if ($trackEntry.Count -gt 0 -and $trackEntry[0].type -ceq 'modules') {
+    if ($trackEntry.Count -gt 0 -and (Get-Config -Config languages).IsLaidOut($trackEntry[0].languages)) {
         & $code
         return
     }

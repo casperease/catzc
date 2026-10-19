@@ -52,7 +52,7 @@ Describe 'Get-ModuleProfile — real profiles.yml' -Tag 'L2', 'integrity' {
     It 'every shipped profile resolves to a non-empty, on-disk module set' {
         $names = @((Get-Config -Config profiles).profiles.Keys)
         $names.Count | Should -BeGreaterThan 0
-        $allowed = @((Get-CatzcModule -TrackType modules).name) + @('.internal', '.compiled', '.vendor') | Select-Object -Unique
+        $allowed = @((Get-CatzcModule -EngineTrack).name) + @('.internal', '.compiled', '.vendor') | Select-Object -Unique
         $violations = foreach ($name in $names) {
             $resolved = Get-ModuleProfile -Name $name
             if (@($resolved).Count -eq 0) {

@@ -12,7 +12,7 @@ function Test-RootConfigFiles {
     $entries = @(foreach ($entry in @(Get-RootConfigTargets -Config (Get-Config -Config rootconfig))) {
             if ([System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($entry.target)) {
                 foreach ($file in @(Get-RootConfigRenderedFile -Entry $entry)) {
-                    [pscustomobject]@{ target = $file.Target; source = $entry.source; carrier = $entry.carrier; committed = [bool] $entry.committed; copyAsLink = [bool] $entry.copyAsLink }
+                    [pscustomobject]@{ target = $file.Target; source = $entry.source; carrier = $entry.carrier; committed = [bool] $entry.committed }
                 }
             }
             else {
@@ -61,24 +61,7 @@ function Test-RootConfigFiles {
 
         $targetPath = Join-Path $repositoryRoot $target
         $item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore
-        if ($entry.copyAsLink) {
-            $sourcePath = Join-Path $repositoryRoot $entry.source
-            $effective = $false
-            if ($item -and $item.LinkType -eq 'SymbolicLink') {
-                $resolved = $item.ResolveLinkTarget($true)
-                $effective = $resolved -and (
-                    [System.IO.Path]::GetFullPath($resolved.FullName) -eq [System.IO.Path]::GetFullPath($sourcePath))
-            }
-            elseif ($item -and $item.LinkType -eq 'HardLink') {
-                $targetText = [System.IO.File]::ReadAllText($targetPath) -replace "`r", ''
-                $sourceText = [System.IO.File]::ReadAllText($sourcePath) -replace "`r", ''
-                $effective = $targetText -ceq $sourceText
-            }
-            if (-not $effective) {
-                $issues.Add("${target}: copyAsLink, but missing, stale, or not a link to $($entry.source) — re-run the importer (Build-RootConfig re-links)")
-            }
-        }
-        elseif ($item -and $item.LinkType) {
+        if ($item -and $item.LinkType) {
             $issues.Add("${target}: a link, but must be a real, independent file — re-run the importer (Build-RootConfig rewrites it)")
         }
         elseif ($entry.source) {

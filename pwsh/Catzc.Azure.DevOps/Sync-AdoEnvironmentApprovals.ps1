@@ -30,7 +30,7 @@ function Sync-AdoEnvironmentApprovals {
         DryRun  = [bool]$DryRun
     }
 
-    foreach ($name in $config.environments) {
+    foreach ($name in $config.Environments((Get-Config -Config rungs))) {
         $check = @{
             Context        = $context
             Environment    = $name

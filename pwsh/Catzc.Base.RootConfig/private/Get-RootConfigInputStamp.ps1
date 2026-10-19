@@ -47,10 +47,6 @@ function Get-RootConfigInputStamp {
                 }
             }
         }
-        elseif ($entry.copyAsLink) {
-            $item = Get-Item -LiteralPath (Resolve-RepoPath $target) -Force -ErrorAction Ignore
-            $salt.Add("link:${target}:$([bool] ($item -and $item.LinkType))")
-        }
         else {
             $full = Resolve-RepoPath $target
             if ([System.IO.File]::Exists($full)) {

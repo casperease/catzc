@@ -82,11 +82,11 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
 
         $script:isLive = {
             param([string] $File, $Track)
-            if ($Track.type -in 'verification', 'vendored-code') {
+            if ($Track.type -eq 'vendored-code') {
                 return $false
             }
             $relative = $File.Substring($Track.PlaceLengthOf($File) + 1)
-            if ($Track.type -ne 'modules' -and -not (Test-AspectDeclaration -Track $Track.name)) {
+            if (-not (Get-Config -Config languages).IsLaidOut($Track.languages) -and -not (Test-AspectDeclaration -Track $Track.name)) {
                 return $true
             }
             $slash = $relative.IndexOf('/')

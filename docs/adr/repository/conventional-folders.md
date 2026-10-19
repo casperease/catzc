@@ -142,7 +142,7 @@ at every depth.
 Conventional folders come in two kinds, and the difference is _who relies on the name_:
 
 - **Contract folders** — a tool hardcodes the literal name and programs against it, so a wrong name makes the content structurally invisible
-  or non-functional. `pwsh/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `go/`, `python/`, `ado/steps/`,
+  or non-functional. `pwsh/`, `private/`, `tests/`, `configs/`, `types/`, `.vendor/`, `out/`, `go/`, `python/`, `.ado/pipelines/steps/`,
   `docs/adr/`, `docs/references/`, and `infrastructure/templates/<name>/configuration/[<customer>/]` are contract folders.
 - **Semantic folders** — a _reader_ infers the meaning; no tool hardcodes the name, and the internal layout is freeform. The topic
   subfolders of `docs/`, `docs/how-to/`, `infrastructure/modules/`, and the ad-hoc workspaces under `out/` are semantic folders.
@@ -240,13 +240,13 @@ a reader infers it (_semantic_).
 | `pwsh/`           | contract | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                                                                            | `importer.ps1`, `Test-Automation`, `Install-VendorModule`           |
 | `docs/`           | mixed    | Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `explanation/` articles, `.assets/` diagrams                              | `Build-AdrIndex`, `Build-Readme`; human consumption                 |
 | `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                                                                     | Bicep build/deploy tooling, `Get-BicepTemplates`                    |
-| `ado/`      | contract | Azure DevOps YAML ado, per-kind templates, and the runner                                                                                                        | Azure DevOps runner, `Invoke-AdoScript.ps1`                         |
 | `contracts/`      | contract | Binding contracts at the repository boundary, both directions — `<unit>/<version>/<module>/<path>`; see [api-contracts](api-contracts.md)                              | The owning modules' contract tests; outside consumers and platforms |
 | `go/`             | contract | The Go root: black-box Go tests, `tests/<module>/`; see [go-test-artifacts](../automation/go/go-test-artifacts.md)                                                     | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
 | `python/`         | contract | The Python root: black-box Python tests, `tests/<module>/`, and the generated test project; see [python-test-artifacts](../automation/python/python-test-artifacts.md) | `PythonConfig`, `New-PythonProject`, `Invoke-PythonTest`            |
 | `bash/`           | contract | The Bash root: black-box Bash tests, `tests/<module>/`, and the vendored bats runner; see [bash-test-artifacts](../automation/bash/bash-test-artifacts.md)             | `BashConfig`, `Invoke-BashTest`                                     |
 | `out/`            | contract | All output files (gitignored) — see [dedicated-output-directory](dedicated-output-directory.md)                                                                        | Output functions, CI artifacts, cleanup scripts                     |
 | `.github/`        | contract | GitHub Actions — `workflows/`, actions, templates                                                                                                                      | GitHub Actions runner                                               |
+| `.ado/`           | contract | Azure DevOps — `pipelines/` holds the ado pipelines, per-kind templates, and the runner                                                                                | Azure DevOps runner, `Invoke-AdoScript.ps1`                         |
 | `.vscode/`        | contract | Managed, generated editor config — every file reproduced on import; see [generated-root-configs](generated-root-configs.md)                                            | VS Code; `Build-RootConfig`                                         |
 | `.claude/`        | contract | Claude Code project config — `CLAUDE.md`, `settings.json`, the `agents/`, `hooks/`, and `drawio/` folders                                                              | Claude Code                                                         |
 | `.cspell/`        | contract | Generated cspell dictionaries — one `<category>.txt` per `terminology.yml` category; only `.gitkeep` is committed                                                      | `cspell.yml`; `Build-TerminologyDictionary`                         |
@@ -260,16 +260,16 @@ and each has its own conventional sub-layout:
 
 **`docs/`** holds five folders. `adr/` is the Architecture Decision Records, one subfolder per domain declared in
 `pwsh/Catzc.Base.Docs/configs/adrs.yml`: `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`, `configuration/`,
-`ado/`, `github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that registry and describes
-each domain, so the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference
-articles, including the sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research
-reference under `references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one
-diagram of how cats works and why, in a subfolder per ADR domain. These four are **markdown-only**; their subfolders are author-organized
-topic buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown
-content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is one folder in the `.assets/`
-beside the page that embeds it, so moving the diagram moves the folder and the page finds it by locality. The folder holds the diagram's
-companions under role names: its description, so its words travel with the slide; its verify record, so every drawn claim stays checkable
-against the code; and its minimap images, each with a sister `.md` that gives the reason for every lit cell.
+`ado/`, `github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that registry and describes each
+domain, so the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles,
+including the sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference
+under `references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one diagram of
+how cats works and why, in a subfolder per ADR domain. These four are **markdown-only**; their subfolders are author-organized topic
+buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content
+under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is one folder in the `.assets/` beside
+the page that embeds it, so moving the diagram moves the folder and the page finds it by locality. The folder holds the diagram's companions
+under role names: its description, so its words travel with the slide; its verify record, so every drawn claim stays checkable against the
+code; and its minimap images, each with a sister `.md` that gives the reason for every lit cell.
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's
@@ -278,9 +278,10 @@ the configuration root is the shared platform's, and a subfolder is always a cus
 identity is a separate `short_name`. See [the data model](../azure/azure-data-model.md) and
 [the naming standard](../azure/azure-naming-standard.md).
 
-**`ado/`** is flat: ado are named `<type>-<name>.yaml` (`cron`/`ci`/`cd`/`cde`/`deploy`/`input`) directly in the folder, the
-runner `Invoke-AdoScript.ps1` sits at the root, and reusable fragments live in per-kind folders whose names are the include-kind contract —
-`steps/`, `jobs/`, `stages/`, `variables/`, `extends/`. See [pipeline-naming-and-placement](../ado/pipeline-naming-and-placement.md).
+**`.ado/pipelines/`** is flat: ado pipelines are named `<type>-<name>.yaml` (`cron`/`ci`/`cd`/`cde`/`deploy`/`input`) directly in the
+folder, the runner `Invoke-AdoScript.ps1` sits at the root, and reusable fragments live in per-kind folders whose names are the include-kind
+contract — `steps/`, `jobs/`, `stages/`, `variables/`, `extends/`. See
+[pipeline-naming-and-placement](../ado/pipeline-naming-and-placement.md).
 
 **`contracts/`** holds the repository's contracts — the binding interfaces at its boundary, proven by tests, in both directions: provided
 (what an outside consumer may rely on) and depended-on (what an outside platform, such as GitHub or Azure DevOps, expects of our files and

@@ -33,11 +33,19 @@ Until the ladder runs, the ADRs' promotion rules are proven by no real run, and 
 
 ## Open steps
 
-- [ ] Declare the rungs registry: one yml with its C# config type in a new module `pwsh/Catzc.Base.Flow` (declared in `dependencies.yml`;
-      the type carries the defaults; no Base module owns pipeline detection today) with the four rungs main-uat, release-uat, pre-prod and
-      prod, each with its gate and the environment suffix it maps to, read by `Catzc.Azure.DevOps` for its environment names and by the
-      lifecycle minimap of `plan-diagram-engine` (check: an L0 test on the type; `environment-approvals.yml` derives its environment names
-      from it; Test-ModuleDependency clean). Takeable now; the user's proof run is not needed for it.
+- [x] Declare the rungs registry (`Catzc.Base.Flow`: `rungs.yml`, `RungsConfig` with the ladder on `DefaultRungs`, `Rung`, `Get-Rung`), read
+      by `Catzc.Azure.DevOps` (rule ADR-FLOW-CD-RUNGSREGISTRY) — verdict: a fresh full import loads; `Get-Config -Config rungs` is
+      `RungsConfig` (main-uat=dev/none, release-uat=test/rc, pre-prod=preprod/rbc, prod=prod/prod-approval);
+      `EnvironmentApprovalsConfig.Environments(rungs)` gives the same 11 names, in the same order, as the old hand list; `Invoke-TestFile`
+      Passed for RungsConfig, Get-Rung, EnvironmentApprovalsConfig and Sync-AdoEnvironmentApprovals; Test-ModuleDependency adds no issue
+      (its 2 issues, Execution -> python and Timeouts -> bash, are not this step's).
+- Decided for step 1 by the orchestrator on the user's delegation, 2026-10-19 (designed by catzc-08):
+  - The ladder is declared once, on `RungsConfig.DefaultRungs`; `rungs.yml` is comment-only, so step 2's main-uat remap is a one-line edit
+    there.
+  - Each rung names the gate that guards its entry: none, rc, rbc or prod-approval.
+  - `environment-approvals.yml` lists `units` and `prod_environments`, and `<unit>-<rung>` is derived for the rc and rbc rungs. The prod
+    tier stays explicit, because ADO names it by deploy target (psub, prod), not by rung; deriving `<unit>-prod` would create three new ADO
+    environments.
 - [ ] main-uat is `dev`: rename each unit's `<unit>-dev` ADO environment to `<unit>-main-uat` in the deploy lists and the ladder docs, so
       the rung has its own environment name, derived from the registry above (check: Test-Pipelines clean; the rename in Azure DevOps itself
       is the user's).

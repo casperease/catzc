@@ -25,7 +25,7 @@ function Get-ModuleProfile {
         Get-ModuleDependencyClosure -Module $seed
     }
     else {
-        [string[]] @((Get-CatzcModule -TrackType modules).name)
+        [string[]] @((Get-CatzcModule -EngineTrack).name)
     }
 
     $result = [System.Collections.Generic.List[string]]::new()

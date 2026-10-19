@@ -1,7 +1,7 @@
 # One field in globs.yml, pipeline:, binds a set to its pipeline file
 
 ```text
-One key in globs.yml, pipeline:, binds a globset to the file pipelines/<name>.yaml.
+One key in globs.yml, pipeline:, binds a globset to the file .ado/pipelines/<name>.yaml.
 
 1  globs.yml                    the globset registry, validated by GlobsConfig on load
 2  automation:                  loose-fileset, pipeline: ci-automation, pwsh/**
@@ -15,7 +15,7 @@ Supports ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED and ADR-DSGN-TRACK-DEPLOYABLE
 ```
 
 The link between what ships and the pipeline that ships it is a single key. Each entry in the globset registry `globs.yml` may carry
-`pipeline:`, and that name resolves to the file `pipelines/<name>.yaml`. The two track sets bind the CI pipelines, the four configured
+`pipeline:`, and that name resolves to the file `.ado/pipelines/<name>.yaml`. The two track sets bind the CI pipelines, the four configured
 deployable-units bind the CD pipelines, and the base unit they compose binds none.
 
 ![globs.yml's pipeline: field is the binding](.assets/globs-yml-pipeline-field-is-the-binding/diagram.drawio.png)
@@ -35,8 +35,8 @@ The diagram is described element by element in [its asset description](.assets/g
    `pipeline: cd-<name>`, and its own configuration include.
 5. **foundation base unit.** The entry `template-azure-subscription-foundation:`: `layer: deployable-unit`, no `pipeline:`, the foundation
    template plus `infrastructure/modules/**`, minus the deployment configuration. The four configured units compose it.
-6. **`cd-<unit>.yaml`.** `pipelines/<name>.yaml` for each CD binding. Its `trigger:` and `pr:` path filters are the unit's projection from
-   `Get-GlobSetTrigger`; `Test-AdoPipelineTriggerGlob` resolves the file from the `pipeline:` name and fails when the filters drift.
+6. **`cd-<unit>.yaml`.** `.ado/pipelines/<name>.yaml` for each CD binding. Its `trigger:` and `pr:` path filters are the unit's projection
+   from `Get-GlobSetTrigger`; `Test-AdoPipelineTriggerGlob` resolves the file from the `pipeline:` name and fails when the filters drift.
 7. **`extends/cd-customer.yaml`.** Three of the four CD pipelines, `cd-nova`, `cd-apex` and `cd-flux`, name it under `extends:`;
    `cd-shared.yaml` stands alone with its own `stages:`.
 
@@ -53,8 +53,8 @@ loose-filesets `templates`, `markdown-scope` and `repository` carry no `pipeline
 
 ## Where the code and the ADR differ
 
-`cd-shared.yaml` and `Test-GlobSetTriggerCoverage` name an in-pipeline `Test-GlobSetAffected` check as the exact backstop, but no pipeline
-under `pipelines/` runs it.
+`cd-shared.yaml` and `Test-GlobSetTriggerCoverage` name an in-pipeline `Test-GlobSetAffected` check as the exact backstop, but no ado
+pipeline under `.ado/pipelines/` runs it.
 
 ## See also
 

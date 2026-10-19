@@ -12,22 +12,35 @@ function Invoke-PythonTest {
         [ArgumentCompleter({ [Catzc.Base.Engines.ExecutionEngines]::Names })]
         [string] $Engine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name,
 
-        [string] $EngineExecutable
+        [string] $EngineExecutable,
+
+        [string] $Folder
     )
 
     $root = Get-RepositoryRoot
     $folderName = $Module.ToLowerInvariant().Replace('.', '-')
     $pythonRelative = (Get-Config -Config python).ResolveRoot($root)
     $pythonRoot = Join-Path $root $pythonRelative
-    $relative = "$pythonRelative/tests/$folderName"
+    # The test folder: the one named, a module's own tests/ or the holder's, else the holder's tests/<kebab> of the module.
+    $relative = if ($Folder) {
+        [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\', '/').TrimEnd('/')
+    }
+    else {
+        "$pythonRelative/tests/$folderName"
+    }
     $folder = Join-Path $root $relative
     if (-not (Test-Path -LiteralPath $folder -PathType Container)) {
         throw "Module '$Module' has no Python tests: $relative/ does not exist."
     }
-    foreach ($project in "$pythonRelative/pyproject.toml", "$relative/pyproject.toml") {
-        if (-not (Test-Path -LiteralPath (Join-Path $root $project) -PathType Leaf)) {
-            throw "$project is missing — it is generated; regenerate with: Build-RootConfig"
-        }
+    # The uv commands run from the workspace root, so the folder is named relative to it.
+    $inWorkspace = [System.IO.Path]::GetRelativePath($pythonRoot, $folder).Replace('\', '/')
+    if (-not (Test-Path -LiteralPath (Join-Path $pythonRoot 'pyproject.toml') -PathType Leaf)) {
+        throw "$pythonRelative/pyproject.toml is missing — it is generated; regenerate with: Build-RootConfig"
+    }
+    # The workspace member is the test folder itself (the holder's) or the module above its own tests/ folder.
+    $member = @("$relative/pyproject.toml", "$($relative.Substring(0, [Math]::Max(0, $relative.LastIndexOf('/'))))/pyproject.toml").Where({ Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf })
+    if ($member.Count -eq 0) {
+        throw "$relative/pyproject.toml is missing — it is generated; regenerate with: Build-RootConfig"
     }
 
     $uvPath = if ($UvExecutable) {
@@ -62,12 +75,12 @@ function Invoke-PythonTest {
             throw "uv sync failed in $pythonRelative/ (exit $($sync.ExitCode)); is the python pin installed? Run Install-Python.`n$($sync.Full)"
         }
 
-        $lint = Invoke-Executable "$uvCommand run --no-sync --quiet ruff check `"tests/$folderName`"" -WorkingDirectory $pythonRoot -PassThru -NoAssert
+        $lint = Invoke-Executable "$uvCommand run --no-sync --quiet ruff check `"$inWorkspace`"" -WorkingDirectory $pythonRoot -PassThru -NoAssert
         if ($lint.ExitCode -ne 0) {
             throw "ruff check failed in $relative/ (exit $($lint.ExitCode)):`n$($lint.Full)"
         }
 
-        $run = Invoke-Executable ("$uvCommand run --no-sync --quiet pytest `"tests/$folderName`" --rootdir `"tests/$folderName`" " +
+        $run = Invoke-Executable ("$uvCommand run --no-sync --quiet pytest `"$inWorkspace`" --rootdir `"$inWorkspace`" " +
             "--import-mode=importlib -p no:cacheprovider --junitxml `"$report`"") -WorkingDirectory $pythonRoot -PassThru -NoAssert
         $reportText = if (Test-Path -LiteralPath $report -PathType Leaf) {
             [System.IO.File]::ReadAllText($report)

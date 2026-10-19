@@ -38,7 +38,7 @@ The diagram is described element by element in [its asset description](.assets/a
 6. **Test-AdoPipelineTriggerGlob.** The gate against trigger drift reads every pipeline-bound globset and its pipeline file, and compares
    the file's `trigger:` and `pr:` path filters with the set's projection. It runs as an L2 integrity test inside `ci-automation`.
 7. **trigger drifted.** A hand-edited trigger fails with
-   `<set>: pipelines/<p>.yaml trigger drifted from the globset projection on <filters>`. The fix is to regenerate the trigger from
+   `<set>: .ado/pipelines/<p>.yaml trigger drifted from the globset projection on <filters>`. The fix is to regenerate the trigger from
    `globs.yml` (`Get-GlobSetTrigger`); the report lands in `out/test-ado-pipeline-trigger-glob/`.
 
 ## Why it holds
@@ -53,8 +53,8 @@ member. The scopes `markdown-scope` and `repository` bind no pipeline.
 
 ## Where the code and the ADR differ
 
-`cd-shared.yaml` names "the in-pipeline Test-GlobSetAffected gate" as the exact backstop for a dropped root `.yml`, but no pipeline under
-`pipelines/` runs `Test-GlobSetAffected`.
+`cd-shared.yaml` names "the in-pipeline Test-GlobSetAffected gate" as the exact backstop for a dropped root `.yml`, but no ado pipeline
+under `.ado/pipelines/` runs `Test-GlobSetAffected`.
 
 ## See also
 

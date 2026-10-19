@@ -6,7 +6,7 @@ function Get-CSharpTypeDependency {
     Assert-SourceTree
     Assert-PathExist $ModulesRoot -PathType Container
 
-    $modules = @((Get-CatzcModule -TrackType modules).name)
+    $modules = @((Get-CatzcModule -EngineTrack).name)
     # Longest module name first, so 'Catzc.Azure.Templates.Foo' maps to Catzc.Azure.Templates, not Catzc.Azure.
     $byLength = @($modules | Sort-Object -Property Length -Descending)
 

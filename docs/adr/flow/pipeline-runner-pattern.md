@@ -76,7 +76,7 @@ All pipeline steps invoke PowerShell through a runner script. YAML steps never c
 ### Structure
 
 ```text
-pipelines/
+.ado/pipelines/
   Invoke-AdoScript.ps1             # universal pipeline entry point
   steps/
     invoke-automation.yaml         # unified step template with Mode and security flags
@@ -96,7 +96,7 @@ param(
     [switch] $AllowWarnings
 )
 
-. $PSScriptRoot/../importer.ps1 -AllowWarnings:$AllowWarnings
+. $PSScriptRoot/../../importer.ps1 -AllowWarnings:$AllowWarnings
 trap { Write-Exception $_; break }
 
 $sanitized = ConvertFrom-AdoPipelineCommand $Command
@@ -140,12 +140,12 @@ parameters:
 
 ```yaml
 # Plain command — no auth
-- template: /pipelines/steps/invoke-automation.yaml
+- template: /.ado/pipelines/steps/invoke-automation.yaml
   parameters:
     RunCommand: "Test-Automation"
 
 # Azure CLI + system token
-- template: /pipelines/steps/invoke-automation.yaml
+- template: /.ado/pipelines/steps/invoke-automation.yaml
   parameters:
     RunCommand: "Deploy-Bicep -Environment dev -Template discovery"
     Mode: azcli
@@ -153,7 +153,7 @@ parameters:
     ServiceConnection: "sc-my-subscription"
 
 # Multiline command (YAML pipe operator)
-- template: /pipelines/steps/invoke-automation.yaml
+- template: /.ado/pipelines/steps/invoke-automation.yaml
   parameters:
     RunCommand: |
       Build-Bicep -Template discovery -Environments dev

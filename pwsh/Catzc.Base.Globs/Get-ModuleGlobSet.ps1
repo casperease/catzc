@@ -3,7 +3,7 @@ function Get-ModuleGlobSet {
     [OutputType([Catzc.Base.Globs.GlobSet])]
     param(
         [ArgumentCompleter({
-                $code = @(Get-Track).Where({ $_.type -ceq 'modules' })[0]
+                $code = Get-Track -Path (Get-CatzcModulesFolder)
                 @((Get-CatzcModule -Track $code.name -IncludeInternal).Where({ $_.shape -ceq 'file' -or $_.place -ceq $code.places[0] }).name) +
                 [Catzc.Base.Globs.GlobsConfig]::ReservedNames
             })]
@@ -12,8 +12,8 @@ function Get-ModuleGlobSet {
 
     Assert-SourceTree
 
-    # The code track is the track of the modules track type; its first place is the root every module and infra folder sits under.
-    $codeTrack = @(Get-Track).Where({ $_.type -ceq 'modules' })[0]
+    # The code track is the one whose place is the catzc modules folder; its first place is the root every module and infra folder sits under.
+    $codeTrack = Get-Track -Path (Get-CatzcModulesFolder)
     $codeRoot = $codeTrack.places[0]
     $config = Get-Config -Config globs
     $declaredNames = $config.Names

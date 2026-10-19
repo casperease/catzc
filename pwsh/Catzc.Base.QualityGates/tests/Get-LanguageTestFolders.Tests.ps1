@@ -20,11 +20,16 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
         New-FixtureFile $script:repo 'python/tests/catzc-gadget-parts/helpers.py' -Text ''
         New-FixtureFile $script:repo 'bash/tests/catzc-widget/helpers.bash' -Text ''
         New-FixtureFile $script:repo 'bash/.vendor/bats-core/test/fixture.bats' -Text ''
+        # A module of the python track with its own tests/ folder, and one without test files in it.
+        New-FixtureFile $script:repo 'python/Widget.Kit/kit.py' -Text ''
+        New-FixtureFile $script:repo 'python/Widget.Kit/tests/test_kit.py' -Text 'def test_kit(): pass'
+        New-FixtureFile $script:repo 'python/Widget.Plain/plain.py' -Text ''
+        New-FixtureFile $script:repo 'python/Widget.Plain/tests/helpers.py' -Text ''
     }
 
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
-        Mock Get-CatzcModule -ModuleName Catzc.Base.QualityGates -ParameterFilter { $TrackType -contains 'modules' } {
+        Mock Get-CatzcModule -ModuleName Catzc.Base.QualityGates -ParameterFilter { $EngineTrack } {
             foreach ($name in 'Catzc.Widget', 'Catzc.Gadget.Parts', '.internal') {
                 [Catzc.Base.Modules.Module]::new($name, 'widgets', 'widget-folder', 'widgetry', "widgetry/$name", 'folder', $null, $null, $null, $null)
             }
@@ -40,12 +45,13 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'maps every test folder to the catzc module named for it in kebab case, by language then folder' {
+    It 'maps every holder test folder to the catzc module named for it in kebab case, and a module''s own tests folder to that module, by registry language then folder' {
         $folders = @(InModuleScope Catzc.Base.QualityGates { Get-LanguageTestFolders })
-        @($folders | ForEach-Object { "$($_.Language) $($_.Name)" }) | Should -Be @('go catzc-gadget-parts', 'go catzc-widget', 'python catzc-widget', 'bash catzc-gadget-parts')
-        @($folders.Module) | Should -Be @('Catzc.Gadget.Parts', 'Catzc.Widget', 'Catzc.Widget', 'Catzc.Gadget.Parts')
-        $folders[1].Folder | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $script:repo 'go/tests/catzc-widget')))
-        $folders[2].Folder | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $script:repo 'python/tests/catzc-widget')))
+        @($folders | ForEach-Object { "$($_.Language) $($_.Name)" }) | Should -Be @('python catzc-widget', 'python Widget.Kit', 'go catzc-gadget-parts', 'go catzc-widget', 'bash catzc-gadget-parts')
+        @($folders.Module) | Should -Be @('Catzc.Widget', 'Widget.Kit', 'Catzc.Gadget.Parts', 'Catzc.Widget', 'Catzc.Gadget.Parts')
+        $folders[0].Folder | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $script:repo 'python/tests/catzc-widget')))
+        $folders[1].Folder | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $script:repo 'python/Widget.Kit/tests')))
+        $folders[3].Folder | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $script:repo 'go/tests/catzc-widget')))
     }
 
     It 'throws, naming the folder, when a test folder matches no catzc module: <Relative>' -ForEach @(

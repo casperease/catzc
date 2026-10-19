@@ -9,7 +9,7 @@ function Get-ModuleFunction {
     }
 
     # [System.IO] enumeration ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths))
-    $moduleNames = (Get-CatzcModule -TrackType modules).name
+    $moduleNames = (Get-CatzcModule -EngineTrack).name
 
     $modules = Get-Module | Where-Object { $_.Name -in $moduleNames }
 

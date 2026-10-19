@@ -213,4 +213,35 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
             { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*ruleset 'beta/thing-two': layer 'folder' is not one of: automation, contract, language, engine, importer*"
         }
     }
+
+    Context 'the folder of a domain' {
+        It 'gives a domain that names no folder its own name, declared once on the type, and carries it to every ruleset' {
+            [Catzc.Base.Docs.AdrsConfig]::DefaultFolder('alpha') | Should -Be 'alpha'
+            $config = [Catzc.Base.Docs.AdrsConfig]::new((New-ValidRaw))
+            ($config.Domains | Where-Object Name -EQ 'alpha').Folder | Should -Be 'alpha'
+            ($config.RuleSets | Where-Object Slug -EQ 'thing-two').Folder | Should -Be 'beta'
+        }
+
+        It 'honours a folder nested in another domain''s folder' {
+            $raw = New-ValidRaw
+            $raw.domains.beta['folder'] = 'alpha/beta'
+            $config = [Catzc.Base.Docs.AdrsConfig]::new($raw)
+            ($config.Domains | Where-Object Name -EQ 'beta').Folder | Should -Be 'alpha/beta'
+            @($config.RuleSets | Where-Object Domain -EQ 'beta').Folder | Should -Be @('alpha/beta', 'alpha/beta')
+        }
+
+        It 'throws on a folder that leaves docs/adr or is not a relative path' {
+            foreach ($folder in '../alpha', 'alpha/../beta', '/alpha', 'alpha/', 'alphaeta') {
+                $raw = New-ValidRaw
+                $raw.domains.beta['folder'] = $folder
+                { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*domain 'beta': folder '$folder' must be*"
+            }
+        }
+
+        It 'throws on two domains with one folder' {
+            $raw = New-ValidRaw
+            $raw.domains.beta['folder'] = 'alpha'
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*domain 'beta': folder 'alpha' is also the folder of domain 'alpha'*"
+        }
+    }
 }

@@ -62,6 +62,14 @@ Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
             { Invoke-BashTest Catzc.Sprocket } | Should -Throw '*bash/tests/catzc-sprocket/ does not exist*'
         }
 
+        It 'runs the named folder, a module''s own tests/ under the bash track, relative to the Bash root' {
+            $own = Join-Path $script:bashRoot 'Widget.Kit/tests'
+            $null = New-Item -ItemType Directory -Path $own -Force
+            $null = Invoke-BashTest Widget.Kit -Folder $own
+            $script:seen[0].Command | Should -BeLike '*--output "*" "Widget.Kit/tests"'
+            { Invoke-BashTest Widget.Kit -Folder 'bash/Widget.Nothing/tests' } | Should -Throw '*bash/Widget.Nothing/tests/ does not exist*'
+        }
+
         It 'throws with "Run Update-BatsVendor" when the vendored runner is missing, before running anything' {
             $bare = Join-Path $TestDrive 'bare-repo'
             $null = New-Item -ItemType Directory -Path (Join-Path $bare 'bash/tests/catzc-widget') -Force

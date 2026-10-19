@@ -16,7 +16,7 @@ function Get-AdrDoraCoverageViolations {
         if ($Settings.exempt.ContainsKey($domain.Name)) {
             continue
         }
-        $doraRelative = "$($domain.Name)/$($Settings.file)"
+        $doraRelative = "$($domain.Folder)/$($Settings.file)"
         $doraPath = [System.IO.Path]::Combine($Index.Root, $doraRelative)
         if (-not [System.IO.File]::Exists($doraPath)) {
             foreach ($ruleSet in $domain.RuleSets) {

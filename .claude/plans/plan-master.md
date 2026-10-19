@@ -43,23 +43,24 @@ plans stay the durable record; task files and this master are derived from them 
 
 ## Chunks
 
-Open, in execution order. Held chunks (the orchestrator, 2026-10-19): generated-file-heads by catzc-64, ado-and-cicd-docs by catzc-2f,
-rungs-registry by catzc-08 (importer-mix landed, its plan in `out/delete-done-plans.ps1`); iac-and-repo-placement waits while catzc-cc's isolated track holds `pwsh/Catzc.Base.Variants`; done work is pruned (git holds it). `out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task
-files and prompts. A chunk without a task file is executed from its plan's open steps directly.
+Open, in execution order. Held chunks (the orchestrator, 2026-10-19): adr-automation-split by catzc-64 (generated-file-heads landed but for
+one diagram pointer), ado-and-cicd-docs by catzc-2f, catzc-08 stopped with nothing in hand until the split's folder move lands
+(importer-mix, rungs-registry and the contract drift test landed; the importer-mix plan in `out/delete-done-plans.ps1`);
+iac-and-repo-placement waits while catzc-cc's isolated track holds `pwsh/Catzc.Base.Variants`; done work is pruned (git holds it).
+`out/delete-done-plans.ps1` holds the `git rm` lines of the done plans, task files and prompts. A chunk without a task file is executed from
+its plan's open steps directly.
 
-- generated-file-heads -> plan-generated-file-heads.md: the one warning string, the README generator's head-only provenance, the other
-  tracked generators, the `Test-RootConfigFiles` branch, then the seven `copyAsLink` root files one at a time, `.editorconfig` the pilot.
+- generated-file-heads -> plan-generated-file-heads.md: landed 2026-10-19 but for its one pointer item, the diagram track's (see the
+  isolated note below).
 - ado-and-cicd-docs -> plan-ado-and-cicd-docs.md: the `variants.yml` re-point and the caller sweep around the user's `git mv` of
   `pipelines/` to `.ado/pipelines/`; the 23 ado rules to `docs/adr/ado`, the four concept rules into the CI/CD concept ADR in
   `docs/adr/flow`, the ado wording.
 - adr-automation-split -> plan-adr-automation-split.md: `docs/adr/pwsh/` into `docs/adr/automation/pwsh/` around the user's `git mv`, then
   the flat automation files by the plan's table, then the index and `adrs.yml`.
-- layers-stray-rules -> plan-layers-vocabulary-rename-contracts.md, steps 2 and 3: the twelve stray pwsh rules to their twins and the
-  contract drift test; after adr-automation-split's first step.
+- layers-stray-rules -> plan-layers-vocabulary-rename-contracts.md, the stray-rules step: the twelve stray pwsh rules to their twins; after
+  adr-automation-split's first step.
 - iac-and-repo-placement -> plan-iac-and-repo-placement.md: the three IaC places in `variants.yml`, the literal paths re-pointed, and the
   two ADR rule sets; its five diagrams are the diagram track's.
-- rungs-registry -> plan-promotion-ladder.md, step 1: the new `Catzc.Base.Flow` module with the four rungs, their gates and environment
-  suffixes; takeable now, and the diagram track's last minimap reads it.
 - explanation-drift-gaps -> task-explanation-drift-gaps.md: the Q1 to Q3 proofs from the user's runs (blocked_on task-user-runs-and-commits
   steps 1 and 2).
 - promotion-ladder -> plan-promotion-ladder.md, steps 2 and 3: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying check, after
@@ -74,4 +75,6 @@ A new plan or paste adds its chunk as a pointer line at the position its depende
 
 Isolated, outside the order above (the user, 2026-10-19): plan-diagram-engine.md is taken by its own session from its own open steps, in
 their order; no chunk above waits on it, and it waits on nothing above except the rungs registry step of promotion-ladder for its last
-minimap and the IaC rule steps for its last two diagrams. Its moves of tracked files are still listed in task-user-runs-and-commits.
+minimap and the IaC rule steps for its last two diagrams. Its moves of tracked files are still listed in task-user-runs-and-commits. It also
+owns the one open item of plan-generated-file-heads.md: the four `docs/explanation/repository` pages and their slides still describe root
+configs as links and cite the retired ADR-REPO-ROOTCFG-FILESYSTEMLINK; the plan is deleted when that track takes the item.

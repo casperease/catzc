@@ -23,17 +23,17 @@ function Test-AdrRegistry {
 
     $registeredKeys = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($ruleSet in $ruleSets) {
-        $key = "$($ruleSet.Domain)/$($ruleSet.Slug)"
+        $key = "$($ruleSet.Folder)/$($ruleSet.Slug)"
         [void]$registeredKeys.Add($key)
         $files = @(if ($index.ByKey.ContainsKey($key)) {
                 $index.ByKey[$key]
             })
         if ($files.Count -eq 0) {
-            $issues.Add("$($ruleSet.External): no ADR file docs/adr/$($ruleSet.Domain)/**/$($ruleSet.Slug).md")
+            $issues.Add("$($ruleSet.External): no ADR file docs/adr/$($ruleSet.Folder)/**/$($ruleSet.Slug).md")
             continue
         }
         if ($files.Count -gt 1) {
-            $issues.Add("$($ruleSet.External): $($files.Count) ADR files named $($ruleSet.Slug).md under docs/adr/$($ruleSet.Domain)/ — $(($files | ForEach-Object { "docs/adr/$_" }) -join ', ')")
+            $issues.Add("$($ruleSet.External): $($files.Count) ADR files named $($ruleSet.Slug).md under docs/adr/$($ruleSet.Folder)/ —$(($files | ForEach-Object { "docs/adr/$_" }) -join ', ')")
             continue
         }
         if ($rulesHeadingByPath[$files[0]] -cne $ruleSet.External) {

@@ -55,7 +55,7 @@ Describe 'Get-ModuleOrder' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-TOPOLOGICALORDER
     }
 
     It 'orders the modules the resolver finds when no module is named' {
-        Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $TrackType -contains 'modules' } {
+        Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $EngineTrack } {
             [Catzc.Base.Modules.Module]::new('Catzc.B', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Catzc.B', 'folder', $null, $null, $null, $null)
             [Catzc.Base.Modules.Module]::new('Catzc.A', 'widgets', 'widget-folder', 'widgetry', 'widgetry/Catzc.A', 'folder', $null, $null, $null, $null)
         }
@@ -68,7 +68,7 @@ Describe 'Get-ModuleOrder' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-TOPOLOGICALORDER
 
 Describe 'Get-ModuleOrder on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE-TOPOLOGICALORDER' {
     It 'orders every module of the code track once, each after every module it is declared to depend on' {
-        $names = @((Get-CatzcModule -TrackType modules).name)
+        $names = @((Get-CatzcModule -EngineTrack).name)
         $order = @(Get-ModuleOrder)
         $order | Should -HaveCount $names.Count
         $map = InModuleScope Catzc.Base.ModuleSystem -Parameters @{ Names = $names } { param($Names) Get-ModuleDependencyMap -Module $Names }

@@ -1,10 +1,10 @@
 # Catzc.Base.Files
 
 The filesystem and source-control module. It owns the shared write primitives every generated-artifact builder shares —
-`Write-FileIfChanged` for idempotent canonical content, `Set-FileLink` for link targets — plus an efficient directory-tree copy, file-lock
-detection, and the git working-tree facts (branch, commit, committing) that higher-level modules build on without reinventing. It is a
-member of the `Base` group (see [open-closed-architecture](../../adr/automation/open-closed-architecture.md)) and depends on
-Catzc.Base.Execution (for `git` invocations) and Catzc.Base.Asserts (for the Assert/Test convention the lock-check pairs follow).
+`Write-FileIfChanged` for idempotent canonical content — plus an efficient directory-tree copy, file-lock detection, and the git
+working-tree facts (branch, commit, committing) that higher-level modules build on without reinventing. It is a member of the `Base` group
+(see [open-closed-architecture](../../adr/automation/open-closed-architecture.md)) and depends on Catzc.Base.Execution (for `git`
+invocations) and Catzc.Base.Asserts (for the Assert/Test convention the lock-check pairs follow).
 
 ## Responsibilities
 
@@ -15,16 +15,14 @@ Catzc.Base.Execution (for `git` invocations) and Catzc.Base.Asserts (for the Ass
 
 ### responsibility:1 — Filesystem operations
 
-Materialising and observing files on disk. The two write primitives are the write tail every generated-artifact builder shares
-(Build-RootConfig, Build-Readme, Build-GitKeep, …): `Write-FileIfChanged` canonicalises content, compares EOL-insensitively, and writes only
-on a real change — delete-then-write, so a changed write can never tunnel through a linked target into its source; `Set-FileLink`
-materialises a file as a filesystem link to a source of truth (a relative symbolic link where permitted, a hard link on privilege-less
-Windows, a throw — never a content copy). The directory copy uses the .NET APIs directly for efficiency — no shelling out, no intermediate
-listings. The lock check reports whether a file is held open by another process; the Assert/Test pairs make both the throwing and querying
-forms available, so callers with different error-handling needs can choose without duplicating the detection logic. The holder lookup goes
-one step further and names _which_ processes hold the file (id, executable, start time, command line, parent process), through the Windows
-Restart Manager — no admin rights needed, and it sees a loaded DLL as well as an open handle; on Linux/macOS, where locks are advisory, it
-reports none.
+Materialising and observing files on disk. The write primitive is the write tail every generated-artifact builder shares (Build-RootConfig,
+Build-Readme, Build-GitKeep, …): `Write-FileIfChanged` canonicalises content, compares EOL-insensitively, and writes only on a real change —
+delete-then-write, so a changed write can never tunnel through a link into the file it points at. The directory copy uses the .NET APIs
+directly for efficiency — no shelling out, no intermediate listings. The lock check reports whether a file is held open by another process;
+the Assert/Test pairs make both the throwing and querying forms available, so callers with different error-handling needs can choose without
+duplicating the detection logic. The holder lookup goes one step further and names _which_ processes hold the file (id, executable, start
+time, command line, parent process), through the Windows Restart Manager — no admin rights needed, and it sees a loaded DLL as well as an
+open handle; on Linux/macOS, where locks are advisory, it reports none.
 
 ### responsibility:2 — Source-control facts
 
@@ -38,9 +36,9 @@ callers (log context, cache keys, CI identifiers) and neither implies the other.
 ## What the module does
 
 This module delivers two small, independent slices of infrastructure. Filesystem operations (responsibility 1) concern the state of files on
-disk: how a generated artifact is written or linked idempotently, can a file be opened, and how do you copy a tree cleanly? Source-control
-facts (responsibility 2) concern the state of the working tree: what branch is active, what commit is current? Neither responsibility
-reaches into the other, and neither has any configuration to own.
+disk: how a generated artifact is written idempotently, can a file be opened, and how do you copy a tree cleanly? Source-control facts
+(responsibility 2) concern the state of the working tree: what branch is active, what commit is current? Neither responsibility reaches into
+the other, and neither has any configuration to own.
 
 The Assert/Test pairs in responsibility 1 follow the platform convention: the `Assert-` form throws on a violated condition; the `Test-`
 form returns a Boolean. Both call the same underlying detection, so they can never disagree — a guarantee the pattern provides across the
@@ -57,7 +55,6 @@ The module's public functions, sorted into the responsibilities above.
 | Responsibility                           | Function                 |
 | ---------------------------------------- | ------------------------ |
 | responsibility:1 — Filesystem operations | `Write-FileIfChanged`    |
-|                                          | `Set-FileLink`           |
 |                                          | `Copy-Directory`         |
 |                                          | `Assert-FileIsLocked`    |
 |                                          | `Test-FileIsLocked`      |

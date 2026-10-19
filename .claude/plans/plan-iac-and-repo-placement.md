@@ -51,7 +51,14 @@ kinds are defined.
 
 - [ ] Split the `infrastructure` track's places in `variants.yml` into the three named kinds (templates, configs, reusable modules), with
       the configs place covering each template's `configuration/` folder (check: Test-Variants clean; Test-TrackDeclaration clean; the track
-      resolves the same files).
+      resolves the same files). - Open question for the user (raised by catzc-08, 2026-10-19): a track's `places` is a flat list of path
+      prefixes, so a place has no name and no wildcard, and each template's `configuration/` sits inside the template. How are the three
+      kinds named? 1. (Recommended) An optional `kinds:` map on a track entry, kind -> place pattern inside the track's places, with one `*`
+      segment allowed (`configs: infrastructure/templates/*/configuration`), typed on `VariantTrack` and read through a resolver. Track
+      membership is unchanged, and a consumer repo maps each kind in its own `variants.yml`. 2. Three tracks (templates, configs, modules):
+      against, because it splits one tech-stack across three tracks (ADR-DSGN-TRACK-ONETECHSTACK) and still cannot place the nested configs
+      without wildcard places. 3. Three module types in `module-types.yml`: against, because the kinds become module shapes, not the track
+      places the user decided, and the nested configs still need a pattern.
 - [ ] Re-point the five literal paths above to the track's places, one file at a time, starting with `Get-BicepTemplatesRoot.ps1` (check:
       the file's test under `Invoke-TestFile` passes; `git grep "infrastructure/"` under `pwsh/` finds only `variants.yml` and comments).
 - [ ] Write the ADR rule that names the three IaC kinds and says a track, not a path, places them (check: Test-Adr clean; the rule sits in

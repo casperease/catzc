@@ -9,7 +9,7 @@ function Get-ContractCommandRoot {
         [string] $RepositoryRoot
     )
 
-    $found = @(Get-CatzcModule -Name $Module -TrackType modules -RepositoryRoot $RepositoryRoot)
+    $found = @(Get-CatzcModule -Name $Module -EngineTrack -RepositoryRoot $RepositoryRoot)
     if ($found.Count -ne 1) {
         throw "contract asset: no module named '$Module' in the code track, so its command contracts name no command file (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."
     }

@@ -330,8 +330,8 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 
 - **The taxonomy is the review checklist.** A new ADO artifact is classified as CRON / CI / CD / CDe / DEPLOY / INPUT at review. An artifact
   that cannot be cleanly classified does not merge until it can.
-- **The ado in `ado/`** are the canonical shape for each type — the patterns new ado copy, the way the exemplars work
-  elsewhere in this codebase.
+- **The ado pipelines in `.ado/pipelines/`** are the canonical shape for each type — the patterns new pipelines copy, the way the exemplars
+  work elsewhere in this codebase.
 - **Naming.** Pipeline definitions name their type so the artifact's category is visible at a glance, not inferred from its YAML.
 
 ## Consequences
@@ -347,9 +347,9 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 - CI and CD stay coherent because they are the same engine plus or minus a deploy — there is one definition of "build and verify," used
   twice.
 - The pre-commit gate stays fast (5–10 min) because slow system-level tests have a named home: the CD post-commit deploy path.
-- Self-service is preserved but relocated: INPUT ado give users a form, and the form's output is a reviewable git diff, not an
+- Self-service is preserved but relocated: INPUT pipelines give users a form, and the form's output is a reviewable git diff, not an
   unreviewed runtime mutation of the cloud.
-- One decision is deliberately left open: whether INPUT ado land their commit via PR or directly. The invariant (input → commit → CD)
+- One decision is deliberately left open: whether INPUT pipelines land their commit via PR or directly. The invariant (input → commit → CD)
   holds regardless; the choice is recorded here so it is made on purpose, not by default.
 
 ## Related

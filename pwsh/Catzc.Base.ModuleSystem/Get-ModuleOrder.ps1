@@ -1,7 +1,7 @@
 function Get-ModuleOrder {
     [OutputType([string[]])]
     param(
-        [string[]] $Module = (Get-CatzcModule -TrackType modules).name
+        [string[]] $Module = (Get-CatzcModule -EngineTrack).name
     )
 
     $modules = [string[]] @($Module)

@@ -56,6 +56,16 @@ Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
         Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
     }
 
+    It 'hands the discovered folder to the runner, and none when the discovery named none' {
+        $null = InModuleScope Catzc.Base.QualityGates -Parameters @{ Case = $script:cases; Go = $script:goPath } {
+            param($Case, $Go)
+            Get-LanguageTestOutcomes -Language go -Module 'Widget.Kit' -Case $Case -Executable $Go -Folder 'C:\widget\go\Widget.Kit\tests'
+        }
+        Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Module -eq 'Widget.Kit' -and $Folder -eq 'C:\widget\go\Widget.Kit\tests' }
+        $null = Invoke-Outcomes
+        Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Module -eq 'Catzc.Widget' -and -not $Folder }
+    }
+
     It 'runs Python tests through Invoke-PythonTest with the uv it was given' {
         $cases = @((New-Case 'test_widget_spins' 'test_widget'), (New-Case 'test_widget_naps' 'test_widget'))
         $outcomes = Invoke-Outcomes -Language python -Case $cases -Executable $script:uvPath

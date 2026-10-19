@@ -10,6 +10,9 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
                     }
                     gizmos  = [ordered]@{ places = @('gizmo'); type = 'gizmo-shelf'; languages = @('gizmo-script') }
                     notes   = [ordered]@{ places = @('notes'); type = 'note-pile'; languages = @('widget-data') }
+                    # A third language's track, the shape every language track takes: folder modules, the track's own test holder, a nested vendor track.
+                    shelves = [ordered]@{ places = @('shelf'); type = 'shelf-works'; languages = @('shelf-script') }
+                    'shelf-vendor' = [ordered]@{ places = @('shelf/.vendor'); type = 'note-pile'; languages = @('shelf-script') }
                 }
             }).tracks
         $script:trackTypes = [Catzc.Base.Variants.TrackTypesConfig]::new(@{
@@ -17,6 +20,7 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
                     'widget-works' = [ordered]@{ definition = 'Widgets.'; role = 'deployable'; admits = @('widget-folder', 'widget-file') }
                     'gizmo-shelf'  = [ordered]@{ definition = 'Gizmos.'; role = 'deployable'; admits = @('gizmo-folder') }
                     'note-pile'    = [ordered]@{ definition = 'Notes.'; role = 'holder'; admits = @('widget-folder') }
+                    'shelf-works'  = [ordered]@{ definition = 'Shelves.'; role = 'deployable'; admits = @('shelf-folder') }
                 }
             })
         $script:moduleTypes = [Catzc.Base.Variants.ModuleTypesConfig]::new(@{
@@ -28,6 +32,11 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
                     }
                     'widget-file'   = [ordered]@{ definition = 'A widget file.'; places = @(@{ root = 'widgetry/.core'; name = 'file'; extension = 'wdg'; internal = $true }) }
                     'gizmo-folder'  = [ordered]@{ definition = 'A gizmo folder.'; places = @(@{ root = 'gizmo'; name = 'folder' }) }
+                    'shelf-folder'  = [ordered]@{ definition = 'A shelf folder, or the shelf itself.'; places = @(
+                            @{ root = 'shelf'; name = 'folder'; except = @('tests') }
+                            @{ root = 'shelf'; name = 'root' }
+                        )
+                    }
                 }
             })
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
@@ -38,6 +47,10 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
                     }
                     'widget-data'   = [ordered]@{ extensions = @('.wdd'); no_formatter = 'fixture' }
                     'gizmo-script'  = [ordered]@{ extensions = @('.gzm'); no_formatter = 'fixture' }
+                    'shelf-script'  = [ordered]@{ extensions = @('.shf'); no_formatter = 'fixture'; layout = @(
+                            [ordered]@{ folder = '.'; role = 'script'; extensions = @('.shf') }
+                        )
+                    }
                 }
             })
 
@@ -45,7 +58,9 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
         $touch = { param($Path) $full = Join-Path $script:root $Path; New-Item -ItemType File -Path $full -Force | Out-Null }
         'widgetry/Gadget/Gadget.wdg', 'widgetry/Gadget/inner/Cog.wdg', 'widgetry/Gadget/tests/Gadget.Tests.wdg', 'widgetry/Gadget/assets/a/b.wdd',
         'widgetry/Sprocket/Sprocket.wdg', 'widgetry/Sprocket/stray.wdd', 'widgetry/Sprocket/oddity/Cog.wdg', 'widgetry/.hidden/Cog.wdg',
-        'widgetry/.core/Widget.Core.Kit.wdg', 'widgetry/.core/tests/Cog.wdg', 'widgetry/loose.wdg', 'gizmo/Doodad/Doodad.gzm', 'notes/Memo/Memo.wdd' |
+        'widgetry/.core/Widget.Core.Kit.wdg', 'widgetry/.core/tests/Cog.wdg', 'widgetry/loose.wdg', 'gizmo/Doodad/Doodad.gzm', 'notes/Memo/Memo.wdd',
+        'shelf/Gadget.Kit/kit.shf', 'shelf/Gadget.Kit/tests/test_kit.shf', 'shelf/tests/gadget-kit/test_kit.shf', 'shelf/project.toml',
+        'shelf/.vendor/thing/thing.shf', 'shelf/.cache/stale.shf' |
             ForEach-Object { & $touch $_ }
 
         Mock Get-Config -ModuleName Catzc.Base.Modules -ParameterFilter { $Config -eq 'track-types' } { $script:trackTypes }
@@ -58,9 +73,29 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
     It 'returns the modules of the deployable tracks only, as Module values, ordinal by name inside a track in declared track order' {
         $modules = @(Get-CatzcModule -RepositoryRoot $script:root)
         $modules[0] | Should -BeOfType [Catzc.Base.Modules.Module]
-        $modules.name | Should -Be @('Gadget', 'Sprocket', 'Doodad')
-        $modules.track | Should -Be @('widgets', 'widgets', 'gizmos')
-        $modules.type | Should -Be @('widget-folder', 'widget-folder', 'gizmo-folder')
+        $modules.name | Should -Be @('Gadget', 'Sprocket', 'Doodad', 'Gadget.Kit', 'shelf')
+        $modules.track | Should -Be @('widgets', 'widgets', 'gizmos', 'shelves', 'shelves')
+        $modules.type | Should -Be @('widget-folder', 'widget-folder', 'gizmo-folder', 'shelf-folder', 'shelf-folder')
+    }
+
+    It 'returns the modules of the track whose modules run under this engine when asked for the engine track' -Tag 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE' {
+        (Get-CatzcModule -EngineTrack -RepositoryRoot $script:root).name | Should -Be @('Gadget', 'Sprocket')
+        (Get-CatzcModule -EngineTrack -Track gizmos -RepositoryRoot $script:root) | Should -BeNullOrEmpty
+    }
+
+    It 'gives a language track its folder modules and the track''s own module, every file in exactly one of them' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
+        $kit = Get-CatzcModule -Name Gadget.Kit -RepositoryRoot $script:root
+        $kit.shape | Should -Be 'folder'
+        $kit.root | Should -Be 'shelf/Gadget.Kit'
+        $kit.files | Should -Be @('kit.shf', 'tests/test_kit.shf')
+        $kit.unplaced | Should -Be @()
+        $kit.languages | Should -Be @('shelf-script')
+        $own = Get-CatzcModule -Name shelf -RepositoryRoot $script:root
+        $own.shape | Should -Be 'root'
+        $own.root | Should -Be 'shelf'
+        # Not the folder module's files, not the nested vendor track's, not a dot folder's cache.
+        $own.files | Should -Be @('project.toml', 'tests/gadget-kit/test_kit.shf')
+        $own.unplaced | Should -Be @()
     }
 
     It 'gives each module its place, root, shape and files relative to the root' {
@@ -92,7 +127,7 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
         (Get-CatzcModule -RepositoryRoot $script:root).name | Should -Not -Contain '.hidden'
         (Get-CatzcModule -RepositoryRoot $script:root).name | Should -Not -Contain 'loose'
         $all = @(Get-CatzcModule -IncludeInternal -RepositoryRoot $script:root)
-        $all.name | Should -Be @('Gadget', 'Sprocket', 'Widget.Core.Kit', 'Widget.Core.Tests', 'Doodad')
+        $all.name | Should -Be @('Gadget', 'Sprocket', 'Widget.Core.Kit', 'Widget.Core.Tests', 'Doodad', 'Gadget.Kit', 'shelf')
         $kit = $all | Where-Object name -CEQ 'Widget.Core.Kit'
         $kit.shape | Should -Be 'file'
         $kit.root | Should -Be 'widgetry/.core/Widget.Core.Kit.wdg'
@@ -130,6 +165,7 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
         (Get-CatzcModule -TrackType gizmo-shelf -RepositoryRoot $script:root).name | Should -Be @('Doodad')
         (Get-CatzcModule -TrackType widget-works, gizmo-shelf -RepositoryRoot $script:root).name | Should -Be @('Gadget', 'Sprocket', 'Doodad')
         @(Get-CatzcModule -TrackType note-pile -RepositoryRoot $script:root) | Should -HaveCount 0
+        @(Get-CatzcModule -Track shelf-vendor -RepositoryRoot $script:root) | Should -HaveCount 0
         (Get-CatzcModule -Name Sprocket, Doodad -RepositoryRoot $script:root).name | Should -Be @('Sprocket', 'Doodad')
         @(Get-CatzcModule -Name Nonesuch -RepositoryRoot $script:root) | Should -HaveCount 0
     }
@@ -142,11 +178,12 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
 Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE', 'ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT' {
     BeforeAll {
         $script:modules = @(Get-CatzcModule)
-        $script:codeTrack = Get-Track | Where-Object type -CEQ 'modules'
-        $script:codeModules = @($script:modules.Where({ $_.track -ceq $script:codeTrack.name }))
+        $script:codeTrack = Get-Track -Path (Get-CatzcModulesFolder)
+        $script:codeModules = @(Get-CatzcModule -EngineTrack)
     }
 
     It 'resolves every module folder of the code track, the same set the loader imports' {
+        $script:codeModules.track | Should -Be @($script:codeModules | ForEach-Object { $script:codeTrack.name })
         $folders = [System.IO.Directory]::EnumerateDirectories((Get-CatzcModulesRoot)).Where({ -not [System.IO.Path]::GetFileName($_).StartsWith('.') }).ForEach({ [System.IO.Path]::GetFileName($_) })
         $sorted = [string[]]$folders
         [System.Array]::Sort($sorted, [System.StringComparer]::Ordinal)

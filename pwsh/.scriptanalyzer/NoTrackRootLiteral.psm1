@@ -20,8 +20,9 @@ function Initialize-TrackRootLiteralData {
         Import-Module (Join-Path ($versions | Sort-Object | Select-Object -Last 1) 'powershell-yaml.psd1')
     }
     $variants = ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path $modulesRoot 'Catzc.Base.Variants/configs/variants.yml')))
+    # The relocatable modules root (Get-CatzcModulesRoot) holds the track whose modules run under this engine, pwsh; its places are the ones no string may spell.
     $script:roots = @(foreach ($track in $variants['tracks'].Values) {
-            if ($track['type'] -ceq 'modules') {
+            if (@($track['execution_engines']) -ccontains 'pwsh') {
                 @($track['places'])
             }
         })

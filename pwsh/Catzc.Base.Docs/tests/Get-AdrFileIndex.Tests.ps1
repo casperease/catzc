@@ -46,4 +46,35 @@ Describe 'Get-AdrFileIndex' -Tag 'L0', 'logic' {
         $index.FileOf.ContainsKey('ADR-WI-TWO') | Should -BeFalse
         $index.FileOf.ContainsKey('ADR-WI-SIX') | Should -BeFalse
     }
+
+    It 'keys a file under the longest domain folder that holds it, so a domain folder nested in another keeps its own files' {
+        $nested = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
+                domains = [ordered]@{
+                    gadget = [ordered]@{
+                        code = 'GA'; role = 'implementation'; description = 'The gadget implementation.'; depends_on = @()
+                        stack = 'AUTO'; concern = @('automation')
+                        rulesets = [ordered]@{ 'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' } }
+                    }
+                    cog    = [ordered]@{
+                        code = 'CO'; role = 'implementation'; description = 'The cog implementation.'; depends_on = @('gadget')
+                        stack = 'AUTO'; concern = @('automation'); folder = 'gadget/cog'
+                        rulesets = [ordered]@{ 'cog-one' = [ordered]@{ external = 'ADR-CO-ONE' } }
+                    }
+                }
+            })
+        $nestedRoot = Join-Path $TestDrive 'nested-adr'
+        foreach ($relative in 'gadget/gadget-one.md', 'gadget/sub/note.md', 'gadget/cog/cog-one.md', 'gadget/cog/dora-explains.md', 'gadget/dora-explains.md') {
+            $path = Join-Path $nestedRoot $relative
+            [void][System.IO.Directory]::CreateDirectory((Split-Path $path -Parent))
+            [System.IO.File]::WriteAllText($path, "# $relative`n")
+        }
+        $result = InModuleScope Catzc.Base.Docs -Parameters @{ RuleSets = @($nested.RuleSets); Root = $nestedRoot } {
+            Get-AdrFileIndex $RuleSets -AdrRoot $Root
+        }
+        $result.FileOf['ADR-GA-ONE'] | Should -Be 'gadget/gadget-one.md'
+        $result.FileOf['ADR-CO-ONE'] | Should -Be 'gadget/cog/cog-one.md'
+        $result.ByKey['gadget/cog/dora-explains'] | Should -Be @('gadget/cog/dora-explains.md')
+        $result.ByKey['gadget/dora-explains'] | Should -Be @('gadget/dora-explains.md')
+        $result.ByKey['gadget/note'] | Should -Be @('gadget/sub/note.md')
+    }
 }

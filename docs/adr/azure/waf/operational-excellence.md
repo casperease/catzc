@@ -108,8 +108,8 @@ cites.
 The example basis is the three templates that tell the repository's infrastructure story: `foundation` (the Log Analytics workspace and the
 Key Vault of a subscription), `discovery` (the landing zone of a subscription), and `expedition` (a workload that lands in it), each
 deployed after the one before ([landing-zones](../landing-zones.md)). Most of this pillar maps to the repository's delivery machinery — the
-flow model, the pipelines under `pipelines/`, the `Catzc.Azure.Templates` module, and the quality gates — so each takeaway names that
-machinery first and the templates second.
+flow model, the ado pipelines under `.ado/pipelines/`, the `Catzc.Azure.Templates` module, and the quality gates — so each takeaway names
+that machinery first and the templates second.
 
 ### OE:01 — Define your standard practices to develop and operate your workload
 
@@ -362,7 +362,7 @@ and `extends/cd-customer.yaml` deploys each customer's `dev` and `prod` side by 
 reaches production through a DEPLOY pipeline behind a manual gate
 ([ADR-FLOW-CD-CDSTAYSINNONPROD](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-cdstaysinnonprod),
 [ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-prodprogressionisdeploy)), and
-`pipelines/` holds no DEPLOY pipeline. Read-only standing access to the subscriptions is a tenant setting, outside the repository.
+`.ado/pipelines/` holds no DEPLOY pipeline. Read-only standing access to the subscriptions is a tenant setting, outside the repository.
 
 ##### OE:06 in `foundation`
 

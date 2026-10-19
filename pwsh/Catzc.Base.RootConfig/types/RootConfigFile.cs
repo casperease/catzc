@@ -25,8 +25,6 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
 
     public bool committed { get; }
 
-    public bool copyAsLink { get; }
-
     public RootConfigFile(IDictionary d)
     {
         if (d == null) { throw new ArgumentException("RootConfigFile requires a dictionary"); }
@@ -37,7 +35,6 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
         carrier = OptStr(d, "carrier");
         optIn = Flag(d, "optIn");
         committed = Flag(d, "committed");
-        copyAsLink = Flag(d, "copyAsLink");
 
         if ((source == null) == (generator == null))
         {
@@ -53,21 +50,6 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
         {
             throw new ArgumentException(string.Format(
                 "root config entry '{0}' lists 'sources' but no 'generator' — a source copy-in names its one file with 'source'", target));
-        }
-        if (copyAsLink && source == null)
-        {
-            throw new ArgumentException(string.Format(
-                "root config entry '{0}' declares copyAsLink but no 'source' — a generator renders content and has no single file to link to", target));
-        }
-        if (copyAsLink && committed)
-        {
-            throw new ArgumentException(string.Format(
-                "root config entry '{0}' declares copyAsLink with committed true — a tracked target must be a real file, never a link", target));
-        }
-        if (copyAsLink && carrier != null)
-        {
-            throw new ArgumentException(string.Format(
-                "root config entry '{0}' declares copyAsLink and must not declare 'carrier' — a link carries no generated content", target));
         }
     }
 }

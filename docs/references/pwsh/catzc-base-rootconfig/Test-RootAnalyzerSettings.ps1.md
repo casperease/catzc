@@ -13,10 +13,10 @@ Quality gate: the root PSScriptAnalyzerSettings.psd1 parses as a settings hashta
 
 A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the consumer
 contract of the root PSScriptAnalyzerSettings.psd1 ([ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md)): PSScriptAnalyzer
-requires a literal-hashtable settings file at the path it is given. The target is a copyAsLink entry of rootconfig.yml, so content equality
-with its source holds by construction (Test-RootConfigFiles checks the link); what remains is that a consumer opening the ROOT path can
-follow the link and parse a non-empty settings hashtable. It collects an issue when the file is missing (re-run the importer, which
-materialises it on every load), does not parse as a data file, or holds no settings.
+requires a literal-hashtable settings file at the path it is given. The target is a headed copy of its template (Test-RootConfigFiles checks
+the copy byte for byte); what remains is that a consumer opening the ROOT path parses a non-empty settings hashtable under the head. It
+collects an issue when the file is missing (re-run the importer, which materialises it on every load), does not parse as a data file, or
+holds no settings.
 
 When the entry is not opted in, the root file is not managed and the gate checks nothing (Checked = $false).
 

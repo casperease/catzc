@@ -26,6 +26,13 @@ duplicates the home the pwsh rules should have under `automation/`.
 - Some automation ADRs are really PowerShell ADRs (the user, 2026-10-19). The split is per rule and per example, not per file: an agnostic
   rule stays in `automation/` reworded engine-neutral, and its PowerShell mechanics and code samples move to the `automation/pwsh/` twin.
 
+- A domain names its folder under `docs/adr/` with an optional `folder` in `adrs.yml`, defaulting to the domain's name (declared once,
+  `AdrsConfig.DefaultFolder`); the file index keys each page by the longest domain folder that holds it, so `automation/pwsh/` stays the
+  `pwsh` domain's (decided by the orchestrator on the user's delegation, 2026-10-19). Landed 2026-10-19 before the move: `AdrsConfig`,
+  `AdrDomain`, `AdrRuleSet`, `Get-AdrFileIndex`, `Build-AdrIndex`, `Test-AdrRegistry` and `Get-AdrDoraCoverageViolations`; a fresh import
+  loads, the Docs and Maps tests pass (67 tests), Test-AdrRegistry clean, and the regenerated index body is unchanged. Step 3's convention
+  states it as a rule: `automation/<language>/` is a domain folder, declared in `adrs.yml`.
+
 ## Open steps
 
 - [ ] Create `docs/adr/automation/pwsh/` and move the 29 files of `docs/adr/pwsh/` into it (27 ADR pages, the `index.md`, and

@@ -46,17 +46,26 @@ public sealed class AdrCitationRewriter
         folderMap.Sort((left, right) => right.Old.Length.CompareTo(left.Old.Length));
 
         var literals = new List<string>(pathMap.Keys);
-        foreach ((string old, string _) in folderMap) { literals.Add(old); }
+        // A moved folder of one segment is matched only as a path, its name followed by '/': its bare name is a word of prose.
+        var folders = new List<string>();
+        foreach ((string old, string _) in folderMap)
+        {
+            if (old.Contains('/')) { literals.Add(old); } else { folders.Add(old); }
+        }
         literals.Sort((left, right) => right.Length.CompareTo(left.Length));
+        folders.Sort((left, right) => right.Length.CompareTo(left.Length));
         string path = Segment + "(?:/" + Segment + ")*/?";
         var alternatives = new List<string>
         {
             @"(?<![\w./-])(?<repo>/?docs/adr/" + path + ")(?:#(?<repoAnchor>" + AnchorPattern + "))?",
             @"(?<![\w./-])(?<relative>(?:\.\.?/)+" + path + ")(?:#(?<relativeAnchor>" + AnchorPattern + "))?",
         };
-        if (literals.Count > 0)
+        var bare = new List<string>();
+        if (literals.Count > 0) { bare.Add("(?:" + string.Join("|", literals.ConvertAll(Regex.Escape)) + ")(?:/" + Segment + ")*/?"); }
+        if (folders.Count > 0) { bare.Add("(?:" + string.Join("|", folders.ConvertAll(Regex.Escape)) + ")/(?:" + path + ")?"); }
+        if (bare.Count > 0)
         {
-            alternatives.Add(@"(?<![\w./-])(?<bare>(?:" + string.Join("|", literals.ConvertAll(Regex.Escape)) + ")(?:/" + Segment + @")*/?)(?![\w-])(?:#(?<bareAnchor>" + AnchorPattern + "))?");
+            alternatives.Add(@"(?<![\w./-])(?<bare>" + string.Join("|", bare) + @")(?![\w-])(?:#(?<bareAnchor>" + AnchorPattern + "))?");
         }
         // A numbered citation or a group names rules by a number no rule carries: it is reported, never rewritten.
         alternatives.Add(@"(?<![\w-])(?<numbered>" + CodePattern + @"(?:[#:][0-9]+|#\{[^}\r\n]*\}))");

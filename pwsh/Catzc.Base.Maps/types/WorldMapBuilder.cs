@@ -132,7 +132,8 @@ public static class WorldMapBuilder
         return best;
     }
 
-    private static readonly string[] NeverLiveTypes = { "verification", "vendored-code" };
+    // Vendored code is never live; a test file is never live by its track's aspects, whatever the track's type.
+    private static readonly string[] NeverLiveTypes = { "vendored-code" };
 
     // Is a file of a track in the track's live aspect?
     private static bool IsLive(string path, Catzc.Base.Variants.VariantTrack track, int placeLength,

@@ -14,9 +14,8 @@ Materialises every opted-in managed root file from its in-repo source of truth �
 Reads the root-config registry (configs/rootconfig.yml, via Get-Config -Config rootconfig), filters it to the opted-in entries
 (Get-RootConfigTargets), and reproduces each target from its single source of truth: a `source` entry copies the authored file out under the
 generated-file head, a `generator` entry renders the content through Invoke-RootConfigGenerator (e.g. New-Importer for importer.ps1) and
-gets the same head, and a `copyAsLink` source entry skips content entirely — the target is materialised as a filesystem link to the source
-(Set-FileLink), so the root file IS the source. Whether the target is gitignored (committed false) or tracked (committed true) changes
-nothing here — content is produced the same way; `committed` only governs git membership, asserted by the integrity test.
+gets the same head; the root file is never a link to its template. Whether the target is gitignored (committed false) or tracked (committed
+true) changes nothing here — content is produced the same way; `committed` only governs git membership, asserted by the integrity test.
 
 A generator renders either one file (the entry's target) or, for a wildcard target such as `go/tests/*/go.mod`, one { Target; Content }
 record per file (Get-RootConfigRenderedFile): each file is written on its own and reported in its own result row, under its own path.
@@ -75,15 +74,6 @@ Build-RootConfig 'PSScriptAnalyzerSettings.psd1'
 Reproduces only that managed file.
 ```
 
-## comment:1
-
-Above `$sourcePath = Resolve-RepoPath $entry.source`, written with `#`.
-
-```text
-A link entry skips content composition entirely: the target IS the source, verified or
-(re)created as a filesystem link by the one mechanism owner (Set-FileLink, Catzc.Base.Files).
-```
-
 ## comment:2
 
 Above `foreach ($listed in $entry.sources) {`, written with `#`.
@@ -98,9 +88,9 @@ record per file of a wildcard target.
 Above `$item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore`, written with `#`.
 
 ```text
-A target that is currently a LINK is stale regardless of content equality: a comment:none entry
-flipped back from copyAsLink composes bytes identical to its source, which the compare would read
-through the link and call current — leaving the link in place while the registry says copy.
+A target that is currently a LINK is stale regardless of content equality: the compare would read
+through the link, and the write would reach the file it points at, so the link is deleted first and
+the copy is written as a file of its own.
 ```
 
 ## comment:4

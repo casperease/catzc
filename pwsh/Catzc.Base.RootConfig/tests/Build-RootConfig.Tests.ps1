@@ -15,14 +15,12 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         # The fake root is not the loaded code root, so the derived run mode reads 'build'; pin the source mode.
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { "rendered output`n" }
-        Mock Set-FileLink -ModuleName Catzc.Base.RootConfig { $false }
         Mock Get-Config -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{
                 files = @(
-                    [pscustomobject]@{ target = 'fixture.yml'; source = 'sources/fixture.yml'; sources = @(); generator = $null; carrier = $null; optIn = $true; committed = $false; copyAsLink = $false }
-                    [pscustomobject]@{ target = 'generated.txt'; source = $null; sources = @('sources/fixture.yml'); generator = 'Fake-Generator'; carrier = 'dotfile'; optIn = $true; committed = $true; copyAsLink = $false }
-                    [pscustomobject]@{ target = 'linked.yml'; source = 'sources/fixture.yml'; sources = @(); generator = $null; carrier = $null; optIn = $true; committed = $false; copyAsLink = $true }
-                    [pscustomobject]@{ target = 'opted-out.yml'; source = 'sources/missing.yml'; sources = @(); generator = $null; carrier = $null; optIn = $false; committed = $false; copyAsLink = $false }
+                    [pscustomobject]@{ target = 'fixture.yml'; source = 'sources/fixture.yml'; sources = @(); generator = $null; carrier = $null; optIn = $true; committed = $false }
+                    [pscustomobject]@{ target = 'generated.txt'; source = $null; sources = @('sources/fixture.yml'); generator = 'Fake-Generator'; carrier = 'dotfile'; optIn = $true; committed = $true }
+                    [pscustomobject]@{ target = 'opted-out.yml'; source = 'sources/missing.yml'; sources = @(); generator = $null; carrier = $null; optIn = $false; committed = $false }
                 )
             }
         }
@@ -50,32 +48,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
 
     It 'skips opted-out entries entirely (their missing source never throws)' {
         $result = Build-RootConfig -PassThru
-        @($result.Target) | Should -Be @('fixture.yml', 'generated.txt', 'linked.yml')
-    }
-
-    It 'materialises a copyAsLink entry through Set-FileLink with the resolved paths' {
-        Build-RootConfig | Out-Null
-        Should -Invoke Set-FileLink -ModuleName Catzc.Base.RootConfig -Times 1 -Exactly -ParameterFilter {
-            $Path -eq (Join-Path $script:fake.Root 'linked.yml') -and
-            $Target -eq (Join-Path $script:fake.Root 'sources/fixture.yml')
-        }
-    }
-
-    It 'skips content composition for a copyAsLink entry — nothing is written' {
-        Build-RootConfig | Out-Null
-        # Set-FileLink is mocked, so the target exists only if the copy path wrote it.
-        Test-Path (Join-Path $script:fake.Root 'linked.yml') | Should -BeFalse
-    }
-
-    It 'passes -DryRun through to Set-FileLink' {
-        Build-RootConfig -DryRun | Out-Null
-        Should -Invoke Set-FileLink -ModuleName Catzc.Base.RootConfig -ParameterFilter { [bool] $DryRun }
-    }
-
-    It '-PassThru reports CopyAsLink per entry' {
-        $result = Build-RootConfig -PassThru
-        ($result | Where-Object { $_.Target -eq 'linked.yml' }).CopyAsLink | Should -BeTrue
-        ($result | Where-Object { $_.Target -eq 'fixture.yml' }).CopyAsLink | Should -BeFalse
+        @($result.Target) | Should -Be @('fixture.yml', 'generated.txt')
     }
 
     It 'treats a linked target as stale for a copy entry, even with identical content' {
@@ -163,7 +136,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{
                 files = @(
-                    [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; sources = @(); generator = 'New-Widget'; carrier = 'dotfile'; optIn = $true; committed = $false; copyAsLink = $false }
+                    [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; sources = @(); generator = 'New-Widget'; carrier = 'dotfile'; optIn = $true; committed = $false }
                 )
             }
         }

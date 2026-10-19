@@ -25,9 +25,9 @@ tracks:
   github-workflows: { places: [.github/workflows], type: pipelines, vendor: github, languages: [yaml] }
   docs: { places: [docs], type: documentation, languages: [markdown, asset] }
   contracts: { places: [contracts], type: contracts, languages: [markdown, pipeline-yaml, yaml, json] }
-  go: { places: [go], type: verification, languages: [go] }
-  python: { places: [python], type: verification, languages: [python] }
-  bash: { places: [bash], type: verification, languages: [bash] }
+  go: { places: [go], type: modules, languages: [go] }
+  python: { places: [python], type: modules, languages: [python] }
+  bash: { places: [bash], type: modules, languages: [bash] }
   bash-vendor: { places: [bash/.vendor], type: vendored-code }
   .github: { places: [.github], type: vendor-settings, vendor: github, languages: [yaml, markdown] }
   .cspell: { places: [.cspell], type: vendor-settings, vendor: cspell }

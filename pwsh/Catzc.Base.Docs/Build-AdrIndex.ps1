@@ -73,26 +73,13 @@ function Build-AdrIndex {
 
     $adrs = Get-Config -Config adrs
     $adrDocsRoot = Resolve-RepoPath 'docs/adr'
-    Assert-PathExist $adrDocsRoot
-
-    $pathBySlugKey = @{}
-    # An ADR sits at most three levels below docs/adr (domain, subfolder, file); the fourth level is headroom.
-    foreach ($file in Get-ChildPath $adrDocsRoot -File -Filter '*.md' -Depth 4) {
-        $relative = ($file.Substring($adrDocsRoot.Length).TrimStart('\', '/')) -replace '\\', '/'
-        $slug = [System.IO.Path]::GetFileNameWithoutExtension($file)
-        if ($slug -in 'index', 'README') {
-            continue
-        }
-        $topFolder = ($relative -split '/')[0]
-        $pathBySlugKey["$topFolder/$slug"] = $relative
-    }
+    $fileOf = (Get-AdrFileIndex @($adrs.RuleSets) -AdrRoot $adrDocsRoot).FileOf
 
     $sections = foreach ($domain in $adrs.Domains) {
         $rows = foreach ($ruleSet in $domain.RuleSets) {
-            $key = "$($domain.Name)/$($ruleSet.Slug)"
-            $path = $pathBySlugKey[$key]
+            $path = $fileOf[$ruleSet.External]
             if (-not $path) {
-                throw "Build-AdrIndex: no ADR file docs/adr/$($domain.Name)/**/$($ruleSet.Slug).md for $($ruleSet.External)"
+                throw "Build-AdrIndex: no single ADR file docs/adr/$($domain.Folder)/**/$($ruleSet.Slug).md for $($ruleSet.External)"
             }
             [pscustomobject]@{
                 Code = '`' + $ruleSet.External + '`'
@@ -104,7 +91,7 @@ function Build-AdrIndex {
         $adrWidth = [System.Math]::Max(3, (@($rows.Adr) | Measure-Object -Property Length -Maximum).Maximum)
 
         $lines = [System.Collections.Generic.List[string]]::new()
-        $lines.Add("### $($domain.Name)/")
+        $lines.Add("### $($domain.Folder)/")
         $lines.Add('')
 
         # The domain's description, filled the way Prettier fills it (formatter-stable, like the authored prose).

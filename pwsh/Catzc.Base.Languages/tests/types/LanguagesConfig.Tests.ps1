@@ -100,32 +100,50 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*invalid settings file 'widget/tools.yml#a#b'*"
         }
 
-        It 'reads a test runner with tools or with an engine, and none for a language without one' -Tag 'ADR-AUTO-MODULE-CHECKSBYLANGUAGE' {
-            $tools = (& $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo', 'sprocket'); executable_parameter = 'GizmoExecutable' } })).languages[0].tests
+        It 'reads a test runner with tools or with an engine, each with its test-file pattern, and none for a language without one' -Tag 'ADR-AUTO-MODULE-CHECKSBYLANGUAGE' {
+            $tools = (& $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; pattern = 'test_*.wdg'; tools = @('gizmo', 'sprocket'); executable_parameter = 'GizmoExecutable' } })).languages[0].tests
             $tools.runner | Should -Be 'Invoke-WidgetTest'
+            $tools.pattern | Should -Be 'test_*.wdg'
             $tools.tools | Should -Be @('gizmo', 'sprocket')
             $tools.executable_parameter | Should -Be 'GizmoExecutable'
             $tools.engine | Should -BeNullOrEmpty
             $tools.ExecutableName | Should -Be 'gizmo'
-            $engine = (& $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; engine = 'bash'; executable_parameter = 'EngineExecutable' } })).languages[0].tests
+            $engine = (& $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; pattern = '*.wdg'; engine = 'bash'; executable_parameter = 'EngineExecutable' } })).languages[0].tests
             $engine.tools.Count | Should -Be 0
             $engine.ExecutableName | Should -Be 'bash'
             (& $script:one ([ordered]@{ extensions = @('.wdg') })).languages[0].tests | Should -BeNullOrEmpty
         }
 
-        It 'throws on a test runner that is not a command, a bad executable, an unknown key, or tools and an engine together or neither' -Tag 'ADR-AUTO-MODULE-CHECKSBYLANGUAGE' {
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'widget'; tools = @('gizmo'); executable_parameter = 'GizmoExecutable' } }) } |
+        It 'throws on a test runner that is not a command, a bad executable, an unknown key, a missing or path-like pattern, or tools and an engine together or neither' -Tag 'ADR-AUTO-MODULE-CHECKSBYLANGUAGE' {
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'widget'; pattern = '*.wdg'; tools = @('gizmo'); executable_parameter = 'GizmoExecutable' } }) } |
                 Should -Throw "*runner 'widget' is not a command name*"
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable_parameter = '-gizmo' } }) } |
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; pattern = '*.wdg'; tools = @('gizmo'); executable_parameter = '-gizmo' } }) } |
                 Should -Throw "*executable_parameter '-gizmo' is not a parameter name*"
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable_parameter = 'GizmoExecutable'; colour = 'red' } }) } |
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; pattern = '*.wdg'; tools = @('gizmo'); executable_parameter = 'GizmoExecutable'; colour = 'red' } }) } |
                 Should -Throw "*unknown key 'colour'*"
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable = 'GizmoExecutable' } }) } |
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; pattern = '*.wdg'; tools = @('gizmo'); executable = 'GizmoExecutable' } }) } |
                 Should -Throw "*unknown key 'executable'*"
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); engine = 'bash'; executable_parameter = 'GizmoExecutable' } }) } |
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; tools = @('gizmo'); executable_parameter = 'GizmoExecutable' } }) } |
+                Should -Throw "*pattern '' is not a test-file glob*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; pattern = 'tests/*.wdg'; tools = @('gizmo'); executable_parameter = 'GizmoExecutable' } }) } |
+                Should -Throw "*pattern 'tests/*.wdg' is not a test-file glob*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; pattern = '*.wdg'; tools = @('gizmo'); engine = 'bash'; executable_parameter = 'GizmoExecutable' } }) } |
                 Should -Throw '*never both and never neither*'
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; executable_parameter = 'GizmoExecutable' } }) } |
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); tests = [ordered]@{ runner = 'Invoke-WidgetTest'; pattern = '*.wdg'; executable_parameter = 'GizmoExecutable' } }) } |
                 Should -Throw '*never both and never neither*'
+        }
+
+        It 'says whether a track is laid out by its primary language, the first it declares' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
+            $config = & $script:make ([ordered]@{ languages = [ordered]@{
+                        widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'x'; layout = @([ordered]@{ folder = '.'; role = 'public-widget'; extensions = @('.wdg') }) }
+                        gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'x' }
+                    }
+                })
+            $config.IsLaidOut(@('widget', 'gadget')) | Should -BeTrue
+            $config.IsLaidOut(@('gadget', 'widget')) | Should -BeFalse
+            $config.IsLaidOut(@('sprocket')) | Should -BeFalse
+            $config.IsLaidOut(@()) | Should -BeFalse
+            $config.IsLaidOut($null) | Should -BeFalse
         }
 
         It 'reads executable as stated, false when the entry is silent, and throws on one that is not a boolean' -Tag 'ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION' {
@@ -354,9 +372,13 @@ Describe 'LanguagesConfig' -Tag 'L0' {
     }
 
     Context 'integrity (shipped languages.yml layout)' -Tag 'integrity' {
-        It 'places the five live folders the aspects were written with, and the shared tests folder is not live' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
+        It 'places the five live folders the aspects were written with and each language track''s root scripts, and the shared tests folder is not live' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             $config = Get-Config -Config languages
-            $config.LivePatterns() | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**', 'assets/**')
+            $config.LivePatterns() | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**', '*.py', '*.go', '*.sh', 'assets/**')
+            $config.IsLaidOut(@('python')) | Should -BeTrue
+            $config.IsLaidOut(@('go')) | Should -BeTrue
+            $config.IsLaidOut(@('bash')) | Should -BeTrue
+            $config.IsLaidOut(@('markdown', 'asset')) | Should -BeFalse
             # The editor extension's folder is laid out but neither live nor shipped, like the shared tests folder.
             $config.LayoutFolders() | Should -Be @('private', 'extension', 'types', 'configs', 'assets', 'tests')
             $config.ShippedFolders() | Should -Be @('types', 'configs', 'assets')

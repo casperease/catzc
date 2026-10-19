@@ -17,7 +17,7 @@ function Test-FolderConventions {
     $functionOwners = @{}
 
     $repositoryRoot = Get-RepositoryRoot
-    foreach ($resolved in Get-CatzcModule -TrackType modules -RepositoryRoot $repositoryRoot) {
+    foreach ($resolved in Get-CatzcModule -EngineTrack -RepositoryRoot $repositoryRoot) {
         $module = $resolved.name
         $moduleDirectory = Join-Path $repositoryRoot $resolved.root
         $moduleCount++

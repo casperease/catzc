@@ -10,7 +10,7 @@ The apex unit flattens to 13 rules, 13 GitHub paths, and 7 ADO includes with 6 e
 5   .GitHub                      the 13 rules in order, each drop as a ! negation
 6   .AdoInclude                  7 patterns whose last select is a select
 7   .AdoExclude                  6 patterns whose last select is a drop
-8   pipelines/cd-apex.yaml       trigger: and pr: declare the 7 includes and 6 excludes
+8   .ado/pipelines/cd-apex.yaml  trigger: and pr: declare the 7 includes and 6 excludes
 9   Get-PipelineTrigger          reads the four path-filter lists back from the file
 10  Test-AdoPipelineTriggerGlob  compares projection and file as sets; one issue per pipeline
 
@@ -19,8 +19,8 @@ Supports ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY, ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER 
 
 The `apex` deployable unit in cats composes three base units and adds three configuration folders of its own, which flattens into a program
 of 13 rules. `Get-GlobSetTrigger` walks that program once: the GitHub list is the 13 rules in order, and the Azure DevOps lists collapse the
-13 rules to 7 includes and 6 excludes because the same pattern is never selected twice. `pipelines/cd-apex.yaml` declares exactly those 13
-patterns, and `Test-AdoPipelineTriggerGlob` is the quality gate that proves it.
+13 rules to 7 includes and 6 excludes because the same pattern is never selected twice. `.ado/pipelines/cd-apex.yaml` declares exactly those
+13 patterns, and `Test-AdoPipelineTriggerGlob` is the quality gate that proves it.
 
 ![apex: 13 rules, 13 GitHub paths, 7 ADO includes and 6 excludes](.assets/apex-thirteen-rules-seven-includes-six-excludes/diagram.drawio.png)
 
@@ -50,15 +50,15 @@ The diagram is described element by element in
    slices.
 7. **.AdoExclude.** The 6 patterns whose last select is a drop: each template's `configuration/*.yml` and `configuration/*/**`. Azure DevOps
    keeps the deeper `configuration/apex/**` include over the broader `configuration/*/**` exclude.
-8. **pipelines/cd-apex.yaml.** The root pipeline declares the 7 includes and 6 excludes under both `trigger.paths` and `pr.paths`, as the
-   triggers are honoured only at the pipeline root.
+8. **.ado/pipelines/cd-apex.yaml.** The root pipeline declares the 7 includes and 6 excludes under both `trigger.paths` and `pr.paths`, as
+   the triggers are honoured only at the pipeline root.
 9. **Get-PipelineTrigger.** The gate reads the file with `-Vendor Ado` and gets the four lists back: `TriggerInclude`, `TriggerExclude`,
    `PrInclude` and `PrExclude`; a missing section is an empty list.
 10. **Test-AdoPipelineTriggerGlob.** For every pipeline-bound set, or the one named, the gate recomputes the projection with
-    `Get-GlobSetTrigger -GlobSet`, resolves `pipelines/<pipeline>.yaml`, and compares each of the four lists with `Test-GlobListEqual` as a
-    set, ordinally sorted, because Azure DevOps filters are order-independent. A missing file is one issue, a mismatch is one issue naming
-    the filters that differ, and `Write-QualityGateReport` ends the gate. Today it reports 0 issues over 6 pipelines, and the L2 integrity
-    test requires exactly that.
+    `Get-GlobSetTrigger -GlobSet`, resolves `.ado/pipelines/<pipeline>.yaml`, and compares each of the four lists with `Test-GlobListEqual`
+    as a set, ordinally sorted, because Azure DevOps filters are order-independent. A missing file is one issue, a mismatch is one issue
+    naming the filters that differ, and `Write-QualityGateReport` ends the gate. Today it reports 0 issues over 6 pipelines, and the L2
+    integrity test requires exactly that.
 
 ## Why it holds
 

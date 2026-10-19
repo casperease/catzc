@@ -17,9 +17,12 @@ public sealed class AdrRuleSet
     public IReadOnlyList<string> DomainConcerns { get; } // the owning domain's default value-chain concerns
     public string Layer { get; }       // the layer of the automation the ADR belongs to ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/adr/automation/layers.md#rule-adr-auto-layers-realiseneverredefine))
 
-    public AdrRuleSet(string domain, string role, string slug, string external, string code, string domainCode, string stack, IReadOnlyList<string> concerns, IReadOnlyList<string> domainConcerns, string layer = AdrsConfig.DefaultLayer)
+    public string Folder { get; }      // the owning domain's folder under docs/adr
+
+    public AdrRuleSet(string domain, string role, string slug, string external, string code, string domainCode, string stack, IReadOnlyList<string> concerns, IReadOnlyList<string> domainConcerns, string layer = AdrsConfig.DefaultLayer, string folder = null)
     {
         Layer = layer;
+        Folder = folder ?? AdrsConfig.DefaultFolder(domain);
         Domain = domain;
         Role = role;
         Slug = slug;

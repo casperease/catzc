@@ -5,14 +5,18 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText((Join-Path $root 'src/widget.json'), '{}')
         [System.IO.File]::WriteAllText((Join-Path $root 'src/gadget.json'), '{ "a": 1 }')
         [System.IO.File]::WriteAllText((Join-Path $root 'sprocket.json'), '{}')
-        New-Item -ItemType HardLink -Path (Join-Path $root 'widget.json') -Value (Join-Path $root 'src/widget.json') | Out-Null
         New-Item -ItemType HardLink -Path (Join-Path $root 'cog.json') -Value (Join-Path $root 'src/widget.json') | Out-Null
-        # The managed copy is its template under the generated head, as Build-RootConfig writes it.
-        $script:gadgetCopy = InModuleScope Catzc.Base.RootConfig -Parameters @{ Source = (Join-Path $root 'src/gadget.json') } {
-            param($Source)
-            Get-RootConfigCopyContent -Entry ([pscustomobject]@{ target = 'gadget.json'; source = 'src/gadget.json'; carrier = $null }) -SourcePath $Source
+        # A managed copy is its template under the generated head, as Build-RootConfig writes it.
+        $copyOf = {
+            param([string] $Target, [string] $Source)
+            InModuleScope Catzc.Base.RootConfig -Parameters @{ Target = $Target; Source = $Source; Root = $root } {
+                param($Target, $Source, $Root)
+                Get-RootConfigCopyContent -Entry ([pscustomobject]@{ target = $Target; source = $Source; carrier = $null }) -SourcePath (Join-Path $Root $Source)
+            }
         }
+        $script:gadgetCopy = & $copyOf 'gadget.json' 'src/gadget.json'
         [System.IO.File]::WriteAllText((Join-Path $root 'gadget.json'), $script:gadgetCopy)
+        [System.IO.File]::WriteAllText((Join-Path $root 'widget.json'), (& $copyOf 'widget.json' 'src/widget.json'))
         $script:out = Join-Path $TestDrive 'out'
     }
 
@@ -21,8 +25,8 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-Config -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Config -eq 'rootconfig' } { [pscustomobject]@{} }
         $script:entries = @(
-            [pscustomobject]@{ target = 'widget.json'; source = 'src/widget.json'; carrier = $null; committed = $false; copyAsLink = $true }
-            [pscustomobject]@{ target = 'gadget.json'; source = 'src/gadget.json'; carrier = $null; committed = $true; copyAsLink = $false }
+            [pscustomobject]@{ target = 'widget.json'; source = 'src/widget.json'; carrier = $null; committed = $false }
+            [pscustomobject]@{ target = 'gadget.json'; source = 'src/gadget.json'; carrier = $null; committed = $true }
         )
         Mock Get-RootConfigTargets -ModuleName Catzc.Base.RootConfig { $entries }
         $script:ignored = @('widget.json')
@@ -33,15 +37,15 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.RootConfig { $Path | Where-Object { $_ -in $tracked } }
     }
 
-    It 'passes when the registry, .gitignore, git tracking, and the link mechanism agree' {
+    It 'passes when the registry, .gitignore, git tracking and the copies agree' {
         $result = Test-RootConfigFiles -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0
         $result.Facts['Files'] | Should -Be 2
     }
 
     It 'throws once naming every disagreement' {
-        $script:entries += [pscustomobject]@{ target = 'sprocket.json'; source = 'src/widget.json'; carrier = $null; committed = $false; copyAsLink = $true }
-        $script:entries += [pscustomobject]@{ target = 'cog.json'; source = 'src/widget.json'; carrier = $null; committed = $true; copyAsLink = $false }
+        $script:entries += [pscustomobject]@{ target = 'sprocket.json'; source = 'src/widget.json'; carrier = $null; committed = $false }
+        $script:entries += [pscustomobject]@{ target = 'cog.json'; source = 'src/widget.json'; carrier = $null; committed = $true }
         $script:ignored = @('widget.json', 'cog.json')
         $script:tracked = @('gadget.json', 'sprocket.json')
         $thrown = { Test-RootConfigFiles -OutputFolder $out } | Should -Throw -PassThru
@@ -49,7 +53,7 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
         $message | Should -BeLike 'Test-RootConfigFiles failed: 6 issue(s)*'
         $message | Should -Match 'sprocket.json: committed:false but no .gitignore rule ignores it'
         $message | Should -Match "sprocket.json: committed:false but tracked — a gitignored artifact; run 'git rm --cached sprocket.json'"
-        $message | Should -Match 'sprocket.json: copyAsLink, but missing, stale, or not a link to src/widget.json'
+        $message | Should -Match 'sprocket.json: differs from src/widget.json under its generated head'
         $message | Should -Match 'cog.json: committed:true but not tracked'
         $message | Should -Match 'cog.json: committed:true but matched by a .gitignore rule'
         $message | Should -Match 'cog.json: a link, but must be a real, independent file'
@@ -74,7 +78,7 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Target = 'widgets/alpha/gadget.txt'; Content = "alpha`n" }
             [pscustomobject]@{ Target = 'widgets/beta/gadget.txt'; Content = "beta`n" }
         }
-        $script:entries += [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; generator = 'New-Widget'; carrier = $null; committed = $false; copyAsLink = $false }
+        $script:entries += [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; generator = 'New-Widget'; carrier = $null; committed = $false }
         $script:ignored = @('widget.json', 'widgets/alpha/gadget.txt')
         $result = Test-RootConfigFiles -OutputFolder $out -PassThru
         $result.Facts['Files'] | Should -Be 4

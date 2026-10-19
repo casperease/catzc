@@ -1,0 +1,23 @@
+namespace Catzc.Base.Flow;
+
+// One rung of the promotion ladder ([ADR-FLOW-CD-RUNGSREGISTRY](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-rungsregistry)).
+public sealed class Rung
+{
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
+    // The rung's name, its key in the `rungs` map (e.g. release-uat); a unit's ADO environment for the rung is `<unit>-<name>`.
+    public string name { get; }
+
+    // The configuration environment the rung deploys (e.g. test): the `<env>` of a template's configuration slot.
+    public string environment { get; }
+
+    // The gate a commit clears to enter the rung: none, rc, rbc or prod-approval.
+    public string gate { get; }
+
+    public Rung(string name, string environment, string gate)
+    {
+        this.name = name;
+        this.environment = environment;
+        this.gate = gate;
+    }
+}

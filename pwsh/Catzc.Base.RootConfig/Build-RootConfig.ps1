@@ -60,11 +60,7 @@ function Build-RootConfig {
     }
 
     $ret = foreach ($entry in $entries) {
-        if ($entry.copyAsLink) {
-            $sourcePath = Resolve-RepoPath $entry.source
-            $files = @([pscustomobject]@{ Target = $entry.target; Content = $null; From = "$($entry.source) (link)" })
-        }
-        elseif ($entry.source) {
+        if ($entry.source) {
             # Content from an authored source file, with the generated-file head naming the source.
             $content = Get-RootConfigCopyContent -Entry $entry -SourcePath (Resolve-RepoPath $entry.source)
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $content; From = $entry.source })
@@ -90,35 +86,19 @@ function Build-RootConfig {
         foreach ($file in $files) {
             $targetPath = Resolve-RepoPath $file.Target
 
-            if ($entry.copyAsLink) {
-                $changed = Set-FileLink -Path $targetPath -Target $sourcePath -DryRun:$DryRun
+            $item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore
+            $targetIsLink = [bool] ($item -and $item.LinkType)
+            if ($targetIsLink -and -not $DryRun) {
+                [System.IO.File]::Delete($targetPath)
             }
-            else {
-                $item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore
-                $targetIsLink = [bool] ($item -and $item.LinkType)
-                if ($targetIsLink -and -not $DryRun) {
-                    [System.IO.File]::Delete($targetPath)
-                }
 
-                $changed = Write-FileIfChanged -Path $targetPath -Content $file.Content -DryRun:$DryRun
-                if ($targetIsLink) {
-                    $changed = $true
-                }
+            $changed = Write-FileIfChanged -Path $targetPath -Content $file.Content -DryRun:$DryRun
+            if ($targetIsLink) {
+                $changed = $true
             }
 
             if (-not $Silent) {
-                $verb = if ($entry.copyAsLink) {
-                    if ($changed -and $DryRun) {
-                        'would link'
-                    }
-                    elseif ($changed) {
-                        'linked'
-                    }
-                    else {
-                        'link current'
-                    }
-                }
-                elseif ($DryRun) {
+                $verb = if ($DryRun) {
                     if ($changed) {
                         'would regenerate'
                     }
@@ -141,11 +121,10 @@ function Build-RootConfig {
                 Target     = $file.Target
                 Source     = $entry.source
                 Generator  = $entry.generator
-                Committed  = [bool] $entry.committed
-                CopyAsLink = [bool] $entry.copyAsLink
-                Path       = $targetPath
-                Changed    = [bool] $changed
-                DryRun     = [bool] $DryRun
+                Committed = [bool] $entry.committed
+                Path      = $targetPath
+                Changed   = [bool] $changed
+                DryRun    = [bool] $DryRun
             }
         }
     }

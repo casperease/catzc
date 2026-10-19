@@ -25,15 +25,15 @@ The diagram is described element by element in [its asset description](.assets/n
 
 ## Walkthrough
 
-1. **Pipeline YAML.** Rule 1 says YAML steps never contain inline PowerShell. It holds today: the only inline scripts under `ado/` are
-   the template's own tasks and the expected-failures pipeline. No gate checks it, so only the ADR keeps it.
+1. **Pipeline YAML.** Rule 1 says YAML steps never contain inline PowerShell. It holds today: the only inline scripts under
+   `.ado/pipelines/` are the template's own tasks and the expected-failures pipeline. No gate checks it, so only the ADR keeps it.
 2. **Step template.** Rule 3 says the template is a thin wrapper with no logic. The code contradicts it: each of the template's three tasks
    runs `Set-StrictMode` and a guard that throws on a multiline `RunCommand` without a `DisplayName`.
 3. **Runner.** Rule 2 says the runner imports the module system once and runs the command in the same scope. `Invoke-AdoScript.ps1` does
    both.
 4. **Same RunCommand.** Rule 4 says whatever string appears in `RunCommand` can be pasted into a local terminal after the importer. No code
    replays a `RunCommand` outside the runner, so only the ADR keeps it, and no gate stands below it.
-5. **Test-Pipelines.** The pipeline-layout check runs over `ado/` and checks ADR-FLOW-CD-PIPELINE-TYPEPREFIX,
+5. **Test-Pipelines.** The pipeline-layout check runs over `.ado/pipelines/` and checks ADR-FLOW-CD-PIPELINE-TYPEPREFIX,
    ADR-ADO-NAME-FLATPIPELINESFOLDER, ADR-ADO-NAME-TEMPLATEKINDFOLDER, ADR-ADO-NAME-ABSOLUTETEMPLATEPATH and
    ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION. The one that touches this stage is ADR-ADO-NAME-ABSOLUTETEMPLATEPATH, that templates are
    referenced by absolute path. It checks no runner rule. Its L1 test requires zero violations over the real tree.
@@ -51,7 +51,7 @@ The diagram is described element by element in [its asset description](.assets/n
 - Step templates are thin wrappers that add pipeline concerns and never contain logic (ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES).
 - Every command is developer-reproducible: the `RunCommand` string runs as-is in a terminal after the importer
   (ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE).
-- Templates are referenced by an absolute path under `/pipelines/` (ADR-ADO-NAME-ABSOLUTETEMPLATEPATH).
+- Templates are referenced by an absolute path under `/.ado/pipelines/` (ADR-ADO-NAME-ABSOLUTETEMPLATEPATH).
 
 ## Where the code and the ADR differ
 

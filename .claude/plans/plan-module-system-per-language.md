@@ -96,33 +96,34 @@ would otherwise repeat the pwsh-only shape.
   ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES (the type list), ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES (the admits list),
   ADR-DSGN-MODTYPE-DEPLOYABLEORHOLDERMODULE (one module per holder track).
 
+## Done (2026-10-19) and why
+
+- `ModulePlace.cs` and `ModuleTypesConfig.cs`: a folder place takes `except`, the folders under its root that are the track's own
+  (`ModuleTypesConfig.Tests.ps1`: `[Invoke-TestFile] Passed (in-place)`, 19:46).
+- `module-types.yml`: `python`, `go` and `bash` hold folder modules, `except: [tests]`, ahead of the track's own root module
+  (`Get-PathModule.Tests.ps1`: `[Invoke-TestFile] Passed (in-place)`, 19:47).
+- `track-types.yml` and `variants.yml`: `verification` retired; the three tracks are `modules`, which admits their module types
+  (`Test-TrackDeclaration: no violations`; `TrackTypesConfig`, `Test-TrackDeclaration`, `VariantsConfig`, `Get-FileLanguage` tests:
+  `[Invoke-TestFile] Passed (in-place)`, 19:48).
+- `languages.yml` and `LanguagesConfig.cs`: root layout rows for python, go and bash; `pattern` on every `tests` entry; `IsLaidOut`, true
+  when a track's primary language owns a live layout row, so markdown's readme row lays out nothing (`LanguagesConfig.Tests.ps1`:
+  `[Invoke-TestFile] Passed (in-place)`, 20:04).
+- `Get-CatzcModule.ps1`: the relocatable anchor is the track whose modules run under this engine (`execution_engines`), never the type id; a
+  root module holds what no folder place, nested track or dot folder holds; `-EngineTrack` selects that track, which is what every caller of
+  `-TrackType modules` meant now that the three language tracks are `modules` too (`Get-CatzcModule.Tests.ps1`, with the third-language
+  fixture track `shelves`, the javascript rehearsal: `[Invoke-TestFile] Passed (in-place)`, 19:55). The fourteen callers re-pointed, one
+  file each: `Copy-CatzcModule`, `Get-ModuleFunction`, `Get-ModuleOrder`, `Get-ModuleProfile`, `Get-ModuleDependencyMap`,
+  `Get-ModuleDependencyViolations`, `Resolve-ImportMix`, `Test-FolderConventions`, `Get-LanguageTestFolders`, `Test-Automation`,
+  `Test-BuildArtifact`, `Test-CatzcBuild`, `Get-ContractCommandRoot`, `Get-CSharpTypeDependency`, and their tests' mocks (ten test files:
+  `[Invoke-TestFile] Passed (in-place)`, 19:58 and 20:02). `dependencies.yml` declares `Catzc.Base.Engines` for `Catzc.Base.Modules`.
+- `Get-Aspect.ps1`, `Get-WorldMap.ps1`, `Get-ModuleGlobSet.ps1`, `WorldMapBuilder.cs`: the laid-out check and the modules folder replace the
+  `modules` id; `verification` is no longer a never-live type (`Get-Aspect`, `Get-WorldMap`, `Test-WorldMap`, `Get-WorldMapHighlight`,
+  `WorldMapBuilder`, `Get-ModuleGlobSet` tests: `[Invoke-TestFile] Passed (in-place)`, 20:02 and 20:04).
+- `pwsh/.scriptanalyzer/NoTrackRootLiteral.psm1`: the roots no string may spell are the engine track's places, read by `execution_engines`,
+  so the 93 fixture literals `python/`, `go/` and `bash/` in tests stay legal (check owed: `Test-ScriptAnalyzer` on one file).
+
 ## Open steps
 
-- [ ] `pwsh/Catzc.Base.Variants/types/ModulePlace.cs`: a folder place takes `except`, the folder names under its root that are the track's
-      own and never a module; `NameOf` returns null for them (check: `ModuleTypesConfig.Tests.ps1` gains a case where `widgetry/tests/x`
-      resolves to the root place's module and `widgetry/gadget/x` to `Gadget`).
-- [ ] `pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs`: reads `except` on a folder place, a list of folder names, refused on a file or
-      root place (check: the same test file, an `except` on a root place is an error naming the place).
-- [ ] `pwsh/Catzc.Base.Variants/configs/module-types.yml`: `python`, `go` and `bash` each get
-      `{ root: <root>, name: folder, except: [tests] }` ahead of their root place, definitions reworded to "a module of the language's
-      track, a folder under the track folder named by the folder; the track's own files are the track's module" (check:
-      `Get-PathModule.Tests.ps1` resolves `python/tests/catzc-base-repository/test_repository.py` to `python` still and
-      `python/Widget.Gadget/gadget.py` to `Widget.Gadget`).
-- [ ] `pwsh/Catzc.Base.Variants/configs/track-types.yml`: `modules` reads "Deployable modules of a language track, collected into the
-      bundles `files.yml` declares" and admits `pwsh-folder`, `pwsh-psm1`, `python`, `go`, `bash`; `verification` is removed (check:
-      `Test-TrackDeclaration.Tests.ps1` and `TrackTypesConfig.Tests.ps1` pass).
-- [ ] `pwsh/Catzc.Base.Variants/configs/variants.yml`: `python`, `go` and `bash` tracks are `type: modules` (check: `Test-TrackDeclaration`
-      on the config passes; `Get-Track python` reports `modules`).
-- [ ] `pwsh/Catzc.Base.Languages/configs/languages.yml`: layout rows for python (`.py` at the root, role `script`), go (`.go`, role
-      `source`) and bash (`.sh`, role `script`); each language's `tests` entry gains `pattern` (`test_*.py`, `*_test.go`, `*.bats`) (check:
-      `LanguagesConfig.Tests.ps1` passes; `Get-FileLanguage.Tests.ps1:85` no longer names `verification`).
-- [ ] `pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs`: `pattern` is a key of `tests`, required when `runner` is given (check: the types
-      test for a `tests` entry without `pattern` names the language).
-- [ ] `pwsh/Catzc.Base.Modules/Get-CatzcModule.ps1`: the anchor is the track whose place is the catzc modules folder, not the `modules` id;
-      a root place's module holds only the files no folder place of the same track names (check: `Get-CatzcModule.Tests.ps1` gains a fixture
-      track with a folder place and a root place where every file lands in exactly one module).
-- [ ] `pwsh/Catzc.Base.Modules/Get-Aspect.ps1`: the laid-out check (the track's primary language owns layout rows) replaces the `modules` id
-      (check: `Get-Aspect.Tests.ps1` passes with a laid-out fixture track of another type name).
 - [ ] `pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1`: the languages are those of the registry with a `tests` runner,
       each root from `Get-Config -Config <language>` and each pattern from the registry; a module's own `tests/` under a language track
       yields a record for that module (check: `Get-LanguageTestFolders.Tests.ps1` passes with a fixture language and a module-own folder).
@@ -139,8 +140,6 @@ would otherwise repeat the pwsh-only shape.
       `python/pyproject.toml` without `extraPaths`; `Test-GeneratedFiles` on it passes).
 - [ ] `pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1`: every module folder under the Go root is a `go.work` member beside `tests/*` (check:
       `New-GoWorkspace.Tests.ps1` renders a member for a fixture module folder).
-- [ ] `pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs`: `NeverLiveTypes` keeps `vendored-code` only; a test file is never live by the layout
-      (check: `WorldMapBuilder.Tests.ps1` passes; the world map of the tree lights no python cell as live).
 - [ ] `pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1`: the comment at line 37 names the layout, not the verification type (check:
       `Assert-CatzcBundle.Tests.ps1` passes).
 - [ ] `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`: "verification track" retires; "language track" enters, defined by the new rule
@@ -163,8 +162,9 @@ would otherwise repeat the pwsh-only shape.
       `Test-Adr`; `Update-AdrCitation`).
 - [ ] The heads of the tracked files of the three tracks (`python/tests/**`, `go/**`, `bash/**`) carry `tracktype: modules` after
       `Sync-FileMeta` over those paths, one track at a time (check: `Test-FileMeta` on each track's paths passes).
-- [ ] `pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1`: the extension proof: a third fixture language with a module type, a folder
-      place with `except`, and one layout row resolves modules with no code change (check: the test passes; it is the javascript rehearsal).
+- [ ] The generated pages of the edited sources are regenerated: `Format-Code` over the touched `.ps1`, `.cs` and `.yml` files rewrites
+      their `docs/references/**` comment pages, and `Test-ScriptAnalyzer` runs on `Get-CatzcModule.ps1` (check: `Test-GeneratedFiles` and
+      `Test-Comments` on the touched files pass; the analyzer reports nothing).
 
 ## Refs
 

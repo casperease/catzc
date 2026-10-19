@@ -14,10 +14,12 @@ public sealed class AdrDomain
     public string Stack { get; }                  // one of AdrsConfig.Stacks
     public IReadOnlyList<string> Concerns { get; } // the domain default, one or more of AdrsConfig.Concerns
     public IReadOnlyList<AdrRuleSet> RuleSets { get; }
+    public string Folder { get; }                  // the folder under docs/adr that holds the domain's ADRs
 
-    public AdrDomain(string name, string code, string role, string description, IReadOnlyList<string> dependsOn, string stack, IReadOnlyList<string> concerns, IReadOnlyList<AdrRuleSet> ruleSets)
+    public AdrDomain(string name, string code, string role, string description, IReadOnlyList<string> dependsOn, string stack, IReadOnlyList<string> concerns, IReadOnlyList<AdrRuleSet> ruleSets, string folder)
     {
         Name = name;
+        Folder = folder;
         Code = code;
         Role = role;
         Description = description;

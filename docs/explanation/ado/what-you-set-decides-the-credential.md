@@ -26,9 +26,9 @@ failure carries a verbatim fragment of its message; the full messages are quoted
 
 ## Walkthrough
 
-1. **ExposeAccessToken: true.** In a pipeline, a step built on `ado/steps/invoke-automation.yaml` with `ExposeAccessToken: true` maps
-   `SYSTEM_ACCESSTOKEN` into that step, in every Mode, and the step log shows the line "ExposeAccessToken: true". A step without the flag
-   never sees the token, so the YAML itself shows which steps have API access.
+1. **ExposeAccessToken: true.** In an ado pipeline, a step built on `.ado/pipelines/steps/invoke-automation.yaml` with
+   `ExposeAccessToken: true` maps `SYSTEM_ACCESSTOKEN` into that step, in every Mode, and the step log shows the line "ExposeAccessToken:
+   true". A step without the flag never sees the token, so the YAML itself shows which steps have API access.
 2. **does not match ado.yml.** If the pipeline's collection is not the organization in `ado.yml`, the call stops with "Pipeline collection
    '&lt;uri&gt;' does not match ado.yml organization '&lt;org&gt;' — refusing the agent token for a different org."
 3. **$env:AZURE_DEVOPS_PAT.** Outside a pipeline, or with the token not exposed, a PAT you have set locally or in CI is used. Nothing checks

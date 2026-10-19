@@ -22,7 +22,11 @@ public sealed class AdrsConfig
     public IReadOnlyList<AdrDomainEdge> Edges { get; }
 
     private static readonly string[] AllowedKeys = { "domains" };
-    private static readonly string[] AllowedDomainKeys = { "code", "role", "description", "depends_on", "stack", "concern", "rulesets" };
+    private static readonly string[] AllowedDomainKeys = { "code", "role", "description", "depends_on", "stack", "concern", "folder", "rulesets" };
+    private static readonly Regex FolderRe = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$", RegexOptions.Compiled);
+
+    // The folder under docs/adr that holds a domain's ADRs when its entry names none: the domain's own name.
+    public static string DefaultFolder(string domain) => domain;
     private static readonly string[] AllowedRuleSetKeys = { "external", "code", "concern", "layer" };
 
     // The five layers of the automation, and the one an ADR belongs to when its entry names none ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/adr/automation/layers.md#rule-adr-auto-layers-realiseneverredefine)).
@@ -62,6 +66,7 @@ public sealed class AdrsConfig
         List<AdrRuleSet> allRuleSets = new List<AdrRuleSet>();
         Dictionary<string, string> seenExternals = new Dictionary<string, string>(StringComparer.Ordinal);
         Dictionary<string, List<string>> graph = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+        Dictionary<string, string> seenFolders = new Dictionary<string, string>(StringComparer.Ordinal);
 
         foreach (object dk in domainsMap.Keys)
         {
@@ -85,6 +90,20 @@ public sealed class AdrsConfig
             if (string.IsNullOrWhiteSpace(description))
             {
                 errors.Add(string.Format("domain '{0}': missing 'description'", name));
+            }
+
+            string folder = d.Contains("folder") && d["folder"] != null ? d["folder"].ToString() : DefaultFolder(name);
+            if (!FolderRe.IsMatch(folder) || Array.IndexOf(folder.Split('/'), "..") >= 0 || Array.IndexOf(folder.Split('/'), ".") >= 0)
+            {
+                errors.Add(string.Format("domain '{0}': folder '{1}' must be a '/'-separated path under docs/adr, with no '.' or '..' segment", name, folder));
+            }
+            else if (seenFolders.ContainsKey(folder))
+            {
+                errors.Add(string.Format("domain '{0}': folder '{1}' is also the folder of domain '{2}'", name, folder, seenFolders[folder]));
+            }
+            else
+            {
+                seenFolders[folder] = name;
             }
 
             string stack = d.Contains("stack") && d["stack"] != null ? d["stack"].ToString() : null;
@@ -196,13 +215,13 @@ public sealed class AdrsConfig
                         }
                     }
 
-                    AdrRuleSet one = new AdrRuleSet(name, role, slug, external, effective, code, stack, concerns, domainConcerns, layer);
+                    AdrRuleSet one = new AdrRuleSet(name, role, slug, external, effective, code, stack, concerns, domainConcerns, layer, folder);
                     ruleSets.Add(one);
                     allRuleSets.Add(one);
                 }
             }
 
-            domains.Add(new AdrDomain(name, code, role, description, deps, stack, domainConcerns, ruleSets));
+            domains.Add(new AdrDomain(name, code, role, description, deps, stack, domainConcerns, ruleSets, folder));
         }
 
         // Acyclic domain graph (depth-first cycle detection: 1 = on the current stack, 2 = fully explored).

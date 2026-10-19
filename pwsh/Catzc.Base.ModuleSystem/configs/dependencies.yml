@@ -10,6 +10,7 @@ groups:
     Catzc.Base.CodeMeta: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.MarkdownMeta]
     Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Folders: [Catzc.Base.Config, Catzc.Base.Objects]
+    Catzc.Base.Flow: [Catzc.Base.Config, Catzc.Base.Objects]
     Catzc.Base.Slides:
       [
         Catzc.Base.Docs,
@@ -72,7 +73,15 @@ groups:
         Catzc.Base.Variants,
       ]
     Catzc.Base.Modules:
-      [Catzc.Base.Languages, Catzc.Base.Variants, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Folders]
+      [
+        Catzc.Base.Languages,
+        Catzc.Base.Variants,
+        Catzc.Base.Engines,
+        Catzc.Base.Config,
+        Catzc.Base.Objects,
+        Catzc.Base.Repository,
+        Catzc.Base.Folders,
+      ]
     Catzc.Base.Files:
       [Catzc.Base.Git, Catzc.Base.Execution, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts, Catzc.Base.Folders]
     Catzc.Base.Overlay: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Asserts, Catzc.Base.Folders]

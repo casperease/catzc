@@ -166,12 +166,12 @@ identities.
 
 `**` is the single addition, and the only operator that crosses `/`: it stands as a whole segment and consumes zero or more whole segments.
 
-| Pattern               | Matches                          | Does not match              |
-| --------------------- | -------------------------------- | --------------------------- |
-| `pwsh/**`             | `pwsh/a.ps1`, `pwsh/x/y`         | `pwsh2/a.ps1`               |
-| `**/*.md`             | `README.md`, `docs/adr/index.md` | `docs/adr` (a folder)       |
-| `pipelines/ci-*.yaml` | `pipelines/ci-automation.yaml`   | `pipelines/steps/ci-x.yaml` |
-| `**/tests/**/*.ps1`   | `pwsh/M/tests/a.Tests.ps1`       | `pwsh/M/a.ps1`              |
+| Pattern                    | Matches                             | Does not match                   |
+| -------------------------- | ----------------------------------- | -------------------------------- |
+| `pwsh/**`                  | `pwsh/a.ps1`, `pwsh/x/y`            | `pwsh2/a.ps1`                    |
+| `**/*.md`                  | `README.md`, `docs/adr/index.md`    | `docs/adr` (a folder)            |
+| `.ado/pipelines/ci-*.yaml` | `.ado/pipelines/ci-automation.yaml` | `.ado/pipelines/steps/ci-x.yaml` |
+| `**/tests/**/*.ps1`        | `pwsh/M/tests/a.Tests.ps1`          | `pwsh/M/a.ps1`                   |
 
 Hygiene is structural (`ADR-PRIN-POKAYOKE`): separators are `/` only, patterns are repo-relative (no leading `/`), no `.`/`..` segments, and
 no backtick — `WildcardPattern` treats the backtick as an escape character, and an escape character in a path pattern signals a mistake, so
@@ -298,8 +298,8 @@ named pair.
   and in CI.
 - The `Test-GlobSetTriggerCoverage` quality gate confirms every member of a pipeline-bound set is covered by an ADO include pattern — an
   include-only projection is a safe superset that can never under-trigger, with `Test-GlobSetAffected` supplying exactness on top.
-- Grep-ability: `paths:` filters in `pipelines/*.yaml` and `.github/workflows/` are generated from `globs.yml`; a filter that disagrees with
-  the projection is findable by the drift quality gates and wrong by rule (`ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER`).
+- Grep-ability: `paths:` filters in `.ado/pipelines/*.yaml` and `.github/workflows/` are generated from `globs.yml`; a filter that disagrees
+  with the projection is findable by the drift quality gates and wrong by rule (`ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER`).
 
 ## Consequences
 

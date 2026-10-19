@@ -14,7 +14,7 @@ Describe 'Get-ContractCommandRoot' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-NOP
             [pscustomobject]@{ name = 'Catzc.Widget'; root = 'widgets/Catzc.Widget'; languages = @('csharp', 'powershell') }
         }
         Get-Root 'Catzc.Widget' | Should -Be 'widgets/Catzc.Widget'
-        Should -Invoke -ModuleName Catzc.Base.Contracts Get-CatzcModule -Times 1 -Exactly -ParameterFilter { $Name -eq 'Catzc.Widget' -and $TrackType -eq 'modules' }
+        Should -Invoke -ModuleName Catzc.Base.Contracts Get-CatzcModule -Times 1 -Exactly -ParameterFilter { $Name -eq 'Catzc.Widget' -and $EngineTrack }
     }
 
     It 'throws when no module of that name exists' {

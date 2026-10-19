@@ -3,15 +3,14 @@ approver_group:
   members:
     - prod-approver@example.com
 timeout_hours: 24
-environments:
-  - shared-release-uat
-  - shared-pre-prod
-  - apex-release-uat
-  - apex-pre-prod
-  - nova-release-uat
-  - nova-pre-prod
-  - flux-release-uat
-  - flux-pre-prod
+# Each unit's release-gate rungs carry the RC and RBC checks: `<unit>-<rung>` for the rungs the rungs registry puts behind rc and rbc.
+units:
+  - shared
+  - apex
+  - nova
+  - flux
+# The prod tier is named by its deploy target (the subscription or the prod slot), not by a rung, so it is listed here.
+prod_environments:
   - shared-psub
   - apex-psub
   - apex-prod

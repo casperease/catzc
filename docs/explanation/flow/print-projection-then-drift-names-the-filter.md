@@ -5,12 +5,12 @@ Print the projection, then a drifted pipeline fails naming the filter that diffe
 
 1  globs.yml                    the file you edit to recompose a unit
 2  Get-GlobSetTrigger           prints GitHub, AdoInclude and AdoExclude for a set
-3  pipelines/cd-apex.yaml       where you paste the ADO lists, under trigger: and pr:
+3  .ado/pipelines/cd-apex.yaml  where you paste the ADO lists, under trigger: and pr:
 4  Test-GlobSetTriggerCoverage  every member of a pipeline-bound set hits an ADO include
 5  matches no ADO include       the uncovered member, named in the issue
 6  Test-AdoPipelineTriggerGlob  the file's four lists against the projection, as sets
 7  trigger drifted              the issue names the filters that differ
-8  pipeline file not found      the issue names the missing pipelines/<pipeline>.yaml
+8  pipeline file not found      the issue names the missing .ado/pipelines/<pipeline>.yaml
 
 Supports ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER (operations lens).
 ```
@@ -31,22 +31,23 @@ The diagram is described element by element in
    `compose:` lists, and the `pipeline:` the unit binds.
 2. **Get-GlobSetTrigger.** `Get-GlobSetTrigger -Name apex` prints one object: `Name`, the ordered `GitHub` list, and the `AdoInclude` and
    `AdoExclude` lists. The set name completes from the registry, and `-GlobSet` takes a set object instead.
-3. **pipelines/cd-apex.yaml.** The pipeline bound by `pipeline: cd-apex` declares `AdoInclude` and `AdoExclude` under both `trigger.paths`
-   and `pr.paths`. No command writes them: you paste the printed lists, and the gate below tells you when they fall out of step.
+3. **.ado/pipelines/cd-apex.yaml.** The ado pipeline bound by `pipeline: cd-apex` declares `AdoInclude` and `AdoExclude` under both
+   `trigger.paths` and `pr.paths`. No command writes them: you paste the printed lists, and the gate below tells you when they fall out of
+   step.
 4. **Test-GlobSetTriggerCoverage.** Run on its own or by `Test-Automation` at level 2, this quality gate takes every pipeline-bound set,
    projects it, and matches each member file against the set's `AdoInclude` patterns.
 5. **Matches no ADO include.** An uncovered member is one issue:
    `<set>: member <file> matches no ADO include pattern — the include-only trigger would miss it`. Today the gate reports 0 issues over 6
    sets.
 6. **Test-AdoPipelineTriggerGlob.** For every pipeline-bound set, or the one given with `-Name`, this quality gate recomputes the
-   projection, reads `pipelines/<pipeline>.yaml`, and compares the file's four lists with the projection as sets.
+   projection, reads `.ado/pipelines/<pipeline>.yaml`, and compares the file's four lists with the projection as sets.
 7. **Trigger drifted.** A mismatch is one issue naming the pipeline and the lists that differ:
-   `<set>: pipelines/<pipeline>.yaml trigger drifted from the globset projection on <filters>`, where the filters are any of
+   `<set>: .ado/pipelines/<pipeline>.yaml trigger drifted from the globset projection on <filters>`, where the filters are any of
    `trigger.paths.include`, `trigger.paths.exclude`, `pr.paths.include` and `pr.paths.exclude`. The fix is to regenerate the pipeline
    trigger from `globs.yml`.
 8. **Pipeline file not found.** A bound pipeline whose file is absent is one issue:
-   `<set>: pipeline file not found: pipelines/<pipeline>.yaml`. Either gate writes its report under `out/test-<subject>/` and throws once,
-   `<gate> failed: N issue(s)`, listing every issue; with `-PassThru` it returns the result instead. Today both report 0 issues over 6
+   `<set>: pipeline file not found: .ado/pipelines/<pipeline>.yaml`. Either gate writes its report under `out/test-<subject>/` and throws
+   once, `<gate> failed: N issue(s)`, listing every issue; with `-PassThru` it returns the result instead. Today both report 0 issues over 6
    pipelines.
 
 The GitHub side has the same gate, `Test-GitHubWorkflowTriggerGlob`, which takes the pairing explicitly, for example

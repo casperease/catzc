@@ -13,10 +13,10 @@ The customer CD pipeline builds once, then deploys the prod tier itself.
 Supports ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDCONTAINSCI, ADR-FLOW-CD-CDSTAYSINNONPROD and ADR-FLOW-CD-TWOENVIRONMENTACTIVATION (implementation lens).
 ```
 
-Every customer CD pipeline in cats extends one template, `pipelines/extends/cd-customer.yaml`. The thin root pipelines (`cd-apex.yaml`,
-`cd-nova.yaml`, `cd-flux.yaml`) supply only the customer key and the per-deployment environment, slot, service connection and subscription
-assert. In code order, the template runs one CI stage that builds and publishes three artifacts, then three deploy stages that apply them in
-dependency order. In `cd-apex`, each deploy stage reaches the non-prod and the prod tier in the same run.
+Every customer CD ado pipeline in cats extends one template, `.ado/pipelines/extends/cd-customer.yaml`. The thin root pipelines
+(`cd-apex.yaml`, `cd-nova.yaml`, `cd-flux.yaml`) supply only the customer key and the per-deployment environment, slot, service connection
+and subscription assert. In code order, the template runs one CI stage that builds and publishes three artifacts, then three deploy stages
+that apply them in dependency order. In `cd-apex`, each deploy stage reaches the non-prod and the prod tier in the same run.
 
 ![The customer CD pipeline builds once, then deploys the prod tier itself](.assets/cd-builds-once-then-deploys-prod-itself/diagram.drawio.png)
 

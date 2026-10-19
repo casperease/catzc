@@ -285,7 +285,7 @@ local runs.
 - task: UsePythonVersion@0
   inputs:
     versionSpec: "3.13"
-- template: /pipelines/steps/invoke-automation.yaml
+- template: /.ado/pipelines/steps/invoke-automation.yaml
   parameters:
     RunCommand: "Install-AzCli -Force" # uv tool, depends on uv
 ```

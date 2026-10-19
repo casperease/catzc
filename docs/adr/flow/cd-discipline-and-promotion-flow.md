@@ -168,11 +168,21 @@ ADR-FLOW-CD-INNERANDOUTERLOOP).
 
 Every prod-tier environment a pipeline deploys to carries an **approval gate**: an Approval check by one named approver group, so a run that
 reaches it waits for a person. The gate is configuration, never a portal setting: `environment-approvals.yml` declares the approver group,
-its members, the timeout and the environments, and one deterministic apply, `Sync-AdoEnvironmentApprovals`, makes the organization match it.
-An environment a pipeline deploys the prod tier to is listed there, and so are the RC and RBC checks of ADR-FLOW-CD-TWORELEASEGATES on each
-unit's `release-uat` and `pre-prod` environments.
+its members, the timeout, the units and the prod-tier environments, and one deterministic apply, `Sync-AdoEnvironmentApprovals`, makes the
+organization match it. An environment a pipeline deploys the prod tier to is listed there; the RC and RBC checks of
+ADR-FLOW-CD-TWORELEASEGATES on each unit's `release-uat` and `pre-prod` environments are derived from the rungs registry
+(ADR-FLOW-CD-RUNGSREGISTRY).
 
 - [The prod approval gate](#the-prod-approval-gate)
+
+### Rule ADR-FLOW-CD-RUNGSREGISTRY
+
+The promotion ladder's **rungs** are declared once, in climbing order, by the rungs registry: each rung names the gate a commit clears to
+enter it and the configuration environment it deploys. A unit's ADO environment for a rung is `<unit>-<rung>`, so every environment name,
+approval check and diagram that refers to a rung reads it from the registry, and remapping a rung to another environment is one edit there.
+The registry is `rungs.yml` in `Catzc.Base.Flow`, with its ladder declared on `RungsConfig`.
+
+- [The rungs registry](#the-rungs-registry)
 
 ## Context
 
@@ -417,14 +427,26 @@ stage inactive, validate, activate live — is the same.
 Whatever posture a unit is under, a run must not reach a prod-tier environment unattended. Azure DevOps holds that stop as an Approval check
 on the environment, and a check set by hand in the portal drifts: nobody can review it, rebuild it or see who may approve. So the gate is
 configuration. `environment-approvals.yml` (in `Catzc.Azure.DevOps`) names the approver group and its members, the timeout a pending
-approval waits, and the environments that carry the gate; its config type declares the defaults once (`Prod Approvers`, 24 hours). One
-apply, `Sync-AdoEnvironmentApprovals`, makes the organization match the file in a fixed order — the group, then exactly its configured
-members, then one check per environment — and reports each step, so a second run changes nothing. The procedure is
+approval waits, the units whose release-gate rungs carry the RC and RBC checks, and the prod-tier environments, which are named by their
+deploy target rather than by a rung; its config type declares the defaults once (`Prod Approvers`, 24 hours). One apply,
+`Sync-AdoEnvironmentApprovals`, makes the organization match the file in a fixed order — the group, then exactly its configured members,
+then one check per environment — and reports each step, so a second run changes nothing. The procedure is
 [Apply the prod-tier approvals](../../how-to/automation/apply-environment-approvals.md).
 
 The gate is the stop the promotion ladder does not yet have rungs for: until main-uat, RC, RBC and DEPLOY exist in code, it is what stands
 between a merge and production. It stays when the ladder lands, as the CDe's internal approval gate (ADR-FLOW-CD-CDEINTERNALIZESPROMOTION)
 or DEPLOY's.
+
+### The rungs registry
+
+`One ladder, named once`
+
+The ladder's rung names travel: into ADO environment names, approval checks, deploy lists, the lifecycle diagrams. Written out in each, they
+drift, and a rung that moves to another environment becomes a search through every file that names it. The registry states the ladder once.
+Each rung carries the gate that guards its entry (none for main-uat, which CD deploys on merge; RC for release-uat; RBC for pre-prod; the
+prod approval gate for prod) and the configuration environment it deploys, and everything else derives from it: the approval apply builds
+`<unit>-<rung>` for the rungs behind RC and RBC. The prod tier is the exception on purpose. Its environments are named by the deploy target,
+a subscription or a prod slot, not by the rung, so `environment-approvals.yml` lists them.
 
 ## How this is enforced
 

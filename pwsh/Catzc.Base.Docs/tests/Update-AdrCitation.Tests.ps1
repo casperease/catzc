@@ -136,6 +136,16 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             & $script:update 'docs/adr/plain-other.md' 'docs/guide/widget/sub/page.md and out/widget/sub' |
                 Should -BeExactly 'docs/guide/widget/sub/page.md and out/widget/sub'
         }
+
+        It 'moves a one-segment folder''s path mentions and leaves its bare name in prose alone' {
+            $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
+            $codeMap = & $script:writeText 'maps/folder-code-map.tsv' ($header + "`n" + (@('-', '-', 'gadgets/index.md', 'gizmos/index.md', 'folder') -join "`t") + "`n")
+            $text = "Three gadgets share one fragment, so gadgets need a folder: gadgets/ holds them, see gadgets/index.md.`n"
+            $full = & $script:writeText 'docs/adr/widget/folder-word.md' $text
+            Update-AdrCitation -Path $full -CodeMap $codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue | Out-Null
+            [System.IO.File]::ReadAllText($full) |
+                Should -BeExactly "Three gadgets share one fragment, so gadgets need a folder: gizmos/ holds them, see gizmos/index.md.`n"
+        }
     }
 
     Context 'the file' {

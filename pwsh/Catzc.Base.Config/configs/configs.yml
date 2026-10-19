@@ -71,6 +71,8 @@ configs:
     overridable: false
   importer:
     type: Catzc.Base.ModuleSystem.ImporterConfig
+  rungs:
+    type: Catzc.Base.Flow.RungsConfig
   analyzer-adr-map:
     type: Catzc.Base.QualityGates.AnalyzerAdrMapConfig
   vendor:

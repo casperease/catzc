@@ -18,10 +18,8 @@ Two booleans, both defaulting to FALSE:
   committed  — is the managed target tracked in git? false = gitignored (reproduced on import, invisible
                churn); true = committed (for files git or the bootstrap reads BEFORE the importer runs —
                importer.ps1, the git files), where a source change surfaces as a reviewable diff.
-  copyAsLink — materialise the target as a filesystem LINK to the source (Set-FileLink: a symbolic link, or
-               a hard link on Windows without the symlink privilege) instead of a generated copy: the root
-               file IS the source, so drift is impossible and no head is written. Requires `source`,
-               requires committed false, forbids a declared `carrier`. Healed per-OS at the importer tail.
+
+A `source` target is always a COPY of its template under the generated-file head, never a link to it.
 
 `carrier` names the file-carriers entry for the generated-file head of a composed file (default: the entry of the
 target's file language); `sources` lists the authored files a generator renders from. All paths are repository-root-
@@ -91,27 +89,6 @@ Above `- target: "*/pyproject.toml"`, written with `#`.
 The Python test workspace (Catzc.Base.Languages, New-PythonProject): the uv workspace root pyproject.toml in the Python
 root (python.yml `root`: python/ when present, else .python/), and one member pyproject.toml per Python test folder.
 Gitignored generated copies; uv makes the one .venv and uv.lock beside the workspace root.
-```
-
-## comment:8
-
-Above `- target: .markdownlintignore`, written with `#`.
-
-```text
-The ignore files and cspell.yml stay generated COPIES until the symlink path is verified on Linux (the
-tools may resolve relative references against a symlinked config's real path — cspell's .cspell/
-references are the suspect case). Flip each to copyAsLink only after the gates run green through a
-symbolic link; see the plan's step 12 and the generated-root-configs ADR.
-```
-
-## comment:9
-
-Above `- target: .cspell/.gitignore`, written with `#`.
-
-```text
-The nested ignore for the generated .cspell/ dictionaries. A generated COPY forever, never copyAsLink:
-git itself refuses to honour a symlinked .gitignore, so the Linux-verification caveat above does not
-apply — there is nothing to flip to.
 ```
 
 ## comment:10

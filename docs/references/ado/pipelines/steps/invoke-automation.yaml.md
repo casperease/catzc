@@ -1,4 +1,4 @@
-# pipelines/steps/invoke-automation.yaml
+# .ado/pipelines/steps/invoke-automation.yaml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -11,11 +11,11 @@ Above `parameters:`, written with `#`.
 Unified step template for running PowerShell automation commands.
 
 Usage:
-  - template: /pipelines/steps/invoke-automation.yaml
+  - template: /.ado/pipelines/steps/invoke-automation.yaml
     parameters:
       RunCommand: 'Test-Automation'
 
-  - template: /pipelines/steps/invoke-automation.yaml
+  - template: /.ado/pipelines/steps/invoke-automation.yaml
     parameters:
       RunCommand: |
         Build-Bicep -Template sample -Environments dev

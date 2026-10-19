@@ -89,7 +89,7 @@ the service connection logs the session into one subscription, and `Get-AzCliSes
 identity (name, customer, tenant) so the rest of the platform reasons in config vocabulary. A session pointed at an undeclared subscription
 throws — config defines what exists (ADR-AZ-SESSION-CONFIGDEFINESCORRECT), so an unknown target is an error, never a fallback. The lookup is
 read-only (ADR-AZ-SESSION-VERIFYISNOTCONNECT); the explicit pin against mis-wiring is the deploy surface's `-SubscriptionIdAssertIs` guard,
-mandatory in ado ([data-model](azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)).
+mandatory in pipelines ([data-model](azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)).
 
 ### Config defines correct
 

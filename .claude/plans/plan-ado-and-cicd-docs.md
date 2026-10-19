@@ -31,21 +31,21 @@ marker, unlike the other vendor folders.
   through its generator, not by hand.
 - The track key follows too (the user, 2026-10-19): `pipelines:` in `variants.yml` becomes `ado-pipelines:`, as `github-workflows` already
   names its vendor; the type `pipelines` stays the concept, and every consumer that names the track is re-pointed in the same change.
-- The repository-rooted paths inside the moved tree follow it (catzc-64 for the orchestrator, 2026-10-19): every `template: /pipelines/…`
-  becomes `template: /.ado/pipelines/…` and every `./pipelines/Invoke-AdoScript.ps1` becomes `./.ado/pipelines/Invoke-AdoScript.ps1`,
-  because Azure DevOps resolves both from the repository root and the old paths no longer exist; `Test-Pipelines` derives the root and the
-  template prefix from the `ado-pipelines` track's place instead of a literal. Re-registering the pipelines' YAML paths in Azure DevOps is
-  the user's.
-- The `adrs.yml` domain key follows the ADR file move at once (catzc-64, approved by the orchestrator, 2026-10-19): `pipelines` becomes
-  `ado` and `languages.yml` `adr_folder` follows, because `Build-AdrIndex` reads the domain's folder from its key and the importer stopped
-  on the missing folder; the codes stay `ADR-PIPE-*` until the re-cite step.
-- The new codes (catzc-64, 2026-10-19): the domain code is `ADO` (`ADR-ADO-AUTH`, `-VAR`, `-NAME`, `-TEMPLATE`, file names kept), and the
-  concept ADR is `docs/adr/flow/pipeline-concept.md` as `ADR-FLOW-CD-PIPELINE`, in the `ADR-FLOW-CD-*` family beside RUNNER, DETECT, TYPE
-  and GLOBS; the four concept rules keep their names (`ADR-FLOW-CD-PIPELINE-TYPEPREFIX`, `-EXECUTABLEYAMLEXTENSION`, `-FLATREADABLEYAML`,
-  `-NOSTOREDTOKENS`). The re-cite maps are `out/ado-code-map.tsv` and `out/ado-rule-map.tsv`. The value-chain `stack: PIPE` row is a stack
-  name, not a code, and stays. The idea of a pipeline as the automated path from commit to production, one per deployable unit and run on
-  change detection, came from `eac`'s CD-model pages, rebuilt from catzc's own rules (ADR-PRIN-ONELIVE).
-- The reference pages follow the place (catzc-64, 2026-10-19): `docs/references/pipelines(.md)` moves to
+- The repository-rooted paths inside the moved tree follow it (catzc-2f [2a36a7] for the orchestrator, 2026-10-19): every
+  `template: /pipelines/…` becomes `template: /.ado/pipelines/…` and every `./pipelines/Invoke-AdoScript.ps1` becomes
+  `./.ado/pipelines/Invoke-AdoScript.ps1`, because Azure DevOps resolves both from the repository root and the old paths no longer exist;
+  `Test-Pipelines` derives the root and the template prefix from the `ado-pipelines` track's place instead of a literal. Re-registering the
+  pipelines' YAML paths in Azure DevOps is the user's.
+- The `adrs.yml` domain key follows the ADR file move at once (catzc-2f [2a36a7], approved by the orchestrator, 2026-10-19): `pipelines`
+  becomes `ado` and `languages.yml` `adr_folder` follows, because `Build-AdrIndex` reads the domain's folder from its key and the importer
+  stopped on the missing folder; the codes stay `ADR-PIPE-*` until the re-cite step.
+- The new codes (catzc-2f [2a36a7], 2026-10-19): the domain code is `ADO` (`ADR-ADO-AUTH`, `-VAR`, `-NAME`, `-TEMPLATE`, file names kept),
+  and the concept ADR is `docs/adr/flow/pipeline-concept.md` as `ADR-FLOW-CD-PIPELINE`, in the `ADR-FLOW-CD-*` family beside RUNNER, DETECT,
+  TYPE and GLOBS; the four concept rules keep their names (`ADR-FLOW-CD-PIPELINE-TYPEPREFIX`, `-EXECUTABLEYAMLEXTENSION`,
+  `-FLATREADABLEYAML`, `-NOSTOREDTOKENS`). The re-cite maps are `out/ado-code-map.tsv` and `out/ado-rule-map.tsv`. The value-chain
+  `stack: PIPE` row is a stack name, not a code, and stays. The idea of a pipeline as the automated path from commit to production, one per
+  deployable unit and run on change detection, came from `eac`'s CD-model pages, rebuilt from catzc's own rules (ADR-PRIN-ONELIVE).
+- The reference pages follow the place (catzc-2f [2a36a7], 2026-10-19): `docs/references/pipelines(.md)` moves to
   `docs/references/ado/pipelines(.md)` and the GitHub workflow comment pages leave it for `docs/references/github/workflows`; the contract
   fragments move to `Catzc.Azure.DevOps/.ado/pipelines/`, because a fragment's path inside its module folder is its target's path. All three
   are user `git mv` sets (4–6 of `out/run-user-git.ps1`); the configs naming their targets are re-pointed only after a set lands.
@@ -70,27 +70,58 @@ marker, unlike the other vendor folders.
 
 ## Open steps
 
-- [ ] Rename the track `pipelines` to `ado-pipelines` in `pwsh/Catzc.Base.Variants/configs/variants.yml:24` and re-point its place to
+- [x] Rename the track `pipelines` to `ado-pipelines` in `pwsh/Catzc.Base.Variants/configs/variants.yml:24` and re-point its place to
       `.ado/pipelines`, then every consumer that names the track by key (`git grep -n "'pipelines'" -- pwsh`, one file at a time; the
       `pipeline:` keys of `globs.yml` name pipelines, not the track, and stay) (check: the track resolves the moved files; Test-Variants,
-      Test-TrackDeclaration and Test-Pipelines clean). The `git mv` of the folder is the user's (task-user-runs-and-commits).
-- [ ] After the user's `git mv` of `docs/explanation/pipelines/` to `docs/explanation/ado/`: re-point the links into and out of the 25 files
+      Test-TrackDeclaration and Test-Pipelines clean). The `git mv` of the folder is the user's (task-user-runs-and-commits). Verdict
+      2026-10-19: the track key consumer is `WorldMapBuilder.AdoPipelinesTrack`; Test-Pipelines over `.ado/pipelines` "No pipelines issues
+      found." (14 YAML files); Test-TrackDeclaration passes (void, throws on an issue); WorldMapBuilder and WorldMapHighlight tests Passed.
+      No Test-Variants gate exists. The moved runner climbs `../../importer.ps1`.
+- [x] After the user's `git mv` of `docs/explanation/pipelines/` to `docs/explanation/ado/`: re-point the links into and out of the 25 files
       and regenerate the folder's `.assets` pages (check: Test-Links over docs/ clean; `Build-Diagrams -Path` over the moved folders clean;
-      `docs/references/pipelines/` regenerates under the new place with `Build-Readme`, and the old reference folder is gone).
-- [ ] Re-point the two code files and the four configs under `pwsh/` that name the root path, one file at a time, then the eight test files
-      (check: each file's test under `Invoke-TestFile` passes; `git grep -E '(^|[^a-zA-Z/.])pipelines/' -- pwsh` finds nothing).
+      `docs/references/pipelines/` regenerates under the new place with `Build-Readme`, and the old reference folder is gone). Verdict
+      2026-10-19: `Build-Diagrams -Path` over the 5 moved diagram folders done; Build-Readme ran with `readme.yml` on
+      `docs/references/ado/pipelines(.md)`; the 15 kept comment pages retitled, Build-CommentView placed 14 views and Test-Comments "No
+      comments issues found."; Test-Links over the touched docs and the 19 reference pages "No links issues found."
+- [x] Re-point the two code files and the four configs under `pwsh/` that name the root path, one file at a time, then the eight test files
+      (check: each file's test under `Invoke-TestFile` passes; `git grep -E '(^|[^a-zA-Z/.])pipelines/' -- pwsh` finds nothing). Verdict
+      2026-10-19: `Test-Pipelines` and `Test-AdoPipelineTriggerGlob` read the place from the `ado-pipelines` track; Test-Pipelines,
+      Test-AdoPipelineTriggerGlob, Get-PathModule, CommentsConfig and Build-GitKeep tests Passed; the grep finds only self-contained L0
+      fixtures that declare their own `pipelines` place (WorldMap*, GlobPattern, Build-GitKeep), which stay.
 - [ ] Re-point the eight contract fragments under `contracts/catzc/0.0.0/Catzc.Azure.DevOps/` as one contract change (check: Test-Contracts
       clean; the released folders stay frozen).
 - [ ] Re-point `.gitattributes`, the three `docs/how-to` pages and the 15 non-generated `docs/explanation` articles, one file at a time; the
       307 generated `.assets` pages and the `docs/references` pages are regenerated, not edited (check: `Build-Diagrams -Path` over the
-      touched folders and `Build-Readme` clean; Test-Links over docs/ clean).
-- [ ] Move the 23 ado rules, by file, to `docs/adr/ado` as `ADR-ADO-*`, and the 4 concept rules into the concept ADR below, with
+      touched folders and `Build-Readme` clean; Test-Links over docs/ clean). Done 2026-10-19: every hand-written page re-pointed (13 ADRs,
+      10 explanation articles, 2 how-tos, the 2 reference pages, the `.gitattributes` template, which regenerates `.gitattributes`);
+      Build-Readme ran and Test-Links over the touched docs is clean. Open: the 154 generated `.assets` folders (all of `docs/explanation`
+      plus 3 in `docs/adr`) regenerate on the user's `Build-Diagrams` run before the final full run (the orchestrator on the user's
+      delegation, 2026-10-19: not batched here; the run is in task-user-runs-and-commits).
+- [x] Move the 23 ado rules, by file, to `docs/adr/ado` as `ADR-ADO-*`, and the 4 concept rules into the concept ADR below, with
       `Update-AdrCitation` re-citing every `ADR-PIPE-*` code in the 50 citing files (check: Test-Adr and Test-Links clean after each move;
-      `docs/adr/pipelines` is gone; the index lists no ADR-PIPE code).
-- [ ] Write the CI/CD concept ADR in `docs/adr/flow` (what a pipeline, a stage and a gate are, vendor-neutral), holding the four concept
-      rules and citing the 48 existing flow rules instead of repeating them (check: Test-Adr clean, index lists the new codes).
-- [ ] Re-word the ado-only ADRs and articles to "azure devops pipelines" / "ado pipelines" (check: a grep for bare "pipeline" in the ado
-      ADRs names only the concept uses).
+      `docs/adr/pipelines` is gone; the index lists no ADR-PIPE code). Verdict 2026-10-19: Test-AdrRegistry "No adr-registry issues found.",
+      Test-AdrEngineNeutrality and Test-Links over the 28 touched docs clean, `docs/adr/pipelines` gone, the index lists 0 ADR-PIPE codes.
+- [x] `Update-AdrCitation` rewrites only path and code mentions of a moved ADR folder, never a bare word (the orchestrator on the user's
+      delegation, 2026-10-19): the re-cite above turned the bare word "pipelines" into "ado" in about 150 places of prose, repaired file by
+      file against 52a11dce7 with `out/ado-unbreak.ps1`. It runs right after the repair, before plan-adr-automation-split re-cites 287 files
+      with the same tool (check: an L0 test whose fixture prose holds the folder's bare name, which comes out unchanged, passes under
+      `Invoke-TestFile`; the existing Update-AdrCitation tests still pass). Verdict 2026-10-19: `AdrCitationRewriter` matches a one-segment
+      folder only followed by '/', a multi-segment folder as before; `Update-AdrCitation.Tests.ps1` with the new "leaves its bare name in
+      prose alone" test Passed under `Invoke-TestFile`.
+- [x] Write the CI/CD concept ADR in `docs/adr/flow` (what a pipeline, a stage and a gate are, vendor-neutral), holding the four concept
+      rules and citing the 48 existing flow rules instead of repeating them (check: Test-Adr clean, index lists the new codes). Verdict
+      2026-10-19: `docs/adr/flow/pipeline-concept.md` with its `dora-explains.md` entry; Test-AdrRegistry clean; the index lists
+      `ADR-FLOW-CD-PIPELINE`.
+- [x] Re-word the ado-only ADRs and articles to "azure devops pipelines" / "ado pipelines" (check: a grep for bare "pipeline" in the ado
+      ADRs names only the concept uses). Verdict 2026-10-19: the five `docs/adr/ado` files name the vendor variant "ado pipeline(s)" and its
+      place `.ado/pipelines/`; the bare "pipeline" left names the concept (pipeline concerns, pipeline file, pipeline detection) or quotes a
+      source title.
+- [ ] For the diagram track (plan-diagram-engine, held by catzc-cc; a `write-drawio-files` job): three flow drawings still label the old
+      root path while their articles name `.ado/pipelines/` —
+      `docs/explanation/flow/.assets/apex-thirteen-rules-seven-includes-six-excludes` element 8,
+      `docs/explanation/flow/.assets/globs-projects-and-three-consumers-read` element 8, and
+      `docs/explanation/flow/.assets/print-projection-then-drift-names-the-filter` elements 3 and 8 (check: each drawing's label reads
+      `.ado/pipelines/…` and its `Build-Diagrams -Path` run is clean).
 
 ## Refs
 

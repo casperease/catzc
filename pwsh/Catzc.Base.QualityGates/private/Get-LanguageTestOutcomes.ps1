@@ -19,7 +19,10 @@ function Get-LanguageTestOutcomes {
         [ArgumentCompleter({ [Catzc.Base.Engines.ExecutionEngines]::Names })]
         [string] $Engine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name,
 
-        [string] $EngineExecutable
+        [string] $EngineExecutable,
+
+        # The test folder the discovery named, a module's own tests/ or the holder's; the runner finds the holder's when it is empty.
+        [string] $Folder
     )
 
     $entry = @((Get-Config -Config languages).languages | Where-Object { $_.name -ceq $Language })
@@ -52,6 +55,9 @@ function Get-LanguageTestOutcomes {
     }
     if ($EntryScript) {
         $run['EntryScript'] = $EntryScript
+    }
+    if ($Folder) {
+        $run['Folder'] = $Folder
     }
     if ($tests.engine) {
         # A language that is an engine runs its tests under that engine only, with the executable the source session located.

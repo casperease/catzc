@@ -24,7 +24,7 @@ function Test-RootAnalyzerSettings {
                 }
             }
             catch {
-                $issues.Add("${target}: does not parse as a settings hashtable through the link — $($_.Exception.Message)")
+                $issues.Add("${target}: does not parse as a settings hashtable —$($_.Exception.Message)")
             }
         }
     }

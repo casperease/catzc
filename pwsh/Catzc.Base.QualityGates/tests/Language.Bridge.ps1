@@ -38,6 +38,7 @@ BeforeDiscovery {
 
 Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy' -ForEach @(@{
         Language = $Language; Module = $script:languageSuite.Module; Cases = $script:languageSuite.Cases; Entry = $EntryScript; Tool = $Executable
+        Folder      = $TestFolder
         # A Bash test is Bash, so it runs under the bash engine only; every other language's test runs under each.
         Engines     = if ($Language -eq 'bash') {
             @([Catzc.Base.Engines.ExecutionEngines]::Bash.Name)
@@ -51,10 +52,10 @@ Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy
         $script:languageOutcomes = @{}
         foreach ($engineName in $Engines) {
             $script:languageOutcomes[$engineName] = & (Get-Module Catzc.Base.QualityGates) {
-                param($language, $module, $cases, $entry, $tool, $engine, $engineTool)
+                param($language, $module, $cases, $entry, $tool, $engine, $engineTool, $folder)
                 Get-LanguageTestOutcomes -Language $language -Module $module -Case $cases -EntryScript $entry -Executable $tool `
-                    -Engine $engine -EngineExecutable $engineTool
-            } $Language $Module $Cases $Entry $Tool $engineName "$($EngineTools[$engineName])"
+                    -Engine $engine -EngineExecutable $engineTool -Folder $folder
+            } $Language $Module $Cases $Entry $Tool $engineName "$($EngineTools[$engineName])" $Folder
         }
     }
 

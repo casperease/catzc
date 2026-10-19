@@ -17,7 +17,7 @@ must agree:
   committed false -> the target is a derived, gitignored artifact: matched by an ignore rule and absent
                      from tracking (removed with `git rm --cached` if it was ever committed).
   committed true  -> the target is tracked (needed before the importer runs) and NOT ignored.
-and a copyAsLink target is an effective link to its source, any other target a real file. Mirrors the
+and every target is a real file, a `source` target its template under the generated head. Mirrors the
 generated-README integrity test (Test-GeneratedReadmes.Tests.ps1). See
 [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
 ```
@@ -33,11 +33,11 @@ L2: drives the real git CLI. Self-skip when git is absent or we are not inside a
 
 ## comment:3
 
-Above `Describe 'Root PSScriptAnalyzerSettings.psd1 link' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Root PSScriptAnalyzerSettings.psd1 copy' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
 The root PSScriptAnalyzerSettings.psd1 has a consumer-format contract of its own: PSScriptAnalyzer requires
-a literal-hashtable settings file at the path it is given. The target is a copyAsLink entry, so content
-equality with the source holds by construction (a hard link is the same bytes; a symbolic link resolves) —
-what remains to prove is that a consumer opening the ROOT path can follow the link and parse the settings.
+a literal-hashtable settings file at the path it is given. The target is a headed copy of its template,
+which Test-RootConfigFiles compares byte for byte — what remains to prove is that a consumer opening the
+ROOT path parses the settings under the head.
 ```

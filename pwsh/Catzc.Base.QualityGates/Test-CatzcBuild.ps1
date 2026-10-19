@@ -3,7 +3,7 @@ function Test-CatzcBuild {
     [OutputType([Catzc.Base.Reports.TestRunResult])]
     [Catzc.Base.Timeouts.TimeLimit(360, Pipeline = 3600)]
     param(
-        [ArgumentCompleter({ (Get-CatzcModule -TrackType modules).name })]
+        [ArgumentCompleter({ (Get-CatzcModule -EngineTrack).name })]
         [string[]] $Module = @(),
 
         [string] $ModuleProfile,

@@ -7,9 +7,14 @@ Describe 'Sync-AdoEnvironmentApprovals' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Config -eq 'environment-approvals' } {
             [Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::new([ordered]@{
                     approver_group = [ordered]@{ name = 'Widget Approvers'; members = $script:members }
-                    timeout_hours  = 8
-                    environments   = @('widget-psub', 'widget-prod')
+                    timeout_hours     = 8
+                    units             = @('widget')
+                    prod_environments = @('widget-psub', 'widget-prod')
                 })
+        }
+        # A ladder with no release gate, so the approval environments are the prod tier alone.
+        Mock Get-Config -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Config -eq 'rungs' } {
+            [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = @{ 'widget-uat' = @{ environment = 'widget'; gate = 'none' } } })
         }
         Mock Get-AdoGraphContext -ModuleName Catzc.Azure.DevOps { [pscustomobject]@{ Project = $Project; Organization = $Organization } }
         Mock Sync-AdoGraphGroup -ModuleName Catzc.Azure.DevOps {

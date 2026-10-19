@@ -12,9 +12,9 @@ The PAT proof and the empty-token assert have no gate, and neither do #4 and #7.
 Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION, ADR-ADO-AUTH-SEPARATETOKENFUNCTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN, ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN and ADR-FLOW-CD-PIPELINE-NOSTOREDTOKENS (governance lens).
 ```
 
-ADR-ADO-AUTH has seven rules, and tests check only some of them. The L0 tests of `Get-AdoAuthorizationHeader` cover the pipeline and az CLI
-proofs, and one CI step checks that the token mapping works. The PAT's binding to the org, the empty-token assert, the one-function rule and
-the no-caching rule have no gate at all.
+ADR-ADO-AUTH has six rules and ADR-FLOW-CD-PIPELINE-NOSTOREDTOKENS adds the seventh, and tests check only some of them. The L0 tests of
+`Get-AdoAuthorizationHeader` cover the pipeline and az CLI proofs, and one CI step checks that the token mapping works. The PAT's binding to
+the org, the empty-token assert, the one-function rule and the no-caching rule have no gate at all.
 
 ![Which auth rungs have a gate](.assets/which-auth-rungs-have-a-gate/diagram.drawio.png)
 
@@ -34,7 +34,8 @@ The diagram is described element by element in [its asset description](.assets/w
    "propagates the assertion failure when the session is in the wrong tenant". The #5 empty-token assert runs in the code, but no test
    covers it.
 5. **invoke-automation.yaml.** #6, the token mapping in the step template, is checked by the step "ExposeAccessToken: token available" in
-   the `AzureAuthTests` job of `ado/ci-automation.yaml`. It asserts only that the token is non-empty when `ExposeAccessToken` is true.
+   the `AzureAuthTests` job of `.ado/pipelines/ci-automation.yaml`. It asserts only that the token is non-empty when `ExposeAccessToken` is
+   true.
 
 No analyzer rule cites ADR-ADO-AUTH. The analyzer rule `Measure-NoRawPipelineDetection` forbids raw reads of the pipeline variables outside
 `Test-IsRunningInPipeline`, which supports #3, but it is mapped to ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK.

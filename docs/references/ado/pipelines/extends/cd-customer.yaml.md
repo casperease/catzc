@@ -1,4 +1,4 @@
-# pipelines/extends/cd-customer.yaml
+# .ado/pipelines/extends/cd-customer.yaml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -10,11 +10,11 @@ Above `parameters:`, written with `#`.
 ```text
 Whole-pipeline (extends) template — the ONE shared structure for every customer CD.
 
-Per [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md), customer CD is the sanctioned large-template
+Per [ADR-ADO-NAME](/docs/adr/ado/pipeline-naming-and-placement.md), customer CD is the sanctioned large-template
 case: every customer's thin pipeline (cd-apex.yaml, cd-nova.yaml, cd-flux.yaml) `extends:` this file
 and supplies only meta selection criteria — the customer key and the per-deployment env/slot/
 service-connection/assert map. No automation config is needled through
-([ADR-PIPE-TEMPLATE](/docs/adr/pipelines/custom-template-discipline.md)).
+([ADR-ADO-TEMPLATE](/docs/adr/ado/custom-template-discipline.md)).
 
 The deploy TARGET is the az session's subscription — exactly what each entry's service connection logs
 into ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)). Nothing chains a subscription name; instead every entry pins its
@@ -47,7 +47,7 @@ only at the pipeline root, not inside an extends template.
 
 ## comment:2
 
-Above `- template: /pipelines/steps/invoke-automation.yaml`, written with `#`.
+Above `- template: /.ado/pipelines/steps/invoke-automation.yaml`, written with `#`.
 
 ```text
 Build only this customer's configuration subfolder (build-once). The customer key IS the

@@ -31,7 +31,7 @@ The diagram is described element by element in [its asset description](.assets/t
    line. A raw read produces an `Error` from `Measure-NoRawPipelineDetection` whose message opens with
    `Do not read the pipeline-detection variable '$env:TF_BUILD' directly.` and goes on to say: call `Test-IsRunningInPipeline` so detection
    stays in one place and both Azure DevOps and GitHub Actions are covered.
-4. **Test-IsRunningInPipeline.** Step 2e of `pipelines/ci-automation.yaml`, named "Pipeline detection and output root", runs
+4. **Test-IsRunningInPipeline.** Step 2e of `.ado/pipelines/ci-automation.yaml`, named "Pipeline detection and output root", runs
    `Assert-True (Test-IsRunningInPipeline)` on the agent, where `TF_BUILD` is set.
 5. **Get-OutputRoot.** The same step calls `Get-OutputRoot`, asserts that the folder exists, and prints `OutputRoot: <path>`. On the agent
    that path is the staging directory; on a devbox the same call returns `out/`. `Get-RunEnvironment` is the readable form of the same

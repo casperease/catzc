@@ -31,7 +31,7 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
         $result.Facts['Files'] | Should -BeGreaterThan 0
     }
 
-    It 'agrees with the registry on git tracking, .gitignore, and the link mechanism' {
+    It 'agrees with the registry on git tracking, .gitignore, and the headed copies' {
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
@@ -39,8 +39,8 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
     }
 }
 
-Describe 'Root PSScriptAnalyzerSettings.psd1 link' -Tag 'L1', 'integrity', 'source-only' {
-    It 'parses as a settings hashtable through the link' {
+Describe 'Root PSScriptAnalyzerSettings.psd1 copy' -Tag 'L1', 'integrity', 'source-only' {
+    It 'parses as a settings hashtable under its generated head' {
         $result = Test-RootAnalyzerSettings -PassThru -OutputFolder (Join-Path $TestDrive 'root-analyzer-settings')
         if (-not $result.Facts['Checked']) {
             Set-ItResult -Skipped -Because 'entry_not_opted_in'; return

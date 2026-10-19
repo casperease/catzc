@@ -101,7 +101,9 @@ languages:
     formatter: ruff
     adr_folder: automation/python
     checks: [Test-PythonLint, Test-PythonTypes, Test-Formatting, Test-Spelling]
-    tests: { runner: Invoke-PythonTest, tools: [uv, python], executable_parameter: UvExecutable }
+    tests: { runner: Invoke-PythonTest, pattern: "test_*.py", tools: [uv, python], executable_parameter: UvExecutable }
+    layout:
+      - { folder: ".", role: script, extensions: [.py] }
   json:
     extensions: [.json]
     formatter: prettier
@@ -115,14 +117,18 @@ languages:
     formatter: gofmt
     adr_folder: automation/go
     checks: [Test-Formatting, Test-Spelling]
-    tests: { runner: Invoke-GoTest, tools: [go], executable_parameter: GoExecutable }
+    tests: { runner: Invoke-GoTest, pattern: "*_test.go", tools: [go], executable_parameter: GoExecutable }
+    layout:
+      - { folder: ".", role: source, extensions: [.go] }
   bash:
     extensions: [.sh, .bats]
     executable: true
     no_formatter: no engine is configured for Bash yet
     adr_folder: automation/bash
     checks: [Test-ShellScripts]
-    tests: { runner: Invoke-BashTest, engine: bash, executable_parameter: EngineExecutable }
+    tests: { runner: Invoke-BashTest, pattern: "*.bats", engine: bash, executable_parameter: EngineExecutable }
+    layout:
+      - { folder: ".", role: script, extensions: [.sh] }
   xml:
     extensions: [.ps1xml, .xml, .xsd, .dtd, .csproj]
     no_formatter: no engine is configured for XML; .editorconfig and the editor's XML extension cover its layout

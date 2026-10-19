@@ -5,6 +5,10 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         $null = New-Item -ItemType Directory -Path $script:folder -Force
         Set-Content -LiteralPath (Join-Path $script:folder 'go.mod') -Value 'module catzc/go/tests/catzc-widget'
         $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'go/tests/catzc-gadget') -Force
+        # A module of the go track with its own tests/ folder; its generated go.mod sits at the module root.
+        $script:ownFolder = Join-Path $script:root 'go/Widget.Kit/tests'
+        $null = New-Item -ItemType Directory -Path $script:ownFolder -Force
+        Set-Content -LiteralPath (Join-Path $script:root 'go/Widget.Kit/go.mod') -Value 'module catzc/go/Widget.Kit'
         $script:buildEntry = Join-Path $TestDrive 'build/Import-Catzc.ps1'
         $null = New-Item -ItemType File -Path $script:buildEntry -Force
 
@@ -107,6 +111,12 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
 
         It 'throws when the module has no Go test folder' {
             { Invoke-GoTest Catzc.Nothing } | Should -Throw "*Module 'Catzc.Nothing' has no Go tests: go/tests/catzc-nothing/ does not exist*"
+        }
+
+        It 'runs in the named folder, a module''s own tests/ under the go track, with the go.mod at the module root' {
+            $null = Invoke-GoTest Widget.Kit -Folder $script:ownFolder
+            $script:seen.Directory | Sort-Object -Unique | Should -Be $script:ownFolder
+            { Invoke-GoTest Widget.Kit -Folder 'go/Widget.Nothing/tests' } | Should -Throw '*go/Widget.Nothing/tests/ does not exist*'
         }
 
         It 'throws with the remediation when the generated go.mod is missing' {

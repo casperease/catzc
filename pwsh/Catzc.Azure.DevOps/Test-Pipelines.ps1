@@ -89,6 +89,6 @@ function Test-Pipelines {
         }
     }
 
-    Write-QualityGateReport -Subject ado -Title Test-Pipelines -Issues $violations.ToArray() `
+    Write-QualityGateReport -Subject pipelines -Title Test-Pipelines -Issues $violations.ToArray() `
         -Facts ([ordered]@{ Files = $records.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

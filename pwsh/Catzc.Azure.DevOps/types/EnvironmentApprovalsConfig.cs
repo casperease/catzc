@@ -7,7 +7,7 @@ namespace Catzc.Azure.DevOps;
 public sealed class EnvironmentApprovalsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "environment-approvals configuration validation failed:\n";
-    private static readonly string[] AllowedKeys = { "approver_group", "timeout_hours", "environments" };
+    private static readonly string[] AllowedKeys = { "approver_group", "timeout_hours", "units", "prod_environments" };
     private static readonly string[] GroupKeys = { "name", "description", "members" };
 
     // The approver group's name inside the project when the file names none.
@@ -34,14 +34,18 @@ public sealed class EnvironmentApprovalsConfig : Catzc.Base.Objects.DictionaryRe
     // How long a pending approval waits, in hours.
     public int timeout_hours { get; }
 
-    public string[] environments { get; }
+    // The deployable units whose release-gate rungs carry the RC and RBC checks, in file order.
+    public string[] units { get; }
+
+    // The prod-tier environments, named by their deploy target rather than by a rung (e.g. apex-psub), in file order.
+    public string[] prod_environments { get; }
 
     public EnvironmentApprovalsConfig(IDictionary d)
     {
         List<string> errors = new List<string>();
         if (d == null)
         {
-            throw new ArgumentException(Failed + "the file must be a mapping with an 'environments' key");
+            throw new ArgumentException(Failed + "the file must be a mapping with a 'units' key");
         }
 
         foreach (object k in d.Keys)
@@ -108,21 +112,53 @@ public sealed class EnvironmentApprovalsConfig : Catzc.Base.Objects.DictionaryRe
             }
         }
 
-        environments = StrArr(d, "environments");
-        if (environments.Length == 0)
+        units = StrArr(d, "units");
+        if (units.Length == 0)
         {
-            errors.Add("environments must be a non-empty list of ADO environment names");
+            errors.Add("units must be a non-empty list of deployable-unit names");
         }
-        HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        foreach (string name in environments)
-        {
-            if (string.IsNullOrWhiteSpace(name)) { errors.Add("environments holds an empty name"); continue; }
-            if (!seen.Add(name)) { errors.Add(string.Format("environments lists '{0}' twice", name)); }
-        }
+        CheckNames("units", units, errors);
+        prod_environments = StrArr(d, "prod_environments");
+        CheckNames("prod_environments", prod_environments, errors);
 
         if (errors.Count > 0)
         {
             throw new ArgumentException(Failed + string.Join("\n", errors));
+        }
+    }
+
+    // The ADO environments that carry the approval check: `<unit>-<rung>` for every unit and every rung behind a release gate (RC, RBC),
+    // then the prod-tier environments. The rung names come from the rungs registry, so the environment names follow it.
+    public string[] Environments(Catzc.Base.Flow.RungsConfig rungs)
+    {
+        if (rungs == null) { throw new ArgumentNullException(nameof(rungs)); }
+        List<string> names = new List<string>();
+        HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        IReadOnlyList<Catzc.Base.Flow.Rung> gated = rungs.GatedBy(Catzc.Base.Flow.RungsConfig.GateRc, Catzc.Base.Flow.RungsConfig.GateRbc);
+        foreach (string unit in units)
+        {
+            foreach (Catzc.Base.Flow.Rung rung in gated) { Add(names, seen, unit + "-" + rung.name); }
+        }
+        foreach (string name in prod_environments) { Add(names, seen, name); }
+        return names.ToArray();
+    }
+
+    private static void Add(List<string> names, HashSet<string> seen, string name)
+    {
+        if (!seen.Add(name))
+        {
+            throw new InvalidOperationException(string.Format("the approval environments name '{0}' twice: a prod environment repeats a rung environment", name));
+        }
+        names.Add(name);
+    }
+
+    private static void CheckNames(string key, string[] names, List<string> errors)
+    {
+        HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (string name in names)
+        {
+            if (string.IsNullOrWhiteSpace(name)) { errors.Add(string.Format("{0} holds an empty name", key)); continue; }
+            if (!seen.Add(name)) { errors.Add(string.Format("{0} lists '{1}' twice", key, name)); }
         }
     }
 }

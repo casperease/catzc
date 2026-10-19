@@ -7,11 +7,12 @@ function Get-WorldMap {
 
     $tracks = @(Get-Track)
     $paths = @(Get-GitTrackedPath '.')
+    $languages = Get-Config -Config languages
 
     $aspects = [ordered]@{}
     foreach ($track in $tracks) {
-        # A code track derives its aspects from the layout; any other track has them only when variants.yml declares them.
-        if ($track.type -ceq 'modules' -or (Test-AspectDeclaration -Track $track.name)) {
+        # A laid-out track derives its aspects from the layout; any other track has them only when variants.yml declares them.
+        if ($languages.IsLaidOut($track.languages) -or (Test-AspectDeclaration -Track $track.name)) {
             $aspects[$track.name] = @(Get-Aspect -Track $track.name)
         }
     }

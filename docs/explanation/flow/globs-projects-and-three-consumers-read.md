@@ -10,7 +10,7 @@ Catzc.Base.Globs projects the program; workflows, pipelines and the branch polic
 5  ADO include and exclude        each pattern's last select, as two lists
 6  Get-BuildValidationPathFilter  the branch policy: the GitHub list, anchored with /
 7  .github/workflows/*.yml        a workflow declares the GitHub list by hand
-8  pipelines/*.yaml               a pipeline declares the ADO lists by hand
+8  .ado/pipelines/*.yaml          an ado pipeline declares the ADO lists by hand
 
 Supports ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER and ADR-FLOW-CD-GLOBS-COMPOSESETS (architecture lens).
 ```
@@ -40,8 +40,8 @@ The diagram is described element by element in [its asset description](.assets/g
    `filenamePatterns` from this function, which takes the ordered GitHub list and anchors every pattern with a leading `/`.
 7. **.github/workflows/\*.yml.** A workflow declares the GitHub list in `on.push.paths` and `on.pull_request.paths`. Today one workflow,
    `ci-automation.yml`, binds the `automation` set with `pwsh/**`. No code writes the workflow; the pairing is kept by hand.
-8. **pipelines/\*.yaml.** Each pipeline-bound globset names its `pipelines/<pipeline>.yaml`, whose `trigger:` and `pr:` path filters declare
-   the Azure DevOps lists. Six sets bind a pipeline today, and no code writes the pipeline file either.
+8. **.ado/pipelines/\*.yaml.** Each pipeline-bound globset names its `.ado/pipelines/<pipeline>.yaml`, whose `trigger:` and `pr:` path
+   filters declare the Azure DevOps lists. Six sets bind a pipeline today, and no code writes the pipeline file either.
 
 ## Why it holds
 

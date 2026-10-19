@@ -55,13 +55,13 @@ attributes to catching problems while they are still cheap to fix.
 
 The requirement is not merely having a security team but distributing security work across the lifecycle: InfoSec involved during design as
 a gating review, preapproved libraries and toolchains that make the secure choice the default choice, and automated security tests running
-in the same ado as functional tests — so vulnerability detection happens at scale without a manual review on every change.
+in the same pipelines as functional tests — so vulnerability detection happens at scale without a manual review on every change.
 
 ## Why it matters
 
 DORA's research ties pervasive security to delivery performance through the cost curve of when a defect is found. A security concern raised
 at design time costs a conversation; the same concern found after release costs an architectural change, an emergency patch, and the trust
-the incident spends. Embedding security into continuous integration and deployment ado lets teams discover and address defects
+the incident spends. Embedding security into continuous integration and deployment pipelines lets teams discover and address defects
 earlier, avoiding the expensive rework that surfaces only once a problem reaches production.
 
 ## How to apply

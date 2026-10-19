@@ -94,7 +94,7 @@ every run, and `Test-FileMeta` checks it, over the files the scope rule selects
 
 ## Context
 
-The repository holds many file types — PowerShell (`.ps1`/`.psm1`/`.psd1`), Bicep, YAML ado, Markdown, JSON, C#. When formatting is
+The repository holds many file types — PowerShell (`.ps1`/`.psm1`/`.psd1`), Bicep, YAML pipelines, Markdown, JSON, C#. When formatting is
 inconsistent, every pull request carries two kinds of change: the actual logic change and incidental formatting noise. Reviewers must
 mentally separate the two, and they will miss real changes hidden in reformatting. This is the single biggest waste of review time in any
 codebase without enforced formatting — and it is not language-specific, so the fix must not be either.

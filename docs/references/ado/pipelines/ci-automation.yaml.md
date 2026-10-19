@@ -1,4 +1,4 @@
-# pipelines/ci-automation.yaml
+# .ado/pipelines/ci-automation.yaml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -10,7 +10,7 @@ Above `trigger:`, written with `#`.
 ```text
 Fires exactly, and only, when the module system changes: the track is its own root folder, with no committed marker to go stale.
 [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
-[ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster) [comment:1](/docs/references/pipelines/ci-automation.yaml.md#comment1)
+[ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster) [comment:1](/docs/references/ado/pipelines/ci-automation.yaml.md#comment1)
 ```
 
 ## comment:2
@@ -76,7 +76,7 @@ These put the correct version on PATH so Install-* sees it and skips.
 
 ## comment:8
 
-Above `- template: /pipelines/steps/invoke-automation.yaml` (occurrence 18), written with `#`.
+Above `- template: /.ado/pipelines/steps/invoke-automation.yaml` (occurrence 18), written with `#`.
 
 ```text
 Install remaining tools via our functions.

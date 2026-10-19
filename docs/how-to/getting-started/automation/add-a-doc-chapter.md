@@ -63,8 +63,8 @@ An explanation article narrates one diagram: how one part of cats works and why 
 ADRs capture a decision so it can be cited and enforced. They follow a fixed shape — read [`docs/adr/index.md`](../../../adr/index.md)
 ("Authoring conventions") in full before writing, and copy the structure of an existing ADR. The essentials:
 
-1. **Pick the area and a code.** ADRs are grouped into `principles/`, `automation/`, `pipelines/`, `azure/`, `repository/`. Choose a short
-   unique citation code (e.g. `ADR-AUTO-CACHE`, `ADR-AZ-NAMING`, `ADR-AZ-SESSION`).
+1. **Pick the area and a code.** ADRs are grouped into `principles/`, `automation/`, `ado/`, `azure/`, `repository/`. Choose a short unique
+   citation code (e.g. `ADR-AUTO-CACHE`, `ADR-AZ-NAMING`, `ADR-AZ-SESSION`).
 2. **Create `docs/adr/<area>/<kebab-title>.md`.** Start with the rule registry — a `## Rules: <code>` section followed by
    `### Rule <code>:<n>` entries, each a one-paragraph normative summary that links to the prose section justifying it. These are what other
    code and docs cite as `<code>#<n>` (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`).

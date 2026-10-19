@@ -7,7 +7,9 @@ function Invoke-BashTest {
 
         [string] $EntryScript,
 
-        [string] $EngineExecutable
+        [string] $EngineExecutable,
+
+        [string] $Folder
     )
 
     $root = Get-RepositoryRoot
@@ -15,10 +17,18 @@ function Invoke-BashTest {
     # The Bash root from bash.yml (BashConfig.ResolveRoot: the declared root, else bash/ when present, else .bash/).
     $bashRelative = (Get-Config -Config bash).ResolveRoot($root)
     $bashRoot = Join-Path $root $bashRelative
-    $relative = "$bashRelative/tests/$folderName"
+    # The test folder: the one named, a module's own tests/ or the holder's, else the holder's tests/<kebab> of the module.
+    $relative = if ($Folder) {
+        [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\', '/').TrimEnd('/')
+    }
+    else {
+        "$bashRelative/tests/$folderName"
+    }
     if (-not (Test-Path -LiteralPath (Join-Path $root $relative) -PathType Container)) {
         throw "Module '$Module' has no Bash tests: $relative/ does not exist."
     }
+    # bats runs from the Bash root, so the folder is named relative to it.
+    $inBashRoot = [System.IO.Path]::GetRelativePath($bashRoot, (Join-Path $root $relative)).Replace('\', '/')
     $bats = "$([Catzc.Base.Languages.BashConfig]::BatsFolder)/bin/bats"
     if (-not (Test-Path -LiteralPath (Join-Path $bashRoot $bats) -PathType Leaf)) {
         throw "The bats-core runner is missing: $bashRelative/$bats does not exist. Run Update-BatsVendor."
@@ -38,7 +48,7 @@ function Invoke-BashTest {
     }
     try {
         $run = Invoke-Executable ("`"$bash`" $bats --recursive --report-formatter junit --output `"$($output.Replace('\', '/'))`" " +
-            "`"tests/$folderName`"") -WorkingDirectory $bashRoot -PassThru -NoAssert
+            "`"$inBashRoot`"") -WorkingDirectory $bashRoot -PassThru -NoAssert
         $report = Join-Path $output 'report.xml'
         $reportText = if (Test-Path -LiteralPath $report -PathType Leaf) {
             [System.IO.File]::ReadAllText($report)

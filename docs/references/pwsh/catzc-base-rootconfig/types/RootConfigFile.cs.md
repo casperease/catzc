@@ -14,9 +14,7 @@ that renders the content, e.g. New-Importer) supplies the content. `optIn` (defa
 entry; `committed` (default false) keeps the managed target tracked in git instead of gitignored (for files
 git or the bootstrap reads before the importer runs). `carrier` names the file-carriers entry that says where
 the generated-file head goes (default: the carrier of the target's file language). `sources` lists the authored
-files a generator renders from, for its head. `copyAsLink` (default false) materialises the target as a
-filesystem link to the source instead of a generated copy: it requires `source`, requires committed false,
-and forbids a declared `carrier` (a link carries no generated content). A `target` holding a wildcard (`*`, `?`, `[`, e.g.
+files a generator renders from, for its head. A `target` holding a wildcard (`*`, `?`, `[`, e.g.
 go/tests/*/go.mod) names a set of files and is allowed only on a `generator` entry: the generator returns one
 { Target; Content } record per file, and each record's path must match the pattern. Paths are
 repository-root-relative, '/'-separated communication-form values (see
@@ -52,13 +50,4 @@ Above `public bool committed { get; }`, written with `//`.
 ```text
 Keep the managed target tracked in git (true) instead of gitignored (false, the default). For files
 needed before the importer runs (importer.ps1, the git files).
-```
-
-## comment:5
-
-Above `public bool copyAsLink { get; }`, written with `//`.
-
-```text
-Materialise the target as a filesystem link to the source (Set-FileLink) instead of a generated copy.
-Requires source, requires committed false, forbids a declared comment.
 ```

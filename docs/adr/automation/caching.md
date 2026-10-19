@@ -152,7 +152,7 @@ The rule has a sharp boundary. Do **not** cache:
 
 - **Runtime / mutable state.** Anything not derived from the static repo: `az account show`, access tokens, deployment outputs, the current
   subscription context. These change _within_ a run, so a cached value would be wrong. (See
-  [dual-authentication](../flow/pipeline-concept.md#rule-adr-flow-cd-pipeline-nostoredtokens): tokens are acquired fresh per call, never
+  [pipeline-concept](../flow/pipeline-concept.md#rule-adr-flow-cd-pipeline-nostoredtokens): tokens are acquired fresh per call, never
   cached.)
 - **Objects that callers mutate.** The per-slot parameter set returned by `Get-BicepTemplateConfiguration` is read fresh per build and then
   **mutated** by the `Invoke-BicepPrepareParameterSet` merge hook (which writes resolved values into `ParametersFile.parameters`). Caching a

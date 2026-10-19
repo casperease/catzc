@@ -12,18 +12,28 @@ function Invoke-GoTest {
         [ArgumentCompleter({ [Catzc.Base.Engines.ExecutionEngines]::Names })]
         [string] $Engine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name,
 
-        [string] $EngineExecutable
+        [string] $EngineExecutable,
+
+        [string] $Folder
     )
 
     $root = Get-RepositoryRoot
     $folderName = $Module.ToLowerInvariant().Replace('.', '-')
-    # The Go root from go.yml (GoConfig.ResolveRoot: the declared root, else go/ when present, else .go/).
-    $relative = "$((Get-Config -Config go).ResolveRoot($root))/tests/$folderName"
+    # The test folder: the one named, a module's own tests/ or the holder's, else the holder's tests/<kebab> of the module
+    # under the Go root from go.yml (GoConfig.ResolveRoot: the declared root, else go/ when present, else .go/).
+    $relative = if ($Folder) {
+        [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\', '/').TrimEnd('/')
+    }
+    else {
+        "$((Get-Config -Config go).ResolveRoot($root))/tests/$folderName"
+    }
     $folder = Join-Path $root $relative
     if (-not (Test-Path -LiteralPath $folder -PathType Container)) {
         throw "Module '$Module' has no Go tests: $relative/ does not exist."
     }
-    if (-not (Test-Path -LiteralPath (Join-Path $folder 'go.mod') -PathType Leaf)) {
+    # The generated go.mod sits in the test folder (the holder's) or at the module root above its own tests/ folder.
+    $modules = @("$relative/go.mod", "$($relative.Substring(0, [Math]::Max(0, $relative.LastIndexOf('/'))))/go.mod").Where({ Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf })
+    if ($modules.Count -eq 0) {
         throw "$relative/go.mod is missing — it is generated; regenerate with: Build-RootConfig"
     }
 

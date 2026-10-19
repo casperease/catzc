@@ -15,7 +15,7 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
 
         # The gate's issues for the current fixture, through -PassThru (the report goes to $TestDrive).
         function Get-Issues {
-            @((Test-Pipelines -Path 'X:/pipelines' -PassThru -OutputFolder (Join-Path $TestDrive 'ado')).Issues)
+            @((Test-Pipelines -Path 'X:/pipelines' -PassThru -OutputFolder (Join-Path $TestDrive 'pipelines')).Issues)
         }
     }
 
@@ -36,12 +36,12 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
             (Rec 'steps/invoke-automation.yaml' -Classification 'Template' -TemplateType 'Steps')
             (Rec 'extends/cd-customer.yaml' -Classification 'Template' -TemplateType 'Stages')
         )
-        { Test-Pipelines -Path 'X:/pipelines' -OutputFolder (Join-Path $TestDrive 'ado') } | Should -Not -Throw
+        { Test-Pipelines -Path 'X:/pipelines' -OutputFolder (Join-Path $TestDrive 'pipelines') } | Should -Not -Throw
     }
 
     It 'throws once listing every violation' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:records = @((Rec 'widget-thing.yaml' 'Pipeline'), (Rec 'ci-gadget.yml' 'Pipeline'))
-        $thrown = { Test-Pipelines -Path 'X:/pipelines' -OutputFolder (Join-Path $TestDrive 'ado') } |
+        $thrown = { Test-Pipelines -Path 'X:/pipelines' -OutputFolder (Join-Path $TestDrive 'pipelines') } |
             Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-Pipelines failed: 2 issue(s)*'
         $thrown.Exception.Message | Should -Match 'ADR-FLOW-CD-PIPELINE-TYPEPREFIX'
@@ -50,8 +50,8 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
 
     It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:records = @((Rec 'widget-thing.yaml' 'Pipeline'), (Rec 'ci-gadget.yaml' 'Pipeline'))
-        $result = Test-Pipelines -Path 'X:/pipelines' -PassThru -OutputFolder (Join-Path $TestDrive 'ado')
-        $result.Subject | Should -Be 'ado'
+        $result = Test-Pipelines -Path 'X:/pipelines' -PassThru -OutputFolder (Join-Path $TestDrive 'pipelines')
+        $result.Subject | Should -Be 'pipelines'
         $result.IssueCount | Should -Be 1
         $result.Facts['Files'] | Should -Be 2
         $result.Issues[0] | Should -BeLike '`[ADR-FLOW-CD-PIPELINE-TYPEPREFIX`] .ado/pipelines/widget-thing.yaml: *'
@@ -119,6 +119,6 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
 
 Describe 'Test-Pipelines — real .ado/pipelines/ tree' -Tag 'L1', 'integrity' {
     It 'the shipped .ado/pipelines/ tree satisfies ADR-ADO-NAME (zero violations)' {
-        (Test-Pipelines -PassThru -OutputFolder (Join-Path $TestDrive 'ado')).IssueCount | Should -Be 0
+        (Test-Pipelines -PassThru -OutputFolder (Join-Path $TestDrive 'pipelines')).IssueCount | Should -Be 0
     }
 }

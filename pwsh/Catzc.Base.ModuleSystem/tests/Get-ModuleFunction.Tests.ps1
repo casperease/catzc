@@ -22,7 +22,7 @@ Describe 'Get-ModuleFunction' -Tag 'L0', 'logic' {
 
     It 'takes the module list from the resolver, for the code track' {
         Get-ModuleFunction | Out-Null
-        Should -Invoke Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $TrackType -contains 'modules' }
+        Should -Invoke Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $EngineTrack }
     }
 
     It 'with -NotUsedInternally drops the functions another catzc function calls' {

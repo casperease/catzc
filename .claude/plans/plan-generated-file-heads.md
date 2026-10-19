@@ -74,28 +74,36 @@ A body that carries generator noise is a second source of truth, and a tracked f
       `Test-RootConfigFiles.Tests.ps1` and `Build-RootConfig.Tests.ps1` pass (82 tests with the fixture steps). Decided by the worker: the
       copy composition moves into `private/Get-RootConfigCopyContent.ps1`, which `Build-RootConfig` and the gate share, so the gate compares
       with what the writer composes.
-- [ ] Switch `.editorconfig` from `copyAsLink` to a copy entry with its `dotfile` carrier, as the pilot (`rootconfig.yml` lines 87 to 90;
-      the root file and the template are one inode today, link count 2) (check: the root file equals the template plus the head; the
-      importer rewrites it idempotently; the editor still reads it; Test-RootConfigFiles clean).
-- [ ] Switch `.markdownlint.yml`, `.prettierrc.yml`, `catzc.sln` and `dotnet-tools.json` the same way, one file at a time; `catzc.sln` first
-      loses its `# MANAGED ROOT FILE` line at line 3, inside the format header, and `dotnet-tools.json` moves its marker text out of the
-      `"//"` property into the one string (check: each file's own tool reads the copy; Test-RootConfigFiles clean).
+- [x] Switch `.editorconfig` to a headed copy with its `dotfile` carrier, as the pilot: verdict 2026-10-19, link count 1, the root file is
+      the template under the head, a second `Build-RootConfig` changes nothing, Test-RootConfigFiles clean. The entry stays
+      `committed: false` (gitignored, as every former link target was).
+- [x] Switch `.markdownlint.yml`, `.prettierrc.yml`, `catzc.sln` and `dotnet-tools.json` the same way, one file at a time: verdict
+      2026-10-19, each at link count 1 and Test-RootConfigFiles clean after each; `Test-Markdownlint` reads the copy (0 issues),
+      `prettier --find-config-path` resolves `.prettierrc.yml` and wraps a probe at 140, `dotnet sln list` lists both projects, and
+      `dotnet tool list --local` reads the manifest. `catzc.sln` lost its marker line and keeps the head after the format line;
+      `dotnet-tools.json` lost its `"//"` marker, and the head is the property.
 - [x] State the decisions as rules in the same change as the pilot: verdict 2026-10-19, Test-AdrRegistry and Test-Links clean, the code
       dictionary holds the new codes, `copyAsLink` is no word of the ADR. ADR-REPO-ROOTCFG-HEADEDCOPY replaces the retired
       ADR-REPO-ROOTCFG-FILESYSTEMLINK (a managed root file is a copy under the head that names its template and carries the one string,
       never a link), and ADR-REPO-FILEMETA-PROVENANCEINHEAD says generator provenance lives in the head and the body is the content alone.
       The two citations of the retired code, in `docs/references/pwsh/catzc-base-rootconfig.md` and its README, go with the retirement step
       below.
-- [ ] Switch `PSScriptAnalyzerSettings.psd1` (source `pwsh/.internal/assets/`, `rootconfig.yml` lines 2 to 5) and
-      `.vscode/markdown-preview-dark.css` (lines 83 to 86) the same way, one file at a time, so no `copyAsLink` entry remains (the user,
-      2026-10-19: in scope after the pilot) (check: PSScriptAnalyzer and the markdown preview read the copies; Test-RootConfigFiles clean;
-      `grep copyAsLink rootconfig.yml` finds nothing).
-- [ ] Retire the link mechanism once no entry uses it (ADR-PRIN-ONELIVE): the `copyAsLink` flag and its checks on `RootConfigFile.cs`, the
-      link branch of `Build-RootConfig` and `Test-RootConfigFiles`, the `copyAsLink` input in `Get-RootConfigInputStamp.ps1`, their tests,
-      `Set-FileLink` when nothing else calls it, and the pages that describe it: `docs/explanation/repository/` (four pages and their
-      `.assets/` diagrams), `docs/how-to/pwsh/manual-test-plan/root-config-and-editor.md`, and the generated reference pages under
-      `docs/references/pwsh/` (check: `grep -r copyAsLink` outside `out/` and `.unordered/` finds nothing; the RootConfig and Files tests
-      pass; owner: the orchestrator assigns the files, which reach beyond this chunk's set).
+- [x] Switch `PSScriptAnalyzerSettings.psd1` and `.vscode/markdown-preview-dark.css` the same way, one file at a time: verdict 2026-10-19,
+      both at link count 1, Test-RootConfigFiles clean after each, Test-RootAnalyzerSettings clean, `Invoke-ScriptAnalyzer` runs with the
+      root settings, `Test-RootConfigIntegrity.Tests.ps1` and `Test-RootAnalyzerSettings.Tests.ps1` pass, `.vscode/settings.json` still
+      names the preview CSS, and `grep copyAsLink rootconfig.yml` finds nothing. The CSS template lost its hand-written "MANAGED" comment.
+- [x] Retire the link mechanism once no entry uses it (ADR-PRIN-ONELIVE): verdict 2026-10-19, a fresh full import loads, the RootConfig
+      tests pass (76 tests, 0 failures, `Get-RootConfigTargets.Tests.ps1` left to its owner), Test-RootConfigFiles, Test-Comments,
+      Test-Links and Test-Markdownlint clean. The `copyAsLink` flag and its checks are gone from `RootConfigFile.cs`, the link branches from
+      `Build-RootConfig`, `Get-RootConfigInputStamp` and `Test-RootConfigFiles`, and every reference page, comment page, module README and
+      the how-to say "headed copy". `Set-FileLink.ps1`, its test and their two comment pages leave with set 7 of `out/run-user-git.ps1`, the
+      user's git rm.
+- [ ] Pointer for plan-diagram-engine (the diagram track): the four explanation pages that describe the link and their `.assets/` slides and
+      descriptions,
+      `docs/explanation/repository/{one-registry-one-writer-two-primitives,opted-in-then-link-copy-or-render,three-gates-check-registry-drift-membership,import-materialises-two-gates-name-the-fix}.md`
+      and `one-source-one-writer-one-boolean/{grid,tree}.md`, still show `copyAsLink`, `Set-FileLink` and the retired
+      ADR-REPO-ROOTCFG-FILESYSTEMLINK. Decided by the worker: each page's numbered legend is the legend of its slide, so the pages are
+      redrawn with their slides, not rewritten alone (check: `grep -r copyAsLink docs/explanation` finds nothing).
 
 ## Refs
 

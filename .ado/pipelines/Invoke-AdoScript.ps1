@@ -8,7 +8,7 @@ param(
     [switch] $AllowWarnings
 )
 
-. $PSScriptRoot/../importer.ps1 -AllowWarnings:$AllowWarnings
+. $PSScriptRoot/../../importer.ps1 -AllowWarnings:$AllowWarnings
 
 if ($env:SYSTEM_DEBUG -eq 'true') {
     $global:VerbosePreference = 'Continue'

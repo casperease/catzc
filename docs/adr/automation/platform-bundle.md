@@ -122,7 +122,7 @@ own module of the same name**: same public functions, same private functions, sa
 function files. It is small (the `tests/` surface is dropped), fast (a few dozen files to open, no compile, no discovery drift), and
 sharable (one versioned folder). It is the platform-level form of the build-once artifact; the related flow decision is
 [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md). It is distinct from the repository it is built from: an
-install is not a repository, has no `.git`, and ships no `infrastructure/`, `pipelines/`, or `.cspell/` — the functions that operate on the
+install is not a repository, has no `.git`, and ships no `infrastructure/`, `.ado/`, or `.cspell/` — the functions that operate on the
 source tree assert that they run there (`Assert-SourceTree`) and say so in a build, and a trimmed profile can exclude them.
 
 ### The two roots

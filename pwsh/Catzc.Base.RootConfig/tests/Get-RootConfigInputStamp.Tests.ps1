@@ -6,11 +6,12 @@ Describe 'Get-RootConfigInputStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDF
             'sources/widget.yml'       = "alpha: 1`n"
             'widgets/alpha/gadget.txt' = "alpha`n"
             'gadget.txt'               = "rendered`n"
+            'copied.yml'               = "alpha: 1`n"
         }
         $script:entries = @(
-            [pscustomobject]@{ target = 'gadget.txt'; source = $null; sources = @('sources/widget.yml'); generator = 'New-Widget'; copyAsLink = $false }
-            [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; sources = @('sources/widget.yml'); generator = 'New-Widget'; copyAsLink = $false }
-            [pscustomobject]@{ target = 'linked.yml'; source = 'sources/widget.yml'; sources = @(); generator = $null; copyAsLink = $true }
+            [pscustomobject]@{ target = 'gadget.txt'; source = $null; sources = @('sources/widget.yml'); generator = 'New-Widget' }
+            [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; sources = @('sources/widget.yml'); generator = 'New-Widget' }
+            [pscustomobject]@{ target = 'copied.yml'; source = 'sources/widget.yml'; sources = @(); generator = $null }
         )
 
         function script:Get-Stamp {
@@ -52,15 +53,15 @@ Describe 'Get-RootConfigInputStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDF
         Get-Stamp | Should -Not -Be $before
     }
 
-    It 'changes when a link entry gains or loses its link' {
+    It 'changes when a copy is edited by hand, so the next run rewrites it' {
         $before = Get-Stamp
-        $link = Join-Path $script:fake.Root 'linked.yml'
-        [System.IO.File]::WriteAllText($link, "a plain file where a link belongs`n")
-        Get-Stamp | Should -Be $before
-        [System.IO.File]::Delete($link)
-        New-Item -ItemType SymbolicLink -Path $link -Target (Join-Path $script:fake.Root 'sources/widget.yml') -ErrorAction SilentlyContinue | Out-Null
-        if (Test-Path -LiteralPath $link) {
+        $copy = Join-Path $script:fake.Root 'copied.yml'
+        try {
+            [System.IO.File]::WriteAllText($copy, "edited by hand`n")
             Get-Stamp | Should -Not -Be $before
+        }
+        finally {
+            [System.IO.File]::WriteAllText($copy, "alpha: 1`n")
         }
     }
 }

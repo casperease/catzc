@@ -46,7 +46,7 @@ Rely on the no-op-outside-pipelines behavior: `Set-AdoPipelineVariable` checks `
 
 ## Context
 
-Azure DevOps ado communicate between steps and jobs through pipeline variables. The mechanism is a logging command written to stdout:
+Azure DevOps pipelines communicate between steps and jobs through pipeline variables. The mechanism is a logging command written to stdout:
 
 ```text
 ##vso[task.setvariable variable=MyVar;isOutput=true]MyValue
@@ -123,5 +123,5 @@ automation code portable: the same function runs locally (silently skipping the 
   site instead of being silently rewritten to an empty variable.
 - Secret masking is a flag, not a syntax detail to remember. Sensitive values cannot be accidentally logged.
 - Pipeline variable usage is greppable: search for `Set-AdoPipelineVariable` to find every variable the automation sets.
-- The same code runs locally and in ado without conditional guards. Local runs silently skip the ADO commands.
+- The same code runs locally and in ado pipelines without conditional guards. Local runs silently skip the ADO commands.
 - Output variable semantics are explicit in the function call, not hidden in a `##vso` flag string.

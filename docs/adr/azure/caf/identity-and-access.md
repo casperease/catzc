@@ -1700,8 +1700,8 @@ Summary (ours): Give privileged automation, such as runbooks and deployment pipe
 #### What 54 means here
 
 The repository's privileged automation is its CD pipelines. Each deploy runs through the step template
-`pipelines/steps/invoke-automation.yaml` in `azcli` mode, signed in by the service connection of its subscription, and pins its target with
-`-SubscriptionIdAssertIs`, which `Deploy-Bicep` requires in a pipeline
+`.ado/pipelines/steps/invoke-automation.yaml` in `azcli` mode, signed in by the service connection of its subscription, and pins its target
+with `-SubscriptionIdAssertIs`, which `Deploy-Bicep` requires in a pipeline
 ([ADR-AZ-DATAMOD-JOINSINPOWERSHELL](../azure-data-model.md#rule-adr-az-datamod-joinsinpowershell),
 [ADR-AZ-SESSION-REVERSELOOKUP](../az-session-verification.md#rule-adr-az-session-reverselookup)). A mis-wired service connection therefore
 fails before it changes anything. Every deploy job is bound to an Azure DevOps environment (`shared-psub`, `apex-prod`, …), where approvals
@@ -1782,9 +1782,9 @@ Summary (ours): CI/CD pipelines, in GitHub or Azure DevOps, should sign in to Az
 
 #### What 57 means here
 
-The pipelines name their service connections (`sc-apex-nonprod`, `sc-shared-prod`, `sc-azure-test`, …) and hand them to `AzureCLI@2` or
-`AzurePowerShell@5` in `pipelines/steps/invoke-automation.yaml`. How a service connection signs in, by workload identity federation or by a
-secret, is a property of the connection in Azure DevOps, not of the YAML. Both tasks take a federated connection unchanged, so the
+The ado pipelines name their service connections (`sc-apex-nonprod`, `sc-shared-prod`, `sc-azure-test`, …) and hand them to `AzureCLI@2` or
+`AzurePowerShell@5` in `.ado/pipelines/steps/invoke-automation.yaml`. How a service connection signs in, by workload identity federation or
+by a secret, is a property of the connection in Azure DevOps, not of the YAML. Both tasks take a federated connection unchanged, so the
 repository's pipelines need no edit for it. The names in the pipelines are illustrative until real service connections exist.
 
 Outside a pipeline, `Connect-AzCli` signs in a person interactively or by device code, a managed identity, or a service principal with a

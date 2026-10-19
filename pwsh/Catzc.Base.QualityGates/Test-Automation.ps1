@@ -10,8 +10,8 @@ function Test-Automation {
         [Alias('Level')]
         [int] $MaxLevel = 3,
 
-        [ArgumentCompleter({ (Get-CatzcModule -TrackType modules).name })]
-        [ValidateScript({ $_ -in (Get-CatzcModule -TrackType modules).name })]
+        [ArgumentCompleter({ (Get-CatzcModule -EngineTrack).name })]
+        [ValidateScript({ $_ -in (Get-CatzcModule -EngineTrack).name })]
         [string[]] $Modules = @(),
 
         [ValidateSet('Logic', 'Integrity', 'Both')]

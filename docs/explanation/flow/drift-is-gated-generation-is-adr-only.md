@@ -38,7 +38,7 @@ The diagram is described element by element in [its asset description](.assets/d
 5. **Test-GitHubWorkflowTriggerGlob.** A quality gate: it recomputes the ordered GitHub list and compares it element by element with
    `on.push.paths` and `on.pull_request.paths` of the workflow it is given, one issue per drifted or missing workflow.
 6. **Test-AdoPipelineTriggerGlob.** A quality gate: for every pipeline-bound set it compares the `trigger:` and `pr:` include and exclude
-   lists of `pipelines/<pipeline>.yaml` with the projection as sets, one issue per drifted or missing pipeline.
+   lists of `.ado/pipelines/<pipeline>.yaml` with the projection as sets, one issue per drifted or missing pipeline.
 7. **Test-GlobSetTriggerCoverage.** A quality gate: every member of a pipeline-bound set matches one of its Azure DevOps include patterns,
    so an include-only trigger is a superset that never under-triggers. It checks includes only, so a set whose root `.yml` an equal-depth
    exclude may drop passes it; `cd-shared.yaml` documents such a set.

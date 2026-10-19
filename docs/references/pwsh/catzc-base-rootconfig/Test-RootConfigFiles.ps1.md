@@ -19,10 +19,10 @@ must agree. It collects an issue for:
 
 - a committed:false target no .gitignore rule ignores, or that git tracks (a derived artifact; remove it with `git rm --cached <path>`);
 - a committed:true target git does not track (it is needed before the importer runs), or that an ignore rule matches;
-- a copyAsLink target that is not an effective link from this OS — a symbolic link resolving to its source, or a hard link whose bytes are
-  CR-insensitively identical to it;
-- any other target that is a link — a copy or generator target must be a real, independent file (a flipped-back entry never converted would
-  read through the link and look current).
+- a target that is a link — every managed target must be a real, independent file (a link reads the same bytes as the file it points at, so
+  a content compare alone would call it current);
+- a `source` target that is missing, or that differs from its template under the generated head once the line endings are LF
+  (Get-RootConfigCopyContent composes what Build-RootConfig writes).
 
 Ignore rules are evaluated with `git check-ignore --no-index`, the rules alone: the default consults the index and would call a wrongly
 tracked file "not ignored", masking the tracking check. Re-running the importer (Build-RootConfig) repairs the link issues. It drives the

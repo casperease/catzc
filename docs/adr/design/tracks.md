@@ -185,13 +185,13 @@ together, and the rules below keep them tied.
 ### What a track is
 
 The unit of "concern" in this repository is the cluster of module contents, and the root folder is its usual home. `pwsh/` is the automation
-platform; `infrastructure/` is the IaC tree; `pipelines/` holds the Azure DevOps pipelines and `.github/workflows` the GitHub ones; `docs/`
-is the documentation; `contracts/` is the repository boundary's binding contracts, in both directions; each `.<foldername>` configures
-exactly one external system (the repository's boundary for that concern); a `.vendor` folder holds third-party code. A place may be narrower
-than a root (`.github/workflows`) so that two tracks share a root without sharing a file. `out/` is a root folder but not a concern: it
-holds the output every run writes, gitignored (`ADR-REPO-OUTDIR`). Naming the concept makes the mapping normative: the declared places are
-the registration (the root folders and their conventions are `ADR-REPO-FOLDERS`), and asking "which track does this file belong to?" always
-has exactly one answer. That single-answer property is what every consumer below builds on.
+platform; `infrastructure/` is the IaC tree; `.ado/pipelines` holds the azure devops pipelines and `.github/workflows` the GitHub ones;
+`docs/` is the documentation; `contracts/` is the repository boundary's binding contracts, in both directions; each `.<foldername>`
+configures exactly one external system (the repository's boundary for that concern); a `.vendor` folder holds third-party code. A place may
+be narrower than a root (`.github/workflows`) so that two tracks share a root without sharing a file. `out/` is a root folder but not a
+concern: it holds the output every run writes, gitignored (`ADR-REPO-OUTDIR`). Naming the concept makes the mapping normative: the declared
+places are the registration (the root folders and their conventions are `ADR-REPO-FOLDERS`), and asking "which track does this file belong
+to?" always has exactly one answer. That single-answer property is what every consumer below builds on.
 
 ### The taxonomy
 

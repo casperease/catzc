@@ -13,7 +13,9 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "formatters", "imprint", "steps", "languages" };
     private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout", "tests", "executable" };
-    private static readonly string[] AllowedTestsKeys = { "runner", "tools", "executable_parameter", "engine" };
+    private static readonly string[] AllowedTestsKeys = { "runner", "tools", "executable_parameter", "engine", "pattern" };
+    // A test-file pattern is one file glob, matched against file names under a test folder, never a path.
+    private static readonly Regex TestPattern = new Regex("^[A-Za-z0-9_*.-]+$");
     private static readonly Regex CommandName = new Regex("^[A-Z][a-z]+-[A-Z][A-Za-z0-9]*$");
     private static readonly Regex ParameterName = new Regex("^[A-Z][A-Za-z0-9]*$");
     private static readonly string[] AllowedLayoutKeys = { "folder", "role", "extensions", "live", "shipped" };
@@ -56,6 +58,20 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The globs, relative to a module root, that place the live files: the live rows' patterns.
     public IReadOnlyList<string> LivePatterns() => layout.Where(r => r.live).SelectMany(r => r.Patterns()).ToArray();
+
+    // A track is laid out when its primary language, the first it declares, owns a live layout row; its modules exist by that layout.
+    // A language whose only rows are never live (markdown's readme) lays out no module.
+    public bool IsLaidOut(IEnumerable trackLanguages)
+    {
+        string primary = null;
+        if (trackLanguages != null)
+        {
+            foreach (object item in trackLanguages) { primary = Convert.ToString(item, CultureInfo.InvariantCulture); break; }
+        }
+        if (string.IsNullOrEmpty(primary)) { return false; }
+        FileLanguage language = languages.FirstOrDefault(l => l.name == primary);
+        return language != null && language.layout.Any(r => r.live);
+    }
 
     public LayoutRow PlaceOf(string relativePath)
     {
@@ -560,7 +576,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         string where = string.Format(CultureInfo.InvariantCulture, "languages['{0}'].tests", name);
         if (map == null)
         {
-            errors.Add(where + ": must be a map of runner, tools, executable_parameter and engine");
+            errors.Add(where + ": must be a map of runner, pattern, tools, executable_parameter and engine");
             return null;
         }
         int before = errors.Count;
@@ -618,8 +634,13 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         {
             errors.Add(where + ": names either the tools that must resolve or the one engine the tests run under, never both and never neither");
         }
+        string pattern = map.Contains("pattern") ? Text(map["pattern"]) : "";
+        if (!TestPattern.IsMatch(pattern) || !pattern.Contains('*'))
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: pattern '{1}' is not a test-file glob (one file name pattern with a '*', e.g. test_*.py)", where, pattern));
+        }
         if (errors.Count > before) { return null; }
-        return new LanguageTestRunner(runner, tools.ToArray(), executableParameter, engine);
+        return new LanguageTestRunner(runner, tools.ToArray(), executableParameter, engine, pattern);
     }
 
     private static List<string> ReadChecks(string name, object value, List<string> errors)

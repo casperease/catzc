@@ -41,9 +41,9 @@ function Copy-CatzcModule {
         Get-ModuleProfile -Name full
     }
 
-    $codePlace = @(Get-Track).Where({ $_.type -ceq 'modules' })[0].places[0]
+    $codePlace = Get-CatzcModulesFolder
     $moduleRoots = @{}
-    foreach ($module in Get-CatzcModule -TrackType modules) {
+    foreach ($module in Get-CatzcModule -EngineTrack) {
         $moduleRoots[$module.name] = $module.root
     }
     $bindings = (Get-Config -Config files).modules
