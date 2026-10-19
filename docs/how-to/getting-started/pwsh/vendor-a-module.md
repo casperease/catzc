@@ -1,6 +1,6 @@
 # Vendor a module
 
-Third-party PowerShell modules are **vendored** — checked into `automation/pwsh/.vendor/<Name>/<Version>/` — so the repository alone guarantees
+Third-party PowerShell modules are **vendored** — checked into `pwsh/.vendor/<Name>/<Version>/` — so the repository alone guarantees
 reproducibility with no restore step and no PowerShell Gallery call at runtime. Adding one is a single command run at authoring time, then a
 commit. The rationale is in [vendor-toolset-dependencies](../../../adr/automation/pwsh/vendor-toolset-dependencies.md).
 
@@ -14,14 +14,14 @@ Install-VendorModule powershell-yaml                       # latest
 Install-VendorModule Pester -RequiredVersion 5.7.1         # pinned version
 ```
 
-`Install-VendorModule` downloads from the Gallery into `automation/pwsh/.vendor/<Name>/<Version>/`, trims legacy .NET-Framework target folders (keeping
+`Install-VendorModule` downloads from the Gallery into `pwsh/.vendor/<Name>/<Version>/`, trims legacy .NET-Framework target folders (keeping
 the .NET 6+ assemblies), and logs where it landed. Then **commit the result** — the vendored files are part of the repo, and the version
 change shows up as a reviewable diff.
 
 ## Currently vendored
 
 ```text
-automation/pwsh/.vendor/
+pwsh/.vendor/
   Pester/                 lazy-loaded (test runner)
   PSScriptAnalyzer/       lazy-loaded (linter)
   powershell-yaml/        loaded at import (YAML parsing)
@@ -34,7 +34,7 @@ slow shell startup — they auto-load on first use.
 
 Upgrade deliberately, never automatically:
 
-1. Delete the old version folder: `automation/pwsh/.vendor/<Name>/<oldVersion>/`.
+1. Delete the old version folder: `pwsh/.vendor/<Name>/<oldVersion>/`.
 2. `Install-VendorModule <Name> -RequiredVersion <newVersion>` in a fresh session.
 3. `. ./importer.ps1` and `Test-Automation -Level 2` to confirm nothing broke.
 4. Commit the deletion + addition together.

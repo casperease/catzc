@@ -1,4 +1,4 @@
-# automation/pwsh/Catzc.Base.Maps/types/PdfDocument.cs
+# pwsh/Catzc.Base.Maps/types/PdfDocument.cs
 
 <!-- cspell:ignore startxref endstream nendobj -->
 

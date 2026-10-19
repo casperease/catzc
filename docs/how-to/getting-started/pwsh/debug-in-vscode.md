@@ -81,9 +81,9 @@ pick up the change. Two exceptions:
 ```
 
 A large cold "file-read I/O" line on an enterprise machine is antivirus scanning the `.ps1` files on first open; the fix is an AV exclusion
-for the working copy and `automation/pwsh/.vendor/`, not a code change (see
+for the working copy and `pwsh/.vendor/`, not a code change (see
 [effective-in-enterprises](../../../adr/automation/effective-in-enterprises.md)). On Windows, if the importer warns that `$env:PSModulePath`
-contains a network share, run the one-time helper it points you at (`automation/pwsh/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`; see
+contains a network share, run the one-time helper it points you at (`pwsh/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`; see
 [module-path-hygiene](../../../adr/automation/pwsh/module-path-hygiene.md)).
 
 ## When something throws

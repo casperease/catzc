@@ -59,7 +59,7 @@ steps:
 ```
 
 - Runs identically on Windows, Linux, and macOS — CI covers all three.
-- No install step: every dependency is vendored under `automation/pwsh/.vendor/`.
+- No install step: every dependency is vendored under `pwsh/.vendor/`.
 - `$ErrorActionPreference = 'Stop'` is set globally, so an error becomes a non-zero exit code automatically.
 - No network calls at import time — safe behind corporate proxies and in air-gapped environments.
 

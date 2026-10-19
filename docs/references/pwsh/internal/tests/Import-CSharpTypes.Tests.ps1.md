@@ -1,4 +1,4 @@
-# automation/pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1
+# pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -83,7 +83,7 @@ Above `$namespaceA = "CatzcTestRootA$runId"`, written with `#`.
 
 ```text
 Regression: the session guard is keyed by ModulesRoot. Loading root A, then a DIFFERENT root B
-(this is exactly what the test-fixture trees do vs the real automation/pwsh/ tree), must NOT make a
+(this is exactly what the test-fixture trees do vs the real pwsh/ tree), must NOT make a
 re-import of root A throw a bogus "types changed". Before the fix a single global was overwritten
 by the last root loaded, so the next real import after a test run threw on session-leaked
 fixture state. Each root must track its own hash/snapshot.
@@ -173,7 +173,7 @@ genuinely separate C# implementation of the same hash; see native-csharp-types).
 Above `It 'is exactly one committed assembly whose hash matches the current sources...`, written with `#`.
 
 ```text
-Drift guard: the importer (which ran before this test file) rebuilds automation/pwsh/.compiled/Catzc.Types.<hash>.dll
+Drift guard: the importer (which ran before this test file) rebuilds pwsh/.compiled/Catzc.Types.<hash>.dll
 from source whenever a types/*.cs changed, and every build copies that DLL. Test-BuildArtifact's types facet
 checks it is exactly one assembly named for the current sources' hash, with no pending git change (a
 forgotten commit of the prebuilt assembly stays red until it is committed). source-only: it reads the

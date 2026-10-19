@@ -1,4 +1,4 @@
-# automation/pwsh/Catzc.Base.QualityGates/Invoke-TestFile.ps1
+# pwsh/Catzc.Base.QualityGates/Invoke-TestFile.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -85,13 +85,13 @@ message (Write-TestRunFailures): each failed test, and each file that failed bef
 ### example 1
 
 ```powershell
-Invoke-TestFile automation/pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
+Invoke-TestFile pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
 ```
 
 ### example 2
 
 ```powershell
-Invoke-TestFile automation/pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1 -FullNameFilter 'Generated README copy-ins'
+Invoke-TestFile pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1 -FullNameFilter 'Generated README copy-ins'
 ```
 
 ## comment:1

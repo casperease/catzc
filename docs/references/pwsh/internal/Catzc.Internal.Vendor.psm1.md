@@ -1,4 +1,4 @@
-# automation/pwsh/.internal/Catzc.Internal.Vendor.psm1
+# pwsh/.internal/Catzc.Internal.Vendor.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -10,7 +10,7 @@ Above `Set-StrictMode -Version Latest   # this module's scope: every function he
 ```text
 Catzc.Internal.Vendor — the shared vendor-module loader.
 
-Loading the vendored modules under automation/pwsh/.vendor/<Name>/<Version>/ happens BEFORE any Catzc module
+Loading the vendored modules under pwsh/.vendor/<Name>/<Version>/ happens BEFORE any Catzc module
 exists (the importer loads vendor dependencies first), so the implementation cannot live in a Catzc module.
 It also must be callable AFTER import by the Catzc.Base.Vendor cover functions that delegate to it — the
 single home for what both layers share (see

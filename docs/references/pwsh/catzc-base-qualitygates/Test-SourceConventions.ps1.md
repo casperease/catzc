@@ -1,4 +1,4 @@
-# automation/pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1
+# pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: every source and test file under automation/pwsh/ follows the naming and one-function conventions.
+Quality gate: every source and test file under pwsh/ follows the naming and one-function conventions.
 
 ### description
 

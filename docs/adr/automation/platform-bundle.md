@@ -138,7 +138,7 @@ relocated — a scan that anchored on `RepositoryRoot` would look in the wrong p
 
 `The bundle boots through the importer`
 
-A bundle does not carry its own loader. Its entry — a checked-in, authored file under `automation/pwsh/.internal/assets/`, copied verbatim
+A bundle does not carry its own loader. Its entry — a checked-in, authored file under `pwsh/.internal/assets/`, copied verbatim
 into the build — sets the two anchors and runs the same importer the mono repo's entry runs, in its bundle mode. This is not merely to avoid
 a second copy of the load logic — it is load-order-correct. The C# types the platform uses are registered by catzc's own code before any
 module loads, and a module that names one of them at load time needs it registered first. The importer sequences this — types, then the

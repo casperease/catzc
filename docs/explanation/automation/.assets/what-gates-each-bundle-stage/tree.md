@@ -27,20 +27,20 @@ which files carry the decision. Each lit group has its reason below, naming the 
 
 ## What the minimap shows
 
-The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/pwsh/` by module, under `docs/adr/` by ADR
+The tree draws every file of the world map as a tile, grouped by top-level folder (under `pwsh/` by module, under `docs/adr/` by ADR
 domain), and lights 28 files in 10 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - docs (docs/ outside docs/adr/): 15 lit files
 - adr/* (the files directly in docs/adr/): 2 lit files
 - adr/auto (docs/adr/automation): 2 lit files
-- adr/pwsh (docs/adr/automation/pwsh): 2 lit files
-- Docs (automation/pwsh/Catzc.Base.Docs): 2 lit files
+- adr/pwsh (docs/adr/pwsh): 2 lit files
+- Docs (pwsh/Catzc.Base.Docs): 2 lit files
 - Root files: 1 lit file
 - .claude: 1 lit file
 - pipelines: 1 lit file
-- .internal (automation/pwsh/.internal): 1 lit file
-- Exporter (automation/pwsh/Catzc.Base.Exporter): 1 lit file
+- .internal (pwsh/.internal): 1 lit file
+- Exporter (pwsh/Catzc.Base.Exporter): 1 lit file
 
 ## Why each group is lit
 
@@ -95,21 +95,21 @@ The group holds the files of docs/adr/automation; each sits in its world-map cel
   (text).
 - [docs/adr/automation/platform-bundle.md][1], in the cell docs × markdown: selected by [ADR-AUTO-BUNDLE][1]: the ADR's own file.
 
-### adr/pwsh (docs/adr/automation/pwsh, 2 lit files)
+### adr/pwsh (docs/adr/pwsh, 2 lit files)
 
-The group holds the files of docs/adr/automation/pwsh; each sits in its world-map cell and is lit by:
+The group holds the files of docs/adr/pwsh; each sits in its world-map cell and is lit by:
 
 - [docs/adr/automation/pwsh/dora-explains.md][21], in the cell docs × markdown: selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 61
   (text).
 - [docs/adr/automation/pwsh/dynamic-module-manifests.md][2], in the cell docs × markdown: selected by [ADR-PWSH-MANIFEST][2]: the ADR's own file.
 
-### Docs (automation/pwsh/Catzc.Base.Docs, 2 lit files)
+### Docs (pwsh/Catzc.Base.Docs, 2 lit files)
 
-The group holds the files of automation/pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/pwsh/Catzc.Base.Docs/configs/adrs.yml][22], in the cell pwsh × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 142
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][22], in the cell pwsh × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 142
   (text); selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 172 (text).
-- [automation/pwsh/Catzc.Base.Docs/configs/glossary.yml][23], in the cell pwsh × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 506
+- [pwsh/Catzc.Base.Docs/configs/glossary.yml][23], in the cell pwsh × yaml: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 506
   (text).
 
 ### Root files (1 lit file)
@@ -117,7 +117,7 @@ The group holds the files of automation/pwsh/Catzc.Base.Docs; each sits in its w
 The group holds the files of Root files; each sits in its world-map cell and is lit by:
 
 - [importer.ps1][24], in the cell Root files × powershell: selected by [ADR-PWSH-MANIFEST][2]: a root file carries the citations of its
-  owner module's files (files.yml), which cite it at `automation/pwsh/.internal/assets/Import-ModuleFiles.ps1` line 1 (header).
+  owner module's files (files.yml), which cite it at `pwsh/.internal/assets/Import-ModuleFiles.ps1` line 1 (header).
 
 ### .claude (1 lit file)
 
@@ -131,23 +131,23 @@ The group holds the files of .claude; each sits in its world-map cell and is lit
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
 - [pipelines/ci-automation.yaml][26], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-BUNDLE][1]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/pwsh/Catzc.Base.Docs/configs/adrs.yml` line 142 (text),
-  `automation/pwsh/Catzc.Base.Docs/configs/glossary.yml` line 506 (text) and `automation/pwsh/Catzc.Base.Exporter/Build-Modules.ps1` line 2 (text); selected by
+  itself carries its globset's citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 142 (text),
+  `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 506 (text) and `pwsh/Catzc.Base.Exporter/Build-Modules.ps1` line 2 (text); selected by
   [ADR-PWSH-MANIFEST][2]: a pipeline that cites nothing itself carries its globset's citations, which cite it at
-  `automation/pwsh/.internal/assets/Import-ModuleFiles.ps1` line 1 (header) and `automation/pwsh/Catzc.Base.Docs/configs/adrs.yml` line 172 (text).
+  `pwsh/.internal/assets/Import-ModuleFiles.ps1` line 1 (header) and `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 172 (text).
 
-### .internal (automation/pwsh/.internal, 1 lit file)
+### .internal (pwsh/.internal, 1 lit file)
 
-The group holds the files of automation/pwsh/.internal; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/.internal; each sits in its world-map cell and is lit by:
 
-- [automation/pwsh/.internal/assets/Import-ModuleFiles.ps1][27], in the cell pwsh × powershell: selected by [ADR-PWSH-MANIFEST][2]: the file cites it
+- [pwsh/.internal/assets/Import-ModuleFiles.ps1][27], in the cell pwsh × powershell: selected by [ADR-PWSH-MANIFEST][2]: the file cites it
   at line 1 (header).
 
-### Exporter (automation/pwsh/Catzc.Base.Exporter, 1 lit file)
+### Exporter (pwsh/Catzc.Base.Exporter, 1 lit file)
 
-The group holds the files of automation/pwsh/Catzc.Base.Exporter; each sits in its world-map cell and is lit by:
+The group holds the files of pwsh/Catzc.Base.Exporter; each sits in its world-map cell and is lit by:
 
-- [automation/pwsh/Catzc.Base.Exporter/Build-Modules.ps1][28], in the cell pwsh × powershell: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
+- [pwsh/Catzc.Base.Exporter/Build-Modules.ps1][28], in the cell pwsh × powershell: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at
   line 2 (text).
 
 ## Keywords

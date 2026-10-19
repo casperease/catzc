@@ -1,4 +1,4 @@
-# automation/pwsh/Catzc.Base.QualityGates/private/Invoke-ScriptAnalyzerShards.ps1
+# pwsh/Catzc.Base.QualityGates/private/Invoke-ScriptAnalyzerShards.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -13,7 +13,7 @@ Runs PSScriptAnalyzer over the pending files of each analyzer pass, sharded acro
 
 A single serial Invoke-ScriptAnalyzer call over the whole module tree takes ~90s and prints nothing until it finishes (it looks hung). This
 shards each pass's files across background pwsh PROCESSES — the same approach, and for the same reasons, as the L2 'PSScriptAnalyzer' test
-(automation/pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1):
+(pwsh/.internal/tests/Test-ScriptAnalyzer.Tests.ps1):
 
 - PSScriptAnalyzer's Helper.Initialize is not thread-safe, so ForEach-Object -Parallel (shared runspaces) races and throws. Separate
   processes are fully isolated.

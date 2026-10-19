@@ -143,7 +143,7 @@ Simple, well-known expressions that read naturally do not need splitting:
 
 ```powershell
 # Fine — Join-Path is self-documenting and cannot fail in surprising ways
-$settingsPath = Join-Path $env:RepositoryRoot 'automation/pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1'
+$settingsPath = Join-Path $env:RepositoryRoot 'pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1'
 
 # Fine — single property access on a known object
 $moduleName = $moduleDir.Name

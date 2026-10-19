@@ -1,4 +1,4 @@
-# automation/pwsh/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
+# pwsh/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -17,7 +17,7 @@ analyzer map (configs/analyzer-adr-map.yml), the source of the 'pssa-rule' enfor
 checks only its shape, so it stays hermetic; this gate cross-checks it against the repository and collects an issue for:
 
 - every rule id an analyzer cites that is not a real ADR rule (Get-CatsAdrRuleIds, in '#' citation form);
-- every custom analyzer check — a `Measure-*` function in `automation/pwsh/.scriptanalyzer/*.psm1`, except the entry rule CatzcRules.psm1, which only
+- every custom analyzer check — a `Measure-*` function in `pwsh/.scriptanalyzer/*.psm1`, except the entry rule CatzcRules.psm1, which only
   dispatches — the map does not list, so a new custom rule cannot ship unmapped.
 
 It reads the ADR tree and the .scriptanalyzer rule files, which exist only in the source tree (Assert-SourceTree).

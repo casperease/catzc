@@ -1,4 +1,4 @@
-# automation/pwsh/.internal/Catzc.Internal.Importer.psm1
+# pwsh/.internal/Catzc.Internal.Importer.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -84,7 +84,7 @@ Above `[switch] $Bundle`, written with `#`.
 
 ```text
 Load as an installed bundle, not the mono repo. Honour the pre-set $env:CatzcModulesRoot (the bundle's
-own automation/pwsh/, set by its Catzc.psm1) instead of deriving it from RepositoryRoot, and force
+own pwsh/, set by its Catzc.psm1) instead of deriving it from RepositoryRoot, and force
 -SkipJanitors (a bundle is a read-only install with no git work tree). Only the bundle bootstrap passes
 this; the mono shim never does, so an inherited CatzcModulesRoot can never divert a mono/fixture load.
 ```
@@ -143,10 +143,10 @@ Repository root — the WORKING root (out/, repo-relative paths, git), set on $e
 Above `if ($Bundle -and $env:CatzcModulesRoot) {`, written with `#`.
 
 ```text
-Catzc code anchor — the automation/pwsh/ tree that holds the loaded modules; config, type and vendor discovery
+Catzc code anchor — the pwsh/ tree that holds the loaded modules; config, type and vendor discovery
 follow THIS, not RepositoryRoot (see Get-CatzcModulesRoot). In the mono repo it equals <repoRoot>/pwsh
 and nothing pre-sets it, so it is derived here (a no-op split). An installed bundle's Catzc.psm1 pre-sets it
-to the bundle's own automation/pwsh/, so the importer honours that — this is what makes catzc relocatable.
+to the bundle's own pwsh/, so the importer honours that — this is what makes catzc relocatable.
 ```
 
 ## comment:14
@@ -211,7 +211,7 @@ Above `if (-not $SkipJanitors -and $IsWindows) {`, written with `#`.
 ```text
 Warn if PSModulePath contains a network share. The permanent fix is a one-time
 script that writes a local PSModulePath to the user-scope powershell.config.json.
-See: automation/pwsh/Catzc.Base.Environment/assets/README.md
+See: pwsh/Catzc.Base.Environment/assets/README.md
 ```
 
 ## comment:20
@@ -447,7 +447,7 @@ Above `$top = $global:__CatzcLoadTimings | Sort-Object Ms -Descending |...`, wri
 ```text
 The native C# type compile/load (every module's types/*.cs via Import-CSharpTypes) appears as one
 'types (combined)' row below; a 'compile+load' row is a cold cache (Roslyn), a 'cache load' row reused
-the committed automation/pwsh/.compiled DLL.
+the committed pwsh/.compiled DLL.
 ```
 
 ## comment:40

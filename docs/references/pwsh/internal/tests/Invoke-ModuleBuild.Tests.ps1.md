@@ -1,4 +1,4 @@
-# automation/pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1
+# pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1
 
 <!-- cspell:ignore nfunction -->
 

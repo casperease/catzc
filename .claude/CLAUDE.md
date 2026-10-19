@@ -17,11 +17,11 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 
 - `importer.ps1` — root script that imports all modules; always **dot-sourced** (`.\importer.ps1` is dot-sourcing), so it runs in the
   caller's scope and its global state (the prompt hook, `$env:RepositoryRoot`, `$isConsoleSession`, …) takes effect
-- `automation/pwsh/` — module folders containing `.ps1` function files
-- `automation/pwsh/.internal/` — internal infrastructure, the `Catzc.Internal.*.psm1` modules: `Loader`, `Types`, and `Vendor` stay loaded; `Bootstrap`
+- `pwsh/` — module folders containing `.ps1` function files
+- `pwsh/.internal/` — internal infrastructure, the `Catzc.Internal.*.psm1` modules: `Loader`, `Types`, and `Vendor` stay loaded; `Bootstrap`
   and `Importer` load first and are removed after import; `Builder` and `TestKit` load when a build or a test run needs them; plus build
   `assets/`
-- `automation/pwsh/.vendor/` — third-party modules (checked in)
+- `pwsh/.vendor/` — third-party modules (checked in)
 - `.unordered/` — the unordered track, where an import lands with its history at a landing address `.unordered/<name>`
   (`Import-RepositoryWithHistory`); sorting moves each file out with `git mv`, and nothing reads or defaults to the track
   ([ADR-DSGN-TRACK-UNORDEREDTRACK](../docs/adr/design/tracks.md#rule-adr-dsgn-track-unorderedtrack))
@@ -64,10 +64,10 @@ Which catzc ADR decides each aspect you might take an idea for:
 ## Sub-agents
 
 Sub-agent definitions live in `.claude/agents/<name>.md`. Every agent exists because an ADR rule supports it, and is mapped to the gates and
-checks it runs or guards; the registry is `automation/pwsh/Catzc.Base.Docs/configs/agents.yml`, and `Test-AgentDefinitions` keeps the files, the
+checks it runs or guards; the registry is `pwsh/Catzc.Base.Docs/configs/agents.yml`, and `Test-AgentDefinitions` keeps the files, the
 registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/adr/repository/agent-definitions.md)). Every agent is a
 robot: a body of at most 20 lines on a named model, loading its shared know-how from capabilities, `.claude/skills/<domain>-<job>/SKILL.md`
-files of at most 10 lines with a model floor, registered in `automation/pwsh/Catzc.Base.Docs/configs/capabilities.yml`. Every robot and capability
+files of at most 10 lines with a model floor, registered in `pwsh/Catzc.Base.Docs/configs/capabilities.yml`. Every robot and capability
 reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent-contract.md); it is named once, here and as `contracts` in
 `agents.yml`, never in a file's front matter.
 
@@ -103,10 +103,10 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent
 ### Automation
 
 - **One function per file** (`Verb-Noun.ps1`): `Get-Foo.ps1` must contain exactly `function Get-Foo`
-- **Folder = module**: A module is a folder under `automation/pwsh/` containing `.ps1` files
+- **Folder = module**: A module is a folder under `pwsh/` containing `.ps1` files
 - **Public/private by location**: `.ps1` files at the module root are PUBLIC (exported). `.ps1` files in `private/` are PRIVATE (loaded but
   not exported). Private functions are available to public functions via shared module scope (each `.ps1` dot-sourced into the module by the
-  shared loader `automation/pwsh/.internal/assets/Import-ModuleFiles.ps1`).
+  shared loader `pwsh/.internal/assets/Import-ModuleFiles.ps1`).
 - `importer.ps1` handles loading all modules
 
 ### Editing
@@ -121,7 +121,7 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent
 - **ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard** (`ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`,
   [fail-fast-with-asserts](../docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). Every Bash tool call —
   the main session and every subagent — passes `timeout: 3000` (at most `limits.devbox.bash.foreground` in
-  `automation/pwsh/Catzc.Base.Timeouts/configs/timeouts.yml`, currently 3 s on a devbox). Longer work runs with `run_in_background: true` **and**
+  `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml`, currently 3 s on a devbox). Longer work runs with `run_in_background: true` **and**
   starts with a GNU `timeout <seconds>` prefix around **one** command (at most `limits.devbox.bash.background`, currently 360 s): the Bash
   tool ignores its `timeout` parameter for background calls, so the prefix is the only bound. No `cd … &&`, pipes or `;` in a background
   call — use absolute paths, or put multi-step work in a script under `out/`; exit 124 means the safeguard stopped it. The PreToolUse hook

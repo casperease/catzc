@@ -103,27 +103,27 @@ Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK-
 file language pipeline-yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [pipelines/ci-automation.yaml][24]: selected by [ADR-AUTO-BUNDLE][1]: a pipeline that cites nothing itself carries its globset's
-  citations, which cite it at `automation/pwsh/Catzc.Base.Docs/configs/adrs.yml` line 142 (text), `automation/pwsh/Catzc.Base.Docs/configs/glossary.yml` line 506
-  (text) and `automation/pwsh/Catzc.Base.Exporter/Build-Modules.ps1` line 2 (text); selected by [ADR-PWSH-MANIFEST][2]: a pipeline that cites nothing
-  itself carries its globset's citations, which cite it at `automation/pwsh/.internal/assets/Import-ModuleFiles.ps1` line 1 (header) and
-  `automation/pwsh/Catzc.Base.Docs/configs/adrs.yml` line 172 (text).
+  citations, which cite it at `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 142 (text), `pwsh/Catzc.Base.Docs/configs/glossary.yml` line 506
+  (text) and `pwsh/Catzc.Base.Exporter/Build-Modules.ps1` line 2 (text); selected by [ADR-PWSH-MANIFEST][2]: a pipeline that cites nothing
+  itself carries its globset's citations, which cite it at `pwsh/.internal/assets/Import-ModuleFiles.ps1` line 1 (header) and
+  `pwsh/Catzc.Base.Docs/configs/adrs.yml` line 172 (text).
 
 ### pwsh × powershell (2 lit files)
 
-Placed: the root folder `automation/pwsh/` names the track pwsh ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][3]); the extension `.ps1` names the file
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][3]); the extension `.ps1` names the file
 language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
-- [automation/pwsh/.internal/assets/Import-ModuleFiles.ps1][25]: selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 1 (header).
-- [automation/pwsh/Catzc.Base.Exporter/Build-Modules.ps1][26]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 2 (text).
+- [pwsh/.internal/assets/Import-ModuleFiles.ps1][25]: selected by [ADR-PWSH-MANIFEST][2]: the file cites it at line 1 (header).
+- [pwsh/Catzc.Base.Exporter/Build-Modules.ps1][26]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 2 (text).
 
 ### pwsh × yaml (2 lit files)
 
-Placed: the root folder `automation/pwsh/` names the track pwsh ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][3]); the extension `.yml` names the file
+Placed: the root folder `pwsh/` names the track pwsh ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER][3]); the extension `.yml` names the file
 language yaml ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
-- [automation/pwsh/Catzc.Base.Docs/configs/adrs.yml][27]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 142 (text); selected by
+- [pwsh/Catzc.Base.Docs/configs/adrs.yml][27]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 142 (text); selected by
   [ADR-PWSH-MANIFEST][2]: the file cites it at line 172 (text).
-- [automation/pwsh/Catzc.Base.Docs/configs/glossary.yml][28]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 506 (text).
+- [pwsh/Catzc.Base.Docs/configs/glossary.yml][28]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 506 (text).
 
 ### Root files × powershell (1 lit file)
 
@@ -131,7 +131,7 @@ Placed: each file sits directly in the repository root, so it is a root file ([A
 file language powershell ([ADR-DSGN-TRACK-FILELANGUAGE][3]). Lit ([ADR-DSGN-TRACK-LITCELL][3]) by:
 
 - [importer.ps1][29]: selected by [ADR-PWSH-MANIFEST][2]: a root file carries the citations of its owner module's files (files.yml), which
-  cite it at `automation/pwsh/.internal/assets/Import-ModuleFiles.ps1` line 1 (header).
+  cite it at `pwsh/.internal/assets/Import-ModuleFiles.ps1` line 1 (header).
 
 ## Keywords
 

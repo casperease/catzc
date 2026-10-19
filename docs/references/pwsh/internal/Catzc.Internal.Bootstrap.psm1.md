@@ -1,4 +1,4 @@
-# automation/pwsh/.internal/Catzc.Internal.Bootstrap.psm1
+# pwsh/.internal/Catzc.Internal.Bootstrap.psm1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -354,7 +354,7 @@ Above `function Get-ForeignCatzcModule {`, written with `#`.
 .SYNOPSIS
     Returns every loaded catzc module that does not come from the given code root.
 .DESCRIPTION
-    The package module also belongs when its ModuleBase is the root's parent, since its code root is automation/pwsh/.
+    The package module also belongs when its ModuleBase is the root's parent, since its code root is pwsh/.
     [comment:29](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment29)
 .PARAMETER ModulesRoot
     The active code root (CatzcModulesRoot).

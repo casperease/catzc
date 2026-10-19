@@ -96,7 +96,7 @@ Bash, so it runs under the bash engine only; the Go and Python tests are the one
 
 ### A vendored runner
 
-bats-core is a set of Bash scripts with no build step. Vendoring it, as the PowerShell modules under `automation/pwsh/.vendor/` are vendored, means a
+bats-core is a set of Bash scripts with no build step. Vendoring it, as the PowerShell modules under `pwsh/.vendor/` are vendored, means a
 test run needs no installer, no network, and no admin on any platform: Git Bash on Windows runs it as it is. The pin and the archive digest
 in `bash.yml` make the copy reproducible, and `Update-BatsVendor` is the one way it changes. Only the runner's own files are kept: its
 tests, docs, and packaging are not the repository's.

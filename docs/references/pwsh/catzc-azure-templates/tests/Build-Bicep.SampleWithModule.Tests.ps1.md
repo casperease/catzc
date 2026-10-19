@@ -1,4 +1,4 @@
-# automation/pwsh/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithModule.Tests.ps1
+# pwsh/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithModule.Tests.ps1
 
 <!-- cspell:ignore alweutstsmodst -->
 
