@@ -106,10 +106,17 @@ function New-RepositorySnapshot {
             }
         }
         catch {
+            $failure = $_
             if ([System.IO.File]::Exists((Join-Path $Destination '.git/catzc-snapshot.json'))) {
-                Remove-RepositorySnapshot -Path $Destination
+                # A cleanup that fails (a file another process holds) is announced, never thrown in place of the failure that caused it.
+                try {
+                    Remove-RepositorySnapshot -Path $Destination
+                }
+                catch {
+                    Write-Message "The half-built snapshot '$Destination' was not removed: $($_.Exception.Message)" -ForegroundColor Yellow
+                }
             }
-            throw
+            throw $failure
         }
         if (-not $mismatch) {
             break

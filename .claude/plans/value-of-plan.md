@@ -30,10 +30,11 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value | Plan                 | Needed docs                                                                       | Needed tests                                                     | State                                                                    |
-| ----- | -------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| high  | plan-listen-agent    | ADR-REPO-AI-EDITORISFACT (the AI agent contract)                                  | Pester for Catzc.Tooling.Listen, Test-AgentDefinitions           | built and tested; registration blocked on the user's fact-checker commit |
-| high  | plan-idiomatic-names | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written) | Test-IdiomaticNames, Pester for the naming types, Test-Contracts | gate and assert built; wiring, renames and the normal form open          |
+| Value  | Plan                 | Needed docs                                                                                                 | Needed tests                                                                              | State                                                                    |
+| ------ | -------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| high   | plan-listen-agent    | ADR-REPO-AI-EDITORISFACT (the AI agent contract)                                                            | Pester for Catzc.Tooling.Listen, Test-AgentDefinitions                                    | built and tested; registration blocked on the user's fact-checker commit |
+| high   | plan-idiomatic-names | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written)                           | Test-IdiomaticNames, Pester for the naming types, Test-Contracts                          | gate and assert built; wiring, renames and the normal form open          |
+| medium | plan-bcl-language    | the BCL reference-set rule in ADR-AUTO-TYPES, the narrowed ADR-PWSH-TYPES rules, a bcl domain if Q2 says so | Test-Links on the moved pages, Pester for the host-binding gate and config, Test-AdrIndex | planned; doc moves free, the rest waits on three questions               |
 
 ## Pending deletion
 

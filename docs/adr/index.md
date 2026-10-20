@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "80794013771c"
+    with_body_sha: "1b42f9947464"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/index.md
@@ -45,15 +45,17 @@ What catzc is for and how it solves it: delivery is slow because its truth is sp
 one source of truth, the repository, with one change process. The repository is the configuration record and answers queries through the
 tooling; inside the trunk everything is at HEAD, and versions exist only at the repository boundary, as pins. Outside the responsibility
 domain a repository holds, the truth stores are fact sources and state machines, read and reported to at junctions and synchronised into
-actionable facts. It describes the product and rests on the DORA research, the authoritative source, and the principles state its mechanics,
-so every other domain cites it (`ADR-THES-*`) through them.
+actionable facts. Any code, unordered fragments included, has an eac normal form: verifiable within the sensible defaults, the bundle, and
+the local configs, and uncontested by the repository's formatters, tests, and asserts. It describes the product and rests on the DORA
+research, the authoritative source, and the principles state its mechanics, so every other domain cites it (`ADR-THES-*`) through them.
 
 **Role:** `framing` — **depends on:** `research`.
 
-| Code                | ADR                                                  |
-| ------------------- | ---------------------------------------------------- |
-| `ADR-THES-ONETRUTH` | [one-source-of-truth](thesis/one-source-of-truth.md) |
-| `ADR-THES-STORES`   | [truth-stores](thesis/truth-stores.md)               |
+| Code                  | ADR                                                  |
+| --------------------- | ---------------------------------------------------- |
+| `ADR-THES-ONETRUTH`   | [one-source-of-truth](thesis/one-source-of-truth.md) |
+| `ADR-THES-STORES`     | [truth-stores](thesis/truth-stores.md)               |
+| `ADR-THES-NORMALFORM` | [eac-normal-form](thesis/eac-normal-form.md)         |
 
 ### principles/
 

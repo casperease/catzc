@@ -1,0 +1,108 @@
+---
+plan:
+  status: active
+  value: medium
+  reviewed: 2026-10-20
+  class: feature
+  targets:
+    [
+      docs/references/pwsh/BCL,
+      docs/how-to/getting-started/pwsh/BCL,
+      docs/how-to/pwsh/manual-test-plan/csharp-types.md,
+      docs/adr/automation/BCL/native-csharp-types.md,
+      docs/adr/automation/BCL/index.md,
+      docs/adr/automation/pwsh/hosting-csharp-types.md,
+      docs/adr/index.md,
+      pwsh/Catzc.Base.Docs/configs/adrs.yml,
+      pwsh/Catzc.Base.Languages/configs/languages.yml,
+      docs/index.md,
+      docs/how-to/getting-started/automation/index.md,
+      docs/how-to/getting-started/pwsh/add-a-module.md,
+      docs/how-to/getting-started/pwsh/debug-in-vscode.md,
+      docs/references/pwsh/index.md,
+    ]
+---
+
+# BCL is its own language, not a part of pwsh
+
+The `types/*.cs` sources are written in **BCL**: C# that references the .NET Base Class Library and nothing else, a subset of .NET. pwsh is
+the one host that compiles and loads them today, so it binds them (`ADR-PWSH-TYPES`), but it does not own them. The ADRs already sit at
+`docs/adr/automation/BCL/`, outside pwsh; the reference and how-to pages still sit under `pwsh/`, the language row is named `csharp`, and
+the reference set the types compile against is "the BCL plus `System.Management.Automation`", which is not a subset of .NET's BCL. This plan
+moves BCL out of pwsh in the docs, the language registry and the reference set.
+
+## Why its value is medium
+
+A reader looking for the type rules lands under pwsh and reads them as PowerShell rules, and 14 of 309 types bind to the pwsh host without
+anything saying which or why. The language, its reference set and its host become three named things, each with one owner, which a second
+host (or a reader of a bundle) needs before the types can be reasoned about apart from pwsh. Nothing breaks today, so medium.
+
+## Decided (2026-10-20, from the user)
+
+- BCL is a language of its own: a subset of .NET, C# against the Base Class Library. pwsh is its host, not its owner.
+
+## Open questions (recommendation first)
+
+1. **What becomes of the 14 types that reference `System.Management.Automation`?** They fall into three kinds: `PSObject` unwrapping
+   (`ContractValue`, `ValueChainHighlight`, `ValueChainMap`, `WorldMapBuilder`, `WorldMapHighlight`), `WildcardPattern` (`GlobPattern`), and
+   the PowerShell parser and runspace (`GlossaryProse`, `FunctionCallCollector`, `CommentLexer`, `ParsedScripts`, `SyntaxSearch`,
+   `PipelineWatchdog`, `ContractParameter`, `TypeShape`).
+   - **Recommended:** each host binding is a config entry (`ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY`), one row per file with its reason, in a
+     `bcl.yml` beside `languages.yml`; a gate fails a `using System.Management.Automation*` in any file without a row. The `PSObject`
+     unwrapping moves to the pwsh caller and those five rows never exist; the parser and runspace rows stay, since parsing PowerShell is the
+     job.
+   - Alternative: a second layout folder (`host-types/`) for host-bound C#; costs a second namespace source for `Format-Types` and the
+     loader.
+   - Alternative: rewrite all 14 to the BCL only; the parser types cannot be.
+2. **Does BCL get its own ADR domain and prefix, like pwsh did?**
+   - **Recommended:** yes. A `bcl` domain in `adrs.yml` (folder `automation/BCL`, depends on `automation`), `ADR-AUTO-TYPES` re-cited to
+     `ADR-BCL-TYPES` with `Update-AdrCitation` (dry run first, no `folder` rows on one-segment folders), and `ADR-PWSH-TYPES` depends on
+     `bcl`.
+   - Alternative: keep `ADR-AUTO-TYPES` and move only the docs and the reference set.
+3. **Is the language row renamed from `csharp` to `bcl`?** 41 uses in 19 files (configs, `LanguagesConfig`, `CommentsConfig`, imprint and
+   formatter tests).
+   - **Recommended:** yes, `bcl`, with `.cs` as its extension; the row names the language, `.cs` names its syntax. One change with every
+     caller (`ADR-PRIN-ONELIVE`).
+   - Alternative: keep `csharp`, and say in the row's comment that it means BCL.
+
+## Open steps
+
+The doc moves have no open question and go first; each later step waits on the answer it names.
+
+- [ ] `docs/references/pwsh/BCL/` → `docs/references/BCL/` (both pages, moved on disk): reword "the host-guaranteed assemblies" to the BCL
+      language with pwsh as its host, and re-point each relative link one level up (check: `Test-Links` on both pages).
+- [ ] `docs/how-to/getting-started/pwsh/BCL/` → `docs/how-to/getting-started/BCL/` (both pages, moved on disk): re-point relative links
+      (check: `Test-Links` on both pages).
+- [ ] `docs/how-to/pwsh/manual-test-plan/csharp-types.md`: decide by reading it whether it tests the pwsh hosting (stays) or the language
+      (moves to `docs/how-to/BCL/manual-test-plan/`); record the verdict here (check: `Test-Links` on the page).
+- [ ] `docs/index.md`, `docs/how-to/getting-started/automation/index.md`, `docs/how-to/getting-started/pwsh/add-a-module.md`,
+      `docs/how-to/getting-started/pwsh/debug-in-vscode.md`, `docs/references/pwsh/index.md`: re-point the links into the moved folders, one
+      file at a time; `references/pwsh/index.md` keeps one line pointing at the BCL reference as the language its loaders host (check:
+      `Test-Links` per file).
+- [ ] `docs/adr/automation/BCL/index.md`: say BCL is a language, a subset of .NET, hosted by pwsh, and name the two ADRs (language, hosting)
+      (check: `Test-Links`, `Test-Markdownlint`).
+- [ ] `docs/adr/automation/BCL/native-csharp-types.md`: a rule stating the BCL reference set — the BCL only, a host binding only as its
+      configured exception (waits on Q1); the host-binding section names the language and its host apart (check: `Test-AdrIndex`,
+      `Test-Links`).
+- [ ] `docs/adr/automation/pwsh/hosting-csharp-types.md`: narrow `ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES` and
+      `ADR-PWSH-TYPES-POWERSHELLPRIMITIVES` to "the BCL language, plus SMA for a configured host binding" (waits on Q1) (check:
+      `Test-AdrIndex`).
+- [ ] `pwsh/Catzc.Base.Languages/configs/bcl.yml` and its config type: one row per host-bound file with its reason; register in
+      `configs.yml` (waits on Q1) (check: the config type's L0 tests).
+- [ ] The gate over `types/*.cs` that fails an unlisted `System.Management.Automation` reference (waits on Q1), with its L0 tests on
+      widget/gadget fixtures (check: its Pester file).
+- [ ] The five `PSObject`-unwrapping types: unwrap in the pwsh caller and drop the `using`, one file at a time (waits on Q1) (check: each
+      module's Pester files, then a fresh full import).
+- [ ] `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `docs/adr/index.md`: the `bcl` domain and its table; `automation/`'s description stops
+      listing `BCL/` as a language layer (waits on Q2) (check: `Test-AdrIndex`).
+- [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first (waits on Q2) (check: `Test-AdrCitations` over
+      the tree).
+- [ ] `pwsh/Catzc.Base.Languages/configs/languages.yml`: rename the `csharp` row to `bcl`, then every caller in the same change (waits on
+      Q3) (check: `Catzc.Base.Languages` and `Catzc.Base.QualityGates` Pester, then `Test-Formatting -Language bcl`).
+
+## Refs
+
+- `docs/adr/automation/BCL/native-csharp-types.md` (`ADR-AUTO-TYPES`) — what the types are.
+- `docs/adr/automation/pwsh/hosting-csharp-types.md` (`ADR-PWSH-TYPES`) — how pwsh hosts them.
+- `docs/adr/principles/one-living-version.md` (`ADR-PRIN-ONELIVE`) — moves and renames change every caller at once.
+- Microsoft's BCL definition: <https://learn.microsoft.com/en-us/dotnet/standard/glossary#bcl>.

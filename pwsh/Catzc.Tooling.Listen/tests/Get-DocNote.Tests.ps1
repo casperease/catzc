@@ -27,7 +27,7 @@ Describe 'Get-DocNote' -Tag 'L0', 'logic' {
     }
 
     It 'leaves out the processed ones with -Unprocessed' {
-        Complete-DocNote -Session $script:session -Id '0001' -FactCheck 'partly' -Pattern 'widget-parts' -Plan 'plan-listen-widget-parts.md'
+        Complete-DocNote -Session $script:session -Id '0001' -FactCheck 'partly' -FactCheckReason 'docs/adr/widget.md:3 names one part of two' -Pattern 'widget-parts' -Plan 'plan-listen-widget-parts.md'
         @(Get-DocNote -Session $script:session -Unprocessed).Id | Should -Be @('0002')
         (Get-DocNote -Session $script:session)[0].Processed | Should -BeTrue
     }

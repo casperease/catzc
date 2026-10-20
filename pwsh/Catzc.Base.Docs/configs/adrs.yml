@@ -7,7 +7,8 @@ domains:
       into one source of truth, the repository, with one change process. The repository is the configuration record and answers queries
       through the tooling; inside the trunk everything is at HEAD, and versions exist only at the repository boundary, as pins. Outside the
       responsibility domain a repository holds, the truth stores are fact sources and state machines, read and reported to at junctions and
-      synchronised into actionable facts. It describes the product and rests on the DORA research, the authoritative source, and the
+      synchronised into actionable facts. Any code, unordered fragments included, has an eac normal form: verifiable within the sensible
+      defaults, the bundle, and the local configs, and uncontested by the repository's formatters, tests, and asserts. It describes the product and rests on the DORA research, the authoritative source, and the
       principles state its mechanics, so every other domain cites it (`ADR-THES-*`) through them.
     depends_on: [research]
     stack: PRIN
@@ -15,6 +16,7 @@ domains:
     rulesets:
       one-source-of-truth: { external: ADR-THES-ONETRUTH }
       truth-stores: { external: ADR-THES-STORES }
+      eac-normal-form: { external: ADR-THES-NORMALFORM }
 
   principles:
     code: PRIN # domain default — composes ADR-PRIN-<NAME>

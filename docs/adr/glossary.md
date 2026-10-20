@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d04e8df96d70
+    with_body_sha: d38d0070d047
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -48,6 +48,26 @@ trunk's pipelines and never edited beside it.
   - [source of truth](#source-of-truth): The source of truth is the record everything is driven from; an adjacent store is a one-way
     projection of it, never a second record.
 
+### eac normal form
+
+The shape in which the repository can verify any code — verifiable within its enabling constraints and uncontested by its formatters, tests,
+and asserts.
+
+- **Defined by:** [ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM](thesis/eac-normal-form.md#rule-adr-thes-normalform-anycodehasnormalform)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [repository normal form](#repository-normal-form): The repository normal form is the one language-neutral spelling of a name; the eac
+    normal form is the verifiable shape of a whole piece of code.
+
+### enabling constraints
+
+What a repository declares about itself — the sensible defaults, the catzc bundle, and the local configs — and nothing else.
+
+- **Defined by:** [ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS](thesis/eac-normal-form.md#rule-adr-thes-normalform-enablingconstraints)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+
 ### fact source
 
 A state store — a database with a reachable live URL holding state about delivery outside the repository — that catzc reads only.
@@ -60,6 +80,14 @@ A state store — a database with a reachable live URL holding state about deliv
     machine and only read.
   - [state machine](#state-machine): A state machine is the application that owns and changes a fact source; a fact source is the store
     catzc reads.
+
+### migration
+
+Bringing an unordered code fragment into eac normal form through the one change process.
+
+- **Defined by:** [ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM](thesis/eac-normal-form.md#rule-adr-thes-normalform-migrationreachestheform)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
 ### pin
 
@@ -154,6 +182,22 @@ Any store that holds part of the truth about a delivered system — a version-co
 - **Contrasts:**
   - [source of truth](#source-of-truth): The source of truth is the one truth store that decides inside a responsibility domain, the
     repository; a truth store is any store of the three kinds.
+
+### uncontested
+
+Of code, left unchanged by every formatter and failed by no test or assert of the repository; the fixed point of its checks.
+
+- **Defined by:** [ADR-THES-NORMALFORM-UNCONTESTED](thesis/eac-normal-form.md#rule-adr-thes-normalform-uncontested)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+
+### unordered code fragment
+
+Code from outside the trunk, in whatever shape its origin left it, that is not yet in eac normal form and decides nothing.
+
+- **Defined by:** [ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM](thesis/eac-normal-form.md#rule-adr-thes-normalform-anycodehasnormalform)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
 ### version-controlled repository
 
@@ -912,6 +956,9 @@ The one language-neutral spelling of a function, type, parameter or module name,
 - **Defined by:** [ADR-AUTO-IDIOM-NORMALFORM](automation/idiomatic-names.md#rule-adr-auto-idiom-normalform)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Languages/configs/glossary.yml`
+- **Contrasts:**
+  - [eac normal form](#eac-normal-form): The eac normal form is the verifiable shape of a whole piece of code; the repository normal form is
+    the one language-neutral spelling of a name.
 
 ### test
 

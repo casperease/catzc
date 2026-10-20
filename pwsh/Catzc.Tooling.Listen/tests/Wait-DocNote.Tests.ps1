@@ -45,7 +45,7 @@ Describe 'Wait-DocNote' -Tag 'L0', 'logic', 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
     It 'returns nothing when its bound runs out with every note processed' {
         Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nProcessed.`n"
         Get-DocChange -Session $script:session | New-DocNote -Session $script:session | Out-Null
-        Complete-DocNote -Session $script:session -Id '0001' -FactCheck 'holds' -Pattern 'widget' -Plan 'none'
+        Complete-DocNote -Session $script:session -Id '0001' -FactCheck 'holds' -FactCheckReason 'docs/adr/widget.md:3 already says it' -Pattern 'widget' -Plan 'none'
         $watch = [System.Diagnostics.Stopwatch]::StartNew()
         @(Wait-DocNote -Session $script:session -TimeoutSeconds 1).Count | Should -Be 0
         $watch.Elapsed.TotalSeconds | Should -BeLessThan 3

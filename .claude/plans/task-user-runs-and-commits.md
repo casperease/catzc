@@ -17,7 +17,10 @@ final full run last.
 
 ## Steps
 
-1. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+1. Commit the truth-stores ADR: `docs/adr/thesis/truth-stores.md` (new), `one-source-of-truth.md`, `dora-explains.md`,
+   `pwsh/Catzc.Base.Docs/configs/adrs.yml`, `glossary.yml`, and the regenerated `docs/adr/index.md` and `docs/adr/glossary.md`. Check:
+   `Test-Links` on the three thesis pages reports no untracked target.
+2. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
    every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

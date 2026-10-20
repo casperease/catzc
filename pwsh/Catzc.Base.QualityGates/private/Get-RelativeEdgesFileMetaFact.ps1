@@ -77,7 +77,7 @@ function Get-RelativeEdgesFileMetaFact {
         if ($found) {
             Assert-True $relatives.Contains("$($relation['name'])") `
                 -ErrorText "file-meta config: kind '$($Kind.id)' relation '$($relation['name'])' is not one of its keys [$($Kind.keys -join ', ')]."
-            # A relation with a link template shows its file as a code link, repository-rooted, as a comment's link is.
+            # A relation with a link template shows its file as a link whose target is the same repository-relative path.
             if ($relation.Contains('link')) {
                 $found = "$($relation['link'])".Replace('{leaf}', [System.IO.Path]::GetFileName($found)).Replace('{path}', $found)
             }

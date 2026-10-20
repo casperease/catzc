@@ -35,3 +35,17 @@ ADRs themselves; this file carries only their DORA rationale.
 - [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — state machines met at junctions, with
   facts reported to them instead of a separate model kept for them.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Eac normal form
+
+[ADR-THES-NORMALFORM](eac-normal-form.md)
+
+> DORA finds that comprehensive version control, test automation, and code maintainability predict delivery performance, and that they pay
+> off only when everything needed to reproduce a system is checked the same way. One eac normal form, verified within the repository's own
+> enabling constraints and uncontested by its formatters, tests, and asserts, gives every piece of code, imported fragments included, one
+> repeatable test of whether it belongs to the record.
+
+- [Version control](../../references/dora/capabilities.md#version-control) — any code, whatever its origin, is brought under the one record.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — the repository's own checks decide the form, not judgement.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one target shape any team member can read and verify.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

@@ -135,8 +135,8 @@ link that stays inside the file, an anchor in it, the file itself or its own com
 
 The head is a map of facts about its own file, so it holds as few links to other files as possible, and only those that cost to derive and
 truly define a relationship. The edges of a code file point at its **relatives**, at most two edges with fixed names: `docs` (its comment
-page, [ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight), written as a code link
-([ADR-REPO-LINK](markdown-links.md)) with the page's file name as its text) and `test` (the Pester file that tests it). A relative stays
+page, [ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight), written as a link whose target is
+the page's repository-relative path and whose text is the page's file name) and `test` (the Pester file that tests it). A relative stays
 inside the file's own module or its docs section, never in another module, so modules relate to each other by name and never through a file
 path (encapsulation), and only the code side points: a test or a page knows its code by its name, so no pair is recorded twice. The edges
 and the rules that fill them are the `relative-edges` kind's settings in `file-meta.yml`, so a new edge is a registry entry, never a new
@@ -346,8 +346,8 @@ already holds derived facts, so the companions are two more edges, one fixed nam
 truly define a relationship, so the head stays a map of facts about its own file. A companion that the file's name already gives, such as
 the code a test covers, is not recorded from the test's side. The registry holds the list of edges and the path rule of each, and an edge
 whose file does not exist is not written, so an entry in the head is always a working pointer. The page is the companion a reader opens from
-the code, so its edge is written as a code link, the same repository-rooted form a comment's link takes, which an editor follows in one
-click; an edge a tool follows stays a bare path.
+the code, so its edge is written as a link, which an editor follows in one click, and its target is the repository-relative path every edge
+holds; an edge a tool follows stays a bare path.
 
 ### File kinds
 

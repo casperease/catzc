@@ -21,9 +21,10 @@ path), `role` (the class of the file, the name of the file-kinds registry entry 
 the file), `module` (the folder under the modules track's place, when the file is placed in one), for a PowerShell file `visibility`
 (`private` or `public`, from the folder), all place facts under `immutable`, and the edges under `edges`: `cites`, the ADR codes that bind
 the file, sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and each domain-level citation a bare `ADR-<CODE>`, and `docs`, the
-code link to its comment page, and `test` ([ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)). For a C# type file,
-a PowerShell function file and a PowerShell test file the head holds `cites`: each code the file and its comment page cite that the ADR
-index registers, so a fixture code or a placeholder named in prose is no citation, derived on every run and never read back from the head
+link to its comment page by its repository-relative path, and `test`
+([ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)). For a C# type file, a PowerShell function file and a
+PowerShell test file the head holds `cites`: each code the file and its comment page cite that the ADR index registers, so a fixture code or
+a placeholder named in prose is no citation, derived on every run and never read back from the head
 ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)). An authored code file never holds a hash of the body,
 which would change on every edit and make every edit a two-hunk diff; a generated one opens with it
 ([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)), since its writer rewrites the whole file and the

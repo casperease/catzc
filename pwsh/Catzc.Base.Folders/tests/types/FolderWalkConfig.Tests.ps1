@@ -15,7 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[FolderWalkConfig.Tests.ps1.md](/docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md)"
+    docs: "[FolderWalkConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM

@@ -5,7 +5,10 @@ function Complete-DocNote {
 
     .DESCRIPTION
         The ledger is the processor's own file, as the notes are the listener's: one writer per file, so neither waits on the other. A
-        line reads `- <id> | fact-check: <verdict> | pattern: <name> | plan: <plan file>`; a note is completed once.
+        line reads `- <id> | fact-check: <verdict> | because: <reason> | pattern: <name> | plan: <plan file>`; a note is completed once.
+
+        A fact-check never stands alone: the verdict is always written with the reason that supports it (what in the reference holds or
+        breaks, with its path:line), so a reader of the ledger can check the verdict without running the fact-checker again.
 
     .PARAMETER Session
         The session folder. Default: the newest session.
@@ -15,6 +18,10 @@ function Complete-DocNote {
 
     .PARAMETER FactCheck
         The fact-checker's verdict on the repository against the note: holds, partly, or does not hold.
+
+    .PARAMETER FactCheckReason
+        Why the verdict is what it is: the fact-checker's reasoning, with the path:line it rests on. Required with every verdict, and more
+        than the verdict itself.
 
     .PARAMETER Pattern
         The pattern the note was folded into.
@@ -35,6 +42,10 @@ function Complete-DocNote {
         [string] $FactCheck,
 
         [Parameter(Mandatory)]
+        [ValidateNotNullOrWhiteSpace()]
+        [string] $FactCheckReason,
+
+        [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $Pattern,
 
@@ -48,9 +59,11 @@ function Complete-DocNote {
     Assert-True ($note.Count -eq 1) -ErrorText "Complete-DocNote: the session has no note '$Id'."
     Assert-True (-not $note[0].Processed) -ErrorText "Complete-DocNote: the note '$Id' is already processed."
 
-    foreach ($value in $Pattern, $Plan) {
+    $reason = $FactCheckReason.Trim()
+    Assert-True ($reason.Trim('.', ' ') -cne $FactCheck) -ErrorText "Complete-DocNote: the reason for '$FactCheck' only repeats the verdict; give what supports it, with its path:line."
+    foreach ($value in $reason, $Pattern, $Plan) {
         Assert-True (-not $value.Contains('|') -and -not $value.Contains("`n")) -ErrorText "Complete-DocNote: '$value' holds a '|' or a line break, which the ledger line cannot carry."
     }
-    $line = "- $Id | fact-check: $FactCheck | pattern: $Pattern | plan: $Plan`n"
+    $line = "- $Id | fact-check: $FactCheck | because: $reason | pattern: $Pattern | plan: $Plan`n"
     [System.IO.File]::AppendAllText((Join-Path $Session 'processed.md'), $line, [System.Text.UTF8Encoding]::new($false))
 }

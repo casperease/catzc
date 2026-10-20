@@ -16,7 +16,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
-    docs: "[Get-ChildPath.ps1.md](/docs/references/pwsh/catzc-base-folders/Get-ChildPath.ps1.md)"
+    docs: "[Get-ChildPath.ps1.md](docs/references/pwsh/catzc-base-folders/Get-ChildPath.ps1.md)"
 ---
 #>
 

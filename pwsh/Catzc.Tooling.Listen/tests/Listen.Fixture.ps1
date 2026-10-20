@@ -15,7 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: full
   edges:
-    docs: "[Listen.Fixture.ps1.md](/docs/references/pwsh/catzc-tooling-listen/tests/Listen.Fixture.ps1.md)"
+    docs: "[Listen.Fixture.ps1.md](docs/references/pwsh/catzc-tooling-listen/tests/Listen.Fixture.ps1.md)"
 ---
 #>
 

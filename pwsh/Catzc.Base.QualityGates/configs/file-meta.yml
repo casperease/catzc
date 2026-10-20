@@ -68,14 +68,14 @@ kinds:
     keys: [visibility]
     select: [{ classes: [function] }]
 
-  # The few files a code file points at, one edge per fixed name; each only when it exists, docs as a code link to the comment page.
+  # The few files a code file points at, one edge per fixed name; each only when it exists, docs as a link to the comment page by its repository-relative path.
   relative-edges:
     section: edges
     keys: [test, docs]
     settings:
       relations:
         - name: docs
-          link: "[{leaf}](/{path})"
+          link: "[{leaf}]({path})"
           rules:
             - { paths: ["{page}"] }
         - name: test

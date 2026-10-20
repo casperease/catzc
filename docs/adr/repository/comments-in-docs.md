@@ -9,7 +9,7 @@ order it depends on, the edge it guards, the reason a branch exists. A comment t
 the file's **comment page** and leaves **nothing** in the file: no marker, no insight line, no link. The comment's ADR citations move with
 the rest of its prose and are found there. The way from a file to its page is the `pages` map of `comments.yml`
 ([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](#rule-adr-repo-comments-commentpageplace)), so it is derived from the file's path, never a line of
-code. The file's meta head shows that way as a code link for a reader
+code. The file's meta head shows that way as a link for a reader
 ([ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)), but no tool reads it back
 ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)).
 

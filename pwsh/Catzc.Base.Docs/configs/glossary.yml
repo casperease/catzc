@@ -389,6 +389,42 @@ concepts:
       The tooling's Get-* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state
       is answered.
     realized_by: { kind: prose-only }
+  eac normal form:
+    key: eac_normal_form
+    domain: thesis
+    defined_by: ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+    short:
+      The shape in which the repository can verify any code — verifiable within its enabling constraints and uncontested by its formatters,
+      tests, and asserts.
+    realized_by: { kind: prose-only }
+    contrasts:
+      repository normal form:
+        The repository normal form is the one language-neutral spelling of a name; the eac normal form is the verifiable shape of a whole
+        piece of code.
+  unordered code fragment:
+    key: unordered_code_fragment
+    domain: thesis
+    defined_by: ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+    short: Code from outside the trunk, in whatever shape its origin left it, that is not yet in eac normal form and decides nothing.
+    realized_by: { kind: prose-only }
+  enabling constraints:
+    key: enabling_constraints
+    domain: thesis
+    defined_by: ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+    short: What a repository declares about itself — the sensible defaults, the catzc bundle, and the local configs — and nothing else.
+    realized_by: { kind: prose-only }
+  uncontested:
+    key: uncontested
+    domain: thesis
+    defined_by: ADR-THES-NORMALFORM-UNCONTESTED
+    short: Of code, left unchanged by every formatter and failed by no test or assert of the repository; the fixed point of its checks.
+    realized_by: { kind: prose-only }
+  migration:
+    key: migration
+    domain: thesis
+    defined_by: ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+    short: Bringing an unordered code fragment into eac normal form through the one change process.
+    realized_by: { kind: prose-only }
   product mono-repository:
     key: product_mono_repository
     domain: thesis

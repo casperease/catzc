@@ -9,7 +9,7 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
 
         $script:relations = @(
-            @{ name = 'docs'; link = '[{leaf}](/{path})'; rules = @(@{ paths = @('{page}') }) }
+            @{ name = 'docs'; link = '[{leaf}]({path})'; rules = @(@{ paths = @('{page}') }) }
             @{ name = 'test'; rules = @(@{ classes = @('widget-function'); paths = @('widgets/{module}/tests/{stem}.Tests.ps1') }) }
             @{ name = 'source'; rules = @(@{ classes = @('widget-test'); paths = @('widgets/{module}/{stem}.ps1', 'widgets/{module}/private/{stem}.ps1') }) }
         )
@@ -50,13 +50,13 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
         }
     }
 
-    It 'names the comment page as a code link and the test of a function file, in the order declared, when both exist' {
+    It 'names the comment page as a repository-relative link and the test of a function file, in the order declared, when both exist' {
         New-File 'widgets/Catzc.Gadget/Get-Cog.ps1'
         New-File 'widgets/Catzc.Gadget/tests/Get-Cog.Tests.ps1'
         New-File 'docs/catzc-gadget/Get-Cog.ps1.md'
         $relatives = Get-Relatives 'widgets/Catzc.Gadget/Get-Cog.ps1'
         @($relatives.Keys) | Should -Be @('docs', 'test')
-        $relatives['docs'] | Should -BeExactly '[Get-Cog.ps1.md](/docs/catzc-gadget/Get-Cog.ps1.md)'
+        $relatives['docs'] | Should -BeExactly '[Get-Cog.ps1.md](docs/catzc-gadget/Get-Cog.ps1.md)'
         $relatives['test'] | Should -BeExactly 'widgets/Catzc.Gadget/tests/Get-Cog.Tests.ps1'
     }
 

@@ -46,6 +46,8 @@ Open, in execution order. Nothing is held. A chunk without a task file is execut
 
 - idiomatic-names -> plan-idiomatic-names.md: wire the naming gate in (rule, test-folder mapping, three renames, gate on), then the
   repository normal form for function and type names and the `0.0.0` command contracts.
+- truth-stores -> plan-truth-stores.md: answer Q1-Q3, align ADR-THES-STORES with the ADO writers, then the truth-store config, the
+  actionable-fact contract and the junction contracts.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.
