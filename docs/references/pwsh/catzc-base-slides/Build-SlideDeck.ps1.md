@@ -26,6 +26,11 @@ The deck folder, repository-relative, such as docs/explanation/thesis/product-th
 
 The slides kit folder, repository-relative. The default is the slides config's kit.
 
+### parameter `Theme`
+
+The theme the deck renders in: the kit's `token` set for the default theme, its `token-<theme>` set for another, whose deck lands in
+`<deck>-<theme>`. Default: `theme` of `slides.yml`, declared once on SlidesConfig.
+
 ### parameter `OutputFolder`
 
 Where the render lands. The default is the kit's render.out followed by the deck folder's name.

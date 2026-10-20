@@ -53,8 +53,8 @@ artifacts still land, so the person always has something to read.
 
 The kit is the module's configuration in the sense of ADR-PRIN-CONFIG: a new glyph is a library entry and a legend phrase, a new lens is a
 line in `drawio.yml`, a new slide layout is a pattern file. The scripts know the vocabulary's shape, never its instances. Colours are
-themes: every style names a token, and `drawio.yml` holds one token set per theme; the default theme's render is the committed png, and
-any other theme renders on demand to `out/drawio/themes/`.
+themes: every style names a token, and `drawio.yml` holds one token set per theme; the default theme's render is the committed png, and any
+other theme renders on demand to `out/drawio/themes/`.
 
 The tests run from the module's own `tests/` folder through the language bridge, on fixture models in the neutral widget vocabulary, never
 on a real drawing.

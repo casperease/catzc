@@ -43,11 +43,9 @@ Automation functions run in two contexts: interactively on a developer's machine
 GitHub Actions). Some behavior must differ between these contexts:
 
 - **Output format.** Pipelines need structured logging (`##vso` commands). Interactive sessions need readable console output.
-- **Token source.** Pipelines use `$env:SYSTEM_ACCESSTOKEN`. Local runs use `Get-AzAccessToken` (see
-  [dual-authentication ADR](../ado/dual-authentication.md)).
+- **Token source.** Pipelines use `$env:SYSTEM_ACCESSTOKEN`. Local runs use `Get-AzAccessToken`; the ado domain binds the two.
 - **Artifact paths.** Pipelines write to `$env:BUILD_ARTIFACTSTAGINGDIRECTORY`. Local runs write to `out/`.
-- **Pipeline variables.** `Set-AdoPipelineVariable` emits `##vso` in a pipeline and is a no-op locally (see
-  [pipeline-variables ADR](../ado/pipeline-variables.md)).
+- **Pipeline variables.** `Set-AdoPipelineVariable` emits `##vso` in a pipeline and is a no-op locally.
 
 The question is: how should a function know which context it is in?
 

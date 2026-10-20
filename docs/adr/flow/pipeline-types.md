@@ -177,9 +177,8 @@ and deploys nothing. It invokes one automation function on a clock.
 
 - **Trigger:** a schedule.
 - **Contract:** it is a thin scheduled invocation of an automation function through the runner (see
-  [pipeline-runner-pattern](pipeline-runner-pattern.md)). The logic lives in an idempotent `pwsh/` function (see
-  [idempotent-state-functions](../automation/idempotent-state-functions.md)), not in YAML. The pipeline names a `RunCommand` and a schedule;
-  nothing more.
+  [pipeline-runner-pattern](pipeline-runner-pattern.md)). The logic lives in an idempotent `pwsh/` function, not in YAML. The pipeline names
+  a `RunCommand` and a schedule; nothing more.
 
 ### CI
 
@@ -194,9 +193,9 @@ This is "the CI pipeline" and, identically, "the CI part of the CD pipeline."
 - **Trigger:** ADO build validation on the PR branch (pre-commit) and a master trigger (post-commit), registered on the native path-filter
   projection of the unit it verifies ([durable-sha-globs](durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter)) — generated from
   `globs.yml`, never hand-authored.
-- **Example — CI-automation:** "builds" by running `importer.ps1` and "tests" via `Test-Automation` (see
-  [test-automation](../automation/test-automation.md)). It produces no artifact; it simply verifies that the pwsh modules load and are
-  green. It registers on the automation unit's native projection (`pwsh/**`), so it runs exactly when that unit's files change.
+- **Example — CI-automation:** "builds" by running `importer.ps1` and "tests" via `Test-Automation`. It produces no artifact; it simply
+  verifies that the pwsh modules load and are green. It registers on the automation unit's native projection (`pwsh/**`), so it runs exactly
+  when that unit's files change.
 - **Contract:** unit-scoped and fast. The pre-commit budget is 5–10 minutes. A CI pipeline never deploys and never publishes a deployable
   artifact; if it needs to, it is a CD pipeline.
 
@@ -302,15 +301,15 @@ In a CDe, a production gate is optional and, when present, _internal_ to an othe
 `INPUT — self-service input, turned into a commit`
 
 INPUT is the self-service primitive: it accepts user parameters and turns them into a **version-controlled change**. User input becomes
-git-resident config, not a runtime merge into a hidden config program on its way to the cloud — the config tree of
-[the data model](../azure/azure-data-model.md) is the source of truth, and nothing bypasses it.
+git-resident config, not a runtime merge into a hidden config program on its way to the cloud — the committed config tree is the source of
+truth, and nothing bypasses it.
 
 An INPUT pipeline:
 
 1. Takes user input via **ADO pipeline parameters**.
 2. Checks out the repo.
-3. **Creates or edits infrastructure template config files** (under `infrastructure/templates/<name>/configuration/…`, see
-   [the data model](../azure/azure-data-model.md)) to merge in the user's configuration parameters.
+3. **Creates or edits infrastructure template config files** (under `infrastructure/templates/<name>/configuration/…`) to merge in the
+   user's configuration parameters.
 
 Its output is a change to the source of truth — a commit — not a deployment. The user's parameters become git-resident config that the
 normal CI/CD path then carries to the cloud. The invariant: self-service belongs _above_ the pipeline, feeding the source of truth —
@@ -354,14 +353,13 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 
 ## Related
 
-- [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the design layer above this taxonomy: CI as a
-  discipline, and how CI / CD / CDe / DEPLOY key together into a promotion flow via the tagged artifact.
+- [cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md) — the design layer above this taxonomy: CI as a discipline, and
+  how CI / CD / CDe / DEPLOY key together into a promotion flow via the tagged artifact.
 - [pipeline-runner-pattern](pipeline-runner-pattern.md) — how all six invoke PowerShell.
-- [custom-template-discipline](../ado/custom-template-discipline.md) — YAML carries ADO concerns only.
-- [pipeline-detection](pipeline-detection.md), [pipeline-variables](../ado/pipeline-variables.md),
-  [dual-authentication](../ado/dual-authentication.md) — mechanics every type relies on.
+- [pipeline-detection](pipeline-detection.md) — the context mechanics every type relies on; the ado domain binds its YAML, variables and
+  credentials.
 - [durable-sha-globs](durable-sha-globs.md) — the globset projection every unit-scoped trigger registers on.
-- [test-automation](../automation/test-automation.md) — the L2/L3 tiers the CI engine runs.
+- The L2/L3 test tiers — what the CI engine runs.
 - DORA: [continuous integration](../../references/dora/capabilities.md#continuous-integration),
   [test automation](../../references/dora/capabilities.md#test-automation),
   [streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — the capabilities behind the

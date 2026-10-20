@@ -10,13 +10,20 @@ plan:
 # ADR citations follow the domain dependencies, in the body too
 
 An ADR cites only the domains its domain's `depends_on` in `adrs.yml` names; anything else is said with the glossary term. The guard checks
-summary lines only, so body citations against the direction slip through (found by catzc-c0 on 2026-10-20 during the ADR-FLOW-CD-LIFE
-move): `design/server-remote-integration.md` cites ADR-FLOW-CD in Related, and process and research pages cite design codes.
+summary lines only, so body citations against the direction slip through (found by catzc-c0 on 2026-10-20 during the ADR-FLOW-CD-LIFE move):
+`design/server-remote-integration.md` cites ADR-FLOW-CD in Related, and process and research pages cite design codes.
 
 ## Why its value is high
 
 A citation against the dependency direction makes a cycle between domains, so a domain can no longer be read, reviewed or moved without the
 one it should sit under.
+
+## Decided (the user, 2026-10-20)
+
+- `azure` gains `flow` and `ado` in its `depends_on`; the few flow-to-azure citations are reworded first, so no cycle forms.
+- Every other finding is reworded to the glossary term in waves, one file at a time, split by citer domain: automation and flow; research,
+  thesis and principles; design, process, repository and azure. The check (`citation_graph`) turns from `mode: report` to `mode: gate` when
+  the findings reach 0.
 
 ## Open steps
 

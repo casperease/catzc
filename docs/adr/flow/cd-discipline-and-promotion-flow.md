@@ -270,10 +270,9 @@ CI, CD, and DEPLOY are deliberately **separate ADO constructs** — separate tri
 they answer to different owners and cadences (build-and-verify on every change; automated non-prod promotion; production cutover behind a
 manual gate). What keeps them from being three disconnected things is that they are **keyed together by one shared object**: the immutable,
 tagged artifact. A CI component stamps it once; CD consumes exactly that tag; DEPLOY promotes exactly that tag to prod. The tag (and its
-commit) is the join key across the kinds, the same way a subscription name joins the two Azure config layers
-([data-model](../azure/azure-data-model.md)). Because the key is an immutable artifact and no kind rebuilds it — build-once, deploy-many —
-what runs in production is byte-identical to what was certified in non-prod. The kinds stay small and independently reasoned; the artifact
-carries the continuity.
+commit) is the join key across the kinds, the same way one name joins two configuration layers. Because the key is an immutable artifact and
+no kind rebuilds it — build-once, deploy-many — what runs in production is byte-identical to what was certified in non-prod. The kinds stay
+small and independently reasoned; the artifact carries the continuity.
 
 ### A CD is a CI that keeps going
 
@@ -294,9 +293,9 @@ This is why the taxonomy calls CI "a CD pipeline with the deploy removed" — th
 A CD pipeline's job, after the build, is to move the artifact through non-prod in a fixed direction:
 
 1. **On-demand environment + L3 E2E.** Deploy the tagged artifact to a throwaway, on-demand environment and run **L3 system-level
-   end-to-end** tests against it ([test-automation](../automation/test-automation.md) L3 tier). E2E here is either **vertical** — one thin
-   slice exercised through every layer — or **horizontal** — broad coverage across a layer. This is the artifact proving itself against real
-   cloud dependencies, in an environment that exists only for the run.
+   end-to-end** tests against it (the L3 test tier). E2E here is either **vertical** — one thin slice exercised through every layer — or
+   **horizontal** — broad coverage across a layer. This is the artifact proving itself against real cloud dependencies, in an environment
+   that exists only for the run.
 2. **The always-on mirror of main.** Then roll the same artifact onto an **always-on, hands-off non-prod environment that continuously
    matches latest main/master** — reconciled automatically by the post-commit run, so it is always a live reflection of the mainline.
    Whether an organization calls this `main-UAT`, `DEV`, or `TEST` is its own semantics; the **shape** is what this ADR fixes: always up, no
@@ -377,8 +376,7 @@ gate, and lets a Continuous **Deployment** (CDe) posture internalize the roll (A
 point where RC/RBC would otherwise stop it. Which gates a unit passes through — and whether a human or the pipeline owns the decision to
 advance — is the delivery-vs-deployment posture of ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY/ADR-FLOW-CD-CDEINTERNALIZESPROMOTION.
 
-RC and RBC are the manual gates. A gate a machine decides is a quality gate, which the automation rules define as a gate in this sense
-([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)).
+RC and RBC are the manual gates. A gate a machine decides is a quality gate, which is a gate in this sense.
 
 ### AT and UAT
 
@@ -521,12 +519,11 @@ the CI run that run named. A unit whose DEPLOY has no prod target has nothing to
 
 ## Related
 
-- [pipeline-types](../flow/pipeline-types.md) — the taxonomy this ADR layers on (CRON / CI / CD / CDe / DEPLOY / INPUT).
-- [pipeline-runner-pattern](../flow/pipeline-runner-pattern.md) — how every pipeline kind invokes automation.
-- [test-automation](../automation/test-automation.md) — the L0–L3 tiers; L3 is the system-level E2E CD runs in its on-demand environment,
-  and the outer CI+ loop (ADR-FLOW-CD-INNERANDOUTERLOOP).
-- [repo-variants](../repository/repo-variants.md) — the `git_workspace` variant (`ADR-REPO-VARIANT-GITWORKSPACE`) is the PR-vs-Direct
-  integration mode the value-chain diagrams prefix a flow with.
+- [pipeline-types](pipeline-types.md) — the taxonomy this ADR layers on (CRON / CI / CD / CDe / DEPLOY / INPUT).
+- [pipeline-runner-pattern](pipeline-runner-pattern.md) — how every pipeline kind invokes automation.
+- The L0–L3 test tiers — L3 is the system-level E2E CD runs in its on-demand environment, and the outer CI+ loop
+  (ADR-FLOW-CD-INNERANDOUTERLOOP).
+- The `git_workspace` variant — the PR-vs-Direct integration mode the value-chain diagrams prefix a flow with.
 - [everything-as-code](../principles/everything-as-code.md), [reduce-waste](../principles/reduce-waste.md) — build-once/deploy-many and the
   version-aligned artifact are these principles applied to the flow.
 - DORA: [continuous integration](../../references/dora/capabilities.md#continuous-integration) — the fast-feedback budget a slow test run in

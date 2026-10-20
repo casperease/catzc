@@ -38,6 +38,11 @@ folder stops the run.
 
 The draw.io kit folder that holds `drawio_forward.py`. Default: `drawio_kit` of `slides.yml`.
 
+### parameter `Theme`
+
+The theme the renderer puts in. The default theme writes the committed png; another theme puts the declared folders to
+`out/drawio/themes/<theme>/` and leaves the tree alone. Default: `theme` of `slides.yml`, declared once on SlidesConfig.
+
 ### parameter `RepositoryRoot`
 
 The repository root the folders are relative to. Default: the loaded repository root.
@@ -82,4 +87,13 @@ Above `if ($FromDrawing) {`, written with `#`.
 ```text
 -FromDrawing syncs named folders after an edit: the kit's sync runs get when the drawing moved since HEAD, then put, and stops
 on a conflict before put; the drift gate then checks the folders. No renderer stage runs.
+```
+
+## comment:2
+
+Above `$tracked = @(Get-GitTrackedPath '.')`, written with `#`.
+
+```text
+A diagram folder is `<article-folder>/.assets/<name>/` holding a tracked diagram.drawio.png, or a diagram.drawio.yml tracked or not,
+so a new folder gets its first put; it is found, never listed.
 ```

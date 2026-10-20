@@ -7,6 +7,15 @@ token:
   ink_soft: "#C9D1DC" # body text
   ink_muted: "#8A96A8" # footers and page numbers
   accent: "#E8A33D" # eyebrows, arrows, the one accent colour
+token-light: # the light theme: a light ground, dark ink, the accent darkened so a title holds its weight on the light ground
+  bg: "#F7F5F0"
+  bg_deep: "#ECE8E0"
+  bg_raised: "#FFFFFF"
+  bg_raised_2: "#E3DED4"
+  ink: "#1B2A41"
+  ink_soft: "#3D4A5C"
+  ink_muted: "#6B7686"
+  accent: "#A8620F"
 face:
   display: "'Source Serif 4', Georgia, serif"
   display_href: https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@300..700&display=swap

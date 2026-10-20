@@ -219,13 +219,12 @@ def slide_entry(folder, source, model_file, adrs, lens):
 
 def diagram_folders(root):
     """The diagram folders under a root, or the root itself when it is one: each `<article-folder>/.assets/<name>/` that
-    holds a diagram.drawio.png."""
+    holds a diagram.drawio.png, or a diagram.drawio.yml whose first put has not been run yet."""
     root = root.resolve()
-    if (root / SLIDE).is_file():
+    if (root / SLIDE).is_file() or (root / "diagram.drawio.yml").is_file():
         return [root]
-    return sorted(
-        p.parent for p in root.rglob(SLIDE) if p.parent.parent.name == ".assets"
-    )
+    found = {p.parent for name in (SLIDE, "diagram.drawio.yml") for p in root.rglob(name) if p.parent.parent.name == ".assets"}
+    return sorted(found)
 
 
 def minimaps(src, name, model_file, out_dir):

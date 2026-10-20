@@ -22,6 +22,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     BeforeEach {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked | Where-Object { $_ -notlike 'docs/gadgets/*' } }
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'C:/tools/uv.exe' } }
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 0; Output = '' } }
         Mock Write-Message -ModuleName Catzc.Base.Slides { }
@@ -62,6 +63,16 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked }
         { & $script:build @{ Path = 'docs/gadgets/.assets/gadget' } } | Should -Throw '*embedded by 2 pages (docs/gadgets/index.md, docs/gadgets/second.md)*'
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 0
+    }
+
+    It 'gives an untracked folder holding only its declaration its first put' {
+        $source = Join-Path $script:widgetRoot 'docs/widgets/.assets/sprocket/diagram.drawio.yml'
+        [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
+        [System.IO.File]::WriteAllText($source, "content: {}`n")
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { 'docs/widgets/.assets/sprocket/diagram.drawio.yml' }
+        $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/sprocket'; Stage = 'prepare' })
+        $runs.Folder | Should -Be @('docs/widgets/.assets/sprocket')
+        $runs.Status | Should -Be @('clean')
     }
 
     It 'refuses a path that is not a diagram folder' {

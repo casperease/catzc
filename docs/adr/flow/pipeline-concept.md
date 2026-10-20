@@ -50,8 +50,8 @@ The flow domain already decides most of what a pipeline is:
   ([ADR-FLOW-CD-GATEDEFINED](cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-gatedefined)).
 
 This ADR holds the remaining rules that hold for any vendor: how a pipeline file is named, what its extension says, how its YAML reads, and
-how long a credential lives inside it. The [ado domain](../ado/pipeline-naming-and-placement.md) binds them for the azure devops pipelines
-and the [github domain](../github/github-release.md) for the GitHub workflows.
+how long a credential lives inside it. The ado domain binds them for the azure devops pipelines and the github domain for the GitHub
+workflows.
 
 ## Decision
 
@@ -59,8 +59,7 @@ and the [github domain](../github/github-release.md) for the GitHub workflows.
 
 A pipeline's type is the first token of its filename (`ci-pwsh.yaml`, `cd-shared.yaml`), so a flat listing of a pipelines folder is already
 an index of every pipeline grouped by type. The type is the one from [pipeline-types](pipeline-types.md); a prefix outside that closed set
-is a type the flow model does not have. The vendor ADR decides where the files live
-([pipeline-naming-and-placement](../ado/pipeline-naming-and-placement.md) for the azure devops pipelines).
+is a type the flow model does not have. The vendor ADR decides where the files live.
 
 ### The extension tells executable from data
 
@@ -73,14 +72,13 @@ before opening the file, and it holds for every configuration file in the reposi
 A pipeline file lists its stages, a stage its jobs, and a job its steps; each step is a direct task or one template reference. The logic
 lives in the automation the runner invokes, and the values come from the catzc configuration system, so the YAML stays declarative. A
 reviewer reads the pipeline file alone and knows what it does; a structure that has to be followed through nested templates to be understood
-is the failure this rule prevents ([custom-template-discipline](../ado/custom-template-discipline.md) holds the ado template rules).
+is the failure this rule prevents; the ado domain holds the ado template rules.
 
 ### A credential lives for one request
 
 A token is the narrowest-lived secret a pipeline holds. The function that calls a service acquires the token, builds the header, and makes
 the call; nothing caches the token or hands it to another function, so a token never outlives the request and never leaks into a log, a
-variable, or a later step. Which credential is chosen, and how it proves its target, is the vendor ADR's decision
-([dual-authentication](../ado/dual-authentication.md) for the azure devops pipelines).
+variable, or a later step. Which credential is chosen, and how it proves its target, is the vendor ADR's decision.
 
 ## Consequences
 

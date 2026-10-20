@@ -151,18 +151,16 @@ list and optional `exclude:` list, optional `compose:` references (`ADR-FLOW-CD-
 scope, and — on a configured deployable-unit — the `pipeline:` it binds (a base unit composed by others binds none,
 `ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER`). `Catzc.Base.Globs` owns the file, the dialect, the durable SHA, the native projection, and the
 git-reflection query; nothing else parses the config. Adding or removing files from a unit — or adding a whole customer — is a config edit;
-the projected triggers regenerate from it. Test blast-radius and protection derive from the same identities
-([ADR-REPO-PROTGLOB](../repository/protected-globs.md)), and the `module` layer's sets are derived from the module folders, never declared
-in `globs.yml` ([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)).
+the projected triggers regenerate from it. Test blast-radius and protection derive from the same identities, and the `module` layer's sets
+are derived from the module folders, never declared in `globs.yml`.
 
 ### The dialect
 
 Vendor path-filter dialects need not leak into ours: membership is decided in our own code against the tracked-file list, and only the
 **projection** (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER) crosses into a vendor dialect, mechanically. That frees the authoring dialect to be the
 one this repository's users already know — within a segment, a pattern means exactly what it means to PowerShell's `-like` operator,
-delegated to `System.Management.Automation.WildcardPattern` (a host-guaranteed type; see
-[native-csharp-types](../automation/BCL/native-csharp-types.md)). Matching is case-sensitive because tracked paths are case-sensitive
-identities.
+delegated to `System.Management.Automation.WildcardPattern` (a host-guaranteed type). Matching is case-sensitive because tracked paths are
+case-sensitive identities.
 
 `**` is the single addition, and the only operator that crosses `/`: it stands as a whole segment and consumes zero or more whole segments.
 
@@ -189,8 +187,7 @@ or ignored file can never change a globset's membership.
 
 The durable SHA (ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY) is a genuine identity — EOL-insensitive (CR stripped before hashing), path-folded (a
 rename or move changes it even when content does not), and order-free (lines ordinal-sorted). It is exactly right for the one job it keeps:
-keying the session-memory protection map (`ADR-REPO-PROTGLOB`), where "this session already proved this input state green" is a live,
-in-process fact.
+keying the session-memory protection map, where "this session already proved this input state green" is a live, in-process fact.
 
 What it must **not** be is a committed artifact that blocks the mainline. A committed whole-set hash is a lockfile over that set: two pull
 requests that touch different files of the same set both freeze the hash against their own branch state, and after a server-side squash
@@ -282,20 +279,17 @@ the base owns the shared surface minus the config folders, so the layer is disjo
 A catch-all keeps a layer total without breaking disjointness. The `module-leftovers` set is the module-space complement: it should be empty
 in a clean tree, a tripwire for a file dropped at `pwsh/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt because
 its sets are defined to cut across the boundaries. The gate evaluates OWN membership over the tracked-file universe for the declared
-registry and the derived module sets
-([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)) together, so a
-mis-scoped module include, a deployable-unit that reaches into another's files, or an umbrella mistakenly declared a `module` fails as a
-named pair.
+registry and the derived module sets together, so a mis-scoped module include, a deployable-unit that reaches into another's files, or an
+umbrella mistakenly declared a `module` fails as a named pair.
 
 ### How this is enforced
 
 - `GlobsConfig` validates the schema and every pattern at config load, rejecting unknown keys, malformed patterns
   (`ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED`), and cyclic or self-referential compose (`ADR-FLOW-CD-GLOBS-COMPOSESETS`).
-- `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` are quality gates
-  ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)): each recomputes the native projection of
-  its pipeline-bound globsets and compares it to what the bound pipeline/workflow actually declares, reporting one issue per drifted or
-  missing pipeline. Their integrity tests require zero issues, so a hand-edited or drifted `paths:` filter fails `Test-Automation` locally
-  and in CI.
+- `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` are quality gates: each recomputes the native projection of its
+  pipeline-bound globsets and compares it to what the bound pipeline/workflow actually declares, reporting one issue per drifted or missing
+  pipeline. Their integrity tests require zero issues, so a hand-edited or drifted `paths:` filter fails `Test-Automation` locally and in
+  CI.
 - The `Test-GlobSetTriggerCoverage` quality gate confirms every member of a pipeline-bound set is covered by an ADO include pattern — an
   include-only projection is a safe superset that can never under-trigger, with `Test-GlobSetAffected` supplying exactness on top.
 - Grep-ability: `paths:` filters in `.ado/pipelines/*.yaml` and `.github/workflows/` are generated from `globs.yml`; a filter that disagrees
@@ -318,8 +312,6 @@ named pair.
 
 - [pipeline-types](pipeline-types.md) — the per-kind trigger contracts that register on the native projection.
 - [tracks](../design/tracks.md) — the root concerns whose subscription surface the globsets are.
-- [protected-globs](../repository/protected-globs.md) — the session-memory protection map the live durable SHA keys.
 - [pipeline-detection](pipeline-detection.md) — the execution-context detection the reference-commit resolver builds on.
-- [native-csharp-types](../automation/BCL/native-csharp-types.md) — the host-guaranteed type set the dialect implementation draws on.
 - [everything-as-code](../principles/everything-as-code.md), [poka-yoke](../principles/poka-yoke.md),
   [reduce-variability](../principles/reduce-variability.md) — the principles this mechanism instantiates.

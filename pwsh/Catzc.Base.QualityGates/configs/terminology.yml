@@ -72,6 +72,8 @@ terms:
       meaning: "ruff — the Python formatter and linter the Python tests are checked with"
     - term: pyyaml
       meaning: "PyYAML — the Python YAML library, a pinned test dependency in python.yml"
+    - term: jsonschema
+      meaning: "jsonschema — the Python JSON Schema validator the diagram kit checks minimap data with, pinned in python.yml"
     - term: supersampling
       meaning: "supersampling — rendering an image above its target size and scaling it down, so edges come out smooth"
     - term: supersampled
@@ -873,6 +875,12 @@ terms:
   platform:
     - term: clr
       meaning: "the Common Language Runtime (CLR)"
+    - term: memberwise
+      meaning: ".NET Object.MemberwiseClone, the shallow copy a C# type makes of itself"
+    - term: fafafa
+      meaning: "the hex colour FAFAFA, a light theme token's value in the diagram kit's drawio.yml (written without its hash)"
+    - term: eceff
+      meaning: "the hex colour ECEFF1 as cspell splits it, a light theme token's value in the diagram kit's drawio.yml"
     - term: isinst
       meaning: "the isinst CIL instruction, quoted in the unboxing reference"
     - term: apos

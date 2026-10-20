@@ -13,16 +13,23 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides {
             'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow' | ForEach-Object { "docs/explanation/widget/.assets/$_/diagram.drawio.png" }
         }
+        # A new folder no commit holds yet: its declaration and its first put are untracked.
+        $new = Join-Path $root 'docs/explanation/widget/.assets/new-flow'
+        [System.IO.Directory]::CreateDirectory($new) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $new 'diagram.drawio.yml'), "content: {}`n")
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides {
+            'docs/explanation/widget/.assets/new-flow/diagram.drawio.yml', 'docs/explanation/widget/.assets/new-flow/diagram.drawio.png'
+        }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'uv' } }
         # The kit's check prints one JSON line per folder; the mock answers from the folder names on the command line.
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
-            $lines = foreach ($name in 'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow') {
+            $lines = foreach ($name in 'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow', 'new-flow') {
                 $folder = "docs/explanation/widget/.assets/$name"
                 if ($Command -notlike "*`"$folder`"*") {
                     continue
                 }
                 switch ($name) {
-                    'widget-flow' {
+                    { $_ -in 'widget-flow', 'new-flow' } {
                         "{`"folder`": `"$folder`", `"drift`": [], `"stale`": []}"
                     }
                     'gadget-flow' {
@@ -74,8 +81,14 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
 
     It 'checks every declared folder when no path is given' {
         $report = Test-Diagrams -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
-        $report.Facts['FolderCount'] | Should -Be 5
+        $report.Facts['FolderCount'] | Should -Be 6
         $report.IssueCount | Should -Be 3
+    }
+
+    It 'checks an untracked folder once its first put has run, and passes it' {
+        $report = Test-Diagrams -Path 'docs/explanation/widget/.assets/new-flow' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
+        $report.IssueCount | Should -Be 0
+        $report.Facts['FolderCount'] | Should -Be 1
     }
 
     It 'refuses a path that is not a declared diagram folder' {

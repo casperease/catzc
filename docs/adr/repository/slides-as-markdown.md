@@ -108,6 +108,16 @@ files ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noread
 
 - [Two directions, one truth](#two-directions-one-truth)
 
+### Rule ADR-REPO-SLIDES-THEMESELECTOR
+
+A theme is one token set, and a style never names a colour, only a token. The diagram kit declares its sets as `theme-<name>` in
+`drawio.yml`, and a style says `@<token>`; the slides kit declares `token` for the default theme and `token-<name>` for each other, and a
+pattern says `{{@token.<name>}}`. `Build-Diagrams` and `Build-SlideDeck` take `-Theme`, whose default is declared once, on `SlidesConfig`.
+Only the default theme's diagram raster is committed; every other theme renders on demand to `out/`, so the tree holds one raster per
+diagram. A token no set declares fails, naming the tokens it may be.
+
+- [The declaration is the source](#the-declaration-is-the-source)
+
 ## Context
 
 A deck is prose with a layout. Written straight into a presentation tool, the prose is reachable only through that tool, its claims are

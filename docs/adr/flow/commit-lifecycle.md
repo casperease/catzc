@@ -229,9 +229,7 @@ the commit after it is on main, not before. That only works if a push can never 
 refusals: no force, no amend of a pushed commit. The one sanctioned failure is a rejected push, where another client landed first; the
 tooling stops and reports rather than rebasing, because rebasing builds the commit on the server's tip, which may be a dirty HEAD
 ([ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED](../design/server-remote-integration.md#rule-adr-dsgn-remote-integratefromverified)). The shortcut
-belongs to the solo `main-direct` regime
-([ADR-REPO-VARIANT-GITWORKSPACE](../repository/repo-variants.md#rule-adr-repo-variant-gitworkspace)); once the repo is `main-via-pr`, the PR
-is the only ingress
+belongs to the solo `main-direct` regime of the `git_workspace` variant; once the repo is `main-via-pr`, the PR is the only ingress
 ([ADR-DSGN-REMOTE-PULLREQUESTISINGRESS](../design/server-remote-integration.md#rule-adr-dsgn-remote-pullrequestisingress)).
 
 ## Landed, then dirty

@@ -43,5 +43,5 @@ them is the pipelines' path filters, so the last step of adding a template is na
 ## See also
 
 - [Infrastructure code is of three kinds](three-kinds-of-infrastructure-code.md) — the three kinds and their places.
-- [Add an environment slot](add-an-environment-slot.md) — the next deployment of an existing template.
+- [Add a configuration slot](add-an-environment-slot.md) — the next deployment of an existing template.
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

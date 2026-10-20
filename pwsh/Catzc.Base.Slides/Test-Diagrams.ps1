@@ -17,14 +17,14 @@ function Test-Diagrams {
     $declaration = Join-Path $root "$Kit/declaration.py"
     Assert-PathExist $declaration -PathType Leaf -ErrorText "Test-Diagrams: the draw.io kit '$Kit' has no declaration.py; slides.yml drawio_kit names the kit."
 
-    # A declared diagram is a folder holding a tracked diagram.drawio.png beside its diagram.drawio.yml.
-    $tracked = @(Get-GitTrackedPath '.')
-    $found = @($tracked | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+/diagram\.drawio\.png$' } | ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) } |
-            Where-Object { Test-Path -LiteralPath (Join-Path $root "$_/diagram.drawio.yml") -PathType Leaf })
+    # A declared diagram is a folder holding a diagram.drawio.yml, tracked or not; a new folder is checked once its first put has run.
+    $candidates = @(Get-GitTrackedPath '.') + @(Get-GitChangedPath 'docs')
+    $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+/diagram\.drawio\.(png|yml)$' } | ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) } |
+            Select-Object -Unique | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_/diagram.drawio.yml") -PathType Leaf })
     $folders = @(if ($Path) {
             foreach ($folderPath in $Path) {
                 $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/').TrimEnd('/')
-                Assert-True ($found -ccontains $relative) -ErrorText "Test-Diagrams: '$relative' is not a declared diagram folder (a tracked diagram.drawio.png beside its diagram.drawio.yml)."
+                Assert-True ($found -ccontains $relative) -ErrorText "Test-Diagrams: '$relative' is not a declared diagram folder (a folder under docs/**/.assets/ holding a diagram.drawio.yml)."
                 $relative
             }
         }

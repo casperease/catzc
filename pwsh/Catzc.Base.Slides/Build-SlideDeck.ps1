@@ -23,7 +23,12 @@ function Build-SlideDeck {
     $kitLoaded.Config = $kitLoaded.Config.ForTheme($Theme)
     $deckName = Split-Path $deckFolder -Leaf
     if ([string]::IsNullOrWhiteSpace($OutputFolder)) {
-        $themed = if ($Theme -ceq [Catzc.Base.Slides.SlidesConfig]::DefaultTheme) { $deckName } else { "$deckName-$Theme" }
+        $themed = if ($Theme -ceq [Catzc.Base.Slides.SlidesConfig]::DefaultTheme) {
+            $deckName
+        }
+        else {
+            "$deckName-$Theme"
+        }
         $OutputFolder = Join-Path (Join-Path $RepositoryRoot $kitLoaded.Config.Value('render.out')) $themed
     }
 

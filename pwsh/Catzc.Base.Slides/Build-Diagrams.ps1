@@ -36,13 +36,15 @@ function Build-Diagrams {
         }
     }
 
-    # A diagram folder is `<article-folder>/.assets/<name>/` holding a tracked diagram.drawio.png; it is found, never listed.
     $tracked = @(Get-GitTrackedPath '.')
-    $found = @($tracked | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+/diagram\.drawio\.png$' } | ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) })
+    $candidates = @($tracked) + @(Get-GitChangedPath 'docs')
+    $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+/diagram\.drawio\.(png|yml)$' } |
+            Where-Object { $_.EndsWith('.png') -or (Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf) } |
+            ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) } | Select-Object -Unique)
     $folders = @(if ($Path) {
             @(foreach ($folderPath in $Path) {
                     $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/').TrimEnd('/')
-                    Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram folder (<article-folder>/.assets/<name>/ holding a tracked diagram.drawio.png)."
+                    Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram folder (<article-folder>/.assets/<name>/ holding a tracked diagram.drawio.png or a diagram.drawio.yml)."
                     $relative
                 })
         }

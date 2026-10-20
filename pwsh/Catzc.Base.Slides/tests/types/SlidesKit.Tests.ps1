@@ -73,6 +73,14 @@ Describe 'SlidesKit' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-PATTERN' {
             $kit.Value('token.bg') | Should -Be '#101010'
         }
 
+        It 'loads the shipped kit in each theme it declares' {
+            InModuleScope Catzc.Base.Slides {
+                $kit = (Get-SlidesKit -Kit (Get-Config -Config slides).kit -RepositoryRoot (Get-RepositoryRoot)).Config
+                @($kit.themes.Keys) | Should -Be @('dark', 'light')
+                $kit.ForTheme('light').Value('token.bg') | Should -Not -Be $kit.ForTheme('dark').Value('token.bg')
+            }
+        }
+
         It 'refuses a theme the kit does not declare, naming the themes it does' {
             { ([Catzc.Base.Slides.SlidesKit]::new($script:raw)).ForTheme('light') } | Should -Throw '*declares no theme ''light'' (themes: dark)*'
         }

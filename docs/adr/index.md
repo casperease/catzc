@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0b63d54c4153"
+    with_body_sha: "1ef6a32a5456"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/index.md
@@ -274,7 +274,7 @@ vendor, enforced by the `Catzc.Azure*` modules. Beside its own decisions it hold
 Well-Architected Framework pillars in `waf/` and the Cloud Adoption Framework landing-zone design areas in `caf/`, one rule per vendor item,
 each citing Microsoft's page and saying what the repository does about it.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`.
+**Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`, `flow`, `ado`.
 
 | Code                | ADR                                                                           |
 | ------------------- | ----------------------------------------------------------------------------- |

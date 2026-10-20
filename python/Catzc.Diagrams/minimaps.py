@@ -341,3 +341,60 @@ def picture(view, about, width, height, theme=None):
     buffer = io.BytesIO()
     small.save(buffer, "PNG")
     return "data:image/png," + base64.b64encode(buffer.getvalue()).decode()
+
+
+# ---- a minimap drawn from its contract data (minimap_contract.py): Catzc.Base.Maps computes, this module only draws ----------
+
+
+def draw_data(d, width, height, data):
+    """A minimap from its data: one axis is a strip of cells, two a matrix with the first axis down, more a list of the lit
+    places. A lit cell is filled; a place the data names no cell for stays empty."""
+    axes = data["axes"]
+    present = {tuple(c["at"]) for c in data["cells"]}
+    lit = {tuple(c["at"]) for c in data["lit"]}
+    top = 40
+    if len(axes) == 1:
+        values = axes[0]["values"]
+        pitch = min(16, (height - top - 6) / max(1, len(values)))
+        for i, value in enumerate(values):
+            y, on = top + i * pitch, (value,) in lit
+            if (value,) in present:
+                box(d, (8, y + 1, 26, y + pitch - 1), LIT if on else PANEL, None if on else RIM, 2)
+            text(d, (32, y + pitch / 2 - 6), fit(d, value, 9, width - 40, bold=on), 9, CAPTION if on else DIM_INK, bold=on)
+        return
+    if len(axes) == 2:
+        rows, cols = axes[0]["values"], axes[1]["values"]
+        label_w = 70
+        cell_w = (width - label_w - 8) / max(1, len(cols))
+        cell_h = min(18, (height - top - 6) / max(1, len(rows)))
+        for j, col in enumerate(cols):
+            on = any(at[1] == col for at in lit)
+            text(d, (label_w + j * cell_w + 2, top - 13), fit(d, col, 8, cell_w - 2), 8, CAPTION if on else DIM_INK, bold=on)
+        for i, row in enumerate(rows):
+            y = top + i * cell_h
+            on = any(at[0] == row for at in lit)
+            text(d, (6, y + cell_h / 2 - 6), fit(d, row, 9, label_w - 8, bold=on), 9, CAPTION if on else DIM_INK, bold=on)
+            for j, col in enumerate(cols):
+                if (row, col) in present:
+                    here = (row, col) in lit
+                    x = label_w + j * cell_w
+                    box(d, (x + 1, y + 1, x + cell_w - 1, y + cell_h - 1), LIT if here else PANEL, None if here else RIM, 2)
+        return
+    places = sorted(lit)
+    pitch = min(15, (height - top - 6) / max(1, len(places)))
+    for i, at in enumerate(places):
+        y = top + i * pitch
+        box(d, (8, y, width - 8, y + pitch - 2), LIT)
+        text(d, (13, y), fit(d, " / ".join(at), 9, width - 26, bold=True), 9, LIT_INK, bold=True)
+
+
+def picture_from(data, width, height, theme=None):
+    """One minimap as a PNG data URI, from its contract data, in a theme: its question as the caption, then the data drawn."""
+    use_theme(theme)
+    img, d = canvas(width, height)
+    text(d, (8, 6), QUESTION.get(data["id"], data["id"]), 11, CAPTION, bold=True)
+    draw_data(d, width, height, data)
+    small = img.resize((width * 2, height * 2), Image.Resampling.LANCZOS)
+    buffer = io.BytesIO()
+    small.save(buffer, "PNG")
+    return "data:image/png," + base64.b64encode(buffer.getvalue()).decode()

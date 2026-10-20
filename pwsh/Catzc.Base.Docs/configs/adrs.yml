@@ -250,7 +250,7 @@ domains:
       one vendor, enforced by the `Catzc.Azure*` modules. Beside its own decisions it holds the vendor's recommendations as records: the
       Well-Architected Framework pillars in `waf/` and the Cloud Adoption Framework landing-zone design areas in `caf/`, one rule per vendor
       item, each citing Microsoft's page and saying what the repository does about it.
-    depends_on: [research, principles, design, automation]
+    depends_on: [research, principles, design, automation, flow, ado]
     stack: CLOUD
     concern: [deploy] # the substrate catzc deploys onto
     rulesets:

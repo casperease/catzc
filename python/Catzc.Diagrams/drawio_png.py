@@ -328,7 +328,8 @@ def render(root, page=None):
     if page == "model":
         bg = model_bg
     else:
-        bg = BACKGROUND if model_bg.lower() in ("#ffffff", "#fff", "#e6ecf2") else model_bg
+        # A model on another theme's page is drawn on the default page; a declared model renders with page="model", in its theme.
+        bg = BACKGROUND if model_bg.lower() in {"#fff", *(tokens(t)["page"].lower() for t in THEMES[1:])} else model_bg
     page_size = (int(maxx - minx), int(maxy - miny))
     # RGBA so each shadow composites onto what is under it; SCALE times the page, downsampled once at the end.
     img = Image.new("RGBA", (page_size[0] * SCALE, page_size[1] * SCALE), bg)

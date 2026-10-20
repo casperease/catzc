@@ -139,10 +139,10 @@ pictures unchecked.
 - [ ] The lifecycle position data function reads the rungs registry of `Catzc.Base.Flow` once `plan-promotion-ladder` has declared it; until
       then this minimap is the last of the eight to be built (check: the minimap's test lights a cell per rung from `cites` edges; the
       registry is read through `Get-Config`, never a literal list).
-- [ ] Make the theme a selector: one token set per theme in the renderer config, `-Theme` on `Build-Diagrams` and `Build-SlideDeck` with the
-      default declared once on `SlidesConfig`, every style a token reference, `migrate_dark.py` removed, the non-default theme rendered to
-      `out/` (check: one diagram and one slide render in both themes from the same declaration in a test; `git grep` of a hex colour under
-      the module's patterns finds only the two token sets; the tree holds one raster per diagram).
+- [x] The light slide palette (ADR-REPO-SLIDES-THEMESELECTOR): `token-light` landed in `slides.yml` after the user's review, its accent
+      darkened to `#A8620F`. The legacy minimap files stay out of the hex check until the last-three-diagrams step retires that path.
+      Verdict: SlidesKit.Tests.ps1 "Passed" (the shipped kit in both themes); `Build-SlideDeck -Theme light` "21 slide(s) rendered ... 0
+      fault(s)"; Test-Spelling and Test-Terminology "No ... issues found."
 - [ ] Extend ADR-REPO-SLIDES with the rules the decisions above state, one rule per landing step, in the same change as the step (check:
       Test-Adr clean; the index lists each new ADR-REPO-SLIDES code; the plan's Decided list names no decision without a rule).
 - [ ] Build the five further minimaps, each with its data function and a test on its data, and the two pools as the kind defaults (check:
@@ -163,13 +163,6 @@ pictures unchecked.
       (put, get, `-FromDrawing`, `-Theme`, `-Stale`); the registry entries in `pwsh/Catzc.Base.Docs/configs/agents.yml` and
       `capabilities.yml` and the agent list in `.claude/CLAUDE.md` change in the same step (check: Test-AgentDefinitions clean;
       `drawio-diagram-waves` and `print-artifacts` call the new skill).
-- [ ] The IaC explanation diagram of the three kinds, from `plan-iac-and-repo-placement`: article and yml declaration under
-      `docs/explanation/azure`, working slug `three-kinds-of-infrastructure-code`: templates, configs and reusable modules, what each holds,
-      and how a template pulls its configs and modules together (check: the diagram is put from its declaration and passes `Test-Diagrams`;
-      the article cites the ADR rules that plan writes for each kind, so it lands after them).
-- [ ] The four IaC management diagrams, each its own article and folder under `docs/explanation/azure`, working slugs
-      `change-one-configuration-slot`, `a-module-change-fans-out-to-its-templates`, `add-a-template`, `add-an-environment-slot` (check: each
-      is put from its declaration, names the track place it edits as a span bar from the IaC kinds vocabulary, and is reviewed by the user).
 
 ## Where each minimap's data comes from
 

@@ -26,19 +26,19 @@ almost all text is `ink` (titles and names on a glyph `title`, quiet text `quiet
 colour. Every theme is one token set in [`configs/drawio.yml`](../configs/drawio.yml) (`theme-dark`, `theme-light`), the single source of
 every value; the first theme, dark, is the committed raster, and any other renders on demand to `out/drawio/themes/<theme>/`.
 
-| Token                  | Used for                                                                       |
-| ---------------------- | ------------------------------------------------------------------------------ |
-| page                   | the canvas and every rendered output's base layer                              |
-| band / band-rim        | band fill / border; band label `band-label`                                    |
-| panel / panel-rim      | legend and outer panels                                                        |
-| sidebar / sidebar-rim  | the minimap column's backing: a soft sheet above the page, below it all        |
-| ink / title            | text; the title and on-glyph names                                             |
-| quiet                  | legend text and notes                                                          |
-| line                   | flow edges and their arrowheads, the ADR-only dash                             |
-| mark / mark-ink        | marker disc fill / digit and rim                                               |
-| chip / chip-rim        | fraction, rule and count chips: fill / rim; text `ink`                         |
-| red / red-rim / red-ink | the only red: failure fill / rim and the failure-path edge, failure text      |
-| map-\*                 | the minimaps: page, idle cell, rim, lit place and its ink, dim ink, the question |
+| Token                   | Used for                                                                         |
+| ----------------------- | -------------------------------------------------------------------------------- |
+| page                    | the canvas and every rendered output's base layer                                |
+| band / band-rim         | band fill / border; band label `band-label`                                      |
+| panel / panel-rim       | legend and outer panels                                                          |
+| sidebar / sidebar-rim   | the minimap column's backing: a soft sheet above the page, below it all          |
+| ink / title             | text; the title and on-glyph names                                               |
+| quiet                   | legend text and notes                                                            |
+| line                    | flow edges and their arrowheads, the ADR-only dash                               |
+| mark / mark-ink         | marker disc fill / digit and rim                                                 |
+| chip / chip-rim         | fraction, rule and count chips: fill / rim; text `ink`                           |
+| red / red-rim / red-ink | the only red: failure fill / rim and the failure-path edge, failure text         |
+| map-\*                  | the minimaps: page, idle cell, rim, lit place and its ink, dim ink, the question |
 
 ## Ids and words
 
@@ -56,9 +56,9 @@ means two things across slides (grey is not "config" on one slide and "drift" on
 [`glyphs.xml`](glyphs.xml); its preview is `out/diagrams/wave-7/_glyphs.drawio.png`. Copy from there, never retype.
 
 **Structure in mid-tones, state set apart.** Structural kinds use lifted mid-tone fills with a rim of the same hue and `title` names:
-`slate` / `slate-rim`, `mauve` / `mauve-rim`, `olive` / `olive-rim`. Neutral kinds are `neutral` with `neutral-rim`. Results and failures are saturated with a bright rim, and commits keep the locked palette
-(ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE), so no structural glyph can be mistaken for a commit state. Slate is shared by code unit, store and
-runner on purpose: their shapes (box, cylinder, pill) tell them apart.
+`slate` / `slate-rim`, `mauve` / `mauve-rim`, `olive` / `olive-rim`. Neutral kinds are `neutral` with `neutral-rim`. Results and failures
+are saturated with a bright rim, and commits keep the locked palette (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE), so no structural glyph can be
+mistaken for a commit state. Slate is shared by code unit, store and runner on purpose: their shapes (box, cylinder, pill) tell them apart.
 
 | Kind (legend phrase) | Shape                             | Fill / stroke         | Use it for                                                                                           |
 | -------------------- | --------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------- |
@@ -78,12 +78,12 @@ runner on purpose: their shapes (box, cylinder, pill) tell them apart.
 **Source-lens phrases** (the `source` lens, below) are variants of the code unit. They stay in slate, so they add no colour to the budget.
 Copy them from `glyphs.xml` (`g-private`, `g-type` + `g-type-tag`, `g-module`):
 
-| Phrase         | Shape                                                  | Fill / stroke                      | Use it for                                                                 |
-| -------------- | ------------------------------------------------------ | ---------------------------------- | -------------------------------------------------------------------------- |
-| private helper | code unit, 36 px tall, dark fill, 11 px name           | neutral-deep / slate-rim           | a function in the module's `private/` folder; never dashed; text `ink`     |
-| C# type        | code unit with a `C#` tag (26 × 16) on its top-right   | slate / slate-rim, tag on page     | a class or record under `types/*.cs`                                       |
-| catzc module   | slate frame, no fill, `strokeWidth=1.5`, name top-left | none / slate-rim                   | another `Catzc.*` module the drawn code calls; its members sit inside it   |
-| nested frame   | the same frame inside a frame (`g-module-holder`)      | none / slate-rim                   | a holder's part: a track holds its modules, a module holds its members     |
+| Phrase         | Shape                                                  | Fill / stroke                  | Use it for                                                               |
+| -------------- | ------------------------------------------------------ | ------------------------------ | ------------------------------------------------------------------------ |
+| private helper | code unit, 36 px tall, dark fill, 11 px name           | neutral-deep / slate-rim       | a function in the module's `private/` folder; never dashed; text `ink`   |
+| C# type        | code unit with a `C#` tag (26 × 16) on its top-right   | slate / slate-rim, tag on page | a class or record under `types/*.cs`                                     |
+| catzc module   | slate frame, no fill, `strokeWidth=1.5`, name top-left | none / slate-rim               | another `Catzc.*` module the drawn code calls; its members sit inside it |
+| nested frame   | the same frame inside a frame (`g-module-holder`)      | none / slate-rim               | a holder's part: a track holds its modules, a module holds its members   |
 
 The private helper's dark fill is what sets it apart at preview scale. A dimmer or thinner rim on the code-unit fill was tried in the wave-9
 sample and read as identical to a code unit, so the difference is in the fill, never only in the rim. Italic labels don't show in the
@@ -235,10 +235,10 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
 **Rebuilding a folder of slides.** The minimaps light the repository's citations of each slide's ADRs, so they drift whenever a citation, a
 map or `maps.yml` changes. `drawio_forward.py --all <folder>` rebuilds every slide of a folder in place in three stages that each fit the
 time safeguard, `--stage prepare` (puts the declared folders, in `--theme <theme>` when one is named; extracts the other models and writes
-the slide list from the slides themselves), `--stage highlight` (the map processors once, then the minimaps and their sister `.md` files) and `--stage join` (the sidebars
-laid out, the minimaps embedded, the slides rebuilt), `--start`/`--end` slicing the per-slide stages. One slide goes through
-`drawio_forward.py <slide> --minimaps` instead. The diagram id a build embeds is a hash of the model, so a rebuild of an unchanged model is
-byte-identical.
+the slide list from the slides themselves), `--stage highlight` (the map processors once, then the minimaps and their sister `.md` files)
+and `--stage join` (the sidebars laid out, the minimaps embedded, the slides rebuilt), `--start`/`--end` slicing the per-slide stages. One
+slide goes through `drawio_forward.py <slide> --minimaps` instead. The diagram id a build embeds is a hash of the model, so a rebuild of an
+unchanged model is byte-identical.
 
 Every lens drawing is republished as an **explanation that supports its ADR(s)**: the committed slides in `docs/explanation/.assets/`, and
 the review waves under `out/diagrams/`. A sidebar carries three minimaps showing where the drawing sits: two views of the world map (where

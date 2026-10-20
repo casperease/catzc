@@ -745,7 +745,7 @@ def put_png(folder, declaration, theme=None):
     render is the folder's own png; any other theme renders on demand to out/drawio/themes/<theme>/<folder name>/."""
     theme = theme or declaration["content"]["theme"]
     model = put(declaration, theme).strip()
-    img = render(ET.fromstring(model)).convert("RGB")
+    img = render(ET.fromstring(model), page="model").convert("RGB")  # the model's own page: its theme's
     info = PngInfo()
     info.add_text("mxfile", encode(model, declaration["content"]["lens"]))
     dst = Path(folder) / SLIDE if theme == THEMES[0] else KIT.parents[1] / "out" / "drawio" / "themes" / theme / Path(folder).name / SLIDE
