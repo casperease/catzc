@@ -13,8 +13,13 @@ function Get-DocNote {
     .PARAMETER Unprocessed
         Only the notes the ledger has no line for.
 
+    .PARAMETER Source
+        Only the notes whose change came from these writers: editor (the editor's own saves, the processor's input), agent (a Claude
+        Code session) or unknown (neither ledger knows it).
+
     .OUTPUTS
-        [pscustomobject] per note, in id order: Id, File (the changed path), Change, From, Kind, Tier, Rules, Commit, Note (the note file),
+        [pscustomobject] per note, in id order: Id, File (the changed path), Change, From, Kind, Tier, Source, Agent (the agent's session
+        id), Rules, Commit, Note (the note file),
         Session (the session folder, which every later call about the note names, since a new session numbers its notes from 0001
         again), Processed.
     #>
@@ -23,7 +28,10 @@ function Get-DocNote {
     param(
         [string] $Session,
 
-        [switch] $Unprocessed
+        [switch] $Unprocessed,
+
+        [ValidateSet('editor', 'agent', 'unknown')]
+        [string[]] $Source
     )
 
     $Session = Resolve-ListenSession $Session
@@ -53,7 +61,7 @@ function Get-DocNote {
             }
         }
         $id = $head['note']
-        if ($Unprocessed -and $processed.Contains($id)) {
+        if (($Unprocessed -and $processed.Contains($id)) -or ($Source -and $head['source'] -cnotin $Source)) {
             continue
         }
         $rules = $head['rules'].Trim('[', ']')
@@ -64,6 +72,8 @@ function Get-DocNote {
             From      = $head['from']
             Kind      = $head['kind']
             Tier      = $head['tier']
+            Source    = $head['source']
+            Agent     = $head['agent']
             Rules     = [string[]] @(if ($rules) {
                     $rules -split ', '
                 })

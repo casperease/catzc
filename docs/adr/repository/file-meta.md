@@ -8,10 +8,13 @@ A file carries one **meta block** exactly as its **head policy** says: `required
 meta-kind registry, with the defaults declared once on the policy's type
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). By default a tracked
 generated file and a file whose front matter another tool reads, such as an agent or capability definition, are `required`, an authored file
-is `forbidden`, and a file git does not track is `optional`. A file whose block disagrees with its policy, absent where required or present
-where forbidden, is a finding. The block holds the facts the tooling owns about the file, written into the file's carrier. A Markdown file's
-carrier is the reserved front-matter key `catzc`, holding the file's place facts under `immutable`, its outgoing edges under `edges`
-([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)) and its authored config contributions under `config`
+is `forbidden`, and a file git does not track is `optional`. A file that has a comment page
+([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace)) takes the `pages` setting, `required` by
+default, when no class entry names it, so every code file with a page carries the head that links it. A file whose block disagrees with its
+policy, absent where required or present where forbidden, is a finding. The block holds the facts the tooling owns about the file, written
+into the file's carrier. A Markdown file's carrier is the reserved front-matter key `catzc`, holding the file's place facts under
+`immutable`, its outgoing edges under `edges` ([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)) and its authored config
+contributions under `config`
 ([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)). The key
 sits at the top level, or, where another tool validates the top level of the front matter and leaves one key of its own free for foreign
 data, nests under that key at the key path the carrier registry declares (`key`, such as `metadata.catzc` for a capability); the block's own
@@ -131,13 +134,14 @@ link that stays inside the file, an anchor in it, the file itself or its own com
 ### Rule ADR-REPO-FILEMETA-FEWLINKS
 
 The head is a map of facts about its own file, so it holds as few links to other files as possible, and only those that cost to derive and
-truly define a relationship. The edges of a code file point at its **relatives**, at most two edges with fixed names: `page` (its comment
-page, [ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)) and `test` (the Pester file that
-tests it). A relative stays inside the file's own module or its docs section, never in another module, so modules relate to each other by
-name and never through a file path (encapsulation), and only the code side points: a test or a page knows its code by its name, so no pair
-is recorded twice. The edges and the rules that fill them are the `relative-edges` kind's settings in `file-meta.yml`, so a new edge is a
-registry entry, never a new mechanism. An edge holds a repository-relative path that exists on disk, and an edge with no file is left out.
-No file carries a pointer of its own in its code: the head is the one place a code file names its relatives.
+truly define a relationship. The edges of a code file point at its **relatives**, at most two edges with fixed names: `docs` (its comment
+page, [ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight), written as a code link
+([ADR-REPO-LINK](markdown-links.md)) with the page's file name as its text) and `test` (the Pester file that tests it). A relative stays
+inside the file's own module or its docs section, never in another module, so modules relate to each other by name and never through a file
+path (encapsulation), and only the code side points: a test or a page knows its code by its name, so no pair is recorded twice. The edges
+and the rules that fill them are the `relative-edges` kind's settings in `file-meta.yml`, so a new edge is a registry entry, never a new
+mechanism. An edge holds a repository-relative path that exists on disk, and an edge with no file is left out. No file carries a pointer of
+its own in its code: the head is the one place a code file names its relatives.
 
 - [Relatives](#relatives)
 
@@ -171,7 +175,7 @@ exporter registry, so the head never carries a list of its own. It also holds `t
 A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts**: what the
 repository's own configuration makes of the file's location, its `path` and the parts of it, its `role`, `language`, `track`, `module` and
 the rest, each read from a registry and never from the file's text. `edges` holds what the file itself declares or points at, each one an
-**edge**, a named relation leaving the file to a rule code, a file or a URL, such as `defines`, `cites`, `links`, `page` and `test`. Both
+**edge**, a named relation leaving the file to a rule code, a file or a URL, such as `defines`, `cites`, `links`, `docs` and `test`. Both
 parts are imprinted and never written by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an
 edge until the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the
 relation, never for the type of its target. In a generated file of any language
@@ -341,7 +345,9 @@ that proves it. Writing each as a link in the code would put a pointer in every 
 already holds derived facts, so the companions are two more edges, one fixed name per kind of companion, and no more than the ones that
 truly define a relationship, so the head stays a map of facts about its own file. A companion that the file's name already gives, such as
 the code a test covers, is not recorded from the test's side. The registry holds the list of edges and the path rule of each, and an edge
-whose file does not exist is not written, so an entry in the head is always a working pointer.
+whose file does not exist is not written, so an entry in the head is always a working pointer. The page is the companion a reader opens from
+the code, so its edge is written as a code link, the same repository-rooted form a comment's link takes, which an editor follows in one
+click; an edge a tool follows stays a bare path.
 
 ### File kinds
 
@@ -378,7 +384,8 @@ remove blocks freely. The imprint reads the block only to say that it differs fr
 A block is worth its bytes where a reader cannot easily derive what it says. A generated file names the command that writes it and the
 source to edit instead, and stamps the body its writer composed, so a tracked generated file requires one. A file whose front matter another
 tool reads, such as an agent definition the editor loads, cannot work without its front matter, so it requires one too. An authored file's
-facts are all derivable, so a block on it is a second statement that can drift and adds a diff to every move, and it carries none. The
+facts are all derivable, so a block on it is a second statement that can drift and adds a diff to every move, and it carries none, unless it
+has a comment page: its prose lives there, and the head is the one place the code points to it, so a file with a page requires one. The
 policy is one setting per file class with its default declared once, so a repository that wants blocks on its authored files changes a
 setting, never code.
 

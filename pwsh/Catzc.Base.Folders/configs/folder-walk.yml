@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Folders/configs/folder-walk.yml
+#     folder: configs
+#     name: folder-walk
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Folders
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[folder-walk.yml.md](/docs/references/pwsh/catzc-base-folders/configs/folder-walk.yml.md)"
+# ---
+
 # Every key is optional: an omitted key takes the default declared once on FolderWalkConfig, and a Get-ChildPath parameter overrides it.
 
 # Read anywhere as global.folder-walk.prune_vendor_in_searches. When true, a search never enters the .vendor folder.

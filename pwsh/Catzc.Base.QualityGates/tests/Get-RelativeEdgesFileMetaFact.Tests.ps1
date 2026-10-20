@@ -9,7 +9,7 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
 
         $script:relations = @(
-            @{ name = 'page'; rules = @(@{ paths = @('{page}') }) }
+            @{ name = 'docs'; link = '[{leaf}](/{path})'; rules = @(@{ paths = @('{page}') }) }
             @{ name = 'test'; rules = @(@{ classes = @('widget-function'); paths = @('widgets/{module}/tests/{stem}.Tests.ps1') }) }
             @{ name = 'source'; rules = @(@{ classes = @('widget-test'); paths = @('widgets/{module}/{stem}.ps1', 'widgets/{module}/private/{stem}.ps1') }) }
         )
@@ -50,13 +50,13 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
         }
     }
 
-    It 'names the page and the test of a function file, in the order declared, when both exist' {
+    It 'names the comment page as a code link and the test of a function file, in the order declared, when both exist' {
         New-File 'widgets/Catzc.Gadget/Get-Cog.ps1'
         New-File 'widgets/Catzc.Gadget/tests/Get-Cog.Tests.ps1'
         New-File 'docs/catzc-gadget/Get-Cog.ps1.md'
         $relatives = Get-Relatives 'widgets/Catzc.Gadget/Get-Cog.ps1'
-        @($relatives.Keys) | Should -Be @('page', 'test')
-        $relatives['page'] | Should -BeExactly 'docs/catzc-gadget/Get-Cog.ps1.md'
+        @($relatives.Keys) | Should -Be @('docs', 'test')
+        $relatives['docs'] | Should -BeExactly '[Get-Cog.ps1.md](/docs/catzc-gadget/Get-Cog.ps1.md)'
         $relatives['test'] | Should -BeExactly 'widgets/Catzc.Gadget/tests/Get-Cog.Tests.ps1'
     }
 
@@ -83,8 +83,15 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
             Mock Get-Config { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) }) }
             Get-RelativeEdgesFileMetaFact -State ([pscustomobject]@{}) -Path 'widgets/Catzc.Gadget/Get-Alone.ps1' -Kind $Kind
         }
-        @($edges.Keys) | Should -Be @('page', 'test', 'source')
+        @($edges.Keys) | Should -Be @('docs', 'test', 'source')
         @($edges.Values | Where-Object { $_ }).Count | Should -Be 0
+    }
+
+    It 'gives a relation without a link template its bare repository-relative path' {
+        New-File 'widgets/Catzc.Gadget/Get-Gear.ps1'
+        New-File 'docs/catzc-gadget/Get-Gear.ps1.md'
+        $bare = Get-Kind @(@{ name = 'docs'; rules = @(@{ paths = @('{page}') }) })
+        (Get-Relatives 'widgets/Catzc.Gadget/Get-Gear.ps1' $bare)['docs'] | Should -BeExactly 'docs/catzc-gadget/Get-Gear.ps1.md'
     }
 
     It 'leaves a relation out when its file does not exist, so the map can be empty' {
@@ -98,6 +105,6 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
     }
 
     It 'rejects a relation without rules' {
-        { Get-Relatives 'widgets/Catzc.Gadget/Get-Cog.ps1' (Get-Kind @(@{ name = 'page' })) } | Should -Throw "*entries need 'name' and 'rules'*"
+        { Get-Relatives 'widgets/Catzc.Gadget/Get-Cog.ps1' (Get-Kind @(@{ name = 'docs' })) } | Should -Throw "*entries need 'name' and 'rules'*"
     }
 }

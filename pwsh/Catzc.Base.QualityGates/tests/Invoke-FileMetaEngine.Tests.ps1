@@ -261,5 +261,17 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
             $result = & $script:run $script:entries[0] $mixed
             $result.Files[0].Fixed | Should -BeLike "<#`n---`ncatzc:`n*function Get-Gadget { }`n"
         }
+
+        It 'requires a block of a file with a comment page where the default forbids one, and only of that file' {
+            $forbidden = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'forbidden' }; kinds = $script:widgetKinds })
+            [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs/catzc-widget')) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/catzc-widget/Get-Gadget.ps1.md'), "# Get-Gadget.ps1`n")
+            Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'comments' } {
+                [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) })
+            }
+            $result = & $script:run $script:entries[0..1] $forbidden
+            $result.Files.Path | Should -Be @('widgets/Catzc.Widget/Get-Gadget.ps1')
+            $result.Files[0].Fixed | Should -BeLike "<#`n---`ncatzc:`n*function Get-Gadget { }`n"
+        }
     }
 }

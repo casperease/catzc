@@ -34,7 +34,7 @@ public sealed class FileMetaConfig
                 policy = raw["head_policy"] as IDictionary;
                 if (policy == null)
                 {
-                    throw new ArgumentException("file-meta config: head_policy must be a map (default, classes)");
+                    throw new ArgumentException("file-meta config: head_policy must be a map (default, pages, classes)");
                 }
             }
             if (raw.Contains("kinds") && raw["kinds"] != null)
@@ -74,7 +74,7 @@ public sealed class FileMetaConfig
         foreach (FileMetaKind kind in list) { kind.registry = this; }
     }
 
-    public HeadPolicy PolicyFor(string fileClass) => head_policy.For(fileClass);
+    public HeadPolicy PolicyFor(string fileClass, bool hasPage = false) => head_policy.For(fileClass, hasPage);
 
     public bool Selects(FileMetaKind kind, string fileClass, string language) => kind != null && kind.Selects(fileClass, language);
 

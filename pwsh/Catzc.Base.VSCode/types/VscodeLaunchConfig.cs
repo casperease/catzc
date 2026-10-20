@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.VSCode/types/VscodeLaunchConfig.cs
+    folder: types
+    name: vscode-launch-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.VSCode
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.VSCode/tests/types/VscodeLaunchConfig.Tests.ps1
+    docs: "[VscodeLaunchConfig.cs.md](/docs/references/pwsh/catzc-base-vscode/types/VscodeLaunchConfig.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-ROOTCFG
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

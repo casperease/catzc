@@ -1,4 +1,4 @@
-# Whether a file of a class must, may or must not carry a block; the first class that matches decides, else the default (forbidden on the type).
+# Whether a file of a class must, may or must not carry a block; the first class that matches decides, else pages for a file with a comment page (required on the type), else the default (forbidden on the type).
 head_policy:
   classes:
     agent: required
@@ -68,13 +68,14 @@ kinds:
     keys: [visibility]
     select: [{ classes: [function] }]
 
-  # The few files a code file points at, one edge per fixed name; each only when it exists.
+  # The few files a code file points at, one edge per fixed name; each only when it exists, docs as a code link to the comment page.
   relative-edges:
     section: edges
-    keys: [page, test]
+    keys: [test, docs]
     settings:
       relations:
-        - name: page
+        - name: docs
+          link: "[{leaf}](/{path})"
           rules:
             - { paths: ["{page}"] }
         - name: test

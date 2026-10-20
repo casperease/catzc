@@ -33,6 +33,22 @@ Describe 'Get-DocChange' -Tag 'L0', 'logic' {
         $change[0].Diff | Should -BeLike '*+The widget rule, ADR-WIDGET-PARTS-SINGLE and ADR-WIDGET-PARTS-DOUBLE.*'
     }
 
+    It 'says who wrote each change: the editor''s exact save, an agent''s exact write, or nobody the ledgers know' {
+        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nSaved by the editor.`n"
+        Write-ListenFixtureFile 'docs/explanation/gadget.md' "# Gadget`n`nWritten by an agent.`n"
+        Write-ListenFixtureFile 'docs/gizmo.md' "# Gizmo`n`nFrom a checkout.`n"
+        $hashOf = { param($relative) [Catzc.Base.Globs.DurableHash]::HashFile((Join-Path $script:root $relative)) }
+        $at = [DateTimeOffset]::Now.AddMinutes(-30).ToString('o')
+        Write-ListenFixtureFile ([Catzc.Tooling.Listen.WriteLedger]::EditorLedger) ([Catzc.Tooling.Listen.WriteLedger]::Line($at, 'save', 'docs/adr/widget.md', (& $hashOf 'docs/adr/widget.md'), $null, $null) + "`n")
+        Write-ListenFixtureFile ([Catzc.Tooling.Listen.WriteLedger]::AgentLedger) ([Catzc.Tooling.Listen.WriteLedger]::Line($at, 'write', 'docs/explanation/gadget.md', (& $hashOf 'docs/explanation/gadget.md'), 'gadget-session', 'call-1') + "`n")
+
+        $changes = @(Get-DocChange -Session $script:session)
+        @($changes.Path) | Should -Be @('docs/adr/widget.md', 'docs/explanation/gadget.md', 'docs/gizmo.md')
+        @($changes.Source) | Should -Be @('editor', 'agent', 'unknown')
+        $changes[1].Agent | Should -BeExactly 'gadget-session'
+        $changes[0].Agent | Should -BeNullOrEmpty
+    }
+
     It 'reports added and deleted files, in path order, and the rest tier for an unknown kind' {
         Write-ListenFixtureFile 'docs/gizmo.md' "# Gizmo`n"
         [System.IO.File]::Delete((Join-Path $script:root 'docs/explanation/gadget.md'))

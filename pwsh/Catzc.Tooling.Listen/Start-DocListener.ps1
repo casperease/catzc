@@ -39,7 +39,7 @@ function Start-DocListener {
             foreach ($change in @(Wait-DocChange -Session $Session)) {
                 $note = New-DocNote -Session $Session -Change $change
                 Update-DocSnapshot -Session $Session -Path @(@($change.Path, $change.From) | Where-Object { $_ })
-                Write-Message "Note $($note.Id): $($change.Path) ($($change.Change), $($change.Tier))"
+                Write-Message "Note $($note.Id): $($change.Path) ($($change.Change), $($change.Tier), $($change.Source))"
             }
         }
         catch {

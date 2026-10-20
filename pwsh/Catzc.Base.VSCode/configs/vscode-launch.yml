@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.VSCode/configs/vscode-launch.yml
+#     folder: configs
+#     name: vscode-launch
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.VSCode
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[vscode-launch.yml.md](/docs/references/pwsh/catzc-base-vscode/configs/vscode-launch.yml.md)"
+# ---
+
 version: "0.2.0"
 configurations:
   - name: Debug Module

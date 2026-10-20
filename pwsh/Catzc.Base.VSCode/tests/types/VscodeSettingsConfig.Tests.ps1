@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.VSCode/tests/types/VscodeSettingsConfig.Tests.ps1
+    folder: tests/types
+    name: vscode-settings-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.VSCode
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[VscodeSettingsConfig.Tests.ps1.md](/docs/references/pwsh/catzc-base-vscode/tests/types/VscodeSettingsConfig.Tests.ps1.md)"
+---
+#>
+
 Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {
     BeforeAll {
         function Get-ViolationMessage {

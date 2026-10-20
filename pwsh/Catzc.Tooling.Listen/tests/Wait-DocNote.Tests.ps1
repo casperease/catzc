@@ -15,6 +15,13 @@ Describe 'Wait-DocNote' -Tag 'L0', 'logic', 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         @(Wait-DocNote -Session $script:session -TimeoutSeconds 1).Id | Should -Be @('0001')
     }
 
+    It 'waits only for notes from the named writers' {
+        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nNo ledger knows this.`n"
+        Get-DocChange -Session $script:session | New-DocNote -Session $script:session | Out-Null
+        @(Wait-DocNote -Session $script:session -Source editor -TimeoutSeconds 1).Count | Should -Be 0
+        @(Wait-DocNote -Session $script:session -Source unknown -TimeoutSeconds 1).Id | Should -Be @('0001')
+    }
+
     It 'waits, instead of throwing, while there is no session yet' {
         Initialize-ListenFixture | Out-Null
         @(Wait-DocNote -TimeoutSeconds 1).Count | Should -Be 0

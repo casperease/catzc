@@ -11,9 +11,14 @@ public sealed class FileHeadPolicy
 
     public const HeadPolicy DefaultPolicy = HeadPolicy.Forbidden;
 
-    static readonly string[] Allowed = { "default", "classes" };
+    // A file with a comment page carries the head that links it, whatever the default says of its class.
+    public const HeadPolicy DefaultPagesPolicy = HeadPolicy.Required;
+
+    static readonly string[] Allowed = { "default", "pages", "classes" };
 
     public HeadPolicy @default { get; }
+
+    public HeadPolicy pages { get; }
 
     // Class patterns in registry order, each with its policy; the first pattern that matches a file's class decides.
     public IReadOnlyList<KeyValuePair<string, HeadPolicy>> classes { get; }
@@ -21,6 +26,7 @@ public sealed class FileHeadPolicy
     public FileHeadPolicy(IDictionary raw)
     {
         @default = DefaultPolicy;
+        pages = DefaultPagesPolicy;
         var list = new List<KeyValuePair<string, HeadPolicy>>();
         if (raw != null)
         {
@@ -36,6 +42,10 @@ public sealed class FileHeadPolicy
             if (raw.Contains("default") && raw["default"] != null)
             {
                 @default = Parse("head_policy.default", raw["default"]);
+            }
+            if (raw.Contains("pages") && raw["pages"] != null)
+            {
+                pages = Parse("head_policy.pages", raw["pages"]);
             }
             if (raw.Contains("classes") && raw["classes"] != null)
             {
@@ -53,13 +63,14 @@ public sealed class FileHeadPolicy
         classes = list;
     }
 
-    public HeadPolicy For(string fileClass)
+    // A class entry decides first; a file no entry names takes the pages policy when it has a comment page, else the default.
+    public HeadPolicy For(string fileClass, bool hasPage = false)
     {
         foreach (KeyValuePair<string, HeadPolicy> entry in classes)
         {
             if (FileSelector.ClassMatches(entry.Key, fileClass)) { return entry.Value; }
         }
-        return @default;
+        return hasPage ? pages : @default;
     }
 
     static HeadPolicy Parse(string where, object value)

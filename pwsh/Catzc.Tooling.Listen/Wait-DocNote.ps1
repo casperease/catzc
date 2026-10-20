@@ -18,6 +18,9 @@ function Wait-DocNote {
     .PARAMETER TimeoutSeconds
         The bound of this wait. Default: listen.yml's note_wait_seconds.
 
+    .PARAMETER Source
+        Wait only for notes from these writers (Get-DocNote -Source); the processor waits for editor.
+
     .OUTPUTS
         [pscustomobject] per unprocessed note (Get-DocNote's records), or nothing.
     #>
@@ -27,7 +30,10 @@ function Wait-DocNote {
         [string] $Session,
 
         [ValidateRange(1, 3600)]
-        [int] $TimeoutSeconds = (Get-Config -Config listen).note_wait_seconds
+        [int] $TimeoutSeconds = (Get-Config -Config listen).note_wait_seconds,
+
+        [ValidateSet('editor', 'agent', 'unknown')]
+        [string[]] $Source
     )
 
     $poll = (Get-Config -Config listen).poll_milliseconds
@@ -38,7 +44,11 @@ function Wait-DocNote {
             # The session can vanish between the lookup and the read; that is the same as no session yet.
             [object[]] $notes = @()
             try {
-                $notes = @(Get-DocNote -Session $current -Unprocessed)
+                $filter = @{}
+                if ($Source) {
+                    $filter['Source'] = $Source
+                }
+                $notes = @(Get-DocNote -Session $current -Unprocessed @filter)
             }
             catch {
                 if (Resolve-ListenSession $current -AllowMissing) {

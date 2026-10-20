@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.VSCode/Install-VSCodeExtension.ps1
+    name: install-vs-code-extension
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.VSCode
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.VSCode/tests/Install-VSCodeExtension.Tests.ps1
+    docs: "[Install-VSCodeExtension.ps1.md](/docs/references/pwsh/catzc-base-vscode/Install-VSCodeExtension.ps1.md)"
+---
+#>
+
 function Install-VSCodeExtension {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -58,10 +58,11 @@ Prettier, the managed toolchain's `gofmt`, the pinned `ruff`, PSScriptAnalyzer, 
 adapter per engine; [configure-not-program](../../adr/principles/configure-not-program.md)), the C# type-namespace formatter, the Python
 lint and type quality gates (`Test-PythonLint`, `ruff check`; `Test-PythonTypes`, `pyright`, the engine Pylance runs in the editor) over
 every `.py` file the repository holds, the shell-script quality gate (`Test-ShellScripts`: LF, the executable bit, and ShellCheck) over
-every shell script it tracks ([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)), and the link aligner and quality
-gate, which keep code links repository-rooted and markdown links relative and resolving
-([markdown-links](../../adr/repository/markdown-links.md)), and the comment converters and their quality gate, which move every long comment
-into its file's comment page, leaving nothing behind in the file, and write the annotated view
+every shell script it tracks ([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)), the idiomatic-names quality gate and
+its assertion (`Test-IdiomaticNames`, `Assert-IdiomaticNames`: every tracked file and its folders named in its language's idiom;
+[idiomatic-names](../../adr/automation/idiomatic-names.md)), and the link aligner and quality gate, which keep code links repository-rooted
+and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)), and the comment converters and their
+quality gate, which move every long comment into its file's comment page, leaving nothing behind in the file, and write the annotated view
 ([comments-in-docs](../../adr/repository/comments-in-docs.md)). The responsibility owns the invocation of each tool, not the tool itself or
 its per-tool configuration.
 
@@ -155,6 +156,8 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-PythonLint`             |
 |                                                 | `Test-PythonTypes`            |
 |                                                 | `Test-ShellScripts`           |
+|                                                 | `Test-IdiomaticNames`         |
+|                                                 | `Assert-IdiomaticNames`       |
 |                                                 | `Format-Links`                |
 |                                                 | `Test-Links`                  |
 |                                                 | `Export-Comments`             |

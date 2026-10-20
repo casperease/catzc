@@ -63,6 +63,8 @@ function New-DocNote {
             "from: `"$from`""
             "kind: `"$($Change.Kind)`""
             "tier: $($Change.Tier)"
+            "source: $($Change.Source)"
+            "agent: `"$($Change.Agent)`""
             "rules: $rules"
             "commit: $commit"
             "written_at: $([DateTimeOffset]::Now.ToString('o'))"

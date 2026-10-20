@@ -1,9 +1,9 @@
 <!--
-  The Claude Code Bash time-safeguard hook (Program.cs). Build-BashTimeoutHook publishes it, framework-dependent,
+  The Claude Code Bash time-safeguard hook (Program.cs). Build-AgentHook publishes it, framework-dependent,
   to .claude/hooks/bin/ whenever its sources change — this folder's files and every linked <Compile> source below;
   obj/bin here and the published output are gitignored.
 
-  The modules folder is the CatzcModulesFolder property Build-BashTimeoutHook passes, so the project names no folder.
+  The modules folder is the CatzcModulesFolder property Build-AgentHook passes, so the project names no folder.
 
   The decision and the limits are the Catzc.Base.Timeouts module's own types, compiled in from their source files,
   so the hook can never drift from Get-TimeoutSeconds. YAML is read with the YamlDotNet the vendored powershell-yaml
@@ -43,6 +43,6 @@
     </Reference>
   </ItemGroup>
   <Target Name="RequireCatzcModulesFolder" BeforeTargets="BeforeBuild" Condition="'$(CatzcModulesFolder)' == ''">
-    <Error Text="CatzcModulesFolder is not set: build the hook with Build-BashTimeoutHook, which passes the modules folder from Get-CatzcModulesFolder." />
+    <Error Text="CatzcModulesFolder is not set: build the hook with Build-AgentHook, which passes the modules folder from Get-CatzcModulesFolder." />
   </Target>
 </Project>

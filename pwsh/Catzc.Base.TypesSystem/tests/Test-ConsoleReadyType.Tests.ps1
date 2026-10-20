@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
+    folder: tests
+    name: test-console-ready-type-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.TypesSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-ConsoleReadyType.Tests.ps1.md](/docs/references/pwsh/catzc-base-typessystem/tests/Test-ConsoleReadyType.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Test-ConsoleReadyType' -Tag 'L0', 'logic' {
     BeforeAll {
         if (-not ([System.Management.Automation.PSTypeName]'ConsoleReadyWidgetProbe').Type) {

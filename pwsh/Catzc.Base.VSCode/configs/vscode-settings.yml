@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.VSCode/configs/vscode-settings.yml
+#     folder: configs
+#     name: vscode-settings
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.VSCode
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[vscode-settings.yml.md](/docs/references/pwsh/catzc-base-vscode/configs/vscode-settings.yml.md)"
+# ---
+
 settings:
   # Markdown settings (built-in preview)
   markdown.preview.fontFamily: "Consolas, 'Courier New', monospace"

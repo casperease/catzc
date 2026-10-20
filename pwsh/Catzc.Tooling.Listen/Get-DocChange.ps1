@@ -10,6 +10,7 @@ function Get-DocChange {
 
         Each change is one record: Path (repository-relative), Change (added, modified, deleted, or renamed when a deleted and an added
         file share a hash), From (the old path of a rename), Kind (the file kind, Get-FileKind), Tier (listen.yml's tier of that kind),
+        Source (who made the file's current bytes: agent, editor or unknown, from the write ledgers) and Agent (the agent's session id),
         Rules (the ADR codes the file cites, after the change, or before it for a deletion) and Diff (the unified diff against the copy).
 
     .PARAMETER Session
@@ -100,12 +101,21 @@ function Get-DocChange {
         else {
             [System.IO.File]::ReadAllText($before)
         }
+        $writer = if ($after -and [System.IO.File]::Exists($after)) {
+            $info = [System.IO.FileInfo]::new($after)
+            Get-ListenSource $relative -Hash ([Catzc.Base.Globs.DurableHash]::HashFile($after)) -WrittenAt ([DateTimeOffset] $info.LastWriteTimeUtc)
+        }
+        else {
+            Get-ListenSource $relative
+        }
         [pscustomobject]@{
             Path   = $relative
             Change = $change
             From   = $from
             Kind   = $tier.Kind
             Tier   = $tier.Tier
+            Source = $writer.source
+            Agent  = $writer.agent
             Rules  = Get-ListenCitedRule $cited
             Diff   = Get-ListenDiff -Before $before -After $after
         }

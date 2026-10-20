@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.TypesSystem/Assert-LoadedTypesCurrent.ps1
+    name: assert-loaded-types-current
+    filetype: ps1
+    role: function
+    subkind: assert
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.TypesSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.TypesSystem/tests/Assert-LoadedTypesCurrent.Tests.ps1
+    docs: "[Assert-LoadedTypesCurrent.ps1.md](/docs/references/pwsh/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md)"
+    cites:
+      - ADR-AUTO-FAILFAST-ASSERTPRECONDITIONS
+      - ADR-AUTO-TYPES-CHANGEDAFTERLOAD
+---
+#>
+
 function Assert-LoadedTypesCurrent {
     [CmdletBinding()]
     param(

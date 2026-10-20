@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: ".claude/hooks/Assert-BashTimeout/Program.cs"
+    folder: hooks/Assert-BashTimeout
+    name: program
+    filetype: cs
+    role: hook
+    language: csharp
+    track: ".claude"
+    tracktype: vendor-settings
+    vendor: claude
+    module: ".claude"
+    moduletype: settings
+  edges:
+    docs: "[Program.cs.md](/docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md)"
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

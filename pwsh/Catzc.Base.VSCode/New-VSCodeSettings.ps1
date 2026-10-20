@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.VSCode/New-VSCodeSettings.ps1
+    name: new-vs-code-settings
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.VSCode
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
+    docs: "[New-VSCodeSettings.ps1.md](/docs/references/pwsh/catzc-base-vscode/New-VSCodeSettings.ps1.md)"
+    cites:
+      - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+      - ADR-REPO-ROOTCFG
+---
+#>
+
 function New-VSCodeSettings {
     [CmdletBinding()]
     [OutputType([string])]

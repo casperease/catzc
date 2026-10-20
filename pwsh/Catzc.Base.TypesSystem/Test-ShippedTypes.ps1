@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
+    name: test-shipped-types
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.TypesSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
+    docs: "[Test-ShippedTypes.ps1.md](/docs/references/pwsh/catzc-base-typessystem/Test-ShippedTypes.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 function Test-ShippedTypes {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

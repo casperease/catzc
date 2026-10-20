@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
+    folder: tests/types
+    name: folder-walk-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Folders
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[FolderWalkConfig.Tests.ps1.md](/docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+---
+#>
+
 Describe 'FolderWalkConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.Folders.FolderWalkConfig]::new(@{})

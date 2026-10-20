@@ -22,6 +22,7 @@ function Invoke-FileMetaEngine {
     $ownedImmutable = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.KeysOf('immutable')))
     $ownedEdges = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.KeysOf('edges')))
     $parts = 'immutable', 'edges', 'config'
+    $comments = Get-Config -Config comments
 
     $entries = foreach ($entry in $files) {
         $file = $entry.Path
@@ -117,7 +118,9 @@ function Invoke-FileMetaEngine {
         }
 
         $fixed = $text
-        $policy = $Config.PolicyFor((Get-FileKind $file).Class)
+        $page = $comments.PageFor($file)
+        $hasPage = [bool] $page -and [System.IO.File]::Exists((Join-Path $RepositoryRoot $page))
+        $policy = $Config.PolicyFor((Get-FileKind $file).Class, $hasPage)
         $hasBlock = if ($isProperty -or $isHead) {
             $state.HasHead
         }

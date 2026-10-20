@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
+    name: get-c-sharp-type-dependency
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.TypesSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
+    docs: "[Get-CSharpTypeDependency.ps1.md](/docs/references/pwsh/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md)"
+    cites:
+      - ADR-DSGN-RUNMODE
+      - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+---
+#>
+
 function Get-CSharpTypeDependency {
     param(
         [string] $ModulesRoot = (Get-CatzcModulesRoot)

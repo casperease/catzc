@@ -18,7 +18,7 @@ from stdin, load timeouts.yml, detect the run environment, print a denial, and a
 out/time-safeguard.log — the list of blockers to tune.
 
 A compiled program because it runs before every Bash call: it starts in about a third of the time a pwsh script
-does. Build-BashTimeoutHook publishes it to .claude/hooks/bin/, from where the repository root is three folders up.
+does. Build-AgentHook publishes it to .claude/hooks/bin/, from where the repository root is three folders up.
 ```
 
 ## comment:2

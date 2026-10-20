@@ -1,4 +1,25 @@
-Describe 'Build-BashTimeoutHook' -Tag 'L0', 'logic' {
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1
+    folder: tests
+    name: build-agent-hook-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.TypesSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-AgentHook.Tests.ps1.md](/docs/references/pwsh/catzc-base-typessystem/tests/Build-AgentHook.Tests.ps1.md)"
+---
+#>
+
+Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem {
             $null = New-Item -ItemType Directory -Force -Path $script:outputDirectory
@@ -10,9 +31,9 @@ Describe 'Build-BashTimeoutHook' -Tag 'L0', 'logic' {
     }
 
     It 'publishes with dotnet, records the source hash and announces it' {
-        $program = Build-BashTimeoutHook -OutputDirectory $script:outputDirectory
+        $program = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
         $program | Should -Exist
-        Join-Path $script:outputDirectory 'source.sha256' | Should -Exist
+        Join-Path $script:outputDirectory 'Assert-BashTimeout.source.sha256' | Should -Exist
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 1 -Exactly -ParameterFilter {
             $Command -like 'dotnet publish *Assert-BashTimeout.csproj*--output*'
         }
@@ -20,42 +41,55 @@ Describe 'Build-BashTimeoutHook' -Tag 'L0', 'logic' {
     }
 
     It 'does nothing while the published program matches its source' {
-        $null = Build-BashTimeoutHook -OutputDirectory $script:outputDirectory
-        $null = Build-BashTimeoutHook -OutputDirectory $script:outputDirectory
+        $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
+        $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 1 -Exactly
     }
 
     It 'republishes when the recorded hash no longer matches the source' {
-        $null = Build-BashTimeoutHook -OutputDirectory $script:outputDirectory
-        Set-Content -LiteralPath (Join-Path $script:outputDirectory 'source.sha256') -Value 'stale'
-        $null = Build-BashTimeoutHook -OutputDirectory $script:outputDirectory
+        $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
+        Set-Content -LiteralPath (Join-Path $script:outputDirectory 'Assert-BashTimeout.source.sha256') -Value 'stale'
+        $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 2 -Exactly
     }
 
     It 'throws when the publish produces no runnable program' {
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem { }
-        { Build-BashTimeoutHook -OutputDirectory $script:outputDirectory } | Should -Throw "*produced no runnable 'Assert-BashTimeout' program*"
-        Join-Path $script:outputDirectory 'source.sha256' | Should -Not -Exist
+        { Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory } | Should -Throw "*produced no runnable 'Assert-BashTimeout' program*"
+        Join-Path $script:outputDirectory 'Assert-BashTimeout.source.sha256' | Should -Not -Exist
     }
 
     It 'records the linked module sources in the hash, so a change to them republishes' {
-        $null = Build-BashTimeoutHook -OutputDirectory $script:outputDirectory
-        $stamp = Get-Content -LiteralPath (Join-Path $script:outputDirectory 'source.sha256') -Raw
+        $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
+        $stamp = Get-Content -LiteralPath (Join-Path $script:outputDirectory 'Assert-BashTimeout.source.sha256') -Raw
         $stamp | Should -BeLike '*Catzc.Base.Timeouts/types/TimeoutsConfig.cs:*'
         $stamp | Should -BeLike '*Catzc.Base.Timeouts/types/BashSafeguard.cs:*'
     }
 
+    It 'publishes every hook folder under .claude/hooks when none is named, each with its own stamp' {
+        Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem {
+            $null = New-Item -ItemType Directory -Force -Path $script:outputDirectory
+            $hostExecutable = [Environment]::ProcessPath
+            $assembly = [System.IO.Path]::GetFileNameWithoutExtension(($Command -split '"')[1])
+            Copy-Item -LiteralPath $hostExecutable -Destination (Join-Path $script:outputDirectory ($assembly + [IO.Path]::GetExtension($hostExecutable)))
+        }
+        $programs = @(Build-AgentHook -OutputDirectory $script:outputDirectory)
+        @($programs | ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) }) | Should -Be @('Assert-BashTimeout', 'Record-AgentWrite')
+        Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256' | Should -Exist
+        Get-Content -LiteralPath (Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256') -Raw | Should -BeLike '*Catzc.Tooling.Listen/types/WriteLedger.cs:*'
+    }
+
     It 'republishes with -Force' {
-        $null = Build-BashTimeoutHook -OutputDirectory $script:outputDirectory
-        $null = Build-BashTimeoutHook -OutputDirectory $script:outputDirectory -Force
+        $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
+        $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory -Force
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 2 -Exactly
     }
 }
 
-Describe 'Build-BashTimeoutHook — parity with Get-TimeoutSeconds' -Tag 'L1', 'integrity' {
+Describe 'Build-AgentHook — Assert-BashTimeout parity with Get-TimeoutSeconds' -Tag 'L1', 'integrity' {
     BeforeAll {
         # The hook as published for this repository, reading the shipped timeouts.yml through its own YAML loader.
-        $script:program = Build-BashTimeoutHook
+        $script:program = Build-AgentHook Assert-BashTimeout
         $script:foregroundMs = (Get-TimeoutSeconds -Shell Bash) * 1000
         $script:backgroundSeconds = Get-TimeoutSeconds -Shell Bash -Background
 
@@ -82,7 +116,7 @@ Describe 'Build-BashTimeoutHook — parity with Get-TimeoutSeconds' -Tag 'L1', '
     }
 }
 
-Describe 'Build-BashTimeoutHook — the published hook' -Tag 'L2', 'logic' {
+Describe 'Build-AgentHook — the published Assert-BashTimeout' -Tag 'L2', 'logic' {
     BeforeAll {
         # Publish the real program into the test drive, with a copy of the repository layout it locates its config by.
         $script:root = Join-Path $TestDrive 'repo'
@@ -95,7 +129,7 @@ limits:
 executables:
   widget: 90
 '@
-        $script:program = Build-BashTimeoutHook -OutputDirectory (Join-Path $script:root '.claude/hooks/bin') -Force
+        $script:program = Build-AgentHook Assert-BashTimeout -OutputDirectory (Join-Path $script:root '.claude/hooks/bin') -Force
 
         function Invoke-Hook {
             param([string] $Payload)
@@ -149,5 +183,62 @@ executables:
         $decision = ($result.Output | ConvertFrom-Json).hookSpecificOutput
         $decision.permissionDecision | Should -Be 'deny'
         $decision.permissionDecisionReason | Should -BeLike 'Bash time safeguard hook failed, so the call is denied: *'
+    }
+}
+
+Describe 'Build-AgentHook — the published Record-AgentWrite' -Tag 'L2', 'logic' {
+    BeforeAll {
+        # Publish the real program into the test drive; it finds the repository three folders above itself.
+        $script:root = Join-Path $TestDrive 'repo'
+        $null = New-Item -ItemType Directory -Force -Path (Join-Path $script:root 'docs')
+        Set-Content -LiteralPath (Join-Path $script:root 'docs/widget.md') -Value "widget`r`n" -NoNewline
+        $script:program = Build-AgentHook Record-AgentWrite -OutputDirectory (Join-Path $script:root '.claude/hooks/bin') -Force
+        $script:ledger = Join-Path $script:root 'out/agent-writes.jsonl'
+
+        function Invoke-Hook {
+            param([string] $Payload)
+            $output = $Payload | & $script:program
+            [pscustomobject]@{ ExitCode = $LASTEXITCODE; Output = ($output -join '') }
+        }
+
+        function Get-LedgerLine {
+            @(if (Test-Path -LiteralPath $script:ledger) {
+                    Get-Content -LiteralPath $script:ledger | ForEach-Object { $_ | ConvertFrom-Json }
+                })
+        }
+    }
+
+    BeforeEach {
+        Remove-Item -LiteralPath $script:ledger -ErrorAction Ignore
+    }
+
+    It 'records a tool write with its repository-relative path, the listener''s content hash and the session' {
+        $file = (Join-Path $script:root 'docs/widget.md').Replace('\', '/')
+        $result = Invoke-Hook ('{"hook_event_name":"PostToolUse","tool_name":"Edit","session_id":"gadget","tool_use_id":"call-1","tool_input":{"file_path":"' + $file + '"}}')
+        $result.ExitCode | Should -Be 0
+        $result.Output | Should -BeNullOrEmpty
+        $line = @(Get-LedgerLine)
+        $line.Count | Should -Be 1
+        $line[0].event | Should -BeExactly 'write'
+        $line[0].path | Should -BeExactly 'docs/widget.md'
+        $line[0].hash | Should -BeExactly ([Catzc.Base.Globs.DurableHash]::HashFile((Join-Path $script:root 'docs/widget.md')))
+        $line[0].session | Should -BeExactly 'gadget'
+        $line[0].id | Should -BeExactly 'call-1'
+    }
+
+    It 'records the start and the end of a Bash call' {
+        Invoke-Hook '{"hook_event_name":"PreToolUse","tool_name":"Bash","session_id":"gadget","tool_use_id":"call-2","tool_input":{"command":"ls"}}' | Out-Null
+        Invoke-Hook '{"hook_event_name":"PostToolUse","tool_name":"Bash","session_id":"gadget","tool_use_id":"call-2","tool_input":{"command":"ls"}}' | Out-Null
+        @((Get-LedgerLine).event) | Should -Be @('bash-start', 'bash-end')
+        @((Get-LedgerLine).id) | Should -Be @('call-2', 'call-2')
+    }
+
+    It 'records nothing for a file outside the repository, and never fails or blocks on input it cannot read' {
+        $outside = (Join-Path $TestDrive 'gizmo/widget.md').Replace('\', '/')
+        Invoke-Hook ('{"hook_event_name":"PostToolUse","tool_name":"Write","session_id":"gadget","tool_input":{"file_path":"' + $outside + '"}}') | Out-Null
+        $result = Invoke-Hook 'not json'
+        $result.ExitCode | Should -Be 0
+        $result.Output | Should -BeNullOrEmpty
+        @(Get-LedgerLine).Count | Should -Be 0
     }
 }

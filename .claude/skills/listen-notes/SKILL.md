@@ -32,7 +32,8 @@ metadata:
 
 1. The editor runs `Start-DocListener`; it writes `notes/<id>.md` once each and never again. Never edit a note, a copy or an index; the
    session's out/listen folder is the one input read from out/ (ADR-REPO-AI-EDITORISFACT).
-2. Wait with `Wait-DocNote`, no `-Session`, in a background call, as catzc-run says: it follows the newest session and waits through none or
-   a wiped one; nothing back means wait again. Every later call about a note names its `Session`; one gone with out/ is skipped.
+2. Wait with `Wait-DocNote -Source editor`, no `-Session`, in a background call as catzc-run says: it follows the newest session and waits
+   through none or a wiped one; nothing back means wait again. Every later call about a note names its `Session`; one gone with out/ is
+   skipped. Agent and unknown notes (`Get-DocNote -Source agent, unknown`) are context, never planned from.
 3. Read a note whole: its head (path, change, kind, tier, rules, commit) and its two diffs, this change and the arc over the session.
 4. Close each note with one `Complete-DocNote -Id -FactCheck -Pattern -Plan` once its plan step is written; it is the only ledger write.

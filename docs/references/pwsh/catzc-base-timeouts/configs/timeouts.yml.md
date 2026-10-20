@@ -15,7 +15,7 @@ of seconds: there is no "no limit" value, so every call runs inside a safeguard.
 Consumers:
   - Invoke-Executable (streamed mode) kills a child process that outlives its limit;
   - Invoke-WithTimeout / Assert-CompletesWithin stop a script block that outlives its limit;
-  - the Claude Code PreToolUse hook (.claude/hooks/Assert-BashTimeout/, a C# program Build-BashTimeoutHook
+  - the Claude Code PreToolUse hook (.claude/hooks/Assert-BashTimeout/, a C# program Build-AgentHook
     publishes on import) bounds every Bash call an agent makes, foreground and background.
 
 Limits are keyed by environment (devbox | pipeline) and shell, one of the execution engines (pwsh | bash | zsh):

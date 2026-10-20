@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
+    folder: tests
+    name: clear-module-type-cache-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.TypesSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Clear-ModuleTypeCache.Tests.ps1.md](/docs/references/pwsh/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md)"
+---
+#>
+
 Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
 
     BeforeEach {

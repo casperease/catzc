@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e2ad0678b502
+#     with_body_sha: "08898915a9b6"
 #     warning: "Do Not Edit, this file is generated"
 #     repo_status: locked
 #     path: ".gitignore"
@@ -100,12 +100,12 @@ pwsh/.internal/assets/obj/
 pwsh/.internal/assets/bin/
 
 # ── Agent hook build output ─────────────────────────────────────────────────────────────────────────────────────────
-# The Claude Code Bash time-safeguard hook is a small C# program (.claude/hooks/Assert-BashTimeout/) that
-# Build-BashTimeoutHook publishes on import whenever its source changes. The published program and its MSBuild
-# intermediates are per-machine build output, rebuilt from the committed source.
+# Each Claude Code agent hook is a small C# program (.claude/hooks/<name>/) that Build-AgentHook publishes on import
+# whenever its source changes. The published programs and their MSBuild intermediates are per-machine build output,
+# rebuilt from the committed source.
 .claude/hooks/bin/
-.claude/hooks/Assert-BashTimeout/obj/
-.claude/hooks/Assert-BashTimeout/bin/
+.claude/hooks/*/obj/
+.claude/hooks/*/bin/
 
 # ── Go test workspace sums ──────────────────────────────────────────────────────────────────────────────────────────
 # The Go test workspace is generated (ADR-AUTO-GO): go.work and each go.mod are managed root-config copies, ignored

@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml
+#     folder: configs
+#     name: vscode-extensions
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.VSCode
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[vscode-extensions.yml.md](/docs/references/pwsh/catzc-base-vscode/configs/vscode-extensions.yml.md)"
+# ---
+
 # cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp tomoki redhat Anson Levett iliazeus gopls
 recommendations:
   # YAML language support — schema-validated editing of the configs/*.yml registries and pipeline YAML.
@@ -46,6 +65,12 @@ extensions:
         - id: catzc.gitChanges.unstagedBackground
           description: Background of a line whose change is not staged yet.
           defaults: { dark: "#b8860b40", light: "#b8860b40", highContrast: "#b8860b59" }
+  catzc-save-ledger:
+    displayName: Catzc save ledger
+    description: >-
+      Records every save in a catzc checkout to out/editor-saves.jsonl, with its content hash, so the listen mode tells the editor's changes
+      from an agent's.
+    activationEvents: [onStartupFinished]
   catzc-compiled-info:
     displayName: Catzc compiled build info
     description: >-

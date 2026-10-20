@@ -51,9 +51,26 @@
         "hooks": [
           {
             "type": "command",
-            "command": "p=\"$CLAUDE_PROJECT_DIR/.claude/hooks/bin/Assert-BashTimeout\"; command -v \"$p\" >/dev/null || { echo \"Bash time safeguard is not built: import the repository (Build-BashTimeoutHook publishes it).\" >&2; exit 1; }; exec \"$p\"",
+            "command": "p=\"$CLAUDE_PROJECT_DIR/.claude/hooks/bin/Assert-BashTimeout\"; command -v \"$p\" >/dev/null || { echo \"Bash time safeguard is not built: import the repository (Build-AgentHook publishes it).\" >&2; exit 1; }; exec \"$p\"",
             "timeout": 10,
             "statusMessage": "Checking the Bash time safeguard"
+          },
+          {
+            "type": "command",
+            "command": "p=\"$CLAUDE_PROJECT_DIR/.claude/hooks/bin/Record-AgentWrite\"; command -v \"$p\" >/dev/null || exit 0; exec \"$p\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "p=\"$CLAUDE_PROJECT_DIR/.claude/hooks/bin/Record-AgentWrite\"; command -v \"$p\" >/dev/null || exit 0; exec \"$p\"",
+            "timeout": 5
           }
         ]
       }

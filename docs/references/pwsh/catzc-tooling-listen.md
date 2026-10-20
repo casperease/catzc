@@ -26,7 +26,10 @@ listener runs in a terminal of its own until stopped, and a stopped listener los
 
 Keep a session's two copies of the watched folder: a baseline frozen at the start and a seen copy that moves forward as changes are noted. A
 change is a file whose bytes on disk differ from the seen copy; a save of the same bytes is none, and a deleted and an added file with the
-same bytes are one rename. A change counts once it has stayed the same for a quiet window, so a burst of saves is one change.
+same bytes are one rename. A change counts once it has stayed the same for a quiet window, so a burst of saves is one change. Every change
+also says who made its bytes, from two write ledgers in `out/`: an agent session, which the Record-AgentWrite hook records for every tool
+write and Bash call; the editor, which the catzc-save-ledger extension records for every save; or nobody either ledger knows. The listener
+notes them all, and the processor plans from the editor's alone.
 
 ### responsibility:3 — Hand the notes to the processor
 

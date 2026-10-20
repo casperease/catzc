@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
+    folder: tests
+    name: new-vs-code-settings-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.VSCode
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[New-VSCodeSettings.Tests.ps1.md](/docs/references/pwsh/catzc-base-vscode/tests/New-VSCodeSettings.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+      - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+---
+#>
+
 # cspell:ignore gopls  -- the Go language server and its VS Code settings key
 Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
     BeforeAll {

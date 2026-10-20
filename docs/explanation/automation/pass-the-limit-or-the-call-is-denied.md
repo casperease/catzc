@@ -37,7 +37,7 @@ a log so the limits can be tuned together instead of worked around.
    sentence depends on who asked: the main session is told to raise the blocker with the user and never work around the safeguard; a
    subagent is told to report the blocker to its coordinator rather than retry with a larger limit; a pipeline is told to fix the call or
    its limit, because nobody tunes it live. When the hook is not built yet, the wrapper in `.claude/settings.json` says so,
-   `import the repository (Build-BashTimeoutHook publishes it)`, and lets the call go.
+   `import the repository (Build-AgentHook publishes it)`, and lets the call go.
 4. **out/time-safeguard.log.** Each denial appends one tab-separated line: the UTC time, `Devbox` or `Pipeline`, the actor (`main`,
    `subagent:<type>` or `pipeline`), `foreground` or `background`, what was requested (`timeout 3001 ms`, `no timeout prefix`,
    `timeout 361 s`, `compound command`), the limit, and the command. The file is the list of blockers to tune: a call that legitimately

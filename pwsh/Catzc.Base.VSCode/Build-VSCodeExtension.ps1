@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.VSCode/Build-VSCodeExtension.ps1
+    name: build-vs-code-extension
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.VSCode
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.VSCode/tests/Build-VSCodeExtension.Tests.ps1
+    docs: "[Build-VSCodeExtension.ps1.md](/docs/references/pwsh/catzc-base-vscode/Build-VSCodeExtension.ps1.md)"
+---
+#>
+
 function Build-VSCodeExtension {
     [CmdletBinding()]
     [OutputType([string])]

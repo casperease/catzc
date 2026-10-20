@@ -32,6 +32,12 @@ Describe 'Get-DocNote' -Tag 'L0', 'logic' {
         (Get-DocNote -Session $script:session)[0].Processed | Should -BeTrue
     }
 
+    It 'carries each note''s source, and filters by it with -Source' {
+        @((Get-DocNote -Session $script:session).Source | Select-Object -Unique) | Should -Be @('unknown')
+        @(Get-DocNote -Session $script:session -Source editor).Count | Should -Be 0
+        @(Get-DocNote -Session $script:session -Source editor, unknown).Count | Should -Be 2
+    }
+
     It 'reads the newest session when none is named' {
         @(Get-DocNote).Count | Should -Be 2
     }

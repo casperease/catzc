@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.VSCode/tests/New-VSCodePipelineSchema.Tests.ps1
+    folder: tests
+    name: new-vs-code-pipeline-schema-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.VSCode
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[New-VSCodePipelineSchema.Tests.ps1.md](/docs/references/pwsh/catzc-base-vscode/tests/New-VSCodePipelineSchema.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+---
+#>
+
 Describe 'New-VSCodePipelineSchema' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {

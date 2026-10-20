@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
+    folder: types
+    name: vscode-pipeline-schema-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.VSCode
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.VSCode/tests/types/VscodePipelineSchemaConfig.Tests.ps1
+    docs: "[VscodePipelineSchemaConfig.cs.md](/docs/references/pwsh/catzc-base-vscode/types/VscodePipelineSchemaConfig.cs.md)"
+    cites:
+      - ADR-REPO-ROOTCFG
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

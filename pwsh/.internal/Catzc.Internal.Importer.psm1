@@ -306,19 +306,19 @@ function Invoke-AgentHookJanitor {
     [CmdletBinding()]
     param()
 
-    if (-not (Get-Command Build-BashTimeoutHook -ErrorAction Ignore) -or (Get-SessionActor) -eq 'Pipeline' -or
-        -not (Test-Path -LiteralPath (Join-Path $env:RepositoryRoot '.claude/hooks/Assert-BashTimeout'))) {
+    if (-not (Get-Command Build-AgentHook -ErrorAction Ignore) -or (Get-SessionActor) -eq 'Pipeline' -or
+        -not (Test-Path -LiteralPath (Join-Path $env:RepositoryRoot '.claude/hooks'))) {
         return
     }
     if (-not (Get-Command dotnet -ErrorAction Ignore)) {
-        Write-ImporterMessage 'Agent hook: the Bash time safeguard is not built — dotnet is not on PATH (Install-Dotnet).' -ForegroundColor Yellow
+        Write-ImporterMessage 'Agent hooks: not built — dotnet is not on PATH (Install-Dotnet).' -ForegroundColor Yellow
         return
     }
     try {
-        $null = Build-BashTimeoutHook
+        $null = Build-AgentHook
     }
     catch {
-        Write-ImporterMessage "Agent hook: the Bash time safeguard was not published — $($_.Exception.Message)" -ForegroundColor Red
+        Write-ImporterMessage "Agent hooks: not all were published — $($_.Exception.Message)" -ForegroundColor Red
     }
 }
 

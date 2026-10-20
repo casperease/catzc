@@ -60,11 +60,12 @@ so after import that full name must resolve. The quality gate lists every type t
 
 ### responsibility:5 — Agent hook build
 
-Publishing the one C# program the platform runs outside PowerShell: the Claude Code hook that holds every agent Bash call to the time
-safeguard ([fail-fast-with-asserts](../../adr/automation/fail-fast-with-asserts.md), `ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`). It runs before
-every such call, so it is compiled rather than scripted. The importer asks for it on every import; it publishes with `dotnet` only when the
-source's hash differs from the one recorded beside the published program, finds the program by the project's own assembly name, and asserts
-the publish produced it.
+Publishing the C# programs the platform runs outside PowerShell: the Claude Code hooks under `.claude/hooks/`, one folder each. One holds
+every agent Bash call to the time safeguard ([fail-fast-with-asserts](../../adr/automation/fail-fast-with-asserts.md),
+`ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`); another records what each agent session writes, so the listen mode tells it from the editor's changes
+([ai-agent-contract](../../adr/repository/ai-agent-contract.md)). They run around every such call, so they are compiled rather than
+scripted. The importer asks for them on every import; each publishes with `dotnet` only when its sources' hash differs from the one recorded
+beside its published program, is found by its project's own assembly name, and is asserted to exist after the publish.
 
 ## What the module does
 
@@ -93,4 +94,4 @@ The module's public functions, sorted into the responsibilities above.
 | responsibility:2 — Cross-module type dependency analysis | `Get-CSharpTypeDependency`  |
 | responsibility:3 — Editor type-project build             | `Invoke-BuildForVSCode`     |
 | responsibility:4 — Shipped-type coverage                 | `Test-ShippedTypes`         |
-| responsibility:5 — Agent hook build                      | `Build-BashTimeoutHook`     |
+| responsibility:5 — Agent hook build                      | `Build-AgentHook`           |

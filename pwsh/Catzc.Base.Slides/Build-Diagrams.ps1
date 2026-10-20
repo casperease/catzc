@@ -73,9 +73,15 @@ function Build-Diagrams {
 
     $render = $true
     $runs = [System.Collections.Generic.List[pscustomobject]]::new()
+    $total = [System.Diagnostics.Stopwatch]::StartNew()
     $declared = @($folders | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_/diagram.drawio.yml") -PathType Leaf })
     if (-not $DryRun -and $declared.Count -gt 0) {
-        $null = Write-DiagramMinimapData -Folder $declared -RepositoryRoot $root
+        Write-Message "Build-Diagrams: writing the minimap data of $($declared.Count) declared folder(s), then $(if ($FromDrawing) { 'syncing' } else { 'rendering' }) $($folders.Count)."
+        for ($index = 0; $index -lt $declared.Count; $index++) {
+            $step = [System.Diagnostics.Stopwatch]::StartNew()
+            $null = Write-DiagramMinimapData -Folder $declared[$index] -RepositoryRoot $root
+            Write-Message "minimaps $($index + 1)/$($declared.Count) $($declared[$index]) ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
+        }
     }
     if ($FromDrawing) {
         Assert-True ([bool] $Path) -ErrorText 'Build-Diagrams: -FromDrawing syncs the folders it is given; pass -Path.'
@@ -89,12 +95,14 @@ function Build-Diagrams {
                 Write-Message "Would run: uv $arguments"
                 continue
             }
+            $step = [System.Diagnostics.Stopwatch]::StartNew()
             $result = Invoke-Executable "$uv $arguments" -WorkingDirectory $root -PassThru -NoAssert -Silent
             $run.ExitCode = $result.ExitCode
-            $row = @($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{') }) | Select-Object -Last 1 | ForEach-Object { $_ | ConvertFrom-Json }
+            $row =@($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{') }) | Select-Object -Last 1 | ForEach-Object { $_ | ConvertFrom-Json }
             Assert-True ($result.ExitCode -eq 0 -and $row -and -not $row.PSObject.Properties['error']) -ErrorText "Build-Diagrams: the sync of $folderPath stopped: $(if ($row -and $row.PSObject.Properties['error']) { $row.error } else { @($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ' })"
             $run.Stage = "sync ($(@($row.ran) -join ', '))"
             $run.Status = 'clean'
+            Write-Message "sync $($runs.Count)/$($folders.Count) $folderPath clean ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
         }
         if (-not $DryRun) {
             $null = Test-Diagrams -Path $folders -Kit $Kit -RepositoryRoot $root
@@ -111,6 +119,7 @@ function Build-Diagrams {
             $runs.Add($run)
             continue
         }
+        $step = [System.Diagnostics.Stopwatch]::StartNew()
         $result = Invoke-Executable "$uv $arguments" -WorkingDirectory $root -PassThru -NoAssert -Silent
         $run.ExitCode = $result.ExitCode
         # The renderer's exit codes: 0 clean, 2 warnings with every artifact delivered, 3 nothing to render.
@@ -129,12 +138,13 @@ function Build-Diagrams {
             }
         }
         $runs.Add($run)
+        Write-Message "render $($runs.Count)/$($folders.Count) $folderPath $($run.Status) ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
         if ($run.Status -eq 'warnings') {
             Write-Message "Build-Diagrams: $folderPath finished with warnings; see the renderer's bulk report under out/drawio/." -Warning
         }
         Assert-True ($run.Status -ne 'failed') -ErrorText "Build-Diagrams: the renderer failed on $folderPath (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
     }
-    Write-Message "Build-Diagrams: $($folders.Count) diagram folder(s) $(if ($FromDrawing) { 'synced from the drawing' } else { 'rendered' })$(if ($DryRun) { ', dry run' }) done."
+    Write-Message "Build-Diagrams: $($folders.Count) diagram folder(s) $(if ($FromDrawing) { 'synced from the drawing' } else { 'rendered' })$(if ($DryRun) { ', dry run' }) in $([Math]::Round($total.Elapsed.TotalSeconds, 1)) s."
 
     if ($PassThru) {
         return $runs.ToArray()
