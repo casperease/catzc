@@ -39,9 +39,34 @@ function Get-AdrCitationGraphViolations {
                 continue
             }
             $relative = $Index.FileOf[$ruleSet.External]
-            foreach ($summaryLine in (Get-AdrRuleSummaryLines ([System.IO.Path]::Combine($Index.Root, $relative)))) {
+            $lines = [System.IO.File]::ReadAllLines([System.IO.Path]::Combine($Index.Root, $relative))
+            $rule = $null
+            $inFence = $false
+            for ($i = 0; $i -lt $lines.Count; $i++) {
+                $text = $lines[$i]
+                if ($text -match '^\s*(```|~~~)') {
+                    $inFence = -not $inFence
+                    continue
+                }
+                if ($inFence) {
+                    continue
+                }
+                if ($text -match '^#{1,6}\s') {
+                    $rule = if ($text -cmatch '^###\s+Rule\s+(?<code>ADR(?:-[A-Z][A-Z0-9]*){3,})\s*$') {
+                        $Matches['code']
+                    }
+                    else {
+                        $null
+                    }
+                }
+                $citer = if ($rule) {
+                    $rule
+                }
+                else {
+                    $ruleSet.External
+                }
                 $references = [System.Collections.Generic.List[object]]::new()
-                foreach ($match in [regex]::Matches($summaryLine.Text, '(?<![A-Za-z0-9-])ADR(?:-[A-Z][A-Z0-9]*)+')) {
+                foreach ($match in [regex]::Matches($text, '(?<![A-Za-z0-9-])ADR(?:-[A-Z][A-Z0-9]*)+')) {
                     # A rule's code extends its ADR's code, so the longest registered prefix names the domain.
                     $code = $match.Value
                     while ($code.Contains('-') -and -not $domainOfCode.ContainsKey($code)) {
@@ -51,7 +76,7 @@ function Get-AdrCitationGraphViolations {
                         $references.Add(@{ Text = $match.Value; Domain = $domainOfCode[$code] })
                     }
                 }
-                foreach ($match in [regex]::Matches($summaryLine.Text, '\]\((?<target>[^)\s]+)\)')) {
+                foreach ($match in [regex]::Matches($text, '\]\((?<target>[^)\s]+)\)')) {
                     $target = Resolve-AdrLinkTarget -AdrRoot $Index.Root -From $relative $match.Groups['target'].Value
                     if (-not $target -or $target.IndexOf('/') -lt 0) {
                         continue
@@ -67,7 +92,7 @@ function Get-AdrCitationGraphViolations {
                     if ($allowed.Contains($reference.Domain) -or -not $reported.Add($reference.Domain)) {
                         continue
                     }
-                    "docs/adr/${relative}:$($summaryLine.Line): $($summaryLine.Rule) ($($domain.Name)) cites $($reference.Text) ($($reference.Domain)); $($domain.Name) depends on: $dependsOn"
+                    "docs/adr/${relative}:$($i + 1): $citer ($($domain.Name)) cites $($reference.Text) ($($reference.Domain)); $($domain.Name) depends on: $dependsOn"
                 }
             }
         }

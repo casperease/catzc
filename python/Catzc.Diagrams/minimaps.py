@@ -24,7 +24,7 @@ from functools import cache
 from pathlib import Path
 
 import yaml
-from drawio_png import SCALE, font
+from drawio_png import SCALE, font, tokens
 from PIL import Image, ImageDraw
 
 REPO = Path(__file__).resolve().parents[2]
@@ -39,8 +39,17 @@ QUESTION = {
     "engine-strip": "Which engines?",
 }
 ABOUT_KEYS = ("adrs", "tracks", "languages", "modules", "files")
-PAGE, PANEL, RIM = "#1C2A24", "#243229", "#3B4D43"
-LIT, LIT_INK, DIM_INK, CAPTION = "#E6EAF0", "#1E2430", "#7D8C86", "#CDD3DC"
+
+
+def use_theme(theme=None):
+    """Set the minimap colours to a theme's map-* tokens (the default theme's when none is named); every picture starts here."""
+    global PAGE, PANEL, RIM, LIT, LIT_INK, DIM_INK, CAPTION
+    t = tokens(theme)
+    PAGE, PANEL, RIM = t["map-page"], t["map-panel"], t["map-rim"]
+    LIT, LIT_INK, DIM_INK, CAPTION = t["map-lit"], t["map-lit-ink"], t["map-dim"], t["map-caption"]
+
+
+use_theme()
 
 
 def registry(path):
@@ -319,8 +328,9 @@ def draw_grid(d, width, height, about):
 DRAW = {"code-locations": draw_code_locations, "module-neighbourhood": draw_module_neighbourhood, "axis": draw_axis, "grid": draw_grid}
 
 
-def picture(view, about, width, height):
-    """One minimap as a PNG data URI: its question as the caption, then the view computed from `about:`."""
+def picture(view, about, width, height, theme=None):
+    """One minimap as a PNG data URI, in a theme: its question as the caption, then the view computed from `about:`."""
+    use_theme(theme)
     img, d = canvas(width, height)
     text(d, (8, 6), QUESTION.get(view, view), 11, CAPTION, bold=True)
     if view in DRAW:

@@ -1,0 +1,71 @@
+{
+  "$comment": "Provided schema of one minimap's data, validated against the sample beside it (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Catzc.Base.Maps writes through MinimapData and the diagram kit draws. The axes come outermost first; a cell names one value per axis, in axis order, with what it holds; a lit cell carries at least one reason, its subject (a file path or an ADR code), the basis that lights it, the request it answers and a note.",
+  "type": "object",
+  "required": ["id", "axes", "cells", "lit"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": [
+        "grid",
+        "code-locations",
+        "axis",
+        "layer-stack",
+        "lifecycle-position",
+        "track-placement",
+        "engine-strip",
+        "module-neighbourhood"
+      ]
+    },
+    "axes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "values"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "values": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "cells": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["at", "count"],
+        "additionalProperties": false,
+        "properties": {
+          "at": { "type": "array", "items": { "type": "string" } },
+          "count": { "type": "integer" }
+        }
+      }
+    },
+    "lit": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["at", "count", "reasons"],
+        "additionalProperties": false,
+        "properties": {
+          "at": { "type": "array", "items": { "type": "string" } },
+          "count": { "type": "integer" },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["subject", "basis", "requested", "note"],
+              "additionalProperties": false,
+              "properties": {
+                "subject": { "type": ["string", "null"] },
+                "basis": { "type": "string" },
+                "requested": { "type": ["string", "null"] },
+                "note": { "type": ["string", "null"] }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

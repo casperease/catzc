@@ -90,4 +90,62 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
     It 'stops when the kit has no renderer' {
         { Build-Diagrams -Kit missing -RepositoryRoot $script:widgetRoot } | Should -Throw '*no drawio_forward.py*'
     }
+
+    Context '-FromDrawing' -Tag 'ADR-REPO-SLIDES-CONFLICTNEEDSAPICK' {
+        BeforeAll {
+            $source = Join-Path $script:widgetRoot 'docs/widgets/.assets/widget-b/diagram.drawio.yml'
+            [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
+            [System.IO.File]::WriteAllText($source, "content: {}`n")
+        }
+
+        BeforeEach {
+            Mock Test-Diagrams -ModuleName Catzc.Base.Slides { }
+        }
+
+        It 'syncs a folder after a draw.io edit through the kit''s sync, then runs the drift gate on it' {
+            Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
+                [pscustomobject]@{ ExitCode = 0; Output = '{"folder": "docs/widgets/.assets/widget-b", "ran": ["get", "put"]}' }
+            }
+            $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/widget-b'; FromDrawing = $true })
+            $runs.Stage | Should -Be @('sync (get, put)')
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
+                $Command -like '*python "*kit*declaration.py" sync "docs/widgets/.assets/widget-b"'
+            }
+            Should -Invoke Test-Diagrams -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Path -ceq 'docs/widgets/.assets/widget-b' }
+        }
+
+        It 'stops on a conflict before put, naming the cells, and runs no drift gate' {
+            Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
+                [pscustomobject]@{ ExitCode = 0; Output = '{"folder": "docs/widgets/.assets/widget-b", "error": "the yml and the png both moved from HEAD and disagree in widget-a"}' }
+            }
+            { & $script:build @{ Path = 'docs/widgets/.assets/widget-b'; FromDrawing = $true } } | Should -Throw '*sync of docs/widgets/.assets/widget-b stopped*disagree in widget-a*'
+            Should -Invoke Test-Diagrams -ModuleName Catzc.Base.Slides -Times 0 -Exactly
+        }
+
+        It 'syncs only the folders it is given' {
+            { & $script:build @{ FromDrawing = $true } } | Should -Throw '*-FromDrawing syncs the folders it is given*'
+        }
+
+        It 'refuses a folder without a declaration' {
+            { & $script:build @{ Path = 'docs/widgets/.assets/widget-a'; FromDrawing = $true } } | Should -Throw '*widget-a has no diagram.drawio.yml to sync*'
+        }
+    }
+
+    Context '-Stale' -Tag 'ADR-REPO-SLIDES-TWODIRECTIONS' {
+        It 'rebuilds only the diagrams Test-Diagrams reports stale' {
+            Mock Test-Diagrams -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Facts = @{ StaleFolders = @('docs/widgets/.assets/widget-b') } } }
+            $runs = @(& $script:build @{ Stale = $true; Stage = 'prepare' })
+            $runs.Folder | Should -Be @('docs/widgets/.assets/widget-b')
+        }
+
+        It 'rebuilds nothing when no minimap is stale' {
+            Mock Test-Diagrams -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Facts = @{ StaleFolders = @() } } }
+            @(& $script:build @{ Stale = $true }) | Should -BeNullOrEmpty
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 0 -Exactly
+        }
+
+        It 'finds its folders itself' {
+            { & $script:build @{ Stale = $true; Path = 'docs/widgets/.assets/widget-b' } } | Should -Throw '*-Stale finds its folders itself*'
+        }
+    }
 }

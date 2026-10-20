@@ -3,7 +3,7 @@ description: >-
   build validation commit the deploy stages follow the template, not a rung.
 about:
   lens: implementation
-  adrs: [ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM]
+  adrs: [ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM]
   tracks: [ado-pipelines]
   languages: [pipeline-yaml, powershell]
 content:

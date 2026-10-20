@@ -1,0 +1,20 @@
+{
+  "id": "grid",
+  "axes": [
+    { "name": "track", "values": ["docs", "pwsh"] },
+    { "name": "file_language", "values": ["markdown", "powershell"] }
+  ],
+  "cells": [
+    { "at": ["docs", "markdown"], "count": 2 },
+    { "at": ["docs", "powershell"], "count": 0 },
+    { "at": ["pwsh", "markdown"], "count": 1 },
+    { "at": ["pwsh", "powershell"], "count": 3 }
+  ],
+  "lit": [
+    {
+      "at": ["pwsh", "powershell"],
+      "count": 3,
+      "reasons": [{ "subject": "pwsh/Catzc.Widget/Get-Widget.ps1", "basis": "citation", "requested": "ADR-WIDGET", "note": null }]
+    }
+  ]
+}

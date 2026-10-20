@@ -98,6 +98,16 @@ that differ; a minimap that differs only because a registry it reads changed is 
 
 - [Two directions, one truth](#two-directions-one-truth)
 
+### Rule ADR-REPO-SLIDES-CONFLICTNEEDSAPICK
+
+The base of a diagram pair is the pair committed at git `HEAD`, read with `git show`. A pair whose yml and png both moved from that base,
+and whose png states other content than its yml under get, is a **conflict**: `Test-Diagrams` fails it and names the diverging cells, and no
+bulk run puts or gets it. The author picks the side that wins by running put or get on the folder by name; nothing merges. A pair where only
+one side moved is no conflict, and an untracked pair, which has no base, never is one. The base is read from git, never stamped into the
+files ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)).
+
+- [Two directions, one truth](#two-directions-one-truth)
+
 ## Context
 
 A deck is prose with a layout. Written straight into a presentation tool, the prose is reachable only through that tool, its claims are
@@ -184,7 +194,8 @@ content reads without coordinates and a moved box is a one-line change.
 
 The draw.io editor stays the place to nudge a box; the yml stays the place to say what a diagram shows. Put and get make the two the same
 file seen two ways: a session writes yml and puts, a person drags in the editor and gets, and the tests prove each direction returns what
-the other wrote. Nothing is hand-drawn into the raster, so a raster is always the put of a declaration.
+the other wrote. Nothing is hand-drawn into the raster, so a raster is always the put of a declaration. When both were edited since the last
+commit and they disagree, neither direction guesses: the author runs the one that wins, by name.
 
 ### How this is enforced
 
@@ -192,9 +203,12 @@ the other wrote. Nothing is hand-drawn into the raster, so a raster is always th
 - **`Test-Slides`** fails a slide file whose pattern, fields, cited codes or quoted rule text break rules 1, 2 and 4.
 - **`Get-FileKind`** places slide files and the kit by rule 6, and the file-kind reachability test keeps both kinds reachable.
 - **`Build-Diagrams`** rebuilds one diagram folder, or every diagram folder it finds under `docs/**/.assets/**`, through the kit's renderer,
-  stage by stage, and stops on a folder two articles embed (rule 7); **`Move-Diagram`** moves a folder with its links re-pointed.
+  stage by stage, and stops on a folder two articles embed (rule 7); with `-FromDrawing` it syncs named folders after an edit, get when the
+  drawing moved since `HEAD`, then put, then `Test-Diagrams`, and stops on a conflict before put (rule 10); with `-Stale` it rebuilds only
+  the folders `Test-Diagrams` reports as carrying stale minimaps (rule 9); **`Move-Diagram`** moves a folder with its links re-pointed.
 - **`declaration.py`** of the kit validates a declaration against the closed vocabularies and runs put and get (rules 8 and 9); its tests
-  prove the two round trips, the vocabulary refusals, the nested group and the grid placement.
+  prove the two round trips, the vocabulary refusals, the nested group and the grid placement. Its check names the cells of a conflicted
+  pair against the `HEAD` base (rule 10), and the bulk put skips that pair.
 
 ## Consequences
 

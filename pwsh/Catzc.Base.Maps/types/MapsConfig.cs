@@ -11,7 +11,9 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
     public const string DefaultOutputFolder = "world-map";
 
     private const string Failed = "maps config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "palette", "limits", "labels", "highlight", "output_folder" };
+    private static readonly string[] AllowedKeys = { "palette", "limits", "labels", "highlight", "output_folder", "minimaps" };
+    private static readonly string[] MinimapKinds = { "explanation", "reference" };
+    private static readonly string[] PoolKeys = { "pool", "defaults" };
     private static readonly string[] PaletteKeys = { "background", "row", "column", "cell", "shade", "line", "text", "violation", "highlight" };
     private static readonly string[] LimitsKeys = { "page_width", "page_height", "min_font_size", "max_row_label", "max_column_label" };
     private static readonly string[] LabelsKeys =
@@ -41,6 +43,20 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The folder under the output root the world-map PDFs are written to. Default: DefaultOutputFolder.
     public string output_folder { get; }
+
+    // The minimaps an explanation diagram may show, and its three defaults. Defaults: MapsMinimapPool.DefaultExplanation*.
+    public MapsMinimapPool explanation_minimaps { get; }
+
+    // The minimaps a reference diagram may show, and its three defaults. Defaults: MapsMinimapPool.DefaultReference*.
+    public MapsMinimapPool reference_minimaps { get; }
+
+    // The pool of a diagram kind, explanation or reference.
+    public MapsMinimapPool MinimapsOf(string kind)
+    {
+        if (string.Equals(kind, "explanation", StringComparison.Ordinal)) { return explanation_minimaps; }
+        if (string.Equals(kind, "reference", StringComparison.Ordinal)) { return reference_minimaps; }
+        throw new ArgumentException("diagram kind '" + kind + "' is not one of: " + string.Join(", ", MinimapKinds), nameof(kind));
+    }
 
     public MapsConfig(IDictionary raw)
     {
@@ -90,10 +106,73 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
 
         output_folder = ReadOutputFolder(raw, errors);
 
+        IDictionary minimapsMap = Section(raw, "minimaps", MinimapKinds, errors);
+        explanation_minimaps = ReadPool(minimapsMap, "explanation", MapsMinimapPool.DefaultExplanationPool, MapsMinimapPool.DefaultExplanationDefaults, errors);
+        reference_minimaps = ReadPool(minimapsMap, "reference", MapsMinimapPool.DefaultReferencePool, MapsMinimapPool.DefaultReferenceDefaults, errors);
+
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
     }
 
     private static string Text(object value) => value == null ? "" : Convert.ToString(value, CultureInfo.InvariantCulture);
+
+    // One kind's pool and defaults: every id one of the eight minimaps, exactly three defaults, each in the pool.
+    private static MapsMinimapPool ReadPool(IDictionary minimaps, string kind, IReadOnlyList<string> poolFallback, IReadOnlyList<string> defaultsFallback,
+        List<string> errors)
+    {
+        IDictionary map = null;
+        if (Has(minimaps, kind))
+        {
+            map = minimaps[kind] as IDictionary;
+            if (map == null) { errors.Add(string.Format(CultureInfo.InvariantCulture, "minimaps.{0} must be a mapping {{ pool, defaults }}", kind)); }
+            CheckKeys("minimaps." + kind + ": ", map, PoolKeys, errors);
+        }
+        IReadOnlyList<string> pool = ReadIds(map, kind, "pool", poolFallback, errors);
+        IReadOnlyList<string> defaults = ReadIds(map, kind, "defaults", defaultsFallback, errors);
+        if (defaults.Count != MapsMinimapPool.Shown)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "minimaps.{0}.defaults names {1} minimaps; a diagram shows exactly {2}", kind, defaults.Count, MapsMinimapPool.Shown));
+        }
+        foreach (string id in defaults)
+        {
+            if (!Contains(pool, id))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "minimaps.{0}.defaults: '{1}' is not in the pool ({2})", kind, id, string.Join(", ", pool)));
+            }
+        }
+        return new MapsMinimapPool(pool, defaults);
+    }
+
+    private static IReadOnlyList<string> ReadIds(IDictionary map, string kind, string key, IReadOnlyList<string> fallback, List<string> errors)
+    {
+        if (!Has(map, key)) { return fallback; }
+        IList listed = map[key] as IList;
+        if (listed == null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "minimaps.{0}.{1} must be a list of minimap ids", kind, key));
+            return fallback;
+        }
+        List<string> ids = new List<string>();
+        foreach (object item in listed)
+        {
+            string id = Text(item);
+            if (!MinimapData.Ids.Contains(id))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "minimaps.{0}.{1}: '{2}' is not one of: {3}", kind, key, id, string.Join(", ", MinimapData.Ids)));
+                continue;
+            }
+            ids.Add(id);
+        }
+        return ids.AsReadOnly();
+    }
+
+    private static bool Contains(IReadOnlyList<string> items, string item)
+    {
+        foreach (string candidate in items)
+        {
+            if (string.Equals(candidate, item, StringComparison.Ordinal)) { return true; }
+        }
+        return false;
+    }
 
     private static bool Has(IDictionary map, string key) => map != null && map.Contains(key) && map[key] != null;
 

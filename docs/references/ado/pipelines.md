@@ -71,7 +71,7 @@ canonical shapes to copy.
 
 ## The promotion ladder
 
-A commit climbs one rung at a time ([commit-lifecycle](../../adr/design/commit-lifecycle.md),
+A commit climbs one rung at a time ([commit-lifecycle](../../adr/flow/commit-lifecycle.md),
 [cd-discipline-and-promotion-flow](../../adr/flow/cd-discipline-and-promotion-flow.md)). Each always-on rung is its own Azure DevOps
 environment per deployable-unit, with one occupant:
 

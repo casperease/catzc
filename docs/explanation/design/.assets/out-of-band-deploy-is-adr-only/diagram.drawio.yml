@@ -4,8 +4,8 @@ description: >-
 about:
   lens: governance
   adrs:
-    - ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG
-    - ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND
+    - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+    - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
     - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
     - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
     - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
@@ -13,7 +13,7 @@ about:
   languages: [markdown, pipeline-yaml]
   modules: []
   files:
-    - docs/adr/design/commit-lifecycle.md
+    - docs/adr/flow/commit-lifecycle.md
     - docs/adr/design/visual-design.md
 content:
   title: No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only
@@ -52,9 +52,9 @@ content:
   chips:
     - { at: c-topic, kind: rule, rule: ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE, gated: false }
     - { at: c-topic, kind: rule, rule: ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE, gated: false, corner: bottom-right }
-    - { at: a-deploy, kind: rule, rule: ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND, gated: false, corner: bottom-right }
+    - { at: a-deploy, kind: rule, rule: ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND, gated: false, corner: bottom-right }
     - { at: e-environment, kind: rule, rule: ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER, gated: false }
-    - { at: c-main, kind: rule, rule: ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, gated: false, corner: bottom-right }
+    - { at: c-main, kind: rule, rule: ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG, gated: false, corner: bottom-right }
     - { at: c-verified, kind: rule, rule: ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE, gated: false }
   minimaps: [code-locations, grid, axis]
 layout:

@@ -3,7 +3,7 @@ description: >-
   topic commit is deployed by a pipeline.
 about:
   lens: implementation
-  adrs: [ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND]
+  adrs: [ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND]
   tracks: [ado-pipelines]
   languages: [pipeline-yaml]
 content:

@@ -18,10 +18,7 @@ final full run last.
 ## Steps
 
 1. Commit the working tree, with the deleted done plans. Check: `git status --short` is empty.
-2. `Build-Readme` over the whole tree, so the three generated reference pages under `docs/references/pwsh` that still carry ADR-PIPE
-   (`catzc-azure-devops/Test-Pipelines.ps1.md`, `catzc-azure-devops/private/Get-PipelineTemplateReference.ps1.md`,
-   `catzc-base-languages/configs/languages.yml.md`) are regenerated. Check: `git grep -l 'ADR-PIPE' -- docs` finds nothing.
-3. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+2. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
    every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

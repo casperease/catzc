@@ -8,11 +8,11 @@ plan:
       python/Catzc.Diagrams,
       pwsh/Catzc.Base.Maps,
       pwsh/Catzc.Base.Slides,
-      docs/adr/design/commit-lifecycle.md,
+      docs/adr/flow/commit-lifecycle.md,
       docs/adr/repository/slides-as-markdown.md,
       .claude/agents,
       .claude/skills,
-      docs/adr/design/.assets/commit-lifecycle-states/diagram.drawio.png,
+      docs/adr/flow/.assets/commit-lifecycle-states/diagram.drawio.png,
     ]
 ---
 
@@ -84,8 +84,8 @@ pictures unchecked.
   code files are hit, without the static frame (the grid is the more correct replacement for the old tree); the chain is renamed **axis**
   with two relevant axes, build, qc, release, deploy, access across and the top ADR domains (design with principles and thesis, flow, auto,
   cloud) down, and the value chain leaves it.
-- `commit-lifecycle-states`: the whole ADR `docs/adr/design/commit-lifecycle.md` (ADR-DSGN-LIFE) moves to `docs/adr/flow`, the diagram is
-  renamed `commit-promotion-states`, and its text goes into an article.
+- `commit-lifecycle-states`: the whole ADR, now `docs/adr/flow/commit-lifecycle.md` (ADR-FLOW-CD-LIFE), sits in flow; the diagram is renamed
+  `commit-promotion-states`, and its text goes into an article.
 - `a-declared-allow-list-of-layers` is generalized: vendor-neutral layers with the call through base to the vendor tool as the last hop; the
   Azure case (Az CLI) becomes one worked example in its article.
 - The **span bar** (the kit's name, `STYLE.md:138`, glyph "span bar: stages over bands"), the `|---- CI ----|` bracket over a run of
@@ -113,29 +113,29 @@ pictures unchecked.
 
 ## Open steps
 
-- [ ] `Test-Diagrams` detects a conflict: when the yml differs from get of the png in `content:` and the png's XML differs from put of the
-      yml, the gate fails and names the diverging cells; `-FromDrawing` and put refuse the pair until the author runs get or put by name
-      (check: a fixture with both sides edited fails with the cell names; get or put alone clears it).
-- [ ] Add `-FromDrawing` to `Build-Diagrams`: get, put, then the drift gate on the folder, with the put stage skipped when get reports a
-      conflict (check: a draw.io-edited fixture folder syncs in one call and passes `Test-Diagrams`; a conflicted fixture stops before put
-      and names the cells).
-- [ ] `Test-Diagrams` reports stale minimaps: for each committed diagram it recomputes the minimap data and lists the diagrams whose lit
-      cells differ, as a report line, not an issue; `Build-Diagrams -Stale` rebuilds that set (check: renaming one cited file in a fixture
-      tree makes the gate report one diagram and keep issues=0; `-Stale` rebuilds only it).
-- [ ] Validation errors name the allowed values: a span label, glyph id, minimap id, flow or theme outside its vocabulary fails with the
-      list it may choose from (check: a test per vocabulary asserts the error text holds every allowed value).
-- [ ] Redefine the legend, code locations and axis as above, and write the sister files from the same data (check: the minimap tests pass;
-      each lit cell has its reason).
-- [ ] Expose the file facts through one public read-only command in the module that owns them (today `Get-FileMetaFact` is private to
-      `Catzc.Base.QualityGates`, called only by `Invoke-FileMetaEngine.ps1:137`, and returns `Immutable` and `Edges` from the
-      `file-meta.yml` kinds), returning the facts the imprint would write without writing a head (check: its output equals the imprint's for
-      ten sample files; stripping every head changes no output, ADR-REPO-FILEMETA-NOREADBACK).
-- [ ] Define the minimap data contract once, as a JSON Schema in `contracts/` (ADR-REPO-CONTRACT): one shape for a minimap (axes, cells, lit
-      cells each with its reason), cut from the `WorldMap.ToJson()` shape (`WorldMap.cs:114`: tracks, file_languages, cells of track by
-      file_language, files with citations) and `WorldMapHighlight.ToJson()` (`WorldMapHighlight.cs:126`: kind, requested, lit cells with
-      sources). The PowerShell side computes the data through a C# type in `pwsh/Catzc.Base.Maps/types/` that serializes to the schema; the
-      Python kit validates the JSON it draws against the same schema with `jsonschema`, and never loads the C# type (check: the grid, code
-      locations and axis serialize to the schema in a Pester test per minimap; a kit pytest rejects a minimap JSON that breaks the schema).
+- [x] `Test-Diagrams` detects a conflict against the committed pair at git `HEAD` (decided 2026-10-20, ADR-REPO-SLIDES-CONFLICTNEEDSAPICK):
+      both sides moved from `HEAD` and get of the png states other content than the yml; the gate fails and names the cells, the bulk put
+      skips the pair, put or get by name clears it; one side moved or an untracked pair is no conflict. Verdict: test_declaration.py "35
+      passed"; Test-Diagrams.Tests.ps1 "Passed"; Test-AdrRegistry "No adr-registry issues found."
+- [x] Add `-FromDrawing` to `Build-Diagrams`: the kit's `sync` runs get when the drawing moved since `HEAD` (put alone when only the yml
+      moved), then put, then `Test-Diagrams` on the folders, and stops on a conflict before put naming the cells. Verdict:
+      test_declaration.py "38 passed"; Build-Diagrams.Tests.ps1 "Passed"; Test-Links "No links issues found."
+- [x] `Test-Diagrams` reports stale minimaps as a report line and the `StaleFolders` fact, not an issue; `Build-Diagrams -Stale` rebuilds
+      only that set. The fixture swaps what the minimaps draw, since today's minimaps read `about:` and the disk, not citations. Verdict:
+      test_declaration.py "40 passed"; Build-Diagrams.Tests.ps1 and Test-Diagrams.Tests.ps1 "Passed".
+- [x] Validation errors name the allowed values: a span label, glyph kind, edge kind, minimap view, flow or theme outside its vocabulary
+      fails with the whole list it may choose from (ADR-REPO-SLIDES-DECLARATION already states it). Verdict: test_declaration.py "46
+      passed", one parametrized case per vocabulary.
+- [ ] Redefine the legend, code locations and axis as above; each lit cell's reason travels in the minimap JSON and in the page, never a
+      sister file (decided 2026-10-20). Waits on catzc-9f's minimap schema (check: the minimap tests pass; each lit cell has its reason).
+- [x] Expose the file facts through one public read-only command in the module that owns them: `Get-FileMetaFact -Path` is public in
+      `Catzc.Base.QualityGates`, the imprint keeps its `-State` call (verdict 2026-10-20: ten headed front-matter files, equals-imprint=True
+      and strip-unchanged=True for all ten; the Get-FileMetaFact and Invoke-FileMetaEngine test files "Passed"; Test-Links "No links issues
+      found.").
+- [x] Define the minimap data contract once: `contracts/catzc/0.0.0/Catzc.Base.Maps/minimap.schema.json` with its sample, the C#
+      `MinimapData` type (from the world map and the value chain), and the kit's `minimap_contract.py` on `jsonschema` 4.26.0; the
+      code-locations serialization test moves to the redefine step (the orchestrator, 2026-10-20) (verdict 2026-10-20: MinimapData.Tests
+      "Passed" for the grid and the axis; the kit pytest "6 passed"; Test-Contracts "No contracts issues found.").
 - [ ] The lifecycle position data function reads the rungs registry of `Catzc.Base.Flow` once `plan-promotion-ladder` has declared it; until
       then this minimap is the last of the eight to be built (check: the minimap's test lights a cell per rung from `cites` edges; the
       registry is read through `Get-Config`, never a literal list).
@@ -149,22 +149,20 @@ pictures unchecked.
       each minimap renders from its function with no hand-drawn cell).
 - [ ] The last three diagrams without a yml (162 of 166 are converted; the glyph legend stays rendered from `assets/glyphs.xml`):
       `10-commits-story` and `state-changes` (about 60 cells each; they wait on a time-axis lane with branch and merge curves, vertical gate
-      rules across lanes, lane templates and a free text note) and `commit-lifecycle-states` (rename to `commit-promotion-states` and
-      re-home with the ADR in flow, after the ADR-DSGN-LIFE move below); their png still embed the pre-P6 minimaps (`ci-automation`), so the
+      rules across lanes, lane templates and a free text note) and `commit-lifecycle-states` (rename to `commit-promotion-states` and its
+      folder already sits beside the ADR in `docs/adr/flow/.assets/`); their png still embed the pre-P6 minimaps (`ci-automation`), so the
       first render from the yml refreshes them (check: each put and reviewed; the kit's `STYLE.md` sections on the `.drawio.md` visual
       description rewritten to the yml).
 - [ ] `Build-Diagrams` stops treating "the one article that embeds the folder" as an input: it finds every article and slide that embeds the
       png, and the supports-drift check holds each one's Supports line against the yml's codes; ADR-REPO-SLIDES-ONEBUILDCOMMAND says so;
       `gallery_pdf.py` prints the yml's `description:` instead of the deleted describe page (check: a second article embedding one of the
       two ado diagrams builds clean; Test-Adr clean). The two ado folders already hold only `diagram.drawio.yml` and the png.
-- [ ] Rework the data of every existing diagram's minimaps on the new definition (check: re-render one folder, review, then the rest).- [ ]
-      Retire `.claude/agents/drawio-png.md`, `.claude/agents/write-drawio-files.md` and `.claude/skills/drawio-model-edit/`, and add one
+- [ ] Rework the data of every existing diagram's minimaps on the new definition (check: re-render one folder, review, then the rest).
+- [ ] Retire `.claude/agents/drawio-png.md`, `.claude/agents/write-drawio-files.md` and `.claude/skills/drawio-model-edit/`, and add one
       yml-editing agent (edits `content:`, runs put in the background under the safeguard, reports the warnings) and one renderer skill
       (put, get, `-FromDrawing`, `-Theme`, `-Stale`); the registry entries in `pwsh/Catzc.Base.Docs/configs/agents.yml` and
       `capabilities.yml` and the agent list in `.claude/CLAUDE.md` change in the same step (check: Test-AgentDefinitions clean;
       `drawio-diagram-waves` and `print-artifacts` call the new skill).
-- [ ] Move ADR-DSGN-LIFE to `docs/adr/flow` with `Update-AdrCitation` re-citing its codes (check: Test-Adr and Test-Links clean;
-      `plan-promotion-ladder` re-points its target).
 - [ ] The IaC explanation diagram of the three kinds, from `plan-iac-and-repo-placement`: article and yml declaration under
       `docs/explanation/azure`, working slug `three-kinds-of-infrastructure-code`: templates, configs and reusable modules, what each holds,
       and how a template pulls its configs and modules together (check: the diagram is put from its declaration and passes `Test-Diagrams`;

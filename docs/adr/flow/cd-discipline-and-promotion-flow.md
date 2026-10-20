@@ -97,7 +97,7 @@ gate**, a human-owned certification, on an always-on environment: **RC** (Releas
 (Release Branch Certification) is the gate at **release-uat**. Each clears when its **acceptance testing (AT)** is verified — RC on
 **main-AT** (AT against the `main-uat` environment), RBC on **release-AT** (AT against `release-uat`), the automated and manual tests a
 commit must pass there (ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT) — with a human certifying the environment's occupant
-(ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT) before it may advance. The gate is distinct from the **DEPLOY** pipeline that actuates the advance
+(ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT) before it may advance. The gate is distinct from the **DEPLOY** pipeline that actuates the advance
 once the gate clears (ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY): RC/RBC decide _whether_ to proceed, DEPLOY performs the roll. Each gate is an
 **approval check on the next environment**: RC on the unit's `release-uat` environment, RBC on its `pre-prod` environment, so a run
 promoting the occupant waits there for the certifier. The checks are configuration, applied like the prod approval gate
@@ -124,7 +124,7 @@ ADR-FLOW-CD-TWORELEASEGATES); **`release-AT`** is the AT against `release-uat` (
 
 **The prod tail adds a pre-prod rung, and DEPLOY splits by target into non-prod and prod.** Past the RBC gate the artifact is promoted
 through a **pre-prod** environment (staged, not yet live) before **production**, so the promotion ladder's tail is
-`release-uat → pre-prod → production` (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG). The DEPLOY activity (ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY) is
+`release-uat → pre-prod → production` (ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG). The DEPLOY activity (ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY) is
 correspondingly two-part on the same build-once artifact: **DEPLOY-Non-Prod** drives it into the non-prod AT environments (the on-demand
 environments, `main-uat`, `release-uat`), and **DEPLOY-Prod** drives the RBC-cleared artifact through `pre-prod` into `production`. Only the
 target and its governance differ; the tagged artifact is identical across both.
@@ -140,7 +140,7 @@ get a final rehearsal against production-shaped dependencies. Pre-prod is a **st
 azure config and inactive until activated, not a subscription of its own. Only then is that same artifact **activated to live production**
 (the inactive → live cutover). The go-live is therefore a **promotion of already-validated bytes, not a fresh untested deploy**, which is
 what keeps the production cutover low-risk. When the new version goes live, the previous production occupant is superseded and steps down
-(ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD/ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN). Build-once holds throughout: pre-prod and production
+(ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD/ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN). Build-once holds throughout: pre-prod and production
 receive the identical tagged artifact (ADR-FLOW-CD-SEPARATEPIPELINEKINDS).
 
 - [Deploy to prod](#deploy-to-prod)
@@ -158,7 +158,7 @@ clears (DEPLOY, ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY) is not a gate.
 
 A **release candidate** is the immutable, tagged artifact a CI component builds from one commit of a deployable-unit
 (ADR-FLOW-CD-SEPARATEPIPELINEKINDS): versioned, never rebuilt, and promotable toward production. Every gate it clears promotes the same
-bytes, and the environment it is deployed to has the commit it was built from as its occupant (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT). Its
+bytes, and the environment it is deployed to has the commit it was built from as its occupant (ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT). Its
 verification beyond the fast CI gate is a release-candidate test run — CD's post-commit system test (ADR-FLOW-CD-CDSTAYSINNONPROD,
 ADR-FLOW-CD-INNERANDOUTERLOOP).
 
@@ -178,7 +178,8 @@ ADR-FLOW-CD-TWORELEASEGATES on each unit's `release-uat` and `pre-prod` environm
 ### Rule ADR-FLOW-CD-RUNGSREGISTRY
 
 The promotion ladder's **rungs** are declared once, in climbing order, by the rungs registry: each rung names the gate a commit clears to
-enter it and the configuration environment it deploys. A unit's ADO environment for a rung is `<unit>-<rung>`, so every environment name,
+enter it, the configuration environment it deploys, and the rule codes that define it, so a file that cites one of them, or the ADR that
+holds it, concerns that rung. A unit's ADO environment for a rung is `<unit>-<rung>`, so every environment name,
 approval check and diagram that refers to a rung reads it from the registry, and remapping a rung to another environment is one edit there.
 The registry is `rungs.yml` in `Catzc.Base.Flow`, with its ladder declared on `RungsConfig`.
 
@@ -365,7 +366,7 @@ contrast, passes through **human certification** — at two manual gates, one pe
 stop rather than an automated check:
 
 - **RC — Release Certification**, at **main-UAT**. The always-on environment that tracks latest main holds one occupant
-  (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT); RC is the human decision to certify the main-UAT occupant for onward release. It is the gate a
+  (ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT); RC is the human decision to certify the main-UAT occupant for onward release. It is the gate a
   Continuous **Delivery** posture stops at, handing the production step to DEPLOY.
 - **RBC — Release Branch Certification**, at **release-uat**. When a release variant is stabilized on a release branch, RBC is the human
   certification of the release-uat occupant before it is cut to production.
@@ -400,8 +401,8 @@ shared; the AT is per-commit and is what the gate certifies.
 
 The promotion tail is longer than "non-prod, then prod." After the RBC gate the artifact lands first in a **pre-prod** environment — staged
 and inactive, a last rehearsal of the exact bytes before they go live — and only then in **production**. So the ladder gains a rung,
-`release-uat → pre-prod → production` (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG), and pre-prod is a single-occupant environment like the others
-(ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT).
+`release-uat → pre-prod → production` (ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG), and pre-prod is a single-occupant environment like the others
+(ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT).
 
 Because the deploy activity spans several environments with different governance, it reads as two named halves of one build-once flow.
 **DEPLOY-Non-Prod** is the deploy into the non-prod AT environments — the on-demand L3 environments, `main-uat`, and `release-uat` — the
@@ -425,7 +426,7 @@ The reason to split them is risk. Because the live cutover is the **activation o
 not a fresh deploy of something only ever seen in non-prod, the moment of going live carries almost no new risk — nothing is compiled,
 rendered, or first-run at cutover (build-once, ADR-FLOW-CD-SEPARATEPIPELINEKINDS). What flips is _which environment serves traffic_, not
 _what the bytes are_. When the new version goes live, the previous production occupant is superseded and steps down
-(ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN) — the diagram shows the new version occupying both `pre-prod` and `production` at the moment
+(ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN) — the diagram shows the new version occupying both `pre-prod` and `production` at the moment
 of cutover, and the version it replaced leaving. Whether that activation is a human-triggered DEPLOY (delivery) or an automated continuation
 (CDe, deployment) is the posture of ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY/ADR-FLOW-CD-CDEINTERNALIZESPROMOTION; either way the mechanic —
 stage inactive, validate, activate live — is the same.

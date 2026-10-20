@@ -64,8 +64,8 @@ domains:
     role: architecture # how the platform is shaped
     description: >-
       How the platform is shaped: tracks as the repository's root concerns, a thin CLI platform over a vendor substrate, safe self-service,
-      the commit lifecycle and its stable sync point, the audited server remote with pull-request ingress, the visual grammar of the
-      value-chain diagrams, and the toolset's two run modes (source and build). It builds on research, principles, and process; the flow and
+      the audited server remote with pull-request ingress, the visual grammar of the value-chain diagrams, and the toolset's two run modes
+      (source and build). It builds on research, principles, and process; the flow and
       implementation domains realise it.
     depends_on: [research, principles, process]
     stack: DSGN
@@ -75,7 +75,6 @@ domains:
       thin-platforms: { external: ADR-DSGN-THINPLAT, concern: [automation, deploy] }
       self-service: { external: ADR-DSGN-SELFSERV, concern: [deploy, access] }
       visual-design: { external: ADR-DSGN-VISUAL, concern: [quality-control, release, deploy] }
-      commit-lifecycle: { external: ADR-DSGN-LIFE, concern: [quality-control, release, deploy] }
       server-remote-integration: { external: ADR-DSGN-REMOTE, concern: [build, quality-control] }
       run-modes: { external: ADR-DSGN-RUNMODE, concern: [automation, build] }
       track-types: { external: ADR-DSGN-TRACKTYPE }
@@ -88,8 +87,8 @@ domains:
     description: >-
       The vendor-neutral delivery-flow model: what a CI/CD pipeline is, continuous integration as a discipline with a 5–10 minute
       integration budget, the closed set of pipeline types (CRON, CI, CD, CDe, DEPLOY, INPUT) keyed together by one immutable tagged
-      artifact, how pipelines invoke automation and detect their context, and how globsets project into native trigger filters. The ado
-      (Azure DevOps) and github domains implement it.
+      artifact, how pipelines invoke automation and detect their context, how globsets project into native trigger filters, and the commit
+      lifecycle a promoted commit climbs, with its stable sync point. The ado (Azure DevOps) and github domains implement it.
     depends_on: [research, principles, process, design]
     stack: DSGN
     concern: [build, quality-control, release, deploy] # the delivery flow from integration to production
@@ -100,6 +99,7 @@ domains:
       pipeline-types: { external: ADR-FLOW-CD-TYPE }
       durable-sha-globs: { external: ADR-FLOW-CD-GLOBS, concern: [automation] }
       pipeline-concept: { external: ADR-FLOW-CD-PIPELINE }
+      commit-lifecycle: { external: ADR-FLOW-CD-LIFE, concern: [quality-control, release, deploy] }
 
   automation:
     code: AUTO

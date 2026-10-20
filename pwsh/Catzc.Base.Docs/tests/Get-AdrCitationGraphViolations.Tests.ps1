@@ -38,7 +38,7 @@ Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
                 ''                                                                                       # 14
                 '## Context'                                                                             # 15
                 ''                                                                                       # 16
-                'Prose may point anywhere: ADR-GZ-ONE-BUILD and [gizmo-one](../gizmo/gizmo-one.md).'     # 17
+                'Body prose cites ADR-GZ-ONE-BUILD and [gizmo-one](../gizmo/gizmo-one.md) too.'           # 17
             )
             'gadget/gadget-one.md' = @(
                 '# Gadget one'                                                                           # 1
@@ -49,6 +49,13 @@ Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
                 ''                                                                                       # 6
                 'A gadget applies ADR-WI-ONE-SPIN ([widget-one](../widget/widget-one.md)), its ADR-GA-* siblings, and ADR-ZZ-NOPE-SPIN.' # 7
                 'It links [the index](../index.md) and [a reference](../../references/gizmo.md).'        # 8
+                ''                                                                                       # 9
+                '## Context'                                                                             # 10
+                ''                                                                                       # 11
+                'Body prose may cite ADR-WI-ONE-SPIN, a declared dependency.'                            # 12
+                '```text'                                                                                # 13
+                'A fence is not read: ADR-GZ-ONE-BUILD.'                                                 # 14
+                '```'                                                                                    # 15
             )
             'gizmo/gizmo-one.md'   = @(
                 '# Gizmo one'                                                                            # 1
@@ -87,10 +94,13 @@ Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
         $findings | Where-Object { $_ -like '*:11:*(gadget)*' } | Should -HaveCount 1
     }
 
-    It 'allows the own domain and a declared dependency, and ignores unknown codes, links outside the domains, and body prose' {
-        $findings | Should -HaveCount 4
+    It 'reports a body citation outside the rule registry, naming the ADR as the citer' {
+        $findings | Should -Contain 'docs/adr/widget/widget-one.md:17: ADR-WI-ONE (widget) cites ADR-GZ-ONE-BUILD (gizmo); widget depends on: none'
+    }
+
+    It 'allows the own domain and a declared dependency in the body too, and ignores unknown codes, links outside the domains, and fences' {
+        $findings | Should -HaveCount 5
         $findings | Where-Object { $_ -like 'docs/adr/gadget/*' } | Should -HaveCount 0
-        $findings | Where-Object { $_ -like '*:17:*' } | Should -HaveCount 0
     }
 
     It 'reports a link-only citation by its target' {

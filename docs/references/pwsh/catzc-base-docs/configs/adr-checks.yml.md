@@ -20,7 +20,7 @@ ships in report mode while its findings are worked off, and its mode line is rem
     mode: report
     domains: [<adrs.yml domain>, ...]
     tokens: { <kebab-name>: '<case-sensitive .NET regex>' }
-  citation_graph:      # Test-AdrRegistry — a rule summary cites only its own domain or a domain in its depends_on
+  citation_graph:      # Test-AdrRegistry — an ADR page cites only its own domain or a domain in its depends_on
     mode: report
   dora_coverage:       # Test-AdrRegistry — each rule set has exactly one section linking its ADR in its domain's DORA file
     mode: report

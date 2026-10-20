@@ -44,9 +44,8 @@ every new change is suspect and the original fault is buried. The question this 
 
 When a gate fails, the line stops. Concretely:
 
-- The failing change does not advance. A red commit cannot be promoted or consumed downstream
-  ([ADR-DSGN-LIFE](../design/commit-lifecycle.md), the hard-stop rule) — it stays where it died, in history, coloured red
-  ([ADR-DSGN-VISUAL](../design/visual-design.md)).
+- The failing change does not advance. A red commit cannot be promoted or consumed downstream (the commit lifecycle's hard stop) — it stays
+  where it died, in history, coloured red ([ADR-DSGN-VISUAL](../design/visual-design.md)).
 - Restoring green is the team's first priority over starting new work. A broken mainline is a shared emergency, not one person's chore.
 - No new work builds on the broken baseline. The fix goes in — or the offending change is reverted — before anything integrates on top.
 
@@ -60,9 +59,8 @@ the source, then resume. "Holding the line" is that principle applied to the mai
 **A defect's cost is its distance travelled.** The andon cord is cheap precisely because it caps that distance at zero stations. A gate that
 lets a red build stand trades a small, certain stop for a large, uncertain untangling later.
 
-**Green is the shared baseline everything depends on.** Integration, promotion, and consumption all assume the mainline works
-([ADR-DSGN-LIFE](../design/commit-lifecycle.md), the stable sync point). The moment that assumption is false and unenforced, every
-downstream actor inherits the break.
+**Green is the shared baseline everything depends on.** Integration, promotion, and consumption all assume the mainline works (the stable
+sync point). The moment that assumption is false and unenforced, every downstream actor inherits the break.
 
 **Stopping early is a feature, not a fault.** A team that stops the line often on the devbox and rarely in the pipeline is winning
 ([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md)) — the stops are landing where they are cheapest. Punishing stops teaches people

@@ -4,14 +4,14 @@ description: >-
 about:
   lens: governance
   adrs:
-    - ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG
-    - ADR-DSGN-LIFE-DISCARDISTERMINAL
-    - ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD
-    - ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-    - ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT
-    - ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
-    - ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND
+    - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+    - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+    - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+    - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+    - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
     - ADR-FLOW-CD-INNERANDOUTERLOOP
     - ADR-FLOW-CD-CDSTAYSINNONPROD
     - ADR-FLOW-CD-TWORELEASEGATES
@@ -22,7 +22,7 @@ about:
   languages: [markdown, pipeline-yaml]
   modules: []
   files:
-    - docs/adr/design/commit-lifecycle.md
+    - docs/adr/flow/commit-lifecycle.md
     - docs/adr/flow/cd-discipline-and-promotion-flow.md
     - docs/adr/automation/test-automation.md
 content:
@@ -75,18 +75,18 @@ content:
     - { at: a-two-slot, number: 7 }
     - { at: g-failure-stop, number: 8 }
   chips:
-    - { at: c-topic, kind: rule, rule: ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, gated: false }
+    - { at: c-topic, kind: rule, rule: ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG, gated: false }
     - { at: g-pr-validation, kind: rule, rule: ADR-FLOW-CD-INNERANDOUTERLOOP, corner: bottom-right }
-    - { at: c-landed, kind: rule, rule: ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND, gated: false, corner: bottom-right }
+    - { at: c-landed, kind: rule, rule: ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND, gated: false, corner: bottom-right }
     - { at: g-bvt, kind: rule, rule: ADR-AUTO-TEST-BUILDVERIFICATIONTEST, corner: bottom-right }
     - { at: a-l3-at, kind: rule, rule: ADR-FLOW-CD-CDSTAYSINNONPROD, gated: false, corner: bottom-right }
-    - { at: c-main-uat, kind: rule, rule: ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
+    - { at: c-main-uat, kind: rule, rule: ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
     - { at: a-rc, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false, corner: bottom-right }
     - { at: a-rbc, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false, corner: bottom-right }
-    - { at: a-rbc, kind: rule, rule: ADR-DSGN-LIFE-DISCARDISTERMINAL, gated: false, corner: bottom-left }
+    - { at: a-rbc, kind: rule, rule: ADR-FLOW-CD-LIFE-DISCARDISTERMINAL, gated: false, corner: bottom-left }
     - { at: a-two-slot, kind: rule, rule: ADR-FLOW-CD-TWOENVIRONMENTACTIVATION, gated: false, corner: bottom-right }
-    - { at: c-production, kind: rule, rule: ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD, gated: false }
-    - { at: g-failure-stop, kind: rule, rule: ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM, corner: bottom-right }
+    - { at: c-production, kind: rule, rule: ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD, gated: false }
+    - { at: g-failure-stop, kind: rule, rule: ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM, corner: bottom-right }
   minimaps: [code-locations, grid, axis]
 layout:
   band-all: { x: 20, y: 114, w: 1260, h: 124 }

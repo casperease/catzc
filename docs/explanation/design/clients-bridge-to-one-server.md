@@ -10,7 +10,7 @@ Clients bridge to one server remote: in through a pull request, out from the ver
 5  verified point   the stable integration point, the BVT-verified server head
 6  consumer clones  developers, downstream units and upstream integrators build here
 
-Supports ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH, ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED and ADR-DSGN-REMOTE-PULLREQUESTISINGRESS, and ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD and ADR-DSGN-LIFE-DIRTYHEADUNSAFE (architecture lens).
+Supports ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH, ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED and ADR-DSGN-REMOTE-PULLREQUESTISINGRESS, and ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD and ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE (architecture lens).
 ```
 
 In cats the mainline is not a local artifact. It is the `main` / `master` branch that the server remote enforces, and that server is where
@@ -41,8 +41,8 @@ where a guarantee is enforced and where it is only a discipline.
 - Consumers integrate from the last remote-verified commit, never the current remote HEAD (ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED).
 - The pull request authenticates the author, runs the merge gates and performs the merge: it is the ingress engine, not merely a review
   (ADR-DSGN-REMOTE-PULLREQUESTISINGRESS).
-- The stable integration point is the BVT-verified server head, the same commit `main-UAT` takes first (ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD),
-  and the dirty HEAD is never a source to sync from (ADR-DSGN-LIFE-DIRTYHEADUNSAFE).
+- The stable integration point is the BVT-verified server head, the same commit `main-UAT` takes first (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD),
+  and the dirty HEAD is never a source to sync from (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE).
 
 ## Where the code and the ADR differ
 
@@ -54,7 +54,7 @@ where a guarantee is enforced and where it is only a discipline.
 ## See also
 
 - [The audited server git remote](../../adr/design/server-remote-integration.md) — the decision this article explains.
-- [Commit lifecycle](../../adr/design/commit-lifecycle.md) — the stable point and the dirty HEAD.
+- [Commit lifecycle](../../adr/flow/commit-lifecycle.md) — the stable point and the dirty HEAD.
 - The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md), [implementation](local-guard-and-server-policies.md),
   [operations](guard-and-policies-by-command.md) and [governance](ingress-gated-the-rest-by-review.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

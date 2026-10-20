@@ -11,13 +11,13 @@ Only ingress is checked by gates; the source-of-truth and integration rules rest
 6  code review      the only check on where consumers integrate from (R2, R3, L6)
 7  consumer clones  meant to build on the verified point; nothing resolves it
 
-Supports ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH, ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED, ADR-DSGN-REMOTE-NORECONCILINGTIPS and ADR-DSGN-REMOTE-PULLREQUESTISINGRESS, ADR-REPO-VARIANT-GITWORKSPACE and ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD (governance lens).
+Supports ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH, ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED, ADR-DSGN-REMOTE-NORECONCILINGTIPS and ADR-DSGN-REMOTE-PULLREQUESTISINGRESS, ADR-REPO-VARIANT-GITWORKSPACE and ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD (governance lens).
 ```
 
 ADR-DSGN-REMOTE makes four rules about the server remote, but only one of them is checked by something that runs. The way in has two gates:
 a local guard in cats and a branch policy on the server. The rule that the server is the single truth, and the rules about where consumers
 integrate from, are checked by code review alone. Following a commit from a local clone to a consumer, each step carries a rule chip for the
-rule that governs it: R is ADR-DSGN-REMOTE, V is ADR-REPO-VARIANT and L is ADR-DSGN-LIFE.
+rule that governs it: R is ADR-DSGN-REMOTE, V is ADR-REPO-VARIANT and L is ADR-FLOW-CD-LIFE.
 
 ![Gates on ingress, review for the rest](.assets/ingress-gated-the-rest-by-review/diagram.drawio.png)
 
@@ -44,7 +44,7 @@ rule that governs it: R is ADR-DSGN-REMOTE, V is ADR-REPO-VARIANT and L is ADR-D
 - The server remote is the single source of truth, and clones are bridges to it (ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH).
 - Consumers integrate from the last remote-verified commit and so never reconcile a rewritten tip (ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED,
   ADR-DSGN-REMOTE-NORECONCILINGTIPS); that commit is the BVT-verified server head, the same one `main-UAT` takes first
-  (ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD).
+  (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD).
 - The pull request is the authenticated ingress, enforced by the server branch policy (ADR-DSGN-REMOTE-PULLREQUESTISINGRESS).
 - `git_workspace` selects the regime, and its single stop condition is a direct commit while standing on main or master in `main-via-pr`
   (ADR-REPO-VARIANT-GITWORKSPACE).
@@ -59,7 +59,7 @@ rule that governs it: R is ADR-DSGN-REMOTE, V is ADR-REPO-VARIANT and L is ADR-D
 ## See also
 
 - [The audited server git remote](../../adr/design/server-remote-integration.md) — the decision this article explains.
-- [Repo variants](../../adr/repository/repo-variants.md) and [Commit lifecycle](../../adr/design/commit-lifecycle.md) — the `git_workspace`
+- [Repo variants](../../adr/repository/repo-variants.md) and [Commit lifecycle](../../adr/flow/commit-lifecycle.md) — the `git_workspace`
   variant and the stable point.
 - The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md), [architecture](clients-bridge-to-one-server.md),
   [implementation](local-guard-and-server-policies.md) and [operations](guard-and-policies-by-command.md).

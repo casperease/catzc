@@ -4,14 +4,14 @@ description: >-
 about:
   lens: meta
   adrs:
-    - ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG
-    - ADR-DSGN-LIFE-DISCARDISTERMINAL
-    - ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD
-    - ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-    - ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
+    - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+    - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+    - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+    - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
   tracks: [docs]
   files:
-    - docs/adr/design/commit-lifecycle.md
+    - docs/adr/flow/commit-lifecycle.md
 content:
   title: A commit only climbs, then ends in one of three ways
   kind: explanation

@@ -42,7 +42,7 @@ The defaults and the engine list are declared once on Catzc.Base.Languages.Langu
 Get-Config -Config languages and read through Get-FileLanguage.
 
 YAML is two file languages: executable pipeline YAML is `.yaml`, configuration data is `.yml`
-([ADR-PIPE-NAME-EXECUTABLEYAMLEXTENSION](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-executableyamlextension)).
+([ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/adr/flow/pipeline-concept.md#rule-adr-flow-cd-pipeline-executableyamlextension)).
 ```
 
 ## comment:2

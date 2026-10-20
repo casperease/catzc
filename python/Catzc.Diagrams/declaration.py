@@ -16,15 +16,22 @@ get:  the XML embedded in the .drawio.png becomes the declaration again, written
 usage (repo root, background):
   uv run --project python python python/Catzc.Diagrams/declaration.py put <diagram folder> [--xml <out.xml>]
   uv run --project python python python/Catzc.Diagrams/declaration.py get <diagram folder>
+  uv run --project python python python/Catzc.Diagrams/declaration.py check <diagram folder>...
+  uv run --project python python python/Catzc.Diagrams/declaration.py sync <diagram folder>
+
+A pair whose yml and png both moved from the pair committed at git HEAD, and now disagree, is a conflict: check names its cells, the bulk
+put skips it, and only put or get by name, the author's pick of the side that wins, clears it. Nothing merges.
 
 Every vocabulary (glyph kinds, edge kinds, span labels, minimap ids, flows, themes, lenses, kinds) is closed: a value outside it
 fails validation with the list the author may choose from, so the errors teach the kit.
 """
 
 import html
+import io
 import itertools
 import json
 import math
+import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -32,7 +39,7 @@ from typing import NoReturn
 
 import minimaps
 import yaml
-from drawio_png import DEFAULTS, decode, encode, mxfile_chunk, plain, render, style_map
+from drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, paint, plain, render, style_map
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
@@ -50,8 +57,8 @@ MAPKEY_Y = 544  # the map key's panel, under the three minimaps
 MAPKEY_BOTTOM = MAPKEY_Y + 82 + 16  # its bottom, and the sidebar's pad under it
 # The style keys that identify a glyph kind: the shape and the two colours, with the marks that set a variant apart.
 SIGNATURE_KEYS = ("shape", "ellipse", "rhombus", "rounded", "arcSize", "fillColor", "strokeColor", "dashed", "strokeWidth", "fontColor", "fontSize", "fontStyle", "align")
-TEXT = "text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;"
-KEY = "text;html=1;align=left;verticalAlign=middle;fontSize=10;fontStyle=1;fontColor=#B0BAC7;"
+TEXT = "text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;"
+KEY = "text;html=1;align=left;verticalAlign=middle;fontSize=10;fontStyle=1;fontColor=@band-label;"
 # The locked commit palette from drawio.yml: state -> (fill, stroke, digit ink); the first state is a commit's default.
 COMMITS = {state: tuple("#" + v for v in str(value).split()) for state, value in DEFAULTS["commits"].items()}
 COMMIT_STATES = tuple(COMMITS)
@@ -90,15 +97,15 @@ def commit_style(base, state, ghost):
     fill, stroke, ink = COMMITS[state]
     style = ";".join(p for p in base.split(";") if p and not p.startswith(("fillColor=", "strokeColor=", "fontColor="))) + ";"
     return style + f"fillColor={fill};strokeColor={stroke};fontColor={ink};" + (GHOST if ghost else "")
-TITLE = "text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#DDE2E9;"
-SUBTITLE = "text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=12;fontColor=#949FAE;"  # wraps to a second line
-BAND = "rounded=1;html=1;arcSize=3;fillColor=#262E3B;strokeColor=#3A4555;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=#B0BAC7;"
-LEGEND = "rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#222A36;strokeColor=#3A4555;align=left;verticalAlign=top;spacing=8;fontSize=11;fontColor=#CDD3DC;"
-SPAN_LABEL = "text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#B0BAC7;"
+TITLE = "text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=@title;"
+SUBTITLE = "text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=12;fontColor=@quiet;"  # wraps to a second line
+BAND = "rounded=1;html=1;arcSize=3;fillColor=@band;strokeColor=@band-rim;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=@band-label;"
+LEGEND = "rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=@panel;strokeColor=@panel-rim;align=left;verticalAlign=top;spacing=8;fontSize=11;fontColor=@ink;"
+SPAN_LABEL = "text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=@band-label;"
 ANCHOR = "text;html=1;strokeColor=none;fillColor=none;"
-SIDEBAR_BG = "rounded=1;arcSize=2;html=1;fillColor=#2E2823;strokeColor=#453C33;shadow=0;"
-MINIMAP = "shape=image;imageAspect=0;rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#262E3B;strokeColor=#3A4555;dashed=1;fontColor=#949FAE;fontSize=11;"
-BADGE = "rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#1E2430;fillColor=#E6EAF0;strokeColor=none;"
+SIDEBAR_BG = "rounded=1;arcSize=2;html=1;fillColor=@sidebar;strokeColor=@sidebar-rim;shadow=0;"
+MINIMAP = "shape=image;imageAspect=0;rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=@band;strokeColor=@band-rim;dashed=1;fontColor=@quiet;fontSize=11;"
+BADGE = "rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=@mark-ink;fillColor=@mark;strokeColor=none;"
 
 
 class DeclarationError(ValueError):
@@ -541,7 +548,7 @@ def place(declaration):
         x0, x1, boxes = reach(s)
         if vertical:
             y0, y1 = min(b["y"] for b in boxes), max(b["y"] + b["h"] for b in boxes)
-            bar = cell(s["id"], "", "shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;shadow=0;rotation=90;", PAGE["x"] + 12, y0, 14, y1 - y0)
+            bar = cell(s["id"], "", "shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=@line;strokeWidth=1.5;shadow=0;rotation=90;", PAGE["x"] + 12, y0, 14, y1 - y0)
             label = cell(f"{s['id']}-label", html.escape(s["label"], quote=False), SPAN_LABEL, PAGE["x"] - 4, (y0 + y1) // 2 - 8, 30, 16)
         else:
             # A span sits just above the band of what it covers, so it moves down with the bands under a wrapped subtitle; a span over
@@ -549,7 +556,7 @@ def place(declaration):
             level = sum(1 for lx0, lx1 in span_levels if lx0 < x1 and x0 < lx1)
             span_levels.append((x0, x1))
             y = min(band_box[band_of(i)]["y"] for i in s["over"]) - 24 - level * 32
-            bar = cell(s["id"], "", "shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;shadow=0;", x0, y, x1 - x0, 14)
+            bar = cell(s["id"], "", "shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=@line;strokeWidth=1.5;shadow=0;", x0, y, x1 - x0, 14)
             label = cell(f"{s['id']}-label", html.escape(s["label"], quote=False), SPAN_LABEL, (x0 + x1) // 2 - 15, y - 18, 30, 16)
         cells.extend([bar, label])
     # Room for the spans: when the topmost span label would reach into the title and subtitle, the whole drawing area moves down by
@@ -567,7 +574,7 @@ def place(declaration):
     for e in content["edges"]:
         style = LIB["edges"][e["kind"]]["style"]
         if e["label"]:
-            style = style.replace("shadow=0;", "fontColor=#CDD3DC;fontStyle=1;fontSize=11;labelBackgroundColor=#262E3B;shadow=0;")
+            style = style.replace("shadow=0;", "fontColor=@ink;fontStyle=1;fontSize=11;labelBackgroundColor=@band;shadow=0;")
         eid = f"e-{e['from']}-{e['to']}"
         n = sum(1 for c in cells if c["id"] == eid or c["id"].startswith(eid + "~"))  # a repeat edge between the same pair: e-…~2
         edge = edge_cell(eid if not n else f"{eid}~{n + 1}", f"<b>{html.escape(e['label'], quote=False)}</b>" if e["label"] else "", style, e["from"], e["to"])
@@ -632,13 +639,13 @@ def place(declaration):
     height = max(PAGE["min_height"], legend_y + legend_h + GAP, MAPKEY_BOTTOM)
     cells.insert(0, cell("sidebar-bg", "", SIDEBAR_BG, SIDEBAR_X - 12, 4, SIDEBAR_W + 24, height - 8))
     for (cid, y, h), minimap in zip(SIDEBAR, content["minimaps"]):
-        image = minimaps.picture(minimap, declaration.get("about") or {k: [] for k in minimaps.ABOUT_KEYS}, SIDEBAR_W, h)
+        image = minimaps.picture(minimap, declaration.get("about") or {k: [] for k in minimaps.ABOUT_KEYS}, SIDEBAR_W, h, content["theme"])
         cells.append(cell(cid, minimap, MINIMAP + f"noLabel=1;image={image};", SIDEBAR_X, y, SIDEBAR_W, h))
     # The map key: the two marks every minimap shares.
     cells.append(cell("mapkey", "<b>Map key</b>", LEGEND, SIDEBAR_X, MAPKEY_Y, SIDEBAR_W, 82))
-    for i, (swatch, phrase) in enumerate(((minimaps.LIT, "lit: what this diagram draws"), (minimaps.PANEL, "dim: what sits around it"))):
+    for i, (swatch, phrase) in enumerate((("@map-lit", "lit: what this diagram draws"), ("@map-panel", "dim: what sits around it"))):
         y = MAPKEY_Y + 30 + i * 24
-        rim = "none" if swatch == minimaps.LIT else minimaps.RIM
+        rim = "none" if swatch == "@map-lit" else "@map-rim"
         cells.append(cell(f"mk-{i}", "", f"rounded=1;arcSize=20;html=1;fillColor={swatch};strokeColor={rim};shadow=0;", SIDEBAR_X + 12, y, 26, 16))
         cells.append(cell(f"mk-{i}-t", phrase, TEXT, SIDEBAR_X + 48, y - 2, SIDEBAR_W - 56, 20))
     return cells, height
@@ -695,10 +702,11 @@ def legend_entries(content):
     return entries
 
 
-def to_xml(cells, height):
-    """The mxGraphModel text, one cell a line, in the kit's fixed formatting so the same cells give the same bytes."""
+def to_xml(cells, height, theme=None):
+    """The mxGraphModel text, one cell a line, in the kit's fixed formatting so the same cells give the same bytes; every style token
+    is written as the theme's colour."""
     lines = [
-        f'<mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1572" pageHeight="{height}" background="#1E2430" math="0" shadow="1">',
+        f'<mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1572" pageHeight="{height}" background="{paint("@page", theme)}" math="0" shadow="1">',
         "  <root>",
         '    <mxCell id="0" />',
         '    <mxCell id="1" parent="0" />',
@@ -707,7 +715,7 @@ def to_xml(cells, height):
     for c in cells:
         value = html.escape(c["value"], quote=True)
         if c["edge"]:
-            lines.append(f'    <mxCell id="{c["id"]}" value="{value}" style="{c["style"]}" edge="1" parent="{c["parent"]}" source="{c["source"]}" target="{c["target"]}">')
+            lines.append(f'    <mxCell id="{c["id"]}" value="{value}" style="{paint(c["style"], theme)}" edge="1" parent="{c["parent"]}" source="{c["source"]}" target="{c["target"]}">')
             if c.get("via"):
                 lines.append('      <mxGeometry relative="1" as="geometry">')
                 lines.append('        <Array as="points">')
@@ -718,26 +726,30 @@ def to_xml(cells, height):
                 lines.append('      <mxGeometry relative="1" as="geometry" />')
         else:
             px, py = origin.get(c["parent"], (0, 0)) if c["parent"] != "1" else (0, 0)
-            lines.append(f'    <mxCell id="{c["id"]}" value="{value}" style="{c["style"]}" vertex="1" parent="{c["parent"]}">')
+            lines.append(f'    <mxCell id="{c["id"]}" value="{value}" style="{paint(c["style"], theme)}" vertex="1" parent="{c["parent"]}">')
             lines.append(f'      <mxGeometry x="{c["x"] - px}" y="{c["y"] - py}" width="{c["w"]}" height="{c["h"]}" as="geometry" />')
         lines.append("    </mxCell>")
     lines.extend(["  </root>", "</mxGraphModel>"])
     return "\n".join(lines) + "\n"
 
 
-def put(declaration):
-    """The model XML of a declaration."""
-    cells, height = place(declaration)
-    return to_xml(cells, height)
+def put(declaration, theme=None):
+    """The model XML of a declaration, in the theme named (the declaration's own theme when none is)."""
+    theme = theme or declaration["content"]["theme"]
+    cells, height = place({**declaration, "content": {**declaration["content"], "theme": theme}})
+    return to_xml(cells, height, theme)
 
 
-def put_png(folder, declaration):
-    """put, then the raster: the folder's diagram.drawio.png with the model embedded, drawn by drawio_png."""
-    model = put(declaration).strip()
+def put_png(folder, declaration, theme=None):
+    """put, then the raster: the folder's diagram.drawio.png with the model embedded, drawn by drawio_png. The default theme's
+    render is the folder's own png; any other theme renders on demand to out/drawio/themes/<theme>/<folder name>/."""
+    theme = theme or declaration["content"]["theme"]
+    model = put(declaration, theme).strip()
     img = render(ET.fromstring(model)).convert("RGB")
     info = PngInfo()
     info.add_text("mxfile", encode(model, declaration["content"]["lens"]))
-    dst = Path(folder) / SLIDE
+    dst = Path(folder) / SLIDE if theme == THEMES[0] else KIT.parents[1] / "out" / "drawio" / "themes" / theme / Path(folder).name / SLIDE
+    dst.parent.mkdir(parents=True, exist_ok=True)
     img.save(dst, "PNG", pnginfo=info)
     return dst
 
@@ -746,7 +758,7 @@ def put_png(folder, declaration):
 
 
 def signature(style):
-    s = style_map(style)
+    s = style_map(paint(style))  # the library's tokens in the default theme, the one a committed drawing is put in
     return tuple((k, s.get(k)) for k in SIGNATURE_KEYS if k in s)
 
 
@@ -969,25 +981,86 @@ def get(model, kind=None):
 def drift(folder):
     """How a folder's png differs from put of its yml: the drawn cells that differ, and apart from them the minimaps, which change
     when a registry they read changes and so are stale rather than drifted. Both empty when the png is what put would write."""
-    committed, fresh = model_of(folder), put(load(folder)).strip()
-    if committed == fresh:
-        return [], []
-    ids = lambda model: {str(c.get("id")): ET.tostring(c, encoding="unicode") for c in ET.fromstring(model).iter("mxCell")}
-    old, new = ids(committed), ids(fresh)
-    changed = sorted(i for i in old.keys() | new.keys() if old.get(i) != new.get(i))
+    changed = changed_cells(model_of(folder), put(load(folder)).strip())
     stale = [i for i in changed if i.startswith("minimap-")]
     return [i for i in changed if i not in stale], stale
 
 
+def changed_cells(one, other):
+    """The ids of the cells two models draw differently, sorted; empty when the models are the same."""
+    if one == other:
+        return []
+    ids = lambda model: {str(c.get("id")): ET.tostring(c, encoding="unicode") for c in ET.fromstring(model).iter("mxCell")}
+    old, new = ids(one), ids(other)
+    return sorted(i for i in old.keys() | new.keys() if old.get(i) != new.get(i))
+
+
+def committed(folder):
+    """The pair as committed at git HEAD: the source's text and the model embedded in the png, read with `git show`. None when the
+    folder is outside a repository or either file is not committed: an untracked pair has no base."""
+    folder = Path(folder).resolve()
+    run = lambda *args: subprocess.run(["git", "-C", str(folder), *args], capture_output=True)
+    top = run("rev-parse", "--show-toplevel")
+    if top.returncode != 0:
+        return None
+    rel = folder.relative_to(Path(top.stdout.decode("utf-8").strip()).resolve()).as_posix()
+    source, png = run("show", f"HEAD:{rel}/{SOURCE}"), run("show", f"HEAD:{rel}/{SLIDE}")
+    if source.returncode != 0 or png.returncode != 0:
+        return None
+    return source.stdout.decode("utf-8"), decode(mxfile_chunk(Image.open(io.BytesIO(png.stdout)))).strip()
+
+
+def kind_of(folder):
+    """The diagram kind its folder's path names (explanation or reference), or None."""
+    return next((k for k in KINDS if f"/{k}/" in Path(folder).resolve().as_posix()), None)
+
+
+def conflict(folder, base):
+    """The cells of a pair whose two sides both moved from the committed pair and now disagree: the yml differs from the base's,
+    the png's model differs from the base's, and get of the png states other content than the yml. Empty when only one side moved,
+    when the sides agree, or when there is no base (base None: an untracked pair is never a conflict). A conflicted pair is put or
+    got only by name, so the author picks the side that wins; nothing merges."""
+    if base is None:
+        return []
+    # The base is compared as data, never validated: it was valid against the registries of its own commit, not today's.
+    source, model = load(folder), model_of(folder)
+    unmoved = yaml.safe_load((Path(folder) / SOURCE).read_text(encoding="utf-8")) == yaml.safe_load(base[0])
+    if unmoved or model == base[1] or get(model, kind_of(folder))["content"] == source["content"]:
+        return []
+    return changed_cells(model, put(source).strip())
+
+
+def sync(folder, base):
+    """The sync after an edit: get when the drawing moved from the base (or there is no base), then put, so the yml and the png
+    agree again; put alone when only the yml moved. The directions run, in order. A conflicted pair runs nothing and fails with
+    its cells, so the author picks the side by name."""
+    both = conflict(folder, base)
+    if both:
+        raise DeclarationError(f"{folder}: the yml and the png both moved from HEAD and disagree in {', '.join(both)}; put or get it by name")
+    ran = []
+    if base is None or model_of(folder) != base[1]:
+        save(folder, get(model_of(folder), kind_of(folder)))
+        ran.append("get")
+    put_png(folder, load(folder))
+    return ran + ["put"]
+
+
 def main():
     args = sys.argv[1:]
-    if len(args) >= 2 and args[0] == "check":  # one JSON line per folder: the drifted cells, the stale minimaps, or the error
+    if len(args) >= 2 and args[0] == "check":  # one JSON line per folder: conflicted or drifted cells, stale minimaps, or the error
         for folder in args[1:]:
             try:
-                cells, stale = drift(folder)
-                print(json.dumps({"folder": folder, "drift": cells, "stale": stale}))
+                both = conflict(folder, committed(folder))
+                cells, stale = ([], []) if both else drift(folder)
+                print(json.dumps({"folder": folder, "conflict": both, "drift": cells, "stale": stale}))
             except (DeclarationError, OSError, ValueError) as error:
                 print(json.dumps({"folder": folder, "error": str(error)}))
+        return
+    if len(args) == 2 and args[0] == "sync":  # one JSON line: the directions run, or the conflict that stopped them
+        try:
+            print(json.dumps({"folder": args[1], "ran": sync(args[1], committed(args[1]))}))
+        except DeclarationError as error:
+            print(json.dumps({"folder": args[1], "error": str(error)}))
         return
     if len(args) < 2 or args[0] not in ("put", "get"):
         raise SystemExit(__doc__)
@@ -999,8 +1072,7 @@ def main():
         dst = put_png(folder, declaration)
         print(f"put {dst}")
     else:
-        kind = next((k for k in KINDS if f"/{k}/" in folder.resolve().as_posix()), None)
-        save(folder, get(model_of(folder), kind))
+        save(folder, get(model_of(folder), kind_of(folder)))
         print(f"get {folder / SOURCE}")
 
 

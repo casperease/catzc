@@ -5,15 +5,15 @@ about:
   lens: architecture
   adrs:
     - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-    - ADR-DSGN-LIFE-DIRTYHEADUNSAFE
-    - ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT
-    - ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
+    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
   tracks: [docs]
   languages: []
   modules: []
   files:
-    - docs/adr/design/commit-lifecycle.md
+    - docs/adr/flow/commit-lifecycle.md
     - docs/adr/design/server-remote-integration.md
 content:
   title: Upstream consumers sync from the BVT-verified HEAD, never from the dirty tip

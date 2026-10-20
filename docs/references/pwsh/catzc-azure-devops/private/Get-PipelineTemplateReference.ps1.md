@@ -21,7 +21,7 @@ skipped (its target is not statically known), and a value that does not end in `
 (`#`) never match.
 
 It rests on
-[ADR-PIPE-NAME-ABSOLUTETEMPLATEPATH](../../../../adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name-absolutetemplatepath).
+[ADR-ADO-NAME-ABSOLUTETEMPLATEPATH](../../../../adr/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-absolutetemplatepath).
 
 ### parameter `Path`
 

@@ -19,7 +19,7 @@ These articles explain decisions from the [design ADR domain](../../adr/index.md
 
 ## Commit lifecycle states
 
-A commit only climbs, then ends in one of three ways ([commit-lifecycle](../../adr/design/commit-lifecycle.md)).
+A commit only climbs, then ends in one of three ways ([commit-lifecycle](../../adr/flow/commit-lifecycle.md)).
 
 | Lens           | Article                                                                                                          |
 | -------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -31,7 +31,7 @@ A commit only climbs, then ends in one of three ways ([commit-lifecycle](../../a
 
 ## Commit lifecycle pictures
 
-Two whole-picture diagrams of the same lifecycle ([commit-lifecycle](../../adr/design/commit-lifecycle.md)). They have no separate lenses.
+Two whole-picture diagrams of the same lifecycle ([commit-lifecycle](../../adr/flow/commit-lifecycle.md)). They have no separate lenses.
 
 | Picture         | Article                                                                                                                          |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -40,7 +40,7 @@ Two whole-picture diagrams of the same lifecycle ([commit-lifecycle](../../adr/d
 
 ## Out-of-band topic deploy
 
-Deploying a topic commit is not integrating it ([commit-lifecycle](../../adr/design/commit-lifecycle.md)).
+Deploying a topic commit is not integrating it ([commit-lifecycle](../../adr/flow/commit-lifecycle.md)).
 
 | Lens           | Article                                                                                                                            |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -53,7 +53,7 @@ Deploying a topic commit is not integrating it ([commit-lifecycle](../../adr/des
 ## The sync point
 
 Upstream integrators sync from the last certified commit, not from the tip of main
-([commit-lifecycle](../../adr/design/commit-lifecycle.md)). This diagram has no implementation or operations lens.
+([commit-lifecycle](../../adr/flow/commit-lifecycle.md)). This diagram has no implementation or operations lens.
 
 | Lens         | Article                                                                                                                            |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |

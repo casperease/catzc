@@ -51,9 +51,8 @@ The **commit-colour palette is fixed**:
 - **red** — rejected by any process and must not progress further. Red is the one colour allowed on **every** branch (topic, release, or
   mainline), because rejection can happen anywhere.
 
-The **pre-prod** rung (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG) has no hue of its own: its occupant is drawn green, the same bytes already
-validated for production, and the neutral environment box, not the colour, says which of the two it sits in
-(ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER).
+The **pre-prod** rung has no hue of its own: its occupant is drawn green, the same bytes already validated for production, and the neutral
+environment box, not the colour, says which of the two it sits in (ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER).
 
 Every hue has one locked hex pair (fill / stroke); see [Canonical palette (locked)](#canonical-palette-locked). A commit drawn in any other
 hex for one of these meanings is a drift error.
@@ -152,23 +151,22 @@ that commit was discarded, abandoned, or promoted.
 
 **An environment box is a neutral container; the commit inside it is its occupant, in that commit's own state colour.** The hexagon is drawn
 as neutral chrome — its label names the environment (on-demand, main-UAT, release-uat, production) and it carries no per-stage tint and no
-state colour of its own. The single commit drawn _inside_ — generic or numbered — is the environment's occupant
-(ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT), coloured for whatever state that commit is in right now, not for a fixed property of the box. So
-production holds a **green** commit, release-uat a **light-green** one, main-UAT a **light-blue** one, and the on-demand L3 environment
-whatever it is hosting at the moment (a **yellow** commit mid-verification, a **blue** one just verified). Reading the inner colour tells
-you the state of what currently lives there; the label tells you where.
+state colour of its own. The single commit drawn _inside_ — generic or numbered — is the environment's occupant (the one commit it holds),
+coloured for whatever state that commit is in right now, not for a fixed property of the box. So production holds a **green** commit,
+release-uat a **light-green** one, main-UAT a **light-blue** one, and the on-demand L3 environment whatever it is hosting at the moment (a
+**yellow** commit mid-verification, a **blue** one just verified). Reading the inner colour tells you the state of what currently lives
+there; the label tells you where.
 
 - [Environment boxes](#environment-boxes)
 
 ### Rule ADR-DSGN-VISUAL-DISTINCTENDINGS
 
-**The lifecycle endings each have a distinct rendering; they are not all red.** The commit lifecycle states owned by
-[ADR-DSGN-LIFE](commit-lifecycle.md) are drawn as: **discarded** — red, on the line and in the DISCARDED/Retired lane; **retired** — kept in
-its production colour (green) and moved into the DISCARDED/Retired lane, never repainted red; **superseded** — its last promotion colour
-drawn as a ghost (faded), because it was valid but abandoned; **dirty HEAD** — its failed-stage colour with a rejection mark, distinct from
-an occupant in a clean state; **in-process** — the input colour drawn inside the stage box; **environment occupant** — the single numbered
-commit inside an environment box. The ② lane is therefore labelled _DISCARDED / Retired_, because retirement is a success that shares the
-lane, not the colour, of discard.
+**The lifecycle endings each have a distinct rendering; they are not all red.** The endings of the commit lifecycle are drawn as:
+**discarded** — red, on the line and in the DISCARDED/Retired lane; **retired** — kept in its production colour (green) and moved into the
+DISCARDED/Retired lane, never repainted red; **superseded** — its last promotion colour drawn as a ghost (faded), because it was valid but
+abandoned; **dirty HEAD** — its failed-stage colour with a rejection mark, distinct from an occupant in a clean state; **in-process** — the
+input colour drawn inside the stage box; **environment occupant** — the single numbered commit inside an environment box. The ② lane is
+therefore labelled _DISCARDED / Retired_, because retirement is a success that shares the lane, not the colour, of discard.
 
 - [Lifecycle endings](#lifecycle-endings)
 
@@ -286,12 +284,11 @@ where it was discarded, abandoned, or promoted.
 
 An environment is not a commit, so it is drawn as a container — and the container itself is **neutral chrome**: it carries no state colour
 and no per-stage tint, only a label naming which environment it is. What it does carry is its **occupant**: the one commit deployed there
-right now (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT), drawn in that commit's own current state colour. So the inner colour is not a fixed
-property of the box — it is whatever state the occupant is in: the production occupant is drawn green, the release-uat occupant light-green,
-the main-UAT occupant light-blue, and the on-demand L3 environment whatever it currently hosts. Reading the inner colour tells you the state
-of what lives there now; the label tells you where. This defers to `ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT` (each always-on environment hosts
-exactly one commit) rather than colouring the box by what it validates — an environment's picture is "what is deployed here", not "what this
-stage is for".
+right now, drawn in that commit's own current state colour. So the inner colour is not a fixed property of the box — it is whatever state
+the occupant is in: the production occupant is drawn green, the release-uat occupant light-green, the main-UAT occupant light-blue, and the
+on-demand L3 environment whatever it currently hosts. Reading the inner colour tells you the state of what lives there now; the label tells
+you where. This follows from each always-on environment hosting exactly one commit, its occupant, rather than colouring the box by what it
+validates — an environment's picture is "what is deployed here", not "what this stage is for".
 
 ## Canonical palette (locked)
 
@@ -330,5 +327,5 @@ the pre-prod / production box tint. **Environment** boxes carry no tint at all �
 The single biggest legibility risk is painting every "not in production" commit red, which would erase the difference between a defect and a
 success. So the endings are drawn apart: red for rejection, green-in-the-retired-lane for a commit that served and was decommissioned, a
 faded ghost for one that was valid but overtaken, and a marked HEAD for the latest-but-broken tip. The colour still carries the state; the
-_lane_ and the _fade/mark_ carry the ending. [ADR-DSGN-LIFE](commit-lifecycle.md) owns what these endings mean; this rule owns how they
+_lane_ and the _fade/mark_ carry the ending. The delivery flow's commit lifecycle owns what these endings mean; this rule owns how they
 look.

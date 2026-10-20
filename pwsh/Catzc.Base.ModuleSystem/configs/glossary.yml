@@ -46,7 +46,7 @@ concepts:
   occupant:
     key: occupant
     domain: design
-    defined_by: ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT
+    defined_by: ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
     short: The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
     realized_by: { kind: prose-only }
     contrasts:

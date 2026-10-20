@@ -42,6 +42,15 @@ The draw.io kit folder that holds `drawio_forward.py`. Default: `drawio_kit` of 
 
 The repository root the folders are relative to. Default: the loaded repository root.
 
+### parameter `FromDrawing`
+
+Sync the folders named by -Path after an edit, instead of running the renderer stages: get when the drawing moved since HEAD, then put, then
+Test-Diagrams on the folders. A pair whose yml and png both moved since HEAD and disagree stops before put, naming its cells.
+
+### parameter `Stale`
+
+Rebuild only the diagrams whose minimaps a tree change left stale, the set Test-Diagrams reports; takes no -Path.
+
 ### parameter `DryRun`
 
 List the renderer calls per folder without running them.
@@ -64,4 +73,13 @@ Build-Diagrams
 
 ```powershell
 Build-Diagrams -Path docs/explanation/configuration/.assets/an-address-is-a-read-only-walk -Stage highlight -DryRun
+```
+
+## comment:1
+
+Above `if ($FromDrawing) {`, written with `#`.
+
+```text
+-FromDrawing syncs named folders after an edit: the kit's sync runs get when the drawing moved since HEAD, then put, and stops
+on a conflict before put; the drift gate then checks the folders. No renderer stage runs.
 ```

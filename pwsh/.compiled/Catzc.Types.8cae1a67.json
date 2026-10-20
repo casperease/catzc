@@ -1,5 +1,5 @@
 {
-  "hash": "064576d2",
+  "hash": "8cae1a67",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -845,6 +845,14 @@
       "display": []
     },
     {
+      "name": "Catzc.Base.Maps.MapsMinimapPool",
+      "aliases": [],
+      "display": [
+        "pool",
+        "defaults"
+      ]
+    },
+    {
       "name": "Catzc.Base.Maps.MapsPalette",
       "aliases": [],
       "display": []
@@ -856,6 +864,39 @@
         "adr",
         "track",
         "file_language"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MinimapAxis",
+      "aliases": [],
+      "display": [
+        "Name",
+        "Values"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MinimapCell",
+      "aliases": [],
+      "display": [
+        "At",
+        "Count"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MinimapData",
+      "aliases": [],
+      "display": [
+        "Id",
+        "Axes"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.MinimapReason",
+      "aliases": [],
+      "display": [
+        "Subject",
+        "Basis",
+        "Requested"
       ]
     },
     {

@@ -83,6 +83,35 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
         $facts.Immutable['role'] | Should -BeExactly 'widget'
     }
 
+    It 'reads each file in scope by its path, and a head on the file changes no fact' {
+        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites'); section = 'edges' }; 'body-sha' = @{ keys = @('with_body_sha') } } })
+        $body = "# docs/widget.md`n`nSee ADR-GADGET-TURN.`n"
+        $headed = "---`ncatzc:`n  immutable:`n    with_body_sha: `"000000000000`"`n  edges:`n    cites:`n      - ADR-GADGET-SPIN`n---`n`n" + $body
+        $carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter; key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
+        Mock Get-FileMetaScope -ModuleName Catzc.Base.QualityGates { foreach ($item in $Path) {
+                [pscustomobject]@{ Path = $item; Carrier = $carrier }
+            } }
+        New-Item -ItemType Directory -Force -Path (Join-Path $TestDrive 'docs') | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $TestDrive 'docs/widget.md'), $body)
+        [System.IO.File]::WriteAllText((Join-Path $TestDrive 'docs/gadget.md'), $headed)
+        $facts = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Config = $config } { param($Config) Get-FileMetaFact 'docs/widget.md', 'docs/gadget.md' -Config $Config })
+        $facts.Path | Should -Be @('docs/widget.md', 'docs/gadget.md')
+        $facts[1].Edges['cites'] | Should -Be @('ADR-GADGET-TURN')
+        $facts[1].Immutable['with_body_sha'] | Should -BeExactly $facts[0].Immutable['with_body_sha']
+    }
+
+    It 'skips a file whose carrier is a sidecar' {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
+        Mock Get-FileMetaScope -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget.png'; Carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::Sidecar } } }
+        @(InModuleScope Catzc.Base.QualityGates { Get-FileMetaFact 'docs/widget.png' }).Count | Should -Be 0
+    }
+
+    It 'rejects -State with more than one path' {
+        { InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $script:state } { param($State) Get-FileMetaFact -State $State -Path 'docs/widget.md', 'docs/gadget.md' } } |
+            Should -Throw '*reads one file, but 2 paths were given*'
+    }
+
     It 'rejects a processor that returns keys its kind does not declare' {
         Mock Get-FileRoleFileMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
         { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-FileRoleFileMetaFact' } } } } |

@@ -21,14 +21,15 @@ public sealed class RungsConfig
 
     public static readonly IReadOnlyList<Rung> DefaultRungs = Array.AsReadOnly(new[]
     {
-        new Rung("main-uat", "dev", GateNone),
-        new Rung("release-uat", "test", GateRc),
-        new Rung("pre-prod", "preprod", GateRbc),
-        new Rung("prod", "prod", GateProdApproval),
+        new Rung("main-uat", "dev", GateNone, new[] { "ADR-FLOW-CD-CDSTAYSINNONPROD" }),
+        new Rung("release-uat", "test", GateRc, new[] { "ADR-FLOW-CD-TWORELEASEGATES" }),
+        new Rung("pre-prod", "preprod", GateRbc, new[] { "ADR-FLOW-CD-PREPRODRUNG", "ADR-FLOW-CD-CERTIFYINGRECORD" }),
+        new Rung("prod", "prod", GateProdApproval, new[] { "ADR-FLOW-CD-PRODAPPROVALGATE", "ADR-FLOW-CD-TWOENVIRONMENTACTIVATION" }),
     });
 
     private static readonly string[] AllowedKeys = { "rungs" };
-    private static readonly string[] AllowedRungKeys = { "environment", "gate" };
+    private static readonly string[] AllowedRungKeys = { "environment", "gate", "rules" };
+    private static readonly Regex RuleCode = new Regex("^ADR(-[A-Z0-9]+)+$");
     private static readonly Regex KebabCase = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
     // The rungs in climbing order.
@@ -119,7 +120,29 @@ public sealed class RungsConfig
             {
                 errors.Add(string.Format(CultureInfo.InvariantCulture, "rung '{0}': gate '{1}' is not one of: {2}", name, gate, string.Join(", ", Gates)));
             }
-            found.Add(new Rung(name, environment, gate));
+            List<string> rules = new List<string>();
+            if (fields.Contains("rules") && fields["rules"] != null)
+            {
+                IList listed = fields["rules"] as IList;
+                if (listed == null)
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "rung '{0}': rules must be a list of ADR rule codes", name));
+                }
+                else
+                {
+                    foreach (object item in listed)
+                    {
+                        string code = Convert.ToString(item, CultureInfo.InvariantCulture);
+                        if (code == null || !RuleCode.IsMatch(code))
+                        {
+                            errors.Add(string.Format(CultureInfo.InvariantCulture, "rung '{0}': '{1}' is not an ADR rule code", name, code));
+                            continue;
+                        }
+                        rules.Add(code);
+                    }
+                }
+            }
+            found.Add(new Rung(name, environment, gate, rules.ToArray()));
         }
         return found.AsReadOnly();
     }

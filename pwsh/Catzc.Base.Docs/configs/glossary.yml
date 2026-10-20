@@ -480,7 +480,7 @@ concepts:
   staging slot:
     key: staging_slot
     domain: design
-    defined_by: ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT
+    defined_by: ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
     short:
       The pre-prod rung: a slot inside the production subscription, inactive until it is activated, never a separate subscription.
     realized_by: { kind: prose-only }

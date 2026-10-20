@@ -121,3 +121,24 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — a credential that never outlives its request cannot leak
   into a log or a later step.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Commit lifecycle
+
+`The commit lifecycle — states, environment occupancy, and the stable sync point`
+
+[ADR-FLOW-CD-LIFE](commit-lifecycle.md)
+
+> This model is a statement about how change flows into, through, and out of the mainline, which is the core of what DORA measures. A clear
+> lifecycle — one direction, named rejection points, a distinction between rejected/retired/superseded, a single stable integration point
+> that is not HEAD — is what lets a team keep the mainline continuously integrable and lets its consumers depend on it without inheriting
+> its churn.
+
+- [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — the HEAD-vs-stable-sync-point rule and the
+  one-directional ladder are how a trunk stays continuously integrable.
+- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — the promotion ladder and single-occupant environments
+  are the delivery pipeline this capability governs.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — automatic discard at BVT/L3 and the out-of-band
+  topic deploy are automated-deployment behaviours.
+- [Version control](../../references/dora/capabilities.md#version-control) — "history is never rewritten; a discarded commit stays on the
+  record" is a version-control discipline.
+- [DORA research reference](../../references/dora/index.md).

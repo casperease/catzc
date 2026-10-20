@@ -1,8 +1,8 @@
 # Slides kit: patterns, fields and the writing rules for a deck
 
-The kit that `Build-SlideDeck` renders a deck from ([ADR-REPO-SLIDES](../../docs/adr/repository/slides-as-markdown.md)). A deck is a folder
-of slide files; a slide file names one pattern from `patterns/` and fills its fields; the shared look is `slides.yml`. This page says what
-the patterns are and how a slide is written. The values live in `slides.yml` only and are not repeated here.
+The kit that `Build-SlideDeck` renders a deck from ([ADR-REPO-SLIDES](../../../../docs/adr/repository/slides-as-markdown.md)). A deck is a
+folder of slide files; a slide file names one pattern from `patterns/` and fills its fields; the shared look is `slides.yml`. This page says
+what the patterns are and how a slide is written. The values live in `slides.yml` only and are not repeated here.
 
 ## The canvas and the format
 

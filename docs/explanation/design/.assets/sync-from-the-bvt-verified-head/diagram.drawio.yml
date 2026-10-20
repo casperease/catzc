@@ -4,12 +4,12 @@ description: >-
 about:
   lens: meta
   adrs:
-    - ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-DSGN-LIFE-DIRTYHEADUNSAFE
-    - ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
+    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
   tracks: [docs]
   files:
-    - docs/adr/design/commit-lifecycle.md
+    - docs/adr/flow/commit-lifecycle.md
 content:
   title: Sync from the BVT-verified head, not from the tip of main
   kind: explanation

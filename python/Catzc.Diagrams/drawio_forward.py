@@ -18,16 +18,17 @@ Exit 0: clean. Exit 2: transport or assertion warnings, every artifact still del
 nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`, `slide`), one per warning (`warn`),
 then `status`.
 
-bulk:  uv run --with pillow python drawio_forward.py --all <root> [--stage prepare|highlight|join|all] [--migrate]
+bulk:  uv run --with pillow python drawio_forward.py --all <root> [--stage prepare|highlight|join|all] [--theme <theme>]
                                                       [--start A --end B]
 
 Rebuilds every diagram folder under <root> in place (`<article-folder>/.assets/<name>/` holding diagram.drawio.png; the
-root itself when it is one), in stages that each fit the time safeguard: `prepare` (optionally migrates each slide to the
-dark tokens, extracts its model to out/drawio/bulk/<root>/models/, reads its subtitle, checks the article's Supports line,
+root itself when it is one), in stages that each fit the time safeguard: `prepare` (puts each declared folder in the theme,
+extracts each other slide's model to out/drawio/bulk/<root>/models/, reads its subtitle, checks the article's Supports line,
 and writes the slide list, skipping a slide with no ADR code); `highlight` (the map processors for the listed slides, then
 grid, tree and chain as .png and .md under out/drawio/minimaps/<folder>/, never in the tree); `join` (the
 sidebar laid out, the minimaps embedded, the slide rebuilt); `all` runs the three. --start/--end slice the slide list of
-the per-slide stages. Same exit codes; the report is out/drawio/bulk/<root>/bulk.md.
+the per-slide stages. A theme other than the default puts the declared folders to out/drawio/themes/<theme>/ and leaves the
+committed rasters and the folders without a declaration alone. Same exit codes; the report is out/drawio/bulk/<root>/bulk.md.
 """
 
 import json
@@ -39,7 +40,7 @@ import xml.etree.ElementTree as ET
 import zlib
 from pathlib import Path
 
-from drawio_png import DEFAULTS, decode, encode, mxfile_chunk, plain, render
+from drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, plain, render
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
@@ -273,7 +274,7 @@ def minimaps(src, name, model_file, out_dir):
     return joined
 
 
-def bulk(root, stage, migrate, start, end):
+def bulk(root, stage, start, end, theme=None):
     """Rebuild every diagram folder under a root in place, by stage; returns the exit code after printing the lines and the
     report. The per-slide stages take the slice start..end of the folder list."""
     root = root.resolve()
@@ -292,24 +293,31 @@ def bulk(root, stage, migrate, start, end):
 
     declared = [f for f in folders if (f / declaration.SOURCE).is_file()]
     folders = [f for f in folders if f not in declared]
+    # Only the default theme is committed; another theme renders the declared folders on demand to out/, and nothing else.
+    themed = theme is not None and theme != THEMES[0]
+    if themed:
+        warnings += [f"W_THEME {rel(f)}: no {declaration.SOURCE}, so it renders in the default theme only" for f in folders]
+        folders = []
     if stage in ("prepare", "all"):
+        put = 0
         for f in declared:
             try:
-                print(f"put {rel(declaration.put_png(f, declaration.load(f)))}")
+                # A conflicted pair waits for the author's put or get by name; the bulk run picks no side.
+                both = [] if themed else declaration.conflict(f, declaration.committed(f))
+                if both:
+                    warnings.append(f"W_CONFLICT {rel(f)}: the yml and the png both moved from HEAD and disagree in {', '.join(both)}")
+                    continue
+                print(f"put {rel(declaration.put_png(f, declaration.load(f), theme))}")
+                put += 1
             except (declaration.DeclarationError, OSError) as e:
                 warnings.append(f"W_PUT {rel(f)}: {e}")
-        counts.update(put=len(declared))
+        counts.update(put=put)
     model_of = lambda f: models / (rel(f).replace("/", "--") + ".model.xml")
     if stage in ("prepare", "all"):
         models.mkdir(parents=True, exist_ok=True)
         done = 0
         for f in folders:
             try:
-                if migrate:
-                    run(
-                        [sys.executable, str(KIT / "migrate_dark.py"), str(f / SLIDE), str(f / SLIDE)],
-                        120,
-                    )
                 model_of(f).write_text(
                     decode(mxfile_chunk(Image.open(f / SLIDE))).strip(), encoding="utf-8"
                 )
@@ -401,14 +409,17 @@ def main():
         i = args.index("--all")
         folder = Path(args[i + 1])
         del args[i : i + 2]
-        stage, migrate, start, end = "all", False, 0, None
+        stage, theme, start, end = "all", None, 0, None
         if "--stage" in args:
             i = args.index("--stage")
             stage = args[i + 1]
             del args[i : i + 2]
-        if "--migrate" in args:
-            args.remove("--migrate")
-            migrate = True
+        if "--theme" in args:
+            i = args.index("--theme")
+            theme = args[i + 1]
+            del args[i : i + 2]
+            if theme not in THEMES:
+                raise SystemExit(f"theme '{theme}' is not one of: {', '.join(THEMES)}")
         if "--start" in args:
             i = args.index("--start")
             start = int(args[i + 1])
@@ -421,7 +432,7 @@ def main():
             raise SystemExit(
                 f"stage must be prepare, highlight, join or all, got {stage}"
             )
-        raise SystemExit(bulk(folder, stage, migrate, start, end))
+        raise SystemExit(bulk(folder, stage, start, end, theme))
     xml_path = assert_path = root = None
     page, want_minimaps = None, False
     for flag in ("--xml", "--assert", "--page"):

@@ -58,5 +58,4 @@ track_root_literal:
     pwsh/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1: it asserts the out/pwsh/built area of its exempt code (Q6)
     pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1:
       it tests CommentsConfig.DefaultPages, which mirrors comments.yml and is renamed with it in P4
-    pwsh/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1:
-      it names the real globset key pwsh, the track's own name
+    pwsh/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1: it names the real globset key pwsh, the track's own name

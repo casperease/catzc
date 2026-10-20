@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "45111609ebb7"
+    with_body_sha: "0b63d54c4153"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/index.md
@@ -97,9 +97,8 @@ implementation domains put its practices into effect — stopping the line, buil
 ### design/
 
 How the platform is shaped: tracks as the repository's root concerns, a thin CLI platform over a vendor substrate, safe self-service, the
-commit lifecycle and its stable sync point, the audited server remote with pull-request ingress, the visual grammar of the value-chain
-diagrams, and the toolset's two run modes (source and build). It builds on research, principles, and process; the flow and implementation
-domains realise it.
+audited server remote with pull-request ingress, the visual grammar of the value-chain diagrams, and the toolset's two run modes (source and
+build). It builds on research, principles, and process; the flow and implementation domains realise it.
 
 **Role:** `architecture` — **depends on:** `research`, `principles`, `process`.
 
@@ -109,7 +108,6 @@ domains realise it.
 | `ADR-DSGN-THINPLAT`  | [thin-platforms](design/thin-platforms.md)                       |
 | `ADR-DSGN-SELFSERV`  | [self-service](design/self-service.md)                           |
 | `ADR-DSGN-VISUAL`    | [visual-design](design/visual-design.md)                         |
-| `ADR-DSGN-LIFE`      | [commit-lifecycle](design/commit-lifecycle.md)                   |
 | `ADR-DSGN-REMOTE`    | [server-remote-integration](design/server-remote-integration.md) |
 | `ADR-DSGN-RUNMODE`   | [run-modes](design/run-modes.md)                                 |
 | `ADR-DSGN-TRACKTYPE` | [track-types](design/track-types.md)                             |
@@ -120,8 +118,8 @@ domains realise it.
 
 The vendor-neutral delivery-flow model: what a CI/CD pipeline is, continuous integration as a discipline with a 5–10 minute integration
 budget, the closed set of pipeline types (CRON, CI, CD, CDe, DEPLOY, INPUT) keyed together by one immutable tagged artifact, how pipelines
-invoke automation and detect their context, and how globsets project into native trigger filters. The ado (Azure DevOps) and github domains
-implement it.
+invoke automation and detect their context, how globsets project into native trigger filters, and the commit lifecycle a promoted commit
+climbs, with its stable sync point. The ado (Azure DevOps) and github domains implement it.
 
 **Role:** `architecture` — **depends on:** `research`, `principles`, `process`, `design`.
 
@@ -133,6 +131,7 @@ implement it.
 | `ADR-FLOW-CD-TYPE`     | [pipeline-types](flow/pipeline-types.md)                                     |
 | `ADR-FLOW-CD-GLOBS`    | [durable-sha-globs](flow/durable-sha-globs.md)                               |
 | `ADR-FLOW-CD-PIPELINE` | [pipeline-concept](flow/pipeline-concept.md)                                 |
+| `ADR-FLOW-CD-LIFE`     | [commit-lifecycle](flow/commit-lifecycle.md)                                 |
 
 ### automation/
 

@@ -52,9 +52,9 @@ describe the minimaps, join them into the sidebar, rebuild the slide, report. A 
 artifacts still land, so the person always has something to read.
 
 The kit is the module's configuration in the sense of ADR-PRIN-CONFIG: a new glyph is a library entry and a legend phrase, a new lens is a
-line in `drawio.yml`, a new slide layout is a pattern file. The scripts know the vocabulary's shape, never its instances. The migration
-script, `migrate_dark.py`, is the one-way move of a light-era slide to the dark tokens and leaves with the theme selector the diagram plan
-lands.
+line in `drawio.yml`, a new slide layout is a pattern file. The scripts know the vocabulary's shape, never its instances. Colours are
+themes: every style names a token, and `drawio.yml` holds one token set per theme; the default theme's render is the committed png, and
+any other theme renders on demand to `out/drawio/themes/`.
 
 The tests run from the module's own `tests/` folder through the language bridge, on fixture models in the neutral widget vocabulary, never
 on a real drawing.
@@ -67,7 +67,6 @@ The module's scripts and configuration, sorted into the responsibilities above.
 | ------------------------------------------------------- | --------------------------- |
 | responsibility:1 — Fail-forward render of a drawing     | `drawio_forward.py`         |
 |                                                         | `drawio_png.py`             |
-|                                                         | `migrate_dark.py`           |
 | responsibility:2 — The minimaps of a slide              | `minimap_render.py`         |
 |                                                         | `minimap_describe.py`       |
 |                                                         | `minimap_join.py`           |

@@ -8,7 +8,7 @@ Six pipeline shapes each run a stretch of one promotion ladder, and a commit can
 3  the shapes    six panels, each a different stretch of the ladder
 4  the exit      under every step a dashed arrow to discarded
 
-Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, ADR-DSGN-LIFE-DISCARDISTERMINAL and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM, and ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT.
+Supports ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG, ADR-FLOW-CD-LIFE-DISCARDISTERMINAL and ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM, and ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT.
 ```
 
 There is one promotion ladder, and cats has more than one way to run it. A shape is the choice of how a commit gets onto the ladder and how
@@ -40,18 +40,18 @@ which steps they include and where the row ends.
 ## Why it holds
 
 - Every shape climbs the same ladder in the same order, so a colour means the same durable fact in every panel
-  ([ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-onestateadvancesonerung)).
+  ([ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG](../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-onestateadvancesonerung)).
 - Every step has an exit to discarded, and the discarded commit stays in history
-  ([ADR-DSGN-LIFE-DISCARDISTERMINAL](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-discardisterminal)).
+  ([ADR-FLOW-CD-LIFE-DISCARDISTERMINAL](../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-discardisterminal)).
 - A failed step stops the commit going further in every shape
-  ([ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life-failedstaysupstream)).
+  ([ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM](../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-failedstaysupstream)).
 - RC and RBC are defined by the flow model, and the acceptance testing that clears them is separate from the environment it runs in
   ([ADR-FLOW-CD-TWORELEASEGATES](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates),
   [ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-acceptancetestingisnotuat)).
 
 ## See also
 
-- [The commit lifecycle](../../adr/design/commit-lifecycle.md) — the decision this article explains.
+- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
 - [Cd discipline and promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the pipeline kinds and the RC and RBC gates.
 - [Ten numbered commits trace the whole lifecycle](ten-commits-trace-the-whole-lifecycle.md) — the same ladder with ten real commits on it.
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

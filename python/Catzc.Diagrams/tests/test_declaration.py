@@ -376,3 +376,174 @@ def test_labels_keep_quotes_unescaped_in_the_drawing():
     model = declaration.put(first)
     assert "&amp;#x27;" not in model
     assert declaration.get(model, kind="explanation")["content"]["title"] == "The caller's value wins"
+
+
+def committed_pair(folder, source):
+    """Write a pair the way a commit holds it: the yml, and the png put from it; the pair's text and model are the base."""
+    text = __import__("yaml").safe_dump(source, sort_keys=False)
+    (folder / declaration.SOURCE).write_text(text, encoding="utf-8")
+    declaration.put_png(folder, declaration.load(folder))
+    return text, declaration.model_of(folder)
+
+
+def edited_both_sides(folder):
+    """Move both sides of a committed pair: the yml relabels the gadget store, the drawing relabels widget A."""
+    source = __import__("yaml").safe_load(WIDGETS)
+    base = committed_pair(folder, source)
+    drawn = __import__("yaml").safe_load(WIDGETS)
+    drawn["content"]["glyphs"][0]["label"] = "Widget Z"
+    declaration.put_png(folder, declaration.normalise(drawn))
+    source["content"]["glyphs"][2]["label"] = "Gadget vault"
+    (folder / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    return base
+
+
+def test_a_pair_edited_on_both_sides_is_a_conflict_naming_the_cells(tmp_path):
+    base = edited_both_sides(tmp_path)
+    cells = declaration.conflict(tmp_path, base)
+    assert "gadget-store" in cells and "widget-a" in cells
+
+
+def test_get_by_name_clears_a_conflict(tmp_path):
+    base = edited_both_sides(tmp_path)
+    declaration.save(tmp_path, declaration.get(declaration.model_of(tmp_path), kind="explanation"))
+    assert declaration.conflict(tmp_path, base) == []
+
+
+def test_put_by_name_clears_a_conflict(tmp_path):
+    base = edited_both_sides(tmp_path)
+    declaration.put_png(tmp_path, declaration.load(tmp_path))
+    assert declaration.conflict(tmp_path, base) == []
+
+
+def test_one_side_moved_is_no_conflict(tmp_path):
+    source = __import__("yaml").safe_load(WIDGETS)
+    base = committed_pair(tmp_path, source)
+    drawn = __import__("yaml").safe_load(WIDGETS)
+    drawn["content"]["glyphs"][0]["label"] = "Widget Z"
+    declaration.put_png(tmp_path, declaration.normalise(drawn))
+    assert declaration.conflict(tmp_path, base) == []
+    assert "widget-a" in declaration.drift(tmp_path)[0]
+
+
+def test_an_untracked_pair_is_never_a_conflict(tmp_path):
+    edited_both_sides(tmp_path)
+    assert declaration.conflict(tmp_path, None) == []
+    assert declaration.committed(tmp_path) is None
+
+
+def test_sync_after_a_drawio_edit_gets_then_puts_and_leaves_no_drift(tmp_path):
+    source = __import__("yaml").safe_load(WIDGETS)
+    base = committed_pair(tmp_path, source)
+    drawn = __import__("yaml").safe_load(WIDGETS)
+    drawn["content"]["glyphs"][0]["label"] = "Widget Z"
+    declaration.put_png(tmp_path, declaration.normalise(drawn))
+    assert declaration.sync(tmp_path, base) == ["get", "put"]
+    assert declaration.drift(tmp_path) == ([], [])
+    assert declaration.load(tmp_path)["content"]["glyphs"][0]["label"] == "Widget Z"
+
+
+def test_sync_after_a_yml_edit_only_puts(tmp_path):
+    source = __import__("yaml").safe_load(WIDGETS)
+    base = committed_pair(tmp_path, source)
+    source["content"]["glyphs"][2]["label"] = "Gadget vault"
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    assert declaration.sync(tmp_path, base) == ["put"]
+    assert declaration.drift(tmp_path) == ([], [])
+
+
+def test_sync_stops_on_a_conflict_before_put_naming_the_cells(tmp_path):
+    base = edited_both_sides(tmp_path)
+    before = declaration.model_of(tmp_path)
+    with pytest.raises(declaration.DeclarationError, match="widget-a"):
+        declaration.sync(tmp_path, base)
+    assert declaration.model_of(tmp_path) == before
+
+
+def test_a_tree_change_a_minimap_reads_makes_it_stale_not_drifted(tmp_path, monkeypatch):
+    committed_pair(tmp_path, __import__("yaml").safe_load(WIDGETS))
+    assert declaration.drift(tmp_path) == ([], [])
+    drawn = declaration.minimaps.picture
+
+    # The tree the minimaps read changed under them: the same declaration now draws each minimap differently.
+    def changed(view, about, width, height, theme=None):
+        return drawn("engine-strip" if view != "engine-strip" else "grid", about, width, height, theme)
+
+    monkeypatch.setattr(declaration.minimaps, "picture", changed)
+    cells, stale = declaration.drift(tmp_path)
+    assert cells == [] and stale and all(cell.startswith("minimap-") for cell in stale)
+
+
+def test_a_base_citing_a_code_the_registry_no_longer_has_is_read_as_data(tmp_path):
+    text, model = committed_pair(tmp_path, __import__("yaml").safe_load(WIDGETS))
+    retired = __import__("yaml").safe_load(text)
+    retired.setdefault("about", {})["adrs"] = ["ADR-WIDGET-RETIRED-GONE"]
+    base = (__import__("yaml").safe_dump(retired, sort_keys=False), model)
+    assert declaration.conflict(tmp_path, base) == []
+
+
+def vocabulary_cases():
+    """Each closed vocabulary: how to put a value outside it into the widget declaration, and every value it allows."""
+    pools = declaration.DEFAULTS["minimaps"]
+
+    def span(raw):
+        raw["content"]["spans"][0]["label"] = "sideways"
+
+    def glyph(raw):
+        raw["content"]["glyphs"][0]["kind"] = "blob"
+
+    def edge(raw):
+        raw["content"]["edges"][0]["kind"] = "wobble"
+
+    def minimap(raw):
+        raw["content"]["minimaps"] = ["grid", "axis", "moon"]
+
+    def flow(raw):
+        raw["content"]["flow"] = "inside-out"
+
+    def theme(raw):
+        raw["content"]["theme"] = "sepia"
+
+    return [
+        ("span label", span, tuple(declaration.span_vocabulary())),
+        ("glyph kind", glyph, declaration.GLYPH_KINDS),
+        ("edge kind", edge, declaration.EDGE_KINDS),
+        ("minimap view", minimap, tuple(str(pools["ids"]).replace(",", " ").split())),
+        ("flow", flow, declaration.FLOWS),
+        ("theme", theme, tuple(declaration.DEFAULTS["themes"])),
+    ]
+
+
+@pytest.mark.parametrize("name,spoil,allowed", vocabulary_cases(), ids=[case[0] for case in vocabulary_cases()])
+def test_a_value_outside_a_vocabulary_fails_naming_every_value_it_allows(name, spoil, allowed):
+    raw = __import__("yaml").safe_load(WIDGETS)
+    spoil(raw)
+    with pytest.raises(declaration.DeclarationError) as error:
+        declaration.normalise(raw)
+    assert "is not one of: " in str(error.value)
+    listed = str(error.value).split("is not one of: ", 1)[1].split(", ")
+    assert set(allowed) <= set(listed), f"{name}: the error leaves out {sorted(set(allowed) - set(listed))}"
+
+
+def test_one_declaration_renders_in_every_theme_from_its_token_sets():
+    dark, light = (declaration.put(widgets(), theme) for theme in ("dark", "light"))
+    assert 'background="#1E2430"' in dark and 'background="#FFFFFF"' in light
+    assert "@" not in "".join(__import__("re").findall(r'style="([^"]*)"', dark + light))
+
+
+def test_a_theme_other_than_the_default_renders_to_out_and_leaves_the_committed_png(tmp_path):
+    committed_pair(tmp_path, __import__("yaml").safe_load(WIDGETS))
+    before = (tmp_path / declaration.SLIDE).read_bytes()
+    dst = declaration.put_png(tmp_path, declaration.load(tmp_path), "light")
+    assert dst.parts[-5:-2] == ("drawio", "themes", "light") and dst.is_file()
+    assert (tmp_path / declaration.SLIDE).read_bytes() == before
+
+
+def test_a_style_token_no_theme_defines_fails_naming_the_tokens():
+    with pytest.raises(KeyError, match="'@nowhere' is not one of: page, band"):
+        declaration.paint("fillColor=@nowhere;")
+
+
+def test_the_glyph_library_names_colours_only_as_tokens():
+    library = (declaration.KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8")
+    assert __import__("re").findall(r"#[0-9A-Fa-f]{6}", library) == []

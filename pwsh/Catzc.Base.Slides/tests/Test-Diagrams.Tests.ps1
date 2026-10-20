@@ -2,7 +2,7 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
     BeforeAll {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         $script:root = $root
-        foreach ($name in 'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow') {
+        foreach ($name in 'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow') {
             $folder = Join-Path $root "docs/explanation/widget/.assets/$name"
             [System.IO.Directory]::CreateDirectory($folder) | Out-Null
             [System.IO.File]::WriteAllText((Join-Path $folder 'diagram.drawio.yml'), "content: {}`n")
@@ -11,12 +11,12 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
         [System.IO.File]::WriteAllText((Join-Path $root 'kit/declaration.py'), '')
         $script:out = Join-Path $root 'out'
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides {
-            'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow' | ForEach-Object { "docs/explanation/widget/.assets/$_/diagram.drawio.png" }
+            'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow' | ForEach-Object { "docs/explanation/widget/.assets/$_/diagram.drawio.png" }
         }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'uv' } }
         # The kit's check prints one JSON line per folder; the mock answers from the folder names on the command line.
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
-            $lines = foreach ($name in 'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow') {
+            $lines = foreach ($name in 'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow') {
                 $folder = "docs/explanation/widget/.assets/$name"
                 if ($Command -notlike "*`"$folder`"*") {
                     continue
@@ -33,6 +33,9 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
                     }
                     'cog-flow' {
                         "{`"folder`": `"$folder`", `"error`": `"no diagram.drawio.yml`"}"
+                    }
+                    'gear-flow' {
+                        "{`"folder`": `"$folder`", `"conflict`": [`"gear-train`", `"widget-a`"], `"drift`": [], `"stale`": []}"
                     }
                 }
             }
@@ -52,10 +55,16 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
         $report.Issues[0] | Should -BeLike '*gadget-flow: the png differs from put of its yml in gadget-store, title*'
     }
 
+    It 'fails a pair edited on both sides since HEAD, naming the cells and the way out' {
+        $report = Test-Diagrams -Path 'docs/explanation/widget/.assets/gear-flow' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
+        $report.Issues[0] | Should -BeLike '*gear-flow: the yml and the png both moved from HEAD and disagree in gear-train, widget-a; put or get it by name*'
+    }
+
     It 'reports stale minimaps as a fact, not an issue' {
         $report = Test-Diagrams -Path 'docs/explanation/widget/.assets/sprocket-flow' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
         $report.IssueCount | Should -Be 0
         $report.Facts['StaleMinimapCount'] | Should -Be 1
+        $report.Facts['StaleFolders'] | Should -Be @('docs/explanation/widget/.assets/sprocket-flow')
     }
 
     It 'fails a folder the kit cannot read, with the kit''s error' {
@@ -65,8 +74,8 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
 
     It 'checks every declared folder when no path is given' {
         $report = Test-Diagrams -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
-        $report.Facts['FolderCount'] | Should -Be 4
-        $report.IssueCount | Should -Be 2
+        $report.Facts['FolderCount'] | Should -Be 5
+        $report.IssueCount | Should -Be 3
     }
 
     It 'refuses a path that is not a declared diagram folder' {

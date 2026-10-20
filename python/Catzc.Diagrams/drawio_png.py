@@ -43,9 +43,29 @@ def kit_defaults():
 
 
 DEFAULTS = kit_defaults()
-BACKGROUND = "#1E2430"  # the dark page every rendered output sits on (assets/STYLE.md, dark-theme tokens)
-INK = "#CDD3DC"  # text that sets no fontColor: light grey on the dark page
-LINE = "#AAB4C3"  # an edge or outline that sets no strokeColor: quiet ink
+THEMES = tuple(DEFAULTS["themes"])  # the first is the default, the one whose raster is committed
+
+
+def tokens(theme=None):
+    """A theme's token set (the default theme's when none is named): each token's colour as `#HEX`."""
+    return {name: "#" + value for name, value in DEFAULTS[f"theme-{theme or THEMES[0]}"].items()}
+
+
+def paint(style, theme=None):
+    """A style with every `@<token>` reference replaced by its theme's colour; a token the theme lacks fails, naming the tokens."""
+    known = tokens(theme)
+
+    def colour(match):
+        if match.group(1) not in known:
+            raise KeyError(f"style token '@{match.group(1)}' is not one of: {', '.join(known)}")
+        return known[match.group(1)]
+
+    return re.sub(r"@([a-z][a-z0-9-]*)", colour, style)
+
+
+BACKGROUND = tokens()["page"]  # the page every rendered output sits on
+INK = tokens()["ink"]  # text that sets no fontColor
+LINE = tokens()["line"]  # an edge or outline that sets no strokeColor
 SHADOW = (0, 0, 0, 77)  # the one shadow every filled shape casts (STYLE.md, Canvas): black at 30 %
 SHADOW_OFFSET = (2, 3)  # 2 px right, 3 px down
 SHADOW_BLUR = 2

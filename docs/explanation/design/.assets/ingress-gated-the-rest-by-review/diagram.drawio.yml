@@ -9,7 +9,7 @@ about:
     - ADR-DSGN-REMOTE-NORECONCILINGTIPS
     - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
     - ADR-REPO-VARIANT-GITWORKSPACE
-    - ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD
+    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
   tracks: [pwsh]
   languages: [powershell]
   modules: [Catzc.Base.ModuleSystem]
@@ -53,7 +53,7 @@ content:
     - { at: band-remote, kind: rule, rule: ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH, gated: false }
     - { at: g-review, kind: rule, rule: ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED, gated: false }
     - { at: g-review, kind: rule, rule: ADR-DSGN-REMOTE-NORECONCILINGTIPS, gated: false }
-    - { at: g-review, kind: rule, rule: ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
+    - { at: g-review, kind: rule, rule: ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-clone: { x: 20, y: 84, w: 1260, h: 140 }

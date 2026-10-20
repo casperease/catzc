@@ -48,8 +48,7 @@ Treat visibility of the work as a requirement, not a nicety, and treat direct ob
 
 - **Render the flow.** The position and state of every commit is shown by construction, not reconstructed on demand
   ([ADR-DSGN-VISUAL](../design/visual-design.md)): position is time, colour is the furthest state reached, and a glance decodes where a
-  change is. The states rendered are the commit's lifecycle states ([ADR-DSGN-LIFE](../design/commit-lifecycle.md)). The value stream is the
-  visual factory.
+  change is. The states rendered are the commit's lifecycle states. The value stream is the visual factory.
 - **Go and see.** Judge progress from the real running artifact and real signals — a gate that passed, a deployed environment, a monitored
   metric — not from a proxy. "Done" means the software does the thing, observed, not a task ticked
   ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md), working software is the measure).

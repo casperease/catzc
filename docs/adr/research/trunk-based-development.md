@@ -81,8 +81,7 @@ branches carrying an alternate copy of the code
 integration budget is the mechanical enforcement of "merge small and merge often"
 ([ADR-FLOW-CD-SHORTINTEGRATIONCYCLE](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-shortintegrationcycle)), and the commit
 lifecycle's rule that consumers sync from the stable `main-UAT` occupant rather than the dirty tip of main keeps a trunk that merges
-frequently from also being a trunk that is unsafe to build on
-([ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD](../design/commit-lifecycle.md#rule-adr-dsgn-life-syncfromverifiedhead)).
+frequently from also being a trunk that is unsafe to build on.
 
 ## Common pitfalls
 

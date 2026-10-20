@@ -4,11 +4,11 @@ description: >-
 about:
   lens: governance
   adrs:
-    - ADR-DSGN-LIFE-DISCARDISTERMINAL
-    - ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT
-    - ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-DSGN-LIFE-DIRTYHEADUNSAFE
-    - ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
+    - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+    - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
     - ADR-FLOW-CD-CDSTAYSINNONPROD
     - ADR-FLOW-CD-TWORELEASEGATES
     - ADR-FLOW-CD-PREPRODRUNG
@@ -52,17 +52,17 @@ content:
     - { at: g-ci-automation, number: 7 }
     - { at: f-dirty-head, number: 8 }
   chips:
-    - { at: g-integrator, kind: rule, rule: ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
-    - { at: g-integrator, kind: rule, rule: ADR-DSGN-LIFE-DIRTYHEADUNSAFE, gated: false }
-    - { at: g-production, kind: rule, rule: ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, gated: false }
+    - { at: g-integrator, kind: rule, rule: ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
+    - { at: g-integrator, kind: rule, rule: ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE, gated: false }
+    - { at: g-production, kind: rule, rule: ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT, gated: false }
     - { at: g-pre-prod, kind: rule, rule: ADR-FLOW-CD-PREPRODRUNG, gated: false }
     - { at: g-release-uat, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false }
     - { at: g-main-uat, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false }
-    - { at: g-main-uat, kind: rule, rule: ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
+    - { at: g-main-uat, kind: rule, rule: ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
     - { at: g-on-demand, kind: rule, rule: ADR-FLOW-CD-CDSTAYSINNONPROD, gated: false }
-    - { at: g-ci-automation, kind: rule, rule: ADR-DSGN-LIFE-DISCARDISTERMINAL }
-    - { at: f-dirty-head, kind: rule, rule: ADR-DSGN-LIFE-DIRTYHEADUNSAFE, gated: false }
-    - { at: f-dirty-head, kind: rule, rule: ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM, gated: false }
+    - { at: g-ci-automation, kind: rule, rule: ADR-FLOW-CD-LIFE-DISCARDISTERMINAL }
+    - { at: f-dirty-head, kind: rule, rule: ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE, gated: false }
+    - { at: f-dirty-head, kind: rule, rule: ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM, gated: false }
   minimaps: [code-locations, grid, axis]
 layout:
   band-external: { x: 20, y: 104, w: 1260, h: 130 }

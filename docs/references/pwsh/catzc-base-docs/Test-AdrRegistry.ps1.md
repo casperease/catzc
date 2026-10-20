@@ -22,7 +22,7 @@ README.md) carry none and are out of scope. It collects an issue when:
 
 It also runs two checks whose mode is configured in adr-checks.yml (Catzc.Base.Docs.AdrChecksConfig):
 
-- citation graph (citation_graph): a rule summary cites only its own domain or a domain in its domain's depends_on
+- citation graph (citation_graph): an ADR page cites only its own domain or a domain in its domain's depends_on
   (Get-AdrCitationGraphViolations);
 - DORA coverage (dora_coverage): every rule set whose domain is not exempt has exactly one section linking its ADR in its domain's DORA file
   (Get-AdrDoraCoverageViolations).

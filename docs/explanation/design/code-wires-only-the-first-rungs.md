@@ -12,7 +12,7 @@ The pipelines wire topic, landed and BVT; past BVT, stages follow the template, 
 7  Deploy_Foundation   the first deploy stage; depends on CI, runs on main only
 8  Deploy_Discovery    one stage that deploys nsub and psub side by side
 
-Supports ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM (implementation lens).
+Supports ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM (implementation lens).
 ```
 
 The commit lifecycle names eight rungs, from topic to production. The pipelines in cats wire the first three: a pull request to `main`, the
@@ -47,7 +47,7 @@ merge, and the CI engine that verifies the commit and publishes its artifact. Af
 
 ## Why it holds
 
-A commit that fails a stage cannot go downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM). In the code that rule is the `succeeded()` condition
+A commit that fails a stage cannot go downstream (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM). In the code that rule is the `succeeded()` condition
 on every `Deploy_*` stage: a failed CI stage skips every deploy, and a failed deploy stage skips the stages after it.
 
 ## Where the code and the ADR differ
@@ -60,7 +60,7 @@ on every `Deploy_*` stage: a failed CI stage skips every deploy, and a failed de
 
 ## See also
 
-- [The commit lifecycle](../../adr/design/commit-lifecycle.md) — the decision this article explains.
+- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
 - The other lenses on the same lifecycle: [meta](one-way-climb-three-endings.md), [architecture](four-domains-promote-one-artifact.md),
   [operations](engineer-merges-pipelines-do-the-rest.md) and [governance](which-rung-gates-exist-in-code.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

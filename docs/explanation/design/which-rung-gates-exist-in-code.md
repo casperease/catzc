@@ -12,7 +12,7 @@ Three rung checks run in code: PR build validation, the BVT and the failure stop
 7  two-slot activation       stage inactive in pre-prod, then activate live; an actuation, ADR-only
 8  failure stops downstream  each Deploy_* stage runs only when the stage before it succeeded
 
-Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, ADR-DSGN-LIFE-DISCARDISTERMINAL, ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD, ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN, ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM and ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND (governance lens).
+Supports ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG, ADR-FLOW-CD-LIFE-DISCARDISTERMINAL, ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD, ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN, ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT, ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM and ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND (governance lens).
 ```
 
 Every rung of the commit ladder has an ADR rule and a gate that decides whether a commit climbs it. Lined up in ladder order, with the
@@ -44,15 +44,15 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
 
 ## Why it holds
 
-- A commit holds one state at a time and only climbs; a new attempt is a new commit (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG).
-- Discard is rejection at a named stage: BVT and L3 discard automatically, `release-uat` by hand at RBC (ADR-DSGN-LIFE-DISCARDISTERMINAL).
-- Retirement is a successful end of life, never a discard (ADR-DSGN-LIFE-RETIREMENTISNOTDISCARD).
-- Supersession abandons a still-valid commit without rejecting it, so no gate decides it (ADR-DSGN-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
-- Each always-on environment holds one occupant, and no gate checks it (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT).
+- A commit holds one state at a time and only climbs; a new attempt is a new commit (ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG).
+- Discard is rejection at a named stage: BVT and L3 discard automatically, `release-uat` by hand at RBC (ADR-FLOW-CD-LIFE-DISCARDISTERMINAL).
+- Retirement is a successful end of life, never a discard (ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD).
+- Supersession abandons a still-valid commit without rejecting it, so no gate decides it (ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
+- Each always-on environment holds one occupant, and no gate checks it (ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT).
 - The BVT-verified server head is the stable integration point, and the same commit goes into `main-uat` first
-  (ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD).
-- A commit that fails a stage cannot go downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
-- An out-of-band deploy of a topic commit is not an integration (ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND).
+  (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD).
+- A commit that fails a stage cannot go downstream (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM).
+- An out-of-band deploy of a topic commit is not an integration (ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
 - PR build validation is the inner CI gate (ADR-FLOW-CD-INNERANDOUTERLOOP); L3 runs in CD (ADR-FLOW-CD-CDSTAYSINNONPROD); RC and RBC are the
   manual gates (ADR-FLOW-CD-TWORELEASEGATES); deploy-to-prod is a two-environment activation (ADR-FLOW-CD-TWOENVIRONMENTACTIVATION).
 - The BVT includes the built-artifact checks of `Test-BuildArtifact` (ADR-AUTO-TEST-BUILDVERIFICATIONTEST).
@@ -65,7 +65,7 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
 
 ## See also
 
-- [The commit lifecycle](../../adr/design/commit-lifecycle.md) — the decision this article explains.
+- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
 - [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) ·
   [Test automation](../../adr/automation/test-automation.md) · [Visual design](../../adr/design/visual-design.md)
 - The other lenses on the same lifecycle: [meta](one-way-climb-three-endings.md), [architecture](four-domains-promote-one-artifact.md),

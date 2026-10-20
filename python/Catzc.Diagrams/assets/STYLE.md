@@ -249,8 +249,8 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
 
 **Rebuilding a folder of slides.** The minimaps light the repository's citations of each slide's ADRs, so they drift whenever a citation, a
 map or `maps.yml` changes. `drawio_forward.py --all <folder>` rebuilds every slide of a folder in place in three stages that each fit the
-time safeguard, `--stage prepare` (optionally `--migrate` to the dark tokens; extracts the models and writes the slide list from the slides
-themselves), `--stage highlight` (the map processors once, then the minimaps and their sister `.md` files) and `--stage join` (the sidebars
+time safeguard, `--stage prepare` (puts the declared folders, in `--theme <theme>` when one is named; extracts the other models and writes
+the slide list from the slides themselves), `--stage highlight` (the map processors once, then the minimaps and their sister `.md` files) and `--stage join` (the sidebars
 laid out, the minimaps embedded, the slides rebuilt), `--start`/`--end` slicing the per-slide stages. One slide goes through
 `drawio_forward.py <slide> --minimaps` instead. The diagram id a build embeds is a hash of the model, so a rebuild of an unchanged model is
 byte-identical.

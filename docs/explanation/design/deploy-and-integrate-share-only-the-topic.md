@@ -10,7 +10,7 @@ The deploy path and the integration path share only the topic commit; nothing on
 5  BVT                   produces the BVT-verified commit, yellow
 6  the landing edge      the only link between the two paths is their start
 
-Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG and ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND, and ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE and ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER (architecture lens).
+Supports ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG and ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE and ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER (architecture lens).
 ```
 
 Cats keeps two events apart that are easy to blur: deploying a commit and integrating it. A commit on a topic branch can reach an
@@ -38,22 +38,22 @@ the promotion ladder.
 ## Why it holds
 
 - A topic commit can be deployed out-of-band by a workflow without integrating into main; the deploy is not an integration and confers no
-  promotion state on the mainline (ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND).
+  promotion state on the mainline (ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
 - A commit holds one lifecycle state at a time and advances one rung along the ladder, topic, landed on main, BVT-verified and onward, or
-  leaves it (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG).
+  leaves it (ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG).
 - The commit colours are fixed: brown is a development commit, grey is integrated onto main, and yellow is past the BVT with an immutable
   artifact (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE).
 - An environment box is a neutral container, and the commit inside it carries its own state colour (ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER).
 
 ## Where the code and the ADR differ
 
-- ADR-DSGN-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit, but no pipeline or workflow in cats does:
+- ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit, but no pipeline or workflow in cats does:
   every `Deploy_*` stage runs only when the source branch is `refs/heads/main`.
 - ADR-DSGN-VISUAL lets the BVT accept a brown commit as well as a grey one; the integration path here follows the commit after it lands.
 
 ## See also
 
-- [The commit lifecycle](../../adr/design/commit-lifecycle.md) — the decision this article explains.
+- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
 - [Visual design](../../adr/design/visual-design.md) — the commit colours and the neutral environment.
 - The other lenses on the same deploy: [meta](deploying-is-not-integrating.md), [implementation](every-deploy-stage-is-main-only.md),
   [operations](merging-to-main-is-what-deploys.md) and [governance](out-of-band-deploy-is-adr-only.md).

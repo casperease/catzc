@@ -7,15 +7,16 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Lists every rule-summary citation that leaves its domain for a domain the registry does not declare it depends on.
+Lists every citation in an ADR page that leaves its domain for a domain the registry does not declare it depends on.
 
 ### description
 
-A rule summary may cite only its own domain or a domain in its domain's depends_on list in adrs.yml. The list is read as declared, not
-transitively: like the module dependency graph, it is an allow-list of direct edges, so a domain that cites another names it. Body prose
-outside the rule registry may point anywhere and is not read here.
+An ADR page, its rule summaries and its body prose alike, may cite only its own domain or a domain in its domain's depends_on list in
+adrs.yml. The list is read as declared, not transitively: like the module dependency graph, it is an allow-list of direct edges, so a domain
+that cites another names it. A fenced block is not read. A finding names the rule whose block holds the line, or the ADR's code for a line
+outside the rule registry.
 
-Two kinds of reference are read in every summary line (Get-AdrRuleSummaryLines):
+Two kinds of reference are read in every line:
 
 - a citation code, `ADR-<CODE>` or `ADR-<CODE>#<n>`, resolved to its domain through the registry (an External code, or a domain's code in a
   wildcard such as `ADR-<CODE>-*`); a code the registry does not know is left to Test-Links;

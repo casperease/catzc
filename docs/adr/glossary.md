@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "459f38ba5024"
+    with_body_sha: ff6a50e05877
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -270,7 +270,7 @@ its module.
 
 The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
 
-- **Defined by:** [ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT](design/commit-lifecycle.md#rule-adr-dsgn-life-onecommitperenvironment)
+- **Defined by:** [ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT](flow/commit-lifecycle.md#rule-adr-flow-cd-life-onecommitperenvironment)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -344,7 +344,7 @@ forbids.
 
 System.Collections.Specialized.OrderedDictionary
 
-- **Defined by:** [ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT](design/commit-lifecycle.md#rule-adr-dsgn-life-onecommitperenvironment)
+- **Defined by:** [ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT](flow/commit-lifecycle.md#rule-adr-flow-cd-life-onecommitperenvironment)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 

@@ -1,0 +1,44 @@
+description: >-
+  Adding an environment slot adds one file to the configs place of the infrastructure track; discovery finds it on disk, checks that its
+  coordinate resolves to exactly one subscription, and the owner's CD pipeline deploys it into a new resource group.
+about:
+  lens: operations
+  adrs:
+    - ADR-AZ-IACKIND-THREEKINDS
+    - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+    - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+  tracks: [infrastructure, ado-pipelines]
+  languages: [yaml, pipeline-yaml]
+  modules: [Catzc.Azure.Templates]
+  files:
+    - infrastructure/templates/foundation/configuration/psub.yml
+    - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+    - pwsh/Catzc.Azure.Templates/private/Get-BicepResourceGroupName.ps1
+content:
+  title: A new environment slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group
+  kind: explanation
+  relation: then
+  bands:
+    - { id: band-edit, label: THE NEW FILE }
+    - { id: band-resolved, label: RESOLVED }
+    - { id: band-deployed, label: DEPLOYED }
+  spans:
+    - { id: span-configs, label: configs, over: [band-edit] }
+  glyphs:
+    - { id: g-slot, kind: file, label: new slot file, in: band-edit }
+    - { id: g-one, kind: gate, label: exactly one subscription, in: band-resolved }
+    - { id: r-owner, kind: runner, label: the owner's CD pipeline, in: band-deployed }
+    - { id: e-group, kind: env, label: a new resource group, in: band-deployed }
+  edges:
+    - { from: g-slot, to: g-one }
+    - { from: g-one, to: r-owner }
+    - { from: r-owner, to: e-group }
+  markers:
+    - { at: g-slot, number: 1 }
+    - { at: g-one, number: 2 }
+    - { at: r-owner, number: 3 }
+    - { at: e-group, number: 4 }
+layout:
+  g-one: { x: 500, y: 156, w: 260, h: 68 }
+  r-owner: { x: 892, y: 164, w: 160, h: 52 }
+  e-group: { x: 1076, y: 160, w: 196, h: 60 }

@@ -7,18 +7,21 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The diagrams quality gate; fails every declared diagram whose png differs from put of its yml, and reports the minimaps a registry change left stale.
+The diagrams quality gate; fails every declared diagram whose png differs from put of its yml, and reports the minimaps a registry change
+left stale.
 
 ### description
 
-A declared diagram is a folder under a `.assets/` folder holding a tracked `diagram.drawio.png` beside its `diagram.drawio.yml`. The gate runs the
-draw.io kit's `declaration.py check` over each declared folder through uv and reads one JSON line per folder: the cells whose png differs from put of
-the yml are issues, a kit or folder error is an issue, and a minimap a registry change left stale is announced and counted in the report facts without
-failing the gate. It writes no diagram; the render is Build-Diagrams'. The result goes through the quality-gate report.
+A declared diagram is a folder under a `.assets/` folder holding a tracked `diagram.drawio.png` beside its `diagram.drawio.yml`. The gate
+runs the draw.io kit's `declaration.py check` over each declared folder through uv and reads one JSON line per folder: the cells whose png
+differs from put of the yml are issues, a kit or folder error is an issue, and a minimap a registry change left stale is announced and
+counted in the report facts without failing the gate. It writes no diagram; the render is Build-Diagrams'. The result goes through the
+quality-gate report.
 
 ### parameter `Path`
 
-Declared diagram folders, repository-relative or absolute. A folder that is not a declared diagram throws. The default is every declared diagram.
+Declared diagram folders, repository-relative or absolute. A folder that is not a declared diagram throws. The default is every declared
+diagram.
 
 ### parameter `Kit`
 
@@ -50,4 +53,13 @@ Test-Diagrams
 
 ```powershell
 Test-Diagrams -Path docs/explanation/thesis/.assets/product-thesis
+```
+
+## comment:1
+
+Above ``foreach ($line in @($result.Output -split "`r?`n" | Where-Object {...``, written with `#`.
+
+```text
+One JSON line per folder: the cells of a pair edited on both sides since HEAD, the cells whose png differs from put of the
+yml, the minimaps a registry change left stale, or an error.
 ```

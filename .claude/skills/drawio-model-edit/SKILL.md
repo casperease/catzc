@@ -35,7 +35,6 @@ metadata:
    means the user has the file open, say so.
 2. Apply each replacement to that file asserting its count; only the named cell's `value` or `style`, never geometry, cells or minimap
    images; a colour outside the STYLE.md tokens is surfaced, not applied; then background
-   `timeout 120 uv run -q --with pillow python <repo>/python/Catzc.Diagrams/drawio_png.py out/drawio/<stem>.xml <png>` (or
-   `migrate_dark.py <png> <png>` for a dark migration, its `unmapped` colours reported, never guessed).
+   `timeout 120 uv run -q --with pillow python <repo>/python/Catzc.Diagrams/drawio_png.py out/drawio/<stem>.xml <png>`.
 3. Verify by decoding the written file: every intended token present, no stale token, the XML parses, the PNG verifies, the model
    round-trips; then drawio-look at the result; a sister `.drawio.md` or article that now contradicts the slide is reported, never edited.

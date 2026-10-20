@@ -17,19 +17,24 @@ public sealed class SlidesConfig
     public const string PatternsFolder = "patterns";
     public const string SlideSuffix = ".slide.md";
     public const string DeckFile = "deck.md";
+    public const string DefaultTheme = "dark";
 
-    private static readonly string[] AllowedKeys = { "kit", "drawio_kit" };
+    private static readonly string[] AllowedKeys = { "kit", "drawio_kit", "theme" };
 
     public string kit { get; }
 
     // The draw.io kit whose renderer rebuilds every diagram from its embedded model and the repository's maps.
     public string drawio_kit { get; }
 
+    // The theme a build renders in when it names none: the one whose diagram rasters are committed. Each kit declares its themes.
+    public string theme { get; }
+
     public SlidesConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
         string kitValue = DefaultKit;
         string drawioValue = DefaultDrawioKit;
+        string themeValue = DefaultTheme;
 
         if (raw != null)
         {
@@ -44,6 +49,18 @@ public sealed class SlidesConfig
 
             kitValue = Folder(raw, "kit", kitValue, errors);
             drawioValue = Folder(raw, "drawio_kit", drawioValue, errors);
+            if (raw.Contains("theme") && raw["theme"] != null)
+            {
+                string value = raw["theme"] as string;
+                if (string.IsNullOrEmpty(value) || !System.Text.RegularExpressions.Regex.IsMatch(value, "^[a-z][a-z0-9-]*$"))
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "theme '{0}' must be a theme name: lowercase letters, digits and '-'", value));
+                }
+                else
+                {
+                    themeValue = value;
+                }
+            }
         }
 
         if (errors.Count > 0)
@@ -53,6 +70,7 @@ public sealed class SlidesConfig
 
         kit = kitValue;
         drawio_kit = drawioValue;
+        theme = themeValue;
     }
 
     static string Folder(IDictionary raw, string key, string fallback, List<string> errors)

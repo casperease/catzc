@@ -209,5 +209,28 @@ Describe 'MapsConfig' -Tag 'L0' {
                 { & $script:make ([ordered]@{ output_folder = $folder }) } | Should -Throw "*output_folder '$folder' must be one folder name*"
             }
         }
+
+        It 'gives each diagram kind its pool and three defaults when the file names none' {
+            $config = & $script:make ([ordered]@{})
+            $config.MinimapsOf('explanation').pool | Should -Be @('axis', 'lifecycle-position', 'layer-stack', 'grid')
+            $config.MinimapsOf('explanation').defaults | Should -Be @('axis', 'lifecycle-position', 'layer-stack')
+            $config.MinimapsOf('reference').pool | Should -Be @('code-locations', 'track-placement', 'engine-strip', 'module-neighbourhood', 'grid')
+            $config.MinimapsOf('reference').defaults | Should -Be @('track-placement', 'engine-strip', 'module-neighbourhood')
+        }
+
+        It 'reads a kind''s pool and defaults from the file' {
+            $raw = [ordered]@{ minimaps = [ordered]@{ explanation = [ordered]@{ pool = @('grid', 'axis', 'layer-stack'); defaults = @('grid', 'axis', 'layer-stack') } } }
+            (& $script:make $raw).MinimapsOf('explanation').defaults | Should -Be @('grid', 'axis', 'layer-stack')
+        }
+
+        It 'rejects an unknown minimap id, a default outside the pool, and a count other than three' {
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ reference = [ordered]@{ pool = @('widget') } } }) } | Should -Throw "*'widget' is not one of: grid, code-locations*"
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ reference = [ordered]@{ defaults = @('grid', 'axis', 'engine-strip') } } }) } | Should -Throw "*'axis' is not in the pool*"
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ explanation = [ordered]@{ defaults = @('grid') } } }) } | Should -Throw '*names 1 minimaps; a diagram shows exactly 3*'
+        }
+
+        It 'rejects a diagram kind outside explanation and reference, naming them' {
+            { (& $script:make ([ordered]@{})).MinimapsOf('widget') } | Should -Throw "*diagram kind 'widget' is not one of: explanation, reference*"
+        }
     }
 }

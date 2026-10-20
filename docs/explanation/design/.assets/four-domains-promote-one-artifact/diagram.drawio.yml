@@ -4,13 +4,13 @@ description: >-
 about:
   lens: architecture
   adrs:
-    - ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT
-    - ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-DSGN-LIFE-DIRTYHEADUNSAFE
-    - ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM
+    - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
   tracks: [docs]
   files:
-    - docs/adr/design/commit-lifecycle.md
+    - docs/adr/flow/commit-lifecycle.md
 content:
   title: Four pipeline kinds promote one artifact that CI built once
   kind: explanation

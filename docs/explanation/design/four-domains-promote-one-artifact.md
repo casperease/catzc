@@ -11,7 +11,7 @@ Every pipeline kind after CI promotes the one artifact CI built, and each enviro
 6  pre-prod -> production   DEPLOY-Prod: staged inactive, then activated live
 7  tagged artifact          the one build every later domain promotes, never rebuilt
 
-Supports ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, ADR-DSGN-LIFE-DIRTYHEADUNSAFE and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM (architecture lens).
+Supports ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT, ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE and ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM (architecture lens).
 ```
 
 The commit ladder in cats is cut into domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod. Every domain after CI
@@ -42,12 +42,12 @@ occupant. Reading the occupants tells you what lives where right now, and which 
 ## Why it holds
 
 - Each always-on environment hosts exactly one commit, its occupant, plus a history of the commits it held before
-  (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT).
+  (ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT).
 - Upstream integrators sync from the BVT-verified server head, the same commit the always-on non-prod environment takes first, so the commit
-  synced from and the commit `main-uat` takes are one (ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD).
+  synced from and the commit `main-uat` takes are one (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD).
 - The tip of main is only the newest commit; when it has failed a downstream stage it is the dirty HEAD, and nobody syncs or promotes from
-  it (ADR-DSGN-LIFE-DIRTYHEADUNSAFE).
-- A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
+  it (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE).
+- A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM).
 - A CD pipeline always contains the CI component, and the pipeline kinds share one key, the immutable tagged artifact
   (ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDCONTAINSCI).
 
@@ -60,7 +60,7 @@ occupant. Reading the occupants tells you what lives where right now, and which 
 
 ## See also
 
-- [The commit lifecycle](../../adr/design/commit-lifecycle.md) — the decision this article explains.
+- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
 - [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the pipeline kinds.
 - The other lenses on the same lifecycle: [meta](one-way-climb-three-endings.md), [implementation](code-wires-only-the-first-rungs.md),
   [operations](engineer-merges-pipelines-do-the-rest.md) and [governance](which-rung-gates-exist-in-code.md).

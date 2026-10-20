@@ -4,6 +4,24 @@ Describe 'RungsConfig' -Tag 'L0', 'logic' {
         $config.rungs.name | Should -Be @('main-uat', 'release-uat', 'pre-prod', 'prod')
         $config.rungs.environment | Should -Be @('dev', 'test', 'preprod', 'prod')
         $config.rungs.gate | Should -Be @('none', 'rc', 'rbc', 'prod-approval')
+        $config.rungs[2].rules | Should -Be @('ADR-FLOW-CD-PREPRODRUNG', 'ADR-FLOW-CD-CERTIFYINGRECORD')
+    }
+
+    It 'reads the rule codes that define a rung, and none when it lists none' -Tag 'ADR-FLOW-CD-RUNGSREGISTRY' {
+        $config = [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = [ordered]@{
+                    'widget-uat' = @{ environment = 'widget'; gate = 'none'; rules = @('ADR-WIDGET-GADGET-SPIN') }
+                    'gadget-uat' = @{ environment = 'gadget'; gate = 'rc' }
+                }
+            })
+        $config.rungs[0].rules | Should -Be @('ADR-WIDGET-GADGET-SPIN')
+        $config.rungs[1].rules | Should -HaveCount 0
+    }
+
+    It 'rejects rules that are not a list of ADR rule codes' {
+        { [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = @{ 'widget-uat' = @{ environment = 'widget'; gate = 'none'; rules = 'ADR-WIDGET' } } }) } |
+            Should -Throw '*rules must be a list of ADR rule codes*'
+        { [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = @{ 'widget-uat' = @{ environment = 'widget'; gate = 'none'; rules = @('gizmo') } } }) } |
+            Should -Throw '*''gizmo'' is not an ADR rule code*'
     }
 
     It 'takes the ladder from a comment-only file as well' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {

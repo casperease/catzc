@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Catzc.Base.Flow;
 
 // One rung of the promotion ladder ([ADR-FLOW-CD-RUNGSREGISTRY](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-rungsregistry)).
@@ -14,10 +17,14 @@ public sealed class Rung
     // The gate a commit clears to enter the rung: none, rc, rbc or prod-approval.
     public string gate { get; }
 
-    public Rung(string name, string environment, string gate)
+    // The ADR rule codes that define the rung: a file that cites one of them, or the ADR that holds it, concerns the rung.
+    public IReadOnlyList<string> rules { get; }
+
+    public Rung(string name, string environment, string gate, string[] rules = null)
     {
         this.name = name;
         this.environment = environment;
         this.gate = gate;
+        this.rules = Array.AsReadOnly(rules ?? Array.Empty<string>());
     }
 }

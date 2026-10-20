@@ -12,7 +12,7 @@ An engineer runs the tests and merges the pull request; pipelines run everything
 7  red CI run                the BVT discard; nothing records it, and it stops no deploy
 8  stage failed              the later Deploy_* stages skip
 
-Supports ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM (operations lens).
+Supports ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG and ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM (operations lens).
 ```
 
 A person moves a commit through the first rungs of the cats lifecycle by hand: they run `Test-Automation` on the devbox and merge the pull
@@ -44,8 +44,8 @@ A new attempt is a new commit: the engineer fixes forward with a new pull reques
 
 ## Why it holds
 
-- A commit only climbs, and a new attempt is a new commit (ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG).
-- A commit that fails a stage cannot go downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM).
+- A commit only climbs, and a new attempt is a new commit (ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG).
+- A commit that fails a stage cannot go downstream (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM).
 - `Test-Automation` and its tiers run on the devbox and in the pipeline, and must agree (ADR-AUTO-PARITY-CHECKEDEQUALLY).
 - PR build validation is the inner CI gate; the L3 outer loop runs post-commit (ADR-FLOW-CD-INNERANDOUTERLOOP).
 
@@ -56,7 +56,7 @@ A new attempt is a new commit: the engineer fixes forward with a new pull reques
 
 ## See also
 
-- [The commit lifecycle](../../adr/design/commit-lifecycle.md) — the decision this article explains.
+- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
 - [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the gates and pipelines.
 - The other lenses on the same lifecycle: [meta](one-way-climb-three-endings.md), [architecture](four-domains-promote-one-artifact.md),
   [implementation](code-wires-only-the-first-rungs.md) and [governance](which-rung-gates-exist-in-code.md).

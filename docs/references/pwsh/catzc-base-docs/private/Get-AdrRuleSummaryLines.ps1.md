@@ -16,7 +16,7 @@ next heading. Blank lines, lines inside a fenced block, and the summary's own an
 the prose that justifies the rule) are left out: what remains is the normative text. The rule is named in its citation form, `<code>#<n>`
 ([ADR-REPO-LINK-ONECITATIONSPELLING](../../../../adr/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling)).
 
-Private helper for Test-AdrEngineNeutrality and the citation-graph check of Test-AdrRegistry; not exported.
+Private helper for Test-AdrEngineNeutrality; not exported.
 
 ### parameter `Path`
 

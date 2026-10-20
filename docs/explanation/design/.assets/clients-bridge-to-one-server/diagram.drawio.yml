@@ -7,8 +7,8 @@ about:
     - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
     - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
     - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-    - ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-DSGN-LIFE-DIRTYHEADUNSAFE
+    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
   tracks: [ado-pipelines]
 content:
   title: "Clients bridge to one server remote: in through a pull request, out from the verified point"

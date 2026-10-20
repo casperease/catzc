@@ -34,7 +34,7 @@ Make the smallest edit to the embedded model that satisfies the brief, one slide
 
 1. Glob the target under `docs/.assets/**/*.drawio.png`; touch only the files the brief names; `git status --short` on them first.
 2. For each file, drawio-model-edit steps 1 to 3: decode and survey the exact literals, edit and render, verify and look.
-3. A dark migration (`migrate_dark.py`) only when the brief says so; a relabel of a light-era slide leaves it light.
+3. Colours are theme tokens (`drawio.yml` `theme-<name>`); a colour outside the default theme's set is surfaced, never applied.
 4. Never the draw.io CLI: its headless export does not work here; the kit renderer is the one way a raster is made.
 5. Report as report-fixed says: per file the exact label or style deltas, the assertions that ran, what the look showed, every `unmapped`
    colour, and any sister `.drawio.md` or article the change now contradicts.

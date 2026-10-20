@@ -23,8 +23,89 @@ commits: # the locked commit palette ([ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE](/docs
 kinds: # the two diagram kinds; each supplies the default three minimaps (minimaps: below)
   explanation: an explanation diagram, embedded by an article under docs/explanation
   reference: a reference diagram, embedded by a page under docs/references or docs/adr
-themes: # the token sets a diagram renders in; the first is the default and the one whose raster is committed
+themes: # the themes a diagram renders in, each a theme-<name> token set below; the first is the default and the one whose raster is committed
   dark: the dark page and the light ink of STYLE.md
+  light: the light page and the dark ink of the light-era kit, rendered on demand to out/
+theme-dark: # every colour a style may name, as a token: a style says @<token>, put writes the theme's hex (no hash, as in commits:)
+  page: 1E2430 # the canvas and every rendered output's base layer
+  band: 262E3B # band fill
+  band-rim: 3A4555 # band border
+  band-label: B0BAC7 # band and key labels
+  panel: 222A36 # legend and outer panels
+  panel-rim: 3A4555 # legend and outer panel border
+  sidebar: 2E2823 # the minimap column's backing
+  sidebar-rim: 453C33 # its border
+  ink: CDD3DC # text
+  title: DDE2E9 # the title and on-glyph names
+  quiet: 949FAE # legend text and notes
+  line: AAB4C3 # flow edges, arrowheads, chip rims, the ADR-only dash
+  mark: E6EAF0 # marker disc and badge fill
+  mark-ink: 1E2430 # marker digit and rim, badge text
+  chip: 262E3B # chip fill
+  chip-rim: AAB4C3 # chip rim
+  red: 8E2424 # failure fill
+  red-rim: E57373 # failure rim and the failure-path edge
+  red-ink: EFD4D4 # failure text
+  slate: 4E6378 # code unit, store and runner fill
+  slate-rim: 9FB3C8 # their rim and slate text
+  mauve: 6A567E # mauve structural fill
+  mauve-rim: B9A6CC # its rim
+  olive: 5B7653 # olive structural fill
+  olive-rim: A9C29F # its rim
+  green: 2E7D5B # result fill
+  green-rim: 7FD3AE # its rim
+  neutral: 2C3542 # neutral kinds' fill
+  neutral-deep: 2F3B4A # the private helper's fill
+  neutral-rim: C7D0DB # neutral kinds' rim
+  commit: FFE082 # the default commit state's fill (the locked palette, the same in every theme)
+  commit-rim: F9A825 # its rim
+  map-page: 1C2A24 # a minimap's page
+  map-panel: 243229 # an idle minimap cell
+  map-rim: 3B4D43 # a minimap cell's border
+  map-lit: E6EAF0 # a lit minimap place
+  map-lit-ink: 1E2430 # its name
+  map-dim: 7D8C86 # dim minimap ink
+  map-caption: CDD3DC # a minimap's question
+theme-light: # the light-era kit's colours, the light side of its light-to-dark map; where it named several, the draw.io pair the kit used
+  page: FFFFFF
+  band: F6F8FA
+  band-rim: E1E4E8
+  band-label: 455A64
+  panel: FAFAFA
+  panel-rim: CFD8DC
+  sidebar: F5F0EA
+  sidebar-rim: D9CFC4
+  ink: 333333
+  title: 000000
+  quiet: 666666
+  line: 546E7A
+  mark: 37474F
+  mark-ink: FFFFFF
+  chip: ECEFF1
+  chip-rim: 546E7A
+  red: EF9A9A
+  red-rim: C62828
+  red-ink: B71C1C
+  slate: DAE8FC
+  slate-rim: 6C8EBF
+  mauve: E1D5E7
+  mauve-rim: 9673A6
+  olive: D5E8D4
+  olive-rim: 82B366
+  green: 9BE7C4
+  green-rim: 0E9F6E
+  neutral: F5F5F5
+  neutral-deep: E6E6E6
+  neutral-rim: 6B7178
+  commit: FFE082
+  commit-rim: F9A825
+  map-page: EEF3F0
+  map-panel: E0E8E3
+  map-rim: B8C7BE
+  map-lit: 37474F
+  map-lit-ink: FFFFFF
+  map-dim: 7D8C86
+  map-caption: 333333
 minimaps: # the eight minimap ids, and the default three of each kind (declaration.py validates the count and each id)
   ids: grid, code-locations, axis, layer-stack, lifecycle-position, track-placement, engine-strip, module-neighbourhood
   explanation_default: grid, axis, layer-stack

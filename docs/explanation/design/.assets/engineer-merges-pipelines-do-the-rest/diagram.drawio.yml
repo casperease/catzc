@@ -3,7 +3,7 @@ description: >-
   each failed rung shows the person a red result.
 about:
   lens: operations
-  adrs: [ADR-DSGN-LIFE-ONESTATEADVANCESONERUNG, ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM]
+  adrs: [ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG, ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM]
   tracks: [pwsh, ado-pipelines]
   languages: [powershell, pipeline-yaml]
 content:
