@@ -67,6 +67,7 @@ concepts:
       ]
     contrasts:
       language zone: A language zone is one of the design, test, and live registers of identities; an ADR domain groups ADRs.
+      responsibility domain: A responsibility domain is what one repository is accountable for; an ADR domain groups ADRs.
   language zone:
     key: language_zone
     domain: repository
@@ -305,6 +306,9 @@ concepts:
       adjacent store:
         An adjacent store is a second store driven one way from the trunk's pipelines, a projection of the truth; the source of truth is the
         record it is driven from.
+      truth store:
+        A truth store is any store of the three kinds; the source of truth is the one truth store that decides inside a responsibility
+        domain, the repository.
   adjacent store:
     key: adjacent_store
     domain: thesis
@@ -316,6 +320,67 @@ concepts:
     contrasts:
       source of truth:
         The source of truth is the record everything is driven from; an adjacent store is a one-way projection of it, never a second record.
+      fact source:
+        A fact source is owned by a state machine and only read; an adjacent store is driven one way from the trunk's pipelines.
+  truth store:
+    key: truth_store
+    domain: thesis
+    defined_by: ADR-THES-STORES-THREEKINDS
+    short:
+      Any store that holds part of the truth about a delivered system — a version-controlled repository, a fact source, or a state machine.
+    realized_by: { kind: prose-only }
+    contrasts:
+      source of truth:
+        The source of truth is the one truth store that decides inside a responsibility domain, the repository; a truth store is any store
+        of the three kinds.
+  version-controlled repository:
+    key: version_controlled_repository
+    domain: thesis
+    defined_by: ADR-THES-STORES-VERSIONCONTROLLEDREPOSITORY
+    short:
+      The kind of truth store whose content is a versioned history of reviewed changes; a git repository is one subgroup of it.
+    realized_by: { kind: prose-only }
+  responsibility domain:
+    key: responsibility_domain
+    domain: thesis
+    defined_by: ADR-THES-STORES-RESPONSIBILITYDOMAIN
+    short:
+      The organisation, team, product, or person that one repository is the responsibility boundary for, set by where git's hard security
+      controls stop.
+    realized_by: { kind: prose-only }
+    contrasts:
+      domain:
+        A domain is a group of ADRs; a responsibility domain is what one repository is accountable for.
+  fact source:
+    key: fact_source
+    domain: thesis
+    defined_by: ADR-THES-STORES-FACTSOURCEREADONLY
+    short:
+      A state store — a database with a reachable live URL holding state about delivery outside the repository — that catzc reads only.
+    realized_by: { kind: prose-only }
+    contrasts:
+      adjacent store:
+        An adjacent store is driven one way from the trunk's pipelines; a fact source is owned by a state machine and only read.
+      state machine:
+        A state machine is the application that owns and changes a fact source; a fact source is the store catzc reads.
+  state machine:
+    key: state_machine
+    domain: thesis
+    defined_by: ADR-THES-STORES-STATEMACHINE
+    short:
+      An application that owns fact sources and changes their state by its own rules, met by catzc only at a junction, inbound or outbound.
+    realized_by: { kind: prose-only }
+    contrasts:
+      fact source:
+        A fact source is the store catzc reads; a state machine is the application that owns and changes it.
+  actionable fact:
+    key: actionable_fact
+    domain: thesis
+    defined_by: ADR-THES-STORES-RECONCILEFACTS
+    short:
+      A fact found by synchronising truth stores that is verifiable, naming the store, address, and moment it was read, and names the one
+      change or report it calls for.
+    realized_by: { kind: prose-only }
   query surface:
     key: query_surface
     domain: thesis

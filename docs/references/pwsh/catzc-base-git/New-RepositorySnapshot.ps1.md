@@ -44,6 +44,12 @@ The folder to create the snapshot in; it must not exist yet. Defaults to a fresh
 
 How many times to build the snapshot when verification finds it differs from its source. Default 3.
 
+### parameter `Committed`
+
+Builds the snapshot from HEAD alone: the clone checks the commit out, and no staged, unstaged or untracked change of the source reaches it.
+It is the committed truth at one commit, for a reader that must not see the working tree, such as the listen mode's reference
+([ADR-THES-ONETRUTH](../../../adr/thesis/one-source-of-truth.md)). Modified, Untracked and Deleted are then 0, and no verification runs.
+
 ### outputs
 
 `[pscustomobject]` with Path, SourceRoot, Commit, Modified, Untracked, Deleted (file counts relative to HEAD, from the verified status), and
@@ -92,4 +98,13 @@ Above `$modified = 0`, written with `#`.
 ```text
 Status counts relative to HEAD: '1'/'2'/'u' lines are changed entries (deleted when either side of
 the XY code is D), '?' lines are untracked files.
+```
+
+## comment:4
+
+Above `if ($Committed) {`, written with `#`.
+
+```text
+The committed form checks the commit out in the snapshot itself: nothing of the source's working tree reaches it, so it
+cannot differ from its source and needs no verification.
 ```

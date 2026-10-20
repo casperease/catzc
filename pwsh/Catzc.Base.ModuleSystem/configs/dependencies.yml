@@ -261,6 +261,7 @@ modules:
   Catzc.Tooling.Github: [Base]
   Catzc.Tooling.KeyHandler: [Base]
   Catzc.Tooling.Inspiration: [Base]
+  Catzc.Tooling.Listen: [Base]
   Catzc.Azure.Cli: [Base, Catzc.Azure, Catzc.Tooling.Core]
   Catzc.Azure.DevOps: [Tooling, Base, Catzc.Azure]
   Catzc.Azure.DevOps.BuildValidation: [Base]

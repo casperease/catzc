@@ -114,3 +114,18 @@ capabilities:
   - name: plans-orchestrate
     supported_by: [ADR-PROC-PULLWORK-PULLNOTPUSH, ADR-PROC-PULLWORK-LIMITWORKINPROGRESS, ADR-REPO-AI-NEVERDECIDEFORUSER]
     checks: []
+
+  # How the listen mode's processor reads the listener's notes and keeps its own ledger.
+  - name: listen-notes
+    supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+    checks: []
+
+  # The listen mode's tiers and its one search over the committed reference.
+  - name: listen-tiers
+    supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-REPO-PLANS-DECISIONSBECOMERULES]
+    checks: []
+
+  # How one note of the editor becomes a pattern and a repository-wide plan.
+  - name: listen-insight
+    supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-ONETOPICONEFILE]
+    checks: [Test-Plans]

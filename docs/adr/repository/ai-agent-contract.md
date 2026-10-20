@@ -58,6 +58,11 @@ Every agent and every skill reads this first, at every start and after every cle
 
 **out/ is output, never input; render nothing unasked.** Plans live in .claude/plans; no diagram without an ask. (ADR-REPO-OUTDIR)
 
+### Rule ADR-REPO-AI-EDITORISFACT
+
+**In listen mode the editor's edit is fact.** A doc correction outranks the tree; the repository at the pinned commit is what disagrees. The
+session's notes in out/listen are the processor's one input from out/. (ADR-PRIN-ONELIVE)
+
 ## Context
 
 Agents start cold on small models. Test runs are the largest cost of a session, and a mutating git command by an agent cannot be undone by
@@ -66,6 +71,11 @@ the user. The time safeguard bounds every call; this contract bounds what a call
 A robot's front matter is a closed key set (ADR-REPO-AGENTS-ROBOTBODYLIMIT), and a value identical on every file is a constant, declared
 once (ADR-PRIN-CONFIG, ADR-PRIN-REDUCEVAR). So the contract every robot and capability reads first is not a per-file key: it is named in the
 `contracts` entry of agents.yml, which Test-AgentDefinitions reads, and in the CLAUDE.md session-start line.
+
+In every mode but one, the truth is the whole repository at one commit, committed files only. The listen mode is the exception: the user, as
+the editor, isolates a source tree and corrects docs by hand while the listener notes each change. Those corrections are not questions or
+proposals; they are the truth the repository is then brought into line with, so the processor that reads the notes plans revisions and never
+asks whether the editor is right. It reads the repository only as the reference snapshot at the commit the session pinned.
 
 ## Decision
 

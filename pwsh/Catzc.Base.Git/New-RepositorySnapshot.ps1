@@ -7,7 +7,9 @@ function New-RepositorySnapshot {
         [string] $Destination = (Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-snapshot-' + [guid]::NewGuid().ToString('N'))),
 
         [ValidateRange(1, 10)]
-        [int] $Attempts = 3
+        [int] $Attempts = 3,
+
+        [switch] $Committed
     )
 
     Assert-Command git
@@ -38,6 +40,14 @@ function New-RepositorySnapshot {
             }
             [System.IO.File]::WriteAllText((Join-Path $Destination '.git/catzc-snapshot.json'),
                 (ConvertTo-Json -InputObject $marker), [System.Text.UTF8Encoding]::new($false))
+
+            if ($Committed) {
+                Invoke-Executable "git -C `"$Destination`" checkout --quiet --detach $commit" -PassThru -Silent | Out-Null
+                $modified = 0
+                $deleted = 0
+                $untracked = 0
+                break
+            }
 
             $sourceIndex = [Catzc.Base.Git.GitRefs]::IndexPath($sourceGitDirectory)
             [System.IO.File]::Copy($sourceIndex, (Join-Path $Destination '.git/index'), $true)

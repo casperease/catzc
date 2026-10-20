@@ -118,6 +118,22 @@ Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
         }
     }
 
+    It 'with -Committed holds HEAD alone: no staged, unstaged or untracked change, and the deleted file back' {
+        $committed = New-RepositorySnapshot -SourceRoot $script:source -Committed
+        try {
+            $committed.Commit | Should -Be $script:snapshot.Commit
+            @($committed.Modified, $committed.Untracked, $committed.Deleted) | Should -Be @(0, 0, 0)
+            (& $script:statusOf $committed.Path) | Should -BeNullOrEmpty
+            [System.IO.File]::ReadAllText((Join-Path $committed.Path 'widget.txt')).TrimEnd() | Should -Be 'widget v1'
+            [System.IO.File]::ReadAllText((Join-Path $committed.Path 'gadget/both.txt')).TrimEnd() | Should -Be 'both v1'
+            [System.IO.File]::Exists((Join-Path $committed.Path 'gone.txt')) | Should -BeTrue
+            [System.IO.File]::Exists((Join-Path $committed.Path 'fresh/untracked.txt')) | Should -BeFalse
+        }
+        finally {
+            Remove-RepositorySnapshot $committed.Path
+        }
+    }
+
     It 'refuses an existing destination' {
         { New-RepositorySnapshot -SourceRoot $script:source -Destination $script:snapshot.Path } | Should -Throw '*already exists*'
     }

@@ -102,6 +102,8 @@ configs:
     type: Catzc.Tooling.KeyHandler.KeyHandlerSupportedConfig
   inspiration:
     type: Catzc.Tooling.Inspiration.InspirationConfig
+  listen:
+    type: Catzc.Tooling.Listen.ListenConfig
   variants:
     type: Catzc.Base.Variants.VariantsConfig
     differs:

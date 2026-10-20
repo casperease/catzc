@@ -8,9 +8,9 @@ description: >
   diagrams (`drawio-diagram-waves`, `edit-diagram-yml`), for publishing review artifacts (`print-artifacts`), for the inspiration module
   (`build-inspiration-module`), for auditing what a session cost (`session-cost-audit`), for cleaning the plans (`plan-clear`), for landing
   a continuation paste in the plans (`plan-intake`), for a decision round over the plans (`plan-decide`), for running one gate
-  (`gate-runner`), for repairing links (`link-fixer`), for a rules review (`adr-reviewer`), for glossary terms (`glossary-keeper`), for
-  making tests faster (`test-optimization`), or for driving live sessions through the master plan by message
-  (`implementation-orchestrator`).
+  (`gate-runner`), for repairing links (`link-fixer`), for a rules review (`adr-reviewer`), for fact-checking a statement (`fact-checker`),
+  for glossary terms (`glossary-keeper`), for making tests faster (`test-optimization`), or for driving live sessions through the master
+  plan by message (`implementation-orchestrator`).
 tools: Bash, Read, Glob, Grep, Write, Edit
 disallowedTools: ""
 model: sonnet

@@ -89,6 +89,8 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent
 - **`gate-runner`** — runs one gate or test file in the background and brings its verdict back verbatim.
 - **`link-fixer`** — repairs the links of a named set of markdown files, one file and one target at a time.
 - **`adr-reviewer`** — read-only review of a file set against the rules that govern it, each finding with its rule code.
+- **`fact-checker`** — checks one statement against the tree and its words against the glossary, then asks "is it though?" with a DevOps
+  counter; answers in two lines, read-only.
 - **`glossary-keeper`** — keeps the glossary sources in step with the rules that bold each term, one term at a time.
 - **`test-optimization`** — makes all tests faster under the `timeouts.yml` roofs, one measured file at a time, without removing or
   weakening any test.

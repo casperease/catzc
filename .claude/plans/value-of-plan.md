@@ -30,8 +30,10 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value | Plan | Needed docs | Needed tests | State |
-| ----- | ---- | ----------- | ------------ | ----- |
+| Value | Plan                 | Needed docs                                                                           | Needed tests                                                     | State                                                                    |
+| ----- | -------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| high  | plan-listen-agent    | ADR-REPO-AI-EDITORISFACT (the AI agent contract)                                      | Pester for Catzc.Tooling.Listen, Test-AgentDefinitions           | built and tested; registration blocked on the user's fact-checker commit |
+| high  | plan-idiomatic-names | ADR-AUTO-SPELL-IDIOMATICNAMES, ADR-AUTO-SPELL-NORMALFORM, the command-contracts rules | Test-IdiomaticNames, Pester for the naming types, Test-Contracts | gate and assert built; wiring, renames and the normal form open          |
 
 ## Pending deletion
 

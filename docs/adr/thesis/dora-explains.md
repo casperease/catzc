@@ -18,3 +18,20 @@ ADRs themselves; this file carries only their DORA rationale.
 - [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — approvals and audit act through the
   one change process.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Truth stores
+
+[ADR-THES-STORES](truth-stores.md)
+
+> DORA finds that teams perform better when their data is accessible, trustworthy, and connected across the systems that hold it, and when
+> monitoring and change approval rest on evidence rather than on parallel records. Classifying every truth store, reading fact sources
+> instead of copying them, and synchronising into verifiable, actionable facts gives each team one connected view of delivery without a
+> second record to keep in parity.
+
+- [Healthy data ecosystems](../../references/dora/capabilities.md#healthy-data-ecosystems) — facts read from many stores, each traceable to
+  its origin.
+- [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — fact sources read at their live URL
+  to know the state of delivery now.
+- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — state machines met at junctions, with
+  facts reported to them instead of a separate model kept for them.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

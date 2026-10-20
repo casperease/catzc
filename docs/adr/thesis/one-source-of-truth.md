@@ -7,7 +7,8 @@
 A **source of truth** is the one store whose content decides what is true about the delivered system. Delivery is slow because that truth is
 spread across disjoint stores that drift apart — servers, databases, CMDBs, deployment engines, ticket systems, requirement databases.
 Catzc's answer is one source of truth, the repository, with one simple, fast, and robust change process for everything in it, never
-synchronisation between stores.
+synchronisation between stores inside the responsibility domain the repository holds. Outside it, the stores catzc does not own are truth
+stores of other kinds ([ADR-THES-STORES](truth-stores.md)).
 
 - [The problem](#the-problem)
 - [One source of truth, one change process](#one-source-of-truth-one-change-process)
@@ -147,7 +148,8 @@ A process that keeps its own model of delivery recreates the disjoint store this
 ## Consequences
 
 - Every other ADR rests on this one: the principles state its mechanics, and the later ADRs specialise them.
-- Delivery state that lives outside the repository is a defect, unless it is an adjacent store driven one way from the trunk.
+- Delivery state that lives outside the repository is a defect, unless it is an adjacent store driven one way from the trunk, or a fact
+  source that a state machine owns and catzc only reads ([ADR-THES-STORES](truth-stores.md)).
 - A question about the system's state has one place to be answered, and the tooling owes an answer to it, as cmdlets and as data.
 - Versions appear only at the repository boundary: on pins inward, and on the bundle outward.
 - A consumer of catzc pins the bundle or owns a clone; no implicit cross-repository consumption exists to support.

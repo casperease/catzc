@@ -11,8 +11,11 @@ namespace Catzc.Base.Languages;
 public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "formatters", "imprint", "steps", "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout", "tests", "executable" };
+    private static readonly string[] AllowedKeys = { "formatters", "imprint", "steps", "naming", "languages" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout", "tests", "executable", "naming" };
+    private static readonly string[] AllowedNamingKeys = { "folder", "file", "exempt" };
+    private static readonly string[] AllowedGlobalNamingKeys = { "exempt_folders" };
+    private static readonly Regex FolderName = new Regex("^\\.?[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*$");
     private static readonly string[] AllowedTestsKeys = { "runner", "tools", "executable_parameter", "engine", "pattern" };
     // A test-file pattern is one file glob, matched against file names under a test folder, never a path.
     private static readonly Regex TestPattern = new Regex("^[A-Za-z0-9_*.-]+$");
@@ -52,6 +55,39 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     public IReadOnlyList<FileLanguage> languages { get; }
 
     public IReadOnlyDictionary<string, FormatterEngine> formatters { get; }
+
+    // Folders whose files no language's naming judges, at any depth (e.g. assets, named by their source); empty when the file lists none.
+    public IReadOnlyList<string> naming_exempt_folders { get; }
+
+    // One finding per file name and per folder that breaks its language's naming, each folder once per language, in path order.
+    public IReadOnlyList<string> MisnamedPaths(IEnumerable<string> paths)
+    {
+        List<string> findings = new List<string>();
+        HashSet<string> judgedFolders = new HashSet<string>(StringComparer.Ordinal);
+        if (paths == null) { return findings; }
+        foreach (string raw in paths.Where(p => !string.IsNullOrEmpty(p)).Select(p => p.Replace('\\', '/')).OrderBy(p => p, StringComparer.Ordinal))
+        {
+            FileLanguage language = ForPath(raw);
+            if (language == null || language.naming == null || language.naming.exempt.Contains(raw)) { continue; }
+            string[] segments = raw.Split('/');
+            if (segments.Take(segments.Length - 1).Any(s => naming_exempt_folders.Contains(s))) { continue; }
+            for (int i = 0; i < segments.Length - 1; i++)
+            {
+                string folderPath = string.Join("/", segments.Take(i + 1));
+                if (!language.naming.IsFolderIdiomatic(segments[i]) && judgedFolders.Add(language.name + "|" + folderPath))
+                {
+                    findings.Add(string.Format(CultureInfo.InvariantCulture, "{0}/: the folder is not {1} ({2})", folderPath, string.Join(" or ", language.naming.folder), language.name));
+                }
+            }
+            string fileName = segments[segments.Length - 1];
+            string stem = fileName.Substring(0, fileName.Length - ExtensionOf(fileName).Length);
+            if (!language.naming.IsFileIdiomatic(stem))
+            {
+                findings.Add(string.Format(CultureInfo.InvariantCulture, "{0}: the file name is not {1} ({2})", raw, string.Join(" or ", language.naming.file), language.name));
+            }
+        }
+        return findings;
+    }
 
     // The one layout: every language's rows in declared order, then the shared rows. No folder is named twice.
     public IReadOnlyList<LayoutRow> layout { get; }
@@ -97,6 +133,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         Dictionary<string, FormatterEngine> engineMap = new Dictionary<string, FormatterEngine>(StringComparer.Ordinal);
         Dictionary<string, ImprintStep> stepMap = new Dictionary<string, ImprintStep>(StringComparer.Ordinal);
         List<string> globalSteps = new List<string>();
+        List<string> exemptFolders = new List<string>();
 
         if (raw != null)
         {
@@ -122,6 +159,11 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             if (raw.Contains("steps") && raw["steps"] != null)
             {
                 ReadSteps(raw["steps"], stepMap, errors);
+            }
+
+            if (raw.Contains("naming") && raw["naming"] != null)
+            {
+                exemptFolders = ReadGlobalNaming(raw["naming"], errors);
             }
 
             if (raw.Contains("languages") && raw["languages"] != null)
@@ -184,6 +226,127 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         formatters = engineMap;
         imprint = globalSteps;
         steps = stepMap;
+        naming_exempt_folders = exemptFolders;
+    }
+
+    private static List<string> ReadGlobalNaming(object value, List<string> errors)
+    {
+        List<string> folders = new List<string>();
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add("naming must be a mapping { exempt_folders }");
+            return folders;
+        }
+        foreach (object k in map.Keys)
+        {
+            if (Array.IndexOf(AllowedGlobalNamingKeys, Text(k)) < 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "naming: unknown key '{0}' (allowed: {1})", Text(k), string.Join(", ", AllowedGlobalNamingKeys)));
+            }
+        }
+        if (!map.Contains("exempt_folders") || map["exempt_folders"] == null) { return folders; }
+        IList list = map["exempt_folders"] as IList;
+        if (list == null)
+        {
+            errors.Add("naming: exempt_folders must be a list of folder names (e.g. [assets])");
+            return folders;
+        }
+        foreach (object item in list)
+        {
+            string folder = Text(item);
+            if (!FolderName.IsMatch(folder))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "naming: invalid exempt folder '{0}' (one folder name, never a path)", folder));
+            }
+            else if (folders.Contains(folder))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "naming: duplicate exempt folder '{0}'", folder));
+            }
+            else
+            {
+                folders.Add(folder);
+            }
+        }
+        return folders;
+    }
+
+    private static LanguageNaming ReadNaming(string name, List<string> languageExtensions, object value, List<string> errors)
+    {
+        if (value == null) { return null; }
+        string where = string.Format(CultureInfo.InvariantCulture, "languages['{0}'].naming", name);
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add(where + ": must be a mapping { folder, file, exempt }");
+            return null;
+        }
+        int before = errors.Count;
+        foreach (object k in map.Keys)
+        {
+            if (Array.IndexOf(AllowedNamingKeys, Text(k)) < 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: unknown key '{1}' (allowed: {2})", where, Text(k), string.Join(", ", AllowedNamingKeys)));
+            }
+        }
+        List<string> folder = ReadCases(where + ".folder", map.Contains("folder") ? map["folder"] : null, errors);
+        List<string> file = ReadCases(where + ".file", map.Contains("file") ? map["file"] : null, errors);
+        if (folder.Count == 0 && file.Count == 0)
+        {
+            errors.Add(where + ": names the cases of its folders, its files, or both");
+        }
+        List<string> exempt = new List<string>();
+        if (map.Contains("exempt") && map["exempt"] != null)
+        {
+            IList list = map["exempt"] as IList;
+            if (list == null)
+            {
+                errors.Add(where + ": exempt must be a list of repository-relative files");
+            }
+            else
+            {
+                foreach (object item in list)
+                {
+                    string path = Text(item);
+                    bool dotSegment = Array.Exists(path.Split('/'), s => s == "." || s == "..");
+                    if (!SettingsPath.IsMatch(path) || path.Contains('#') || dotSegment || !languageExtensions.Contains(ExtensionOf(path) ?? ""))
+                    {
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: invalid exempt file '{1}' (a '/'-separated repository-relative file of the language)", where, path));
+                    }
+                    else
+                    {
+                        exempt.Add(path);
+                    }
+                }
+            }
+        }
+        if (errors.Count > before) { return null; }
+        return new LanguageNaming(folder.ToArray(), file.ToArray(), exempt.ToArray());
+    }
+
+    private static List<string> ReadCases(string where, object value, List<string> errors)
+    {
+        List<string> cases = new List<string>();
+        if (value == null) { return cases; }
+        IList list = value as IList;
+        if (list == null) { list = new object[] { value }; }
+        foreach (object item in list)
+        {
+            string name = Text(item);
+            if (!LanguageNaming.IsCase(name))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: unknown case '{1}' (one of: {2})", where, name, string.Join(", ", LanguageNaming.Cases)));
+            }
+            else if (cases.Contains(name))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: duplicate case '{1}'", where, name));
+            }
+            else
+            {
+                cases.Add(name);
+            }
+        }
+        return cases;
     }
 
     // A list of known step names, each once.
@@ -467,8 +630,10 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
+        LanguageNaming naming = ReadNaming(name, extensions, entry.Contains("naming") ? entry["naming"] : null, errors);
+
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests, executable);
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests, executable, naming);
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
     }

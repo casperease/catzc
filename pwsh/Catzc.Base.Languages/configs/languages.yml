@@ -51,10 +51,17 @@ steps:
       - pwsh/Catzc.Base.QualityGates/configs/file-meta.yml
       - pwsh/Catzc.Base.Languages/configs/file-carriers.yml
       - pwsh/Catzc.Base.Languages/configs/languages.yml
+naming:
+  # Assets and vendored modules are named by their source, never by the language's idiom.
+  exempt_folders: [assets, .vendor]
 languages:
   powershell:
     extensions: [.ps1, .psm1, .psd1]
     executable: true
+    naming:
+      folder: [pascal, kebab]
+      file: pascal
+      exempt: [importer.ps1]
     formatter: psscriptanalyzer
     adr_folder: automation/pwsh
     checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
@@ -98,6 +105,7 @@ languages:
   python:
     extensions: [.py]
     executable: true
+    naming: { folder: snake, file: snake }
     formatter: ruff
     adr_folder: automation/python
     checks: [Test-PythonLint, Test-PythonTypes, Test-Formatting, Test-Spelling]
@@ -114,6 +122,7 @@ languages:
   go:
     extensions: [.go]
     executable: true
+    naming: { folder: flat, file: snake }
     formatter: gofmt
     adr_folder: automation/go
     checks: [Test-Formatting, Test-Spelling]

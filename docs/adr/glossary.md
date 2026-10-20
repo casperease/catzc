@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ff6a50e05877
+    with_body_sha: "4828247e0370"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -24,6 +24,15 @@ phrasings to avoid. `Test-Glossary` checks the sources.
 
 ## thesis
 
+### actionable fact
+
+A fact found by synchronising truth stores that is verifiable, naming the store, address, and moment it was read, and names the one change
+or report it calls for.
+
+- **Defined by:** [ADR-THES-STORES-RECONCILEFACTS](thesis/truth-stores.md#rule-adr-thes-stores-reconcilefacts)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+
 ### adjacent store
 
 The one legitimate second store — a repository or service, such as a GitOps repository, with its own history, driven one way from the
@@ -34,8 +43,23 @@ trunk's pipelines and never edited beside it.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
+  - [fact source](#fact-source): A fact source is owned by a state machine and only read; an adjacent store is driven one way from the
+    trunk's pipelines.
   - [source of truth](#source-of-truth): The source of truth is the record everything is driven from; an adjacent store is a one-way
     projection of it, never a second record.
+
+### fact source
+
+A state store — a database with a reachable live URL holding state about delivery outside the repository — that catzc reads only.
+
+- **Defined by:** [ADR-THES-STORES-FACTSOURCEREADONLY](thesis/truth-stores.md#rule-adr-thes-stores-factsourcereadonly)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [adjacent store](#adjacent-store): An adjacent store is driven one way from the trunk's pipelines; a fact source is owned by a state
+    machine and only read.
+  - [state machine](#state-machine): A state machine is the application that owns and changes a fact source; a fact source is the store
+    catzc reads.
 
 ### pin
 
@@ -71,6 +95,17 @@ answered.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
+### responsibility domain
+
+The organisation, team, product, or person that one repository is the responsibility boundary for, set by where git's hard security controls
+stop.
+
+- **Defined by:** [ADR-THES-STORES-RESPONSIBILITYDOMAIN](thesis/truth-stores.md#rule-adr-thes-stores-responsibilitydomain)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [domain](#domain): A domain is a group of ADRs; a responsibility domain is what one repository is accountable for.
+
 ### source of truth
 
 The one store whose content decides what is true about the delivered system — for catzc, the repository, changed through one change process.
@@ -83,6 +118,18 @@ The one store whose content decides what is true about the delivered system — 
     truth; the source of truth is the record it is driven from.
   - [source](#source): A source, always qualified, names where one thing comes from; the source of truth is the one store that decides what
     is true about the delivered system.
+  - [truth store](#truth-store): A truth store is any store of the three kinds; the source of truth is the one truth store that decides
+    inside a responsibility domain, the repository.
+
+### state machine
+
+An application that owns fact sources and changes their state by its own rules, met by catzc only at a junction, inbound or outbound.
+
+- **Defined by:** [ADR-THES-STORES-STATEMACHINE](thesis/truth-stores.md#rule-adr-thes-stores-statemachine)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [fact source](#fact-source): A fact source is the store catzc reads; a state machine is the application that owns and changes it.
 
 ### trunk
 
@@ -96,6 +143,25 @@ with all its consumers.
   - [pin](#pin): A pin is an explicit version at the repository boundary; inside the trunk nothing is pinned, and everything is at HEAD.
   - [product mono-repository](#product-mono-repository): A product mono-repository is the repository as a whole, with its tracks and
     deployable-units; the trunk is its one mainline.
+
+### truth store
+
+Any store that holds part of the truth about a delivered system — a version-controlled repository, a fact source, or a state machine.
+
+- **Defined by:** [ADR-THES-STORES-THREEKINDS](thesis/truth-stores.md#rule-adr-thes-stores-threekinds)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [source of truth](#source-of-truth): The source of truth is the one truth store that decides inside a responsibility domain, the
+    repository; a truth store is any store of the three kinds.
+
+### version-controlled repository
+
+The kind of truth store whose content is a versioned history of reviewed changes; a git repository is one subgroup of it.
+
+- **Defined by:** [ADR-THES-STORES-VERSIONCONTROLLEDREPOSITORY](thesis/truth-stores.md#rule-adr-thes-stores-versioncontrolledrepository)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
 ## principles
 
@@ -1226,6 +1292,8 @@ A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its 
   `axioms domain`, `architecture domain`, `implementation domain`, `optimisable domain`, `owning domain`, and the bare `domain`
 - **Contrasts:**
   - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; an ADR domain groups
+    ADRs.
+  - [responsibility domain](#responsibility-domain): A responsibility domain is what one repository is accountable for; an ADR domain groups
     ADRs.
 
 ### domain rules

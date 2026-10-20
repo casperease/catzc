@@ -44,6 +44,8 @@ plans stay the durable record; task files and this master are derived from them 
 
 Open, in execution order. Nothing is held. A chunk without a task file is executed from its plan's open steps directly.
 
+- idiomatic-names -> plan-idiomatic-names.md: wire the naming gate in (rule, test-folder mapping, three renames, gate on), then the
+  repository normal form for function and type names and the `0.0.0` command contracts.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

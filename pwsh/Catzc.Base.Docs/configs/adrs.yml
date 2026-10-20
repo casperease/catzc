@@ -5,14 +5,16 @@ domains:
     description: >-
       What catzc is for and how it solves it: delivery is slow because its truth is spread across disjoint stores, so catzc collapses them
       into one source of truth, the repository, with one change process. The repository is the configuration record and answers queries
-      through the tooling; inside the trunk everything is at HEAD, and versions exist only at the repository boundary, as pins. It describes
-      the product and rests on the DORA research, the authoritative source, and the principles state its mechanics, so every other domain
+      through the tooling; inside the trunk everything is at HEAD, and versions exist only at the repository boundary, as pins. Outside the
+      responsibility domain a repository holds, the truth stores are fact sources and state machines, read and reported to at junctions and
+      synchronised into actionable facts. It describes the product and rests on the DORA research, the authoritative source, and the principles state its mechanics, so every other domain
       cites it (`ADR-THES-*`) through them.
     depends_on: [research]
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # the thesis spans the whole value chain
     rulesets:
       one-source-of-truth: { external: ADR-THES-ONETRUTH }
+      truth-stores: { external: ADR-THES-STORES }
 
   principles:
     code: PRIN # domain default — composes ADR-PRIN-<NAME>

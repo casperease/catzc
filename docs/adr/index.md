@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1ef6a32a5456"
+    with_body_sha: "0c6f80359bd5"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/index.md
@@ -43,15 +43,17 @@ normative summary plus internal links to the prose that justifies it). The gramm
 
 What catzc is for and how it solves it: delivery is slow because its truth is spread across disjoint stores, so catzc collapses them into
 one source of truth, the repository, with one change process. The repository is the configuration record and answers queries through the
-tooling; inside the trunk everything is at HEAD, and versions exist only at the repository boundary, as pins. It describes the product and
-rests on the DORA research, the authoritative source, and the principles state its mechanics, so every other domain cites it (`ADR-THES-*`)
-through them.
+tooling; inside the trunk everything is at HEAD, and versions exist only at the repository boundary, as pins. Outside the responsibility
+domain a repository holds, the truth stores are fact sources and state machines, read and reported to at junctions and synchronised into
+actionable facts. It describes the product and rests on the DORA research, the authoritative source, and the principles state its mechanics,
+so every other domain cites it (`ADR-THES-*`) through them.
 
 **Role:** `framing` — **depends on:** `research`.
 
 | Code                | ADR                                                  |
 | ------------------- | ---------------------------------------------------- |
 | `ADR-THES-ONETRUTH` | [one-source-of-truth](thesis/one-source-of-truth.md) |
+| `ADR-THES-STORES`   | [truth-stores](thesis/truth-stores.md)               |
 
 ### principles/
 

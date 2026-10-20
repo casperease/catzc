@@ -372,6 +372,45 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             { & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @([ordered]@{ folder = 'a'; role = 'r'; live = 'yes' }) }) } |
                 Should -Throw '*live must be true or false*'
         }
+
+        It 'judges each file name and each folder on its path by its language''s cases, a folder once, a hidden folder past its dot' -Tag 'ADR-PRIN-CONFIG' {
+            $config = & $script:make ([ordered]@{
+                    naming    = [ordered]@{ exempt_folders = @('assets') }
+                    languages = [ordered]@{
+                        widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; naming = [ordered]@{ folder = @('snake'); file = 'snake'; exempt = @('Fixed.wdg') } }
+                        gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'never'; naming = [ordered]@{ folder = @('pascal', 'kebab'); file = 'pascal' } }
+                        other  = [ordered]@{ extensions = @('.oth'); no_formatter = 'never' }
+                    }
+                })
+            $config.naming_exempt_folders | Should -Be @('assets')
+            $config.languages[0].naming.file | Should -Be @('snake')
+            $config.MisnamedPaths([string[]] @(
+                    'widget_root/Bad-Folder/good_name.wdg'
+                    'widget_root/Bad-Folder/BadName.wdg'
+                    'widget_root/.hidden_ok/__init__.wdg'
+                    'widget_root/assets/Any-Name.wdg'
+                    'Fixed.wdg'
+                    '.internal/Catzc.Gadget/Get-Gadget.Tests.gdg'
+                    'Catzc.Gadget/lower_case.gdg'
+                    'Any_Folder/Any-Name.oth'
+                    'notes.md'
+                )) | Should -Be @(
+                'Catzc.Gadget/lower_case.gdg: the file name is not pascal (gadget)'
+                'widget_root/Bad-Folder/: the folder is not snake (widget)'
+                'widget_root/Bad-Folder/BadName.wdg: the file name is not snake (widget)'
+            )
+        }
+
+        It 'reads go''s flat folders and snake files, and rejects an unknown case, an unknown key, and a naming without cases' -Tag 'ADR-PRIN-CONFIG' {
+            $config = & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ folder = 'flat'; file = 'snake' } })
+            $config.MisnamedPaths([string[]] @('widgets/catzc-widget/widget_test.wdg', 'widgets/catzcwidget/widget_test.wdg')) |
+                Should -Be @('widgets/catzc-widget/: the folder is not flat (widget)')
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ file = 'camel' } }) } | Should -Throw "*unknown case 'camel'*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ file = 'snake'; style = 'x' } }) } | Should -Throw "*unknown key 'style'*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ exempt = @('a.wdg') } }) } | Should -Throw '*names the cases of its folders, its files, or both*'
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ file = 'snake'; exempt = @('a.md') } }) } | Should -Throw "*invalid exempt file 'a.md'*"
+            { & $script:make ([ordered]@{ naming = [ordered]@{ exempt_folders = @('a/b') } }) } | Should -Throw "*invalid exempt folder 'a/b'*"
+        }
     }
 
     Context 'integrity (shipped languages.yml layout)' -Tag 'integrity' {

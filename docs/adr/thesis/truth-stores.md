@@ -1,0 +1,136 @@
+# Thesis: Truth stores — repositories, fact sources, and state machines, reconciled into actionable facts
+
+## Rules: ADR-THES-STORES
+
+### Rule ADR-THES-STORES-THREEKINDS
+
+A **truth store** is any store that holds part of the truth about a delivered system. There are three kinds: a version-controlled
+repository, a fact source, and a state machine. Every store catzc reads, or reports to, is one of the three, and its kind decides how catzc
+treats it.
+
+- [Three kinds of truth store](#three-kinds-of-truth-store)
+
+### Rule ADR-THES-STORES-VERSIONCONTROLLEDREPOSITORY
+
+A **version-controlled repository** is the high-level kind of truth store whose content is a versioned history of reviewed changes; a git
+repository is one subgroup of it. Inside a responsibility domain, the version-controlled repository is the source of truth
+([ADR-THES-ONETRUTH-ONESTOREDECIDES](one-source-of-truth.md#rule-adr-thes-onetruth-onestoredecides)), read as a whole at one commit and
+changed only through the one change process.
+
+- [Version-controlled repositories](#version-controlled-repositories)
+
+### Rule ADR-THES-STORES-RESPONSIBILITYDOMAIN
+
+A **responsibility domain** is the organisation, team, product, or person that one repository is the responsibility boundary for: an
+organisation mono-repository, a team mono-repository, a product mono-repository, or a personal repository. Git's hard security controls stop
+at the repository and its branch and push boundaries, so one repository holds exactly one responsibility domain, and everything inside it is
+code.
+
+- [Responsibility domains](#responsibility-domains)
+
+### Rule ADR-THES-STORES-FACTSOURCEREADONLY
+
+A **fact source** is a state store: a database with a reachable live URL that holds state about delivery outside the repository, such as
+Azure DevOps environment state, security controls, pipeline runs, and the outer state of git (refs, branch policies, and pull-request
+history). Catzc reads a fact source only and never writes to it.
+
+- [Fact sources](#fact-sources)
+
+### Rule ADR-THES-STORES-STATEMACHINE
+
+A **state machine** is an application that owns fact sources and changes their state by its own rules, such as an ITSM or CMDB for
+infrastructure, or a QA or QC system for quality. It meets catzc only at a junction: inbound, where the state machine calls catzc's outer
+boundary at a point it defines, or outbound, where catzc messages the state machine to report facts proactively.
+
+- [State machines](#state-machines)
+- [Junctions](#junctions)
+
+### Rule ADR-THES-STORES-RECONCILEFACTS
+
+Synchronising truth stores is the core of the problem catzc solves: it reads each store, compares what it reads against the repository at
+one commit, and finds each **actionable fact**. An actionable fact is verifiable, because it names the store, the address, and the moment it
+was read, and actionable, because it names the one change or the one report it calls for. Synchronising never copies one store's content
+into another to keep them in parity; a disagreement is acted on through the one change process or reported at a junction.
+
+- [Synchronising into actionable facts](#synchronising-into-actionable-facts)
+
+## Context
+
+The one-source-of-truth thesis ([ADR-THES-ONETRUTH](one-source-of-truth.md)) collapses delivery's truth into one repository inside the
+boundary it can own. That boundary is never the whole world. Even when a responsibility domain runs everything as code, it exists in a
+larger totality of stores it does not own: the platform that runs its pipelines records environments, approvals, and runs; an organisation
+keeps its infrastructure in an ITSM or CMDB and its quality evidence in a QA or QC system. Each holds part of reality about the same
+delivered system.
+
+Without names for these stores, every integration is designed afresh: one is written to, one is copied, one is polled, and each becomes a
+second record that drifts. Naming the kinds decides once how catzc treats each, and names the problem catzc solves among them.
+
+## Decision
+
+Classify every truth store as a version-controlled repository, a fact source, or a state machine; write only to the repository, read fact
+sources, meet state machines at junctions, and synchronise by finding actionable facts.
+
+### Three kinds of truth store
+
+The kinds differ in who changes the store and how catzc reaches it:
+
+| Kind                          | Changed by                     | Catzc's access                          |
+| ----------------------------- | ------------------------------ | --------------------------------------- |
+| version-controlled repository | the one change process         | read at one commit, changed by a commit |
+| fact source (a state store)   | the state machine that owns it | read only, at its live URL              |
+| state machine                 | its own rules                  | a junction, inbound or outbound         |
+
+### Version-controlled repositories
+
+Version control is the high-level group; git is the repository technology catzc builds on, so a git repository is the subgroup catzc works
+in. The group stays wider than git because what makes a repository a source of truth is a reviewed, versioned history, not the tool that
+keeps it. Inside its responsibility domain the repository decides; outside it, another responsibility domain's repository is a truth store
+that catzc reads like any other, at a pinned commit.
+
+### Responsibility domains
+
+A responsibility domain is set by where git can enforce who may change what. Git's hard controls, the right to read, to push, and to merge
+into a protected branch, apply to a repository as a whole, so a repository is the smallest unit that can carry one responsibility. One
+organisation, team, product, or person owns it, and everything it owns is code in it, except the secrets injected at deploy time. A
+responsibility domain is not an ADR domain: an ADR domain groups decision records, and a responsibility domain is what a repository is
+accountable for.
+
+### Fact sources
+
+A fact source answers a question at a URL now, and its answer can differ a minute later. Azure DevOps is one store that holds many: the
+state of each environment, the security controls on projects and branches, the history of pipeline runs, and the outer state of git that the
+repository's own history does not carry, such as refs, branch policies, and pull requests with their reviews. Catzc reads these, because
+they are facts about delivery that no commit records. It never writes to them: a write would make catzc a second author of state that a
+state machine owns.
+
+### State machines
+
+A state machine is the application behind fact sources. It changes state by its own rules, on its own schedule, so catzc cannot drive it the
+way a pipeline drives an adjacent store. ServiceNow, as an ITSM, a CMDB, or a QA or QC system, is the typical case: the organisation's
+processes run in it, and its records are facts the responsibility domain answers to.
+
+### Junctions
+
+A junction is the one place catzc and a state machine meet. Inbound, the state machine calls catzc's outer boundary at a point it defines,
+such as an approval check or a service hook that asks for a verdict. Outbound, catzc messages the state machine to report facts proactively,
+such as a deployment it has made or evidence a gate has produced. Both directions cross the outer boundary, so both are contracts at the
+repository boundary, never an ad hoc call.
+
+### Synchronising into actionable facts
+
+The truth about a delivered system is spread across truth stores, and the one-source-of-truth thesis removes that spread only inside a
+responsibility domain. Across the larger totality, the work is to synchronise: read each store, set what it says against the repository at
+one commit, and keep what can be verified and acted on. A fact is verifiable when it carries where it came from, a commit for a repository,
+or a URL and the moment of reading for a fact source, so anyone can read it again. It is actionable when it names what it calls for: a
+change through the one change process, or a report to a state machine at a junction. A fact that is neither is noise and is dropped.
+
+Synchronising is not keeping parity. Copying a fact source into the repository, or the repository into a state machine's records, builds the
+second record the one-source-of-truth thesis removes, and it drifts the moment either side moves.
+
+## Consequences
+
+- Every store catzc reads or reports to is classified as one of the three kinds before catzc touches it.
+- Catzc writes only to the repository of its own responsibility domain; a write to a fact source is a defect.
+- A state machine is reached only through a junction, and each junction is a contract at the repository boundary.
+- Every fact catzc emits carries its origin, so it can be verified by reading again, and names the change or the report it calls for.
+- No store is kept in parity with another; a disagreement becomes an actionable fact.
