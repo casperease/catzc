@@ -1,0 +1,12 @@
+parameters:
+  - name: Environment
+    type: string
+  - name: RunId
+    type: string
+
+steps:
+  - template: /.ado/pipelines/steps/invoke-automation.yaml
+    parameters:
+      DisplayName: "Assert ${{ parameters.Environment }} holds the commit of CI run ${{ parameters.RunId }}"
+      ExposeAccessToken: true
+      RunCommand: "Assert-AdoDeploymentHistory -Environment ${{ parameters.Environment }} -CiRunId ${{ parameters.RunId }}"

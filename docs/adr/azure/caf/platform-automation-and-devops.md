@@ -1271,10 +1271,11 @@ Summary (ours): Use pipeline environments for deployment history, traceability t
 
 #### What 33 means here
 
-Every deploy is a deployment job that names an Azure DevOps environment after its target: `shared-nsub`, `shared-psub`, `shared-dev`, and
-`shared-test` in `cd-shared.yaml`, and `<customer>-<env>` or `<customer>-<env>-<slot>` in `cd-customer.yaml`. Each environment therefore
-holds the deployment history of its target. Deploys also tag their target with the commit, the build, and the branch, so the resource itself
-traces back to its code ([ADR-AZ-WAF-OE-OE03](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe03)).
+Every deploy is a deployment job that names an Azure DevOps environment after its target or its rung: `shared-nsub`, `shared-psub`,
+`shared-main-uat`, and `shared-test` in `cd-shared.yaml`, and `<customer>-main-uat`, `<customer>-<env>` or `<customer>-<env>-<slot>` in
+`cd-customer.yaml`. Each environment therefore holds the deployment history of its target. Deploys also tag their target with the commit,
+the build, and the branch, so the resource itself traces back to its code
+([ADR-AZ-WAF-OE-OE03](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe03)).
 
 CAF's environments page asks for at least one test environment, separate identities for test and production, and automated checks before
 each environment. The first two hold: every unit has non-production configs, and non-production and production use different service
@@ -1395,8 +1396,8 @@ Summary (ours): The second option combines Azure DevOps and GitHub, to use the s
 #### What 37 means here
 
 The repository uses both: Azure DevOps Pipelines deploy the infrastructure, and GitHub Actions run the catzc automation's CI
-(`.github/workflows/ci-automation.yml`) and its manual release ([ADR-GH-RELEASE](../../github/github-release.md)). The globsets project to
-both vendors' trigger dialects from one registry
+(`.github/workflows/ci-pwsh.yml`) and its manual release ([ADR-GH-RELEASE](../../github/github-release.md)). The globsets project to both
+vendors' trigger dialects from one registry
 ([ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter)), so a unit can move between
 them without its trigger being written again.
 

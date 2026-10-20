@@ -26,9 +26,9 @@ Two layers, `deployable-unit` and `loose-fileset`, are declared in `globs.yml`. 
    between globsets, which is why it is the only edge here.
 2. **Base unit.** `template-azure-subscription-foundation` is a shared, un-configured surface that exists only to be composed. It binds no
    pipeline, yet it still carries an area-of-control: a `verify:` scope over `Catzc.Azure.Templates` at level 2.
-3. **Declared loose-filesets.** Five cross-cutting surfaces are declared in `globs.yml`: the track roots `automation` and `infrastructure`,
-   the all-templates surface `templates`, and the scan scopes `markdown-scope` and `repository`. The two track roots bind `ci-automation`
-   and `ci-infrastructure`, because `pipeline:` and `verify:` are valid on any layer.
+3. **Declared loose-filesets.** Five cross-cutting surfaces are declared in `globs.yml`: the track roots `pwsh` and `infrastructure`, the
+   all-templates surface `templates`, and the scan scopes `markdown-scope` and `repository`. The two track roots bind `ci-pwsh` and
+   `ci-infrastructure`, because `pipeline:` and `verify:` are valid on any layer.
 4. **Reserved umbrellas.** `internal`, `vendor`, `compiled` and `scriptanalyzer` cover the dot-folders under `pwsh/`. `Get-ModuleGlobSet`
    builds them with the layer `loose-fileset`, so they sit in this layer although nobody declares them.
 5. **Module sets.** Each of the 40 module folders derives two aspect sets, `<kebab>-live` and `<kebab>-tests`, and each of the 7 internal

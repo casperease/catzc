@@ -3,9 +3,9 @@
 ```text
 The four CD pipelines bind deployable-units; the two CI pipelines bind the track sets themselves.
 
-1  automation                   the core track, a loose-fileset over pwsh/**
+1  pwsh                         the core track, a loose-fileset over pwsh/**
 2  infrastructure rests on it   the adapter track rests on the core, never the reverse
-3  automation -> ci-automation  the track set carries pipeline: itself, with no unit between
+3  pwsh -> ci-pwsh              the track set carries pipeline: itself, with no unit between
 4  foundation base unit         a reduced composition of infrastructure; binds no pipeline
 5  nova, apex, flux, shared     four configured units, each composing the base unit
 6  cd-<unit>                    the four CD pipelines, one per unit
@@ -13,24 +13,23 @@ The four CD pipelines bind deployable-units; the two CI pipelines bind the track
 Supports ADR-DSGN-TRACK-ONETRACKTYPE, ADR-DSGN-TRACK-ONETECHSTACK, ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED and ADR-DSGN-TRACK-DEPLOYABLEUNIT (architecture lens).
 ```
 
-Cats is one repository made of tracks, the root concerns such as `automation` and `infrastructure`. A track does not ship by itself: what
-ships is a deployable-unit, and each pipeline is the delivery machine of what it binds. The four CD pipelines bind deployable-units, and the
-two CI pipelines bind the `automation` and `infrastructure` track sets themselves, with no whole-track unit in between; the tracks ADR and
-the globset ADR both say so.
+Cats is one repository made of tracks, the root concerns such as `pwsh` and `infrastructure`. A track does not ship by itself: what ships is
+a deployable-unit, and each pipeline is the delivery machine of what it binds. The four CD pipelines bind deployable-units, and the two CI
+pipelines bind the `pwsh` and `infrastructure` track sets themselves, with no whole-track unit in between; the tracks ADR and the globset
+ADR both say so.
 
 ![CD binds through units, CI binds the track sets](.assets/units-not-tracks-own-the-pipelines/diagram.drawio.png)
 
 ## Walkthrough
 
-1. **automation.** The core track: it defines the internal ports every other track rests on. In `globs.yml` it is a globset of the
-   `loose-fileset` layer that selects `pwsh/**`. Of the eleven tracks cats declares, only `automation` and `infrastructure` have a globset
-   of their own.
-2. **infrastructure rests on automation.** `infrastructure` is an adapter track: it rests on `automation` for context and execution, never
-   the reverse, and `ci-infrastructure` runs automation commands such as `Assert-BicepTemplate` and `Build-Bicep`. No gate checks this
-   direction between tracks; the gates on module dependencies check edges between modules only.
-3. **automation binds ci-automation.** The `automation` track set carries `pipeline: ci-automation` itself. The same holds for
-   `infrastructure` and `ci-infrastructure`. A CI pipeline binds the track's own projection, so a track and its CI pipeline meet without a
-   deployable-unit between them.
+1. **pwsh.** The core track: it defines the internal ports every other track rests on. In `globs.yml` it is a globset of the `loose-fileset`
+   layer that selects `pwsh/**`. Of the eleven tracks cats declares, only `pwsh` and `infrastructure` have a globset of their own.
+2. **infrastructure rests on pwsh.** `infrastructure` is an adapter track: it rests on `pwsh` for context and execution, never the reverse,
+   and `ci-infrastructure` runs automation commands such as `Assert-BicepTemplate` and `Build-Bicep`. No gate checks this direction between
+   tracks; the gates on module dependencies check edges between modules only.
+3. **pwsh binds ci-pwsh.** The `pwsh` track set carries `pipeline: ci-pwsh` itself. The same holds for `infrastructure` and
+   `ci-infrastructure`. A CI pipeline binds the track's own projection, so a track and its CI pipeline meet without a deployable-unit
+   between them.
 4. **foundation base unit.** The deployable-unit `template-azure-subscription-foundation` is a reduced composition of the infrastructure
    track: the foundation template plus the shared Bicep modules, without any deployment configuration. It binds no pipeline of its own.
 5. **nova · apex · flux · shared.** Four configured deployable-units. Each composes the base unit and adds its own configuration: one
@@ -39,7 +38,7 @@ the globset ADR both say so.
 
 ## Why it holds
 
-- A track is a named root concern carrying one class: `automation` is core, `infrastructure` an adapter (ADR-DSGN-TRACK-ONETRACKTYPE).
+- A track is a named root concern carrying one class: `pwsh` is core, `infrastructure` an adapter (ADR-DSGN-TRACK-ONETRACKTYPE).
 - Adapters rest on the core and never the other way round (ADR-DSGN-TRACK-ONETECHSTACK).
 - A consumer binds a track only through module dependencies or the track's globset projection, never by matching its paths by hand
   (ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED).

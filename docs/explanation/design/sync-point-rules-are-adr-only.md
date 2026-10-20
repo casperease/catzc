@@ -9,7 +9,7 @@ Only the BVT rung has a gate in code; every sync-point rule is ADR-only.
 4  release-uat          holds commit 5; moves on through RBC, a manual gate no code runs
 5  main-UAT             holds commit 6, the sync point it took first; moves on through RC, a manual gate no code runs
 6  on-demand (L3)       where CD runs the L3 tests; no pipeline defines it
-7  ci-automation        the one gate code enforces: BVT, which rejects a failing commit
+7  ci-pwsh              the one gate code enforces: BVT, which rejects a failing commit
 8  dirty HEAD           commit 10, failed in main-UAT; nothing syncs from it
 
 Supports ADR-DSGN-LIFE-DISCARDISTERMINAL, ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT, ADR-DSGN-LIFE-SYNCFROMVERIFIEDHEAD, ADR-DSGN-LIFE-DIRTYHEADUNSAFE and ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-PREPRODRUNG (governance lens).
@@ -17,7 +17,7 @@ Supports ADR-DSGN-LIFE-DISCARDISTERMINAL, ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT,
 
 The sync point is the BVT-verified server head: upstream integrators take it, never the tip of main. The same commit goes into `main-UAT`
 first, so when it is deployed it is the `main-UAT` occupant. Of the rules that govern the rungs of the promotion ladder around it, only one
-has a gate in cats: the BVT rung, checked by the `ci-automation` pipeline. Every rule about occupants, the sync point and the dirty HEAD is
+has a gate in cats: the BVT rung, checked by the `ci-pwsh` pipeline. Every rule about occupants, the sync point and the dirty HEAD is
 ADR-only, so "sync from the BVT-verified head" is a convention that no code checks.
 
 ![Only BVT has a gate in code; the sync-point rules are ADR-only](.assets/sync-point-rules-are-adr-only/diagram.drawio.png)
@@ -37,16 +37,16 @@ ADR-only, so "sync from the BVT-verified head" is a convention that no code chec
    runs RC.
 6. **On-demand (L3).** The on-demand environment where CD runs the L3 system-level end-to-end tests before it rolls the artifact onto the
    always-on environment (ADR-FLOW-CD-CDSTAYSINNONPROD). No pipeline defines it.
-7. **ci-automation.** The one gate on the ladder that code enforces: BVT. It runs on every push to main and on pull requests to main that
-   touch `pwsh/**`, in Azure DevOps and in GitHub Actions, and it runs `Test-Automation -Level 2`. A failing run rejects the commit
-   automatically, as BVT should (ADR-DSGN-LIFE-DISCARDISTERMINAL).
+7. **ci-pwsh.** The one gate on the ladder that code enforces: BVT. It runs on every push to main and on pull requests to main that touch
+   `pwsh/**`, in Azure DevOps and in GitHub Actions, and it runs `Test-Automation -Level 2`. A failing run rejects the commit automatically,
+   as BVT should (ADR-DSGN-LIFE-DISCARDISTERMINAL).
 8. **Dirty HEAD.** Commit 10, the tip of main, which entered `main-UAT` and failed there. Nothing syncs from it
    (ADR-DSGN-LIFE-DIRTYHEADUNSAFE), and it feeds nothing downstream (ADR-DSGN-LIFE-FAILEDSTAYSUPSTREAM). It keeps the blue of the state it
    carried into `main-UAT`.
 
 ## Why it holds
 
-- BVT discards automatically, at a named stage (ADR-DSGN-LIFE-DISCARDISTERMINAL); `ci-automation` is that gate.
+- BVT discards automatically, at a named stage (ADR-DSGN-LIFE-DISCARDISTERMINAL); `ci-pwsh` is that gate.
 - Each always-on environment hosts exactly one occupant plus a history (ADR-DSGN-LIFE-ONECOMMITPERENVIRONMENT). The glossary defines
   "occupant" as `prose-only`, so `Test-Glossary` checks only its phrasing ("current occupant", "resident commit") and exempts it from the
   enforcement check.

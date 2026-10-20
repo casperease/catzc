@@ -5,7 +5,7 @@ An engineer runs the tests and merges the pull request; pipelines run everything
 
 1  Test-Automation           the engineer runs the tests on the devbox, then opens a pull request
 2  merge the PR              clears only when PR build validation is green
-3  post-commit CI            ci-automation, ci-infrastructure and the expected-failures run on main
+3  post-commit CI            ci-pwsh, ci-infrastructure and the expected-failures run on main
 4  L3 run                    the ADR's slow system tests after CI; no pipeline step yet
 5  cd-shared, cd-<customer>  the CD pipelines: their own CI stage, then the Deploy_* stages
 6  PR blocked                build validation is red, so the pull request cannot merge
@@ -27,14 +27,14 @@ is a red result: a blocked pull request, a red CI run, or a failed deploy stage.
    same tiers, so a failure surfaces on the devbox first.
 2. **Merge the PR.** The merge clears only when PR build validation is green; build validations on `main` block by default. The merge starts
    both the post-commit CI and the CD pipelines on `main`.
-3. **Post-commit CI.** `ci-automation` and `ci-infrastructure`, plus `ci-automation-expected-failures`, run again on the merged commit.
+3. **Post-commit CI.** `ci-pwsh` and `ci-infrastructure`, plus `ci-pwsh-expected-failures`, run again on the merged commit.
 4. **L3 run.** The ADR places the slow L3 system tests after CI, in the CD pipeline's post-commit path. No pipeline step runs them yet.
 5. **`cd-shared` and `cd-<customer>`.** The CD pipelines run on `main`: their own CI stage, then the `Deploy_*` stages in order, into the
    Azure DevOps environment `<customer>-<env>[-<slot>]` (`shared-<env>` for `cd-shared`). The deploys are reference shapes until real
    service connections and a non-placeholder `azure.yml` exist.
 6. **PR blocked.** Build validation is red, so the pull request cannot merge.
-7. **Red CI run.** The BVT discard. Nothing in code records it, and a red `ci-automation` or `ci-infrastructure` run stops nothing
-   downstream: each CD pipeline's own CI stage is what gates its deploys.
+7. **Red CI run.** The BVT discard. Nothing in code records it, and a red `ci-pwsh` or `ci-infrastructure` run stops nothing downstream:
+   each CD pipeline's own CI stage is what gates its deploys.
 8. **Stage failed.** Later `Deploy_*` stages skip, because each runs only when the stage before it succeeded. `-SubscriptionIdAssertIs`
    fails a mis-wired service connection: the deploy throws when the az session targets another subscription, and `Deploy-Bicep` throws in a
    pipeline when the GUID is missing.

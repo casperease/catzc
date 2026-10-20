@@ -3,7 +3,7 @@
 ```text
 Three tasks share one guard, and one runner imports, traps, sanitizes and invokes.
 
-1  ci-automation.yaml      a root pipeline names the template and passes a RunCommand
+1  ci-pwsh.yaml            a root pipeline names the template and passes a RunCommand
 2  invoke-automation.yaml  seven parameters; Mode picks one of three tasks
 3  inline guard            Set-StrictMode, then a multiline RunCommand needs a DisplayName
 4  throw                   stops the step before the runner starts
@@ -24,7 +24,7 @@ inline guard before they call the runner. The runner then does four things in a 
 
 ## Walkthrough
 
-1. **ci-automation.yaml.** A root pipeline names the template and passes a command, for example
+1. **ci-pwsh.yaml.** A root pipeline names the template and passes a command, for example
    `RunCommand: "Test-Automation -Level 2 -EnforceTimings"`.
 2. **invoke-automation.yaml.** The template takes seven parameters: `RunCommand`, `Mode` (`none`, `azcli` or `azps`, default `none`),
    `ExposeAccessToken`, `ServiceConnection`, `AllowWarnings`, `DisplayName` and `StepName`. `Mode` picks one of three tasks, `PowerShell@2`,

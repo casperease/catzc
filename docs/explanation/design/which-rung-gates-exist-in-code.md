@@ -29,9 +29,8 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
    `main`, blocking by default.
 2. **Landed.** The merged commit is grey. Its rule says an out-of-band deploy of a topic commit is not an integration; the CD deploys in
    code run only on `refs/heads/main`, so no out-of-band topic deploy path exists to check.
-3. **BVT.** The BVT discards automatically. `ci-automation` runs `Test-Automation -Level 2 -EnforceTimings` and, on main,
-   `Test-BuildArtifact`, the built-artifact check the ADR makes part of the BVT; `ci-infrastructure` runs
-   `Test-Automation -Suite infrastructure`.
+3. **BVT.** The BVT discards automatically. `ci-pwsh` runs `Test-Automation -Level 2 -EnforceTimings` and, on main, `Test-BuildArtifact`,
+   the built-artifact check the ADR makes part of the BVT; `ci-infrastructure` runs `Test-Automation -Suite infrastructure`.
 4. **L3-vertical-AT.** The automated acceptance testing in an on-demand environment discards automatically when it fails. No pipeline runs
    it.
 5. **RC on main-AT.** The manual gate at `main-uat` certifies its occupant, the commit that was the BVT-verified head when it went in, which

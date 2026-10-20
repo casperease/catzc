@@ -180,7 +180,7 @@ Describe 'Get-AdoYamlFiles' -Tag 'L0' {
         }
 
         It 'classifies pipeline files as Pipeline' {
-            $pipeline = $results | Where-Object { $_.RelativePath -like '*/ci-automation.yaml' } | Select-Object -First 1
+            $pipeline = $results | Where-Object { $_.RelativePath -like '*/ci-pwsh.yaml' } | Select-Object -First 1
             if ($pipeline) {
                 $pipeline.Classification | Should -Be 'Pipeline'
             }

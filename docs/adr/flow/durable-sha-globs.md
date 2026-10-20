@@ -166,12 +166,12 @@ identities.
 
 `**` is the single addition, and the only operator that crosses `/`: it stands as a whole segment and consumes zero or more whole segments.
 
-| Pattern                    | Matches                             | Does not match                   |
-| -------------------------- | ----------------------------------- | -------------------------------- |
-| `pwsh/**`                  | `pwsh/a.ps1`, `pwsh/x/y`            | `pwsh2/a.ps1`                    |
-| `**/*.md`                  | `README.md`, `docs/adr/index.md`    | `docs/adr` (a folder)            |
-| `.ado/pipelines/ci-*.yaml` | `.ado/pipelines/ci-automation.yaml` | `.ado/pipelines/steps/ci-x.yaml` |
-| `**/tests/**/*.ps1`        | `pwsh/M/tests/a.Tests.ps1`          | `pwsh/M/a.ps1`                   |
+| Pattern                    | Matches                          | Does not match                   |
+| -------------------------- | -------------------------------- | -------------------------------- |
+| `pwsh/**`                  | `pwsh/a.ps1`, `pwsh/x/y`         | `pwsh2/a.ps1`                    |
+| `**/*.md`                  | `README.md`, `docs/adr/index.md` | `docs/adr` (a folder)            |
+| `.ado/pipelines/ci-*.yaml` | `.ado/pipelines/ci-pwsh.yaml`    | `.ado/pipelines/steps/ci-x.yaml` |
+| `**/tests/**/*.ps1`        | `pwsh/M/tests/a.Tests.ps1`       | `pwsh/M/a.ps1`                   |
 
 Hygiene is structural (`ADR-PRIN-POKAYOKE`): separators are `/` only, patterns are repo-relative (no leading `/`), no `.`/`..` segments, and
 no backtick — `WildcardPattern` treats the backtick as an escape character, and an escape character in a path pattern signals a mistake, so
@@ -276,8 +276,8 @@ distinction is what makes `compose` legal: a customer deployable-unit's _effecti
 effective membership every customer overlaps the base and each other through it. That overlap is the point of composition — "depends on a
 base" — not a peer collision. On OWN membership (compose ignored) the customer units own only their own `configuration/<key>/**` slice and
 the base owns the shared surface minus the config folders, so the layer is disjoint. The same holds across layers by design: a file under
-`pwsh/Catzc.Base.Globs/` belongs to the `automation` track (a loose-fileset) AND the `catzc-base-globs` module AND (if it ships) a
-deployable-unit — three layers, one file. Cross-layer overlap is never a violation; only same-layer overlap is.
+`pwsh/Catzc.Base.Globs/` belongs to the `pwsh` track (a loose-fileset) AND the `catzc-base-globs` module AND (if it ships) a deployable-unit
+— three layers, one file. Cross-layer overlap is never a violation; only same-layer overlap is.
 
 A catch-all keeps a layer total without breaking disjointness. The `module-leftovers` set is the module-space complement: it should be empty
 in a clean tree, a tripwire for a file dropped at `pwsh/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt because

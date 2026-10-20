@@ -184,6 +184,16 @@ The registry is `rungs.yml` in `Catzc.Base.Flow`, with its ladder declared on `R
 
 - [The rungs registry](#the-rungs-registry)
 
+### Rule ADR-FLOW-CD-CERTIFYINGRECORD
+
+**A rung's certifying record is its environment's deployment history.** Before a DEPLOY run deploys a prod target, it checks that the commit
+it ships stood on pre-prod: the history of the unit's `<unit>-pre-prod` environment holds a successful deployment of that commit, or the run
+stops before it deploys. The record is the execution engine's own history of the environment, never a tag or a file a pipeline writes, so it
+cannot say a commit stood where it did not. In Azure DevOps the record is the environment's deployment history, and the check is a step of
+every deploy job of the prod target.
+
+- [The certifying record](#the-certifying-record)
+
 ## Context
 
 [pipeline-types](../flow/pipeline-types.md) is the _taxonomy_ — it fixes what each of the six ADO artifact kinds **is**. This ADR is the
@@ -448,6 +458,21 @@ prod approval gate for prod) and the configuration environment it deploys, and e
 `<unit>-<rung>` for the rungs behind RC and RBC. The prod tier is the exception on purpose. Its environments are named by the deploy target,
 a subscription or a configuration slot, not by the rung, so `environment-approvals.yml` lists them.
 
+### The certifying record
+
+`Prod ships only what stood on pre-prod`
+
+The RBC gate and the two-environment activation (ADR-FLOW-CD-TWOENVIRONMENTACTIVATION) both assume that what goes live is what stood on
+pre-prod. A DEPLOY run is started by hand with a CI run id, so nothing in its parameters proves that assumption: a rerun of the prod stage,
+or a run id typed wrong, can name an artifact that pre-prod never held. The proof is the environment's deployment history. The execution
+engine writes it as a side effect of every deploy job, so no pipeline can forge it, and it names the run behind each deployment, from which
+the commit follows. A record the pipeline writes itself, such as a `certified-<rung>` tag, would be a second store of the same fact that can
+drift from the first, so the history is the only record.
+
+The check runs inside each deploy job of the prod target, before the job downloads the artifact. It resolves the commit of the CI run the
+DEPLOY run names and looks for a successful pre-prod deployment of that commit; a deployment made by a DEPLOY run counts for the commit of
+the CI run that run named. A unit whose DEPLOY has no prod target has nothing to certify, and takes the check when it gains one.
+
 ## How this is enforced
 
 - **The pipeline taxonomy carries the mechanics.** The 5–10 minute budget, the CI-engine sharing, and the DEPLOY governance rules are
@@ -471,6 +496,9 @@ a subscription or a configuration slot, not by the rung, so `environment-approva
 - **The prod approval gate is applied, not hand-set.** `EnvironmentApprovalsConfig` validates `environment-approvals.yml` when it loads, an
   integrity test loads the shipped file, and `Sync-AdoEnvironmentApprovals` applies it; review checks that a pipeline deploying a new
   prod-tier environment lists it there (ADR-FLOW-CD-PRODAPPROVALGATE).
+- **The certifying record is checked in the run.** A DEPLOY pipeline names the pre-prod environment as its prod stage's `CertifiedBy`, and
+  each deploy job of that stage first runs `Assert-AdoDeploymentHistory`, which throws when the history lacks the commit; an L0 test stops a
+  commit absent from the history (ADR-FLOW-CD-CERTIFYINGRECORD).
 
 ## Consequences
 

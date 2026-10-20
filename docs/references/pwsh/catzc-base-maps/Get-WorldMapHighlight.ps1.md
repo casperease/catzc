@@ -63,5 +63,5 @@ Get-WorldMapHighlight -Adr 'ADR-DSGN-TRACK-ONETECHSTACK' -AsJson
 ### example 4
 
 ```powershell
-Get-WorldMapHighlight -Path 'pipelines/ci-automation.yaml', 'pwsh/Catzc.Base.Maps/Get-WorldMap.ps1'
+Get-WorldMapHighlight -Path '.ado/pipelines/ci-pwsh.yaml', 'pwsh/Catzc.Base.Maps/Get-WorldMap.ps1'
 ```

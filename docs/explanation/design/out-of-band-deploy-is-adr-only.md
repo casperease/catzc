@@ -32,7 +32,7 @@ no checker either, and none is expected.
 5. **Main only.** The gate in code: every `Deploy_*` stage carries the condition that the source branch is `refs/heads/main`. A run from any
    other ref skips the deploy stages, so no topic commit is deployed today.
 6. **BVT.** The BVT turns a landed commit into a BVT-verified one, yellow. The pipeline guide names the CI type's post-commit run on main
-   the BVT; there the CI pipelines run `Test-Automation`, and `ci-automation` also runs `Test-BuildArtifact`.
+   the BVT; there the CI pipelines run `Test-Automation`, and `ci-pwsh` also runs `Test-BuildArtifact`.
 
 ## Why it holds
 

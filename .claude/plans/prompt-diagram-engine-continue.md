@@ -14,10 +14,10 @@ open steps are your order; no other plan or session waits on you, and you wait o
 
 Take the open steps top to bottom, one file per step, each verified by the check the step names before the next; tick a step with its
 verdict line only when the tree holds the work. A decision lands as an ADR-REPO-SLIDES rule in the same change as its step. Render nothing
-the steps do not ask for, and stop for the user's review where a step says so. A move of tracked files is the user's: write its `git mv`
-lines to `out/run-user-git.ps1`, tell the user, and continue with the steps that do not depend on it. No git add, commit, push or mv. Every
-Bash call runs under the time safeguard (foreground `timeout: 3000`; longer work in the background behind a GNU `timeout` prefix around one
-command). Never run Test-Automation or a gate over the whole tree. The typed DLL under `pwsh/.compiled` is ignored.
+the steps do not ask for, and stop for the user's review where a step says so. A move or delete of tracked files is yours, on disk (plain
+move, plain delete); git is the user's: no git add, mv, rm, commit or push, and no git script. Every Bash call runs under the time safeguard
+(foreground `timeout: 3000`; longer work in the background behind a GNU `timeout` prefix around one command). Never run Test-Automation or a
+gate over the whole tree. The typed DLL under `pwsh/.compiled` is ignored.
 
 Stop and ask the user when a step needs a decision the plan does not record, a mutating git command, or a diagram review. End with the
 report-fixed shape: files touched, checks run with each verdict line verbatim, left undone with the reason.

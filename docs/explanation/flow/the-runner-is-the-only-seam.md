@@ -23,8 +23,8 @@ template or the task.
 ## Walkthrough
 
 1. **Pipeline YAML.** The `ci-*` and `cd-*` root pipelines declare what to run and never hold PowerShell. Six of the seven root pipelines
-   reach the step template: `ci-automation`, `ci-infrastructure` and `cd-shared` call it directly, and `cd-apex`, `cd-flux` and `cd-nova`
-   extend `extends/cd-customer.yaml`, which calls it. The seventh, `ci-automation-expected-failures`, is the one sanctioned exception.
+   reach the step template: `ci-pwsh`, `ci-infrastructure` and `cd-shared` call it directly, and `cd-apex`, `cd-flux` and `cd-nova` extend
+   `extends/cd-customer.yaml`, which calls it. The seventh, `ci-pwsh-expected-failures`, is the one sanctioned exception.
 2. **invoke-automation.yaml.** The step template is the single file every step goes through. It takes the `RunCommand` and a `Mode`, and
    adds pipeline concerns: the service connection, the access token and the display name.
 3. **Task by Mode.** The template expands into one task: `PowerShell@2`, `AzureCLI@2` or `AzurePowerShell@5`. The Azure tasks own the

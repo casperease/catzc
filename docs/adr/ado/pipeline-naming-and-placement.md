@@ -45,8 +45,8 @@ mix in one folder, the include-kind of a fragment is invisible until you open it
 or grouped by type.
 
 A pipeline's type (cron / ci / cd / cde / deploy / input — see [pipeline-types](../flow/pipeline-types.md)) is not a folder; it is encoded
-as the **first part of the filename** (`ci-automation.yaml`), so a flat listing of `.ado/pipelines/` already groups and reveals ado
-pipelines by type. Fragments, by contrast, are grouped by folder. The filename and the folder are the contract.
+as the **first part of the filename** (`ci-pwsh.yaml`), so a flat listing of `.ado/pipelines/` already groups and reveals ado pipelines by
+type. Fragments, by contrast, are grouped by folder. The filename and the folder are the contract.
 
 This is the same argument as [conventional-folders](../repository/conventional-folders.md): a fixed, semantic layout where the folder name
 and the filename are the contract. Tooling and readers program against the names; there is nothing to configure and nothing to guess.
@@ -66,7 +66,7 @@ A pipeline (the file ADO registers and runs) sits directly in `.ado/pipelines/`,
 of `cron`, `ci`, `cd`, `cde`, `deploy`, `input` — followed by a descriptive name:
 
 ```text
-.ado/pipelines/ci-automation.yaml
+.ado/pipelines/ci-pwsh.yaml
 .ado/pipelines/cd-shared.yaml
 .ado/pipelines/cde-frontend.yaml
 .ado/pipelines/cron-cert-rotation.yaml
@@ -131,7 +131,7 @@ where every config file is already `.yml`.
 ```text
 .ado/pipelines/
   Invoke-AdoScript.ps1          # the runner (see pipeline-runner-pattern) — not a pipeline
-  ci-automation.yaml            # pipeline  (<type>-<name>.yaml)
+  ci-pwsh.yaml                  # pipeline  (<type>-<name>.yaml)
   cd-shared.yaml                # pipeline
   cde-frontend.yaml             # pipeline (auto-rolls the locked build to prod — Continuous Deployment)
   cron-cert-rotation.yaml       # pipeline

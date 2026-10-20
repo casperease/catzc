@@ -8,6 +8,8 @@ function Get-ModuleProtectionIdentity {
 
         [switch] $HasIntegrityTests,
 
+        [switch] $OutsideModulesFolder,
+
         [Parameter(Mandatory)]
         [hashtable] $HashCache
     )
@@ -47,6 +49,10 @@ function Get-ModuleProtectionIdentity {
 
     if ($Module -in @('.internal', '.scriptanalyzer')) {
         # infra test units: own scope is already among the reserved sets; their true read set is the repo
+        $widen = $true
+    }
+    elseif ($OutsideModulesFolder) {
+        # a module of another language track running its own tests: no derived globset of its own; its read set is the repo
         $widen = $true
     }
     else {

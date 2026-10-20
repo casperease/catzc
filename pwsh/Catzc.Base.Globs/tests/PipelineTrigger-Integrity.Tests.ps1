@@ -6,8 +6,8 @@ Describe 'ADO pipeline trigger globs match the globset projection' -Tag 'L2', 'i
 }
 
 Describe 'GitHub workflow trigger globs match the globset projection' -Tag 'L2', 'integrity', 'source-only' {
-    It 'ci-automation.yml triggers on the automation globset projection' {
-        $result = Test-GitHubWorkflowTriggerGlob -Name automation -WorkflowPath '.github/workflows/ci-automation.yml' -PassThru `
+    It 'ci-pwsh.yml triggers on the pwsh globset projection' {
+        $result = Test-GitHubWorkflowTriggerGlob -Name pwsh -WorkflowPath '.github/workflows/ci-pwsh.yml' -PassThru `
             -OutputFolder (Join-Path $TestDrive 'github-workflow-trigger-glob')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join '; ')
     }

@@ -38,8 +38,8 @@ Pipelines are flat in the root and named for their type. Templates live in the f
 
 Real:
 
-- `ci-automation.yaml` — pure CI for the pwsh modules (`Test-Automation`); the CI exemplar.
-- `ci-automation-expected-failures.yaml` — proves the CI guardrails fire (steps expected to go amber).
+- `ci-pwsh.yaml` — pure CI for the pwsh modules (`Test-Automation`); the CI exemplar.
+- `ci-pwsh-expected-failures.yaml` — proves the CI guardrails fire (steps expected to go amber).
 
 Infrastructure (foundation / discovery / expedition) — **reference shapes**, not yet registered. The CI build path runs as-is
 (`az bicep build` is offline, no auth); the CD deploy paths need real service connections and a non-placeholder `azure.yml` (the shipped one
@@ -85,7 +85,7 @@ environment per deployable-unit, with one occupant:
 The approval checks are declared in `environment-approvals.yml` and applied by `Sync-AdoEnvironmentApprovals`
 ([apply-environment-approvals](../../how-to/automation/apply-environment-approvals.md)). DEPLOY takes the exact artifact CI built, by the CI
 run id that the certifying CD run records, and never rebuilds it. The CD pipelines above deploy the non-prod and prod-tier targets of a
-stage in one run; main-uat is the `dev` deploy of each CD.
+stage in one run; main-uat is the `dev` deploy of each CD, into the `<unit>-main-uat` environment.
 
 ## Adding a real pipeline
 

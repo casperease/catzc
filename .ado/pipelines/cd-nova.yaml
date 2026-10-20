@@ -47,4 +47,9 @@ extends:
     Discoveries:
       - { env: nsub, serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 000a0000-de00-50b0-0000-000000000000 }
     Expeditions:
-      - { env: dev, serviceConnection: sc-nova-nonprod, subscriptionIdAssertIs: 000a0000-de00-50b0-0000-000000000000 }
+      - {
+          env: dev,
+          adoEnvironment: nova-main-uat,
+          serviceConnection: sc-nova-nonprod,
+          subscriptionIdAssertIs: 000a0000-de00-50b0-0000-000000000000,
+        }

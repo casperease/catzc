@@ -135,7 +135,6 @@ concepts:
     realized_by: { kind: prose-only }
     forms:
       [
-        automation,
         contract,
         language,
         engine,

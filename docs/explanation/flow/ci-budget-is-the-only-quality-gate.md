@@ -25,8 +25,8 @@ reads left to right in one row, each kind or gate beside the rule that governs i
 
 1. **CI inner loop.** Getting a change into main must clear its build-validation within a 5–10 minute integration cycle, on a team basis.
    The pipeline-types ADR confines pre-commit validation to that budget.
-2. **Quality gate.** `Test-Automation -Level 2 -EnforceTimings` in `ci-automation.yaml` fails the run when a passed test exceeds its level's
-   time limit (`tests.level_ms` in `timeouts.yml`). It checks per-test limits, not the 5–10 minute cycle: the whole-run budget,
+2. **Quality gate.** `Test-Automation -Level 2 -EnforceTimings` in `ci-pwsh.yaml` fails the run when a passed test exceeds its level's time
+   limit (`tests.level_ms` in `timeouts.yml`). It checks per-test limits, not the 5–10 minute cycle: the whole-run budget,
    `tests.run_seconds` (180 seconds by default), is reported and never fails the run. The GitHub mirror runs `Test-Automation -Level 2`
    without `-EnforceTimings`, so the gate binds the Azure DevOps pipeline only.
 3. **CD.** CD runs the CI component, then takes the artifact through non-prod and stays there. Code review is meant to check both this and

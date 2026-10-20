@@ -57,9 +57,9 @@ and the [github domain](../github/github-release.md) for the GitHub workflows.
 
 ### The name carries the type
 
-A pipeline's type is the first token of its filename (`ci-automation.yaml`, `cd-shared.yaml`), so a flat listing of a pipelines folder is
-already an index of every pipeline grouped by type. The type is the one from [pipeline-types](pipeline-types.md); a prefix outside that
-closed set is a type the flow model does not have. The vendor ADR decides where the files live
+A pipeline's type is the first token of its filename (`ci-pwsh.yaml`, `cd-shared.yaml`), so a flat listing of a pipelines folder is already
+an index of every pipeline grouped by type. The type is the one from [pipeline-types](pipeline-types.md); a prefix outside that closed set
+is a type the flow model does not have. The vendor ADR decides where the files live
 ([pipeline-naming-and-placement](../ado/pipeline-naming-and-placement.md) for the azure devops pipelines).
 
 ### The extension tells executable from data

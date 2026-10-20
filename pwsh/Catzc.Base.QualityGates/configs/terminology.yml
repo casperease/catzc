@@ -584,6 +584,8 @@ terms:
       meaning: "ADO predefined variable Build.DefinitionName"
     - term: distributedtask
       meaning: "ADO 'distributedtask' REST area name"
+    - term: environmentdeploymentrecords
+      meaning: "ADO 'environmentdeploymentrecords' REST resource name"
     - term: issecret
       meaning: "ADO logging-command property 'issecret'"
     - term: jobdisplayname

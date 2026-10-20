@@ -1,5 +1,5 @@
 description: >-
-  The four CD pipelines bind deployable-units composed from the infrastructure track, while the two CI pipelines bind the automation and
+  The four CD pipelines bind deployable-units composed from the infrastructure track, while the two CI pipelines bind the pwsh and
   infrastructure track sets directly, with no unit between them.
 about:
   lens: architecture
@@ -14,7 +14,7 @@ about:
   files:
     - docs/adr/design/tracks.md
     - pwsh/Catzc.Base.Globs/configs/globs.yml
-    - .ado/pipelines/ci-automation.yaml
+    - .ado/pipelines/ci-pwsh.yaml
     - .ado/pipelines/ci-infrastructure.yaml
     - .ado/pipelines/cd-nova.yaml
 content:
@@ -26,11 +26,11 @@ content:
     - { id: band-units, label: DEPLOYABLE-UNITS }
     - { id: band-pipelines, label: PIPELINES }
   glyphs:
-    - { id: s-automation, kind: set, label: automation, in: band-tracks }
+    - { id: s-automation, kind: set, label: pwsh, in: band-tracks }
     - { id: s-infrastructure, kind: set, label: infrastructure, in: band-tracks }
     - { id: s-base, kind: set, label: foundation base unit, in: band-units }
     - { id: s-units, kind: set, label: nova · apex · flux · shared, in: band-units }
-    - { id: r-ci-automation, kind: runner, label: ci-automation, in: band-pipelines }
+    - { id: r-ci-automation, kind: runner, label: ci-pwsh, in: band-pipelines }
     - { id: r-ci-infrastructure, kind: runner, label: ci-infrastructure, in: band-pipelines }
     - { id: r-cd, kind: runner, label: "cd-<unit>", in: band-pipelines }
   edges:

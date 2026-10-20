@@ -83,7 +83,12 @@ stages:
         - { env: nsub, serviceConnection: sc-shared-nonprod, subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000 }
         - { env: psub, serviceConnection: sc-shared-prod, subscriptionIdAssertIs: 50a0ed00-000d-50b0-0000-000000000000 }
       Expeditions:
-        - { env: dev, serviceConnection: sc-shared-nonprod, subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000 }
+        - {
+            env: dev,
+            adoEnvironment: shared-main-uat,
+            serviceConnection: sc-shared-nonprod,
+            subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000,
+          }
         - { env: test, serviceConnection: sc-shared-nonprod, subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000 }
       DependsOn: CI
       # Skipped when the shared unit is untouched; the later Deploy stages chain on this one, so they skip with it.

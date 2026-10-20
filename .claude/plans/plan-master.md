@@ -20,9 +20,8 @@ plans stay the durable record; task files and this master are derived from them 
 - A task file is `task-<topic>.md`, at most 50 in the folder, one chunk each: head (`task:` with status, plans, value, blocked_on, targets),
   then numbered steps. Every step names one file, the exact edit, and the check that proves it. One file per step, verified before the next.
   A chunk gets a task file when its plan's open steps are not executable as written; otherwise the plan's open steps are the executable.
-- A move of tracked files (`git mv`) is the user's, like every mutating git command: the plan's step names the move,
-  task-user-runs-and-commits lists it, and the agent prepares the `git mv` lines in `out/run-user-git.ps1` for the user to run, then does
-  the edits around the move.
+- A move or delete of tracked files is the agent's, on disk (plain move, plain delete), with the edits around it in the same step; git stays
+  the user's (the user, 2026-10-20): no `git mv`/`git rm` script, the user stages, commits and pushes.
 - The order is the position of a pointer line in the Chunks list below, and nothing else (ADR-REPO-PLANS-MASTERANDTASKS,
   ADR-REPO-FOLDERS-STABLEFILENAMES). A task name says what the task does; no name, head key or reference carries a number, so reordering the
   list renames nothing.
@@ -30,8 +29,8 @@ plans stay the durable record; task files and this master are derived from them 
   is touched. The plans themselves are never deleted by a clear.
 - The planner edits only this folder. It runs no gate and no code; a check named in a step is for the executor.
 - Blocked chunks stay in order but carry `blocked_on`; the executor skips them and moves on.
-- The user's steps (a commit, a remote run, a `git mv`) are gathered in one task, task-user-runs-and-commits, so that one list is the whole
-  ask of the user; every other task names the step there it waits on.
+- The user's steps (a commit, a remote run, an external binding) are gathered in one task, task-user-runs-and-commits, so that one list is
+  the whole ask of the user; every other task names the step there it waits on.
 - Checks are small and direct: one test file under `Invoke-TestFile`, one gate on named paths, a grep, a file read. No step runs
   `Test-Automation`, a gate over the whole tree, or anything larger than the file it proves. The one full-repo proof is the user's: a fresh
   session dot-sources `importer.ps1` and runs `Test-Automation` once, by hand; every plan that closes on green closes on that run and on
@@ -45,9 +44,6 @@ plans stay the durable record; task files and this master are derived from them 
 
 Open, in execution order. Nothing is held. A chunk without a task file is executed from its plan's open steps directly.
 
-- promotion-ladder -> plan-promotion-ladder.md: the `<unit>-dev` to `<unit>-main-uat` rename and the certifying check.
-- layers-classification-flip -> task-layers-classification-flip.md: P6, the `ci-automation` pipeline rename and the `automation` layer
-  form's retirement.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.
@@ -55,6 +51,6 @@ Open, in execution order. Nothing is held. A chunk without a task file is execut
 A new plan or paste adds its chunk as a pointer line at the position its dependencies and value give it.
 
 Isolated, outside the order above (the user, 2026-10-19): plan-diagram-engine.md is taken by its own session from its own open steps, in
-their order; no chunk above waits on it, and it waits on nothing above except the rungs registry step of promotion-ladder for its last
-minimap and the IaC rule steps for its last two diagrams. Its moves of tracked files are still listed in task-user-runs-and-commits. It took
-the last diagram items of generated-file-heads, ado-and-cicd-docs and adr-automation-split on 2026-10-19.
+their order; no chunk above waits on it, and it waits on nothing above except the IaC rule steps for its last two diagrams (the rungs
+registry it waited on is `RungsConfig` in `Catzc.Base.Flow`; promotion-ladder landed 2026-10-20). It moves its tracked files on disk itself.
+It took the last diagram items of generated-file-heads, ado-and-cicd-docs and adr-automation-split on 2026-10-19.

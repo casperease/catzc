@@ -3,8 +3,8 @@
 ```text
 A push starts only the pipelines whose globset holds a changed file.
 
-1  pwsh/**                a change here fires ci-automation on the PR and the merge
-2  ci-automation                runs Test-Automation -Level 2 -EnforceTimings
+1  pwsh/**                      a change here fires ci-pwsh on the PR and the merge
+2  ci-pwsh                      runs Test-Automation -Level 2 -EnforceTimings
 3  ci-infrastructure            fired by infrastructure/**; checks and builds three templates
 4  A change re-keys the units   a foundation or modules edit reaches all four units
 5  cd-<unit>                    the CD pipelines a change fires, deploying on main only
@@ -22,9 +22,9 @@ to the shared foundation fires every CD pipeline; an edit to one unit's configur
 
 ## Walkthrough
 
-1. **`pwsh/**`.** A change here fires `ci-automation`, on a pull request to main (`pr:`) and on the merge (`trigger:`). The GitHub workflow
-   `ci-automation.yml` and the pipeline `ci-automation-expected-failures` carry the same path filter and start too.
-2. **ci-automation.** Runs `Test-Automation -Level 2 -EnforceTimings`, among its other jobs.
+1. **`pwsh/**`.** A change here fires `ci-pwsh`, on a pull request to main (`pr:`) and on the merge (`trigger:`). The GitHub workflow
+   `ci-pwsh.yml` and the pipeline `ci-pwsh-expected-failures` carry the same path filter and start too.
+2. **ci-pwsh.** Runs `Test-Automation -Level 2 -EnforceTimings`, among its other jobs.
 3. **ci-infrastructure.** Any change under `infrastructure/**` fires it. It runs `Assert-BicepTemplate` and then `Build-Bicep` for each of
    the three templates, foundation, discovery and expedition, then `Test-Automation -Suite infrastructure`.
 4. **A change re-keys the units.** Only a change inside a unit's set reaches it. An edit under `infrastructure/templates/foundation/**` or
@@ -34,7 +34,7 @@ to the shared foundation fires every CD pipeline; an edit to one unit's configur
    pipelines run `Build-Bicep <template> -Customers <unit>` for three templates through `extends/cd-customer.yaml`; `cd-shared` runs
    `Build-Bicep <template> -Shared` for foundation and discovery. Each deploys on main only.
 6. **Test-AdoPipelineTriggerGlob.** The gate against trigger drift reads every pipeline-bound globset and its pipeline file, and compares
-   the file's `trigger:` and `pr:` path filters with the set's projection. It runs as an L2 integrity test inside `ci-automation`.
+   the file's `trigger:` and `pr:` path filters with the set's projection. It runs as an L2 integrity test inside `ci-pwsh`.
 7. **trigger drifted.** A hand-edited trigger fails with
    `<set>: .ado/pipelines/<p>.yaml trigger drifted from the globset projection on <filters>`. The fix is to regenerate the trigger from
    `globs.yml` (`Get-GlobSetTrigger`); the report lands in `out/test-ado-pipeline-trigger-glob/`.

@@ -32,8 +32,7 @@ the org, the empty-token assert, the one-function rule and the no-caching rule h
    "propagates the assertion failure when the session is in the wrong tenant". The #5 empty-token assert runs in the code, but no test
    covers it.
 5. **invoke-automation.yaml.** #6, the token mapping in the step template, is checked by the step "ExposeAccessToken: token available" in
-   the `AzureAuthTests` job of `.ado/pipelines/ci-automation.yaml`. It asserts only that the token is non-empty when `ExposeAccessToken` is
-   true.
+   the `AzureAuthTests` job of `.ado/pipelines/ci-pwsh.yaml`. It asserts only that the token is non-empty when `ExposeAccessToken` is true.
 
 No analyzer rule cites ADR-ADO-AUTH. The analyzer rule `Measure-NoRawPipelineDetection` forbids raw reads of the pipeline variables outside
 `Test-IsRunningInPipeline`, which supports #3, but it is mapped to ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK.

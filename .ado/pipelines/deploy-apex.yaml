@@ -50,5 +50,6 @@ stages:
                 subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000,
               }
           DependsOn: [Deploy_Expedition_preprod]
+          CertifiedBy: apex-pre-prod
           ArtifactPipeline: cd-apex
           RunId: ${{ parameters.CiRunId }}

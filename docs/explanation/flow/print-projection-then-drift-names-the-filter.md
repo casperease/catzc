@@ -48,8 +48,8 @@ and the other names any member file an include pattern would miss.
    pipelines.
 
 The GitHub side has the same gate, `Test-GitHubWorkflowTriggerGlob`, which takes the pairing explicitly, for example
-`-Name automation -WorkflowPath .github/workflows/ci-automation.yml`, and compares `on.push.paths` and `on.pull_request.paths` element by
-element, since GitHub paths are ordered.
+`-Name pwsh -WorkflowPath .github/workflows/ci-pwsh.yml`, and compares `on.push.paths` and `on.pull_request.paths` element by element, since
+GitHub paths are ordered.
 
 ## Why it holds
 

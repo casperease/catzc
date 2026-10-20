@@ -28,6 +28,10 @@ parameters:
   - name: StageSuffix
     type: string
     default: ""
+  # The environment whose deployment history must hold the commit before any job deploys, e.g. `<unit>-pre-prod` for a prod target.
+  - name: CertifiedBy
+    type: string
+    default: ""
 
 stages:
   - ${{ if gt(length(parameters.Foundations), 0) }}:
@@ -50,6 +54,11 @@ stages:
                     deploy:
                       steps:
                         - checkout: self
+                        - ${{ if parameters.CertifiedBy }}:
+                            - template: /.ado/pipelines/steps/assert-deployment-history.yaml
+                              parameters:
+                                Environment: ${{ parameters.CertifiedBy }}
+                                RunId: ${{ parameters.RunId }}
                         - template: /.ado/pipelines/steps/download-artifact.yaml
                           parameters:
                             Artifact: foundation
@@ -88,6 +97,11 @@ stages:
                     deploy:
                       steps:
                         - checkout: self
+                        - ${{ if parameters.CertifiedBy }}:
+                            - template: /.ado/pipelines/steps/assert-deployment-history.yaml
+                              parameters:
+                                Environment: ${{ parameters.CertifiedBy }}
+                                RunId: ${{ parameters.RunId }}
                         - template: /.ado/pipelines/steps/download-artifact.yaml
                           parameters:
                             Artifact: discovery
@@ -130,6 +144,11 @@ stages:
                         deploy:
                           steps:
                             - checkout: self
+                            - ${{ if parameters.CertifiedBy }}:
+                                - template: /.ado/pipelines/steps/assert-deployment-history.yaml
+                                  parameters:
+                                    Environment: ${{ parameters.CertifiedBy }}
+                                    RunId: ${{ parameters.RunId }}
                             - template: /.ado/pipelines/steps/download-artifact.yaml
                               parameters:
                                 Artifact: expedition
@@ -159,6 +178,11 @@ stages:
                         deploy:
                           steps:
                             - checkout: self
+                            - ${{ if parameters.CertifiedBy }}:
+                                - template: /.ado/pipelines/steps/assert-deployment-history.yaml
+                                  parameters:
+                                    Environment: ${{ parameters.CertifiedBy }}
+                                    RunId: ${{ parameters.RunId }}
                             - template: /.ado/pipelines/steps/download-artifact.yaml
                               parameters:
                                 Artifact: expedition

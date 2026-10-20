@@ -10,7 +10,7 @@ task:
 # Task: the closing sweep
 
 ADR-REPO-PLANS-DONEPLANDELETED: a plan with no open step is deleted; git holds why. This task runs after any batch of tasks lands, as often
-as needed, and last of all. `git rm` is the user's (the permission layer blocks it for sessions); the sweep lists.
+as needed, and last of all. The sweep deletes from disk; git is the user's.
 
 ## Steps
 

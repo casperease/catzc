@@ -35,9 +35,9 @@ check something nearby rather than the rule itself.
    ADR-ADO-NAME-FLATPIPELINESFOLDER, ADR-ADO-NAME-TEMPLATEKINDFOLDER, ADR-ADO-NAME-ABSOLUTETEMPLATEPATH and
    ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION. The one that touches this stage is ADR-ADO-NAME-ABSOLUTETEMPLATEPATH, that templates are
    referenced by absolute path. It checks no runner rule. Its L1 test requires zero violations over the real tree.
-6. **Expected-failures 1b.** Step 1b of `ci-automation-expected-failures.yaml` proves that a multiline command without a display name
-   throws, but it replays its own copy of the guard rather than running the template's. The pipeline itself is the sanctioned exception to
-   rule 1: it inlines PowerShell on purpose.
+6. **Expected-failures 1b.** Step 1b of `ci-pwsh-expected-failures.yaml` proves that a multiline command without a display name throws, but
+   it replays its own copy of the guard rather than running the template's. The pipeline itself is the sanctioned exception to rule 1: it
+   inlines PowerShell on purpose.
 7. **Expected-failures and Pester.** Steps 1a and 1c run `Invoke-AdoScript.ps1` to prove that the trap reports a failing command, and the L0
    Pester test for `ConvertFrom-AdoPipelineCommand` covers the sanitizer. No Pester test runs the runner itself.
 

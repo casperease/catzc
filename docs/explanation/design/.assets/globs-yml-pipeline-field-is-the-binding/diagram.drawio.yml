@@ -19,11 +19,11 @@ content:
     - { id: band-pipelines, label: PIPELINES }
   glyphs:
     - { id: f-registry, kind: file, label: globs.yml, in: band-registry }
-    - { id: s-automation, kind: set, label: "automation:", in: band-registry }
+    - { id: s-automation, kind: set, label: "pwsh:", in: band-registry }
     - { id: s-infrastructure, kind: set, label: "infrastructure:", in: band-registry }
     - { id: s-units, kind: set, label: "nova: · apex: · flux: · shared:", in: band-registry }
     - { id: s-foundation, kind: set, label: foundation base unit, in: band-registry }
-    - { id: r-automation, kind: runner, label: ci-automation.yaml, in: band-pipelines }
+    - { id: r-automation, kind: runner, label: ci-pwsh.yaml, in: band-pipelines }
     - { id: r-infrastructure, kind: runner, label: ci-infrastructure.yaml, in: band-pipelines }
     - { id: r-unit, kind: runner, label: "cd-<unit>.yaml", in: band-pipelines }
     - { id: r-extends, kind: runner, label: extends/cd-customer.yaml, in: band-pipelines }

@@ -36,8 +36,8 @@ failed step copies the command from the label and runs it after the importer.
    echoed command. No gate checks this reproduction, so it holds by the ADR alone.
 
 Set the pipeline variable `System.Debug` to `true` for verbose output and the full `Write-EnvironmentDiagnostic`; otherwise the log carries
-the shorter `Write-AdoEnvironmentDiagnostic`. The `ci-automation-expected-failures.yaml` pipeline exercises the trap and a copy of the guard
-on every `pwsh/**` change.
+the shorter `Write-AdoEnvironmentDiagnostic`. The `ci-pwsh-expected-failures.yaml` pipeline exercises the trap and a copy of the guard on
+every `pwsh/**` change.
 
 ## Why it holds
 

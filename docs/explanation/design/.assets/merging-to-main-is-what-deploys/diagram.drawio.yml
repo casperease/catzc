@@ -9,7 +9,7 @@ about:
   languages: [pipeline-yaml]
   files:
     - .ado/pipelines/cd-shared.yaml
-    - .ado/pipelines/ci-automation.yaml
+    - .ado/pipelines/ci-pwsh.yaml
     - .github/workflows/release-automation.yml
 content:
   title: Merging to main is what deploys; there is no run that deploys a topic

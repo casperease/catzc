@@ -166,11 +166,11 @@ The `displayName` mirrors the command, so the ADO UI shows exactly what ran — 
 
 ### Exception
 
-- **The guardrail pipeline inlines PowerShell on purpose.** `ci-automation-expected-failures.yaml` deliberately dot-sources `importer.ps1`
-  inline (and invokes `Invoke-AdoScript.ps1` directly with raw `PowerShell@2` tasks) to prove that the guardrails fail as designed — e.g.
-  that a multiline `RunCommand` without a `DisplayName` throws. Its job is to exercise the bootstrap and the runner's own failure modes,
-  which is precisely the seam the step template would otherwise hide. This is a sanctioned deviation from "all logic via the runner," scoped
-  to that one expected-failures pipeline; production pipelines still go through `Invoke-AdoScript.ps1` via the step template.
+- **The guardrail pipeline inlines PowerShell on purpose.** `ci-pwsh-expected-failures.yaml` deliberately dot-sources `importer.ps1` inline
+  (and invokes `Invoke-AdoScript.ps1` directly with raw `PowerShell@2` tasks) to prove that the guardrails fail as designed — e.g. that a
+  multiline `RunCommand` without a `DisplayName` throws. Its job is to exercise the bootstrap and the runner's own failure modes, which is
+  precisely the seam the step template would otherwise hide. This is a sanctioned deviation from "all logic via the runner," scoped to that
+  one expected-failures pipeline; production pipelines still go through `Invoke-AdoScript.ps1` via the step template.
 
 ## Consequences
 

@@ -6,7 +6,7 @@ The pipelines wire topic, landed and BVT; past BVT, stages follow the template, 
 1  pr: [main]          pre-commit build validation of the topic commit
 2  trigger: [main]     post-commit run of the same pipelines on the landed commit
 3  CD stage CI         the CD pipeline's own CI engine: Build-Bicep, then publish
-4  ci-automation       Test-Automation -Level 2 -EnforceTimings
+4  ci-pwsh             Test-Automation -Level 2 -EnforceTimings
 5  ci-infrastructure   Assert-BicepTemplate, Build-Bicep, then the infrastructure suite
 6  L3 run              no pipeline step; Test-Automation accepts level 3, nothing passes it
 7  Deploy_Foundation   the first deploy stage; depends on CI, runs on main only
@@ -30,9 +30,9 @@ merge, and the CI engine that verifies the commit and publishes its artifact. Af
 3. **CD stage CI.** The CD pipeline's own CI engine: `Build-Bicep <template> -Customers <customer>` for a customer CD, or `-Shared` for
    `cd-shared`, each followed by `publish` of the artifact. The published artifact is the yellow commit's build, and every deploy stage
    takes it with `download: current`, so nothing is rebuilt.
-4. **ci-automation.** Runs `Test-Automation -Level 2 -EnforceTimings`. The GitHub CI runs `Test-Automation -Level 2` on three operating
-   systems, and `ci-automation-expected-failures` runs on the same triggers. On main, the `BuildArtifact` job also runs
-   `Test-BuildArtifact`, the BVT's built-artifact check.
+4. **ci-pwsh.** Runs `Test-Automation -Level 2 -EnforceTimings`. The GitHub CI runs `Test-Automation -Level 2` on three operating systems,
+   and `ci-pwsh-expected-failures` runs on the same triggers. On main, the `BuildArtifact` job also runs `Test-BuildArtifact`, the BVT's
+   built-artifact check.
 5. **ci-infrastructure.** Runs `Assert-BicepTemplate`, then `Build-Bicep`, for foundation, discovery and expedition, then
    `Test-Automation -Suite infrastructure`.
 6. **L3 run.** No pipeline step exists. `Test-Automation` accepts level 3 (`-Level` is the alias of `-MaxLevel`, which defaults to 3), but

@@ -4,7 +4,7 @@
 One key in globs.yml, pipeline:, binds a globset to the file .ado/pipelines/<name>.yaml.
 
 1  globs.yml                    the globset registry, validated by GlobsConfig on load
-2  automation:                  loose-fileset, pipeline: ci-automation, pwsh/**
+2  pwsh:                        loose-fileset, pipeline: ci-pwsh, pwsh/**
 3  infrastructure:              loose-fileset, pipeline: ci-infrastructure, infrastructure/**
 4  nova: apex: flux: shared:    deployable-units, each binding its own cd-<name>
 5  foundation base unit         deployable-unit with no pipeline:, composed by the four
@@ -25,8 +25,8 @@ deployable-units bind the CD pipelines, and the base unit they compose binds non
 1. **globs.yml.** The registry at `pwsh/Catzc.Base.Globs/configs/globs.yml`. `GlobsConfig` reads it on load and rejects a layer that is not
    declared, an unknown key, or a `compose:` reference that does not resolve or forms a cycle. Only the bindings and the composition are
    drawn here.
-2. **`automation:`.** `layer: loose-fileset`, `pipeline: ci-automation`, `include: pwsh/**`. The GitHub workflow
-   `.github/workflows/ci-automation.yml` triggers on the same projection, and `Test-GitHubWorkflowTriggerGlob` checks that it does.
+2. **`pwsh:`.** `layer: loose-fileset`, `pipeline: ci-pwsh`, `include: pwsh/**`. The GitHub workflow `.github/workflows/ci-pwsh.yml`
+   triggers on the same projection, and `Test-GitHubWorkflowTriggerGlob` checks that it does.
 3. **`infrastructure:`.** `layer: loose-fileset`, `pipeline: ci-infrastructure`, a `verify:` scope of `Catzc.Azure.Templates` at level 2,
    and `include: infrastructure/**`.
 4. **`nova:` · `apex:` · `flux:` · `shared:`.** Each has `layer: deployable-unit`, `compose: [template-azure-subscription-foundation]`,
@@ -46,7 +46,7 @@ deployable-units bind the CD pipelines, and the base unit they compose binds non
   (ADR-DSGN-TRACK-DEPLOYABLEUNIT).
 
 Besides the gate against trigger drift, `Test-GlobSetTriggerCoverage` and `Register-AdoBuildValidation` also read the `pipeline:` field. The
-loose-filesets `templates`, `markdown-scope` and `repository` carry no `pipeline:`, and `ci-automation-expected-failures.yaml` triggers on
+loose-filesets `templates`, `markdown-scope` and `repository` carry no `pipeline:`, and `ci-pwsh-expected-failures.yaml` triggers on
 `pwsh/**` without any globset binding it.
 
 ## Where the code and the ADR differ

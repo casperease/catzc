@@ -27,8 +27,8 @@ Around the header function sit the parts its proofs rest on: the step template t
 
 ## Walkthrough
 
-1. **pipeline yaml.** Most calls start here. A pipeline (`ci-automation`, `ci-infrastructure`, `cd-shared`, `cd-customer` and the
-   `deploy-unit` stage) runs a catzc command as a step.
+1. **pipeline yaml.** Most calls start here. A pipeline (`ci-pwsh`, `ci-infrastructure`, `cd-shared`, `cd-customer` and the `deploy-unit`
+   stage) runs a catzc command as a step.
 2. **invoke-automation.yaml.** Every such step goes through this template, which runs the command in `Invoke-AdoScript.ps1` in one of three
    modes (plain PowerShell, az CLI or Azure PowerShell). When the step sets `ExposeAccessToken`, the template maps `SYSTEM_ACCESSTOKEN` into
    it; that mapping is the only reason the pipeline token exists.

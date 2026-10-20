@@ -34,12 +34,12 @@ include minus exclude, evaluated against `git ls-files`.
 
 ## comment:2
 
-Above `automation:`, written with `#`.
+Above `pwsh:`, written with `#`.
 
 ```text
-The automation set (the pwsh track) — the module system under pwsh/. A loose-fileset
+The pwsh set (the pwsh track) — the module system under pwsh/. A loose-fileset
 ([ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-everysethaslayer)):
-a cross-cutting check surface with a demonstrated use (the ci-automation pipeline binds its marker). It
+a cross-cutting check surface with a demonstrated use (the ci-pwsh pipeline binds its marker). It
 overlaps the derived module sets it spans, which is exactly what the loose-fileset layer is for.
 ```
 

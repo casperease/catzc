@@ -18,28 +18,29 @@ organization identity is configured, not guessed.
 Knowing which organization and tenant the automation targets, and producing an authorization header proven to point at that organization.
 The credential is selected by a fixed precedence — an in-pipeline agent token, then a personal access token, then the Azure CLI session —
 and each source must prove it targets the configured organization before a header is returned. The organization identity lives in `ado.yml`.
-See [dual-authentication](../../adr/pipelines/dual-authentication.md).
+See [dual-authentication](../../adr/ado/dual-authentication.md).
 
 ### responsibility:2 — Azure DevOps REST operations
 
 Acting on the organization through its REST API: issuing an authenticated request, opening a pull request, registering or updating a
-pipeline definition, reading the pipeline definitions the organization already has, and keeping an approval check on every prod-tier
-environment that `environment-approvals.yml` lists. This is the outward, state-changing surface.
+pipeline definition, reading the pipeline definitions the organization already has, keeping an approval check on every prod-tier environment
+that `environment-approvals.yml` lists, and reading an environment's deployment history to prove a commit stood there. This is the outward,
+state-changing surface.
 
 ### responsibility:3 — Pipeline YAML discovery and classification
 
 Reading the repository's own pipeline YAML: finding the YAML files and classifying each as a pipeline or a template (and which kind) from
 its structure and the organization's registration data. This answers "what pipelines and templates does this repo define?" without deploying
 anything. On top of that classification sits the naming-and-placement quality gate — `Test-Pipelines` collects every violation of the layout
-contract ([pipeline-naming-and-placement](../../adr/pipelines/pipeline-naming-and-placement.md)), writes its report, and throws once listing
-them all, offline; an L1 integrity test runs it over the real `pipelines/` tree.
+contract ([pipeline-naming-and-placement](../../adr/ado/pipeline-naming-and-placement.md)), writes its report, and throws once listing them
+all, offline; an L1 integrity test runs it over the real `pipelines/` tree.
 
 ### responsibility:4 — Pipeline runtime bridge
 
 The thin interface a job uses while it is running inside a pipeline: setting an output variable through the validated wrapper (never a raw
 logging command), normalising a command string handed in by the YAML layer, and emitting an environment diagnostic. These are no-ops or
 pass-through's outside a pipeline. The environment diagnostic prints the environment variables named in `pipeline-env.yml`. See
-[pipeline-variables](../../adr/pipelines/pipeline-variables.md).
+[pipeline-variables](../../adr/ado/pipeline-variables.md).
 
 ## What the module does
 
@@ -70,6 +71,7 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                                               | `Register-AdoPipeline`           |
 |                                                               | `Get-AdoPipelineDefinitions`     |
 |                                                               | `Sync-AdoEnvironmentApprovals`   |
+|                                                               | `Assert-AdoDeploymentHistory`    |
 | config                                                        | `environment-approvals.yml`      |
 | responsibility:3 — Pipeline YAML discovery and classification | `Get-AdoYamlFiles`               |
 |                                                               | `Get-AdoYamlInventory`           |

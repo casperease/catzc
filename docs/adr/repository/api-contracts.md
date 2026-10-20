@@ -170,11 +170,11 @@ contracts/
   catzc/                                              # the unit: the bundle
     0.0.0/                                            # the mutable draft: the bundle's next release
       Catzc.Tooling.Github/                           # target root .github
-        workflows/ci-automation.yml                   # fragment of .github/workflows/ci-automation.yml: the keys GitHub reads
-        workflows/ci-automation.yml.schema.json       # schema: .github/workflows/ci-automation.yml validates against it
+        workflows/ci-pwsh.yml                         # fragment of .github/workflows/ci-pwsh.yml: the keys GitHub reads
+        workflows/ci-pwsh.yml.schema.json             # schema: .github/workflows/ci-pwsh.yml validates against it
         README.md                                     # presence of .github/README.md, the page GitHub renders
       Catzc.Azure.DevOps/                             # target root .ado
-        pipelines/ci-automation.yaml                  # fragment of .ado/pipelines/ci-automation.yaml: the keys Azure Pipelines reads
+        pipelines/ci-pwsh.yaml                        # fragment of .ado/pipelines/ci-pwsh.yaml: the keys Azure Pipelines reads
         rest/build-queue.sample.json                  # sample payload: the module produces or parses it
       Catzc.Base.Widgets/
         Get-Widget.command.yml                        # command contract: the call interface of Get-Widget

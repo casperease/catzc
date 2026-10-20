@@ -11,7 +11,7 @@ about:
   languages: [pipeline-yaml, powershell]
   modules: []
   files:
-    - .ado/pipelines/ci-automation.yaml
+    - .ado/pipelines/ci-pwsh.yaml
     - .ado/pipelines/steps/invoke-automation.yaml
     - .ado/pipelines/Invoke-AdoScript.ps1
     - importer.ps1
@@ -23,7 +23,7 @@ content:
     - { id: band-template, label: TEMPLATE }
     - { id: band-runner, label: RUNNER }
   glyphs:
-    - { id: f-ci-automation, kind: file, label: ci-automation.yaml, in: band-template }
+    - { id: f-ci-automation, kind: file, label: ci-pwsh.yaml, in: band-template }
     - { id: f-template, kind: file, label: invoke-automation.yaml, in: band-template }
     - { id: g-inline-guard, kind: gate, label: inline guard, in: band-template }
     - { id: x-throw, kind: failure, label: throw, in: band-template }

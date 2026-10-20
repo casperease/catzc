@@ -30,7 +30,7 @@ The globset the workflow should trigger on.
 
 ### parameter `WorkflowPath`
 
-The workflow file, repo-relative (e.g. '.github/workflows/ci-automation.yml') or absolute.
+The workflow file, repo-relative (e.g. '.github/workflows/ci-pwsh.yml') or absolute.
 
 ### parameter `OutputFolder`
 
@@ -47,5 +47,5 @@ Return the gate result { Subject; IssueCount; Issues; ReportPath; GlobSet; Workf
 ### example 1
 
 ```powershell
-Test-GitHubWorkflowTriggerGlob -Name automation -WorkflowPath .github/workflows/ci-automation.yml
+Test-GitHubWorkflowTriggerGlob -Name pwsh -WorkflowPath .github/workflows/ci-pwsh.yml
 ```

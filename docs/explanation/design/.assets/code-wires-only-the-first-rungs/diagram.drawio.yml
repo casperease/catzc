@@ -26,7 +26,7 @@ content:
     - { id: r-stage, kind: runner, label: CD stage CI, in: band-validation }
     - { id: c-verified, kind: commit, label: BVT, in: band-validation }
     - { id: a-level-three, kind: adronly, label: L3 run, in: band-validation }
-    - { id: r-automation, kind: runner, label: ci-automation, in: band-validation }
+    - { id: r-automation, kind: runner, label: ci-pwsh, in: band-validation }
     - { id: r-infrastructure, kind: runner, label: ci-infrastructure, in: band-validation }
     - { id: r-foundation, kind: runner, label: Deploy_Foundation, in: band-deploy }
     - { id: r-discovery, kind: runner, label: Deploy_Discovery, in: band-deploy }

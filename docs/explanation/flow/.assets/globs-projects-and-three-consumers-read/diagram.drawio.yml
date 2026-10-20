@@ -14,7 +14,7 @@ about:
     - pwsh/Catzc.Base.Globs/types/GlobSet.cs
     - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
     - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-    - .github/workflows/ci-automation.yml
+    - .github/workflows/ci-pwsh.yml
     - .ado/pipelines/cd-apex.yaml
 content:
   title: Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it

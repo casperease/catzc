@@ -21,7 +21,7 @@ about:
   modules: [Catzc.Base.QualityGates]
   files:
     - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
-    - .ado/pipelines/ci-automation.yaml
+    - .ado/pipelines/ci-pwsh.yaml
 content:
   title: The CI budget is the only promotion rule a quality gate checks
   kind: explanation

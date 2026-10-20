@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5a9a1b87114c"
+    with_body_sha: "459f38ba5024"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -1332,11 +1332,11 @@ ADR-AUTO-LAYERS-REALISENEVERREDEFINE), or a globset layer (module, fileset).
 - **Defined by:** [ADR-REPO-VOCAB-FAMILYFORMS](repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
-- **Forms:** `automation layer`, `contract layer`, `language layer`, `engine layer`, `importer layer`, `installer layer`, `config layer`,
-  `configuration layer`, `Azure layer`, `tooling layer`, `YAML layer`, `module layer`, `template layer`, `templating layer`, `vendor layer`,
-  `abstraction layer`, `analyzer layer`, `compatibility layer`, `mapping layer`, `serialization layer`, `base layer`, `design layer`,
-  `spelling layer`, `Pester layer`, `pip layer`, `path layer`, `support layer`, `doctrine layer`, `globset layer`, `fileset layer`,
-  `cross layer`, `ADR layer`, `AUTO layer`, `shaping layer`, and the bare `layer`, with its verb forms
+- **Forms:** `contract layer`, `language layer`, `engine layer`, `importer layer`, `installer layer`, `config layer`, `configuration layer`,
+  `Azure layer`, `tooling layer`, `YAML layer`, `module layer`, `template layer`, `templating layer`, `vendor layer`, `abstraction layer`,
+  `analyzer layer`, `compatibility layer`, `mapping layer`, `serialization layer`, `base layer`, `design layer`, `spelling layer`,
+  `Pester layer`, `pip layer`, `path layer`, `support layer`, `doctrine layer`, `globset layer`, `fileset layer`, `cross layer`,
+  `ADR layer`, `AUTO layer`, `shaping layer`, and the bare `layer`, with its verb forms
 - **Contrasts:**
   - [facet](#facet): A facet is one of several parallel views of, or checks on, the same thing; a layer is one level of a stack.
 

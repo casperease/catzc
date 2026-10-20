@@ -43,20 +43,26 @@ function Select-ProtectedTestFile {
     }
 
     # group the run's files by unit, decide per unit, drop the protected units' files
+    $modulesRoot = [System.IO.Path]::Combine((Get-RepositoryRoot), (Get-CatzcModulesFolder))
     $filesByModule = [ordered]@{}
+    $outsideModules = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($file in @($ParallelFiles) + @($GreedyFiles) + @($SerialFiles)) {
         $unit = Get-TestFileModule $file
         if (-not $filesByModule.Contains($unit)) {
             $filesByModule[$unit] = [System.Collections.Generic.List[string]]::new()
         }
         $filesByModule[$unit].Add($file)
+        # a unit with no folder under the modules root is a module of another track (its own tests/ folder)
+        if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($modulesRoot, $unit))) {
+            [void]$outsideModules.Add($unit)
+        }
     }
 
     $hashCache = @{}
     $droppedFiles = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($unit in $filesByModule.Keys) {
         $identity = Get-ModuleProtectionIdentity -Module $unit `
-            -HasIntegrityTests:($integrityModules.Contains($unit)) -HashCache $hashCache
+            -HasIntegrityTests:($integrityModules.Contains($unit)) -OutsideModulesFolder:($outsideModules.Contains($unit)) -HashCache $hashCache
         if (Test-GlobSetProtection -Test $ProtectionKey -Name $unit -Hash $identity) {
             foreach ($file in $filesByModule[$unit]) {
                 [void]$droppedFiles.Add($file)

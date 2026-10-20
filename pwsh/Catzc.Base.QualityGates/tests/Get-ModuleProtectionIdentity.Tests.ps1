@@ -92,21 +92,29 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
     }
 
     It 'widens to the repository-wide set: <why>' -ForEach @(
-        @{ why = 'an unconstrained module'; module = 'Catzc.Unknown'; integrity = $false }
-        @{ why = 'a module with integrity tests'; module = 'Catzc.Base.Alpha'; integrity = $true }
-        @{ why = 'an infra test unit'; module = '.internal'; integrity = $false }
+        @{ why = 'an unconstrained module'; module = 'Catzc.Unknown'; integrity = $false; outside = $false }
+        @{ why = 'a module with integrity tests'; module = 'Catzc.Base.Alpha'; integrity = $true; outside = $false }
+        @{ why = 'an infra test unit'; module = '.internal'; integrity = $false; outside = $false }
+        @{ why = 'a module outside the modules folder'; module = 'Catzc.Widget'; integrity = $false; outside = $true }
     ) {
-        $params = @{ Module = $module; HasIntegrityTests = $integrity }
+        $params = @{ Module = $module; HasIntegrityTests = $integrity; OutsideModulesFolder = $outside }
         $before = InModuleScope Catzc.Base.QualityGates -Parameters $params {
-            param($Module, $HasIntegrityTests)
-            Get-ModuleProtectionIdentity -Module $Module -HasIntegrityTests:$HasIntegrityTests -HashCache @{}
+            param($Module, $HasIntegrityTests, $OutsideModulesFolder)
+            Get-ModuleProtectionIdentity -Module $Module -HasIntegrityTests:$HasIntegrityTests -OutsideModulesFolder:$OutsideModulesFolder -HashCache @{}
         }
         $script:setHashes['repository'] = 'f' * 64
         $after = InModuleScope Catzc.Base.QualityGates -Parameters $params {
-            param($Module, $HasIntegrityTests)
-            Get-ModuleProtectionIdentity -Module $Module -HasIntegrityTests:$HasIntegrityTests -HashCache @{}
+            param($Module, $HasIntegrityTests, $OutsideModulesFolder)
+            Get-ModuleProtectionIdentity -Module $Module -HasIntegrityTests:$HasIntegrityTests -OutsideModulesFolder:$OutsideModulesFolder -HashCache @{}
         }
         $after | Should -Not -Be $before
+    }
+
+    It 'asks no globset of its own for a module outside the modules folder' {
+        InModuleScope Catzc.Base.QualityGates {
+            Get-ModuleProtectionIdentity -Module 'Catzc.Widget' -OutsideModulesFolder -HashCache @{}
+        } | Out-Null
+        Should -Invoke Get-ModuleGlobSet -ModuleName Catzc.Base.QualityGates -Exactly -Times 0 -ParameterFilter { $Name -contains 'catzc-widget' }
     }
 
     It 'does not widen a constrained, logic-only module' {

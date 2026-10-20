@@ -1,8 +1,8 @@
 globsets:
-  automation:
+  pwsh:
     description: The pwsh track - the module system under pwsh/.
     layer: loose-fileset
-    pipeline: ci-automation
+    pipeline: ci-pwsh
     include:
       - pwsh/**
 

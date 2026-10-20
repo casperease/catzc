@@ -1,6 +1,6 @@
 branch: main
 validations:
-  - globset: automation
+  - globset: pwsh
   - globset: infrastructure
   - globset: shared
   - globset: nova

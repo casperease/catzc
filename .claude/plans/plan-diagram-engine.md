@@ -156,7 +156,10 @@ pictures unchecked.
       png, and the supports-drift check holds each one's Supports line against the yml's codes; ADR-REPO-SLIDES-ONEBUILDCOMMAND says so;
       `gallery_pdf.py` prints the yml's `description:` instead of the deleted describe page (check: a second article embedding one of the
       two ado diagrams builds clean; Test-Adr clean). The two ado folders already hold only `diagram.drawio.yml` and the png.
-- [ ] Rework the data of every existing diagram's minimaps on the new definition (check: re-render one folder, review, then the rest).
+- [ ] Rework the data of every existing diagram's minimaps on the new definition (check: re-render one folder, review, then the rest). The
+      minimap `grid.md`/`tree.md` of `commit-lifecycle-states`, `10-commits-story` and `state-changes` still name `ci-automation` and link
+      the paths that do not exist (`pipelines/ci-automation.yaml`, `docs/references/pipelines/*`); P6 renamed the pipeline to `ci-pwsh` on
+      2026-10-20, and this re-render carries the new names (check: `git grep ci-automation -- docs/explanation` finds nothing).
 - [ ] Retire `.claude/agents/drawio-png.md`, `.claude/agents/write-drawio-files.md` and `.claude/skills/drawio-model-edit/`, and add one
       yml-editing agent (edits `content:`, runs put in the background under the safeguard, reports the warnings) and one renderer skill
       (put, get, `-FromDrawing`, `-Theme`, `-Stale`); the registry entries in `pwsh/Catzc.Base.Docs/configs/agents.yml` and

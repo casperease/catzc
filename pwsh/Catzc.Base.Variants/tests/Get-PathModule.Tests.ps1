@@ -58,7 +58,7 @@ Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic
         @{ Path = '.claude/agents/catzc-worker.md'; Name = '.claude'; Type = 'settings' }
         @{ Path = '.github/README.md'; Name = '.github'; Type = 'settings' }
         @{ Path = '.cspell/adr.txt'; Name = '.cspell'; Type = 'settings' }
-        @{ Path = '.github/workflows/ci-automation.yml'; Name = 'workflows'; Type = 'pipeline' }
+        @{ Path = '.github/workflows/ci-pwsh.yml'; Name = 'workflows'; Type = 'pipeline' }
         @{ Path = '.ado/pipelines/cd-apex.yaml'; Name = 'pipelines'; Type = 'pipeline' }
         @{ Path = 'python/tests/catzc-base-repository/test_repository.py'; Name = 'python'; Type = 'python' }
         @{ Path = 'go/tests/catzc-base-repository/repository_test.go'; Name = 'go'; Type = 'go' }

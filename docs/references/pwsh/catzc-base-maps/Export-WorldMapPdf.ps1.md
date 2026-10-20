@@ -64,5 +64,5 @@ Export-WorldMapPdf -View Grid -Adr 'ADR-DSGN-TRACK-ONETECHSTACK'
 ### example 3
 
 ```powershell
-Export-WorldMapPdf -Path 'pipelines/ci-automation.yaml'
+Export-WorldMapPdf -Path '.ado/pipelines/ci-pwsh.yaml'
 ```

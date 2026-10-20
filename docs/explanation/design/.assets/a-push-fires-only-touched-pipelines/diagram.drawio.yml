@@ -23,7 +23,7 @@ content:
     - { id: s-powershell, kind: set, label: "pwsh/**", in: band-change }
     - { id: s-infrastructure, kind: set, label: "infrastructure/**", in: band-change }
     - { id: s-units, kind: set, label: nova · apex · flux · shared, in: band-units }
-    - { id: r-automation, kind: runner, label: ci-automation, in: band-pipelines }
+    - { id: r-automation, kind: runner, label: ci-pwsh, in: band-pipelines }
     - { id: r-infrastructure, kind: runner, label: ci-infrastructure, in: band-pipelines }
     - { id: r-unit, kind: runner, label: "cd-<unit>", in: band-pipelines }
     - { id: g-drift, kind: gate, label: Test-AdoPipelineTriggerGlob, in: band-drift }

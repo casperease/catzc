@@ -1,4 +1,4 @@
-# .github/workflows/ci-automation.yml
+# .github/workflows/ci-pwsh.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `on:`, written with `#`.
 
 ```text
-Trigger = the 'automation' globset projected into GitHub-native path filters (Get-GlobSetTrigger,
+Trigger = the 'pwsh' globset projected into GitHub-native path filters (Get-GlobSetTrigger,
 [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)): the track is its own root folder (pwsh/**), so this fires exactly — and
 only starts at
 all — on a real change to the module system. No committed marker to go stale across a squash merge.

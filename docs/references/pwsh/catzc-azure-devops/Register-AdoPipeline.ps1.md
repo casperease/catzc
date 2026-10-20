@@ -22,7 +22,7 @@ Display name for the pipeline in Azure DevOps.
 
 ### parameter `YamlPath`
 
-Repository-relative path to the YAML file (e.g. 'pipelines/ci-automation.yaml').
+Repository-relative path to the YAML file (e.g. '.ado/pipelines/ci-pwsh.yaml').
 
 ### parameter `GitHubRepository`
 
@@ -53,17 +53,17 @@ Pipeline folder path in ADO. Defaults to root ('\').
 ### example 1
 
 ```powershell
-Register-AdoPipeline 'CI' 'pipelines/ci-automation.yaml'
+Register-AdoPipeline 'CI' '.ado/pipelines/ci-pwsh.yaml'
 ```
 
 ### example 2
 
 ```powershell
-Register-AdoPipeline 'CI' 'pipelines/ci-automation.yaml' -GitHubRepository 'https://github.com/casperease/catzc' -ConnectionId $id
+Register-AdoPipeline 'CI' '.ado/pipelines/ci-pwsh.yaml' -GitHubRepository 'https://github.com/casperease/catzc' -ConnectionId $id
 ```
 
 ### example 3
 
 ```powershell
-Register-AdoPipeline 'CI Expected Failures' 'pipelines/ci-automation-expected-failures.yaml' -FolderPath '\CI'
+Register-AdoPipeline 'CI Expected Failures' '.ado/pipelines/ci-pwsh-expected-failures.yaml' -FolderPath '\CI'
 ```
