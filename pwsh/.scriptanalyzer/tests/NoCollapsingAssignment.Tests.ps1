@@ -16,7 +16,7 @@ Describe 'Measure-NoCollapsingAssignment' -Tag 'L0', 'logic', 'ADR-PWSH-ERROR-ST
     It 'flags a counted variable assigned a statement: <Case>' -ForEach @(
         @{ Case = 'if'; Code = '$widgets = if ($ready) { @(Get-Widget) } else { @() }; $widgets.Count' }
         @{ Case = 'try'; Code = '$widgets = try { @(Get-Widget) } catch { @() }; if ($widgets.Count -gt 0) { }' }
-        @{ Case = 'switch'; Code = '$widgets = switch ($kind) { gadget { @(Get-Gadget) } }; $widgets.Length' }
+        @{ Case = 'switch'; Code = '$widgets = switch ($kind) { gadget { @(Get-Gadget) } }; $widgets.Count' }
     ) {
         $records = @(Test-Collapse $Code)
         $records | Should -HaveCount 1

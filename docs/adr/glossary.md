@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d38d0070d047
+    with_body_sha: "1fdefde2c1fa"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -1351,6 +1351,10 @@ A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its 
     ADRs.
   - [responsibility domain](#responsibility-domain): A responsibility domain is what one repository is accountable for; an ADR domain groups
     ADRs.
+
+| Avoid            | Say instead              |
+| ---------------- | ------------------------ |
+| `problem domain` | the problem catzc solves |
 
 ### domain rules
 

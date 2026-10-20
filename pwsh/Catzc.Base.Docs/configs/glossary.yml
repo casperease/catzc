@@ -84,6 +84,8 @@ concepts:
         optimisable,
         owning,
       ]
+    avoid:
+      - { phrase: problem domain, say: the problem catzc solves }
     contrasts:
       language zone: A language zone is one of the design, test, and live registers of identities; an ADR domain groups ADRs.
       responsibility domain: A responsibility domain is what one repository is accountable for; an ADR domain groups ADRs.

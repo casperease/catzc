@@ -33,3 +33,5 @@ metadata:
    their `## Rules` section first.
 3. Cite a rule as `ADR-X#n` only, the code and number of a `### Rule ADR-X:n` heading actually read; a finding without a rule it rests on is
    not a finding.
+4. A rule that says "never" or "only" is checked against the commands that do the thing (a search for its verbs and nouns) before it is
+   reported clean.

@@ -40,7 +40,15 @@ function Measure-NoCollapsingAssignment {
             $node.Expression -is [System.Management.Automation.Language.VariableExpressionAst] -and
             $node.Expression.VariablePath.UserPath -eq $name -and
             $node.Member -is [System.Management.Automation.Language.StringConstantExpressionAst] -and
-            $node.Member.Value -in 'Count', 'Length'
+            $node.Member.Value -eq 'Count'
+        }
+        $isRewrapped = {
+            param($node)
+            $node -is [System.Management.Automation.Language.AssignmentStatementAst] -and
+            $node.Left -is [System.Management.Automation.Language.VariableExpressionAst] -and
+            $node.Left.VariablePath.UserPath -eq $name -and
+            $node.Right -is [System.Management.Automation.Language.CommandExpressionAst] -and
+            $node.Right.Expression -is [System.Management.Automation.Language.ArrayExpressionAst]
         }
         $isArrayTyped = {
             param($node)
@@ -49,7 +57,8 @@ function Measure-NoCollapsingAssignment {
             $node.Child.VariablePath.UserPath -eq $name -and
             $node.Type.TypeName.IsArray
         }
-        if ($ScriptBlockAst.Find($isCounted, $true) -and -not $ScriptBlockAst.Find($isArrayTyped, $true)) {
+        if ($ScriptBlockAst.Find($isCounted, $true) -and -not $ScriptBlockAst.Find($isArrayTyped, $true) -and
+            -not $ScriptBlockAst.Find($isRewrapped, $true)) {
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
                     Message  = "'`$$name' is assigned an $($assignment.Right.GetType().Name -replace 'StatementAst$', '') statement and later counted; an empty or single result collapses to `$null or the item, and .Count throws under strict mode. Declare '[object[]] `$$name = @()' first and assign '@(...)' in each branch (ADR-PWSH-ERROR-STRICTCLEAN)."
                     Extent   = $assignment.Extent
