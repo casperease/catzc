@@ -18,6 +18,7 @@ usage (repo root, background):
   uv run --project python python python/Catzc.Diagrams/declaration.py get <diagram folder>
   uv run --project python python python/Catzc.Diagrams/declaration.py check <diagram folder>...
   uv run --project python python python/Catzc.Diagrams/declaration.py sync <diagram folder>
+  uv run --project python python python/Catzc.Diagrams/declaration.py tidy <diagram folder>
 
 A pair whose yml and png both moved from the pair committed at git HEAD, and now disagree, is a conflict: check names its cells, the bulk
 put skips it, and only put or get by name, the author's pick of the side that wins, clears it. Nothing merges.
@@ -37,6 +38,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import NoReturn
 
+import minimap_contract
 import minimaps
 import yaml
 from drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, paint, plain, render, style_map
@@ -48,6 +50,9 @@ SLIDE = "diagram.drawio.png"
 SOURCE = "diagram.drawio.yml"  # the diagram's one source: its description, its content and the layout of the cells off the grid
 FLOWS = ("left-to-right", "top-to-bottom")
 KINDS = tuple(DEFAULTS["kinds"])
+# The cells put derives from the kit and the registries, never from the author: get skips them, and a change to them is stale.
+DERIVED = ("sidebar-bg", "legend", "lens-badge", "mapkey")
+DERIVED_PREFIXES = ("lg-", "mk-", "minimap-")
 CONTENT_KEYS = ("title", "kind", "flow", "relation", "theme", "bands", "spans", "groups", "glyphs", "edges", "markers", "chips", "legend", "minimaps")
 PAGE = {"x": 20, "width": 1260, "title_y": 14, "subtitle_y": 44, "span_y": 84, "band_y": 108, "min_height": 640}
 GAP, PAD, LABEL_ROW, ROW_GAP, COL_GAP = 20, 20, 40, 36, 40
@@ -185,14 +190,16 @@ def save(folder, declaration):
         held = normalise(yaml.safe_load(source.read_text(encoding="utf-8")) or {}, where=str(source))
         if not declaration.get("description"):
             declaration = {**declaration, "description": held["description"]}
-        # The drawing carries only the ADR codes of `about:` (its subtitle); the rest of the subject is kept from the source.
+        # The drawing carries the ADR codes of `about:` in its subtitle; a drawing without them keeps the source's.
         about = {"lens": declaration["about"]["lens"], **{key: declaration["about"][key] or held["about"][key] for key in minimaps.ABOUT_KEYS}}
         declaration = {**declaration, "about": about}
     source.write_text(dump(declaration), encoding="utf-8")
 
 
 TOP_KEYS = ("description", "about", "content", "layout")
-ABOUT_KEYS = ("adrs", "lens", "tracks", "languages", "modules", "files")  # the lens, then the subject's lists (minimaps.ABOUT_KEYS)
+ABOUT_KEYS = ("adrs", "lens")  # the subject's ADR codes and the lens it is drawn through
+# The subject's former lists: read and ignored, never written back, so a get or a save drops them (the minimaps' rework).
+RETIRED_ABOUT_KEYS = ("tracks", "languages", "modules", "files")
 
 
 def normalise(raw, where="the declaration"):
@@ -213,7 +220,7 @@ def normalise(raw, where="the declaration"):
     if not isinstance(about_raw, dict):
         raise DeclarationError(f"{where}: about is a map of {', '.join(ABOUT_KEYS)}")
     for key in about_raw:
-        if key not in ABOUT_KEYS:
+        if key not in ABOUT_KEYS and key not in RETIRED_ABOUT_KEYS:
             choices(f"{where}: about key", key, ABOUT_KEYS)
     lens = about_raw.get("lens", "meta")
     if lens not in DEFAULTS["lenses"]:
@@ -343,19 +350,20 @@ def normalise(raw, where="the declaration"):
     out["legend"] = legend
     # The one relationship the flow edges mean on this diagram, named in the legend as `flow: <relation>`.
     out["relation"] = str(content.get("relation", "") or "").strip()
-    pools = DEFAULTS["minimaps"]
-    allowed = tuple(str(pools["ids"]).replace(",", " ").split())
-    declared = content.get("minimaps") or str(pools[f"{kind}_default"]).replace(",", " ").split()
-    if len(declared) != 3:
+    # The three minimaps: the ones the declaration names, or, when it names none, the kind's defaults maps.yml declares, which reach
+    # the kit as the folder's minimap data (with_data).
+    allowed = tuple(str(DEFAULTS["minimaps"]["ids"]).replace(",", " ").split())
+    declared = content.get("minimaps") or []
+    if declared and len(declared) != 3:
         raise DeclarationError(f"{where}: minimaps names exactly three views of: {', '.join(allowed)}; it names {len(declared)}")
     for view in declared:
         if view not in allowed:
             choices(f"{where}: minimap view", view, allowed)
-    if len(set(declared)) != 3:
+    if declared and len(set(declared)) != 3:
         raise DeclarationError(f"{where}: the three minimaps show three different views")
     out["minimaps"] = [str(v) for v in declared]
-    # What the diagram is about: the lens it is drawn through and the subject every minimap is computed from, each name checked
-    # against its registry.
+    # What the diagram is about: the lens it is drawn through and the ADR codes every minimap is computed from, each checked against
+    # the ADR registry.
     about = {"lens": lens, **{key: [str(v) for v in (about_raw.get(key) or [])] for key in minimaps.ABOUT_KEYS}}
     for problem in minimaps.problems(about):
         raise DeclarationError(f"{where}: {problem}")
@@ -390,6 +398,14 @@ def entry(item, keys, where, what, optional=None):
     for key, default in (optional or {}).items():
         out[key] = str(item.get(key, default))
     return out
+
+
+def brief(phrase):
+    """A legend phrase as the legend prints it: the name alone, without the explanation in parentheses or after a colon; a flow keeps
+    its relation and a commit its state, which are the names."""
+    if phrase.startswith(("flow: ", "commit: ")):
+        return phrase.split(" (")[0] if not phrase.startswith("commit: ") else phrase
+    return phrase.split(" (")[0].split(":")[0].strip()
 
 
 def legend_phrases():
@@ -629,7 +645,7 @@ def place(declaration):
         col, row = divmod(i, rows)
         sx, sy = PAGE["x"] + 16 + col * col_w, legend_y + 30 + row * 28
         cells.extend(swatch(eid, sx, sy))
-        cells.append(cell(f"lg-{eid}-t", phrase, TEXT, sx + 48, sy - 1, col_w - 56, 20))
+        cells.append(cell(f"lg-{eid}-t", brief(phrase), TEXT, sx + 48, sy - 1, col_w - 56, 20))
     for i, rule in enumerate(keyed):
         col, row = divmod(i, key_rows)
         number = content["adrs"].index(rule) + 1
@@ -638,8 +654,12 @@ def place(declaration):
     # the subtitle alone.
     height = max(PAGE["min_height"], legend_y + legend_h + GAP, MAPKEY_BOTTOM)
     cells.insert(0, cell("sidebar-bg", "", SIDEBAR_BG, SIDEBAR_X - 12, 4, SIDEBAR_W + 24, height - 8))
-    for (cid, y, h), minimap in zip(SIDEBAR, content["minimaps"]):
-        image = minimaps.picture(minimap, declaration.get("about") or {k: [] for k in minimaps.ABOUT_KEYS}, SIDEBAR_W, h, content["theme"])
+    # Each minimap is drawn from the data Catzc.Base.Maps computed for the folder (with_data); a declaration put without its folder
+    # draws the declared minimaps empty.
+    data = declaration.get("minimap_data") or {}
+    for (cid, y, h), minimap in zip(SIDEBAR, list(data) or content["minimaps"]):
+        drawn = data.get(minimap) or {"id": minimap, "axes": [], "cells": [], "lit": []}
+        image = minimaps.picture_from(drawn, SIDEBAR_W, h, content["theme"])
         cells.append(cell(cid, minimap, MINIMAP + f"noLabel=1;image={image};", SIDEBAR_X, y, SIDEBAR_W, h))
     # The map key: the two marks every minimap shares.
     cells.append(cell("mapkey", "<b>Map key</b>", LEGEND, SIDEBAR_X, MAPKEY_Y, SIDEBAR_W, 82))
@@ -744,7 +764,7 @@ def put_png(folder, declaration, theme=None):
     """put, then the raster: the folder's diagram.drawio.png with the model embedded, drawn by drawio_png. The default theme's
     render is the folder's own png; any other theme renders on demand to out/drawio/themes/<theme>/<folder name>/."""
     theme = theme or declaration["content"]["theme"]
-    model = put(declaration, theme).strip()
+    model = put(with_data(folder, declaration), theme).strip()
     img = render(ET.fromstring(model), page="model").convert("RGB")  # the model's own page: its theme's
     info = PngInfo()
     info.add_text("mxfile", encode(model, declaration["content"]["lens"]))
@@ -806,11 +826,10 @@ def get(model, kind=None):
     layout = {}
     unnamed = []
     bands, groups, glyphs, bars, labels, markers, chips = [], [], [], [], [], [], []
-    derived = ("sidebar-bg", "legend", "lens-badge", "mapkey")
     lens = plain(cells["lens-badge"].get("value")).lower() if "lens-badge" in cells else lens
     for cid, c in cells.items():
         style, value = c.get("style") or "", plain(c.get("value"))
-        if c.get("edge") == "1" or cid in derived or cid.startswith(("lg-", "mk-", "minimap-")) or cid.endswith("-tag"):
+        if c.get("edge") == "1" or cid in DERIVED or cid.startswith(DERIVED_PREFIXES) or cid.endswith("-tag"):
             continue
         if cid == "title":
             content["title"] = value
@@ -978,11 +997,30 @@ def get(model, kind=None):
     return declaration
 
 
+def minimap_data(folder):
+    """A folder's three minimaps as Catzc.Base.Maps computed them, in order: out/minimaps/<folder>/minimaps.json names the ids and
+    <id>.json holds each, checked against the minimap contract. Missing data fails, naming the commands that write it."""
+    folder = Path(folder).resolve()
+    repo = KIT.parents[1]
+    rel = folder.relative_to(repo).as_posix() if folder.is_relative_to(repo) else folder.name
+    root = repo / "out" / "minimaps" / rel
+    index = root / "minimaps.json"
+    if not index.is_file():
+        raise DeclarationError(f"{rel}: no minimap data in out/minimaps/{rel}; Build-Diagrams or Test-Diagrams computes it (Write-DiagramMinimapData)")
+    return {view: minimap_contract.load_minimap(root / f"{view}.json") for view in json.loads(index.read_text(encoding="utf-8"))}
+
+
+def with_data(folder, declaration):
+    """The declaration with its folder's minimap data, which put draws the sidebar from."""
+    return {**declaration, "minimap_data": minimap_data(folder)}
+
+
 def drift(folder):
-    """How a folder's png differs from put of its yml: the drawn cells that differ, and apart from them the minimaps, which change
-    when a registry they read changes and so are stale rather than drifted. Both empty when the png is what put would write."""
-    changed = changed_cells(model_of(folder), put(load(folder)).strip())
-    stale = [i for i in changed if i.startswith("minimap-")]
+    """How a folder's png differs from put of its yml: the drawn cells that differ, and apart from them the cells the kit derives and
+    get never reads back (the minimaps, the legend, the map key and the sidebar), which change when a registry or the kit changes and
+    so are stale rather than drifted. Both empty when the png is what put would write."""
+    changed = changed_cells(model_of(folder), put(with_data(folder, load(folder))).strip())
+    stale = [i for i in changed if i in DERIVED or i.startswith(DERIVED_PREFIXES)]
     return [i for i in changed if i not in stale], stale
 
 
@@ -1027,7 +1065,7 @@ def conflict(folder, base):
     unmoved = yaml.safe_load((Path(folder) / SOURCE).read_text(encoding="utf-8")) == yaml.safe_load(base[0])
     if unmoved or model == base[1] or get(model, kind_of(folder))["content"] == source["content"]:
         return []
-    return changed_cells(model, put(source).strip())
+    return changed_cells(model, put(with_data(folder, source)).strip())
 
 
 def sync(folder, base):
@@ -1055,6 +1093,11 @@ def main():
                 print(json.dumps({"folder": folder, "conflict": both, "drift": cells, "stale": stale}))
             except (DeclarationError, OSError, ValueError) as error:
                 print(json.dumps({"folder": folder, "error": str(error)}))
+        return
+    if len(args) == 2 and args[0] == "tidy":  # the source re-saved through the kit: normalised, the retired about keys dropped
+        folder = Path(args[1])
+        save(folder, load(folder))
+        print(f"tidy {folder / SOURCE}")
         return
     if len(args) == 2 and args[0] == "sync":  # one JSON line: the directions run, or the conflict that stopped them
         try:

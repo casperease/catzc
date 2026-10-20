@@ -177,9 +177,7 @@ The repository treats security as a property of every change
 checks hold part of it. Every parameters file a build renders must satisfy the template's parameter contract, and a `secureString` parameter
 must be a Key Vault reference, never a literal
 ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). A config address reaches only
-version-controlled config, so it never carries a secret
-([ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY](../../configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly)).
-Every GUID in tracked text is a registered entry in the managed-GUID registry
+version-controlled config, so it never carries a secret. Every GUID in tracked text is a registered entry in the managed-GUID registry
 ([ADR-AUTO-GUIDS-EVERYGUIDREGISTERED](../../automation/managed-guids.md#rule-adr-auto-guids-everyguidregistered)), so a tenant or
 subscription id cannot enter the tree unreviewed; a GUID is an identifier, not a credential, so this is not secret scanning. Logic tests
 never name a live identity
@@ -473,9 +471,8 @@ treated as compromised.
 
 The repository holds no secret. A `@secure()` parameter takes a Key Vault `reference`, and the parameter contract rejects a literal for it
 ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)); a config address reaches only committed
-config, so it cannot name a secret ([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress),
-[ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY](../../configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly)).
-In automation, a secret travels as a protected value and reaches a child process only through one seam that masks it
+config, so it cannot name a secret ([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress)). In
+automation, a secret travels as a protected value and reaches a child process only through one seam that masks it
 ([ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS](../../automation/environment-variables.md#rule-adr-auto-envvar-secrettochildprocess)). Managed
 identities and Entra ID groups remove most credentials before they exist (SE:05).
 

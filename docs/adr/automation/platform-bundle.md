@@ -104,7 +104,7 @@ the two mechanisms that make the platform relocatable without disturbing the sou
 living importer.
 
 This ADR is the bundle in words that hold for any engine. How it is realised in pwsh — the merged module form, the package module, and the
-build's entry script — is [dynamic-module-manifests](pwsh/dynamic-module-manifests.md) and [pwsh-engine](pwsh/pwsh-engine.md).
+build's entry script — is the pwsh twin's to say.
 
 ## Decision
 
@@ -120,10 +120,10 @@ root, `out/pwsh/built/<bundle>/Catzc/<version>/` by default, so two bundles neve
 own module of the same name**: same public functions, same private functions, same configs and assets, its own module state
 ([run-modes](../design/run-modes.md)). Only its on-disk form differs: one manifest and one merged function file instead of a folder of
 function files. It is small (the `tests/` surface is dropped), fast (a few dozen files to open, no compile, no discovery drift), and
-sharable (one versioned folder). It is the platform-level form of the build-once artifact; the related flow decision is
-[cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md). It is distinct from the repository it is built from: an
-install is not a repository, has no `.git`, and ships no `infrastructure/`, `.ado/`, or `.cspell/` — the functions that operate on the
-source tree assert that they run there (`Assert-SourceTree`) and say so in a build, and a trimmed profile can exclude them.
+sharable (one versioned folder). It is the platform-level form of the build-once artifact; the delivery flow keys its promotion on the same
+artifact. It is distinct from the repository it is built from: an install is not a repository, has no `.git`, and ships no
+`infrastructure/`, `.ado/`, or `.cspell/` — the functions that operate on the source tree assert that they run there (`Assert-SourceTree`)
+and say so in a build, and a trimmed profile can exclude them.
 
 ### The two roots
 
@@ -161,8 +161,7 @@ selection: the selected modules' `types/*.cs` travel in their folders and the re
 guard re-verifies the same hash in every build, and a session that switches between modes always finds the same type identities loaded. The
 DLL is copied from the source tree's `.compiled/` when its hash matches, and compiled only when it is missing. The vendored dependencies are
 copied verbatim from `.vendor/` per `vendor_policy`, and are never re-downloaded or republished. Default-deny keeps the verification surface
-out: no `tests/` tree travels. The exact form of the payload in pwsh is
-[dynamic-module-manifests](pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-bundlecarriesmanifests).
+out: no `tests/` tree travels. The exact form of the payload in pwsh is the pwsh twin's to say.
 
 ### The verified artifact
 
@@ -175,9 +174,8 @@ untracked files git does not ignore ship too, because they are the work in progr
 a pipeline refuses a dirty tree, so a released bundle is always exactly its commit. The type sources and the DLL follow the type set the
 DLL's name proves, which on a clean tree is the commit's. `Build-Modules` writes its generated output canonically — UTF-8 without BOM, LF,
 one trailing newline, through `Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included, because it is the same
-copied file — and computes a durable SHA over the whole payload with the same recipe the globsets use (the related flow rule is
-[ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity)). The same commit therefore
-hashes the same on every OS, which the CI pipeline proves by building on each and comparing.
+copied file — and computes a durable SHA over the whole payload with the same recipe the globsets use, the durable SHA. The same commit
+therefore hashes the same on every OS, which the CI pipeline proves by building on each and comparing.
 
 A partial bundle is only as good as its closure. `dependencies.yml` leaves a module it does not list unconstrained, so the build does not
 take the declared closure on trust: before it writes anything it walks the code of the selected modules and fails, with the full list, on a
@@ -218,22 +216,19 @@ obviously-unreal number that reads as "built locally" — and `Build-Modules` sa
 warning, which terminates in a catzc session (ADR-AUTO-BUNDLE-BUNDLEISSESSION). A pipeline export gets a real version, and that version is
 **calculated, not chosen**: `MAJOR.MINOR` is the bundle's own reviewed `version` in `exporter.yml` — the repository is a mono repo, so each
 bundle has its own version line and no bundle's version moves another's — and `PATCH` is the first-parent commit count of the built commit
-(`git rev-list --first-parent --count HEAD`, which needs the full history the pipelines fetch,
-[durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-changecomputedfromgit)). The same commit therefore always gets the
-same version — build once, version once
-([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-separatepipelinekinds)) — and versions
-increase monotonically along `main` without a counter to store. The placeholder never leaves a devbox: a pipeline build that names it
-explicitly is rejected. Every bundle, with its profile, vendor policy, and version line, is declared in one `exporter.yml` read through
-`Get-Config` — the single place the repository states how it wants to export itself, validated on load and substitutable by a fixture in
-tests.
+(`git rev-list --first-parent --count HEAD`, which needs the full history the pipelines fetch). The same commit therefore always gets the
+same version — build once, version once — and versions increase monotonically along `main` without a counter to store. The placeholder never
+leaves a devbox: a pipeline build that names it explicitly is rejected. Every bundle, with its profile, vendor policy, and version line, is
+declared in one `exporter.yml` read through `Get-Config` — the single place the repository states how it wants to export itself, validated
+on load and substitutable by a fixture in tests.
 
 ### A session, not a library
 
 Loading a bundle establishes a catzc session, matching the mono importer: errors and warnings terminate, because the platform's functions
 are written to fail fast and assume that environment. A bundle is therefore a way to run catzc, not a passive library imported beside other
 code. It confines its writes to the working root's `out/`, so an install never mutates the tree it was built from. The one direction beyond
-disk — publishing the package to GitHub or a public feed — is a deliberate, manual release act governed by its own workflow
-([github-release](../github/github-release.md)), never a side effect of building or loading.
+disk — publishing the package to GitHub or a public feed — is a deliberate, manual release act governed by its own workflow, never a side
+effect of building or loading.
 
 ### How this is enforced
 
@@ -272,17 +267,8 @@ disk — publishing the package to GitHub or a public feed — is a deliberate, 
 
 - [run-modes](../design/run-modes.md) — source mode and build mode; the bundle is build mode's code root.
 - [one-living-version](../principles/one-living-version.md) — why the bundle reuses the one importer instead of forking a loader.
-- [self-service](../design/self-service.md), [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the
-  content-addressed artifact and build-once/deploy-many this specialises.
+- [self-service](../design/self-service.md) — the content-addressed artifact and build-once/deploy-many this specialises.
 - [internal-asset-dependencies](internal-asset-dependencies.md) — the asset inventory the build's presence check verifies.
 - [module-aspects](../design/module-aspects.md) — the live/tests aspect the runtime payload is deliberately broader than.
-- [durable-sha-globs](../flow/durable-sha-globs.md) — the durable-SHA identity the content hash reuses.
 - [native-csharp-types](BCL/native-csharp-types.md) — the combined assembly and the type load order the bundle mode preserves.
-- [dynamic-module-manifests](pwsh/dynamic-module-manifests.md), [pwsh-engine](pwsh/pwsh-engine.md) — the bundle in pwsh: the merged module
-  form, the package module, and the build's entry.
-- [use-ps1-not-psm1](pwsh/use-ps1-not-psm1.md), [one-function-per-file](pwsh/one-function-per-file.md) — the source rules the merged
-  function file is generated from.
 - [environment-variables](environment-variables.md) — the well-known-anchor rule `CatzcModulesRoot` follows.
-- [github-release](../github/github-release.md) — the release workflow that publishes the build under its calculated version.
-- [conventional-folders](../repository/conventional-folders.md), [dedicated-output-directory](../repository/dedicated-output-directory.md) —
-  the `out/` and `.vendor/` conventions the artifact uses.

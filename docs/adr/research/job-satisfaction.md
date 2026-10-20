@@ -80,13 +80,12 @@ treating it as a nice-to-have rather than a design input for how work gets assig
 
 ## How to apply
 
-This platform treats zero-ceremony automation as a job-satisfaction lever, not only an engineering-efficiency one
-([ADR-AUTO-ZERO](../automation/zero-ceremony-poka-yoke.md)): removing boilerplate, registration, and ceremony from adding a function or
-module leaves people's time and judgment for the work that is actually challenging, rather than for fighting the platform. Self-service
-([ADR-DSGN-SELFSERV](../design/self-service.md)) gives consumers the autonomy DORA's definition calls for — provisioning and changing
+This platform treats zero-ceremony automation as a job-satisfaction lever, not only an engineering-efficiency one: removing boilerplate,
+registration, and ceremony from adding a function or module leaves people's time and judgment for the work that is actually challenging,
+rather than for fighting the platform. Self-service gives consumers the autonomy DORA's definition calls for — provisioning and changing
 managed infrastructure themselves, through the CLI, without a ticket queue standing between judgment and action. Vendoring every dependency
-and assuming no local admin ([ADR-AUTO-ENTERP](../automation/effective-in-enterprises.md)) keeps tool access itself from becoming a source
-of friction — a team blocked from installing the tools it needs cannot exercise the tool-choice autonomy this capability depends on.
+and assuming no local admin keeps tool access itself from becoming a source of friction — a team blocked from installing the tools it needs
+cannot exercise the tool-choice autonomy this capability depends on.
 
 None of these substitutes for asking people directly how satisfied they are with their work — no system-data proxy exists for that — but
 they remove some of the concrete, structural sources of dissatisfaction: ceremony that wastes skilled time, gatekeeping that removes

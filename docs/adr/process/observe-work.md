@@ -39,22 +39,21 @@ of every station is made visible at a glance, so an abnormality announces itself
 
 Software delivery is harder to see than a factory floor — the work is invisible by default, buried in branches, queues, and machine state.
 Lean's response is to make it visible deliberately. This repository does so in two places: the value-chain diagrams render every commit's
-delivery state ([ADR-DSGN-VISUAL](../design/visual-design.md)), and console output is treated as a first-class channel that reports what
-actually happened ([ADR-AUTO-CONSOLE](../automation/console-output-matters.md)). This article states the underlying rule those specialise.
+delivery state, and console output is treated as a first-class channel that reports what actually happened. This article states the
+underlying rule those specialise.
 
 ## Decision
 
 Treat visibility of the work as a requirement, not a nicety, and treat direct observation as the basis for decisions:
 
-- **Render the flow.** The position and state of every commit is shown by construction, not reconstructed on demand
-  ([ADR-DSGN-VISUAL](../design/visual-design.md)): position is time, colour is the furthest state reached, and a glance decodes where a
-  change is. The states rendered are the commit's lifecycle states. The value stream is the visual factory.
+- **Render the flow.** The position and state of every commit is shown by construction, not reconstructed on demand: position is time,
+  colour is the furthest state reached, and a glance decodes where a change is. The states rendered are the commit's lifecycle states. The
+  value stream is the visual factory.
 - **Go and see.** Judge progress from the real running artifact and real signals — a gate that passed, a deployed environment, a monitored
   metric — not from a proxy. "Done" means the software does the thing, observed, not a task ticked
   ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md), working software is the measure).
 - **Announce, don't bury.** When something happens that a human needs to know — a slow step about to block, a problem detected — it is said
-  plainly on the console at the moment it happens ([ADR-AUTO-CONSOLE](../automation/console-output-matters.md)), not swallowed and
-  discovered later.
+  plainly on the console at the moment it happens, not swallowed and discovered later.
 
 ## Why
 
@@ -72,9 +71,9 @@ stations upstream. Observing the whole — end-to-end lead time, where items wai
 ## How to apply
 
 Prefer making the work visible over reporting on it. When adding a step, ask what state it produces and how that state will be seen — a
-commit colour ([ADR-DSGN-VISUAL](../design/visual-design.md)), a console line ([ADR-AUTO-CONSOLE](../automation/console-output-matters.md)),
-a monitored signal — and make that the default, not an opt-in. Judge whether work is done by observing the real artifact, not by a proxy.
-When you reason about speed, look at the whole value stream and find where items wait, rather than at how fast any single station runs.
+commit colour, a console line, a monitored signal — and make that the default, not an opt-in. Judge whether work is done by observing the
+real artifact, not by a proxy. When you reason about speed, look at the whole value stream and find where items wait, rather than at how
+fast any single station runs.
 
 ## References
 

@@ -70,8 +70,7 @@ safety, no automatic cleanup, and no visibility boundaries.**
 A language gives code scoped mechanisms for its own state — parameters, return values, locals, module state — all destroyed or scoped
 automatically. An environment variable set inside any function, at any call depth, persists for the entire process lifetime unless someone
 explicitly removes it; no scope exit cleans it up. The PowerShell mechanics of obeying this rule — which scoped mechanism replaces which
-environment-variable temptation, runspace sharing, test isolation — are the language layer,
-[environment-variable-mechanics](pwsh/environment-variable-mechanics.md) (`ADR-PWSH-ENV`).
+environment-variable temptation, runspace sharing, test isolation — are the language layer, in the pwsh twin.
 
 ### Global mutable state
 
@@ -105,8 +104,7 @@ parent and child.
 
 Environment variables are process-wide, so concurrent workers share one mutable namespace — parallel reads and writes race — and a value set
 in one test leaks into the next, producing order-dependent failures that are extremely difficult to diagnose. The PowerShell specifics
-(runspace sharing, `$using:`, Pester's lack of environment isolation) live in
-[environment-variable-mechanics](pwsh/environment-variable-mechanics.md).
+(runspace sharing, `$using:`, Pester's lack of environment isolation) live in the pwsh twin.
 
 ### They are a security surface
 
@@ -133,8 +131,7 @@ consumer. Module-scoped variables have no such problem.
 
 Internal state belongs in the mechanisms whose scope and cleanup the language manages automatically: pass values between functions as
 parameters and return values, and keep shared state in module scope. None of these leak to child processes, pollute tests, or persist beyond
-their natural lifetime. The PowerShell mechanism table and idioms are the language layer,
-[environment-variable-mechanics](pwsh/environment-variable-mechanics.md) (`ADR-PWSH-ENV`).
+their natural lifetime. The PowerShell mechanism table and idioms are the language layer, in the pwsh twin.
 
 ## Decision
 
@@ -150,8 +147,7 @@ behaves correctly. The key distinction: the _consumer_ of the variable is an ext
 
 **2. Reading variables that external systems set.** CI platforms, container runtimes, and operating systems communicate via environment
 variables — the Azure DevOps and GitHub Actions markers, the Windows system root. Reading these is fine — they are inputs from outside our
-boundary. The two CI markers are read only inside `Test-IsRunningInPipeline`; the related flow rule is
-[ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK](../flow/pipeline-detection.md#rule-adr-flow-cd-detect-nodirectvariablecheck).
+boundary. The two CI markers are read only inside `Test-IsRunningInPipeline`; no other code reads them directly.
 
 A small family of `CATZC_*` flags belongs to this category as well. They are deliberate external/diagnostic toggles — signals set by the
 outer environment (a developer's shell, a test harness) that our code _reads_ to alter a presentation or test-isolation behaviour, never to
@@ -163,7 +159,7 @@ is effectively a constant — a process-wide anchor that removes the need to dep
 set once, never mutated, and serves the same role as a tool's contract variable (every function needs a stable root, and the environment is
 the only mechanism that crosses module boundaries without passing parameters through every call).
 
-The PowerShell examples of each use are [environment-variable-mechanics](pwsh/environment-variable-mechanics.md).
+The PowerShell examples of each use are in the pwsh twin.
 
 ### The secret hand-off
 
@@ -179,7 +175,7 @@ code reads back out of the environment. It does not forbid a disciplined secret 
 from the environment; that narrow, external-boundary crossing is ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS, and it is permitted through exactly
 one seam: **`Write-EnvironmentSet`** (`Catzc.Tooling.Environment`). It takes the secret as a protected value, never logs or returns the
 plaintext, decrypts only at the assignment that is the boundary, and by default removes the secret from the environment when the hand-off
-ends. Its PowerShell mechanics are [environment-variable-mechanics](pwsh/environment-variable-mechanics.md#the-secret-hand-off).
+ends. Its PowerShell mechanics are in the pwsh twin.
 
 The plaintext does land in the environment for the instant the external tool reads it — that is unavoidable, because the tool's contract is
 to read it there, and it is the boundary hand-off the whole rule is about. What ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS guarantees is that this
@@ -198,7 +194,7 @@ assignment.
 - **Never make functionality depend on an environment variable being set.** A function that throws when a variable is unset hides its input;
   a mandatory, validated parameter gives type validation, tab completion, mandatory enforcement, and documentation for free.
 
-The PowerShell form of each, as BAD and GOOD code, is [environment-variable-mechanics](pwsh/environment-variable-mechanics.md).
+The PowerShell form of each, as BAD and GOOD code, is in the pwsh twin.
 
 ## Twelve-factor configuration
 

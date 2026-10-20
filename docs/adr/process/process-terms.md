@@ -90,8 +90,8 @@ Terms from the Theory of Constraints [^1] — the account of why a system has ex
 How a step is classified by the actor it requires.
 
 - **Automated.** A step that runs to completion with no human action once triggered — repeatable, unattended, and identical every time. The
-  platform's default and destination for every step it can reach ([ADR-PRIN-EAC](../principles/everything-as-code.md),
-  [ADR-AUTO-ZERO](../automation/zero-ceremony-poka-yoke.md)).
+  platform's default and destination for every step it can reach ([ADR-PRIN-EAC](../principles/everything-as-code.md)), with no ceremony
+  asked of the person who triggers it.
 - **Manual.** A step that requires a person to act. Manual steps are legitimate where human judgement is the point (a review, a release
   decision); they are waste where they are merely un-automated toil.
 - **The direction of travel.** Because human attention is the scarce constraint and machine time is cheap and falling (Moore's Law,
@@ -120,7 +120,7 @@ decidable question: which step is the constraint, and does this change lift it? 
 
 **Definitions keep automation honest.** Pinning "automated" to "no human action, identical every time" stops a hand-run script from being
 called automation, and pinning the scarce resource to human attention explains why the platform spends machine time so freely
-([ADR-PROC-LEAN](lean.md), [ADR-AUTO-CACHE](../automation/caching.md)).
+([ADR-PROC-LEAN](lean.md)), caching every result it can reuse.
 
 ## How to apply
 

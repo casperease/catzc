@@ -55,8 +55,7 @@ alternatives both violate the doctrine structurally: `$env:` is process-global, 
 
 ### The idioms
 
-Static read, keyed by resolved path (as in `Get-Config`, through which every config read routes — see
-[module-config-loading](../../configuration/module-config-loading.md)):
+Static read, keyed by resolved path (as in `Get-Config`, through which every config read routes):
 
 ```powershell
 function Get-Config {

@@ -78,19 +78,13 @@ those are the units that are cheap to test.
 
 This platform separates every test into a **logic** test (isolated from shipped configuration through mockable seams, hermetic and fast) or
 an **integrity** test (bound deliberately to the real, shipped files) — never both at once — and tags every test with one of four
-integration tiers, `L0`–`L3`, so a suite runs unit-speed by default and only reaches a real CLI tool or the cloud when a test opts in
-([ADR-AUTO-TEST](../automation/test-automation.md#rule-adr-auto-test-onecategory), tiers at
-[ADR-AUTO-TEST-TAGBYOUTERMOSTRING](../automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)). Slow, duplicated integration
-coverage is pushed left into fast L0 logic tests, leaving only a thin walking skeleton at the integration tier — one test per distinct
-integration concern, never one per input case
-([ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS](../automation/test-automation.md#rule-adr-auto-test-collapseinputclusters)). The aggregate Build
-Verification Test is the one pass/fail verdict a commit must clear before it reaches master
-([ADR-AUTO-TEST-BUILDVERIFICATIONTEST](../automation/test-automation.md#rule-adr-auto-test-buildverificationtest)), the pipeline-level
-version of "a change does not pass until its tests do."
+integration tiers, `L0`–`L3`, so a suite runs unit-speed by default and only reaches a real CLI tool or the cloud when a test opts in. Slow,
+duplicated integration coverage is pushed left into fast L0 logic tests, leaving only a thin walking skeleton at the integration tier — one
+test per distinct integration concern, never one per input case. The aggregate Build Verification Test is the one pass/fail verdict a commit
+must clear before it reaches master, the pipeline-level version of "a change does not pass until its tests do."
 
 The concrete authoring idioms — mocking at module boundaries, isolating through seams rather than editing production data, and the
-per-function test-file convention — are the Pester-specific layer under that doctrine
-([ADR-PWSH-PESTER](../automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-pesterframework)).
+per-function test-file convention — are the Pester-specific layer under that doctrine.
 
 ## Common pitfalls
 

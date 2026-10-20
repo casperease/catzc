@@ -80,9 +80,7 @@ explicit `-Module` reads another module's content, which is a cross-module depen
 ([controlling-module-dependencies](controlling-module-dependencies.md)). The dot-prefixed infrastructure that is not a module — the
 `.internal` assets, the vendored modules, the compiled types — is located from `Get-CatzcModulesRoot` directly. An analyzer rule bans the
 executing file's folder as an anchor in module function files, which leaves the helper as the only way a function can find its content. In
-PowerShell the helper call and that ban are ADR-PWSH-PWD-MODULELOCATESCONTENT
-([working-directory-mechanics](pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), and the literal child path the
-inventory reads is ADR-PWSH-PWD-LITERALCHILDPATH.
+PowerShell the helper call, that ban, and the literal child path the inventory reads are the pwsh twin's to say.
 
 ### The code is the inventory
 
@@ -139,4 +137,3 @@ the coverage check is red, so the change cannot merge ([poka-yoke](../principles
 - [platform-bundle](platform-bundle.md) — the build and its self-check.
 - [test-automation](test-automation.md) — logic vs integrity tests, the two test runs, and the `source-only` tag.
 - [controlling-module-dependencies](controlling-module-dependencies.md) — the declared edge a cross-module asset read implies.
-- [conventional-folders](../repository/conventional-folders.md) — the `configs/` and `assets/` folders the lookups resolve into.

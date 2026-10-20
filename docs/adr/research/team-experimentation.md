@@ -63,14 +63,12 @@ after the fact, when it is most expensive to fix.
 
 ## How to apply
 
-This platform realizes the capability by removing the outside gate a team would otherwise wait behind. Self-service
-([ADR-DSGN-SELFSERV](../design/self-service.md)) lets a consumer provision and change managed infrastructure directly, through the CLI,
-without filing a ticket to a central gatekeeper — the same freedom DORA measures as working on new ideas without permission from outside the
-team. The thin platform ([ADR-DSGN-THINPLAT](../design/thin-platforms.md)) gives consumers a CLI surface where they edit configuration and
-compose functions themselves, trusting them as the experts on their own implementation rather than routing every change through the platform
-team. Agile's customer-collaboration value ([ADR-PROC-VALUES](../process/agile-values.md)) treats a story as an ongoing conversation to be
-revised as understanding grows, not a contract executed as originally written — the same posture that lets specifications change during
-development.
+This platform realizes the capability by removing the outside gate a team would otherwise wait behind. Self-service lets a consumer
+provision and change managed infrastructure directly, through the CLI, without filing a ticket to a central gatekeeper — the same freedom
+DORA measures as working on new ideas without permission from outside the team. The thin platform gives consumers a CLI surface where they
+edit configuration and compose functions themselves, trusting them as the experts on their own implementation rather than routing every
+change through the platform team. Agile's customer-collaboration value treats a story as an ongoing conversation to be revised as
+understanding grows, not a contract executed as originally written — the same posture that lets specifications change during development.
 
 ## Common pitfalls
 

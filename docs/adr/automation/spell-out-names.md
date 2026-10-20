@@ -102,7 +102,7 @@ Four categories keep their short form, because each is already as clear to a rea
 - **Acronyms that _are_ the name.** Nobody writes "comma-separated-values file" or "uniform-resource-locator" — the acronym is the canonical
   term, more recognizable than its expansion. CSV, JSON, URL, ID, HTTP, IP, UTC, API, CLI, DNS, TLS, SDK, GUID, and the like stay as-is.
 - **The engine's automatic variables.** The names an engine defines for itself are its own vocabulary, not a choice the author made; the
-  PowerShell set is [identifier-names](pwsh/identifier-names.md#rule-adr-pwsh-names-enginenames).
+  PowerShell set is in the pwsh twin.
 - **The conventional-abbreviation allow-list.** A short, curated set that every developer reads without translating — `ctx`, `cfg`, `cmd`,
   `params`, `env`, `repo`, and the like. The authoritative list, with each term mapped to its full word, lives in the terminology registry
   (ADR-AUTO-SPELL-ONEVOCABULARYSOURCE); it grows only by review, never by reflex.
@@ -111,19 +111,18 @@ The test for an exception is "is the short form a _standard, shared_ name recogn
 — not "is it shorter?" `tfPath` and `rcg` fail that test; `JSON` and `ctx` pass it.
 
 A local whose meaning is its role or its type, or that has no meaning at all, takes a blessed name rather than a coined one; the PowerShell
-conventions for those names are [identifier-names](pwsh/identifier-names.md).
+conventions for those names are in the pwsh twin.
 
 ### The dictionary is the backstop
 
 Two automatic backstops cover different reaches, and it is worth being precise about each. The shared spell-checker (`cspell.yml`, run by
 `Test-Spelling`) flags a coined token none of its dictionaries recognize, but its `minWordLength` (4) lets short tokens through: `ctx`,
-`rcg`, and `tmpl` all pass cspell. The identifier-level analyzer rule
-([ADR-PWSH-NAMES-ANALYZERRULE](pwsh/identifier-names.md#rule-adr-pwsh-names-analyzerrule)) closes that gap — it tokenizes identifiers and
-checks every fragment with no length floor against the same corpus (cspell's English words plus the registry terms), so the short and
-compound coined abbreviations cspell misses (`rcg`, `tfPath`, `perSubEnvs`) are caught automatically. What neither can catch is an
-abbreviation that is _also_ a real dictionary word — `spec`, `info` — since membership alone cannot tell a truncation from a short word;
-those stay a code-review concern. When either gate flags a token, there are two honest resolutions: spell it out, or — when it is a genuine
-product term or a conventional abbreviation worth blessing — add a deliberate, reviewed entry to the terminology registry
+`rcg`, and `tmpl` all pass cspell. The identifier-level analyzer rule closes that gap — it tokenizes identifiers and checks every fragment
+with no length floor against the same corpus (cspell's English words plus the registry terms), so the short and compound coined
+abbreviations cspell misses (`rcg`, `tfPath`, `perSubEnvs`) are caught automatically. What neither can catch is an abbreviation that is
+_also_ a real dictionary word — `spec`, `info` — since membership alone cannot tell a truncation from a short word; those stay a code-review
+concern. When either gate flags a token, there are two honest resolutions: spell it out, or — when it is a genuine product term or a
+conventional abbreviation worth blessing — add a deliberate, reviewed entry to the terminology registry
 (ADR-AUTO-SPELL-ONEVOCABULARYSOURCE). Dropping a one-off local invention into the vocabulary just to clear the gate is the anti-pattern this
 rule forbids; adding a genuinely conventional abbreviation as a categorized registry entry is the opposite — a reviewed decision the whole
 team then shares.
@@ -172,16 +171,15 @@ Spell out identifier names in full. Abbreviate only the universal acronyms and l
 nothing local. A product term worth keeping is added to the terminology registry and used consistently; everything else is written as the
 real, whole word.
 
-This is the variable-and-parameter complement to the function-naming rules in [respect-pwsh-verb-rules](pwsh/respect-pwsh-verb-rules.md):
-verbs gives functions a shared, spelled-out vocabulary, and this gives the same to the names inside them.
+This is the variable-and-parameter complement to the function-naming rules of the pwsh twin: verbs gives functions a shared, spelled-out
+vocabulary, and this gives the same to the names inside them.
 
 ### How this is enforced
 
-- **The identifier analyzer rule** ([ADR-PWSH-NAMES-ANALYZERRULE](pwsh/identifier-names.md#rule-adr-pwsh-names-analyzerrule), in the L2
-  `Test-ScriptAnalyzer` quality gate) is the primary automatic enforcer: it tokenizes every variable name, parameter name, and function noun
-  and flags any fragment that is neither a real English word nor an approved registry term, with no minimum length — so it catches the short
-  and compound coined abbreviations (`rcg`, `tfPath`) that cspell's `minWordLength` lets through. A flagged fragment is spelled out or
-  blessed as a reviewed registry entry (ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED).
+- **The identifier analyzer rule** (in the L2 `Test-ScriptAnalyzer` quality gate) is the primary automatic enforcer: it tokenizes every
+  variable name, parameter name, and function noun and flags any fragment that is neither a real English word nor an approved registry term,
+  with no minimum length — so it catches the short and compound coined abbreviations (`rcg`, `tfPath`) that cspell's `minWordLength` lets
+  through. A flagged fragment is spelled out or blessed as a reviewed registry entry (ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED).
 - **cspell / `Test-Spelling`** (the L2 spelling quality gate) is the complementary net over prose and comments (not just identifiers); it
   flags coined tokens its dictionaries do not recognize. A blessed term added to the terminology registry (ADR-AUTO-SPELL-CURATEDVOCABULARY)
   is a reviewed change visible in the diff.
@@ -193,10 +191,10 @@ verbs gives functions a shared, spelled-out vocabulary, and this gives the same 
   `Build-TerminologyDictionary` regenerates the lists from the registry.
 - **The English half of the oracle is a committed, version-stamped artifact.** `Build-EnglishDictionary` flattens cspell's bundled `en`/
   `en-GB` dictionaries to `assets/english.txt.gz` and writes a sidecar `assets/english.stamp` recording the cspell + dict versions it was
-  built from. Regenerating needs node, so — like the compiled-type prebuild (ADR-REPO-OUTDIR-COMPILEDPREBUILD) — the artifact is committed
-  rather than rebuilt at import. A drift check (`Build-EnglishDictionary.Tests.ps1`) compares the stamp's cspell version against the
-  `tools.yml` pin and its word count against the gz, with no node round-trip, so a cspell bump that leaves the dictionary stale fails in CI
-  with "re-run Build-EnglishDictionary".
+  built from. Regenerating needs node, so — like the compiled-type prebuild — the artifact is committed rather than rebuilt at import. A
+  drift check (`Build-EnglishDictionary.Tests.ps1`) compares the stamp's cspell version against the `tools.yml` pin and its word count
+  against the gz, with no node round-trip, so a cspell bump that leaves the dictionary stale fails in CI with "re-run
+  Build-EnglishDictionary".
 
 ## Consequences
 

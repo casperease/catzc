@@ -71,10 +71,9 @@ irritating rather than the one that is actually constraining throughput.
 ## How to apply
 
 This platform renders the flow rather than reporting on it: the value-chain diagrams show every commit's delivery state by construction —
-position is time, colour is the furthest state reached — so a reader decodes where a change sits without asking anyone
-([ADR-DSGN-VISUAL](../design/visual-design.md)). The underlying discipline that diagram specialises is stated generally: treat the state of
-work as something rendered and observed, not inferred from memory, and judge progress from the real running artifact rather than a proxy
-like a ticket status ([ADR-PROC-OBSERVEWIP](../process/observe-work.md)).
+position is time, colour is the furthest state reached — so a reader decodes where a change sits without asking anyone. The underlying
+discipline that diagram specialises is stated generally: treat the state of work as something rendered and observed, not inferred from
+memory, and judge progress from the real running artifact rather than a proxy like a ticket status.
 
 Applying the capability elsewhere follows the same shape: pick a flow worth mapping, walk it end to end with the people who actually do each
 step, record where time is spent rather than assuming, and put the resulting picture somewhere everyone can see it without asking — a

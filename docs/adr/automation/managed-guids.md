@@ -69,11 +69,10 @@ of truth, deliberate reviewed entries, a liveness rule, and a gate that enforces
 
 ### The registry
 
-`configs/guids.yml` in `Catzc.Base.QualityGates` is the single table, read through `Get-Config -Config guids`
-([module-config-loading](../configuration/module-config-loading.md)) and validated by its config type, `GuidsConfig`. Entries are keyed by a
-snake_case name — readable diffs, and the duplicate-guid check lives in the config type where YAML's silent last-key-wins cannot hide it.
-`description` says what the GUID identifies; `sentence` is present exactly when the value was minted from a sentence, so a minted
-placeholder carries its own decoding.
+`configs/guids.yml` in `Catzc.Base.QualityGates` is the single table, read through `Get-Config -Config guids` and validated by its config
+type, `GuidsConfig`. Entries are keyed by a snake_case name — readable diffs, and the duplicate-guid check lives in the config type where
+YAML's silent last-key-wins cannot hide it. `description` says what the GUID identifies; `sentence` is present exactly when the value was
+minted from a sentence, so a minted placeholder carries its own decoding.
 
 The `denied:` section is the inverse table: values that are never a legitimate identity, with the all-zeros GUID as its first entry — it is
 the unset/default value (and `SentenceGuid`'s output for an input with no mappable characters), so registering it would bless every
@@ -97,13 +96,11 @@ automation never calls it to generate identity at runtime, because a runtime-min
 ### The gate
 
 `Get-RepositoryGuids` scans every tracked text file and returns one `@{ file; line; guid }` record per occurrence. Tracked files are the
-same universe a globset matches against; the related flow rule is
-[ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly). The `Test-ManagedGuids` quality
-gate, run by the managed-guid integrity test, reports every found guid that is not registered and every registry entry not found — with the
-registry file itself excluded from the scan so an entry cannot vouch for its own liveness. The scan reads every tracked text file under
-every named root of the repository plus its own config, so it protects against the whole-repository `repository` globset, which covers both
-([protected-globs](../repository/protected-globs.md#rule-adr-repo-protglob-includesownconfig)): repeat local runs skip until a tracked file
-anywhere in the repository changes, and CI always scans. The same gate reports a scanned file, or the registry, outside `repository`.
+same universe a globset matches against. The `Test-ManagedGuids` quality gate, run by the managed-guid integrity test, reports every found
+guid that is not registered and every registry entry not found — with the registry file itself excluded from the scan so an entry cannot
+vouch for its own liveness. The scan reads every tracked text file under every named root of the repository plus its own config, so it
+protects against the whole-repository `repository` globset, which covers both: repeat local runs skip until a tracked file anywhere in the
+repository changes, and CI always scans. The same gate reports a scanned file, or the registry, outside `repository`.
 
 ### Division of ownership
 

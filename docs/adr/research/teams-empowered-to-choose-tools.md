@@ -67,15 +67,13 @@ new tool gained. The baseline-plus-exception shape is what keeps the benefit of 
 ## How to apply
 
 catzc is itself an internal platform in the Team Topologies sense — a product a platform team develops and manages for the teams that build
-on it ([thin-platforms](../design/thin-platforms.md)) — and DORA's baseline-tooling guidance describes exactly what that platform maintains:
-a pinned, reviewed set of tools (`tools.yml`) that most consumers use by default, with the platform surfacing the vendor decisions behind it
-rather than hiding them.
+on it — and DORA's baseline-tooling guidance describes exactly what that platform maintains: a pinned, reviewed set of tools (`tools.yml`)
+that most consumers use by default, with the platform surfacing the vendor decisions behind it rather than hiding them.
 
-The devbox-version lever in [controlling-systemwide-deps](../automation/controlling-systemwide-deps.md) is the closest analog to DORA's
-exception process: outside a pipeline, a tool may run at a declared `devbox_version` instead of the locked baseline version, a bounded,
-declared deviation rather than an ungoverned one — while a pipeline run always enforces the locked baseline, so the exception never weakens
-what actually ships. Reviewing and re-pinning `tools.yml` itself is the periodic-review half of the guidance: a version change is a pull
-request, not a standing debate.
+The platform's devbox-version lever is the closest analog to DORA's exception process: outside a pipeline, a tool may run at a declared
+`devbox_version` instead of the locked baseline version, a bounded, declared deviation rather than an ungoverned one — while a pipeline run
+always enforces the locked baseline, so the exception never weakens what actually ships. Reviewing and re-pinning `tools.yml` itself is the
+periodic-review half of the guidance: a version change is a pull request, not a standing debate.
 
 ## Common pitfalls
 

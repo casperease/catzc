@@ -79,12 +79,11 @@ understand its full substrate has simply relocated the cognitive load rather tha
 ## How to apply
 
 DORA's guidance groups into four approaches, and this platform maps to two of them directly. The thin CLI abstraction over the vendor
-substrate ([ADR-DSGN-THINPLAT](../design/thin-platforms.md)) is the golden path: consumers call `Verb-Noun` functions and edit
-configuration, never touching the vendor wiring directly, which is exactly the cognitive-load shift DORA measures — and it is deliberately
-held to the smallest set of APIs, tooling, and docs that accelerates delivery, the same minimum-viable-platform discipline DORA recommends
-over building comprehensively upfront. Self-service as the platform's mode of use ([ADR-DSGN-SELFSERV](../design/self-service.md)) is the
-other half: every self-service action is a reviewable, reproducible change to a single source of truth, which is what makes self-service
-safe to offer widely rather than gated behind a queue.
+substrate is the golden path: consumers call `Verb-Noun` functions and edit configuration, never touching the vendor wiring directly, which
+is exactly the cognitive-load shift DORA measures — and it is deliberately held to the smallest set of APIs, tooling, and docs that
+accelerates delivery, the same minimum-viable-platform discipline DORA recommends over building comprehensively upfront. Self-service as the
+platform's mode of use is the other half: every self-service action is a reviewable, reproducible change to a single source of truth, which
+is what makes self-service safe to offer widely rather than gated behind a queue.
 
 Beyond what this platform does, DORA's guidance calls for a product management mindset — a named owner for developer experience who maps the
 critical user journeys developers take and removes friction in them — and for extensibility: clear APIs and a well-defined contribution

@@ -90,10 +90,10 @@ Git is written through the git CLI (`clone`, `push`, `commit`, `remote set-url`)
 
 ## Context
 
-Many parts of the platform set the scope of their work by the files git tracks: the globsets select from them
-([durable-sha-globs](../flow/durable-sha-globs.md)), the managed-GUID scan reads them ([managed-guids](managed-guids.md)), the Markdown
-title and link quality gates check them, and the glossary checks read their prose. "Tracked" is the repository as committed and staged — not
-build residue, not a scratch file — and that is the set every one of these checks means.
+Many parts of the platform set the scope of their work by the files git tracks: the globsets select from them, the managed-GUID scan reads
+them ([managed-guids](managed-guids.md)), the Markdown title and link quality gates check them, and the glossary checks read their prose.
+"Tracked" is the repository as committed and staged — not build residue, not a scratch file — and that is the set every one of these checks
+means.
 
 ### One question, one answer
 

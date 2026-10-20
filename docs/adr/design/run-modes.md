@@ -58,13 +58,13 @@ after building). The kind is never stored, and every kind loads through the same
 
 ## Context
 
-Source mode is how the toolset is developed: one function per file ([one-function-per-file](../automation/pwsh/one-function-per-file.md)),
-read in place from the repository, with every module's manifest generated from its folder on import. That form serves the people who edit
-the code — a directory listing is the module's API, a diff touches one function, blame has one history per function.
+Source mode is how the toolset is developed: one function per file, read in place from the repository, with every module's manifest
+generated from its folder on import. That form serves the people who edit the code — a directory listing is the module's API, a diff touches
+one function, blame has one history per function.
 
 An installable, versioned package is how the toolset is shipped to other machines: carried out of the repository, loaded with no git and no
-compile, and opened as few files as possible because real-time antivirus scans every file on a cold import
-([effective-in-enterprises](../automation/effective-in-enterprises.md)). Those needs pull the on-disk form the other way.
+compile, and opened as few files as possible because real-time antivirus scans every file on a cold import, as it does on an enterprise
+machine. Those needs pull the on-disk form the other way.
 
 Treating the package as a separate product would let the two drift: a fix in source that the package lacks, a package-only loader with its
 own bugs, a second set of tests that proves something about a copy. Treating it as a **second run mode of the same modules** keeps one body
@@ -86,12 +86,11 @@ Both entries are dot-sourced and run in the caller's scope. `importer.ps1` at th
 written by `Build-Modules`, which runs in a source-mode session — is entered by dot-sourcing its `Import-Catzc.ps1` with `-RepositoryRoot`
 set to the repository, so `out/` and repo-relative paths keep resolving there while the code root moves to the build. An installed build is
 entered the same way, through its own `Import-Catzc.ps1` or through `Import-Module Catzc`, whose root module dot-sources that file. Every
-entry point ends in the one living importer ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-onelivingimporter)), so
-the load sequence — preferences, vendored modules, types and accelerators, then modules — is the same in both modes.
+entry point ends in the one living importer, so the load sequence — preferences, vendored modules, types and accelerators, then modules — is
+the same in both modes.
 
 Which mode a session is in is read from what actually loaded, never from a flag: `Get-CatzcRunMode` derives it from the code root
-([Deriving the mode](#deriving-the-mode)), and a build's `build.json` names the version and the commit it was built from
-([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
+([Deriving the mode](#deriving-the-mode)), and a build's `build.json` names the version and the commit it was built from.
 
 ### Three kinds of build root
 
@@ -116,34 +115,30 @@ distribution file, not a code root, until it is installed or saved.
 A built module has the same name as its source folder, exports the same public functions, carries the same private functions, and ships the
 same `configs/` and `assets/`. `Build-Modules` merges the function files in the same order the source manifest lists them, so load semantics
 are identical; the built manifest exports the module's public functions only. Everything that names a module — `Get-Config` running a
-validator in its owning module's scope ([module-config-loading](../configuration/module-config-loading.md)), `Get-Module`, a test's
-`Mock -ModuleName` or `InModuleScope` — resolves the same way in both modes.
+validator in its owning module's scope, `Get-Module`, a test's `Mock -ModuleName` or `InModuleScope` — resolves the same way in both modes.
 
-What makes this hold for content as well as code is that a module locates its own files only through the code root (`Get-CatzcModuleRoot`,
-[working-directory-mechanics](../automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent)), never through the
-folder its source file sits in, and that every such lookup is inventoried and tested in both modes
-([internal-asset-dependencies](../automation/internal-asset-dependencies.md)). Tools whose job is the source tree itself — formatters,
-dependency tooling, README and dictionary generators — operate on per-function files and git by definition; they assert that they run in
-source mode (`Assert-SourceTree`) and fail fast in a build rather than reading the wrong tree.
+What makes this hold for content as well as code is that a module locates its own files only through the code root (`Get-CatzcModuleRoot`),
+never through the folder its source file sits in, and that every such lookup is inventoried and tested in both modes. Tools whose job is the
+source tree itself — formatters, dependency tooling, README and dictionary generators — operate on per-function files and git by definition;
+they assert that they run in source mode (`Assert-SourceTree`) and fail fast in a build rather than reading the wrong tree.
 
 ### One scope per module
 
 `One scope per module, never shared`
 
 Merging every module into one scope, flattened, would be the simplest build and the wrong one. Module scope is a contract: each module's
-`$script:` caches belong to it alone ([script-scope-caching](../automation/pwsh/script-scope-caching.md)), and config validation, mocks, and
-module queries all name a module. So the package `Catzc` is a container, not a scope: inside it every source module is its own PowerShell
-module with its own session state, exactly as in source mode. Two modules that hold a `$script:` cache entry of the same name never see each
-other's value, in either mode, and a scope-isolation test proves it.
+`$script:` caches belong to it alone, and config validation, mocks, and module queries all name a module. So the package `Catzc` is a
+container, not a scope: inside it every source module is its own PowerShell module with its own session state, exactly as in source mode.
+Two modules that hold a `$script:` cache entry of the same name never see each other's value, in either mode, and a scope-isolation test
+proves it.
 
 ### Deriving the mode
 
 `The mode is derived from the code root`
 
-There is no run-mode variable. `CatzcModulesRoot` is set once per load by the entry point
-([environment-variables](../automation/environment-variables.md#rule-adr-auto-envvar-anchorssetonce)), and the mode follows from it: when
-the code root is the repository's own `pwsh/` folder, the session is in source mode; anywhere else, it is in build mode. A stored mode flag
-could disagree with the code actually loaded; a derived one cannot.
+There is no run-mode variable. `CatzcModulesRoot` is set once per load by the entry point, and the mode follows from it: when the code root
+is the repository's own `pwsh/` folder, the session is in source mode; anywhere else, it is in build mode. A stored mode flag could disagree
+with the code actually loaded; a derived one cannot.
 
 ### Switching modes in one session
 
@@ -162,20 +157,18 @@ importer enforces mutual exclusion:
   sources and the same hash-named DLL as the source tree, whatever its module selection — so when the sources are unchanged the type
   identities are the same and the loaded assembly is reused in any switch order. The types guard compares the per-file digests of the loaded
   type set with the sources the new root needs; when a source differs (a `types/*.cs` edited between the two loads), the native-types
-  contract applies: a devbox keeps the loaded types and asks for a fresh PowerShell, and a pipeline throws
-  ([native-csharp-types](../automation/BCL/native-csharp-types.md)).
+  contract applies: a devbox keeps the loaded types and asks for a fresh PowerShell, and a pipeline throws.
 
 ### One body of tests
 
 `One body of tests proves both modes`
 
 "Every module works in both modes" is a checked property, not a hope. The source run and the build run execute the **same** test files — no
-copy, no second set to drift — through the same harness, differing only in the entry script each worker loads
-([test-automation](../automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)). Tests whose answer cannot depend on the mode,
-because they read only the repository's files, carry `source-only` and run once, in the source run
-([test-automation](../automation/test-automation.md#rule-adr-auto-test-sourceonlytag)); everything that exercises loaded code runs in both.
-Switching itself is tested by child-process sequences — source to build, build to source, each mode twice in a row, and a longer alternation
-— each asserting the derived mode, the exclusivity check, a call into each module, and a fresh script cache.
+copy, no second set to drift — through the same harness, differing only in the entry script each worker loads. Tests whose answer cannot
+depend on the mode, because they read only the repository's files, carry `source-only` and run once, in the source run; everything that
+exercises loaded code runs in both. Switching itself is tested by child-process sequences — source to build, build to source, each mode
+twice in a row, and a longer alternation — each asserting the derived mode, the exclusivity check, a call into each module, and a fresh
+script cache.
 
 ### How this is enforced
 
@@ -183,8 +176,7 @@ Switching itself is tested by child-process sequences — source to build, build
   root; `Assert-SourceTree` makes source-tree tools fail fast in build mode.
 - **`Catzc.Internal.Bootstrap` / `Catzc.Internal.Importer`** — the eviction sweep before a load, `Assert-CatzcRunModeExclusive` after it,
   and the cross-root types guard.
-- **`Build-Modules`** — builds same-named modules with their own manifests and merged files, and self-checks the result
-  ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
+- **`Build-Modules`** — builds same-named modules with their own manifests and merged files, and self-checks the result.
 - **`Test-Automation` and `Test-CatzcBuild`** — the two test runs over one body of tests; the scope-isolation test, the parity test (each
   built module's public and private function sets equal its source folder's), and the switch-sequence tests.
 - **`Measure-NoScriptRootAnchor`** — the analyzer rule that keeps module code from anchoring on its own file's folder.
@@ -202,10 +194,4 @@ Switching itself is tested by child-process sequences — source to build, build
 
 ## Related
 
-- [platform-bundle](../automation/platform-bundle.md) — the build itself: layout, merge, versioning, install.
-- [internal-asset-dependencies](../automation/internal-asset-dependencies.md) — how a module's content is located and tested in both modes.
-- [test-automation](../automation/test-automation.md) — the source and build runs and the `source-only` tag.
-- [never-depend-on-pwd](../automation/never-depend-on-pwd.md) — the code-root anchor and the `$PSScriptRoot` ban in module function files.
-- [script-scope-caching](../automation/pwsh/script-scope-caching.md) — the per-module `$script:` caches the modes keep isolated.
-- [native-csharp-types](../automation/BCL/native-csharp-types.md) — the one combined types assembly both modes share.
 - [one-living-version](../principles/one-living-version.md) — why the build is a mode of the same modules, not a second product.

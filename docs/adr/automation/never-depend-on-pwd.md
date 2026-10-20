@@ -53,7 +53,7 @@ therefore gives a different answer in each mode. The code root — the module's 
 both, so a module's own configs and assets resolve identically from source and from the installed build. Because every such lookup passes a
 literal child path, the lookups are also an inventory the build and its tests check
 ([internal-asset-dependencies](internal-asset-dependencies.md)). How PowerShell code reaches the code root, and which files keep the
-file-folder anchor, is [working-directory-mechanics](pwsh/working-directory-mechanics.md#the-code-root).
+file-folder anchor, is the pwsh twin's to say.
 
 ## Decision
 
@@ -65,16 +65,15 @@ never through the folder its file happens to sit in.
 - **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on dependence on the
   current directory. Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
 - **The language layer** — the anchor idioms, the code-root and working-root analyzer rules, and the one safe way to change directory (a
-  change restored in a `finally`) are [working-directory-mechanics](pwsh/working-directory-mechanics.md) (`ADR-PWSH-PWD`): the anchors of
-  rule 1 in ADR-PWSH-PWD-NEVERDEPENDONPWD and ADR-PWSH-PWD-MODULELOCATESCONTENT, the test paths of rule 4 in ADR-PWSH-PWD-TESTABSOLUTEPATHS,
-  and the working-root accessor of rule 6 in ADR-PWSH-PWD-ROOTTHROUGHACCESSOR.
+  change restored in a `finally`) are the pwsh twin's: the anchors of rule 1, the test paths of rule 4, and the working-root accessor of
+  rule 6.
 
 ## Consequences
 
 - Functions can be composed freely — calling `Invoke-Poetry` from inside `Install-Poetry` works regardless of where the user's shell is
   sitting.
 - CI pipelines and scheduled tasks work without a `cd` preamble.
-- Every path resolves from a stable anchor, so a function behaves identically wherever it is called from — the anchor idioms live in
-  [working-directory-mechanics](pwsh/working-directory-mechanics.md).
+- Every path resolves from a stable anchor, so a function behaves identically wherever it is called from — the anchor idioms live in the
+  pwsh twin.
 - A module's own content resolves identically in source mode and in the installed build, because both answer through the one code-root
   helper.

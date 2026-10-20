@@ -70,11 +70,10 @@ giving each its own word, lets every later rule say which one it binds.
 
 ### Five layers, one word each
 
-Automation is what the repository offers. A contract states a command's interface at the boundary, so a consumer can rely on it
-([api-contracts](../repository/api-contracts.md)). A language is what a command's source is written in. An engine is the shell the code runs
-under. The importer brings a chosen mix of them into a session. Reading down the list answers "what, interface, how written, how run, how
-assembled"; each answer stands on the one above and adds nothing to it, the stance the PowerShell rules already take toward the automation
-rules ([pwsh-engine](pwsh/pwsh-engine.md)).
+Automation is what the repository offers. A contract states a command's interface at the boundary, so a consumer can rely on it. A language
+is what a command's source is written in. An engine is the shell the code runs under. The importer brings a chosen mix of them into a
+session. Reading down the list answers "what, interface, how written, how run, how assembled"; each answer stands on the one above and adds
+nothing to it, the stance the PowerShell rules already take toward the automation rules.
 
 ### What the word covers
 

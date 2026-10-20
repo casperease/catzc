@@ -44,7 +44,6 @@ plans stay the durable record; task files and this master are derived from them 
 
 Open, in execution order. Nothing is held. A chunk without a task file is executed from its plan's open steps directly.
 
-- adr-domain-deps -> plan-adr-domain-deps.md: body citations follow the domain dependencies; the guard first, then the findings.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

@@ -24,6 +24,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked | Where-Object { $_ -notlike 'docs/gadgets/*' } }
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'C:/tools/uv.exe' } }
+        Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { }
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 0; Output = '' } }
         Mock Write-Message -ModuleName Catzc.Base.Slides { }
         $script:build = {
@@ -32,11 +33,11 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         }
     }
 
-    It 'rebuilds one diagram folder, every stage, with its article found beside its .assets' {
+    It 'rebuilds one diagram folder, every stage, with the pages that embed it' {
         $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/widget-a' })
         @($runs | ForEach-Object { "$($_.Folder) $($_.Stage)" }) | Should -Be @(
             'docs/widgets/.assets/widget-a prepare', 'docs/widgets/.assets/widget-a highlight', 'docs/widgets/.assets/widget-a join')
-        @($runs.Article | Sort-Object -Unique) | Should -Be @('docs/widgets/index.md')
+        @($runs.Articles | Sort-Object -Unique) | Should -Be @('docs/widgets/index.md')
         @($runs.Status | Sort-Object -Unique) | Should -Be @('clean')
     }
 
@@ -52,17 +53,34 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         }
     }
 
-    It 'reports an orphan and still renders it: found by locality, no page beside its .assets embeds it' {
+    It 'reports an orphan and still renders it: no page embeds its png' {
         $runs = @(& $script:build @{ Path = 'docs/gizmos/.assets/gizmo'; Stage = 'prepare' })
         $runs.Status | Should -Be @('clean')
-        $runs[0].Article | Should -BeNullOrEmpty
+        $runs[0].Articles | Should -BeNullOrEmpty
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Warning -and $Message -like '*docs/gizmos/.assets/gizmo is an orphan*' } -Times 1 -Exactly
     }
 
-    It 'fails when two pages embed one diagram' {
+    It 'finds every page that embeds one diagram, a second article included, and builds clean' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked }
-        { & $script:build @{ Path = 'docs/gadgets/.assets/gadget' } } | Should -Throw '*embedded by 2 pages (docs/gadgets/index.md, docs/gadgets/second.md)*'
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 0
+        $runs = @(& $script:build @{ Path = 'docs/gadgets/.assets/gadget'; Stage = 'prepare' })
+        $runs[0].Articles | Should -Be @('docs/gadgets/index.md', 'docs/gadgets/second.md')
+        $runs.Status | Should -Be @('clean')
+    }
+
+    It 'holds each embedding page''s Supports line against the yml, warning for the one that disagrees' -Tag 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
+        $folder = Join-Path $script:widgetRoot 'docs/gadgets/.assets/gadget'
+        [System.IO.Directory]::CreateDirectory($folder) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $folder 'diagram.drawio.yml'), "about:`n  lens: architecture`n  adrs: [ADR-WIDGET-GADGET]`ncontent: {}`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/index.md'),
+            "# Gadgets`n`nSupports ADR-WIDGET-GADGET (architecture lens).`n`n![Gadget](.assets/gadget/diagram.drawio.png)`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/second.md'),
+            "# Second`n`nSupports ADR-WIDGET-COG (architecture lens).`n`n![Gadget again](.assets/gadget/diagram.drawio.png)`n")
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked }
+        $null = & $script:build @{ Path = 'docs/gadgets/.assets/gadget'; Stage = 'prepare' }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
+            $Warning -and $Message -like '*docs/gadgets/second.md says Supports ADR-WIDGET-COG (architecture lens) for docs/gadgets/.assets/gadget; its yml says ADR-WIDGET-GADGET (architecture lens)*'
+        }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 0 -ParameterFilter { $Warning -and $Message -like '*docs/gadgets/index.md says*' }
     }
 
     It 'gives an untracked folder holding only its declaration its first put' {

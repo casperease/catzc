@@ -232,5 +232,29 @@ Describe 'MapsConfig' -Tag 'L0' {
         It 'rejects a diagram kind outside explanation and reference, naming them' {
             { (& $script:make ([ordered]@{})).MinimapsOf('widget') } | Should -Throw "*diagram kind 'widget' is not one of: explanation, reference*"
         }
+
+        It 'names a data command for every minimap id by default, and takes an override per id' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+            $default = & $script:make ([ordered]@{})
+            @($default.minimap_data.Keys | Sort-Object) | Should -Be @([Catzc.Base.Maps.MinimapData]::Ids | Sort-Object)
+            $default.minimap_data['code-locations'] | Should -Be 'Get-CodeLocationsMinimapData'
+            $override = & $script:make ([ordered]@{ minimaps = [ordered]@{ data = [ordered]@{ grid = 'Get-WidgetGrid' } } })
+            $override.minimap_data['grid'] | Should -Be 'Get-WidgetGrid'
+            $override.minimap_data['axis'] | Should -Be 'Get-AxisMinimapData'
+        }
+
+        It 'rejects a data command for an unknown id or one that is not a Verb-Noun name' {
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ data = [ordered]@{ widget = 'Get-Widget' } } }) } | Should -Throw "*minimaps.data: 'widget' is not one of: grid*"
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ data = [ordered]@{ grid = 'widget grid' } } }) } | Should -Throw "*minimaps.data.grid 'widget grid' must be a Verb-Noun command name*"
+        }
+
+        It 'declares the axis rows and columns once, and takes the ones it is given' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+            $default = (& $script:make ([ordered]@{})).minimap_axis
+            @($default.rows | ForEach-Object Key) | Should -Be @('DSGN', 'FLOW', 'AUTO', 'CLOUD')
+            $default.RowOf('PRIN') | Should -Be 'DSGN'
+            $given = (& $script:make ([ordered]@{ minimaps = [ordered]@{ axis = [ordered]@{ rows = [ordered]@{ UPPER = @('TOP') }; columns = @('alpha') } } })).minimap_axis
+            $given.RowOf('TOP') | Should -Be 'UPPER'
+            $given.RowOf('BOTTOM') | Should -BeNullOrEmpty
+            $given.columns | Should -Be @('alpha')
+        }
     }
 }

@@ -56,13 +56,12 @@ citing it as an authority puts a second set of rules beside the ADRs. Both turn 
 
 The ADRs are where catzc decides. An idea is a candidate, and the ADR of the aspect it touches judges it:
 
-- **Module and command design:** [ADR-PWSH-ONEFUNC](../automation/pwsh/one-function-per-file.md),
-  [ADR-PWSH-PARAM](../automation/pwsh/parameter-design.md), and the one resolution order of a setting,
-  [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
+- **Module and command design:** the pwsh engine's rules on one function per file and on parameter design, and the one resolution order of a
+  setting, [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
 - **Docs and ADR structure:** the [authoring conventions](../index.md#authoring-conventions).
 - **Contracts:** [ADR-REPO-CONTRACT](api-contracts.md).
 - **Testing:** [ADR-AUTO-TEST](../automation/test-automation.md).
-- **Pipelines:** [ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md) and [ADR-FLOW-CD-RUNNER](../flow/pipeline-runner-pattern.md).
+- **Pipelines:** the flow domain's rules on the CD discipline and the pipeline runner.
 - **Tooling:** [ADR-AUTO-PKGMGR](../automation/use-proper-package-managers.md) and [ADR-AUTO-UVPY](../automation/uv-python-handler.md).
 - **Go:** [ADR-AUTO-GO](../automation/go/go-test-artifacts.md) — Go in catzc is test artifacts only, so a Go idea beyond that scope is a
   question for the user.

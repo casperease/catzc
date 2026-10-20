@@ -115,8 +115,7 @@ separate matter: they are tools, each installed in isolation through uv, and not
 
 The Python root is the one folder every Python file lives under. When the repository has a `python/` folder, that folder is the root, and it
 is the `python` track ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)). Otherwise the root is `.python/`, dot-prefixed as
-the tooling folders are. This is the one convention every test language's root follows, Go's included
-([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders-literalnames)): the default is declared once, on the
+the tooling folders are. This is the one convention every test language's root follows, Go's included: the default is declared once, on the
 `PythonConfig` type ([sensible-defaults](../sensible-defaults.md)), `PythonConfig.ResolveRoot` is the one resolver every caller asks, and
 `python.yml` declares a `root` only to place the Python root elsewhere.
 
@@ -136,8 +135,7 @@ source run and the build's `Import-Catzc.ps1` in a build run.
 
 The Python test workspace is configuration the repository states elsewhere: which folders are Python test folders (the folders on disk),
 which Python version they use (the `tools.yml` pin), and which test dependencies they need (`python.yml`). `New-PythonProject` renders it,
-and the root-config registry names it as the generator of the workspace files
-([generated-root-configs](../../repository/generated-root-configs.md#rule-adr-repo-rootcfg-wildcardgenerator)).
+and the root-config registry names it as the generator of the workspace files.
 
 The layout is uv's own for a monorepo: a workspace. Its root, `<root>/pyproject.toml`, is virtual — it has no project of its own — and names
 every member explicitly, as `go.work`'s `use` entries do; it also carries the ruff settings, which apply to every member (a 140-column line,
@@ -151,7 +149,7 @@ not committed, so `python.yml` pins exact versions: two machines resolve the sam
 
 The Python version is a tool version, locked in `tools.yml` ([controlling-systemwide-deps](../controlling-systemwide-deps.md)), where the
 uv-managed interpreter's pin already lives (ADR-AUTO-UVPY-AUTHORITATIVEPIN). The project's `requires-python` is that minor version, read by
-address ([config-value-addressing](../../configuration/config-value-addressing.md)), so raising Python is one line in `tools.yml`.
+address, so raising Python is one line in `tools.yml`.
 
 ### The managed tools
 
@@ -166,8 +164,7 @@ A Python test runs where every other test runs: in a `Test-Automation` test run,
 protection, tiers, categories, and report ([test-automation](../test-automation.md)). The one language bridge runs `Invoke-PythonTest` once
 per mapped module — `uv sync`, `ruff check`, then `pytest` with a JUnit report, the test folder as pytest's rootdir — and turns each
 top-level test function into one test of the run, its parametrised cases folded into it, as Go folds subtests; in pwsh that test is a Pester
-`It` ([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)). Discovery reads the `test_*.py` files without
-running Python, so it is fast, offline, and works where uv is missing.
+`It`. Discovery reads the `test_*.py` files without running Python, so it is fast, offline, and works where uv is missing.
 
 A Python test starts a real engine through a real toolchain, so every one is `L2`. Its category comes from its name, decided in one place
 (the `PythonTestResult` type). uv is a tool of the harness, not part of what ships: the run's source session locates it, with the
@@ -177,12 +174,11 @@ tools config.
 ### The checks
 
 Every check that reads Python applies to every `.py` file the repository holds, wherever it lives: `ruff format` is the formatting standard
-for `.py` files ([uniform-formatting](../../repository/uniform-formatting.md)), applied by `Format-Code` and checked by `Test-Formatting`;
-`ruff check` lints them through the `Test-PythonLint` quality gate, and lints a test folder again before every run of its tests; and the
-spelling check reads `*.py`. ruff is pinned in `python.yml` and runs from the workspace environment with the workspace's settings passed
-explicitly, so every machine formats and lints every file — the agent helpers outside the workspace too — with the same version and rules.
-The glossary checks read PowerShell, through its parser, and markdown ([controlled-vocabulary](../../repository/controlled-vocabulary.md)),
-so a Python comment is outside their reach.
+for `.py` files, applied by `Format-Code` and checked by `Test-Formatting`; `ruff check` lints them through the `Test-PythonLint` quality
+gate, and lints a test folder again before every run of its tests; and the spelling check reads `*.py`. ruff is pinned in `python.yml` and
+runs from the workspace environment with the workspace's settings passed explicitly, so every machine formats and lints every file — the
+agent helpers outside the workspace too — with the same version and rules. The glossary checks read PowerShell, through its parser, and
+markdown, so a Python comment is outside their reach.
 
 ### The type check
 

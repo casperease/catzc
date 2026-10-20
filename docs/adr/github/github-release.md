@@ -116,4 +116,3 @@ asserts is reviewed data in one file, never scattered literals in the workflow.
 - [durable-sha-globs](../flow/durable-sha-globs.md) — the globset-projected CI trigger this workflow deliberately does not use.
 - [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the build-once/deploy-many flow this completes at the
   publish end.
-- [vendor-toolset-dependencies](../automation/pwsh/vendor-toolset-dependencies.md) — PSResourceGet, which packs and publishes the module.

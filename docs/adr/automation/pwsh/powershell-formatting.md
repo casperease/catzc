@@ -84,11 +84,11 @@ in one pass, one such file stops the quality gate's formatting pass for the whol
 
 ## Context
 
-[uniform-formatting](../../repository/uniform-formatting.md) fixes the cross-language baseline every file meets (UTF-8 without BOM, LF,
-spaces, trimmed trailing whitespace, final newline) and the repo-wide "tools format, never debate" policy. PowerShell adds a layer on top
-that is thicker — brace placement, variable casing, line length, and the full PSScriptAnalyzer rule set — because PowerShell is the bulk of
-the codebase and has the richest analyzer support. This ADR records the PowerShell-specific choices; the baseline and the never-hand-format
-policy live in uniform-formatting and are not repeated here.
+The repository's uniform formatting fixes the cross-language baseline every file meets (UTF-8 without BOM, LF, spaces, trimmed trailing
+whitespace, final newline) and the repo-wide "tools format, never debate" policy. PowerShell adds a layer on top that is thicker — brace
+placement, variable casing, line length, and the full PSScriptAnalyzer rule set — because PowerShell is the bulk of the codebase and has the
+richest analyzer support. This ADR records the PowerShell-specific choices; the baseline and the never-hand-format policy live in
+uniform-formatting and are not repeated here.
 
 ### Brace style
 
@@ -168,9 +168,9 @@ else {
 
 ### Line length and encoding
 
-Max line length is 120 for `.ps1`/`.psm1`/`.psd1`, set in `.editorconfig`. Encoding is UTF-8 without BOM (the repo baseline — see
-[uniform-formatting](../../repository/uniform-formatting.md)). Which analyzer rules are on or off — and why (for example, line length is
-enforced by `.editorconfig`, not `Test-ScriptAnalyzer`) — is documented inline in `PSScriptAnalyzerSettings.psd1`.
+Max line length is 120 for `.ps1`/`.psm1`/`.psd1`, set in `.editorconfig`. Encoding is UTF-8 without BOM (the repo baseline). Which analyzer
+rules are on or off — and why (for example, line length is enforced by `.editorconfig`, not `Test-ScriptAnalyzer`) — is documented inline in
+`PSScriptAnalyzerSettings.psd1`.
 
 ### The analyzer map
 
@@ -181,9 +181,8 @@ A PSScriptAnalyzer rule that fails the build enforces an ADR rule on every run, 
 analyzer rule to citation sits with the analyzer quality gate (`Test-ScriptAnalyzer`) that runs those rules, not with the test runner: a
 custom rule is added here, in `pwsh/.scriptanalyzer/`, and its entry in `analyzer-adr-map.yml` is part of the same change.
 `Test-AnalyzerAdrMap` keeps the two in step — an unmapped custom rule, or a mapped id that no ADR declares, fails it. Checking id existence
-in the gate rather than at config load is the same split the Azure customer catalogue uses
-([azure-customer-model](../../azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)): the load stays hermetic, and
-the cross-reference is a quality gate.
+in the gate rather than at config load is the same split the Azure customer catalogue uses: the load stays hermetic, and the cross-reference
+is a quality gate.
 
 ### Flat steps
 
@@ -232,6 +231,6 @@ Every custom analyzer rule names the ADR rule it enforces in the analyzer map.
 - PowerShell pull-request diffs contain only logic changes; `git blame` points at the logic author, not the last reformatter.
 - New contributors produce correctly formatted PowerShell because their editor reads `.editorconfig` and PSScriptAnalyzer plus the L2 tests
   catch the rest before merge.
-- The cross-language baseline is single-sourced in [uniform-formatting](../../repository/uniform-formatting.md); this ADR holds only the
-  PowerShell rules, so the two never duplicate or drift.
+- The cross-language baseline is single-sourced in the repository's uniform formatting; this ADR holds only the PowerShell rules, so the two
+  never duplicate or drift.
 - A new custom analyzer rule cannot ship without naming the ADR rule it enforces, so the coverage report credits it from its first run.

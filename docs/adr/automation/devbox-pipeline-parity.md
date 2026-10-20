@@ -38,7 +38,7 @@ The value of the pwsh track is that it collapses the distance between "works on 
 everywhere, so a problem is caught at the furthest-left point it can be. That only holds if parity is a rule, not an accident — the moment a
 command needs a pipeline to work, or behaves differently there, shift-left breaks and the pipeline becomes the first place failures appear.
 The single seam (`Test-IsRunningInPipeline`) keeps the _one_ legitimate difference in one auditable place; the version-controlled globsets
-(`ADR-FLOW-CD-GLOBS`) are the only channel between the two, so everything else stays identical.
+are the only channel between the two, so everything else stays identical.
 
 ## Decision
 
@@ -62,11 +62,10 @@ that the environments may differ.
 
 ### The one seam
 
-The CI orchestrator (Azure DevOps / GitHub) already knows it is CI, so the CLI only asks that one question
-([pipeline-detection](../flow/pipeline-detection.md)). The differences it governs are small and already owned: where output goes
-(`Get-OutputRoot`), and skipping the devbox auto-commit in CI. Concurrent test runs are not one of them: a run that finds the working folder
-busy runs in a snapshot of it, the same way in both environments (`ADR-AUTO-TEST`). Branching on the seam to change _what a command does_ is
-a parity violation, because it creates the pipeline-only behaviour the first rule forbids.
+The CI orchestrator (Azure DevOps / GitHub) already knows it is CI, so the CLI only asks that one question. The differences it governs are
+small and already owned: where output goes (`Get-OutputRoot`), and skipping the devbox auto-commit in CI. Concurrent test runs are not one
+of them: a run that finds the working folder busy runs in a snapshot of it, the same way in both environments (`ADR-AUTO-TEST`). Branching
+on the seam to change _what a command does_ is a parity violation, because it creates the pipeline-only behaviour the first rule forbids.
 
 ### One channel
 
@@ -84,8 +83,6 @@ runtime state, only the committed source — so "did this change" and "what ship
 
 ## Related
 
-- [pipeline-detection](../flow/pipeline-detection.md) — the one seam detector (`ADR-FLOW-CD-DETECT`)
-- [durable-sha-globs](../flow/durable-sha-globs.md) — the globsets, the only channel between devbox and pipeline (`ADR-FLOW-CD-GLOBS`)
 - [test-automation](test-automation.md) — the L0–L3 test tiers that run identically in both environments (`ADR-AUTO-TEST`)
 - [reduce-variability](../principles/reduce-variability.md), [one-living-version](../principles/one-living-version.md) — the principles this
   specialises to two environments

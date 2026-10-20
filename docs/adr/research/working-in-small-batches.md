@@ -92,10 +92,9 @@ Measure the discipline rather than assuming it: track how often production relea
 complete within a week or less, and whether features are actively decomposed to support minimum viable slices and rapid cycles. A team that
 cannot answer these is not yet working in small batches, regardless of intent.
 
-This platform's pull discipline is the same lever under a different name: work is pulled in the smallest batch that can move on its own
-([ADR-PROC-PULLWORK](../process/pull-work.md)), because batch size is what drives queue size and cost of delay
-([ADR-PROC-QUEUECOST](../process/queues-cost-money.md)). The CI discipline's small, continuously-integrated increments into one mainline
-([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) are small batching applied to the integration step specifically.
+This platform's pull discipline is the same lever under a different name: work is pulled in the smallest batch that can move on its own,
+because batch size is what drives queue size and cost of delay. The CI discipline's small, continuously-integrated increments into one
+mainline are small batching applied to the integration step specifically.
 
 ## Common pitfalls
 

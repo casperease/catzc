@@ -80,8 +80,8 @@ and promoted after aggregation; workers never read or write the map. The protect
 
 The repository-wide integrity scans (spelling, markdown lint) each take seconds to minutes and are pure functions of the files they read. In
 the local inner loop, `Test-Automation` runs them on every invocation — most of the time over byte-identical inputs, proving nothing the
-previous run did not already prove. The durable-SHA machinery ([durable-sha-globs](../flow/durable-sha-globs.md)) already reduces "did these
-inputs change" to one hash comparison, so a repeated identical scan is pure waste ([reduce-waste](../principles/reduce-waste.md)).
+previous run did not already prove. The durable-SHA machinery already reduces "did these inputs change" to one hash comparison, so a
+repeated identical scan is pure waste ([reduce-waste](../principles/reduce-waste.md)).
 
 ## Decision
 
@@ -137,10 +137,9 @@ deployable-unit projections.
 
 A module's test outcome is a function of more than its own files: its declared dependencies (any of them may change behavior underneath it),
 the loader and vendored Pester that run every test, the combined type assembly, the analyzer rules, and the harness itself. The protection
-identity is therefore a fold — the ADR-FLOW-CD-GLOBS durable-SHA recipe applied to `set-name|set-hash` lines — over the module's own derived
-set, its declared dependency closure from `dependencies.yml` (a group reference permits any member, so it expands to all members), the four
-infra scopes, and the runner's set. Each named set is hashed at most once per run (a run-owned memo), so composites cost folds, not
-re-hashing.
+identity is therefore a fold — the globsets' durable-SHA recipe applied to `set-name|set-hash` lines — over the module's own derived set,
+its declared dependency closure from `dependencies.yml` (a group reference permits any member, so it expands to all members), the four infra
+scopes, and the runner's set. Each named set is hashed at most once per run (a run-owned memo), so composites cost folds, not re-hashing.
 
 Where the true read set is not derivable, the composite widens to include the whole-repository `repository` set instead of guessing: a
 module that is unconstrained in `dependencies.yml`, a module whose tests carry the `integrity` category (they read the real repository —
@@ -177,7 +176,6 @@ never hides a wide red.
 
 ## Related
 
-- [durable-sha-globs](../flow/durable-sha-globs.md) — the globsets and durable SHA the protection skip keys on.
 - [test-automation](../automation/test-automation.md) — the tier/category system the protected integrity scans run under.
 - [caching](../automation/caching.md) — the general caching rules; this map is deliberately narrower (session memory, never persisted).
 - [reduce-waste](../principles/reduce-waste.md), [poka-yoke](../principles/poka-yoke.md) — the principles the protection skip instantiates.

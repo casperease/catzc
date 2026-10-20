@@ -147,8 +147,7 @@ $env:SystemRoot        # set by Windows — where is the OS?
 ```
 
 The variables a CI platform sets to say "this is a pipeline run" are not read this way. They are read in one place,
-`Test-IsRunningInPipeline`, and every other caller asks that function
-([ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK](../../flow/pipeline-detection.md#rule-adr-flow-cd-detect-nodirectvariablecheck)).
+`Test-IsRunningInPipeline`, and every other caller asks that function.
 
 The `$env:CATZC_*` flags are the same kind of input: deliberate external or diagnostic toggles that the outer environment sets and our code
 reads to alter a presentation or test-isolation behaviour.

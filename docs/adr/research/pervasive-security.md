@@ -67,12 +67,10 @@ earlier, avoiding the expensive rework that surfaces only once a problem reaches
 ## How to apply
 
 This platform realizes the capability where it has concrete surface. Authentication code proves every credential against the configured org
-and tenant before it is used, rather than trusting a token that merely authenticates somewhere
-([ADR-ADO-AUTH](../ado/dual-authentication.md)); session verification is layered so automation checks a session is pointed at the
-config-declared target before any deployment proceeds ([ADR-AZ-SESSION](../azure/az-session-verification.md)); and tool installation uses a
-platform-native, hash-verified, reviewed package manager instead of a structurally weaker alternative
-([ADR-AUTO-PKGMGR](../automation/use-proper-package-managers.md)). Each of these treats a security property as a built-in, automatically
-checked default rather than a manual review step bolted on afterward.
+and tenant before it is used, rather than trusting a token that merely authenticates somewhere; session verification is layered so
+automation checks a session is pointed at the config-declared target before any deployment proceeds; and tool installation uses a
+platform-native, hash-verified, reviewed package manager instead of a structurally weaker alternative. Each of these treats a security
+property as a built-in, automatically checked default rather than a manual review step bolted on afterward.
 
 ## Common pitfalls
 

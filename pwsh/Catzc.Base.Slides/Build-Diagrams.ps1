@@ -52,18 +52,18 @@ function Build-Diagrams {
             $found
         })
 
-    # Found by locality: a folder's article is the one page beside its .assets that embeds its diagram.drawio.png.
+    # Every article and slide that embeds a folder's png, wherever it sits; each one's Supports line is held against the yml.
+    $embedders = Get-DiagramEmbedder -Tracked $tracked -RepositoryRoot $root
     $articles = @{}
     foreach ($folderPath in $folders) {
-        $articleFolder = $folderPath.Substring(0, $folderPath.LastIndexOf('/.assets/'))
-        $name = $folderPath.Substring($folderPath.LastIndexOf('/') + 1)
-        $embed = '\]\((\./)?\.assets/' + [regex]::Escape($name) + '/diagram\.drawio\.png[)#\s]'
-        $pages = @($tracked | Where-Object { $_ -like '*.md' -and $_.Substring(0, [Math]::Max(0, $_.LastIndexOf('/'))) -ceq $articleFolder })
-        $embedders = @($pages | Where-Object { [System.IO.File]::ReadAllText((Join-Path $root $_)) -match $embed })
-        Assert-True ($embedders.Count -le 1) -ErrorText "Build-Diagrams: $folderPath is embedded by $($embedders.Count) pages ($($embedders -join ', ')); a diagram belongs to one article."
-        $articles[$folderPath] = $embedders | Select-Object -First 1
-        if ($embedders.Count -eq 0) {
-            Write-Message "Build-Diagrams: $folderPath is an orphan; no page in $articleFolder embeds its diagram.drawio.png." -Warning
+        $articles[$folderPath] = [string[]] @(if ($embedders.ContainsKey($folderPath)) {
+                $embedders[$folderPath]
+            })
+        if ($articles[$folderPath].Count -eq 0) {
+            Write-Message "Build-Diagrams: $folderPath is an orphan; no page embeds its diagram.drawio.png." -Warning
+        }
+        foreach ($drift in @(Get-DiagramSupportsDrift -Folder $folderPath -Page $articles[$folderPath] -RepositoryRoot $root)) {
+            Write-Message "Build-Diagrams: $drift" -Warning
         }
     }
 
@@ -81,13 +81,17 @@ function Build-Diagrams {
         , $Stage
     }
     $runs = [System.Collections.Generic.List[pscustomobject]]::new()
+    $declared = @($folders | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_/diagram.drawio.yml") -PathType Leaf })
+    if (-not $DryRun -and $declared.Count -gt 0) {
+        $null = Write-DiagramMinimapData -Folder $declared -RepositoryRoot $root
+    }
     if ($FromDrawing) {
         Assert-True ([bool] $Path) -ErrorText 'Build-Diagrams: -FromDrawing syncs the folders it is given; pass -Path.'
         $declaration = Join-Path $root "$Kit/declaration.py"
         foreach ($folderPath in $folders) {
             Assert-PathExist (Join-Path $root "$folderPath/diagram.drawio.yml") -PathType Leaf -ErrorText "Build-Diagrams: $folderPath has no diagram.drawio.yml to sync."
             $arguments = "run --project `"$(Join-Path $root $Kit)`" python `"$declaration`" sync `"$folderPath`""
-            $run = [pscustomobject]@{ Folder = $folderPath; Article = $articles[$folderPath]; Stage = 'sync'; ExitCode = $null; Status = 'dry-run' }
+            $run = [pscustomobject]@{ Folder = $folderPath; Articles = $articles[$folderPath]; Stage = 'sync'; ExitCode = $null; Status = 'dry-run' }
             $runs.Add($run)
             if ($DryRun) {
                 Write-Message "Would run: uv $arguments"
@@ -108,7 +112,7 @@ function Build-Diagrams {
     foreach ($folderPath in $folders) {
         foreach ($name in $stages) {
             $arguments = "run --project `"$(Join-Path $root $Kit)`" python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --stage $name --theme $Theme"
-            $run = [pscustomobject]@{ Folder = $folderPath; Article = $articles[$folderPath]; Stage = $name; ExitCode = $null; Status = 'dry-run' }
+            $run = [pscustomobject]@{ Folder = $folderPath; Articles = $articles[$folderPath]; Stage = $name; ExitCode = $null; Status = 'dry-run' }
             if ($DryRun) {
                 Write-Message "Would run: uv $arguments"
                 $runs.Add($run)

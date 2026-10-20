@@ -77,20 +77,19 @@ In the foundational phase, engineers do context engineering manually — assembl
 architecture doc, a style guide) an AI needs to answer a question accurately — and that assembled context is captured in a shared,
 version-controlled library of reusable templates rather than re-created ad hoc each time. High-quality documentation is a primary driver of
 successful AI adoption at this stage, which is also where it is cheapest to fix: `docs/references/` as the one authored source per folder,
-linked out to `README.md` rather than duplicated ([ADR-REPO-README](../repository/generated-readmes.md)), keeps that documentation current
-at no ongoing maintenance cost — an AI reading a generated README reads the same, never-stale content a person does.
+linked out to `README.md` rather than duplicated, keeps that documentation current at no ongoing maintenance cost — an AI reading a
+generated README reads the same, never-stale content a person does.
 
 In the pilot phase, automate retrieval for a single high-impact use case, choosing between a custom retrieval-augmented-generation (RAG)
 pipeline for precise, up-to-date retrieval and a Model Context Protocol (MCP) integration that selects and feeds only relevant context
 rather than raw documents. Either approach only has something worth retrieving because the codebase, configuration, pipelines, and governing
-docs are comprehensively kept in version control in the first place ([ADR-PRIN-EAC](../principles/everything-as-code.md)) — an artifact that
-exists only in a UI, a wiki, or someone's head is not retrievable by either pattern.
+docs are comprehensively kept in version control in the first place — an artifact that exists only in a UI, a wiki, or someone's head is not
+retrievable by either pattern.
 
 In the scale phase, secure leadership sponsorship, address foundational data-quality gaps, and build secure internal APIs that expose data
-systematically rather than through one-off pipelines. A structured, non-secret-only address grammar over version-controlled config
-([ADR-CONF-ADDRESSING](../configuration/config-value-addressing.md)) is the same shape this phase needs at the platform layer: a uniform,
-fail-fast way to name and resolve exactly one piece of internal data, with secrets excluded by construction rather than filtered after the
-fact.
+systematically rather than through one-off pipelines. A structured, non-secret-only address grammar over version-controlled config is the
+same shape this phase needs at the platform layer: a uniform, fail-fast way to name and resolve exactly one piece of internal data, with
+secrets excluded by construction rather than filtered after the fact.
 
 ## Common pitfalls
 

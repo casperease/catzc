@@ -1,8 +1,8 @@
 ---
 name: drawio-look
 description:
-  Look at one diagram PNG and say what is drawn, never what it means; for write-drawio-files, drawio-png and drawio-diagram-waves; input is
-  the PNG's repository path.
+  Look at one diagram PNG and say what is drawn, never what it means; for edit-diagram-yml and drawio-diagram-waves; input is the PNG's
+  repository path.
 user-invocable: false
 allowed-tools: Read
 paths: docs/.assets/**/*.png, out/drawio/**, out/diagrams/**

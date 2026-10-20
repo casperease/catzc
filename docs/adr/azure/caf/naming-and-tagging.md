@@ -358,8 +358,7 @@ Summary (ours): Decide once in which order the components appear, and keep to it
 #### What 5 means here
 
 The order is one repository-wide choice, the `ado_naming` variant in `variants.yml`
-([ADR-AZ-NAMING-ORDERISVARIANT](../azure-naming-standard.md#rule-adr-az-naming-orderisvariant),
-[ADR-REPO-VARIANT-ADONAMING](../../repository/repo-variants.md#rule-adr-repo-variant-adonaming)), never a per-name argument. Its default,
+([ADR-AZ-NAMING-ORDERISVARIANT](../azure-naming-standard.md#rule-adr-az-naming-orderisvariant)), never a per-name argument. Its default,
 `standard`, puts the environment first and the type last, so an alphabetical list of resources groups them by environment, then slot, then
 region. CAF's examples put the type first; the `classic` order (`<type>-<org>-<short_name>[-<customer>]-<env>-<region>[-<slot>][-<role>]`)
 reproduces that shape for a repository that wants it. The repository ships with `standard`.

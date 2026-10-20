@@ -47,13 +47,13 @@ policy that there is no other mechanism — no end-of-line QA stage to fall back
 Quality is a property of how the work is produced, not a gate at the end of it. This has three consequences the platform enforces:
 
 - **No inspection stage.** There is no step whose job is to find defects in finished work. The gates run _as_ the work is produced, and a
-  change is not "done pending QA" — it is done when its gates are green ([ADR-AUTO-TEST](../automation/test-automation.md)).
+  change is not "done pending QA" — it is done when its quality gates are green.
 - **Prevent, then detect.** The first choice is to make the defect impossible to express — derive behaviour from convention so there is
   nothing to get wrong ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md), [ADR-PRIN-REDUCEVAR](../principles/reduce-variability.md)). Where
   that is impossible, catch it at the earliest moment: an editor rule, a static-analysis quality gate, an assertion at the first line of
-  execution ([ADR-AUTO-FAILFAST](../automation/fail-fast-with-asserts.md)).
-- **Same gates everywhere.** The quality checks are the same on the devbox and in the pipeline and must agree
-  ([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md)), so "it passed on my machine" and "it passed in CI" are the same statement.
+  execution.
+- **Same gates everywhere.** The quality checks are the same on the devbox and in the pipeline and must agree, so "it passed on my machine"
+  and "it passed in CI" are the same statement.
 
 ## Why
 
@@ -71,10 +71,10 @@ how far it travels before detection. Concentrating quality at the furthest-left 
 ## How to apply
 
 When adding a capability, ask first whether the defect it could introduce can be made impossible — a convention, a type, a constrained input
-([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)). If not, add the check that catches it earliest and wire it into the gates that run in
-both environments ([ADR-AUTO-TEST](../automation/test-automation.md), [ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md)). Never
-propose a "review will catch it" or "QA will find it" step as the quality mechanism — those are inspection, and inspection is what this rule
-replaces. A change is finished when its gates are green, not when a later stage approves it.
+([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)). If not, add the check that catches it earliest and wire it into the quality gates that
+run on both the devbox and the pipeline. Never propose a "review will catch it" or "QA will find it" step as the quality mechanism — those
+are inspection, and inspection is what this rule replaces. A change is finished when its gates are green, not when a later stage approves
+it.
 
 ## References
 

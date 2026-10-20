@@ -24,12 +24,11 @@ Enterprise environments impose constraints that developer-oriented tooling rarel
   cannot depend on containers (see [controlling-systemwide-deps](controlling-systemwide-deps.md)).
 
 - **Locked-down, network-polluted module paths.** Group Policy or login scripts may add network shares to the module search path, which the
-  engine then scans on every lookup. How the module path is kept local and deterministic in pwsh is
-  [module-path-hygiene](pwsh/module-path-hygiene.md).
+  engine then scans on every lookup. How the module path is kept local and deterministic in pwsh is the pwsh twin's to say.
 
 - **Proxy and firewall.** Access to a package feed may be blocked or require proxy configuration. Operations that need the network at
   runtime are unreliable, so the dependencies are vendored ([controlling-module-dependencies](controlling-module-dependencies.md)) and pwsh
-  never calls the PowerShell Gallery at runtime ([vendor-toolset-dependencies](pwsh/vendor-toolset-dependencies.md)).
+  never calls the PowerShell Gallery at runtime.
 
 - **Real-time antivirus.** Endpoint protection (e.g. Defender) scans each file on first open. The importer opens ~400 function files, so the
   dominant cost of a _cold_ import — the first one after a fresh checkout, a file change, or a reboot — is this per-file scan. Once the scan
@@ -39,9 +38,8 @@ Enterprise environments impose constraints that developer-oriented tooling rarel
 
 `The other problem: antivirus file scanning`
 
-One function per file ([one-function-per-file](pwsh/one-function-per-file.md)) means the importer opens ~400 function files. Real-time
-antivirus scans each on **first** open and caches it clean, so the _first_ import in a fresh checkout/session is slow and every later one is
-fast.
+One function per file means the importer opens ~400 function files. Real-time antivirus scans each on **first** open and caches it clean, so
+the _first_ import in a fresh checkout/session is slow and every later one is fast.
 
 On an enterprise machine, the importer's `-DiagnoseLoadTime` switch shows a sharp cold/warm split (two back-to-back runs):
 
@@ -67,8 +65,7 @@ scan.)
 
 We vendor every dependency and assume nothing about the machine: no network access at runtime, no elevation, no dependence on the user
 profile. How the engine realises this — the module-path mechanics that make the vendored copies win, the one-time fix for a network user
-path, and no gallery at runtime — belongs to the pwsh rules: [module-path-hygiene](pwsh/module-path-hygiene.md) and
-[vendor-toolset-dependencies](pwsh/vendor-toolset-dependencies.md).
+path, and no gallery at runtime — belongs to the pwsh twin.
 
 ### How this is enforced
 
@@ -77,13 +74,12 @@ path, and no gallery at runtime — belongs to the pwsh rules: [module-path-hygi
 - **`Install-VendorModule`** — the only supported way to add a vendored module; it runs once at authoring time, not at runtime.
 - **User-space installers** — the tool installers use per-user package managers; `Test-ToolRequiresElevation` answers whether a tool's
   install needs elevation, and the provisioning loops skip and report such a tool.
-- **The module-path mechanics** — the vendored-copy-wins loader surgery and the network-share warning live in
-  [module-path-hygiene](pwsh/module-path-hygiene.md).
+- **The module-path mechanics** — the vendored-copy-wins loader surgery and the network-share warning live in the pwsh twin.
 
 ## Consequences
 
 - The automation works behind firewalls and proxies with no network access at runtime, and provisions fully without local admin.
-- Machine-specific slowness has environmental fixes where the source form requires them: the module-path mechanics live in
-  [module-path-hygiene](pwsh/module-path-hygiene.md), and a source-mode devbox mitigates the cold-import antivirus cost with an exclusion.
+- Machine-specific slowness has environmental fixes where the source form requires them: the module-path mechanics live in the pwsh twin,
+  and a source-mode devbox mitigates the cold-import antivirus cost with an exclusion.
 - An installed build loads one merged function file per module, so its cold import opens a few dozen function files rather than hundreds,
   while the source a developer edits keeps one function per file.

@@ -112,11 +112,11 @@ def test_top_to_bottom_stacks_the_bands_and_stands_the_span_beside_them():
     assert declaration.dump(back) == declaration.dump(first)
 
 
-def test_minimaps_default_by_kind_and_must_be_three_known_views():
+def test_declared_minimaps_must_be_three_known_views_and_none_declared_leaves_the_defaults_to_the_data():
     raw = __import__("yaml").safe_load(WIDGETS)
     views = lambda r: declaration.normalise(r)["content"]["minimaps"]
-    assert views(raw) == ["grid", "axis", "layer-stack"]
-    raw["content"]["kind"] = "reference"
+    assert views(raw) == []
+    raw["content"]["minimaps"] = ["grid", "code-locations", "track-placement"]
     assert views(raw) == ["grid", "code-locations", "track-placement"]
     raw["content"]["minimaps"] = ["grid", "axis", "moon"]
     with pytest.raises(declaration.DeclarationError, match="minimap view 'moon' is not one of: grid, code-locations"):
@@ -141,27 +141,21 @@ def claimed():
     return raw
 
 
-def test_every_about_name_is_checked_against_its_registry():
-    assert declaration.normalise(claimed())["about"]["tracks"] == ["python"]
-    for key, wrong, message in (
-        ("files", "python/Catzc.Diagrams/gone.py", "is not a file in the repository"),
-        ("modules", "Catzc.Widget.Nowhere", "is not one of dependencies.yml"),
-        ("tracks", "widgets", "is not one of variants.yml"),
-        ("languages", "widgetese", "is not one of languages.yml"),
-        ("adrs", "ADR-WIDGET-NOWHERE", "is not a rule of an ADR in adrs.yml"),
-    ):
-        raw = claimed()
-        raw["about"][key] = [wrong]
-        with pytest.raises(declaration.DeclarationError, match=message):
-            declaration.normalise(raw)
+def test_the_subject_is_its_adr_codes_checked_against_the_registry():
+    raw = claimed()
+    raw["about"]["adrs"] = ["ADR-WIDGET-NOWHERE"]
+    with pytest.raises(declaration.DeclarationError, match="is not a rule of an ADR in adrs.yml"):
+        declaration.normalise(raw)
 
 
-def test_the_minimaps_light_what_about_names_with_a_reason():
+def test_the_retired_subject_lists_are_read_ignored_and_never_written_back():
     about = declaration.normalise(claimed())["about"]
-    code = dict(declaration.minimaps.lights("code-locations", about))
-    assert code["python/Catzc.Diagrams/minimaps.py"] == "about.files" and "python" in code
-    assert declaration.minimaps.lights("module-neighbourhood", about) == [("Catzc.Base.Repository", "about.modules")]
-    assert all("adrs.yml" in why for _, why in declaration.minimaps.lights("axis", about))
+    assert set(about) == {"lens", "adrs"}
+    assert all(key not in declaration.dump(declaration.normalise(claimed())) for key in ("tracks:", "languages:", "modules:", "files:"))
+    raw = claimed()
+    raw["about"]["gadgets"] = ["widget"]
+    with pytest.raises(declaration.DeclarationError, match="about key 'gadgets' is not one of: adrs, lens"):
+        declaration.normalise(raw)
 
 
 def test_put_embeds_each_minimap_as_a_picture_and_get_keeps_the_subject_through_save(tmp_path):
@@ -182,7 +176,9 @@ def test_put_png_embeds_the_model_and_get_reads_it_back(tmp_path):
     with Image.open(dst) as img:
         assert img.size[0] > 1500
     back = declaration.get(declaration.model_of(tmp_path), kind="explanation")
-    assert declaration.dump(back) == declaration.dump(first)
+    # A declaration that names no minimaps takes the folder's data's three, and get writes them out.
+    assert back["content"]["minimaps"] == list(declaration.minimap_data(tmp_path))
+    assert declaration.dump(back) == declaration.dump({**first, "content": {**first["content"], "minimaps": back["content"]["minimaps"]}})
 
 
 def test_the_source_file_round_trips_through_load_and_save(tmp_path):
@@ -463,13 +459,15 @@ def test_sync_stops_on_a_conflict_before_put_naming_the_cells(tmp_path):
 def test_a_tree_change_a_minimap_reads_makes_it_stale_not_drifted(tmp_path, monkeypatch):
     committed_pair(tmp_path, __import__("yaml").safe_load(WIDGETS))
     assert declaration.drift(tmp_path) == ([], [])
-    drawn = declaration.minimaps.picture
+    computed = declaration.minimap_data
 
-    # The tree the minimaps read changed under them: the same declaration now draws each minimap differently.
-    def changed(view, about, width, height, theme=None):
-        return drawn("engine-strip" if view != "engine-strip" else "grid", about, width, height, theme)
+    # The tree the minimaps read changed under them: the same declaration now computes data that lights a cell.
+    def changed(folder):
+        reason = {"subject": "widgets/a.ps1", "basis": "citation", "requested": "ADR-WIDGET", "note": None}
+        lit = {"axes": [{"name": "track", "values": ["widgets"]}], "cells": [{"at": ["widgets"], "count": 1}]}
+        return {view: {**data, **lit, "lit": [{"at": ["widgets"], "count": 1, "reasons": [reason]}]} for view, data in computed(folder).items()}
 
-    monkeypatch.setattr(declaration.minimaps, "picture", changed)
+    monkeypatch.setattr(declaration, "minimap_data", changed)
     cells, stale = declaration.drift(tmp_path)
     assert cells == [] and stale and all(cell.startswith("minimap-") for cell in stale)
 
@@ -547,3 +545,13 @@ def test_a_style_token_no_theme_defines_fails_naming_the_tokens():
 def test_the_glyph_library_names_colours_only_as_tokens():
     library = (declaration.KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8")
     assert __import__("re").findall(r"#[0-9A-Fa-f]{6}", library) == []
+
+
+def test_tidy_re_saves_a_source_without_its_retired_keys_and_changes_nothing_else(tmp_path):
+    raw = claimed()
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    before = declaration.load(tmp_path)
+    declaration.save(tmp_path, declaration.load(tmp_path))
+    text = (tmp_path / declaration.SOURCE).read_text(encoding="utf-8")
+    assert all(key not in text for key in ("tracks:", "languages:", "modules:", "files:"))
+    assert declaration.dump(declaration.load(tmp_path)) == declaration.dump(before)

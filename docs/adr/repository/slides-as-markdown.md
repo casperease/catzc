@@ -65,9 +65,10 @@ are, and the kit in `slides-kit` (`python/Catzc.Diagrams/assets/slides/**`). The
 ### Rule ADR-REPO-SLIDES-ONEBUILDCOMMAND
 
 Every draw.io slide renders from the tree by one command on its diagram folder, `Build-Diagrams -Path <folder>`; the whole tree is that
-command repeated over every diagram folder found under `docs/**/.assets/**`, so no setting lists the folders. Its inputs are the model
-embedded in the folder's `diagram.drawio.png`, the one article beside the folder's `.assets` that embeds it, and the repository's maps, and
-no step of it asks a session or a model to decide anything
+command repeated over every diagram folder found under `docs/**/.assets/**`, so no setting lists the folders. Its inputs are the folder's
+declaration (or, for a folder without one, the model embedded in its `diagram.drawio.png`) and the repository's maps. The articles and
+slides that embed the png are not inputs: the build finds every one of them, wherever it sits, and holds each one's Supports line against
+the declaration's ADR codes and lens. No step of it asks a session or a model to decide anything
 ([ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-adr-prin-eac-nostateoutsideversioncontrol)). A raster
 is never drawn by hand or by the draw.io CLI: a session edits a model, and the kit renders it.
 
@@ -94,7 +95,8 @@ Two directions join the declaration and the drawing, and both are deterministic.
 the yml, so a hand edit in the editor is folded back before anything else reads it. Put then get returns the same yml, get then put the same
 model, and the kit's tests prove both on a fixture. A hand-moved cell comes back as a `layout:` entry; a cell that sits where the grid would
 put it needs none. The quality gate `Test-Diagrams` fails every folder whose embedded model differs from put of its yml and names the cells
-that differ; a minimap that differs only because a registry it reads changed is stale, reported and not failed.
+that differ. A cell the kit derives and get never reads back (a minimap, the legend, the map key, the sidebar) that differs only because a
+registry or the kit changed is stale, reported and not failed, and `Build-Diagrams -Stale` rebuilds it.
 
 - [Two directions, one truth](#two-directions-one-truth)
 

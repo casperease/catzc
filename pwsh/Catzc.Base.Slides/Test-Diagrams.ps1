@@ -37,6 +37,7 @@ function Test-Diagrams {
     if ($folders.Count -gt 0) {
         $tool = Resolve-ToolExecutable -Tool uv
         Assert-True $tool.Found -ErrorText 'Test-Diagrams: uv is not installed (no managed uv found). Run Install-Uv.'
+        $null = Write-DiagramMinimapData -Folder $folders -RepositoryRoot $root
         $quoted = ($folders | ForEach-Object { "`"$_`"" }) -join ' '
         $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$(Join-Path $root $Kit)`" python `"$declaration`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
         Assert-True ($result.ExitCode -eq 0) -ErrorText "Test-Diagrams: the drift check failed (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
@@ -63,7 +64,7 @@ function Test-Diagrams {
         StaleFolders      = $stale.ToArray()
     }
     if ($stale.Count -gt 0) {
-        Write-Message "Test-Diagrams: $($stale.Count) diagram(s) carry minimaps a registry change left stale; put them again: $($stale -join ', ')"
+        Write-Message "Test-Diagrams: $($stale.Count) diagram(s) carry minimaps or a legend a registry or kit change left stale; rebuild them with Build-Diagrams -Stale: $($stale -join ', ')"
     }
     Write-QualityGateReport -Subject diagrams -Title Test-Diagrams -Issues $issues.ToArray() -Facts $facts -OutputFolder $OutputFolder -PassThru:$PassThru
 }

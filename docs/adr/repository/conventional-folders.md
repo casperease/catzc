@@ -282,13 +282,11 @@ code; and its minimap images, each with a sister `.md` that gives the reason for
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's
 `configuration/[<customer>/]<env>[-<slot>].yml` tree is the resource-group inventory — one config file is one resource group; a config at
 the configuration root is the shared platform's, and a subfolder is always a customer key. The folder name is the readable label; the Azure
-identity is a separate `short_name`. See [the data model](../azure/azure-data-model.md) and
-[the naming standard](../azure/azure-naming-standard.md).
+identity is a separate `short_name`, which the Azure domain's data model and naming standard govern.
 
 **`.ado/pipelines/`** is flat: ado pipelines are named `<type>-<name>.yaml` (`cron`/`ci`/`cd`/`cde`/`deploy`/`input`) directly in the
 folder, the runner `Invoke-AdoScript.ps1` sits at the root, and reusable fragments live in per-kind folders whose names are the include-kind
-contract — `steps/`, `jobs/`, `stages/`, `variables/`, `extends/`. See
-[pipeline-naming-and-placement](../ado/pipeline-naming-and-placement.md).
+contract — `steps/`, `jobs/`, `stages/`, `variables/`, `extends/`; the ado domain names and places each pipeline.
 
 **`contracts/`** holds the repository's contracts — the binding interfaces at its boundary, proven by tests, in both directions: provided
 (what an outside consumer may rely on) and depended-on (what an outside platform, such as GitHub or Azure DevOps, expects of our files and
@@ -404,8 +402,7 @@ scripts, templates, JSON schemas, reference data, embedded resources. Test-only 
 here. `Test-Automation` does not look here. The one-function-per-file validator does not look here. Module functions reference assets via
 `Get-CatzcModuleRoot` (e.g., `Get-CatzcModuleRoot -ChildPath 'assets/template.bicep'`, the same call from a root or a `private/` function),
 which resolves under the active code root in source mode and in the installed build alike
-([working-directory-mechanics](../automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-modulelocatescontent),
-[internal-asset-dependencies](../automation/internal-asset-dependencies.md)). Module authors may create subdirectories inside `assets/` to
+([internal-asset-dependencies](../automation/internal-asset-dependencies.md)). Module authors may create subdirectories inside `assets/` to
 organize content — the internal structure is freeform. The module's own configuration does **not** belong here; it lives in `configs/`.
 
 **`configs/`** holds the module's own internal configuration — the checked-in YAML a module loads to configure its own behaviour. Each entry

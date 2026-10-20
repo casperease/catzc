@@ -69,14 +69,13 @@ coordination to resolve.
 
 This platform draws the same boundary DORA describes at the repository level: a **track** is one named root concern with one tech-stack,
 classified core, external port, or adapter, and a consumer subscribes to a track only through its declared module dependencies or the
-globset's native trigger projection — never by hand-matching another track's source paths ([ADR-DSGN-TRACK](../design/tracks.md)). That
-subscription surface is what keeps a change in one track from rebuilding, or blocking on, every other track's teams.
+globset's native trigger projection — never by hand-matching another track's source paths. That subscription surface is what keeps a change
+in one track from rebuilding, or blocking on, every other track's teams.
 
 Within a track, the same discipline applies one level down: the allowed edge between two modules is declared once in `dependencies.yml` and
-gated against the actual code, so a module's dependents are a checked-in fact rather than whatever the code happens to call
-([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)). And the platform stays open for extension without ever editing shared
-infrastructure to accommodate a new consumer — a new module, function, or dependency is a new file, never a hand-edited registration that
-every other contributor must route around ([ADR-AUTO-EXTEND](../automation/open-closed-architecture.md)). Together these three give a
+gated against the actual code, so a module's dependents are a checked-in fact rather than whatever the code happens to call. And the
+platform stays open for extension without ever editing shared infrastructure to accommodate a new consumer — a new module, function, or
+dependency is a new file, never a hand-edited registration that every other contributor must route around. Together these three give a
 concrete, computed answer to "does this change require coordinating with, or waiting on, another team" — the question this capability is
 built to keep answered "no."
 

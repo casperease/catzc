@@ -59,8 +59,8 @@ Manage the queues, not just the work. Concretely:
 - **Lower work-in-progress to lower lead time.** By Little's Law, with throughput fixed, cutting the number of items in flight cuts lead
   time directly ([ADR-PROC-PULLWORK](pull-work.md)). This needs no one to work faster.
 - **Spend the cheap resource to save the dear one.** Human wait is expensive and machine time is cheap and getting cheaper (Moore's law), so
-  run quality gates in parallel, cache results so nothing is recomputed ([ADR-AUTO-CACHE](../automation/caching.md)), and stand up throwaway
-  environments rather than queueing for a shared one. Buying down a human queue with compute is almost always the right trade.
+  run quality gates in parallel, cache results so nothing is recomputed, and stand up throwaway environments rather than queueing for a
+  shared one. Buying down a human queue with compute is almost always the right trade.
 
 ## The arithmetic
 
@@ -76,8 +76,7 @@ hour times the cost of delay of everything in it, every day.
 
 **Moore's Law as an economic input** [^3]. Because compute grows cheap relative to human time, the price of draining a queue with machine
 time keeps falling. Parallelism, caching, and ephemeral infrastructure are the levers; the devbox/pipeline parity that lets the same gates
-run anywhere ([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md)) is what lets a developer pay a few seconds of local CPU to avoid a
-push-and-wait round trip through the pipeline queue.
+run anywhere is what lets a developer pay a few seconds of local CPU to avoid a push-and-wait round trip through the pipeline queue.
 
 ## Why
 
@@ -97,8 +96,8 @@ making the work visible ([ADR-PROC-OBSERVEWIP](observe-work.md)).
 When something feels slow, measure where the change waits before optimising how fast any step runs, and shorten the largest queue first.
 Keep work-in-progress low ([ADR-PROC-PULLWORK](pull-work.md)) — it is the Little's-Law lever on lead time. Reduce batch size before adding
 capacity, because large batches are what inflate the queue in the first place. And prefer spending compute over spending human wait:
-parallelise quality gates, cache so nothing is recomputed across a session ([ADR-AUTO-CACHE](../automation/caching.md)), and use ephemeral
-environments rather than queueing for shared ones.
+parallelise quality gates, cache so nothing is recomputed across a session, and use ephemeral environments rather than queueing for shared
+ones.
 
 ## References
 

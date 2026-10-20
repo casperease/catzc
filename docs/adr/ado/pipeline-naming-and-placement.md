@@ -48,8 +48,8 @@ A pipeline's type (cron / ci / cd / cde / deploy / input — see [pipeline-types
 as the **first part of the filename** (`ci-pwsh.yaml`), so a flat listing of `.ado/pipelines/` already groups and reveals ado pipelines by
 type. Fragments, by contrast, are grouped by folder. The filename and the folder are the contract.
 
-This is the same argument as [conventional-folders](../repository/conventional-folders.md): a fixed, semantic layout where the folder name
-and the filename are the contract. Tooling and readers program against the names; there is nothing to configure and nothing to guess.
+This is the same argument as the repository's conventional folders: a fixed, semantic layout where the folder name and the filename are the
+contract. Tooling and readers program against the names; there is nothing to configure and nothing to guess.
 
 There is also an extension ambiguity: `.yml` vs `.yaml`. We assign each a distinct role so the extension alone tells you whether a file is
 an executable ADO artifact or data our code reads.
@@ -175,5 +175,5 @@ where every config file is already `.yml`.
 - The include-kind of a fragment is unambiguous from its path, so an author cannot include a job template where a step template belongs
   without it being obvious.
 - Extension alone classifies a file as executable (`.yaml`) or data (`.yml`), which keeps tooling and `grep` honest.
-- The layout is rigid by design (the cost of [conventional-folders](../repository/conventional-folders.md)): ado pipelines cannot be
-  foldered by team or domain, and fragment folders are a closed set. The predictability is worth more than the flexibility.
+- The layout is rigid by design (the cost of conventional folders): ado pipelines cannot be foldered by team or domain, and fragment folders
+  are a closed set. The predictability is worth more than the flexibility.

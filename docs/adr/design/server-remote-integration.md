@@ -104,21 +104,20 @@ you did not need to have. Integrating from verified is what makes "the dirty HEA
 `PR is authenticated ingress, not just review`
 
 It is easy to read a pull request as a review checkpoint — a second pair of eyes. That undersells it. In the audited regime
-(`git_workspace: main-via-pr`, [ADR-REPO-VARIANT-GITWORKSPACE](../repository/repo-variants.md#rule-adr-repo-variant-gitworkspace)) the PR is
-the **only** ingress into the server's mainline, and it is what makes ingress _safe_: it authenticates the change against the server's
-identity model (so every commit on main is attributable to an authenticated principal), runs the mandatory merge gates, and performs the
-merge itself — the change reaches `main` / `master` by no other route. Review is one of the gates a PR can carry; the load-bearing property
-is authentication-plus-merge. The PR is the audited doorway, and closing every other door (no direct push to the protected branch) is what
-lets the audit trail in `git log` be trusted as complete. The solo `main-direct` mode (`ADR-REPO-VARIANT-GITWORKSPACE`) is the deliberate
-exception for a single-author trunk, where the author _is_ the sole authenticated principal and the doorway collapses to a direct commit;
-the moment there is more than one author, the PR ingress is what keeps the mainline audited.
+(`git_workspace: main-via-pr`, the repository's integration variant) the PR is the **only** ingress into the server's mainline, and it is
+what makes ingress _safe_: it authenticates the change against the server's identity model (so every commit on main is attributable to an
+authenticated principal), runs the mandatory merge gates, and performs the merge itself — the change reaches `main` / `master` by no other
+route. Review is one of the gates a PR can carry; the load-bearing property is authentication-plus-merge. The PR is the audited doorway, and
+closing every other door (no direct push to the protected branch) is what lets the audit trail in `git log` be trusted as complete. The solo
+`main-direct` mode is the deliberate exception for a single-author trunk, where the author _is_ the sole authenticated principal and the
+doorway collapses to a direct commit; the moment there is more than one author, the PR ingress is what keeps the mainline audited.
 
 ## How this is enforced
 
 - **Server branch policy** — the protected `main` / `master` on the ADO / GitHub remote admits merges only through a PR, so ingress cannot
   bypass the authenticate-and-merge path (`ADR-DSGN-REMOTE-PULLREQUESTISINGRESS`).
-- **`git_workspace` variant** — `main-via-pr` vs `main-direct` (`ADR-REPO-VARIANT-GITWORKSPACE`) selects the audited-ingress regime;
-  `Sync-GeneratedFile`'s branch guard is the local half.
+- **`git_workspace` variant** — `main-via-pr` vs `main-direct` selects the audited-ingress regime; `Sync-GeneratedFile`'s branch guard is
+  the local half.
 - **The stable sync point** — the BVT-verified server head, as against the dirty HEAD, is the "last verified commit" this ADR tells
   consumers to integrate from; the delivery flow's commit lifecycle defines both.
 - **Code review** — a build or workflow that pins its integration base to the remote HEAD rather than the last verified commit, or a process
@@ -137,6 +136,3 @@ the moment there is more than one author, the PR ingress is what keeps the mainl
 
 - [one-living-version](../principles/one-living-version.md) (`ADR-PRIN-ONELIVE`) — trunk-based development and immutable history.
 - [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) — the audit / change-approval guarantees the server remote and PR ingress make real.
-- [repo-variants](../repository/repo-variants.md) (`ADR-REPO-VARIANT-GITWORKSPACE`) — the `git_workspace` PR-vs-Direct integration mode.
-- [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`) — the verification the "verified commit"
-  has cleared.

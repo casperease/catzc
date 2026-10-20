@@ -76,18 +76,16 @@ low-risk action any time it is needed.
 
 ## How to apply
 
-This platform's pipeline design realizes the delivery/deployment distinction DORA draws directly:
-[cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) (ADR-FLOW-CD) names Continuous Delivery (CD) as the
-automated promotion of a build-once, tagged artifact through non-prod, left ready for production but handed to a separately governed DEPLOY
-step for the human-owned production cutover — and names Continuous Deployment (CDe) as the same flow with that last step internalized and
-automated. Keeping deployability as the property CD protects, and the production decision as a distinct governance question, is exactly the
-"deployable on demand, deploy is a separate choice" framing this capability describes.
+This platform's pipeline design realizes the delivery/deployment distinction DORA draws directly: its CD discipline names Continuous
+Delivery (CD) as the automated promotion of a build-once, tagged artifact through non-prod, left ready for production but handed to a
+separately governed DEPLOY step for the human-owned production cutover — and names Continuous Deployment (CDe) as the same flow with that
+last step internalized and automated. Keeping deployability as the property CD protects, and the production decision as a distinct
+governance question, is exactly the "deployable on demand, deploy is a separate choice" framing this capability describes.
 
-[pipeline-types](../flow/pipeline-types.md) (ADR-FLOW-CD-TYPE) is the taxonomy underneath: one CI engine shared by CI and CD
-(ADR-FLOW-CD-TYPE-ONECIENGINE), a bounded pre-commit budget so slow verification is pushed into the deploy path rather than skipped
-(ADR-FLOW-CD-TYPE-PRECOMMITBUDGET), and a DEPLOY pipeline that never rebuilds, only promotes a pinned, already-verified artifact
-(ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL–ADR-FLOW-CD-TYPE-DEPLOYISPINNED). That build-once discipline is what keeps a continuously delivered
-system's non-prod certification meaningful when it reaches production.
+Its pipeline types are the taxonomy underneath: one CI engine shared by CI and CD, a bounded pre-commit budget so slow verification is
+pushed into the deploy path rather than skipped, and a DEPLOY pipeline that never rebuilds, only promotes a pinned, already-verified
+artifact. That build-once discipline is what keeps a continuously delivered system's non-prod certification meaningful when it reaches
+production.
 
 ## Common pitfalls
 

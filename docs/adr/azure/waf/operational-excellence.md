@@ -126,9 +126,8 @@ governance verify.
 
 The repository's standard practices are its domain rules: the ADRs under `docs/adr/`, each rule cited by code and enforced, where a machine
 can enforce it, by a quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../automation/test-automation.md#rule-adr-auto-test-qualitygate)). How the
-team works is the process domain — agile values and principles ([ADR-PROC-AGILE](../../process/agile.md)), stopping the line when a gate
-fails ([ADR-PROC-ANDON](../../process/holding-the-line.md)), and continuous improvement from evidence
-([ADR-PROC-KAIZEN](../../process/inspect-and-adapt.md)). A learning, blameless culture is the DORA capability
+team works is the process domain — agile values and principles, stopping the line when a quality gate fails, and continuous improvement from
+evidence. A learning, blameless culture is the DORA capability
 [generative organizational culture](../../research/generative-organizational-culture.md). Compliance built in as guardrails is the landing
 zone's policy assignments ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
 
@@ -262,8 +261,7 @@ eases onboarding, and reduces defects.
 Tools are standard and pinned: the Bicep CLI, the az CLI ([ADR-AZ-CLI](../prefer-az-cli.md)), Pester, PSScriptAnalyzer, markdownlint, and
 Prettier, each locked to a version in `tools.yml` and installed by the same installer on a devbox and in a pipeline
 ([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions)). Formatting is
-one standard per file language, configured in `languages.yml` and applied by `Format-Code` — Bicep by `bicep format`
-([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)). Every Azure name
+one standard per file language, configured in `languages.yml` and applied by `Format-Code` — Bicep by `bicep format`. Every Azure name
 follows one deterministic naming standard ([ADR-AZ-NAMING](../azure-naming-standard.md)), every resource carries the CAF tags, and every
 decision is an ADR in the repository. The delivery metrics are DORA's ([metrics](../../../references/dora/metrics.md)).
 
@@ -448,8 +446,7 @@ found and redeployed from the commit before it.
 
 The process side is absent from the repository: no alert routes an incident to anyone, and no response plan, escalation path, or drill
 exists as a version-controlled procedure. Named roles belong to the operating organisation, like the roles of OE:01. A blameless review that
-changes a rule, a gate, or an ADR is how the repository learns
-([ADR-PROC-KAIZEN-AMPLIFYLEARNING](../../process/inspect-and-adapt.md#rule-adr-proc-kaizen-amplifylearning)).
+changes a rule, a gate, or an ADR is how the repository learns.
 
 ##### OE:08 in `foundation`
 
@@ -576,9 +573,7 @@ through non-production behind the RC and RBC gates
 ([ADR-FLOW-CD-TWORELEASEGATES](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates)), then staged inactive in
 pre-prod and activated to production
 ([ADR-FLOW-CD-TWOENVIRONMENTACTIVATION](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-twoenvironmentactivation)). A gate
-that fails stops the line
-([ADR-PROC-ANDON-FAILINGGATESTOPSLINE](../../process/holding-the-line.md#rule-adr-proc-andon-failinggatestopsline)), and a DEPLOY pipeline
-deploys one pinned commit's artifact, so rolling back is deploying the commit before it
+that fails stops the line, and a DEPLOY pipeline deploys one pinned commit's artifact, so rolling back is deploying the commit before it
 ([ADR-FLOW-CD-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-adr-flow-cd-type-deployispinned)).
 
 The shipped pipelines realise part of this: they deploy only on `main`, after the CI stage, in dependency order, each into an asserted

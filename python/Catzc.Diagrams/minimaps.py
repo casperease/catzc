@@ -1,20 +1,12 @@
 # cspell:ignore minimaps textlength LANCZOS
-"""The minimaps of a diagram, computed from what its yml says the diagram is about, and drawn for the sidebar.
+"""The minimaps of a diagram, drawn for the sidebar from the data Catzc.Base.Maps computes.
 
-A diagram's `about:` names its subject: the ADR rules it covers (`adrs`), the tracks it describes (`tracks`), the languages it
-models (`languages`, empty for a high-level diagram), the modules it draws (`modules`) and, optionally, the exact files it stands
-for (`files`). Every name is checked against its registry: the ADR registry (adrs.yml), the tracks (variants.yml), the languages
-(languages.yml), the module dependencies (dependencies.yml) and the disk; a name a registry does not know fails with what it does.
+A minimap's data is computed in PowerShell from the diagram's subject, the ADR codes of its `about.adrs` and the files that cite
+them, and reaches this module as contract JSON (minimap_contract.py); what it lights, and why, is never computed or written here.
+Every view is a question in its caption, readable at the sidebar's width: lit places are bright and named, context is dim.
 
-A minimap is a view; what it lights, and why, is computed from `about:` and the registries, never written by hand:
-
-  code-locations        where the subject lives: each described track, the drawn modules in it, and the named files
-  module-neighbourhood  the drawn modules, with the modules they use to the right and the modules that use them to the left
-  axis                  the ADR registry's stacks down and the delivery concerns across: the stack and concern of each covered rule
-  grid                  the described tracks down and the modelled languages across
-
-The other views the plan names render as a labelled frame until they are built. Every view is a question in its caption, readable at
-the sidebar's width: lit places are bright and named, context is dim. The registries are read here, never a file's head
+Until the rework of every diagram's minimaps drops them, the other `about:` names (tracks, languages, modules, files) are still
+checked against their registries (problems), and otherwise ignored. The registries are read here, never a file's head
 (ADR-REPO-FILEMETA-NOREADBACK).
 """
 
@@ -38,7 +30,7 @@ QUESTION = {
     "track-placement": "Which tracks and vendors?",
     "engine-strip": "Which engines?",
 }
-ABOUT_KEYS = ("adrs", "tracks", "languages", "modules", "files")
+ABOUT_KEYS = ("adrs",)
 
 
 def use_theme(theme=None):
@@ -63,30 +55,6 @@ def tracks():
 
 
 @cache
-def languages():
-    raw = registry("pwsh/Catzc.Base.Languages/configs/languages.yml")["languages"]
-    return [entry if isinstance(entry, str) else entry.get("name") for entry in raw] if isinstance(raw, list) else list(raw)
-
-
-@cache
-def dependencies():
-    """Every module and the modules it uses, from the module system's dependency registry."""
-    uses = {}
-
-    def walk(node):
-        for key, value in (node or {}).items():
-            if isinstance(value, list) and key.startswith("Catzc."):
-                uses.setdefault(key, [])
-                uses[key] += [v for v in value if isinstance(v, str) and v.startswith("Catzc.") and v not in uses[key]]
-            elif isinstance(value, dict):
-                walk(value)
-
-    # Only the `groups:` section names module-to-module edges; `modules:` maps a module to the groups it may use.
-    walk(registry("pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml")["groups"])
-    return {module: [m for m in used if m in uses] for module, used in uses.items()}
-
-
-@cache
 def adrs():
     """Every ADR code in the registry with the stack and the concerns it sits on: a ruleset's own concern, else its domain's."""
     found = {}
@@ -105,15 +73,6 @@ def adrs():
 
     walk(registry("pwsh/Catzc.Base.Docs/configs/adrs.yml"))
     return found
-
-
-@cache
-def axis():
-    stacks = []
-    for stack, _ in adrs().values():
-        if stack and stack not in stacks:
-            stacks.append(stack)
-    return stacks, ["build", "quality-control", "release", "deploy", "access"]
 
 
 @cache
@@ -143,52 +102,7 @@ def problems(about):
         elif code not in adrs() and code not in rules():
             siblings = sorted(r for r in rules() if r.startswith(adr + "-"))
             out.append(f"about.adrs '{code}' is not a rule of {adr}; its rules are: {', '.join(siblings)}")
-    for name, known, registry_name in (("tracks", tracks(), "variants.yml"), ("languages", languages(), "languages.yml"), ("modules", dependencies(), "dependencies.yml")):
-        for value in about[name]:
-            if value not in known:
-                out.append(f"about.{name} '{value}' is not one of {registry_name}: {', '.join(list(known)[:24])}")
-    for path in about["files"]:
-        if not (REPO / path).is_file():
-            out.append(f"about.files '{path}' is not a file in the repository")
     return out
-
-
-def home(path):
-    """The track a repository path sits in, and the module folder under it when the path is inside one of the drawn modules."""
-    for track, place in sorted(tracks().items(), key=lambda kv: -len(kv[1])):
-        if path == place or path.startswith(place + "/"):
-            rest = path[len(place) + 1 :].split("/")
-            return track, rest[0] if rest[0] in dependencies() else None
-    return None, None
-
-
-def lights(view, about):
-    """What a view lights for the subject, each place with the reason a registry or `about:` gives."""
-    if view == "code-locations":
-        out = []
-        for track in about["tracks"]:
-            out.append((track, f"about.tracks; lives in {tracks()[track]}"))
-        for module in about["modules"]:
-            for track, place in tracks().items():
-                if (REPO / place / module).is_dir():
-                    out.append((f"{track}/{module}", f"about.modules; {place}/{module}"))
-        for path in about["files"]:
-            out.append((path, "about.files"))
-        return out
-    if view == "module-neighbourhood":
-        return [(module, "about.modules") for module in about["modules"]]
-    if view == "axis":
-        out = []
-        for code in about["adrs"]:
-            adr = adr_of(code)
-            stack, concerns = adrs()[adr]
-            for concern in concerns:
-                if (f"{stack}/{concern}", None) not in [(p, None) for p, _ in out]:
-                    out.append((f"{stack}/{concern}", f"{adr}: stack {stack}, concern {concern} in adrs.yml"))
-        return out
-    if view == "grid":
-        return [(f"{t}/{lang}", "about.tracks and about.languages") for t in about["tracks"] for lang in about["languages"]]
-    return []
 
 
 def canvas(width, height):
@@ -214,136 +128,10 @@ def fit(d, value, size, width, bold=False):
     return value + "…"
 
 
-def draw_code_locations(d, width, height, about):
-    """Each described track, the drawn modules in it with the count of their other files, and the named files under their home."""
-    rows = []
-    for track in about["tracks"]:
-        place = tracks()[track]
-        files = [f for f in about["files"] if home(f)[0] == track]
-        modules = [m for m in about["modules"] if (REPO / place / m).is_dir()]
-        rows.append(("track", place, None))
-        for module in modules:
-            mine = [f for f in files if home(f)[1] == module]
-            total = sum(1 for p in (REPO / place / module).rglob("*") if p.is_file() and "tests" not in p.parts)
-            rows.append(("module", module.removeprefix("Catzc."), f"{len(mine)} of {total}" if mine else f"{total} files"))
-            rows += [("file", "/".join(Path(f).parts[len(Path(place).parts) + 1 :]), None) for f in mine]
-        rows += [("file", f[len(place) + 1 :], None) for f in files if home(f)[1] not in modules]
-    pitch = min(15, (height - 26) / max(1, len(rows)))
-    size = 10 if pitch >= 13 else 9
-    y = 24
-    for kind, label, note in rows:
-        if kind == "track":
-            text(d, (8, y), fit(d, label, size, width - 16, bold=True), size, CAPTION, bold=True)
-        elif kind == "module":
-            text(d, (16, y), fit(d, label, size, width - 80, bold=True), size, CAPTION, bold=True)
-            text(d, (width - 60, y), note, size - 1, DIM_INK)
-        else:
-            box(d, (22, y, width - 8, y + pitch - 2), LIT)
-            text(d, (27, y), fit(d, label, size - 1, width - 40, bold=True), size - 1, LIT_INK, bold=True)
-        y += pitch
-
-
-def draw_module_neighbourhood(d, width, height, about):
-    """The drawn modules against the right edge, a `uses` arrow down between two that depend on each other; to the left the
-    modules that use each one, with an arrow into it; under a box, dimmed, the modules it uses that the diagram does not draw."""
-    uses = dependencies()
-    lit = about["modules"]
-    short = lambda m: m.removeprefix("Catzc.")
-    box_x, box_w = width * 0.48, width * 0.52 - 6
-    pitch = min(60, (height - 30) / max(1, len(lit)))
-    text(d, (4, 22), "used by", 8, DIM_INK)
-    for i, module in enumerate(lit):
-        y = 34 + i * pitch
-        box(d, (box_x, y, box_x + box_w, y + 16), LIT)
-        text(d, (box_x + 4, y + 2), fit(d, short(module), 9, box_w - 8, bold=True), 9, LIT_INK, bold=True)
-        users = [m for m, deps in uses.items() if module in deps and m not in lit]
-        room = max(1, int((pitch - 4) // 11))  # the lines that fit before the next module's row
-        shown = users if len(users) <= room else users[: room - 1] + [f"+{len(users) - room + 1} more"]
-        for j, name in enumerate(shown):
-            text(d, (4, y + 1 + j * 11), fit(d, short(name), 8, box_x - 22), 8, DIM_INK)
-        if users:
-            arrow(d, (box_x - 14, y + 8), (box_x - 1, y + 8), DIM_INK)
-        outside = [m for m in uses.get(module, []) if m not in lit]
-        if outside:
-            line = "uses " + ", ".join(short(m) for m in outside)
-            text(d, (box_x + 4, y + 18), fit(d, line, 8, box_w / 2 - 12), 8, DIM_INK)
-        if i + 1 < len(lit) and lit[i + 1] in uses.get(module, []):
-            mid = box_x + box_w / 2
-            arrow(d, (mid, y + 16), (mid, y + pitch - 1), LIT)
-            text(d, (mid + 5, y + pitch / 2 + 2), "uses", 8, CAPTION)
-
-
-def arrow(d, a, b, ink):
-    """A one-pixel line from a to b with a small head at b."""
-    d.line([(a[0] * SCALE, a[1] * SCALE), (b[0] * SCALE, b[1] * SCALE)], fill=ink, width=SCALE)
-    if a[0] == b[0]:
-        head = [(b[0] - 3, b[1] - 4), (b[0] + 3, b[1] - 4), b]
-    else:
-        head = [(b[0] - 4, b[1] - 3), (b[0] - 4, b[1] + 3), b]
-    d.polygon([(x * SCALE, y * SCALE) for x, y in head], fill=ink)
-
-
-def draw_axis(d, width, height, about):
-    """The ADR registry's stacks down and the delivery concerns across, the cells of the covered rules lit."""
-    stacks, concerns = axis()
-    lit = {place for place, _ in lights("axis", about)}
-    label_w, top = 44, 40
-    cell_w = (width - label_w - 8) / len(concerns)
-    cell_h = min(20, (height - top - 6) / max(1, len(stacks)))
-    for j, concern in enumerate(concerns):
-        short = "QC" if concern == "quality-control" else concern.upper()
-        on = any(place.endswith("/" + concern) for place in lit)
-        text(d, (label_w + j * cell_w + 2, top - 13), fit(d, short, 8, cell_w - 2), 8, CAPTION if on else DIM_INK, bold=on)
-    for i, stack in enumerate(stacks):
-        y = top + i * cell_h
-        on = any(place.startswith(stack + "/") for place in lit)
-        text(d, (6, y + cell_h / 2 - 6), stack, 9, CAPTION if on else DIM_INK, bold=on)
-        for j, concern in enumerate(concerns):
-            x = label_w + j * cell_w
-            here = f"{stack}/{concern}" in lit
-            box(d, (x + 1, y + 1, x + cell_w - 1, y + cell_h - 1), LIT if here else PANEL, None if here else RIM, 2)
-        # A rule whose concern runs through every stage (automation) has no column: its whole row is outlined instead.
-        if any(place.startswith(stack + "/") and place.split("/", 1)[1] not in concerns for place in lit):
-            box(d, (label_w, y, width - 8, y + cell_h), None, LIT, 3)
-
-
-def draw_grid(d, width, height, about):
-    """The described tracks down and the modelled languages across; a high-level diagram models none and says so."""
-    if not about["languages"]:
-        text(d, (8, 40), "high level: no language modelled", 10, DIM_INK)
-        return
-    rows, cols = about["tracks"], about["languages"]
-    label_w, top = 70, 40
-    cell_w = (width - label_w - 8) / len(cols)
-    for j, lang in enumerate(cols):
-        text(d, (label_w + j * cell_w + 2, top - 13), fit(d, lang, 8, cell_w - 2), 8, CAPTION)
-    for i, track in enumerate(rows):
-        y = top + i * 18
-        text(d, (6, y + 3), fit(d, track, 9, label_w - 8), 9, CAPTION)
-        for j, lang in enumerate(cols):
-            on = lang in (registry("pwsh/Catzc.Base.Variants/configs/variants.yml")["tracks"][track].get("languages") or [])
-            box(d, (label_w + j * cell_w + 1, y + 1, label_w + (j + 1) * cell_w - 1, y + 17), LIT if on else PANEL, None if on else RIM, 2)
-
-
-DRAW = {"code-locations": draw_code_locations, "module-neighbourhood": draw_module_neighbourhood, "axis": draw_axis, "grid": draw_grid}
-
-
-def picture(view, about, width, height, theme=None):
-    """One minimap as a PNG data URI, in a theme: its question as the caption, then the view computed from `about:`."""
-    use_theme(theme)
-    img, d = canvas(width, height)
-    text(d, (8, 6), QUESTION.get(view, view), 11, CAPTION, bold=True)
-    if view in DRAW:
-        DRAW[view](d, width, height, about)
-    else:
-        text(d, (8, height / 2 - 6), f"{view}: not drawn yet", 10, DIM_INK)
-    small = img.resize((width * 2, height * 2), Image.Resampling.LANCZOS)
-    buffer = io.BytesIO()
-    small.save(buffer, "PNG")
-    return "data:image/png," + base64.b64encode(buffer.getvalue()).decode()
-
-
 # ---- a minimap drawn from its contract data (minimap_contract.py): Catzc.Base.Maps computes, this module only draws ----------
+
+MIN_CELL = 12  # the narrowest matrix column that still reads at the sidebar's width; a wider axis is drawn as rows of names
+MIN_PITCH = 12  # the tightest line of a list; the places that do not fit are counted, not crushed
 
 
 def draw_data(d, width, height, data):
@@ -362,6 +150,9 @@ def draw_data(d, width, height, data):
                 box(d, (8, y + 1, 26, y + pitch - 1), LIT if on else PANEL, None if on else RIM, 2)
             text(d, (32, y + pitch / 2 - 6), fit(d, value, 9, width - 40, bold=on), 9, CAPTION if on else DIM_INK, bold=on)
         return
+    if len(axes) == 2 and (width - 78) / max(1, len(axes[1]["values"])) < MIN_CELL:
+        draw_rows(d, width, height, axes[0]["values"], present, lit)
+        return
     if len(axes) == 2:
         rows, cols = axes[0]["values"], axes[1]["values"]
         label_w = 70
@@ -379,13 +170,47 @@ def draw_data(d, width, height, data):
                     here = (row, col) in lit
                     x = label_w + j * cell_w
                     box(d, (x + 1, y + 1, x + cell_w - 1, y + cell_h - 1), LIT if here else PANEL, None if here else RIM, 2)
+            # A row lit as a whole ([row, '*']): the subject sits in it outside every column, so the row is outlined.
+            if (row, "*") in lit:
+                box(d, (label_w, y, width - 8, y + cell_h), None, LIT, 3)
         return
     places = sorted(lit)
-    pitch = min(15, (height - top - 6) / max(1, len(places)))
-    for i, at in enumerate(places):
+    room = max(1, int((height - top - 6) // MIN_PITCH))
+    shown = places if len(places) <= room else places[: room - 1]
+    pitch = min(15, (height - top - 6) / max(1, len(shown) + (len(shown) < len(places))))
+    for i, at in enumerate(shown):
         y = top + i * pitch
         box(d, (8, y, width - 8, y + pitch - 2), LIT)
-        text(d, (13, y), fit(d, " / ".join(at), 9, width - 26, bold=True), 9, LIT_INK, bold=True)
+        # A place's '-' (no module) and '.' (the module's root) are placeholders of the data, never printed.
+        label = " / ".join(part for part in at if part not in ("-", "."))
+        text(d, (13, y), fit(d, label, 9, width - 26, bold=True), 9, LIT_INK, bold=True)
+    if len(shown) < len(places):
+        text(d, (13, top + len(shown) * pitch), f"+{len(places) - len(shown)} more", 9, DIM_INK)
+
+
+def draw_rows(d, width, height, rows, present, lit):
+    """A matrix too wide to draw as cells: one line per row, its label, then the second-axis values it holds, lit ones bright and
+    first, the rest dim, as many as fit and the count of the others."""
+    top = 40
+    pitch = min(36, (height - top - 6) / max(1, len(rows)))
+    for i, row in enumerate(rows):
+        y = top + i * pitch
+        names = [at[1] for at in sorted(present) if at[0] == row]
+        on = [n for n in names if (row, n) in lit]
+        off = [n for n in names if (row, n) not in lit]
+        text(d, (6, y), fit(d, row, 9, width - 12, bold=bool(on)), 9, CAPTION if on else DIM_INK, bold=bool(on))
+        x, line = 14.0, y + 13
+        ordered = [(n, True) for n in on] + [(n, False) for n in off]
+        for k, (name, bright) in enumerate(ordered):
+            label = fit(d, name.removeprefix("Catzc."), 8, width - 28, bold=bright)
+            w = d.textlength(label, font=font(8 * SCALE, bright)) / SCALE + 8
+            if x + w > width - 30:
+                text(d, (x, line), f"+{len(ordered) - k}", 8, DIM_INK)
+                break
+            if bright:
+                box(d, (x, line, x + w - 2, line + 12), LIT)
+            text(d, (x + 3, line), label, 8, LIT_INK if bright else DIM_INK, bold=bright)
+            x += w
 
 
 def picture_from(data, width, height, theme=None):

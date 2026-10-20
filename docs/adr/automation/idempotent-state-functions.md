@@ -70,7 +70,7 @@ A function that throws is still idempotent if the system state is unchanged by t
 idempotent — the thing is still absent either way. Whether a function throws or returns cleanly is an error-handling concern, not an
 idempotency concern. That said, graceful handling (guard clause + early return) is preferred because it makes re-runs seamless.
 
-The examples are pseudo-code; the pwsh spellings are [idempotent-state-mechanics](pwsh/idempotent-state-mechanics.md).
+The examples are pseudo-code; the pwsh spellings are in the pwsh twin.
 
 ```text
 # IDEMPOTENT — checks before acting
@@ -160,7 +160,7 @@ the same arguments must produce the same system state as running them once.
 
 The rules above hold for every execution engine. How one engine writes them — which of its commands overwrite and which append, what a
 switch that redoes the work means, how both paths of a function return the same result, and where the contract is written — is the language
-layer for that engine. For pwsh it is [idempotent-state-mechanics](pwsh/idempotent-state-mechanics.md) (`ADR-PWSH-IDEM`).
+layer for that engine. For pwsh it is the pwsh twin.
 
 ## Consequences
 

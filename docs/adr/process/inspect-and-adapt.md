@@ -51,9 +51,8 @@ Build improvement into the process as a continuous, evidence-driven loop:
 - **Decide from evidence.** Process changes follow observed signals from the real system ([ADR-PROC-OBSERVEWIP](observe-work.md)), not
   opinion. A recurring failure, a lengthening queue, or a flaky quality gate is data that motivates a specific countermeasure.
 - **Amplify learning by capturing it.** When something is learned, it is encoded where it will hold — a convention that makes the mistake
-  impossible to express ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)), a gate that catches it
-  ([ADR-AUTO-TEST](../automation/test-automation.md)), or an ADR that records the decision — so the next person inherits the knowledge
-  instead of rediscovering it.
+  impossible to express ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)), a quality gate that catches it, or an ADR that records the
+  decision — so the next person inherits the knowledge instead of rediscovering it.
 
 ## Why
 
@@ -71,13 +70,11 @@ is what makes the system better. Kaizen is the discipline of always taking the s
 ## How to apply
 
 When the line stops or a gate catches something, do not only fix the instance — ask what made it possible and add the countermeasure that
-prevents the class, then encode it where it holds ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md),
-[ADR-AUTO-TEST](../automation/test-automation.md)). Prefer many small adjustments driven by observed signals
-([ADR-PROC-OBSERVEWIP](observe-work.md)) over occasional large reorganisations. When you learn something worth keeping, capture it as a
-convention, a gate, or an ADR so it is not relearned. Treat the per-push gates as the platform's built-in learning loop and let them run on
-every change, not only at a milestone: the same gates run on the devbox and in the pipeline
-([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md)), and every push recomputes the flow state
-([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)).
+prevents the class, then encode it where it holds ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)), or in a quality gate. Prefer many small
+adjustments driven by observed signals ([ADR-PROC-OBSERVEWIP](observe-work.md)) over occasional large reorganisations. When you learn
+something worth keeping, capture it as a convention, a gate, or an ADR so it is not relearned. Treat the per-push gates as the platform's
+built-in learning loop and let them run on every change, not only at a milestone: the same gates run on the devbox and in the pipeline, and
+every push recomputes the flow state.
 
 ## References
 

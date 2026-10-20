@@ -79,11 +79,10 @@ automated process on a single, low-risk application before scaling it further.
 
 Flexible infrastructure is the engine that platform engineering runs on: an Internal Developer Platform built on top of it can prioritize
 self-service and autonomy, so developers focus on writing application code instead of waiting on infrastructure. This platform realizes that
-model as a thin CLI over the Azure control plane ([ADR-DSGN-THINPLAT](../design/thin-platforms.md)), with self-service provisioning made
-safe by routing every change through a single versioned source of truth and trunk-based guardrails rather than a manual ticket
-([ADR-DSGN-SELFSERV](../design/self-service.md)). The Azure data model turns environment, subscription, and resource-group identity into
-resolved, config-driven values instead of hand-typed ones ([ADR-AZ-DATAMOD](../azure/azure-data-model.md)), which is what lets provisioning
-scale elastically across environments and customers without hand-authored drift.
+model as a thin CLI over the Azure control plane, with self-service provisioning made safe by routing every change through a single
+versioned source of truth and trunk-based guardrails rather than a manual ticket. The Azure data model turns environment, subscription, and
+resource-group identity into resolved, config-driven values instead of hand-typed ones, which is what lets provisioning scale elastically
+across environments and customers without hand-authored drift.
 
 Align incentives alongside the technical change — give system owners both the visibility to build more efficient systems and the incentive
 to do so, so efficiency gains are pursued rather than left on the table.

@@ -74,9 +74,9 @@ re-importing. What it takes is a place to put such values and a disciplined way 
 
 A variant is a repo-wide switch backed by `Catzc.Base.Variants/configs/variants.yml`, loaded and validated by `Get-Config -Config variants`
 (through its config type `VariantsConfig`), and cached for the session. "Fixed for the importer session" is not special machinery — it is
-the ordinary `Get-Config` cache boundary (`ADR-AUTO-CACHE-IMPORTERINVALIDATES`, `ADR-PWSH-CACHE-SCRIPTSCOPESTATE`): the value is read once,
-every caller sees the same answer, and re-running the importer is the only way to pick up an edit. The set of variants is open:
-`variants.yml` is a dictionary that grows a key (and a matching primitive) whenever a new repo-wide switch is genuinely needed.
+the ordinary `Get-Config` cache boundary (`ADR-AUTO-CACHE-IMPORTERINVALIDATES`): the value is read once, every caller sees the same answer,
+and re-running the importer is the only way to pick up an edit. The set of variants is open: `variants.yml` is a dictionary that grows a key
+(and a matching primitive) whenever a new repo-wide switch is genuinely needed.
 
 ### Primitives, not raw reads
 
@@ -105,18 +105,17 @@ variant that needed to cross-check another asset would belong to that asset's la
 
 - **`ado_naming`** — the resource-name component order (`ADR-REPO-VARIANT-ADONAMING`). One repo-wide choice of `standard` vs `classic`, read
   by `Get-AdoNaming` and applied by the name assembler; the order data itself is `Get-AzureNameOrderSet` in the Azure templating layer, and
-  the variant only picks which key it uses (see [naming-standard](../azure/azure-naming-standard.md)).
+  the variant only picks which key it uses; the Azure domain's naming standard owns the order itself.
 - **`git_workspace`** — how changes reach main (`ADR-REPO-VARIANT-GITWORKSPACE`), `main-direct | main-via-pr`, default `main-direct`.
   Committing is always allowed in both modes — a solo trunk commits to main directly, and PR-mode work lives on branches where committing is
   equally fine; the variant exists for the one asymmetry, `main-via-pr` **and** standing on main/master locally, which is the only stop
   condition automation enforces (`Sync-GeneratedFile`'s branch guard reads `Test-GitWorkspace -MainViaPr`). This is the **PR-vs-Direct**
-  integration axis the value-chain diagrams (`ADR-FLOW-CD`) prefix a flow with (`PR + CD + …` vs a `Direct` flow).
+  integration axis the value-chain diagrams prefix a flow with (`PR + CD + …` vs a `Direct` flow).
 - **`have_customers`** — the enabled-customer set (`ADR-REPO-VARIANT-HAVECUSTOMERS`), tri-state `false | all | [names]`, with `true` as a
-  spelling of `all`. It is the guard for customer deployments and the source of the per-template `customer_deployment` default (see
-  [customer-model](../azure/azure-customer-model.md)). Keeping the enabled set in the variant (rather than deriving it from `customer.yml`)
-  is what lets the `HaveCustomer(s)` primitives answer "is this customer enabled" from `Base` without reaching up into the Azure-layer
-  catalogue. The plural and singular primitives split by the cardinality rule of
-  [ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS](../automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-pluralcollectionnouns).
+  spelling of `all`. It is the guard for customer deployments and the source of the per-template `customer_deployment` default, which the
+  Azure domain's customer model reads. Keeping the enabled set in the variant (rather than deriving it from `customer.yml`) is what lets the
+  `HaveCustomer(s)` primitives answer "is this customer enabled" from `Base` without reaching up into the Azure-layer catalogue. The plural
+  and singular primitives split by cardinality: the plural noun answers for the whole set, the singular for one member.
 - **`aspects`** — each track's ordered classification of a unit's files into `live` and `tests`, ending in the `**` catch-all; read by
   `Get-Aspect` and compiled per unit by `AspectPartition` ([module-aspects](../design/module-aspects.md)).
 - **`tracks`** — the repository's root concerns, one entry per root folder with its class and the file languages of its tech-stack; read by

@@ -1,7 +1,7 @@
 # ADR: Customer model (customer.yml) — catalogue, two-name binding, and the template switch
 
 Pairs with [`data-model`](azure-data-model.md) (identity + templating) and [`naming-standard`](azure-naming-standard.md); the
-enabled-customer set is the `have_customers` repo variant ([repo-variants](../repository/repo-variants.md)).
+enabled-customer set is the `have_customers` repo variant.
 
 ## Rules: ADR-AZ-CUSTOMER
 
@@ -103,11 +103,10 @@ layer reads the customer catalogue, the catalogue reads nothing back.
 ### Catalogue vs enabled set
 
 Two different questions, two homes. **Who are the customers** is `customer.yml` (the catalogue, an Azure-layer asset). **Which of them does
-this repo deploy for** is the `have_customers` variant (`false`/`all`/`[names]`, a Base-layer switch — see
-[repo-variants](../repository/repo-variants.md)). Splitting them is deliberate: the enabled set lives in the variant so the
-`Test-`/`Assert-HaveCustomer(s)` guards can be answered from `Base` without reading up into the Azure catalogue, and the catalogue stays a
-pure list of identities with no policy baked in. The join between them is one integrity test: every name a `have_customers` list enables
-must be a defined customer.
+this repo deploy for** is the `have_customers` variant (`false`/`all`/`[names]`, a Base-layer switch). Splitting them is deliberate: the
+enabled set lives in the variant so the `Test-`/`Assert-HaveCustomer(s)` guards can be answered from `Base` without reading up into the
+Azure catalogue, and the catalogue stays a pure list of identities with no policy baked in. The join between them is one integrity test:
+every name a `have_customers` list enables must be a defined customer.
 
 ### The per-template switch
 

@@ -126,8 +126,12 @@ pictures unchecked.
 - [x] Validation errors name the allowed values: a span label, glyph kind, edge kind, minimap view, flow or theme outside its vocabulary
       fails with the whole list it may choose from (ADR-REPO-SLIDES-DECLARATION already states it). Verdict: test_declaration.py "46
       passed", one parametrized case per vocabulary.
-- [ ] Redefine the legend, code locations and axis as above; each lit cell's reason travels in the minimap JSON and in the page, never a
-      sister file (decided 2026-10-20). Waits on catzc-9f's minimap schema (check: the minimap tests pass; each lit cell has its reason).
+- [x] Redefine the legend, code locations and axis, reviewed by the user 2026-10-20. The legend prints names only; code locations lists the
+      subject's track / module / folder places; the axis re-cuts the value chain (rows DSGN, FLOW, AUTO, CLOUD over the five concerns; an
+      ADR outside them lights its row as [row, '*']). The data is computed in PowerShell (`Get-*MinimapData`, the `minimap_data` dispatch
+      and `minimap_axis` in maps.yml), written to `out/minimaps/<folder>/` by `Build-Diagrams` and `Test-Diagrams`, and only drawn by the
+      kit; derived cells are stale, not drift. Verdict: kit pytest "94 passed"; Get-Grid/Axis/CodeLocationsMinimapData, MapsConfig,
+      Build-Diagrams and Test-Diagrams tests "Passed"; Test-Diagrams on a real folder "IssueCount=0 Stale=1".
 - [x] Expose the file facts through one public read-only command in the module that owns them: `Get-FileMetaFact -Path` is public in
       `Catzc.Base.QualityGates`, the imprint keeps its `-State` call (verdict 2026-10-20: ten headed front-matter files, equals-imprint=True
       and strip-unchanged=True for all ten; the Get-FileMetaFact and Invoke-FileMetaEngine test files "Passed"; Test-Links "No links issues
@@ -158,11 +162,6 @@ pictures unchecked.
       `gallery_pdf.py` prints the yml's `description:` instead of the deleted describe page (check: a second article embedding one of the
       two ado diagrams builds clean; Test-Adr clean). The two ado folders already hold only `diagram.drawio.yml` and the png.
 - [ ] Rework the data of every existing diagram's minimaps on the new definition (check: re-render one folder, review, then the rest).
-- [ ] Retire `.claude/agents/drawio-png.md`, `.claude/agents/write-drawio-files.md` and `.claude/skills/drawio-model-edit/`, and add one
-      yml-editing agent (edits `content:`, runs put in the background under the safeguard, reports the warnings) and one renderer skill
-      (put, get, `-FromDrawing`, `-Theme`, `-Stale`); the registry entries in `pwsh/Catzc.Base.Docs/configs/agents.yml` and
-      `capabilities.yml` and the agent list in `.claude/CLAUDE.md` change in the same step (check: Test-AgentDefinitions clean;
-      `drawio-diagram-waves` and `print-artifacts` call the new skill).
 
 ## Where each minimap's data comes from
 

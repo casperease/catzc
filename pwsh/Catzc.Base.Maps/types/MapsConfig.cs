@@ -13,6 +13,21 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
     private const string Failed = "maps config validation failed:\n";
     private static readonly string[] AllowedKeys = { "palette", "limits", "labels", "highlight", "output_folder", "minimaps" };
     private static readonly string[] MinimapKinds = { "explanation", "reference" };
+    private static readonly string[] MinimapKeys = { "explanation", "reference", "data", "axis" };
+    private static readonly string[] AxisKeys = { "rows", "columns" };
+
+    // The command that computes each minimap's data from a diagram's ADR codes (-Adr, -AsJson), by minimap id.
+    public static readonly IReadOnlyDictionary<string, string> DefaultMinimapData = new Dictionary<string, string>(StringComparer.Ordinal)
+    {
+        [MinimapData.Grid] = "Get-GridMinimapData",
+        [MinimapData.CodeLocations] = "Get-CodeLocationsMinimapData",
+        [MinimapData.Axis] = "Get-AxisMinimapData",
+        [MinimapData.LayerStack] = "Get-LayerStackMinimapData",
+        [MinimapData.LifecyclePosition] = "Get-LifecyclePositionMinimapData",
+        [MinimapData.TrackPlacement] = "Get-TrackPlacementMinimapData",
+        [MinimapData.EngineStrip] = "Get-EngineStripMinimapData",
+        [MinimapData.ModuleNeighbourhood] = "Get-ModuleNeighbourhoodMinimapData",
+    };
     private static readonly string[] PoolKeys = { "pool", "defaults" };
     private static readonly string[] PaletteKeys = { "background", "row", "column", "cell", "shade", "line", "text", "violation", "highlight" };
     private static readonly string[] LimitsKeys = { "page_width", "page_height", "min_font_size", "max_row_label", "max_column_label" };
@@ -49,6 +64,12 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The minimaps a reference diagram may show, and its three defaults. Defaults: MapsMinimapPool.DefaultReference*.
     public MapsMinimapPool reference_minimaps { get; }
+
+    // The command that computes each minimap's data, by minimap id; every id has one. Defaults: DefaultMinimapData.
+    public IReadOnlyDictionary<string, string> minimap_data { get; }
+
+    // The axis minimap's rows and columns. Defaults: MapsMinimapAxis.DefaultRows and DefaultColumns.
+    public MapsMinimapAxis minimap_axis { get; }
 
     // The pool of a diagram kind, explanation or reference.
     public MapsMinimapPool MinimapsOf(string kind)
@@ -106,14 +127,91 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
 
         output_folder = ReadOutputFolder(raw, errors);
 
-        IDictionary minimapsMap = Section(raw, "minimaps", MinimapKinds, errors);
+        IDictionary minimapsMap = Section(raw, "minimaps", MinimapKeys, errors);
         explanation_minimaps = ReadPool(minimapsMap, "explanation", MapsMinimapPool.DefaultExplanationPool, MapsMinimapPool.DefaultExplanationDefaults, errors);
         reference_minimaps = ReadPool(minimapsMap, "reference", MapsMinimapPool.DefaultReferencePool, MapsMinimapPool.DefaultReferenceDefaults, errors);
+        minimap_data = ReadMinimapData(minimapsMap, errors);
+        minimap_axis = ReadAxis(minimapsMap, errors);
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
     }
 
     private static string Text(object value) => value == null ? "" : Convert.ToString(value, CultureInfo.InvariantCulture);
+
+    // The data command per minimap id: the defaults, each overridable by minimaps.data.<id>; an unknown id fails with the ids.
+    private static IReadOnlyDictionary<string, string> ReadMinimapData(IDictionary minimaps, List<string> errors)
+    {
+        Dictionary<string, string> data = new Dictionary<string, string>(DefaultMinimapData, StringComparer.Ordinal);
+        if (!Has(minimaps, "data")) { return data; }
+        IDictionary map = minimaps["data"] as IDictionary;
+        if (map == null)
+        {
+            errors.Add("minimaps.data must be a mapping of minimap id: command");
+            return data;
+        }
+        foreach (object key in map.Keys)
+        {
+            string id = Text(key);
+            string command = Text(map[key]);
+            if (!MinimapData.Ids.Contains(id))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "minimaps.data: '{0}' is not one of: {1}", id, string.Join(", ", MinimapData.Ids)));
+            }
+            else if (!Regex.IsMatch(command, "^[A-Z][a-z]+-[A-Za-z]+$"))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "minimaps.data.{0} '{1}' must be a Verb-Noun command name", id, command));
+            }
+            else
+            {
+                data[id] = command;
+            }
+        }
+        return data;
+    }
+
+    // The axis minimap's rows (row name: the value-chain stacks it gathers) and columns (the concerns across).
+    private static MapsMinimapAxis ReadAxis(IDictionary minimaps, List<string> errors)
+    {
+        IReadOnlyList<KeyValuePair<string, IReadOnlyList<string>>> rows = MapsMinimapAxis.DefaultRows;
+        IReadOnlyList<string> columns = MapsMinimapAxis.DefaultColumns;
+        if (!Has(minimaps, "axis")) { return new MapsMinimapAxis(rows, columns); }
+        IDictionary map = minimaps["axis"] as IDictionary;
+        if (map == null)
+        {
+            errors.Add("minimaps.axis must be a mapping { rows, columns }");
+            return new MapsMinimapAxis(rows, columns);
+        }
+        CheckKeys("minimaps.axis: ", map, AxisKeys, errors);
+        if (Has(map, "rows"))
+        {
+            IDictionary listed = map["rows"] as IDictionary;
+            if (listed == null) { errors.Add("minimaps.axis.rows must be a mapping of row: [value-chain stacks]"); }
+            else
+            {
+                List<KeyValuePair<string, IReadOnlyList<string>>> read = new List<KeyValuePair<string, IReadOnlyList<string>>>();
+                foreach (object key in listed.Keys)
+                {
+                    List<string> stacks = new List<string>();
+                    foreach (object stack in (listed[key] as IList) ?? Array.Empty<object>()) { stacks.Add(Text(stack)); }
+                    if (stacks.Count == 0) { errors.Add(string.Format(CultureInfo.InvariantCulture, "minimaps.axis.rows.{0} names no value-chain stack", Text(key))); }
+                    read.Add(new KeyValuePair<string, IReadOnlyList<string>>(Text(key), stacks.AsReadOnly()));
+                }
+                rows = read.AsReadOnly();
+            }
+        }
+        if (Has(map, "columns"))
+        {
+            IList listed = map["columns"] as IList;
+            if (listed == null) { errors.Add("minimaps.axis.columns must be a list of concerns"); }
+            else
+            {
+                List<string> read = new List<string>();
+                foreach (object item in listed) { read.Add(Text(item)); }
+                columns = read.AsReadOnly();
+            }
+        }
+        return new MapsMinimapAxis(rows, columns);
+    }
 
     // One kind's pool and defaults: every id one of the eight minimaps, exactly three defaults, each in the pool.
     private static MapsMinimapPool ReadPool(IDictionary minimaps, string kind, IReadOnlyList<string> poolFallback, IReadOnlyList<string> defaultsFallback,

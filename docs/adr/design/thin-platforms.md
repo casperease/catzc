@@ -78,19 +78,19 @@ we do not build a function.
 
 The platform never re-implements what the vendor already does well. ARM templating is Bicep's job; the platform composes Bicep modules and
 supplies their configuration, it does not generate ARM by hand. Control-plane and account actions are the az CLI's job; the platform curates
-a pinned az surface and calls it (`ADR-AZ-CLI`), it does not reach for SDK assemblies to redo the same calls. What the platform _does_ own
-is the layer on top that harmonizes: uniform invocation, a single authentication path (local token vs. pipeline identity resolved for you),
-sensible zero-arg behaviour, and the guardrails that keep every call consistent. That is the line between a platform and a framework — a
-platform makes the vendor easier to use correctly; a framework tries to replace it and inherits its entire maintenance surface.
+a pinned az surface and calls it, it does not reach for SDK assemblies to redo the same calls. What the platform _does_ own is the layer on
+top that harmonizes: uniform invocation, a single authentication path (local token vs. pipeline identity resolved for you), sensible
+zero-arg behaviour, and the guardrails that keep every call consistent. That is the line between a platform and a framework — a platform
+makes the vendor easier to use correctly; a framework tries to replace it and inherits its entire maintenance surface.
 
 ### The surface is a CLI
 
 The platform's API is its CLI: discoverable `Verb-Noun` functions, driven by declarative configuration. This is deliberate. A CLI is the
 narrowest useful contract — it hides the substrate completely while staying scriptable, composable, and equally at home on a developer box
-and in a pipeline (`ADR-AUTO-PARITY`). Consumers get X-as-a-Service: they call `Get-Azure*`/`New-*` verbs and edit
-`azure.yml`/`options.yml`, and the platform resolves, authenticates, and executes, filling every unset value from its sensible default
-(`ADR-AUTO-DEFAULT`). Because the CLI is the only surface anyone binds to, the platform team is free to re-wire what happens behind it —
-swap a Bicep module, change an az invocation, re-pin a tool — without touching a single consumer.
+and in a pipeline. Consumers get X-as-a-Service: they call `Get-Azure*`/`New-*` verbs and edit `azure.yml`/`options.yml`, and the platform
+resolves, authenticates, and executes, filling every unset value from its sensible default. Because the CLI is the only surface anyone binds
+to, the platform team is free to re-wire what happens behind it — swap a Bicep module, change an az invocation, re-pin a tool — without
+touching a single consumer.
 
 ### Everything is code
 
@@ -129,9 +129,9 @@ implementation of the EaC and CD principles as a Team-Topologies platform, cover
   guardrail (surface the decisions that scale-time cost punishes).
 - **`ADR-PRIN-EAC` / `ADR-PRIN-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind a layer
   that is thin.
-- **`ADR-AZ-CLI` and the Bicep infrastructure track** are the concrete substrate bindings the CLI delegates to.
-- **`ADR-AUTO-PARITY`** keeps the one CLI surface identical on a developer box and in the pipeline, which is what makes it a real service
-  boundary.
+- **The Azure CLI binding and the Bicep infrastructure track** are the concrete substrate bindings the CLI delegates to.
+- **Devbox/pipeline parity** keeps the one CLI surface identical on a developer box and in the pipeline, which is what makes it a real
+  service boundary.
 
 ## References
 

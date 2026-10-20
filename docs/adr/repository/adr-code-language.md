@@ -98,9 +98,10 @@ records, so a capability reads as the program's own (`ADR-DORA-VCS`).
 ### Vendor references are a level
 
 The Cloud Adoption Framework and Well-Architected Framework ADRs answer a vendor's guidance item by item. They form a family inside the
-azure domain, and a group segment makes that family one prefix (`ADR-AZ-CAF`). A Well-Architected ADR is one pillar, so its segment is the
-pillar's code (`ADR-AZ-WAF-RE`). Their rules answer named vendor items, and the vendor's own name for an item is the most precise name such
-a rule can have: the item id where the pillar numbers its items, the checklist title where the checklist names them.
+azure domain, and a group segment, the framework's own abbreviation, makes that family one prefix under the domain's code. A
+Well-Architected ADR is one pillar, so its segment is the pillar's two-letter code. Their rules answer named vendor items, and the vendor's
+own name for an item is the most precise name such a rule can have: the item id where the pillar numbers its items, the checklist title
+where the checklist names them.
 
 ### Names, not numbers
 

@@ -82,11 +82,11 @@ close it toward the repository — never to promote an out-of-band change into t
 ### Immutable artifacts and provenance
 
 A shippable unit is identified by its content, not by a mutable tag: the globset durable-SHA identities key each unit to the exact bytes it
-comprises (`ADR-FLOW-CD-GLOBS`), so "which version is deployed" has a single, verifiable answer. Reproducibility makes that answer checkable
-by a third party — the Reproducible Builds project defines a reproducible build as "an independently-verifiable path from source to binary
-code", which is exactly the property an auditor needs. Provenance carries the chain the other direction: SLSA frames build provenance as
-verifiable evidence of _how_ an artifact was produced. Together they mean a deployed artifact is not trusted on faith — it is trusted
-because it can be traced back to a reviewed commit and rebuilt to match.
+comprises, so "which version is deployed" has a single, verifiable answer. Reproducibility makes that answer checkable by a third party —
+the Reproducible Builds project defines a reproducible build as "an independently-verifiable path from source to binary code", which is
+exactly the property an auditor needs. Provenance carries the chain the other direction: SLSA frames build provenance as verifiable evidence
+of _how_ an artifact was produced. Together they mean a deployed artifact is not trusted on faith — it is trusted because it can be traced
+back to a reviewed commit and rebuilt to match.
 
 ### Trunk-based development
 
@@ -96,10 +96,9 @@ Trunk-based development is what keeps the single source of truth actually single
 as "a source-control branching model where developers collaborate on code in a single branch called 'trunk' and resist any pressure to
 create other long-lived development branches". The practices that matter here are its guardrails: small, frequent commits to trunk;
 short-lived branches used only for review and CI, then deleted; and a mandatory CI gate that a commit must pass. Because those gates are
-automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert
-(`ADR-AUTO-FAILFAST`), or leaves a generated file stale
-([generated-root-configs](../repository/generated-root-configs.md#rule-adr-repo-rootcfg-threewayagreement)). The branching discipline and
-the no-legacy rule (`ADR-PRIN-ONELIVE`) are two faces of the same commitment: one living version, on trunk, always releasable.
+automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert, or leaves a
+generated file stale. The branching discipline and the no-legacy rule (`ADR-PRIN-ONELIVE`) are two faces of the same commitment: one living
+version, on trunk, always releasable.
 
 ### Safe where control matters
 
@@ -108,10 +107,10 @@ the no-legacy rule (`ADR-PRIN-ONELIVE`) are two faces of the same commitment: on
 The domains where self-service seems most dangerous — regulated, audited, compliance-bound — are the ones this design serves best, because
 it makes the compliance artifacts fall out of the normal workflow instead of being assembled after the fact. The audit trail is `git log`:
 every change is attributed, timestamped, and justified in its commit and review. The provenance record is the build's `build.json` with the
-content hash it carries: every deployed unit names its exact content and the commit it was built from
-([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). The change-approval control is the pull request:
-no change reaches trunk unreviewed. None of these is an extra step a busy engineer might skip under deadline — they are the only path, so
-the record is always complete. That is what "safe by construction" means: the fast path and the compliant path are the same path.
+content hash it carries: every deployed unit names its exact content and the commit it was built from. The change-approval control is the
+pull request: no change reaches trunk unreviewed. None of these is an extra step a busy engineer might skip under deadline — they are the
+only path, so the record is always complete. That is what "safe by construction" means: the fast path and the compliant path are the same
+path.
 
 ## Decision
 
@@ -125,12 +124,11 @@ competing ones (ADR-DSGN-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY).
 ### How this is enforced
 
 - **Everything-as-code** (`ADR-PRIN-EAC`) keeps the repository the sole authoritative source; there is no supported out-of-band channel.
-- **The globset durable-SHA identities** (`ADR-FLOW-CD-GLOBS`) content-address every shippable unit, giving each deployment a single
-  verifiable identity.
+- **The globset durable-SHA identities** content-address every shippable unit, giving each deployment a single verifiable identity.
 - **One living version** (`ADR-PRIN-ONELIVE`) forbids long-lived branches and legacy variants, keeping trunk the one source that is always
   releasable.
-- **Fail-fast asserts and the quality gates** (`ADR-AUTO-FAILFAST`; the spelling, terminology, and generated-file drift quality gates) are
-  the automated guardrails a self-service change must clear before it can merge.
+- **Fail-fast asserts and the quality gates** (the spelling, terminology, and generated-file drift quality gates) are the automated
+  guardrails a self-service change must clear before it can merge.
 - **The thin CLI** (`ADR-DSGN-THINPLAT`) is the only actuator, so no self-service action can bypass the record.
 
 ## References

@@ -149,8 +149,7 @@ reads the memo, and the builder, the janitor and the gates hash every byte.
 
 Some logic is better expressed as a native .NET type than as script code: a process runner with background reader threads
 (`Catzc.Base.Execution.CliRunner`), or a constrained, validated data record that replaces a loose dictionary. The platform autoloads such
-types from each module's `types/` folder (see [conventional-folders](../../repository/conventional-folders.md) for where `types/` sits) and
-commits the compiled assembly so a fresh checkout and CI load it without invoking Roslyn (see
+types from each module's `types/` folder and commits the compiled assembly so a fresh checkout and CI load it without invoking Roslyn (see
 [caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild) for why committed prebuilds are the one sanctioned cross-session cache).
 
 Compilation produces **one assembly for the whole repository**, so any module's types can reference any other's: a single shared base (a
@@ -196,8 +195,7 @@ before the module loop.
 
 The types run inside the process of the one engine that hosts them, pwsh. Which compiler builds the assembly, which assemblies a type may
 reference, the short names pwsh callers type, how a running pwsh meets a changed type, and why the console text has to live in C# are that
-host's binding, decided in [hosting-csharp-types](../pwsh/hosting-csharp-types.md). This ADR decides what the types are; that one decides
-how the host carries them.
+host's binding, decided in the pwsh domain. This ADR decides what the types are; that one decides how the host carries them.
 
 ### Declared namespaces and the IDE project
 
@@ -287,8 +285,8 @@ sources on disk and names each drifted type; the loader reads it to warn or thro
 `Assert-LoadedTypesCurrent` give the same answer to any code that needs current types, such as a test of a type just edited.
 
 Whether a stale load warns or throws depends on where the process runs, and the loader asks `Test-IsRunningInPipeline`, the one reader of
-the pipeline variables ([pipeline-detection](../../flow/pipeline-detection.md#rule-adr-flow-cd-detect-nodirectvariablecheck)), like every
-other caller (Rule ADR-AUTO-TYPES-CHANGEDAFTERLOAD). The detection function is therefore loaded before the types pre-pass runs.
+the pipeline variables, like every other caller (Rule ADR-AUTO-TYPES-CHANGEDAFTERLOAD). The detection function is therefore loaded before
+the types pre-pass runs.
 
 A person who edits a type and imports again keeps the loaded types and gets one yellow line naming the changed types by simple name; the
 import goes on and never waits. The importer starts no nested shell: a process cannot replace itself on every platform, and an agent or a

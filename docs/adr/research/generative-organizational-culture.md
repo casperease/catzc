@@ -77,13 +77,11 @@ ideas are welcomed. Averaging the six gives a team a single Westrum culture scor
 ## How to apply
 
 DORA's implementation guidance is behavioral: change how people behave first, and belief follows, rather than trying to change minds before
-changing practice. This platform's failure response works that way. Holding the line ([ADR-PROC-ANDON](../process/holding-the-line.md))
-treats a stopped line as the system working, not as a fault to find someone responsible for — punishing whoever pulled the cord teaches
-people to route around it, the same messenger-punishing pattern a generative culture avoids. Inspect-and-adapt
-([ADR-PROC-KAIZEN](../process/inspect-and-adapt.md)) responds to a failure with a root-cause countermeasure drawn from evidence, not with
-blame, which is Westrum's "failure leads to inquiry" applied to the platform's own gates. Building quality in
-([ADR-PROC-BUILTIN](../process/build-quality-in.md)) removes the separate inspection phase and makes quality everyone's job rather than one
-team's, which is the shared-risk trait a generative culture requires.
+changing practice. This platform's failure response works that way. Holding the line treats a stopped line as the system working, not as a
+fault to find someone responsible for — punishing whoever pulled the cord teaches people to route around it, the same messenger-punishing
+pattern a generative culture avoids. Inspect-and-adapt responds to a failure with a root-cause countermeasure drawn from evidence, not with
+blame, which is Westrum's "failure leads to inquiry" applied to the platform's own gates. Building quality in removes the separate
+inspection phase and makes quality everyone's job rather than one team's, which is the shared-risk trait a generative culture requires.
 
 Beyond what these ADRs encode, apply the capability directly: run blameless postmortems that ask what happened rather than who did it, give
 developers ownership of their code once it runs in production, break down silos through shared planning and informal cross-functional

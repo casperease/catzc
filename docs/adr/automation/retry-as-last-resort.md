@@ -51,11 +51,10 @@ often than it is right: a retry **masks real failures**, turns a fast failure in
 fails catastrophically. Reaching for retry is a strong claim — "I expect this to fail sometimes and I choose to paper over it" — that is
 rarely justified.
 
-The codebase leans the other way. [Fail fast with assertions](fail-fast-with-asserts.md) says assert and fail at the source.
-[Error handling](pwsh/error-handling.md) and [single-responsibility-functions](single-responsibility-functions.md) say functions **throw**
-on failure and never catch-and-continue; whether to retry is the _caller's_ decision, isolated in a dedicated wrapper, never tangled into
-business logic. This ADR sets the policy for when a retry is permitted at all; how pwsh spells the test tier and the wrapper is
-[error-handling](pwsh/error-handling.md#rule-adr-pwsh-error-noretryintests).
+The codebase leans the other way. [Fail fast with assertions](fail-fast-with-asserts.md) says assert and fail at the source. Error handling
+and [single-responsibility-functions](single-responsibility-functions.md) say functions **throw** on failure and never catch-and-continue;
+whether to retry is the _caller's_ decision, isolated in a dedicated wrapper, never tangled into business logic. This ADR sets the policy
+for when a retry is permitted at all; how pwsh spells the test tier and the wrapper is the pwsh twin's to say.
 
 ## Decision
 

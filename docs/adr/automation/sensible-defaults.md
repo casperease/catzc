@@ -73,7 +73,7 @@ function Install-Python(version: required):
 ```
 
 How the parameter surface itself is shaped so the common call stays short — the positional primary argument, switches over booleans — is the
-language layer, [parameter-design](pwsh/parameter-design.md) (`ADR-PWSH-PARAM`).
+language layer, in the pwsh twin.
 
 ### The principle
 
@@ -99,7 +99,7 @@ In order of preference:
    `Get-CatzcModuleRoot` provides the module's own folder. The function uses these anchors instead of requiring a path parameter.
 
 4. **Off, for opt-in behavior.** `-PassThru`, `-DryRun`, `-Silent`, `-NoAssert` — these default to off because the common case does not need
-   them; the caller opts in explicitly when needed (in pwsh a switch — see [parameter-design](pwsh/parameter-design.md)).
+   them; the caller opts in explicitly when needed (in pwsh a switch).
 
 ### One resolution order
 
@@ -110,15 +110,13 @@ everywhere:
 2. **The owning module's configuration.** Otherwise the value comes from the module's `configs/<name>.yml`, read through `Get-Config`.
 3. **The setting's sensible default.** Otherwise — the key is omitted, or the file states nothing for it — the sensible default applies.
 
-The sensible default is programmed on the config type that maps the file (a C# record constructed by `Get-Config`, see
-[module-config-loading](../configuration/module-config-loading.md)), and the shipped config file shows the same value, so the code and the
-asset a reader opens say one thing. An omitted key and a key set to the default therefore behave identically, a fresh checkout works with no
-configuration edits, and no function restates the value. Most of the time the two match; where a shipped file carries a value of its own,
-such as this repository enabling every customer, its entry in `configs.yml` names the key under `differs` with one sentence of reason, and
-`Test-ShippedConfigs` fails any other difference and any reason whose values agree. This is not a fallback kept for an older shape
-([one-living-version](../principles/one-living-version.md)): it is the single declared default of an optional setting. How a PowerShell
-parameter expresses steps 1–2 is the language layer, [parameter-design](pwsh/parameter-design.md#configurable-parameters)
-(`ADR-PWSH-PARAM-RESOLUTIONORDER`).
+The sensible default is programmed on the config type that maps the file (a C# record constructed by `Get-Config`), and the shipped config
+file shows the same value, so the code and the asset a reader opens say one thing. An omitted key and a key set to the default therefore
+behave identically, a fresh checkout works with no configuration edits, and no function restates the value. Most of the time the two match;
+where a shipped file carries a value of its own, such as this repository enabling every customer, its entry in `configs.yml` names the key
+under `differs` with one sentence of reason, and `Test-ShippedConfigs` fails any other difference and any reason whose values agree. This is
+not a fallback kept for an older shape ([one-living-version](../principles/one-living-version.md)): it is the single declared default of an
+optional setting. How a PowerShell parameter expresses steps 1–2 is the language layer, in the pwsh twin.
 
 ## Decision
 

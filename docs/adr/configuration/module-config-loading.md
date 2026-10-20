@@ -51,9 +51,9 @@ Reading a config is global access — never guarded by dependencies. Only `Get-C
 
 ## Context
 
-A module's internal config lives in `<module>/configs/<name>.yml` (see [conventional-folders](../repository/conventional-folders.md)).
-Reading one is always the same job: find the file, assert it exists, parse the YAML, optionally validate (or map) it, and cache the result
-so the file is read once per session (see [caching](../automation/caching.md)).
+A module's internal config lives in `<module>/configs/<name>.yml`, the module's conventional configs folder. Reading one is always the same
+job: find the file, assert it exists, parse the YAML, optionally validate (or map) it, and cache the result so the file is read once per
+session (see [caching](../automation/caching.md)).
 
 Copy-pasted load/cache/validate boilerplate, and one wrapper per config, is exactly the kind of drift this codebase avoids: a per-module
 reader wrapper would force callers to know which wrapper owns which config and to wire validation by passing in the owning module's closure.
@@ -84,9 +84,9 @@ declared by a wrapper and not passed by the caller. `-Module` exists only to dis
 modules; the seam throws on an **unknown** name and on an **ambiguous** name (asking for `-Module`).
 
 A few configs are shipped by several modules on purpose: each module opts in by shipping its own file, and a reader wants all of them — a
-module's `configs/glossary.yml` is one ([controlled-vocabulary](../repository/controlled-vocabulary.md)).
-`Get-Config -Config <name> -ListOwners` lists every owner's entry, sorted by module name (ordinal) and empty when no module ships the name,
-without loading anything; the reader then loads each with `-Module`, so every file still goes through the one cached, validated read.
+module's `configs/glossary.yml`, its part of the controlled vocabulary, is one. `Get-Config -Config <name> -ListOwners` lists every owner's
+entry, sorted by module name (ordinal) and empty when no module ships the name, without loading anything; the reader then loads each with
+`-Module`, so every file still goes through the one cached, validated read.
 
 `Resolve-ConfigEntry` is also the test seam: mock `Resolve-ConfigEntry` to return a fixture entry and the read redirects to a fixture file
 (see [test-automation](../automation/test-automation.md)).
@@ -111,8 +111,8 @@ config, a type that does not resolve, and a shipped config that does not load ar
 `Invoke-ConfigValidator, for owners without a C# type`
 
 Not every owner of a config can ship a C# type: types compile only from `pwsh/<module>/types/`, and a track or deployable-unit that carries
-its own configuration rests on PowerShell extension points instead (`ADR-DSGN-TRACK-ONETECHSTACK`). For those, `Catzc.Base.ConfigExtensions`
-keeps the PowerShell validator form. `Invoke-ConfigValidator -Config <dict> -Name <name> -Module <owner>` finds the validator by convention
+its own configuration rests on PowerShell extension points instead, one tech stack per track. For those, `Catzc.Base.ConfigExtensions` keeps
+the PowerShell validator form. `Invoke-ConfigValidator -Config <dict> -Name <name> -Module <owner>` finds the validator by convention
 (`Assert-<TitleCase(name)>Config`, so `widget-parts` → `Assert-WidgetPartsConfig`) or by `-Validator`, and runs it **in the owning module's
 scope** — `& (Get-Module $owner) { … }` — so a private validator resolves. A conventional validator that does not exist is a no-op; a named
 one that does not exist throws.

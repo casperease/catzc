@@ -381,10 +381,8 @@ Summary (ours): Have every change reviewed by a second person, by pair programmi
 
 #### What 3 means here
 
-How a change reaches `main` is a repository variant, `git_workspace`
-([ADR-REPO-VARIANT-GITWORKSPACE](../../repository/repo-variants.md#rule-adr-repo-variant-gitworkspace)). In `main-via-pr` a pull request is
-the one authenticated way into `main`
-([ADR-DSGN-REMOTE-PULLREQUESTISINGRESS](../../design/server-remote-integration.md#rule-adr-dsgn-remote-pullrequestisingress)), and it
+How a change reaches `main` is a repository variant, `git_workspace`. In `main-via-pr` a pull request is the one authenticated way into
+`main` ([ADR-DSGN-REMOTE-PULLREQUESTISINGRESS](../../design/server-remote-integration.md#rule-adr-dsgn-remote-pullrequestisingress)), and it
 carries the blocking build validations of `build-validation.yml`. Review is a gate the pull request can carry, but the repository configures
 no required-reviewer policy, a gap [ADR-AZ-WAF-OE-OE03](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe03) records. This repository
 sets `git_workspace: main-direct` in `variants.yml`, the single-author trunk, where a second reviewer does not exist; the four-eyes rule
@@ -602,10 +600,10 @@ Summary (ours): Make emergency fixes through code as well, and record each in th
 A fix is a commit like any other: it reaches `main`, the globset of the unit it touches starts that unit's CD pipeline, and the pipeline
 deploys it. Configuration that reaches the cloud enters only through version control
 ([ADR-FLOW-CD-TYPE-CONFIGENTERSTHROUGHINPUT](../../flow/pipeline-types.md#rule-adr-flow-cd-type-configentersthroughinput)), and a red
-pipeline stops the line until it is fixed ([ADR-PROC-ANDON](../../process/holding-the-line.md)). Nothing stops a person with rights from
-changing a resource in the portal, though: outside the three policies, drift is caught only when the next deploy overwrites it. There is no
-written emergency-change procedure, a gap [ADR-AZ-WAF-OE-OE02](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe02) records, and no
-convention for logging a quick fix's follow-up.
+pipeline stops the line until it is fixed. Nothing stops a person with rights from changing a resource in the portal, though: outside the
+three policies, drift is caught only when the next deploy overwrites it. There is no written emergency-change procedure, a gap
+[ADR-AZ-WAF-OE-OE02](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe02) records, and no convention for logging a quick fix's
+follow-up.
 
 ##### 9 in `foundation`
 
@@ -775,10 +773,9 @@ Summary (ours): Assess current practices, team structure, and operating model, d
 
 #### What 15 means here
 
-The repository improves continuously and from evidence: gate results, flow measures, and incidents, read off the real system
-([ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE](../../process/inspect-and-adapt.md#rule-adr-proc-kaizen-adaptfromevidence)). Its plans are files under
-`out/` for a specific change, not a maturity roadmap, and team structure and operating model belong to the organisation that runs the
-repository.
+The repository improves continuously and from evidence: gate results, flow measures, and incidents, read off the real system. Its plans are
+files under `out/` for a specific change, not a maturity roadmap, and team structure and operating model belong to the organisation that
+runs the repository.
 
 ##### 15 status
 
@@ -877,9 +874,8 @@ Summary (ours): Use public repositories only for material that is not confidenti
 
 #### What 20 means here
 
-What the repository publishes is the catzc package, built by `Export-Catzc` and released by a manually started GitHub workflow
-([ADR-GH-RELEASE-MANUALONLY](../../github/github-release.md#rule-adr-gh-release-manualonly)). It carries the built catzc modules, not the
-`infrastructure/` templates and the configuration tree that describe a tenant's subscriptions.
+What the repository publishes is the catzc package, built by `Export-Catzc` and released by a manually started GitHub workflow. It carries
+the built catzc modules, not the `infrastructure/` templates and the configuration tree that describe a tenant's subscriptions.
 
 ##### 20 status
 
@@ -1396,8 +1392,7 @@ Summary (ours): The second option combines Azure DevOps and GitHub, to use the s
 #### What 37 means here
 
 The repository uses both: Azure DevOps Pipelines deploy the infrastructure, and GitHub Actions run the catzc automation's CI
-(`.github/workflows/ci-pwsh.yml`) and its manual release ([ADR-GH-RELEASE](../../github/github-release.md)). The globsets project to both
-vendors' trigger dialects from one registry
+(`.github/workflows/ci-pwsh.yml`) and its manual release. The globsets project to both vendors' trigger dialects from one registry
 ([ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nativepathfilter)), so a unit can move between
 them without its trigger being written again.
 

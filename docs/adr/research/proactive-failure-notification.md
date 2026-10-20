@@ -78,14 +78,12 @@ staying frozen at whatever was anticipated when it was first built.
 ## How to apply
 
 This platform's alerting rules live in the retry policy: a retry is permitted only for a genuinely transient, external, idempotent failure,
-and every retry is logged as a warning rather than allowed to pass silently
-([ADR-AUTO-RETRY](../automation/retry-as-last-resort.md#rule-adr-auto-retry-boundedandvisible)). That warning is the proactive notification
-— it fires while the operation is still succeeding, before the retries are exhausted and the call fails outright, so a degrading dependency
-leaves a breadcrumb ahead of the failure it predicts. The retry itself is the automated response DORA asks for when a notification's action
-is always the same — retry the one idempotent call — and the warning is what a person reviewing the log sees if the same dependency keeps
-degrading across runs. Console output reserves yellow strictly for conditions that need attention
-([ADR-AUTO-CONSOLE](../automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)), so that reserved channel keeps working as
-a notification signal instead of being drowned out by decorative color used for everything else.
+and every retry is logged as a warning rather than allowed to pass silently. That warning is the proactive notification — it fires while the
+operation is still succeeding, before the retries are exhausted and the call fails outright, so a degrading dependency leaves a breadcrumb
+ahead of the failure it predicts. The retry itself is the automated response DORA asks for when a notification's action is always the same —
+retry the one idempotent call — and the warning is what a person reviewing the log sees if the same dependency keeps degrading across runs.
+Console output reserves yellow strictly for conditions that need attention, so that reserved channel keeps working as a notification signal
+instead of being drowned out by decorative color used for everything else.
 
 ## Common pitfalls
 

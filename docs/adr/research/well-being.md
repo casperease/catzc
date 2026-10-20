@@ -66,11 +66,9 @@ conditions that produce burnout.
 ## How to apply
 
 This platform reduces the two contributors within engineering's direct control. Deployment pain shrinks through the CI discipline and
-promotion flow ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)), which keeps releases small, frequent, and mechanically gated
-rather than rare and high-stakes. Rework shrinks through fail-fast inline assertions
-([ADR-AUTO-FAILFAST](../automation/fail-fast-with-asserts.md)), which surface a broken assumption at its exact point of failure instead of
-days later as an unplanned firefight, and through the zero-ceremony, hard-to-fail design
-([ADR-AUTO-ZERO](../automation/zero-ceremony-poka-yoke.md)), which prevents whole classes of mistakes structurally so they never become
+promotion flow, which keeps releases small, frequent, and mechanically gated rather than rare and high-stakes. Rework shrinks through
+fail-fast inline assertions, which surface a broken assumption at its exact point of failure instead of days later as an unplanned
+firefight, and through the zero-ceremony, hard-to-fail design, which prevents whole classes of mistakes structurally so they never become
 rework at all. None of this reaches the organizational risk factors behind burnout directly — those are a matter of how the organization
 manages people, not of platform design — but shrinking deployment pain and rework removes two of DORA's three named contributors to poor
 well-being.

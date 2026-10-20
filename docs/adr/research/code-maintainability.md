@@ -76,17 +76,14 @@ against each other.
 ## How to apply
 
 This platform realizes the source-code half of the capability through the mono-repo itself: every module lives in one searchable repository,
-and the audited server remote ([ADR-DSGN-REMOTE](../design/server-remote-integration.md)) is the single place a pull request can propose a
-change to code another team maintains.
+and the audited server remote is the single place a pull request can propose a change to code another team maintains.
 
 The dependency half is realized through explicit, checked-in declaration rather than ambient install state. Internal module edges are
-declared once and gated against the code so the graph stays acyclic and legible
-([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)). Third-party PowerShell modules are vendored into the repository so
-loading is a path read with no network call and no version drift, and an upgrade is a deliberate, reviewed diff
-([ADR-PWSH-VENDOR](../automation/pwsh/vendor-toolset-dependencies.md)). External tools are installed through the platform-native package
-manager, chosen for the security and traceability of its supply chain rather than convenience
-([ADR-AUTO-PKGMGR](../automation/use-proper-package-managers.md)), at the version locked in `tools.yml`. Together these keep every
-dependency, internal or external, traceable from a build back to an exact, pinned version.
+declared once and gated against the code so the graph stays acyclic and legible. Third-party PowerShell modules are vendored into the
+repository so loading is a path read with no network call and no version drift, and an upgrade is a deliberate, reviewed diff. External
+tools are installed through the platform-native package manager, chosen for the security and traceability of its supply chain rather than
+convenience, at the version locked in `tools.yml`. Together these keep every dependency, internal or external, traceable from a build back
+to an exact, pinned version.
 
 Measuring the capability follows the same three concerns DORA highlights: how much of the codebase is searchable and how much is duplicate
 or dead; how long it takes to land a change in code the requesting team does not own; and how many distinct versions of a given library are

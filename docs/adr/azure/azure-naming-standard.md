@@ -145,8 +145,8 @@ tight (storage):  <env><slot><region><org><short_name>[<customer>][<role>]<type>
 One config file ⟷ one slot ⟷ one resource group. Sort key is `env`, then `slot`, then `region`.
 
 **Component order is the `ado_naming` repo variant**: `Get-AdoNaming` (default `standard`) selects a named order from
-`Get-AzureNameOrderSet`; the variant lives in `variants.yml` (see [repo-variants](../repository/repo-variants.md)). An order is pure data —
-an ordered list of _segments_ — so the assembler (`Get-AzureResourceName`) is order-agnostic. Two ship:
+`Get-AzureNameOrderSet`; the variant lives in `variants.yml`. An order is pure data — an ordered list of _segments_ — so the assembler
+(`Get-AzureResourceName`) is order-agnostic. Two ship:
 
 - `standard` — `<env>-<slot>-<region>-<org>-<short_name>[-<customer>][-<role>]-<type>` (env/slot first, type last).
 - `classic` — `<type>-<org>-<short_name>[-<customer>]-<env>-<region>[-<slot>][-<role>]` (type first, CAF-style, slot trailing).

@@ -80,9 +80,9 @@ consumer that cannot be changed in lockstep, the only real reason a codebase car
 
 The one place external consumers _do_ exist is the repository's deliberately published API surface, and that is exactly why it is versioned
 explicitly — as binding contracts under `contracts/<unit>/<version>/<module>/`, versioned with the unit that carries them and kept honest by
-contract testing (see [api-contracts](../repository/api-contracts.md)). Back-compat for those consumers is legitimate and lives **there**,
-as separate live versions — never as a shim smeared through the internal code. Everything below is about the inside; the external API
-boundary is the deliberate, versioned exception (ADR-PRIN-ONELIVE-PINNEDVERSIONNOTLEGACY).
+contract testing. Back-compat for those consumers is legitimate and lives **there**, as separate live versions — never as a shim smeared
+through the internal code. Everything below is about the inside; the external API boundary is the deliberate, versioned exception
+(ADR-PRIN-ONELIVE-PINNEDVERSIONNOTLEGACY).
 
 Without that reason, legacy is pure cost. Two versions of a behaviour double the surface to read, test, and reason about; they drift; and
 every reader must first work out which one is live. A deprecated alias kept "for safety" is a second source of truth that quietly diverges.
@@ -146,13 +146,11 @@ The tell that separates a versioned contract from legacy: in a versioned contrac
 which is what ADR-PRIN-ONELIVE-NOCOMPATIBILITYSHIMS forbids. Versioned coexistence is fair for the former and forbidden for the latter.
 
 Versioned contracts also have a **structural home**, which keeps them from being mistaken for legacy: the root
-`contracts/<unit>/<version>/<module>/` convention
-([conventional-folders](../repository/conventional-folders.md#rule-adr-repo-folders-contractsfolder)) — one folder per deployable-unit that
-carries contracts (`catzc`, the bundle, [ADR-REPO-CONTRACT-LAYOUT](../repository/api-contracts.md#rule-adr-repo-contract-layout)), one
-folder per version of that unit inside it (the unit's `0.0.0` the mutable draft, frozen only when that unit is released), and one folder per
-owning module inside that. There is no repository-wide version. Each version is its own self-contained, checked-in folder, so coexistence is
+`contracts/<unit>/<version>/<module>/` convention — one folder per deployable-unit that carries contracts (`catzc`, the bundle), one folder
+per version of that unit inside it (the unit's `0.0.0` the mutable draft, frozen only when that unit is released), and one folder per owning
+module inside that. There is no repository-wide version. Each version is its own self-contained, checked-in folder, so coexistence is
 explicit and located — never an ad-hoc `V2` fork buried beside the original in the code. These are the repository's external-facing API
-contracts, binding and contract-tested — see [api-contracts](../repository/api-contracts.md).
+contracts, binding and contract-tested.
 
 ### Branch by abstraction
 
@@ -197,8 +195,8 @@ what the code used to be lives in git and nowhere else — not in retained files
   tracked, not that it merely exists.
 
 - **Strict config validation** keeps the principle structural where it can: every shipped config's C# config type rejects unknown /
-  deprecated keys at load (ADR-CONF-LOADING-CSHARPCONFIGTYPE), so a compatibility field cannot quietly linger in a config — removing the
-  property from the type forces the key out of every file in the same change.
+  deprecated keys at load, so a compatibility field cannot quietly linger in a config — removing the property from the type forces the key
+  out of every file in the same change.
 
 - **The present-tense ADR/doc convention** (`docs/adr/index.md`, "Present tense, not a changelog") enforces
   ADR-PRIN-ONELIVE-PRESENTTENSEDOCS in review for all documentation.

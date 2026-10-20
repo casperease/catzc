@@ -116,10 +116,8 @@ is wrong the moment resolution depends on the current directory (see [never-depe
 against a known anchor, not the current directory.
 
 The fix is to fix the _form_ a path takes at each boundary, rather than leaving it to each function author. This ADR complements
-[never-depend-on-pwd](never-depend-on-pwd.md) (resolve against the working root, never the current directory),
-[cross-platform-powershell](pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat-pathjoinprimitive) (the PowerShell path join and
-normalization, forward slashes), and [dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root, whose paths
-take the same relative form).
+[never-depend-on-pwd](never-depend-on-pwd.md) (resolve against the working root, never the current directory), the pwsh twin's path join and
+normalization (forward slashes), and the `out/` root, whose paths take the same relative form.
 
 ### The two forms
 
@@ -148,8 +146,8 @@ crossings, all requiring communication form:
   drawing it from a value that also holds the absolute form for the channels that bind. This is a per-channel choice, not a storage
   property.
 
-A code link's destination (`[ADR-<CODE>](/docs/adr/<path>.md)`, [markdown-links](../repository/markdown-links.md)) is a communication-form
-path wrapped in link syntax: the leading `/` means "the repository root" to the markdown renderer and is not a third path form.
+A code link's destination (`[ADR-<CODE>](/docs/adr/<path>.md)`) is a communication-form path wrapped in link syntax: the leading `/` means
+"the repository root" to the markdown renderer and is not a third path form.
 
 ### The point of binding
 
@@ -172,8 +170,8 @@ Every path that crosses a boundary going out goes through `ConvertTo-RepoRelativ
 `Resolve-RepoPath`. The pair round-trips: relativizing a path under the root and resolving it again yields the original absolute path.
 Centralizing on the two functions is what makes normalization a guarantee rather than a hope — a path hand-joined onto the repository root
 preserves a caller's `.\` and produces `{root}/./sub`, and a hand-rolled backslash-to-slash replace fixes separators but not `..` segments.
-The converters fix both, in one place, so the rule cannot be half-applied. The PowerShell spellings of the two hand-built crossings are
-ADR-PWSH-XPLAT-HANDBUILTCROSSINGS.
+The converters fix both, in one place, so the rule cannot be half-applied. The PowerShell spellings of the two hand-built crossings are in
+the pwsh twin.
 
 ### Degradation
 
@@ -204,13 +202,12 @@ paths, relative-only); the cross-stage artifact is the separate, dual-form case.
 
 ### The workspace anchor
 
-Some config names a folder beside the repository rather than inside it, such as a sibling checkout read for ideas
-([inspiration](../repository/inspiration.md)). Neither plain form fits: a repository-relative path would need a `..` segment, which
-communication form forbids, and an absolute path is machine-specific, which source-controlled config forbids
-(ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM). The `{workspace}` anchor names the one place siblings share, the folder that holds the repository,
-so `{workspace}/eac` means the `eac` checkout beside this one wherever the repository is checked out. It is spelled as a brace token, unlike
-`out/`, because `workspace` is an ordinary folder name and stays one. A sibling that is not checked out resolves to a path that does not
-exist, and the caller reports that rather than failing.
+Some config names a folder beside the repository rather than inside it, such as a sibling checkout read for ideas. Neither plain form fits:
+a repository-relative path would need a `..` segment, which communication form forbids, and an absolute path is machine-specific, which
+source-controlled config forbids (ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM). The `{workspace}` anchor names the one place siblings share, the
+folder that holds the repository, so `{workspace}/eac` means the `eac` checkout beside this one wherever the repository is checked out. It
+is spelled as a brace token, unlike `out/`, because `workspace` is an ordinary folder name and stays one. A sibling that is not checked out
+resolves to a path that does not exist, and the caller reports that rather than failing.
 
 ### Relative source, absolute artifact
 

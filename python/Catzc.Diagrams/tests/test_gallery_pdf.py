@@ -44,3 +44,28 @@ def test_two_pngs_one_with_a_companion_make_three_pages(tmp_path):
     assert pages is not None, done.stdout
     assert int(pages.group(1)) == 3
     assert (tmp_path / "out" / "diagrams" / "assets-gallery.pdf").is_file()
+
+
+def test_a_declared_diagram_is_described_by_its_yml_description(tmp_path):
+    mirror_kit = tmp_path / "python" / "Catzc.Diagrams"
+    mirror_kit.mkdir(parents=True)
+    shutil.copy2(KIT / "gallery_pdf.py", mirror_kit)
+    (tmp_path / CARRIERS).parent.mkdir(parents=True)
+    shutil.copy2(REPO / CARRIERS, tmp_path / CARRIERS)
+
+    folder = tmp_path / "assets" / "widget-flow"
+    folder.mkdir(parents=True)
+    Image.new("RGB", (64, 48), (40, 60, 90)).save(folder / "diagram.drawio.png")
+    (folder / "diagram.drawio.yml").write_text("description: >-\n  Widgets flow into gadgets.\ncontent:\n  title: Widgets\n", encoding="utf-8")
+
+    done = subprocess.run(
+        [sys.executable, str(mirror_kit / "gallery_pdf.py"), "--assets", "assets"],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        timeout=60,
+        check=False,
+    )
+
+    assert done.returncode == 0, done.stderr
+    assert int(re.search(r"pages=(\d+)", done.stdout).group(1)) == 2

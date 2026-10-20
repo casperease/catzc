@@ -71,18 +71,15 @@ worked around rather than fixed — the opposite of what automated testing is me
 
 ## How to apply
 
-This platform's split between logic tests and integrity tests ([test-automation](../automation/test-automation.md), `ADR-AUTO-TEST`) is this
-capability applied directly: a logic test owns its own fixture data under `tests/assets/` with deliberately distinct identities (envs
-`alpha`/`beta`, customers `acme`/`globex`, org `tst`) so it can never collide with, or depend on, production
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). Isolation comes
-from mockable seams — `Get-BicepTemplatesRoot`, `Resolve-ConfigEntry` — that redirect discovery to a fixture tree rather than from editing
-or borrowing real data ([ADR-AUTO-TEST-NOOVERMOCKING](../automation/test-automation.md#rule-adr-auto-test-noovermocking)). No tier below L3
-depends on live connectivity ([ADR-AUTO-TEST-NOCLOUDBELOWLTHREE](../automation/test-automation.md#rule-adr-auto-test-nocloudbelowlthree)),
-so the data a test needs is exactly the data it carries with it.
+This platform's split between logic tests and integrity tests is this capability applied directly: a logic test owns its own fixture data
+under `tests/assets/` with deliberately distinct identities (envs `alpha`/`beta`, customers `acme`/`globex`, org `tst`) so it can never
+collide with, or depend on, production. Isolation comes from mockable seams — `Get-BicepTemplatesRoot`, `Resolve-ConfigEntry` — that
+redirect discovery to a fixture tree rather than from editing or borrowing real data. No tier below L3 depends on live connectivity, so the
+data a test needs is exactly the data it carries with it.
 
-The [conventional-folders](../repository/conventional-folders.md) layout (`ADR-REPO-FOLDERS`) makes this the only place fixture data can go:
-`tests/assets/` is packaged with the tests that consume it, distinct from the module's own shipped `assets/`, so a reviewer sees at a glance
-that a test's data is scoped to that test and not a runtime asset masquerading as one.
+The conventional folder layout makes this the only place fixture data can go: `tests/assets/` is packaged with the tests that consume it,
+distinct from the module's own shipped `assets/`, so a reviewer sees at a glance that a test's data is scoped to that test and not a runtime
+asset masquerading as one.
 
 ## Common pitfalls
 

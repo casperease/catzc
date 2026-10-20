@@ -56,34 +56,28 @@ file.
 **Running tests:** call `Test-Automation`. It finds all test files across all modules automatically.
 
 Each of these is a single action with no prerequisites and no follow-up steps. The ceremony count is zero. The PowerShell mechanics behind
-it are [dynamic-module-manifests](pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-nomoduleimports): one global function namespace
-with no import statements, and exports derived from file location
-([ADR-PWSH-MANIFEST-VISIBILITYISLOCATION](pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-visibilityislocation)).
+it, in the pwsh twin, are one global function namespace with no import statements, and exports derived from file location.
 
 ### What hard-to-fail looks like
 
-**You cannot name a file wrong.** [One function per file](pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc-onefunctionperfile) — the
-automation tests validate that every function file is named `Verb-Noun`, contains exactly one function, and the function name matches. A
-misnamed file fails the next test run immediately.
+**You cannot name a file wrong.** One function per file — the automation tests validate that every function file is named `Verb-Noun`,
+contains exactly one function, and the function name matches. A misnamed file fails the next test run immediately.
 
-**You cannot use the wrong verb.** [Approved verbs](pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-approvedverbs) — PSScriptAnalyzer's
-`PSUseApprovedVerbs` rule rejects unapproved verbs. The author does not need to check `Get-Verb` — the tool catches it.
+**You cannot use the wrong verb.** Approved verbs — PSScriptAnalyzer's `PSUseApprovedVerbs` rule rejects unapproved verbs. The author does
+not need to check `Get-Verb` — the tool catches it.
 
 **You cannot forget an assertion.** [Fail fast with assertions](fail-fast-with-asserts.md#rule-adr-auto-failfast-assertinputsatentry) — the
 convention of asserting every assumption inline means errors surface at the exact point of failure with a message naming the violated
 assumption. Bad state cannot silently propagate.
 
-**You cannot break formatting.** [Uniform formatting](../repository/uniform-formatting.md#rule-adr-repo-format-toolsformat) —
-`.editorconfig` configures the editor. PSScriptAnalyzer rules enforce brace style and variable casing. The author does not need to think
-about formatting — the tools handle it.
+**You cannot break formatting.** Uniform formatting — `.editorconfig` configures the editor. PSScriptAnalyzer rules enforce brace style and
+variable casing. The author does not need to think about formatting — the tools handle it.
 
-**You cannot depend on the current directory.**
-[Working-directory mechanics](pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-restoresetlocation) — a custom analyzer rule flags a
-bare change of the current directory. Functions that accidentally depend on the working directory are caught before they run in a different
-context.
+**You cannot depend on the current directory.** Working-directory mechanics — a custom analyzer rule flags a bare change of the current
+directory. Functions that accidentally depend on the working directory are caught before they run in a different context.
 
-**You cannot publish a function that doesn't exist.** [Function files, not module files](pwsh/use-ps1-not-psm1.md) — the bootstrap module
-derives exports from file names. There is no manifest to get out of sync — the file system is the source of truth.
+**You cannot publish a function that doesn't exist.** Function files, not module files — the bootstrap module derives exports from file
+names. There is no manifest to get out of sync — the file system is the source of truth.
 
 **You cannot get a stale module version.**
 [Controlling module dependencies](controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) — vendored modules are checked

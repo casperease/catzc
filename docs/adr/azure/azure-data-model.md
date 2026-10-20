@@ -137,7 +137,7 @@ Governing principle:
 
 All named entities are **maps keyed by name** (uniform access; duplicate names are structurally impossible). One global — `org` — supplies a
 name component. The component _order_ is **not** here — it is the `ado_naming` repo variant, `Get-AdoNaming` (see
-[The name builder](#the-name-builder) and [repo-variants](../repository/repo-variants.md)).
+[The name builder](#the-name-builder)).
 
 There is **no subscription-group entity**, and no subscription name ever appears in a template path. The configuration tree's two
 conventional coordinates — the root (shared platform) and the customer subfolder — resolve to a subscription, so the subscription stays a
@@ -336,8 +336,7 @@ intentionally deferred; the resource-group name above is the only name the syste
 `A parameter that names its value by config address`
 
 A parameter in `ParametersFile.parameters` takes one of three forms: a literal `value`, an ARM Key Vault `reference`, or a config address.
-The address form names a node of a version-controlled config ([config-value-addressing](../configuration/config-value-addressing.md))
-instead of copying its value:
+The address form names a node of a version-controlled config instead of copying its value:
 
 ```yaml
 ParametersFile:
@@ -351,11 +350,10 @@ the hook, the parameters file, and the parameter contract (ADR-AZ-DATAMOD-PARAME
 generic: it serves any template and any config, with no per-template code, which is why a repository-wide value needs no PrePost hook to
 reach a template. A config value keeps one owner, and every template that needs it reads it there rather than holding a copy that drifts.
 
-An address reaches only committed config, so nothing it names is a secret
-([config-value-addressing](../configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly)); a secure parameter
-takes a Key Vault `reference`, and the parameter contract rejects any literal for it, addressed or not. The build fails fast, with every
-violation of a config file in one error that names the file and each parameter: an `address` set together with `value`, `reference`, or any
-other key, an address that is not a string, and an address that does not resolve — an unknown config, a missing key, or a malformed address.
+An address reaches only committed config, so nothing it names is a secret; a secure parameter takes a Key Vault `reference`, and the
+parameter contract rejects any literal for it, addressed or not. The build fails fast, with every violation of a config file in one error
+that names the file and each parameter: an `address` set together with `value`, `reference`, or any other key, an address that is not a
+string, and an address that does not resolve — an unknown config, a missing key, or a malformed address.
 
 ### Runtime resolution (the joins)
 

@@ -75,10 +75,8 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent
   owns, verifying each file, and asking the coordinator for shared-file entries. Use it whenever work is delegated and no specialised agent
   fits.
 - **`drawio-diagram-waves`** — authors new draw.io diagrams in bounded parallel waves for the user to approve.
-- **`drawio-png`** — takes a `.drawio.png` address and its markdown pages, re-renders the embedded model to `out/drawio/`, and reports what
-  the raster hides or the sources say and the diagram lacks; lands nothing under `docs/`.
-- **`write-drawio-files`** — changes labels, text, or styles inside existing `.drawio.png` diagrams and re-renders the raster from the
-  edited model, so the picture and the embedded XML stay honest to each other.
+- **`edit-diagram-yml`** — changes what a diagram says or shows by editing the `content:` of its `diagram.drawio.yml` and re-rendering it
+  with put, so the png follows its one source.
 - **`print-artifacts`** — republishes the diagram review artifact from the files on disk.
 - **`build-inspiration-module`** — creates or extends the inspiration module (`Get-Inspiration`).
 - **`session-cost-audit`** — measures what a session cost and why, against `out/plan-session-cost.md`, and proposes the changes.

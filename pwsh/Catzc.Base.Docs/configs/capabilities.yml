@@ -69,10 +69,11 @@ capabilities:
     supported_by: [ADR-DORA-VISUAL-DISPLAYPROCESSSTATE, ADR-DORA-VISUAL-CHOSENWITHTEAM]
     checks: []
 
-  # Label and style edits in the embedded model of a .drawio.png, re-rendered and verified.
-  - name: drawio-model-edit
-    supported_by: [ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY]
-    checks: [Test-CheckedInBinaries]
+  # Put, get, sync, theme and stale-rebuild of a diagram folder from its yml declaration.
+  - name: drawio-declaration
+    supported_by:
+      [ADR-REPO-SLIDES-DECLARATION, ADR-REPO-SLIDES-TWODIRECTIONS, ADR-REPO-SLIDES-CONFLICTNEEDSAPICK, ADR-REPO-SLIDES-THEMESELECTOR]
+    checks: [Test-Diagrams]
 
   # Looking at one diagram PNG in the kit's vocabulary, never a meaning.
   - name: drawio-look

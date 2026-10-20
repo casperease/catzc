@@ -80,11 +80,10 @@ improvement, and business-level trade-off decisions rather than line-by-line cod
 is fast and reliable enough to also serve emergency changes.
 
 On this platform, the pull request is exactly this shift made concrete: it is the authenticated ingress that captures peer review as a merge
-precondition ([ADR-DSGN-REMOTE](../design/server-remote-integration.md)), not a separate external gate a change waits behind. Self-service
-delivery ([ADR-DSGN-SELFSERV](../design/self-service.md)) rests on that same PR as its change-approval control — reviewable, reproducible,
-and audited by construction, with no ticket to a central gatekeeper. Where a human certification gate does exist, it sits at the release
-boundary — RC and RBC ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) — scoped to the business decision of certifying a release
-candidate, not to re-reviewing code the PR already gated.
+precondition, not a separate external gate a change waits behind. Self-service delivery rests on that same PR as its change-approval control
+— reviewable, reproducible, and audited by construction, with no ticket to a central gatekeeper. Where a human certification gate does
+exist, it sits at the release boundary — RC and RBC — scoped to the business decision of certifying a release candidate, not to re-reviewing
+code the PR already gated.
 
 ## Common pitfalls
 

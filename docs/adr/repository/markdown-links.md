@@ -125,7 +125,7 @@ The leading `/` is link syntax meaning "the repository root"; the path after it 
 
 `The citation is the source of truth`
 
-The link text is the citation — `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, or `ADR-PWSH-ERROR` for a whole ADR — and the destination is derived
+The link text is the citation — `ADR-REPO-ADRCODE-PATHOFSEGMENTS`, or `ADR-REPO-ADRCODE` for a whole ADR — and the destination is derived
 from it through the ADR index, exactly as `Format-Types` derives a type's namespace from its folder. When an ADR moves, one `Format-Links`
 run re-points every link to it; when a link's destination disagrees with its citation, the citation wins. A link to an ADR-folder document
 with no code of its own (the index, a domain's `dora-explains`) takes the file name as its text.

@@ -65,8 +65,8 @@ Adopt lean as defined by the Toyota Production System's two pillars and the Popp
 
 These two pillars specialise, for CI/CD, into the six companion articles below. Everything lean-flavoured in this repository is one of them,
 and each is anchored to concrete rules — the seven wastes ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)), fail-fast jidoka
-([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)), the promotion flow ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) — so lean
-here is enacted, not merely admired.
+([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)), and the promotion flow that carries one release candidate from integration to production
+— so lean here is enacted, not merely admired.
 
 ## The seven principles
 
@@ -98,8 +98,8 @@ Lean's flow claims are not metaphors; two laws make them quantitative, and both 
   batch size rather than exhorting people to hurry.
 - **Moore's Law** [^4]. Compute capacity per unit cost roughly doubles on a regular cadence, so machine time trends towards free while human
   attention stays the scarce, expensive constraint. The lean move is therefore to spend the cheap resource to save the dear one: run quality
-  gates in parallel, cache aggressively ([ADR-AUTO-CACHE](../automation/caching.md)), stand up ephemeral environments, rebuild rather than
-  wait. Buying down a human queue with machine time is almost always the right trade.
+  gates in parallel, cache aggressively, stand up ephemeral environments, rebuild rather than wait. Buying down a human queue with machine
+  time is almost always the right trade.
 
 ## Why
 

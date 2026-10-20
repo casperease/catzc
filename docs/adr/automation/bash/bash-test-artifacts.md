@@ -77,11 +77,10 @@ reads the engine's track, so no Bash test reaches a bundle, and a Bash module re
 
 ### The layout
 
-The Bash root follows the one convention every test language's root follows
-([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders-literalnames)): `bash/` when present — the `bash`
-track ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)) — else `.bash/`. The default is declared once, on the `BashConfig`
-type, and `BashConfig.ResolveRoot` is the one resolver every caller asks. Under the root, `tests/<module>/` holds one Bash test folder per
-catzc module, named in kebab case, the convention shared with the Go and Python test folders.
+The Bash root follows the one convention every test language's root follows: `bash/` when present — the `bash` track
+([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)) — else `.bash/`. The default is declared once, on the `BashConfig` type,
+and `BashConfig.ResolveRoot` is the one resolver every caller asks. Under the root, `tests/<module>/` holds one Bash test folder per catzc
+module, named in kebab case, the convention shared with the Go and Python test folders.
 
 A Bash test is declared on one line, `@test "<name>" {`, so the bridge reads it from the source without running bats. Its name is free text,
 so the integrity marker is a prefix of the name, `integrity:`, decided in one place (the `BashTestResult` type).
@@ -108,9 +107,8 @@ pinned to LF by `.gitattributes` and carry `100755` in git.
 
 A Bash test runs where every other test runs: in a `Test-Automation` test run, in both run modes, under the same selection, ordering,
 protection, tiers, categories, and report ([test-automation](../test-automation.md)). The bridge runs `Invoke-BashTest` once per mapped
-module — the vendored bats with a JUnit report, from the Bash root — and turns each `@test` into one test of the run, in pwsh a Pester `It`
-([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)). Every Bash test starts a real engine through a real
-shell, so every one is `L2`. The bash engine is located by its `tools.yml` entry
+module — the vendored bats with a JUnit report, from the Bash root — and turns each `@test` into one test of the run, in pwsh a Pester `It`.
+Every Bash test starts a real engine through a real shell, so every one is `L2`. The bash engine is located by its `tools.yml` entry
 ([execution-engines](../execution-engines.md#rule-adr-auto-engine-locateexecutable)) in the run's source session and handed down, so a build
 run tests the build without carrying the tools config.
 

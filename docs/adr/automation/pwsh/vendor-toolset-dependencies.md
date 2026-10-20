@@ -102,13 +102,12 @@ The Azure PowerShell modules (`Az.*`) are not vendored. They are too large (hund
 changes, and carry .NET assembly dependencies that conflict when multiple versions coexist in-process. Vendoring them would bloat the
 repository and create assembly-loading issues.
 
-See [ADR: prefer-az-cli](../../azure/prefer-az-cli.md) for how we handle Azure operations without depending on Az modules.
+Azure operations go through the Azure CLI, so the toolset does not depend on Az modules.
 
 ### Pruned folders
 
 A gallery package ships content for hosts and features this toolset never uses, and every tracked byte costs on each clone and on every read
-of the whole repository: the protection identities hash every tracked file ([protected-globs](../../repository/protected-globs.md)). Two
-kinds of folder are pruned:
+of the whole repository: the protection identities hash every tracked file. Two kinds of folder are pruned:
 
 - **Legacy .NET Framework builds** (`net4x` and older). The toolset targets PowerShell 7.4+ on .NET, so it never loads them.
 - **PSScriptAnalyzer's `compatibility_profiles`.** About 280 MB of platform profiles, read only by the `PSUseCompatible*` rules, which

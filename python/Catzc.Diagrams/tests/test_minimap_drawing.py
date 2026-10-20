@@ -55,3 +55,18 @@ def test_every_shape_of_contract_data_draws_and_what_is_lit_shows(data):
 
 def test_a_minimap_draws_in_every_theme():
     assert minimaps.picture_from(sample(), 300, 160, "dark") != minimaps.picture_from(sample(), 300, 160, "light")
+
+
+def test_a_row_lit_as_a_whole_is_outlined_and_a_place_drops_its_placeholders():
+    data = sample()
+    data["cells"].append({"at": ["pwsh", "*"], "count": 0})
+    whole = copy.deepcopy(data)
+    whole["lit"] = [{"at": ["pwsh", "*"], "count": 0, "reasons": [{"subject": "ADR-WIDGET", "basis": "concern", "requested": None, "note": "concern automation, outside the axis"}]}]
+    unlit = copy.deepcopy(data)
+    unlit["lit"] = []
+    assert minimaps.picture_from(whole, 300, 160) != minimaps.picture_from(unlit, 300, 160)
+    # A place with no module ('-') at its module's root ('.') prints as its track alone.
+    placeholders, plain = places(), places()
+    placeholders["lit"][0]["at"] = ["pwsh", "-", "."]
+    plain["lit"][0]["at"] = ["pwsh"]
+    assert minimaps.picture_from(placeholders, 300, 160) == minimaps.picture_from(plain, 300, 160)

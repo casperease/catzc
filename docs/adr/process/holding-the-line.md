@@ -45,14 +45,14 @@ every new change is suspect and the original fault is buried. The question this 
 When a gate fails, the line stops. Concretely:
 
 - The failing change does not advance. A red commit cannot be promoted or consumed downstream (the commit lifecycle's hard stop) — it stays
-  where it died, in history, coloured red ([ADR-DSGN-VISUAL](../design/visual-design.md)).
+  where it died, in history, coloured red in the value-chain diagrams.
 - Restoring green is the team's first priority over starting new work. A broken mainline is a shared emergency, not one person's chore.
 - No new work builds on the broken baseline. The fix goes in — or the offending change is reverted — before anything integrates on top.
 
 The mechanism is the same fail-fast jidoka the platform uses everywhere
 ([ADR-PRIN-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-adr-prin-pokayoke-failfast)): stop the moment a defect is detected, fix it at
-the source, then resume. "Holding the line" is that principle applied to the mainline and the promotion flow
-([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) rather than to a single function call [^2].
+the source, then resume. "Holding the line" is that principle applied to the mainline and the promotion flow rather than to a single
+function call [^2].
 
 ## Why
 
@@ -62,17 +62,16 @@ lets a red build stand trades a small, certain stop for a large, uncertain untan
 **Green is the shared baseline everything depends on.** Integration, promotion, and consumption all assume the mainline works (the stable
 sync point). The moment that assumption is false and unenforced, every downstream actor inherits the break.
 
-**Stopping early is a feature, not a fault.** A team that stops the line often on the devbox and rarely in the pipeline is winning
-([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md)) — the stops are landing where they are cheapest. Punishing stops teaches people
-to route around the cord, which is how defects reach production.
+**Stopping early is a feature, not a fault.** A team that stops the line often on the devbox and rarely in the pipeline, where the same
+gates run, is winning — the stops are landing where they are cheapest. Punishing stops teaches people to route around the cord, which is how
+defects reach production.
 
 ## How to apply
 
-Make the stop automatic and total. A gate that detects a problem throws ([ADR-PWSH-ERROR](../automation/pwsh/error-handling.md)) — it does
-not `Write-Warning` and carry on, because a warning that does not stop is a defect waved through. The commit it stopped shows red in the
-history view ([ADR-DSGN-VISUAL](../design/visual-design.md)). When the mainline is red, treat restoring it as the top priority and do not
-integrate new work onto it. When a gate goes red on your own machine, that is the system working: fix it there, where it is a one-line
-change, rather than pushing and letting the pipeline catch it.
+Make the stop automatic and total. A quality gate that detects a problem throws — it does not `Write-Warning` and carry on, because a
+warning that does not stop is a defect waved through. The commit it stopped shows red in the history view. When the mainline is red, treat
+restoring it as the top priority and do not integrate new work onto it. When a gate goes red on your own machine, that is the system
+working: fix it there, where it is a one-line change, rather than pushing and letting the pipeline catch it.
 
 ## References
 

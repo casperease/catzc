@@ -29,15 +29,10 @@ agents:
     checks: [Test-CheckedInBinaries, Test-Links]
     model_reason: leads other agents, ranks candidates and writes briefs in the ADRs' exact terms
 
-  # Re-renders a given .drawio.png's model to out/drawio and reports raster-versus-model and source-versus-diagram differences.
-  - name: drawio-png
-    supported_by: [ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY]
-    checks: [Test-CheckedInBinaries]
-
-  # Changes labels and styles inside existing docs/.assets/ diagrams so they match the decisions they draw.
-  - name: write-drawio-files
-    supported_by: [ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY]
-    checks: [Test-CheckedInBinaries]
+  # Changes what a diagram says by editing its yml declaration and putting the png from it.
+  - name: edit-diagram-yml
+    supported_by: [ADR-REPO-SLIDES-DECLARATION, ADR-REPO-SLIDES-TWODIRECTIONS, ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE]
+    checks: [Test-Diagrams, Test-CheckedInBinaries]
 
   # Shows the diagram review state on one shared page; it publishes from out/ and runs no catzc check.
   - name: print-artifacts

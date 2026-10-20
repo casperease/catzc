@@ -108,10 +108,8 @@ theme-light: # the light-era kit's colours, the light side of its light-to-dark 
   map-dim: 7D8C86
   map-caption: 333333
   map-mention: B0B7BF
-minimaps: # the eight minimap ids, and the default three of each kind (declaration.py validates the count and each id)
+minimaps: # the eight minimap ids a declaration may name (declaration.py validates the count and each id); each kind's defaults are maps.yml's
   ids: grid, code-locations, axis, layer-stack, lifecycle-position, track-placement, engine-strip, module-neighbourhood
-  explanation_default: grid, axis, layer-stack
-  reference_default: grid, code-locations, track-placement
 vocabularies: # the closed lists a span bar's label comes from, with the track names read from variants.yml; a label outside every list fails validation with the lists
   stages: CI, CD, DEPLOY
   axis: build, qc, release, deploy, access

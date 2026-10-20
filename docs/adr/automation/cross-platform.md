@@ -38,8 +38,7 @@ Windows and Linux for most. Everything we write must work on both — and a deve
 
 The runtime is cross-platform by design, but the _code_ people write in it often is not: platform-only APIs, hardcoded separators and paths,
 and shell-outs to binaries the other OS does not have all work fine on the author's machine and fail silently or loudly in CI. The concrete
-PowerShell hazards — and the analyzer profiles that catch them at analysis time — are the language layer,
-[cross-platform-powershell](pwsh/cross-platform-powershell.md) (`ADR-PWSH-XPLAT`).
+PowerShell hazards — and the analyzer profiles that catch them at analysis time — are the language layer, in the pwsh twin.
 
 The usual response is "it works in CI, we'll fix it if it breaks." This is backwards. A developer should never have to push to CI to
 discover a platform bug. If you can run it locally, you can debug it locally — fast feedback, no waiting for pipeline queues.
@@ -59,17 +58,14 @@ Four failure axes are platform-independent facts every language obeys:
 - **Platform shells and binaries.** `cmd.exe` does not exist on Linux, and `/bin/sh` does not exist on Windows; a shell-out to either works
   on one platform only. A tool that ships on every platform, started directly, works on both.
 
-The concrete PowerShell breakage tables — Windows-isms that fail on Unix and Unix-isms that fail on Windows — live in
-[cross-platform-powershell](pwsh/cross-platform-powershell.md), whose rules carry the PowerShell mechanics of each rule here: the path
-anchors and joins of rule 3 (ADR-PWSH-XPLAT-PATHJOINPRIMITIVE, ADR-PWSH-XPLAT-PATHFROMANCHORS), the invariant culture of rule 6
-(ADR-PWSH-XPLAT-INVARIANTCULTURE), the path comparison of rule 7 (ADR-PWSH-XPLAT-PATHCOMPARISON), and the shell-outs of rule 9
-(ADR-PWSH-XPLAT-NOPLATFORMSHELL).
+The concrete PowerShell breakage tables — Windows-isms that fail on Unix and Unix-isms that fail on Windows — live in the pwsh twin, whose
+rules carry the PowerShell mechanics of each rule here: the path anchors and joins of rule 3, the invariant culture of rule 6, the path
+comparison of rule 7, and the shell-outs of rule 9.
 
 ### How we enforce this
 
-**The analyzer layer** ([cross-platform-powershell](pwsh/cross-platform-powershell.md)) validates cmdlets and .NET types against the
-target-platform profiles at analysis time, in the L2 tests, on every developer's machine — so a platform break is caught before push, not in
-the pipeline queue.
+**The analyzer layer** of the pwsh twin validates cmdlets and .NET types against the target-platform profiles at analysis time, in the L2
+tests, on every developer's machine — so a platform break is caught before push, not in the pipeline queue.
 
 **Platform-aware installers** (see [controlling-systemwide-deps](controlling-systemwide-deps.md)) abstract package manager differences.
 `Install-NodeJs` calls `winget` on Windows and `apt-get` on Linux. The caller never writes platform-specific install logic.
@@ -81,8 +77,7 @@ on Linux.
 
 ### How this is enforced
 
-- **The analyzer layer** — the compatibility rules, their profiles, and their on/off state are
-  [cross-platform-powershell](pwsh/cross-platform-powershell.md) (`ADR-PWSH-XPLAT`).
+- **The analyzer layer** — the compatibility rules, their profiles, and their on/off state are the pwsh twin's.
 
 - **L2 tests run locally.** Developers run the same analyzer test file that CI runs. Platform compatibility violations are caught before
   push, not after.

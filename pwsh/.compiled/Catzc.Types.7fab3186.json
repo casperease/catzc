@@ -1,5 +1,5 @@
 {
-  "hash": "b0d0af90",
+  "hash": "7fab3186",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -843,6 +843,14 @@
       "name": "Catzc.Base.Maps.MapsLimits",
       "aliases": [],
       "display": []
+    },
+    {
+      "name": "Catzc.Base.Maps.MapsMinimapAxis",
+      "aliases": [],
+      "display": [
+        "rows",
+        "columns"
+      ]
     },
     {
       "name": "Catzc.Base.Maps.MapsMinimapPool",

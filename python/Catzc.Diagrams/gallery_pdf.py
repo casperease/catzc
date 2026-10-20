@@ -78,8 +78,26 @@ def wrap(d, text, f, width):
     return lines + [line] if line else lines
 
 
-def markdown_page(path, section):
-    """Render one markdown file as a text image: headings, paragraphs, lists, and tables as monospace rows."""
+def description_page(path, section):
+    """A diagram declaration's `description:` as a text page: the diagram's folder name as its heading, the sentence or two below."""
+    lines, held = [], False
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        if raw.startswith("description:"):
+            held = True
+            rest = raw.split(":", 1)[1].strip()
+            if rest and rest not in (">-", ">", "|", "|-"):
+                lines.append(rest.strip("\"'"))
+            continue
+        if held and raw.startswith((" ", "\t")):
+            lines.append(raw.strip())
+        elif held:
+            break
+    return markdown_page(path, section, f"# {path.parent.name}\n\n{' '.join(lines)}\n")
+
+
+def markdown_page(path, section, text=None):
+    """Render one markdown file (or the markdown text given for it) as a text image: headings, paragraphs, lists, and tables as
+    monospace rows."""
     probe = ImageDraw.Draw(Image.new("RGB", (1, 1)))
     width = WIDTH - 2 * MARGIN
     blocks = []  # (font, colour, lines, gap_before)
@@ -100,7 +118,7 @@ def markdown_page(path, section):
             item.clear()
 
     fenced = False
-    for raw in path.read_text(encoding="utf-8").splitlines():
+    for raw in (path.read_text(encoding="utf-8") if text is None else text).splitlines():
         s = raw.strip()
         if s.startswith("```"):  # a fenced block (e.g. an article's text overview) keeps its lines, monospace
             flush()
@@ -211,7 +229,14 @@ def assets_items(assets_dir, with_text):
     for p in sorted(assets_dir.rglob("*.png")):
         section = p.parent.relative_to(assets_dir).as_posix()
         items.append((p, section if section != "." else assets_dir.name, page))
-        description = companion(p) if with_text else None
+        if not with_text:
+            continue
+        # A declared diagram describes itself in its yml's description:; any other PNG through its companion page.
+        declared = p.parent / "diagram.drawio.yml"
+        if p.name == "diagram.drawio.png" and declared.is_file():
+            items.append((declared, "Description", description_page))
+            continue
+        description = companion(p)
         if description is not None:
             items.append((description, "Description", markdown_page))
     return items

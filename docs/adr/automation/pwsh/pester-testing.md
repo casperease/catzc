@@ -335,8 +335,7 @@ them as Pester tests.
   open. Do not retry the delete (see [retry-as-last-resort](../retry-as-last-resort.md#rule-adr-auto-retry-lastresort)) — remove the need:
   give each test a unique dir, `$script:sandbox = Join-Path $TestDrive ([Guid]::NewGuid())`, copy fixtures in, and drop the cleanup
   entirely. Pester auto-cleans `$TestDrive`, and a unique dir is never re-deleted mid-run. Scratch belongs in `$TestDrive` /
-  `[IO.Path]::GetTempPath()`, not `out/` (see
-  [dedicated-output-directory](../../repository/dedicated-output-directory.md#rule-adr-repo-outdir-tempforscratch)).
+  `[IO.Path]::GetTempPath()`, not `out/`.
 - **Bulk deletes: use .NET, not per-item `Remove-Item`.** Clearing many entries with per-item `Remove-Item` is ~50× slower than
   `[IO.File]::Delete` / `[IO.Directory]::Delete($d, $true)` (measured ~33 s vs ~0.6 s for ~4,300 entries) — `Clear-TempFolders`
   (`Catzc.Tooling.Provisioning`) uses the .NET calls for this reason. And do not blame AV for temp slowness without checking: a bloated

@@ -78,10 +78,10 @@ spell-checker keep that list honest ([spell-out-names](../automation/spell-out-n
 can still carry several meanings — "suite" names every test in the repository, a tier, a category, a run mode, a gate's own tests, and a
 pipeline payload, all in the same tree — and nothing in a spelling list can tell those apart.
 
-Meaning is fixed in prose. [process-terms](../process/process-terms.md) is the model: one article that pins the flow vocabulary so the other
-process ADRs can reason with it. But prose alone leaves three things unchecked: which rule defines a term, whether other text drifts to a
-different word for it, and whether the concept a term names is enforced anywhere. This ADR turns the glossary discipline into a controlled
-vocabulary those three questions can be asked of mechanically.
+Meaning is fixed in prose. The process domain's flow vocabulary is the model: one article that pins the flow terms so the other process ADRs
+can reason with them. But prose alone leaves three things unchecked: which rule defines a term, whether other text drifts to a different
+word for it, and whether the concept a term names is enforced anywhere. This ADR turns the glossary discipline into a controlled vocabulary
+those three questions can be asked of mechanically.
 
 ### One term, one rule
 
@@ -233,7 +233,6 @@ with their replacements. A source's options default sensibly, and a source overr
 
 ## Related
 
-- [process-terms](../process/process-terms.md) (`ADR-PROC-LEANTERMS`) — the flow vocabulary; the model this ADR generalizes to every domain.
 - [spell-out-names](../automation/spell-out-names.md) (`ADR-AUTO-SPELL`) — the spelling-level registry (`terminology.yml`), which controls
   tokens, not meanings.
 - [domain-language-separation](domain-language-separation.md) (`ADR-REPO-LANG`) — which identities belong in which language zone; this ADR

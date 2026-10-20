@@ -66,8 +66,7 @@ if count(scripts) > 5:
 ```
 
 This is not about line length or aesthetics. Deep nesting has concrete costs for debugging, assertability, and code review. The PowerShell
-spellings of the step assertions (rule 3) and of the exempt simple expressions (rule 5) are
-[powershell-formatting](pwsh/powershell-formatting.md) (ADR-PWSH-FORMAT-STEPASSERTIONS, ADR-PWSH-FORMAT-SIMPLEEXPRESSIONS).
+spellings of the step assertions (rule 3) and of the exempt simple expressions (rule 5) are in the pwsh twin.
 
 ### No performance cost
 

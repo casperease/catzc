@@ -69,12 +69,11 @@ capability is otherwise implemented.
 
 ## How to apply
 
-This platform realizes clarity and findability by keeping documentation examples on one consistent, obviously-fictional theme
-([ADR-REPO-EXAMPLE](../repository/documentation-examples.md)) so a reader recognizes illustrative material instantly and is never confused
-about whether an example is live data. It realizes reliability by removing the chance of drift at the source: a generated `README.md` is a
-filesystem link to its single authored source rather than a hand-kept copy, so the two can never diverge
-([ADR-REPO-README](../repository/generated-readmes.md)). Both patterns follow DORA's broader guidance to invest in organizational
-guidelines, training, style guides, and named documentation ownership rather than leaving currency to incidental effort.
+This platform realizes clarity and findability by keeping documentation examples on one consistent, obviously-fictional theme so a reader
+recognizes illustrative material instantly and is never confused about whether an example is live data. It realizes reliability by removing
+the chance of drift at the source: a generated `README.md` is a filesystem link to its single authored source rather than a hand-kept copy,
+so the two can never diverge. Both patterns follow DORA's broader guidance to invest in organizational guidelines, training, style guides,
+and named documentation ownership rather than leaving currency to incidental effort.
 
 ## Common pitfalls
 

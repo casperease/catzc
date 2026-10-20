@@ -137,8 +137,7 @@ the `Catzc.`-namespaced, source-authored literal is what keeps it discoverable r
 type names would split their identity, so a `[Catzc.…]` literal would resolve to one copy while an object holds the other. The process that
 loaded the old types keeps them until it ends. The loader says so in the words a person acts on — restart PowerShell — and decides
 warn-or-throw in the types pre-pass, before any module loads. It asks `Test-IsRunningInPipeline` there like every other caller, so the
-detection function is one the importer has loaded before the pre-pass runs, and the pipeline-detection variables are read in one place
-([ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK](../../flow/pipeline-detection.md#rule-adr-flow-cd-detect-nodirectvariablecheck)).
+detection function is one the importer has loaded before the pre-pass runs, and the pipeline-detection variables are read in one place.
 
 A person who edits a type and imports again keeps the loaded types and sees one yellow line naming the changed types; the import goes on and
 never waits on a nested shell.

@@ -64,9 +64,8 @@ environment's network. If the ranges lived in each template's per-slot `configur
 across templates and drift — the exact failure [the data model](azure-data-model.md) avoids by giving every fact one source of truth.
 
 So the IP plan is a **single source of truth** sitting beside `azure.yml`: `pwsh/Catzc.Azure/configs/network.yml`. A template reads the
-right ranges at build time — through its PrePost prepare hook (see
-[`prepost-extension-modules`](../automation/pwsh/prepost-extension-modules.md)) or a config address in its parameter file — so the central
-plan is read, never copied.
+right ranges at build time — through its PrePost prepare hook or a config address in its parameter file — so the central plan is read, never
+copied.
 
 The subscriptions add a second kind of network: one per subscription, in a hub-and-spoke topology. The shared subscriptions each hold a hub,
 every customer subscription holds a spoke that peers to its hub, and a workload's private endpoints land in its spoke. Those ranges are the
@@ -83,10 +82,8 @@ environment and by subscription.
 
 `configs/network.yml` declares two entities — a per-environment IP plan, keyed by environment **name** (the same keys as `azure.yml`'s
 `environments`), and a per-subscription network, keyed by subscription **name** (the same keys as `azure.yml`'s `subscriptions`). It is
-loaded by `Get-Config -Config network`, which constructs its C# config type, `NetworkConfig` (every shipped config has one,
-[ADR-CONF-LOADING-CSHARPCONFIGTYPE](../configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)), so a bad file throws
-at read time. A template's parameter file can reach the same ranges through a config address
-([config-value-addressing](../configuration/config-value-addressing.md)) instead of a prepare hook.
+loaded by `Get-Config -Config network`, which constructs its C# config type, `NetworkConfig` (every shipped config has one), so a bad file
+throws at read time. A template's parameter file can reach the same ranges through a config address instead of a prepare hook.
 
 ```mermaid
 erDiagram

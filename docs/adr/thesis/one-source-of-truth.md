@@ -78,8 +78,7 @@ infrastructure delivery. Every other ADR serves that purpose, and this one state
 ### Where the repository model comes from
 
 The repository taxonomy (a product mono-repository, a trunk, adjacent stores) and the pin-and-stitch model at the repository boundary are
-ideas from the sibling repository `eac`, read for inspiration ([inspiration](../repository/inspiration.md)). They are rebuilt here to
-catzc's rules, and this ADR decides them.
+ideas from the sibling repository `eac`, read for inspiration. They are rebuilt here to catzc's rules, and this ADR decides them.
 
 ## Decision
 
@@ -90,16 +89,14 @@ Collapse the distributed system of information into one source of truth, the rep
 Everything delivery touches is code in the repository. Changing anything and delivering it are the same motion: a reviewed commit, with its
 diff and its history, integrated into the trunk and delivered by its pipelines. That is what keeps the trunk always releasable, which is
 continuous delivery as the DORA research defines it ([continuous-delivery](../research/continuous-delivery.md)) and as catzc's flow model
-implements it ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)). The thesis describes the product; the
-research is the authority it rests on. Audit and retrospection are answered once, by the history.
+implements it. The thesis describes the product; the research is the authority it rests on. Audit and retrospection are answered once, by
+the history.
 
 ### The repository is the configuration record
 
 The code takes the place of the CMDBs. Infrastructure is reproducible from a commit, so the repository is the configuration record in its
-totality, and no second database has to be kept in parity with it. [everything-as-code](../principles/everything-as-code.md) holds the
-mechanics: every artifact lives in version control (ADR-PRIN-EAC-EVERYTHINGINVERSIONCONTROL), what can be diffed belongs there
-(ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL), and no configuration or operational state lives outside it
-(ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL).
+totality, and no second database has to be kept in parity with it. The principle of everything as code holds the mechanics: every artifact
+lives in version control, what can be diffed belongs there, and no configuration or operational state lives outside it.
 
 ### Adjacent stores
 
@@ -116,16 +113,14 @@ No second database is built to answer queries.
 ### Inside the trunk, only HEAD
 
 Inside the trunk there is no synchronisation. A module depends on another at the current commit, with no internal version number, so a
-shared change and all its consumers land atomically in one commit. [one-living-version](../principles/one-living-version.md) is this rule
-seen from inside the trunk. The tracks and deployable-units that bound a product mono-repository are path filters over the one tree
-([tracks](../design/tracks.md), [durable-sha-globs](../flow/durable-sha-globs.md)), not separate histories.
+shared change and all its consumers land atomically in one commit. The principle of one living version is this rule seen from inside the
+trunk. The tracks and deployable-units that bound a product mono-repository are path filters over the one tree, not separate histories.
 
 ### Pins at the repository boundary
 
 Synchronisation exists in one place, the repository boundary, and in one form, a pin. A dependency that crosses the boundary inward is
 pinned to an explicit version the consumer controls: tool versions in `tools.yml`, vendored modules in `pwsh/.vendor/`, and depended-on
-contracts. It is then stitched into an immutable artifact at build time: the bundle ([platform-bundle](../automation/platform-bundle.md))
-and the release candidate (ADR-FLOW-CD-RELEASECANDIDATE).
+contracts. It is then stitched into an immutable artifact at build time: the bundle and the release candidate.
 
 ### Versions only at the boundary
 
@@ -156,14 +151,3 @@ A process that keeps its own model of delivery recreates the disjoint store this
 - A question about the system's state has one place to be answered, and the tooling owes an answer to it, as cmdlets and as data.
 - Versions appear only at the repository boundary: on pins inward, and on the bundle outward.
 - A consumer of catzc pins the bundle or owns a clone; no implicit cross-repository consumption exists to support.
-
-## Related
-
-- [everything-as-code](../principles/everything-as-code.md) — the mechanics of
-  [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](#rule-adr-thes-onetruth-repositoryisconfigurationrecord).
-- [one-living-version](../principles/one-living-version.md) —
-  [ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY](#rule-adr-thes-onetruth-productmonorepository) seen from inside the trunk.
-- [platform-bundle](../automation/platform-bundle.md) — the bundle, catzc's one provided pin point.
-- [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) — the release candidate and the releasable trunk.
-- [tracks](../design/tracks.md) — the tracks and deployable-units that bound the product mono-repository.
-- [inspiration](../repository/inspiration.md) — how an idea from `eac` is weighed against catzc's rules.

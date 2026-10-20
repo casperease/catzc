@@ -2,8 +2,8 @@
 
 The value-chain / promotion diagrams under `docs/.assets/commits-quality` are a domain language: a reader must be able to decode a commit's
 delivery state and a branch's role from position and colour alone, without a per-diagram key. This ADR fixes that grammar so every diagram
-draws the same shapes for the same meaning. The delivery states themselves are owned by
-[cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`); this ADR owns only how they are _drawn_.
+draws the same shapes for the same meaning. The delivery states themselves are owned by the flow domain; this ADR owns only how they are
+_drawn_.
 
 ## Rules: ADR-DSGN-VISUAL
 
@@ -197,7 +197,7 @@ A fixed palette is what makes the diagrams a language rather than a set of one-o
 state, and the binding is the same in every diagram, so a colour never has to be re-explained. The promotion hues (yellow → blue →
 light-blue → green) share a warm-to-cool progression that reads as forward motion through the flow; brown and grey are the pre-promotion
 states; red is terminal rejection and is the only colour that may appear on any branch. The post-BVT promotion states the hues stand for are
-defined by [ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md); the palette owns only their colours.
+defined by the flow domain; the palette owns only their colours.
 
 ## The BVT boundary and its ghost
 
@@ -246,12 +246,8 @@ Grey and brown can be _run_ through BVT or L3 by hand, but only yellow is what L
 exception the contract names rather than hides. Because each stage emits exactly one promotion colour, the palette is the flow's type
 system: an arrow leaving L3 that is any colour but blue or red is a drawing error.
 
-The flow model defines what the stages are: the RC and RBC release gates
-([ADR-FLOW-CD-TWORELEASEGATES](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates)), the `-uat` environments apart
-from the `-AT` testing drawn at those gates
-([ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-acceptancetestingisnotuat)), and the
-DEPLOY stages ([ADR-FLOW-CD-PREPRODRUNG](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-preprodrung)). This rule owns only how
-they are drawn.
+The flow domain defines what the stages are: the RC and RBC release gates, the `-uat` environments apart from the `-AT` testing drawn at
+those gates, and the DEPLOY stages. This rule owns only how they are drawn.
 
 ## Commit numbers
 

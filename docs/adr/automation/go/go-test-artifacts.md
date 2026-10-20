@@ -100,8 +100,8 @@ the guarantee ([platform-bundle](../platform-bundle.md)).
 
 The Go root is the one folder every Go file lives under. When the repository has a `go/` folder, that folder is the root, and it is the `go`
 track ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)). Otherwise the root is `.go/`, dot-prefixed as the tooling folders
-are ([conventional-folders](../../repository/conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)). The default is declared once,
-on the `GoConfig` type ([sensible-defaults](../sensible-defaults.md)), and `go.yml` declares a `root` only to place the Go root elsewhere.
+are. The default is declared once, on the `GoConfig` type ([sensible-defaults](../sensible-defaults.md)), and `go.yml` declares a `root`
+only to place the Go root elsewhere.
 
 Under the root, `tests/<module>/` holds one Go test module per catzc module, named for that module in kebab case — the same convention that
 lets the harness map a Go test module to its catzc module with no mapping file. Each folder is its own Go module, with the module path
@@ -132,9 +132,8 @@ Go's workspace files are configuration that the repository states elsewhere: whi
 their module paths are, which Go version they use (the `tools.yml` pin), and which test dependencies they require (`go.yml`). Committing
 `go.work` and the `go.mod` files would state those facts a second time, where they drift. So `New-GoWorkspace` renders them — the go
 directive, one sorted `use` entry per Go test module, and each module's path and sorted requires — as pure text with no go call, offline and
-byte-stable, and the root-config registry names it as their generator
-([generated-root-configs](../../repository/generated-root-configs.md#rule-adr-repo-rootcfg-wildcardgenerator)). They are gitignored copies,
-written on every import and drift-checked like every other generated file.
+byte-stable, and the root-config registry names it as their generator. They are gitignored copies, written on every import and drift-checked
+like every other generated file.
 
 The `go.mod` files are rendered and never tidied, so a dependency's own requirements are declared in `go.yml` too, and `go get` or
 `go mod tidy` has nothing to write that the next import does not overwrite. The checksums are the one part the renderer cannot produce
@@ -144,9 +143,9 @@ offline: `go mod download`, the first step of every Go test run, records `go.sum
 
 The Go version is a tool version, and tool versions are locked in `tools.yml`
 ([controlling-systemwide-deps](../controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions)). The go directive in the workspace
-is that pin, read by its address ([config-value-addressing](../../configuration/config-value-addressing.md)), so raising Go is one line in
-`tools.yml`: the next import renders the new directive, and `Install-Go` installs the new release. A second version in `go.yml` would be a
-second source of truth, and one that could ask for a toolchain the managed install does not have.
+is that pin, read by its address, so raising Go is one line in `tools.yml`: the next import renders the new directive, and `Install-Go`
+installs the new release. A second version in `go.yml` would be a second source of truth, and one that could ask for a toolchain the managed
+install does not have.
 
 ### The managed toolchain
 
@@ -167,7 +166,7 @@ modes, under the same selection, ordering, protection, tiers, categories, and re
 ([test-automation](../test-automation.md#rule-adr-auto-test-languagetestmodules)). The one language bridge every test language shares (Go
 and Python, [python-test-artifacts](../python/python-test-artifacts.md)) runs `Invoke-GoTest` once per mapped module — `go mod download`,
 `go vet`, then `go test -json` — and turns each top-level Go test into one test of the run, with its subtests folded into it. In pwsh that
-test is a Pester `It` ([pester-testing](../pwsh/pester-testing.md#rule-adr-pwsh-pester-languagebridge)).
+test is a Pester `It`.
 
 A Go test starts a real engine through a real toolchain, so the bridge tags every one `L2`, with no per-test choice to make. Its category
 comes from its name, decided in one place (the `GoTestResult` type): a `TestIntegrity*` test reads the shipped artifacts and is `integrity`;
@@ -181,11 +180,10 @@ test stays exactly what ships.
 
 ### The checks
 
-Every check that reads Go applies to Go: `gofmt` is the formatting standard for `.go` files
-([uniform-formatting](../../repository/uniform-formatting.md)), applied by `Format-Code` (the `gofmt` engine languages.yml names for Go) and
-checked by `Test-Formatting` with the managed toolchain's own `gofmt`, `go vet` type-checks and vets the test packages before every run, and
-the spelling check reads `*.go`. The glossary checks read PowerShell, through its parser, and markdown
-([controlled-vocabulary](../../repository/controlled-vocabulary.md)), so a Go comment is outside their reach.
+Every check that reads Go applies to Go: `gofmt` is the formatting standard for `.go` files, applied by `Format-Code` (the `gofmt` engine
+languages.yml names for Go) and checked by `Test-Formatting` with the managed toolchain's own `gofmt`, `go vet` type-checks and vets the
+test packages before every run, and the spelling check reads `*.go`. The glossary checks read PowerShell, through its parser, and markdown,
+so a Go comment is outside their reach.
 
 ## Decision
 

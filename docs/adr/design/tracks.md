@@ -189,9 +189,9 @@ platform; `infrastructure/` is the IaC tree; `.ado/pipelines` holds the azure de
 `docs/` is the documentation; `contracts/` is the repository boundary's binding contracts, in both directions; each `.<foldername>`
 configures exactly one external system (the repository's boundary for that concern); a `.vendor` folder holds third-party code. A place may
 be narrower than a root (`.github/workflows`) so that two tracks share a root without sharing a file. `out/` is a root folder but not a
-concern: it holds the output every run writes, gitignored (`ADR-REPO-OUTDIR`). Naming the concept makes the mapping normative: the declared
-places are the registration (the root folders and their conventions are `ADR-REPO-FOLDERS`), and asking "which track does this file belong
-to?" always has exactly one answer. That single-answer property is what every consumer below builds on.
+concern: it holds the output every run writes, gitignored. Naming the concept makes the mapping normative: the declared places are the
+registration, and asking "which track does this file belong to?" always has exactly one answer. That single-answer property is what every
+consumer below builds on.
 
 ### The taxonomy
 
@@ -203,11 +203,9 @@ tools that read them. `infrastructure/` adapts the core to Azure through Bicep m
 it to Azure DevOps and GitHub: each pipeline is a deployable-unit's delivery machine, and it runs the core through one runner script. The
 other **language** tracks hold their own modules and a test holder that tests the core from outside and delivers nothing: `go/tests/` holds
 black-box tests that start the engine as a process and assert on what it prints, so its files are never part of a deployable-unit's output,
-and no bundle can hold them. The three language tracks have their own ADRs: [go-test-artifacts](../automation/go/go-test-artifacts.md),
-[python-test-artifacts](../automation/python/python-test-artifacts.md), and
-[bash-test-artifacts](../automation/bash/bash-test-artifacts.md). The taxonomy earns its keep in review: a proposed root that is none of
-these is probably a subfolder of an existing track, and a cross-cutting need (all config files, all markdown) is a **scope** — a globset
-selecting through tracks — not a new root.
+and no bundle can hold them. The three language tracks, Go, Python and Bash, each have their own ADR in the automation domain. The taxonomy
+earns its keep in review: a proposed root that is none of these is probably a subfolder of an existing track, and a cross-cutting need (all
+config files, all markdown) is a **scope** — a globset selecting through tracks — not a new root.
 
 ### A track has a tech-stack
 
@@ -224,9 +222,8 @@ Two subscription surfaces exist, both derived from the same source of truth:
 
 - **depms** — the module dependencies declare which modules (and by extension which tracks) a consumer rests on; the graph quality gates
   enforce them. A depm is module-to-module only — a dependency on a system is a dep, a different concern with different tooling.
-- **globset projections** (`ADR-FLOW-CD-GLOBS`) — each track's globset projects to native vendor path filters that pipelines trigger on, and
-  to a git-reflected area-of-control the PR report reads; test tooling derives blast radius from the same globsets. Nothing is committed per
-  set.
+- **globset projections** — each track's globset projects to native vendor path filters that pipelines trigger on, and to a git-reflected
+  area-of-control the PR report reads; test tooling derives blast radius from the same globsets. Nothing is committed per set.
 
 This is the coordination answer to the monorepo's core tension: everything lives together, but nothing rebuilds together unless the change
 actually touches it.
@@ -264,10 +261,9 @@ The rules above make the repository countable, and the world map is the count dr
 languages, so a reader sees at a glance which track holds which kinds of text and how much of each. A cell is where one track meets one file
 language, and its shade says how many files sit there. A stack violation is marked on its cell, because the place is the finding: it says
 which track holds the second stack and in which language. A highlight lights the cells an ADR governs or a change touches, so the same
-picture answers "where does this decision apply" and "where does my change sit". The map prints only defined terms
-([ADR-REPO-VOCAB-DEFINEDTERM](../repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)): a label that names an undefined
-concept would teach its reader a word the repository never fixed, so every printed concept carries a rule here and a glossary entry, and the
-quality gate fails a label that names none.
+picture answers "where does this decision apply" and "where does my change sit". The map prints only defined terms, those the glossary
+lists: a label that names an undefined concept would teach its reader a word the repository never fixed, so every printed concept carries a
+rule here and a glossary entry, and the quality gate fails a label that names none.
 
 ### The unordered track
 
@@ -295,9 +291,9 @@ what the other cannot.
 
 The place is declared, never guessed. Every ADR domain names its row and a default set of value-chain concerns in `adrs.yml`, and an ADR
 that acts elsewhere declares its own, so the declaration is made once per ADR domain and repeated only where an ADR differs, the same
-resolution every setting follows ([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Both
-words are qualified on purpose: "concern" already names a track, the repository's root concern, and "stack" already names a track's
-tech-stack, so the value-chain forms keep each word to one meaning.
+resolution every setting follows: a declared default, overridden only where it differs. Both words are qualified on purpose: "concern"
+already names a track, the repository's root concern, and "stack" already names a track's tech-stack, so the value-chain forms keep each
+word to one meaning.
 
 ## Decision
 
@@ -315,15 +311,14 @@ every label it prints names a defined term (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERM
 
 ### How this is enforced
 
-- **`ADR-REPO-FOLDERS`** (conventional folders) keeps the root inventory deliberate — a new root folder is a reviewed decision, and under
-  this ADR it is the decision to open a track.
+- **The conventional root folders** keep the root inventory deliberate — a new root folder is a reviewed decision, and under this ADR it is
+  the decision to open a track.
 - **[track-types](track-types.md)** declares each track's type, places and vendor once, and the config types fail the load on a track that
   breaks them.
-- **The globset registry** (`Catzc.Base.Globs`, `ADR-FLOW-CD-GLOBS`) declares each track's file set; pipelines filter on its native
-  projection and the drift quality gate fails a trigger that no longer matches, while the git-reflected report answers what a change
-  touches.
-- **depms and the dependency-graph quality gates** (`ADR-AUTO-DEPM`) enforce the declared subscription edges, including the one-directional
-  core ← adapter/port dependency.
+- **The globset registry** (`Catzc.Base.Globs`) declares each track's file set; pipelines filter on its native projection and the drift
+  quality gate fails a trigger that no longer matches, while the git-reflected report answers what a change touches.
+- **depms and the dependency-graph quality gates** enforce the declared subscription edges, including the one-directional core ←
+  adapter/port dependency.
 - **The `Test-WorldMap` quality gate** reads the world map and fails on a stack violation (ADR-DSGN-TRACK-STACKVIOLATION), a root folder
   with tracked files that no track names (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER), and a printed label that names no defined term
   (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS).

@@ -87,9 +87,8 @@ three parts of one thing. This ADR names the importer as the one that decides, a
 
 An engine reaches catzc through a script it can run: pwsh dot-sources `importer.ps1`, the other engines dot-source `importer.sh`, which
 dispatches to the `cats` command. Both are root configs written by a generator from one source, so a change to what the importer does is one
-edit, and `Test-GeneratedFiles` reports the drift when a copy is stale ([generated-root-configs](../repository/generated-root-configs.md)).
-An entry exists for the engines the session serves: with pwsh alone in the mix, `importer.sh` is not managed, because no engine would run
-it.
+edit, and `Test-GeneratedFiles` reports the drift when a copy is stale. An entry exists for the engines the session serves: with pwsh alone
+in the mix, `importer.sh` is not managed, because no engine would run it.
 
 ### The mix
 

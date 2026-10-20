@@ -71,14 +71,12 @@ often as changes arrive, so testing and shipping stop competing with each other.
 
 ## How to apply
 
-This platform's pipeline runner pattern gives every deployment step one entry point regardless of which environment it targets
-([ADR-FLOW-CD-RUNNER](../flow/pipeline-runner-pattern.md)) — the same `RunCommand` a pipeline runs is the command a developer reproduces
-locally, which is what keeps the deployment process identical across environments rather than diverging as it approaches production. The
-CI-discipline and promotion-flow design carries one build-once, tagged artifact through non-production and into production without any stage
-rebuilding it ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)), so the artifact a later environment receives is byte-identical
-to the one an earlier environment already exercised. State-changing deployment functions are required to be idempotent and safe to re-run
-([ADR-AUTO-IDEM](../automation/idempotent-state-functions.md)), which is what keeps a retried or partially-failed deploy safe rather than
-compounding into duplicate or inconsistent state.
+This platform's pipeline runner pattern gives every deployment step one entry point regardless of which environment it targets — the same
+`RunCommand` a pipeline runs is the command a developer reproduces locally, which is what keeps the deployment process identical across
+environments rather than diverging as it approaches production. The CI-discipline and promotion-flow design carries one build-once, tagged
+artifact through non-production and into production without any stage rebuilding it, so the artifact a later environment receives is
+byte-identical to the one an earlier environment already exercised. State-changing deployment functions are required to be idempotent and
+safe to re-run, which is what keeps a retried or partially-failed deploy safe rather than compounding into duplicate or inconsistent state.
 
 ## Common pitfalls
 

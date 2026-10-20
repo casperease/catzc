@@ -33,7 +33,7 @@ tokens. The framing is that the person at the CLI is exploring — discovering t
 infrastructure templates are named for exploration:
 
 - `discovery` — the flagship example template: the CAF application landing zone of a subscription, a hub or a spoke network with its
-  policies and budget ([landing-zones](../azure/landing-zones.md)). Used wherever a single example template is enough.
+  policies and budget. Used wherever a single example template is enough.
 - `expedition` — a slotted, per-customer example template: the Well-Architected workload, storage and a SQL database behind private
   endpoints, that lands in the `discovery` landing zone. Used for illustrations that need per-customer slots on top of the landing zone.
 - `survey` — a lightweight example template (a smaller shape), for showing the minimal case, e.g. in the add-a-template tutorial.

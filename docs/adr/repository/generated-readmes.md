@@ -64,8 +64,8 @@ artifact the quality gates check; the README is outside the markdown quality gat
 
 A `README.md` is what a reader sees first in a folder in an editor. Kept by hand, each drifts from the documentation it duplicates, and the
 same content is maintained in two places. The repository treats other per-folder, convention-derived files as generated, gitignored
-artifacts ([dynamic-module-manifests](../automation/pwsh/dynamic-module-manifests.md), `ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED`). A README is
-the same shape: one authored source under `docs/`, one derived artifact per folder, regenerated from the source so it cannot drift.
+artifacts, such as each module's manifest. A README is the same shape: one authored source under `docs/`, one derived artifact per folder,
+regenerated from the source so it cannot drift.
 
 The artifact is read in the folder it documents. An editor opens `pwsh/<Module>/README.md` and resolves its relative links from that folder,
 while the source article authors them relative to its own folder under `docs/references/`. A README that is the source file itself — a

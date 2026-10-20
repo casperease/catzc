@@ -74,11 +74,10 @@ adjust, eliminate, or prototype a replacement display — the practice is iterat
 
 This platform realizes the capability in a few places. The value-chain diagrams render every commit's delivery state by construction —
 position is time, colour is the furthest state reached — so a reader decodes where a change is at a glance instead of reconstructing it from
-git history ([ADR-DSGN-VISUAL](../design/visual-design.md)). The broader principle of making the state of the work visible, and judging
-progress from the real running artifact rather than a proxy, is stated directly as observe-the-work
-([ADR-PROC-OBSERVEWIP](../process/observe-work.md)). Console output is treated as the CLI automation's only user-facing display surface, and
-is held to the same bar the DORA page sets for a good dashboard — signal over noise, current, and actionable — so a console session is
-itself a form of visual management for a tool with no GUI ([ADR-AUTO-CONSOLE](../automation/console-output-matters.md)).
+git history. The broader principle of making the state of the work visible, and judging progress from the real running artifact rather than
+a proxy, is stated directly as observe-the-work. Console output is treated as the CLI automation's only user-facing display surface, and is
+held to the same bar the DORA page sets for a good dashboard — signal over noise, current, and actionable — so a console session is itself a
+form of visual management for a tool with no GUI.
 
 ## Common pitfalls
 

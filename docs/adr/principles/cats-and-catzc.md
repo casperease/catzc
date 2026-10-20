@@ -77,7 +77,7 @@ to a person, it may use the same word.
 
 A consumer who writes a module against the toolset is outside the inner namespace; the cats form marks that. A reader who sees a `Catzc.*`
 name knows the module is shipped by this repository and ruled by its ADRs; a reader who sees the cats form knows it came from somewhere else
-and is ruled by the contracts at the boundary ([api-contracts](../repository/api-contracts.md)).
+and is ruled by the contracts at the boundary.
 
 ### Used across each other on purpose
 
@@ -104,6 +104,5 @@ source-level name only. The glossary carries both terms, defined by the rules ab
 
 ## How this is enforced
 
-- `Test-Glossary` holds the terms cats and catzc to their defining rules and flags the avoided phrasing for the folder
-  ([controlled-vocabulary](../repository/controlled-vocabulary.md)).
+- `Test-Glossary` holds the terms cats and catzc to their defining rules and flags the avoided phrasing for the folder.
 - The overlay and fragment resolvers read `.catzc/` only; a `.cats/` folder is unknown to them.
