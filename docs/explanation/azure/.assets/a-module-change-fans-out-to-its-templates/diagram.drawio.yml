@@ -1,44 +1,85 @@
-description: >-
-  A change to one reusable module edits one file in the modules place of the infrastructure track and fans out: every template that
-  references the module builds it in, the infrastructure CI validates every template, and every CD pipeline runs.
+description: 'A change to one reusable module edits one file in the modules place of the infrastructure track and fans out:
+  every template that references the module builds it in, the infrastructure CI validates every template, and every CD pipeline
+  runs.'
 about:
-  lens: operations
   adrs:
-    - ADR-AZ-IACKIND-THREEKINDS
-  tracks: [infrastructure, ado-pipelines]
-  languages: [bicep, pipeline-yaml]
-  modules: [Catzc.Azure.Templates]
-  files:
-    - infrastructure/modules/log-analytics.bicep
-    - infrastructure/templates/foundation/main.bicep
-    - .ado/pipelines/ci-infrastructure.yaml
-    - .ado/pipelines/cd-shared.yaml
+  - ADR-AZ-IACKIND-THREEKINDS
+  lens: operations
 content:
   title: A change to one module fans out to every template that references it and every pipeline that deploys one
   kind: explanation
+  flow: left-to-right
   relation: reaches
+  theme: dark
   bands:
-    - { id: band-modules, label: THE EDIT }
-    - { id: band-templates, label: TEMPLATES }
-    - { id: band-pipelines, label: PIPELINES }
+  - id: band-modules
+    label: THE EDIT
+  - id: band-templates
+    label: TEMPLATES
+  - id: band-pipelines
+    label: PIPELINES
   spans:
-    - { id: span-modules, label: modules, over: [band-modules] }
-    - { id: span-templates, label: templates, over: [band-templates] }
+  - id: span-modules
+    label: modules
+    over:
+    - band-modules
+  - id: span-templates
+    label: templates
+    over:
+    - band-templates
   glyphs:
-    - { id: g-module, kind: code, label: one module, in: band-modules }
-    - { id: s-templates, kind: set, label: every template that references it, in: band-templates }
-    - { id: r-ci, kind: runner, label: ci-infrastructure, in: band-pipelines }
-    - { id: r-cd, kind: runner, label: every CD pipeline, in: band-pipelines }
+  - id: g-module
+    kind: code
+    label: one module
+    in: band-modules
+  - id: s-templates
+    kind: set
+    label: every template that references it
+    in: band-templates
+  - id: r-ci
+    kind: runner
+    label: ci-infrastructure
+    in: band-pipelines
+  - id: r-cd
+    kind: runner
+    label: every CD pipeline
+    in: band-pipelines
   edges:
-    - { from: g-module, to: s-templates }
-    - { from: s-templates, to: r-ci }
-    - { from: s-templates, to: r-cd }
+  - from: g-module
+    to: s-templates
+    kind: flow
+    label: ''
+  - from: s-templates
+    to: r-ci
+    kind: flow
+    label: ''
+  - from: s-templates
+    to: r-cd
+    kind: flow
+    label: ''
   markers:
-    - { at: g-module, number: 1 }
-    - { at: s-templates, number: 2 }
-    - { at: r-ci, number: 3 }
-    - { at: r-cd, number: 4 }
+  - at: g-module
+    number: 1
+  - at: s-templates
+    number: 2
+  - at: r-ci
+    number: 3
+  - at: r-cd
+    number: 4
+  legend: auto
 layout:
-  s-templates: { x: 500, y: 164, w: 300, h: 52 }
-  r-ci: { x: 960, y: 140, w: 220, h: 40 }
-  r-cd: { x: 960, y: 194, w: 220, h: 40 }
+  s-templates:
+    x: 500
+    y: 164
+    w: 300
+    h: 52
+  r-ci:
+    x: 960
+    y: 140
+    w: 220
+    h: 40
+  r-cd:
+    x: 960
+    y: 194
+    w: 220
+    h: 40

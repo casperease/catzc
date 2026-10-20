@@ -96,11 +96,6 @@ pwsh/.compiled/** linguist-generated
 **/assets/** linguist-detectable
 **/tests/assets/** linguist-detectable=false
 /contracts/** linguist-detectable=false
-# The minimap grid, tree and chain descriptions are rendered by python/Catzc.Diagrams/minimap_render.py from the slide and
-# its reasons: output, not authored prose — out of the statistics, and collapsed in pull-request diffs.
-/docs/**/.assets/*/grid.md     linguist-generated
-/docs/**/.assets/*/tree.md     linguist-generated
-/docs/**/.assets/*/chain.md    linguist-generated
 
 # GitHub (linguist): the draw.io diagrams are documentation — the pictures the Markdown articles embed. They stay
 # binary (the *.png rule above: no line-ending conversion, since the editable XML rides inside the PNG), but their

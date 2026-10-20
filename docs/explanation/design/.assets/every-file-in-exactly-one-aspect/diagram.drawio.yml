@@ -1,46 +1,117 @@
-description: >-
-  Every file of a module folder goes to exactly one aspect by ordered first match: live first by a closed convention, tests as the
-  remainder, and each aspect has its own sha lock.
+description: 'Every file of a module folder goes to exactly one aspect by ordered first match: live first by a closed convention,
+  tests as the remainder, and each aspect has its own sha lock.'
 about:
-  lens: meta
   adrs:
-    - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
-    - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-    - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-    - ADR-DSGN-ASPECT-PARTITIONISCHECKED
-  tracks: [pwsh]
+  - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+  - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+  - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
+  - ADR-DSGN-ASPECT-PARTITIONISCHECKED
+  lens: meta
 content:
   title: Every module file is in exactly one aspect
   kind: explanation
+  flow: left-to-right
   relation: to a named set, first match
+  theme: dark
   bands:
-    - { id: band-folder, label: FOLDER }
-    - { id: band-match, label: FIRST MATCH }
-    - { id: band-locks, label: LOCKS }
+  - id: band-folder
+    label: FOLDER
+  - id: band-match
+    label: FIRST MATCH
+  - id: band-locks
+    label: LOCKS
   glyphs:
-    - { id: c-folder, kind: code, label: Module folder, in: band-folder }
-    - { id: s-live, kind: set, label: live, in: band-match }
-    - { id: s-tests, kind: set, label: tests, in: band-match }
-    - { id: a-live-lock, kind: adronly, label: live lock, in: band-locks }
-    - { id: a-tests-lock, kind: adronly, label: tests lock, in: band-locks }
+  - id: c-folder
+    kind: code
+    label: Module folder
+    in: band-folder
+  - id: s-live
+    kind: set
+    label: live
+    in: band-match
+  - id: s-tests
+    kind: set
+    label: tests
+    in: band-match
+  - id: a-live-lock
+    kind: adronly
+    label: live lock
+    in: band-locks
+  - id: a-tests-lock
+    kind: adronly
+    label: tests lock
+    in: band-locks
   edges:
-    - { from: c-folder, to: s-live, kind: thick }
-    - { from: c-folder, to: s-tests, kind: thick }
-    - { from: s-live, to: a-live-lock, kind: adr }
-    - { from: s-tests, to: a-tests-lock, kind: adr }
+  - from: c-folder
+    to: s-live
+    kind: thick
+    label: ''
+  - from: c-folder
+    to: s-tests
+    kind: thick
+    label: ''
+  - from: s-live
+    to: a-live-lock
+    kind: adr
+    label: ''
+  - from: s-tests
+    to: a-tests-lock
+    kind: adr
+    label: ''
   markers:
-    - { at: c-folder, number: 1 }
-    - { at: s-live, number: 2 }
-    - { at: s-tests, number: 3 }
-    - { at: a-live-lock, number: 4 }
-    - { at: a-tests-lock, number: 5 }
-  minimaps: [code-locations, grid, axis]
+  - at: c-folder
+    number: 1
+  - at: s-live
+    number: 2
+  - at: s-tests
+    number: 3
+  - at: a-live-lock
+    number: 4
+  - at: a-tests-lock
+    number: 5
+  legend: auto
+  minimaps:
+  - code-locations
+  - grid
+  - axis
 layout:
-  band-folder: { x: 20, y: 84, w: 300, h: 400 }
-  band-match: { x: 340, y: 84, w: 440, h: 400 }
-  band-locks: { x: 800, y: 84, w: 480, h: 400 }
-  c-folder: { x: 40, y: 140, w: 260, h: 330 }
-  s-live: { x: 400, y: 160, w: 320, h: 70 }
-  s-tests: { x: 400, y: 380, w: 320, h: 70 }
-  a-live-lock: { x: 860, y: 160, w: 360, h: 70 }
-  a-tests-lock: { x: 860, y: 380, w: 360, h: 70 }
+  band-folder:
+    x: 20
+    y: 84
+    w: 300
+    h: 400
+  band-match:
+    x: 340
+    y: 84
+    w: 440
+    h: 400
+  band-locks:
+    x: 800
+    y: 84
+    w: 480
+    h: 400
+  c-folder:
+    x: 40
+    y: 140
+    w: 260
+    h: 330
+  s-live:
+    x: 400
+    y: 160
+    w: 320
+    h: 70
+  s-tests:
+    x: 400
+    y: 380
+    w: 320
+    h: 70
+  a-live-lock:
+    x: 860
+    y: 160
+    w: 360
+    h: 70
+  a-tests-lock:
+    x: 860
+    y: 380
+    w: 360
+    h: 70

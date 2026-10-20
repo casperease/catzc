@@ -1,53 +1,137 @@
-description: >-
-  A client's change goes from its local clone through the server's identity model and branch policy to HEAD on the server remote, and
-  consumers clone out from the verified point.
+description: A client's change goes from its local clone through the server's identity model and branch policy to HEAD on
+  the server remote, and consumers clone out from the verified point.
 about:
-  lens: architecture
   adrs:
-    - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-    - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-    - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-  tracks: [ado-pipelines]
+  - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+  - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+  - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+  - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+  - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+  lens: architecture
 content:
-  title: "Clients bridge to one server remote: in through a pull request, out from the verified point"
+  title: 'Clients bridge to one server remote: in through a pull request, out from the verified point'
   kind: explanation
   flow: top-to-bottom
   relation: a commit moves to
+  theme: dark
   bands:
-    - { id: band-in, label: IN }
-    - { id: band-request, label: PULL REQUEST }
-    - { id: band-remote, label: SERVER REMOTE }
-    - { id: band-out, label: OUT }
+  - id: band-in
+    label: IN
+  - id: band-request
+    label: PULL REQUEST
+  - id: band-remote
+    label: SERVER REMOTE
+  - id: band-out
+    label: OUT
   glyphs:
-    - { id: s-clone, kind: store, label: local clone, in: band-in }
-    - { id: g-identity, kind: adronly, label: identity model, in: band-request }
-    - { id: g-policy, kind: gate, label: branch policy, in: band-request }
-    - { id: c-head, kind: commit, label: HEAD, in: band-remote, state: landed }
-    - { id: c-verified, kind: commit, label: verified point, in: band-remote }
-    - { id: s-consumers, kind: store, label: consumer clones, in: band-out }
+  - id: s-clone
+    kind: store
+    label: local clone
+    in: band-in
+  - id: g-identity
+    kind: adronly
+    label: identity model
+    in: band-request
+  - id: g-policy
+    kind: gate
+    label: branch policy
+    in: band-request
+  - id: c-head
+    kind: commit
+    label: HEAD
+    in: band-remote
+    state: landed
+  - id: c-verified
+    kind: commit
+    label: verified point
+    in: band-remote
+  - id: s-consumers
+    kind: store
+    label: consumer clones
+    in: band-out
   edges:
-    - { from: s-clone, to: g-identity, kind: adr }
-    - { from: g-identity, to: g-policy, kind: adr }
-    - { from: g-policy, to: c-head }
-    - { from: c-verified, to: s-consumers, kind: adr }
+  - from: s-clone
+    to: g-identity
+    kind: adr
+    label: ''
+  - from: g-identity
+    to: g-policy
+    kind: adr
+    label: ''
+  - from: g-policy
+    to: c-head
+    kind: flow
+    label: ''
+  - from: c-verified
+    to: s-consumers
+    kind: adr
+    label: ''
   markers:
-    - { at: s-clone, number: 1 }
-    - { at: g-identity, number: 2 }
-    - { at: g-policy, number: 3 }
-    - { at: c-head, number: 4 }
-    - { at: c-verified, number: 5 }
-    - { at: s-consumers, number: 6 }
-  minimaps: [code-locations, grid, axis]
+  - at: s-clone
+    number: 1
+  - at: g-identity
+    number: 2
+  - at: g-policy
+    number: 3
+  - at: c-head
+    number: 4
+  - at: c-verified
+    number: 5
+  - at: s-consumers
+    number: 6
+  legend: auto
+  minimaps:
+  - code-locations
+  - grid
+  - axis
 layout:
-  band-in: { x: 20, y: 84, w: 1260, h: 120 }
-  band-request: { x: 20, y: 224, w: 1260, h: 220 }
-  band-remote: { x: 20, y: 464, w: 1260, h: 120 }
-  band-out: { x: 20, y: 604, w: 1260, h: 120 }
-  s-clone: { x: 870, y: 124, w: 140, h: 64 }
-  g-identity: { x: 860, y: 270, w: 160, h: 50 }
-  g-policy: { x: 860, y: 350, w: 160, h: 72 }
-  c-head: { x: 880, y: 510, w: 120, h: 44 }
-  c-verified: { x: 300, y: 510, w: 140, h: 44 }
-  s-consumers: { x: 300, y: 636, w: 140, h: 64 }
+  band-in:
+    x: 20
+    y: 84
+    w: 1260
+    h: 120
+  band-request:
+    x: 20
+    y: 224
+    w: 1260
+    h: 220
+  band-remote:
+    x: 20
+    y: 464
+    w: 1260
+    h: 120
+  band-out:
+    x: 20
+    y: 604
+    w: 1260
+    h: 120
+  s-clone:
+    x: 870
+    y: 124
+    w: 140
+    h: 64
+  g-identity:
+    x: 860
+    y: 270
+    w: 160
+    h: 50
+  g-policy:
+    x: 860
+    y: 350
+    w: 160
+    h: 72
+  c-head:
+    x: 880
+    y: 510
+    w: 120
+    h: 44
+  c-verified:
+    x: 300
+    y: 510
+    w: 140
+    h: 44
+  s-consumers:
+    x: 300
+    y: 636
+    w: 140
+    h: 64

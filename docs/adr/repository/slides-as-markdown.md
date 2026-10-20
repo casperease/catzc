@@ -96,17 +96,21 @@ the yml, so a hand edit in the editor is folded back before anything else reads 
 model, and the kit's tests prove both on a fixture. A hand-moved cell comes back as a `layout:` entry; a cell that sits where the grid would
 put it needs none. The quality gate `Test-Diagrams` fails every folder whose embedded model differs from put of its yml and names the cells
 that differ. A cell the kit derives and get never reads back (a minimap, the legend, the map key, the sidebar) that differs only because a
-registry or the kit changed is stale, reported and not failed, and `Build-Diagrams -Stale` rebuilds it.
+registry or the kit changed is stale, reported and not failed, and `Build-Diagrams -Stale` rebuilds it. What a drawing cannot show stays
+with the yml: the kind, the flow, the relation, the band order when the layout places every band, and the band of a laid-out item. Get
+guesses them only for a drawing without a yml, and a layout that places an item inside another band than its own fails put. Moving the
+drawing area down for span room never moves the declared layout or waypoints: put then get returns them as written.
 
 - [Two directions, one truth](#two-directions-one-truth)
 
 ### Rule ADR-REPO-SLIDES-CONFLICTNEEDSAPICK
 
 The base of a diagram pair is the pair committed at git `HEAD`, read with `git show`. A pair whose yml and png both moved from that base,
-and whose png states other content than its yml under get, is a **conflict**: `Test-Diagrams` fails it and names the diverging cells, and no
-bulk run puts or gets it. The author picks the side that wins by running put or get on the folder by name; nothing merges. A pair where only
-one side moved is no conflict, and an untracked pair, which has no base, never is one. The base is read from git, never stamped into the
-files ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)).
+and whose png states other content than its yml under get, is a **conflict**: `Test-Diagrams` fails it and names the diverging drawn cells
+(never a derived one, which is stale at worst), and no bulk run puts or gets it. The author picks the side that wins by running put or get
+on the folder by name; nothing merges. A pair where only one side moved is no conflict, and an untracked pair, which has no base, never is
+one. The base is read from git, never stamped into the files
+([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)).
 
 - [Two directions, one truth](#two-directions-one-truth)
 
@@ -119,6 +123,48 @@ Only the default theme's diagram raster is committed; every other theme renders 
 diagram. A token no set declares fails, naming the tokens it may be.
 
 - [The declaration is the source](#the-declaration-is-the-source)
+
+### Rule ADR-REPO-SLIDES-MINIMAPSFROMDATA
+
+A diagram shows exactly three minimaps: the ones its declaration names, or its kind's three defaults from the pools `maps.yml` declares,
+each one of the eight minimap ids. A minimap's data is computed, never drawn by hand: `Catzc.Base.Maps` projects the diagram's subject, the
+ADR codes in `about.adrs` and the files that cite them, onto the minimap's axes with the data command `maps.yml` names for its id, and every
+lit cell carries its reason. The data is contract JSON ([ADR-REPO-CONTRACT](api-contracts.md)), written to `out/minimaps/` by
+`Build-Diagrams` and `Test-Diagrams`; the kit validates it and only draws it, and no minimap file lives in a diagram folder. A diagram whose
+data is missing does not put.
+
+- [The declaration is the source](#the-declaration-is-the-source)
+
+### Rule ADR-REPO-SLIDES-SIDEBARSHAPE
+
+A diagram has two sides. The left holds the title, the subtitle (the ADR codes, which appear on the diagram there and nowhere else), the
+drawing and the legend, whose entries print the name of each kind alone. The right column holds four slots: the three minimaps and the map
+key. The lens badge stands before the title, on its line. Every part is placed by put, so a declaration says what the diagram shows, never
+where the sidebar goes.
+
+- [The declaration is the source](#the-declaration-is-the-source)
+
+### Rule ADR-REPO-SLIDES-TIMEAXIS
+
+A diagram that runs along time declares it in shorthand, and put writes the shorthand out. A **lane** is a band of numbered steps: its
+commits and glyphs sit by step and by row (-1, 0 or 1), with an optional trunk and marks. A **rule** is a gate line across the lanes after a
+step, solid red for a manual gate and dashed for an automated one, and the legend names both. A **template** maps steps to the commit states
+they reach; a **row** walks a template from its start state, with its dots, drops and step-labelled edges written out, and a `skip` drawn as
+a bypass under the dot it skips. A **note** is free text in a band, and a commit is a dot or a box. Get folds the drawing back to the
+shorthand while the drawing still draws what the shorthand expands to. A span over glyphs of one band lies above that band in either flow; a
+span over whole bands stands beside them in a top-to-bottom flow.
+
+- [Time reads along one axis](#time-reads-along-one-axis)
+
+### Rule ADR-REPO-SLIDES-PAINTORDER
+
+A line never cuts a glyph. The kit declares the paint order once, in `drawio.yml` `layers:`, back to front: panels, frames, span bars, lines
+(gate rules, lane trunks and bypasses), edges, glyphs, marks, then text. Put orders the model by it, each container followed by its own
+cells in that order. draw.io paints a frame's whole contents where the frame stands, so put moves every edge into a frame that holds no
+frame of its own, where it paints before every glyph: the innermost frame around both its ends when that frame holds none, else the first
+such frame painted. The raster paints the model in the order draw.io paints it, so the editor and the png show the same picture.
+
+- [Time reads along one axis](#time-reads-along-one-axis)
 
 ## Context
 
@@ -207,7 +253,19 @@ content reads without coordinates and a moved box is a one-line change.
 The draw.io editor stays the place to nudge a box; the yml stays the place to say what a diagram shows. Put and get make the two the same
 file seen two ways: a session writes yml and puts, a person drags in the editor and gets, and the tests prove each direction returns what
 the other wrote. Nothing is hand-drawn into the raster, so a raster is always the put of a declaration. When both were edited since the last
-commit and they disagree, neither direction guesses: the author runs the one that wins, by name.
+commit and they disagree, neither direction guesses: the author runs the one that wins, by name. When span room moves the drawing area down,
+the title carries how far, because over laid-out bands no reading of the drawing can recover it; it is the one input get lacks, not a
+derived fact stamped into the file, and get takes it off so the yml's layout and waypoints come back as declared.
+
+### Time reads along one axis
+
+`A story of commits is a few lines, not sixty cells`
+
+A promotion story draws the same things again and again: a commit at a step, a gate after a step, a ladder of states with a drop under each.
+Written cell by cell, such a diagram is sixty entries that no reviewer reads and every edit breaks. Lanes, rules and rows say it once, in
+the words of the story, and leave the cells to put, so the yml diff of a changed story is the change and the drawing cannot place a commit
+off its step. A story drawn this densely crosses its own lines, so the kit, not the author, decides what lies on top: a line passes beneath
+the commit it crosses, and the picture in the editor is the picture in the png.
 
 ### How this is enforced
 
@@ -215,12 +273,15 @@ commit and they disagree, neither direction guesses: the author runs the one tha
 - **`Test-Slides`** fails a slide file whose pattern, fields, cited codes or quoted rule text break rules 1, 2 and 4.
 - **`Get-FileKind`** places slide files and the kit by rule 6, and the file-kind reachability test keeps both kinds reachable.
 - **`Build-Diagrams`** rebuilds one diagram folder, or every diagram folder it finds under `docs/**/.assets/**`, through the kit's renderer,
-  stage by stage, and stops on a folder two articles embed (rule 7); with `-FromDrawing` it syncs named folders after an edit, get when the
-  drawing moved since `HEAD`, then put, then `Test-Diagrams`, and stops on a conflict before put (rule 10); with `-Stale` it rebuilds only
-  the folders `Test-Diagrams` reports as carrying stale minimaps (rule 9); **`Move-Diagram`** moves a folder with its links re-pointed.
+  one render per folder, and warns for each embedding page whose Supports line disagrees with the declaration (rule 7); with `-FromDrawing`
+  it syncs named folders after an edit, get when the drawing moved since `HEAD`, then put, then `Test-Diagrams`, and stops on a conflict
+  before put (rule 10); with `-Stale` it rebuilds only the folders `Test-Diagrams` reports as carrying stale minimaps (rule 9);
+  **`Move-Diagram`** moves a folder with its links re-pointed.
 - **`declaration.py`** of the kit validates a declaration against the closed vocabularies and runs put and get (rules 8 and 9); its tests
   prove the two round trips, the vocabulary refusals, the nested group and the grid placement. Its check names the cells of a conflicted
-  pair against the `HEAD` base (rule 10), and the bulk put skips that pair.
+  pair against the `HEAD` base (rule 10), and the bulk put skips that pair. Its tests prove that a lane, a row and its skip expand and fold
+  back to the shorthand, and that a rule names itself in the legend (rule 14), and that a line crossing a commit or a discard arrow passes
+  beneath it, in the model and in the raster (rule 15).
 
 ## Consequences
 

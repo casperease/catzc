@@ -4,9 +4,6 @@ function Build-Diagrams {
     param(
         [string[]] $Path,
 
-        [ValidateSet('all', 'prepare', 'highlight', 'join')]
-        [string] $Stage = 'all',
-
         [string] $Kit = (Get-Config -Config slides).drawio_kit,
 
         [string] $Theme = (Get-Config -Config slides).theme,
@@ -74,12 +71,7 @@ function Build-Diagrams {
         $uv = "`"$($tool.Path)`""
     }
 
-    $stages = if ($Stage -eq 'all') {
-        'prepare', 'highlight', 'join'
-    }
-    else {
-        , $Stage
-    }
+    $render = $true
     $runs = [System.Collections.Generic.List[pscustomobject]]::new()
     $declared = @($folders | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_/diagram.drawio.yml") -PathType Leaf })
     if (-not $DryRun -and $declared.Count -gt 0) {
@@ -107,42 +99,42 @@ function Build-Diagrams {
         if (-not $DryRun) {
             $null = Test-Diagrams -Path $folders -Kit $Kit -RepositoryRoot $root
         }
-        $stages = @()
+        $render = $false
     }
-    foreach ($folderPath in $folders) {
-        foreach ($name in $stages) {
-            $arguments = "run --project `"$(Join-Path $root $Kit)`" python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --stage $name --theme $Theme"
-            $run = [pscustomobject]@{ Folder = $folderPath; Articles = $articles[$folderPath]; Stage = $name; ExitCode = $null; Status = 'dry-run' }
-            if ($DryRun) {
-                Write-Message "Would run: uv $arguments"
-                $runs.Add($run)
-                continue
-            }
-            $result = Invoke-Executable "$uv $arguments" -WorkingDirectory $root -PassThru -NoAssert -Silent
-            $run.ExitCode = $result.ExitCode
-            # The renderer's exit codes: 0 clean, 2 warnings with every artifact delivered, 3 nothing to render.
-            $run.Status = switch ($result.ExitCode) {
-                0 {
-                    'clean'
-                }
-                2 {
-                    'warnings'
-                }
-                3 {
-                    'nothing'
-                }
-                default {
-                    'failed'
-                }
-            }
+    foreach ($folderPath in @(if ($render) {
+                $folders
+            })) {
+        $arguments = "run --project `"$(Join-Path $root $Kit)`" python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --theme $Theme"
+        $run = [pscustomobject]@{ Folder = $folderPath; Articles = $articles[$folderPath]; Stage = 'render'; ExitCode = $null; Status = 'dry-run' }
+        if ($DryRun) {
+            Write-Message "Would run: uv $arguments"
             $runs.Add($run)
-            if ($run.Status -eq 'warnings') {
-                Write-Message "Build-Diagrams: $folderPath $name finished with warnings; see the renderer's bulk report under out/drawio/." -Warning
-            }
-            Assert-True ($run.Status -ne 'failed') -ErrorText "Build-Diagrams: the renderer failed on $folderPath, stage $name (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
+            continue
         }
+        $result = Invoke-Executable "$uv $arguments" -WorkingDirectory $root -PassThru -NoAssert -Silent
+        $run.ExitCode = $result.ExitCode
+        # The renderer's exit codes: 0 clean, 2 warnings with every artifact delivered, 3 nothing to render.
+        $run.Status = switch ($result.ExitCode) {
+            0 {
+                'clean'
+            }
+            2 {
+                'warnings'
+            }
+            3 {
+                'nothing'
+            }
+            default {
+                'failed'
+            }
+        }
+        $runs.Add($run)
+        if ($run.Status -eq 'warnings') {
+            Write-Message "Build-Diagrams: $folderPath finished with warnings; see the renderer's bulk report under out/drawio/." -Warning
+        }
+        Assert-True ($run.Status -ne 'failed') -ErrorText "Build-Diagrams: the renderer failed on $folderPath (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
     }
-    Write-Message "Build-Diagrams: $($folders.Count) diagram folder(s), $(if ($FromDrawing) { 'synced from the drawing' } else { "stages $($stages -join ', ')" })$(if ($DryRun) { ', dry run' }) done."
+    Write-Message "Build-Diagrams: $($folders.Count) diagram folder(s) $(if ($FromDrawing) { 'synced from the drawing' } else { 'rendered' })$(if ($DryRun) { ', dry run' }) done."
 
     if ($PassThru) {
         return $runs.ToArray()

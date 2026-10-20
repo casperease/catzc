@@ -2,36 +2,29 @@
 """Fail-forward render of a .drawio.png: always a source copy and a result PNG, warnings forwarded, never a silent stop.
 
 usage: uv run --with pillow python drawio_forward.py <src.drawio.png> [<out_dir>] [--page dark|model]
-                                                     [--xml <model.xml | file.drawio>] [--assert <text.md>] [--minimaps]
+                                                     [--xml <model.xml | file.drawio>] [--assert <text.md>]
 
 Deterministic. <out_dir> defaults to renderer.out and --page to renderer.page of drawio.yml beside this script. Writes
 into <out_dir>: <name>.src.drawio.png (a byte copy of the source), <name>.out.drawio.png (the raster re-rendered from
 the embedded model on the chosen page, or the source copy again when no model can be read), <name>.model.xml (the
 decoded model, when one exists) and <name>.render.md (the report). With --xml the given model must match the embedded
 one 100 percent after canonicalisation. With --assert every non-empty, non-heading line of the text file (a page, 66
-lines) must appear in some cell label, whitespace-folded and case-folded. With --minimaps the slide's three minimaps are
-regenerated from the map processors (Export-MinimapData, minimap_render.py, minimap_join.py) into <out_dir>/<name>/, a
-diagram folder of its own: ADR codes and lens from the model's `subtitle` cell (`<codes> · <lens>`, the lens one of
-drawio.yml `lenses`), the article the one page beside the source's `.assets` that embeds it; the joined slide is
-<out_dir>/<name>/diagram.drawio.png. A slide named diagram.drawio.png is named <name> by its folder.
-Exit 0: clean. Exit 2: transport or assertion warnings, every artifact still delivered. Exit 3: no source file,
-nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`, `slide`), one per warning (`warn`),
+lines) must appear in some cell label, whitespace-folded and case-folded. A slide named diagram.drawio.png is named <name>
+by its folder. Exit 0: clean. Exit 2: transport or assertion warnings, every artifact still delivered. Exit 3: no source
+file, nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`), one per warning (`warn`),
 then `status`.
 
-bulk:  uv run --with pillow python drawio_forward.py --all <root> [--stage prepare|highlight|join|all] [--theme <theme>]
-                                                      [--start A --end B]
+bulk:  uv run --with pillow python drawio_forward.py --all <root> [--theme <theme>]
 
 Rebuilds every diagram folder under <root> in place (`<article-folder>/.assets/<name>/` holding diagram.drawio.png; the
-root itself when it is one), in stages that each fit the time safeguard: `prepare` (puts each declared folder in the theme,
-extracts each other slide's model to out/drawio/bulk/<root>/models/, reads its subtitle, checks the article's Supports line,
-and writes the slide list, skipping a slide with no ADR code); `highlight` (the map processors for the listed slides, then
-grid, tree and chain as .png and .md under out/drawio/minimaps/<folder>/, never in the tree); `join` (the
-sidebar laid out, the minimaps embedded, the slide rebuilt); `all` runs the three. --start/--end slice the slide list of
-the per-slide stages. A theme other than the default puts the declared folders to out/drawio/themes/<theme>/ and leaves the
-committed rasters and the folders without a declaration alone. Same exit codes; the report is out/drawio/bulk/<root>/bulk.md.
+root itself when it is one): each declared folder is put in the theme, its minimaps drawn from their computed data with it
+(ADR-REPO-SLIDES-MINIMAPSFROMDATA); a folder without a declaration is left as it is, its model extracted to
+out/drawio/bulk/<root>/models/ only to check its article's Supports line against its subtitle, and reported, because its
+minimaps can be rebuilt only once it has a declaration. A theme other than the default puts the declared folders to
+out/drawio/themes/<theme>/ and leaves the committed rasters and the folders without a declaration alone. Same exit codes;
+the report is out/drawio/bulk/<root>/bulk.md.
 """
 
-import json
 import re
 import shutil
 import subprocess
@@ -60,7 +53,7 @@ KIT = Path(__file__).resolve().parent
 REPO = KIT.parents[1]
 ADR_CODE = re.compile(r"(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
 NUMBERED = re.compile(r"(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?:[#:]\d|#\{)")
-SLIDE = "diagram.drawio.png"  # a diagram folder's slide; its minimaps are <view>.png and <view>.md beside it
+SLIDE = "diagram.drawio.png"  # a diagram folder's render, put from the diagram.drawio.yml beside it
 ROLES = ("slide", "legend")  # the closed set of diagram-folder roles drawio.yml may name
 
 
@@ -94,26 +87,6 @@ def first_difference(a, b):
         if x != y:
             return f"at char {i}: {a[max(0, i - 40) : i + 40]!r} vs {b[max(0, i - 40) : i + 40]!r}"
     return f"lengths differ: {len(a)} vs {len(b)}"
-
-
-def catzc_command(command):
-    """A catzc command run in a fresh pwsh that loads the repository's importer first: the PowerShell steps of the pipeline."""
-    importer = str(REPO / "importer.ps1").replace("'", "''")
-    return ["pwsh", "-NoProfile", "-Command", f". '{importer}' *> $null; {command}"]
-
-
-def run(cmd, seconds):
-    """One pipeline step; its failure is the caller's warning, with the tail of what it said."""
-    done = subprocess.run(
-        cmd, cwd=REPO, capture_output=True, text=True, timeout=seconds, check=False
-    )
-    if done.returncode != 0:
-        tail = (done.stderr.strip() or done.stdout.strip()).splitlines()[-3:]
-        step = cmd[-1].split(";")[-1].split()[0] if cmd[0] == "pwsh" else Path(cmd[1]).name
-        raise RuntimeError(
-            f"{step} rc={done.returncode}: {' | '.join(tail)}"
-        )
-    return done.stdout.strip()
 
 
 def slide_facts(model):
@@ -202,21 +175,6 @@ def supports_drift(folder, adrs, lens):
     return None
 
 
-def slide_entry(folder, source, model_file, adrs, lens):
-    """One slide of the list the map processors read: its diagram folder is its id and where every output lands."""
-    rel = lambda p: str(Path(p).resolve().relative_to(REPO)).replace("\\", "/")
-    return {
-        "id": rel(folder),
-        "stem": Path(folder).name,
-        "folder": rel(folder),
-        "source": rel(source),
-        "lens": lens,
-        "badge": lens.upper(),
-        "adrs": adrs,
-        "xml": rel(model_file),
-    }
-
-
 def diagram_folders(root):
     """The diagram folders under a root, or the root itself when it is one: each `<article-folder>/.assets/<name>/` that
     holds a diagram.drawio.png, or a diagram.drawio.yml whose first put has not been run yet."""
@@ -227,67 +185,19 @@ def diagram_folders(root):
     return sorted(found)
 
 
-def minimaps(src, name, model_file, out_dir):
-    """Regenerate the slide's three minimaps and the joined slide into out_dir/name, a diagram folder of its own; the
-    article is the source slide's. Returns the joined slide path."""
-    adrs, lens, problems = slide_facts(model_file.read_text(encoding="utf-8"))
-    if problems or not adrs:
-        raise RuntimeError(
-            "; ".join(problems) or "the subtitle names no ADR code to light the minimaps from"
-        )
-    target = out_dir / name
-    data = target / "minimaps-data"
-    target.mkdir(parents=True, exist_ok=True)
-    slides = target / "slides.json"
-    slide = slide_entry(target, src, model_file, adrs, lens)
-    slides.write_text(
-        json.dumps({"slides": [slide]}, indent=1) + "\n", encoding="utf-8"
-    )
-    rel = lambda p: str(p.resolve().relative_to(REPO)).replace("\\", "/")
-    run(catzc_command(f"Export-MinimapData -Slides '{rel(slides)}' -Data '{rel(data)}'"), 240)
-    run(
-        [
-            sys.executable,
-            str(KIT / "minimap_render.py"),
-            "--slides",
-            rel(slides),
-            "--data",
-            rel(data),
-        ],
-        60,
-    )
-    run(
-        [
-            sys.executable,
-            str(KIT / "minimap_join.py"),
-            "--slides",
-            rel(slides),
-            "--data",
-            rel(data),
-        ],
-        60,
-    )
-    joined = target / SLIDE
-    if not joined.is_file():
-        raise RuntimeError("minimap_join.py ended without the joined slide")
-    return joined
-
-
-def bulk(root, stage, start, end, theme=None):
-    """Rebuild every diagram folder under a root in place, by stage; returns the exit code after printing the lines and the
-    report. The per-slide stages take the slice start..end of the folder list."""
+def bulk(root, theme=None):
+    """Rebuild every diagram folder under a root in place; returns the exit code after printing the lines and the report."""
     root = root.resolve()
     rel = lambda p: str(Path(p).resolve().relative_to(REPO)).replace("\\", "/")
     work = REPO / DEFAULTS["renderer"]["out"] / "bulk" / rel(root).replace("/", "--")
-    models, data = work / "models", work / "data"
-    slides_json, slice_json = work / "slides.json", work / "slice.json"
+    models = work / "models"
     folders = diagram_folders(root)
     warnings, counts = [], {}
     if not folders:
         print(f"warn E_SOURCE no diagram folder (.assets/<name>/{SLIDE}) under {root}")
         print("status error")
         return 3
-    # A folder with a declaration is put from it, minimaps included; only the folders without one take the map-processor stages.
+    # A folder with a declaration is put from it, minimaps included; a folder without one is only checked and reported.
     import declaration
 
     declared = [f for f in folders if (f / declaration.SOURCE).is_file()]
@@ -297,100 +207,49 @@ def bulk(root, stage, start, end, theme=None):
     if themed:
         warnings += [f"W_THEME {rel(f)}: no {declaration.SOURCE}, so it renders in the default theme only" for f in folders]
         folders = []
-    if stage in ("prepare", "all"):
-        put = 0
-        for f in declared:
-            try:
-                # A conflicted pair waits for the author's put or get by name; the bulk run picks no side.
-                both = [] if themed else declaration.conflict(f, declaration.committed(f))
-                if both:
-                    warnings.append(f"W_CONFLICT {rel(f)}: the yml and the png both moved from HEAD and disagree in {', '.join(both)}")
-                    continue
-                print(f"put {rel(declaration.put_png(f, declaration.load(f), theme))}")
-                put += 1
-            except (declaration.DeclarationError, OSError) as e:
-                warnings.append(f"W_PUT {rel(f)}: {e}")
-        counts.update(put=put)
+    put = 0
+    for f in declared:
+        try:
+            # A conflicted pair waits for the author's put or get by name; the bulk run picks no side.
+            both = [] if themed else declaration.conflict(f, declaration.committed(f))
+            if both:
+                warnings.append(f"W_CONFLICT {rel(f)}: the yml and the png both moved from HEAD and disagree in {', '.join(both)}")
+                continue
+            print(f"put {rel(declaration.put_png(f, declaration.load(f), theme))}")
+            put += 1
+        except (declaration.DeclarationError, OSError) as e:
+            warnings.append(f"W_PUT {rel(f)}: {e}")
+    counts.update(put=put)
     model_of = lambda f: models / (rel(f).replace("/", "--") + ".model.xml")
-    if stage in ("prepare", "all"):
-        models.mkdir(parents=True, exist_ok=True)
-        done = 0
-        for f in folders:
-            try:
-                model_of(f).write_text(
-                    decode(mxfile_chunk(Image.open(f / SLIDE))).strip(), encoding="utf-8"
-                )
-                done += 1
-            except FORWARD as e:
-                warnings.append(f"W_PREPARE {rel(f)}: {e}")
-        slides, skipped = [], []
-        for f in folders:
-            if not model_of(f).is_file():
-                continue
-            adrs, lens, subtitle_warnings = subtitle_facts(f, model_of(f).read_text(encoding="utf-8"))
-            warnings += subtitle_warnings
-            if not adrs or lens is None:
-                skipped.append(rel(f))
-                continue
+    models.mkdir(parents=True, exist_ok=True)
+    done = 0
+    for f in folders:
+        try:
+            model_of(f).write_text(decode(mxfile_chunk(Image.open(f / SLIDE))).strip(), encoding="utf-8")
+            done += 1
+        except FORWARD as e:
+            warnings.append(f"W_PREPARE {rel(f)}: {e}")
+    for f in folders:
+        if not model_of(f).is_file():
+            continue
+        adrs, lens, subtitle_warnings = subtitle_facts(f, model_of(f).read_text(encoding="utf-8"))
+        warnings += subtitle_warnings
+        if adrs and lens is not None:
             drift = supports_drift(f, adrs, lens)
             if drift:
                 warnings.append(f"W_SUPPORTS {drift}")
-            slides.append(slide_entry(f, f / SLIDE, model_of(f), adrs, lens))
-        slides_json.write_text(
-            json.dumps({"slides": slides}, indent=1) + "\n", encoding="utf-8"
-        )
-        counts.update(prepared=done, listed=len(slides), skipped=skipped)
-        print(f"slides {slides_json} listed={len(slides)} skipped={skipped}")
-    if stage in ("highlight", "all") and folders:
-        try:
-            listed = json.loads(slides_json.read_text(encoding="utf-8"))["slides"]
-            slice_json.write_text(
-                json.dumps({"slides": listed[start:end]}, indent=1) + "\n", encoding="utf-8"
-            )
-            run(catzc_command(f"Export-MinimapData -Slides '{rel(slice_json)}' -Data '{rel(data)}'"), 300)
-            out = run(
-                [
-                    sys.executable,
-                    str(KIT / "minimap_render.py"),
-                    "--slides",
-                    rel(slice_json),
-                    "--data",
-                    rel(data),
-                ],
-                120,
-            )
-            print(f"minimaps {out.splitlines()[-1] if out else 'rendered'}")
-        except FORWARD as e:
-            warnings.append(f"W_HIGHLIGHT {e}")
-    if stage in ("join", "all") and folders:
-        try:
-            cmd = [
-                sys.executable,
-                str(KIT / "minimap_join.py"),
-                "--slides",
-                rel(slides_json),
-                "--data",
-                rel(data),
-                "--start",
-                str(start),
-            ]
-            if end is not None:
-                cmd += ["--end", str(end)]
-            out = run(cmd, 340)
-            print(f"joined {out.splitlines()[-1] if out else 'done'}")
-        except FORWARD as e:
-            warnings.append(f"W_JOIN {e}")
+        warnings.append(f"W_UNDECLARED {rel(f)}: no {declaration.SOURCE}, so its minimaps are not rebuilt; declare it to put it")
+    counts.update(prepared=done, undeclared=len(folders))
     for w in warnings:
         print(f"warn {w}")
     status = "ok" if not warnings else "warn"
     work.mkdir(parents=True, exist_ok=True)
     report = work / "bulk.md"
     lines = [
-        f"# {rel(root)}: bulk rebuild, stage {stage}",
+        f"# {rel(root)}: bulk rebuild",
         "",
         f"- root: `{root}`",
         f"- diagram folders: {len(folders)}",
-        f"- slice: {start}..{end if end is not None else len(folders)}",
         f"- status: {status}",
     ]
     lines += [f"- {k}: {v}" for k, v in counts.items()] + [
@@ -408,32 +267,16 @@ def main():
         i = args.index("--all")
         folder = Path(args[i + 1])
         del args[i : i + 2]
-        stage, theme, start, end = "all", None, 0, None
-        if "--stage" in args:
-            i = args.index("--stage")
-            stage = args[i + 1]
-            del args[i : i + 2]
+        theme = None
         if "--theme" in args:
             i = args.index("--theme")
             theme = args[i + 1]
             del args[i : i + 2]
             if theme not in THEMES:
                 raise SystemExit(f"theme '{theme}' is not one of: {', '.join(THEMES)}")
-        if "--start" in args:
-            i = args.index("--start")
-            start = int(args[i + 1])
-            del args[i : i + 2]
-        if "--end" in args:
-            i = args.index("--end")
-            end = int(args[i + 1])
-            del args[i : i + 2]
-        if stage not in ("prepare", "highlight", "join", "all"):
-            raise SystemExit(
-                f"stage must be prepare, highlight, join or all, got {stage}"
-            )
-        raise SystemExit(bulk(folder, stage, start, end, theme))
+        raise SystemExit(bulk(folder, theme))
     xml_path = assert_path = root = None
-    page, want_minimaps = None, False
+    page = None
     for flag in ("--xml", "--assert", "--page"):
         if flag in args:
             i = args.index(flag)
@@ -445,9 +288,6 @@ def main():
                 assert_path = Path(value)
             else:
                 page = value
-    if "--minimaps" in args:
-        args.remove("--minimaps")
-        want_minimaps = True
     src = Path(args[0])
     out_dir = Path(args[1]) if len(args) > 1 else REPO / DEFAULTS["renderer"]["out"]
     page = page or DEFAULTS["renderer"]["page"]
@@ -464,7 +304,6 @@ def main():
     report = out_dir / f"{name}.render.md"
     warnings = []
     cells = 0
-    joined = None
     shutil.copyfile(src, src_copy)
     print(f"src {src_copy}")
 
@@ -544,16 +383,6 @@ def main():
             for p in [p for p in phrases if p not in labels]:
                 warnings.append(f"W_TEXT asserted text not in any cell label: {p!r}")
 
-    if want_minimaps:
-        if model is None:
-            warnings.append("W_MINIMAPS no model to build the slide from")
-        else:
-            try:
-                joined = minimaps(src, name, model_file, out_dir)
-                print(f"slide {joined}")
-            except FORWARD as e:
-                warnings.append(f"W_MINIMAPS {e}")
-
     for w in warnings:
         print(f"warn {w}")
     status = "ok" if not warnings else "warn"
@@ -564,11 +393,6 @@ def main():
         f"- source copy: `{src_copy}`",
         f"- result: `{result}` (page {page})",
         f"- model: `{model_file}`" if model is not None else "- model: none",
-        f"- slide with minimaps: `{joined}`"
-        if joined is not None
-        else "- slide with minimaps: not requested"
-        if not want_minimaps
-        else "- slide with minimaps: failed, see warnings",
         f"- cells: {cells}",
         f"- status: {status}",
     ] + [f"- warning: {w}" for w in warnings]

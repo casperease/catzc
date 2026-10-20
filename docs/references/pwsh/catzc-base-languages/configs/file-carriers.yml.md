@@ -20,5 +20,5 @@ Above `diagram-folder:`, written with `#`.
 
 ```text
 Classes of files that belong to no language.
-A diagram folder's slide keeps its block in the description beside it, diagram.drawio.md in the same folder.
+A diagram folder's render carries no block: the diagram.drawio.yml beside it is the diagram's one source.
 ```

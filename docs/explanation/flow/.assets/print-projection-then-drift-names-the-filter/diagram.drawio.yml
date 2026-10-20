@@ -1,64 +1,164 @@
-description: >-
-  The operator's path through a unit's triggers: edit globs.yml, print the projection with Get-GlobSetTrigger, paste the Azure DevOps lists
-  into the pipeline file, and two gates fail naming the missing include, the drifted filter or the missing file.
+description: 'The operator''s path through a unit''s triggers: edit globs.yml, print the projection with Get-GlobSetTrigger,
+  paste the Azure DevOps lists into the pipeline file, and two gates fail naming the missing include, the drifted filter or
+  the missing file.'
 about:
+  adrs:
+  - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
   lens: operations
-  adrs: [ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER]
-  tracks: [pwsh, ado-pipelines, contracts]
-  languages: [powershell, pipeline-yaml]
-  modules: [Catzc.Base.Globs]
-  files:
-    - pwsh/Catzc.Base.Globs/configs/globs.yml
-    - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
-    - .ado/pipelines/cd-apex.yaml
-    - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
-    - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
 content:
   title: Print the projection, and a drifted pipeline fails naming the filter that differs
   kind: explanation
   flow: top-to-bottom
   relation: feeds
+  theme: dark
   bands:
-    - { id: band-compose, label: COMPOSE }
-    - { id: band-projection, label: PROJECTION }
-    - { id: band-checked, label: CHECKED BY }
+  - id: band-compose
+    label: COMPOSE
+  - id: band-projection
+    label: PROJECTION
+  - id: band-checked
+    label: CHECKED BY
   glyphs:
-    - { id: f-globs-yml, kind: file, label: globs.yml, in: band-compose }
-    - { id: c-trigger, kind: code, label: Get-GlobSetTrigger, in: band-projection }
-    - { id: f-cd-apex, kind: file, label: .ado/pipelines/cd-apex.yaml, in: band-projection }
-    - { id: g-coverage, kind: gate, label: Test-GlobSetTriggerCoverage, in: band-checked }
-    - { id: x-no-include, kind: failure, label: matches no ADO include, in: band-checked }
-    - { id: g-trigger-glob, kind: gate, label: Test-AdoPipelineTriggerGlob, in: band-checked }
-    - { id: x-drifted, kind: failure, label: trigger drifted, in: band-checked }
-    - { id: x-not-found, kind: failure, label: pipeline file not found, in: band-checked }
+  - id: f-globs-yml
+    kind: file
+    label: globs.yml
+    in: band-compose
+  - id: c-trigger
+    kind: code
+    label: Get-GlobSetTrigger
+    in: band-projection
+  - id: f-cd-apex
+    kind: file
+    label: .ado/pipelines/cd-apex.yaml
+    in: band-projection
+  - id: g-coverage
+    kind: gate
+    label: Test-GlobSetTriggerCoverage
+    in: band-checked
+  - id: x-no-include
+    kind: failure
+    label: matches no ADO include
+    in: band-checked
+  - id: g-trigger-glob
+    kind: gate
+    label: Test-AdoPipelineTriggerGlob
+    in: band-checked
+  - id: x-drifted
+    kind: failure
+    label: trigger drifted
+    in: band-checked
+  - id: x-not-found
+    kind: failure
+    label: pipeline file not found
+    in: band-checked
   edges:
-    - { from: f-globs-yml, to: c-trigger }
-    - { from: c-trigger, to: f-cd-apex, kind: adr }
-    - { from: c-trigger, to: g-coverage }
-    - { from: c-trigger, to: g-trigger-glob }
-    - { from: f-cd-apex, to: g-trigger-glob }
-    - { from: g-coverage, to: x-no-include, kind: fail }
-    - { from: g-trigger-glob, to: x-drifted, kind: fail }
-    - { from: g-trigger-glob, to: x-not-found, kind: fail }
+  - from: f-globs-yml
+    to: c-trigger
+    kind: flow
+    label: ''
+  - from: c-trigger
+    to: f-cd-apex
+    kind: adr
+    label: ''
+  - from: c-trigger
+    to: g-coverage
+    kind: flow
+    label: ''
+  - from: c-trigger
+    to: g-trigger-glob
+    kind: flow
+    label: ''
+  - from: f-cd-apex
+    to: g-trigger-glob
+    kind: flow
+    label: ''
+  - from: g-coverage
+    to: x-no-include
+    kind: fail
+    label: ''
+  - from: g-trigger-glob
+    to: x-drifted
+    kind: fail
+    label: ''
+  - from: g-trigger-glob
+    to: x-not-found
+    kind: fail
+    label: ''
   markers:
-    - { at: f-globs-yml, number: 1 }
-    - { at: c-trigger, number: 2 }
-    - { at: f-cd-apex, number: 3 }
-    - { at: g-coverage, number: 4 }
-    - { at: x-no-include, number: 5 }
-    - { at: g-trigger-glob, number: 6 }
-    - { at: x-drifted, number: 7 }
-    - { at: x-not-found, number: 8 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: f-globs-yml
+    number: 1
+  - at: c-trigger
+    number: 2
+  - at: f-cd-apex
+    number: 3
+  - at: g-coverage
+    number: 4
+  - at: x-no-include
+    number: 5
+  - at: g-trigger-glob
+    number: 6
+  - at: x-drifted
+    number: 7
+  - at: x-not-found
+    number: 8
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-compose: { x: 20, y: 84, w: 1260, h: 120 }
-  band-projection: { x: 20, y: 224, w: 1260, h: 120 }
-  band-checked: { x: 20, y: 364, w: 1260, h: 210 }
-  f-globs-yml: { x: 160, y: 124, w: 140, h: 56 }
-  c-trigger: { x: 130, y: 262, w: 200, h: 44 }
-  f-cd-apex: { x: 620, y: 258, w: 200, h: 56 }
-  g-coverage: { x: 110, y: 404, w: 240, h: 80 }
-  x-no-include: { x: 140, y: 514, w: 180, h: 44 }
-  g-trigger-glob: { x: 600, y: 404, w: 240, h: 80 }
-  x-drifted: { x: 920, y: 400, w: 180, h: 44 }
-  x-not-found: { x: 920, y: 462, w: 180, h: 44 }
+  band-compose:
+    x: 20
+    y: 84
+    w: 1260
+    h: 120
+  band-projection:
+    x: 20
+    y: 224
+    w: 1260
+    h: 120
+  band-checked:
+    x: 20
+    y: 364
+    w: 1260
+    h: 210
+  f-globs-yml:
+    x: 160
+    y: 124
+    w: 140
+    h: 56
+  c-trigger:
+    x: 130
+    y: 262
+    w: 200
+    h: 44
+  f-cd-apex:
+    x: 620
+    y: 258
+    w: 200
+    h: 56
+  g-coverage:
+    x: 110
+    y: 404
+    w: 240
+    h: 80
+  x-no-include:
+    x: 140
+    y: 514
+    w: 180
+    h: 44
+  g-trigger-glob:
+    x: 600
+    y: 404
+    w: 240
+    h: 80
+  x-drifted:
+    x: 920
+    y: 400
+    w: 180
+    h: 44
+  x-not-found:
+    x: 920
+    y: 462
+    w: 180
+    h: 44

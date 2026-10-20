@@ -13,8 +13,6 @@ function Get-DiagramSupportsDrift {
         [string] $RepositoryRoot
     )
 
-    # Each embedding page's `Supports <codes> (<lens> lens)` lines against the diagram's yml: a page passes when one of its lines
-    # names the yml's ADR codes and lens, and a page with no Supports line is not checked. One warning per page that disagrees.
     $source = Join-Path $RepositoryRoot "$Folder/diagram.drawio.yml"
     if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
         return

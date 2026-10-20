@@ -1,43 +1,91 @@
-description: >-
-  A track composes into a deployable-unit, and a deployable-unit binds one pipeline: the delivery side of cats in a line.
+description: 'A track composes into a deployable-unit, and a deployable-unit binds one pipeline: the delivery side of cats
+  in a line.'
 about:
-  lens: meta
   adrs:
-    - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-    - ADR-DSGN-TRACK-ONETRACKTYPE
-    - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
-    - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-  tracks: [docs, ado-pipelines]
-  languages: []
-  modules: []
-  files:
-    - docs/adr/design/tracks.md
+  - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+  - ADR-DSGN-TRACK-ONETRACKTYPE
+  - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+  - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+  lens: meta
 content:
   title: A track ships through a deployable-unit, and each unit has one pipeline
   kind: explanation
+  flow: left-to-right
   relation: binds one pipeline (1-1)
+  theme: dark
   bands:
-    - { id: band-tracks, label: TRACKS }
-    - { id: band-units, label: DEPLOYABLE-UNITS }
-    - { id: band-pipelines, label: PIPELINES }
+  - id: band-tracks
+    label: TRACKS
+  - id: band-units
+    label: DEPLOYABLE-UNITS
+  - id: band-pipelines
+    label: PIPELINES
   glyphs:
-    - { id: s-track, kind: set, label: Track, in: band-tracks }
-    - { id: s-unit, kind: set, label: Deployable-unit, in: band-units }
-    - { id: r-pipeline, kind: runner, label: Pipeline, in: band-pipelines }
+  - id: s-track
+    kind: set
+    label: Track
+    in: band-tracks
+  - id: s-unit
+    kind: set
+    label: Deployable-unit
+    in: band-units
+  - id: r-pipeline
+    kind: runner
+    label: Pipeline
+    in: band-pipelines
   edges:
-    - { from: s-track, to: s-unit, kind: thick }
-    - { from: s-unit, to: r-pipeline }
+  - from: s-track
+    to: s-unit
+    kind: thick
+    label: ''
+  - from: s-unit
+    to: r-pipeline
+    kind: flow
+    label: ''
   markers:
-    - { at: s-track, number: 1 }
-    - { at: "s-track->s-unit", number: 2 }
-    - { at: s-unit, number: 3 }
-    - { at: "s-unit->r-pipeline", number: 4 }
-    - { at: r-pipeline, number: 5 }
-  minimaps: [code-locations, grid, axis]
+  - at: s-track
+    number: 1
+  - at: s-track->s-unit
+    number: 2
+  - at: s-unit
+    number: 3
+  - at: s-unit->r-pipeline
+    number: 4
+  - at: r-pipeline
+    number: 5
+  legend: auto
+  minimaps:
+  - code-locations
+  - grid
+  - axis
 layout:
-  band-tracks: { x: 20, y: 84, w: 300, h: 180 }
-  band-units: { x: 340, y: 84, w: 520, h: 180 }
-  band-pipelines: { x: 880, y: 84, w: 400, h: 180 }
-  s-track: { x: 60, y: 146, w: 220, h: 56 }
-  s-unit: { x: 480, y: 146, w: 220, h: 56 }
-  r-pipeline: { x: 960, y: 146, w: 240, h: 56 }
+  band-tracks:
+    x: 20
+    y: 84
+    w: 300
+    h: 180
+  band-units:
+    x: 340
+    y: 84
+    w: 520
+    h: 180
+  band-pipelines:
+    x: 880
+    y: 84
+    w: 400
+    h: 180
+  s-track:
+    x: 60
+    y: 146
+    w: 220
+    h: 56
+  s-unit:
+    x: 480
+    y: 146
+    w: 220
+    h: 56
+  r-pipeline:
+    x: 960
+    y: 146
+    w: 240
+    h: 56

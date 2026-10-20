@@ -1,63 +1,63 @@
 # Catzc.Diagrams
 
-The diagram kit, a module of the python track. It owns the rendering of every `.drawio.png` of the repository from the model embedded in it,
-the three minimaps a slide's sidebar carries and their sister pages, and the review bundles a person reads a wave of drawings through
+The diagram kit, a module of the python track. It owns the rendering of every diagram of the repository from its one source, the
+`diagram.drawio.yml` beside its `diagram.drawio.png`: put renders the declaration into the png, get folds a draw.io edit back into the yml,
+and the three minimaps of the right column are drawn from data the kit only validates
 ([ADR-REPO-SLIDES](../../adr/repository/slides-as-markdown.md)). It deliberately does **not** decide anything: what a diagram shows comes
-from the tree, the maps come from `Catzc.Base.Maps`, and the one command that rebuilds a diagram folder is `Build-Diagrams` of
-`Catzc.Base.Slides`.
+from its declaration, the minimap data comes from `Catzc.Base.Maps`, and the one command that rebuilds a diagram folder is `Build-Diagrams`
+of `Catzc.Base.Slides`.
 
 ## Responsibilities
 
 | Responsibility   | Area    | Name                                                                                         |
 | ---------------- | ------- | -------------------------------------------------------------------------------------------- |
-| responsibility:1 | render  | [Fail-forward render of a drawing](#responsibility1--fail-forward-render-of-a-drawing)       |
-| responsibility:2 | minimap | [The minimaps of a slide](#responsibility2--the-minimaps-of-a-slide)                         |
+| responsibility:1 | render  | [Put and get of a diagram](#responsibility1--put-and-get-of-a-diagram)                       |
+| responsibility:2 | minimap | [The minimaps of a diagram](#responsibility2--the-minimaps-of-a-diagram)                     |
 | responsibility:3 | kit     | [The kit: glyphs, tokens and patterns](#responsibility3--the-kit-glyphs-tokens-and-patterns) |
 | responsibility:4 | review  | [Review bundles](#responsibility4--review-bundles)                                           |
 
-### responsibility:1 — Fail-forward render of a drawing
+### responsibility:1 — Put and get of a diagram
 
-A `.drawio.png` carries its own draw.io model. `drawio_png.py` draws the raster from that model on the dark page, so the picture and the
-embedded XML stay honest to each other, and `drawio_forward.py` runs that render fail-forward: it always lands a source copy, a result PNG,
-the decoded model and a report under `out/drawio/`, forwards every warning, and never stops silently. Over a whole diagram folder it runs in
-stages that each fit the time safeguard: prepare, highlight, join.
+A diagram folder holds `diagram.drawio.yml`, the declaration, and `diagram.drawio.png`, the render. `declaration.py` puts the declaration
+into the draw.io model embedded in the png and gets an edited model back into the yml; both directions are deterministic, and a pair whose
+two sides both moved since HEAD is a conflict only the author's pick by name clears. `drawio_png.py` draws the raster from the model on the
+theme's page, so the picture and the embedded XML stay honest to each other. `drawio_forward.py` runs a render fail-forward, always landing
+a source copy, a result PNG, the decoded model and a report under `out/drawio/`, and over a whole root it puts every declared folder.
 
-### responsibility:2 — The minimaps of a slide
+### responsibility:2 — The minimaps of a diagram
 
-A slide's sidebar shows where it sits: two views of the world map and the value-chain map, lit for the ADR codes the slide supports. The
-data comes from the map processors through `Export-MinimapData` (`Catzc.Base.Maps`); `minimap_render.py` draws the three PNGs and
-`minimap_describe.py` writes the sister page of each, where every lit cell has the reason that lit it, both under `out/drawio/minimaps/`,
-never in the tree; `minimap_join.py` lays the sidebar out in the slide's model, embeds the PNGs and rebuilds the slide. The module places
-nothing itself: every lit cell is the highlight's.
+A diagram shows exactly three minimaps: the ones its declaration names, or its kind's defaults from `maps.yml`. Their data is computed by
+`Catzc.Base.Maps` from the diagram's subject and reaches the kit as contract JSON; `minimap_contract.py` validates it against the schema in
+`contracts/` and `minimaps.py` draws it. The kit computes no lit cell and writes no reason: every lit cell and its reason are the data's
+(ADR-REPO-SLIDES-MINIMAPSFROMDATA).
 
 ### responsibility:3 — The kit: glyphs, tokens and patterns
 
 The closed vocabulary every drawing is made of lives in the module's assets: the glyph library (`glyphs.xml`), the template slide, the style
-guide (`STYLE.md`) with the dark-theme tokens and the readability rules, the renderer's defaults (`configs/drawio.yml`: page, output folder,
-lenses, folder roles), and the slides kit (`assets/slides/`: `slides.yml`, its style guide and the patterns `Build-SlideDeck` fills). A
-maker edits a model and reads the guide; the kit draws.
+guide (`STYLE.md`) with the theme tokens and the readability rules, the renderer's defaults (`configs/drawio.yml`: page, output folder,
+lenses, folder roles, vocabularies), and the slides kit (`assets/slides/`: `slides.yml`, its style guide and the patterns `Build-SlideDeck`
+fills). A maker edits a declaration and reads the guide; the kit draws.
 
 ### responsibility:4 — Review bundles
 
-What a wave of drawings produced, printed for a person: the lens contact sheet (`contact_sheet.py`), the local gallery and its PDF for
-readers without an HTML viewer (`gallery.py`, `gallery_pdf.py`), the atlas page for claude.ai (`atlas.py`), the catalogue the review page
-reads (`catalogue.py`), and the image embedding they share (`embed_images.py`). Every bundle reads what is on disk and lands under `out/`.
+What a wave of drawings produced, printed for a person: the gallery PDF for readers without an HTML viewer (`gallery_pdf.py`), the atlas
+page for claude.ai (`atlas.py`), the catalogue the review page reads (`catalogue.py`), and the image embedding they share
+(`embed_images.py`). Every bundle reads what is on disk and lands under `out/`.
 
 ## What the module does
 
-A drawing is a build output (ADR-REPO-SLIDES-ONEBUILDCOMMAND). The source is the model embedded in the PNG beside its article; the render
-reads that model and the repository's maps, and nothing in between asks a session or a model to decide. So the module is a pipeline of
-deterministic steps: decode the model, draw it, compute the slide's facts from its subtitle, ask the maps for the highlights, draw and
-describe the minimaps, join them into the sidebar, rebuild the slide, report. A step that fails becomes a warning in the report and the
-artifacts still land, so the person always has something to read.
+A drawing is a build output (ADR-REPO-SLIDES-ONEBUILDCOMMAND). The source is the declaration beside the png; the render reads it and the
+computed minimap data, and nothing in between asks a session or a model to decide. So the module is a pipeline of deterministic steps: load
+and validate the declaration, lay it out, draw it with its minimaps, embed the model, report. A step that fails becomes a warning in the
+report and the artifacts still land, so the person always has something to read.
 
 The kit is the module's configuration in the sense of ADR-PRIN-CONFIG: a new glyph is a library entry and a legend phrase, a new lens is a
 line in `drawio.yml`, a new slide layout is a pattern file. The scripts know the vocabulary's shape, never its instances. Colours are
 themes: every style names a token, and `drawio.yml` holds one token set per theme; the default theme's render is the committed png, and any
 other theme renders on demand to `out/drawio/themes/`.
 
-The tests run from the module's own `tests/` folder through the language bridge, on fixture models in the neutral widget vocabulary, never
-on a real drawing.
+The tests run from the module's own `tests/` folder through the language bridge, on fixture declarations in the neutral widget vocabulary,
+never on a real drawing.
 
 ## Division
 
@@ -65,19 +65,17 @@ The module's scripts and configuration, sorted into the responsibilities above.
 
 | Responsibility                                          | Function                    |
 | ------------------------------------------------------- | --------------------------- |
-| responsibility:1 — Fail-forward render of a drawing     | `drawio_forward.py`         |
+| responsibility:1 — Put and get of a diagram             | `declaration.py`            |
 |                                                         | `drawio_png.py`             |
-| responsibility:2 — The minimaps of a slide              | `minimap_render.py`         |
-|                                                         | `minimap_describe.py`       |
-|                                                         | `minimap_join.py`           |
+|                                                         | `drawio_forward.py`         |
+| responsibility:2 — The minimaps of a diagram            | `minimaps.py`               |
+|                                                         | `minimap_contract.py`       |
 | responsibility:3 — The kit: glyphs, tokens and patterns | `configs/drawio.yml`        |
 |                                                         | `assets/glyphs.xml`         |
 |                                                         | `assets/template-slide.xml` |
 |                                                         | `assets/STYLE.md`           |
 |                                                         | `assets/slides/slides.yml`  |
-| responsibility:4 — Review bundles                       | `contact_sheet.py`          |
-|                                                         | `gallery.py`                |
-|                                                         | `gallery_pdf.py`            |
+| responsibility:4 — Review bundles                       | `gallery_pdf.py`            |
 |                                                         | `atlas.py`                  |
 |                                                         | `catalogue.py`              |
 |                                                         | `embed_images.py`           |

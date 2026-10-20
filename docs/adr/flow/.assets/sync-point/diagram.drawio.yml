@@ -1,46 +1,111 @@
-description: >-
-  Upstream consumers sync from the latest BVT-verified HEAD of the server's main and never from the dirty tip, a commit that landed after it
-  and is not yet judged or failed; the main-UAT occupant is a separate fact, with the verified HEAD queued as its next candidate.
+description: Upstream consumers sync from the latest BVT-verified HEAD of the server's main and never from the dirty tip,
+  a commit that landed after it and is not yet judged or failed; the main-UAT occupant is a separate fact, with the verified
+  HEAD queued as its next candidate.
 about:
-  lens: architecture
   adrs:
-    - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-  tracks: [docs]
-  languages: []
-  modules: []
-  files:
-    - docs/adr/flow/commit-lifecycle.md
-    - docs/adr/design/server-remote-integration.md
+  - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+  - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+  - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+  - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+  - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+  lens: architecture
 content:
   title: Upstream consumers sync from the BVT-verified HEAD, never from the dirty tip
   kind: reference
+  flow: left-to-right
   relation: points at
+  theme: dark
   bands:
-    - { id: band-consumers, label: UPSTREAM }
-    - { id: band-server, label: SERVER MAIN }
-    - { id: band-uat, label: MAIN-UAT }
+  - id: band-consumers
+    label: UPSTREAM
+  - id: band-server
+    label: SERVER MAIN
+  - id: band-uat
+    label: MAIN-UAT
   glyphs:
-    - { id: g-integrator, kind: actor, label: upstream integrator, in: band-consumers }
-    - { id: c-verified, kind: commit, label: BVT-verified HEAD, in: band-server }
-    - { id: c-tip, kind: commit, label: dirty tip, state: landed, ghost: true, in: band-server }
-    - { id: e-main-uat, kind: env, label: main-UAT, in: band-uat }
-    - { id: c-occupant, kind: commit, label: occupant, state: main-uat, in: e-main-uat }
+  - id: g-integrator
+    kind: actor
+    label: upstream integrator
+    in: band-consumers
+  - id: c-verified
+    kind: commit
+    label: BVT-verified HEAD
+    in: band-server
+  - id: c-tip
+    kind: commit
+    label: dirty tip
+    in: band-server
+    state: landed
+    ghost: true
+  - id: e-main-uat
+    kind: env
+    label: main-UAT
+    in: band-uat
+  - id: c-occupant
+    kind: commit
+    label: occupant
+    in: e-main-uat
+    state: main-uat
   edges:
-    - { from: g-integrator, to: c-verified, label: syncs from }
-    - { from: g-integrator, to: c-tip, kind: fail, label: never }
-    - { from: c-verified, to: e-main-uat, label: next candidate }
-    - { from: c-verified, to: c-tip, label: lands after }
-  minimaps: [code-locations, grid, axis]
+  - from: g-integrator
+    to: c-verified
+    kind: flow
+    label: syncs from
+  - from: g-integrator
+    to: c-tip
+    kind: fail
+    label: never
+  - from: c-verified
+    to: e-main-uat
+    kind: flow
+    label: next candidate
+  - from: c-verified
+    to: c-tip
+    kind: flow
+    label: lands after
+  legend: auto
+  minimaps:
+  - code-locations
+  - grid
+  - axis
 layout:
-  band-consumers: { x: 20, y: 84, w: 300, h: 380 }
-  band-server: { x: 340, y: 84, w: 540, h: 380 }
-  band-uat: { x: 900, y: 84, w: 380, h: 380 }
-  g-integrator: { x: 90, y: 250, w: 160, h: 52 }
-  c-verified: { x: 480, y: 150, w: 260, h: 44 }
-  c-tip: { x: 480, y: 360, w: 260, h: 44 }
-  e-main-uat: { x: 960, y: 140, w: 260, h: 72 }
-  c-occupant: { x: 1130, y: 162, w: 80, h: 28 }
+  band-consumers:
+    x: 20
+    y: 84
+    w: 300
+    h: 380
+  band-server:
+    x: 340
+    y: 84
+    w: 540
+    h: 380
+  band-uat:
+    x: 900
+    y: 84
+    w: 380
+    h: 380
+  g-integrator:
+    x: 90
+    y: 250
+    w: 160
+    h: 52
+  c-verified:
+    x: 480
+    y: 150
+    w: 260
+    h: 44
+  c-tip:
+    x: 480
+    y: 360
+    w: 260
+    h: 44
+  e-main-uat:
+    x: 960
+    y: 140
+    w: 260
+    h: 72
+  c-occupant:
+    x: 1130
+    y: 162
+    w: 80
+    h: 28

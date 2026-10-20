@@ -24,10 +24,9 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Meta plans by value (how the repository describes and governs itself)
 
-| Value   | Plan                | Why                                                                                                                      | Needed docs                                                   | Needed tests                                   | State                                          |
-| ------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| highest | plan-master         | The one executable order over every open step of every plan; task files are its disposable executables.                  | ADR-REPO-PLANS names the task files (the plans ADR)           | Test-Plans over the folder (the plans ADR)     | two chunks, both the user's or the sweep       |
-| high    | plan-diagram-engine | Every diagram and slide is rendered from its yml; the minimaps, themes and the fold-back of a drawing are still missing. | ADR-REPO-SLIDES rules for the directions, minimaps and themes | the kit's pytest; Test-Diagrams; minimap tests | isolated track, its own session; 18 steps open |
+| Value   | Plan        | Why                                                                                                     | Needed docs                                         | Needed tests                               | State                                    |
+| ------- | ----------- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------ | ---------------------------------------- |
+| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans ADR) | Test-Plans over the folder (the plans ADR) | two chunks, both the user's or the sweep |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 

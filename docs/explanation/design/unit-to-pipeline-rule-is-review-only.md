@@ -12,7 +12,7 @@ Tracks and deployable-units are checked in code; one unit to one pipeline is hel
 7  scope globset           a cross-cutting slice is a scope over tracks, never a new root
 8  code review             the only check of the pipeline rule and the scope rule
 
-Supports ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER, ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER and ADR-FLOW-CD-GLOBS-COMPOSESETS, and ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL and ADR-REPO-FOLDERS-CLOSEDROOTSET (governance lens).
+Supports ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER, ADR-DSGN-TRACK-ONETRACKTYPE, ADR-DSGN-TRACK-DEPLOYABLEUNIT, ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER, ADR-FLOW-CD-GLOBS-COMPOSESETS, ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL and ADR-REPO-FOLDERS-CLOSEDROOTSET (governance lens).
 ```
 
 The tracks ADR sets rules at three levels: what a track is, how a deployable-unit is composed, and how a pipeline binds a unit. Cats checks

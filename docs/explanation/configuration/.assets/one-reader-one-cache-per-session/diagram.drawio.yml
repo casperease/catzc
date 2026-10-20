@@ -1,47 +1,112 @@
-description: >-
-  Every config read goes through one reader and one session cache: a hit returns the same object, and only a miss opens the file and parses
-  and types it once.
+description: 'Every config read goes through one reader and one session cache: a hit returns the same object, and only a miss
+  opens the file and parses and types it once.'
 about:
-  lens: meta
   adrs:
-    - ADR-CONF-LOADING-ONEREADER
-    - ADR-CONF-LOADING-CACHEBYPATH
-  tracks: [pwsh]
-  languages: []
-  modules: [Catzc.Base.Config]
-  files:
-    - pwsh/Catzc.Base.Config/Get-Config.ps1
+  - ADR-CONF-LOADING-ONEREADER
+  - ADR-CONF-LOADING-CACHEBYPATH
+  lens: meta
 content:
   title: Every config read goes through one reader and one session cache
   kind: explanation
+  flow: left-to-right
   relation: the read
+  theme: dark
   bands:
-    - { id: band-read, label: READ PATH }
-    - { id: band-miss, label: MISS }
+  - id: band-read
+    label: READ PATH
+  - id: band-miss
+    label: MISS
   glyphs:
-    - { id: g-reader, kind: code, label: one reader, in: band-read }
-    - { id: s-cache, kind: store, label: session cache, in: band-read }
-    - { id: r-same, kind: result, label: same object, in: band-read }
-    - { id: g-file, kind: file, label: config file, in: band-miss }
-    - { id: g-parse, kind: code, label: parse and type once, in: band-miss }
+  - id: g-reader
+    kind: code
+    label: one reader
+    in: band-read
+  - id: s-cache
+    kind: store
+    label: session cache
+    in: band-read
+  - id: r-same
+    kind: result
+    label: same object
+    in: band-read
+  - id: g-file
+    kind: file
+    label: config file
+    in: band-miss
+  - id: g-parse
+    kind: code
+    label: parse and type once
+    in: band-miss
   edges:
-    - { from: g-reader, to: s-cache }
-    - { from: s-cache, to: r-same }
-    - { from: s-cache, to: g-file }
-    - { from: g-file, to: g-parse }
-    - { from: g-parse, to: r-same }
+  - from: g-reader
+    to: s-cache
+    kind: flow
+    label: ''
+  - from: s-cache
+    to: r-same
+    kind: flow
+    label: ''
+  - from: s-cache
+    to: g-file
+    kind: flow
+    label: ''
+  - from: g-file
+    to: g-parse
+    kind: flow
+    label: ''
+  - from: g-parse
+    to: r-same
+    kind: flow
+    label: ''
   markers:
-    - { at: g-reader, number: 1 }
-    - { at: s-cache, number: 2 }
-    - { at: r-same, number: 3 }
-    - { at: g-file, number: 4 }
-    - { at: g-parse, number: 5 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-reader
+    number: 1
+  - at: s-cache
+    number: 2
+  - at: r-same
+    number: 3
+  - at: g-file
+    number: 4
+  - at: g-parse
+    number: 5
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-read: { x: 20, y: 84, w: 1260, h: 120 }
-  band-miss: { x: 440, y: 224, w: 840, h: 120 }
-  g-reader: { x: 40, y: 130, w: 360, h: 44 }
-  s-cache: { x: 560, y: 122, w: 200, h: 60 }
-  r-same: { x: 1060, y: 130, w: 200, h: 44 }
-  g-file: { x: 580, y: 272, w: 160, h: 52 }
-  g-parse: { x: 860, y: 276, w: 400, h: 44 }
+  band-read:
+    x: 20
+    y: 84
+    w: 1260
+    h: 120
+  band-miss:
+    x: 440
+    y: 224
+    w: 840
+    h: 120
+  g-reader:
+    x: 40
+    y: 130
+    w: 360
+    h: 44
+  s-cache:
+    x: 560
+    y: 122
+    w: 200
+    h: 60
+  r-same:
+    x: 1060
+    y: 130
+    w: 200
+    h: 44
+  g-file:
+    x: 580
+    y: 272
+    w: 160
+    h: 52
+  g-parse:
+    x: 860
+    y: 276
+    w: 400
+    h: 44

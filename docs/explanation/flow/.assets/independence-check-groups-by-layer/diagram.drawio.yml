@@ -1,60 +1,152 @@
-description: >-
-  The independence gate groups every declared and derived globset by layer, skips the loose-fileset group, tests each same-layer pair for a
-  shared file, writes a report, and throws once with one line per overlapping pair.
+description: The independence gate groups every declared and derived globset by layer, skips the loose-fileset group, tests
+  each same-layer pair for a shared file, writes a report, and throws once with one line per overlapping pair.
 about:
-  lens: implementation
   adrs:
-    - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-    - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
-  tracks: [pwsh]
-  languages: [powershell, yaml]
-  modules: [Catzc.Base.Globs, Catzc.Base.Reports]
-  files:
-    - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
-    - pwsh/Catzc.Base.Globs/configs/globs.yml
-    - pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
+  - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+  - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+  lens: implementation
 content:
   title: Test-GlobSetIndependence groups every set by layer and tests each same-layer pair
   kind: explanation
+  flow: left-to-right
   relation: in code order
+  theme: dark
   bands:
-    - { id: band-deployable-unit, label: DEPLOYABLE-UNIT }
-    - { id: band-loose-fileset, label: LOOSE-FILESET }
-    - { id: band-module, label: MODULE }
+  - id: band-deployable-unit
+    label: DEPLOYABLE-UNIT
+  - id: band-loose-fileset
+    label: LOOSE-FILESET
+  - id: band-module
+    label: MODULE
   glyphs:
-    - { id: s-deployable-units, kind: set, label: deployable-unit sets, in: band-deployable-unit }
-    - { id: g-overlaps-units, kind: gate, label: Overlaps per pair, in: band-deployable-unit }
-    - { id: s-declared-loose, kind: set, label: declared loose-filesets, in: band-loose-fileset }
-    - { id: s-reserved-names, kind: set, label: ReservedNames umbrellas, in: band-loose-fileset }
-    - { id: g-report, kind: code, label: Write-QualityGateReport, in: band-loose-fileset }
-    - { id: f-throw, kind: failure, label: One throw lists every pair, in: band-loose-fileset }
-    - { id: s-module-layer, kind: set, label: module-layer sets, in: band-module }
-    - { id: g-overlaps-modules, kind: gate, label: Overlaps per pair, in: band-module }
+  - id: s-deployable-units
+    kind: set
+    label: deployable-unit sets
+    in: band-deployable-unit
+  - id: g-overlaps-units
+    kind: gate
+    label: Overlaps per pair
+    in: band-deployable-unit
+  - id: s-declared-loose
+    kind: set
+    label: declared loose-filesets
+    in: band-loose-fileset
+  - id: s-reserved-names
+    kind: set
+    label: ReservedNames umbrellas
+    in: band-loose-fileset
+  - id: g-report
+    kind: code
+    label: Write-QualityGateReport
+    in: band-loose-fileset
+  - id: f-throw
+    kind: failure
+    label: One throw lists every pair
+    in: band-loose-fileset
+  - id: s-module-layer
+    kind: set
+    label: module-layer sets
+    in: band-module
+  - id: g-overlaps-modules
+    kind: gate
+    label: Overlaps per pair
+    in: band-module
   edges:
-    - { from: s-deployable-units, to: g-overlaps-units }
-    - { from: s-module-layer, to: g-overlaps-modules }
-    - { from: g-overlaps-units, to: g-report }
-    - { from: g-overlaps-modules, to: g-report }
-    - { from: g-report, to: f-throw, kind: fail }
+  - from: s-deployable-units
+    to: g-overlaps-units
+    kind: flow
+    label: ''
+  - from: s-module-layer
+    to: g-overlaps-modules
+    kind: flow
+    label: ''
+  - from: g-overlaps-units
+    to: g-report
+    kind: flow
+    label: ''
+  - from: g-overlaps-modules
+    to: g-report
+    kind: flow
+    label: ''
+  - from: g-report
+    to: f-throw
+    kind: fail
+    label: ''
   markers:
-    - { at: s-deployable-units, number: 1 }
-    - { at: s-declared-loose, number: 2 }
-    - { at: s-reserved-names, number: 3 }
-    - { at: s-module-layer, number: 4 }
-    - { at: g-overlaps-units, number: 5 }
-    - { at: g-overlaps-modules, number: 6 }
-    - { at: g-report, number: 7 }
-    - { at: f-throw, number: 8 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: s-deployable-units
+    number: 1
+  - at: s-declared-loose
+    number: 2
+  - at: s-reserved-names
+    number: 3
+  - at: s-module-layer
+    number: 4
+  - at: g-overlaps-units
+    number: 5
+  - at: g-overlaps-modules
+    number: 6
+  - at: g-report
+    number: 7
+  - at: f-throw
+    number: 8
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-deployable-unit: { x: 20, y: 84, w: 1260, h: 120 }
-  band-loose-fileset: { x: 20, y: 254, w: 1260, h: 120 }
-  band-module: { x: 20, y: 424, w: 1260, h: 120 }
-  s-deployable-units: { x: 140, y: 120, w: 300, h: 56 }
-  g-overlaps-units: { x: 760, y: 104, w: 200, h: 88 }
-  s-declared-loose: { x: 140, y: 290, w: 300, h: 56 }
-  s-reserved-names: { x: 480, y: 290, w: 230, h: 56 }
-  g-report: { x: 760, y: 290, w: 200, h: 56 }
-  f-throw: { x: 1010, y: 296, w: 230, h: 44 }
-  s-module-layer: { x: 140, y: 460, w: 440, h: 56 }
-  g-overlaps-modules: { x: 760, y: 444, w: 200, h: 88 }
+  band-deployable-unit:
+    x: 20
+    y: 84
+    w: 1260
+    h: 120
+  band-loose-fileset:
+    x: 20
+    y: 254
+    w: 1260
+    h: 120
+  band-module:
+    x: 20
+    y: 424
+    w: 1260
+    h: 120
+  s-deployable-units:
+    x: 140
+    y: 120
+    w: 300
+    h: 56
+  g-overlaps-units:
+    x: 760
+    y: 104
+    w: 200
+    h: 88
+  s-declared-loose:
+    x: 140
+    y: 290
+    w: 300
+    h: 56
+  s-reserved-names:
+    x: 480
+    y: 290
+    w: 230
+    h: 56
+  g-report:
+    x: 760
+    y: 290
+    w: 200
+    h: 56
+  f-throw:
+    x: 1010
+    y: 296
+    w: 230
+    h: 44
+  s-module-layer:
+    x: 140
+    y: 460
+    w: 440
+    h: 56
+  g-overlaps-modules:
+    x: 760
+    y: 444
+    w: 200
+    h: 88

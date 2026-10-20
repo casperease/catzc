@@ -1,60 +1,160 @@
-description: >-
-  A pull request starts a build that skips every deploy stage and a hand-started release builds a package, while only completing the pull
-  request into main starts the run that deploys; a topic deploy has no pipeline behind it.
+description: A pull request starts a build that skips every deploy stage and a hand-started release builds a package, while
+  only completing the pull request into main starts the run that deploys; a topic deploy has no pipeline behind it.
 about:
-  lens: operations
   adrs:
-    - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-  tracks: [ado-pipelines, github-workflows]
-  languages: [pipeline-yaml]
-  files:
-    - .ado/pipelines/cd-shared.yaml
-    - .ado/pipelines/ci-pwsh.yaml
-    - .github/workflows/release-automation.yml
+  - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+  lens: operations
 content:
   title: Merging to main is what deploys; there is no run that deploys a topic
   kind: explanation
+  flow: left-to-right
   relation: starts a run
+  theme: dark
   bands:
-    - { id: band-topic, label: TOPIC }
-    - { id: band-out-of-band, label: OUT-OF-BAND }
-    - { id: band-main, label: MAIN }
-    - { id: band-after, label: AFTER LANDING }
+  - id: band-topic
+    label: TOPIC
+  - id: band-out-of-band
+    label: OUT-OF-BAND
+  - id: band-main
+    label: MAIN
+  - id: band-after
+    label: AFTER LANDING
   spans:
-    - { id: span-ci, label: CI, over: band-out-of-band }
-    - { id: span-cd, label: CD, over: band-after }
+  - id: span-ci
+    label: CI
+    over:
+    - band-out-of-band
+  - id: span-cd
+    label: CD
+    over:
+    - band-after
   glyphs:
-    - { id: g-push, kind: commit, label: "push topic, open PR", in: band-topic, state: topic }
-    - { id: g-pr-build, kind: runner, label: ADO PR build, in: band-out-of-band }
-    - { id: g-release, kind: runner, label: "Release: Run workflow", in: band-out-of-band }
-    - { id: g-deploy-topic, kind: adronly, label: deploy topic, in: band-out-of-band }
-    - { id: g-complete, kind: commit, label: complete PR, in: band-main, state: landed }
-    - { id: g-cd-run, kind: runner, label: ADO CD run, in: band-after }
-    - { id: g-environment, kind: env, label: "<Customer>-<env>[-<slot>]", in: band-after }
+  - id: g-push
+    kind: commit
+    label: push topic, open PR
+    in: band-topic
+    state: topic
+  - id: g-pr-build
+    kind: runner
+    label: ADO PR build
+    in: band-out-of-band
+  - id: g-release
+    kind: runner
+    label: 'Release: Run workflow'
+    in: band-out-of-band
+  - id: g-deploy-topic
+    kind: adronly
+    label: deploy topic
+    in: band-out-of-band
+  - id: g-complete
+    kind: commit
+    label: complete PR
+    in: band-main
+    state: landed
+  - id: g-cd-run
+    kind: runner
+    label: ADO CD run
+    in: band-after
+  - id: g-environment
+    kind: env
+    label: <Customer>-<env>[-<slot>]
+    in: band-after
   edges:
-    - { from: g-push, to: g-pr-build }
-    - { from: g-push, to: g-release }
-    - { from: g-push, to: g-deploy-topic, kind: adr }
-    - { from: g-push, to: g-complete }
-    - { from: g-complete, to: g-cd-run }
-    - { from: g-cd-run, to: g-environment }
+  - from: g-push
+    to: g-pr-build
+    kind: flow
+    label: ''
+  - from: g-push
+    to: g-release
+    kind: flow
+    label: ''
+  - from: g-push
+    to: g-deploy-topic
+    kind: adr
+    label: ''
+  - from: g-push
+    to: g-complete
+    kind: flow
+    label: ''
+  - from: g-complete
+    to: g-cd-run
+    kind: flow
+    label: ''
+  - from: g-cd-run
+    to: g-environment
+    kind: flow
+    label: ''
   markers:
-    - { at: g-push, number: 1 }
-    - { at: g-pr-build, number: 2 }
-    - { at: g-release, number: 3 }
-    - { at: g-deploy-topic, number: 4 }
-    - { at: g-complete, number: 5 }
-    - { at: g-cd-run, number: 6 }
-  minimaps: [code-locations, grid, axis]
+  - at: g-push
+    number: 1
+  - at: g-pr-build
+    number: 2
+  - at: g-release
+    number: 3
+  - at: g-deploy-topic
+    number: 4
+  - at: g-complete
+    number: 5
+  - at: g-cd-run
+    number: 6
+  legend: auto
+  minimaps:
+  - code-locations
+  - grid
+  - axis
 layout:
-  band-topic: { x: 20, y: 108, w: 190, h: 380 }
-  band-out-of-band: { x: 230, y: 108, w: 420, h: 380 }
-  band-main: { x: 670, y: 108, w: 200, h: 380 }
-  band-after: { x: 890, y: 108, w: 390, h: 380 }
-  g-push: { x: 36, y: 330, w: 158, h: 48 }
-  g-pr-build: { x: 340, y: 200, w: 240, h: 44 }
-  g-release: { x: 380, y: 270, w: 240, h: 44 }
-  g-deploy-topic: { x: 260, y: 430, w: 200, h: 44 }
-  g-complete: { x: 690, y: 330, w: 160, h: 48 }
-  g-cd-run: { x: 910, y: 332, w: 140, h: 44 }
-  g-environment: { x: 1080, y: 320, w: 180, h: 68 }
+  band-topic:
+    x: 20
+    y: 108
+    w: 190
+    h: 380
+  band-out-of-band:
+    x: 230
+    y: 108
+    w: 420
+    h: 380
+  band-main:
+    x: 670
+    y: 108
+    w: 200
+    h: 380
+  band-after:
+    x: 890
+    y: 108
+    w: 390
+    h: 380
+  g-push:
+    x: 36
+    y: 330
+    w: 158
+    h: 48
+  g-pr-build:
+    x: 340
+    y: 200
+    w: 240
+    h: 44
+  g-release:
+    x: 380
+    y: 270
+    w: 240
+    h: 44
+  g-deploy-topic:
+    x: 260
+    y: 430
+    w: 200
+    h: 44
+  g-complete:
+    x: 690
+    y: 330
+    w: 160
+    h: 48
+  g-cd-run:
+    x: 910
+    y: 332
+    w: 140
+    h: 44
+  g-environment:
+    x: 1080
+    y: 320
+    w: 180
+    h: 68

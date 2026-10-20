@@ -1,61 +1,152 @@
-description: >-
-  The aspect conventions are declared in one variants file and read by two modules: the globs engine compiles only the pwsh convention into
-  a live and a tests globset per module, while the maps module reads every track's convention to classify files and derives no globset.
+description: 'The aspect conventions are declared in one variants file and read by two modules: the globs engine compiles
+  only the pwsh convention into a live and a tests globset per module, while the maps module reads every track''s convention
+  to classify files and derives no globset.'
 about:
-  lens: architecture
   adrs:
-    - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-    - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
-    - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-  tracks: [pwsh, infrastructure]
-  languages: [powershell, yaml, csharp]
-  modules: [Catzc.Base.Variants, Catzc.Base.Globs, Catzc.Base.Maps]
-  files:
-    - pwsh/Catzc.Base.Variants/configs/variants.yml
-    - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-    - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
+  - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+  - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+  - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
+  lens: architecture
 content:
   title: Both tracks' conventions are read, but only the pwsh track's compiles into globsets
   kind: explanation
+  flow: left-to-right
   relation: feeds
+  theme: dark
   bands:
-    - { id: band-declared, label: DECLARED }
-    - { id: band-pwsh, label: PWSH }
-    - { id: band-infrastructure, label: INFRASTRUCTURE }
+  - id: band-declared
+    label: DECLARED
+  - id: band-pwsh
+    label: PWSH
+  - id: band-infrastructure
+    label: INFRASTRUCTURE
   groups:
-    - { id: grp-globsets, label: two globsets per module, in: band-pwsh }
+  - id: grp-globsets
+    label: two globsets per module
+    in: band-pwsh
   glyphs:
-    - { id: g-variants-yml, kind: file, label: variants.yml, in: band-declared }
-    - { id: g-variants, kind: code, label: Catzc.Base.Variants, in: band-declared }
-    - { id: g-globs, kind: code, label: Catzc.Base.Globs, in: band-pwsh }
-    - { id: g-live, kind: set, label: "<module>-live", in: grp-globsets }
-    - { id: g-tests, kind: set, label: "<module>-tests", in: grp-globsets }
-    - { id: g-maps, kind: code, label: Catzc.Base.Maps, in: band-infrastructure }
-    - { id: r-world-map, kind: result, label: world map, in: band-infrastructure }
+  - id: g-variants-yml
+    kind: file
+    label: variants.yml
+    in: band-declared
+  - id: g-variants
+    kind: code
+    label: Catzc.Base.Variants
+    in: band-declared
+  - id: g-globs
+    kind: code
+    label: Catzc.Base.Globs
+    in: band-pwsh
+  - id: g-live
+    kind: set
+    label: <module>-live
+    in: grp-globsets
+  - id: g-tests
+    kind: set
+    label: <module>-tests
+    in: grp-globsets
+  - id: g-maps
+    kind: code
+    label: Catzc.Base.Maps
+    in: band-infrastructure
+  - id: r-world-map
+    kind: result
+    label: world map
+    in: band-infrastructure
   edges:
-    - { from: g-variants-yml, to: g-variants }
-    - { from: g-variants, to: g-globs }
-    - { from: g-variants, to: g-maps }
-    - { from: g-globs, to: grp-globsets, kind: thick }
-    - { from: g-maps, to: r-world-map }
+  - from: g-variants-yml
+    to: g-variants
+    kind: flow
+    label: ''
+  - from: g-variants
+    to: g-globs
+    kind: flow
+    label: ''
+  - from: g-variants
+    to: g-maps
+    kind: flow
+    label: ''
+  - from: g-globs
+    to: grp-globsets
+    kind: thick
+    label: ''
+  - from: g-maps
+    to: r-world-map
+    kind: flow
+    label: ''
   markers:
-    - { at: g-variants-yml, number: 1 }
-    - { at: g-variants, number: 2 }
-    - { at: g-globs, number: 3 }
-    - { at: g-live, number: 4 }
-    - { at: g-tests, number: 5 }
-    - { at: g-maps, number: 6 }
-    - { at: r-world-map, number: 7 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-variants-yml
+    number: 1
+  - at: g-variants
+    number: 2
+  - at: g-globs
+    number: 3
+  - at: g-live
+    number: 4
+  - at: g-tests
+    number: 5
+  - at: g-maps
+    number: 6
+  - at: r-world-map
+    number: 7
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-declared: { x: 20, y: 84, w: 1260, h: 140 }
-  band-pwsh: { x: 20, y: 244, w: 620, h: 270 }
-  band-infrastructure: { x: 660, y: 244, w: 620, h: 270 }
-  g-variants-yml: { x: 540, y: 108, w: 200, h: 44 }
-  g-variants: { x: 490, y: 170, w: 300, h: 44 }
-  g-globs: { x: 190, y: 290, w: 260, h: 44 }
-  grp-globsets: { x: 60, y: 370, w: 540, h: 120 }
-  g-live: { x: 90, y: 424, w: 220, h: 44 }
-  g-tests: { x: 350, y: 424, w: 220, h: 44 }
-  g-maps: { x: 840, y: 290, w: 260, h: 44 }
-  r-world-map: { x: 840, y: 424, w: 260, h: 44 }
+  band-declared:
+    x: 20
+    y: 84
+    w: 1260
+    h: 140
+  band-pwsh:
+    x: 20
+    y: 244
+    w: 620
+    h: 270
+  band-infrastructure:
+    x: 660
+    y: 244
+    w: 620
+    h: 270
+  g-variants-yml:
+    x: 540
+    y: 108
+    w: 200
+    h: 44
+  g-variants:
+    x: 490
+    y: 170
+    w: 300
+    h: 44
+  g-globs:
+    x: 190
+    y: 290
+    w: 260
+    h: 44
+  grp-globsets:
+    x: 60
+    y: 370
+    w: 540
+    h: 120
+  g-live:
+    x: 90
+    y: 424
+    w: 220
+    h: 44
+  g-tests:
+    x: 350
+    y: 424
+    w: 220
+    h: 44
+  g-maps:
+    x: 840
+    y: 290
+    w: 260
+    h: 44
+  r-world-map:
+    x: 840
+    y: 424
+    w: 260
+    h: 44

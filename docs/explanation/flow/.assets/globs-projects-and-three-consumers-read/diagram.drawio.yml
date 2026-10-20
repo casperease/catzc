@@ -1,65 +1,160 @@
-description: >-
-  The globs module projects the flattened scan program into a GitHub list and an Azure DevOps include and exclude pair; the branch policy
-  reads the GitHub list in code, while workflows and pipelines declare the lists by hand, drawn dashed.
+description: The globs module projects the flattened scan program into a GitHub list and an Azure DevOps include and exclude
+  pair; the branch policy reads the GitHub list in code, while workflows and pipelines declare the lists by hand, drawn dashed.
 about:
-  lens: architecture
   adrs:
-    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-    - ADR-FLOW-CD-GLOBS-COMPOSESETS
-  tracks: [pwsh, ado-pipelines, github-workflows]
-  languages: [powershell, csharp, yaml, pipeline-yaml]
-  modules: [Catzc.Base.Globs, Catzc.Azure.DevOps.BuildValidation]
-  files:
-    - pwsh/Catzc.Base.Globs/configs/globs.yml
-    - pwsh/Catzc.Base.Globs/types/GlobSet.cs
-    - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
-    - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-    - .github/workflows/ci-pwsh.yml
-    - .ado/pipelines/cd-apex.yaml
+  - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+  - ADR-FLOW-CD-GLOBS-COMPOSESETS
+  lens: architecture
 content:
   title: Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it
   kind: explanation
+  flow: left-to-right
   relation: feeds
+  theme: dark
   bands:
-    - { id: band-compose, label: COMPOSE }
-    - { id: band-projection, label: PROJECTION }
-    - { id: band-trigger, label: TRIGGER }
+  - id: band-compose
+    label: COMPOSE
+  - id: band-projection
+    label: PROJECTION
+  - id: band-trigger
+    label: TRIGGER
   glyphs:
-    - { id: f-globs, kind: file, label: globs.yml, in: band-compose }
-    - { id: g-globset, kind: code, label: GlobSet, in: band-compose }
-    - { id: g-trigger, kind: code, label: Get-GlobSetTrigger, in: band-projection }
-    - { id: r-github, kind: result, label: ordered GitHub paths, in: band-projection }
-    - { id: r-ado, kind: result, label: ADO include and exclude, in: band-projection }
-    - { id: g-path-filter, kind: code, label: Get-BuildValidationPathFilter, in: band-trigger }
-    - { id: f-workflows, kind: file, label: ".github/workflows/*.yml", in: band-trigger }
-    - { id: f-pipelines, kind: file, label: ".ado/pipelines/*.yaml", in: band-trigger }
+  - id: f-globs
+    kind: file
+    label: globs.yml
+    in: band-compose
+  - id: g-globset
+    kind: code
+    label: GlobSet
+    in: band-compose
+  - id: g-trigger
+    kind: code
+    label: Get-GlobSetTrigger
+    in: band-projection
+  - id: r-github
+    kind: result
+    label: ordered GitHub paths
+    in: band-projection
+  - id: r-ado
+    kind: result
+    label: ADO include and exclude
+    in: band-projection
+  - id: g-path-filter
+    kind: code
+    label: Get-BuildValidationPathFilter
+    in: band-trigger
+  - id: f-workflows
+    kind: file
+    label: .github/workflows/*.yml
+    in: band-trigger
+  - id: f-pipelines
+    kind: file
+    label: .ado/pipelines/*.yaml
+    in: band-trigger
   edges:
-    - { from: f-globs, to: g-globset }
-    - { from: g-globset, to: g-trigger }
-    - { from: g-trigger, to: r-github }
-    - { from: g-trigger, to: r-ado }
-    - { from: r-github, to: g-path-filter }
-    - { from: r-github, to: f-workflows, kind: adr }
-    - { from: r-ado, to: f-pipelines, kind: adr }
+  - from: f-globs
+    to: g-globset
+    kind: flow
+    label: ''
+  - from: g-globset
+    to: g-trigger
+    kind: flow
+    label: ''
+  - from: g-trigger
+    to: r-github
+    kind: flow
+    label: ''
+  - from: g-trigger
+    to: r-ado
+    kind: flow
+    label: ''
+  - from: r-github
+    to: g-path-filter
+    kind: flow
+    label: ''
+  - from: r-github
+    to: f-workflows
+    kind: adr
+    label: ''
+  - from: r-ado
+    to: f-pipelines
+    kind: adr
+    label: ''
   markers:
-    - { at: f-globs, number: 1 }
-    - { at: g-globset, number: 2 }
-    - { at: g-trigger, number: 3 }
-    - { at: r-github, number: 4 }
-    - { at: r-ado, number: 5 }
-    - { at: g-path-filter, number: 6 }
-    - { at: f-workflows, number: 7 }
-    - { at: f-pipelines, number: 8 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: f-globs
+    number: 1
+  - at: g-globset
+    number: 2
+  - at: g-trigger
+    number: 3
+  - at: r-github
+    number: 4
+  - at: r-ado
+    number: 5
+  - at: g-path-filter
+    number: 6
+  - at: f-workflows
+    number: 7
+  - at: f-pipelines
+    number: 8
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-compose: { x: 20, y: 84, w: 1260, h: 120 }
-  band-projection: { x: 20, y: 224, w: 1260, h: 130 }
-  band-trigger: { x: 20, y: 374, w: 1260, h: 130 }
-  f-globs: { x: 440, y: 118, w: 140, h: 56 }
-  g-globset: { x: 720, y: 122, w: 200, h: 48 }
-  g-trigger: { x: 720, y: 262, w: 200, h: 48 }
-  r-github: { x: 440, y: 262, w: 200, h: 44 }
-  r-ado: { x: 1000, y: 262, w: 200, h: 44 }
-  g-path-filter: { x: 60, y: 412, w: 320, h: 48 }
-  f-workflows: { x: 440, y: 408, w: 220, h: 56 }
-  f-pipelines: { x: 1000, y: 408, w: 220, h: 56 }
+  band-compose:
+    x: 20
+    y: 84
+    w: 1260
+    h: 120
+  band-projection:
+    x: 20
+    y: 224
+    w: 1260
+    h: 130
+  band-trigger:
+    x: 20
+    y: 374
+    w: 1260
+    h: 130
+  f-globs:
+    x: 440
+    y: 118
+    w: 140
+    h: 56
+  g-globset:
+    x: 720
+    y: 122
+    w: 200
+    h: 48
+  g-trigger:
+    x: 720
+    y: 262
+    w: 200
+    h: 48
+  r-github:
+    x: 440
+    y: 262
+    w: 200
+    h: 44
+  r-ado:
+    x: 1000
+    y: 262
+    w: 200
+    h: 44
+  g-path-filter:
+    x: 60
+    y: 412
+    w: 320
+    h: 48
+  f-workflows:
+    x: 440
+    y: 408
+    w: 220
+    h: 56
+  f-pipelines:
+    x: 1000
+    y: 408
+    w: 220
+    h: 56

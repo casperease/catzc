@@ -1,68 +1,172 @@
-description: >-
-  Only ingress is checked by gates, a local guard and a server branch policy; the rules that the server main is the truth and that consumers
-  integrate from the verified point rest on code review alone.
+description: Only ingress is checked by gates, a local guard and a server branch policy; the rules that the server main is
+  the truth and that consumers integrate from the verified point rest on code review alone.
 about:
-  lens: governance
   adrs:
-    - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-    - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-    - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-    - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-    - ADR-REPO-VARIANT-GITWORKSPACE
-    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-  tracks: [pwsh]
-  languages: [powershell]
-  modules: [Catzc.Base.ModuleSystem]
-  files:
-    - pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
+  - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+  - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+  - ADR-DSGN-REMOTE-NORECONCILINGTIPS
+  - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+  - ADR-REPO-VARIANT-GITWORKSPACE
+  - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+  lens: governance
 content:
   title: Only ingress is checked by gates; the source-of-truth and integration rules rest on code review
   kind: explanation
   flow: top-to-bottom
   relation: a commit moves to
+  theme: dark
   bands:
-    - { id: band-clone, label: LOCAL CLONE }
-    - { id: band-remote, label: SERVER REMOTE }
-    - { id: band-out, label: OUT }
+  - id: band-clone
+    label: LOCAL CLONE
+  - id: band-remote
+    label: SERVER REMOTE
+  - id: band-out
+    label: OUT
   glyphs:
-    - { id: s-clone, kind: store, label: local clone, in: band-clone }
-    - { id: g-guard, kind: gate, label: local guard, in: band-clone }
-    - { id: f-skipped, kind: failure, label: Skipped on main, in: band-clone }
-    - { id: g-policy, kind: gate, label: branch policy, in: band-remote }
-    - { id: s-main, kind: store, label: server main, in: band-remote }
-    - { id: g-review, kind: gate, label: code review, in: band-out }
-    - { id: s-consumers, kind: store, label: consumer clones, in: band-out }
+  - id: s-clone
+    kind: store
+    label: local clone
+    in: band-clone
+  - id: g-guard
+    kind: gate
+    label: local guard
+    in: band-clone
+  - id: f-skipped
+    kind: failure
+    label: Skipped on main
+    in: band-clone
+  - id: g-policy
+    kind: gate
+    label: branch policy
+    in: band-remote
+  - id: s-main
+    kind: store
+    label: server main
+    in: band-remote
+  - id: g-review
+    kind: gate
+    label: code review
+    in: band-out
+  - id: s-consumers
+    kind: store
+    label: consumer clones
+    in: band-out
   edges:
-    - { from: s-clone, to: g-guard }
-    - { from: g-guard, to: f-skipped, kind: fail }
-    - { from: g-guard, to: g-policy, kind: adr }
-    - { from: g-policy, to: s-main }
-    - { from: s-main, to: g-review, kind: adr }
-    - { from: g-review, to: s-consumers, kind: adr }
+  - from: s-clone
+    to: g-guard
+    kind: flow
+    label: ''
+  - from: g-guard
+    to: f-skipped
+    kind: fail
+    label: ''
+  - from: g-guard
+    to: g-policy
+    kind: adr
+    label: ''
+  - from: g-policy
+    to: s-main
+    kind: flow
+    label: ''
+  - from: s-main
+    to: g-review
+    kind: adr
+    label: ''
+  - from: g-review
+    to: s-consumers
+    kind: adr
+    label: ''
   markers:
-    - { at: s-clone, number: 1 }
-    - { at: g-guard, number: 2 }
-    - { at: f-skipped, number: 3 }
-    - { at: g-policy, number: 4 }
-    - { at: s-main, number: 5 }
-    - { at: g-review, number: 6 }
-    - { at: s-consumers, number: 7 }
+  - at: s-clone
+    number: 1
+  - at: g-guard
+    number: 2
+  - at: f-skipped
+    number: 3
+  - at: g-policy
+    number: 4
+  - at: s-main
+    number: 5
+  - at: g-review
+    number: 6
+  - at: s-consumers
+    number: 7
   chips:
-    - { at: g-guard, kind: rule, rule: ADR-REPO-VARIANT-GITWORKSPACE }
-    - { at: g-policy, kind: rule, rule: ADR-DSGN-REMOTE-PULLREQUESTISINGRESS }
-    - { at: band-remote, kind: rule, rule: ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH, gated: false }
-    - { at: g-review, kind: rule, rule: ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED, gated: false }
-    - { at: g-review, kind: rule, rule: ADR-DSGN-REMOTE-NORECONCILINGTIPS, gated: false }
-    - { at: g-review, kind: rule, rule: ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-guard
+    kind: rule
+    rule: ADR-REPO-VARIANT-GITWORKSPACE
+  - at: g-policy
+    kind: rule
+    rule: ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+  - at: band-remote
+    kind: rule
+    rule: ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+    gated: false
+  - at: g-review
+    kind: rule
+    rule: ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+    gated: false
+  - at: g-review
+    kind: rule
+    rule: ADR-DSGN-REMOTE-NORECONCILINGTIPS
+    gated: false
+  - at: g-review
+    kind: rule
+    rule: ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    gated: false
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-clone: { x: 20, y: 84, w: 1260, h: 140 }
-  band-remote: { x: 20, y: 244, w: 1260, h: 140 }
-  band-out: { x: 20, y: 404, w: 1260, h: 140 }
-  s-clone: { x: 160, y: 130, w: 140, h: 64 }
-  g-guard: { x: 420, y: 120, w: 160, h: 72 }
-  f-skipped: { x: 720, y: 134, w: 170, h: 44 }
-  g-policy: { x: 420, y: 280, w: 160, h: 72 }
-  s-main: { x: 800, y: 276, w: 150, h: 64 }
-  g-review: { x: 800, y: 440, w: 160, h: 72 }
-  s-consumers: { x: 1080, y: 446, w: 150, h: 64 }
+  band-clone:
+    x: 20
+    y: 84
+    w: 1260
+    h: 140
+  band-remote:
+    x: 20
+    y: 244
+    w: 1260
+    h: 140
+  band-out:
+    x: 20
+    y: 404
+    w: 1260
+    h: 140
+  s-clone:
+    x: 160
+    y: 130
+    w: 140
+    h: 64
+  g-guard:
+    x: 420
+    y: 120
+    w: 160
+    h: 72
+  f-skipped:
+    x: 720
+    y: 134
+    w: 170
+    h: 44
+  g-policy:
+    x: 420
+    y: 280
+    w: 160
+    h: 72
+  s-main:
+    x: 800
+    y: 276
+    w: 150
+    h: 64
+  g-review:
+    x: 800
+    y: 440
+    w: 160
+    h: 72
+  s-consumers:
+    x: 1080
+    y: 446
+    w: 150
+    h: 64

@@ -13,19 +13,17 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Azure.Cli/tests/assets/config/azure.yml'; Class = 'fixture/input' }
         @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Azure.Cli/tests/data/sample.yml'; Class = 'fixture' }
         @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Globs/configs/file-kinds.yml'; Class = 'config' }
-        @{ Path = 'python/Catzc.Diagrams/contact_sheet.py'; Class = 'drawio-kit' }
+        @{ Path = 'python/Catzc.Diagrams/drawio_png.py'; Class = 'drawio-kit' }
         @{ Path = 'python/Catzc.Diagrams/assets/STYLE.md'; Class = 'drawio-kit' }
         @{ Path = 'python/Catzc.Diagrams/assets/slides/patterns/rule.html'; Class = 'slides-kit' }
         @{ Path = 'python/Catzc.Diagrams/assets/slides/slides.yml'; Class = 'slides-kit' }
         @{ Path = 'tools/export.py'; Class = 'script' }
         @{ Path = 'docs/explanation/design/.assets/gadget-spins/diagram.drawio.png'; Class = 'diagram' }
-        @{ Path = 'docs/explanation/design/.assets/gadget-spins/grid.md'; Class = 'asset-description' }
-        @{ Path = 'docs/explanation/design/.assets/gadget-spins/diagram.drawio.md'; Class = 'asset-description' }
+        @{ Path = 'docs/explanation/design/.assets/gadget-spins/diagram.drawio.verify.md'; Class = 'asset-description' }
         @{ Path = 'docs/explanation/design/gadget-spins.md'; Class = 'explanation' }
         @{ Path = 'docs/explanation/design/widget-deck/gadget-spins.slide.md'; Class = 'slide' }
         @{ Path = 'docs/references/pwsh/.assets/catzc-widget/diagram.drawio.png'; Class = 'diagram' }
         @{ Path = 'docs/references/pwsh/.assets/catzc-widget/diagram.drawio.verify.md'; Class = 'asset-description' }
-        @{ Path = 'docs/references/pwsh/.assets/catzc-widget/diagram.drawio.md'; Class = 'asset-description' }
         @{ Path = 'docs/references/pwsh/catzc-widget.md'; Class = 'reference' }
         @{ Path = 'docs/adr/index.md'; Class = 'index' }
         @{ Path = 'docs/adr/glossary.md'; Class = 'glossary' }

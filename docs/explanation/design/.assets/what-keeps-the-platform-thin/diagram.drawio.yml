@@ -1,77 +1,199 @@
-description: >-
-  Which rules that keep the platform thin have a gate: the function naming rule, the configuration check and the az version pin do, while no
-  reimplementation, everything as code and the swappable substrate are held by review alone.
+description: 'Which rules that keep the platform thin have a gate: the function naming rule, the configuration check and the
+  az version pin do, while no reimplementation, everything as code and the swappable substrate are held by review alone.'
 about:
-  lens: governance
   adrs:
-    - ADR-DSGN-THINPLAT-THINPLATFORM
-    - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-    - ADR-DSGN-THINPLAT-PLATFORMASCLI
-    - ADR-DSGN-THINPLAT-REPRESENTEDASCODE
-    - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-    - ADR-AZ-CLI-AZBYDEFAULT
-    - ADR-AZ-CLI-ASSERTAZ
-    - ADR-AZ-CLI-NOAZMODULEIMPORT
-  tracks: [pwsh]
-  languages: [powershell]
-  modules: [Catzc.Azure.Cli]
-  files:
-    - pwsh/Catzc.Azure.Cli/Invoke-AzCli.ps1
-    - pwsh/Catzc.Azure.Cli/Connect-AzCli.ps1
+  - ADR-DSGN-THINPLAT-THINPLATFORM
+  - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+  - ADR-DSGN-THINPLAT-PLATFORMASCLI
+  - ADR-DSGN-THINPLAT-REPRESENTEDASCODE
+  - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+  - ADR-AZ-CLI-AZBYDEFAULT
+  - ADR-AZ-CLI-ASSERTAZ
+  - ADR-AZ-CLI-NOAZMODULEIMPORT
+  lens: governance
 content:
   title: Three gates guard the CLI and az, but nothing checks that cats stays thin
   kind: explanation
+  flow: left-to-right
   relation: guards
+  theme: dark
   bands:
-    - { id: band-surface, label: CLI SURFACE }
-    - { id: band-catzc, label: CATZC }
-    - { id: band-delegated, label: DELEGATED }
-    - { id: band-substrate, label: VENDOR SUBSTRATE }
+  - id: band-surface
+    label: CLI SURFACE
+  - id: band-catzc
+    label: CATZC
+  - id: band-delegated
+    label: DELEGATED
+  - id: band-substrate
+    label: VENDOR SUBSTRATE
   glyphs:
-    - { id: g-naming, kind: gate, label: NoAzModuleNaming, in: band-surface }
-    - { id: g-functions, kind: code, label: Verb-Noun functions, in: band-surface }
-    - { id: g-config, kind: gate, label: config validation, in: band-surface }
-    - { id: g-everything-code, kind: adronly, label: everything is code, in: band-catzc }
-    - { id: g-assert-tool, kind: gate, label: "Assert-Tool 'az_cli'", in: band-catzc }
-    - { id: g-no-reimplementation, kind: adronly, label: no reimplementation, in: band-delegated }
-    - { id: g-az-cli, kind: external, label: az CLI, in: band-delegated }
-    - { id: g-substrate, kind: adronly, label: swappable substrate, in: band-substrate }
+  - id: g-naming
+    kind: gate
+    label: NoAzModuleNaming
+    in: band-surface
+  - id: g-functions
+    kind: code
+    label: Verb-Noun functions
+    in: band-surface
+  - id: g-config
+    kind: gate
+    label: config validation
+    in: band-surface
+  - id: g-everything-code
+    kind: adronly
+    label: everything is code
+    in: band-catzc
+  - id: g-assert-tool
+    kind: gate
+    label: Assert-Tool 'az_cli'
+    in: band-catzc
+  - id: g-no-reimplementation
+    kind: adronly
+    label: no reimplementation
+    in: band-delegated
+  - id: g-az-cli
+    kind: external
+    label: az CLI
+    in: band-delegated
+  - id: g-substrate
+    kind: adronly
+    label: swappable substrate
+    in: band-substrate
   edges:
-    - { from: g-naming, to: g-functions }
-    - { from: g-config, to: g-functions }
-    - { from: g-everything-code, to: g-functions, kind: adr }
-    - { from: g-assert-tool, to: g-az-cli }
-    - { from: g-no-reimplementation, to: g-az-cli, kind: adr }
-    - { from: g-substrate, to: g-az-cli, kind: adr }
+  - from: g-naming
+    to: g-functions
+    kind: flow
+    label: ''
+  - from: g-config
+    to: g-functions
+    kind: flow
+    label: ''
+  - from: g-everything-code
+    to: g-functions
+    kind: adr
+    label: ''
+  - from: g-assert-tool
+    to: g-az-cli
+    kind: flow
+    label: ''
+  - from: g-no-reimplementation
+    to: g-az-cli
+    kind: adr
+    label: ''
+  - from: g-substrate
+    to: g-az-cli
+    kind: adr
+    label: ''
   markers:
-    - { at: g-naming, number: 1 }
-    - { at: g-functions, number: 2 }
-    - { at: g-config, number: 3 }
-    - { at: g-everything-code, number: 4 }
-    - { at: g-assert-tool, number: 5 }
-    - { at: g-no-reimplementation, number: 6 }
-    - { at: g-az-cli, number: 7 }
-    - { at: g-substrate, number: 8 }
+  - at: g-naming
+    number: 1
+  - at: g-functions
+    number: 2
+  - at: g-config
+    number: 3
+  - at: g-everything-code
+    number: 4
+  - at: g-assert-tool
+    number: 5
+  - at: g-no-reimplementation
+    number: 6
+  - at: g-az-cli
+    number: 7
+  - at: g-substrate
+    number: 8
   chips:
-    - { at: g-naming, kind: rule, rule: ADR-AZ-CLI-NOAZMODULEIMPORT }
-    - { at: g-functions, kind: rule, rule: ADR-DSGN-THINPLAT-PLATFORMASCLI, gated: false }
-    - { at: g-config, kind: rule, rule: ADR-DSGN-THINPLAT-THINPLATFORM }
-    - { at: g-everything-code, kind: rule, rule: ADR-DSGN-THINPLAT-REPRESENTEDASCODE, gated: false }
-    - { at: g-assert-tool, kind: rule, rule: ADR-AZ-CLI-ASSERTAZ }
-    - { at: g-no-reimplementation, kind: rule, rule: ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT, gated: false }
-    - { at: g-az-cli, kind: rule, rule: ADR-AZ-CLI-AZBYDEFAULT, gated: false }
-    - { at: g-substrate, kind: rule, rule: ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE, gated: false }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-naming
+    kind: rule
+    rule: ADR-AZ-CLI-NOAZMODULEIMPORT
+  - at: g-functions
+    kind: rule
+    rule: ADR-DSGN-THINPLAT-PLATFORMASCLI
+    gated: false
+  - at: g-config
+    kind: rule
+    rule: ADR-DSGN-THINPLAT-THINPLATFORM
+  - at: g-everything-code
+    kind: rule
+    rule: ADR-DSGN-THINPLAT-REPRESENTEDASCODE
+    gated: false
+  - at: g-assert-tool
+    kind: rule
+    rule: ADR-AZ-CLI-ASSERTAZ
+  - at: g-no-reimplementation
+    kind: rule
+    rule: ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+    gated: false
+  - at: g-az-cli
+    kind: rule
+    rule: ADR-AZ-CLI-AZBYDEFAULT
+    gated: false
+  - at: g-substrate
+    kind: rule
+    rule: ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+    gated: false
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-surface: { x: 20, y: 104, w: 1260, h: 130 }
-  band-catzc: { x: 20, y: 254, w: 1260, h: 130 }
-  band-delegated: { x: 20, y: 404, w: 1260, h: 130 }
-  band-substrate: { x: 20, y: 554, w: 1260, h: 130 }
-  g-naming: { x: 140, y: 140, w: 220, h: 84 }
-  g-functions: { x: 440, y: 168, w: 400, h: 44 }
-  g-config: { x: 920, y: 140, w: 220, h: 84 }
-  g-everything-code: { x: 410, y: 300, w: 220, h: 52 }
-  g-assert-tool: { x: 680, y: 280, w: 240, h: 90 }
-  g-no-reimplementation: { x: 140, y: 450, w: 220, h: 52 }
-  g-az-cli: { x: 440, y: 450, w: 400, h: 44 }
-  g-substrate: { x: 530, y: 600, w: 220, h: 52 }
+  band-surface:
+    x: 20
+    y: 104
+    w: 1260
+    h: 130
+  band-catzc:
+    x: 20
+    y: 254
+    w: 1260
+    h: 130
+  band-delegated:
+    x: 20
+    y: 404
+    w: 1260
+    h: 130
+  band-substrate:
+    x: 20
+    y: 554
+    w: 1260
+    h: 130
+  g-naming:
+    x: 140
+    y: 140
+    w: 220
+    h: 84
+  g-functions:
+    x: 440
+    y: 168
+    w: 400
+    h: 44
+  g-config:
+    x: 920
+    y: 140
+    w: 220
+    h: 84
+  g-everything-code:
+    x: 410
+    y: 300
+    w: 220
+    h: 52
+  g-assert-tool:
+    x: 680
+    y: 280
+    w: 240
+    h: 90
+  g-no-reimplementation:
+    x: 140
+    y: 450
+    w: 220
+    h: 52
+  g-az-cli:
+    x: 440
+    y: 450
+    w: 400
+    h: 44
+  g-substrate:
+    x: 530
+    y: 600
+    w: 220
+    h: 52

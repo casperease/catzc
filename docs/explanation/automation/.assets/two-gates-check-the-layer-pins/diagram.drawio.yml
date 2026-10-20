@@ -1,73 +1,189 @@
-description: >-
-  Two gates check the layer pins, one against the declaration's own shape at load and one against the real code and the on-disk modules; a
-  new edge landing with its code is left to review, because no gate checks it.
+description: Two gates check the layer pins, one against the declaration's own shape at load and one against the real code
+  and the on-disk modules; a new edge landing with its code is left to review, because no gate checks it.
 about:
-  lens: governance
   adrs:
-    - ADR-AUTO-DEPM-CODEBUILTFROM
-    - ADR-AUTO-DEPM-UNIFIEDGRAPH
-    - ADR-AUTO-DEPM-TWOSECTIONS
-    - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-    - ADR-AUTO-DEPM-EXTENDBYDECLARING
-    - ADR-AUTO-TEST-QUALITYGATE
-  tracks: [pwsh]
-  languages: [yaml]
-  files:
-    - pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml
+  - ADR-AUTO-DEPM-CODEBUILTFROM
+  - ADR-AUTO-DEPM-UNIFIEDGRAPH
+  - ADR-AUTO-DEPM-TWOSECTIONS
+  - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+  - ADR-AUTO-DEPM-EXTENDBYDECLARING
+  - ADR-AUTO-TEST-QUALITYGATE
+  lens: governance
 content:
   title: Two gates check the layer pins, and one rule is left to review
   kind: explanation
+  flow: left-to-right
   relation: runs before
+  theme: dark
   bands:
-    - { id: band-top, label: TOP LAYER }
-    - { id: band-middle, label: MIDDLE LAYER }
-    - { id: band-foundation, label: FOUNDATION }
-    - { id: band-load, label: AT LOAD }
-    - { id: band-repository, label: AGAINST THE REPOSITORY }
-    - { id: band-no-gate, label: NO GATE }
+  - id: band-top
+    label: TOP LAYER
+  - id: band-middle
+    label: MIDDLE LAYER
+  - id: band-foundation
+    label: FOUNDATION
+  - id: band-load
+    label: AT LOAD
+  - id: band-repository
+    label: AGAINST THE REPOSITORY
+  - id: band-no-gate
+    label: NO GATE
   glyphs:
-    - { id: s-azure-ext, kind: set, label: AzureExt, in: band-top }
-    - { id: s-tooling, kind: set, label: Tooling, in: band-middle }
-    - { id: s-base, kind: set, label: Base, in: band-foundation }
-    - { id: g-load, kind: gate, label: Load check, in: band-load }
-    - { id: g-quality, kind: gate, label: Quality gate, in: band-repository }
-    - { id: a-review, kind: adronly, label: Same-change review, in: band-no-gate }
+  - id: s-azure-ext
+    kind: set
+    label: AzureExt
+    in: band-top
+  - id: s-tooling
+    kind: set
+    label: Tooling
+    in: band-middle
+  - id: s-base
+    kind: set
+    label: Base
+    in: band-foundation
+  - id: g-load
+    kind: gate
+    label: Load check
+    in: band-load
+  - id: g-quality
+    kind: gate
+    label: Quality gate
+    in: band-repository
+  - id: a-review
+    kind: adronly
+    label: Same-change review
+    in: band-no-gate
   edges:
-    - { from: s-azure-ext, to: s-tooling, kind: thick }
-    - { from: s-azure-ext, to: s-base, kind: thick }
-    - { from: s-tooling, to: s-base, kind: thick }
-    - { from: g-load, to: g-quality }
+  - from: s-azure-ext
+    to: s-tooling
+    kind: thick
+    label: ''
+  - from: s-azure-ext
+    to: s-base
+    kind: thick
+    label: ''
+  - from: s-tooling
+    to: s-base
+    kind: thick
+    label: ''
+  - from: g-load
+    to: g-quality
+    kind: flow
+    label: ''
   markers:
-    - { at: s-azure-ext, number: 1 }
-    - { at: s-tooling, number: 2 }
-    - { at: s-base, number: 3 }
-    - { at: g-load, number: 4 }
-    - { at: g-quality, number: 5 }
-    - { at: a-review, number: 6 }
+  - at: s-azure-ext
+    number: 1
+  - at: s-tooling
+    number: 2
+  - at: s-base
+    number: 3
+  - at: g-load
+    number: 4
+  - at: g-quality
+    number: 5
+  - at: a-review
+    number: 6
   chips:
-    - { at: s-azure-ext, kind: rule, rule: ADR-AUTO-DEPM-TWOSECTIONS }
-    - { at: s-azure-ext, kind: rule, rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY }
-    - { at: s-tooling, kind: rule, rule: ADR-AUTO-DEPM-TWOSECTIONS }
-    - { at: s-tooling, kind: rule, rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY }
-    - { at: s-base, kind: rule, rule: ADR-AUTO-DEPM-TWOSECTIONS }
-    - { at: s-base, kind: rule, rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY }
-    - { at: g-load, kind: rule, rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY }
-    - { at: g-quality, kind: rule, rule: ADR-AUTO-DEPM-CODEBUILTFROM }
-    - { at: g-quality, kind: rule, rule: ADR-AUTO-DEPM-UNIFIEDGRAPH }
-    - { at: g-quality, kind: rule, rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY }
-    - { at: g-quality, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
-    - { at: a-review, kind: rule, rule: ADR-AUTO-DEPM-EXTENDBYDECLARING, gated: false }
-  minimaps: [code-locations, grid, axis]
+  - at: s-azure-ext
+    kind: rule
+    rule: ADR-AUTO-DEPM-TWOSECTIONS
+  - at: s-azure-ext
+    kind: rule
+    rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+  - at: s-tooling
+    kind: rule
+    rule: ADR-AUTO-DEPM-TWOSECTIONS
+  - at: s-tooling
+    kind: rule
+    rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+  - at: s-base
+    kind: rule
+    rule: ADR-AUTO-DEPM-TWOSECTIONS
+  - at: s-base
+    kind: rule
+    rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+  - at: g-load
+    kind: rule
+    rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+  - at: g-quality
+    kind: rule
+    rule: ADR-AUTO-DEPM-CODEBUILTFROM
+  - at: g-quality
+    kind: rule
+    rule: ADR-AUTO-DEPM-UNIFIEDGRAPH
+  - at: g-quality
+    kind: rule
+    rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+  - at: g-quality
+    kind: rule
+    rule: ADR-AUTO-TEST-QUALITYGATE
+  - at: a-review
+    kind: rule
+    rule: ADR-AUTO-DEPM-EXTENDBYDECLARING
+    gated: false
+  legend: auto
+  minimaps:
+  - code-locations
+  - grid
+  - axis
 layout:
-  band-top: { x: 20, y: 84, w: 640, h: 120 }
-  band-middle: { x: 20, y: 254, w: 640, h: 120 }
-  band-foundation: { x: 20, y: 424, w: 640, h: 120 }
-  band-load: { x: 680, y: 84, w: 600, h: 120 }
-  band-repository: { x: 680, y: 254, w: 600, h: 120 }
-  band-no-gate: { x: 680, y: 424, w: 600, h: 120 }
-  s-azure-ext: { x: 40, y: 122, w: 520, h: 56 }
-  s-tooling: { x: 40, y: 292, w: 220, h: 56 }
-  s-base: { x: 40, y: 462, w: 520, h: 56 }
-  g-load: { x: 880, y: 112, w: 200, h: 68 }
-  g-quality: { x: 830, y: 282, w: 300, h: 68 }
-  a-review: { x: 830, y: 462, w: 300, h: 56 }
+  band-top:
+    x: 20
+    y: 84
+    w: 640
+    h: 120
+  band-middle:
+    x: 20
+    y: 254
+    w: 640
+    h: 120
+  band-foundation:
+    x: 20
+    y: 424
+    w: 640
+    h: 120
+  band-load:
+    x: 680
+    y: 84
+    w: 600
+    h: 120
+  band-repository:
+    x: 680
+    y: 254
+    w: 600
+    h: 120
+  band-no-gate:
+    x: 680
+    y: 424
+    w: 600
+    h: 120
+  s-azure-ext:
+    x: 40
+    y: 122
+    w: 520
+    h: 56
+  s-tooling:
+    x: 40
+    y: 292
+    w: 220
+    h: 56
+  s-base:
+    x: 40
+    y: 462
+    w: 520
+    h: 56
+  g-load:
+    x: 880
+    y: 112
+    w: 200
+    h: 68
+  g-quality:
+    x: 830
+    y: 282
+    w: 300
+    h: 68
+  a-review:
+    x: 830
+    y: 462
+    w: 300
+    h: 56

@@ -130,8 +130,19 @@ def fit(d, value, size, width, bold=False):
 
 # ---- a minimap drawn from its contract data (minimap_contract.py): Catzc.Base.Maps computes, this module only draws ----------
 
-MIN_CELL = 12  # the narrowest matrix column that still reads at the sidebar's width; a wider axis is drawn as rows of names
+MIN_CELL = 36  # the narrowest matrix column whose header still reads at the sidebar's width; a wider axis is drawn as rows of names
 MIN_PITCH = 12  # the tightest line of a list; the places that do not fit are counted, not crushed
+
+
+def fitting_rows(rows, lit, height, top):
+    """The rows a minimap has room for at MIN_PITCH, in axis order, and how many it leaves out: when not all fit, the rows holding a
+    lit place come first, and the last line is kept for the count of the others, so no label is ever drawn over another."""
+    room = max(1, int((height - top - 6) // MIN_PITCH))
+    if len(rows) <= room:
+        return list(rows), 0
+    holds = lambda row: any(at[0] == row for at in lit)
+    chosen = set(([r for r in rows if holds(r)] + [r for r in rows if not holds(r)])[: room - 1])
+    return [r for r in rows if r in chosen], len(rows) - len(chosen)
 
 
 def draw_data(d, width, height, data):
@@ -142,22 +153,24 @@ def draw_data(d, width, height, data):
     lit = {tuple(c["at"]) for c in data["lit"]}
     top = 40
     if len(axes) == 1:
-        values = axes[0]["values"]
-        pitch = min(16, (height - top - 6) / max(1, len(values)))
+        values, hidden = fitting_rows(axes[0]["values"], lit, height, top)
+        pitch = min(16, (height - top - 6) / max(1, len(values) + bool(hidden)))
         for i, value in enumerate(values):
             y, on = top + i * pitch, (value,) in lit
             if (value,) in present:
                 box(d, (8, y + 1, 26, y + pitch - 1), LIT if on else PANEL, None if on else RIM, 2)
             text(d, (32, y + pitch / 2 - 6), fit(d, value, 9, width - 40, bold=on), 9, CAPTION if on else DIM_INK, bold=on)
+        if hidden:
+            text(d, (32, top + len(values) * pitch), f"+{hidden} more", 9, DIM_INK)
         return
     if len(axes) == 2 and (width - 78) / max(1, len(axes[1]["values"])) < MIN_CELL:
         draw_rows(d, width, height, axes[0]["values"], present, lit)
         return
     if len(axes) == 2:
-        rows, cols = axes[0]["values"], axes[1]["values"]
+        (rows, hidden), cols = fitting_rows(axes[0]["values"], lit, height, top), axes[1]["values"]
         label_w = 70
         cell_w = (width - label_w - 8) / max(1, len(cols))
-        cell_h = min(18, (height - top - 6) / max(1, len(rows)))
+        cell_h = min(18, (height - top - 6) / max(1, len(rows) + bool(hidden)))
         for j, col in enumerate(cols):
             on = any(at[1] == col for at in lit)
             text(d, (label_w + j * cell_w + 2, top - 13), fit(d, col, 8, cell_w - 2), 8, CAPTION if on else DIM_INK, bold=on)
@@ -173,6 +186,8 @@ def draw_data(d, width, height, data):
             # A row lit as a whole ([row, '*']): the subject sits in it outside every column, so the row is outlined.
             if (row, "*") in lit:
                 box(d, (label_w, y, width - 8, y + cell_h), None, LIT, 3)
+        if hidden:
+            text(d, (6, top + len(rows) * cell_h), f"+{hidden} more", 9, DIM_INK)
         return
     places = sorted(lit)
     room = max(1, int((height - top - 6) // MIN_PITCH))
@@ -190,16 +205,28 @@ def draw_data(d, width, height, data):
 
 def draw_rows(d, width, height, rows, present, lit):
     """A matrix too wide to draw as cells: one line per row, its label, then the second-axis values it holds, lit ones bright and
-    first, the rest dim, as many as fit and the count of the others."""
+    first, the rest dim, as many as fit and the count of the others. When the rows are too many for a line of names under each
+    label, the names follow the label on its own line."""
     top = 40
-    pitch = min(36, (height - top - 6) / max(1, len(rows)))
+    rows, hidden = fitting_rows(rows, lit, height, top)
+    pitch = min(36, (height - top - 6) / max(1, len(rows) + bool(hidden)))
+    inline = pitch < 26
+    # The bold width plus the 12 px the label is fitted inside of and a 2 px gap, so a lit label is never cut short.
+    label_w = max((d.textlength(row, font=font(9 * SCALE, True)) / SCALE for row in rows), default=0) + 14 if inline else 0
+    label_w = min(label_w, width * 0.4)
     for i, row in enumerate(rows):
         y = top + i * pitch
-        names = [at[1] for at in sorted(present) if at[0] == row]
+        # A row lit as a whole ([row, '*']): the subject sits in it outside every column, so the row is outlined and its label lit;
+        # '*' is never a name of its own.
+        whole = (row, "*") in lit
+        names = [at[1] for at in sorted(present) if at[0] == row and at[1] != "*"]
         on = [n for n in names if (row, n) in lit]
         off = [n for n in names if (row, n) not in lit]
-        text(d, (6, y), fit(d, row, 9, width - 12, bold=bool(on)), 9, CAPTION if on else DIM_INK, bold=bool(on))
-        x, line = 14.0, y + 13
+        bright_label = bool(on) or whole
+        text(d, (6, y), fit(d, row, 9, (label_w or width) - 12, bold=bright_label), 9, CAPTION if bright_label else DIM_INK, bold=bright_label)
+        x, line = (6.0 + label_w, y) if inline else (14.0, y + 13)
+        if whole:
+            box(d, (3, y - 1, width - 6, line + 13), None, LIT, 3)
         ordered = [(n, True) for n in on] + [(n, False) for n in off]
         for k, (name, bright) in enumerate(ordered):
             label = fit(d, name.removeprefix("Catzc."), 8, width - 28, bold=bright)
@@ -211,6 +238,8 @@ def draw_rows(d, width, height, rows, present, lit):
                 box(d, (x, line, x + w - 2, line + 12), LIT)
             text(d, (x + 3, line), label, 8, LIT_INK if bright else DIM_INK, bold=bright)
             x += w
+    if hidden:
+        text(d, (6, top + len(rows) * pitch), f"+{hidden} more", 9, DIM_INK)
 
 
 def picture_from(data, width, height, theme=None):

@@ -12,7 +12,7 @@ Gates check the source of each globset and the trigger, but not the git reflecti
 7  Git reflection            the change check from git at real refs; no gate checks it
 8  Live identity             the durable SHA, never committed; no gate checks it
 
-Supports ADR-FLOW-CD-GLOBS and ADR-AUTO-TEST-QUALITYGATE (governance lens).
+Supports ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS, ADR-FLOW-CD-GLOBS-REPOSITORYRELATIVEPATTERNS, ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED, ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY, ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY, ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER, ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER, ADR-FLOW-CD-GLOBS-COMPOSESETS, ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER and ADR-AUTO-TEST-QUALITYGATE (governance lens).
 ```
 
 The globset rules in cats are checked by four quality gates plus the config load, and those checks reach the registry, the program and the

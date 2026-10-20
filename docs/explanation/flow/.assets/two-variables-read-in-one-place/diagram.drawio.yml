@@ -1,79 +1,195 @@
-description: >-
-  Two environment variables are read in one function, Test-IsRunningInPipeline; callers ask it, and one analyzer rule, loaded through the
-  one settings file, turns any other read of those variables into an error.
+description: Two environment variables are read in one function, Test-IsRunningInPipeline; callers ask it, and one analyzer
+  rule, loaded through the one settings file, turns any other read of those variables into an error.
 about:
-  lens: implementation
   adrs:
-    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-    - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-    - ADR-FLOW-CD-DETECT-FASTDETECTION
-  tracks: [pwsh]
-  languages: [powershell]
-  modules: [Catzc.Base.Repository, Catzc.Azure.DevOps]
-  files:
-    - pwsh/.internal/Catzc.Internal.Loader.psm1
-    - pwsh/Catzc.Base.Repository/Get-OutputRoot.ps1
-    - pwsh/Catzc.Base.Repository/Get-RunEnvironment.ps1
-    - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
-    - pwsh/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
-    - PSScriptAnalyzerSettings.psd1
-    - pwsh/.scriptanalyzer/CatzcRules.psm1
-    - pwsh/.scriptanalyzer/NoRawPipelineDetection.psm1
+  - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+  - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
+  - ADR-FLOW-CD-DETECT-FASTDETECTION
+  lens: implementation
 content:
   title: Two variables, one reader, 24 callers, and one analyzer rule for every other read
   kind: explanation
+  flow: left-to-right
   relation: feeds the next step
+  theme: dark
   bands:
-    - { id: band-platform, label: PLATFORM }
-    - { id: band-loader, label: LOADER }
-    - { id: band-consumers, label: CONSUMERS }
-    - { id: band-analyzer, label: ANALYZER }
+  - id: band-platform
+    label: PLATFORM
+  - id: band-loader
+    label: LOADER
+  - id: band-consumers
+    label: CONSUMERS
+  - id: band-analyzer
+    label: ANALYZER
   groups:
-    - { id: grp-callers, label: callers of the detector, in: band-consumers }
+  - id: grp-callers
+    label: callers of the detector
+    in: band-consumers
   glyphs:
-    - { id: r-azure-agent, kind: runner, label: Azure DevOps agent, in: band-platform }
-    - { id: r-github-runner, kind: runner, label: GitHub Actions runner, in: band-platform }
-    - { id: c-detector, kind: code, label: Test-IsRunningInPipeline, in: band-loader }
-    - { id: c-output-root, kind: code, label: Get-OutputRoot, in: grp-callers }
-    - { id: c-run-environment, kind: code, label: Get-RunEnvironment, in: grp-callers }
-    - { id: c-change-range, kind: code, label: Get-GlobSetChangeRange, in: grp-callers }
-    - { id: c-set-variable, kind: code, label: Set-AdoPipelineVariable, in: grp-callers }
-    - { id: f-settings, kind: file, label: PSScriptAnalyzerSettings.psd1, in: band-analyzer }
-    - { id: c-rules, kind: code, label: CatzcRules.psm1, in: band-analyzer }
-    - { id: g-rule, kind: gate, label: Measure-NoRawPipelineDetection, in: band-analyzer }
+  - id: r-azure-agent
+    kind: runner
+    label: Azure DevOps agent
+    in: band-platform
+  - id: r-github-runner
+    kind: runner
+    label: GitHub Actions runner
+    in: band-platform
+  - id: c-detector
+    kind: code
+    label: Test-IsRunningInPipeline
+    in: band-loader
+  - id: c-output-root
+    kind: code
+    label: Get-OutputRoot
+    in: grp-callers
+  - id: c-run-environment
+    kind: code
+    label: Get-RunEnvironment
+    in: grp-callers
+  - id: c-change-range
+    kind: code
+    label: Get-GlobSetChangeRange
+    in: grp-callers
+  - id: c-set-variable
+    kind: code
+    label: Set-AdoPipelineVariable
+    in: grp-callers
+  - id: f-settings
+    kind: file
+    label: PSScriptAnalyzerSettings.psd1
+    in: band-analyzer
+  - id: c-rules
+    kind: code
+    label: CatzcRules.psm1
+    in: band-analyzer
+  - id: g-rule
+    kind: gate
+    label: Measure-NoRawPipelineDetection
+    in: band-analyzer
   edges:
-    - { from: r-azure-agent, to: c-detector, label: TF_BUILD }
-    - { from: r-github-runner, to: c-detector, label: GITHUB_ACTIONS }
-    - { from: c-detector, to: grp-callers }
-    - { from: f-settings, to: c-rules }
-    - { from: c-rules, to: g-rule }
+  - from: r-azure-agent
+    to: c-detector
+    kind: flow
+    label: TF_BUILD
+  - from: r-github-runner
+    to: c-detector
+    kind: flow
+    label: GITHUB_ACTIONS
+  - from: c-detector
+    to: grp-callers
+    kind: flow
+    label: ''
+  - from: f-settings
+    to: c-rules
+    kind: flow
+    label: ''
+  - from: c-rules
+    to: g-rule
+    kind: flow
+    label: ''
   markers:
-    - { at: r-azure-agent, number: 1 }
-    - { at: r-github-runner, number: 2 }
-    - { at: c-detector, number: 3 }
-    - { at: c-output-root, number: 4 }
-    - { at: c-run-environment, number: 5 }
-    - { at: c-change-range, number: 6 }
-    - { at: c-set-variable, number: 7 }
-    - { at: f-settings, number: 8 }
-    - { at: c-rules, number: 9 }
-    - { at: g-rule, number: 10 }
+  - at: r-azure-agent
+    number: 1
+  - at: r-github-runner
+    number: 2
+  - at: c-detector
+    number: 3
+  - at: c-output-root
+    number: 4
+  - at: c-run-environment
+    number: 5
+  - at: c-change-range
+    number: 6
+  - at: c-set-variable
+    number: 7
+  - at: f-settings
+    number: 8
+  - at: c-rules
+    number: 9
+  - at: g-rule
+    number: 10
   chips:
-    - { at: grp-callers, kind: count, text: "24" }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: grp-callers
+    kind: count
+    text: '24'
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-platform: { x: 20, y: 84, w: 300, h: 260 }
-  band-loader: { x: 340, y: 84, w: 340, h: 260 }
-  band-consumers: { x: 700, y: 84, w: 580, h: 260 }
-  band-analyzer: { x: 20, y: 364, w: 1260, h: 140 }
-  r-azure-agent: { x: 60, y: 140, w: 220, h: 44 }
-  r-github-runner: { x: 60, y: 252, w: 220, h: 44 }
-  c-detector: { x: 470, y: 192, w: 200, h: 44 }
-  grp-callers: { x: 730, y: 116, w: 520, h: 200 }
-  c-output-root: { x: 760, y: 160, w: 220, h: 44 }
-  c-run-environment: { x: 1010, y: 160, w: 220, h: 44 }
-  c-change-range: { x: 760, y: 240, w: 220, h: 44 }
-  c-set-variable: { x: 1010, y: 240, w: 220, h: 44 }
-  f-settings: { x: 340, y: 424, w: 240, h: 56 }
-  c-rules: { x: 620, y: 424, w: 200, h: 56 }
-  g-rule: { x: 880, y: 410, w: 300, h: 84 }
+  band-platform:
+    x: 20
+    y: 84
+    w: 300
+    h: 260
+  band-loader:
+    x: 340
+    y: 84
+    w: 340
+    h: 260
+  band-consumers:
+    x: 700
+    y: 84
+    w: 580
+    h: 260
+  band-analyzer:
+    x: 20
+    y: 364
+    w: 1260
+    h: 140
+  r-azure-agent:
+    x: 60
+    y: 140
+    w: 220
+    h: 44
+  r-github-runner:
+    x: 60
+    y: 252
+    w: 220
+    h: 44
+  c-detector:
+    x: 470
+    y: 192
+    w: 200
+    h: 44
+  grp-callers:
+    x: 730
+    y: 116
+    w: 520
+    h: 200
+  c-output-root:
+    x: 760
+    y: 160
+    w: 220
+    h: 44
+  c-run-environment:
+    x: 1010
+    y: 160
+    w: 220
+    h: 44
+  c-change-range:
+    x: 760
+    y: 240
+    w: 220
+    h: 44
+  c-set-variable:
+    x: 1010
+    y: 240
+    w: 220
+    h: 44
+  f-settings:
+    x: 340
+    y: 424
+    w: 240
+    h: 56
+  c-rules:
+    x: 620
+    y: 424
+    w: 200
+    h: 56
+  g-rule:
+    x: 880
+    y: 410
+    w: 300
+    h: 84

@@ -1,63 +1,160 @@
-description: >-
-  One rule bounds every agent call: the limits, the verdict and the hook follow it, three tests at three tiers prove the hook, and the
-  exemption route has no gate because it exists only in the ADR.
+description: 'One rule bounds every agent call: the limits, the verdict and the hook follow it, three tests at three tiers
+  prove the hook, and the exemption route has no gate because it exists only in the ADR.'
 about:
+  adrs:
+  - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+  - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
   lens: governance
-  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
-  tracks: [.claude, pwsh]
-  languages: [csharp, yaml]
-  modules: [Catzc.Base.Timeouts]
-  files:
-    - pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
-    - pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs
-    - .claude/hooks/Assert-BashTimeout/Program.cs
-    - pwsh/Catzc.Base.Timeouts/configs/timeout-exemptions.yml
 content:
   title: One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only
   kind: explanation
+  flow: left-to-right
   relation: feeds the next step
+  theme: dark
   bands:
-    - { id: band-limits, label: LIMITS }
-    - { id: band-verdict, label: VERDICT }
-    - { id: band-hook, label: HOOK }
-    - { id: band-no-gate, label: NO GATE }
-    - { id: band-tests, label: TESTS }
+  - id: band-limits
+    label: LIMITS
+  - id: band-verdict
+    label: VERDICT
+  - id: band-hook
+    label: HOOK
+  - id: band-no-gate
+    label: NO GATE
+  - id: band-tests
+    label: TESTS
   glyphs:
-    - { id: g-config, kind: code, label: TimeoutsConfig, in: band-limits }
-    - { id: g-decide, kind: code, label: BashSafeguard.Decide, in: band-verdict }
-    - { id: g-hook, kind: code, label: Assert-BashTimeout, in: band-hook }
-    - { id: a-exemptions, kind: adronly, label: timeout-exemptions.yml, in: band-no-gate }
-    - { id: g-logic, kind: gate, label: BashSafeguard (L0 logic), in: band-tests }
-    - { id: g-parity, kind: gate, label: parity (L1 integrity), in: band-tests }
-    - { id: g-published, kind: gate, label: published hook (L2 logic), in: band-tests }
+  - id: g-config
+    kind: code
+    label: TimeoutsConfig
+    in: band-limits
+  - id: g-decide
+    kind: code
+    label: BashSafeguard.Decide
+    in: band-verdict
+  - id: g-hook
+    kind: code
+    label: Assert-BashTimeout
+    in: band-hook
+  - id: a-exemptions
+    kind: adronly
+    label: timeout-exemptions.yml
+    in: band-no-gate
+  - id: g-logic
+    kind: gate
+    label: BashSafeguard (L0 logic)
+    in: band-tests
+  - id: g-parity
+    kind: gate
+    label: parity (L1 integrity)
+    in: band-tests
+  - id: g-published
+    kind: gate
+    label: published hook (L2 logic)
+    in: band-tests
   edges:
-    - { from: g-config, to: g-decide }
-    - { from: g-decide, to: g-hook }
+  - from: g-config
+    to: g-decide
+    kind: flow
+    label: ''
+  - from: g-decide
+    to: g-hook
+    kind: flow
+    label: ''
   markers:
-    - { at: g-config, number: 1 }
-    - { at: g-decide, number: 2 }
-    - { at: g-hook, number: 3 }
-    - { at: g-logic, number: 4 }
-    - { at: g-parity, number: 5 }
-    - { at: g-published, number: 6 }
-    - { at: a-exemptions, number: 7 }
+  - at: g-config
+    number: 1
+  - at: g-decide
+    number: 2
+  - at: g-hook
+    number: 3
+  - at: g-logic
+    number: 4
+  - at: g-parity
+    number: 5
+  - at: g-published
+    number: 6
+  - at: a-exemptions
+    number: 7
   chips:
-    - { at: g-config, kind: rule, rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT }
-    - { at: g-config, kind: rule, rule: ADR-AUTO-DEFAULT-ONERESOLUTIONORDER }
-    - { at: g-decide, kind: rule, rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT }
-    - { at: g-hook, kind: rule, rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT }
-    - { at: a-exemptions, kind: rule, rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, gated: false }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-config
+    kind: rule
+    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+  - at: g-config
+    kind: rule
+    rule: ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+  - at: g-decide
+    kind: rule
+    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+  - at: g-hook
+    kind: rule
+    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+  - at: a-exemptions
+    kind: rule
+    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    gated: false
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-limits: { x: 20, y: 84, w: 620, h: 120 }
-  band-verdict: { x: 20, y: 224, w: 620, h: 110 }
-  band-hook: { x: 20, y: 354, w: 620, h: 110 }
-  band-no-gate: { x: 20, y: 484, w: 620, h: 110 }
-  band-tests: { x: 660, y: 224, w: 620, h: 240 }
-  g-config: { x: 245, y: 124, w: 170, h: 44 }
-  g-decide: { x: 245, y: 262, w: 170, h: 44 }
-  g-hook: { x: 245, y: 392, w: 170, h: 44 }
-  a-exemptions: { x: 235, y: 524, w: 190, h: 44 }
-  g-logic: { x: 880, y: 256, w: 200, h: 68 }
-  g-parity: { x: 750, y: 372, w: 190, h: 68 }
-  g-published: { x: 990, y: 372, w: 220, h: 68 }
+  band-limits:
+    x: 20
+    y: 84
+    w: 620
+    h: 120
+  band-verdict:
+    x: 20
+    y: 224
+    w: 620
+    h: 110
+  band-hook:
+    x: 20
+    y: 354
+    w: 620
+    h: 110
+  band-no-gate:
+    x: 20
+    y: 484
+    w: 620
+    h: 110
+  band-tests:
+    x: 660
+    y: 224
+    w: 620
+    h: 240
+  g-config:
+    x: 245
+    y: 124
+    w: 170
+    h: 44
+  g-decide:
+    x: 245
+    y: 262
+    w: 170
+    h: 44
+  g-hook:
+    x: 245
+    y: 392
+    w: 170
+    h: 44
+  a-exemptions:
+    x: 235
+    y: 524
+    w: 190
+    h: 44
+  g-logic:
+    x: 880
+    y: 256
+    w: 200
+    h: 68
+  g-parity:
+    x: 750
+    y: 372
+    w: 190
+    h: 68
+  g-published:
+    x: 990
+    y: 372
+    w: 220
+    h: 68

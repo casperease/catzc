@@ -1,66 +1,172 @@
-description: >-
-  A config read resolves the name to one entry and the overlay root; on a cache miss the registry is read, a fragment of a sealed config
-  throws, any other fragment is merged onto the shipped config, and the registered type builds the result.
+description: A config read resolves the name to one entry and the overlay root; on a cache miss the registry is read, a fragment
+  of a sealed config throws, any other fragment is merged onto the shipped config, and the registered type builds the result.
 about:
+  adrs:
+  - ADR-AUTO-OVERLAY
+  - ADR-PWSH-CACHE-STRICTSAFEPROBE
+  - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
   lens: source
-  adrs: [ADR-AUTO-OVERLAY, ADR-PWSH-CACHE-STRICTSAFEPROBE, ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY]
-  tracks: [pwsh]
-  languages: [powershell, csharp]
-  modules: [Catzc.Base.Config]
-  files:
-    - pwsh/Catzc.Base.Config/Get-Config.ps1
-    - pwsh/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
-    - pwsh/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
-    - pwsh/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
-    - pwsh/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
-    - pwsh/Catzc.Base.Config/configs/configs.yml
 content:
   title: Overlay merges unless sealed; the registered type builds it
   kind: reference
   flow: top-to-bottom
   relation: runs next (code order)
+  theme: dark
   bands:
-    - { id: band-resolve, label: RESOLVE }
-    - { id: band-miss, label: CACHE MISS }
+  - id: band-resolve
+    label: RESOLVE
+  - id: band-miss
+    label: CACHE MISS
   glyphs:
-    - { id: g-get-config, kind: code, label: Get-Config, in: band-resolve }
-    - { id: g-resolve-entry, kind: private, label: Resolve-ConfigEntry, in: band-resolve }
-    - { id: g-overlay-root, kind: private, label: Get-ConfigOverlayRoot, in: band-resolve }
-    - { id: g-registry, kind: private, label: Get-ConfigRegistry, in: band-miss }
-    - { id: g-sealed, kind: gate, label: "overridable: false?", in: band-miss }
-    - { id: f-sealed, kind: failure, label: "sealed: throw", in: band-miss }
-    - { id: g-merge, kind: private, label: Merge-ConfigFragment, in: band-miss }
-    - { id: t-new, kind: type, label: "$type::new($raw)", in: band-miss }
-    - { id: f-configs-yml, kind: file, label: configs.yml, in: band-miss }
-    - { id: f-fragment, kind: file, label: "<Module>/configs/<name>.yml", in: band-miss }
+  - id: g-get-config
+    kind: code
+    label: Get-Config
+    in: band-resolve
+  - id: g-resolve-entry
+    kind: private
+    label: Resolve-ConfigEntry
+    in: band-resolve
+  - id: g-overlay-root
+    kind: private
+    label: Get-ConfigOverlayRoot
+    in: band-resolve
+  - id: g-registry
+    kind: private
+    label: Get-ConfigRegistry
+    in: band-miss
+  - id: g-sealed
+    kind: gate
+    label: 'overridable: false?'
+    in: band-miss
+  - id: f-sealed
+    kind: failure
+    label: 'sealed: throw'
+    in: band-miss
+  - id: g-merge
+    kind: private
+    label: Merge-ConfigFragment
+    in: band-miss
+  - id: t-new
+    kind: type
+    label: $type::new($raw)
+    in: band-miss
+  - id: f-configs-yml
+    kind: file
+    label: configs.yml
+    in: band-miss
+  - id: f-fragment
+    kind: file
+    label: <Module>/configs/<name>.yml
+    in: band-miss
   edges:
-    - { from: g-get-config, to: g-resolve-entry }
-    - { from: g-resolve-entry, to: g-overlay-root }
-    - { from: g-overlay-root, to: g-registry }
-    - { from: g-registry, to: g-sealed }
-    - { from: g-sealed, to: f-sealed, kind: fail }
-    - { from: g-sealed, to: g-merge }
-    - { from: g-merge, to: t-new }
+  - from: g-get-config
+    to: g-resolve-entry
+    kind: flow
+    label: ''
+  - from: g-resolve-entry
+    to: g-overlay-root
+    kind: flow
+    label: ''
+  - from: g-overlay-root
+    to: g-registry
+    kind: flow
+    label: ''
+  - from: g-registry
+    to: g-sealed
+    kind: flow
+    label: ''
+  - from: g-sealed
+    to: f-sealed
+    kind: fail
+    label: ''
+  - from: g-sealed
+    to: g-merge
+    kind: flow
+    label: ''
+  - from: g-merge
+    to: t-new
+    kind: flow
+    label: ''
   markers:
-    - { at: g-get-config, number: 1 }
-    - { at: g-resolve-entry, number: 2 }
-    - { at: g-overlay-root, number: 3 }
-    - { at: g-registry, number: 4 }
-    - { at: g-sealed, number: 5 }
-    - { at: f-sealed, number: 6 }
-    - { at: g-merge, number: 7 }
-    - { at: t-new, number: 8 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-get-config
+    number: 1
+  - at: g-resolve-entry
+    number: 2
+  - at: g-overlay-root
+    number: 3
+  - at: g-registry
+    number: 4
+  - at: g-sealed
+    number: 5
+  - at: f-sealed
+    number: 6
+  - at: g-merge
+    number: 7
+  - at: t-new
+    number: 8
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-resolve: { x: 20, y: 84, w: 1240, h: 110 }
-  band-miss: { x: 20, y: 218, w: 1240, h: 215 }
-  g-get-config: { x: 120, y: 122, w: 150, h: 40 }
-  g-resolve-entry: { x: 340, y: 122, w: 170, h: 40 }
-  g-overlay-root: { x: 580, y: 122, w: 190, h: 40 }
-  g-registry: { x: 120, y: 262, w: 170, h: 40 }
-  g-sealed: { x: 360, y: 238, w: 200, h: 90 }
-  g-merge: { x: 640, y: 262, w: 190, h: 40 }
-  t-new: { x: 920, y: 262, w: 170, h: 40 }
-  f-sealed: { x: 395, y: 358, w: 130, h: 44 }
-  f-configs-yml: { x: 150, y: 345, w: 110, h: 52 }
-  f-fragment: { x: 620, y: 345, w: 230, h: 52 }
+  band-resolve:
+    x: 20
+    y: 84
+    w: 1240
+    h: 110
+  band-miss:
+    x: 20
+    y: 218
+    w: 1240
+    h: 215
+  g-get-config:
+    x: 120
+    y: 122
+    w: 150
+    h: 40
+  g-resolve-entry:
+    x: 340
+    y: 122
+    w: 170
+    h: 40
+  g-overlay-root:
+    x: 580
+    y: 122
+    w: 190
+    h: 40
+  g-registry:
+    x: 120
+    y: 262
+    w: 170
+    h: 40
+  g-sealed:
+    x: 360
+    y: 238
+    w: 200
+    h: 90
+  g-merge:
+    x: 640
+    y: 262
+    w: 190
+    h: 40
+  t-new:
+    x: 920
+    y: 262
+    w: 170
+    h: 40
+  f-sealed:
+    x: 395
+    y: 358
+    w: 130
+    h: 44
+  f-configs-yml:
+    x: 150
+    y: 345
+    w: 110
+    h: 52
+  f-fragment:
+    x: 620
+    y: 345
+    w: 230
+    h: 52

@@ -49,9 +49,3 @@ Open, in execution order. Nothing is held. A chunk without a task file is execut
   run, the master and the task files go with the last plan.
 
 A new plan or paste adds its chunk as a pointer line at the position its dependencies and value give it.
-
-Isolated, outside the order above (the user, 2026-10-19): plan-diagram-engine.md is held by catzc-37 since 2026-10-20 (the user's go), with
-side chunks split off by the user: catzc-9f holds the minimap data functions (lifecycle position, the five further minimaps), catzc-35 the
-five IaC diagrams; the rest is taken from its own open steps, in their order; no chunk above waits on it, and it waits on nothing above. It
-moves its tracked files on disk itself. It took the last diagram items of generated-file-heads, ado-and-cicd-docs and adr-automation-split
-on 2026-10-19.

@@ -1,58 +1,147 @@
-description: >-
-  Every call runs inside a limit: an agent's Bash call meets the hook, a developer's or pipeline's pwsh work runs through the two bounded
-  runners, and a run past its limit stops with a message naming the limit and where to change it.
+description: 'Every call runs inside a limit: an agent''s Bash call meets the hook, a developer''s or pipeline''s pwsh work
+  runs through the two bounded runners, and a run past its limit stops with a message naming the limit and where to change
+  it.'
 about:
+  adrs:
+  - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+  - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
   lens: operations
-  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
-  tracks: [.claude, pwsh]
-  languages: [csharp, powershell]
-  modules: [Catzc.Base.Execution, Catzc.Base.Timeouts]
-  files:
-    - .claude/hooks/Assert-BashTimeout/Program.cs
-    - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
-    - pwsh/Catzc.Base.Timeouts/Invoke-WithTimeout.ps1
-    - pwsh/Catzc.Base.Timeouts/configs/timeouts.yml
 content:
   title: A run past its limit stops with a message that names the limit and where to change it
   kind: explanation
+  flow: left-to-right
   relation: runs
+  theme: dark
   bands:
-    - { id: band-caller, label: CALLER }
-    - { id: band-call, label: CALL }
-    - { id: band-stop, label: STOP }
+  - id: band-caller
+    label: CALLER
+  - id: band-call
+    label: CALL
+  - id: band-stop
+    label: STOP
   groups:
-    - { id: grp-runners, label: bounded runners, in: band-call }
+  - id: grp-runners
+    label: bounded runners
+    in: band-call
   glyphs:
-    - { id: g-agent, kind: actor, label: agent, in: band-caller }
-    - { id: g-developer, kind: actor, label: developer, in: band-caller }
-    - { id: g-hook, kind: gate, label: Assert-BashTimeout, in: band-call }
-    - { id: g-executable, kind: code, label: Invoke-Executable, in: grp-runners }
-    - { id: g-with-timeout, kind: code, label: Invoke-WithTimeout, in: grp-runners }
-    - { id: f-denied, kind: failure, label: Bash call denied, in: band-stop }
-    - { id: f-timeout, kind: failure, label: TimeoutException, in: band-stop }
+  - id: g-agent
+    kind: actor
+    label: agent
+    in: band-caller
+  - id: g-developer
+    kind: actor
+    label: developer
+    in: band-caller
+  - id: g-hook
+    kind: gate
+    label: Assert-BashTimeout
+    in: band-call
+  - id: g-executable
+    kind: code
+    label: Invoke-Executable
+    in: grp-runners
+  - id: g-with-timeout
+    kind: code
+    label: Invoke-WithTimeout
+    in: grp-runners
+  - id: f-denied
+    kind: failure
+    label: Bash call denied
+    in: band-stop
+  - id: f-timeout
+    kind: failure
+    label: TimeoutException
+    in: band-stop
   edges:
-    - { from: g-agent, to: g-hook }
-    - { from: g-developer, to: grp-runners }
-    - { from: g-hook, to: f-denied, kind: fail }
-    - { from: grp-runners, to: f-timeout, kind: fail }
+  - from: g-agent
+    to: g-hook
+    kind: flow
+    label: ''
+  - from: g-developer
+    to: grp-runners
+    kind: flow
+    label: ''
+  - from: g-hook
+    to: f-denied
+    kind: fail
+    label: ''
+  - from: grp-runners
+    to: f-timeout
+    kind: fail
+    label: ''
   markers:
-    - { at: g-agent, number: 1 }
-    - { at: g-developer, number: 2 }
-    - { at: g-hook, number: 3 }
-    - { at: g-executable, number: 4 }
-    - { at: g-with-timeout, number: 5 }
-    - { at: f-denied, number: 6 }
-    - { at: f-timeout, number: 7 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-agent
+    number: 1
+  - at: g-developer
+    number: 2
+  - at: g-hook
+    number: 3
+  - at: g-executable
+    number: 4
+  - at: g-with-timeout
+    number: 5
+  - at: f-denied
+    number: 6
+  - at: f-timeout
+    number: 7
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-caller: { x: 20, y: 84, w: 240, h: 320 }
-  band-call: { x: 280, y: 84, w: 480, h: 320 }
-  band-stop: { x: 780, y: 84, w: 500, h: 320 }
-  g-agent: { x: 80, y: 124, w: 100, h: 64 }
-  g-developer: { x: 80, y: 262, w: 100, h: 64 }
-  g-hook: { x: 560, y: 120, w: 180, h: 72 }
-  grp-runners: { x: 320, y: 214, w: 210, h: 170 }
-  g-executable: { x: 340, y: 254, w: 170, h: 44 }
-  g-with-timeout: { x: 340, y: 322, w: 170, h: 44 }
-  f-denied: { x: 950, y: 134, w: 180, h: 44 }
-  f-timeout: { x: 950, y: 276, w: 180, h: 44 }
+  band-caller:
+    x: 20
+    y: 84
+    w: 240
+    h: 320
+  band-call:
+    x: 280
+    y: 84
+    w: 480
+    h: 320
+  band-stop:
+    x: 780
+    y: 84
+    w: 500
+    h: 320
+  g-agent:
+    x: 80
+    y: 124
+    w: 100
+    h: 64
+  g-developer:
+    x: 80
+    y: 262
+    w: 100
+    h: 64
+  g-hook:
+    x: 560
+    y: 120
+    w: 180
+    h: 72
+  grp-runners:
+    x: 320
+    y: 214
+    w: 210
+    h: 170
+  g-executable:
+    x: 340
+    y: 254
+    w: 170
+    h: 44
+  g-with-timeout:
+    x: 340
+    y: 322
+    w: 170
+    h: 44
+  f-denied:
+    x: 950
+    y: 134
+    w: 180
+    h: 44
+  f-timeout:
+    x: 950
+    y: 276
+    w: 180
+    h: 44

@@ -1,78 +1,200 @@
-description: >-
-  Each entry script only fixes the code root and calls the one importer function, which hands the root to three load steps and reads the run
-  mode back from the same root; a foreign module left loaded stops the load.
+description: Each entry script only fixes the code root and calls the one importer function, which hands the root to three
+  load steps and reads the run mode back from the same root; a foreign module left loaded stops the load.
 about:
-  lens: implementation
   adrs:
-    - ADR-DSGN-RUNMODE-TWORUNMODES
-    - ADR-DSGN-RUNMODE-MODEISDERIVED
-    - ADR-DSGN-RUNMODE-NEVERCOEXIST
-    - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-  tracks: [pwsh]
-  languages: [powershell]
-  modules: [Catzc.Base.Repository]
-  files:
-    - importer.ps1
-    - pwsh/.internal/assets/Import-Catzc.ps1
-    - pwsh/.internal/Catzc.Internal.Importer.psm1
-    - pwsh/.internal/Catzc.Internal.Bootstrap.psm1
-    - pwsh/.internal/Catzc.Internal.Vendor.psm1
-    - pwsh/Catzc.Base.Repository/Get-CatzcRunMode.ps1
+  - ADR-DSGN-RUNMODE-TWORUNMODES
+  - ADR-DSGN-RUNMODE-MODEISDERIVED
+  - ADR-DSGN-RUNMODE-NEVERCOEXIST
+  - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+  lens: implementation
 content:
   title: Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it
   kind: explanation
+  flow: left-to-right
   relation: hands on the code root
+  theme: dark
   bands:
-    - { id: band-source, label: SOURCE }
-    - { id: band-build, label: BUILD }
-    - { id: band-invoke, label: INVOKE-IMPORTER }
-    - { id: band-load, label: LOAD SEQUENCE }
+  - id: band-source
+    label: SOURCE
+  - id: band-build
+    label: BUILD
+  - id: band-invoke
+    label: INVOKE-IMPORTER
+  - id: band-load
+    label: LOAD SEQUENCE
   groups:
-    - { id: grp-load, label: load steps in order, in: band-load }
+  - id: grp-load
+    label: load steps in order
+    in: band-load
   glyphs:
-    - { id: g-importer, kind: code, label: importer.ps1, in: band-source }
-    - { id: g-source-root, kind: store, label: "<RepositoryRoot>/pwsh", in: band-source }
-    - { id: g-import-catzc, kind: code, label: Import-Catzc.ps1, in: band-build }
-    - { id: g-bundle-root, kind: store, label: "Catzc/<v>", in: band-build }
-    - { id: g-invoke, kind: code, label: Invoke-Importer, in: band-invoke }
-    - { id: g-run-mode, kind: code, label: Get-CatzcRunMode, in: band-invoke }
-    - { id: g-vendor, kind: code, label: Import-VendorModules, in: grp-load }
-    - { id: g-all, kind: code, label: Import-AllModules, in: grp-load }
-    - { id: g-exclusive, kind: gate, label: Assert-CatzcRunModeExclusive, in: grp-load }
-    - { id: f-exclusivity, kind: failure, label: Exclusivity violated, in: band-load }
+  - id: g-importer
+    kind: code
+    label: importer.ps1
+    in: band-source
+  - id: g-source-root
+    kind: store
+    label: <RepositoryRoot>/pwsh
+    in: band-source
+  - id: g-import-catzc
+    kind: code
+    label: Import-Catzc.ps1
+    in: band-build
+  - id: g-bundle-root
+    kind: store
+    label: Catzc/<v>
+    in: band-build
+  - id: g-invoke
+    kind: code
+    label: Invoke-Importer
+    in: band-invoke
+  - id: g-run-mode
+    kind: code
+    label: Get-CatzcRunMode
+    in: band-invoke
+  - id: g-vendor
+    kind: code
+    label: Import-VendorModules
+    in: grp-load
+  - id: g-all
+    kind: code
+    label: Import-AllModules
+    in: grp-load
+  - id: g-exclusive
+    kind: gate
+    label: Assert-CatzcRunModeExclusive
+    in: grp-load
+  - id: f-exclusivity
+    kind: failure
+    label: Exclusivity violated
+    in: band-load
   edges:
-    - { from: g-importer, to: g-source-root }
-    - { from: g-import-catzc, to: g-bundle-root }
-    - { from: g-source-root, to: g-invoke }
-    - { from: g-bundle-root, to: g-invoke }
-    - { from: g-invoke, to: g-run-mode }
-    - { from: g-invoke, to: grp-load }
-    - { from: g-exclusive, to: f-exclusivity, kind: fail }
+  - from: g-importer
+    to: g-source-root
+    kind: flow
+    label: ''
+  - from: g-import-catzc
+    to: g-bundle-root
+    kind: flow
+    label: ''
+  - from: g-source-root
+    to: g-invoke
+    kind: flow
+    label: ''
+  - from: g-bundle-root
+    to: g-invoke
+    kind: flow
+    label: ''
+  - from: g-invoke
+    to: g-run-mode
+    kind: flow
+    label: ''
+  - from: g-invoke
+    to: grp-load
+    kind: flow
+    label: ''
+  - from: g-exclusive
+    to: f-exclusivity
+    kind: fail
+    label: ''
   markers:
-    - { at: g-importer, number: 1 }
-    - { at: g-source-root, number: 2 }
-    - { at: g-import-catzc, number: 3 }
-    - { at: g-bundle-root, number: 4 }
-    - { at: g-invoke, number: 5 }
-    - { at: g-run-mode, number: 6 }
-    - { at: g-vendor, number: 7 }
-    - { at: g-all, number: 8 }
-    - { at: g-exclusive, number: 9 }
-    - { at: f-exclusivity, number: 10 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-importer
+    number: 1
+  - at: g-source-root
+    number: 2
+  - at: g-import-catzc
+    number: 3
+  - at: g-bundle-root
+    number: 4
+  - at: g-invoke
+    number: 5
+  - at: g-run-mode
+    number: 6
+  - at: g-vendor
+    number: 7
+  - at: g-all
+    number: 8
+  - at: g-exclusive
+    number: 9
+  - at: f-exclusivity
+    number: 10
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-source: { x: 20, y: 84, w: 380, h: 210 }
-  band-build: { x: 420, y: 84, w: 860, h: 210 }
-  band-invoke: { x: 20, y: 314, w: 1260, h: 100 }
-  band-load: { x: 20, y: 434, w: 1260, h: 180 }
-  g-importer: { x: 80, y: 130, w: 260, h: 44 }
-  g-source-root: { x: 80, y: 220, w: 260, h: 56 }
-  g-import-catzc: { x: 600, y: 130, w: 280, h: 44 }
-  g-bundle-root: { x: 600, y: 220, w: 280, h: 56 }
-  g-invoke: { x: 380, y: 350, w: 300, h: 44 }
-  g-run-mode: { x: 900, y: 350, w: 280, h: 44 }
-  grp-load: { x: 60, y: 470, w: 780, h: 130 }
-  g-vendor: { x: 80, y: 528, w: 200, h: 44 }
-  g-all: { x: 310, y: 528, w: 200, h: 44 }
-  g-exclusive: { x: 540, y: 508, w: 280, h: 84 }
-  f-exclusivity: { x: 960, y: 528, w: 280, h: 44 }
+  band-source:
+    x: 20
+    y: 84
+    w: 380
+    h: 210
+  band-build:
+    x: 420
+    y: 84
+    w: 860
+    h: 210
+  band-invoke:
+    x: 20
+    y: 314
+    w: 1260
+    h: 100
+  band-load:
+    x: 20
+    y: 434
+    w: 1260
+    h: 180
+  g-importer:
+    x: 80
+    y: 130
+    w: 260
+    h: 44
+  g-source-root:
+    x: 80
+    y: 220
+    w: 260
+    h: 56
+  g-import-catzc:
+    x: 600
+    y: 130
+    w: 280
+    h: 44
+  g-bundle-root:
+    x: 600
+    y: 220
+    w: 280
+    h: 56
+  g-invoke:
+    x: 380
+    y: 350
+    w: 300
+    h: 44
+  g-run-mode:
+    x: 900
+    y: 350
+    w: 280
+    h: 44
+  grp-load:
+    x: 60
+    y: 470
+    w: 780
+    h: 130
+  g-vendor:
+    x: 80
+    y: 528
+    w: 200
+    h: 44
+  g-all:
+    x: 310
+    y: 528
+    w: 200
+    h: 44
+  g-exclusive:
+    x: 540
+    y: 508
+    w: 280
+    h: 84
+  f-exclusivity:
+    x: 960
+    y: 528
+    w: 280
+    h: 44

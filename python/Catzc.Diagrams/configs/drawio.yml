@@ -20,6 +20,15 @@ commits: # the locked commit palette ([ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE](/docs
   release-uat: D5E8D4 82B366 1E2430
   prod: 60A917 2D7600 DDE2E9
   discarded: 8E2424 E57373 DDE2E9
+layers: # the paint order, back to front: put orders the model's cells by it under each parent, and the raster paints the model's order, as draw.io does
+  panels: bands, notes, the legend panel, the sidebar and the map key
+  frames: groups, which hold their own layers inside them
+  spans: span bars
+  lines: gate rules, lane trunks and bypasses, which pass beneath the edges
+  edges: every other edge
+  glyphs: glyphs, commits and the minimap pictures
+  marks: markers and chips
+  labels: text, on top of everything
 kinds: # the two diagram kinds; each supplies the default three minimaps (minimaps: below)
   explanation: an explanation diagram, embedded by an article under docs/explanation
   reference: a reference diagram, embedded by a page under docs/references or docs/adr
@@ -112,6 +121,7 @@ minimaps: # the eight minimap ids a declaration may name (declaration.py validat
   ids: grid, code-locations, axis, layer-stack, lifecycle-position, track-placement, engine-strip, module-neighbourhood
 vocabularies: # the closed lists a span bar's label comes from, with the track names read from variants.yml; a label outside every list fails validation with the lists
   stages: CI, CD, DEPLOY
+  pipelines: Authoring, PR+BVT, CI+, RC, RBC, CD+RBC, CDe, DEPLOY-Non Prod, DEPLOY-Prod
   axis: build, qc, release, deploy, access
   rungs: main-uat, release-uat, pre-prod, prod
   layers: language, engine, importer

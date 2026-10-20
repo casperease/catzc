@@ -1,65 +1,156 @@
-description: >-
-  Every caller in any module reads config through the one reader module, which looks the file up in the session cache and, on a miss, builds
-  the owning module's C# type from the file it ships; the quality gate calls the same reader.
+description: Every caller in any module reads config through the one reader module, which looks the file up in the session
+  cache and, on a miss, builds the owning module's C# type from the file it ships; the quality gate calls the same reader.
 about:
-  lens: architecture
   adrs:
-    - ADR-CONF-LOADING-ONEREADER
-    - ADR-CONF-LOADING-EXISTENCEDISCOVERED
-    - ADR-CONF-LOADING-CACHEBYPATH
-    - ADR-CONF-LOADING-CSHARPCONFIGTYPE
-    - ADR-CONF-LOADING-READINGISGLOBAL
-  tracks: [pwsh]
-  languages: [powershell, csharp, yaml]
-  modules: [Catzc.Base.Config, Catzc.Base.QualityGates]
-  files:
-    - pwsh/Catzc.Base.Config/Get-Config.ps1
-    - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
-    - pwsh/Catzc.Base.Config/configs/configs.yml
-    - pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
+  - ADR-CONF-LOADING-ONEREADER
+  - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+  - ADR-CONF-LOADING-CACHEBYPATH
+  - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+  - ADR-CONF-LOADING-READINGISGLOBAL
+  lens: architecture
 content:
   title: Callers in any module read config through one module
   kind: explanation
+  flow: left-to-right
   relation: calls, or the read
+  theme: dark
   bands:
-    - { id: band-read, label: READ PATH }
-    - { id: band-miss, label: MISS }
-    - { id: band-gates, label: QUALITY GATES }
+  - id: band-read
+    label: READ PATH
+  - id: band-miss
+    label: MISS
+  - id: band-gates
+    label: QUALITY GATES
   glyphs:
-    - { id: g-caller, kind: code, label: caller, in: band-read }
-    - { id: g-config, kind: code, label: Catzc.Base.Config, in: band-read }
-    - { id: s-cache, kind: store, label: session cache, in: band-read }
-    - { id: r-typed, kind: result, label: typed or raw, in: band-read }
-    - { id: g-file, kind: file, label: configs/<name>.yml, in: band-miss }
-    - { id: g-type, kind: code, label: owner's C# type, in: band-miss }
-    - { id: g-gates, kind: code, label: Catzc.Base.QualityGates, in: band-gates }
+  - id: g-caller
+    kind: code
+    label: caller
+    in: band-read
+  - id: g-config
+    kind: code
+    label: Catzc.Base.Config
+    in: band-read
+  - id: s-cache
+    kind: store
+    label: session cache
+    in: band-read
+  - id: r-typed
+    kind: result
+    label: typed or raw
+    in: band-read
+  - id: g-file
+    kind: file
+    label: configs/<name>.yml
+    in: band-miss
+  - id: g-type
+    kind: code
+    label: owner's C# type
+    in: band-miss
+  - id: g-gates
+    kind: code
+    label: Catzc.Base.QualityGates
+    in: band-gates
   edges:
-    - { from: g-caller, to: g-config }
-    - { from: g-config, to: s-cache }
-    - { from: s-cache, to: r-typed }
-    - { from: s-cache, to: g-file }
-    - { from: g-file, to: g-type }
-    - { from: g-type, to: r-typed }
-    - { from: g-gates, to: g-config }
+  - from: g-caller
+    to: g-config
+    kind: flow
+    label: ''
+  - from: g-config
+    to: s-cache
+    kind: flow
+    label: ''
+  - from: s-cache
+    to: r-typed
+    kind: flow
+    label: ''
+  - from: s-cache
+    to: g-file
+    kind: flow
+    label: ''
+  - from: g-file
+    to: g-type
+    kind: flow
+    label: ''
+  - from: g-type
+    to: r-typed
+    kind: flow
+    label: ''
+  - from: g-gates
+    to: g-config
+    kind: flow
+    label: ''
   markers:
-    - { at: g-caller, number: 1 }
-    - { at: g-config, number: 2 }
-    - { at: s-cache, number: 3 }
-    - { at: r-typed, number: 4 }
-    - { at: g-file, number: 5 }
-    - { at: g-type, number: 6 }
-    - { at: g-gates, number: 7 }
+  - at: g-caller
+    number: 1
+  - at: g-config
+    number: 2
+  - at: s-cache
+    number: 3
+  - at: r-typed
+    number: 4
+  - at: g-file
+    number: 5
+  - at: g-type
+    number: 6
+  - at: g-gates
+    number: 7
   chips:
-    - { at: g-caller, kind: count, text: 26/39 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-caller
+    kind: count
+    text: 26/39
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-read: { x: 20, y: 84, w: 1260, h: 120 }
-  band-miss: { x: 560, y: 224, w: 720, h: 120 }
-  band-gates: { x: 20, y: 364, w: 520, h: 120 }
-  g-caller: { x: 40, y: 130, w: 160, h: 44 }
-  g-config: { x: 290, y: 130, w: 200, h: 44 }
-  s-cache: { x: 600, y: 122, w: 160, h: 60 }
-  r-typed: { x: 1060, y: 130, w: 200, h: 44 }
-  g-file: { x: 610, y: 272, w: 160, h: 52 }
-  g-type: { x: 860, y: 272, w: 400, h: 44 }
-  g-gates: { x: 280, y: 412, w: 220, h: 44 }
+  band-read:
+    x: 20
+    y: 84
+    w: 1260
+    h: 120
+  band-miss:
+    x: 560
+    y: 224
+    w: 720
+    h: 120
+  band-gates:
+    x: 20
+    y: 364
+    w: 520
+    h: 120
+  g-caller:
+    x: 40
+    y: 130
+    w: 160
+    h: 44
+  g-config:
+    x: 290
+    y: 130
+    w: 200
+    h: 44
+  s-cache:
+    x: 600
+    y: 122
+    w: 160
+    h: 60
+  r-typed:
+    x: 1060
+    y: 130
+    w: 200
+    h: 44
+  g-file:
+    x: 610
+    y: 272
+    w: 160
+    h: 52
+  g-type:
+    x: 860
+    y: 272
+    w: 400
+    h: 44
+  g-gates:
+    x: 280
+    y: 412
+    w: 220
+    h: 44

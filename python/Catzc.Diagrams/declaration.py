@@ -52,8 +52,29 @@ FLOWS = ("left-to-right", "top-to-bottom")
 KINDS = tuple(DEFAULTS["kinds"])
 # The cells put derives from the kit and the registries, never from the author: get skips them, and a change to them is stale.
 DERIVED = ("sidebar-bg", "legend", "lens-badge", "mapkey")
-DERIVED_PREFIXES = ("lg-", "mk-", "minimap-")
-CONTENT_KEYS = ("title", "kind", "flow", "relation", "theme", "bands", "spans", "groups", "glyphs", "edges", "markers", "chips", "legend", "minimaps")
+DERIVED_PREFIXES = ("lg-", "mk-", "minimap-", "lane-")  # lane- is a lane's trunk, its marks and the gate rules: the yml's alone
+CONTENT_KEYS = (
+    "title", "kind", "flow", "relation", "theme", "bands", "spans", "templates", "rows", "lanes", "rules", "groups", "glyphs", "edges", "markers",
+    "chips", "notes", "legend", "minimaps",
+)
+# A note: a free text block drawn on the panel; `noteBlock=1` lets get tell it from every glyph.
+NOTE = "text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;fontSize=11;fontColor=@ink;fillColor=@panel;strokeColor=@panel-rim;rounded=1;arcSize=4;noteBlock=1;"
+NOTE_WIDTH = 380
+ROW_PITCH, ROW_DROP = 92, 52
+BYPASS_DIP = 12  # how far a bypass runs below and beside the dots it joins: halfway down to the drops
+SHIFT_KEY = "drawingShift"  # the title's style key for how far span room moved the drawing area down, written only when it did
+# The keys an author writes as shorthand: dump writes them back, never the cells they expand to.
+SHORTHAND = ("templates", "rows", "lanes", "rules")
+LANE_KEYS = ("band", "steps", "trunk", "commits", "glyphs", "marks")
+RULE_KINDS = ("manual", "automated")  # a gate rule: a solid red line for a manual gate, a dashed line for an automated one
+LANE_HEIGHT, LANE_ROW = 150, 38  # a lane band's height, and how far a branch row sits above or below the trunk
+TRUNK = "endArrow=block;html=1;strokeColor=@line;strokeWidth=3;shadow=0;"
+TRUNK_LABEL = "text;html=1;align=right;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=@ink;"
+MARK_TEXT = "text;html=1;whiteSpace=wrap;align=center;verticalAlign=bottom;fontSize=10;fontColor=@red-rim;"
+RULE_STYLES = {
+    "manual": "endArrow=none;html=1;strokeColor=@red-rim;strokeWidth=3;shadow=0;",
+    "automated": "endArrow=none;html=1;strokeColor=@line;strokeWidth=2;dashed=1;shadow=0;",
+}  # a template row: the step between its dots, and how far below a dot its drop sits
 PAGE = {"x": 20, "width": 1260, "title_y": 14, "subtitle_y": 44, "span_y": 84, "band_y": 108, "min_height": 640}
 GAP, PAD, LABEL_ROW, ROW_GAP, COL_GAP = 20, 20, 40, 36, 40
 SIDEBAR_X, SIDEBAR_W = 1316, 240
@@ -61,12 +82,16 @@ SIDEBAR = (("minimap-1", 16, 150), ("minimap-2", 182, 180), ("minimap-3", 378, 1
 MAPKEY_Y = 544  # the map key's panel, under the three minimaps
 MAPKEY_BOTTOM = MAPKEY_Y + 82 + 16  # its bottom, and the sidebar's pad under it
 # The style keys that identify a glyph kind: the shape and the two colours, with the marks that set a variant apart.
-SIGNATURE_KEYS = ("shape", "ellipse", "rhombus", "rounded", "arcSize", "fillColor", "strokeColor", "dashed", "strokeWidth", "fontColor", "fontSize", "fontStyle", "align")
+SIGNATURE_KEYS = ("shape", "ellipse", "rhombus", "rounded", "curved", "arcSize", "fillColor", "strokeColor", "dashed", "strokeWidth", "fontColor", "fontSize", "fontStyle", "align")
 TEXT = "text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;"
 KEY = "text;html=1;align=left;verticalAlign=middle;fontSize=10;fontStyle=1;fontColor=@band-label;"
 # The locked commit palette from drawio.yml: state -> (fill, stroke, digit ink); the first state is a commit's default.
 COMMITS = {state: tuple("#" + v for v in str(value).split()) for state, value in DEFAULTS["commits"].items()}
 COMMIT_STATES = tuple(COMMITS)
+COMMIT_SHAPES = ("dot", "box")  # a commit is a dot unless it is a state drawn as a box
+# A commit drawn as a box: a named rounded box the palette colours; `commitShape=box` lets get tell it from a glyph of the same fill.
+COMMIT_BOX = "rounded=1;whiteSpace=wrap;html=1;arcSize=12;fontStyle=1;fontSize=12;commitShape=box;"
+COMMIT_BOX_SIZE = (134, 50)
 GHOST = "strokeWidth=1.2;dashed=1;opacity=60;"
 CORNERS = ("top-left", "top-right", "bottom-left", "bottom-right")
 CHIP_CORNER = {"rule": "top-right", "count": "bottom-right"}  # where a chip sits unless it names a corner
@@ -192,14 +217,153 @@ def save(folder, declaration):
             declaration = {**declaration, "description": held["description"]}
         # The drawing carries the ADR codes of `about:` in its subtitle; a drawing without them keeps the source's.
         about = {"lens": declaration["about"]["lens"], **{key: declaration["about"][key] or held["about"][key] for key in minimaps.ABOUT_KEYS}}
-        declaration = {**declaration, "about": about}
+        declaration = {**declaration, "about": about, "content": undrawn(declaration["content"], held)}
+        # The drawing carries a row only as its expansion: when the drawing still draws what the source's rows expand to, the source
+        # keeps its rows (the layout is the drawing's); when it draws something else, the drawing wins.
+        generated = held["content"].get("generated") or set()
+        if generated:
+            old, new = drawn(held["content"]), drawn(declaration["content"])
+            mine = lambda d: ({k: d[key].get(k) for key in ("groups", "glyphs") for k in generated if k in d[key]},
+                              [e for e in d["edges"] if dict(e)["from"] in generated and dict(e)["to"] in generated])
+            if mine(old) == mine(new):
+                kept = {k: held["content"][k] for k in SHORTHAND + ("generated",) if k in held["content"]}
+                declaration = {**declaration, "content": {**declaration["content"], **kept}}
     source.write_text(dump(declaration), encoding="utf-8")
 
 
 TOP_KEYS = ("description", "about", "content", "layout")
+# Content the drawing cannot carry exactly: the kind is never drawn, a layout can place the bands against the flow, and the legend
+# prints the relation without its parenthesis or not at all. get guesses each for a drawing without a source; a source keeps its own.
+SOURCE_ONLY = ("kind", "flow", "relation")
+
+
+def undrawn(content, declared):
+    """A content read back by get, with what the declared source says and its drawing does not show laid over it: the SOURCE_ONLY
+    facts, the band order when the layout places every band, and the band of an item the layout places, which get can only guess
+    from where it sits (put refuses a place inside another band)."""
+    source, layout = declared["content"], declared["layout"]
+    out = {**content, **{k: source[k] for k in SOURCE_ONLY}}
+    if source["bands"] and all(b["id"] in layout for b in source["bands"]) and {b["id"] for b in source["bands"]} == {b["id"] for b in content["bands"]}:
+        out["bands"] = source["bands"]
+    bands = {b["id"] for b in source["bands"]}
+    held = {i["id"]: i["in"] for key in ("groups", "glyphs") for i in source.get(key) or [] if i["id"] in layout and i["in"] in bands}
+    for key in ("groups", "glyphs"):
+        out[key] = [{**i, "in": held[i["id"]]} if i["id"] in held and i.get("in") in bands else i for i in out.get(key) or []]
+    return out
 ABOUT_KEYS = ("adrs", "lens")  # the subject's ADR codes and the lens it is drawn through
 # The subject's former lists: read and ignored, never written back, so a get or a save drops them (the minimaps' rework).
 RETIRED_ABOUT_KEYS = ("tracks", "languages", "modules", "files")
+
+
+def drawn(content):
+    """What a content draws, the same whether it was written with rows or read back from the drawing: its cells keyed by id, its
+    edges as a set, and the rest as written."""
+    out = {k: v for k, v in content.items() if k not in SHORTHAND + ("generated",)}
+    for key in ("groups", "glyphs", "notes"):
+        out[key] = {i["id"]: i for i in content.get(key) or []}
+    out["edges"] = sorted(tuple(sorted(e.items())) for e in content.get("edges") or [])
+    return out
+
+
+def expand_lanes(content, where):
+    """The content with each lane's commits written out: a commit glyph in the lane's band per commit, and an edge from a commit's
+    `from` to it, a branch leaving or rejoining the trunk. Returns the written-out ids, so dump writes the lane back."""
+    lanes = content.get("lanes") or []
+    if not lanes:
+        return content, set()
+    bands = {b["id"] for b in content.get("bands") or [] if isinstance(b, dict)}
+    glyphs, edges = list(content.get("glyphs") or []), list(content.get("edges") or [])
+    generated = set()
+    for raw_lane in lanes:
+        if not isinstance(raw_lane, dict):
+            raise DeclarationError(f"{where}: a lane is a map of band, steps, and optionally trunk, commits and marks")
+        for key in raw_lane:
+            if key not in LANE_KEYS:
+                choices(f"{where}: lane key", key, LANE_KEYS)
+        band, steps = str(raw_lane.get("band", "")), raw_lane.get("steps")
+        if band not in bands:
+            choices(f"{where}: lane band", band, tuple(sorted(bands)))
+        if not isinstance(steps, int) or steps < 2:
+            raise DeclarationError(f"{where}: lane '{band}' steps is a whole number of at least 2")
+        for raw in raw_lane.get("commits") or []:
+            commit = entry(raw, ("id", "step", "label"), where, "lane commit", optional={"row": 0, "state": COMMIT_STATES[0], "from": ""})
+            if not commit["step"].isdigit() or not 1 <= int(commit["step"]) <= steps:
+                raise DeclarationError(f"{where}: lane commit '{commit['id']}' step {commit['step']} is not one of 1 to {steps}")
+            if commit["row"] not in ("-1", "0", "1"):
+                choices(f"{where}: lane commit '{commit['id']}' row", commit["row"], ("-1", "0", "1"))
+            glyphs.append({"id": commit["id"], "kind": "commit", "label": commit["label"], "in": band,
+                           **({"state": commit["state"]} if commit["state"] != COMMIT_STATES[0] else {})})
+            if commit["from"]:
+                edges.append({"from": commit["from"], "to": commit["id"], "kind": "flow"})
+            generated.add(commit["id"])
+        # Any other glyph a lane holds sits at a step too: a gate, an environment slot and the commits occupying it, a code unit.
+        for raw in raw_lane.get("glyphs") or []:
+            item = entry(raw, ("id", "step", "kind", "label"), where, "lane glyph", optional={"row": 0})
+            if not item["step"].isdigit() or not 1 <= int(item["step"]) <= steps:
+                raise DeclarationError(f"{where}: lane glyph '{item['id']}' step {item['step']} is not one of 1 to {steps}")
+            if item["row"] not in ("-1", "0", "1"):
+                choices(f"{where}: lane glyph '{item['id']}' row", item["row"], ("-1", "0", "1"))
+            glyphs.append({"id": item["id"], "kind": item["kind"], "label": item["label"], "in": band})
+            generated.add(item["id"])
+        mine = {str(c["id"]) for c in raw_lane.get("commits") or [] if isinstance(c, dict)}
+        for raw in raw_lane.get("marks") or []:
+            mark = entry(raw, ("at", "text"), where, "lane mark")
+            if mark["at"] not in mine:
+                choices(f"{where}: lane mark at", mark["at"], tuple(sorted(mine)))
+    return {**content, "glyphs": glyphs, "edges": edges}, generated
+
+
+def expand_rows(content, where):
+    """The content with each row of a lane template written out: a frame named by the row, a commit dot per step in the state
+    the template gives the step (the row's start state first), an edge between neighbours labelled with the step, and a drop from
+    every dot to a dot in the template's drop state. The written-out cells carry ids from the row's id; returns them as well, so
+    dump writes the row back, never its expansion."""
+    templates, rows = content.get("templates") or {}, content.get("rows") or []
+    if not rows:
+        return content, set()
+    if not isinstance(templates, dict) or not isinstance(rows, list):
+        raise DeclarationError(f"{where}: templates is a map of name: {{ states, drop }}, and rows a list of rows")
+    groups, glyphs, edges = list(content.get("groups") or []), list(content.get("glyphs") or []), list(content.get("edges") or [])
+    generated = set()
+    for raw_row in rows:
+        skip = raw_row.get("skip") or [] if isinstance(raw_row, dict) else []
+        row = entry({k: v for k, v in raw_row.items() if k != "skip"} if isinstance(raw_row, dict) else raw_row,
+                    ("id", "template", "label", "in", "start", "steps"), where, "row")
+        if row["template"] not in templates:
+            choices(f"{where}: row '{row['id']}' template", row["template"], tuple(templates))
+        template = templates[row["template"]]
+        if not isinstance(template, dict) or not isinstance(template.get("states"), dict) or not template.get("drop"):
+            raise DeclarationError(f"{where}: template '{row['template']}' is a map of states (step: state) and drop (a state)")
+        for key in template:
+            if key not in ("states", "drop"):
+                choices(f"{where}: template '{row['template']}' key", key, ("states", "drop"))
+        states = {str(step): str(state) for step, state in template["states"].items()}
+        for state in [*states.values(), str(template["drop"]), row["start"]]:
+            if state not in COMMIT_STATES:
+                choices(f"{where}: template '{row['template']}' state", state, COMMIT_STATES)
+        template = {"states": states, "drop": str(template["drop"])}
+        for step in row["steps"]:
+            if step not in states:
+                choices(f"{where}: row '{row['id']}' step", step, tuple(states))
+        trail = [row["start"]] + [states[step] for step in row["steps"]]
+        groups.append({"id": row["id"], "label": row["label"], "in": row["in"]})
+        for n, state in enumerate(trail):
+            dot, drop = f"{row['id']}-{n}", f"{row['id']}-{n}-drop"
+            glyphs.append({"id": dot, "kind": "commit", "label": "x", "in": row["id"], **({"state": state} if state != COMMIT_STATES[0] else {})})
+            glyphs.append({"id": drop, "kind": "commit", "label": "x", "in": row["id"], **({"state": template["drop"]} if template["drop"] != COMMIT_STATES[0] else {})})
+            edges.append({"from": dot, "to": drop, "kind": "fail"})
+            if n:
+                edges.append({"from": f"{row['id']}-{n - 1}", "to": dot, "kind": "flow", "label": row["steps"][n - 1]})
+            generated |= {dot, drop}
+        # A skipped step: the commit may leave the state before it straight for the state after the next step, a bypass under
+        # the dot the step would reach.
+        for step in skip if isinstance(skip, list) else [skip]:
+            if str(step) not in row["steps"][:-1]:
+                choices(f"{where}: row '{row['id']}' skip", str(step), tuple(row["steps"][:-1]))
+            n = row["steps"].index(str(step))
+            edges.append({"from": f"{row['id']}-{n}", "to": f"{row['id']}-{n + 2}", "kind": "bypass"})
+        generated.add(row["id"])
+    return {**content, "groups": groups, "glyphs": glyphs, "edges": edges}, generated
 
 
 def normalise(raw, where="the declaration"):
@@ -213,7 +377,16 @@ def normalise(raw, where="the declaration"):
     for key in content:
         if key not in CONTENT_KEYS:
             choices(f"{where}: content key", key, CONTENT_KEYS)
+    content, generated = expand_rows(content, where)
+    content, lane_generated = expand_lanes(content, where)
+    generated |= lane_generated
     out: dict = {"title": str(content.get("title", "")).strip()}
+    # Only a declaration written with rows, lanes or rules carries them, and the ids their expansion wrote.
+    for key in SHORTHAND:
+        if content.get(key):
+            out[key] = content[key]
+    if generated or content.get("rules"):
+        out["generated"] = generated
     if not out["title"]:
         raise DeclarationError(f"{where}: content.title is the finding the reader leaves with; it is empty")
     about_raw = raw.get("about") or {}
@@ -250,11 +423,16 @@ def normalise(raw, where="the declaration"):
         ids[g["id"]] = "group"
     out["glyphs"] = []
     for raw_glyph in content.get("glyphs") or []:
-        # A commit carries its state in the locked palette (bvt by default) and may be a ghost: faded and dashed.
-        extra = {k: raw_glyph[k] for k in ("state", "ghost") if isinstance(raw_glyph, dict) and k in raw_glyph}
+        # A commit carries its state in the locked palette (bvt by default), may be a ghost (faded and dashed), and is a dot unless
+        # its shape is box: a state drawn as a named box in its palette colour.
+        extra = {k: raw_glyph[k] for k in ("state", "ghost", "shape") if isinstance(raw_glyph, dict) and k in raw_glyph}
         g = entry({k: v for k, v in raw_glyph.items() if k not in extra} if isinstance(raw_glyph, dict) else raw_glyph, ("id", "kind", "label", "in"), where, "glyph")
         if extra and g["kind"] != "commit":
-            raise DeclarationError(f"{where}: glyph '{g['id']}' is a {g['kind']}; only a commit takes a state or ghost")
+            raise DeclarationError(f"{where}: glyph '{g['id']}' is a {g['kind']}; only a commit takes a state, ghost or shape")
+        if extra.get("shape", COMMIT_SHAPES[0]) not in COMMIT_SHAPES:
+            choices(f"{where}: commit '{g['id']}' shape", extra["shape"], COMMIT_SHAPES)
+        if extra.get("shape", COMMIT_SHAPES[0]) != COMMIT_SHAPES[0]:
+            g["shape"] = str(extra["shape"])
         if extra.get("state", COMMIT_STATES[0]) not in COMMIT_STATES:
             choices(f"{where}: commit '{g['id']}' state", extra["state"], COMMIT_STATES)
         if extra.get("state", COMMIT_STATES[0]) != COMMIT_STATES[0]:
@@ -275,6 +453,26 @@ def normalise(raw, where="the declaration"):
         if item["in"] not in ids or (ids[item["in"]] == "glyph" and not occupant):
             holders = [i for i, k in ids.items() if k != "glyph"] + (envs if item.get("kind") == "commit" else [])
             choices(f"{where}: '{item['id']}' in", item["in"], holders)
+    # A note is a free text block in a band or a group, placed like a glyph; its lines are its text's lines.
+    out["notes"] = []
+    for raw_note in content.get("notes") or []:
+        note = entry(raw_note, ("id", "in", "text"), where, "note")
+        if note["id"] in ids:
+            raise DeclarationError(f"{where}: id '{note['id']}' is used twice")
+        if ids.get(note["in"]) not in ("band", "group"):
+            choices(f"{where}: note '{note['id']}' in", note["in"], [i for i, k in ids.items() if k in ("band", "group")])
+        ids[note["id"]] = "note"
+        out["notes"].append(note)
+    # A gate rule stands between two steps of the first lane, across every lane: after step n, manual or automated.
+    lanes = content.get("lanes") or []
+    for raw_rule in content.get("rules") or []:
+        rule = entry(raw_rule, ("after", "kind"), where, "rule")
+        if not lanes:
+            raise DeclarationError(f"{where}: a rule stands between steps of a lane; the diagram declares no lanes")
+        if rule["kind"] not in RULE_KINDS:
+            choices(f"{where}: rule kind", rule["kind"], RULE_KINDS)
+        if not rule["after"].isdigit() or not 1 <= int(rule["after"]) < int(lanes[0]["steps"]):
+            raise DeclarationError(f"{where}: rule after {rule['after']} is not a step of 1 to {int(lanes[0]['steps']) - 1}")
     vocabulary = span_vocabulary()
     out["spans"] = []
     for s in content.get("spans") or []:
@@ -414,7 +612,13 @@ def legend_phrases():
 
 def dump(declaration):
     """The whole declaration as the text of its source file, keys in the kit's order."""
-    content = declaration["content"]
+    content = dict(declaration["content"])
+    # A row's written-out cells are its expansion, never the source: the row is written, and they are left out.
+    generated = declaration.get("generated") or content.get("generated") or set()
+    if generated:
+        for key in ("groups", "glyphs"):
+            content[key] = [i for i in content[key] if i["id"] not in generated]
+        content["edges"] = [e for e in content["edges"] if e["from"] not in generated or e["to"] not in generated]
     ordered = {k: content[k] for k in CONTENT_KEYS if k in content and content[k] not in ([], {}, "")}
     out = {"description": declaration["description"]} if declaration.get("description") else {}
     about = declaration.get("about") or {}
@@ -436,23 +640,122 @@ def edge_cell(cid, value, style, source, target):
     return {"id": cid, "value": value, "style": style, "source": source, "target": target, "parent": "1", "edge": True}
 
 
+LAYERS = tuple(DEFAULTS["layers"])  # the paint order, back to front, declared once in drawio.yml
+
+
+def layer_of(c):
+    """The paint layer of a placed cell, one of LAYERS."""
+    style = c["style"]
+    if c["edge"]:
+        return "lines" if c["id"].startswith("lane-") or style_map(style).get("curved") == "1" else "edges"
+    if c["id"] in ("sidebar-bg", "mapkey") or style in (BAND, LEGEND, NOTE):
+        return "panels"
+    if style == LIB["module"]:
+        return "frames"
+    if "shape=crossbar" in style:
+        return "spans"
+    if c["id"].startswith(("mark-", "chip-")) or c["id"].endswith("-tag"):
+        return "marks"
+    return "labels" if style.startswith("text;") else "glyphs"
+
+
+def in_paint_order(cells):
+    """The cells as draw.io paints them: each parent, then its children back to front by LAYERS. draw.io paints a frame's whole
+    contents where the frame stands, so an edge moves into a frame that holds no frame of its own, where it paints before every glyph:
+    the innermost frame holding both its ends when that frame holds none, else the first such frame painted. A legend swatch stays."""
+    rank = {layer: n for n, layer in enumerate(LAYERS)}
+
+    def tree():
+        children: dict = {}
+        for c in cells:
+            children.setdefault(c["parent"], []).append(c)
+        ordered = []
+
+        def walk(pid):
+            for c in sorted(children.get(pid, []), key=lambda c: rank[layer_of(c)]):
+                ordered.append(c)
+                walk(c["id"])
+
+        walk("1")
+        return ordered
+
+    parent_of = {c["id"]: c["parent"] for c in cells if not c["edge"]}
+    frames = {c["id"] for c in cells if not c["edge"] and layer_of(c) == "frames"}
+    leaves = [c["id"] for c in tree() if c["id"] in frames and not any(parent_of.get(f) == c["id"] for f in frames)]
+
+    def frames_of(cid):  # the frames around a cell, innermost first
+        chain = []
+        while parent_of.get(cid, "1") != "1":
+            cid = parent_of[cid]
+            if cid in frames:
+                chain.append(cid)
+        return chain
+
+    for c in cells:
+        if c["edge"] and leaves and not c["id"].startswith("lg-"):
+            shared = [f for f in frames_of(c["source"]) if f in frames_of(c["target"])]
+            c["parent"] = shared[0] if shared and shared[0] in leaves else leaves[0]
+    ordered = tree()
+    placed = {id(c) for c in ordered}
+    return ordered + [c for c in cells if id(c) not in placed]
+
+
 def place(declaration):
     """Every cell of the model with its absolute geometry: the grid places what the layout does not name."""
     content, layout = declaration["content"], declaration["layout"]
     glyph_lib = LIB["glyphs"]
     holder = {}
-    for item in content["groups"] + content["glyphs"]:
+    for item in content["groups"] + content["glyphs"] + content.get("notes", []):
         holder.setdefault(item["in"], []).append(item)
+    rows = {r["id"]: r for r in content.get("rows") or []}
+    lanes = {str(l["band"]): l for l in content.get("lanes") or []}
 
     def size_of(item):
         if item["id"] in layout:
             return layout[item["id"]]["w"], layout[item["id"]]["h"]
+        if "text" in item:  # a note: its width, and a line of height per line of text at the width
+            lines = sum(max(1, math.ceil(len(line) / 62)) for line in item["text"].split("\n"))
+            return NOTE_WIDTH, 24 + 16 * lines
+        if item.get("shape") == "box":
+            return COMMIT_BOX_SIZE
         if "kind" in item:
             return glyph_lib[item["kind"]]["size"]
         inner_w, inner_h = grid_size(item["id"])
         return inner_w + 2 * PAD, inner_h + LABEL_ROW + PAD
 
+    def lane_xy(band_id, step, row):
+        """Where a lane's commit at a step and row sits: the steps spread evenly along the band, row 0 on the trunk, +1 above it."""
+        bb, lane = band_box[band_id], lanes[band_id]
+        dot = glyph_lib["commit"]["size"][0]
+        left, right = bb["x"] + PAD + 40, bb["x"] + bb["w"] - PAD - 60 - dot
+        stride = (right - left) / (int(lane["steps"]) - 1)
+        mid = bb["y"] + LABEL_ROW + (bb["h"] - LABEL_ROW - PAD) // 2 - dot // 2
+        return round(left + (step - 1) * stride), mid - row * LANE_ROW
+
+    def row_place(holder_id, item, origin_x, origin_y, w, h):
+        """A row's dot n sits in column n, its drop under it; a lane's commit at its step and row; anything else in the holder is
+        placed by the grid."""
+        if holder_id in lanes:
+            lane = lanes[holder_id]
+            placed = next((c for c in (lane.get("commits") or []) + (lane.get("glyphs") or []) if str(c["id"]) == item["id"]), None)
+            if placed is not None:  # centred on its step's column, as a commit dot is
+                x, y = lane_xy(holder_id, int(placed["step"]), int(placed.get("row", 0)))
+                dot = glyph_lib["commit"]["size"]
+                return {"x": x + dot[0] // 2 - w // 2, "y": y + dot[1] // 2 - h // 2, "w": w, "h": h}
+        if holder_id not in rows:
+            return None
+        rest = item["id"][len(holder_id) + 1 :]
+        n, _, drop = rest.partition("-")
+        if not n.isdigit():
+            return None
+        return {"x": origin_x + int(n) * ROW_PITCH, "y": origin_y + (ROW_DROP if drop else 0), "w": w, "h": h}
+
     def grid_size(holder_id, width=None):
+        if holder_id in rows:  # its dots in a line, its drops in the line under it
+            dot = glyph_lib["commit"]["size"]
+            return len(rows[holder_id]["steps"]) * ROW_PITCH + dot[0], ROW_DROP + dot[1]
+        if holder_id in lanes:  # a lane's height is fixed: its trunk and a branch row above and below it
+            return 0, LANE_HEIGHT - LABEL_ROW - PAD
         items = holder.get(holder_id, [])
         if not items:
             return 0, 0
@@ -473,6 +776,8 @@ def place(declaration):
 
     vertical = content["flow"] == "top-to-bottom"
     has_spans = bool(content["spans"])
+    # A span over whole bands stands beside them in a top-to-bottom flow; a span over glyphs of one band lies above that band.
+    upright = lambda s: vertical and any(o in {b["id"] for b in content["bands"]} for o in s["over"])
     bands = content["bands"]
     cells = []
     # The chrome: title and subtitle.
@@ -488,7 +793,7 @@ def place(declaration):
     # The bands along the flow: side by side left to right, or stacked top to bottom.
     band_box = {}
     if vertical:
-        left = PAGE["x"] + (50 if has_spans else 0)
+        left = PAGE["x"] + (50 if any(upright(s) for s in content["spans"]) else 0)
         width = PAGE["width"] - (left - PAGE["x"])
         y = PAGE["band_y"] - (24 if not has_spans else 0) + drop
         for b in bands:
@@ -521,13 +826,25 @@ def place(declaration):
             if x > 0 and x + w > width:
                 y += row_h + ROW_GAP
                 x, row_h = 0, 0
-            box = layout.get(item["id"]) or {"x": origin_x + x, "y": origin_y + y, "w": w, "h": h}
+            box = layout.get(item["id"]) or row_place(holder_id, item, origin_x, origin_y, w, h) or {"x": origin_x + x, "y": origin_y + y, "w": w, "h": h}
             box_of[item["id"]] = box
-            if "kind" in item:
-                style = glyph_lib[item["kind"]]["style"]
+            if item["id"] in layout and holder_id in band_box:  # a band holds its items by place alone, so a moved item names its band
+                cx, cy = box["x"] + box["w"] / 2, box["y"] + box["h"] / 2
+                within = [b for b, bb in band_box.items() if bb["x"] <= cx <= bb["x"] + bb["w"] and bb["y"] <= cy <= bb["y"] + bb["h"]]
+                if within and holder_id not in within:
+                    raise DeclarationError(f"layout places '{item['id']}' in {within[0]}, but its in: is {holder_id}; set in: to the band it "
+                                           f"sits in, or move it back")
+            if "text" in item:
+                text = "<br>".join(html.escape(line, quote=False) for line in item["text"].split("\n"))
+                cells.append(cell(item["id"], text, NOTE, box["x"], box["y"], box["w"], box["h"], parent))
+            elif "kind" in item:
+                style = COMMIT_BOX if item.get("shape") == "box" else glyph_lib[item["kind"]]["style"]
+                if item["kind"] == "env" and holder.get(item["id"]):  # an occupied environment names itself left of its occupants
+                    style += "align=left;spacingLeft=22;"
                 if item["kind"] == "commit":
                     style = commit_style(style, item.get("state", COMMIT_STATES[0]), item.get("ghost", False))
-                cells.append(cell(item["id"], f"<b>{html.escape(item['label'], quote=False)}</b>", style, box["x"], box["y"], box["w"], box["h"], parent))
+                label = "<br>".join(html.escape(line, quote=False) for line in item["label"].split("\n"))  # a box's second line
+                cells.append(cell(item["id"], f"<b>{label}</b>", style, box["x"], box["y"], box["w"], box["h"], parent))
                 if item["kind"] == "type":
                     tag = glyph_lib["type"]["tag"]
                     cells.append(cell(f"{item['id']}-tag", "C#", tag["style"], box["x"] + box["w"] - tag["size"][0] - 8, box["y"] - 8, tag["size"][0], tag["size"][1], parent))
@@ -547,6 +864,32 @@ def place(declaration):
     for b in bands:
         bb = band_box[b["id"]]
         fill(b["id"], bb["x"] + PAD, bb["y"] + LABEL_ROW, bb["w"] - 2 * PAD, "1")
+    # A lane's furniture, the yml's alone: its trunk line named at its end, the marks over its commits, and the gate rules across
+    # every band, between two steps of the first lane.
+    for lane in lanes.values():
+        band, (x0, y_mid) = lane["band"], lane_xy(lane["band"], 1, 0)
+        x1 = lane_xy(band, int(lane["steps"]), 0)[0]
+        dot = glyph_lib["commit"]["size"][0]
+        if lane.get("trunk"):
+            cells.append(cell(f"lane-{band}-a", "", ANCHOR, x0 - 20, y_mid + dot // 2, 1, 1))
+            cells.append(cell(f"lane-{band}-b", "", ANCHOR, x1 + dot + 20, y_mid + dot // 2, 1, 1))
+            cells.append(edge_cell(f"lane-{band}-trunk", "", TRUNK, f"lane-{band}-a", f"lane-{band}-b"))
+            cells.append(cell(f"lane-{band}-trunk-label", html.escape(str(lane["trunk"]), quote=False), TRUNK_LABEL, x1 - 160, y_mid + dot + 8, 200, 18))
+        for n, mark in enumerate(lane.get("marks") or []):
+            at = box_of[str(mark["at"])]
+            cells.append(cell(f"lane-{band}-mark-{n}", html.escape(str(mark["text"]), quote=False), MARK_TEXT, at["x"] - 70, at["y"] - 36, 162, 32))
+    if lanes:
+        # A rule crosses the lanes that share the first lane's steps, and the bands between them; a lane on another axis (git's
+        # history) runs under its own steps, so no rule crosses it.
+        first = next(iter(lanes.values()))
+        stride = lane_xy(first["band"], 2, 0)[0] - lane_xy(first["band"], 1, 0)[0]
+        axis = [band_box[b] for b, lane in lanes.items() if int(lane["steps"]) == int(first["steps"])]
+        top, bottom = min(bb["y"] for bb in axis), max(bb["y"] + bb["h"] for bb in axis)
+        for n, rule in enumerate(content.get("rules") or []):
+            x = lane_xy(first["band"], int(rule["after"]), 0)[0] + glyph_lib["commit"]["size"][0] // 2 + stride // 2
+            cells.append(cell(f"lane-rule-{n}-a", "", ANCHOR, x, top + LABEL_ROW, 1, 1))
+            cells.append(cell(f"lane-rule-{n}-b", "", ANCHOR, x, bottom, 1, 1))
+            cells.append(edge_cell(f"lane-rule-{n}", "", RULE_STYLES[rule["kind"]], f"lane-rule-{n}-a", f"lane-rule-{n}-b"))
     # The span bars over (or beside) what they cover: whole bands, or glyphs and groups of one band.
     holder = {i["id"]: i["in"] for i in content["groups"] + content["glyphs"]}
 
@@ -559,22 +902,25 @@ def place(declaration):
         boxes = [box_of[i] for i in s["over"]]
         return min(b["x"] for b in boxes), max(b["x"] + b["w"] for b in boxes), boxes
 
-    span_levels = []
+    span_levels, span_cells = [], {}
     for s in sorted(content["spans"], key=lambda s: reach(s)[1] - reach(s)[0]):  # the narrow spans first, the wide ones stack above
         x0, x1, boxes = reach(s)
-        if vertical:
+        if upright(s):
             y0, y1 = min(b["y"] for b in boxes), max(b["y"] + b["h"] for b in boxes)
             bar = cell(s["id"], "", "shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=@line;strokeWidth=1.5;shadow=0;rotation=90;", PAGE["x"] + 12, y0, 14, y1 - y0)
             label = cell(f"{s['id']}-label", html.escape(s["label"], quote=False), SPAN_LABEL, PAGE["x"] - 4, (y0 + y1) // 2 - 8, 30, 16)
         else:
             # A span sits just above the band of what it covers, so it moves down with the bands under a wrapped subtitle; a span over
             # what an earlier span already covers stacks one level higher (CD over CI).
-            level = sum(1 for lx0, lx1 in span_levels if lx0 < x1 and x0 < lx1)
-            span_levels.append((x0, x1))
+            taken = {lv for lx0, lx1, lv in span_levels if lx0 < x1 and x0 < lx1}
+            level = min(lv for lv in range(len(taken) + 1) if lv not in taken)  # the lowest level nothing it overlaps holds
+            span_levels.append((x0, x1, level))
             y = min(band_box[band_of(i)]["y"] for i in s["over"]) - 24 - level * 32
             bar = cell(s["id"], "", "shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=@line;strokeWidth=1.5;shadow=0;", x0, y, x1 - x0, 14)
             label = cell(f"{s['id']}-label", html.escape(s["label"], quote=False), SPAN_LABEL, (x0 + x1) // 2 - 15, y - 18, 30, 16)
-        cells.extend([bar, label])
+        span_cells[s["id"]] = [bar, label]
+    for s in content["spans"]:  # in the declared order, so get reads them back in it
+        cells.extend(span_cells[s["id"]])
     # Room for the spans: when the topmost span label would reach into the title and subtitle, the whole drawing area moves down by
     # the shortfall; the title, the subtitle and the lens chip stay where they are.
     title_room = PAGE["subtitle_y"] + lines * 16 + 4
@@ -582,10 +928,13 @@ def place(declaration):
     delta = max(0, title_room - min(labels_top)) if labels_top else 0
     if delta:
         for c in cells:  # every y here is absolute; to_xml makes a child's relative to its parent
-            if c["id"] not in ("title", "subtitle", "lens-badge"):
+            if c["id"] not in ("title", "subtitle", "lens-badge") and not c["edge"]:  # an edge follows its ends
                 c["y"] += delta
         box_of = {k: {**v, "y": v["y"] + delta} for k, v in box_of.items()}
         content_bottom += delta
+        # The shift moves the declared layout and waypoints too, and over laid-out bands it cannot be derived again from what is
+        # drawn, so the title carries it and get takes it off again.
+        next(c for c in cells if c["id"] == "title")["style"] += f"{SHIFT_KEY}={delta};"
     # Edges, markers and chips anchor on the glyphs.
     for e in content["edges"]:
         style = LIB["edges"][e["kind"]]["style"]
@@ -595,6 +944,10 @@ def place(declaration):
         n = sum(1 for c in cells if c["id"] == eid or c["id"].startswith(eid + "~"))  # a repeat edge between the same pair: e-…~2
         edge = edge_cell(eid if not n else f"{eid}~{n + 1}", f"<b>{html.escape(e['label'], quote=False)}</b>" if e["label"] else "", style, e["from"], e["to"])
         edge["via"] = [[x, y + delta] for x, y in e.get("via", [])]  # waypoints move with the drawing area
+        if e["kind"] == "bypass":  # out of its source's side, down under the skipped dot, and up into its target's side
+            a, b = box_of[e["from"]], box_of[e["to"]]
+            low = a["y"] + a["h"] + BYPASS_DIP
+            edge["via"] = [[a["x"] + a["w"] + BYPASS_DIP, low], [b["x"] - BYPASS_DIP, low]]
         cells.append(edge)
     size = LIB["marks"]["marker"]["size"]
     for m in content["markers"]:
@@ -668,7 +1021,7 @@ def place(declaration):
         rim = "none" if swatch == "@map-lit" else "@map-rim"
         cells.append(cell(f"mk-{i}", "", f"rounded=1;arcSize=20;html=1;fillColor={swatch};strokeColor={rim};shadow=0;", SIDEBAR_X + 12, y, 26, 16))
         cells.append(cell(f"mk-{i}-t", phrase, TEXT, SIDEBAR_X + 48, y - 2, SIDEBAR_W - 56, 20))
-    return cells, height
+    return in_paint_order(cells), height
 
 
 def legend_entries(content):
@@ -701,14 +1054,25 @@ def legend_entries(content):
         if kind != "commit":
             entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))
             continue
-        # Commits: one entry per palette state the diagram draws, a ghost of a state as its own entry.
-        for state, ghost in dict.fromkeys((g.get("state", COMMIT_STATES[0]), g.get("ghost", False)) for g in content["glyphs"] if g["kind"] == "commit"):
-            style = commit_style(glyphs["commit"]["style"], state, ghost)
+        # Commits: one entry per palette state the diagram draws, and one entry for a ghost of any state.
+        commits = [g for g in content["glyphs"] if g["kind"] == "commit"]
+        for state in dict.fromkeys(g.get("state", COMMIT_STATES[0]) for g in commits):
+            style = commit_style(glyphs["commit"]["style"], state, False)
             swatch = lambda eid, x, y, style=style: [cell(f"lg-{eid}", "", style, x + 8, y - 2, 22, 22)]
-            entries.append((f"commit-{state}{'-ghost' if ghost else ''}", swatch, f"commit: {state}{' (ghost)' if ghost else ''}"))
+            entries.append((f"commit-{state}", swatch, f"commit: {state}"))
+        ghosts = [g for g in commits if g.get("ghost", False)]
+        if ghosts:
+            style = commit_style(glyphs["commit"]["style"], ghosts[0].get("state", COMMIT_STATES[0]), True)
+            swatch = lambda eid, x, y, style=style: [cell(f"lg-{eid}", "", style, x + 8, y - 2, 22, 22)]
+            entries.append(("commit-ghost", swatch, "commit: ghost"))
     for kind in dict.fromkeys(e["kind"] for e in content["edges"]):
         phrase = f"flow: {content['relation']}" if kind == "flow" and content["relation"] else LIB["edges"][kind]["phrase"]
         entries.append((f"edge-{kind}", edge_swatch(kind), phrase))
+    for kind in dict.fromkeys(r["kind"] for r in content.get("rules") or []):  # a gate rule's line, solid or dashed
+        swatch = lambda eid, x, y, style=RULE_STYLES[kind]: [
+            cell(f"lg-{eid}-a", "", ANCHOR, x, y + 9, 1, 1), cell(f"lg-{eid}-b", "", ANCHOR, x + 40, y + 9, 1, 1),
+            edge_cell(f"lg-{eid}", "", style, f"lg-{eid}-a", f"lg-{eid}-b")]
+        entries.append((f"rule-{kind}", swatch, f"{kind} gate"))
     if content["markers"]:
         entries.append(("marker", mark_swatch("marker", "1"), LIB["marks"]["marker"]["phrase"]))
     for kind in dict.fromkeys(c["kind"] for c in content["chips"]):
@@ -737,9 +1101,10 @@ def to_xml(cells, height, theme=None):
         if c["edge"]:
             lines.append(f'    <mxCell id="{c["id"]}" value="{value}" style="{paint(c["style"], theme)}" edge="1" parent="{c["parent"]}" source="{c["source"]}" target="{c["target"]}">')
             if c.get("via"):
+                px, py = origin.get(c["parent"], (0, 0))  # an edge inside a container takes its waypoints relative to it
                 lines.append('      <mxGeometry relative="1" as="geometry">')
                 lines.append('        <Array as="points">')
-                lines.extend(f'          <mxPoint x="{x}" y="{y}" />' for x, y in c["via"])
+                lines.extend(f'          <mxPoint x="{x - px}" y="{y - py}" />' for x, y in c["via"])
                 lines.append("        </Array>")
                 lines.append("      </mxGeometry>")
             else:
@@ -792,10 +1157,17 @@ def model_of(folder):
     return decode(mxfile_chunk(Image.open(Path(folder) / SLIDE))).strip()
 
 
+def shift_of(title_style):
+    """How far span room moved a drawing area down, from its title's style: 0 when it did not move."""
+    return int(style_map(title_style or "").get(SHIFT_KEY, 0))
+
+
 def get(model, kind=None):
     """The declaration a model states, in the kit's vocabulary; a cell the vocabulary cannot name fails the direction."""
     root = ET.fromstring(model)
     cells = {str(c.get("id")): c for c in root.iter("mxCell") if c.get("id") not in (None, "0", "1")}
+    shift = shift_of(cells["title"].get("style")) if "title" in cells else 0
+    declared = lambda box: {**box, "y": box["y"] - shift}  # a layout box as the yml declares it, before span room moved it
     geo = {}
     for cid, c in cells.items():
         g = c.find("mxGeometry")
@@ -825,7 +1197,7 @@ def get(model, kind=None):
     content["relation"] = flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") else ""
     layout = {}
     unnamed = []
-    bands, groups, glyphs, bars, labels, markers, chips = [], [], [], [], [], [], []
+    bands, groups, glyphs, bars, labels, markers, chips, notes = [], [], [], [], [], [], [], []
     lens = plain(cells["lens-badge"].get("value")).lower() if "lens-badge" in cells else lens
     for cid, c in cells.items():
         style, value = c.get("style") or "", plain(c.get("value"))
@@ -835,6 +1207,8 @@ def get(model, kind=None):
             content["title"] = value
         elif cid == "subtitle":
             adrs = [p.strip() for p in value.split("·") if p.strip()]
+        elif style_map(style).get("noteBlock") == "1":
+            notes.append(cid)
         elif matches(signature(BAND), style):
             bands.append(cid)
         elif matches(module_sig, style):
@@ -847,8 +1221,8 @@ def get(model, kind=None):
             markers.append(cid)
         elif matches(mark_sigs["rule"], style) or matches(mark_sigs["count"], style):
             chips.append(cid)
-        elif "ellipse" in style_map(style) and style_map(style).get("fillColor", "").upper() in palette_fills:
-            glyphs.append((cid, "commit"))  # a commit in any palette state
+        elif ("ellipse" in style_map(style) or style_map(style).get("commitShape") == "box") and style_map(style).get("fillColor", "").upper() in palette_fills:
+            glyphs.append((cid, "commit"))  # a commit in any palette state, a dot or a box
         else:
             kinds = [k for k, sig in sorted(glyph_sigs.items(), key=lambda kv: -len(kv[1])) if matches(sig, style)]
             if f"{cid}-tag" in cells and "type" in kinds:
@@ -863,7 +1237,7 @@ def get(model, kind=None):
     bands.sort(key=lambda b: (geo[b]["y"], geo[b]["x"]))
     for b in bands:
         content["bands"].append({"id": b, "label": plain(cells[b].get("value"))})
-        layout[b] = geo[b]
+        layout[b] = declared(geo[b])
     if len(bands) > 1 and all(geo[b]["x"] == geo[bands[0]]["x"] for b in bands):
         content["flow"] = "top-to-bottom"
 
@@ -890,8 +1264,8 @@ def get(model, kind=None):
         walk(b)
     rank = {h: i for i, h in enumerate(order)}
     for g in sorted(groups, key=lambda g: (rank[holders[g]], geo[g]["y"], geo[g]["x"])):
-        content["groups"].append({"id": g, "label": plain(cells[g].get("value")), "in": holders[g]})
-        layout[g] = geo[g]
+        content["groups"].append({"id": g, "label": plain(cells[g].get("value")) or " ", "in": holders[g]})  # " ": an untitled frame
+        layout[g] = declared(geo[g])
     def reading_order(t):  # holder by holder, row-major; an environment's occupants come after the glyphs of the environment's holder
         h = holder_of(t[0])
         return (rank[holder_of(h)], 1, geo[t[0]]["y"], geo[t[0]]["x"]) if h in envs else (rank[h], 0, geo[t[0]]["y"], geo[t[0]]["x"])
@@ -900,13 +1274,19 @@ def get(model, kind=None):
         glyph = {"id": cid, "kind": k, "label": plain(cells[cid].get("value")), "in": holder_of(cid)}
         if k == "commit":
             s = style_map(cells[cid].get("style"))
+            if s.get("commitShape") == "box":
+                glyph["shape"] = "box"
             state = palette_fills[s.get("fillColor", "").upper()]
             if state != COMMIT_STATES[0]:
                 glyph["state"] = state
             if s.get("dashed") == "1":
                 glyph["ghost"] = True
         content["glyphs"].append(glyph)
-        layout[cid] = geo[cid]
+        layout[cid] = declared(geo[cid])
+    content["notes"] = []
+    for cid in sorted(notes, key=lambda n: (rank[holder_of(n)], geo[n]["y"], geo[n]["x"])):
+        content["notes"].append({"id": cid, "in": holder_of(cid), "text": plain(cells[cid].get("value"))})
+        layout[cid] = declared(geo[cid])
     for bar in bars:
         box = geo[bar]
         vertical = "rotation=90" in (cells[bar].get("style") or "")
@@ -941,14 +1321,15 @@ def get(model, kind=None):
             return [(None, (x + 15, y))] + corners
         return ([(None, (x + w // 2 - 29, y + 7))] if kind_of[g] == "gate" else []) + corners
 
-    edge_ends = [(c.get("source"), c.get("target")) for cid, c in cells.items() if c.get("edge") == "1" and not cid.startswith("lg-")]
+    edge_ends = [(c.get("source"), c.get("target")) for cid, c in cells.items() if c.get("edge") == "1" and not cid.startswith(("lg-", "lane-"))]
     places = [(g, name, point) for g in glyph_ids + groups + bands for name, point in anchors(g)]
     centre_of = lambda i: (geo[i]["x"] + geo[i]["w"] / 2, geo[i]["y"] + geo[i]["h"] / 2)
-    def via_of(c):
+    def via_of(c):  # an edge's waypoints on the page: relative to its container when it sits in one
         points = c.find("mxGeometry/Array")
-        return [[float(p.get("x", 0)), float(p.get("y", 0))] for p in points.findall("mxPoint")] if points is not None else []
+        ox, oy = (geo[c.get("parent")]["x"], geo[c.get("parent")]["y"]) if c.get("parent") in geo else (0, 0)
+        return [[float(p.get("x", 0)) + ox, float(p.get("y", 0)) + oy] for p in points.findall("mxPoint")] if points is not None else []
 
-    edge_paths = [(c.get("source"), c.get("target"), via_of(c)) for cid, c in cells.items() if c.get("edge") == "1" and not cid.startswith("lg-")]
+    edge_paths = [(c.get("source"), c.get("target"), via_of(c)) for cid, c in cells.items() if c.get("edge") == "1" and not cid.startswith(("lg-", "lane-"))]
     places += [(f"{s}->{t}", "edge", edge_middle(geo[s], geo[t], via)) for s, t, via in edge_paths if s in geo and t in geo]
     for m in sorted(markers, key=lambda m: int(plain(cells[m].get("value")))):
         centre = centre_of(m)
@@ -960,7 +1341,7 @@ def get(model, kind=None):
                 marker["corner"] = name
         content["markers"].append(marker)
     # A chip's id is chip-<kind>-<place>-<n>, so the place it sits on is read from the id, in the order put drew them.
-    for ch in sorted(chips, key=lambda c: (c.rsplit("-", 1)[0], int(c.rsplit("-", 1)[1]) if c.rsplit("-", 1)[1].isdigit() else 0)):
+    for ch in chips:
         style = cells[ch].get("style") or ""
         kind = "rule" if matches(mark_sigs["rule"], style) else "count"
         at = ch.removeprefix(f"chip-{kind}-").rsplit("-", 1)[0]
@@ -973,27 +1354,49 @@ def get(model, kind=None):
             chip = {"at": at, "kind": "count", "text": value}
         if at in geo:  # the corner it sits on, named only when it is not the kind's own
             cx, cy = centre_of(ch)
-            corner = ("top" if cy < geo[at]["y"] + geo[at]["h"] / 2 else "bottom") + ("-left" if cx < geo[at]["x"] + geo[at]["w"] / 2 else "-right")
+            box, x = geo[at], geo[ch]["x"]
+            # A row of chips stands inward from its corner, 34 px a chip, so a chip far along the row still names its row's corner.
+            in_row = lambda offset: offset >= 0 and offset % 34 == 0
+            right, left = in_row(box["x"] + box["w"] - 30 - x), in_row(x - box["x"] - 4)
+            side = "-right" if right and not left else "-left" if left and not right else ("-left" if cx < box["x"] + box["w"] / 2 else "-right")
+            corner = ("top" if cy < box["y"] + box["h"] / 2 else "bottom") + side
             if corner != CHIP_CORNER[kind]:
                 chip["corner"] = corner
         content["chips"].append(chip)
     edge_sigs = {k: signature(v["style"]) for k, v in LIB["edges"].items()}
     for cid, c in cells.items():
-        if c.get("edge") != "1" or cid.startswith("lg-"):
+        if c.get("edge") != "1" or cid.startswith(("lg-", "lane-")):
             continue
         kinds = [k for k, sig in sorted(edge_sigs.items(), key=lambda kv: -len(kv[1])) if matches(sig, c.get("style") or "")]
         if not kinds:
             raise DeclarationError(f"get cannot name the edge {cid} in the kit's vocabulary")
         edge = {"from": c.get("source"), "to": c.get("target"), "kind": kinds[0], "label": plain(c.get("value"))}
-        g = c.find("mxGeometry")
-        points = g.find("Array") if g is not None else None
-        if points is not None:
-            edge["via"] = [[int(float(p.get("x", 0))), int(float(p.get("y", 0)))] for p in points.findall("mxPoint")]
+        if via_of(c) and edge["kind"] != "bypass":  # a bypass's route is the kit's, under the dot it skips
+            edge["via"] = [[int(x), int(y) - shift] for x, y in via_of(c)]  # the waypoints as declared, before span room
         content["edges"].append(edge)
     declaration = normalise({"about": {"adrs": adrs, "lens": lens}, "content": content, "layout": layout}, where="the drawing")
     # A cell that sits where the grid would put it needs no layout entry: the layout keeps only what a hand moved.
-    grid = {c["id"]: {k: c[k] for k in ("x", "y", "w", "h")} for c in place({"content": declaration["content"], "layout": {}})[0] if not c["edge"]}
-    declaration["layout"] = {cid: box for cid, box in declaration["layout"].items() if grid.get(cid) != box}
+    # A layout entry stays only where put would not place the cell there anyway, given the entries already kept for what holds it:
+    # bands first, then frames from the outside in, then what they hold.
+    read, held = declaration["layout"], declaration["content"]
+    holder = {i["id"]: i["in"] for key in ("groups", "glyphs", "notes") for i in held.get(key) or []}
+    frames = {g["id"] for g in held["groups"]}
+
+    def depth(cid):
+        d = 0
+        while cid in holder:
+            cid, d = holder[cid], d + 1
+        return d
+
+    deepest = max((depth(g) for g in frames), default=0)
+    level = lambda cid: 0 if cid not in holder else depth(cid) if cid in frames else deepest + 1
+    kept: dict = {}
+    for lv in sorted({level(cid) for cid in read}):
+        gridded = place({"content": held, "layout": kept})[0]
+        grid_shift = shift_of(next(c["style"] for c in gridded if c["id"] == "title"))  # the grid's own span room, taken off too
+        grid = {c["id"]: {"x": c["x"], "y": c["y"] - grid_shift, "w": c["w"], "h": c["h"]} for c in gridded if not c["edge"]}
+        kept.update({cid: box for cid, box in read.items() if level(cid) == lv and grid.get(cid) != box})
+    declaration["layout"] = {cid: box for cid, box in read.items() if cid in kept}
     return declaration
 
 
@@ -1063,9 +1466,13 @@ def conflict(folder, base):
     # The base is compared as data, never validated: it was valid against the registries of its own commit, not today's.
     source, model = load(folder), model_of(folder)
     unmoved = yaml.safe_load((Path(folder) / SOURCE).read_text(encoding="utf-8")) == yaml.safe_load(base[0])
-    if unmoved or model == base[1] or get(model, kind_of(folder))["content"] == source["content"]:
+    if unmoved or model == base[1]:
         return []
-    return changed_cells(model, put(with_data(folder, source)).strip())
+    back = undrawn(get(model, kind_of(folder))["content"], source)
+    if drawn(back) == drawn(source["content"]):
+        return []
+    # The cells that diverge are drawn ones: a derived cell (a minimap, the legend) is stale at worst, never a side to pick.
+    return [i for i in changed_cells(model, put(with_data(folder, source)).strip()) if i not in DERIVED and not i.startswith(DERIVED_PREFIXES)]
 
 
 def sync(folder, base):

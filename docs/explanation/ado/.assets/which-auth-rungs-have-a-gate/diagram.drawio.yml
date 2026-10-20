@@ -1,70 +1,172 @@
-description: >-
-  Which rules of the credential ladder a gate checks: each rung's tests and the step template's check, with the rules no gate checks drawn
-  dashed, the PAT's org binding and the empty-token assert among them.
+description: 'Which rules of the credential ladder a gate checks: each rung''s tests and the step template''s check, with
+  the rules no gate checks drawn dashed, the PAT''s org binding and the empty-token assert among them.'
 about:
-  lens: governance
   adrs:
-    - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-    - ADR-ADO-AUTH-PROVETARGET
-    - ADR-ADO-AUTH-EXPLICITDETECTION
-    - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
-    - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
-    - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
-    - ADR-FLOW-CD-PIPELINE-NOSTOREDTOKENS
-  tracks: [pwsh, ado-pipelines]
-  languages: [powershell, pipeline-yaml]
-  modules: [Catzc.Azure.DevOps]
-  files:
-    - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
-    - pwsh/Catzc.Azure.DevOps/tests/Get-AdoAuthorizationHeader.Tests.ps1
-    - .ado/pipelines/steps/invoke-automation.yaml
-    - .ado/pipelines/ci-pwsh.yaml
+  - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+  - ADR-ADO-AUTH-PROVETARGET
+  - ADR-ADO-AUTH-EXPLICITDETECTION
+  - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
+  - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+  - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+  - ADR-FLOW-CD-PIPELINE-NOSTOREDTOKENS
+  lens: governance
 content:
   title: The PAT proof and the empty-token assert have no gate
   kind: explanation
+  flow: left-to-right
   relation: checked by
+  theme: dark
   bands:
-    - { id: band-header, label: HEADER FUNCTION }
-    - { id: band-cross, label: CROSS-CUTTING }
+  - id: band-header
+    label: HEADER FUNCTION
+  - id: band-cross
+    label: CROSS-CUTTING
   glyphs:
-    - { id: g-pipeline, kind: gate, label: Pipeline token, in: band-header }
-    - { id: g-pat, kind: gate, label: PAT, in: band-header }
-    - { id: g-azcli, kind: gate, label: az CLI, in: band-header }
-    - { id: t-pipeline, kind: code, label: L0 tests, in: band-header }
-    - { id: t-pat, kind: code, label: L0 test, in: band-header }
-    - { id: t-azcli, kind: code, label: L0 tests, in: band-header }
-    - { id: g-template, kind: runner, label: invoke-automation.yaml, in: band-cross }
-    - { id: g-job, kind: runner, label: AzureAuthTests, in: band-cross }
+  - id: g-pipeline
+    kind: gate
+    label: Pipeline token
+    in: band-header
+  - id: g-pat
+    kind: gate
+    label: PAT
+    in: band-header
+  - id: g-azcli
+    kind: gate
+    label: az CLI
+    in: band-header
+  - id: t-pipeline
+    kind: code
+    label: L0 tests
+    in: band-header
+  - id: t-pat
+    kind: code
+    label: L0 test
+    in: band-header
+  - id: t-azcli
+    kind: code
+    label: L0 tests
+    in: band-header
+  - id: g-template
+    kind: runner
+    label: invoke-automation.yaml
+    in: band-cross
+  - id: g-job
+    kind: runner
+    label: AzureAuthTests
+    in: band-cross
   edges:
-    - { from: g-pipeline, to: t-pipeline }
-    - { from: g-pat, to: t-pat }
-    - { from: g-azcli, to: t-azcli }
-    - { from: g-template, to: g-job }
+  - from: g-pipeline
+    to: t-pipeline
+    kind: flow
+    label: ''
+  - from: g-pat
+    to: t-pat
+    kind: flow
+    label: ''
+  - from: g-azcli
+    to: t-azcli
+    kind: flow
+    label: ''
+  - from: g-template
+    to: g-job
+    kind: flow
+    label: ''
   markers:
-    - { at: band-header, number: 1 }
-    - { at: g-pipeline, number: 2 }
-    - { at: g-pat, number: 3 }
-    - { at: g-azcli, number: 4 }
-    - { at: g-template, number: 5 }
+  - at: band-header
+    number: 1
+  - at: g-pipeline
+    number: 2
+  - at: g-pat
+    number: 3
+  - at: g-azcli
+    number: 4
+  - at: g-template
+    number: 5
   chips:
-    - { at: band-header, kind: rule, rule: ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE }
-    - { at: band-header, kind: rule, rule: ADR-ADO-AUTH-SEPARATETOKENFUNCTION, gated: false }
-    - { at: band-header, kind: rule, rule: ADR-FLOW-CD-PIPELINE-NOSTOREDTOKENS, gated: false }
-    - { at: t-pipeline, kind: rule, rule: ADR-ADO-AUTH-EXPLICITDETECTION }
-    - { at: t-pipeline, kind: rule, rule: ADR-ADO-AUTH-PROVETARGET }
-    - { at: t-pat, kind: rule, rule: ADR-ADO-AUTH-PROVETARGET, gated: false }
-    - { at: t-azcli, kind: rule, rule: ADR-ADO-AUTH-PROVETARGET }
-    - { at: t-azcli, kind: rule, rule: ADR-ADO-AUTH-ASSERTWHENNOTOKEN, gated: false }
-    - { at: g-template, kind: rule, rule: ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: band-header
+    kind: rule
+    rule: ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+  - at: band-header
+    kind: rule
+    rule: ADR-ADO-AUTH-SEPARATETOKENFUNCTION
+    gated: false
+  - at: band-header
+    kind: rule
+    rule: ADR-FLOW-CD-PIPELINE-NOSTOREDTOKENS
+    gated: false
+  - at: t-pipeline
+    kind: rule
+    rule: ADR-ADO-AUTH-EXPLICITDETECTION
+  - at: t-pipeline
+    kind: rule
+    rule: ADR-ADO-AUTH-PROVETARGET
+  - at: t-pat
+    kind: rule
+    rule: ADR-ADO-AUTH-PROVETARGET
+    gated: false
+  - at: t-azcli
+    kind: rule
+    rule: ADR-ADO-AUTH-PROVETARGET
+  - at: t-azcli
+    kind: rule
+    rule: ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+    gated: false
+  - at: g-template
+    kind: rule
+    rule: ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-header: { x: 20, y: 84, w: 860, h: 400 }
-  band-cross: { x: 900, y: 84, w: 380, h: 400 }
-  g-pipeline: { x: 120, y: 144, w: 300, h: 64 }
-  g-pat: { x: 120, y: 254, w: 300, h: 64 }
-  g-azcli: { x: 120, y: 364, w: 300, h: 64 }
-  t-pipeline: { x: 560, y: 154, w: 260, h: 44 }
-  t-pat: { x: 560, y: 264, w: 260, h: 44 }
-  t-azcli: { x: 560, y: 374, w: 260, h: 44 }
-  g-template: { x: 960, y: 154, w: 260, h: 44 }
-  g-job: { x: 960, y: 264, w: 260, h: 44 }
+  band-header:
+    x: 20
+    y: 84
+    w: 860
+    h: 400
+  band-cross:
+    x: 900
+    y: 84
+    w: 380
+    h: 400
+  g-pipeline:
+    x: 120
+    y: 144
+    w: 300
+    h: 64
+  g-pat:
+    x: 120
+    y: 254
+    w: 300
+    h: 64
+  g-azcli:
+    x: 120
+    y: 364
+    w: 300
+    h: 64
+  t-pipeline:
+    x: 560
+    y: 154
+    w: 260
+    h: 44
+  t-pat:
+    x: 560
+    y: 264
+    w: 260
+    h: 44
+  t-azcli:
+    x: 560
+    y: 374
+    w: 260
+    h: 44
+  g-template:
+    x: 960
+    y: 154
+    w: 260
+    h: 44
+  g-job:
+    x: 960
+    y: 264
+    w: 260
+    h: 44

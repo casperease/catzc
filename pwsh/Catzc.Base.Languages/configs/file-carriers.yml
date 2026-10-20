@@ -40,8 +40,8 @@ carriers:
 
   diagram-folder:
     files: ["docs/**/.assets/*/diagram.drawio.png"]
-    carrier: sidecar
-    sidecar: "{base}.md"
+    carrier: none
+    reason: "the diagram.drawio.yml beside it is the diagram's one source"
   dotfile:
     {
       files: ["**/.editorconfig", "**/.gitignore", "**/.gitattributes", "**/.prettierignore", "**/.markdownlintignore"],

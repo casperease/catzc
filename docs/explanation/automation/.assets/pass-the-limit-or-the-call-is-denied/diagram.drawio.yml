@@ -1,48 +1,114 @@
-description: >-
-  A shell call inside the limit runs as if the safeguard were absent; a call outside it is denied by the hook with the fix and logged, and a
-  background call that outlives its prefix is stopped with exit 124.
+description: A shell call inside the limit runs as if the safeguard were absent; a call outside it is denied by the hook with
+  the fix and logged, and a background call that outlives its prefix is stopped with exit 124.
 about:
+  adrs:
+  - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
   lens: operations
-  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
-  tracks: [.claude, pwsh]
-  languages: [csharp]
-  modules: [Catzc.Base.Timeouts]
-  files:
-    - .claude/hooks/Assert-BashTimeout/Program.cs
-    - pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs
 content:
-  title: "A call inside the limit runs; outside it, the hook denies it and says how to re-issue it"
+  title: A call inside the limit runs; outside it, the hook denies it and says how to re-issue it
   kind: explanation
   flow: top-to-bottom
   relation: the call goes on
+  theme: dark
   bands:
-    - { id: band-hook, label: HOOK }
-    - { id: band-outcome, label: OUTCOME }
-    - { id: band-after, label: AFTER }
+  - id: band-hook
+    label: HOOK
+  - id: band-outcome
+    label: OUTCOME
+  - id: band-after
+    label: AFTER
   glyphs:
-    - { id: g-hook, kind: gate, label: Assert-BashTimeout, in: band-hook }
-    - { id: f-denied, kind: failure, label: "denied, with the fix", in: band-hook }
-    - { id: r-runs, kind: result, label: the call runs, in: band-outcome }
-    - { id: g-log, kind: file, label: out/time-safeguard.log, in: band-outcome }
-    - { id: f-stopped, kind: failure, label: "exit 124: stopped", in: band-after }
+  - id: g-hook
+    kind: gate
+    label: Assert-BashTimeout
+    in: band-hook
+  - id: f-denied
+    kind: failure
+    label: denied, with the fix
+    in: band-hook
+  - id: r-runs
+    kind: result
+    label: the call runs
+    in: band-outcome
+  - id: g-log
+    kind: file
+    label: out/time-safeguard.log
+    in: band-outcome
+  - id: f-stopped
+    kind: failure
+    label: 'exit 124: stopped'
+    in: band-after
   edges:
-    - { from: g-hook, to: r-runs }
-    - { from: f-denied, to: g-log }
-    - { from: g-hook, to: f-denied, kind: fail }
-    - { from: r-runs, to: f-stopped, kind: fail }
+  - from: g-hook
+    to: r-runs
+    kind: flow
+    label: ''
+  - from: f-denied
+    to: g-log
+    kind: flow
+    label: ''
+  - from: g-hook
+    to: f-denied
+    kind: fail
+    label: ''
+  - from: r-runs
+    to: f-stopped
+    kind: fail
+    label: ''
   markers:
-    - { at: g-hook, number: 1 }
-    - { at: r-runs, number: 2 }
-    - { at: f-denied, number: 3 }
-    - { at: g-log, number: 4 }
-    - { at: f-stopped, number: 5 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-hook
+    number: 1
+  - at: r-runs
+    number: 2
+  - at: f-denied
+    number: 3
+  - at: g-log
+    number: 4
+  - at: f-stopped
+    number: 5
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-hook: { x: 20, y: 84, w: 1260, h: 130 }
-  band-outcome: { x: 20, y: 234, w: 1260, h: 120 }
-  band-after: { x: 20, y: 374, w: 1260, h: 110 }
-  g-hook: { x: 400, y: 118, w: 190, h: 68 }
-  f-denied: { x: 780, y: 130, w: 190, h: 44 }
-  r-runs: { x: 410, y: 282, w: 170, h: 44 }
-  g-log: { x: 795, y: 278, w: 160, h: 52 }
-  f-stopped: { x: 410, y: 416, w: 170, h: 44 }
+  band-hook:
+    x: 20
+    y: 84
+    w: 1260
+    h: 130
+  band-outcome:
+    x: 20
+    y: 234
+    w: 1260
+    h: 120
+  band-after:
+    x: 20
+    y: 374
+    w: 1260
+    h: 110
+  g-hook:
+    x: 400
+    y: 118
+    w: 190
+    h: 68
+  f-denied:
+    x: 780
+    y: 130
+    w: 190
+    h: 44
+  r-runs:
+    x: 410
+    y: 282
+    w: 170
+    h: 44
+  g-log:
+    x: 795
+    y: 278
+    w: 160
+    h: 52
+  f-stopped:
+    x: 410
+    y: 416
+    w: 170
+    h: 44

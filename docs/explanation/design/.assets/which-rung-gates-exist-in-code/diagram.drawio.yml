@@ -1,110 +1,333 @@
-description: >-
-  The rungs of the commit ladder from a topic commit to production, each with its gate: only PR build validation, the BVT and the failure
-  stop are checked in code, and every gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
+description: 'The rungs of the commit ladder from a topic commit to production, each with its gate: only PR build validation,
+  the BVT and the failure stop are checked in code, and every gate from L3 up to production is stated by the ADRs and enforced
+  by nothing yet.'
 about:
-  lens: governance
   adrs:
-    - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-    - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
-    - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
-    - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-    - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-    - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-    - ADR-FLOW-CD-INNERANDOUTERLOOP
-    - ADR-FLOW-CD-CDSTAYSINNONPROD
-    - ADR-FLOW-CD-TWORELEASEGATES
-    - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-    - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
-    - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-  tracks: [docs, ado-pipelines]
-  languages: [markdown, pipeline-yaml]
-  modules: []
-  files:
-    - docs/adr/flow/commit-lifecycle.md
-    - docs/adr/flow/cd-discipline-and-promotion-flow.md
-    - docs/adr/automation/test-automation.md
+  - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+  - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+  - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+  - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+  - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+  - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+  - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+  - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+  - ADR-FLOW-CD-INNERANDOUTERLOOP
+  - ADR-FLOW-CD-CDSTAYSINNONPROD
+  - ADR-FLOW-CD-TWORELEASEGATES
+  - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+  - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+  - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+  lens: governance
 content:
   title: Only PR build validation, the BVT and the failure stop are checked in code
   kind: explanation
+  flow: left-to-right
   relation: next rung
+  theme: dark
   bands:
-    - { id: band-all, label: ALL RUNGS }
-    - { id: band-ci, label: CI }
-    - { id: band-cd, label: CD }
-    - { id: band-deploy, label: DEPLOY }
+  - id: band-all
+    label: ALL RUNGS
+  - id: band-ci
+    label: CI
+  - id: band-cd
+    label: CD
+  - id: band-deploy
+    label: DEPLOY
   glyphs:
-    - { id: g-failure-stop, kind: gate, label: failure stops downstream, in: band-all }
-    - { id: c-discarded, kind: commit, label: discarded, state: discarded, in: band-all }
-    - { id: c-topic, kind: commit, label: topic, state: topic, in: band-ci }
-    - { id: g-pr-validation, kind: gate, label: PR build validation, in: band-ci }
-    - { id: c-landed, kind: commit, label: landed, state: landed, in: band-ci }
-    - { id: g-bvt, kind: gate, label: BVT, in: band-ci }
-    - { id: c-verified, kind: commit, label: BVT-verified, in: band-ci }
-    - { id: a-l3-at, kind: adronly, label: L3-vertical-AT, in: band-cd }
-    - { id: c-l3, kind: commit, label: L3, state: l3, in: band-cd }
-    - { id: a-rc, kind: adronly, label: RC on main-AT, in: band-cd }
-    - { id: c-main-uat, kind: commit, label: main-UAT, state: main-uat, in: band-cd }
-    - { id: a-rbc, kind: adronly, label: RBC on release-AT, in: band-cd }
-    - { id: c-release-uat, kind: commit, label: release-UAT, state: release-uat, in: band-cd }
-    - { id: a-two-slot, kind: adronly, label: two-slot activation, in: band-deploy }
-    - { id: c-production, kind: commit, label: production, state: prod, in: band-deploy }
+  - id: g-failure-stop
+    kind: gate
+    label: failure stops downstream
+    in: band-all
+  - id: c-discarded
+    kind: commit
+    label: discarded
+    in: band-all
+    state: discarded
+  - id: c-topic
+    kind: commit
+    label: topic
+    in: band-ci
+    state: topic
+  - id: g-pr-validation
+    kind: gate
+    label: PR build validation
+    in: band-ci
+  - id: c-landed
+    kind: commit
+    label: landed
+    in: band-ci
+    state: landed
+  - id: g-bvt
+    kind: gate
+    label: BVT
+    in: band-ci
+  - id: c-verified
+    kind: commit
+    label: BVT-verified
+    in: band-ci
+  - id: a-l3-at
+    kind: adronly
+    label: L3-vertical-AT
+    in: band-cd
+  - id: c-l3
+    kind: commit
+    label: L3
+    in: band-cd
+    state: l3
+  - id: a-rc
+    kind: adronly
+    label: RC on main-AT
+    in: band-cd
+  - id: c-main-uat
+    kind: commit
+    label: main-UAT
+    in: band-cd
+    state: main-uat
+  - id: a-rbc
+    kind: adronly
+    label: RBC on release-AT
+    in: band-cd
+  - id: c-release-uat
+    kind: commit
+    label: release-UAT
+    in: band-cd
+    state: release-uat
+  - id: a-two-slot
+    kind: adronly
+    label: two-slot activation
+    in: band-deploy
+  - id: c-production
+    kind: commit
+    label: production
+    in: band-deploy
+    state: prod
   edges:
-    - { from: c-topic, to: g-pr-validation }
-    - { from: g-pr-validation, to: c-landed }
-    - { from: c-landed, to: g-bvt }
-    - { from: g-bvt, to: c-verified }
-    - { from: c-verified, to: a-l3-at, kind: adr }
-    - { from: a-l3-at, to: c-l3, kind: adr }
-    - { from: c-l3, to: a-rc, kind: adr }
-    - { from: a-rc, to: c-main-uat, kind: adr }
-    - { from: c-main-uat, to: a-rbc, kind: adr }
-    - { from: a-rbc, to: c-release-uat, kind: adr }
-    - { from: c-release-uat, to: a-two-slot, kind: adr }
-    - { from: a-two-slot, to: c-production, kind: adr }
-    - { from: g-bvt, to: g-failure-stop, kind: fail }
-    - { from: g-failure-stop, to: c-discarded, kind: fail }
+  - from: c-topic
+    to: g-pr-validation
+    kind: flow
+    label: ''
+  - from: g-pr-validation
+    to: c-landed
+    kind: flow
+    label: ''
+  - from: c-landed
+    to: g-bvt
+    kind: flow
+    label: ''
+  - from: g-bvt
+    to: c-verified
+    kind: flow
+    label: ''
+  - from: c-verified
+    to: a-l3-at
+    kind: adr
+    label: ''
+  - from: a-l3-at
+    to: c-l3
+    kind: adr
+    label: ''
+  - from: c-l3
+    to: a-rc
+    kind: adr
+    label: ''
+  - from: a-rc
+    to: c-main-uat
+    kind: adr
+    label: ''
+  - from: c-main-uat
+    to: a-rbc
+    kind: adr
+    label: ''
+  - from: a-rbc
+    to: c-release-uat
+    kind: adr
+    label: ''
+  - from: c-release-uat
+    to: a-two-slot
+    kind: adr
+    label: ''
+  - from: a-two-slot
+    to: c-production
+    kind: adr
+    label: ''
+  - from: g-bvt
+    to: g-failure-stop
+    kind: fail
+    label: ''
+  - from: g-failure-stop
+    to: c-discarded
+    kind: fail
+    label: ''
   markers:
-    - { at: g-pr-validation, number: 1 }
-    - { at: c-landed, number: 2 }
-    - { at: g-bvt, number: 3 }
-    - { at: a-l3-at, number: 4 }
-    - { at: a-rc, number: 5 }
-    - { at: a-rbc, number: 6 }
-    - { at: a-two-slot, number: 7 }
-    - { at: g-failure-stop, number: 8 }
+  - at: g-pr-validation
+    number: 1
+  - at: c-landed
+    number: 2
+  - at: g-bvt
+    number: 3
+  - at: a-l3-at
+    number: 4
+  - at: a-rc
+    number: 5
+  - at: a-rbc
+    number: 6
+  - at: a-two-slot
+    number: 7
+  - at: g-failure-stop
+    number: 8
   chips:
-    - { at: c-topic, kind: rule, rule: ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG, gated: false }
-    - { at: g-pr-validation, kind: rule, rule: ADR-FLOW-CD-INNERANDOUTERLOOP, corner: bottom-right }
-    - { at: c-landed, kind: rule, rule: ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND, gated: false, corner: bottom-right }
-    - { at: g-bvt, kind: rule, rule: ADR-AUTO-TEST-BUILDVERIFICATIONTEST, corner: bottom-right }
-    - { at: a-l3-at, kind: rule, rule: ADR-FLOW-CD-CDSTAYSINNONPROD, gated: false, corner: bottom-right }
-    - { at: c-main-uat, kind: rule, rule: ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
-    - { at: a-rc, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false, corner: bottom-right }
-    - { at: a-rbc, kind: rule, rule: ADR-FLOW-CD-TWORELEASEGATES, gated: false, corner: bottom-right }
-    - { at: a-rbc, kind: rule, rule: ADR-FLOW-CD-LIFE-DISCARDISTERMINAL, gated: false, corner: bottom-left }
-    - { at: a-two-slot, kind: rule, rule: ADR-FLOW-CD-TWOENVIRONMENTACTIVATION, gated: false, corner: bottom-right }
-    - { at: c-production, kind: rule, rule: ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD, gated: false }
-    - { at: g-failure-stop, kind: rule, rule: ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM, corner: bottom-right }
-  minimaps: [code-locations, grid, axis]
+  - at: c-topic
+    kind: rule
+    rule: ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+    gated: false
+  - at: g-pr-validation
+    kind: rule
+    rule: ADR-FLOW-CD-INNERANDOUTERLOOP
+    corner: bottom-right
+  - at: c-landed
+    kind: rule
+    rule: ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    gated: false
+    corner: bottom-right
+  - at: g-bvt
+    kind: rule
+    rule: ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+    corner: bottom-right
+  - at: a-l3-at
+    kind: rule
+    rule: ADR-FLOW-CD-CDSTAYSINNONPROD
+    gated: false
+    corner: bottom-right
+  - at: c-main-uat
+    kind: rule
+    rule: ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    gated: false
+  - at: a-rc
+    kind: rule
+    rule: ADR-FLOW-CD-TWORELEASEGATES
+    gated: false
+    corner: bottom-right
+  - at: a-rbc
+    kind: rule
+    rule: ADR-FLOW-CD-TWORELEASEGATES
+    gated: false
+    corner: bottom-right
+  - at: a-rbc
+    kind: rule
+    rule: ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+    gated: false
+    corner: bottom-left
+  - at: a-two-slot
+    kind: rule
+    rule: ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+    gated: false
+    corner: bottom-right
+  - at: c-production
+    kind: rule
+    rule: ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+    gated: false
+  - at: g-failure-stop
+    kind: rule
+    rule: ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+    corner: bottom-right
+  legend: auto
+  minimaps:
+  - code-locations
+  - grid
+  - axis
 layout:
-  band-all: { x: 20, y: 114, w: 1260, h: 124 }
-  band-ci: { x: 20, y: 254, w: 1260, h: 124 }
-  band-cd: { x: 20, y: 394, w: 1260, h: 124 }
-  band-deploy: { x: 20, y: 534, w: 1260, h: 124 }
-  g-failure-stop: { x: 400, y: 154, w: 220, h: 72 }
-  c-discarded: { x: 690, y: 168, w: 110, h: 44 }
-  c-topic: { x: 30, y: 308, w: 90, h: 44 }
-  g-pr-validation: { x: 150, y: 296, w: 150, h: 68 }
-  c-landed: { x: 330, y: 308, w: 90, h: 44 }
-  g-bvt: { x: 460, y: 296, w: 100, h: 68 }
-  c-verified: { x: 600, y: 308, w: 130, h: 44 }
-  a-l3-at: { x: 360, y: 448, w: 130, h: 44 }
-  c-l3: { x: 530, y: 448, w: 80, h: 44 }
-  a-rc: { x: 650, y: 448, w: 130, h: 44 }
-  c-main-uat: { x: 820, y: 448, w: 100, h: 44 }
-  a-rbc: { x: 960, y: 448, w: 140, h: 44 }
-  c-release-uat: { x: 1130, y: 448, w: 120, h: 44 }
-  a-two-slot: { x: 1000, y: 588, w: 140, h: 44 }
-  c-production: { x: 1160, y: 588, w: 100, h: 44 }
+  band-all:
+    x: 20
+    y: 114
+    w: 1260
+    h: 124
+  band-ci:
+    x: 20
+    y: 254
+    w: 1260
+    h: 124
+  band-cd:
+    x: 20
+    y: 394
+    w: 1260
+    h: 124
+  band-deploy:
+    x: 20
+    y: 534
+    w: 1260
+    h: 124
+  g-failure-stop:
+    x: 400
+    y: 154
+    w: 220
+    h: 72
+  c-discarded:
+    x: 690
+    y: 168
+    w: 110
+    h: 44
+  c-topic:
+    x: 30
+    y: 308
+    w: 90
+    h: 44
+  g-pr-validation:
+    x: 150
+    y: 296
+    w: 150
+    h: 68
+  c-landed:
+    x: 330
+    y: 308
+    w: 90
+    h: 44
+  g-bvt:
+    x: 460
+    y: 296
+    w: 100
+    h: 68
+  c-verified:
+    x: 600
+    y: 308
+    w: 130
+    h: 44
+  a-l3-at:
+    x: 360
+    y: 448
+    w: 130
+    h: 44
+  c-l3:
+    x: 530
+    y: 448
+    w: 80
+    h: 44
+  a-rc:
+    x: 650
+    y: 448
+    w: 130
+    h: 44
+  c-main-uat:
+    x: 820
+    y: 448
+    w: 100
+    h: 44
+  a-rbc:
+    x: 960
+    y: 448
+    w: 140
+    h: 44
+  c-release-uat:
+    x: 1130
+    y: 448
+    w: 120
+    h: 44
+  a-two-slot:
+    x: 1000
+    y: 588
+    w: 140
+    h: 44
+  c-production:
+    x: 1160
+    y: 588
+    w: 100
+    h: 44

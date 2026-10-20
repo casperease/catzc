@@ -5,17 +5,16 @@ usage: uv run -q --with pillow python python/Catzc.Diagrams/gallery_pdf.py [<sli
        uv run -q --with pillow python python/Catzc.Diagrams/gallery_pdf.py --assets [<assets-dir>] [--no-text]
 
 Assets mode writes out/diagrams/assets-gallery.pdf: every PNG under <assets-dir> (default docs/.assets) in path order, captioned
-with its folder, each followed by its description as a text page: for a diagram the page the sidecar carrier of file-carriers.yml
-names (docs/<tree>/<domain>/<stem>.drawio.md, beside its article; the registry is the one lookup), for a minimap the same-stem
-markdown beside it (X.chain.png -> X.chain.md); --no-text leaves the text pages out (the full PDF with them is large).
+with its folder, each followed by its description as a text page: for a declared diagram the `description:` of the
+diagram.drawio.yml beside it, for any other PNG the page the sidecar carrier of file-carriers.yml names (the registry is the one
+lookup); --no-text leaves the text pages out (the full PDF with them is large).
 
 With no argument it reads out/diagrams/fan-out and writes out/diagrams/gallery.pdf. With a slides dir (e.g. out/diagrams/wave-5) it
 writes <slides-dir>/gallery.pdf.
 
-Page order: world maps, lens contact sheets (fan-out only), then every slide, each followed by its standalone minimaps when they
-exist and by its two markdown companions, <stem>.md (the presentation) and <stem>.drawio.md (the visual description), rendered
-as text pages. Each page is the image scaled to 1600 px wide under a caption bar with its file name. Pillow writes the PDF
-directly, so no Markdown or HTML step is needed.
+Page order: world maps, then every slide, each followed by the `description:` of its diagram.drawio.yml when it has one, as a
+text page. Each page is the image scaled to 1600 px wide under a caption bar with its file name. Pillow writes the PDF directly, so
+no Markdown or HTML step is needed.
 """
 import re
 import sys
@@ -251,16 +250,11 @@ else:
     slides_dir = Path(args[0]) if args else ROOT / "fan-out"
     target = (ROOT / "gallery.pdf") if not args else slides_dir / "gallery.pdf"
     items = [(p, "World map", page) for p in sorted(slides_dir.glob("world-map.*.png"))]
-    if not args:
-        items += [(p, "Lens sheet", page) for p in sorted(ROOT.glob("lenses/*/*.sheet.png"))]
-    for p in sorted(slides_dir.rglob("*.drawio.png"), key=lambda q: q.name):
-        stem = p.name[: -len(".drawio.png")]
-        folder = p.parent
+    for p in sorted(slides_dir.rglob("*.drawio.png"), key=lambda q: q.as_posix()):
         items.append((p, "Slide", page))
-        items += [(m, "Minimap", page) for m in (folder / f"{stem}.{view}.png" for view in ("grid", "tree", "chain")) if m.exists()]
-        items += [(m, label, markdown_page) for m, label in ((folder / f"{stem}.md", "Presentation"),
-                                                             (folder / f"{stem}.drawio.md", "Visual description"))
-                  if m.exists()]
+        declared = p.parent / "diagram.drawio.yml"
+        if declared.is_file():
+            items.append((declared, "Description", description_page))
 if not items:
     sys.exit(f"no PNG to render under {args[0] if args else 'the default folder'}")
 target.parent.mkdir(parents=True, exist_ok=True)

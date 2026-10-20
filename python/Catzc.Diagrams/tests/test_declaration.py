@@ -1,10 +1,11 @@
-# cspell:ignore minimaps widgetese
+# cspell:ignore minimaps widgetese getpixel miny
 """The declaration of a diagram and its two directions: put (yml to model to raster) and get (model to yml).
 
 usage (repo root, background): timeout 120 uv run --project python python -m pytest python/Catzc.Diagrams/tests/test_declaration.py
 """
 
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import pytest
@@ -90,6 +91,15 @@ def test_a_nested_group_round_trips_with_its_holder():
     glyphs = {g["id"]: g["in"] for g in back["content"]["glyphs"]}
     assert groups == {"group-kit": "band-widgets", "group-inner": "group-kit"}
     assert glyphs["widget-b"] == "group-inner" and glyphs["widget-a"] == "group-kit"
+
+
+def test_an_untitled_group_keeps_its_blank_label_through_get():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["groups"][1]["label"] = " "
+    first = declaration.normalise(raw)
+    back = declaration.get(declaration.put(first), kind="explanation")
+    assert {g["id"]: g["label"] for g in back["content"]["groups"]}["group-inner"] == " "
+    assert declaration.dump(back) == declaration.dump(first)
 
 
 def test_a_cell_without_layout_is_placed_by_the_grid_and_a_moved_one_keeps_its_place():
@@ -241,7 +251,8 @@ def test_commits_draw_in_their_palette_state_and_ghosts_come_back():
     first = declaration.normalise(raw)
     model = declaration.put(first)
     assert "fillColor=#C4915C" in model and "fillColor=#C9CCD1" in model and "opacity=60" in model
-    assert 'value="commit: topic"' in model and 'value="commit: landed (ghost)"' in model
+    # One legend entry per state, and one for a ghost of any state.
+    assert 'value="commit: topic"' in model and 'value="commit: landed"' in model and 'value="commit: ghost"' in model
     back = declaration.get(model, kind="explanation")
     commits = lambda d: {g["id"]: g for g in d["content"]["glyphs"] if g["kind"] == "commit"}
     assert commits(back) == commits(first)
@@ -327,7 +338,9 @@ def test_an_edge_routes_through_its_waypoints_and_a_repeat_edge_keeps_its_own_pa
     ]
     first = declaration.normalise(raw)
     model = declaration.put(first)
-    assert '<mxPoint x="400" y="520" />' in model and 'id="e-widget-a-gadget-store~2"' in model
+    box = {c["id"]: c for c in declaration.place(first)[0]}
+    frame = box[box["e-widget-a-gadget-store~2"]["parent"]]  # the model holds a framed edge's waypoints relative to its frame
+    assert f'<mxPoint x="{400 - frame["x"]}" y="{520 - frame["y"]}" />' in model and 'id="e-widget-a-gadget-store~2"' in model
     back = declaration.get(model, kind="explanation")
     assert [e.get("via") for e in back["content"]["edges"] if e["kind"] == "adr" and e["from"] == "widget-a"] == [[[400, 520], [900, 520]]]
 
@@ -555,3 +568,308 @@ def test_tidy_re_saves_a_source_without_its_retired_keys_and_changes_nothing_els
     text = (tmp_path / declaration.SOURCE).read_text(encoding="utf-8")
     assert all(key not in text for key in ("tracks:", "languages:", "modules:", "files:"))
     assert declaration.dump(declaration.load(tmp_path)) == declaration.dump(before)
+
+
+def test_a_commit_drawn_as_a_box_keeps_its_palette_state_and_comes_back():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["glyphs"].append({"id": "rung-bvt", "kind": "commit", "label": "BVT", "in": "band-gadgets", "shape": "box", "state": "bvt"})
+    raw["content"]["glyphs"].append({"id": "rung-gone", "kind": "commit", "label": "discarded", "in": "band-gadgets", "shape": "box", "state": "discarded"})
+    first = declaration.normalise(raw)
+    model = declaration.put(first)
+    assert 'commitShape=box' in model and "fillColor=#8E2424" in model
+    back = declaration.get(model, kind="explanation")
+    assert declaration.dump(back) == declaration.dump(first)
+    boxes = {g["id"]: g for g in back["content"]["glyphs"] if g.get("shape") == "box"}
+    assert boxes["rung-gone"]["state"] == "discarded" and boxes["rung-gone"]["kind"] == "commit"
+
+
+def test_a_commit_shape_outside_the_vocabulary_fails_with_the_shapes():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["glyphs"].append({"id": "c-x", "kind": "commit", "label": "x", "in": "band-gadgets", "shape": "star"})
+    with pytest.raises(declaration.DeclarationError, match="shape 'star' is not one of: dot, box"):
+        declaration.normalise(raw)
+
+
+def test_a_note_is_a_free_text_block_in_its_band_and_comes_back_line_for_line():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["notes"] = [{"id": "note-key", "in": "band-gadgets", "text": "PR: Pull Request\nCI: Continuous Integration <basic>"}]
+    first = declaration.normalise(raw)
+    model = declaration.put(first)
+    assert "noteBlock=1" in model
+    back = declaration.get(model, kind="explanation")
+    assert back["content"]["notes"] == first["content"]["notes"]
+    assert declaration.dump(back) == declaration.dump(first)
+
+
+def test_a_note_sits_in_a_band_or_a_group_and_nowhere_else():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["notes"] = [{"id": "note-key", "in": "widget-a", "text": "x"}]
+    with pytest.raises(declaration.DeclarationError, match="note 'note-key' in 'widget-a' is not one of: band-widgets"):
+        declaration.normalise(raw)
+
+
+ROWS = {
+    "templates": {"widget-shape": {"states": {"PR": "landed", "BVT": "bvt", "ship": "prod"}, "drop": "discarded"}},
+    "rows": [
+        {"id": "row-full", "template": "widget-shape", "label": "PR + ship", "in": "band-gadgets", "start": "topic", "steps": ["PR", "BVT", "ship"]},
+        {"id": "row-short", "template": "widget-shape", "label": "ship", "in": "band-gadgets", "start": "bvt", "steps": ["ship"]},
+    ],
+}
+
+
+def test_a_row_of_a_template_writes_out_its_dots_drops_and_labelled_edges():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"].update(ROWS)
+    content = declaration.normalise(raw)["content"]
+    dots = {g["id"]: g.get("state", "bvt") for g in content["glyphs"] if g["id"].startswith("row-full-") and not g["id"].endswith("-drop")}
+    assert dots == {"row-full-0": "topic", "row-full-1": "landed", "row-full-2": "bvt", "row-full-3": "prod"}
+    labels = [e.get("label") for e in content["edges"] if e["from"].startswith("row-full-") and e["kind"] == "flow"]
+    assert labels == ["PR", "BVT", "ship"]
+    assert sum(1 for e in content["edges"] if e["kind"] == "fail" and e["from"].startswith("row-")) == 6
+
+
+def test_a_row_is_written_back_as_a_row_and_a_get_of_its_drawing_keeps_it(tmp_path):
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"].update(ROWS)
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    first = declaration.load(tmp_path)
+    text = declaration.dump(first)
+    assert "rows:" in text and "row-full-0" not in text
+    declaration.put_png(tmp_path, first)
+    declaration.save(tmp_path, declaration.get(declaration.model_of(tmp_path), kind="explanation"))
+    again = (tmp_path / declaration.SOURCE).read_text(encoding="utf-8")
+    assert "rows:" in again and "row-full-0:" not in again.split("layout:")[0]
+
+
+def test_a_row_step_outside_its_template_fails_with_the_steps():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"].update(__import__("copy").deepcopy(ROWS))
+    raw["content"]["rows"][1]["steps"] = ["sideways"]
+    with pytest.raises(declaration.DeclarationError, match="row 'row-short' step 'sideways' is not one of: PR, BVT, ship"):
+        declaration.normalise(raw)
+
+
+def test_a_skipped_step_draws_a_bypass_under_the_dot_it_skips_and_the_row_keeps_its_skip(tmp_path):
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"].update(__import__("copy").deepcopy(ROWS))
+    raw["content"]["rows"][0]["skip"] = ["BVT"]
+    first = declaration.normalise(raw)
+    assert {"from": "row-full-1", "to": "row-full-3", "kind": "bypass", "label": ""} in first["content"]["edges"]
+    box = {c["id"]: c for c in declaration.place(first)[0]}
+    low = {y for _, y in box["e-row-full-1-row-full-3"]["via"]}
+    assert low == {box["row-full-1"]["y"] + box["row-full-1"]["h"] + declaration.BYPASS_DIP}
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    declaration.put_png(tmp_path, declaration.load(tmp_path))
+    declaration.save(tmp_path, declaration.get(declaration.model_of(tmp_path), kind="explanation"))
+    again = (tmp_path / declaration.SOURCE).read_text(encoding="utf-8")
+    assert "skip:\n    - BVT" in again and "row-full-0:" not in again.split("layout:")[0]
+
+
+def test_a_skip_of_a_row_last_step_fails_with_the_steps_it_can_skip():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"].update(__import__("copy").deepcopy(ROWS))
+    raw["content"]["rows"][0]["skip"] = ["ship"]
+    with pytest.raises(declaration.DeclarationError, match="row 'row-full' skip 'ship' is not one of: PR, BVT"):
+        declaration.normalise(raw)
+
+
+LANE = {
+    "flow": "top-to-bottom",
+    "bands": [{"id": "band-widgets", "label": "Widgets"}, {"id": "band-gadgets", "label": "Gadgets"}, {"id": "band-git", "label": "GIT"}],
+    "lanes": [
+        {
+            "band": "band-git",
+            "steps": 6,
+            "trunk": "main",
+            "commits": [
+                {"id": "g1", "step": 1, "label": "1", "state": "landed"},
+                {"id": "g2", "step": 2, "row": 1, "label": "2", "state": "topic", "from": "g1"},
+                {"id": "g3", "step": 4, "label": "3", "from": "g2"},
+            ],
+            "marks": [{"at": "g3", "text": "dirty head"}],
+        }
+    ],
+    "rules": [{"after": 2, "kind": "manual"}, {"after": 4, "kind": "automated"}],
+}
+
+
+def lane_widgets():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"].update(LANE)
+    raw["content"]["spans"] = []
+    return raw
+
+
+def test_a_lane_places_its_commits_by_step_and_row_and_draws_its_trunk_marks_and_rules():
+    first = declaration.normalise(lane_widgets())
+    cells, _ = declaration.place(first)
+    box = {c["id"]: c for c in cells}
+    assert box["g1"]["y"] == box["g3"]["y"] and box["g2"]["y"] < box["g1"]["y"]  # on the trunk, and the branch above it
+    assert box["g1"]["x"] < box["g2"]["x"] < box["g3"]["x"]
+    assert {"lane-band-git-trunk", "lane-band-git-mark-0", "lane-rule-0", "lane-rule-1"} <= set(box)
+    assert box["lane-rule-0-a"]["x"] < box["lane-rule-1-a"]["x"]
+
+
+def test_a_lane_is_written_back_as_a_lane_and_a_get_of_its_drawing_keeps_it(tmp_path):
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(lane_widgets(), sort_keys=False), encoding="utf-8")
+    first = declaration.load(tmp_path)
+    assert "lanes:" in declaration.dump(first) and "id: g1\n    kind" not in declaration.dump(first)
+    declaration.put_png(tmp_path, first)
+    declaration.save(tmp_path, declaration.get(declaration.model_of(tmp_path), kind="explanation"))
+    again = (tmp_path / declaration.SOURCE).read_text(encoding="utf-8")
+    assert "lanes:" in again and "rules:" in again
+
+
+def test_a_lane_names_its_gate_rules_in_the_legend_and_a_span_over_its_glyphs_lies_above_its_band():
+    raw = lane_widgets()
+    raw["content"]["spans"] = [{"id": "span-ci", "label": "CI", "over": ["g1", "g3"]}]
+    first = declaration.normalise(raw)
+    box = {c["id"]: c for c in declaration.place(first)[0]}
+    assert {box["lg-rule-manual-t"]["value"], box["lg-rule-automated-t"]["value"]} == {"manual gate", "automated gate"}
+    assert "rotation=90" not in box["span-ci"]["style"] and box["span-ci"]["y"] < box["band-git"]["y"]
+    assert box["span-ci"]["x"] == box["g1"]["x"]
+
+
+def pixel(declared, x, y):
+    """The colour the raster paints at a page point, and the model it was painted from."""
+    cells = declaration.place(declared)[0]
+    minx = min(c["x"] for c in cells if not c["edge"]) - 20
+    miny = min(c["y"] for c in cells if not c["edge"]) - 20
+    model = declaration.put(declared)
+    image = declaration.render(ET.fromstring(model), page="model").convert("RGB")
+    return image.getpixel((round(x - minx), round(y - miny))), model
+
+
+def near(rgb, hex_colour, slack=24):
+    want = tuple(int(hex_colour.lstrip("#")[i : i + 2], 16) for i in (0, 2, 4))
+    return all(abs(a - b) <= slack for a, b in zip(rgb, want))
+
+
+def test_a_line_crossing_a_commit_passes_beneath_it_in_the_model_and_the_raster():
+    raw = lane_widgets()
+    raw["content"]["lanes"][0]["commits"] += [
+        {"id": "c-top", "step": 5, "row": 1, "label": "1", "state": "landed"},
+        {"id": "c-mid", "step": 5, "label": "2", "state": "l3"},
+        {"id": "c-low", "step": 5, "row": -1, "label": "3", "state": "landed"},
+    ]
+    raw["content"]["edges"] = [{"from": "c-top", "to": "c-low", "kind": "fail"}]
+    first = declaration.normalise(raw)
+    mid = {c["id"]: c for c in declaration.place(first)[0]}["c-mid"]
+    colour, model = pixel(first, mid["x"] + mid["w"] / 2, mid["y"] + 4)
+    assert model.index('id="e-c-top-c-low"') < model.index('id="c-mid"')
+    assert near(colour, declaration.COMMITS["l3"][0])
+
+
+def test_a_bypass_passes_beneath_the_discard_arrow_it_crosses():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"].update(__import__("copy").deepcopy(ROWS))
+    raw["content"]["rows"][0]["skip"] = ["BVT"]
+    first = declaration.normalise(raw)
+    box = {c["id"]: c for c in declaration.place(first)[0]}
+    assert box["e-row-full-1-row-full-3"]["parent"] == box["e-row-full-2-row-full-2-drop"]["parent"] == "row-full"
+    skipped = box["row-full-2"]
+    colour, model = pixel(first, skipped["x"] + skipped["w"] / 2, box["e-row-full-1-row-full-3"]["via"][0][1])
+    assert model.index('id="e-row-full-1-row-full-3"') < model.index('id="e-row-full-2-row-full-2-drop"') < model.index('id="row-full-2"')
+    assert near(colour, declaration.paint("@red-rim"))
+
+
+def test_an_edge_leaving_a_frame_passes_beneath_a_glyph_inside_another_frame():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["layout"] = {
+        "widget-a": {"x": 60, "y": 300, "w": 120, "h": 40},
+        "widget-b": {"x": 260, "y": 300, "w": 120, "h": 40},
+        "gadget-store": {"x": 700, "y": 300, "w": 120, "h": 40},
+    }
+    first = declaration.normalise(raw)
+    box = {c["id"]: c for c in declaration.place(first)[0]}
+    assert box["e-widget-a-gadget-store"]["parent"] == "group-inner"  # the one frame that holds no frame
+    inner = box["widget-b"]
+    colour, model = pixel(first, inner["x"] + 6, inner["y"] + inner["h"] / 2)
+    assert model.index('id="e-widget-a-gadget-store"') < model.index('id="widget-b"')
+    fill = declaration.style_map(declaration.paint(declaration.LIB["glyphs"]["type"]["style"]))["fillColor"]
+    assert near(colour, fill)
+
+
+def test_a_pair_whose_sides_both_moved_but_draw_the_same_is_no_conflict_whatever_the_drawing_cannot_carry(tmp_path):
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"].update({"kind": "reference", "relation": "feeds (data moves)"})
+    raw["layout"] = {"band-widgets": {"x": 20, "y": 108, "w": 1260, "h": 200}, "band-gadgets": {"x": 20, "y": 330, "w": 1260, "h": 200}}
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    declaration.put_png(tmp_path, declaration.load(tmp_path))
+    base = ("content: {}\n", "<mxGraphModel />")  # both sides moved from it
+    # kind is never drawn, the stacked bands read as top-to-bottom, and the legend drops the relation's parenthesis
+    assert declaration.get(declaration.model_of(tmp_path))["content"]["flow"] == "top-to-bottom"
+    assert declaration.conflict(tmp_path, base) == []
+
+
+def test_a_conflict_names_the_drawn_cells_and_never_a_derived_one(tmp_path):
+    raw = __import__("yaml").safe_load(WIDGETS)
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    declaration.put_png(tmp_path, declaration.load(tmp_path))
+    raw["content"]["glyphs"][2]["kind"] = "file"  # the yml moves on: a new kind for gadget-store, and with it a new legend row
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    cells = declaration.conflict(tmp_path, ("content: {}\n", "<mxGraphModel />"))
+    assert "gadget-store" in cells and not [c for c in cells if c.startswith(declaration.DERIVED_PREFIXES) or c in declaration.DERIVED]
+
+
+def test_get_reads_spans_chips_and_laid_out_bands_back_in_their_declared_order():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["spans"] = [
+        {"id": "span-wide", "label": "CD", "over": ["band-widgets", "band-gadgets"]},
+        {"id": "span-narrow", "label": "CI", "over": ["band-widgets"]},
+    ]
+    raw["content"]["chips"] = [{"at": "gadget-store", "kind": "count", "text": str(n)} for n in (7, 8, 9)]
+    raw["layout"] = {"band-widgets": {"x": 20, "y": 140, "w": 300, "h": 400}, "band-gadgets": {"x": 340, "y": 120, "w": 940, "h": 420}}
+    first = declaration.normalise(raw)
+    read = declaration.get(declaration.put(first), kind="explanation")["content"]
+    assert [s["id"] for s in read["spans"]] == ["span-wide", "span-narrow"]
+    assert read["chips"] == first["content"]["chips"]  # the third chip, far along its row, still names its row's corner
+    assert [b["id"] for b in read["bands"]] == ["band-gadgets", "band-widgets"]  # read top first: the layout drew no order
+    back = declaration.undrawn(read, first)
+    assert [b["id"] for b in back["bands"]] == ["band-widgets", "band-gadgets"]
+
+
+def test_a_laid_out_item_keeps_its_declared_band_when_it_sits_between_bands():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    first = declaration.normalise(raw)
+    box = {c["id"]: c for c in declaration.place(first)[0]}
+    gap_y = (box["band-widgets"]["y"] + box["band-widgets"]["h"] + box["band-gadgets"]["y"]) // 2 if box["band-gadgets"]["y"] > box["band-widgets"]["y"] else 20
+    raw["layout"] = {"gadget-gate": {"x": 1290, "y": gap_y, "w": 60, "h": 40}}  # right of every band: in no band
+    first = declaration.normalise(raw)
+    back = declaration.undrawn(declaration.get(declaration.put(first), kind="explanation")["content"], first)
+    assert {g["id"]: g["in"] for g in back["glyphs"]}["gadget-gate"] == "band-gadgets"
+
+
+def test_a_layout_that_moves_an_item_out_of_its_band_fails_naming_the_band_it_sits_in():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    first = declaration.normalise(raw)
+    gadgets = {c["id"]: c for c in declaration.place(first)[0]}["band-gadgets"]
+    raw["layout"] = {"group-kit": {"x": gadgets["x"] + 40, "y": gadgets["y"] + 40, "w": 200, "h": 120}}
+    with pytest.raises(declaration.DeclarationError, match="layout places 'group-kit' in band-gadgets, but its in: is band-widgets"):
+        declaration.place(declaration.normalise(raw))
+
+
+def test_span_room_moves_the_drawing_but_a_put_then_a_get_returns_the_declared_geometry_byte_equal(tmp_path):
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["edges"][0]["via"] = [[400, 300], [900, 300]]
+    raw["content"]["minimaps"] = ["grid", "axis", "layer-stack"]  # the three the fixture data draws, so get reads back what is declared
+    raw["layout"] = {"band-widgets": {"x": 20, "y": 60, "w": 620, "h": 300}, "band-gadgets": {"x": 660, "y": 60, "w": 620, "h": 300}}
+    text = declaration.dump(declaration.normalise(raw))
+    (tmp_path / declaration.SOURCE).write_text(text, encoding="utf-8")
+    declaration.put_png(tmp_path, declaration.load(tmp_path))
+    model = declaration.model_of(tmp_path)
+    shift = declaration.shift_of(ET.fromstring(model).find(".//mxCell[@id='title']").get("style"))
+    assert shift > 0  # the span over the high bands reached into the title, so the drawing area moved down
+    declaration.save(tmp_path, declaration.get(model, kind="explanation"))
+    assert (tmp_path / declaration.SOURCE).read_text(encoding="utf-8") == text
+
+
+def test_a_rule_and_a_lane_commit_outside_their_vocabularies_fail_with_the_allowed_values():
+    raw = lane_widgets()
+    raw["content"]["rules"] = [{"after": 2, "kind": "sometimes"}]
+    with pytest.raises(declaration.DeclarationError, match="rule kind 'sometimes' is not one of: manual, automated"):
+        declaration.normalise(raw)
+    raw = lane_widgets()
+    raw["content"]["lanes"][0]["commits"][0]["row"] = 2
+    with pytest.raises(declaration.DeclarationError, match="row '2' is not one of: -1, 0, 1"):
+        declaration.normalise(raw)

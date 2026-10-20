@@ -1,67 +1,166 @@
-description: >-
-  Which checks keep globset layers disjoint: one quality gate covers the deployable-unit and module layers, config-load validation keeps the
-  module layer derived-only, loose-filesets are exempt, and two prohibitions have no check at all.
+description: 'Which checks keep globset layers disjoint: one quality gate covers the deployable-unit and module layers, config-load
+  validation keeps the module layer derived-only, loose-filesets are exempt, and two prohibitions have no check at all.'
 about:
-  lens: governance
   adrs:
-    - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-    - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
-    - ADR-AUTO-TEST-QUALITYGATE
-    - ADR-REPO-PROTGLOB
-  tracks: [pwsh]
-  languages: [powershell, csharp]
-  modules: [Catzc.Base.Globs]
-  files:
-    - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
-    - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+  - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+  - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+  - ADR-AUTO-TEST-QUALITYGATE
+  - ADR-REPO-PROTGLOB
+  lens: governance
 content:
   title: A gate checks overlap for units and modules, and loose-filesets are exempt
   kind: explanation
   flow: top-to-bottom
   relation: checks
+  theme: dark
   bands:
-    - { id: band-unit, label: DEPLOYABLE-UNIT }
-    - { id: band-loose, label: LOOSE-FILESET }
-    - { id: band-module, label: MODULE }
+  - id: band-unit
+    label: DEPLOYABLE-UNIT
+  - id: band-loose
+    label: LOOSE-FILESET
+  - id: band-module
+    label: MODULE
   glyphs:
-    - { id: a-phantom, kind: adronly, label: No phantom unit, in: band-unit }
-    - { id: s-unit-sets, kind: set, label: deployable-unit sets, in: band-unit }
-    - { id: g-independence, kind: gate, label: Independence gate, in: band-unit }
-    - { id: a-demonstrated, kind: adronly, label: Demonstrated use, in: band-loose }
-    - { id: s-loose-sets, kind: set, label: loose-fileset sets, in: band-loose }
-    - { id: s-module-sets, kind: set, label: module sets, in: band-module }
-    - { id: g-config-load, kind: gate, label: Config-load validation, in: band-module }
+  - id: a-phantom
+    kind: adronly
+    label: No phantom unit
+    in: band-unit
+  - id: s-unit-sets
+    kind: set
+    label: deployable-unit sets
+    in: band-unit
+  - id: g-independence
+    kind: gate
+    label: Independence gate
+    in: band-unit
+  - id: a-demonstrated
+    kind: adronly
+    label: Demonstrated use
+    in: band-loose
+  - id: s-loose-sets
+    kind: set
+    label: loose-fileset sets
+    in: band-loose
+  - id: s-module-sets
+    kind: set
+    label: module sets
+    in: band-module
+  - id: g-config-load
+    kind: gate
+    label: Config-load validation
+    in: band-module
   edges:
-    - { from: g-independence, to: s-unit-sets }
-    - { from: g-independence, to: s-module-sets }
-    - { from: g-config-load, to: s-module-sets }
+  - from: g-independence
+    to: s-unit-sets
+    kind: flow
+    label: ''
+  - from: g-independence
+    to: s-module-sets
+    kind: flow
+    label: ''
+  - from: g-config-load
+    to: s-module-sets
+    kind: flow
+    label: ''
   markers:
-    - { at: a-phantom, number: 1 }
-    - { at: s-unit-sets, number: 2 }
-    - { at: g-independence, number: 3 }
-    - { at: a-demonstrated, number: 4 }
-    - { at: s-loose-sets, number: 5 }
-    - { at: s-module-sets, number: 6 }
-    - { at: g-config-load, number: 7 }
+  - at: a-phantom
+    number: 1
+  - at: s-unit-sets
+    number: 2
+  - at: g-independence
+    number: 3
+  - at: a-demonstrated
+    number: 4
+  - at: s-loose-sets
+    number: 5
+  - at: s-module-sets
+    number: 6
+  - at: g-config-load
+    number: 7
   chips:
-    - { at: a-phantom, kind: rule, rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER, gated: false }
-    - { at: s-unit-sets, kind: rule, rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER }
-    - { at: g-independence, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
-    - { at: a-demonstrated, kind: rule, rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER, gated: false }
-    - { at: s-loose-sets, kind: rule, rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER, gated: false }
-    - { at: s-module-sets, kind: rule, rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER }
-    - { at: s-module-sets, kind: rule, rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER }
-    - { at: g-config-load, kind: rule, rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER }
-    - { at: g-config-load, kind: rule, rule: ADR-REPO-PROTGLOB }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: a-phantom
+    kind: rule
+    rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+    gated: false
+  - at: s-unit-sets
+    kind: rule
+    rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+  - at: g-independence
+    kind: rule
+    rule: ADR-AUTO-TEST-QUALITYGATE
+  - at: a-demonstrated
+    kind: rule
+    rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+    gated: false
+  - at: s-loose-sets
+    kind: rule
+    rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+    gated: false
+  - at: s-module-sets
+    kind: rule
+    rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+  - at: s-module-sets
+    kind: rule
+    rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+  - at: g-config-load
+    kind: rule
+    rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+  - at: g-config-load
+    kind: rule
+    rule: ADR-REPO-PROTGLOB
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-unit: { x: 20, y: 84, w: 1260, h: 140 }
-  band-loose: { x: 20, y: 244, w: 1260, h: 120 }
-  band-module: { x: 20, y: 384, w: 1260, h: 140 }
-  a-phantom: { x: 140, y: 140, w: 260, h: 56 }
-  s-unit-sets: { x: 460, y: 140, w: 320, h: 56 }
-  g-independence: { x: 880, y: 124, w: 200, h: 84 }
-  a-demonstrated: { x: 140, y: 290, w: 260, h: 56 }
-  s-loose-sets: { x: 460, y: 290, w: 320, h: 56 }
-  s-module-sets: { x: 460, y: 440, w: 550, h: 56 }
-  g-config-load: { x: 1080, y: 424, w: 200, h: 84 }
+  band-unit:
+    x: 20
+    y: 84
+    w: 1260
+    h: 140
+  band-loose:
+    x: 20
+    y: 244
+    w: 1260
+    h: 120
+  band-module:
+    x: 20
+    y: 384
+    w: 1260
+    h: 140
+  a-phantom:
+    x: 140
+    y: 140
+    w: 260
+    h: 56
+  s-unit-sets:
+    x: 460
+    y: 140
+    w: 320
+    h: 56
+  g-independence:
+    x: 880
+    y: 124
+    w: 200
+    h: 84
+  a-demonstrated:
+    x: 140
+    y: 290
+    w: 260
+    h: 56
+  s-loose-sets:
+    x: 460
+    y: 290
+    w: 320
+    h: 56
+  s-module-sets:
+    x: 460
+    y: 440
+    w: 550
+    h: 56
+  g-config-load:
+    x: 1080
+    y: 424
+    w: 200
+    h: 84

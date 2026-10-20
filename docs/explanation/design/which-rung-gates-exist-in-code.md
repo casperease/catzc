@@ -12,7 +12,7 @@ Three rung checks run in code: PR build validation, the BVT and the failure stop
 7  two-slot activation       stage inactive in pre-prod, then activate live; an actuation, ADR-only
 8  failure stops downstream  each Deploy_* stage runs only when the stage before it succeeded
 
-Supports ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG, ADR-FLOW-CD-LIFE-DISCARDISTERMINAL, ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD, ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN, ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT, ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM and ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND (governance lens).
+Supports ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG, ADR-FLOW-CD-LIFE-DISCARDISTERMINAL, ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD, ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN, ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT, ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM, ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND, ADR-FLOW-CD-INNERANDOUTERLOOP, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-TWORELEASEGATES, ADR-FLOW-CD-TWOENVIRONMENTACTIVATION, ADR-AUTO-TEST-BUILDVERIFICATIONTEST and ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE (governance lens).
 ```
 
 Every rung of the commit ladder has an ADR rule and a gate that decides whether a commit climbs it. Lined up in ladder order, with the
@@ -45,7 +45,8 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
 ## Why it holds
 
 - A commit holds one state at a time and only climbs; a new attempt is a new commit (ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG).
-- Discard is rejection at a named stage: BVT and L3 discard automatically, `release-uat` by hand at RBC (ADR-FLOW-CD-LIFE-DISCARDISTERMINAL).
+- Discard is rejection at a named stage: BVT and L3 discard automatically, `release-uat` by hand at RBC
+  (ADR-FLOW-CD-LIFE-DISCARDISTERMINAL).
 - Retirement is a successful end of life, never a discard (ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD).
 - Supersession abandons a still-valid commit without rejecting it, so no gate decides it (ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
 - Each always-on environment holds one occupant, and no gate checks it (ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT).

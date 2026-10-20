@@ -10,7 +10,7 @@ Every load stage but the unload has an ADR rule and a gate.
 5  Janitors                idempotent, actor-aware; gate Invoke-TypeCacheJanitor.Tests
 6  Unload                  the import-time helpers removed; no rule and no gate
 
-Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER and ADR-AUTO-BUNDLE-BUNDLEISSESSION (governance lens).
+Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-PWSH-ERROR-STOPONERROR, ADR-PRIN-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-DSGN-RUNMODE-NEVERCOEXIST and ADR-AUTO-TYPES-JANITORSBYCALLER (governance lens).
 ```
 
 The cats load sequence runs in six stages, from the generated shim to the final unload of the import-time helpers. Each stage but the last

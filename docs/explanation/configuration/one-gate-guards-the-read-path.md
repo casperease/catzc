@@ -12,7 +12,7 @@ One quality gate guards the config read path, and it checks only the typed step.
 7  Test-ConfigValidators   the gate for the extension point (L5, T35)
 8  Test-ShippedConfigs     the gate for the typed step (L4, T35)
 
-Supports ADR-CONF-LOADING, ADR-CONF-ADDRESSING and ADR-AUTO-TEST-QUALITYGATE (governance lens).
+Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-READINGISGLOBAL, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST, ADR-CONF-LOADING-CACHEBYPATH, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY, ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD, ADR-CONF-LOADING-POWERSHELLVALIDATOR, ADR-CONF-LOADING-CSHARPCONFIGTYPE and ADR-AUTO-TEST-QUALITYGATE (governance lens).
 ```
 
 Three ADRs constrain how cats reads a config: the loading ADR, the addressing ADR, and the test-automation rule that every quality gate runs

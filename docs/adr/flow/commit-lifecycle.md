@@ -141,7 +141,7 @@ The RC and RBC gates and the acceptance testing that clears them belong to the f
 [ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT](cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-acceptancetestingisnotuat) separates the
 acceptance testing from the environment it runs in.
 
-![A commit only climbs — it ends discarded, retired or superseded](.assets/commit-lifecycle-states/diagram.drawio.png)
+![A commit only climbs — it ends discarded, retired or superseded](.assets/commit-promotion-states/diagram.drawio.png)
 
 ## Discard
 

@@ -1,57 +1,138 @@
-description: >-
-  Two ways to change what the globs map: edit globs.yml (a deployable-unit is checked against its peers, a loose-fileset never, a declared
-  module layer is rejected at config load) or add a module folder; one run of the independence gate passes or names every overlapping pair.
+description: 'Two ways to change what the globs map: edit globs.yml (a deployable-unit is checked against its peers, a loose-fileset
+  never, a declared module layer is rejected at config load) or add a module folder; one run of the independence gate passes
+  or names every overlapping pair.'
 about:
-  lens: operations
   adrs:
-    - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-    - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
-  tracks: [pwsh]
-  languages: [powershell, yaml, csharp]
-  modules: [Catzc.Base.Globs]
-  files:
-    - pwsh/Catzc.Base.Globs/configs/globs.yml
-    - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
-    - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-    - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+  - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+  - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+  lens: operations
 content:
   title: Declare a unit or add a module folder, and the gate names every overlap
   kind: explanation
+  flow: left-to-right
   relation: checked by the gate
+  theme: dark
   bands:
-    - { id: band-deployable-unit, label: DEPLOYABLE-UNIT }
-    - { id: band-loose-fileset, label: LOOSE-FILESET }
-    - { id: band-module, label: MODULE }
+  - id: band-deployable-unit
+    label: DEPLOYABLE-UNIT
+  - id: band-loose-fileset
+    label: LOOSE-FILESET
+  - id: band-module
+    label: MODULE
   glyphs:
-    - { id: f-deployable-unit, kind: file, label: "globs.yml: deployable-unit", in: band-deployable-unit }
-    - { id: g-independence, kind: gate, label: Test-GlobSetIndependence, in: band-deployable-unit }
-    - { id: f-issue-per-pair, kind: failure, label: Issue per pair, in: band-deployable-unit }
-    - { id: f-loose-fileset, kind: file, label: "globs.yml: loose-fileset", in: band-loose-fileset }
-    - { id: f-layer-module, kind: file, label: "globs.yml: layer: module", in: band-module }
-    - { id: f-rejected, kind: failure, label: Rejected at config load, in: band-module }
-    - { id: g-add-folder, kind: code, label: Add a module folder, in: band-module }
+  - id: f-deployable-unit
+    kind: file
+    label: 'globs.yml: deployable-unit'
+    in: band-deployable-unit
+  - id: g-independence
+    kind: gate
+    label: Test-GlobSetIndependence
+    in: band-deployable-unit
+  - id: f-issue-per-pair
+    kind: failure
+    label: Issue per pair
+    in: band-deployable-unit
+  - id: f-loose-fileset
+    kind: file
+    label: 'globs.yml: loose-fileset'
+    in: band-loose-fileset
+  - id: f-layer-module
+    kind: file
+    label: 'globs.yml: layer: module'
+    in: band-module
+  - id: f-rejected
+    kind: failure
+    label: Rejected at config load
+    in: band-module
+  - id: g-add-folder
+    kind: code
+    label: Add a module folder
+    in: band-module
   edges:
-    - { from: f-deployable-unit, to: g-independence }
-    - { from: g-independence, to: f-issue-per-pair, kind: fail }
-    - { from: f-layer-module, to: f-rejected, kind: fail }
-    - { from: g-add-folder, to: g-independence }
+  - from: f-deployable-unit
+    to: g-independence
+    kind: flow
+    label: ''
+  - from: g-independence
+    to: f-issue-per-pair
+    kind: fail
+    label: ''
+  - from: f-layer-module
+    to: f-rejected
+    kind: fail
+    label: ''
+  - from: g-add-folder
+    to: g-independence
+    kind: flow
+    label: ''
   markers:
-    - { at: f-deployable-unit, number: 1 }
-    - { at: f-loose-fileset, number: 2 }
-    - { at: f-layer-module, number: 3 }
-    - { at: f-rejected, number: 4 }
-    - { at: g-add-folder, number: 5 }
-    - { at: g-independence, number: 6 }
-    - { at: f-issue-per-pair, number: 7 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: f-deployable-unit
+    number: 1
+  - at: f-loose-fileset
+    number: 2
+  - at: f-layer-module
+    number: 3
+  - at: f-rejected
+    number: 4
+  - at: g-add-folder
+    number: 5
+  - at: g-independence
+    number: 6
+  - at: f-issue-per-pair
+    number: 7
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-deployable-unit: { x: 20, y: 84, w: 1260, h: 130 }
-  band-loose-fileset: { x: 20, y: 234, w: 1260, h: 130 }
-  band-module: { x: 20, y: 384, w: 1260, h: 130 }
-  f-deployable-unit: { x: 140, y: 126, w: 300, h: 64 }
-  g-independence: { x: 800, y: 112, w: 240, h: 88 }
-  f-issue-per-pair: { x: 1090, y: 138, w: 160, h: 44 }
-  f-loose-fileset: { x: 140, y: 276, w: 300, h: 64 }
-  f-layer-module: { x: 140, y: 426, w: 240, h: 64 }
-  f-rejected: { x: 440, y: 436, w: 200, h: 44 }
-  g-add-folder: { x: 700, y: 430, w: 440, h: 56 }
+  band-deployable-unit:
+    x: 20
+    y: 84
+    w: 1260
+    h: 130
+  band-loose-fileset:
+    x: 20
+    y: 234
+    w: 1260
+    h: 130
+  band-module:
+    x: 20
+    y: 384
+    w: 1260
+    h: 130
+  f-deployable-unit:
+    x: 140
+    y: 126
+    w: 300
+    h: 64
+  g-independence:
+    x: 800
+    y: 112
+    w: 240
+    h: 88
+  f-issue-per-pair:
+    x: 1090
+    y: 138
+    w: 160
+    h: 44
+  f-loose-fileset:
+    x: 140
+    y: 276
+    w: 300
+    h: 64
+  f-layer-module:
+    x: 140
+    y: 426
+    w: 240
+    h: 64
+  f-rejected:
+    x: 440
+    y: 436
+    w: 200
+    h: 44
+  g-add-folder:
+    x: 700
+    y: 430
+    w: 440
+    h: 56

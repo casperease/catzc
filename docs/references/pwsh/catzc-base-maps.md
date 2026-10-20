@@ -97,7 +97,6 @@ The module's public functions and configuration, sorted into the responsibilitie
 | ----------------------------------------- | ------------------------------------ |
 | responsibility:1 — World-map placement    | `Get-WorldMap`                       |
 | responsibility:2 — Lit cells              | `Get-WorldMapHighlight`              |
-|                                           | `Export-MinimapData`                 |
 | responsibility:3 — World-map quality gate | `Test-WorldMap`                      |
 | responsibility:4 — Value-chain map        | `Get-ValueChainMap`                  |
 |                                           | `Get-ValueChainHighlight`            |

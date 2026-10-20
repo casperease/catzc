@@ -115,13 +115,6 @@ formats:
     audience: a person, in any image viewer
     validator: { kind: png }
     limits: { width: 480, height: 360 }
-  contact-sheet-png:
-    area: review
-    patterns: ["diagrams/**/*.sheet.png"]
-    producer: python/Catzc.Diagrams/contact_sheet.py
-    audience: a person, in any image viewer
-    validator: { kind: png }
-    limits: { width: 1300 }
   review-pdf:
     area: review
     patterns: ["diagrams/*.pdf"]

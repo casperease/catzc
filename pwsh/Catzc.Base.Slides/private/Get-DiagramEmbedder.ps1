@@ -10,12 +10,13 @@ function Get-DiagramEmbedder {
         [string] $RepositoryRoot
     )
 
-    # Every page that embeds a diagram, by the diagram's folder: each tracked markdown page's image links to a diagram.drawio.png,
-    # resolved from the page's own folder, or from the repository root for a link that starts with '/'. Any number of pages may
-    # embed one diagram; the diagram names none of them.
     $embedders = @{}
     foreach ($page in @($Tracked | Where-Object { $_ -like '*.md' })) {
-        $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $page))
+        $full = Join-Path $RepositoryRoot $page
+        if (-not (Test-Path -LiteralPath $full -PathType Leaf)) {
+            continue
+        }
+        $text = [System.IO.File]::ReadAllText($full)
         if (-not $text.Contains('diagram.drawio.png')) {
             continue
         }

@@ -1,48 +1,109 @@
-description: >-
-  A global config address is a read-only walk over the one config the reader has already loaded and cached: the caller's string goes through
-  the one reader to the cached node, and a wrong address throws at the call.
+description: 'A global config address is a read-only walk over the one config the reader has already loaded and cached: the
+  caller''s string goes through the one reader to the cached node, and a wrong address throws at the call.'
 about:
-  lens: meta
   adrs:
-    - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-    - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-    - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
-  tracks: [pwsh]
-  languages: []
-  modules: [Catzc.Base.Config]
-  files:
-    - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
-    - pwsh/Catzc.Base.Config/Get-Config.ps1
+  - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+  - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+  - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+  lens: meta
 content:
   title: A config address is a read-only walk over the one cached config, never a second reader
   kind: explanation
+  flow: left-to-right
   relation: the walk
+  theme: dark
   bands:
-    - { id: band-resolve, label: RESOLVE }
-    - { id: band-fail, label: FAIL FAST }
+  - id: band-resolve
+    label: RESOLVE
+  - id: band-fail
+    label: FAIL FAST
   glyphs:
-    - { id: g-caller, kind: code, label: caller, in: band-resolve }
-    - { id: g-reader, kind: code, label: one reader, in: band-resolve }
-    - { id: s-cache, kind: store, label: session cache, in: band-resolve }
-    - { id: r-node, kind: result, label: one node, in: band-resolve }
-    - { id: f-wrong, kind: failure, label: wrong address throws, in: band-fail }
+  - id: g-caller
+    kind: code
+    label: caller
+    in: band-resolve
+  - id: g-reader
+    kind: code
+    label: one reader
+    in: band-resolve
+  - id: s-cache
+    kind: store
+    label: session cache
+    in: band-resolve
+  - id: r-node
+    kind: result
+    label: one node
+    in: band-resolve
+  - id: f-wrong
+    kind: failure
+    label: wrong address throws
+    in: band-fail
   edges:
-    - { from: g-caller, to: g-reader, label: "global.<config>.<key>" }
-    - { from: g-reader, to: s-cache }
-    - { from: s-cache, to: r-node }
-    - { from: g-reader, to: f-wrong, kind: fail }
+  - from: g-caller
+    to: g-reader
+    kind: flow
+    label: global.<config>.<key>
+  - from: g-reader
+    to: s-cache
+    kind: flow
+    label: ''
+  - from: s-cache
+    to: r-node
+    kind: flow
+    label: ''
+  - from: g-reader
+    to: f-wrong
+    kind: fail
+    label: ''
   markers:
-    - { at: g-caller, number: 1 }
-    - { at: g-reader, number: 2 }
-    - { at: s-cache, number: 3 }
-    - { at: r-node, number: 4 }
-    - { at: f-wrong, number: 5 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-caller
+    number: 1
+  - at: g-reader
+    number: 2
+  - at: s-cache
+    number: 3
+  - at: r-node
+    number: 4
+  - at: f-wrong
+    number: 5
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-resolve: { x: 20, y: 84, w: 1260, h: 200 }
-  band-fail: { x: 20, y: 304, w: 1260, h: 120 }
-  g-caller: { x: 60, y: 160, w: 160, h: 44 }
-  g-reader: { x: 480, y: 160, w: 180, h: 44 }
-  s-cache: { x: 780, y: 154, w: 160, h: 60 }
-  r-node: { x: 1040, y: 160, w: 180, h: 44 }
-  f-wrong: { x: 460, y: 352, w: 220, h: 44 }
+  band-resolve:
+    x: 20
+    y: 84
+    w: 1260
+    h: 200
+  band-fail:
+    x: 20
+    y: 304
+    w: 1260
+    h: 120
+  g-caller:
+    x: 60
+    y: 160
+    w: 160
+    h: 44
+  g-reader:
+    x: 480
+    y: 160
+    w: 180
+    h: 44
+  s-cache:
+    x: 780
+    y: 154
+    w: 160
+    h: 60
+  r-node:
+    x: 1040
+    y: 160
+    w: 180
+    h: 44
+  f-wrong:
+    x: 460
+    y: 352
+    w: 220
+    h: 44

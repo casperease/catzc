@@ -1,62 +1,143 @@
-description: >-
-  Five rules govern pipeline detection: the analyzer rule checks the raw-read rule over every PowerShell file, a test pins that the answer
-  is a plain boolean, and the other rules, and the one reader outside PowerShell, rest on the ADR alone, drawn dashed.
+description: 'Five rules govern pipeline detection: the analyzer rule checks the raw-read rule over every PowerShell file,
+  a test pins that the answer is a plain boolean, and the other rules, and the one reader outside PowerShell, rest on the
+  ADR alone, drawn dashed.'
 about:
-  lens: governance
   adrs:
-    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-    - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
-    - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-    - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-    - ADR-FLOW-CD-DETECT-FASTDETECTION
-    - ADR-AUTO-PARITY-ONESEAM
-  tracks: [pwsh, .claude]
-  languages: [powershell, csharp]
-  files:
-    - pwsh/.internal/Catzc.Internal.Loader.psm1
-    - .claude/hooks/Assert-BashTimeout/Program.cs
-    - pwsh/.internal/tests/Test-IsRunningInPipeline.Tests.ps1
-    - pwsh/.scriptanalyzer/NoRawPipelineDetection.psm1
+  - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+  - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+  - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
+  - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
+  - ADR-FLOW-CD-DETECT-FASTDETECTION
+  - ADR-AUTO-PARITY-ONESEAM
+  lens: governance
 content:
   title: The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate
   kind: explanation
   flow: top-to-bottom
   relation: feeds the next step
+  theme: dark
   bands:
-    - { id: band-detection, label: DETECTION }
-    - { id: band-consumers, label: CONSUMERS }
-    - { id: band-enforcement, label: ENFORCEMENT }
+  - id: band-detection
+    label: DETECTION
+  - id: band-consumers
+    label: CONSUMERS
+  - id: band-enforcement
+    label: ENFORCEMENT
   glyphs:
-    - { id: g-detector, kind: code, label: Test-IsRunningInPipeline, in: band-detection }
-    - { id: g-hook, kind: code, label: Assert-BashTimeout, in: band-detection }
-    - { id: s-consumers, kind: set, label: consumers, in: band-consumers }
-    - { id: g-test, kind: gate, label: Test-IsRunningInPipeline.Tests.ps1, in: band-enforcement }
-    - { id: g-analyzer, kind: gate, label: Measure-NoRawPipelineDetection, in: band-enforcement }
+  - id: g-detector
+    kind: code
+    label: Test-IsRunningInPipeline
+    in: band-detection
+  - id: g-hook
+    kind: code
+    label: Assert-BashTimeout
+    in: band-detection
+  - id: s-consumers
+    kind: set
+    label: consumers
+    in: band-consumers
+  - id: g-test
+    kind: gate
+    label: Test-IsRunningInPipeline.Tests.ps1
+    in: band-enforcement
+  - id: g-analyzer
+    kind: gate
+    label: Measure-NoRawPipelineDetection
+    in: band-enforcement
   edges:
-    - { from: g-detector, to: s-consumers, kind: thick }
-    - { from: g-detector, to: g-test }
-    - { from: s-consumers, to: g-analyzer }
+  - from: g-detector
+    to: s-consumers
+    kind: thick
+    label: ''
+  - from: g-detector
+    to: g-test
+    kind: flow
+    label: ''
+  - from: s-consumers
+    to: g-analyzer
+    kind: flow
+    label: ''
   markers:
-    - { at: g-detector, number: 1 }
-    - { at: g-hook, number: 2 }
-    - { at: s-consumers, number: 3 }
-    - { at: g-test, number: 4 }
-    - { at: g-analyzer, number: 5 }
+  - at: g-detector
+    number: 1
+  - at: g-hook
+    number: 2
+  - at: s-consumers
+    number: 3
+  - at: g-test
+    number: 4
+  - at: g-analyzer
+    number: 5
   chips:
-    - { at: g-detector, kind: rule, rule: ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL }
-    - { at: g-detector, kind: rule, rule: ADR-FLOW-CD-DETECT-FASTDETECTION, gated: false }
-    - { at: g-hook, kind: rule, rule: ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK, gated: false }
-    - { at: s-consumers, kind: rule, rule: ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK }
-    - { at: s-consumers, kind: rule, rule: ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR, gated: false }
-    - { at: s-consumers, kind: rule, rule: ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION, gated: false }
-    - { at: s-consumers, kind: rule, rule: ADR-AUTO-PARITY-ONESEAM, gated: false }
-  minimaps: [code-locations, grid, axis]
+  - at: g-detector
+    kind: rule
+    rule: ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
+  - at: g-detector
+    kind: rule
+    rule: ADR-FLOW-CD-DETECT-FASTDETECTION
+    gated: false
+  - at: g-hook
+    kind: rule
+    rule: ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+    gated: false
+  - at: s-consumers
+    kind: rule
+    rule: ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+  - at: s-consumers
+    kind: rule
+    rule: ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+    gated: false
+  - at: s-consumers
+    kind: rule
+    rule: ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
+    gated: false
+  - at: s-consumers
+    kind: rule
+    rule: ADR-AUTO-PARITY-ONESEAM
+    gated: false
+  legend: auto
+  minimaps:
+  - code-locations
+  - grid
+  - axis
 layout:
-  band-detection: { x: 20, y: 108, w: 1260, h: 130 }
-  band-consumers: { x: 20, y: 258, w: 1260, h: 130 }
-  band-enforcement: { x: 20, y: 408, w: 1260, h: 140 }
-  g-detector: { x: 500, y: 150, w: 220, h: 44 }
-  g-hook: { x: 780, y: 150, w: 190, h: 44 }
-  s-consumers: { x: 100, y: 300, w: 460, h: 44 }
-  g-analyzer: { x: 100, y: 440, w: 300, h: 84 }
-  g-test: { x: 450, y: 440, w: 320, h: 84 }
+  band-detection:
+    x: 20
+    y: 108
+    w: 1260
+    h: 130
+  band-consumers:
+    x: 20
+    y: 258
+    w: 1260
+    h: 130
+  band-enforcement:
+    x: 20
+    y: 408
+    w: 1260
+    h: 140
+  g-detector:
+    x: 500
+    y: 150
+    w: 220
+    h: 44
+  g-hook:
+    x: 780
+    y: 150
+    w: 190
+    h: 44
+  s-consumers:
+    x: 100
+    y: 300
+    w: 460
+    h: 44
+  g-analyzer:
+    x: 100
+    y: 440
+    w: 300
+    h: 84
+  g-test:
+    x: 450
+    y: 440
+    w: 320
+    h: 84

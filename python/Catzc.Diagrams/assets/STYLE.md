@@ -131,8 +131,8 @@ The user's standard, from the wave-1 review: the information must be **verified 
 picture must be **simple**. A diagram that is only true to the ADR prose is not done.
 
 1. **Verify first.** For every claim in the picture (each box, edge, order, name, parameter, path and number), find its source in the ADR,
-   the code (`pwsh/**`, `importer.ps1`, root scripts) and the configs (`configs/*.yml`, pipeline YAML). Write `<name>.drawio.verify.md` next
-   to the XML: a table with the columns claim → source (`file:line`) → **confirmed / contradicted / ADR-only**.
+   the code (`pwsh/**`, `importer.ps1`, root scripts) and the configs (`configs/*.yml`, pipeline YAML). Write `<name>.verify.md` beside the
+   staged folder in `out/diagrams/wave-N/`: a table with the columns claim → source (`file:line`) → **confirmed / contradicted / ADR-only**.
 2. **Code wins on facts. The ADR wins on intent.**
    - If the code contradicts the drawing, fix the drawing and report the contradiction.
    - If the ADR states something the code doesn't do yet, keep it only when it's essential to the finding, and mark it ADR-only in the
@@ -183,15 +183,14 @@ doesn't need. It never adds claims the source or its sources don't support.
 A sixth lens, drawn from the code alone rather than split from an ADR diagram. It draws one responsibility of one module.
 
 - **`source`** (≤ 10 boxes) shows the module's real public functions, private helpers, `configs/*.yml`, C# types and the other catzc modules
-  they call, in call order. Every box is a name that exists today (a Glob hit). Every edge is a call site (`file:line`) in the
-  `.drawio.verify.md`, and an edge without one is not drawn. It drops ADR wording and rationale.
+  they call, in call order. Every box is a name that exists today (a Glob hit). Every edge is a call site (`file:line`) in the `.verify.md`,
+  and an edge without one is not drawn. It drops ADR wording and rationale.
 - **Subtitle:** `Module <Name> · source lens`. The **Supports** chips name the ADRs the drawn code cites (ADR codes in its comments and
   error messages), found by grep, not guessed.
-- **Stem:** `<finding-slug>` (3–7 kebab words, ≤ 48 chars), with no ADR prefix and no lens suffix. It lands at
-  `docs/references/.assets/pwsh/<module-kebab>/<stem>.drawio.png` with `<stem>.drawio.verify.md`, and its description at
-  `docs/references/pwsh/<module-kebab>/<stem>.drawio.md`. There is no `docs/explanation/` article: the module's reference article embeds the
-  slide under `## What the module does` with a one-paragraph lead-in, and the `.drawio.md` carries the words (At a glance, Reading path,
-  Glyphs, Edges, Legend, Where the code and the ADR differ).
+- **Name:** `<finding-slug>` (3–7 kebab words, ≤ 48 chars), with no ADR prefix and no lens suffix. It lands as the folder
+  `docs/references/pwsh/<module-kebab>/.assets/<finding-slug>/` (its `diagram.drawio.yml` and `diagram.drawio.png`); the verify notes stay
+  in `out/`. There is no `docs/explanation/` article: the module's reference article embeds the png under `## What the module does` with a
+  one-paragraph lead-in, and carries the words (Reading path, Where the code and the ADR differ).
 - **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`); the ADR codes are in the
   subtitle, their one place on a slide.
 - **Save legend rows.** Source slides reach the 8-entry legend cap fast (code unit, private helper, C# type, catzc module, file, failure,
@@ -226,121 +225,47 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
 - If a lens has nothing honest to show (e.g. no operator touches it), draw nothing for it, and say so in the reply.
 - **Keep helper scripts in your own output folder** (e.g. `out/diagrams/lenses/<name>/_gen.py`), never under a shared name in the
   scratchpad. Makers run in parallel, and a shared `gen_lenses.py` once let one maker overwrite another's files.
-- Lens variants live in `out/diagrams/lenses/<name>/`. At fan-in, the lead tiles them for review with
-  `uv run -q --with pillow python python/Catzc.Diagrams/contact_sheet.py out/diagrams/lenses/<name>`, which writes `<name>.sheet.png`: five
-  rows in lens order, with a "skipped" row for any missing lens.
+- Lens variants live in `out/diagrams/lenses/<name>/`, one diagram folder per lens; at fan-in the lead reviews them in lens order, and a
+  lens with nothing honest to show is listed as skipped.
 
 ## Fan-out: ADR-support drawings with three minimaps
 
-**Rebuilding a folder of slides.** The minimaps light the repository's citations of each slide's ADRs, so they drift whenever a citation, a
-map or `maps.yml` changes. `drawio_forward.py --all <folder>` rebuilds every slide of a folder in place in three stages that each fit the
-time safeguard, `--stage prepare` (puts the declared folders, in `--theme <theme>` when one is named; extracts the other models and writes
-the slide list from the slides themselves), `--stage highlight` (the map processors once, then the minimaps and their sister `.md` files)
-and `--stage join` (the sidebars laid out, the minimaps embedded, the slides rebuilt), `--start`/`--end` slicing the per-slide stages. One
-slide goes through `drawio_forward.py <slide> --minimaps` instead. The diagram id a build embeds is a hash of the model, so a rebuild of an
-unchanged model is byte-identical.
+A diagram shows exactly three minimaps in its right column, above the minimap legend (ADR-REPO-SLIDES-MINIMAPSFROMDATA). They are the ones
+its declaration names in `content.minimaps`, or else its kind's three defaults: each diagram kind, explanation or reference, has a pool of
+minimap ids and three defaults, declared once in `maps.yml`. Every id is one of the eight minimaps: `grid`, `code-locations`, `axis`,
+`layer-stack`, `lifecycle-position`, `track-placement`, `engine-strip` and `module-neighbourhood`; an id outside them fails validation,
+naming the eight.
 
-Every lens drawing is republished as an **explanation that supports its ADR(s)**: the committed slides in `docs/explanation/.assets/`, and
-the review waves under `out/diagrams/`. A sidebar carries three minimaps showing where the drawing sits: two views of the world map (where
-its files are) and the value-chain map (where its ADRs sit in the value chain). The tooling that draws and joins them is the `minimap_*`
-scripts of `python/Catzc.Diagrams`; it places nothing itself.
+**The data is computed, never drawn.** A diagram's subject is the ADR codes in its `about.adrs` and the files that cite them.
+`Catzc.Base.Maps` projects that subject onto each minimap's axes with the data command `maps.yml` names for its id, reading a registry (the
+world map, the value chain, the ADR layers, the rungs, the tracks, the execution engines, the module dependencies), so every lit cell
+carries the file and the requested code that light it. The data is contract JSON
+(`contracts/catzc/0.0.0/Catzc.Base.Maps/minimap.schema.json`): axes outermost first, every cell with what it holds, and every lit cell with
+at least one reason. `Build-Diagrams` and `Test-Diagrams` write it to `out/minimaps/`; the kit validates it against the schema
+(`minimap_contract.py`) and only draws it. No minimap file lives in a diagram folder: the picture is embedded in the render, and the reasons
+travel in the JSON and in the article that embeds the diagram. A diagram whose minimap data is missing does not put.
 
-### The world map (two views, both always shown)
-
-The minimaps draw the **world map** of the world-map processor (module `Catzc.Base.Maps`, ADR-DSGN-TRACK-WORLDMAP), and light the cells and
-files that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRACK-LITCELL), each with its reason. A minimap answers
-"where does this slide sit", not "how dense is the map": no cell is shaded by its count. The counts belong to the full maps (the world-map
-PDFs; a full value-chain view is still to come). A minimap lights the repository's citations of the slide's ADRs, never the slide's own
-words: the files under `docs/explanation/` (the articles the slides illustrate, their descriptions and the `.assets` with the minimaps'
-sister files) and `python/Catzc.Diagrams/` (this tooling) cite nothing for the highlight (`maps.yml` `highlight.citation_exclude`); they
-still sit in their cell.
-
-1. **Grid** (`grid/<stem>.grid.png`). Rows are the tracks and columns the file languages, in the map's order, with the root-file row and the
-   unlisted-file column last. Every cell is an idle grey box, empty ones included, and every **lit cell** is filled in the lit colour. A
-   cell lit only by passing mentions (citations in body comments, not in a file's header or text) is **touched**: the lighter lit colour.
-   Only the lit rows and columns are named, each with a tick on its axis: a row by its track (the root-file row by `labels.root_files`,
-   ADR-DSGN-TRACK-ROOTFILE, ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS), a column by a short horizontal code, the file language's first extension
-   (`.ps1`, `.md`; `other` for the unlisted files, ADR-DSGN-TRACK-UNLISTEDFILE). The codes of neighbouring lit columns alternate between two
-   lines so they never touch.
-2. **Repository tree map** (`tree/<stem>.tree.png`). A treemap of the files of the world map, with area set by file count and grouped by
-   top-level folder (`pwsh/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). Every tile is idle
-   grey; the files the highlight lights are lit (the lighter lit colour when lit only by passing mentions); a lit ADR file has a dark rim in
-   the page colour.
-
-### The value-chain map (always shown)
-
-**Value-chain grid** (`chain/<stem>.chain.png`). The **value-chain map** of `Get-ValueChainMap` (ADR-DSGN-TRACK-VALUECHAINMAP), lit by
-`Get-ValueChainHighlight -Adr <the slide's ADR codes>`: rows are the **value-chain stack** (`PRIN`, `DSGN`, `AUTO`, `PIPE`, `CLOUD`,
-ADR-DSGN-TRACK-VALUECHAINSTACK) and columns the **value-chain concerns** (ADR-DSGN-TRACK-VALUECHAINCONCERN), both closed sets in their
-declared order and always all named by capital codes, horizontal: a row by its code, a column by the initials of a hyphenated concern or
-else the whole concern in capitals, never truncated (`BUILD`, `QC`, `RELEASE`, `DEPLOY`, `ACCESS`). The column codes sit on **one line**,
-centred over their columns. The `automation` concern has **no column**: the stack's `AUTO` row already names it, so the minimap prints five
-columns, and the sister `.md` and the map key describe those five. `describe.py` (`HIDDEN_CONCERNS`, `shown_chain`) hides it in one place,
-so the picture, the sister `.md` and the key never disagree; the concern stays declared in `adrs.yml` and is lit on the full maps. The lit
-rows and columns are named in ink with a tick, the others in the label grey. Every cell is an idle grey box, empty ones included; a lit cell
-is filled in the lit colour. The axis titles are not printed on the minimap: the map key and the sister `.md` name the axes and expand the
-codes.
-
-### The sister `.md` of each minimap
-
-Every minimap PNG has a **sister `.md`** with the same stem, next to it in the minimap's own sub-folder (`grid/<stem>.grid.md`,
-`tree/<stem>.tree.md`, `chain/<stem>.chain.md`): one sub-folder per minimap, so each minimap's renderings and descriptions stand on their
-own beside the slides that embed them. `render.py` writes it in the same run, from the same data (`describe.py`), and never by hand. It
-opens with its path as the H1 (ADR-REPO-FORMAT-MARKDOWNTITLE), states once that every unlit cell is idle and why a cell holds nothing (no
-file of that track and file language; no ADR's value-chain concern lands there), expands the minimap's short codes under **Key**, and gives
-**every lit cell or lit group its reason**:
-
-- **World map:** the root folder names the track (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER), or the file is a root file (#7); the extension names
-  the file language (#6), or the file is an unlisted file (#8); then each lit file with the ADR code that selects it, its basis (the ADR's
-  own file, only that one file: an ADR's domain picks only its value-chain row, never extra world-map files; its own citations, its owner
-  module's files through `files.yml`, its globset) and the citing lines with their kind (header, body comment, text). A reviewed pin of
-  `maps.yml` is its own reason. A file cited only in body comments is a passing mention, and a cell of passing mentions only is marked
-  touched.
-- **Tree:** each lit group's folder, then each lit file with its cell and its reason as above.
-- **Value chain:** each lit ADR with the code that selects it, its ADR domain's row (#14), its value-chain concerns and whether they are the
-  ADR domain's default or the ADR's own override (#15), lit per #12.
-
-Nothing is lit without a reason and no reason stands without a lit cell: `describe.py` checks both per minimap and fails the run on a
-mismatch. Links are relative to the `.md`'s folder and point at tracked files, checked when written; the keywords link to the glossary. A
-view adds its sections in `describe.py`'s `VIEWS`.
+**Stale minimaps are a report, not a failure.** A tree change that moves what a subject's files cite leaves a committed diagram's minimaps
+stale: `Test-Diagrams` lists those diagrams, and `Build-Diagrams -Stale` rebuilds exactly that set.
 
 ### Colours (minimaps only; drawings keep the palettes above)
 
 - A minimap has a **page of its own**, `map-page`, a green-grey nuance drawn first, so the three insets read as maps set into the slide and
   never as a fourth band of the `page`. A lit place is `map-lit` with its name in `map-lit-ink`.
-- **One lit encoding on all three minimaps:** a lit cell or file is filled in the lit colour; lit by passing mentions only, in the lit
-  colour at 40 % over the idle cell. One map-key entry covers both on the grid, the tree and the value-chain map.
-- Idle cells and tiles are `map-panel`, with `map-rim` borders, the same nuance one step up. Labels are `map-caption` (lit) and `map-dim`
-  (not lit). The map key on the slide shows its idle swatch in these minimap tokens, not in the slide's band tokens.
-- A lit ADR file tile on the tree has a 1 px rim in `map-page` (a ring of the page colour on the lit tile).
+- **One lit encoding on every minimap:** a lit cell is filled in the lit colour; an idle cell is `map-panel` with a `map-rim` border, the
+  same nuance one step up. Labels are `map-caption` (lit) and `map-dim` (not lit). The minimap legend shows its idle swatch in these minimap
+  tokens, not in the slide's band tokens.
 - The **lens badge** is `mark-ink` text on `mark`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
 - No hue appears inside a minimap beyond its page's green cast: red stays reserved for failure inside drawings, and yellow for the BVT
   commit state.
-- The lens badge sits on the **grid** minimap only, in its empty top-left corner. On the tree map it would hide tiles.
-- A lit file is often a tiny square inside a big group, so its **group tile gets a 3 px edge** in the lit colour as well.
-- A row is shorter than its 18 px name, so the names of two lit rows side by side are moved apart; the tick marks the exact row.
-- The tree layout follows the files of the world map, so re-rendering after the repo changes shifts tiles. Re-render all minimaps together,
-  never one by one (below).
 
 ### Limits
 
-- **Display:** the drawing is at most 1572 × 1000 px. That's the 1300 px content area plus a 272 px right sidebar, which fits a 1920 × 1080
-  screen at 100 %. The minimum height is 360 px; with the sidebar below, a slide is at least 768 px tall.
-- **Sidebar** (x 1300–1572; exact geometry, ids fixed; `join.py` lays it out):
-  - `minimap-grid` image at x 1316, y 16, 240 × 150;
-  - `minimap-tree` image at x 1316, y 182, 240 × 180;
-  - `minimap-chain` image at x 1316, y 378, 240 × 150;
-  - `lens-badge` at x 1316, y 544, 240 × 24;
-  - no ADR codes: the subtitle is their one place on a slide, and the join step drops any list of them it finds in the sidebar;
-  - `mapkey` at x 1316, y 576, 240 × 126: the minimap legend, one swatch each shared by all three minimaps (lit; lit by passing mentions
-    only; a lit ADR file, dark rim; idle), and nothing more: the minimaps' labels explain themselves.
-- **Minimap PNGs** are rendered at 2× (480 × 300, 480 × 360 and 480 × 300) and placed at 1×. Text is ≥ 9 px at 1×. Every label is
-  horizontal: the grid names a lit row by its track and a lit column by its short code; the value-chain map names every row and column by
-  its capital code. Lit tree groups are labelled with their full names, most lit files first; a label may run past its tile (the page-colour
-  halo keeps it legible) and is cut only at the image edge, never to a stub like "Module…"; a label that would cover one already printed is
-  left out.
-- **Title:** ≤ 60 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, in the form
-  `Supports <ADR-CODE>:<rules> · <lens> lens`.
+- **Display:** the drawing is at most 1572 × 1000 px. That's the 1300 px content area plus a 272 px right column, which fits a 1920 × 1080
+  screen at 100 %. The minimum height is 360 px.
+- **Right column** (x 1300–1572): four slots, the three minimaps and the minimap legend, laid out by the renderer from the declaration; no
+  ADR codes, since the subtitle is their one place on a diagram.
+- **Title:** ≤ 60 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, the ADR codes of `about.adrs`.
 - **Boxes:**
   - name ≤ 28 chars;
   - body ≤ 2 lines × 40 chars;
@@ -348,48 +273,38 @@ view adds its sections in `describe.py`'s `VIEWS`.
   - legend ≤ 7 entries;
   - footer ≤ 3 lines × 150 chars.
 - **Font sizes:** 10.5 px minimum, 18 px maximum.
-- **Names:**
-  - The drawing is `<adr>--<explanation>--<lens>.drawio.png`. `<adr>` is the main ADR code in lower case (`adr-flow-cd`). `<explanation>` is
-    3–7 kebab words, ≤ 48 chars. `<lens>` is one of the five. The whole name is ≤ 90 chars.
-  - The minimaps are `grid/<same stem>.grid.png`, `tree/<same stem>.tree.png` and `chain/<same stem>.chain.png`, each with its sister `.md`
-    beside it, in one sub-folder per minimap under the drawing's folder.
+- **Names:** a diagram is a folder `.assets/<name>/` holding `diagram.drawio.yml`, its one source, and `diagram.drawio.png`, the render put
+  from it; `<name>` is 3–7 kebab words, ≤ 48 chars.
 
 ### Who does what, and how to rerun
 
-- Flow A **conforms and renames**: it keeps the content, cuts it to the limits, adds the sidebar placeholders, and picks the explanation
-  slug.
-- A **slide list** keys the minimap run: a JSON file `{ "slides": [ { "id", "stem", "lens", "adrs": [...], "xml" } ] }` naming each slide's
-  ADR codes and its source XML.
-- The minimap tooling, the `minimap_*` scripts of `python/Catzc.Diagrams` and the two catzc commands they lean on, runs in three steps from
-  the repository root, each in the background:
-  1. `Export-MinimapData -Slides <slides.json>` (a catzc command, in a session with the importer loaded) asks the map processors and writes
-     the data (default `out/minimaps/`);
-  2. `uv run -q --with pillow python python/Catzc.Diagrams/minimap_render.py --slides <slides.json>` draws the three minimaps and their
-     sister `.md` files under `out/drawio/minimaps/<folder>/`, build outputs never kept in the tree (`--facts` also writes each slide's
-     sidebar facts, `--overview` the full-size tree world map of an `out/` wave);
-  3. `uv run -q --with pillow python python/Catzc.Diagrams/minimap_join.py --slides <slides.json>` lays out each slide's sidebar in its
-     source XML, embeds the three PNGs and builds `<target>/<stem>.drawio.png` (`--start` and `--end` slice the list to fit the time limit).
-- An `out/` wave runs the same three steps with `--target out/diagrams/<wave>`.
+- A maker writes the `diagram.drawio.yml`: `description:`, `about:` (the lens and the ADR codes), `content:` and, where a cell must sit
+  somewhere the grid would not put it, `layout:`.
+- `Build-Diagrams -Path <folder>` computes the minimap data and puts the folder; `-FromDrawing` folds a draw.io edit back first;
+  `-Theme <name>` renders another theme to `out/drawio/themes/<name>/`; `-Stale` rebuilds the stale set. Each runs in the background under
+  the time safeguard, a large set in slices.
 
 ## Slides and their companions
 
-A fan-out drawing is a **slide**: glyphs on the picture, words in prose. Every slide ships as four files with one stem, side by side:
+A fan-out drawing is a **slide**: glyphs on the picture, words in prose. A slide is one diagram folder, `.assets/<name>/`, and the pages
+that embed its png (ADR-REPO-SLIDES-DECLARATION):
 
-| File                      | Reader                                | Holds                                                                                                  |
-| ------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `<stem>.drawio.png`       | everyone                              | the slide: glyphs, names, markers, chips, the legend, and the sidebar (three minimaps and the map key) |
-| `<stem>.md`               | a newcomer                            | the **article**: what the slide shows and why it holds, as well-written prose                          |
-| `<stem>.drawio.md`        | anyone who can't see it, or checks it | the **visual description** (landed as the asset description): what is drawn, with no meaning           |
-| `<stem>.drawio.verify.md` | the lead and reviewers                | the claim → `file:line` → status table, the corrections, and the drift                                 |
+| File                                   | Reader                 | Holds                                                                                             |
+| -------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------- |
+| `.assets/<name>/diagram.drawio.yml`    | the author, the gates  | the **declaration**: `description:`, `about:` (the ADR codes and the lens), `content:`, `layout:` |
+| `.assets/<name>/diagram.drawio.png`    | everyone               | the slide put from the declaration: glyphs, names, markers, chips, the legend and the sidebar     |
+| `<page>.md`                            | a newcomer             | the **article**: what the slide shows and why it holds, as well-written prose                     |
+| `out/diagrams/wave-N/<name>.verify.md` | the lead and reviewers | the claim → `file:line` → status table, the corrections and the drift; it never leaves `out/`     |
 
-A `source` lens slide (below) has no `<stem>.md` article: its words go into the module's reference article and its `<stem>.drawio.md`.
+The folder holds no markdown: the diagram names no article, any number of pages embed its png, and the build finds them by what embeds it. A
+`source` lens slide (below) has no explanation article: its words go into the module's reference article.
 
-The article and the visual description are read by people, so they carry no audit trail: no line numbers in the prose, no claim tables, no
-"corrected from wave N", no notes about how the slide was made. All of that lives in `<stem>.drawio.verify.md`.
+The article and the description are read by people, so they carry no audit trail: no line numbers in the prose, no claim tables, no
+"corrected from wave N", no notes about how the slide was made. All of that lives in the `.verify.md`.
 
 ### The article
 
-`<stem>.md`
+`<page>.md`
 
 Write it as a short explanation article, in the voice of the ADRs: plain English, present tense, active voice, full sentences, one idea per
 paragraph. Use the ADR's own terms (and the glossary's), real names in backticks, and "cats" for the system in prose. It reads well with the
@@ -400,7 +315,7 @@ image removed.
 
 <Lede: 2–4 sentences. What this part of cats is, what the slide shows about it, and why a reader should care.>
 
-![<alt: the finding in a few words>](<stem>.drawio.png)
+![<alt: the finding in a few words>](.assets/<name>/diagram.drawio.png)
 
 ## Walkthrough
 
@@ -420,65 +335,35 @@ otherwise.>
 ## See also
 
 - [<ADR title>](<relative path to the ADR>) — the decision this slide supports.
-- [Visual description](<stem>.drawio.md) · [Verification](<stem>.drawio.verify.md)
 ```
 
 - The Walkthrough follows the markers in reading order; every marker has exactly one step and every step has a marker.
 - Numbers appear in the prose where they matter ("26 modules"), not as line references.
 - No meta-talk: never "the slide shows…" more than once (in the lede), never "this maker", "wave", "pilot", "preview".
 
-### The visual description
+### The description
 
-`<stem>.drawio.md`
+`description:` in `diagram.drawio.yml`
 
-Describe only what is drawn, never what it means, using this kit's vocabulary: **canvas, drawing area, sidebar, band, span bar, glyph** (by
-its legend phrase: code unit, named set, file, store, runner, gate, environment, external tool, actor, result, failure, ADR-only, commit),
-**edge** (flow, thick, ADR-only, failure path), **marker, fraction chip, rule chip, legend, map key, grid minimap, tree minimap, value-chain
-minimap, lit cell, touched cell, lit tile, lens badge**. Write it after reading the built PNG, and make every count match the XML.
+One or two sentences of what is drawn, never what it means, in this kit's vocabulary: **band, span bar, glyph** (by its legend phrase: code
+unit, named set, file, store, runner, gate, environment, external tool, actor, result, failure, ADR-only, commit), **edge** (flow, thick,
+ADR-only, failure path, bypass), **gate rule, lane, marker, chip, legend**. Write it after looking at the built png. It carries no counts,
+reading path, legend table or minimap facts: `content:` already declares every glyph and edge, put draws the legend and the sidebar from it,
+and `Test-Diagrams` fails a png that states other content than its yml, so a hand-written count would be a second copy that drifts.
 
-```markdown
-# <title>: visual description
-
-**At a glance.** <One paragraph: canvas size, reading direction, the bands, how many glyphs of each kind, where the eye lands first.>
-
-## Reading path
-
-1. <Where the eye starts, by marker number and band.>
-2. …
-
-## Glyphs
-
-| Glyph (legend phrase) | Count | Where                              |
-| --------------------- | ----- | ---------------------------------- |
-| named set             | 3     | top band, middle band, bottom band |
-
-## Edges
-
-| Edge kind | Count | From → to |
-| --------- | ----- | --------- |
-
-## Legend
-
-<One sentence on its position, then the entries left to right as a table: swatch → phrase.>
-
-## Sidebar
-
-The sidebar stands on its own backing, the `sidebar` token: one flat rectangle (`sidebar-bg`, no shadow) from 12 px left of the minimaps to
-the page edge, lowest in the z-order, so the column reads as a region apart from the bands. `join.py` draws it and the slide template
-carries it; the three minimaps, the lens badge and the map key sit on it.
-
-<The grid minimap's lit and touched cells by name (track × file language), the tree minimap's lit tiles by group label, the value-chain
-minimap's lit cells (value-chain stack × value-chain concern), the lens badge, the map key; the facts come from the slide's sister `.md`
-files.>
+```yaml
+description: >-
+  Three bands left to right: four code units feed a named set, and a gate at the end sends a failure path back to the first band.
 ```
 
 ### The verification file
 
-`<stem>.drawio.verify.md`
+`out/diagrams/wave-N/<name>.verify.md`
 
 A table of every claim on the slide and in the article: claim → source (`file:line`) → **confirmed / contradicted / ADR-only**, followed by
 `## Corrections` (what changed against the previous wave, one line each) and `## Drift` (ADR vs code, one line each). Re-verify every
-number, name, path and order against the repository as it is today; the repository moves between waves.
+number, name, path and order against the repository as it is today; the repository moves between waves. It is a review note: it stays beside
+the staged folder in `out/`, and nothing in `docs/` links to it.
 
 ### The slide
 
@@ -491,12 +376,12 @@ number, name, path and order against the repository as it is today; the reposito
 - an ADR-only gate is the gate rhombus with a thin dashed rim (not 3 px) inside a dashed frame, legend `gate, ADR-only (no code)`;
 - numbers as symbols, each shown once: edge fractions (`4/5`, bold, on a white patch) first; a count chip (white pill, box-stroke rim;
   `m-count` in `glyphs.xml`, legend `count chip: <what it counts>`) only for a number no fraction already shows. Leaner wins: a symbol that
-  repeats what another symbol says is cut, and the number goes to the `.md`;
+  repeats what another symbol says is cut, and the number goes to the article;
 - **numbered markers**: a 22 px `mark` disc with a 2 px `mark-ink` rim and a `mark-ink` bold digit, on a box's top-left corner or beside an
-  edge. Each number is one Walkthrough step in `<stem>.md`. A marker always touches what it numbers (a glyph's corner, or the middle of an
+  edge. Each number is one Walkthrough step in the article. A marker always touches what it numbers (a glyph's corner, or the middle of an
   edge); a marker floating on empty canvas is a defect. An edge marker sits beside its edge with its rim touching the line (disc x = edge
-  x + 2), never centred on it: the preview draws edges over every glyph, so a centred disc is struck through. To say "nothing here" (e.g. a
-  rung with no throw), draw nothing and say it in the article;
+  x + 2), never centred on it: marks paint above edges (`layers:` in `drawio.yml`), so a centred disc hides the line it numbers. To say
+  "nothing here" (e.g. a rung with no throw), draw nothing and say it in the article;
 - **span bars** over the bands when the flow has named stages (CI, CD, DEPLOY), as the commit-story's top axis does;
 - **every edge that exists in the code is drawn**: a failure glyph has its failure-path edge from the glyph that raises it, a result has the
   edge from what produces it. An unconnected glyph is a defect unless the article says why it stands alone;
@@ -528,39 +413,37 @@ needs a phrase the library lacks adds it to `glyphs.xml` and this kit first. A f
 wording in a legend. One arrow never carries two meanings (not "calls; up from a gate: checks"): a second meaning goes to the article, or
 the slide is two slides. The minimaps get their own **map key** in the sidebar.
 
-### Landing in `docs/explanation/` (wave 7 onward)
+### Landing in `docs/explanation/`
 
-A finished slide lands in the repository as three files; the verify file stays in `out/diagrams/wave-N/` (plan:
-`out/plan-diagram-wave-7.md`).
+An approved slide lands as its folder and its article; the `.verify.md` stays in `out/diagrams/wave-N/`.
 
-| File                                                    | From                   | Shape                                                                                                      |
-| ------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `docs/explanation/<adr-domain>/<explanation>.md`        | the article            | path H1 (ADR-REPO-FORMAT-MARKDOWNTITLE), the title in backticks, a `text` overview block, then the article |
-| `docs/explanation/.assets/<stem>.drawio.png`            | the built slide        | copied, never overwriting an existing asset                                                                |
-| `docs/explanation/<adr-domain>/<explanation>.drawio.md` | the visual description | path H1, the title in backticks, a `text` at-a-glance block, then the description                          |
+| File                                                              | From                            | Shape                                                                                                      |
+| ----------------------------------------------------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `docs/explanation/<adr-domain>/<explanation>.md`                  | the article                     | path H1 (ADR-REPO-FORMAT-MARKDOWNTITLE), the title in backticks, a `text` overview block, then the article |
+| `docs/explanation/<adr-domain>/.assets/<name>/diagram.drawio.yml` | the staged declaration          | copied, never over an existing folder                                                                      |
+| `docs/explanation/<adr-domain>/.assets/<name>/diagram.drawio.png` | `Build-Diagrams -Path <folder>` | built in its folder, never copied, so its minimaps are computed for its address                            |
 
-- `<explanation>` is the middle part of the stem; `<adr-domain>` is the adrs.yml domain of the stem's ADR code.
+- `<adr-domain>` is the adrs.yml domain of the slide's first ADR code; `<explanation>` is the finding as a kebab slug.
 - **The `text` overview** of an article: the finding in one line; a blank line; one line per marker, `<n>  <name>  <what it is>`, names
   padded to one column; a blank line; `Supports <ADR-CODE>#a, #b and #c (<lens> lens).` Plain ASCII inside the block (`->`, not `→`).
-- **Words by audience:** the article uses the ADR's and glossary's terms (group, module, gate as the ADR names it); the asset description
-  uses the glyph library's phrases (named set, code unit). Neither uses the other's vocabulary.
-- **Links:** the article links its image under `../.assets/`, its asset description beside it, the ADR, its sibling lenses, its domain index
-  and `../index.md#how-to-read-the-diagrams`. The asset description links the PNG and the article. ADRs never link to either.
-- **Checks:** run `out/diagrams/wave-7/_check_docs.ps1 <paths…>` on your files (formats, then title, markdownlint, spelling, links). Report
-  unknown words; never edit `terminology.yml` from a maker. A quoted message holding `<name>`-style placeholders goes in a code span (bare
-  angle brackets fail markdownlint MD033). Example names copied from an ADR that are not words (`weudiscvm`) get a local `cspell:ignore`
-  line, as the ADR does; never split a word across markup (`Co(nfig)` flags `nfig`).
+- **Words by audience:** the article uses the ADR's and glossary's terms (group, module, gate as the ADR names it); the declaration's
+  `description:` uses the glyph library's phrases (named set, code unit). Neither uses the other's vocabulary.
+- **Links:** the article links its image under `.assets/<name>/`, the ADR, its sibling lenses, its domain index and
+  `../index.md#how-to-read-the-diagrams`. The diagram links nothing.
+- **Checks:** run `Test-Diagrams -Path <folder>` on the folder, and `Test-Links` and `Test-Spelling` on the article. Report unknown words;
+  never edit `terminology.yml` from a maker. A quoted message holding `<name>`-style placeholders goes in a code span (bare angle brackets
+  fail markdownlint MD033). Example names copied from an ADR that are not words (`weudiscvm`) get a local `cspell:ignore` line, as the ADR
+  does; never split a word across markup (`Co(nfig)` flags `nfig`).
 
-Quality bar for this format: the wave-7 pilot, `docs/explanation/automation/three-layers-edges-point-down.md` with
-`docs/explanation/.assets/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png` and
-`docs/explanation/automation/three-layers-edges-point-down.drawio.md`.
+Quality bar for this format: `docs/explanation/automation/three-layers-edges-point-down.md` with its folder
+`docs/explanation/automation/.assets/three-layers-edges-point-down/`.
 
 ## Readability rules
 
 These come from the wave-1 review. The user rated azure and commits-quality "SUPER" and config-read-path "really bad", and sent
 promotion-flow, globset-roles, bundle, importer, dependency-groups, auth and runner back for "simplify and verify".
 
-- **Quality bar:** `docs/.assets/commits-quality/commit-lifecycle-states.drawio.png`. It has labelled bands, one direction, short boxes, a
+- **Quality bar:** `docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.png`. It has labelled bands, one direction, short boxes, a
   footer of meanings, and a swatch legend. Read it before drawing.
 - **Group-level beats module-level.** If the source has dozens of nodes (e.g. dependencies.yml), draw the groups and point to the config for
   the per-node detail.
@@ -568,7 +451,7 @@ promotion-flow, globset-roles, bundle, importer, dependency-groups, auth and run
 - **Don't fan arrows.** A box that acts on three targets gets one bracket or band around the targets, not three diagonal arrows.
 - **Compact forks.** A Mode → task mapping is one 3-row chip group, not three separate paths.
 
-- **One reading direction.** Use left → right (or top → down) bands, as in commit-lifecycle-states. Never let the flow snake right, then
+- **One reading direction.** Use left → right (or top → down) bands, as in commit-promotion-states. Never let the flow snake right, then
   down, then left, then back up.
 - **No crossing or long diagonal edges.** If an edge must cross the picture, re-lay out the boxes instead.
 - **Boxes: one bold name plus ≤ 2 short lines.** Move detail into one footer note. Don't put an ADR code on every box: give one in the title

@@ -1,78 +1,205 @@
-description: >-
-  The two ways an Azure DevOps call starts, a pipeline step through invoke-automation.yaml or a developer's shell, both reaching one header
-  function whose three credentials each rest on a proof anchored in ado.yml.
+description: The two ways an Azure DevOps call starts, a pipeline step through invoke-automation.yaml or a developer's shell,
+  both reaching one header function whose three credentials each rest on a proof anchored in ado.yml.
 about:
-  lens: architecture
   adrs:
-    - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-    - ADR-ADO-AUTH-PROVETARGET
-    - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
-    - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
-  tracks: [ado-pipelines, pwsh]
-  languages: [pipeline-yaml, powershell]
-  modules: [Catzc.Azure.DevOps, Catzc.Azure.Cli]
-  files:
-    - .ado/pipelines/steps/invoke-automation.yaml
-    - pwsh/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1
-    - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
-    - pwsh/Catzc.Azure.DevOps/configs/ado.yml
-    - pwsh/Catzc.Azure.Cli/Assert-AzCliConnected.ps1
+  - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+  - ADR-ADO-AUTH-PROVETARGET
+  - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
+  - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+  lens: architecture
 content:
   title: One function owns the credential precedence, and ado.yml anchors every proof
   kind: explanation
+  flow: left-to-right
   relation: uses
+  theme: dark
   bands:
-    - { id: band-entry, label: ENTRY }
-    - { id: band-call, label: CALL PATH }
-    - { id: band-anchor, label: WHAT A PROOF RESTS ON }
+  - id: band-entry
+    label: ENTRY
+  - id: band-call
+    label: CALL PATH
+  - id: band-anchor
+    label: WHAT A PROOF RESTS ON
   groups:
-    - { id: grp-header, label: Get-AdoAuthorizationHeader, in: band-call }
+  - id: grp-header
+    label: Get-AdoAuthorizationHeader
+    in: band-call
   glyphs:
-    - { id: g-developer, kind: actor, label: Developer shell, in: band-entry }
-    - { id: g-pipeline-yaml, kind: runner, label: pipeline yaml, in: band-entry }
-    - { id: g-template, kind: runner, label: invoke-automation.yaml, in: band-entry }
-    - { id: g-api, kind: code, label: an ADO API function, in: band-call }
-    - { id: g-invoke, kind: code, label: Invoke-AdoRestMethod, in: band-call }
-    - { id: g-pipeline, kind: gate, label: Pipeline token, in: grp-header }
-    - { id: g-pat, kind: gate, label: PAT, in: grp-header }
-    - { id: g-azcli, kind: gate, label: az CLI, in: grp-header }
-    - { id: g-ado-yml, kind: file, label: ado.yml, in: band-anchor }
-    - { id: g-cli-module, kind: code, label: Catzc.Azure.Cli, in: band-anchor }
+  - id: g-developer
+    kind: actor
+    label: Developer shell
+    in: band-entry
+  - id: g-pipeline-yaml
+    kind: runner
+    label: pipeline yaml
+    in: band-entry
+  - id: g-template
+    kind: runner
+    label: invoke-automation.yaml
+    in: band-entry
+  - id: g-api
+    kind: code
+    label: an ADO API function
+    in: band-call
+  - id: g-invoke
+    kind: code
+    label: Invoke-AdoRestMethod
+    in: band-call
+  - id: g-pipeline
+    kind: gate
+    label: Pipeline token
+    in: grp-header
+  - id: g-pat
+    kind: gate
+    label: PAT
+    in: grp-header
+  - id: g-azcli
+    kind: gate
+    label: az CLI
+    in: grp-header
+  - id: g-ado-yml
+    kind: file
+    label: ado.yml
+    in: band-anchor
+  - id: g-cli-module
+    kind: code
+    label: Catzc.Azure.Cli
+    in: band-anchor
   edges:
-    - { from: g-developer, to: g-api }
-    - { from: g-pipeline-yaml, to: g-template }
-    - { from: g-template, to: g-api }
-    - { from: g-api, to: g-invoke }
-    - { from: g-invoke, to: grp-header }
-    - { from: g-pipeline, to: g-template }
-    - { from: g-pipeline, to: g-ado-yml }
-    - { from: g-pat, to: g-ado-yml, kind: adr }
-    - { from: g-azcli, to: g-ado-yml }
-    - { from: g-azcli, to: g-cli-module }
+  - from: g-developer
+    to: g-api
+    kind: flow
+    label: ''
+  - from: g-pipeline-yaml
+    to: g-template
+    kind: flow
+    label: ''
+  - from: g-template
+    to: g-api
+    kind: flow
+    label: ''
+  - from: g-api
+    to: g-invoke
+    kind: flow
+    label: ''
+  - from: g-invoke
+    to: grp-header
+    kind: flow
+    label: ''
+  - from: g-pipeline
+    to: g-template
+    kind: flow
+    label: ''
+  - from: g-pipeline
+    to: g-ado-yml
+    kind: flow
+    label: ''
+  - from: g-pat
+    to: g-ado-yml
+    kind: adr
+    label: ''
+  - from: g-azcli
+    to: g-ado-yml
+    kind: flow
+    label: ''
+  - from: g-azcli
+    to: g-cli-module
+    kind: flow
+    label: ''
   markers:
-    - { at: g-pipeline-yaml, number: 1 }
-    - { at: g-template, number: 2 }
-    - { at: g-developer, number: 3 }
-    - { at: g-api, number: 4 }
-    - { at: g-invoke, number: 5 }
-    - { at: g-pipeline, number: 6 }
-    - { at: g-pat, number: 7 }
-    - { at: g-azcli, number: 8 }
-    - { at: g-cli-module, number: 9 }
-    - { at: g-ado-yml, number: 10 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-pipeline-yaml
+    number: 1
+  - at: g-template
+    number: 2
+  - at: g-developer
+    number: 3
+  - at: g-api
+    number: 4
+  - at: g-invoke
+    number: 5
+  - at: g-pipeline
+    number: 6
+  - at: g-pat
+    number: 7
+  - at: g-azcli
+    number: 8
+  - at: g-cli-module
+    number: 9
+  - at: g-ado-yml
+    number: 10
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-entry: { x: 20, y: 84, w: 300, h: 520 }
-  band-call: { x: 340, y: 84, w: 600, h: 520 }
-  band-anchor: { x: 960, y: 84, w: 320, h: 520 }
-  g-developer: { x: 110, y: 120, w: 120, h: 56 }
-  g-pipeline-yaml: { x: 50, y: 230, w: 240, h: 44 }
-  g-template: { x: 50, y: 330, w: 240, h: 44 }
-  g-api: { x: 470, y: 126, w: 340, h: 44 }
-  g-invoke: { x: 470, y: 206, w: 340, h: 44 }
-  grp-header: { x: 380, y: 280, w: 520, h: 306 }
-  g-pipeline: { x: 480, y: 322, w: 320, h: 60 }
-  g-pat: { x: 480, y: 412, w: 320, h: 60 }
-  g-azcli: { x: 480, y: 502, w: 320, h: 60 }
-  g-ado-yml: { x: 1040, y: 406, w: 160, h: 72 }
-  g-cli-module: { x: 1000, y: 510, w: 240, h: 44 }
+  band-entry:
+    x: 20
+    y: 84
+    w: 300
+    h: 520
+  band-call:
+    x: 340
+    y: 84
+    w: 600
+    h: 520
+  band-anchor:
+    x: 960
+    y: 84
+    w: 320
+    h: 520
+  g-developer:
+    x: 110
+    y: 120
+    w: 120
+    h: 56
+  g-pipeline-yaml:
+    x: 50
+    y: 230
+    w: 240
+    h: 44
+  g-template:
+    x: 50
+    y: 330
+    w: 240
+    h: 44
+  g-api:
+    x: 470
+    y: 126
+    w: 340
+    h: 44
+  g-invoke:
+    x: 470
+    y: 206
+    w: 340
+    h: 44
+  grp-header:
+    x: 380
+    y: 280
+    w: 520
+    h: 306
+  g-pipeline:
+    x: 480
+    y: 322
+    w: 320
+    h: 60
+  g-pat:
+    x: 480
+    y: 412
+    w: 320
+    h: 60
+  g-azcli:
+    x: 480
+    y: 502
+    w: 320
+    h: 60
+  g-ado-yml:
+    x: 1040
+    y: 406
+    w: 160
+    h: 72
+  g-cli-module:
+    x: 1000
+    y: 510
+    w: 240
+    h: 44

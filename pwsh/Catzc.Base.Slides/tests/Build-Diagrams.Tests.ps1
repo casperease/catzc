@@ -4,7 +4,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         $pages = [ordered]@{
             'kit/drawio_forward.py'  = "# renderer stand-in`n"
             'docs/widgets/index.md'  = "# Widgets`n`n![Widget A](.assets/widget-a/diagram.drawio.png)`n`n![Widget B](./.assets/widget-b/diagram.drawio.png)`n"
-            'docs/widgets/plain.md'  = "# Plain`n`n[a link](.assets/widget-a/diagram.drawio.md)`n"
+            'docs/widgets/plain.md'  = "# Plain`n`n[a link](.assets/widget-a/diagram.drawio.yml)`n"
             'docs/gadgets/index.md'  = "# Gadgets`n`n![Gadget](.assets/gadget/diagram.drawio.png)`n"
             'docs/gadgets/second.md' = "# Second`n`n![Gadget again](.assets/gadget/diagram.drawio.png)`n"
             'docs/gizmos/index.md'   = "# Gizmos`n`n![Elsewhere](../widgets/.assets/gizmo/diagram.drawio.png)`n"
@@ -15,7 +15,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
             [System.IO.File]::WriteAllText($full, $pages[$file])
         }
         $script:tracked = @($pages.Keys | Where-Object { $_ -like 'docs/*' }) + @(
-            'docs/widgets/.assets/widget-a/diagram.drawio.png', 'docs/widgets/.assets/widget-a/diagram.drawio.md', 'docs/widgets/.assets/widget-a/grid.png',
+            'docs/widgets/.assets/widget-a/diagram.drawio.png', 'docs/widgets/.assets/widget-a/diagram.drawio.yml',
             'docs/widgets/.assets/widget-b/diagram.drawio.png', 'docs/gadgets/.assets/gadget/diagram.drawio.png',
             'docs/gizmos/.assets/gizmo/diagram.drawio.png', 'docs/widgets/.assets/loose.drawio.png')
     }
@@ -33,28 +33,27 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         }
     }
 
-    It 'rebuilds one diagram folder, every stage, with the pages that embed it' {
+    It 'renders one diagram folder in one call, with the pages that embed it' {
         $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/widget-a' })
-        @($runs | ForEach-Object { "$($_.Folder) $($_.Stage)" }) | Should -Be @(
-            'docs/widgets/.assets/widget-a prepare', 'docs/widgets/.assets/widget-a highlight', 'docs/widgets/.assets/widget-a join')
+        @($runs | ForEach-Object { "$($_.Folder) $($_.Stage)" }) | Should -Be @('docs/widgets/.assets/widget-a render')
         @($runs.Articles | Sort-Object -Unique) | Should -Be @('docs/widgets/index.md')
         @($runs.Status | Sort-Object -Unique) | Should -Be @('clean')
     }
 
     It 'with no path, rebuilds every diagram folder under docs/**/.assets/**, and nothing that is not one' {
-        $folders = @(& $script:build @{ Stage = 'prepare' }).Folder
+        $folders = @(& $script:build).Folder
         $folders | Should -Be @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b', 'docs/gizmos/.assets/gizmo')
     }
 
-    It 'calls the kit''s renderer through uv in the kit''s own project, the folder absolute, one stage per call' {
-        & $script:build @{ Path = 'docs/widgets/.assets/widget-b'; Stage = 'highlight' } | Out-Null
+    It 'calls the kit''s renderer through uv in the kit''s own project, the folder absolute, one call per folder' {
+        & $script:build @{ Path = 'docs/widgets/.assets/widget-b' } | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
-            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python "*kit*drawio_forward.py" --all "*docs*widgets*.assets*widget-b" --stage highlight --theme dark'
+            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python "*kit*drawio_forward.py" --all "*docs*widgets*.assets*widget-b" --theme dark'
         }
     }
 
     It 'reports an orphan and still renders it: no page embeds its png' {
-        $runs = @(& $script:build @{ Path = 'docs/gizmos/.assets/gizmo'; Stage = 'prepare' })
+        $runs = @(& $script:build @{ Path = 'docs/gizmos/.assets/gizmo' })
         $runs.Status | Should -Be @('clean')
         $runs[0].Articles | Should -BeNullOrEmpty
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Warning -and $Message -like '*docs/gizmos/.assets/gizmo is an orphan*' } -Times 1 -Exactly
@@ -62,7 +61,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     It 'finds every page that embeds one diagram, a second article included, and builds clean' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked }
-        $runs = @(& $script:build @{ Path = 'docs/gadgets/.assets/gadget'; Stage = 'prepare' })
+        $runs = @(& $script:build @{ Path = 'docs/gadgets/.assets/gadget' })
         $runs[0].Articles | Should -Be @('docs/gadgets/index.md', 'docs/gadgets/second.md')
         $runs.Status | Should -Be @('clean')
     }
@@ -76,7 +75,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/second.md'),
             "# Second`n`nSupports ADR-WIDGET-COG (architecture lens).`n`n![Gadget again](.assets/gadget/diagram.drawio.png)`n")
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked }
-        $null = & $script:build @{ Path = 'docs/gadgets/.assets/gadget'; Stage = 'prepare' }
+        $null = & $script:build @{ Path = 'docs/gadgets/.assets/gadget' }
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
             $Warning -and $Message -like '*docs/gadgets/second.md says Supports ADR-WIDGET-COG (architecture lens) for docs/gadgets/.assets/gadget; its yml says ADR-WIDGET-GADGET (architecture lens)*'
         }
@@ -88,7 +87,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
         [System.IO.File]::WriteAllText($source, "content: {}`n")
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { 'docs/widgets/.assets/sprocket/diagram.drawio.yml' }
-        $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/sprocket'; Stage = 'prepare' })
+        $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/sprocket' })
         $runs.Folder | Should -Be @('docs/widgets/.assets/sprocket')
         $runs.Status | Should -Be @('clean')
     }
@@ -99,21 +98,21 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     It 'lists the calls per folder under -DryRun and runs none' -Tag 'ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT' {
         $runs = @(& $script:build @{ DryRun = $true; Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' })
-        $runs.Count | Should -Be 6
+        $runs.Count | Should -Be 2
         @($runs.Status | Sort-Object -Unique) | Should -Be @('dry-run')
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 0
         Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.Slides -Times 0
     }
 
     It 'reports warnings and goes on, takes nothing to render as done, and stops on any other exit' {
-        $one = @{ Path = 'docs/widgets/.assets/widget-a'; Stage = 'join' }
+        $one = @{ Path = 'docs/widgets/.assets/widget-a' }
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 2; Output = '' } }
         @(& $script:build $one).Status | Should -Be @('warnings')
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Warning } -Times 1 -Exactly
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 3; Output = '' } }
         @(& $script:build $one).Status | Should -Be @('nothing')
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 1; Output = "line one`nTraceback: widget" } }
-        { & $script:build $one } | Should -Throw '*renderer failed on docs/widgets/.assets/widget-a, stage join (exit 1)*Traceback: widget*'
+        { & $script:build $one } | Should -Throw '*renderer failed on docs/widgets/.assets/widget-a (exit 1)*Traceback: widget*'
     }
 
     It 'stops when the kit has no renderer' {
@@ -163,7 +162,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
     Context '-Stale' -Tag 'ADR-REPO-SLIDES-TWODIRECTIONS' {
         It 'rebuilds only the diagrams Test-Diagrams reports stale' {
             Mock Test-Diagrams -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Facts = @{ StaleFolders = @('docs/widgets/.assets/widget-b') } } }
-            $runs = @(& $script:build @{ Stale = $true; Stage = 'prepare' })
+            $runs = @(& $script:build @{ Stale = $true })
             $runs.Folder | Should -Be @('docs/widgets/.assets/widget-b')
         }
 

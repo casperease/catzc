@@ -5,11 +5,9 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
             'docs/widgets/index.md'                         = "# Widgets`n`n![Widget](assets/widget/diagram.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
             'docs/widgets/plain.md'                         = "# Plain`n`n[up](index.md)`n"
             'docs/widgets/assets/widget/diagram.drawio.png' = 'png'
-            'docs/widgets/assets/widget/diagram.drawio.md'  = "# Widget described`n`n[the article](../../index.md) [the grid](grid.md) ![grid](grid.png)`n"
-            'docs/widgets/assets/widget/grid.md'            = "# Grid`n`n[the description](diagram.drawio.md)`n"
-            'docs/widgets/assets/widget/grid.png'           = 'png'
+            'docs/widgets/assets/widget/diagram.drawio.yml' = "description: A widget.`n"
             'docs/adr/index.md'                             = "# Widget decisions`n"
-            'docs/gadgets/index.md'                         = "# Gadgets`n`n[the widget slide](../widgets/assets/widget/diagram.drawio.md#widget-described)`n"
+            'docs/gadgets/index.md'                         = "# Gadgets`n`n![the widget slide](../widgets/assets/widget/diagram.drawio.png)`n"
         }
         foreach ($file in $files.Keys) {
             $full = Join-Path $script:widgetRoot $file
@@ -24,36 +22,35 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         $script:read = { param([string] $File) [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $File)) }
     }
 
-    It 'moves a diagram folder with git mv and re-points the links in it and into it' {
+    It 'moves a diagram folder with git mv and re-points every page that embeds it' {
         $result = Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -PassThru
 
-        $result.Moves.Count | Should -Be 4
+        $result.Moves.Count | Should -Be 2
         Test-Path (Join-Path $script:widgetRoot 'docs/widgets/assets/widget') | Should -BeFalse
         $index = @((Invoke-Executable 'git ls-files' -WorkingDirectory $script:widgetRoot -PassThru -Silent).Output -split "`r?`n")
-        $index | Should -Contain 'docs/widgets/.assets/widget/grid.png'
-        $index | Should -Not -Contain 'docs/widgets/assets/widget/grid.png'
+        $index | Should -Contain 'docs/widgets/.assets/widget/diagram.drawio.yml'
+        $index | Should -Not -Contain 'docs/widgets/assets/widget/diagram.drawio.yml'
         & $script:read 'docs/widgets/index.md' | Should -BeExactly "# Widgets`n`n![Widget](.assets/widget/diagram.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
-        & $script:read 'docs/gadgets/index.md' | Should -BeExactly "# Gadgets`n`n[the widget slide](../widgets/.assets/widget/diagram.drawio.md#widget-described)`n"
-        & $script:read 'docs/widgets/.assets/widget/diagram.drawio.md' | Should -BeExactly "# Widget described`n`n[the article](../../index.md) [the grid](grid.md) ![grid](grid.png)`n"
+        & $script:read 'docs/gadgets/index.md' | Should -BeExactly "# Gadgets`n`n![the widget slide](../widgets/.assets/widget/diagram.drawio.png)`n"
         @($result.Pages | Sort-Object) | Should -Be @('docs/gadgets/index.md', 'docs/widgets/index.md')
         @((Test-Links -Path (Join-Path $script:widgetRoot docs) -RepositoryRoot $script:widgetRoot -PassThru 6> $null).Issues) | Should -BeNullOrEmpty
     }
 
     It 'moves one file under a new name, re-pointing the files that link to it and its own links' {
-        Move-Diagram docs/widgets/assets/widget/grid.md docs/gadgets/.assets/widget/grid.md -RepositoryRoot $script:widgetRoot
+        Move-Diagram docs/widgets/plain.md docs/gadgets/simple.md -RepositoryRoot $script:widgetRoot
 
-        & $script:read 'docs/gadgets/.assets/widget/grid.md' | Should -BeExactly "# Grid`n`n[the description](../../../widgets/assets/widget/diagram.drawio.md)`n"
-        & $script:read 'docs/widgets/assets/widget/diagram.drawio.md' | Should -BeExactly "# Widget described`n`n[the article](../../index.md) [the grid](../../../gadgets/.assets/widget/grid.md) ![grid](grid.png)`n"
+        & $script:read 'docs/gadgets/simple.md' | Should -BeExactly "# Plain`n`n[up](../widgets/index.md)`n"
+        & $script:read 'docs/widgets/index.md' | Should -BeExactly "# Widgets`n`n![Widget](assets/widget/diagram.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](../gadgets/simple.md)`n"
     }
 
     It 'lists the moves and the pages under -DryRun and changes nothing' {
         $result = Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -DryRun -PassThru
 
         $result.DryRun | Should -BeTrue
-        $result.Moves.To | Should -Contain 'docs/widgets/.assets/widget/diagram.drawio.md'
-        Test-Path (Join-Path $script:widgetRoot 'docs/widgets/assets/widget/grid.png') | Should -BeTrue
+        $result.Moves.To | Should -Contain 'docs/widgets/.assets/widget/diagram.drawio.yml'
+        Test-Path (Join-Path $script:widgetRoot 'docs/widgets/assets/widget/diagram.drawio.yml') | Should -BeTrue
         & $script:read 'docs/widgets/index.md' | Should -Match '\(assets/widget/diagram\.drawio\.png\)'
-        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Message -like 'Would move: *' } -Times 4 -Exactly
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Message -like 'Would move: *' } -Times 2 -Exactly
     }
 
     It 'formats every page whose links it re-pointed, and nothing under -DryRun' -Tag 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {

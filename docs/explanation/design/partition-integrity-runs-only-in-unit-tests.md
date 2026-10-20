@@ -12,7 +12,7 @@ Partition integrity runs only in unit tests, and the per-aspect sha lock has no 
 7  AspectPartition.Validate      ADR-only on the real tree: runs in unit tests only
 8  Aspect sha lock               ADR-only: nothing writes one
 
-Supports ADR-DSGN-ASPECT-ASPECTSAREDERIVED, ADR-DSGN-ASPECT-TRACKPICKSCATCHALL, ADR-DSGN-ASPECT-ASPECTISAGLOBSET and ADR-DSGN-ASPECT-PARTITIONISCHECKED (governance lens).
+Supports ADR-DSGN-ASPECT-ASPECTSAREDERIVED, ADR-DSGN-ASPECT-TRACKPICKSCATCHALL, ADR-DSGN-ASPECT-ASPECTISAGLOBSET, ADR-DSGN-ASPECT-PARTITIONISCHECKED, ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE, ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME, ADR-PWSH-MANIFEST-GENERATEDMANIFESTS, ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED, ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS and ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT (governance lens).
 ```
 
 Every stage of a cats module's folder layout is ruled by an ADR, and most of those rules have a gate: a quality gate, a guard at import, or

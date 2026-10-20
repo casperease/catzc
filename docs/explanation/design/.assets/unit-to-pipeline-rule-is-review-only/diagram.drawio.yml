@@ -1,73 +1,182 @@
-description: >-
-  Tracks and deployable-units are checked in code, by the variants config, an integrity test over the real repository and the globs config
-  on load; the rules that one unit binds one pipeline and that a scope is no new track are held by code review alone.
+description: Tracks and deployable-units are checked in code, by the variants config, an integrity test over the real repository
+  and the globs config on load; the rules that one unit binds one pipeline and that a scope is no new track are held by code
+  review alone.
 about:
-  lens: governance
   adrs:
-    - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-    - ADR-DSGN-TRACK-ONETRACKTYPE
-    - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-    - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-    - ADR-FLOW-CD-GLOBS-COMPOSESETS
-    - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
-    - ADR-REPO-FOLDERS-CLOSEDROOTSET
-  tracks: [pwsh]
-  languages: [powershell, csharp, yaml]
-  modules: [Catzc.Base.Variants, Catzc.Base.Globs]
-  files:
-    - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-    - pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-    - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+  - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+  - ADR-DSGN-TRACK-ONETRACKTYPE
+  - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+  - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+  - ADR-FLOW-CD-GLOBS-COMPOSESETS
+  - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
+  - ADR-REPO-FOLDERS-CLOSEDROOTSET
+  lens: governance
 content:
   title: Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone
   kind: explanation
+  flow: left-to-right
   relation: is checked by
+  theme: dark
   bands:
-    - { id: band-tracks, label: TRACKS }
-    - { id: band-units, label: DEPLOYABLE-UNITS }
-    - { id: band-pipelines, label: PIPELINES · SCOPES }
+  - id: band-tracks
+    label: TRACKS
+  - id: band-units
+    label: DEPLOYABLE-UNITS
+  - id: band-pipelines
+    label: PIPELINES · SCOPES
   glyphs:
-    - { id: g-track, kind: set, label: track, in: band-tracks }
-    - { id: g-variants-config, kind: gate, label: VariantsConfig, in: band-tracks }
-    - { id: g-language-tests, kind: gate, label: Get-FileLanguage.Tests, in: band-tracks }
-    - { id: g-unit, kind: set, label: deployable-unit, in: band-units }
-    - { id: g-globs-config, kind: gate, label: GlobsConfig, in: band-units }
-    - { id: g-pipeline, kind: runner, label: pipeline, in: band-pipelines }
-    - { id: g-scope, kind: set, label: scope globset, in: band-pipelines }
-    - { id: g-review, kind: adronly, label: code review, in: band-pipelines }
+  - id: g-track
+    kind: set
+    label: track
+    in: band-tracks
+  - id: g-variants-config
+    kind: gate
+    label: VariantsConfig
+    in: band-tracks
+  - id: g-language-tests
+    kind: gate
+    label: Get-FileLanguage.Tests
+    in: band-tracks
+  - id: g-unit
+    kind: set
+    label: deployable-unit
+    in: band-units
+  - id: g-globs-config
+    kind: gate
+    label: GlobsConfig
+    in: band-units
+  - id: g-pipeline
+    kind: runner
+    label: pipeline
+    in: band-pipelines
+  - id: g-scope
+    kind: set
+    label: scope globset
+    in: band-pipelines
+  - id: g-review
+    kind: adronly
+    label: code review
+    in: band-pipelines
   edges:
-    - { from: g-track, to: g-variants-config }
-    - { from: g-track, to: g-language-tests }
-    - { from: g-unit, to: g-globs-config }
-    - { from: g-pipeline, to: g-review, kind: adr }
-    - { from: g-scope, to: g-review, kind: adr }
+  - from: g-track
+    to: g-variants-config
+    kind: flow
+    label: ''
+  - from: g-track
+    to: g-language-tests
+    kind: flow
+    label: ''
+  - from: g-unit
+    to: g-globs-config
+    kind: flow
+    label: ''
+  - from: g-pipeline
+    to: g-review
+    kind: adr
+    label: ''
+  - from: g-scope
+    to: g-review
+    kind: adr
+    label: ''
   markers:
-    - { at: g-track, number: 1 }
-    - { at: g-variants-config, number: 2 }
-    - { at: g-language-tests, number: 3 }
-    - { at: g-unit, number: 4 }
-    - { at: g-globs-config, number: 5 }
-    - { at: g-pipeline, number: 6 }
-    - { at: g-scope, number: 7 }
-    - { at: g-review, number: 8 }
+  - at: g-track
+    number: 1
+  - at: g-variants-config
+    number: 2
+  - at: g-language-tests
+    number: 3
+  - at: g-unit
+    number: 4
+  - at: g-globs-config
+    number: 5
+  - at: g-pipeline
+    number: 6
+  - at: g-scope
+    number: 7
+  - at: g-review
+    number: 8
   chips:
-    - { at: g-track, kind: rule, rule: ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER }
-    - { at: g-track, kind: rule, rule: ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL }
-    - { at: g-track, kind: rule, rule: ADR-REPO-FOLDERS-CLOSEDROOTSET }
-    - { at: g-unit, kind: rule, rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER }
-    - { at: g-unit, kind: rule, rule: ADR-FLOW-CD-GLOBS-COMPOSESETS }
-    - { at: g-pipeline, kind: rule, rule: ADR-DSGN-TRACK-DEPLOYABLEUNIT, gated: false }
-    - { at: g-scope, kind: rule, rule: ADR-DSGN-TRACK-ONETRACKTYPE, gated: false }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-track
+    kind: rule
+    rule: ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+  - at: g-track
+    kind: rule
+    rule: ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
+  - at: g-track
+    kind: rule
+    rule: ADR-REPO-FOLDERS-CLOSEDROOTSET
+  - at: g-unit
+    kind: rule
+    rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+  - at: g-unit
+    kind: rule
+    rule: ADR-FLOW-CD-GLOBS-COMPOSESETS
+  - at: g-pipeline
+    kind: rule
+    rule: ADR-DSGN-TRACK-DEPLOYABLEUNIT
+    gated: false
+  - at: g-scope
+    kind: rule
+    rule: ADR-DSGN-TRACK-ONETRACKTYPE
+    gated: false
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-tracks: { x: 20, y: 104, w: 460, h: 380 }
-  band-units: { x: 500, y: 104, w: 260, h: 380 }
-  band-pipelines: { x: 780, y: 104, w: 500, h: 380 }
-  g-track: { x: 140, y: 160, w: 220, h: 52 }
-  g-variants-config: { x: 30, y: 350, w: 210, h: 90 }
-  g-language-tests: { x: 250, y: 350, w: 220, h: 90 }
-  g-unit: { x: 540, y: 160, w: 180, h: 52 }
-  g-globs-config: { x: 540, y: 350, w: 180, h: 90 }
-  g-pipeline: { x: 820, y: 160, w: 180, h: 52 }
-  g-scope: { x: 1060, y: 160, w: 180, h: 52 }
-  g-review: { x: 930, y: 360, w: 220, h: 60 }
+  band-tracks:
+    x: 20
+    y: 104
+    w: 460
+    h: 380
+  band-units:
+    x: 500
+    y: 104
+    w: 260
+    h: 380
+  band-pipelines:
+    x: 780
+    y: 104
+    w: 500
+    h: 380
+  g-track:
+    x: 140
+    y: 160
+    w: 220
+    h: 52
+  g-variants-config:
+    x: 30
+    y: 350
+    w: 210
+    h: 90
+  g-language-tests:
+    x: 250
+    y: 350
+    w: 220
+    h: 90
+  g-unit:
+    x: 540
+    y: 160
+    w: 180
+    h: 52
+  g-globs-config:
+    x: 540
+    y: 350
+    w: 180
+    h: 90
+  g-pipeline:
+    x: 820
+    y: 160
+    w: 180
+    h: 52
+  g-scope:
+    x: 1060
+    y: 160
+    w: 180
+    h: 52
+  g-review:
+    x: 930
+    y: 360
+    w: 220
+    h: 60

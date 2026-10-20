@@ -336,9 +336,7 @@ def render(root, page=None):
     d = Scaled(ImageDraw.Draw(img))
     off = lambda x, y: (x - minx, y - miny)
 
-    for cid, c in cells.items():  # vertices first, in document order (= z-order)
-        if cid not in geo:
-            continue
+    def vertex(cid, c):
         s = style_map(c.get("style"))
         x, y, w, h = geo[cid]
         (x0, y0), (x1, y1) = off(x, y), off(x + w, y + h)
@@ -378,7 +376,8 @@ def render(root, page=None):
                 text = wrapped(d, text, f, w - 4)
             bbox = d.multiline_textbbox((0, 0), text, font=f, spacing=3)
             tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
-            tx = x0 + 6 if align == "left" else (x1 - tw - 6 if align == "right" else (x0 + x1 - tw) / 2)
+            left = max(6, float(s.get("spacingLeft", 0)) - 2)  # a band's spacingLeft=8 keeps its 6; a wider one moves the text in
+            tx = x0 + left if align == "left" else (x1 - tw - 6 if align == "right" else (x0 + x1 - tw) / 2)
             ty = y0 + 6 if top else (y0 + y1 - th) / 2
             d.multiline_text((tx, ty), text, font=f, fill=ink, spacing=3, align=align if align in ("left", "right") else "center")
 
@@ -409,16 +408,14 @@ def render(root, page=None):
         s = style_map(cells[cid].get("style")) if cid in cells else {}
         return "rhombus" if "rhombus" in s else ("ellipse" if "ellipse" in s else "box")
 
-    for cid, c in cells.items():
-        if c.get("edge") != "1":
-            continue
+    def edge(c):
         s = style_map(c.get("style"))
         pts = path(c)
         if pts is None or all(abs(p[0] - pts[0][0]) < 1 and abs(p[1] - pts[0][1]) < 1 for p in pts):
-            continue  # no end, or ends that meet (a cell's loop onto itself): nothing to draw, so no arrowhead pointing nowhere
+            return  # no end, or ends that meet (a cell's loop onto itself): nothing to draw, so no arrowhead pointing nowhere
         if s.get("shape") == "flexArrow":
             flex_arrow(d, pts[0], pts[-1], s)
-            continue
+            return
         ink = color(s.get("strokeColor"), LINE)
         width = int(float(s.get("strokeWidth", 1))) + 1
         line = rounded(pts) if s.get("rounded") == "1" and len(pts) > 2 else pts
@@ -432,9 +429,34 @@ def render(root, page=None):
             arrow(d, pts[1], pts[0], ink)
         label = plain(c.get("value"))
         if label:
+            # Centred on the line's halfway point and just above it, as draw.io lays an edge label out.
             mx, my = halfway(pts)
             f = font(int(float(s.get("fontSize", 11))), False)
-            d.text((mx + 4, my - 14), label, font=f, fill=color(s.get("fontColor"), INK))
+            d.text((mx - d.textlength(label, font=f) / 2, my - 16), label, font=f, fill=color(s.get("fontColor"), INK))
+
+    def paint_cell(cid, c):
+        if c.get("edge") == "1":
+            edge(c)
+        elif cid in geo:
+            vertex(cid, c)
+
+    # draw.io's z-order: a cell, then its children, each list in document order, edges and vertices alike.
+    children: dict = {}
+    for cid, c in cells.items():
+        children.setdefault(c.get("parent"), []).append(cid)
+    painted = set()
+
+    def walk(pid):
+        for cid in children.get(pid, []):
+            if cid not in painted:
+                painted.add(cid)
+                paint_cell(cid, cells[cid])
+                walk(cid)
+
+    walk(None)
+    for cid, c in cells.items():  # a cell whose parent the model lacks
+        if cid not in painted:
+            paint_cell(cid, c)
     return img.resize(page_size, Image.Resampling.LANCZOS)
 
 

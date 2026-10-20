@@ -10,9 +10,9 @@ The repository has five kinds of prose, each with a home and a format:
 | **Explanation**     | `docs/explanation/<adr-domain>/`      | How one part works and why, narrating one diagram in `docs/explanation/.assets/` |
 | **Note**            | `docs/notes/**`                       | Freeform working notes, investigations, drafts                                   |
 
-All of `docs/` is **markdown only**, except `docs/.assets/`, which holds the diagram images and their `<name>.drawio.md` descriptions
-([conventional-folders](../../../adr/repository/conventional-folders.md)). Decide which kind you're writing, then follow the matching recipe
-below.
+All of `docs/` is **markdown only**, except the `.assets/` folders, which hold one folder per diagram, its `diagram.drawio.yml` source and
+its `diagram.drawio.png` render ([conventional-folders](../../../adr/repository/conventional-folders.md)). Decide which kind you're writing,
+then follow the matching recipe below.
 
 ## Formatting
 
@@ -50,9 +50,9 @@ to how-to churn).
 
 An explanation article narrates one diagram: how one part of cats works and why it holds.
 
-1. Put the diagram in `docs/explanation/.assets/<name>.drawio.png`, where `<name>` is `adr-<domain>-<code>--<kebab-title>--<lens>`.
-2. Create `docs/explanation/<adr-domain>/<kebab-title>.md`, in the folder of the ADR domain whose decision it explains, and its description,
-   what the diagram draws in words, beside it as `<kebab-title>.drawio.md`.
+1. Create `docs/explanation/<adr-domain>/<kebab-title>.md`, in the folder of the ADR domain whose decision it explains.
+2. Declare the diagram in `docs/explanation/<adr-domain>/.assets/<kebab-title>/diagram.drawio.yml` (its `description:`, the lens and ADR
+   codes under `about:`, and the `content:` it draws), then put it with `Build-Diagrams -Path <that folder>`.
 3. After the title, open with a fenced `text` block that gives the overview: the finding in one line, then one line per numbered point of
    the diagram. Then a short opening paragraph, the image, a Walkthrough that narrates every numbered point in order, the ADR rules that
    make it hold, and links to the ADR, the asset description and the related articles.

@@ -1,53 +1,125 @@
-description: >-
-  A path has a communication form and a binding form, never a third; one pair of crossers moves it between them, a hybrid form is always a
-  bug, and a published artifact anchors on its own root across a stage boundary.
+description: A path has a communication form and a binding form, never a third; one pair of crossers moves it between them,
+  a hybrid form is always a bug, and a published artifact anchors on its own root across a stage boundary.
 about:
-  lens: meta
   adrs:
-    [
-      ADR-AUTO-PATH-TWOFORMS,
-      ADR-AUTO-PATH-COMMUNICATIONFORM,
-      ADR-AUTO-PATH-BINDINGFORMONLYATBINDING,
-      ADR-AUTO-PATH-CENTRALNORMALIZATION,
-      ADR-AUTO-PATH-PUBLISHEDARTIFACT,
-    ]
-  tracks: [pwsh]
-  languages: [powershell]
-  modules: [Catzc.Base.Repository]
+  - ADR-AUTO-PATH-TWOFORMS
+  - ADR-AUTO-PATH-COMMUNICATIONFORM
+  - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+  - ADR-AUTO-PATH-CENTRALNORMALIZATION
+  - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+  lens: meta
 content:
   title: A path has two forms, never a third, and one pair of crossers moves it between them
   kind: explanation
+  flow: left-to-right
   relation: crosses the boundary
+  theme: dark
   bands:
-    - { id: band-communication, label: COMMUNICATION FORM }
-    - { id: band-boundary, label: THE BOUNDARY }
-    - { id: band-binding, label: BINDING FORM }
-    - { id: band-stage, label: CROSS-STAGE }
+  - id: band-communication
+    label: COMMUNICATION FORM
+  - id: band-boundary
+    label: THE BOUNDARY
+  - id: band-binding
+    label: BINDING FORM
+  - id: band-stage
+    label: CROSS-STAGE
   glyphs:
-    - { id: s-communication, kind: set, label: Communication form, in: band-communication }
-    - { id: g-crossers, kind: code, label: The two crossers, in: band-boundary }
-    - { id: a-hybrid, kind: adronly, label: A hybrid form, in: band-boundary }
-    - { id: s-binding, kind: set, label: Binding form, in: band-binding }
-    - { id: s-artifact, kind: set, label: Published artifact, in: band-stage }
+  - id: s-communication
+    kind: set
+    label: Communication form
+    in: band-communication
+  - id: g-crossers
+    kind: code
+    label: The two crossers
+    in: band-boundary
+  - id: a-hybrid
+    kind: adronly
+    label: A hybrid form
+    in: band-boundary
+  - id: s-binding
+    kind: set
+    label: Binding form
+    in: band-binding
+  - id: s-artifact
+    kind: set
+    label: Published artifact
+    in: band-stage
   edges:
-    - { from: s-communication, to: g-crossers }
-    - { from: g-crossers, to: s-binding }
-    - { from: s-binding, to: g-crossers }
-    - { from: g-crossers, to: s-communication }
+  - from: s-communication
+    to: g-crossers
+    kind: flow
+    label: ''
+  - from: g-crossers
+    to: s-binding
+    kind: flow
+    label: ''
+  - from: s-binding
+    to: g-crossers
+    kind: flow
+    label: ''
+  - from: g-crossers
+    to: s-communication
+    kind: flow
+    label: ''
   markers:
-    - { at: s-communication, number: 1 }
-    - { at: g-crossers, number: 2 }
-    - { at: s-binding, number: 3 }
-    - { at: a-hybrid, number: 4 }
-    - { at: s-artifact, number: 5 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: s-communication
+    number: 1
+  - at: g-crossers
+    number: 2
+  - at: s-binding
+    number: 3
+  - at: a-hybrid
+    number: 4
+  - at: s-artifact
+    number: 5
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-communication: { x: 20, y: 84, w: 380, h: 220 }
-  band-boundary: { x: 420, y: 84, w: 440, h: 220 }
-  band-binding: { x: 880, y: 84, w: 400, h: 220 }
-  band-stage: { x: 20, y: 324, w: 1260, h: 130 }
-  s-communication: { x: 60, y: 150, w: 300, h: 52 }
-  g-crossers: { x: 530, y: 150, w: 220, h: 52 }
-  a-hybrid: { x: 530, y: 236, w: 220, h: 44 }
-  s-binding: { x: 920, y: 150, w: 300, h: 52 }
-  s-artifact: { x: 530, y: 374, w: 220, h: 52 }
+  band-communication:
+    x: 20
+    y: 84
+    w: 380
+    h: 220
+  band-boundary:
+    x: 420
+    y: 84
+    w: 440
+    h: 220
+  band-binding:
+    x: 880
+    y: 84
+    w: 400
+    h: 220
+  band-stage:
+    x: 20
+    y: 324
+    w: 1260
+    h: 130
+  s-communication:
+    x: 60
+    y: 150
+    w: 300
+    h: 52
+  g-crossers:
+    x: 530
+    y: 150
+    w: 220
+    h: 52
+  a-hybrid:
+    x: 530
+    y: 236
+    w: 220
+    h: 44
+  s-binding:
+    x: 920
+    y: 150
+    w: 300
+    h: 52
+  s-artifact:
+    x: 530
+    y: 374
+    w: 220
+    h: 52

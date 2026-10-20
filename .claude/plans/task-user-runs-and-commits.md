@@ -1,7 +1,7 @@
 ---
 task:
   status: open
-  plans: [plan-diagram-engine]
+  plans: [plan-master]
   value: highest
   blocked_on: nothing; every step is the user's own commit, git operation or command, and the last is the final session's full run
   targets: [.claude/plans, out, docs]

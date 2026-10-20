@@ -7,16 +7,15 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Rebuilds diagram folders from their source: the model embedded in each `diagram.drawio.png` and the repository's maps.
+Rebuilds diagram folders from their source: each folder's `diagram.drawio.yml` and the minimap data computed for it.
 
 ### description
 
-One command on one diagram folder, `<article-folder>/.assets/<name>/`, which holds a diagram's slide, its description and its three minimaps
-under role names; with no `-Path` it repeats that for every diagram folder found under `docs/**/.assets/**`, so a folder is found, never
-listed. For each folder it runs the draw.io kit's renderer (`drawio_forward.py --all <folder>`, through uv with Pillow) stage by stage:
-`prepare` extracts the slide's model and writes its slide list; `highlight` runs the map processors and renders the three minimaps and their
-stamped sister pages; `join` lays out the sidebar and rebuilds the slide in place. A slide whose model names no ADR code has no minimaps and
-is left as it is.
+One command on one diagram folder, `<article-folder>/.assets/<name>/`, which holds a diagram's `diagram.drawio.yml`, its one source, and the
+`diagram.drawio.png` put from it; with no `-Path` it repeats that for every diagram folder found under `docs/**/.assets/**`, so a folder is
+found, never listed. For each folder it writes the minimap data the declaration's three minimaps draw from, then runs the draw.io kit's
+renderer once (`drawio_forward.py --all <folder>`, through uv with Pillow), which puts the folder from its yml, the minimaps drawn from that
+data (ADR-REPO-SLIDES-MINIMAPSFROMDATA). A folder with no declaration is left as it is and reported.
 
 Before it renders, each folder finds its article by locality: the one page beside the folder's `.assets` that embeds its
 `diagram.drawio.png`. A folder no page there embeds is an orphan, reported and still rendered; a folder two pages embed stops the run.
@@ -29,10 +28,6 @@ on `SlidesConfig`.
 
 Repository-relative diagram folders to rebuild. Default: every diagram folder under `docs/**/.assets/**`. A path that is not a diagram
 folder stops the run.
-
-### parameter `Stage`
-
-`all` (the default) runs `prepare`, `highlight` and `join` in order; one stage name runs that stage alone.
 
 ### parameter `Kit`
 
@@ -49,7 +44,7 @@ The repository root the folders are relative to. Default: the loaded repository 
 
 ### parameter `FromDrawing`
 
-Sync the folders named by -Path after an edit, instead of running the renderer stages: get when the drawing moved since HEAD, then put, then
+Sync the folders named by -Path after an edit, instead of running the renderer: get when the drawing moved since HEAD, then put, then
 Test-Diagrams on the folders. A pair whose yml and png both moved since HEAD and disagree stops before put, naming its cells.
 
 ### parameter `Stale`
@@ -62,7 +57,8 @@ List the renderer calls per folder without running them.
 
 ### parameter `PassThru`
 
-Return one record per renderer call (`Folder`, `Article`, `Stage`, `ExitCode`, `Status`).
+Return one record per renderer call or sync (`Folder`, `Article`, `Stage`, `ExitCode`, `Status`); `Stage` is `render`, or
+`sync (<the directions that ran>)` under -FromDrawing.
 
 ### outputs
 
@@ -77,7 +73,7 @@ Build-Diagrams
 ### example 2
 
 ```powershell
-Build-Diagrams -Path docs/explanation/configuration/.assets/an-address-is-a-read-only-walk -Stage highlight -DryRun
+Build-Diagrams -Path docs/explanation/configuration/.assets/an-address-is-a-read-only-walk -DryRun
 ```
 
 ## comment:1
@@ -86,7 +82,7 @@ Above `if ($FromDrawing) {`, written with `#`.
 
 ```text
 -FromDrawing syncs named folders after an edit: the kit's sync runs get when the drawing moved since HEAD, then put, and stops
-on a conflict before put; the drift gate then checks the folders. No renderer stage runs.
+on a conflict before put; the drift gate then checks the folders. The renderer does not run.
 ```
 
 ## comment:2

@@ -1,62 +1,165 @@
-description: >-
-  One engine in the internal modules builds the bundle from the source tree, the exporter module drives it and owns the integrity guard, and
-  every code root outside the repository is a copy of the one verified build.
+description: One engine in the internal modules builds the bundle from the source tree, the exporter module drives it and
+  owns the integrity guard, and every code root outside the repository is a copy of the one verified build.
 about:
+  adrs:
+  - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+  - ADR-AUTO-BUNDLE-TWOROOTS
+  - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+  - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
   lens: architecture
-  adrs: [ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
-  tracks: [pwsh]
-  languages: [powershell]
-  modules: [Catzc.Base.Exporter]
-  files:
-    - pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
-    - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
-    - pwsh/Catzc.Base.Exporter/Build-Modules.ps1
 content:
   title: One engine builds the bundle, and every code root is a copy of its output
   kind: explanation
+  flow: left-to-right
   relation: feeds or runs the next step
+  theme: dark
   bands:
-    - { id: band-source, label: SOURCE }
-    - { id: band-build, label: BUILD }
-    - { id: band-bundle, label: BUNDLE }
-    - { id: band-roots, label: CODE ROOTS }
+  - id: band-source
+    label: SOURCE
+  - id: band-build
+    label: BUILD
+  - id: band-bundle
+    label: BUNDLE
+  - id: band-roots
+    label: CODE ROOTS
   groups:
-    - { id: grp-roots, label: " ", in: band-roots }
+  - id: grp-roots
+    label: ' '
+    in: band-roots
   glyphs:
-    - { id: s-source, kind: store, label: pwsh/, in: band-source }
-    - { id: g-engine, kind: code, label: Catzc.Internal.Builder, in: band-build }
-    - { id: g-exporter, kind: code, label: Catzc.Base.Exporter, in: band-build }
-    - { id: g-assert, kind: gate, label: Assert-CatzcBundle, in: band-build }
-    - { id: r-temporary, kind: result, label: Temporary build, in: band-bundle }
-    - { id: r-installed, kind: result, label: Installed, in: grp-roots }
-    - { id: r-saved, kind: result, label: Saved, in: grp-roots }
+  - id: s-source
+    kind: store
+    label: pwsh/
+    in: band-source
+  - id: g-engine
+    kind: code
+    label: Catzc.Internal.Builder
+    in: band-build
+  - id: g-exporter
+    kind: code
+    label: Catzc.Base.Exporter
+    in: band-build
+  - id: g-assert
+    kind: gate
+    label: Assert-CatzcBundle
+    in: band-build
+  - id: r-temporary
+    kind: result
+    label: Temporary build
+    in: band-bundle
+  - id: r-installed
+    kind: result
+    label: Installed
+    in: grp-roots
+  - id: r-saved
+    kind: result
+    label: Saved
+    in: grp-roots
   edges:
-    - { from: s-source, to: g-engine }
-    - { from: g-exporter, to: g-engine }
-    - { from: g-engine, to: g-assert }
-    - { from: g-assert, to: r-temporary }
-    - { from: r-temporary, to: grp-roots }
-    - { from: grp-roots, to: g-assert, label: checked again }
+  - from: s-source
+    to: g-engine
+    kind: flow
+    label: ''
+  - from: g-exporter
+    to: g-engine
+    kind: flow
+    label: ''
+  - from: g-engine
+    to: g-assert
+    kind: flow
+    label: ''
+  - from: g-assert
+    to: r-temporary
+    kind: flow
+    label: ''
+  - from: r-temporary
+    to: grp-roots
+    kind: flow
+    label: ''
+  - from: grp-roots
+    to: g-assert
+    kind: flow
+    label: checked again
   markers:
-    - { at: s-source, number: 1 }
-    - { at: g-engine, number: 2 }
-    - { at: g-assert, number: 3 }
-    - { at: r-temporary, number: 4 }
-    - { at: r-installed, number: 5 }
-    - { at: r-saved, number: 6 }
-    - { at: g-exporter, number: 7 }
-    - { at: grp-roots, number: 8 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: s-source
+    number: 1
+  - at: g-engine
+    number: 2
+  - at: g-assert
+    number: 3
+  - at: r-temporary
+    number: 4
+  - at: r-installed
+    number: 5
+  - at: r-saved
+    number: 6
+  - at: g-exporter
+    number: 7
+  - at: grp-roots
+    number: 8
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-source: { x: 20, y: 84, w: 230, h: 300 }
-  band-build: { x: 270, y: 84, w: 450, h: 300 }
-  band-bundle: { x: 740, y: 84, w: 230, h: 300 }
-  band-roots: { x: 990, y: 84, w: 290, h: 300 }
-  s-source: { x: 40, y: 172, w: 190, h: 60 }
-  g-engine: { x: 290, y: 180, w: 180, h: 44 }
-  g-exporter: { x: 290, y: 296, w: 180, h: 44 }
-  g-assert: { x: 520, y: 168, w: 180, h: 68 }
-  r-temporary: { x: 760, y: 296, w: 190, h: 44 }
-  grp-roots: { x: 1010, y: 130, w: 250, h: 190 }
-  r-installed: { x: 1030, y: 176, w: 210, h: 44 }
-  r-saved: { x: 1030, y: 246, w: 210, h: 44 }
+  band-source:
+    x: 20
+    y: 84
+    w: 230
+    h: 300
+  band-build:
+    x: 270
+    y: 84
+    w: 450
+    h: 300
+  band-bundle:
+    x: 740
+    y: 84
+    w: 230
+    h: 300
+  band-roots:
+    x: 990
+    y: 84
+    w: 290
+    h: 300
+  s-source:
+    x: 40
+    y: 172
+    w: 190
+    h: 60
+  g-engine:
+    x: 290
+    y: 180
+    w: 180
+    h: 44
+  g-exporter:
+    x: 290
+    y: 296
+    w: 180
+    h: 44
+  g-assert:
+    x: 520
+    y: 168
+    w: 180
+    h: 68
+  r-temporary:
+    x: 760
+    y: 296
+    w: 190
+    h: 44
+  grp-roots:
+    x: 1010
+    y: 130
+    w: 250
+    h: 190
+  r-installed:
+    x: 1030
+    y: 176
+    w: 210
+    h: 44
+  r-saved:
+    x: 1030
+    y: 246
+    w: 210
+    h: 44

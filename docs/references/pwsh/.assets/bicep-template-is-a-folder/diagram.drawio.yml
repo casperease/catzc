@@ -1,67 +1,176 @@
-description: >-
-  Template discovery walks the template folders, lets an optional options.yml override five derived defaults, and resolves each template's
-  short name and type; the build then resolves the parameter addresses per slot and compiles through the az runner.
+description: Template discovery walks the template folders, lets an optional options.yml override five derived defaults, and
+  resolves each template's short name and type; the build then resolves the parameter addresses per slot and compiles through
+  the az runner.
 about:
+  adrs:
+  - ADR-AZ-DATAMOD
+  - ADR-AZ-NAMING
+  - ADR-AZ-CUSTOMER
+  - ADR-CONF-ADDRESSING
+  - ADR-AUTO-TYPES
   lens: source
-  adrs: [ADR-AZ-DATAMOD, ADR-AZ-NAMING, ADR-AZ-CUSTOMER, ADR-CONF-ADDRESSING, ADR-AUTO-TYPES]
-  tracks: [pwsh, infrastructure]
-  languages: [powershell, csharp]
-  modules: [Catzc.Azure.Templates, Catzc.Azure.Cli]
-  files:
-    - pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
-    - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
-    - pwsh/Catzc.Azure.Templates/private/Read-BicepTemplateOptions.ps1
-    - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
-    - pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs
-    - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
-    - pwsh/Catzc.Azure.Cli/Invoke-AzCli.ps1
 content:
   title: A template is a folder; options.yml overrides five defaults
   kind: reference
+  flow: left-to-right
   relation: runs next (code order)
+  theme: dark
   bands:
-    - { id: band-entry, label: ENTRY }
-    - { id: band-folder, label: EACH FOLDER }
-    - { id: band-slot, label: EACH SLOT }
+  - id: band-entry
+    label: ENTRY
+  - id: band-folder
+    label: EACH FOLDER
+  - id: band-slot
+    label: EACH SLOT
   groups:
-    - { id: grp-cli, label: Catzc.Azure.Cli, in: band-slot }
+  - id: grp-cli
+    label: Catzc.Azure.Cli
+    in: band-slot
   glyphs:
-    - { id: g-build, kind: code, label: Build-Bicep, in: band-entry }
-    - { id: g-templates, kind: code, label: Get-BicepTemplates, in: band-entry }
-    - { id: g-options, kind: gate, label: Read-BicepTemplateOptions, in: band-folder }
-    - { id: f-options-yml, kind: file, label: options.yml, in: band-folder }
-    - { id: t-short-name, kind: type, label: BicepShortName, in: band-folder }
-    - { id: t-template, kind: type, label: BicepTemplate, in: band-folder }
-    - { id: g-addresses, kind: private, label: Resolve-BicepParameterAddresses, in: band-slot }
-    - { id: f-parameters, kind: file, label: "parameters.<config>.json", in: band-slot }
-    - { id: g-invoke, kind: code, label: Invoke-AzCli, in: grp-cli }
+  - id: g-build
+    kind: code
+    label: Build-Bicep
+    in: band-entry
+  - id: g-templates
+    kind: code
+    label: Get-BicepTemplates
+    in: band-entry
+  - id: g-options
+    kind: gate
+    label: Read-BicepTemplateOptions
+    in: band-folder
+  - id: f-options-yml
+    kind: file
+    label: options.yml
+    in: band-folder
+  - id: t-short-name
+    kind: type
+    label: BicepShortName
+    in: band-folder
+  - id: t-template
+    kind: type
+    label: BicepTemplate
+    in: band-folder
+  - id: g-addresses
+    kind: private
+    label: Resolve-BicepParameterAddresses
+    in: band-slot
+  - id: f-parameters
+    kind: file
+    label: parameters.<config>.json
+    in: band-slot
+  - id: g-invoke
+    kind: code
+    label: Invoke-AzCli
+    in: grp-cli
   edges:
-    - { from: g-build, to: g-templates }
-    - { from: g-templates, to: g-options }
-    - { from: g-options, to: t-short-name }
-    - { from: t-short-name, to: t-template }
-    - { from: t-template, to: g-addresses }
-    - { from: g-addresses, to: g-invoke }
+  - from: g-build
+    to: g-templates
+    kind: flow
+    label: ''
+  - from: g-templates
+    to: g-options
+    kind: flow
+    label: ''
+  - from: g-options
+    to: t-short-name
+    kind: flow
+    label: ''
+  - from: t-short-name
+    to: t-template
+    kind: flow
+    label: ''
+  - from: t-template
+    to: g-addresses
+    kind: flow
+    label: ''
+  - from: g-addresses
+    to: g-invoke
+    kind: flow
+    label: ''
   markers:
-    - { at: g-templates, number: 1 }
-    - { at: g-options, number: 2 }
-    - { at: t-short-name, number: 3 }
-    - { at: t-template, number: 4 }
-    - { at: g-addresses, number: 5 }
-    - { at: f-parameters, number: 6 }
-    - { at: g-invoke, number: 7 }
-  minimaps: [code-locations, module-neighbourhood, axis]
+  - at: g-templates
+    number: 1
+  - at: g-options
+    number: 2
+  - at: t-short-name
+    number: 3
+  - at: t-template
+    number: 4
+  - at: g-addresses
+    number: 5
+  - at: f-parameters
+    number: 6
+  - at: g-invoke
+    number: 7
+  legend: auto
+  minimaps:
+  - code-locations
+  - module-neighbourhood
+  - axis
 layout:
-  band-entry: { x: 20, y: 84, w: 190, h: 160 }
-  band-folder: { x: 230, y: 84, w: 1050, h: 250 }
-  band-slot: { x: 230, y: 354, w: 1050, h: 190 }
-  g-build: { x: 40, y: 120, w: 150, h: 40 }
-  g-templates: { x: 40, y: 182, w: 150, h: 40 }
-  g-options: { x: 262, y: 162, w: 290, h: 80 }
-  f-options-yml: { x: 365, y: 262, w: 110, h: 52 }
-  t-short-name: { x: 640, y: 180, w: 150, h: 44 }
-  t-template: { x: 900, y: 180, w: 150, h: 44 }
-  g-addresses: { x: 290, y: 410, w: 240, h: 44 }
-  f-parameters: { x: 560, y: 470, w: 210, h: 52 }
-  grp-cli: { x: 980, y: 378, w: 280, h: 140 }
-  g-invoke: { x: 1050, y: 430, w: 150, h: 44 }
+  band-entry:
+    x: 20
+    y: 84
+    w: 190
+    h: 160
+  band-folder:
+    x: 230
+    y: 84
+    w: 1050
+    h: 250
+  band-slot:
+    x: 230
+    y: 354
+    w: 1050
+    h: 190
+  g-build:
+    x: 40
+    y: 120
+    w: 150
+    h: 40
+  g-templates:
+    x: 40
+    y: 182
+    w: 150
+    h: 40
+  g-options:
+    x: 262
+    y: 162
+    w: 290
+    h: 80
+  f-options-yml:
+    x: 365
+    y: 262
+    w: 110
+    h: 52
+  t-short-name:
+    x: 640
+    y: 180
+    w: 150
+    h: 44
+  t-template:
+    x: 900
+    y: 180
+    w: 150
+    h: 44
+  g-addresses:
+    x: 290
+    y: 410
+    w: 240
+    h: 44
+  f-parameters:
+    x: 560
+    y: 470
+    w: 210
+    h: 52
+  grp-cli:
+    x: 980
+    y: 378
+    w: 280
+    h: 140
+  g-invoke:
+    x: 1050
+    y: 430
+    w: 150
+    h: 44

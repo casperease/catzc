@@ -17,10 +17,11 @@ own terms, and where each lesson meets or stops at the drawio.png practice our r
 
 A diagram in cats lives in exactly one of two lanes, and the lane decides which rules draw it.
 
-- **The docs lane.** A slide is a `.drawio.png` under `docs/.assets/`: a draw.io model embedded in a PNG, with a sister `.drawio.md` that
-  describes it element by element and an article in `docs/explanation/` that narrates it. The kit in `python/Catzc.Diagrams/assets/STYLE.md`
-  owns its words, glyphs, colours and sidebar; the kit renderer is the one way its raster is made, put from the diagram's yml
-  (`drawio-declaration` step 1). The `drawio-*` capabilities and the three diagram robots work only in this lane.
+- **The docs lane.** A diagram is a folder under an `.assets/` beside its article: the `diagram.drawio.yml` that declares it element by
+  element and the `diagram.drawio.png` put from it, a draw.io model embedded in a PNG, with an article in `docs/explanation/` that narrates
+  it. The kit in `python/Catzc.Diagrams/assets/STYLE.md` owns its words, glyphs, colours and sidebar; the kit renderer is the one way its
+  raster is made, put from the diagram's yml (`drawio-declaration` step 1). The `drawio-*` capabilities and the three diagram robots work
+  only in this lane.
 - **The page lane.** A claude.ai page a session publishes with the Artifact tool. Today that is the Diagram Waves Review page the
   `print-artifacts` robot republishes through `artifact-publish`, plus any page a session draws for a reader at the user's ask. A picture
   drawn on such a page is inline SVG, and the skill's mechanics govern it. The page lane never lands a file under `docs/`, and a review
@@ -38,7 +39,7 @@ The skill's **judgement** carries across both lanes unchanged. Its **mechanics**
 | Match complexity to the stakes                                 | At most 1300 wide, grow downward; at most 3 rebuilds per maker                                                                                | yes, as the kit's canvas and the wave budget                                       |
 | Label the arrows                                               | A flow edge is "the one relationship the diagram's legend names"; a thick, dashed or red edge changes that meaning (glyphs "Lines and marks") | partly: one relationship per slide is named once in the legend, not on every arrow |
 | A legend only when an encoding repeats                         | Every slide carries its own legend panel, because the glyph library repeats on every slide                                                    | no: the legend is always there, by design                                          |
-| One figure, one claim; the caption states it                   | The article's heading is the claim, the `.drawio.md` sister is the long caption, the image's alt text repeats the claim                       | yes                                                                                |
+| One figure, one claim; the caption states it                   | The article's heading is the claim, the yml's `description:` is the long caption, the image's alt text repeats the claim                      | yes                                                                                |
 | Theme with `currentColor` so both themes read the same         | Every rendered output is dark on `#1E2430`; a dark-mode and a light-mode viewer get the same raster (STYLE.md "Canvas")                       | met by the opposite means: one fixed dark page instead of inherited colour         |
 | Size by `viewBox`, let CSS scale                               | A fixed page of at most 1300 wide; the PNG is the size it is                                                                                  | no: a raster has no `viewBox`                                                      |
 | Arrowheads are markers or polygons, never images               | Edge styles come verbatim from `glyphs.xml`; copy, never retype                                                                               | yes, in draw.io's own terms                                                        |
@@ -56,7 +57,7 @@ single page a reader sees once. Our docs lane is a library a reader returns to.
 | Robot or capability                           | Lane | Reads                                                                                            |
 | --------------------------------------------- | ---- | ------------------------------------------------------------------------------------------------ |
 | `drawio-diagram-waves`, `drawio-waves`        | docs | STYLE.md, `glyphs.xml`, the source ADRs                                                          |
-| `drawio-renderer`                             | docs | the slide's `.drawio.md`, the markdown pages                                                     |
+| `drawio-renderer`                             | docs | the diagram's yml, the markdown pages that embed it                                              |
 | `edit-diagram-yml`, `drawio-declaration`      | docs | the diagram's `diagram.drawio.yml`, its vocabularies                                             |
 | `drawio-look`                                 | docs | the PNG, against STYLE.md's vocabulary                                                           |
 | `print-artifacts`, `artifact-publish`         | page | the saved page file and the catalogue; it draws nothing, so the skill does not apply to it today |
