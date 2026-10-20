@@ -16,9 +16,9 @@ that the engine runs as a process.
 
 The Go tests live under one Go root, a repository-relative folder declared by `go.yml`'s `root` with a sensible default: `go` when the
 repository has a `go/` folder (the `go` track), else the dot-prefixed `.go`. A **Go test module** is the folder `<root>/tests/<module>/`,
-one per catzc module and named for it in kebab case (`Catzc.Base.Repository` → `catzc-base-repository`), holding that module's Go tests as
-one Go module. `go.work` sits at the repository root and lists every Go test module explicitly, and every go command runs inside its module
-folder, so every editor loads either layout with no setting.
+one per catzc module and named for it as one lowercase word, Go's flat case (`Catzc.Base.Repository` → `catzcbaserepository`,
+ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM), holding that module's Go tests as one Go module. `go.work` sits at the repository root and lists every Go
+test module explicitly, and every go command runs inside its module folder, so every editor loads either layout with no setting.
 
 - [The layout](#the-layout)
 
@@ -103,7 +103,8 @@ track ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)). Other
 are. The default is declared once, on the `GoConfig` type ([sensible-defaults](../sensible-defaults.md)), and `go.yml` declares a `root`
 only to place the Go root elsewhere.
 
-Under the root, `tests/<module>/` holds one Go test module per catzc module, named for that module in kebab case — the same convention that
+Under the root, `tests/<module>/` holds one Go test module per catzc module, named for that module by rendering the module's repository
+normal form in Go's folder case, flat ([idiomatic-names](../idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom)); the same rendering
 lets the harness map a Go test module to its catzc module with no mapping file. Each folder is its own Go module, with the module path
 `<module_root>/tests/<folder>` (`catzc/go/tests/<folder>` by default); a module folder of the track is `<module_root>/<Module>`.
 
@@ -199,7 +200,7 @@ workspace (ADR-AUTO-GO-GENERATEDWORKSPACE) at the one pinned Go version (ADR-AUT
 - **`GoConfig`** (`Catzc.Base.Languages`) validates `go.yml` at load and declares the defaults once: the Go root (`ResolveRoot`), the
   module-path prefix, and the test dependencies.
 - **`New-GoWorkspace`** renders `go.work` and every `go.mod`, one per Go test module and one per module of the track, and throws when a Go
-  test module is not named in kebab case or the `tools.yml` pin is not a Go language version. **`Build-RootConfig`** writes them, and
+  test module is not named in Go's folder case or the `tools.yml` pin is not a Go language version. **`Build-RootConfig`** writes them, and
   **`Test-GeneratedFiles`** reports a stale one.
 - **`Invoke-GoTest`** locates the managed `go` through **`Resolve-ToolExecutable`** and **`Find-Executable`** (`Catzc.Base.Execution`), sets
   the engine contract for its go commands only, and returns one `GoTestResult` per Go test with its category.

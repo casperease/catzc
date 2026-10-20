@@ -23,6 +23,7 @@ Describe 'Get-DocNote' -Tag 'L0', 'logic' {
         $notes[1].Rules.Count | Should -Be 0
         $notes[0].Commit | Should -BeExactly 'c0ffee0000000000000000000000000000000000'
         @($notes.Processed) | Should -Be @($false, $false)
+        @($notes.Session | Select-Object -Unique) | Should -Be @($script:session)
     }
 
     It 'leaves out the processed ones with -Unprocessed' {
@@ -33,5 +34,15 @@ Describe 'Get-DocNote' -Tag 'L0', 'logic' {
 
     It 'reads the newest session when none is named' {
         @(Get-DocNote).Count | Should -Be 2
+    }
+
+    It 'throws, naming the likely wipe, for a named session that has vanished' {
+        [System.IO.Directory]::Delete($script:session, $true)
+        { Get-DocNote -Session $script:session } | Should -Throw '*no listen session*out/ may have been wiped*'
+    }
+
+    It 'throws when there is no session at all' {
+        Initialize-ListenFixture | Out-Null
+        { Get-DocNote } | Should -Throw '*No listen session under*'
     }
 }

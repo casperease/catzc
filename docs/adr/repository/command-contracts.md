@@ -4,13 +4,15 @@
 
 ### Rule ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
 
-A **command contract** is a contract asset, `<module>/<Verb-Noun>.command.yml` in a unit's version folder, that states the call interface of
-one command, and it is provided: its consumers are the callers outside the module system, a POSIX shell through `cats`, a black-box test in
-another language, a pipeline step. A command is public exactly when a command contract names it. A function no contract names is not public
-and changes in place under [one living version](../principles/one-living-version.md): it is **internal** when only its own module calls it,
-placed in the module's `private/` folder and not exported, the way C#'s `internal` scopes a member to its assembly, and it stays exported,
-with no promise, while another module calls it. Internal says where a function is visible, so it is a different thing from a Catzc.Internal
-module, a group of modules with a lifetime and rules of its own.
+A **command contract** is a contract asset, `<module>/<command>.command.yml` in a unit's version folder, both named in the repository normal
+form ([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform):
+`catzc.base.contracts/get_command_contract.command.yml`), that states the call interface of one command, and it is provided: its consumers
+are the callers outside the module system, a POSIX shell through `cats`, a black-box test in another language, a pipeline step. A command is
+public exactly when a command contract names it. A function no contract names is not public and changes in place under
+[one living version](../principles/one-living-version.md): it is **internal** when only its own module calls it, placed in the module's
+`private/` folder and not exported, the way C#'s `internal` scopes a member to its assembly, and it stays exported, with no promise, while
+another module calls it. Internal says where a function is visible, so it is a different thing from a Catzc.Internal module, a group of
+modules with a lifetime and rules of its own.
 
 - [Public is contracted](#public-is-contracted)
 
@@ -20,8 +22,11 @@ The **contract language** is the notation a command contract is written in: YAML
 value is one string, the type followed by `!` when the parameter is mandatory, by `= <literal>` when it has a constant default, by
 `pipeline` when its value comes from the pipeline, and by `in <Set>[,<Set>]` when it belongs to named parameter sets only, an `output:`
 type, `void` when omitted, and a `default_set:` naming the set a call that fits several resolves to. The type set is closed: `string`,
-`int`, `bool`, `switch`, or the name of a `Catzc.*` type, each followed by `[]` for a list. A richer type, or a key beyond these three, is a
-change to this rule, never a value added to a list. The defaults are declared once on the `ContractCommand` type
+`int`, `bool`, `switch`, or the name of a catzc type, each followed by `[]` for a list. Every name the language writes — a parameter, a
+parameter set, a catzc type — is in the repository normal form
+([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform)): `repository_root: string`,
+`catzc.base.contracts.contract_command[]`. A richer type, or a key beyond these three, is a change to this rule, never a value added to a
+list. The defaults are declared once on the `ContractCommand` type
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): a parameter is
 optional, has no default, is not fed from the pipeline and belongs to every set; the output is void; there is no default set. A parameter
 that is mandatory in one set and optional in another has no spec, so a command that declares one cannot be contracted.
@@ -31,9 +36,9 @@ that is mandatory in one set and optional in another has no spec, so a command t
 ### Rule ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS
 
 A command contract stores nothing its placement says ([zero-ceremony](../automation/zero-ceremony-poka-yoke.md)): the command's name is the
-file name, the owning module is the folder, the version is the unit's version folder, the implementation language is the language of the
-file that holds the command, and the engines the command runs under are every engine of the engine registry. The asset holds the call
-interface and, where a signature does not say what the command promises, the header comment of
+file name and the owning module is the folder, both in the repository normal form, the version is the unit's version folder, the
+implementation language is the language of the file that holds the command, and the engines the command runs under are every engine of the
+engine registry. The asset holds the call interface and, where a signature does not say what the command promises, the header comment of
 [ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](api-contracts.md#rule-adr-repo-contract-headersayswhatitpins).
 
 - [Placement says the rest](#placement-says-the-rest)
@@ -41,9 +46,12 @@ interface and, where a signature does not say what the command promises, the hea
 ### Rule ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE
 
 One checker per implementation language compares a command contract with the command's file without loading the module: the PowerShell
-checker reads the parameter block and the output type from the parsed file. The check reports a missing command, a parameter the contract
-and the file disagree on, and a mandatory, switch, pipeline, type, default, parameter-set or output mismatch, each as one finding on the
-asset's result ([ADR-REPO-CONTRACT-PROVENBYTESTS](api-contracts.md#rule-adr-repo-contract-provenbytests)). A language with no checker throws
+checker reads the parameter block and the output type from the parsed file. A checker renders every normal-form name of the contract in its
+language's idiom before it compares ([ADR-AUTO-IDIOM-ROUNDTRIP](../automation/idiomatic-names.md#rule-adr-auto-idiom-roundtrip)), so
+`get_command_contract` with `repository_root` is the PowerShell command `Get-CommandContract` with `-RepositoryRoot`. The check reports a
+missing command, a parameter the contract and the file disagree on, and a mandatory, switch, pipeline, type, default, parameter-set or
+output mismatch, each as one finding on the asset's result
+([ADR-REPO-CONTRACT-PROVENBYTESTS](api-contracts.md#rule-adr-repo-contract-provenbytests)). A language with no checker throws
 `NotImplemented` when a command of that language is contracted, the stance of
 [ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](api-contracts.md#rule-adr-repo-contract-configuredaddressing), and a contracted command is proven
 from every engine: each engine's start resolves it ([execution-engines](../automation/execution-engines.md)).
@@ -54,10 +62,11 @@ from every engine: each engine's start resolves it ([execution-engines](../autom
 
 One reader, `Get-CommandContract`, parses a command contract into the typed record of the contract language, and nothing else parses it. The
 contract reference page ([ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](api-contracts.md#rule-adr-repo-contract-headersayswhatitpins)) shows a
-command asset's signature in a column of its own, from that reader. `cats` validates a call against a committed lookup generated from the
-command contracts before it starts an engine: an unknown parameter, a missing mandatory one or a value that is not of the stated type is
-rejected with the contract's message, and each accepted value reaches the command in the type the contract names
-([poka-yoke](../principles/poka-yoke.md)).
+command asset's signature in a column of its own, from that reader. The committed lookup generated from the command contracts keys every
+command and parameter by its normal form, and `cats`, a shell command, takes them in the POSIX shell's idiom rendered from it, kebab case:
+`cats get-command-contract --repository-root <path>`. `cats` validates a call against that lookup before it starts an engine: an unknown
+parameter, a missing mandatory one or a value that is not of the stated type is rejected with the contract's message, and each accepted
+value reaches the command in the type the contract names ([poka-yoke](../principles/poka-yoke.md)).
 
 - [A language that is used](#a-language-that-is-used)
 
@@ -96,25 +105,25 @@ contract gets none.
 `A signature in one line per parameter`
 
 ```yaml
-# contracts/catzc/0.0.0/Catzc.Base.Widgets/Get-Widget.command.yml
+# contracts/catzc/0.0.0/catzc.base.widgets/get_widget.command.yml
 parameters:
-  Path: string! # mandatory
-  Strict: switch
-  Engine: string = auto # a constant default
-  Item: string[]! pipeline # a mandatory list, fed from the pipeline
-output: Catzc.Base.Widgets.Widget
+  path: string! # mandatory
+  strict: switch
+  engine: string = auto # a constant default
+  item: string[]! pipeline # a mandatory list, fed from the pipeline
+output: catzc.base.widgets.widget
 ```
 
 ```yaml
-# contracts/catzc/0.0.0/Catzc.Base.Widgets/Find-Gadget.command.yml
+# contracts/catzc/0.0.0/catzc.base.widgets/find_gadget.command.yml
 parameters:
-  Id: string! in Id # only in the set Id, mandatory there
-  Count: int! in Random
-  Seed: int in Random
-  Spare: switch in All,Random # in two of the sets
-  Quiet: switch # in every set
-default_set: All
-output: Catzc.Base.Widgets.Gadget
+  id: string! in id # only in the set id, mandatory there
+  count: int! in random
+  seed: int in random
+  spare: switch in all,random # in two of the sets
+  quiet: switch # in every set
+default_set: all
+output: catzc.base.widgets.gadget
 ```
 
 ```text
@@ -209,13 +218,13 @@ retired, the one place backwards compatibility is owed
 
 ## Decision
 
-A command contract is a provided contract asset, `<module>/<Verb-Noun>.command.yml`, that states one command's call interface in the
-contract language: one string per parameter and an output type, over a closed type set, with the defaults declared once on its type. A
-command is public exactly when a contract names it. Placement says the command, the module, the version, the implementation language and the
-engines. One checker per implementation language proves the contract from the parsed file, a language without a checker throws, and each
-engine's start resolves each contracted command. One reader parses it, the reference page shows it, and `cats` validates and types a call
-against it before any engine starts. It versions with its unit, so a signature change is a contract change, and a released folder pins the
-signature.
+A command contract is a provided contract asset, `<module>/<command>.command.yml` in the repository normal form, that states one command's
+call interface in the contract language: one string per parameter and an output type, over a closed type set, with the defaults declared
+once on its type. A command is public exactly when a contract names it. Placement says the command, the module, the version, the
+implementation language and the engines. One checker per implementation language proves the contract from the parsed file, a language
+without a checker throws, and each engine's start resolves each contracted command. One reader parses it, the reference page shows it, and
+`cats` validates and types a call against it before any engine starts. It versions with its unit, so a signature change is a contract
+change, and a released folder pins the signature.
 
 ### How this is enforced
 

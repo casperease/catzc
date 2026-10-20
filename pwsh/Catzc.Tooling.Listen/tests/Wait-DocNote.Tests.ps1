@@ -15,6 +15,26 @@ Describe 'Wait-DocNote' -Tag 'L0', 'logic', 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         @(Wait-DocNote -Session $script:session -TimeoutSeconds 1).Id | Should -Be @('0001')
     }
 
+    It 'waits, instead of throwing, while there is no session yet' {
+        Initialize-ListenFixture | Out-Null
+        @(Wait-DocNote -TimeoutSeconds 1).Count | Should -Be 0
+    }
+
+    It 'follows the newest session, so a listener started after a wipe is picked up' {
+        [System.IO.Directory]::Delete($script:session, $true)
+        $script:session = (New-DocSnapshot).Path
+        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nAfter the wipe.`n"
+        Get-DocChange -Session $script:session | New-DocNote -Session $script:session | Out-Null
+        $notes = @(Wait-DocNote -TimeoutSeconds 1)
+        @($notes.Id) | Should -Be @('0001')
+        $notes[0].Session | Should -BeExactly $script:session
+    }
+
+    It 'returns nothing, instead of throwing, when a named session has vanished' {
+        [System.IO.Directory]::Delete($script:session, $true)
+        @(Wait-DocNote -Session $script:session -TimeoutSeconds 1).Count | Should -Be 0
+    }
+
     It 'returns nothing when its bound runs out with every note processed' {
         Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nProcessed.`n"
         Get-DocChange -Session $script:session | New-DocNote -Session $script:session | Out-Null

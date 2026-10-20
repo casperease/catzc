@@ -521,6 +521,22 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   translation.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## Idiomatic names
+
+`Idiomatic names — each language names its own way, over one repository normal form`
+
+[ADR-AUTO-IDIOM](idiomatic-names.md)
+
+> DORA research ties code maintainability to code that every team can read, change and search with the tools it already has. Names in each
+> language's own idiom read as native to that language's readers and tools, and one normal form under them gives a name one identity across
+> languages, so a contract states an interface once and a search finds every rendering.
+
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — idiomatic names read natively and one normal form
+  keeps a name's identity across languages.
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — a contract in the normal form binds no caller to
+  another language's spelling.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Dry run
 
 `An explicit dry-run parameter on every side-effecting function`

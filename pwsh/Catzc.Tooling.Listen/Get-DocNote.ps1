@@ -15,7 +15,8 @@ function Get-DocNote {
 
     .OUTPUTS
         [pscustomobject] per note, in id order: Id, File (the changed path), Change, From, Kind, Tier, Rules, Commit, Note (the note file),
-        Processed.
+        Session (the session folder, which every later call about the note names, since a new session numbers its notes from 0001
+        again), Processed.
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -68,6 +69,7 @@ function Get-DocNote {
                 })
             Commit    = $head['commit']
             Note      = $file
+            Session   = $Session
             Processed = $processed.Contains($id)
         }
     }

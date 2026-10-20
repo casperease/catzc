@@ -80,7 +80,8 @@ reads the engine's track, so no Bash test reaches a bundle, and a Bash module re
 The Bash root follows the one convention every test language's root follows: `bash/` when present — the `bash` track
 ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)) — else `.bash/`. The default is declared once, on the `BashConfig` type,
 and `BashConfig.ResolveRoot` is the one resolver every caller asks. Under the root, `tests/<module>/` holds one Bash test folder per catzc
-module, named in kebab case, the convention shared with the Go and Python test folders.
+module, named by rendering the module's repository normal form in Bash's folder case, kebab
+([idiomatic-names](../idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom)).
 
 A Bash test is declared on one line, `@test "<name>" {`, so the bridge reads it from the source without running bats. Its name is free text,
 so the integrity marker is a prefix of the name, `integrity:`, decided in one place (the `BashTestResult` type).

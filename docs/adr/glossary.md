@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4828247e0370"
+    with_body_sha: d04e8df96d70
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -738,8 +738,8 @@ System.Collections.Specialized.OrderedDictionary
 
 ### go test module
 
-The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it in kebab case, holding its black-box Go
-tests.
+The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it as one lowercase word
+(`catzcbaserepository`), holding its black-box Go tests.
 
 - **Defined by:** [ADR-AUTO-GO-ONEGOROOT](automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -879,8 +879,8 @@ The name of the PowerShell track and of the engine that runs it; the PowerShell 
 
 ### python test folder
 
-The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in kebab case, holding its black-box Python
-tests; each is a member of the one generated uv workspace.
+The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in snake case (`catzc_base_repository`),
+holding its black-box Python tests; each is a member of the one generated uv workspace.
 
 - **Defined by:** [ADR-AUTO-PY-ONEPYTHONROOT](automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -903,6 +903,15 @@ Write-QualityGateReport and throws once with every issue.
 | Avoid            | Say instead                                     |
 | ---------------- | ----------------------------------------------- |
 | `analyzer suite` | the analyzer quality gate (Test-ScriptAnalyzer) |
+
+### repository normal form
+
+The one language-neutral spelling of a function, type, parameter or module name, in the naming case the languages config sets as
+`naming.normal_form`, which is `snake` (`get_command_contract`); every language's idiomatic name is a rendering of it.
+
+- **Defined by:** [ADR-AUTO-IDIOM-NORMALFORM](automation/idiomatic-names.md#rule-adr-auto-idiom-normalform)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Languages/configs/glossary.yml`
 
 ### test
 

@@ -9,6 +9,9 @@ function Start-DocListener {
         (the listen-very-carefully-to-doc-changes agent) reads the notes on its own time. The editor runs it in a terminal of its own and
         stops it with Ctrl+C; a stopped listener loses nothing, since every note is on disk once written.
 
+        The session lives in out/, which can be wiped at any time. When the session vanishes, the listener says so and starts a new one
+        from the folder as it is then; the notes that vanished with the old one are gone, and the new session's baseline is the new start.
+
     .PARAMETER Session
         Resume this session instead of starting a new one.
 
@@ -32,10 +35,21 @@ function Start-DocListener {
     Write-Message "Listening to '$((Get-Config -Config listen).watch)' for the session '$Session'; Ctrl+C stops."
 
     for ($cycle = 1; $Cycles -eq 0 -or $cycle -le $Cycles; $cycle++) {
-        foreach ($change in @(Wait-DocChange -Session $Session)) {
-            $note = New-DocNote -Session $Session -Change $change
-            Update-DocSnapshot -Session $Session -Path @(@($change.Path, $change.From) | Where-Object { $_ })
-            Write-Message "Note $($note.Id): $($change.Path) ($($change.Change), $($change.Tier))"
+        try {
+            foreach ($change in @(Wait-DocChange -Session $Session)) {
+                $note = New-DocNote -Session $Session -Change $change
+                Update-DocSnapshot -Session $Session -Path @(@($change.Path, $change.From) | Where-Object { $_ })
+                Write-Message "Note $($note.Id): $($change.Path) ($($change.Change), $($change.Tier))"
+            }
+        }
+        catch {
+            if (Resolve-ListenSession $Session -AllowMissing) {
+                throw
+            }
+        }
+        if (-not (Resolve-ListenSession $Session -AllowMissing)) {
+            Write-Message "The session '$Session' vanished (out/ wiped?); starting a new one." -ForegroundColor Yellow
+            $Session = (New-DocSnapshot).Path
         }
     }
 }

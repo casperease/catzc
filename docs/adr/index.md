@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0c6f80359bd5"
+    with_body_sha: "80794013771c"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/index.md
@@ -178,6 +178,7 @@ domains build on it.
 | `ADR-AUTO-ASSETDEP` | [internal-asset-dependencies](automation/internal-asset-dependencies.md)         |
 | `ADR-AUTO-CONSOLE`  | [console-output-matters](automation/console-output-matters.md)                   |
 | `ADR-AUTO-SPELL`    | [spell-out-names](automation/spell-out-names.md)                                 |
+| `ADR-AUTO-IDIOM`    | [idiomatic-names](automation/idiomatic-names.md)                                 |
 | `ADR-AUTO-DRYRUN`   | [dry-run](automation/dry-run.md)                                                 |
 | `ADR-AUTO-TYPES`    | [native-csharp-types](automation/BCL/native-csharp-types.md)                     |
 | `ADR-AUTO-GO`       | [go-test-artifacts](automation/go/go-test-artifacts.md)                          |

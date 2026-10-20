@@ -18,9 +18,9 @@ repository. Every `.py` file takes every Python check (ADR-AUTO-PY-EVERYFILELINT
 
 The Python tests live under one Python root, a repository-relative folder declared by `python.yml`'s `root` with the sensible default every
 test language's root takes: `python` when the repository has a `python/` folder (the `python` track), else the dot-prefixed `.python`. A
-**Python test folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in kebab case (`Catzc.Base.Repository`
-→ `catzc-base-repository`), holding that module's `test_*.py` files. A Python test is a top-level `test*` function; a parametrised test is
-one test.
+**Python test folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in Python's snake case
+(`Catzc.Base.Repository` → `catzc_base_repository`, ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM), holding that module's `test_*.py` files. A Python
+test is a top-level `test*` function; a parametrised test is one test.
 
 - [The layout](#the-layout)
 
@@ -119,9 +119,10 @@ the tooling folders are. This is the one convention every test language's root f
 `PythonConfig` type ([sensible-defaults](../sensible-defaults.md)), `PythonConfig.ResolveRoot` is the one resolver every caller asks, and
 `python.yml` declares a `root` only to place the Python root elsewhere.
 
-Under the root, `tests/<module>/` holds one Python test folder per catzc module, named for that module in kebab case — the convention that
-maps a folder to its module with no mapping file, shared with the Go test modules. A hyphen is no problem for Python here: the tests are
-collected by path, never imported as a package.
+Under the root, `tests/<module>/` holds one Python test folder per catzc module, named for that module by rendering the module's repository
+normal form in Python's folder case, snake ([idiomatic-names](../idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom)). The same
+rendering maps a folder back to its module with no mapping file, and the folder is an importable Python name, as every Python folder in the
+tree is.
 
 ### The engine start environment
 
@@ -206,8 +207,8 @@ the checks that read Python (ADR-AUTO-PY-EVERYFILELINTED) and one type check sha
 - **`PythonConfig`** (`Catzc.Base.Languages`) validates `python.yml` at load, requires the pyright, pytest and ruff pins, and declares the
   Python root's default once (`ResolveRoot`) and the type-checking mode's (`type_checking`).
 - **`New-PythonProject`** renders the workspace root and one member per Python test folder and per module of the track, and throws when a
-  test folder is not named in kebab case or the `tools.yml` pin is not a Python minor version. **`Build-RootConfig`** writes them, and
-  **`Test-GeneratedFiles`** reports a stale one.
+  test folder is not named in Python's folder case or the `tools.yml` pin is not a Python minor version. **`Build-RootConfig`** writes them,
+  and **`Test-GeneratedFiles`** reports a stale one.
 - **`Invoke-PythonTest`** runs the managed uv with `UV_PYTHON_DOWNLOADS=never`, sets the engine contract for its uv commands only, and
   returns one `PythonTestResult` per test function with its category.
 - **The gitignore registry** (`gitignore.yml`) ignores the environment, the lock, and the caches.

@@ -7,8 +7,8 @@ domains:
       into one source of truth, the repository, with one change process. The repository is the configuration record and answers queries
       through the tooling; inside the trunk everything is at HEAD, and versions exist only at the repository boundary, as pins. Outside the
       responsibility domain a repository holds, the truth stores are fact sources and state machines, read and reported to at junctions and
-      synchronised into actionable facts. It describes the product and rests on the DORA research, the authoritative source, and the principles state its mechanics, so every other domain
-      cites it (`ADR-THES-*`) through them.
+      synchronised into actionable facts. It describes the product and rests on the DORA research, the authoritative source, and the
+      principles state its mechanics, so every other domain cites it (`ADR-THES-*`) through them.
     depends_on: [research]
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # the thesis spans the whole value chain
@@ -67,8 +67,7 @@ domains:
     description: >-
       How the platform is shaped: tracks as the repository's root concerns, a thin CLI platform over a vendor substrate, safe self-service,
       the audited server remote with pull-request ingress, the visual grammar of the value-chain diagrams, and the toolset's two run modes
-      (source and build). It builds on research, principles, and process; the flow and
-      implementation domains realise it.
+      (source and build). It builds on research, principles, and process; the flow and implementation domains realise it.
     depends_on: [research, principles, process]
     stack: DSGN
     concern: [automation] # the shape of the platform itself
@@ -147,6 +146,7 @@ domains:
       internal-asset-dependencies: { external: ADR-AUTO-ASSETDEP, concern: [automation, build], layer: importer }
       console-output-matters: { external: ADR-AUTO-CONSOLE }
       spell-out-names: { external: ADR-AUTO-SPELL, concern: [quality-control] }
+      idiomatic-names: { external: ADR-AUTO-IDIOM, concern: [quality-control], layer: language }
       dry-run: { external: ADR-AUTO-DRYRUN }
       native-csharp-types: { external: ADR-AUTO-TYPES, concern: [automation, build], layer: language }
       go-test-artifacts: { external: ADR-AUTO-GO, concern: [quality-control], layer: language }

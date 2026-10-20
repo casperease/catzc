@@ -32,8 +32,8 @@ catzc:
 
 Turn the editor's notes into repository-wide plans; the editor is never asked whether they are right.
 
-1. Find the session with `Get-DocNote` and say "listening to <session>, <n> notes waiting".
-2. Wait for a note with `Wait-DocNote`; take the backlog oldest first.
+1. Say "listening", then wait with `Wait-DocNote` (listen-notes); out/ can be empty or wiped at any time, so no session is no error.
+2. Take the notes oldest first, each by its `Session`; a note whose session vanished is dropped with one line in the report.
 3. Read the note whole, then start `fact-checker` in the background on its new text against the session's reference; do not wait for it.
 4. Run the sub-cycle at once: context (what the file cites and what cites it), pattern (listen-insight), scouts (listen-tiers).
 5. Write the plan step to the plan rules, then run `Format-Code -Language markdown` and `Test-Plans` on it.

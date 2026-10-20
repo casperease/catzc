@@ -17,11 +17,13 @@ place, no back-compat).
 
 Contracts are laid out as `contracts/<unit>/<version>/<module>/<path>`. `<unit>` is the deployable-unit that carries the contracts —
 `catzc`, the bundle, the one unit a consumer pins; `<version>` is that unit's version, which `Resolve-CatzcBuildVersion` resolves;
-`<module>` is the owning catzc module, the one that talks to the outside party and holds the tests that prove the contract, with its
-dependencies governed by `dependencies.yml`; and `<path>` is the path of the real file the asset constrains, relative to the module's
-**target root**. A module's target root is the repository-relative folder that `contracts.yml` declares for it, a configured setting whose
-default, the repository root, is declared once on the contracts config type; so with `Catzc.Tooling.Github`'s target root `.github`, the
-asset `contracts/catzc/0.0.0/Catzc.Tooling.Github/workflows/release-automation.yml` constrains `.github/workflows/release-automation.yml`
+`<module>` is the owning catzc module, named in its repository normal form
+([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform), `catzc.tooling.github`), the one that talks
+to the outside party and holds the tests that prove the contract, with its dependencies governed by `dependencies.yml`; and `<path>` is the
+path of the real file the asset constrains, relative to the module's **target root**. A module's target root is the repository-relative
+folder that `contracts.yml` declares for it, a configured setting whose default, the repository root, is declared once on the contracts
+config type; so with `Catzc.Tooling.Github`'s target root `.github`, the asset
+`contracts/catzc/0.0.0/catzc.tooling.github/workflows/release-automation.yml` constrains `.github/workflows/release-automation.yml`
 ([conventional-folders](conventional-folders.md#rule-adr-repo-folders-contractsfolder)). Provided and depended-on contracts both version
 with their unit. There is no repository-wide version: another unit that carries contracts gets its own `contracts/<unit>/`, with its own
 versions.
@@ -73,9 +75,9 @@ freezes the draft with `Publish-ContractRelease`, which writes the folder's `.fr
 A **contract asset** is one file under `contracts/<unit>/<version>/<module>/`, and its name alone picks its kind. With no suffix it is a
 fragment: the real file at the same path under its module's target root must exist and contain it — a key subset for YAML and JSON, the
 non-blank lines in order for any other text — and an empty fragment requires presence only. `<path>.schema.json` is a schema the real file
-at `<path>` validates against. `<name>.sample.<ext>` is a sample payload the owning module's tests produce or parse.
-`<Verb-Noun>.command.yml` is a command contract, the call interface of the command `Verb-Noun` of the module whose folder holds it
-([command-contracts](command-contracts.md)).
+at `<path>` validates against. `<name>.sample.<ext>` is a sample payload the owning module's tests produce or parse. `<command>.command.yml`
+is a command contract, the call interface of the command whose repository normal form is `<command>` (`get_command_contract`), of the module
+whose folder holds it ([command-contracts](command-contracts.md)).
 
 - [The name picks the kind](#the-name-picks-the-kind)
 
@@ -276,8 +278,8 @@ things a boundary can require:
   that shares its `<name>` with a sample payload beside it applies to that sample instead of a real file.
 - **Sample payload** — `<name>.sample.<ext>`: a payload the owning module's tests must produce or parse, validated against the schema beside
   it when one exists.
-- **Command contract** — `<Verb-Noun>.command.yml`: the call interface of the command the owning module exports under that name, compared
-  with the parse of the command's file ([command-contracts](command-contracts.md)).
+- **Command contract** — `<command>.command.yml`, the command's repository normal form: the call interface of the command the owning module
+  exports under that name, compared with the parse of the command's file ([command-contracts](command-contracts.md)).
 
 A fragment pins only what the outside party reads, so the rest of the file stays free to change under one living version.
 

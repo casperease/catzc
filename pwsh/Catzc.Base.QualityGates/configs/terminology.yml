@@ -1067,6 +1067,10 @@ terms:
     - term: whatifpreference
       meaning: "PowerShell $WhatIfPreference variable"
   coined:
+    - term: catzcbaserepository
+      meaning: "the module Catzc.Base.Repository rendered in Go's flat naming case, its Go test folder name (ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM)"
+    - term: getcommandcontract
+      meaning: "the command get_command_contract rendered in the flat naming case, the example of that case (ADR-AUTO-IDIOM-CLOSEDCASES)"
     - term: adronly
       meaning: "coined noun 'adronly' — the diagram kit's glyph kind for something an ADR states that no code runs (python/Catzc.Diagrams)"
     - term: rebaser

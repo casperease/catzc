@@ -8,8 +8,12 @@ function Wait-DocNote {
         ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). It
         returns at once when unprocessed notes already exist, so a processor that starts late catches up on the backlog first.
 
+        The session lives in out/, which can be wiped at any time: with no session yet, or once the session has vanished, it keeps
+        waiting, and without -Session it follows the newest session, so a listener that starts after the processor, or starts again after
+        a wipe, is picked up.
+
     .PARAMETER Session
-        The session folder. Default: the newest session.
+        The session folder. Default: the newest session, looked up again on every poll.
 
     .PARAMETER TimeoutSeconds
         The bound of this wait. Default: listen.yml's note_wait_seconds.
@@ -26,13 +30,24 @@ function Wait-DocNote {
         [int] $TimeoutSeconds = (Get-Config -Config listen).note_wait_seconds
     )
 
-    $Session = Resolve-ListenSession $Session
     $poll = (Get-Config -Config listen).poll_milliseconds
     $deadline = [System.Diagnostics.Stopwatch]::StartNew()
     while ($true) {
-        $notes = @(Get-DocNote -Session $Session -Unprocessed)
-        if ($notes.Count -gt 0) {
-            return $notes
+        $current = Resolve-ListenSession $Session -AllowMissing
+        if ($current) {
+            # The session can vanish between the lookup and the read; that is the same as no session yet.
+            [object[]] $notes = @()
+            try {
+                $notes = @(Get-DocNote -Session $current -Unprocessed)
+            }
+            catch {
+                if (Resolve-ListenSession $current -AllowMissing) {
+                    throw
+                }
+            }
+            if ($notes.Count -gt 0) {
+                return $notes
+            }
         }
         if ($deadline.Elapsed.TotalSeconds -ge $TimeoutSeconds) {
             return
