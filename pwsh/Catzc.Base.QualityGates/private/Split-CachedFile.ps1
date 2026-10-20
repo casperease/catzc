@@ -38,7 +38,9 @@ function Split-CachedFile {
         [string] $Stamp,
 
         [Parameter(Mandatory)]
-        [string] $RepositoryRoot
+        [string] $RepositoryRoot,
+
+        [System.Collections.IDictionary] $FileStamp = @{}
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
@@ -52,8 +54,14 @@ function Split-CachedFile {
             $pending.Add($path)
             continue
         }
-        $key = "$([System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.IO.File]::ReadAllBytes($full)))):$Stamp"
-        $keys[$full] = @($relative, $key)
+        $suffix = if ($FileStamp.Contains($full)) {
+            ":$($FileStamp[$full])"
+        }
+        else {
+            ''
+        }
+        $key = "$([System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.IO.File]::ReadAllBytes($full)))):$Stamp$suffix"
+        $keys[$full] = @($relative, $key, $suffix)
         if ($Cache.Contains($relative) -and $Cache[$relative] -eq $key) {
             $cached++
         }

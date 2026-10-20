@@ -91,6 +91,9 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent
 - **`adr-reviewer`** — read-only review of a file set against the rules that govern it, each finding with its rule code.
 - **`fact-checker`** — checks one statement against the tree and its words against the glossary, then asks "is it though?" with a DevOps
   counter; answers in two lines, read-only.
+- **`listen-very-carefully-to-doc-changes`** — the listen mode's processor, run as the main session while `Start-DocListener` notes the
+  editor's doc corrections: takes each editor note as fact, fact-checks it, finds the pattern at the pinned commit, and plans the revisions.
+- **`doc-pattern-scout`** — finds one pattern in one tier and slice of a listen session's committed reference and reports every match.
 - **`glossary-keeper`** — keeps the glossary sources in step with the rules that bold each term, one term at a time.
 - **`test-optimization`** — makes all tests faster under the `timeouts.yml` roofs, one measured file at a time, without removing or
   weakening any test.
@@ -118,24 +121,14 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent
 
 ### Time safeguard
 
-- **ALL Bash tool calls and pwsh processes by agent/Claude execution MUST run within a time safeguard** (`ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`,
-  [fail-fast-with-asserts](../docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). Every Bash tool call —
-  the main session and every subagent — passes `timeout: 3000` (at most `limits.devbox.bash.foreground` in
-  `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml`, currently 3 s on a devbox). Longer work runs with `run_in_background: true` **and**
-  starts with a GNU `timeout <seconds>` prefix around **one** command (at most `limits.devbox.bash.background`, currently 360 s): the Bash
-  tool ignores its `timeout` parameter for background calls, so the prefix is the only bound. No `cd … &&`, pipes or `;` in a background
-  call — use absolute paths, or put multi-step work in a script under `out/`; exit 124 means the safeguard stopped it. The PreToolUse hook
-  `.claude/hooks/Assert-BashTimeout/` (a C# program the importer publishes) denies any call that breaks this, and logs it to
-  `out/time-safeguard.log`. In code, bound work with `Invoke-WithTimeout` / `Assert-CompletesWithin` / `Test-CompletesWithin`;
-  `Invoke-Executable` already kills a process past its executable's limit. The limits are tight on purpose while blockers are tuned
-  together: a call that legitimately needs longer goes to the background, gets a `timeouts.yml` entry, or carries a `-Budget` GUID exempted
-  in `timeout-exemptions.yml` — never a workaround around the safeguard. A denied main-session call is a blocker to raise with the user; a
-  denied subagent call is reported to its coordinator, not retried with a larger limit.
-- **Probe with the fastest runner that can answer.** Reading, listing, searching, and checking state (a file's content, whether a file
-  exists, a count, `git status`/`log`/`diff`) use plain bash (`cat`, `ls`, `grep`, `git`) or the Read/Grep/Glob tools — milliseconds, well
-  inside the limit. Use `pwsh -NoProfile -Command '…'` _without_ the importer when only PowerShell itself is needed (parse a file, evaluate
-  an expression). Start `pwsh` with `. ./importer.ps1` only when a catzc command must run (a test, a gate, a generator) — the import alone
-  takes seconds, so those calls go to the background.
+- **Every call is bounded** (`ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`; the `catzc-run` capability has the detail). A foreground Bash call passes
+  `timeout: 3000`; longer work is `run_in_background: true` behind a `timeout <seconds>` prefix (at most 360 s) around **one** command, no
+  `cd … &&`, pipes or `;`, with multi-step work in a script under `out/`. Exit 124 means the safeguard stopped it. The hook
+  `.claude/hooks/Assert-BashTimeout/` denies a call that breaks this and logs it to `out/time-safeguard.log`. Work that legitimately needs
+  longer gets its limit in `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml` or a command's `TimeLimit`, never a workaround; a denial is
+  raised (to the user, or a subagent's coordinator), never retried larger.
+- **Probe with the fastest runner that can answer:** plain bash (`cat`, `ls`, `grep`, `git`) or Read/Grep/Glob for state; `pwsh -NoProfile`
+  without the importer when only PowerShell is needed; `. ./importer.ps1` only for a catzc command, in the background.
 
 ### Other
 

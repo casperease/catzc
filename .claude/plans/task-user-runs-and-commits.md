@@ -19,10 +19,7 @@ final full run last.
 
 1. Commit `pwsh/Catzc.Base.Slides/Build-Diagrams.ps1`: one `Write-Message` line per folder for the minimap, render and sync stages, and the
    total time on the closing line. Check: `Invoke-TestFile pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1` passes.
-2. Unstage the hook build output staged before its ignore landed:
-   `git rm -r --cached .claude/hooks/Record-AgentWrite/bin .claude/hooks/Record-AgentWrite/obj`. Check: `git status --short .claude/hooks`
-   lists no `bin/` or `obj/` path.
-3. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+2. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
    every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

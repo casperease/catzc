@@ -164,7 +164,14 @@ function Format-Code {
         else {
             Get-ResultCache -Path $stepCachePath
         }
-        $split = Split-CachedFile -File $candidates -Cache $stepCache -Stamp $stamp -RepositoryRoot $root
+        # The file-meta step's verdict also reads the files beside each file, so their stamp joins its key.
+        $fileStamp = if ($step -ceq 'file-meta') {
+            Get-FileMetaInputStamp -File $candidates -RepositoryRoot $root
+        }
+        else {
+            @{}
+        }
+        $split = Split-CachedFile -File $candidates -Cache $stepCache -Stamp $stamp -RepositoryRoot $root -FileStamp $fileStamp
         $pending = @($split.Pending)
         Write-Message "$verb $($pending.Count) file(s) with the $step imprint step ($($split.CachedCount) unchanged since their last check)..."
         $outcome = Invoke-ImprintStep -Step $step -File $pending -RepositoryRoot $root -DryRun:$DryRun

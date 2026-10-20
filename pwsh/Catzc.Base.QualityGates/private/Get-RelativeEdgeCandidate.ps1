@@ -1,0 +1,91 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Get-RelativeEdgeCandidate.ps1
+    folder: private
+    name: get-relative-edge-candidate
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-RelativeEdgeCandidate.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-RelativeEdgeCandidate.ps1.md)"
+---
+#>
+
+function Get-RelativeEdgeCandidate {
+    [CmdletBinding()]
+    [OutputType([pscustomobject])]
+    param(
+        [Parameter(Mandatory)]
+        [AllowEmptyCollection()]
+        [string[]] $Path,
+
+        [Parameter(Mandatory)]
+        [Catzc.Base.QualityGates.FileMetaKind] $Kind
+    )
+
+    $maxRelations = 8
+    $relations = if ($Kind.settings.ContainsKey('relations')) {
+        @($Kind.settings['relations'])
+    }
+    else {
+        @()
+    }
+    Assert-True ($relations.Count -le $maxRelations) `
+        -ErrorText "file-meta config: kind '$($Kind.id)' lists $($relations.Count) relations, at most $maxRelations are allowed."
+    foreach ($relation in $relations) {
+        Assert-True ($relation -is [System.Collections.IDictionary] -and $relation.Contains('name') -and $relation.Contains('rules')) `
+            -ErrorText "file-meta config: kind '$($Kind.id)' settings.relations entries need 'name' and 'rules'."
+        foreach ($rule in @($relation['rules'])) {
+            Assert-True ($rule -is [System.Collections.IDictionary] -and $rule.Contains('paths')) `
+                -ErrorText "file-meta config: kind '$($Kind.id)' relation '$($relation['name'])' rules need 'paths', and 'classes' unless the rule applies to every class."
+        }
+    }
+    $comments = Get-Config -Config comments
+
+    foreach ($file in $Path) {
+        $name = [System.IO.Path]::GetFileNameWithoutExtension($file)
+        $tokens = @{
+            '{name}' = $name
+            '{stem}' = $name -replace '\.Tests$', ''
+        }
+        $fileClass = (Get-FileKind $file).Class
+        foreach ($relation in $relations) {
+            $paths = [System.Collections.Generic.List[string]]::new()
+            foreach ($rule in @($relation['rules'])) {
+                # A rule without classes applies to every file the kind selects.
+                if ($rule.Contains('classes') -and -not [Catzc.Base.QualityGates.FileMetaKind]::InClasses([string[]] @($rule['classes']), $fileClass)) {
+                    continue
+                }
+                foreach ($template in @($rule['paths'])) {
+                    $candidate = "$template"
+                    # The module is looked up only for a template that names it: most files match no rule that does.
+                    if ($candidate.Contains('{module}') -and -not $tokens.ContainsKey('{module}')) {
+                        $module = Get-PathModule $file
+                        $tokens['{module}'] = $module ? $module.name : ''
+                    }
+                    foreach ($token in $tokens.Keys) {
+                        $candidate = $candidate.Replace($token, $tokens[$token])
+                    }
+                    if ($candidate.Contains('{page}')) {
+                        $page = $comments.PageFor($file)
+                        if (-not $page) {
+                            continue
+                        }
+                        $candidate = $candidate.Replace('{page}', $page)
+                    }
+                    $paths.Add($candidate)
+                }
+            }
+            [pscustomobject]@{ Path = $file; Relation = $relation; Paths = [string[]] $paths.ToArray() }
+        }
+    }
+}

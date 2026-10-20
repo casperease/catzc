@@ -46,20 +46,21 @@ Open, in execution order. Nothing is held. A chunk without a task file is execut
 
 - idiomatic-names -> plan-idiomatic-names.md: wire the naming gate in (rule, test-folder mapping, three renames, gate on), then the
   repository normal form for function and type names and the `0.0.0` command contracts.
-- agent-shortcuts -> plan-agent-shortcuts.md: steps 6 and 7 are free now (a reviewer line, a glossary avoid entry); answer Q1-Q2, then the
-  gate runner and New-Plan; its catzc-run step follows agent-friction.
+- agent-shortcuts -> plan-agent-shortcuts.md: answer Q1-Q2, then the gate runner and New-Plan; its catzc-run step follows agent-friction.
 - truth-stores -> plan-truth-stores.md: answer Q1-Q3, align ADR-THES-STORES with the ADO writers, then the truth-store config, the
   actionable-fact contract and the junction contracts.
-- eac-normal-form -> plan-eac-normal-form.md: answer Q1-Q2, then the technical migration ADR under ADR-THES-NORMALFORM and the check that
-  proves a file uncontested.
+- eac-normal-form -> plan-eac-normal-form.md: answer Q1-Q4, then the technical migration ADR under ADR-THES-NORMALFORM, the check that
+  proves a file uncontested, the term renames and one sample drawing.
 - bcl-language -> plan-bcl-language.md: move the BCL reference and how-to pages out of `pwsh/` and re-point their links; the reference-set
-  rule, the host-binding config and gate, the `bcl` domain and the language-row rename wait on its Q1-Q3.
-- agent-friction -> plan-agent-friction.md: answer Q1-Q3, then steps 1, 2 and 4 first, then the plan-edit hook, the head how-to and the
-  drawing sample.
-- docs-link-head -> plan-docs-link-head.md: answer Q1 (keep or trim the head of a file with a comment page), then trim if asked.
-- diagram-build-learnings -> plan-diagram-build-learnings.md: fix the Build-Diagrams help, add two patterns to catzc-run and trim the
-  CLAUDE.md safeguard section to point at it, quiet the legend's warning by role, measure then memo the minimap stage, one pipeline drawing
-  for approval.
+  rule, the host-binding config and gate, the one BCL definition page, the CLAUDE.md line, the `bcl` domain, the language-row rename and the
+  diagram sample wait on its Q1-Q4.
+- agent-friction -> plan-agent-friction.md: the three gate steps first (Test-Plans' three-part plan rule and file paths, Test-Formatting
+  `-Path`); answer Q1-Q2, then the plan-edit hook; the head how-to and its drawing after plan-minimal-heads.
+- adr-authoring -> plan-adr-authoring.md: the glossary contrast declared once and the domain-deps memory deleted (free), the add-an-adr
+  how-to after plan-agent-shortcuts' gate runner; answer Q1-Q2, then the pending link finding and the ADR-edit reminder after
+  plan-agent-friction's hook.
+- diagram-build-learnings -> plan-diagram-build-learnings.md: fix the Build-Diagrams help, add two patterns to catzc-run, quiet the legend's
+  warning by role, measure then memo the minimap stage, one pipeline drawing for approval.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

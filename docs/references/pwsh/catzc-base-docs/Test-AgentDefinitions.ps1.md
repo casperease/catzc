@@ -33,10 +33,13 @@ AgentsConfig; Get-Config -Config capabilities, a CapabilitiesConfig), and the `#
 - an agent names no `model`, names `inherit`, or names a model below the highest `model_floor` of the capabilities it preloads
   ([ADR-REPO-AGENTS-NAMEDMODEL](../../../adr/repository/agent-definitions.md#rule-adr-repo-agents-namedmodel));
 - a capability has more lines than roofs.capability_lines outside its catzc head (nested at the key path its carrier names, metadata.catzc),
-  its `name` differs from its folder, it is user-invocable, or it lacks `allowed-tools` or a `metadata.catzc.config.model_floor` of haiku,
-  sonnet or opus ([ADR-REPO-AGENTS-CAPABILITYFILE](../../../adr/repository/agent-definitions.md#rule-adr-repo-agents-capabilityfile));
+  its `name` differs from its folder, its `user-invocable` differs from its registry's `invoked_by` (true only for a user skill), or it
+  lacks `allowed-tools` or a `metadata.catzc.config.model_floor` of haiku, sonnet or opus
+  ([ADR-REPO-AGENTS-CAPABILITYFILE](../../../adr/repository/agent-definitions.md#rule-adr-repo-agents-capabilityfile));
 - a `skills` name has no capability file, or a capability is preloaded by no agent
   ([ADR-REPO-AGENTS-NOORPHANNOGHOST](../../../adr/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost));
+- a `skills` list names a user skill, which no robot preloads
+  ([ADR-REPO-AGENTS-USERSKILL](../../../adr/repository/agent-definitions.md#rule-adr-repo-agents-userskill));
 - a capability file has no registry entry, an entry has no file, or an entry's citation or check resolves to nothing
   ([ADR-REPO-AGENTS-CAPABILITYREGISTERED](../../../adr/repository/agent-definitions.md#rule-adr-repo-agents-capabilityregistered)).
 

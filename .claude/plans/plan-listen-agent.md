@@ -4,28 +4,20 @@ plan:
   value: high
   reviewed: 2026-10-21
   class: feature
-  targets:
-    [
-      pwsh/Catzc.Base.Docs/configs/agents.yml,
-      .claude/CLAUDE.md,
-      .claude/agents/catzc-worker.md,
-      .claude/agents/fact-checker.md,
-      pwsh/Catzc.Tooling.Listen/Get-DocChange.ps1,
-      .claude/plans,
-    ]
+  targets: [.claude/agents/fact-checker.md, pwsh/Catzc.Tooling.Listen/Get-DocChange.ps1, .claude/plans]
 ---
 
 # The listen mode: register the processor, process the first notes, settle the seed
 
 The listen mode is in the tree: the listener (`Start-DocListener`, `Catzc.Tooling.Listen`) that notes each change with its source (editor,
 agent or unknown, from the `Record-AgentWrite` hook and the `catzc-save-ledger` extension), the processor robot
-(`listen-very-carefully-to-doc-changes`), its scout (`doc-pattern-scout`) and their three capabilities. Left: the registration that waits on
-the fact-checker change, the first editor notes to process, one refinement of the notes, and the seed's open questions.
+(`listen-very-carefully-to-doc-changes`), its scout (`doc-pattern-scout`) and their three capabilities. Left: the fact-checker's fit for the
+mode, the first editor notes to process, one refinement of the notes, and the seed's open questions.
 
 ## Why its value is high
 
 The editor's first three corrections are waiting as notes in `out/`, which can be wiped; until the processor runs, they exist only there and
-in the Carried section below. Until the two robots are registered, `Test-AgentDefinitions` fails.
+in the Carried section below.
 
 ## Decided (2026-10-20 and 2026-10-21, from the user)
 
@@ -39,10 +31,6 @@ in the Carried section below. Until the two robots are registered, `Test-AgentDe
 
 ## Open steps
 
-- [ ] `pwsh/Catzc.Base.Docs/configs/agents.yml`: add the entries for `listen-very-carefully-to-doc-changes` and `doc-pattern-scout`, as
-      drafted in `out/listen-build/registry-entries.md` (check: `Test-AgentDefinitions`).
-- [ ] `.claude/CLAUDE.md`: add the two `## Sub-agents` bullets from the same draft (check: `Test-AgentDefinitions`).
-- [ ] `.claude/agents/catzc-worker.md`: name the two robots in its `Do NOT` clause (check: `Test-AgentDefinitions`).
 - [ ] `.claude/agents/fact-checker.md`: read the listen session's `reference/` when the brief names one, and search it through
       `Find-DocPattern` (check: `Test-AgentDefinitions`).
 - [ ] `.claude/plans/plan-listen-<pattern>.md`: the processor processes the three editor notes carried below (session
@@ -50,12 +38,20 @@ in the Carried section below. Until the two robots are registered, `Test-AgentDe
 - [ ] `pwsh/Catzc.Tooling.Listen/Get-DocChange.ps1`: `Rules` lists only the ADR codes cited in the changed lines, not every code in the file
       (a whole-file list ran to 40 codes on `dora-explains.md`) (check: `Invoke-TestFile` on `Get-DocChange.Tests.ps1`).
 
+Context: the new `Measure-NoCollapsingAssignment` rule flags one real strict-mode collapse,
+`pwsh/Catzc.Base.QualityGates/private/Get-RelativeEdgesFileMetaFact.ps1:44`, in a file another session has open; it is planned once that
+file is free.
+
 ## Open questions
 
 - Does the `fact-checker` drop from sonnet to haiku, as asked for the listen mode, or keep its `model_reason`?
 - From the seed below: is the mode a thesis rule or a principles rule that specialises the thesis?
 - From the seed below: the gates and agents work on the working tree; is the working tree the proposal for the next commit, with the last
   commit the truth?
+- Do the two diagram samples (`where-truth-comes-from`, `listen-mode-flow` in `out/diagrams/dark-sample/.assets/`) land, and beside which
+  articles: the thesis explanation and the `Catzc.Tooling.Listen` reference? Recommendation: yes, there.
+- Should `Build-Diagrams` render a sample folder in `out/` itself? Today a sample needs the private `Write-DiagramMinimapData` called by
+  hand before `put`. Recommendation: a `-Sample` path, so a sample is one call.
 
 ## Carried
 

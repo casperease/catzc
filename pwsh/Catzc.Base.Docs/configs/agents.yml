@@ -126,3 +126,14 @@ agents:
     model_reason:
       maps every session's free-text reply to a task file and chooses the next chunk against the master's order and the files live sessions
       hold
+
+  # The listen mode's processor: turns the editor's notes into repository-wide plans, never asking whether the editor is right.
+  - name: listen-very-carefully-to-doc-changes
+    supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-DECISIONSBECOMERULES]
+    checks: [Test-Plans, Format-Code]
+    model_reason: infers why the editor made an edit and generalises it across doc types into plans the orchestrator runs as fact
+
+  # Finds one pattern in one slice of a listen session's committed reference; judges nothing.
+  - name: doc-pattern-scout
+    supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-REPO-AI-TRUSTTHETREE]
+    checks: []

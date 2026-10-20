@@ -8,7 +8,8 @@ namespace Catzc.Base.Docs;
 // Rests on [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml), [ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype), [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost) and [ADR-REPO-AGENTS-CAPABILITYREGISTERED](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-capabilityregistered).
 public sealed class CapabilityEntry : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "name", "supported_by", "checks" };
+    private static readonly string[] AllowedKeys = { "name", "supported_by", "checks", "invoked_by" };
+    private static readonly string[] Invokers = { "robot", "user" };
     // <domain>-<job>: lowercase letters, digits and hyphens only (the harness accepts nothing else in a skill name), at least one hyphen.
     private static readonly Regex NameRe = new Regex("^[a-z0-9]+(-[a-z0-9]+)+$", RegexOptions.Compiled);
     private static readonly Regex CitationRe = new Regex("^ADR(-[A-Z][A-Z0-9]*){3,}$", RegexOptions.Compiled);
@@ -22,6 +23,9 @@ public sealed class CapabilityEntry : Catzc.Base.Objects.DictionaryRecord
 
     // The gate and check functions the capability runs or guards, in file order; empty when it has none.
     public IReadOnlyList<string> checks { get; }
+
+    // Who loads the capability: a robot preloads it, or the user invokes it by name as a user skill ([ADR-REPO-AGENTS-USERSKILL](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-userskill)).
+    public string invoked_by { get; } = "robot";
 
     public CapabilityEntry(IDictionary d)
     {
@@ -48,6 +52,16 @@ public sealed class CapabilityEntry : Catzc.Base.Objects.DictionaryRecord
         }
 
         checks = AgentEntry.ReadList(d, "checks", CommandRe, "a Verb-Noun command name", errors);
+
+        if (d.Contains("invoked_by"))
+        {
+            string invoker = OptStr(d, "invoked_by");
+            if (invoker == null || Array.IndexOf(Invokers, invoker) < 0)
+            {
+                errors.Add(string.Format("invoked_by must be one of: {0}", string.Join(", ", Invokers)));
+            }
+            else { invoked_by = invoker; }
+        }
 
         if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
     }

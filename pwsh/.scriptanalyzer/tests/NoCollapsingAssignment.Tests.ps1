@@ -29,6 +29,8 @@ Describe 'Measure-NoCollapsingAssignment' -Tag 'L0', 'logic', 'ADR-PWSH-ERROR-ST
         @{ Case = 'a wrapped statement'; Code = '$widgets = @(if ($ready) { Get-Widget }); $widgets.Count' }
         @{ Case = 'a statement never counted'; Code = '$widget = if ($ready) { Get-Widget } else { $null }; $widget.Name' }
         @{ Case = 'a plain expression'; Code = '$widgets = @(Get-Widget); $widgets.Count' }
+        @{ Case = 'a re-wrap before the count'; Code = '$widgets = if ($ready) { @(Get-Widget) } else { @() }; $widgets = @($widgets | Where-Object { $_ }); $widgets.Count' }
+        @{ Case = 'a string''s length'; Code = '$name = if ($ready) { "widget" } else { "gadget" }; $name.Length' }
     ) {
         Test-Collapse $Code | Should -BeNullOrEmpty
     }

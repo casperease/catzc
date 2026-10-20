@@ -54,6 +54,13 @@ function Test-AgentDefinitions {
             Get-ChildPath $skillsRoot -Depth 2 -File -Filter 'SKILL.md' | ForEach-Object { [string]$_ } | Sort-Object
         })
     $floors = @{}
+    # A user skill is invoked by the user, never preloaded; the registry says which capabilities are.
+    $userSkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    foreach ($entry in $capabilityConfig.capabilities) {
+        if ($entry.invoked_by -eq 'user') {
+            [void]$userSkills.Add($entry.name)
+        }
+    }
     # The carrier registry says where a capability's catzc head nests, under the file kind's class; the gate never fixes the key itself.
     $carriers = Get-Config -Config file-carriers
     $fileKinds = Get-Config -Config file-kinds
@@ -80,8 +87,14 @@ function Test-AgentDefinitions {
         if ($declared -cne $name) {
             $issues.Add("${relative}: front-matter name '$declared' must equal the folder name '$name'")
         }
-        if (-not $frontMatter.Contains('user-invocable') -or [string]$frontMatter['user-invocable'] -ne 'False') {
-            $issues.Add("${relative}: front matter must set user-invocable: false")
+        $invocable = if ($userSkills.Contains($name)) {
+            'True'
+        }
+        else {
+            'False'
+        }
+        if (-not $frontMatter.Contains('user-invocable') -or [string]$frontMatter['user-invocable'] -ne $invocable) {
+            $issues.Add("${relative}: front matter must set user-invocable: $($invocable.ToLowerInvariant())")
         }
         if (-not $frontMatter.Contains('allowed-tools') -or [string]::IsNullOrWhiteSpace([string]$frontMatter['allowed-tools'])) {
             $issues.Add("${relative}: front matter has no allowed-tools")
@@ -186,6 +199,9 @@ function Test-AgentDefinitions {
                 continue
             }
             [void]$preloaded.Add($skill)
+            if ($userSkills.Contains($skill)) {
+                $issues.Add("${relative}: skills names '$skill', a user skill that no robot preloads")
+            }
             if ($model -and $floors.ContainsKey($skill) -and $modelRank.ContainsKey($model) -and $modelRank[$model] -lt $modelRank[$floors[$skill]]) {
                 $issues.Add("${relative}: model '$model' is below the model_floor '$($floors[$skill])' of capability '$skill'")
             }
@@ -197,7 +213,7 @@ function Test-AgentDefinitions {
     }
 
     foreach ($name in $capabilityNames) {
-        if (-not $preloaded.Contains($name)) {
+        if (-not $preloaded.Contains($name) -and -not $userSkills.Contains($name)) {
             $issues.Add(".claude/skills/$name/SKILL.md: no agent preloads it in its skills list")
         }
     }

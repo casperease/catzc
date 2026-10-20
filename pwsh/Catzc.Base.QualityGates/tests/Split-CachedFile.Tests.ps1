@@ -87,6 +87,26 @@ Describe 'Split-CachedFile' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACRO
         }
         (& $script:split @($script:widget) $cache 'stamp-1').Pending.Count | Should -Be 0
     }
+
+    It 'checks a file again when its own input stamp changes, and keeps that stamp when it rekeys the file from disk' {
+        $cache = @{}
+        $splitWith = {
+            param($FileStamp)
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ F = @($script:widget); C = $cache; R = $script:root; FS = $FileStamp } {
+                param($F, $C, $R, $FS)
+                Split-CachedFile -File $F -Cache $C -Stamp 'stamp-1' -RepositoryRoot $R -FileStamp $FS
+            }
+        }
+        $first = & $splitWith @{ $script:widget = 'beside-1' }
+        [System.IO.File]::WriteAllText($script:widget, 'reformatted')
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ C = $cache; K = $first.Key; W = $script:widget } {
+            param($C, $K, $W)
+            Update-ResultCache -Cache $C -Key $K -Checked @($W) -Stamp 'stamp-1' -RekeyFromDisk
+        }
+        (& $splitWith @{ $script:widget = 'beside-1' }).Pending.Count | Should -Be 0
+        (& $splitWith @{ $script:widget = 'beside-2' }).Pending | Should -Be @($script:widget)
+        (& $splitWith @{}).Pending | Should -Be @($script:widget)
+    }
 }
 
 Describe 'Get-ContentStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {

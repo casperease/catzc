@@ -46,7 +46,6 @@ function Format-FileMeta {
     $config = Get-Config -Config file-meta
     $scope = @(Get-FileMetaScope -RepositoryRoot $root -Path $Path -Config $config)
 
-    # The cache is Format-Code's own for its file-meta step: one verdict, one cache, so either command skips what the other found clean.
     $stamp = Get-FormatEngineStamp -Engine 'imprint:file-meta' -Settings @((Get-Config -Config languages).steps['file-meta'].settings) -RepositoryRoot $root
     $cachePath = Join-Path (Get-OutputRoot) 'cache/format-code-file-meta.json'
     $cache = if ($NoCache) {
@@ -59,7 +58,8 @@ function Format-FileMeta {
     foreach ($entry in $scope) {
         $byFullPath[[System.IO.Path]::GetFullPath((Join-Path $root $entry.Path))] = $entry
     }
-    $split = Split-CachedFile -File ([string[]] @($byFullPath.Keys)) -Cache $cache -Stamp $stamp -RepositoryRoot $root
+    $inScope = [string[]] @($byFullPath.Keys)
+    $split = Split-CachedFile -File $inScope -Cache $cache -Stamp $stamp -RepositoryRoot $root -FileStamp (Get-FileMetaInputStamp -File $inScope -RepositoryRoot $root -Config $config)
     $pending = @($split.Pending)
     $verb = $DryRun ? 'Checking' : 'Formatting'
     Write-Message "$verb the meta block of $($pending.Count) file(s) ($($split.CachedCount) unchanged since their last check)..."

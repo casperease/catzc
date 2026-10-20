@@ -31,7 +31,5 @@ metadata:
 1. Read `docs/adr/index.md` first; it maps every code to its ADR and domain; never read the whole corpus and never `docs/adr/research/`.
 2. For each file under review take the codes its head `edges.cites` names and the domain its track implies, then read those ADRs in full,
    their `## Rules` section first.
-3. Cite a rule as `ADR-X#n` only, the code and number of a `### Rule ADR-X:n` heading actually read; a finding without a rule it rests on is
-   not a finding.
-4. A rule that says "never" or "only" is checked against the commands that do the thing (a search for its verbs and nouns) before it is
-   reported clean.
+3. Cite a rule by the full code of a `### Rule` heading actually read; a finding without a rule it rests on is not a finding, and a "never"
+   or "only" rule is searched against the commands that do the thing before it is reported clean.

@@ -123,6 +123,21 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $issues | Should -HaveCount 2
     }
 
+    It 'passes a user skill no robot preloads, and reports one that is preloaded or not user-invocable' -Tag 'ADR-REPO-AGENTS-USERSKILL' {
+        $turnFile = @('---', 'name: gadget-turn', 'description: Turn a gadget; for the user; input is the gadget.', 'user-invocable: true', 'allowed-tools: Read',
+            'metadata:', '  catzc:', '    config:', '      model_floor: haiku', '      needs: []', '---', '1. Turn it.')
+        Write-AgentFixture 'skills/gadget-turn/SKILL.md' $turnFile
+        $script:capabilities = New-CapabilitiesFixture @($script:spinEntry, [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE-SPIN'); checks = @(); invoked_by = 'user' })
+        (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues | Should -BeNullOrEmpty
+
+        Write-AgentFixture 'skills/gadget-turn/SKILL.md' ($turnFile -replace 'user-invocable: true', 'user-invocable: false')
+        Write-AgentFixture 'agents/gadget.md' ($script:gadgetFile -replace 'model: haiku', "model: haiku`nskills: [gadget-turn]")
+        $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
+        $issues | Should -Contain '.claude/skills/gadget-turn/SKILL.md: front matter must set user-invocable: true'
+        $issues | Should -Contain ".claude/agents/gadget.md: skills names 'gadget-turn', a user skill that no robot preloads"
+        $issues | Should -HaveCount 2
+    }
+
     It 'reports a capability file without an entry, an entry without a file, and an entry whose citation or check resolves to nothing' -Tag 'ADR-REPO-AGENTS-CAPABILITYREGISTERED' {
         $script:capabilities = New-CapabilitiesFixture @([ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WI-ONE-MISSING'); checks = @('Test-GadgetWidgetGizmo') })
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues

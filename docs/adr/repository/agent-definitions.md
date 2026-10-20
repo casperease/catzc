@@ -62,18 +62,20 @@ steps reliably.
 
 A **capability** is one file `.claude/skills/<domain>-<job>/SKILL.md` (lowercase letters, digits and hyphens, the only characters the
 harness accepts in a skill name) that a robot preloads through its `skills` list: at most `roofs.capability_lines` lines outside its catzc
-head (10, the `---` delimiters excluded, lines counted as rule 6 counts them), with `name` equal to its folder, `user-invocable: false`,
-`allowed-tools`, and a `metadata.catzc.config.model_floor` of `haiku`, `sonnet` or `opus`, declared there once and nowhere else. The catzc
-head of a capability nests under `metadata`, the one front-matter key the editors that validate a skill file leave free, at the key path the
-carrier registry declares ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), and the floor is the author's
-line in that head's `config` part, so every imprint keeps it.
+head (10, the `---` delimiters excluded, lines counted as rule 6 counts them), with `name` equal to its folder, `user-invocable: false`
+(`true` for a user skill, rule 11), `allowed-tools`, and a `metadata.catzc.config.model_floor` of `haiku`, `sonnet` or `opus`, declared
+there once and nowhere else. The catzc head of a capability nests under `metadata`, the one front-matter key the editors that validate a
+skill file leave free, at the key path the carrier registry declares
+([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), and the floor is the author's line in that head's `config`
+part, so every imprint keeps it.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
 ### Rule ADR-REPO-AGENTS-NOORPHANNOGHOST
 
 No orphan and no ghost: every capability is preloaded by at least one robot, and every name in a `skills` list is a capability file. A
-capability exists because a robot loads it, as a robot exists because a rule supports it.
+capability exists because a robot loads it, as a robot exists because a rule supports it. A user skill (rule 11) is the one exception: no
+robot preloads it, and a `skills` list never names it.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
@@ -81,9 +83,18 @@ capability exists because a robot loads it, as a robot exists because a rule sup
 
 Every capability is registered in `pwsh/Catzc.Base.Docs/configs/capabilities.yml` with `supported_by` and `checks`, the way an agent is in
 `agents.yml`; neither registry repeats the model floor or the `skills` list, which live in their one file each. `Test-AgentDefinitions`
-enforces rules 6 to 10 together with rules 1 to 5.
+enforces rules 6 to 11 together with rules 1 to 5.
 
 - [How this is enforced](#how-this-is-enforced)
+
+### Rule ADR-REPO-AGENTS-USERSKILL
+
+A **user skill** is a capability the user invokes by name in a main session (`/<name>`), never a robot: a procedure that needs the session's
+own context, which a spawned robot starts without. Its registry entry sets `invoked_by: user` (the default, declared once on
+`CapabilityEntry`, is `robot`), its file sets `user-invocable: true`, and every other part of rule 8 holds: the roof, the name, the
+`allowed-tools` and the model floor.
+
+- [User skills](#user-skills)
 
 ## Context
 
@@ -131,6 +142,14 @@ catzc head, under `metadata`, which the harness ignores and the gate enforces ag
 job is the default; a dearer one needs its reason written down where the registry can show it, so a model choice is a decision and never a
 habit.
 
+### User skills
+
+Some procedures belong to the session that did the work, such as bringing a session to its finalization phase before the user clears it.
+Only that session holds what it touched and learned, so a robot spawned cold cannot do the job. A session can also end without warning (a
+closed window, a restart), and what it owed lives only in its context until it is written down, so such a procedure is a checkpoint that
+runs at any time and only adds what is new on a repeat run. A user skill keeps the capability shape, a short file under the same roof and
+registered with the rules behind it, and differs in one fact recorded in the registry: the user invokes it, so no robot preloads it.
+
 ## Decision
 
 Each sub-agent is one `.claude/agents/<name>.md` file, registered in `agents.yml` with the rules that support it and the checks it runs or
@@ -154,8 +173,10 @@ in capabilities under `.claude/skills/`, each registered in `capabilities.yml` a
   - a specialised agent that the standard agent's `description` does not name;
   - a robot body over `roofs.agent_body_lines`, a front-matter key outside the robot set or out of the fixed order, a missing or inherited
     `model`, or a `model` below the floor of a preloaded capability (`Get-RobotLineCount` counts the lines);
-  - a capability over `roofs.capability_lines`, with a `name` unlike its folder, user-invocable, without `allowed-tools` or a valid
-    `metadata.catzc.config.model_floor`, preloaded by no robot, or named in a `skills` list without a file;
+  - a capability over `roofs.capability_lines`, with a `name` unlike its folder, a `user-invocable` unlike its registry's `invoked_by`,
+    without `allowed-tools` or a valid `metadata.catzc.config.model_floor`, preloaded by no robot, or named in a `skills` list without a
+    file;
+  - a user skill that a robot preloads;
   - a capability file with no `capabilities.yml` entry, an entry with no file, or an entry whose citation or check resolves to nothing.
 - **`capabilities.yml`** (in `Catzc.Base.Docs`) is the capability registry, read through `Get-Config -Config capabilities` and validated on
   load by `CapabilitiesConfig`, one `CapabilityEntry` per capability, with the same shape rules as `AgentsConfig`. The roofs are `roofs` in

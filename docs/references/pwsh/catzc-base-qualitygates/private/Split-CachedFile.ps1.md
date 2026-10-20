@@ -33,6 +33,11 @@ The check's input stamp (Get-ContentStamp).
 
 The repository root.
 
+### parameter `FileStamp`
+
+Each file's own input stamp, by full path: the files beside it that the check's verdict reads (Get-FileMetaInputStamp). A stamped file's key
+becomes '`<SHA-256 of its bytes>:<stamp>:<file stamp>`'. Default: none.
+
 ### outputs
 
-`[pscustomobject]` { Pending = `string[]` in the given order; CachedCount; Key = full path -> @(relative path, key) }.
+`[pscustomobject]` { Pending = `string[]` in the given order; CachedCount; Key = full path -> @(relative path, key, file-stamp suffix) }.

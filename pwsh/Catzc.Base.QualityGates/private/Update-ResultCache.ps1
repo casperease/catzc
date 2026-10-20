@@ -57,7 +57,7 @@ function Update-ResultCache {
             $Cache.Remove($relative)
         }
         elseif ($RekeyFromDisk) {
-            $Cache[$relative] = "$([System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.IO.File]::ReadAllBytes($full)))):$Stamp"
+            $Cache[$relative] = "$([System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.IO.File]::ReadAllBytes($full)))):$Stamp$($Key[$full][2])"
         }
         else {
             $Cache[$relative] = $Key[$full][1]

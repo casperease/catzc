@@ -9,7 +9,7 @@ function Measure-NoCollapsingAssignment {
         A statement assigned to a variable yields its output, unwrapped: an empty branch gives $null and a one-item branch the item
         itself, so a later $variable.Count throws under strict mode on $null or reads the wrong thing on the item
         ([ADR-PWSH-ERROR-STRICTCLEAN](../../../adr/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)). The rule flags the assignment when the same script
-        block reads .Count on that variable and neither the variable is array-typed nor the right side is wrapped in @(). The fix is
+        block reads .Count on that variable, the variable is not array-typed, and it is not assigned an @() anywhere else. The fix is
         `[object[]] $notes = @()` before the statement, with each branch assigning `@(...)`, or `$notes = @(if (...) { ... })`.
     #>
     [CmdletBinding()]

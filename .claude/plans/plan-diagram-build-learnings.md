@@ -8,7 +8,6 @@ plan:
     [
       docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md,
       .claude/skills/catzc-run/SKILL.md,
-      .claude/CLAUDE.md,
       python/Catzc.Diagrams/drawio_forward.py,
       python/Catzc.Diagrams/configs/drawio.yml,
       pwsh/Catzc.Base.Slides/private/Write-DiagramMinimapData.ps1,
@@ -20,14 +19,13 @@ plan:
 A bare `Build-Diagrams` looked hung: it wrote the minimap data of all 171 diagram folders (1.5-2.5 s each), then rendered each (about 1 s),
 for 5-8 minutes with no output. Per-folder progress lines fixed the silence (committed as a user step in task-user-runs-and-commits). This
 plan folds the rest of what the session learned back into the repository: the help page that describes the run wrongly, the run skill that
-lacks two patterns an agent tripped on, the CLAUDE.md section that repeats the skill, the warning a full run prints on every pass, the
-minimap cost, and one drawing of the pipeline.
+lacks two patterns an agent tripped on, the warning a full run prints on every pass, the minimap cost, and one drawing of the pipeline.
 
 ## Why its value is medium
 
 Every agent and every user who runs `Build-Diagrams`, or any cats command under the time safeguard, pays for each item today: a wrong mental
-model from the help, a denied or timed-out call from a missing pattern, a longer CLAUDE.md in every session's context, and a warning that
-trains readers to ignore warnings. None of it blocks a feature.
+model from the help, a denied or timed-out call from a missing pattern, and a warning that trains readers to ignore warnings. None of it
+blocks a feature.
 
 ## Recommendations (the agent's, each with its reason)
 
@@ -56,14 +54,9 @@ trains readers to ignore warnings. None of it blocks a feature.
 ### Instructions
 
 - [ ] `.claude/skills/catzc-run/SKILL.md`: add line 4, a private function runs inside its module, `& (Get-Module <Module>) { … }`, never by
-      dot-sourcing its file; add line 5, wait on a background run with a background
-      `timeout <s> bash -c 'until grep -q <line> <output>;     do sleep 2; done'`, and search the tree with the Grep tool, never a recursive
-      `grep` (it passes 3 s). The file stays at most 10 lines (check: `Test-AgentDefinitions`).
-- [ ] `.claude/CLAUDE.md`, `### Time safeguard`: keep the rule, its code `ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`, the limits' home in
-      `timeouts.yml`, the hook and its log, exit 124, and "a denied call is a blocker, never a workaround"; replace the how-to-run detail
-      (background prefix, no `cd &&`, probe with the fastest runner) with one pointer to the `catzc-run` capability, which holds it. Check:
-      `Test-AgentDefinitions` and `Get-ClaudeMdAgentNames` tests (`Invoke-TestFile`), `Test-Links` on the file. Message the live sessions
-      before the edit (a shared file every session reads).
+      dot-sourcing its file; add line 5, wait on a background run with a second background call,
+      `timeout <s> bash -c 'until grep -q <line> <output>; do sleep 2; done'`, never by polling, and search the tree with the Grep tool,
+      never a recursive `grep` (it passes 3 s). The file stays at most 10 lines (check: `Test-AgentDefinitions`).
 
 ### Renderer
 

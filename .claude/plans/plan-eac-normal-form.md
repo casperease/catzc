@@ -20,6 +20,12 @@ domain, and no ADR holds them yet.
   lands and is sorted out with `Import-RepositoryWithHistory`. Alternative: its own ADR in `repository/`, next to ADR-REPO-FORMAT.
 - Q2: The name "eac" is also the sibling repository's name (ADR-REPO-INSPIRE). Recommendation: keep "eac normal form", whose contrast in the
   glossary says it means everything as code. Alternative: spell it "everything-as-code normal form" in the ADR and the glossary.
+- Q3: The glossary term `migration` is generic and will collide (a database migration, a tool migration). Recommendation: narrow it to
+  `fragment migration` in ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM and its glossary entry before other pages use it. Alternative: keep
+  `migration` and add avoid entries for its other senses.
+- Q4: Is the thesis drawing wanted? Recommendation: yes, one sample in `out/diagrams/dark-sample/` only: an unordered code fragment, its
+  migration, the formatters, tests and asserts reaching their fixed point, and the eac normal form, all inside the enabling constraints
+  (defaults, bundle, local configs). Nothing goes into `docs/` until the sample is approved.
 
 ## Open steps
 
@@ -29,3 +35,7 @@ domain, and no ADR holds them yet.
    gate, not prose (ADR-THES-NORMALFORM-UNCONTESTED). Check: its L0 Pester file.
 3. After Q2: rename the term in `docs/adr/thesis/eac-normal-form.md` and in the glossary sources only if Q2 picks the long spelling. Check:
    `Test-Glossary`.
+4. After Q3: the `migration` term narrowed (or its avoid entries added) in `docs/adr/thesis/eac-normal-form.md` and
+   `pwsh/Catzc.Base.Docs/configs/glossary.yml`, then `Build-Glossary`. Check: `Test-Glossary`.
+5. After Q4: the sample drawing through `drawio-diagram-waves` or `edit-diagram-yml`, one `diagram.drawio.yml` in
+   `out/diagrams/dark-sample/`. Check: the user approves the sample; only then a step places it beside the ADR's explanation.

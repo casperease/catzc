@@ -40,64 +40,18 @@ function Get-RelativeEdgesFileMetaFact {
         [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
-    $maxRelations = 8
-    $relations = if ($Kind.settings.ContainsKey('relations')) {
-        @($Kind.settings['relations'])
-    }
-    else {
-        @()
-    }
-    Assert-True ($relations.Count -le $maxRelations) `
-        -ErrorText "file-meta config: kind '$($Kind.id)' lists $($relations.Count) relations, at most $maxRelations are allowed."
-
     $root = Get-RepositoryRoot
-    $name = [System.IO.Path]::GetFileNameWithoutExtension($Path)
-    $tokens = @{
-        '{name}' = $name
-        '{stem}' = $name -replace '\.Tests$', ''
-    }
-    $module = Get-PathModule $Path
-    $tokens['{module}'] = $(if ($module) {
-            $module.name
-        }
-        else {
-            ''
-        })
-
-    $fileClass = (Get-FileKind $Path).Class
     $relatives = [ordered]@{}
     foreach ($key in $Kind.keys) {
         $relatives[$key] = ''
     }
-    foreach ($relation in $relations) {
-        Assert-True ($relation -is [System.Collections.IDictionary] -and $relation.Contains('name') -and $relation.Contains('rules')) `
-            -ErrorText "file-meta config: kind '$($Kind.id)' settings.relations entries need 'name' and 'rules'."
+    # A relation's candidates come in rule order: the first one on disk is the relation's file.
+    foreach ($entry in @(Get-RelativeEdgeCandidate -Path $Path -Kind $Kind)) {
+        $relation = $entry.Relation
         $found = $null
-        foreach ($rule in @($relation['rules'])) {
-            Assert-True ($rule -is [System.Collections.IDictionary] -and $rule.Contains('paths')) `
-                -ErrorText "file-meta config: kind '$($Kind.id)' relation '$($relation['name'])' rules need 'paths', and 'classes' unless the rule applies to every class."
-            # A rule without classes applies to every file the kind selects.
-            if ($rule.Contains('classes') -and -not [Catzc.Base.QualityGates.FileMetaKind]::InClasses([string[]] @($rule['classes']), $fileClass)) {
-                continue
-            }
-            foreach ($template in @($rule['paths'])) {
-                $candidate = "$template"
-                foreach ($token in $tokens.Keys) {
-                    $candidate = $candidate.Replace($token, $tokens[$token])
-                }
-                if ($candidate.Contains('{page}')) {
-                    $page = (Get-Config -Config comments).PageFor($Path)
-                    if (-not $page) {
-                        continue
-                    }
-                    $candidate = $candidate.Replace('{page}', $page)
-                }
-                if ([System.IO.File]::Exists((Join-Path $root $candidate))) {
-                    $found = $candidate
-                    break
-                }
-            }
-            if ($found) {
+        foreach ($candidate in $entry.Paths) {
+            if ([System.IO.File]::Exists((Join-Path $root $candidate))) {
+                $found = $candidate
                 break
             }
         }

@@ -148,3 +148,9 @@ capabilities:
   - name: listen-insight
     supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-ONETOPICONEFILE]
     checks: [Test-Plans]
+
+  # The checkpoint a user runs to bring a main session to its finalization phase before clearing it.
+  - name: session-finalize
+    invoked_by: user
+    supported_by: [ADR-REPO-AGENTS-USERSKILL, ADR-REPO-PLANS-OPENSTEP, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE]
+    checks: [Test-Plans]

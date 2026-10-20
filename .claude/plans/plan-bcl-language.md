@@ -2,7 +2,7 @@
 plan:
   status: active
   value: medium
-  reviewed: 2026-10-20
+  reviewed: 2026-10-21
   class: feature
   targets:
     [

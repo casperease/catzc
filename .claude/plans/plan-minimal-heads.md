@@ -15,6 +15,7 @@ plan:
       docs/adr/repository/file-meta.md,
       docs/adr/repository/code-file-meta.md,
       docs/adr/repository/repo-variants.md,
+      docs/adr/repository/comments-in-docs.md,
       docs/explanation/file-meta.md,
       contracts/catzc/0.0.0/Catzc.Base.QualityGates/head.sample.yml,
     ]
@@ -63,6 +64,11 @@ Every code file in the tree carries a head no reader needs, and the next `Format
 - **Q6: What is the test-to-code edge called?** Recommendation: `code`, so `source` keeps its one meaning, the authored input of a generated
   file.
 
+- **Q7: Should the next session read less about heads?** Recommendation: yes, in two cuts. First, merge the `docs-link-head` memory into
+  `minimal-heads-direction`, since the new direction supersedes it. Second, once this plan lands, fold ADR-REPO-FILEMETA-MODULEFACTS and
+  ADR-REPO-FILEMETA-MARKDOWNEDGES into the dropped-keys page, so `file-meta.md` holds one rule per head shape. Otherwise: keep both as they
+  are.
+
 ## Open steps
 
 - [ ] `docs/explanation/file-meta.md`: add a section naming every key a head does not carry (`repo_status`, `path`, `folder`, `name`,
@@ -84,6 +90,8 @@ Every code file in the tree carries a head no reader needs, and the next `Format
 - [ ] `docs/adr/repository/code-file-meta.md`: restate COMPUTABLEFACTSONLY (the head is `with_body_sha`, `cites`, `docs`, `test`, `code`;
       the hash's cost on concurrent edits stated), SAMEENGINE (scope is the variant, not every tracked file), and the samples and the "What
       the head holds" and "Scope" sections. (check: `Test-AdrCodes` passes.)
+- [ ] `docs/adr/repository/comments-in-docs.md`: restate ADR-REPO-COMMENTS-ONELINEOFINSIGHT so the code-to-page link is the navigation
+      head's `docs` edge when the variant is `minimal`, and nothing in the code when it is `none`. (check: `Test-AdrCodes` passes.)
 - [ ] `pwsh/Catzc.Base.Variants/types/VariantsConfig.cs` and `configs/variants.yml`: add `file_heads` with `code`, its
       `DefaultFileHeadsCode` constant (per Q5) shown in the shipped file, plus `Get-FileHeadVariant` and
       `Test-FileHeadVariant -Minimal|-None` (ADR-REPO-VARIANT-NODIRECTREADS). (check: `Invoke-TestFile` on
@@ -113,5 +121,13 @@ Every code file in the tree carries a head no reader needs, and the next `Format
 
 ## Refs
 
-- Context: Q1 of `plan-docs-link-head.md` (untracked, in use) is answered "trim" by this plan; `plan-master.md` and `value-of-plan.md` are
-  dirty in a peer's session, so this plan is not yet listed in either.
+- Context: `plan-master.md` and `value-of-plan.md` are dirty in a peer's session, so this plan is not yet listed in either.
+- `plan-docs-link-head.md` is retired into this plan (catzc-03, 2026-10-21); the trim of a paged file's head is this plan's.
+- `head_policy.pages` came from the user (2026-10-20): every code file with a comment page links it as
+  `edges.docs: "[<page>.md](docs/references/...)"`, repository-relative and with no leading `/` (the user corrected the `/`-rooted form).
+  The navigation head keeps that form, written by the `link: "[{leaf}]({path})"` template of the `docs` relation in `relative-edges`
+  (`Get-RelativeEdgesFileMetaFact`); only the `pages` policy goes, since the variant now decides which code files carry a head.
+- The paged-file wording to restate lives in ADR-REPO-FILEMETA-HEADPOLICY, the file-meta "Head policy" section, ADR-REPO-FILEMETA-FEWLINKS,
+  ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY and ADR-REPO-COMMENTS-ONELINEOFINSIGHT; the `pages` tests are in
+  `tests/types/FileHeadPolicy.Tests.ps1` and the "comment page where the default forbids one" case of
+  `tests/Invoke-FileMetaEngine.Tests.ps1`.

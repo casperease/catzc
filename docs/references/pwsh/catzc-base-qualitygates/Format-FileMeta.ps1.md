@@ -72,3 +72,12 @@ Above `function Format-FileMeta {`, written with `#`.
 The repository's preview switch is -DryRun, so ShouldProcess and -WhatIf are deliberately absent.
 [ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)
 ```
+
+## comment:2
+
+Above `$stamp = Get-FormatEngineStamp -Engine 'imprint:file-meta' -Settings...`, written with `#`.
+
+```text
+The cache is Format-Code's own for its file-meta step: one verdict, one cache, so either command skips what the other found clean.
+A head also reads the files beside its own (the comment page, the relations' candidates), so each file's key carries their stamp too.
+```

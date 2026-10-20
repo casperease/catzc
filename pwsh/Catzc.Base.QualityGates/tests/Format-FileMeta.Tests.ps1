@@ -50,6 +50,25 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -eq 'Checking the meta block of 2 file(s) (0 unchanged since their last check)...' }
     }
 
+    It 'checks a cached file again when only its comment page changes, and refreshes its head from the page' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'comments' } {
+            [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @(@{ source = 'docs'; docs = 'docs/pages' }) })
+        }
+        # The cites processor reads the page under the loaded repository root.
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:widgetRoot }
+        $page = Join-Path $script:widgetRoot 'docs/pages/widget.md.md'
+        [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($page)) | Out-Null
+        [System.IO.File]::WriteAllText($page, "# docs/widget.md`n")
+        Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
+        $path = Join-Path $script:widgetRoot 'docs/widget.md'
+        $before = [System.IO.File]::ReadAllText($path)
+
+        [System.IO.File]::WriteAllText($page, "# docs/widget.md`n`nSee ADR-GADGET-FOLD.`n")
+        Format-FileMeta -RepositoryRoot $script:widgetRoot | Should -Be @('docs/widget.md')
+        [System.IO.File]::ReadAllText($path) | Should -Not -BeExactly $before
+        [System.IO.File]::ReadAllText($path) | Should -BeLike '*- ADR-GADGET-SPIN*- ADR-GADGET-FOLD*'
+    }
+
     It 'never records a file the dry run would change, or one with a key no kind owns, as clean' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "---`ncatzc:`n  immutable:`n    surprise: 1`n---`n# docs/gadget.md`n")
         Format-FileMeta -RepositoryRoot $script:widgetRoot -DryRun | Out-Null

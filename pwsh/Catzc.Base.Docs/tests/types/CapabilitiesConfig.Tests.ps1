@@ -12,6 +12,15 @@ Describe 'CapabilitiesConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-CAPABILITYREG
         $config.capabilities[0].checks | Should -Be @('Test-Widget')
     }
 
+    It 'defaults invoked_by to robot, takes user, and rejects any other invoker' -Tag 'ADR-REPO-AGENTS-USERSKILL' {
+        $user = [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WIDGET-ONE-SPIN'); checks = @(); invoked_by = 'user' }
+        $config = [Catzc.Base.Docs.CapabilitiesConfig]::new([ordered]@{ capabilities = @($widget, $user) })
+        $config.capabilities.invoked_by | Should -Be @('robot', 'user')
+        $gizmo = [ordered]@{ name = 'gadget-turn'; supported_by = @('ADR-WIDGET-ONE-SPIN'); checks = @(); invoked_by = 'gizmo' }
+        { [Catzc.Base.Docs.CapabilitiesConfig]::new([ordered]@{ capabilities = @($gizmo) }) } |
+            Should -Throw '*capabilities`[0`]: invoked_by must be one of: robot, user*'
+    }
+
     It 'requires capabilities and rejects an unknown key' {
         $thrown = { [Catzc.Base.Docs.CapabilitiesConfig]::new([ordered]@{ gizmo = 1 }) } | Should -Throw -PassThru
         $message = $thrown.Exception.Message
