@@ -7,6 +7,8 @@ function Build-SlideDeck {
 
         [string] $Kit = (Get-Config -Config slides).kit,
 
+        [string] $Theme = (Get-Config -Config slides).theme,
+
         [string] $OutputFolder,
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),
@@ -18,9 +20,11 @@ function Build-SlideDeck {
     $deckFolder = Join-Path $RepositoryRoot $Deck
     Assert-PathExist $deckFolder -PathType Container -ErrorText "Build-SlideDeck: the deck folder '$Deck' does not exist under the repository root."
     $kitLoaded = Get-SlidesKit -Kit $Kit -RepositoryRoot $RepositoryRoot
+    $kitLoaded.Config = $kitLoaded.Config.ForTheme($Theme)
     $deckName = Split-Path $deckFolder -Leaf
     if ([string]::IsNullOrWhiteSpace($OutputFolder)) {
-        $OutputFolder = Join-Path (Join-Path $RepositoryRoot $kitLoaded.Config.Value('render.out')) $deckName
+        $themed = if ($Theme -ceq [Catzc.Base.Slides.SlidesConfig]::DefaultTheme) { $deckName } else { "$deckName-$Theme" }
+        $OutputFolder = Join-Path (Join-Path $RepositoryRoot $kitLoaded.Config.Value('render.out')) $themed
     }
 
     $faults = [System.Collections.Generic.List[Catzc.Base.Slides.SlideFault]]::new()

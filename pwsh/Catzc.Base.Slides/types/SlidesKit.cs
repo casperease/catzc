@@ -17,8 +17,13 @@ public sealed class SlidesKit
     private static readonly string[] RequiredFaces = { "display", "text" };
     private static readonly Regex HexColour = new Regex("^#[0-9A-Fa-f]{6}$", RegexOptions.Compiled);
     private static readonly Regex QuotedFamily = new Regex("^\\s*'([^']+)'", RegexOptions.Compiled);
+    // A theme's token set: `token-<theme>`, beside `token`, the set of the default theme (SlidesConfig.DefaultTheme).
+    private static readonly Regex ThemeSection = new Regex("^token-([a-z][a-z0-9-]*)$", RegexOptions.Compiled);
 
-    public IReadOnlyDictionary<string, string> token { get; }
+    public IReadOnlyDictionary<string, string> token { get; private set; }
+
+    // Every theme's token set by theme name, the default theme's included; each names the same tokens.
+    public IReadOnlyDictionary<string, IReadOnlyDictionary<string, string>> themes { get; }
     public IReadOnlyDictionary<string, string> face { get; }
     public IReadOnlyDictionary<string, string> scale { get; }
     public IReadOnlyDictionary<string, string> layout { get; }
@@ -38,9 +43,13 @@ public sealed class SlidesKit
             foreach (object key in raw.Keys)
             {
                 string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                if (Array.IndexOf(Sections, name) < 0)
+                if (ThemeSection.IsMatch(name) && !sections.ContainsKey(name))
                 {
-                    errors.Add(string.Format(CultureInfo.InvariantCulture, "unknown section '{0}' (allowed: {1})", name, string.Join(", ", Sections)));
+                    sections[name] = new Dictionary<string, string>(StringComparer.Ordinal);
+                }
+                else if (Array.IndexOf(Sections, name) < 0)
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "unknown section '{0}' (allowed: {1}, token-<theme>)", name, string.Join(", ", Sections)));
                     continue;
                 }
 
@@ -66,11 +75,35 @@ public sealed class SlidesKit
             }
         }
 
-        foreach (KeyValuePair<string, string> colour in sections["token"])
+        Dictionary<string, IReadOnlyDictionary<string, string>> sets = new Dictionary<string, IReadOnlyDictionary<string, string>>(StringComparer.Ordinal);
+        sets[SlidesConfig.DefaultTheme] = sections["token"];
+        foreach (string section in sections.Keys.Where(s => ThemeSection.IsMatch(s)).OrderBy(s => s, StringComparer.Ordinal))
         {
-            if (!HexColour.IsMatch(colour.Value))
+            string theme = ThemeSection.Match(section).Groups[1].Value;
+            if (theme == SlidesConfig.DefaultTheme)
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "token.{0} '{1}' must be a six-digit hex colour", colour.Key, colour.Value));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} repeats the default theme, whose set is token", section));
+                continue;
+            }
+
+            string[] missing = sections["token"].Keys.Except(sections[section].Keys).OrderBy(k => k, StringComparer.Ordinal).ToArray();
+            string[] extra = sections[section].Keys.Except(sections["token"].Keys).OrderBy(k => k, StringComparer.Ordinal).ToArray();
+            if (missing.Length > 0 || extra.Length > 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} names the tokens of token: missing {1}; unknown {2}", section, missing.Length > 0 ? string.Join(", ", missing) : "none", extra.Length > 0 ? string.Join(", ", extra) : "none"));
+            }
+
+            sets[theme] = sections[section];
+        }
+
+        foreach (KeyValuePair<string, Dictionary<string, string>> set in sections.Where(s => s.Key == "token" || ThemeSection.IsMatch(s.Key)))
+        {
+            foreach (KeyValuePair<string, string> colour in set.Value)
+            {
+                if (!HexColour.IsMatch(colour.Value))
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}.{1} '{2}' must be a six-digit hex colour", set.Key, colour.Key, colour.Value));
+                }
             }
         }
 
@@ -105,6 +138,7 @@ public sealed class SlidesKit
         }
 
         token = sections["token"];
+        themes = sets;
         face = sections["face"];
         scale = sections["scale"];
         layout = sections["layout"];
@@ -134,6 +168,20 @@ public sealed class SlidesKit
         }
 
         return value;
+    }
+
+    // The kit with a theme's token set as its tokens; a theme the kit does not declare fails, naming the themes it does.
+    public SlidesKit ForTheme(string theme)
+    {
+        IReadOnlyDictionary<string, string> set;
+        if (string.IsNullOrEmpty(theme) || !themes.TryGetValue(theme, out set))
+        {
+            throw new KeyNotFoundException(string.Format(CultureInfo.InvariantCulture, "the slides kit declares no theme '{0}' (themes: {1})", theme, string.Join(", ", themes.Keys)));
+        }
+
+        SlidesKit themed = (SlidesKit)MemberwiseClone();
+        themed.token = set;
+        return themed;
     }
 
     public IReadOnlyList<KeyValuePair<string, string>> Families()

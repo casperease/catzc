@@ -13,30 +13,32 @@ preview raster, and asserts the round-trip. The XML root is
 
 ```xml
 <mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1"
-              pageScale="1" pageWidth="1300" pageHeight="940" background="#1E2430" math="0" shadow="1">
+              pageScale="1" pageWidth="1300" pageHeight="940" background="@page" math="0" shadow="1">
 ```
 
 Keep it at most 1300 wide and grow downward. No gradients. **Every filled shape casts one slight shadow that fades to black**: the model's
 `shadow="1"` switches draw.io's shadow on for the whole diagram, every edge carries `shadow=0;` so lines stay flat, and text casts none. The
-preview rasters (`drawio_png.py`, the minimaps, the sample renderers) draw the same shadow themselves: the shape's silhouette in `#000000`
-at 30 %, offset 2 px right and 3 px down, blurred 2 px, painted just before the shape. Every rendered output is **dark**: the background
-`#1E2430` (dark grey with blue in it) is drawn first, behind everything else, and almost all text is a soft light grey `#CDD3DC` (titles and
-names on a glyph `#DDE2E9`, quiet text `#949FAE`), so a dark-mode and a light-mode viewer show the same page.
+preview rasters (`drawio_png.py`, the minimaps, the sample renderers) draw the same shadow themselves: the shape's silhouette in black at 30
+%, offset 2 px right and 3 px down, blurred 2 px, painted just before the shape. The `page` is drawn first, behind everything else, and
+almost all text is `ink` (titles and names on a glyph `title`, quiet text `quiet`).
 
-**Dark-theme tokens** (the single source; every value below and in [`glyphs.xml`](glyphs.xml) comes from here):
+**Colours are tokens.** A style never names a colour: it names a token as `@<token>` (`fillColor=@slate;`), and put writes the theme's
+colour. Every theme is one token set in [`configs/drawio.yml`](../configs/drawio.yml) (`theme-dark`, `theme-light`), the single source of
+every value; the first theme, dark, is the committed raster, and any other renders on demand to `out/drawio/themes/<theme>/`.
 
-| Token     | Value                 | Used for                                                                      |
-| --------- | --------------------- | ----------------------------------------------------------------------------- |
-| page      | `#1E2430`             | the canvas and every rendered output's base layer                             |
-| band      | `#262E3B` / `#3A4555` | band fill / border; band label `#B0BAC7`                                      |
-| panel     | `#222A36` / `#3A4555` | legend and outer panels                                                       |
-| sidebar   | `#2E2823` / `#453C33` | the minimap column's backing: a soft brown sheet above the page, below it all |
-| ink       | `#CDD3DC`             | text; title and on-glyph names `#DDE2E9`                                      |
-| quiet ink | `#949FAE`             | legend text and notes                                                         |
-| line      | `#AAB4C3`             | flow edges and their arrowheads, chip rims, the ADR-only dash                 |
-| marker    | `#E6EAF0` / `#1E2430` | marker disc fill / digit and rim (a light disc on the dark page)              |
-| chip      | `#262E3B` / `#AAB4C3` | fraction, rule and count chips: fill / rim; text `#CDD3DC`                    |
-| red       | `#8E2424` / `#E57373` | the only red: failure fill / rim and the failure-path edge (`#E57373`)        |
+| Token                  | Used for                                                                       |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| page                   | the canvas and every rendered output's base layer                              |
+| band / band-rim        | band fill / border; band label `band-label`                                    |
+| panel / panel-rim      | legend and outer panels                                                        |
+| sidebar / sidebar-rim  | the minimap column's backing: a soft sheet above the page, below it all        |
+| ink / title            | text; the title and on-glyph names                                             |
+| quiet                  | legend text and notes                                                          |
+| line                   | flow edges and their arrowheads, the ADR-only dash                             |
+| mark / mark-ink        | marker disc fill / digit and rim                                               |
+| chip / chip-rim        | fraction, rule and count chips: fill / rim; text `ink`                         |
+| red / red-rim / red-ink | the only red: failure fill / rim and the failure-path edge, failure text      |
+| map-\*                 | the minimaps: page, idle cell, rim, lit place and its ink, dim ink, the question |
 
 ## Ids and words
 
@@ -53,36 +55,35 @@ of thing has exactly one glyph, the same on every slide of every diagram, and it
 means two things across slides (grey is not "config" on one slide and "drift" on the next). The verbatim style strings are in
 [`glyphs.xml`](glyphs.xml); its preview is `out/diagrams/wave-7/_glyphs.drawio.png`. Copy from there, never retype.
 
-**Structure in mid-tones, state set apart.** On the dark page, structural kinds use lifted mid-tone fills with a light rim of the same hue
-and soft light names (`fontColor=#DDE2E9`): slate `#4E6378` / `#9FB3C8`, mauve `#6A567E` / `#B9A6CC`, olive `#5B7653` / `#A9C29F`. Neutral
-kinds are a dark fill with a light rim. Results and failures are saturated with a bright rim, and commits keep the locked palette
+**Structure in mid-tones, state set apart.** Structural kinds use lifted mid-tone fills with a rim of the same hue and `title` names:
+`slate` / `slate-rim`, `mauve` / `mauve-rim`, `olive` / `olive-rim`. Neutral kinds are `neutral` with `neutral-rim`. Results and failures are saturated with a bright rim, and commits keep the locked palette
 (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE), so no structural glyph can be mistaken for a commit state. Slate is shared by code unit, store and
 runner on purpose: their shapes (box, cylinder, pill) tell them apart.
 
 | Kind (legend phrase) | Shape                             | Fill / stroke         | Use it for                                                                                           |
 | -------------------- | --------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------- |
-| code unit            | rounded box                       | `#4E6378` / `#9FB3C8` | a module, function, type or script that runs; text `#DDE2E9`                                         |
-| named set            | rounded box                       | `#6A567E` / `#B9A6CC` | a group, globset, track, aspect or other named collection; text `#DDE2E9`                            |
-| file                 | page with a folded corner         | `#5B7653` / `#A9C29F` | a config, YAML, manifest or other file read as data (`shape=note`); text `#DDE2E9`                   |
-| store                | cylinder                          | `#4E6378` / `#9FB3C8` | the repository, a registry, a cache, a feed (`shape=cylinder3`); text `#DDE2E9`                      |
-| runner               | pill                              | `#4E6378` / `#9FB3C8` | a pipeline, stage, task or job that executes (`arcSize=50`); text `#DDE2E9`                          |
-| gate                 | rhombus, 3 px rim                 | `#2C3542` / `#C7D0DB` | a check that passes or stops the flow; never red, never yellow; text `#CDD3DC`                       |
-| environment          | hexagon                           | `#2C3542` / `#C7D0DB` | a deployment target; neutral, coloured only by its occupant (ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER) |
-| external tool        | square box                        | `#2C3542` / `#C7D0DB` | a vendor tool the code delegates to (az CLI, Bicep, git); text `#CDD3DC`                             |
-| actor                | circle                            | `#1E2430` / `#C7D0DB` | a person (developer, reviewer); text `#CDD3DC`                                                       |
-| result               | rounded box                       | `#2E7D5B` / `#7FD3AE` | what a step produces; text `#DDE2E9`                                                                 |
-| failure              | rounded box                       | `#8E2424` / `#E57373` | a throw, rejection or discard; the only red; text `#EFD4D4`                                          |
-| ADR-only             | the kind's shape, dashed, on page | `#1E2430` / `#AAB4C3` | something an ADR states that no code runs or checks; text `#CDD3DC`                                  |
+| code unit            | rounded box                       | slate / slate-rim     | a module, function, type or script that runs; text `title`                                           |
+| named set            | rounded box                       | mauve / mauve-rim     | a group, globset, track, aspect or other named collection; text `title`                              |
+| file                 | page with a folded corner         | olive / olive-rim     | a config, YAML, manifest or other file read as data (`shape=note`); text `title`                     |
+| store                | cylinder                          | slate / slate-rim     | the repository, a registry, a cache, a feed (`shape=cylinder3`); text `title`                        |
+| runner               | pill                              | slate / slate-rim     | a pipeline, stage, task or job that executes (`arcSize=50`); text `title`                            |
+| gate                 | rhombus, 3 px rim                 | neutral / neutral-rim | a check that passes or stops the flow; never red, never yellow; text `ink`                           |
+| environment          | hexagon                           | neutral / neutral-rim | a deployment target; neutral, coloured only by its occupant (ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER) |
+| external tool        | square box                        | neutral / neutral-rim | a vendor tool the code delegates to (az CLI, Bicep, git); text `ink`                                 |
+| actor                | circle                            | page / neutral-rim    | a person (developer, reviewer); text `ink`                                                           |
+| result               | rounded box                       | green / green-rim     | what a step produces; text `title`                                                                   |
+| failure              | rounded box                       | red / red-rim         | a throw, rejection or discard; the only red; text `red-ink`                                          |
+| ADR-only             | the kind's shape, dashed, on page | page / line           | something an ADR states that no code runs or checks; text `ink`                                      |
 
 **Source-lens phrases** (the `source` lens, below) are variants of the code unit. They stay in slate, so they add no colour to the budget.
 Copy them from `glyphs.xml` (`g-private`, `g-type` + `g-type-tag`, `g-module`):
 
 | Phrase         | Shape                                                  | Fill / stroke                      | Use it for                                                                 |
 | -------------- | ------------------------------------------------------ | ---------------------------------- | -------------------------------------------------------------------------- |
-| private helper | code unit, 36 px tall, dark fill, 11 px name           | `#2F3B4A` / `#9FB3C8`              | a function in the module's `private/` folder; never dashed; text `#CDD3DC` |
-| C# type        | code unit with a `C#` tag (26 × 16) on its top-right   | `#4E6378` / `#9FB3C8`, tag on page | a class or record under `types/*.cs`                                       |
-| catzc module   | slate frame, no fill, `strokeWidth=1.5`, name top-left | none / `#9FB3C8`                   | another `Catzc.*` module the drawn code calls; its members sit inside it   |
-| nested frame   | the same frame inside a frame (`g-module-holder`)      | none / `#9FB3C8`                   | a holder's part: a track holds its modules, a module holds its members     |
+| private helper | code unit, 36 px tall, dark fill, 11 px name           | neutral-deep / slate-rim           | a function in the module's `private/` folder; never dashed; text `ink`     |
+| C# type        | code unit with a `C#` tag (26 × 16) on its top-right   | slate / slate-rim, tag on page     | a class or record under `types/*.cs`                                       |
+| catzc module   | slate frame, no fill, `strokeWidth=1.5`, name top-left | none / slate-rim                   | another `Catzc.*` module the drawn code calls; its members sit inside it   |
+| nested frame   | the same frame inside a frame (`g-module-holder`)      | none / slate-rim                   | a holder's part: a track holds its modules, a module holds its members     |
 
 The private helper's dark fill is what sets it apart at preview scale. A dimmer or thinner rim on the code-unit fill was tried in the wave-9
 sample and read as identical to a code unit, so the difference is in the fill, never only in the rim. Italic labels don't show in the
@@ -95,49 +96,33 @@ reads as a second marker.
 The slide's own module is a band (chrome), not a `catzc module` frame. `external tool` stays a vendor tool (az, git, dotnet), never a catzc
 module.
 
-- **Chrome** is not a kind: band `#262E3B` / `#3A4555` (`arcSize=3`, label `#B0BAC7`), legend and outer panel `#222A36` / `#3A4555`
-  (`arcSize=6`), ink `#CDD3DC`, quiet ink `#949FAE`, lines `#AAB4C3`.
+- **Chrome** is not a kind: band `band` / `band-rim` (`arcSize=3`, label `band-label`), legend and outer panel `panel` / `panel-rim`
+  (`arcSize=6`), `ink`, `quiet`, `line`.
 - **Colour budget:** at most four kinds on one slide, plus chrome. A fifth kind means the slide is two slides.
 - **A drift is not a kind.** An ADR claim the code contradicts is drawn as its normal glyph with a numbered marker; the article states it.
 
-**Commit-lifecycle diagrams** (`commits-quality/`) use ONLY the locked commit palette from ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE.
-
-| Commit state            | Fill      | Stroke    |
-| ----------------------- | --------- | --------- |
-| brown topic             | `#C4915C` | `#7A4B25` |
-| grey landed             | `#C9CCD1` | `#6B7178` |
-| yellow BVT              | `#FFE082` | `#F9A825` |
-| blue L3                 | `#64B5F6` | `#1565C0` |
-| light-blue main-uat     | `#dae8fc` | `#6c8ebf` |
-| light-green release-uat | `#d5e8d4` | `#82b366` |
-| green prod              | `#60a917` | `#2D7600` |
-| red discarded           | `#8E2424` | `#E57373` |
-
-Ghosts use the state fill plus `strokeWidth=1.2;dashed=1;opacity=60;`. A commit's digit is dark ink `#1E2430` on the light states and on
-brown, and `#DDE2E9` on red and green.
+**Commit-lifecycle diagrams** (`commits-quality/`) use ONLY the locked commit palette from ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE: the
+`commits:` block of [`configs/drawio.yml`](../configs/drawio.yml) gives each state (topic, landed, bvt, l3, main-uat, release-uat, prod,
+discarded) its fill, stroke and digit ink, the same in every theme. Ghosts use the state fill plus `strokeWidth=1.2;dashed=1;opacity=60;`.
 
 On a slide that shows commit states, the structural kinds never collide with a commit colour. The result (green, near release-uat and prod)
 is still avoided there; draw commits as dots.
-
-**Recolouring a slide to the dark theme:** map by kind and shape, never by hex alone, using the glyph table above, and recolour each kind's
-legend swatch with it. A `<font color=…>` inside a cell's value turns to the kind's text colour or is removed. The commit colours stay,
-except red.
 
 ## Style strings (copy verbatim)
 
 Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line strings:
 
 - Band:
-  `rounded=1;html=1;arcSize=3;fillColor=#262E3B;strokeColor=#3A4555;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=#B0BAC7;`
-- Title: `text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#DDE2E9;`
-- Body/note: `text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=#949FAE;`
+  `rounded=1;html=1;arcSize=3;fillColor=@band;strokeColor=@band-rim;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=@band-label;`
+- Title: `text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=@title;`
+- Body/note: `text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=@quiet;`
 - Commit dot: `ellipse;html=1;fillColor=<state>;strokeColor=<state>;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=<digit>;`, with its
   digit as the value.
-- Edge: `edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#CDD3DC;endArrow=block;strokeColor=#AAB4C3;shadow=0;`. Give it
-  `source`/`target` ids and `<mxGeometry relative="1" as="geometry"/>`. An edge label sits on `labelBackgroundColor=#1E2430`.
-- Thick edge (to a named set): add `strokeWidth=2.5;`. ADR-only edge: add `dashed=1;`. Failure path: `strokeColor=#E57373;`, solid.
+- Edge: `edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=@ink;endArrow=block;strokeColor=@line;shadow=0;`. Give it
+  `source`/`target` ids and `<mxGeometry relative="1" as="geometry"/>`. An edge label sits on `labelBackgroundColor=@band`.
+- Thick edge (to a named set): add `strokeWidth=2.5;`. ADR-only edge: add `dashed=1;`. Failure path: `strokeColor=@red-rim;`, solid.
 - Span bar (eac's phase brace and the commit-story's top axis):
-  `shape=crossbar;html=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;shadow=0;` 14 px tall, with a caps label cell centred above it.
+  `shape=crossbar;html=1;fillColor=none;strokeColor=@line;strokeWidth=1.5;shadow=0;` 14 px tall, with a caps label cell centred above it.
   Use it over bands to group stages (CI, CD); never as an edge.
 
 ## Every diagram: verify, then simplify (applies to ALL makers)
@@ -321,15 +306,14 @@ view adds its sections in `describe.py`'s `VIEWS`.
 
 ### Colours (minimaps only; drawings keep the palettes above)
 
-- A minimap has a **page of its own**, a dark green-grey nuance `#1C2A24`, drawn first, so the three insets read as maps set into the slide
-  and never as a fourth band of the page (`#1E2430`). The lit colour comes from the `palette` of `maps.yml` (`Get-Config -Config maps`), the
-  same as the world-map PDFs: `highlight`, the light ink `#E6EAF0`, which the PDFs use for a lit cell's outline.
+- A minimap has a **page of its own**, `map-page`, a green-grey nuance drawn first, so the three insets read as maps set into the slide and
+  never as a fourth band of the `page`. A lit place is `map-lit` with its name in `map-lit-ink`.
 - **One lit encoding on all three minimaps:** a lit cell or file is filled in the lit colour; lit by passing mentions only, in the lit
   colour at 40 % over the idle cell. One map-key entry covers both on the grid, the tree and the value-chain map.
-- Idle cells and tiles are `#243229`, with `#3B4D43` borders, the same nuance one step up. Labels are `#CDD3DC` (lit) and `#949FAE` (not
-  lit). The map key on the slide shows its idle swatch in these minimap tokens, not in the slide's band tokens.
-- A lit ADR file tile on the tree has a 1 px rim in the minimap page colour `#1C2A24` (a dark ring on the light tile).
-- The **lens badge** is dark text `#1E2430` on `#E6EAF0`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
+- Idle cells and tiles are `map-panel`, with `map-rim` borders, the same nuance one step up. Labels are `map-caption` (lit) and `map-dim`
+  (not lit). The map key on the slide shows its idle swatch in these minimap tokens, not in the slide's band tokens.
+- A lit ADR file tile on the tree has a 1 px rim in `map-page` (a ring of the page colour on the lit tile).
+- The **lens badge** is `mark-ink` text on `mark`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
 - No hue appears inside a minimap beyond its page's green cast: red stays reserved for failure inside drawings, and yellow for the BVT
   commit state.
 - The lens badge sits on the **grid** minimap only, in its empty top-left corner. On the tree map it would hide tiles.
@@ -508,7 +492,7 @@ number, name, path and order against the repository as it is today; the reposito
 - numbers as symbols, each shown once: edge fractions (`4/5`, bold, on a white patch) first; a count chip (white pill, box-stroke rim;
   `m-count` in `glyphs.xml`, legend `count chip: <what it counts>`) only for a number no fraction already shows. Leaner wins: a symbol that
   repeats what another symbol says is cut, and the number goes to the `.md`;
-- **numbered markers**: a 22 px `#E6EAF0` disc with a 2 px `#1E2430` rim and a `#1E2430` bold digit, on a box's top-left corner or beside an
+- **numbered markers**: a 22 px `mark` disc with a 2 px `mark-ink` rim and a `mark-ink` bold digit, on a box's top-left corner or beside an
   edge. Each number is one Walkthrough step in `<stem>.md`. A marker always touches what it numbers (a glyph's corner, or the middle of an
   edge); a marker floating on empty canvas is a defect. An edge marker sits beside its edge with its rim touching the line (disc x = edge
   x + 2), never centred on it: the preview draws edges over every glyph, so a centred disc is struck through. To say "nothing here" (e.g. a
@@ -602,7 +586,7 @@ boxes in line (same row or same column) wherever possible. When an edge must lea
 cell** (`text;html=1;strokeColor=none;fillColor=none;`, id `port-<box>-<side>`) placed on that box's edge. The edge then stays straight in
 both the preview and draw.io. A bent edge (e.g. a return into a gate earlier in the flow) is straight segments between port cells, with
 `endArrow=none` on all but the last segment. Several targets one edge enters together share a **frame** (chrome, not a kind: no fill,
-`#3A4555` 1 px rim, `arcSize=6`); the edge ends on the frame, and the legend needs no row for it.
+`panel-rim` 1 px rim, `arcSize=6`); the edge ends on the frame, and the legend needs no row for it.
 
 ## Reporting drift found while verifying
 

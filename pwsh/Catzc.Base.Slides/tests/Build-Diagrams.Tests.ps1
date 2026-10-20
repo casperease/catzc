@@ -47,7 +47,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
     It 'calls the kit''s renderer through uv in the kit''s own project, the folder absolute, one stage per call' {
         & $script:build @{ Path = 'docs/widgets/.assets/widget-b'; Stage = 'highlight' } | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
-            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python "*kit*drawio_forward.py" --all "*docs*widgets*.assets*widget-b" --stage highlight'
+            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python "*kit*drawio_forward.py" --all "*docs*widgets*.assets*widget-b" --stage highlight --theme dark'
         }
     }
 

@@ -8,6 +8,12 @@ Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILEKIND' {
         ([Catzc.Base.Slides.SlidesConfig]::new(@{})).drawio_kit | Should -Be 'python/Catzc.Diagrams'
     }
 
+    It 'takes the declared default theme, maps a theme it is given, and rejects one that is not a theme name' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+        ([Catzc.Base.Slides.SlidesConfig]::new(@{})).theme | Should -Be 'dark'
+        ([Catzc.Base.Slides.SlidesConfig]::new(@{ theme = 'light' })).theme | Should -Be 'light'
+        { [Catzc.Base.Slides.SlidesConfig]::new(@{ theme = 'Light Mode' }) } | Should -Throw '*theme ''Light Mode'' must be a theme name*'
+    }
+
     It 'maps a draw.io kit it is given, and rejects one not in communication form' {
         ([Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = 'widget/kit/' })).drawio_kit | Should -Be 'widget/kit'
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = '../kit' }) } | Should -Throw '*drawio_kit*communication form*'

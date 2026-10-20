@@ -26,7 +26,9 @@ function Get-MinimapSubject {
         [pscustomobject]@{
             Path      = $reason.Path
             Requested = $reason.Requested
-            Citations = [string[]] @(if ($placement) { $placement.Citations })
+            Citations = [string[]] @(if ($placement) {
+                    $placement.Citations
+                })
             Facts     = $facts[$reason.Path]
         }
     }

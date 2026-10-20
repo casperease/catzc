@@ -9,6 +9,8 @@ function Build-Diagrams {
 
         [string] $Kit = (Get-Config -Config slides).drawio_kit,
 
+        [string] $Theme = (Get-Config -Config slides).theme,
+
         [string] $RepositoryRoot = (Get-RepositoryRoot),
 
         [switch] $FromDrawing,
@@ -103,7 +105,7 @@ function Build-Diagrams {
     }
     foreach ($folderPath in $folders) {
         foreach ($name in $stages) {
-            $arguments = "run --project `"$(Join-Path $root $Kit)`" python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --stage $name"
+            $arguments = "run --project `"$(Join-Path $root $Kit)`" python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --stage $name --theme $Theme"
             $run = [pscustomobject]@{ Folder = $folderPath; Article = $articles[$folderPath]; Stage = $name; ExitCode = $null; Status = 'dry-run' }
             if ($DryRun) {
                 Write-Message "Would run: uv $arguments"

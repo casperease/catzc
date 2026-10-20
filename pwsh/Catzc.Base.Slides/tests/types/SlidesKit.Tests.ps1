@@ -58,4 +58,29 @@ Describe 'SlidesKit' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-PATTERN' {
         [Catzc.Base.Slides.SlidesKit]::FamilyOf('Arial, sans-serif') | Should -Be 'Arial'
         [Catzc.Base.Slides.SlidesKit]::FamilyOf('') | Should -Be ''
     }
+
+    Context 'themes' -Tag 'ADR-REPO-SLIDES-THEMESELECTOR' {
+        BeforeAll {
+            $script:themed = $script:raw.Clone()
+            $script:themed['token-light'] = @{ bg = '#F0F0F0'; accent = '#ABCDEF' }
+        }
+
+        It 'renders one kit in each theme it declares: token is the default theme''s set, token-light the light theme''s' {
+            $kit = [Catzc.Base.Slides.SlidesKit]::new($script:themed)
+            @($kit.themes.Keys) | Should -Be @('dark', 'light')
+            $kit.ForTheme('dark').Value('token.bg') | Should -Be '#101010'
+            $kit.ForTheme('light').Value('token.bg') | Should -Be '#F0F0F0'
+            $kit.Value('token.bg') | Should -Be '#101010'
+        }
+
+        It 'refuses a theme the kit does not declare, naming the themes it does' {
+            { ([Catzc.Base.Slides.SlidesKit]::new($script:raw)).ForTheme('light') } | Should -Throw '*declares no theme ''light'' (themes: dark)*'
+        }
+
+        It 'refuses a theme set that names other tokens than token' {
+            $broken = $script:raw.Clone()
+            $broken['token-light'] = @{ bg = '#F0F0F0'; gadget = '#000000' }
+            { [Catzc.Base.Slides.SlidesKit]::new($broken) } | Should -Throw '*token-light names the tokens of token: missing accent; unknown gadget*'
+        }
+    }
 }

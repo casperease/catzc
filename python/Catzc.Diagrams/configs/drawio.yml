@@ -66,6 +66,7 @@ theme-dark: # every colour a style may name, as a token: a style says @<token>, 
   map-lit-ink: 1E2430 # its name
   map-dim: 7D8C86 # dim minimap ink
   map-caption: CDD3DC # a minimap's question
+  map-mention: 737983 # a place a minimap names without lighting it
 theme-light: # the light-era kit's colours, the light side of its light-to-dark map; where it named several, the draw.io pair the kit used
   page: FFFFFF
   band: F6F8FA
@@ -106,6 +107,7 @@ theme-light: # the light-era kit's colours, the light side of its light-to-dark 
   map-lit-ink: FFFFFF
   map-dim: 7D8C86
   map-caption: 333333
+  map-mention: B0B7BF
 minimaps: # the eight minimap ids, and the default three of each kind (declaration.py validates the count and each id)
   ids: grid, code-locations, axis, layer-stack, lifecycle-position, track-placement, engine-strip, module-neighbourhood
   explanation_default: grid, axis, layer-stack

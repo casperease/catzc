@@ -19,6 +19,7 @@ the subject of [tracks](../../adr/design/tracks.md).
 | responsibility:3 | verify      | [World-map quality gate](#responsibility3--world-map-quality-gate) |
 | responsibility:4 | value-chain | [Value-chain map](#responsibility4--value-chain-map)               |
 | responsibility:5 | render      | [PDF rendering](#responsibility5--pdf-rendering)                   |
+| responsibility:6 | minimap     | [Minimap data](#responsibility6--minimap-data)                     |
 
 ### responsibility:1 — World-map placement
 
@@ -54,6 +55,13 @@ marked, and the tree, the tracks as a treemap by file count. With a highlight th
 so a highlight never overwrites the plain map. The colours, labels, limits, page size, reviewed pins and exceptions, and the output folder
 are configuration with a default declared once on the config type. The bytes depend only on the map, the configuration, and the highlight.
 
+### responsibility:6 — Minimap data
+
+Computing the data a diagram's minimaps draw, one function per minimap, in the one shape of the minimap contract. A diagram's subject is the
+files its ADR codes light on the world map; each minimap projects those files and their facts onto its own axes, read from a registry (the
+rungs, the ADR layers, the tracks, the execution engines, the module dependencies), so every lit cell carries the file and the requested
+code that light it. Which minimaps a diagram kind may show, and the three it shows by default, are configuration.
+
 ## What the module does
 
 The module turns two registries and the git index into one picture of the repository. Responsibility 1 is its foundation: every other
@@ -85,14 +93,19 @@ different properties; the labels of both maps share one configuration section an
 
 The module's public functions and configuration, sorted into the responsibilities above.
 
-| Responsibility                            | Function                  |
-| ----------------------------------------- | ------------------------- |
-| responsibility:1 — World-map placement    | `Get-WorldMap`            |
-| responsibility:2 — Lit cells              | `Get-WorldMapHighlight`   |
-|                                           | `Export-MinimapData`      |
-| responsibility:3 — World-map quality gate | `Test-WorldMap`           |
-| responsibility:4 — Value-chain map        | `Get-ValueChainMap`       |
-|                                           | `Get-ValueChainHighlight` |
-|                                           | `Test-ValueChainMap`      |
-| responsibility:5 — PDF rendering          | `Export-WorldMapPdf`      |
-| config                                    | `maps.yml`                |
+| Responsibility                            | Function                             |
+| ----------------------------------------- | ------------------------------------ |
+| responsibility:1 — World-map placement    | `Get-WorldMap`                       |
+| responsibility:2 — Lit cells              | `Get-WorldMapHighlight`              |
+|                                           | `Export-MinimapData`                 |
+| responsibility:3 — World-map quality gate | `Test-WorldMap`                      |
+| responsibility:4 — Value-chain map        | `Get-ValueChainMap`                  |
+|                                           | `Get-ValueChainHighlight`            |
+|                                           | `Test-ValueChainMap`                 |
+| responsibility:5 — PDF rendering          | `Export-WorldMapPdf`                 |
+| config                                    | `maps.yml`                           |
+| responsibility:6 — Minimap data           | `Get-LifecyclePositionMinimapData`   |
+|                                           | `Get-LayerStackMinimapData`          |
+|                                           | `Get-TrackPlacementMinimapData`      |
+|                                           | `Get-EngineStripMinimapData`         |
+|                                           | `Get-ModuleNeighbourhoodMinimapData` |
