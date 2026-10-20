@@ -43,7 +43,7 @@ ADRs themselves; this file carries only their DORA rationale.
 > DORA finds that comprehensive version control, test automation, and code maintainability predict delivery performance, and that they pay
 > off only when everything needed to reproduce a system is checked the same way. One eac normal form, verified within the repository's own
 > enabling constraints and uncontested by its formatters, tests, and asserts, gives every piece of code, imported fragments included, one
-> repeatable test of whether it belongs to the record.
+> repeatable test of whether it belongs to the record and what that record consists of.
 
 - [Version control](../../references/dora/capabilities.md#version-control) — any code, whatever its origin, is brought under the one record.
 - [Test automation](../../references/dora/capabilities.md#test-automation) — the repository's own checks decide the form, not judgement.
