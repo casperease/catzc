@@ -5,12 +5,12 @@
 ### Rule ADR-PWSH-NAMES-ANALYZERRULE
 
 A custom PSScriptAnalyzer rule, `Measure-SpellOutIdentifiers`, is the automatic identifier-level enforcer of
-[spell-out-names](../spell-out-names.md) (`ADR-AUTO-SPELL`). It tokenizes every variable reference — assignment targets,
-parameters, loop variables, and reads — and the noun of every function name (camelCase / PascalCase / snake_case), and flags any fragment
-that is neither a real English word nor an approved registry term. It applies no minimum word length, so it catches the short and compound
-coined abbreviations cspell's `minWordLength` lets through (`$rcg`, `$tfPath`) — a class left to code review alone. Its oracle is a native
-type (`SpellingOracle`) over cspell's own English words (`Build-EnglishDictionary` flattens them to `assets/english.txt.gz`) combined with
-the registry term lists, so the analyzer and `Test-Spelling` agree on what a word is. It cannot separate an abbreviation that is also a real
+[spell-out-names](../spell-out-names.md) (`ADR-AUTO-SPELL`). It tokenizes every variable reference — assignment targets, parameters, loop
+variables, and reads — and the noun of every function name (camelCase / PascalCase / snake_case), and flags any fragment that is neither a
+real English word nor an approved registry term. It applies no minimum word length, so it catches the short and compound coined
+abbreviations cspell's `minWordLength` lets through (`$rcg`, `$tfPath`) — a class left to code review alone. Its oracle is a native type
+(`SpellingOracle`) over cspell's own English words (`Build-EnglishDictionary` flattens them to `assets/english.txt.gz`) combined with the
+registry term lists, so the analyzer and `Test-Spelling` agree on what a word is. It cannot separate an abbreviation that is also a real
 dictionary word (`$spec`, `$info`) from a genuine short word; those remain a code-review concern.
 
 - [The analyzer rule](#the-analyzer-rule)
@@ -51,27 +51,25 @@ for the genuinely nameless intermediate, never a licence to blur a value that ha
 
 ### Rule ADR-PWSH-NAMES-POWERSHELLIDENTIFIERS
 
-In PowerShell, the identifiers
-[ADR-AUTO-SPELL-FULLWORDIDENTIFIERS](../spell-out-names.md#rule-adr-auto-spell-fullwordidentifiers) spells out are variable names
-(`$protocols`, not `$protos`), parameter names (`-TemplateFolderPath`), hashtable keys, and the noun of a `Verb-Noun` function name; the
-verb is one of PowerShell's approved verbs ([respect-pwsh-verb-rules](respect-pwsh-verb-rules.md)).
+In PowerShell, the identifiers [ADR-AUTO-SPELL-FULLWORDIDENTIFIERS](../spell-out-names.md#rule-adr-auto-spell-fullwordidentifiers) spells
+out are variable names (`$protocols`, not `$protos`), parameter names (`-TemplateFolderPath`), hashtable keys, and the noun of a `Verb-Noun`
+function name; the verb is one of PowerShell's approved verbs ([respect-pwsh-verb-rules](respect-pwsh-verb-rules.md)).
 
 - [The analyzer rule](#the-analyzer-rule)
 
 ### Rule ADR-PWSH-NAMES-ENGINENAMES
 
-The engine's own names that [ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](../spell-out-names.md#rule-adr-auto-spell-allowedabbreviations)
-exempts are PowerShell's automatic and preference variables — `$_`, `$PSItem`, `$args`, `$PSCmdlet`, `$PSBoundParameters`, `$IsWindows`,
+The engine's own names that [ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](../spell-out-names.md#rule-adr-auto-spell-allowedabbreviations) exempts
+are PowerShell's automatic and preference variables — `$_`, `$PSItem`, `$args`, `$PSCmdlet`, `$PSBoundParameters`, `$IsWindows`,
 `$ErrorActionPreference`, and the like. A drive-qualified variable (`$env:`, `$function:`, `$variable:`) names data outside our choosing,
-not an identifier ([ADR-AUTO-SPELL-IDENTIFIERSNOTDATA](../spell-out-names.md#rule-adr-auto-spell-identifiersnotdata)), and is
-never checked.
+not an identifier ([ADR-AUTO-SPELL-IDENTIFIERSNOTDATA](../spell-out-names.md#rule-adr-auto-spell-identifiersnotdata)), and is never checked.
 
 - [The analyzer rule](#the-analyzer-rule)
 
 ## Context
 
-[spell-out-names](../spell-out-names.md) fixes the doctrine: identifiers are spelled out in full, the curated vocabulary lives in
-one registry, and a flagged token is a review candidate. This ADR realises it in pwsh — what an identifier is in PowerShell, which names the
+[spell-out-names](../spell-out-names.md) fixes the doctrine: identifiers are spelled out in full, the curated vocabulary lives in one
+registry, and a flagged token is a review candidate. This ADR realises it in pwsh — what an identifier is in PowerShell, which names the
 engine owns, the analyzer rule that checks them, and the blessed names a local takes when it has no meaning of its own.
 
 ### The analyzer rule
@@ -89,9 +87,9 @@ gate. Per file it:
 
 The oracle accepts the fixture vocabulary (`.cspell/fixture.txt`) only when the analyzed file is a test — a `*.Tests.ps1` file or a file
 under `tests/` — so a test may use fixture names that production code may not
-([ADR-AUTO-SPELL-CATEGORYANDMEANING](../spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)). The oracle is a native type
-because a PowerShell method call costs too much to look up thousands of fragments per file; the rule loads the committed types assembly into
-the analyzer's own runspace once.
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](../spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)). The oracle is a native type because a
+PowerShell method call costs too much to look up thousands of fragments per file; the rule loads the committed types assembly into the
+analyzer's own runspace once.
 
 Hashtable keys and string literals are not read: a key often mirrors an external contract (ADR-AUTO-SPELL-IDENTIFIERSNOTDATA), so a coined
 key is a code-review concern.

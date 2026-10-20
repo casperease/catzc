@@ -47,7 +47,7 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
             [ordered]@{ project = 'FixtureProject' }
         }
         Mock Get-RepositoryRoot { $TestDrive } -ModuleName Catzc.Base.QualityGates
-        Mock Get-TrackPlace -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Track -eq 'infrastructure' -and $Kind -eq 'templates' } { 'gadgets/blueprints' }
+        Mock Get-TrackPlace -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Track -eq 'infrastructure' -and $TrackKind -eq 'templates' } { 'gadgets/blueprints' }
         [void][System.IO.Directory]::CreateDirectory((Join-Path $TestDrive 'gadgets/blueprints/sample'))
     }
 

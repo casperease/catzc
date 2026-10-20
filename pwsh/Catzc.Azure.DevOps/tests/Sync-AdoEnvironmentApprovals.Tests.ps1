@@ -6,7 +6,7 @@ Describe 'Sync-AdoEnvironmentApprovals' -Tag 'L0', 'logic' {
         }
         Mock Get-Config -ModuleName Catzc.Azure.DevOps -ParameterFilter { $Config -eq 'environment-approvals' } {
             [Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::new([ordered]@{
-                    approver_group = [ordered]@{ name = 'Widget Approvers'; members = $script:members }
+                    approver_group    = [ordered]@{ name = 'Widget Approvers'; members = $script:members }
                     timeout_hours     = 8
                     units             = @('widget')
                     prod_environments = @('widget-psub', 'widget-prod')

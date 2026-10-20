@@ -22,11 +22,11 @@ Describe 'Set-ImportMix' -Tag 'L0', 'logic' {
     }
 
     It 'removes a loaded module whose code languages are outside the mix, and keeps the rest' -Tag 'ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES' {
-        $mix = Set-ImportMix -Languages widget
+        $mix = Set-ImportMix -LanguageNames widget
         $mix.skipped_modules | Should -Be @('Widget.Beta', 'Widget.Gamma')
         $script:loaded | Should -Be @('Widget.Alpha')
         Should -Invoke Remove-Module -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly
-        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter { $Message -like '*Removed 1 module(s)*Widget.Beta*' }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter { $Message -like 'Removed module Widget.Beta *' }
     }
 
     It 'keeps the mix as the session record Get-ImportMix returns' -Tag 'ADR-AUTO-IMPORTER-ONEMIXRECORD' {

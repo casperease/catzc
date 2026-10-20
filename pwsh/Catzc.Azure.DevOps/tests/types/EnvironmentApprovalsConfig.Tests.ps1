@@ -12,10 +12,10 @@ Describe 'Catzc.Azure.DevOps.EnvironmentApprovalsConfig' -Tag 'L0' {
         }
 
         $script:ladder = [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = [ordered]@{
-                    'widget-uat' = @{ environment = 'widget'; gate = 'none' }
-                    'gadget-uat' = @{ environment = 'gadget'; gate = 'rc' }
+                    'widget-uat'  = @{ environment = 'widget'; gate = 'none' }
+                    'gadget-uat'  = @{ environment = 'gadget'; gate = 'rc' }
                     'gizmo-stage' = @{ environment = 'gizmo'; gate = 'rbc' }
-                    'live' = @{ environment = 'live'; gate = 'prod-approval' }
+                    'live'        = @{ environment = 'live'; gate = 'prod-approval' }
                 }
             })
     }

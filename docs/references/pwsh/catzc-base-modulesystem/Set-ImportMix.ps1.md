@@ -18,7 +18,7 @@ the mix is removed
 ([ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES](../../../adr/automation/importer.md#rule-adr-auto-importer-codelanguagesselectmodules)), and
 the removal is announced; nothing is announced when no module goes. Get-ImportMix returns the kept record.
 
-### parameter `Languages`
+### parameter `LanguageNames`
 
 The languages of the mix. Default: importer.yml's languages, auto unless it names a list.
 
@@ -37,5 +37,5 @@ Resolve and return the mix without keeping it or removing a module.
 ### example 1
 
 ```powershell
-Set-ImportMix -Languages powershell, csharp -DryRun
+Set-ImportMix -LanguageNames powershell, csharp -DryRun
 ```

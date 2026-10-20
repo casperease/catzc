@@ -68,11 +68,10 @@ which the formatter honours, so typing `$x` at the prompt shows those properties
 
 ## Context
 
-[native-csharp-types](../BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`) decides what the C# types are: one type per file, a
-namespace per module, one combined assembly committed under a hash name, a fixed internal model, console-ready text. Every one of those
-types runs inside a pwsh process, which compiles the assembly, loads it, and hands its objects to PowerShell code. This ADR is how that host
-binds the types: which compiler, which references, which names pwsh callers type, and what a running pwsh can and cannot do with a changed
-type.
+[native-csharp-types](../BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`) decides what the C# types are: one type per file, a namespace per
+module, one combined assembly committed under a hash name, a fixed internal model, console-ready text. Every one of those types runs inside
+a pwsh process, which compiles the assembly, loads it, and hands its objects to PowerShell code. This ADR is how that host binds the types:
+which compiler, which references, which names pwsh callers type, and what a running pwsh can and cannot do with a changed type.
 
 ### The compiler
 
@@ -127,8 +126,8 @@ restore the trail, and the design leans on both:
 - **The IDE project makes the C# navigable.** With `Catzc.Types.csproj` built, every `types/*.cs` is a first-class Dev Kit symbol, so
   Go-to-Symbol on `ModuleDependencyFormat` jumps to source.
 
-A short accelerator trades some of the [spell-out ADR](../spell-out-names.md)'s self-describing-name value for terseness at the
-call site; the `Catzc.`-namespaced, source-authored literal is what keeps it discoverable rather than opaque.
+A short accelerator trades some of the [spell-out ADR](../spell-out-names.md)'s self-describing-name value for terseness at the call site;
+the `Catzc.`-namespaced, source-authored literal is what keeps it discoverable rather than opaque.
 
 ### Stale types in a pwsh process
 

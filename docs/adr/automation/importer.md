@@ -13,9 +13,9 @@ model names, every entry generated from one source and never hand-edited
 
 ### Rule ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX
 
-An engine's importer entry is generated only when one of the engines it serves is in the mix: `importer.sh` only with a POSIX engine.
-Which engines an entry serves comes from the engine model's importer entry, never from a key beside the generated file, so the fact lives
-once ([ADR-AUTO-ENGINE-IMPORTERENTRY](execution-engines.md#rule-adr-auto-engine-importerentry)).
+An engine's importer entry is generated only when one of the engines it serves is in the mix: `importer.sh` only with a POSIX engine. Which
+engines an entry serves comes from the engine model's importer entry, never from a key beside the generated file, so the fact lives once
+([ADR-AUTO-ENGINE-IMPORTERENTRY](execution-engines.md#rule-adr-auto-engine-importerentry)).
 
 - [One entry per engine](#one-entry-per-engine)
 
@@ -101,8 +101,8 @@ session and read, never recomputed: a test runner that re-decided the engines co
 ### Deciding after the load
 
 Deciding the mix needs the module model, the languages configuration and the engine locator, and those are modules themselves. Deciding
-after the load uses them as they are. A two-phase load, with the deciding modules first and the rest filtered, carries a second load path.
-A file-extension map inside the importer is a second living version of the languages configuration
+after the load uses them as they are. A two-phase load, with the deciding modules first and the rest filtered, carries a second load path. A
+file-extension map inside the importer is a second living version of the languages configuration
 ([one-living-version](../principles/one-living-version.md)). Loading a module and then removing it costs time only when the mix leaves
 modules out. Counting a module's asset or test files would let an explicit mix drop a module for a script it only ships.
 

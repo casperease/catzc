@@ -55,11 +55,11 @@ the function is idempotent and names a non-idempotent command it wraps, and a `.
 
 ## Context
 
-[idempotent-state-functions](../idempotent-state-functions.md) (`ADR-AUTO-IDEM`) decides that every state-changing function is
-idempotent: check before acting, prefer graceful handling, overwrite rather than append, return the resulting state, and document the
-contract. Those rules hold for every execution engine. PowerShell adds its own ways to get each one wrong: cmdlets that look alike but
-differ on a re-run, a `-Force` that means different things on different commands, and a pipeline that returns every value a function forgets
-to capture. This ADR realises the doctrine in pwsh.
+[idempotent-state-functions](../idempotent-state-functions.md) (`ADR-AUTO-IDEM`) decides that every state-changing function is idempotent:
+check before acting, prefer graceful handling, overwrite rather than append, return the resulting state, and document the contract. Those
+rules hold for every execution engine. PowerShell adds its own ways to get each one wrong: cmdlets that look alike but differ on a re-run, a
+`-Force` that means different things on different commands, and a pipeline that returns every value a function forgets to capture. This ADR
+realises the doctrine in pwsh.
 
 ### Overwrite, not append
 
@@ -107,8 +107,8 @@ the idempotent path, and the switch is opt-in behaviour, so it is a `[switch]`
 ([parameter-design](parameter-design.md#rule-adr-pwsh-param-switchnotbool)).
 
 A destructive verb uses the same name for a different job: on `Remove-<Tool>`, `-Force` confirms the removal, and without it the function
-reports its plan ([tool-removal-lifecycle](../tool-removal-lifecycle.md#rule-adr-auto-remove-doublyguarded)). The two meanings
-never meet on one function, and each function's help states which one it has (ADR-PWSH-IDEM-CONTRACTINHELP).
+reports its plan ([tool-removal-lifecycle](../tool-removal-lifecycle.md#rule-adr-auto-remove-doublyguarded)). The two meanings never meet on
+one function, and each function's help states which one it has (ADR-PWSH-IDEM-CONTRACTINHELP).
 
 ### One result on both paths
 

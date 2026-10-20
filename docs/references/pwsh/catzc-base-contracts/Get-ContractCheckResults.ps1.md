@@ -34,8 +34,8 @@ ContractCheckResult — Passed, and every finding as a precise message.
 The assets come from the pipeline (Get-Contract) or -Asset; with neither, every asset of every unit's draft, 0.0.0, is checked. A failed
 check is a result with Passed false, never an exception; only misuse throws (a null asset, a repository root that does not exist). This
 returns records rather than a boolean, so it is a Get- and not a Test-
-([ADR-PWSH-VERBS-SEMANTICCONTRACT](../../../adr/automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-semanticcontract)), and the noun is
-plural for the collection it returns
+([ADR-PWSH-VERBS-SEMANTICCONTRACT](../../../adr/automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-semanticcontract)), and the
+noun is plural for the collection it returns
 ([ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS](../../../adr/automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-pluralcollectionnouns)).
 
 ### parameter `Asset`

@@ -70,8 +70,8 @@ None of these are per-function files within a module, so the rule above is intac
 
 ### Source and the generated build
 
-The toolset runs in two modes ([run-modes](../../design/run-modes.md)). In source mode the generated manifest lists every `.ps1` function file
-of a module in its `PrivateData`, and its one `NestedModules` entry, the shared loader `pwsh/.internal/assets/Import-ModuleFiles.ps1`,
+The toolset runs in two modes ([run-modes](../../design/run-modes.md)). In source mode the generated manifest lists every `.ps1` function
+file of a module in its `PrivateData`, and its one `NestedModules` entry, the shared loader `pwsh/.internal/assets/Import-ModuleFiles.ps1`,
 parses each file in memory and dot-sources it into the module's session state
 ([dynamic-module-manifests](dynamic-module-manifests.md#regenerated-manifests)). In build mode `Build-Modules` concatenates the same files —
 `private/` first, then the root, each in ordinal order and each preceded by a `# source:` marker line naming its source path — into one

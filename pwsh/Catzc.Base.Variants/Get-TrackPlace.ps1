@@ -7,14 +7,19 @@ function Get-TrackPlace {
         [string] $Track,
 
         [Parameter(Mandatory)]
-        [string] $Kind
+        [string] $TrackKind
     )
 
     $entry = Get-Track -Name $Track
-    $place = $entry.KindPlace($Kind)
+    $place = $entry.KindPlace($TrackKind)
     if ($null -eq $place) {
-        $declared = if ($entry.kinds.Count -gt 0) { @($entry.kinds.Keys) -join ', ' } else { 'none' }
-        throw "Track '$Track' names no kind '$Kind' (its kinds: $declared); declare it under kinds: of the track in the variants config, Catzc.Base.Variants configs/variants.yml."
+        $declared = if ($entry.kinds.Count -gt 0) {
+            @($entry.kinds.Keys) -join ', '
+        }
+        else {
+            'none'
+        }
+        throw "Track '$Track' names no kind '$TrackKind' (its kinds: $declared); declare it under kinds: of the track in the variants config, Catzc.Base.Variants configs/variants.yml."
     }
     $place
 }

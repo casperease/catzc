@@ -23,8 +23,8 @@ system-installed copy. For each module it:
   antivirus scans on first load, so isolating that cost per module makes a slow startup measurable rather than guessed at.
 
 `-VendorRoot` is the vendor directory (it skips silently when the path does not exist). Vendoring modules this way — checked-in versions
-loaded without a gallery restore — is the subject of the [vendor-toolset-dependencies](../../../adr/automation/pwsh/vendor-toolset-dependencies.md)
-ADR.
+loaded without a gallery restore — is the subject of the
+[vendor-toolset-dependencies](../../../adr/automation/pwsh/vendor-toolset-dependencies.md) ADR.
 
 ## Functions
 

@@ -358,7 +358,7 @@ def test_a_span_may_name_a_track_of_the_registry_and_nothing_else():
         declaration.normalise(raw)
 
 
-def test_drift_is_empty_after_put_and_names_the_cell_a_yml_edit_left_unput(tmp_path):
+def test_drift_is_empty_after_put_and_names_the_cell_a_yml_edit_left_unwritten(tmp_path):
     source = __import__("yaml").safe_load(WIDGETS)
     (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
     declaration.put_png(tmp_path, declaration.load(tmp_path))

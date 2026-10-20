@@ -34,7 +34,7 @@ function Assert-CatzcBundle {
     }
     $files = @($files)
 
-    # No test folder ships: tests/ is never live by the layout (ADR-AUTO-MODULE-EXISTSBYLAYOUT). Vendored modules are verbatim copies (powershell-yaml carries its own Tests/).
+    # No test folder ships: tests/ is never live by the layout ([ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/adr/automation/module-model.md#rule-adr-auto-module-existsbylayout)). Vendored modules are verbatim copies (powershell-yaml carries its own Tests/).
     $leaked = @($files | Where-Object { -not $_.StartsWith('.vendor/') -and "/$_" -match '(?i)/tests/' })
     if ($leaked.Count -gt 0) {
         $violations.Add("$($leaked.Count) test file(s) shipped in the build: $(@($leaked | Select-Object -First 5) -join ', ')")

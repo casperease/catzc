@@ -11,7 +11,7 @@ lenses: # the closed set of lenses a diagram is drawn through (its about.lens, t
   operations: what an operator sets and sees
   governance: which gates check it
   source: one responsibility of one module, drawn from the code
-commits: # the locked commit palette (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE): a commit state's fill, stroke and digit ink, hex without the hash; the first is the default
+commits: # the locked commit palette ([ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE](/docs/adr/design/visual-design.md#rule-adr-dsgn-visual-fixedcommitpalette)):a commit state's fill, stroke and digit ink, hex without the hash; the first is the default
   bvt: FFE082 F9A825 1E2430
   topic: C4915C 7A4B25 1E2430
   landed: C9CCD1 6B7178 1E2430

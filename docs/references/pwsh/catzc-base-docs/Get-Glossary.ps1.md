@@ -20,8 +20,8 @@ Each source is validated on load by its type; the facts that span more than one 
 not reciprocal, a source git does not track — are not checked here. They belong to the glossary checks (Get-GlossarySourceViolations), so a
 reader always gets the vocabulary as declared.
 
-The result is cached for the session per repository root ([ADR-PWSH-CACHE](../../../adr/automation/pwsh/script-scope-caching.md)); re-run the importer
-to pick up an edited glossary. Callers treat it as read-only (the same array is returned on every call).
+The result is cached for the session per repository root ([ADR-PWSH-CACHE](../../../adr/automation/pwsh/script-scope-caching.md)); re-run
+the importer to pick up an edited glossary. Callers treat it as read-only (the same array is returned on every call).
 
 ### outputs
 

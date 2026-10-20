@@ -35,7 +35,7 @@ Describe 'Get-RootConfigTargets' -Tag 'L0', 'logic' {
         }
 
         It '-FollowMix leaves out importer.sh when the mix holds only pwsh' -Tag 'ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX' {
-            Mock Get-ImportMix -ModuleName Catzc.Base.RootConfig { [Catzc.Base.ModuleSystem.ImportMix]::new(@('powershell'), @('pwsh'), @(), @('bash', 'zsh'), @()) }
+            Mock Get-ImportMix -ModuleName Catzc.Base.RootConfig { [Catzc.Base.ModuleSystem.ImportMix]::new(@('powershell'), @('pwsh'), @(), [Catzc.Base.Engines.ExecutionEngines]::Names[1..2], @()) }
             $targets = InModuleScope Catzc.Base.RootConfig -Parameters @{ Config = $entryConfig } {
                 param($Config) Get-RootConfigTargets -Config $Config -FollowMix
             }
@@ -43,7 +43,7 @@ Describe 'Get-RootConfigTargets' -Tag 'L0', 'logic' {
         }
 
         It '-FollowMix keeps importer.sh when a POSIX engine is in the mix' -Tag 'ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX' {
-            Mock Get-ImportMix -ModuleName Catzc.Base.RootConfig { [Catzc.Base.ModuleSystem.ImportMix]::new(@('powershell'), @('pwsh', 'bash'), @(), @('zsh'), @()) }
+            Mock Get-ImportMix -ModuleName Catzc.Base.RootConfig { [Catzc.Base.ModuleSystem.ImportMix]::new(@('powershell'), [Catzc.Base.Engines.ExecutionEngines]::Names[0..1], @(), @('zsh'), @()) }
             $targets = InModuleScope Catzc.Base.RootConfig -Parameters @{ Config = $entryConfig } {
                 param($Config) Get-RootConfigTargets -Config $Config -FollowMix
             }

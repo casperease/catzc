@@ -77,7 +77,7 @@ function Get-LiveIdentityTokens {
     }
 
     # Shipped template names (<templates place>/<name>).
-    $templatesPlace = Get-TrackPlace -Track infrastructure -Kind templates
+    $templatesPlace = Get-TrackPlace -Track infrastructure -TrackKind templates
     $templatesRoot = Join-Path (Get-RepositoryRoot) $templatesPlace
     if ([System.IO.Directory]::Exists($templatesRoot)) {
         foreach ($dir in [System.IO.Directory]::EnumerateDirectories($templatesRoot)) {

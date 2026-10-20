@@ -1,6 +1,7 @@
 Describe 'Format-LongMarkdownLines' -Tag 'L0', 'logic' {
     BeforeAll {
-        function script:Invoke-Wrap([string] $Text, [int] $Width) {
+        function script:Invoke-Wrap {
+            param([string] $Text, [int] $Width)
             InModuleScope Catzc.Base.Docs -Parameters @{ Text = $Text; Width = $Width } {
                 param($Text, $Width)
                 Format-LongMarkdownLines -Text $Text -Width $Width

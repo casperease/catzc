@@ -23,8 +23,8 @@ from what the ADR and the type system define; the two are read here, and no rule
    (`Get-Config`), ADR-AUTO-CACHE-FILESYSTEMDERIVED a function that scans the repository by convention (`Get-BicepTemplates`).
    ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE covers git state, ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS a quality check's clean verdicts,
    ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD the committed type assembly itself. Its decision stores the cache in module `$script:` state
-   ([script-scope-caching](../../adr/automation/pwsh/script-scope-caching.md), `ADR-PWSH-CACHE-SCRIPTSCOPESTATE`), and its one invalidation is
-   re-running the importer (`ADR-AUTO-CACHE-IMPORTERINVALIDATES`).
+   ([script-scope-caching](../../adr/automation/pwsh/script-scope-caching.md), `ADR-PWSH-CACHE-SCRIPTSCOPESTATE`), and its one invalidation
+   is re-running the importer (`ADR-AUTO-CACHE-IMPORTERINVALIDATES`).
 2. **What the table is.** A `ConcurrentDictionary<Type, Shape>` in a static class under a module's `types/`, filled by `GetOrAdd` on the
    first use of a type. Its entries are the readable properties of a type, a name-to-property map, and the type's `[ConsoleDisplay]` list:
    facts about a compiled type.

@@ -20,7 +20,7 @@ function Export-SpellingTriage {
             'out/**'
             'docs/notes/**'
             '.unordered/**'
-            "$(Get-TrackPlace -Track infrastructure -Kind configs)/**"
+            "$(Get-TrackPlace -Track infrastructure -TrackKind configs)/**"
         ),
 
         [switch] $DryRun

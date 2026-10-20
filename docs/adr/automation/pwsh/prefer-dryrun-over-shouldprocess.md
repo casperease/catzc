@@ -40,11 +40,10 @@ because it is idempotent, not because the Confirm subsystem asks.
 
 ## Context
 
-[dry-run](../dry-run.md) decides that every side-effecting function takes an explicit dry-run parameter, returns its plan, and
-passes the parameter on by hand. PowerShell ships a built-in mechanism that looks like the same thing:
-`[CmdletBinding(SupportsShouldProcess)]` plus `$PSCmdlet.ShouldProcess(...)`, which adds the `-WhatIf` and `-Confirm` common parameters.
-PSScriptAnalyzer even nags for it (`PSUseShouldProcessForStateChangingFunctions`). It looks like the idiomatic choice. We deliberately do
-**not** use it.
+[dry-run](../dry-run.md) decides that every side-effecting function takes an explicit dry-run parameter, returns its plan, and passes the
+parameter on by hand. PowerShell ships a built-in mechanism that looks like the same thing: `[CmdletBinding(SupportsShouldProcess)]` plus
+`$PSCmdlet.ShouldProcess(...)`, which adds the `-WhatIf` and `-Confirm` common parameters. PSScriptAnalyzer even nags for it
+(`PSUseShouldProcessForStateChangingFunctions`). It looks like the idiomatic choice. We deliberately do **not** use it.
 
 ### Why not ShouldProcess
 

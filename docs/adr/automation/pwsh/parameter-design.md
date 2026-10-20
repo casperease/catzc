@@ -4,8 +4,8 @@
 
 ### Rule ADR-PWSH-PARAM-SENSIBLEDEFAULTS
 
-A function's parameter surface applies [sensible-defaults](../sensible-defaults.md) (`ADR-AUTO-DEFAULT`) with the PowerShell
-mechanics below: the common call stays short because the parameter kinds carry the intent.
+A function's parameter surface applies [sensible-defaults](../sensible-defaults.md) (`ADR-AUTO-DEFAULT`) with the PowerShell mechanics
+below: the common call stays short because the parameter kinds carry the intent.
 
 - [Positional primary argument](#positional-primary-argument)
 
@@ -25,8 +25,8 @@ Use `[switch]`, not `[bool]`, for opt-in behavior that is off by default. Switch
 
 ### Rule ADR-PWSH-PARAM-RESOLUTIONORDER
 
-The resolution order of [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)
-is, in PowerShell, one parameter declaration: the default expression reads the configured value —
+The resolution order of [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../sensible-defaults.md#rule-adr-auto-default-oneresolutionorder) is, in
+PowerShell, one parameter declaration: the default expression reads the configured value —
 `[LinkWrap] $Wrap = (Get-Config -Config links).wrap` — which PowerShell evaluates only when the caller omits the parameter, and which
 `Get-Help` shows. The function body never fills an empty parameter in. A default may derive from a parameter declared before it
 (`[string] $Label = (Split-Path $Path -Leaf)`). The body fills in only what a declaration cannot express, and says why at the fill-in: a
@@ -38,15 +38,14 @@ a declared default.
 
 ## Context
 
-[sensible-defaults](../sensible-defaults.md) fixes the doctrine: the zero-argument call works, defaults come from configuration,
-and a parameter is mandatory only when no default makes sense. This ADR realises it in pwsh — how the parameter surface itself is shaped so
-the common invocation reads naturally.
+[sensible-defaults](../sensible-defaults.md) fixes the doctrine: the zero-argument call works, defaults come from configuration, and a
+parameter is mandatory only when no default makes sense. This ADR realises it in pwsh — how the parameter surface itself is shaped so the
+common invocation reads naturally.
 
 The neighbouring parameter rules live where their hazards live: defaulting a `[string]` with `??` never works, and reassigning a
 `Validate*`-attributed parameter re-fires its validator ([automatic-variable-pitfalls](automatic-variable-pitfalls.md),
 `ADR-PWSH-AUTOVAR-NOCOALESCEONSTRINGS`/ `ADR-PWSH-AUTOVAR-NOVALIDATEDREASSIGNMENT`); the side-effect kill switch is an explicit `-DryRun`
-switch ([dry-run](../dry-run.md)); and inputs are asserted at entry
-([fail-fast-with-asserts](../fail-fast-with-asserts.md)).
+switch ([dry-run](../dry-run.md)); and inputs are asserted at entry ([fail-fast-with-asserts](../fail-fast-with-asserts.md)).
 
 ### Positional primary argument
 
@@ -77,9 +76,9 @@ default expression reads the configured value.
 
 ### Configurable parameters
 
-[sensible-defaults](../sensible-defaults.md#one-resolution-order) fixes the resolution order of a configurable setting: the
-explicit value, else the module's configuration, else the sensible default declared once on the config type. In PowerShell that order is one
-parameter declaration:
+[sensible-defaults](../sensible-defaults.md#one-resolution-order) fixes the resolution order of a configurable setting: the explicit value,
+else the module's configuration, else the sensible default declared once on the config type. In PowerShell that order is one parameter
+declaration:
 
 ```powershell
 # GOOD — the default expression IS the configured value; the config type supplies the sensible default

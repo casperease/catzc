@@ -56,10 +56,9 @@ dependencies are vendored, and the gallery (or the configured feed) is reached o
 
 ## Context
 
-[controlling-module-dependencies](../controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) makes every internal
-module dependency vendored and named, committed in the tree with nothing to fetch, and
-[effective-in-enterprises](../effective-in-enterprises.md) assumes a machine with no network access at runtime. This ADR is how
-the PowerShell modules the toolset depends on are vendored.
+[controlling-module-dependencies](../controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) makes every internal module
+dependency vendored and named, committed in the tree with nothing to fetch, and [effective-in-enterprises](../effective-in-enterprises.md)
+assumes a machine with no network access at runtime. This ADR is how the PowerShell modules the toolset depends on are vendored.
 
 PowerShell modules from the gallery change without notice. A `2.x` version that worked yesterday can behave differently today because the
 gallery resolved a different patch version on a different machine. This causes three problems:
@@ -108,8 +107,8 @@ See [ADR: prefer-az-cli](../../azure/prefer-az-cli.md) for how we handle Azure o
 ### Pruned folders
 
 A gallery package ships content for hosts and features this toolset never uses, and every tracked byte costs on each clone and on every read
-of the whole repository: the protection identities hash every tracked file ([protected-globs](../../repository/protected-globs.md)). Two kinds
-of folder are pruned:
+of the whole repository: the protection identities hash every tracked file ([protected-globs](../../repository/protected-globs.md)). Two
+kinds of folder are pruned:
 
 - **Legacy .NET Framework builds** (`net4x` and older). The toolset targets PowerShell 7.4+ on .NET, so it never loads them.
 - **PSScriptAnalyzer's `compatibility_profiles`.** About 280 MB of platform profiles, read only by the `PSUseCompatible*` rules, which

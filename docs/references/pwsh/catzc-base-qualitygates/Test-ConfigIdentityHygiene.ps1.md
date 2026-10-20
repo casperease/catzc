@@ -45,3 +45,12 @@ Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount; Li
 ### outputs
 
 None (throws on findings), or the result object with -PassThru.
+
+## comment:1
+
+Above `$moduleConfigs = Get-ChildPath (Join-Path $root (Get-CatzcModulesFolder))...`, written with `#`.
+
+```text
+A module's configs sit three levels below pwsh/ (module, configs, file); an infrastructure place's ymls reach four
+(template, configuration, customer, file).
+```

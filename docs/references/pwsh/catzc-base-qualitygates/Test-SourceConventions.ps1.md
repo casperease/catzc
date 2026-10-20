@@ -13,8 +13,8 @@ Quality gate: every source and test file under pwsh/ follows the naming and one-
 
 A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the
 per-function source files and the test files. It enumerates the tree once with `[System.IO]`
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)), parses each source file
-once, and collects every issue:
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)), parses each
+source file once, and collects every issue:
 
 - every source file (a module-root .ps1, or a `private/*.ps1` not starting with '_') is named Verb-Noun, holds exactly one top-level
   function, and that function is named for the file;

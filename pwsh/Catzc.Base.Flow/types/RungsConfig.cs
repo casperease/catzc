@@ -19,8 +19,6 @@ public sealed class RungsConfig
     // The gates a rung may name: none (CD deploys on merge), the two release gates, and the prod approval gate.
     public static readonly IReadOnlyList<string> Gates = Array.AsReadOnly(new[] { GateNone, GateRc, GateRbc, GateProdApproval });
 
-    // The ladder when the file names none: main-uat, release-uat behind RC, pre-prod behind RBC, prod behind the prod approval gate.
-    // This is the one place a rung's environment is mapped, so remapping one (main-uat from dev to its own) is a one-line edit here.
     public static readonly IReadOnlyList<Rung> DefaultRungs = Array.AsReadOnly(new[]
     {
         new Rung("main-uat", "dev", GateNone),

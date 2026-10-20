@@ -150,7 +150,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
 
         It 'leaves a path of a same-named folder outside docs/adr alone, such as a module path' {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
-            $codeMap = & $script:writeText 'maps/module-folder-code-map.tsv' ($header + "`n" + (@('-', '-', 'pwsh/index.md', 'automation/pwsh/index.md', 'folder') -join "`t") + "`n")
+            $codeMap = & $script:writeText 'maps/module-folder-code-map.tsv' ($header + "`n" + (@('-', '-', "$(Split-Path (Get-CatzcModulesRoot) -Leaf)/index.md", 'automation/pwsh/index.md', 'folder') -join "`t") + "`n")
             $text = "The loader reads pwsh/Catzc.Widget/x.ps1 and pwsh/Catzc.Widget/ before any module.`n"
             $full = & $script:writeText 'docs/references/widget-loader.md' $text
             Update-AdrCitation -Path $full -CodeMap $codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue | Out-Null
@@ -159,7 +159,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
 
         It 'inside docs/adr, moves a real page of the folder and leaves a module path of the same name alone' {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
-            $codeMap = & $script:writeText 'maps/module-folder-in-adr-code-map.tsv' ($header + "`n" + (@('-', '-', 'pwsh/index.md', 'automation/pwsh/index.md', 'folder') -join "`t") + "`n")
+            $codeMap = & $script:writeText 'maps/module-folder-in-adr-code-map.tsv' ($header + "`n" + (@('-', '-', "$(Split-Path (Get-CatzcModulesRoot) -Leaf)/index.md", 'automation/pwsh/index.md', 'folder') -join "`t") + "`n")
             & $script:writeText 'docs/adr/automation/pwsh/widget-rules.md' "# Widget rules`n" | Out-Null
             $text = "The loader reads pwsh/Catzc.Widget/x.ps1, and pwsh/widget-rules.md says why.`n"
             $full = & $script:writeText 'docs/adr/widget/module-paths.md' $text

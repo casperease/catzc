@@ -9,8 +9,8 @@ the authoritative definitions.
 The automation platform authors part of its code as native C# types (the `types/*.cs` sources), compiled into one combined assembly and
 loaded at import. Those types compile against the **host-guaranteed assemblies** — the BCL plus `System.Management.Automation`, both in
 `Add-Type`'s default reference set — and nothing else: there is no NuGet in this toolset, so a type may use only what the `pwsh` host itself
-ships (see [hosting-csharp-types rule ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](../../../adr/automation/pwsh/hosting-csharp-types.md)). This area
-collects the BCL-side reference material.
+ships (see [hosting-csharp-types rule ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](../../../adr/automation/pwsh/hosting-csharp-types.md)). This
+area collects the BCL-side reference material.
 
 - [The type system](types-system.md) — the combined assembly, the shared `DictionaryRecord` base, and the type-accelerator aliases.
 

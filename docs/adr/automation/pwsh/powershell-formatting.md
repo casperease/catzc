@@ -59,18 +59,17 @@ renumber breaks the build. Id existence is checked by that gate, not at load, ke
 
 ### Rule ADR-PWSH-FORMAT-STEPASSERTIONS
 
-The step assertions of [ADR-AUTO-NONEST-ASSERTBETWEENSTEPS](../avoid-deep-nesting.md#rule-adr-auto-nonest-assertbetweensteps) are
-`Assert-*` calls on the named intermediate, on the line after the step that produced it. Inside a pipeline that must stay one statement,
+The step assertions of [ADR-AUTO-NONEST-ASSERTBETWEENSTEPS](../avoid-deep-nesting.md#rule-adr-auto-nonest-assertbetweensteps) are `Assert-*`
+calls on the named intermediate, on the line after the step that produced it. Inside a pipeline that must stay one statement,
 `Assert-PipelineCount` asserts mid-pipeline and passes the items through.
 
 - [Flat steps](#flat-steps)
 
 ### Rule ADR-PWSH-FORMAT-SIMPLEEXPRESSIONS
 
-The simple expressions
-[ADR-AUTO-NONEST-SIMPLEEXPRESSIONSEXEMPT](../avoid-deep-nesting.md#rule-adr-auto-nonest-simpleexpressionsexempt) exempts are, in
-PowerShell, a `Join-Path` onto an anchor, a single property access (`$moduleDir.Name`), a straightforward cast, and a short pipeline of two
-obvious stages (`Get-ChildPath … | Sort-Object`).
+The simple expressions [ADR-AUTO-NONEST-SIMPLEEXPRESSIONSEXEMPT](../avoid-deep-nesting.md#rule-adr-auto-nonest-simpleexpressionsexempt)
+exempts are, in PowerShell, a `Join-Path` onto an anchor, a single property access (`$moduleDir.Name`), a straightforward cast, and a short
+pipeline of two obvious stages (`Get-ChildPath … | Sort-Object`).
 
 - [Flat steps](#flat-steps)
 
@@ -85,10 +84,10 @@ in one pass, one such file stops the quality gate's formatting pass for the whol
 
 ## Context
 
-[uniform-formatting](../../repository/uniform-formatting.md) fixes the cross-language baseline every file meets (UTF-8 without BOM, LF, spaces,
-trimmed trailing whitespace, final newline) and the repo-wide "tools format, never debate" policy. PowerShell adds a layer on top that is
-thicker — brace placement, variable casing, line length, and the full PSScriptAnalyzer rule set — because PowerShell is the bulk of the
-codebase and has the richest analyzer support. This ADR records the PowerShell-specific choices; the baseline and the never-hand-format
+[uniform-formatting](../../repository/uniform-formatting.md) fixes the cross-language baseline every file meets (UTF-8 without BOM, LF,
+spaces, trimmed trailing whitespace, final newline) and the repo-wide "tools format, never debate" policy. PowerShell adds a layer on top
+that is thicker — brace placement, variable casing, line length, and the full PSScriptAnalyzer rule set — because PowerShell is the bulk of
+the codebase and has the richest analyzer support. This ADR records the PowerShell-specific choices; the baseline and the never-hand-format
 policy live in uniform-formatting and are not repeated here.
 
 ### Brace style
@@ -178,9 +177,9 @@ enforced by `.editorconfig`, not `Test-ScriptAnalyzer`) — is documented inline
 `Which ADR rule each analyzer rule enforces`
 
 A PSScriptAnalyzer rule that fails the build enforces an ADR rule on every run, so the rule-coverage report of
-[test-automation](../test-automation.md#provenance-and-rule-coverage) counts it as an enforcer beside the tagged tests. The map
-from analyzer rule to citation sits with the analyzer quality gate (`Test-ScriptAnalyzer`) that runs those rules, not with the test runner:
-a custom rule is added here, in `pwsh/.scriptanalyzer/`, and its entry in `analyzer-adr-map.yml` is part of the same change.
+[test-automation](../test-automation.md#provenance-and-rule-coverage) counts it as an enforcer beside the tagged tests. The map from
+analyzer rule to citation sits with the analyzer quality gate (`Test-ScriptAnalyzer`) that runs those rules, not with the test runner: a
+custom rule is added here, in `pwsh/.scriptanalyzer/`, and its entry in `analyzer-adr-map.yml` is part of the same change.
 `Test-AnalyzerAdrMap` keeps the two in step — an unmapped custom rule, or a mapped id that no ADR declares, fails it. Checking id existence
 in the gate rather than at config load is the same split the Azure customer catalogue uses
 ([azure-customer-model](../../azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)): the load stays hermetic, and
@@ -188,10 +187,10 @@ the cross-reference is a quality gate.
 
 ### Flat steps
 
-[avoid-deep-nesting](../avoid-deep-nesting.md) fixes the doctrine: one operation per line, intermediate results named, assertions
-between the steps, and simple expressions exempt. In PowerShell a step's assertion is an `Assert-*` call on the variable the step assigned
-([fail-fast-with-asserts](../fail-fast-with-asserts.md)), and `Assert-PipelineCount` is the one assertion written inside a
-pipeline, because it passes its input through:
+[avoid-deep-nesting](../avoid-deep-nesting.md) fixes the doctrine: one operation per line, intermediate results named, assertions between
+the steps, and simple expressions exempt. In PowerShell a step's assertion is an `Assert-*` call on the variable the step assigned
+([fail-fast-with-asserts](../fail-fast-with-asserts.md)), and `Assert-PipelineCount` is the one assertion written inside a pipeline, because
+it passes its input through:
 
 ```powershell
 $config = Get-Content $path | ConvertFrom-Json

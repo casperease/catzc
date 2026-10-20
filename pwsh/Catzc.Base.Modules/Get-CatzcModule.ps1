@@ -46,7 +46,7 @@ function Get-CatzcModule {
         $relocated = $anchored -and $trackEntry.execution_engines -ccontains $engine
         $admitted = @($moduleTypes.types.Where({ $typeEntry.admits -ccontains $_.id }))
         $admittedPlaces = @($admitted | ForEach-Object { $_.places })
-        # A place of another track nested under this track's places holds its own files (ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS).
+        # A place of another track nested under this track's places holds its own files ([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype-longestplacewins)).
         $nestedPlaces = @($allTracks.Where({ $_.name -cne $trackEntry.name }) | ForEach-Object { $_.places } | Where-Object {
                 $nested = $_
                 $trackEntry.places.Where({ $nested.StartsWith("$_/", [System.StringComparison]::Ordinal) }).Count -gt 0

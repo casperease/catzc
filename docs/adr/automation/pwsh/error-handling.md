@@ -115,8 +115,8 @@ non-terminating error mechanism internally) also terminate. Between `throw` and 
 ### The Assert-* pattern
 
 A precondition is checked with the `Assert-*` library, not an inline `if ($bad) { throw "message" }`
-([ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY](../fail-fast-with-asserts.md#rule-adr-auto-failfast-useassertionlibrary); the pwsh idiom
-is [assert-idioms](assert-idioms.md#rule-adr-pwsh-assert-noinlinethrowcheck)):
+([ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY](../fail-fast-with-asserts.md#rule-adr-auto-failfast-useassertionlibrary); the pwsh idiom is
+[assert-idioms](assert-idioms.md#rule-adr-pwsh-assert-noinlinethrowcheck)):
 
 ```powershell
 Assert-Command python                    # throws: "'python' is not installed"
@@ -148,11 +148,11 @@ decision ([single-responsibility-functions](../single-responsibility-functions.m
 
 ### Temporary state
 
-[single-responsibility-functions](../single-responsibility-functions.md#rule-adr-auto-onejob-explicitstatechanges) rules out a
-function that changes ambient state as a side effect. In pwsh that state is mostly variables the caller cannot see being changed:
-`$ErrorActionPreference` and the other preferences, the location, `$env:` and `$global:` variables. Setting `$ErrorActionPreference` inside
-a function changes error handling for every call it makes and, in a dot-sourced script, for its caller too; the per-call `-ErrorAction`
-parameter changes it for the one call that needs it.
+[single-responsibility-functions](../single-responsibility-functions.md#rule-adr-auto-onejob-explicitstatechanges) rules out a function that
+changes ambient state as a side effect. In pwsh that state is mostly variables the caller cannot see being changed: `$ErrorActionPreference`
+and the other preferences, the location, `$env:` and `$global:` variables. Setting `$ErrorActionPreference` inside a function changes error
+handling for every call it makes and, in a dot-sourced script, for its caller too; the per-call `-ErrorAction` parameter changes it for the
+one call that needs it.
 
 A change that has to hold for a stretch of work is undone in `finally`, because a `finally` block runs whether the body returns or throws:
 
@@ -170,10 +170,10 @@ A restore written after the work, outside `finally`, is skipped by the first err
 
 ### Retry
 
-[retry-as-last-resort](../retry-as-last-resort.md) allows a retry only for a transient external failure, never in a test, and
-only in a dedicated wrapper. In a Pester test, a dependency that can flake is mocked (`Mock`), or the test is an `L3` test that marks itself
-skipped with `Set-ItResult -Skipped -Because '<reason>'` when its dependency is unavailable; a loop around the call, or a re-run of the
-failed suite, would turn a real failure green.
+[retry-as-last-resort](../retry-as-last-resort.md) allows a retry only for a transient external failure, never in a test, and only in a
+dedicated wrapper. In a Pester test, a dependency that can flake is mocked (`Mock`), or the test is an `L3` test that marks itself skipped
+with `Set-ItResult -Skipped -Because '<reason>'` when its dependency is unavailable; a loop around the call, or a re-run of the failed
+suite, would turn a real failure green.
 
 Outside tests, the wrapper is a function of its own that takes the operation as a `[scriptblock]`, so the work and the retry policy change
 independently. It repeats only that one call, a small fixed number of times, writes each retry as a yellow `Write-Message -Warning` line so

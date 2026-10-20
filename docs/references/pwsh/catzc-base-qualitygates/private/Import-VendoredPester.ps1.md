@@ -12,9 +12,9 @@ Loads the vendored Pester into the session on first use, and makes sure it is th
 ### description
 
 Pester's import is deferred at import time for speed
-([ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE](../../../../adr/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive)); the test
-entry points that need it in the parent session — for a discovery pass, or an in-session run — load it here, once. It is vendored inside the
-code tree, so it resolves from the code root
+([ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE](../../../../adr/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive));
+the test entry points that need it in the parent session — for a discovery pass, or an in-session run — load it here, once. It is vendored
+inside the code tree, so it resolves from the code root
 ([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)),
 and the load is announced
 ([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).

@@ -27,8 +27,6 @@ public sealed class VariantTrack
     // The modules whose engines differ from the track's: module name -> the engines it names. Empty when none differs.
     public IReadOnlyDictionary<string, IReadOnlyList<string>> module_execution_engines { get; }
 
-    // The named kinds of the track's files: kind -> a place pattern inside one of its places, one '*' segment allowed
-    // (e.g. configs -> infrastructure/templates/*/configuration). Empty when the track names none; membership is decided by places alone.
     public IReadOnlyDictionary<string, string> kinds { get; }
 
     public VariantTrack(string name, string[] places, string type, string vendor, string[] languages, string[] executionEngines = null,

@@ -25,8 +25,8 @@ folder that already exists, since a released folder is never written again; a un
 It writes files only: it never commits, and it does not check the assets. A release build resolves the version (Resolve-CatzcBuildVersion),
 runs this, runs Test-Contracts -Version `<version>`, and commits the folder in its own step. Publish is the approved verb for making a
 resource available to others
-([ADR-PWSH-VERBS-APPROVEDVERBS](../../../adr/automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-approvedverbs)): the frozen folder is what
-a consumer pins.
+([ADR-PWSH-VERBS-APPROVEDVERBS](../../../adr/automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-approvedverbs)): the frozen
+folder is what a consumer pins.
 
 ### parameter `Unit`
 

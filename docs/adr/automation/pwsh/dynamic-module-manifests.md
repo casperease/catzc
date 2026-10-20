@@ -4,9 +4,9 @@
 
 ### Rule ADR-PWSH-MANIFEST-OPENCLOSEDMODULES
 
-The PowerShell module system realizes [open-closed-architecture](../open-closed-architecture.md) (`ADR-AUTO-EXTEND`)
-mechanically: module manifests are a generated projection of the filesystem, and the one seam convention cannot guard — a duplicate function
-name — fails the import before anything loads.
+The PowerShell module system realizes [open-closed-architecture](../open-closed-architecture.md) (`ADR-AUTO-EXTEND`) mechanically: module
+manifests are a generated projection of the filesystem, and the one seam convention cannot guard — a duplicate function name — fails the
+import before anything loads.
 
 - [Why PowerShell](#why-powershell)
 
@@ -38,16 +38,15 @@ one file across the repository, verified by an integrity test.
 
 ### Rule ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
 
-A bundle ([platform-bundle](../platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)) carries the **runtime payload in merged
-form**. Every selected module is its own folder holding a generated `<Module>.psd1` (`NestedModules` = the one merged file,
-`FunctionsToExport` = the module's public functions only), a generated `<Module>.functions.ps1` that merges the module's `private/` and root
-function files — named apart from the module, so the nested script module never shares the manifest module's name — and the module's side
-folders (`configs/`, `assets/`, and the `types/` sources) copied verbatim — never its `tests/`. Beside the modules sit the `.internal`
-loader, the vendored dependencies per policy under `.vendor/`, the **full** combined-types DLL under `.compiled/` with the unselected
-modules' type sources under `.compiled/types/<Module>/`, the top-level `Catzc.psd1`, `Catzc.psm1`, and `Import-Catzc.ps1`, and `build.json`.
-The payload is deliberately **broader** than the protection `live` aspect ([module-aspects](../../design/module-aspects.md)) — that aspect
-excludes `assets/` to keep its identity isolated, but a running module needs its `assets/`. Shipping is default-deny: the `tests/` surface
-never travels.
+A bundle ([platform-bundle](../platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)) carries the **runtime payload in merged form**. Every
+selected module is its own folder holding a generated `<Module>.psd1` (`NestedModules` = the one merged file, `FunctionsToExport` = the
+module's public functions only), a generated `<Module>.functions.ps1` that merges the module's `private/` and root function files — named
+apart from the module, so the nested script module never shares the manifest module's name — and the module's side folders (`configs/`,
+`assets/`, and the `types/` sources) copied verbatim — never its `tests/`. Beside the modules sit the `.internal` loader, the vendored
+dependencies per policy under `.vendor/`, the **full** combined-types DLL under `.compiled/` with the unselected modules' type sources under
+`.compiled/types/<Module>/`, the top-level `Catzc.psd1`, `Catzc.psm1`, and `Import-Catzc.ps1`, and `build.json`. The payload is deliberately
+**broader** than the protection `live` aspect ([module-aspects](../../design/module-aspects.md)) — that aspect excludes `assets/` to keep
+its identity isolated, but a running module needs its `assets/`. Shipping is default-deny: the `tests/` surface never travels.
 
 - [The merged module form](#the-merged-module-form)
 
@@ -101,9 +100,9 @@ edge is declared or not, so the function-call edges of the module graph (ADR-AUT
 
 ## Context
 
-[open-closed-architecture](../open-closed-architecture.md) fixes the doctrine: grow the system by adding files and folders, never
-by editing the infrastructure that discovers them. This ADR realises it in pwsh — the manifest and namespace mechanics that make the
-doctrine hold in this module system, in the source tree and in the installed build.
+[open-closed-architecture](../open-closed-architecture.md) fixes the doctrine: grow the system by adding files and folders, never by editing
+the infrastructure that discovers them. This ADR realises it in pwsh — the manifest and namespace mechanics that make the doctrine hold in
+this module system, in the source tree and in the installed build.
 
 PowerShell module systems typically require hand-maintained manifests, explicit import lists, or registration steps. Each new function means
 editing a `.psd1`, updating an export list, or adding a line to a loader script. These edit-to-extend workflows create merge conflicts,

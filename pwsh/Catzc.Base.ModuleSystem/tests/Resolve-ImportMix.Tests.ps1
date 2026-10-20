@@ -37,7 +37,7 @@ Describe 'Resolve-ImportMix' -Tag 'L0', 'logic' {
     It 'reports the located engines and skips the missing one' -Tag 'ADR-AUTO-IMPORTER-DECIDESMIX' {
         InModuleScope Catzc.Base.ModuleSystem {
             $mix = Resolve-ImportMix
-            $mix.engines | Should -Be @('pwsh', 'bash')
+            $mix.engines | Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Names[0..1])
             $mix.skipped_engines | Should -Be @('zsh')
         }
     }

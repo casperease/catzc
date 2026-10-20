@@ -127,8 +127,6 @@ public sealed class EnvironmentApprovalsConfig : Catzc.Base.Objects.DictionaryRe
         }
     }
 
-    // The ADO environments that carry the approval check: `<unit>-<rung>` for every unit and every rung behind a release gate (RC, RBC),
-    // then the prod-tier environments. The rung names come from the rungs registry, so the environment names follow it.
     public string[] Environments(Catzc.Base.Flow.RungsConfig rungs)
     {
         if (rungs == null) { throw new ArgumentNullException(nameof(rungs)); }

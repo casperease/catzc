@@ -4,8 +4,8 @@
 
 ### Rule ADR-PWSH-ENV-BOUNDARYDOCTRINE
 
-PowerShell code applies the boundary doctrine of [environment-variables](../environment-variables.md) (`ADR-AUTO-ENVVAR`) with
-the language mechanics below: `$env:` is the boundary-only channel, and everything internal flows through PowerShell's own scoping.
+PowerShell code applies the boundary doctrine of [environment-variables](../environment-variables.md) (`ADR-AUTO-ENVVAR`) with the language
+mechanics below: `$env:` is the boundary-only channel, and everything internal flows through PowerShell's own scoping.
 
 - [The internal-state mechanisms](#the-internal-state-mechanisms)
 
@@ -34,34 +34,33 @@ Pester provides no `$env:` isolation. A test that must set an environment variab
 
 A `$env:` assignment in our code sets an external tool's contract variable — `$env:GIT_TERMINAL_PROMPT = '0'`,
 `$env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'`, `$env:PSModulePath` — and nothing else
-([ADR-AUTO-ENVVAR-SETONLYFORTOOLS](../environment-variables.md#rule-adr-auto-envvar-setonlyfortools)). A value our own code
-consumes is a parameter, a return value, or `$script:` state (ADR-PWSH-ENV-SCOPEDINTERNALSTATE).
+([ADR-AUTO-ENVVAR-SETONLYFORTOOLS](../environment-variables.md#rule-adr-auto-envvar-setonlyfortools)). A value our own code consumes is a
+parameter, a return value, or `$script:` state (ADR-PWSH-ENV-SCOPEDINTERNALSTATE).
 
 - [Setting a contract variable](#setting-a-contract-variable)
 
 ### Rule ADR-PWSH-ENV-READISOUTSIDEINPUT
 
 A `$env:` read is an input from outside the boundary
-([ADR-AUTO-ENVVAR-READONLYOUTSIDEINPUT](../environment-variables.md#rule-adr-auto-envvar-readonlyoutsideinput)): a tool's
-contract variable (`$env:JAVA_HOME`, `$env:DOTNET_ROOT`), an OS location (`$env:SystemRoot`), or one of the `$env:CATZC_*` toggles a
-developer's shell or a test harness sets, which module code reads and never writes. Whether the code runs in a pipeline is never such a
-read: it goes through the detection function, `Test-IsRunningInPipeline`.
+([ADR-AUTO-ENVVAR-READONLYOUTSIDEINPUT](../environment-variables.md#rule-adr-auto-envvar-readonlyoutsideinput)): a tool's contract variable
+(`$env:JAVA_HOME`, `$env:DOTNET_ROOT`), an OS location (`$env:SystemRoot`), or one of the `$env:CATZC_*` toggles a developer's shell or a
+test harness sets, which module code reads and never writes. Whether the code runs in a pipeline is never such a read: it goes through the
+detection function, `Test-IsRunningInPipeline`.
 
 - [Reading an external input](#reading-an-external-input)
 
 ### Rule ADR-PWSH-ENV-REQUIREDINPUTISPARAMETER
 
 A required input is a `[Parameter(Mandatory)]` parameter, typed and validated (`[ValidateSet()]`, `[ValidateRange()]`), never a guard that
-throws when a `$env:` variable is unset
-([ADR-AUTO-ENVVAR-NEVERREQUIRED](../environment-variables.md#rule-adr-auto-envvar-neverrequired)).
+throws when a `$env:` variable is unset ([ADR-AUTO-ENVVAR-NEVERREQUIRED](../environment-variables.md#rule-adr-auto-envvar-neverrequired)).
 
 - [A parameter, not a variable](#a-parameter-not-a-variable)
 
 ### Rule ADR-PWSH-ENV-NOHANDOFF
 
 No function of ours assigns `$env:` for a later function of ours to read, as a hand-off, a cache, or a flag
-([ADR-AUTO-ENVVAR-NOTFORCOMMUNICATION](../environment-variables.md#rule-adr-auto-envvar-notforcommunication)). The value is
-returned and passed on as a parameter, and a cache lives in `$script:` state ([script-scope-caching](script-scope-caching.md)).
+([ADR-AUTO-ENVVAR-NOTFORCOMMUNICATION](../environment-variables.md#rule-adr-auto-envvar-notforcommunication)). The value is returned and
+passed on as a parameter, and a cache lives in `$script:` state ([script-scope-caching](script-scope-caching.md)).
 
 - [No hand-off through the environment](#no-hand-off-through-the-environment)
 
@@ -78,16 +77,16 @@ before it returns (`Test-InIsolation`). Module code reads the working root throu
 ### Rule ADR-PWSH-ENV-NOSECRETSTATE
 
 A secret is never assigned to `$env:` as internal state — no `$env:TOKEN = $plaintext`
-([ADR-AUTO-ENVVAR-NOSECRETSTATE](../environment-variables.md#rule-adr-auto-envvar-nosecretstate)). Inside our code a secret
-travels as a `[SecureString]` parameter.
+([ADR-AUTO-ENVVAR-NOSECRETSTATE](../environment-variables.md#rule-adr-auto-envvar-nosecretstate)). Inside our code a secret travels as a
+`[SecureString]` parameter.
 
 - [The secret hand-off](#the-secret-hand-off)
 
 ### Rule ADR-PWSH-ENV-SECRETHANDOFF
 
 `Write-EnvironmentSet` realises the one secret hand-off of
-[ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS](../environment-variables.md#rule-adr-auto-envvar-secrettochildprocess): it takes the
-secret as `[SecureString]`, masks it as `***` in everything it writes or returns, decrypts it with
+[ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS](../environment-variables.md#rule-adr-auto-envvar-secrettochildprocess): it takes the secret as
+`[SecureString]`, masks it as `***` in everything it writes or returns, decrypts it with
 `[System.Net.NetworkCredential]::new('', $secure).Password` only at the `$env:` assignment, and by default snapshots the variable, sets it,
 invokes its `-ScriptBlock`, and restores it in a `finally`; it persists the value past the call only on `-Persist`.
 
@@ -95,8 +94,8 @@ invokes its `-ScriptBlock`, and restores it in a `finally`; it persists the valu
 
 ## Context
 
-[environment-variables](../environment-variables.md) fixes the doctrine: environment variables are for external boundaries, never
-internal state. This ADR realises it in pwsh — the concrete mechanics of obeying that doctrine in this codebase's language.
+[environment-variables](../environment-variables.md) fixes the doctrine: environment variables are for external boundaries, never internal
+state. This ADR realises it in pwsh — the concrete mechanics of obeying that doctrine in this codebase's language.
 
 PowerShell makes `$env:` variables dangerously convenient. They look like regular variables, they are accessible everywhere, and they
 survive function calls — which makes them tempting for passing state between functions, caching results, or storing configuration. The
@@ -119,9 +118,9 @@ process started with `Start-Process`, `Start-Job`, `&`, or `Invoke-Executable` i
 | `$env:` variables    | Process | Never (manual) | No (strings) | Requires snapshot/restore |
 
 To pass a value between functions, pass it as a parameter. To share state within a module, use `$script:`. To cache a result, use a
-module-scoped variable (see [caching](../caching.md)). None of these leak to child processes, pollute tests, or persist beyond
-their natural lifetime — and unlike `$env:` (always strings), each carries the type system: `[int]`, `[switch]`, `[ValidateRange()]` catch
-errors at the call site.
+module-scoped variable (see [caching](../caching.md)). None of these leak to child processes, pollute tests, or persist beyond their natural
+lifetime — and unlike `$env:` (always strings), each carries the type system: `[int]`, `[switch]`, `[ValidateRange()]` catch errors at the
+call site.
 
 ### Setting a contract variable
 
@@ -245,8 +244,8 @@ process. It:
   environment when the block exits — and persists past the call only on an explicit `-Persist`.
 
 `SecureString` is DPAPI-encrypted only on Windows; on Linux and macOS .NET stores it obfuscated rather than encrypted (see
-[cross-platform](../cross-platform.md)). The value of the type here is the **contract** — do not log, do not internalize, decrypt
-only at the boundary — not at-rest cryptography.
+[cross-platform](../cross-platform.md)). The value of the type here is the **contract** — do not log, do not internalize, decrypt only at
+the boundary — not at-rest cryptography.
 
 ### One environment block
 
@@ -277,11 +276,10 @@ runspaces as a shared, race-prone namespace never used for coordination, and sna
 
 ### How this is enforced
 
-- **The doctrine layer** — which environment-variable uses are legitimate at all is
-  [environment-variables](../environment-variables.md) (`ADR-AUTO-ENVVAR`); this ADR only fixes the language mechanics.
+- **The doctrine layer** — which environment-variable uses are legitimate at all is [environment-variables](../environment-variables.md)
+  (`ADR-AUTO-ENVVAR`); this ADR only fixes the language mechanics.
 - **Custom PSScriptAnalyzer rule `Measure-NoEnvRepositoryRoot`** — flags a `$env:RepositoryRoot` read in a module function file
-  (ADR-PWSH-ENV-BOOTSTRAPANCHORS, through
-  [ADR-AUTO-NOPWD-ONEROOTACCESSOR](../never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)).
+  (ADR-PWSH-ENV-BOOTSTRAPANCHORS, through [ADR-AUTO-NOPWD-ONEROOTACCESSOR](../never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)).
 - **Code review** — a `$env:` read or write that is not an external-boundary use per `ADR-AUTO-ENVVAR`, a `-Parallel` block touching
   `$env:`, a secret assigned to `$env:` outside `Write-EnvironmentSet`, or a test that sets `$env:` without restoring it is rejected against
   this ADR.

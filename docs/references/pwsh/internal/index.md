@@ -8,8 +8,8 @@ post-import `Catzc` modules (which run after) must call — the single home for 
 
 These are `.psm1` files on purpose. The repository's function files are `.ps1` so they share one module scope with no import ceremony; the
 `pwsh/.internal/*.psm1` shared modules are the explicit, sanctioned exception — genuine standalone modules with their own scope, listed by
-name in [use-ps1-not-psm1 rule ADR-PWSH-USEPS-MODULEFILESRESERVED](../../../adr/automation/pwsh/use-ps1-not-psm1.md). They carry no `types/`, generate
-no `README.md`, and are excluded from the module list because they are not catzc modules — they are what loads them.
+name in [use-ps1-not-psm1 rule ADR-PWSH-USEPS-MODULEFILESRESERVED](../../../adr/automation/pwsh/use-ps1-not-psm1.md). They carry no
+`types/`, generate no `README.md`, and are excluded from the module list because they are not catzc modules — they are what loads them.
 
 ## The load sequence
 

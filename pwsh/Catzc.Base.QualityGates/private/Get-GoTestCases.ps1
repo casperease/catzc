@@ -7,7 +7,7 @@ function Get-GoTestCases {
     )
 
     Assert-PathExist $Folder -PathType Container
-    $modulePath = "$((Get-Config -Config go).module_root)/$([System.IO.Path]::GetFileName($Folder.TrimEnd('\', '/')))"
+    $modulePath = "$((Get-Config -Config go).module_root)/tests/$([System.IO.Path]::GetFileName($Folder.TrimEnd('\', '/')))"
     $integrityPrefix = [Catzc.Base.Languages.GoTestResult]::IntegrityPrefix
     $declaration = [regex]::new('(?m)^func\s+(Test(?![a-z])\w*)\s*\(\s*\w+\s+\*testing\.T\s*\)')
 

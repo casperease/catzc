@@ -24,3 +24,12 @@ Above `public IReadOnlyList<string> languages { get; }`, written with `//`.
 The file-language names of the track's declared tech-stack, in declared order. Empty when the track declares
 none. The names are not resolved here: the file-language registry lives in Catzc.Base.Languages.
 ```
+
+## comment:3
+
+Above `public IReadOnlyDictionary<string, string> kinds { get; }`, written with `//`.
+
+```text
+The named kinds of the track's files: kind -> a place pattern inside one of its places, one '*' segment allowed
+(e.g. configs -> infrastructure/templates/*/configuration). Empty when the track names none; membership is decided by places alone.
+```

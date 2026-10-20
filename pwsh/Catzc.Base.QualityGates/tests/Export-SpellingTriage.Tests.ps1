@@ -84,7 +84,7 @@ Describe 'Export-SpellingTriage' -Tag 'L0', 'logic' {
     }
 
     It 'excludes the configuration slots by the infrastructure track''s configs kind, not a fixed path' {
-        Mock Get-TrackPlace -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Track -eq 'infrastructure' -and $Kind -eq 'configs' } { 'gadgets/*/settings' }
+        Mock Get-TrackPlace -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Track -eq 'infrastructure' -and $TrackKind -eq 'configs' } { 'gadgets/*/settings' }
         Export-SpellingTriage | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
             $Command -match ([regex]::Escape("--exclude 'gadgets/*/settings/**'"))

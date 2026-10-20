@@ -86,12 +86,12 @@ ADR-AUTO-PRELOG-SILENTSWITCH is the one way a call leaves it out.
 
 ## Context
 
-[console-output-matters](../console-output-matters.md) decides what the console shows: status for the user running the
-automation, diagnostic detail for the user diagnosing it, and an announcement of every lasting change to the session. This ADR is how pwsh
-does it. Dot-sourcing `importer.ps1` into a session loads modules and a compiled types assembly, sets preferences, moves `PATH` entries, and
-points environment variables at tool homes; an installer rewrites `PATH` and the user environment; a quality gate lazy-loads Pester.
-PowerShell offers many ways to write each of those facts to the console, and most of them cannot be silenced, redirected, or captured. So
-every line goes through one stream and one chokepoint, and every state change is announced there.
+[console-output-matters](../console-output-matters.md) decides what the console shows: status for the user running the automation,
+diagnostic detail for the user diagnosing it, and an announcement of every lasting change to the session. This ADR is how pwsh does it.
+Dot-sourcing `importer.ps1` into a session loads modules and a compiled types assembly, sets preferences, moves `PATH` entries, and points
+environment variables at tool homes; an installer rewrites `PATH` and the user environment; a quality gate lazy-loads Pester. PowerShell
+offers many ways to write each of those facts to the console, and most of them cannot be silenced, redirected, or captured. So every line
+goes through one stream and one chokepoint, and every state change is announced there.
 
 ### One stream
 
@@ -207,8 +207,8 @@ The exemptions of ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES, as PowerShell spells 
 
 ### Logging a command
 
-[log-before-invoke](../log-before-invoke.md) decides that every external command is logged, exactly and on every run, before it
-runs. In pwsh that log line is a status line like any other, so it takes the status path: `Write-Message` on the information stream.
+[log-before-invoke](../log-before-invoke.md) decides that every external command is logged, exactly and on every run, before it runs. In
+pwsh that log line is a status line like any other, so it takes the status path: `Write-Message` on the information stream.
 `Invoke-Executable` writes it for every call that goes through it, and the `Invoke-*` tool wrappers inherit it. A function that starts a
 process another way has nothing writing the line for it, so it writes the line itself, with every variable expanded, right before the call:
 
@@ -227,8 +227,8 @@ is never routed there, and never written only when a diagnostic switch is set.
 When the toolset runs an external tool, the tool's output streams to the console as it arrives (ADR-AUTO-CONSOLE-TOOLSSPEAK), and a parallel
 test runner relays each worker's output the same way. That output is the child's own bytes, never a PowerShell record, so the C# relays
 (`Invoke-ExecutableStreamed`'s runner, the Pester worker pool) write it to the console directly, saving and restoring the console encoding
-around the run. The command that started the child is announced before it runs ([log-before-invoke](../log-before-invoke.md));
-the relay honours the same Pester-run flag as the chokepoint.
+around the run. The command that started the child is announced before it runs ([log-before-invoke](../log-before-invoke.md)); the relay
+honours the same Pester-run flag as the chokepoint.
 
 ### Delegated announcements
 

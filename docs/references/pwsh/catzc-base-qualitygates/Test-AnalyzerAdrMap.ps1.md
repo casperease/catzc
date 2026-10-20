@@ -13,8 +13,8 @@ Quality gate: analyzer-adr-map.yml cites only real ADR rules and maps every cust
 
 A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the shipped
 analyzer map (configs/analyzer-adr-map.yml), the source of the 'pssa-rule' enforcer kind in the rule-coverage report
-([ADR-PWSH-FORMAT-ANALYZERADRMAPPING](../../../adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-analyzeradrmapping)). The config load
-checks only its shape, so it stays hermetic; this gate cross-checks it against the repository and collects an issue for:
+([ADR-PWSH-FORMAT-ANALYZERADRMAPPING](../../../adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-analyzeradrmapping)). The
+config load checks only its shape, so it stays hermetic; this gate cross-checks it against the repository and collects an issue for:
 
 - every rule id an analyzer cites that is not a real ADR rule (Get-CatsAdrRuleIds, in '#' citation form);
 - every custom analyzer check — a `Measure-*` function in `pwsh/.scriptanalyzer/*.psm1`, except the entry rule CatzcRules.psm1, which only

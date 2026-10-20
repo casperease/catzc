@@ -14,8 +14,8 @@ configuration slots (the `<env>[-<slot>].yml` files under each template's config
 ### Rule ADR-AZ-IACKIND-TRACKPLACESKINDS
 
 The infrastructure track names each kind's place under `kinds:` in `variants.yml` (`templates`, `configs`, `modules`), and the tooling finds
-a kind only through `Get-TrackPlace -Track infrastructure -Kind <kind>`, never through a path written in code. A repository that keeps its
-infrastructure elsewhere maps the three kinds in its own `variants.yml`, and the tooling follows unchanged.
+a kind only through `Get-TrackPlace -Track infrastructure -TrackKind <kind>`, never through a path written in code. A repository that keeps
+its infrastructure elsewhere maps the three kinds in its own `variants.yml`, and the tooling follows unchanged.
 
 - [The track places the kinds](#the-track-places-the-kinds)
 

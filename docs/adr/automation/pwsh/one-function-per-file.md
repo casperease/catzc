@@ -29,11 +29,10 @@ when a source file breaks it.
 
 ## Context
 
-[open-closed-architecture](../open-closed-architecture.md#rule-adr-auto-extend-mandatoryconventions) makes "file name = function
-name" a mandatory convention, and
-[zero-ceremony-poka-yoke](../zero-ceremony-poka-yoke.md#rule-adr-auto-zero-zeroceremonyautomation) makes adding a function a
-matter of adding a file. This ADR is that convention in PowerShell. We need a convention for how functions map to files within a module. The
-two common approaches are:
+[open-closed-architecture](../open-closed-architecture.md#rule-adr-auto-extend-mandatoryconventions) makes "file name = function name" a
+mandatory convention, and [zero-ceremony-poka-yoke](../zero-ceremony-poka-yoke.md#rule-adr-auto-zero-zeroceremonyautomation) makes adding a
+function a matter of adding a file. This ADR is that convention in PowerShell. We need a convention for how functions map to files within a
+module. The two common approaches are:
 
 1. **Multiple functions per file** — group related functions together, use AST parsing or manual export lists to determine what gets
    exported.
@@ -69,9 +68,9 @@ Each `.ps1` file contains exactly one exported function. The file name matches t
 ### Source and the generated build
 
 Every reason above is about the code a developer reads, edits, reviews, and blames, so the rule applies to source. The installed build
-([run-modes](../../design/run-modes.md), [platform-bundle](../platform-bundle.md)) serves a different reader: a machine that loads
-the toolset and pays a per-file antivirus scan on a cold import ([effective-in-enterprises](../effective-in-enterprises.md)). For
-that reader `Build-Modules` merges a module's function files into one `<Module>.functions.ps1`
+([run-modes](../../design/run-modes.md), [platform-bundle](../platform-bundle.md)) serves a different reader: a machine that loads the
+toolset and pays a per-file antivirus scan on a cold import ([effective-in-enterprises](../effective-in-enterprises.md)). For that reader
+`Build-Modules` merges a module's function files into one `<Module>.functions.ps1`
 ([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest-bundlecarriesmanifests)), each function preceded by a
 `# source:` marker line that names the file it came from, so an error inside the merged file traces back to its source file. The export list
 of the built manifest is the file names of the module's root `.ps1` files — the rule is what makes the merged file's exports derivable

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: abe6b6462f1a
+    with_body_sha: "818cbe98f9ce"
     repo_status: locked
     path: docs/index.md
     folder: docs
@@ -29,16 +29,6 @@ catzc:
       - docs/adr/automation/log-before-invoke.md
       - docs/adr/automation/never-depend-on-pwd.md
       - docs/adr/automation/open-closed-architecture.md
-      - docs/adr/automation/retry-as-last-resort.md
-      - docs/adr/automation/sensible-defaults.md
-      - docs/adr/automation/single-responsibility-functions.md
-      - docs/adr/automation/spell-out-names.md
-      - docs/adr/automation/test-automation.md
-      - docs/adr/automation/use-proper-package-managers.md
-      - docs/adr/automation/zero-ceremony-poka-yoke.md
-      - docs/adr/azure/prefer-az-cli.md
-      - docs/adr/flow/pipeline-detection.md
-      - docs/adr/flow/pipeline-runner-pattern.md
       - docs/adr/automation/pwsh/assert-idioms.md
       - docs/adr/automation/pwsh/automatic-variable-pitfalls.md
       - docs/adr/automation/pwsh/avoid-using-semicolons.md
@@ -61,6 +51,16 @@ catzc:
       - docs/adr/automation/pwsh/use-ps1-not-psm1.md
       - docs/adr/automation/pwsh/vendor-toolset-dependencies.md
       - docs/adr/automation/pwsh/working-directory-mechanics.md
+      - docs/adr/automation/retry-as-last-resort.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/automation/single-responsibility-functions.md
+      - docs/adr/automation/spell-out-names.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/adr/automation/zero-ceremony-poka-yoke.md
+      - docs/adr/azure/prefer-az-cli.md
+      - docs/adr/flow/pipeline-detection.md
+      - docs/adr/flow/pipeline-runner-pattern.md
       - docs/adr/repository/conventional-folders.md
       - docs/adr/repository/dedicated-output-directory.md
       - docs/adr/repository/uniform-formatting.md
@@ -189,7 +189,8 @@ The "why" and "how" behind the automation and its pwsh engine.
 - [Console output matters](adr/automation/console-output-matters.md) — every line of output is a UX decision
 - [Error handling](adr/automation/pwsh/error-handling.md) — fail immediately, no warnings, no middle ground
 - [Never depend on $PWD](adr/automation/never-depend-on-pwd.md) — functions work from anywhere
-- [Working-directory mechanics](adr/automation/pwsh/working-directory-mechanics.md) — the pwsh rules: the anchors, and Push-Location/Pop-Location
+- [Working-directory mechanics](adr/automation/pwsh/working-directory-mechanics.md) — the pwsh rules: the anchors, and
+  Push-Location/Pop-Location
 
 ### Implementation decisions
 
@@ -208,23 +209,26 @@ The "why" and "how" behind the automation and its pwsh engine.
 - [Module-path hygiene](adr/automation/pwsh/module-path-hygiene.md) — the pwsh rules: vendored copies win, network user paths fixed once
 - [Prefer Az CLI](adr/azure/prefer-az-cli.md) — avoids assembly hell, no module ceremony
 - [Dry run](adr/automation/dry-run.md) — an explicit dry-run parameter on every side-effecting function
-- [Prefer -DryRun over ShouldProcess](adr/automation/pwsh/prefer-dryrun-over-shouldprocess.md) — the pwsh rules: an explicit switch beats the
-  un-testable, easy-to-misuse -WhatIf/-Confirm subsystem
+- [Prefer -DryRun over ShouldProcess](adr/automation/pwsh/prefer-dryrun-over-shouldprocess.md) — the pwsh rules: an explicit switch beats
+  the un-testable, easy-to-misuse -WhatIf/-Confirm subsystem
 - [Conventional folders](adr/repository/conventional-folders.md) — predictable layout for the whole repository: root folders, modules,
   tests, assets, and output
 - [Dedicated output directory](adr/repository/dedicated-output-directory.md) — all generated artifacts go to `out/`
 - [Environment variables](adr/automation/environment-variables.md) — when and how to use them
-- [Environment-variable mechanics](adr/automation/pwsh/environment-variable-mechanics.md) — the pwsh rules: scoping, runspaces, test isolation
+- [Environment-variable mechanics](adr/automation/pwsh/environment-variable-mechanics.md) — the pwsh rules: scoping, runspaces, test
+  isolation
 - [Cross-platform](adr/automation/cross-platform.md) — runs on Windows, Linux, and macOS
-- [Cross-platform PowerShell](adr/automation/pwsh/cross-platform-powershell.md) — the language layer: Join-Path, compatible cmdlets, platform guards
-- [Script-scope caching](adr/automation/pwsh/script-scope-caching.md) — the pwsh rules under [caching](adr/automation/caching.md): `$script:` cache
-  entries, mock-the-whole-function
+- [Cross-platform PowerShell](adr/automation/pwsh/cross-platform-powershell.md) — the language layer: Join-Path, compatible cmdlets,
+  platform guards
+- [Script-scope caching](adr/automation/pwsh/script-scope-caching.md) — the pwsh rules under [caching](adr/automation/caching.md):
+  `$script:` cache entries, mock-the-whole-function
 - [Avoid deep nesting](adr/automation/avoid-deep-nesting.md) — flat code is readable code
 - [Avoid using semicolons](adr/automation/pwsh/avoid-using-semicolons.md) — one statement per line
 - [Prefer foreach over ForEach-Object](adr/automation/pwsh/prefer-foreach-over-foreach-object.md) — clarity and debuggability
 - [Automatic variable pitfalls](adr/automation/pwsh/automatic-variable-pitfalls.md) — `$?`, `$_`, `$LASTEXITCODE` and their traps
 - [Use proper package managers](adr/automation/use-proper-package-managers.md) — system tools via native package managers
-- [Hosting C# types](adr/automation/pwsh/hosting-csharp-types.md) — the pwsh rules under native C# types: Add-Type, accelerators, stale types
+- [Hosting C# types](adr/automation/pwsh/hosting-csharp-types.md) — the pwsh rules under native C# types: Add-Type, accelerators, stale
+  types
 
 ### SOLID principles that don't apply
 
@@ -238,8 +242,8 @@ The "why" and "how" behind the automation and its pwsh engine.
 
 - **KISS** — This is [zero ceremony, hard to fail](adr/automation/zero-ceremony-poka-yoke.md). The foundational ADR's first test — "Does
   this add ceremony?" — is the KISS test.
-- **DRY** — Enforced structurally: [dynamic module manifests](adr/automation/pwsh/dynamic-module-manifests.md) eliminate manifest duplication,
-  [sensible defaults](adr/automation/sensible-defaults.md) pull versions from config,
+- **DRY** — Enforced structurally: [dynamic module manifests](adr/automation/pwsh/dynamic-module-manifests.md) eliminate manifest
+  duplication, [sensible defaults](adr/automation/sensible-defaults.md) pull versions from config,
   [one function per file](adr/automation/pwsh/one-function-per-file.md) makes the file name the export name.
 
 ## Pipeline ADRs

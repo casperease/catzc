@@ -28,6 +28,11 @@ The unit's folder name under pwsh/ — a module ('Catzc.Base.Globs') or the infr
 
 Whether the unit's test files contain any 'integrity'-tagged test (from the run's discovery pass) — folds in the repository-wide set.
 
+### parameter `OutsideModulesFolder`
+
+Whether the unit is a module of another language track running its own tests: it has no derived globset of its own, so its read set is the
+repository and the fold widens to the repository-wide set.
+
 ### parameter `HashCache`
 
 A caller-owned hashtable memoizing set-name -> durable SHA across one Test-Automation run.

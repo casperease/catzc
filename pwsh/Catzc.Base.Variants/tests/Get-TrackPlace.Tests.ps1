@@ -21,20 +21,20 @@ Describe 'Get-TrackPlace' -Tag 'L0', 'logic' {
         @{ Kind = 'sheets'; Expected = 'widget/parts/*/sheets' }
         @{ Kind = 'spares'; Expected = 'widget/spares' }
     ) {
-        Get-TrackPlace -Track widget -Kind $Kind | Should -BeExactly $Expected
+        Get-TrackPlace -Track widget -TrackKind $Kind | Should -BeExactly $Expected
     }
 
     It 'throws on a kind the track does not name, listing its kinds and the config to declare it in' {
-        { Get-TrackPlace -Track widget -Kind bolts } |
+        { Get-TrackPlace -Track widget -TrackKind bolts } |
             Should -Throw -ExpectedMessage "Track 'widget' names no kind 'bolts' (its kinds: parts, sheets, spares)*variants.yml*"
     }
 
     It 'throws on a track that names no kinds' {
-        { Get-TrackPlace -Track gadget -Kind parts } | Should -Throw -ExpectedMessage "*names no kind 'parts' (its kinds: none)*"
+        { Get-TrackPlace -Track gadget -TrackKind parts } | Should -Throw -ExpectedMessage "*names no kind 'parts' (its kinds: none)*"
     }
 
     It 'throws on an unknown track through Get-Track' {
-        { Get-TrackPlace -Track sprocket -Kind parts } | Should -Throw -ExpectedMessage "Unknown track 'sprocket'*"
+        { Get-TrackPlace -Track sprocket -TrackKind parts } | Should -Throw -ExpectedMessage "Unknown track 'sprocket'*"
     }
 }
 
@@ -44,6 +44,6 @@ Describe 'Get-TrackPlace — the real repository' -Tag 'L1', 'integrity', 'sourc
         @{ Kind = 'configs'; Expected = 'infrastructure/templates/*/configuration' }
         @{ Kind = 'modules'; Expected = 'infrastructure/modules' }
     ) {
-        Get-TrackPlace -Track infrastructure -Kind $Kind | Should -BeExactly $Expected
+        Get-TrackPlace -Track infrastructure -TrackKind $Kind | Should -BeExactly $Expected
     }
 }

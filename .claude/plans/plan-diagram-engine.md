@@ -150,17 +150,15 @@ pictures unchecked.
 - [ ] The last three diagrams without a yml (162 of 166 are converted; the glyph legend stays rendered from `assets/glyphs.xml`):
       `10-commits-story` and `state-changes` (about 60 cells each; they wait on a time-axis lane with branch and merge curves, vertical gate
       rules across lanes, lane templates and a free text note) and `commit-lifecycle-states` (rename to `commit-promotion-states` and
-      re-home with the ADR in flow, after the ADR-DSGN-LIFE move below) (check: each put and reviewed; the kit's `STYLE.md` sections on the
-      `.drawio.md` visual description rewritten to the yml).
+      re-home with the ADR in flow, after the ADR-DSGN-LIFE move below); their png still embed the pre-P6 minimaps (`ci-automation`), so the
+      first render from the yml refreshes them (check: each put and reviewed; the kit's `STYLE.md` sections on the `.drawio.md` visual
+      description rewritten to the yml).
 - [ ] `Build-Diagrams` stops treating "the one article that embeds the folder" as an input: it finds every article and slide that embeds the
       png, and the supports-drift check holds each one's Supports line against the yml's codes; ADR-REPO-SLIDES-ONEBUILDCOMMAND says so;
       `gallery_pdf.py` prints the yml's `description:` instead of the deleted describe page (check: a second article embedding one of the
       two ado diagrams builds clean; Test-Adr clean). The two ado folders already hold only `diagram.drawio.yml` and the png.
-- [ ] Rework the data of every existing diagram's minimaps on the new definition (check: re-render one folder, review, then the rest). The
-      minimap `grid.md`/`tree.md` of `commit-lifecycle-states`, `10-commits-story` and `state-changes` still name `ci-automation` and link
-      the paths that do not exist (`pipelines/ci-automation.yaml`, `docs/references/pipelines/*`); P6 renamed the pipeline to `ci-pwsh` on
-      2026-10-20, and this re-render carries the new names (check: `git grep ci-automation -- docs/explanation` finds nothing).
-- [ ] Retire `.claude/agents/drawio-png.md`, `.claude/agents/write-drawio-files.md` and `.claude/skills/drawio-model-edit/`, and add one
+- [ ] Rework the data of every existing diagram's minimaps on the new definition (check: re-render one folder, review, then the rest).- [ ]
+      Retire `.claude/agents/drawio-png.md`, `.claude/agents/write-drawio-files.md` and `.claude/skills/drawio-model-edit/`, and add one
       yml-editing agent (edits `content:`, runs put in the background under the safeguard, reports the warnings) and one renderer skill
       (put, get, `-FromDrawing`, `-Theme`, `-Stale`); the registry entries in `pwsh/Catzc.Base.Docs/configs/agents.yml` and
       `capabilities.yml` and the agent list in `.claude/CLAUDE.md` change in the same step (check: Test-AgentDefinitions clean;

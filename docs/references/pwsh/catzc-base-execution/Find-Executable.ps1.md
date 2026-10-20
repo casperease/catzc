@@ -21,8 +21,8 @@ The generic existence check, in two timed steps, from plain inputs:
    version is required).
 
 The version is a lazy session cache entry keyed by the executable's path, its last write time and the arguments
-([ADR-PWSH-CACHE](../../../adr/automation/pwsh/script-scope-caching.md)), so a process starts at most once per executable per session, while a
-reinstall, an upgrade or a removal is seen on the next call. The locate step runs on every call: it is file checks only.
+([ADR-PWSH-CACHE](../../../adr/automation/pwsh/script-scope-caching.md)), so a process starts at most once per executable per session, while
+a reinstall, an upgrade or a removal is seen on the next call. The locate step runs on every call: it is file checks only.
 
 The caller chooses the candidates for its platform and run environment; Resolve-ToolExecutable does that for a tools.yml entry. The record
 carries the session actor (Get-SessionActor), for the report.

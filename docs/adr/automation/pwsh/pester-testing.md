@@ -4,8 +4,8 @@
 
 ### Rule ADR-PWSH-PESTER-PESTERFRAMEWORK
 
-Pester is the test framework, and a test applies the [test-automation](../test-automation.md) (`ADR-AUTO-TEST`) doctrine — logic
-isolated through seams, integrity bound to the real files — with the mock idioms and file conventions below.
+Pester is the test framework, and a test applies the [test-automation](../test-automation.md) (`ADR-AUTO-TEST`) doctrine — logic isolated
+through seams, integrity bound to the real files — with the mock idioms and file conventions below.
 
 - [The idioms](#the-idioms)
 
@@ -172,10 +172,9 @@ read it like any Pester test.
 
 ## Context
 
-[test-automation](../test-automation.md) fixes the doctrine: what a test may depend on (logic vs integrity), the L0–L4 tiers, the
-mandatory tag axes, the run model, and the push-left economics. This ADR is the Pester layer under it — the concrete mock idioms a hermetic
-logic test is written with, the test-file conventions, how each part of the doctrine is written in Pester, and the engine gotchas that
-repeatedly bite.
+[test-automation](../test-automation.md) fixes the doctrine: what a test may depend on (logic vs integrity), the L0–L4 tiers, the mandatory
+tag axes, the run model, and the push-left economics. This ADR is the Pester layer under it — the concrete mock idioms a hermetic logic test
+is written with, the test-file conventions, how each part of the doctrine is written in Pester, and the engine gotchas that repeatedly bite.
 
 ## Decision
 
@@ -250,11 +249,11 @@ the parser answers "which functions does this file define" without loading the f
 ### Tests under strict mode
 
 The code under test runs strict in its own module scope ([error-handling](error-handling.md)), and the harness worker sets strict mode
-before it invokes Pester ([test-automation](../test-automation.md#rule-adr-auto-test-fileparallelism)), so the test code runs
-strict too. Strict mode belongs to a scope and Pester runs each `It` body in a child scope of its block: `Set-StrictMode -Off` in one `It`
-body covers that body alone — the next `It` and every sibling block stay strict — and never reaches the module code the test calls, which
-keeps its own scope. The `It` body is therefore the narrowest place an opt-out works and the only place it belongs; a `BeforeAll` or
-`Describe`-level opt-out silently relaxes every test in the block.
+before it invokes Pester ([test-automation](../test-automation.md#rule-adr-auto-test-fileparallelism)), so the test code runs strict too.
+Strict mode belongs to a scope and Pester runs each `It` body in a child scope of its block: `Set-StrictMode -Off` in one `It` body covers
+that body alone — the next `It` and every sibling block stay strict — and never reaches the module code the test calls, which keeps its own
+scope. The `It` body is therefore the narrowest place an opt-out works and the only place it belongs; a `BeforeAll` or `Describe`-level
+opt-out silently relaxes every test in the block.
 
 ```powershell
 It 'reads Count on a scalar' {
@@ -298,11 +297,11 @@ The doctrine's speed rules (ADR-AUTO-TEST-SETUPONCE to ADR-AUTO-TEST-MEASUREFIRS
 
 `The run model, executed by Pester in pwsh workers`
 
-The run model of [test-automation](../test-automation.md) is engine-neutral; its executor is Pester, in pwsh. Each shard worker
-is a `pwsh` that dot-sources its run's entry script, sets strict mode, and invokes Pester on its shard (ADR-PWSH-PESTER-POOLEDWORKERS). The
-worker reduces the result itself, while the live `.Block` chain still exists for tier, category, and skip-reason resolution, and hands the
-parent plain rows: a Pester object does not survive a process boundary, and the parent's reports need only rows. `PesterRunner` pools the
-workers' output so the console reads in submission order while the wall clock runs in parallel.
+The run model of [test-automation](../test-automation.md) is engine-neutral; its executor is Pester, in pwsh. Each shard worker is a `pwsh`
+that dot-sources its run's entry script, sets strict mode, and invokes Pester on its shard (ADR-PWSH-PESTER-POOLEDWORKERS). The worker
+reduces the result itself, while the live `.Block` chain still exists for tier, category, and skip-reason resolution, and hands the parent
+plain rows: a Pester object does not survive a process boundary, and the parent's reports need only rows. `PesterRunner` pools the workers'
+output so the console reads in submission order while the wall clock runs in parallel.
 
 The source run and the build run differ only in the entry script a worker dot-sources (ADR-PWSH-PESTER-SHARDENTRYSCRIPT). A test written for
 one runs unchanged in the other, because every name Pester resolves — a `Mock -ModuleName` target, an `InModuleScope` module, a `Get-Module`
@@ -333,9 +332,9 @@ them as Pester tests.
   the prompt into a throw masks the hazard rather than removing it, so a `Test-Automation` run from a devbox shell hangs.
 - **A reused-and-deleted sandbox path races an on-access file scanner.** A `BeforeEach` that deletes and recreates one fixed sandbox dir
   intermittently throws "… being used by another process" on the delete, because a Windows AV / indexer briefly holds a just-copied file
-  open. Do not retry the delete (see [retry-as-last-resort](../retry-as-last-resort.md#rule-adr-auto-retry-lastresort)) — remove
-  the need: give each test a unique dir, `$script:sandbox = Join-Path $TestDrive ([Guid]::NewGuid())`, copy fixtures in, and drop the
-  cleanup entirely. Pester auto-cleans `$TestDrive`, and a unique dir is never re-deleted mid-run. Scratch belongs in `$TestDrive` /
+  open. Do not retry the delete (see [retry-as-last-resort](../retry-as-last-resort.md#rule-adr-auto-retry-lastresort)) — remove the need:
+  give each test a unique dir, `$script:sandbox = Join-Path $TestDrive ([Guid]::NewGuid())`, copy fixtures in, and drop the cleanup
+  entirely. Pester auto-cleans `$TestDrive`, and a unique dir is never re-deleted mid-run. Scratch belongs in `$TestDrive` /
   `[IO.Path]::GetTempPath()`, not `out/` (see
   [dedicated-output-directory](../../repository/dedicated-output-directory.md#rule-adr-repo-outdir-tempforscratch)).
 - **Bulk deletes: use .NET, not per-item `Remove-Item`.** Clearing many entries with per-item `Remove-Item` is ~50× slower than

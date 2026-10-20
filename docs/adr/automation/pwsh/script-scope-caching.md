@@ -5,8 +5,8 @@
 ### Rule ADR-PWSH-CACHE-SCRIPTSCOPESTATE
 
 A session cache lives in module `$script:` state, which the importer boundary of
-[ADR-AUTO-CACHE-IMPORTERINVALIDATES](../caching.md#rule-adr-auto-cache-importerinvalidates) maps onto exactly: `$script:` state
-is established at import and destroyed on re-import, so "re-run the importer" is the literal and only invalidation.
+[ADR-AUTO-CACHE-IMPORTERINVALIDATES](../caching.md#rule-adr-auto-cache-importerinvalidates) maps onto exactly: `$script:` state is
+established at import and destroyed on re-import, so "re-run the importer" is the literal and only invalidation.
 
 - [The `$script:` scope](#the-script-scope)
 
@@ -28,9 +28,9 @@ name falls through to `$global:` when the module's cache entry is unset.
 
 ### Rule ADR-PWSH-CACHE-COMPILEDTYPEPREBUILD
 
-The compiled-type prebuild of [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../caching.md#rule-adr-auto-cache-compiledtypeprebuild) is
-realised by the bootstrap: `Import-CSharpTypes` (`Catzc.Internal.Bootstrap.psm1`) computes the key over every module's `types/*.cs` and
-loads the committed `Catzc.Types.<hash>.dll` whose name matches, compiling with `Add-Type` only when none does; `Import-TypesAssembly`
+The compiled-type prebuild of [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../caching.md#rule-adr-auto-cache-compiledtypeprebuild) is realised by
+the bootstrap: `Import-CSharpTypes` (`Catzc.Internal.Bootstrap.psm1`) computes the key over every module's `types/*.cs` and loads the
+committed `Catzc.Types.<hash>.dll` whose name matches, compiling with `Add-Type` only when none does; `Import-TypesAssembly`
 (`Catzc.Internal.Types.psm1`) is the one load path, through the per-user shadow copy, for the bootstrap and the `SpellOutIdentifiers`
 analyzer rule alike.
 
@@ -38,9 +38,9 @@ analyzer rule alike.
 
 ## Context
 
-[caching](../caching.md) fixes the doctrine: static config reads and filesystem-derived information are cached for the session,
-keyed by input, lazily, with the importer as the one invalidation knob. This ADR realises it in pwsh — the `$script:` idioms a cached
-function is written with.
+[caching](../caching.md) fixes the doctrine: static config reads and filesystem-derived information are cached for the session, keyed by
+input, lazily, with the importer as the one invalidation knob. This ADR realises it in pwsh — the `$script:` idioms a cached function is
+written with.
 
 ### The `$script:` scope
 
@@ -123,8 +123,8 @@ A warm cache short-circuits before any dependency runs, so mocking a cached func
 fires. A test therefore mocks the **whole boundary function** and lets the cache be an implementation detail. The one exception is a test
 whose subject _is_ the cache: it resets the module-scope cache entry first
 (`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and pays the cold derive deliberately. Resetting per test everywhere
-else defeats the cache and multiplies test-run time (see [test-automation](../test-automation.md)). The mocking rule, with this
-one exception, is [ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries).
+else defeats the cache and multiplies test-run time (see [test-automation](../test-automation.md)). The mocking rule, with this one
+exception, is [ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries).
 
 ### The compiled-type prebuild
 
@@ -147,8 +147,8 @@ loaded through the shadow copy.
   cached function copies.
 - **Custom PSScriptAnalyzer rule `Measure-NoBareCacheEntryRead`** (`pwsh/.scriptanalyzer/NoBareCacheEntryRead.psm1`) — flags a `$script:`
   read before the function assigns it (ADR-PWSH-CACHE-STRICTSAFEPROBE).
-- **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../caching.md) (`ADR-AUTO-CACHE`);
-  this ADR only fixes the storage idiom.
+- **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../caching.md) (`ADR-AUTO-CACHE`); this ADR
+  only fixes the storage idiom.
 - **Code review** — a cache in `$env:`/`$global:`, or a test that mocks a cached function's internals, is rejected against this ADR.
 
 ## Consequences

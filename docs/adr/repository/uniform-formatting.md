@@ -206,9 +206,9 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
   save.
 - **`.gitattributes`** — marks binary files so EOL/diff normalization never corrupts them; deliberately no `* text=auto`.
 - **Per-language analyzers** — each language's specific rules run in its own gate. For PowerShell this is PSScriptAnalyzer plus custom rules
-  in the L2 tests (see [powershell-formatting](../automation/pwsh/powershell-formatting.md)). For Markdown it is markdownlint (`.markdownlint.yml`),
-  formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (the same engine as Markdown, checked by
-  the `Test-Formatting` gate in an L2 test) plus the naming-and-placement quality gate `Test-Pipelines`
+  in the L2 tests (see [powershell-formatting](../automation/pwsh/powershell-formatting.md)). For Markdown it is markdownlint
+  (`.markdownlint.yml`), formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (the same engine as
+  Markdown, checked by the `Test-Formatting` gate in an L2 test) plus the naming-and-placement quality gate `Test-Pipelines`
   ([pipeline-naming-and-placement](../ado/pipeline-naming-and-placement.md), an L1 integrity test) — both run in every CI test run, so
   drifted or misplaced pipeline YAML fails CI.
 - **The file-language registry** — `languages.yml` names each language's formatter engine or the reason it has none, validated at load

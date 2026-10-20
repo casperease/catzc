@@ -84,4 +84,3 @@ Above `$sections = foreach ($domain in $adrs.Domains) {`, written with `#`.
 One aligned code-registry table per domain, in declared order. Rows carry the backtick-wrapped external
 code and the slug link in the exact shape Get-CatsAdrIndex parses.
 ```
-

@@ -20,7 +20,7 @@ function Test-Spelling {
             'out/**'
             'docs/notes/**'
             '.unordered/**'
-            "$(Get-TrackPlace -Track infrastructure -Kind configs)/**"
+            "$(Get-TrackPlace -Track infrastructure -TrackKind configs)/**"
             '**/README.md'
             'docs/adr/index.md'
             'docs/adr/glossary.md'

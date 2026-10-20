@@ -1,6 +1,8 @@
 Describe 'ImportMix' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:auto = [Catzc.Base.ModuleSystem.ImporterConfig]::new(@{})
+        $script:pwshBash = [string[]] [Catzc.Base.Engines.ExecutionEngines]::Names[0..1]
+        $script:bashPwsh = [string[]] [Catzc.Base.Engines.ExecutionEngines]::Names[1, 0]
         $script:known = [string[]] @('widget', 'gadget', 'sprocket', 'doodad')
         $script:executable = [string[]] @('widget', 'gadget')
         $script:handled = [string[]] @('widget', 'gadget', 'sprocket')
@@ -11,8 +13,8 @@ Describe 'ImportMix' -Tag 'L0', 'logic' {
     }
 
     It 'resolves auto engines to the present engines and reports the missing ones' -Tag 'ADR-AUTO-IMPORTER-DECIDESMIX' {
-        $mix = [Catzc.Base.ModuleSystem.ImportMix]::Resolve($auto, $null, $null, [string[]] @('bash', 'pwsh'), $modules, $known, $executable, $handled)
-        $mix.engines | Should -Be @('pwsh', 'bash')
+        $mix = [Catzc.Base.ModuleSystem.ImportMix]::Resolve($auto, $null, $null, $bashPwsh, $modules, $known, $executable, $handled)
+        $mix.engines | Should -Be $pwshBash
         $mix.skipped_engines | Should -Be @('zsh')
     }
 
@@ -37,7 +39,7 @@ Describe 'ImportMix' -Tag 'L0', 'logic' {
 
     It 'takes the configuration''s explicit lists over auto' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.ModuleSystem.ImporterConfig]::new(@{ languages = @('sprocket'); engines = @('pwsh') })
-        $mix = [Catzc.Base.ModuleSystem.ImportMix]::Resolve($config, $null, $null, [string[]] @('pwsh', 'bash'), $modules, $known, $executable, $handled)
+        $mix = [Catzc.Base.ModuleSystem.ImportMix]::Resolve($config, $null, $null, $pwshBash, $modules, $known, $executable, $handled)
         $mix.languages | Should -Be @('sprocket')
         $mix.engines | Should -Be @('pwsh')
         $mix.skipped_engines | Should -BeNullOrEmpty
@@ -45,10 +47,10 @@ Describe 'ImportMix' -Tag 'L0', 'logic' {
 
     It 'takes the caller''s values over the configuration' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.ModuleSystem.ImporterConfig]::new(@{ languages = @('sprocket'); engines = @('pwsh') })
-        $mix = [Catzc.Base.ModuleSystem.ImportMix]::Resolve($config, [string[]] @('gadget', 'widget'), [string[]] @('bash', 'pwsh'),
-            [string[]] @('pwsh', 'bash'), $modules, $known, $executable, $handled)
+        $mix = [Catzc.Base.ModuleSystem.ImportMix]::Resolve($config, [string[]] @('gadget', 'widget'), $bashPwsh,
+            $pwshBash, $modules, $known, $executable, $handled)
         $mix.languages | Should -Be @('widget', 'gadget')
-        $mix.engines | Should -Be @('pwsh', 'bash')
+        $mix.engines | Should -Be $pwshBash
     }
 
     It 'stops on an explicit engine whose executable is not present' {

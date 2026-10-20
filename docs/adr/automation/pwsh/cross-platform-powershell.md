@@ -12,9 +12,8 @@ code ever runs on the other OS.
 
 ### Rule ADR-PWSH-XPLAT-PATHJOINPRIMITIVE
 
-The path-joining primitive of [ADR-AUTO-XPLAT-NOPLATFORMPATHS](../cross-platform.md#rule-adr-auto-xplat-noplatformpaths) is
-`Join-Path`: use it for all path construction, and never concatenate strings with `/` or `\`. It uses the correct separator for the current
-platform.
+The path-joining primitive of [ADR-AUTO-XPLAT-NOPLATFORMPATHS](../cross-platform.md#rule-adr-auto-xplat-noplatformpaths) is `Join-Path`: use
+it for all path construction, and never concatenate strings with `/` or `\`. It uses the correct separator for the current platform.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
@@ -27,16 +26,16 @@ is unavoidable, branch on the built-in `$IsWindows` / `$IsLinux` automatic varia
 
 ### Rule ADR-PWSH-XPLAT-NOPLATFORMSHELL
 
-PowerShell code meets [ADR-AUTO-XPLAT-NOPLATFORMSHELL](../cross-platform.md#rule-adr-auto-xplat-noplatformshell) with its native
-operations, or with the `Invoke-Executable` wrapper around a tool that exists on both platforms — never `cmd /c` or `/bin/sh -c`.
+PowerShell code meets [ADR-AUTO-XPLAT-NOPLATFORMSHELL](../cross-platform.md#rule-adr-auto-xplat-noplatformshell) with its native operations,
+or with the `Invoke-Executable` wrapper around a tool that exists on both platforms — never `cmd /c` or `/bin/sh -c`.
 
 - [What breaks the other way](#what-breaks-the-other-way)
 
 ### Rule ADR-PWSH-XPLAT-PATHFROMANCHORS
 
 PowerShell code resolves a path from the anchors of
-[ADR-AUTO-XPLAT-NOPLATFORMPATHS](../cross-platform.md#rule-adr-auto-xplat-noplatformpaths): the working root through
-`Get-RepositoryRoot`, the code root through `Get-CatzcModuleRoot`, or the temp directory through `[IO.Path]::GetTempPath()`, then joined by
+[ADR-AUTO-XPLAT-NOPLATFORMPATHS](../cross-platform.md#rule-adr-auto-xplat-noplatformpaths): the working root through `Get-RepositoryRoot`,
+the code root through `Get-CatzcModuleRoot`, or the temp directory through `[IO.Path]::GetTempPath()`, then joined by
 ADR-PWSH-XPLAT-PATHJOINPRIMITIVE. It never writes a literal `C:\` or `/tmp/`, and never reads a variable that one platform alone sets
 (`$env:APPDATA`, `$env:USERPROFILE`).
 
@@ -52,8 +51,8 @@ PowerShell code formats and parses a machine-bound string
 
 ### Rule ADR-PWSH-XPLAT-PATHCOMPARISON
 
-PowerShell code compares paths ([ADR-AUTO-XPLAT-CASESENSITIVEFILES](../cross-platform.md#rule-adr-auto-xplat-casesensitivefiles))
-as full paths, each passed through `[System.IO.Path]::GetFullPath()`, and compares them ordinally and case-insensitively with
+PowerShell code compares paths ([ADR-AUTO-XPLAT-CASESENSITIVEFILES](../cross-platform.md#rule-adr-auto-xplat-casesensitivefiles)) as full
+paths, each passed through `[System.IO.Path]::GetFullPath()`, and compares them ordinally and case-insensitively with
 `[StringComparer]::OrdinalIgnoreCase` (or `[string]::Equals` with `[StringComparison]::OrdinalIgnoreCase`), never culture-sensitively. The
 hazards are a case-sensitive operator (`-ceq`, `-clike`), a `.Equals` or `.StartsWith` call without a `StringComparison` argument, and two
 paths compared before they are normalised.
@@ -62,30 +61,29 @@ paths compared before they are normalised.
 
 ### Rule ADR-PWSH-XPLAT-ONECODEPATH
 
-The one code path of
-[ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS](../devbox-pipeline-parity.md#rule-adr-auto-parity-sameclibothenvironments) is, in
-PowerShell, the dot-sourced `importer.ps1` for the session and the per-tool `Install-*` functions over `tools.yml` for the tools
-([ADR-AUTO-DEPS-CISAMEINSTALLERS](../controlling-systemwide-deps.md#rule-adr-auto-deps-cisameinstallers)), run unchanged on a
-workstation and in CI. `Install-DevBoxTools` orchestrates those functions on a devbox; a pipeline calls the same functions directly.
+The one code path of [ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS](../devbox-pipeline-parity.md#rule-adr-auto-parity-sameclibothenvironments)
+is, in PowerShell, the dot-sourced `importer.ps1` for the session and the per-tool `Install-*` functions over `tools.yml` for the tools
+([ADR-AUTO-DEPS-CISAMEINSTALLERS](../controlling-systemwide-deps.md#rule-adr-auto-deps-cisameinstallers)), run unchanged on a workstation
+and in CI. `Install-DevBoxTools` orchestrates those functions on a devbox; a pipeline calls the same functions directly.
 
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-PWSH-XPLAT-HANDBUILTCROSSINGS
 
-The hand-built crossings [ADR-AUTO-PATH-CENTRALNORMALIZATION](../path-representation.md#rule-adr-auto-path-centralnormalization)
-forbids are, in PowerShell, a `Join-Path $env:RepositoryRoot …` (or `Join-Path (Get-RepositoryRoot) …`) whose result is stored, returned, or
-logged, and a `-replace '\\','/'` separator fix. A path leaves through `ConvertTo-RepoRelativePath` and binds through `Resolve-RepoPath`;
+The hand-built crossings [ADR-AUTO-PATH-CENTRALNORMALIZATION](../path-representation.md#rule-adr-auto-path-centralnormalization) forbids
+are, in PowerShell, a `Join-Path $env:RepositoryRoot …` (or `Join-Path (Get-RepositoryRoot) …`) whose result is stored, returned, or logged,
+and a `-replace '\\','/'` separator fix. A path leaves through `ConvertTo-RepoRelativePath` and binds through `Resolve-RepoPath`;
 `Join-Path` onto an anchor is correct only on the line that binds the result.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
 ## Context
 
-[cross-platform](../cross-platform.md) fixes the doctrine: everything runs on Windows and Linux, and a developer tests locally
-everything that runs in CI. PowerShell 7+ is cross-platform by design, but the _code_ people write in it often is not: Windows-only cmdlets,
-.NET types that do not exist on Linux, backslash separators, registry access, COM objects, shell-outs to `cmd.exe`. These work fine on the
-author's machine and fail silently or loudly in CI. This ADR is the language layer — the concrete PowerShell hazards and the analyzer that
-catches them before push.
+[cross-platform](../cross-platform.md) fixes the doctrine: everything runs on Windows and Linux, and a developer tests locally everything
+that runs in CI. PowerShell 7+ is cross-platform by design, but the _code_ people write in it often is not: Windows-only cmdlets, .NET types
+that do not exist on Linux, backslash separators, registry access, COM objects, shell-outs to `cmd.exe`. These work fine on the author's
+machine and fail silently or loudly in CI. This ADR is the language layer — the concrete PowerShell hazards and the analyzer that catches
+them before push.
 
 ### What breaks in practice
 

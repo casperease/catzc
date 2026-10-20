@@ -31,8 +31,8 @@ guarantee restoration.
 
 Module code locates its own content — its `configs/`, its `assets/`, another module's, and the dot-prefixed infrastructure (`.internal/`,
 `.vendor/`, `.compiled/`), the internal asset dependencies of
-[ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency) —
-only through `Get-CatzcModuleRoot -ChildPath '<literal>'` (or `Get-CatzcModulesRoot` for the infrastructure), never through `$PSScriptRoot`,
+[ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency) — only through
+`Get-CatzcModuleRoot -ChildPath '<literal>'` (or `Get-CatzcModulesRoot` for the infrastructure), never through `$PSScriptRoot`,
 `Get-RepositoryRoot`, or a `Join-Path` over a hand-built `pwsh/...` path. `$PSScriptRoot` is banned in module function files (a module's
 root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it. The analyzer rule `Measure-NoScriptRootAnchor` enforces the
 ban.
@@ -43,35 +43,34 @@ ban.
 ### Rule ADR-PWSH-PWD-TESTABSOLUTEPATHS
 
 A test file builds its absolute paths from `$env:RepositoryRoot`, or from `$PSScriptRoot` for its own fixtures (`tests/assets/`), never from
-`$PWD` or a relative path
-([ADR-AUTO-NOPWD-TESTSBUILDABSOLUTEPATHS](../never-depend-on-pwd.md#rule-adr-auto-nopwd-testsbuildabsolutepaths)).
+`$PWD` or a relative path ([ADR-AUTO-NOPWD-TESTSBUILDABSOLUTEPATHS](../never-depend-on-pwd.md#rule-adr-auto-nopwd-testsbuildabsolutepaths)).
 
 - [The anchors](#the-anchors)
 
 ### Rule ADR-PWSH-PWD-ROOTTHROUGHACCESSOR
 
 A module function file reads the working root through `Get-RepositoryRoot`, never `$env:RepositoryRoot`
-([ADR-AUTO-NOPWD-ONEROOTACCESSOR](../never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)). A function whose job is the
-variable itself (`Test-InIsolation` swaps it for a sandbox and restores it) carries a justified suppression; tests and `.internal` keep the
-variable. The analyzer rule `Measure-NoEnvRepositoryRoot` enforces it.
+([ADR-AUTO-NOPWD-ONEROOTACCESSOR](../never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)). A function whose job is the variable
+itself (`Test-InIsolation` swaps it for a sandbox and restores it) carries a justified suppression; tests and `.internal` keep the variable.
+The analyzer rule `Measure-NoEnvRepositoryRoot` enforces it.
 
 - [The anchors](#the-anchors)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-PWSH-PWD-LITERALCHILDPATH
 
-The child path of [ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)
-is the `-ChildPath` argument of `Get-CatzcModuleRoot`, written as one string literal at the call site — never a variable, an expression, or
-a `Join-Path` around the call. `Get-InternalAssetDependency` reads that literal from the syntax trees of the module function files, so a
+The child path of [ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath) is the
+`-ChildPath` argument of `Get-CatzcModuleRoot`, written as one string literal at the call site — never a variable, an expression, or a
+`Join-Path` around the call. `Get-InternalAssetDependency` reads that literal from the syntax trees of the module function files, so a
 computed child path is a dependency the inventory cannot see.
 
 - [The code root](#the-code-root)
 
 ## Context
 
-[never-depend-on-pwd](../never-depend-on-pwd.md) fixes the doctrine: every function works correctly regardless of the caller's
-working directory, and module code finds its own content through the code root. This ADR realises it in pwsh — the anchor idioms that make
-paths location-independent, and the one safe way to change directory when an external tool insists on one.
+[never-depend-on-pwd](../never-depend-on-pwd.md) fixes the doctrine: every function works correctly regardless of the caller's working
+directory, and module code finds its own content through the code root. This ADR realises it in pwsh — the anchor idioms that make paths
+location-independent, and the one safe way to change directory when an external tool insists on one.
 
 ### The anchors
 
@@ -79,9 +78,9 @@ paths location-independent, and the one safe way to change directory when an ext
   (`Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'`), correct in source mode and in the installed build alike
   ([the code root](#the-code-root)).
 - **`Get-RepositoryRoot`** gives the repository root, which `importer.ps1` sets once at bootstrap as `$env:RepositoryRoot` and treats as a
-  constant ([environment-variables](../environment-variables.md)) — the anchor for repository-level paths, via the binding
-  helpers of [path-representation](../path-representation.md) (`Resolve-RepoPath`, `Get-RepositoryFile`). Module code calls the
-  accessor; tests and `.internal` read the variable.
+  constant ([environment-variables](../environment-variables.md)) — the anchor for repository-level paths, via the binding helpers of
+  [path-representation](../path-representation.md) (`Resolve-RepoPath`, `Get-RepositoryFile`). Module code calls the accessor; tests and
+  `.internal` read the variable.
 - **`$PSScriptRoot`** gives the directory of the current script file — the anchor for a test's own fixtures (`tests/assets/`), for a
   standalone asset script, and for the `.internal` loader, none of which is a module function file.
 

@@ -62,9 +62,9 @@ it: the switch is added together with the watchpoint and deleted with the last o
 
 ## Context
 
-[fail-fast-with-asserts](../fail-fast-with-asserts.md) decides that every assumption is asserted where it is made, through the
-assertion library, and that every wait is bounded. This ADR is how that reads in PowerShell: which functions assert, where in a function
-they sit, what replaces an inline `if`/`throw`, and how a function declares its own time limit.
+[fail-fast-with-asserts](../fail-fast-with-asserts.md) decides that every assumption is asserted where it is made, through the assertion
+library, and that every wait is bounded. This ADR is how that reads in PowerShell: which functions assert, where in a function they sit,
+what replaces an inline `if`/`throw`, and how a function declares its own time limit.
 
 ### The Assert library
 
@@ -138,9 +138,9 @@ created: whole seconds above zero, and a pipeline limit at least the devbox one.
 
 ### Bounding a wait
 
-[fail-fast-with-asserts](../fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait) bounds every wait. In pwsh the two
-kinds of wait have one helper each. A native tool is a child process, so `Invoke-Executable` owns its limit and kills the whole process tree
-when it is reached. Work inside the session — a long loop, a scan, a call into a module — is passed as a script block:
+[fail-fast-with-asserts](../fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait) bounds every wait. In pwsh the two kinds of
+wait have one helper each. A native tool is a child process, so `Invoke-Executable` owns its limit and kills the whole process tree when it
+is reached. Work inside the session — a long loop, a scan, a call into a module — is passed as a script block:
 
 ```powershell
 $report = Invoke-WithTimeout { Get-WidgetReport -Path $Path } -Activity 'widget report'
