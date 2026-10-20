@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+    folder: types
+    name: root-config-files
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.RootConfig/tests/types/RootConfigFiles.Tests.ps1
+    docs: "[RootConfigFiles.cs.md](docs/references/pwsh/catzc-base-rootconfig/types/RootConfigFiles.cs.md)"
+    cites:
+      - ADR-CONF-LOADING
+      - ADR-REPO-ROOTCFG
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

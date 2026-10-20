@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+    folder: tests
+    name: test-glob-set-independence-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-GlobSetIndependence.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+---
+#>
+
 Describe 'Test-GlobSetIndependence' -Tag 'L0', 'logic' {
     BeforeAll {
         # A globset fixture: Name, Layer, and SelectOwnMembers over the tracked files by path prefix.

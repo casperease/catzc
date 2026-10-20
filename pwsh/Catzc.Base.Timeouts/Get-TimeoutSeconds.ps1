@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Timeouts/Get-TimeoutSeconds.ps1
+    name: get-timeout-seconds
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Timeouts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Tests.ps1
+    docs: "[Get-TimeoutSeconds.ps1.md](docs/references/pwsh/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md)"
+    cites:
+      - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
+---
+#>
+
 function Get-TimeoutSeconds {
     [CmdletBinding(DefaultParameterSetName = 'Shell')]
     [OutputType([int])]

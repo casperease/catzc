@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
+    folder: tests
+    name: resolve-bicep-parameter-addresses-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Resolve-BicepParameterAddresses.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Resolve-BicepParameterAddresses.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE
+---
+#>
+
 Describe 'Resolve-BicepParameterAddresses' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:resolve = {

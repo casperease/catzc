@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1
+    folder: tests
+    name: get-tools-status-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ToolsStatus.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{

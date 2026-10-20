@@ -1,11 +1,11 @@
-description: Running Test-Automation or Test-ModuleDependency checks every module edge against the declaration; a malformed
-  declaration throws first, an undeclared edge fails with one line per issue after the report is written, and the fix goes
-  in dependencies.yml.
+description:
+  Running Test-Automation or Test-ModuleDependency checks every module edge against the declaration; a malformed declaration throws first,
+  an undeclared edge fails with one line per issue after the report is written, and the fix goes in dependencies.yml.
 about:
   adrs:
-  - ADR-AUTO-DEPM-TWOSECTIONS
-  - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-  - ADR-AUTO-DEPM-EXTENDBYDECLARING
+    - ADR-AUTO-DEPM-TWOSECTIONS
+    - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+    - ADR-AUTO-DEPM-EXTENDBYDECLARING
   lens: operations
 content:
   title: An undeclared module edge fails the gate with one line per issue
@@ -14,76 +14,76 @@ content:
   relation: then
   theme: dark
   bands:
-  - id: band-run
-    label: RUN
-  - id: band-see
-    label: SEE
-  - id: band-fix
-    label: FIX
+    - id: band-run
+      label: RUN
+    - id: band-see
+      label: SEE
+    - id: band-fix
+      label: FIX
   glyphs:
-  - id: n-automation
-    kind: runner
-    label: Test-Automation
-    in: band-run
-  - id: n-gate
-    kind: runner
-    label: Test-ModuleDependency
-    in: band-run
-  - id: f-bad
-    kind: failure
-    label: Bad dependencies.yml
-    in: band-run
-  - id: r-report
-    kind: result
-    label: module-dependency.md
-    in: band-see
-  - id: f-issues
-    kind: failure
-    label: 'failed: N issue(s)'
-    in: band-see
-  - id: g-dependencies
-    kind: file
-    label: dependencies.yml
-    in: band-fix
+    - id: n-automation
+      kind: runner
+      label: Test-Automation
+      in: band-run
+    - id: n-gate
+      kind: runner
+      label: Test-ModuleDependency
+      in: band-run
+    - id: f-bad
+      kind: failure
+      label: Bad dependencies.yml
+      in: band-run
+    - id: r-report
+      kind: result
+      label: module-dependency.md
+      in: band-see
+    - id: f-issues
+      kind: failure
+      label: "failed: N issue(s)"
+      in: band-see
+    - id: g-dependencies
+      kind: file
+      label: dependencies.yml
+      in: band-fix
   edges:
-  - from: n-automation
-    to: n-gate
-    kind: flow
-    label: ''
-  - from: n-gate
-    to: r-report
-    kind: flow
-    label: ''
-  - from: f-issues
-    to: g-dependencies
-    kind: flow
-    label: ''
-  - from: n-gate
-    to: f-bad
-    kind: fail
-    label: ''
-  - from: r-report
-    to: f-issues
-    kind: fail
-    label: ''
+    - from: n-automation
+      to: n-gate
+      kind: flow
+      label: ""
+    - from: n-gate
+      to: r-report
+      kind: flow
+      label: ""
+    - from: f-issues
+      to: g-dependencies
+      kind: flow
+      label: ""
+    - from: n-gate
+      to: f-bad
+      kind: fail
+      label: ""
+    - from: r-report
+      to: f-issues
+      kind: fail
+      label: ""
   markers:
-  - at: n-automation
-    number: 1
-  - at: n-gate
-    number: 2
-  - at: f-bad
-    number: 3
-  - at: r-report
-    number: 4
-  - at: f-issues
-    number: 5
-  - at: g-dependencies
-    number: 6
+    - at: n-automation
+      number: 1
+    - at: n-gate
+      number: 2
+    - at: f-bad
+      number: 3
+    - at: r-report
+      number: 4
+    - at: f-issues
+      number: 5
+    - at: g-dependencies
+      number: 6
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-run:
     x: 20

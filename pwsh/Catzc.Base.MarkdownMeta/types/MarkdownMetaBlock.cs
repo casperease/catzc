@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
+    folder: types
+    name: markdown-meta-block
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.MarkdownMeta
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.MarkdownMeta/tests/types/MarkdownMetaBlock.Tests.ps1
+    docs: "[MarkdownMetaBlock.cs.md](docs/references/pwsh/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md)"
+    cites:
+      - ADR-REPO-FILEMETA-HEADPOLICY
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

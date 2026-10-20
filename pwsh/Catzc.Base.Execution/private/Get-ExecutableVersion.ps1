@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Execution/private/Get-ExecutableVersion.ps1
+    folder: private
+    name: get-executable-version
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Execution
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
+    docs: "[Get-ExecutableVersion.ps1.md](docs/references/pwsh/catzc-base-execution/private/Get-ExecutableVersion.ps1.md)"
+---
+#>
+
 function Get-ExecutableVersion {
     [OutputType([string])]
     [CmdletBinding()]

@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
+    name: assert-catzc-overlay
+    filetype: ps1
+    role: function
+    subkind: assert
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Overlay
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1
+    docs: "[Assert-CatzcOverlay.ps1.md](docs/references/pwsh/catzc-base-overlay/Assert-CatzcOverlay.ps1.md)"
+    cites:
+      - ADR-AUTO-OVERLAY
+---
+#>
+
 function Assert-CatzcOverlay {
     [CmdletBinding()]
     param(

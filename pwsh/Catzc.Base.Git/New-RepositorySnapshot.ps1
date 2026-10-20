@@ -1,4 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Git/New-RepositorySnapshot.ps1
+    name: new-repository-snapshot
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Git
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
+    docs: "[New-RepositorySnapshot.ps1.md](docs/references/pwsh/catzc-base-git/New-RepositorySnapshot.ps1.md)"
+    cites:
+      - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
+      - ADR-THES-ONETRUTH
+---
+#>
+
 function New-RepositorySnapshot {
+    [Catzc.Base.Timeouts.TimeLimit(120)]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -42,7 +69,8 @@ function New-RepositorySnapshot {
                 (ConvertTo-Json -InputObject $marker), [System.Text.UTF8Encoding]::new($false))
 
             if ($Committed) {
-                Invoke-Executable "git -C `"$Destination`" checkout --quiet --detach $commit" -PassThru -Silent | Out-Null
+                $checkoutSeconds = Get-TimeoutSeconds -Command 'New-RepositorySnapshot'
+                Invoke-Executable "git -C `"$Destination`" checkout --quiet --detach $commit" -PassThru -Silent -TimeoutSeconds $checkoutSeconds | Out-Null
                 $modified = 0
                 $deleted = 0
                 $untracked = 0

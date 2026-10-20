@@ -1,10 +1,11 @@
-description: 'One flattened scan program composed from a base unit and a configured unit, and its two projections: GitHub
-  paths keep the order exactly, Azure DevOps include and exclude collapse each pattern to its last select.'
+description:
+  "One flattened scan program composed from a base unit and a configured unit, and its two projections: GitHub paths keep the order exactly,
+  Azure DevOps include and exclude collapse each pattern to its last select."
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
-  - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-  - ADR-FLOW-CD-GLOBS-COMPOSESETS
+    - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+    - ADR-FLOW-CD-GLOBS-COMPOSESETS
   lens: meta
 content:
   title: One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps
@@ -13,64 +14,64 @@ content:
   relation: feeds
   theme: dark
   bands:
-  - id: band-compose
-    label: COMPOSE
-  - id: band-projection
-    label: PROJECTION
+    - id: band-compose
+      label: COMPOSE
+    - id: band-projection
+      label: PROJECTION
   glyphs:
-  - id: s-base-unit
-    kind: set
-    label: base unit
-    in: band-compose
-  - id: s-configured-unit
-    kind: set
-    label: configured unit
-    in: band-compose
-  - id: r-program
-    kind: result
-    label: flattened scan program
-    in: band-compose
-  - id: r-github-paths
-    kind: result
-    label: GitHub paths
-    in: band-projection
-  - id: r-ado-filters
-    kind: result
-    label: ADO include and exclude
-    in: band-projection
+    - id: s-base-unit
+      kind: set
+      label: base unit
+      in: band-compose
+    - id: s-configured-unit
+      kind: set
+      label: configured unit
+      in: band-compose
+    - id: r-program
+      kind: result
+      label: flattened scan program
+      in: band-compose
+    - id: r-github-paths
+      kind: result
+      label: GitHub paths
+      in: band-projection
+    - id: r-ado-filters
+      kind: result
+      label: ADO include and exclude
+      in: band-projection
   edges:
-  - from: s-base-unit
-    to: s-configured-unit
-    kind: flow
-    label: ''
-  - from: s-configured-unit
-    to: r-program
-    kind: flow
-    label: ''
-  - from: r-program
-    to: r-github-paths
-    kind: flow
-    label: ''
-  - from: r-program
-    to: r-ado-filters
-    kind: flow
-    label: ''
+    - from: s-base-unit
+      to: s-configured-unit
+      kind: flow
+      label: ""
+    - from: s-configured-unit
+      to: r-program
+      kind: flow
+      label: ""
+    - from: r-program
+      to: r-github-paths
+      kind: flow
+      label: ""
+    - from: r-program
+      to: r-ado-filters
+      kind: flow
+      label: ""
   markers:
-  - at: s-base-unit
-    number: 1
-  - at: s-configured-unit
-    number: 2
-  - at: r-program
-    number: 3
-  - at: r-github-paths
-    number: 4
-  - at: r-ado-filters
-    number: 5
+    - at: s-base-unit
+      number: 1
+    - at: s-configured-unit
+      number: 2
+    - at: r-program
+      number: 3
+    - at: r-github-paths
+      number: 4
+    - at: r-ado-filters
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-compose:
     x: 20

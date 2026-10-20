@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1
+    folder: tests
+    name: get-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Config
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-Config.Tests.ps1.md](docs/references/pwsh/catzc-base-config/tests/Get-Config.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-OVERLAY
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-LOGICANDINTEGRITY
+---
+#>
+
 Describe 'Get-Config' -Tag 'L0' {
     Context 'discovery + raw default' -Tag 'integrity' {
         It 'discovers and loads a shipped config from its owning module' {

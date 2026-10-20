@@ -31,6 +31,32 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
         $script:reportBase = Join-Path $script:widgetRoot 'reports'
+        $script:outRoot = Join-Path $script:widgetRoot 'out'
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $script:outRoot }
+    }
+
+    It 'announces how many files it checks before it checks them' -Tag 'ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING' {
+        Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter {
+            $Message -eq 'Formatting the meta block of 2 file(s) (0 unchanged since their last check)...'
+        }
+    }
+
+    It 'skips a file it left clean on the next run, and checks it again under -NoCache' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+        Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
+        Format-FileMeta -RepositoryRoot $script:widgetRoot -DryRun | Out-Null
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -eq 'Checking the meta block of 0 file(s) (2 unchanged since their last check)...' }
+        Format-FileMeta -RepositoryRoot $script:widgetRoot -DryRun -NoCache | Out-Null
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -eq 'Checking the meta block of 2 file(s) (0 unchanged since their last check)...' }
+    }
+
+    It 'never records a file the dry run would change, or one with a key no kind owns, as clean' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "---`ncatzc:`n  immutable:`n    surprise: 1`n---`n# docs/gadget.md`n")
+        Format-FileMeta -RepositoryRoot $script:widgetRoot -DryRun | Out-Null
+        Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
+        Format-FileMeta -RepositoryRoot $script:widgetRoot -DryRun | Out-Null
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Message -eq 'Formatting the meta block of 2 file(s) (0 unchanged since their last check)...' }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Message -eq 'Checking the meta block of 1 file(s) (1 unchanged since their last check)...' }
     }
 
     It 'imprints the place facts and the edges above a file with no front matter, keeping its line endings and writing no BOM' {

@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
+    folder: tests
+    name: get-bicep-template-configuration-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-BicepTemplateConfiguration.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateConfiguration.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SAFESEAMSWAPS
+      - ADR-AUTO-TEST-SETUPONCE
+---
+#>
+
 # cspell:ignore alweutstscusacst alweutstscusst
 Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     BeforeAll {

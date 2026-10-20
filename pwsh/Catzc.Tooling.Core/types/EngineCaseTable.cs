@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/types/EngineCaseTable.cs
+    folder: types
+    name: engine-case-table
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Tooling.Core/tests/types/EngineCaseTable.Tests.ps1
+    docs: "[EngineCaseTable.cs.md](docs/references/pwsh/catzc-tooling-core/types/EngineCaseTable.cs.md)"
+    cites:
+      - ADR-AUTO-ENGINE-THREEENGINES
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
+    folder: tests
+    name: get-repository-guids-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-RepositoryGuids.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-RepositoryGuids.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-PROTGLOB-INCLUDESOWNCONFIG
+---
+#>
+
 Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:sandbox = Join-Path $TestDrive ([Guid]::NewGuid())

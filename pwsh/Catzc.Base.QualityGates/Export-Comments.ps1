@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Export-Comments.ps1
+    name: export-comments
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
+    docs: "[Export-Comments.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Export-Comments.ps1.md)"
+    cites:
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - ADR-PRIN-ONELIVE-ONEVERSION
+---
+#>
+
 function Export-Comments {
     [CmdletBinding()]
     [OutputType([string[]], [Catzc.Base.QualityGates.CommentFileResult])]

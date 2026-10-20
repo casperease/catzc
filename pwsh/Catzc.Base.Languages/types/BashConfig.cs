@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/types/BashConfig.cs
+    folder: types
+    name: bash-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Languages/tests/types/BashConfig.Tests.ps1
+    docs: "[BashConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/BashConfig.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-FOLDERS-LITERALNAMES
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

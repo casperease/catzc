@@ -16,7 +16,7 @@ catzc:
     catzc_bundle: full
   edges:
     test: pwsh/Catzc.Tooling.Listen/tests/types/WriteLedger.Tests.ps1
-    docs: "[WriteLedger.cs.md](/docs/references/pwsh/catzc-tooling-listen/types/WriteLedger.cs.md)"
+    docs: "[WriteLedger.cs.md](docs/references/pwsh/catzc-tooling-listen/types/WriteLedger.cs.md)"
 ---
 */
 

@@ -1,3 +1,25 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs
+    folder: types
+    name: key-handler-bindings-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.KeyHandler
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    test: pwsh/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerBindingsConfig.Tests.ps1
+    docs: "[KeyHandlerBindingsConfig.cs.md](docs/references/pwsh/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md)"
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -17,7 +17,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/New-VSCodePipelineSchema.Tests.ps1
-    docs: "[New-VSCodePipelineSchema.ps1.md](/docs/references/pwsh/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md)"
+    docs: "[New-VSCodePipelineSchema.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---

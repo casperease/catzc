@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Toolchain/tests/Get-GoRelease.Tests.ps1
+    folder: tests
+    name: get-go-release-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-GoRelease.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Get-GoRelease.Tests.ps1.md)"
+---
+#>
+
 Describe 'Get-GoRelease' -Tag 'L0', 'logic' {
     BeforeAll {
         # Get-GoRelease is private: reach it in the module's scope.

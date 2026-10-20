@@ -1,3 +1,31 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+    folder: types
+    name: variants-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
+    docs: "[VariantsConfig.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-DSGN-ASPECT
+      - ADR-DSGN-TRACK
+      - ADR-REPO-VARIANT
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

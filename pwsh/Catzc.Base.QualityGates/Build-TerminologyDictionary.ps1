@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
+    name: build-terminology-dictionary
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1
+    docs: "[Build-TerminologyDictionary.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN
+      - ADR-AUTO-SPELL
+      - ADR-REPO-OUTDIR-DICTIONARIESGENERATED
+---
+#>
+
 function Build-TerminologyDictionary {
     [CmdletBinding()]
     [OutputType([string[]])]

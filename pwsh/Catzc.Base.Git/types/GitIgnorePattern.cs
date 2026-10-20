@@ -1,3 +1,25 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Git/types/GitIgnorePattern.cs
+    folder: types
+    name: git-ignore-pattern
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Git
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Git/tests/types/GitIgnorePattern.Tests.ps1
+    docs: "[GitIgnorePattern.cs.md](docs/references/pwsh/catzc-base-git/types/GitIgnorePattern.cs.md)"
+---
+*/
+
 using System;
 using System.Collections;
 

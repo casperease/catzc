@@ -47,8 +47,8 @@ merge, and the CI engine that verifies the commit and publishes its artifact. Af
 
 ## Why it holds
 
-A commit that fails a stage cannot go downstream (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM). In the code that rule is the `succeeded()` condition
-on every `Deploy_*` stage: a failed CI stage skips every deploy, and a failed deploy stage skips the stages after it.
+A commit that fails a stage cannot go downstream (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM). In the code that rule is the `succeeded()`
+condition on every `Deploy_*` stage: a failed CI stage skips every deploy, and a failed deploy stage skips the stages after it.
 
 ## Where the code and the ADR differ
 

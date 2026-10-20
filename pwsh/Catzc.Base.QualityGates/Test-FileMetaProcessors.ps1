@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1
+    name: test-file-meta-processors
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-FileMetaProcessors.Tests.ps1
+    docs: "[Test-FileMetaProcessors.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-FileMetaProcessors.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION
+---
+#>
+
 function Test-FileMetaProcessors {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

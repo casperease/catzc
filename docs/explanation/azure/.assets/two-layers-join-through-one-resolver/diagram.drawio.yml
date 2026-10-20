@@ -1,12 +1,12 @@
-description: 'The templating layer and the identity layer never reference each other by name: discovery and the collect-all
-  validator both run one shared check, which asks one resolver which subscriptions a config''s coordinate can resolve to in
-  azure.yml and customer.yml.'
+description:
+  "The templating layer and the identity layer never reference each other by name: discovery and the collect-all validator both run one
+  shared check, which asks one resolver which subscriptions a config's coordinate can resolve to in azure.yml and customer.yml."
 about:
   adrs:
-  - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
-  - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-  - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
-  - ADR-AZ-CUSTOMER-TWOBINDINGS
+    - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+    - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+    - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+    - ADR-AZ-CUSTOMER-TWOBINDINGS
   lens: architecture
 content:
   title: Templating and identity join through one shared check and one resolver
@@ -15,88 +15,88 @@ content:
   relation: depends on
   theme: dark
   bands:
-  - id: band-templating
-    label: TEMPLATING LAYER
-  - id: band-identity
-    label: IDENTITY LAYER
+    - id: band-templating
+      label: TEMPLATING LAYER
+    - id: band-identity
+      label: IDENTITY LAYER
   glyphs:
-  - id: g-tree
-    kind: file
-    label: configuration/ tree
-    in: band-templating
-  - id: g-discovery
-    kind: code
-    label: Get-BicepTemplates
-    in: band-templating
-  - id: g-validator
-    kind: code
-    label: Assert-BicepTemplate
-    in: band-templating
-  - id: g-check
-    kind: gate
-    label: Get-BicepSubscriptionConfigViolations
-    in: band-templating
-  - id: g-candidates
-    kind: code
-    label: Get-BicepConfigSubscriptionCandidates
-    in: band-templating
-  - id: g-azure
-    kind: file
-    label: azure.yml
-    in: band-identity
-  - id: g-customer
-    kind: file
-    label: customer.yml
-    in: band-identity
+    - id: g-tree
+      kind: file
+      label: configuration/ tree
+      in: band-templating
+    - id: g-discovery
+      kind: code
+      label: Get-BicepTemplates
+      in: band-templating
+    - id: g-validator
+      kind: code
+      label: Assert-BicepTemplate
+      in: band-templating
+    - id: g-check
+      kind: gate
+      label: Get-BicepSubscriptionConfigViolations
+      in: band-templating
+    - id: g-candidates
+      kind: code
+      label: Get-BicepConfigSubscriptionCandidates
+      in: band-templating
+    - id: g-azure
+      kind: file
+      label: azure.yml
+      in: band-identity
+    - id: g-customer
+      kind: file
+      label: customer.yml
+      in: band-identity
   edges:
-  - from: g-discovery
-    to: g-tree
-    kind: flow
-    label: ''
-  - from: g-validator
-    to: g-tree
-    kind: flow
-    label: ''
-  - from: g-discovery
-    to: g-check
-    kind: flow
-    label: ''
-  - from: g-validator
-    to: g-check
-    kind: flow
-    label: ''
-  - from: g-check
-    to: g-candidates
-    kind: flow
-    label: ''
-  - from: g-candidates
-    to: g-azure
-    kind: flow
-    label: ''
-  - from: g-candidates
-    to: g-customer
-    kind: flow
-    label: ''
+    - from: g-discovery
+      to: g-tree
+      kind: flow
+      label: ""
+    - from: g-validator
+      to: g-tree
+      kind: flow
+      label: ""
+    - from: g-discovery
+      to: g-check
+      kind: flow
+      label: ""
+    - from: g-validator
+      to: g-check
+      kind: flow
+      label: ""
+    - from: g-check
+      to: g-candidates
+      kind: flow
+      label: ""
+    - from: g-candidates
+      to: g-azure
+      kind: flow
+      label: ""
+    - from: g-candidates
+      to: g-customer
+      kind: flow
+      label: ""
   markers:
-  - at: g-tree
-    number: 1
-  - at: g-discovery
-    number: 2
-  - at: g-validator
-    number: 3
-  - at: g-check
-    number: 4
-  - at: g-candidates
-    number: 5
-  - at: g-azure
-    number: 6
-  - at: g-customer
-    number: 7
+    - at: g-tree
+      number: 1
+    - at: g-discovery
+      number: 2
+    - at: g-validator
+      number: 3
+    - at: g-check
+      number: 4
+    - at: g-candidates
+      number: 5
+    - at: g-azure
+      number: 6
+    - at: g-customer
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-templating:
     x: 20

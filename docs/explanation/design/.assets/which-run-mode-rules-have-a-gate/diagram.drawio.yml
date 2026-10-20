@@ -1,14 +1,15 @@
-description: 'Which run-mode rules a gate checks: the two test runs, the two entry scripts, the exclusivity assert, the source-tree
-  assert and the mode function cover six rules, and the three build kinds, told apart by place, need none.'
+description:
+  "Which run-mode rules a gate checks: the two test runs, the two entry scripts, the exclusivity assert, the source-tree assert and the mode
+  function cover six rules, and the three build kinds, told apart by place, need none."
 about:
   adrs:
-  - ADR-DSGN-RUNMODE-TWORUNMODES
-  - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-  - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-  - ADR-DSGN-RUNMODE-MODEISDERIVED
-  - ADR-DSGN-RUNMODE-NEVERCOEXIST
-  - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-  - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+    - ADR-DSGN-RUNMODE-TWORUNMODES
+    - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+    - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
+    - ADR-DSGN-RUNMODE-MODEISDERIVED
+    - ADR-DSGN-RUNMODE-NEVERCOEXIST
+    - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
+    - ADR-DSGN-RUNMODE-THREEBUILDKINDS
   lens: governance
 content:
   title: Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none
@@ -17,123 +18,123 @@ content:
   relation: calls
   theme: dark
   bands:
-  - id: band-runs
-    label: TEST RUNS
-  - id: band-load
-    label: LOAD
-  - id: band-after
-    label: AFTER THE LOAD
+    - id: band-runs
+      label: TEST RUNS
+    - id: band-load
+      label: LOAD
+    - id: band-after
+      label: AFTER THE LOAD
   glyphs:
-  - id: g-test-automation
-    kind: gate
-    label: Test-Automation
-    in: band-runs
-  - id: g-test-build
-    kind: gate
-    label: Test-CatzcBuild
-    in: band-runs
-  - id: g-importer
-    kind: code
-    label: importer.ps1
-    in: band-load
-  - id: g-exclusive
-    kind: gate
-    label: Assert-CatzcRunModeExclusive
-    in: band-load
-  - id: g-import-catzc
-    kind: code
-    label: Import-Catzc.ps1
-    in: band-load
-  - id: g-source-tree
-    kind: gate
-    label: Assert-SourceTree
-    in: band-after
-  - id: g-run-mode
-    kind: code
-    label: Get-CatzcRunMode
-    in: band-after
-  - id: g-build-kinds
-    kind: adronly
-    label: Three build kinds
-    in: band-after
+    - id: g-test-automation
+      kind: gate
+      label: Test-Automation
+      in: band-runs
+    - id: g-test-build
+      kind: gate
+      label: Test-CatzcBuild
+      in: band-runs
+    - id: g-importer
+      kind: code
+      label: importer.ps1
+      in: band-load
+    - id: g-exclusive
+      kind: gate
+      label: Assert-CatzcRunModeExclusive
+      in: band-load
+    - id: g-import-catzc
+      kind: code
+      label: Import-Catzc.ps1
+      in: band-load
+    - id: g-source-tree
+      kind: gate
+      label: Assert-SourceTree
+      in: band-after
+    - id: g-run-mode
+      kind: code
+      label: Get-CatzcRunMode
+      in: band-after
+    - id: g-build-kinds
+      kind: adronly
+      label: Three build kinds
+      in: band-after
   edges:
-  - from: g-test-automation
-    to: g-importer
-    kind: flow
-    label: ''
-  - from: g-test-build
-    to: g-import-catzc
-    kind: flow
-    label: ''
-  - from: g-importer
-    to: g-exclusive
-    kind: flow
-    label: ''
-  - from: g-import-catzc
-    to: g-exclusive
-    kind: flow
-    label: ''
-  - from: g-source-tree
-    to: g-run-mode
-    kind: flow
-    label: ''
+    - from: g-test-automation
+      to: g-importer
+      kind: flow
+      label: ""
+    - from: g-test-build
+      to: g-import-catzc
+      kind: flow
+      label: ""
+    - from: g-importer
+      to: g-exclusive
+      kind: flow
+      label: ""
+    - from: g-import-catzc
+      to: g-exclusive
+      kind: flow
+      label: ""
+    - from: g-source-tree
+      to: g-run-mode
+      kind: flow
+      label: ""
   markers:
-  - at: g-test-automation
-    number: 1
-  - at: g-test-build
-    number: 2
-  - at: g-importer
-    number: 3
-  - at: g-exclusive
-    number: 4
-  - at: g-import-catzc
-    number: 5
-  - at: g-source-tree
-    number: 6
-  - at: g-run-mode
-    number: 7
-  - at: g-build-kinds
-    number: 8
+    - at: g-test-automation
+      number: 1
+    - at: g-test-build
+      number: 2
+    - at: g-importer
+      number: 3
+    - at: g-exclusive
+      number: 4
+    - at: g-import-catzc
+      number: 5
+    - at: g-source-tree
+      number: 6
+    - at: g-run-mode
+      number: 7
+    - at: g-build-kinds
+      number: 8
   chips:
-  - at: g-test-automation
-    kind: rule
-    rule: ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-  - at: g-test-automation
-    kind: rule
-    rule: ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-  - at: g-test-automation
-    kind: rule
-    rule: ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-  - at: g-test-build
-    kind: rule
-    rule: ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-  - at: g-test-build
-    kind: rule
-    rule: ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-  - at: g-importer
-    kind: rule
-    rule: ADR-DSGN-RUNMODE-TWORUNMODES
-  - at: g-exclusive
-    kind: rule
-    rule: ADR-DSGN-RUNMODE-NEVERCOEXIST
-  - at: g-import-catzc
-    kind: rule
-    rule: ADR-DSGN-RUNMODE-TWORUNMODES
-  - at: g-source-tree
-    kind: rule
-    rule: ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-  - at: g-run-mode
-    kind: rule
-    rule: ADR-DSGN-RUNMODE-MODEISDERIVED
-  - at: g-build-kinds
-    kind: rule
-    rule: ADR-DSGN-RUNMODE-THREEBUILDKINDS
-    gated: false
+    - at: g-test-automation
+      kind: rule
+      rule: ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+    - at: g-test-automation
+      kind: rule
+      rule: ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
+    - at: g-test-automation
+      kind: rule
+      rule: ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
+    - at: g-test-build
+      kind: rule
+      rule: ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
+    - at: g-test-build
+      kind: rule
+      rule: ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
+    - at: g-importer
+      kind: rule
+      rule: ADR-DSGN-RUNMODE-TWORUNMODES
+    - at: g-exclusive
+      kind: rule
+      rule: ADR-DSGN-RUNMODE-NEVERCOEXIST
+    - at: g-import-catzc
+      kind: rule
+      rule: ADR-DSGN-RUNMODE-TWORUNMODES
+    - at: g-source-tree
+      kind: rule
+      rule: ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+    - at: g-run-mode
+      kind: rule
+      rule: ADR-DSGN-RUNMODE-MODEISDERIVED
+    - at: g-build-kinds
+      kind: rule
+      rule: ADR-DSGN-RUNMODE-THREEBUILDKINDS
+      gated: false
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-runs:
     x: 20

@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1
+    folder: tests
+    name: overlay-fixture
+    filetype: ps1
+    role: fixture
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Overlay
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Overlay.Fixture.ps1.md](docs/references/pwsh/catzc-base-overlay/tests/Overlay.Fixture.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 $script:modulesRoot = Join-Path $fixtureRoot 'bundle'
 $script:overlayRoot = Join-Path $fixtureRoot 'consumer/.catzc/pwsh'

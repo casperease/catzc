@@ -1,70 +1,69 @@
-description: Adding a configuration slot adds one file to the configs place of the infrastructure track; discovery finds it
-  on disk, checks that its coordinate resolves to exactly one subscription, and the owner's CD pipeline deploys it into a
-  new resource group.
+description:
+  Adding a configuration slot adds one file to the configs place of the infrastructure track; discovery finds it on disk, checks that its
+  coordinate resolves to exactly one subscription, and the owner's CD pipeline deploys it into a new resource group.
 about:
   adrs:
-  - ADR-AZ-IACKIND-THREEKINDS
-  - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
-  - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+    - ADR-AZ-IACKIND-THREEKINDS
+    - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+    - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
   lens: operations
 content:
-  title: A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new
-    resource group
+  title: A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group
   kind: explanation
   flow: left-to-right
   relation: then
   theme: dark
   bands:
-  - id: band-edit
-    label: THE NEW FILE
-  - id: band-resolved
-    label: RESOLVED
-  - id: band-deployed
-    label: DEPLOYED
+    - id: band-edit
+      label: THE NEW FILE
+    - id: band-resolved
+      label: RESOLVED
+    - id: band-deployed
+      label: DEPLOYED
   spans:
-  - id: span-configs
-    label: configs
-    over:
-    - band-edit
+    - id: span-configs
+      label: configs
+      over:
+        - band-edit
   glyphs:
-  - id: g-slot
-    kind: file
-    label: configuration slot file
-    in: band-edit
-  - id: g-one
-    kind: gate
-    label: exactly one subscription
-    in: band-resolved
-  - id: r-owner
-    kind: runner
-    label: the owner's CD pipeline
-    in: band-deployed
-  - id: e-group
-    kind: env
-    label: a new resource group
-    in: band-deployed
+    - id: g-slot
+      kind: file
+      label: configuration slot file
+      in: band-edit
+    - id: g-one
+      kind: gate
+      label: exactly one subscription
+      in: band-resolved
+    - id: r-owner
+      kind: runner
+      label: the owner's CD pipeline
+      in: band-deployed
+    - id: e-group
+      kind: env
+      label: a new resource group
+      in: band-deployed
   edges:
-  - from: g-slot
-    to: g-one
-    kind: flow
-    label: ''
-  - from: g-one
-    to: r-owner
-    kind: flow
-    label: ''
-  - from: r-owner
-    to: e-group
-    kind: flow
-    label: ''
+    - from: g-slot
+      to: g-one
+      kind: flow
+      label: ""
+    - from: g-one
+      to: r-owner
+      kind: flow
+      label: ""
+    - from: r-owner
+      to: e-group
+      kind: flow
+      label: ""
   markers:
-  - at: g-slot
-    number: 1
-  - at: g-one
-    number: 2
-  - at: r-owner
-    number: 3
-  - at: e-group
-    number: 4
+    - at: g-slot
+      number: 1
+    - at: g-one
+      number: 2
+    - at: r-owner
+      number: 3
+    - at: e-group
+      number: 4
   legend: auto
 layout:
   g-one:

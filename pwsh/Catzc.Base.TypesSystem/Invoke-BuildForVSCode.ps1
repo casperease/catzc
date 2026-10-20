@@ -16,7 +16,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Invoke-BuildForVSCode.Tests.ps1
-    docs: "[Invoke-BuildForVSCode.ps1.md](/docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md)"
+    docs: "[Invoke-BuildForVSCode.ps1.md](docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md)"
     cites:
       - ADR-AUTO-TYPES
       - ADR-DSGN-RUNMODE

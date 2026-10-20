@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1
+    folder: private
+    name: get-contract-file-hashes
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-ContractFileHashes.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md)"
+    cites:
+      - ADR-AUTO-PATH-COMMUNICATIONFORM
+      - ADR-PWSH-ENUM-ALWAYSBOUNDED
+      - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
+---
+#>
+
 function Get-ContractFileHashes {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

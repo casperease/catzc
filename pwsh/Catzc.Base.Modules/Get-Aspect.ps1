@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Modules/Get-Aspect.ps1
+    name: get-aspect
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Modules
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
+    docs: "[Get-Aspect.ps1.md](docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md)"
+    cites:
+      - ADR-AUTO-MODULE-EXISTSBYLAYOUT
+      - ADR-DSGN-ASPECT
+---
+#>
+
 function Get-Aspect {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Variants.VariantAspect])]

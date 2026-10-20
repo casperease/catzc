@@ -1,3 +1,34 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs
+    folder: types
+    name: languages-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
+    docs: "[LanguagesConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/LanguagesConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-MODULE-EXISTSBYLAYOUT
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-DSGN-TRACK-FILELANGUAGE
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
+      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+      - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

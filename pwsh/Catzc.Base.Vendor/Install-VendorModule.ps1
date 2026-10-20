@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
+    name: install-vendor-module
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Vendor
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Vendor/tests/Install-VendorModule.Tests.ps1
+    docs: "[Install-VendorModule.ps1.md](docs/references/pwsh/catzc-base-vendor/Install-VendorModule.ps1.md)"
+    cites:
+      - ADR-DSGN-RUNMODE
+      - ADR-PWSH-VENDOR
+---
+#>
+
 function Install-VendorModule {
     [CmdletBinding()]
     param(

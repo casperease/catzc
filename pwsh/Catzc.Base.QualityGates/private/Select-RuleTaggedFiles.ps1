@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Select-RuleTaggedFiles.ps1
+    folder: private
+    name: select-rule-tagged-files
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1
+    docs: "[Select-RuleTaggedFiles.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Select-RuleTaggedFiles.ps1.md)"
+---
+#>
+
 function Select-RuleTaggedFiles {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,11 +1,12 @@
-description: The source tree and a built package are two code roots, each with its own entry script, that feed one importer;
-  it loads the same modules in both modes, and each module finds its files through the code root it is handed.
+description:
+  The source tree and a built package are two code roots, each with its own entry script, that feed one importer; it loads the same modules
+  in both modes, and each module finds its files through the code root it is handed.
 about:
   adrs:
-  - ADR-DSGN-RUNMODE-TWORUNMODES
-  - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-  - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-  - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+    - ADR-DSGN-RUNMODE-TWORUNMODES
+    - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+    - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
+    - ADR-DSGN-RUNMODE-THREEBUILDKINDS
   lens: architecture
 content:
   title: Two code roots feed one importer, which loads the same modules
@@ -14,94 +15,94 @@ content:
   relation: hands on the code root
   theme: dark
   bands:
-  - id: band-source
-    label: SOURCE
-  - id: band-build
-    label: BUILD
-  - id: band-importer
-    label: ONE IMPORTER
-  - id: band-modules
-    label: SAME MODULES
+    - id: band-source
+      label: SOURCE
+    - id: band-build
+      label: BUILD
+    - id: band-importer
+      label: ONE IMPORTER
+    - id: band-modules
+      label: SAME MODULES
   glyphs:
-  - id: g-importer
-    kind: code
-    label: importer.ps1
-    in: band-source
-  - id: g-source-root
-    kind: store
-    label: <RepositoryRoot>/pwsh
-    in: band-source
-  - id: g-import-catzc
-    kind: code
-    label: Import-Catzc.ps1
-    in: band-build
-  - id: g-exporter
-    kind: code
-    label: Catzc.Base.Exporter
-    in: band-build
-  - id: g-bundle-root
-    kind: store
-    label: Catzc/<v>
-    in: band-build
-  - id: g-internal
-    kind: code
-    label: Catzc.Internal
-    in: band-importer
-  - id: g-modules
-    kind: set
-    label: Catzc.* modules
-    in: band-modules
-  - id: g-repository
-    kind: code
-    label: Catzc.Base.Repository
-    in: band-modules
+    - id: g-importer
+      kind: code
+      label: importer.ps1
+      in: band-source
+    - id: g-source-root
+      kind: store
+      label: <RepositoryRoot>/pwsh
+      in: band-source
+    - id: g-import-catzc
+      kind: code
+      label: Import-Catzc.ps1
+      in: band-build
+    - id: g-exporter
+      kind: code
+      label: Catzc.Base.Exporter
+      in: band-build
+    - id: g-bundle-root
+      kind: store
+      label: Catzc/<v>
+      in: band-build
+    - id: g-internal
+      kind: code
+      label: Catzc.Internal
+      in: band-importer
+    - id: g-modules
+      kind: set
+      label: Catzc.* modules
+      in: band-modules
+    - id: g-repository
+      kind: code
+      label: Catzc.Base.Repository
+      in: band-modules
   edges:
-  - from: g-importer
-    to: g-source-root
-    kind: flow
-    label: ''
-  - from: g-import-catzc
-    to: g-bundle-root
-    kind: flow
-    label: ''
-  - from: g-source-root
-    to: g-internal
-    kind: flow
-    label: ''
-  - from: g-bundle-root
-    to: g-internal
-    kind: flow
-    label: ''
-  - from: g-internal
-    to: g-modules
-    kind: thick
-    label: ''
-  - from: g-repository
-    to: g-modules
-    kind: thick
-    label: ''
+    - from: g-importer
+      to: g-source-root
+      kind: flow
+      label: ""
+    - from: g-import-catzc
+      to: g-bundle-root
+      kind: flow
+      label: ""
+    - from: g-source-root
+      to: g-internal
+      kind: flow
+      label: ""
+    - from: g-bundle-root
+      to: g-internal
+      kind: flow
+      label: ""
+    - from: g-internal
+      to: g-modules
+      kind: thick
+      label: ""
+    - from: g-repository
+      to: g-modules
+      kind: thick
+      label: ""
   markers:
-  - at: g-importer
-    number: 1
-  - at: g-source-root
-    number: 2
-  - at: g-import-catzc
-    number: 3
-  - at: g-exporter
-    number: 4
-  - at: g-bundle-root
-    number: 5
-  - at: g-internal
-    number: 6
-  - at: g-modules
-    number: 7
-  - at: g-repository
-    number: 8
+    - at: g-importer
+      number: 1
+    - at: g-source-root
+      number: 2
+    - at: g-import-catzc
+      number: 3
+    - at: g-exporter
+      number: 4
+    - at: g-bundle-root
+      number: 5
+    - at: g-internal
+      number: 6
+    - at: g-modules
+      number: 7
+    - at: g-repository
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-source:
     x: 20

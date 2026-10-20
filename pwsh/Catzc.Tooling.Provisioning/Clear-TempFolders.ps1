@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
+    name: clear-temp-folders
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1
+    docs: "[Clear-TempFolders.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Clear-TempFolders.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN
+---
+#>
+
 function Clear-TempFolders {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

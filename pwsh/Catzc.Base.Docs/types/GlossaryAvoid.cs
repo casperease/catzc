@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/GlossaryAvoid.cs
+    folder: types
+    name: glossary-avoid
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[GlossaryAvoid.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryAvoid.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED
+---
+*/
+
 using System;
 using System.Collections;
 

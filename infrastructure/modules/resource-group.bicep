@@ -1,3 +1,22 @@
+// ---
+// catzc:
+//   immutable:
+//     repo_status: clean
+//     path: infrastructure/modules/resource-group.bicep
+//     name: resource-group
+//     filetype: bicep
+//     role: template
+//     subkind: module
+//     language: bicep
+//     track: infrastructure
+//     tracktype: infrastructure
+//     vendor: azure
+//     module: resource-group
+//     moduletype: bicep
+//   edges:
+//     docs: "[resource-group.bicep.md](docs/references/infrastructure/modules/resource-group.bicep.md)"
+// ---
+
 targetScope = 'subscription'
 
 @description('Resource group name (1-90 characters, unique within the subscription).')

@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
+    name: invoke-executable
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Execution
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
+    docs: "[Invoke-Executable.ps1.md](docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - ADR-AUTO-TEST
+---
+#>
+
 function Invoke-Executable {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '', Justification = 'By design — executes CLI commands via private helpers')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseOutputTypeCorrectly', '', Justification = 'Returns string in -DryRun, Catzc.Base.Execution.CliResult in -PassThru')]

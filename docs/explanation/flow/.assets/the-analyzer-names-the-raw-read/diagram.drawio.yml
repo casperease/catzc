@@ -1,10 +1,10 @@
-description: 'What a developer and the pipeline see of the pipeline-detection seam: Test-ScriptAnalyzer on a devbox writes
-  its report or throws once with every raw-read line, and a CI step on the agent asserts the detector answers true and prints
-  the staging directory.'
+description:
+  "What a developer and the pipeline see of the pipeline-detection seam: Test-ScriptAnalyzer on a devbox writes its report or throws once
+  with every raw-read line, and a CI step on the agent asserts the detector answers true and prints the staging directory."
 about:
   adrs:
-  - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-  - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
+    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+    - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
   lens: operations
 content:
   title: A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam
@@ -13,72 +13,72 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-devbox
-    label: DEVBOX
-  - id: band-pipeline
-    label: PIPELINE
+    - id: band-devbox
+      label: DEVBOX
+    - id: band-pipeline
+      label: PIPELINE
   glyphs:
-  - id: g-analyzer
-    kind: gate
-    label: Test-ScriptAnalyzer
-    in: band-devbox
-  - id: r-report
-    kind: result
-    label: out/test-script-analyzer/
-    in: band-devbox
-  - id: x-failed
-    kind: failure
-    label: Test-ScriptAnalyzer failed
-    in: band-devbox
-  - id: c-in-pipeline
-    kind: code
-    label: Test-IsRunningInPipeline
-    in: band-pipeline
-  - id: r-true
-    kind: result
-    label: $true
-    in: band-pipeline
-  - id: c-output-root
-    kind: code
-    label: Get-OutputRoot
-    in: band-pipeline
-  - id: r-staging
-    kind: result
-    label: staging directory
-    in: band-pipeline
+    - id: g-analyzer
+      kind: gate
+      label: Test-ScriptAnalyzer
+      in: band-devbox
+    - id: r-report
+      kind: result
+      label: out/test-script-analyzer/
+      in: band-devbox
+    - id: x-failed
+      kind: failure
+      label: Test-ScriptAnalyzer failed
+      in: band-devbox
+    - id: c-in-pipeline
+      kind: code
+      label: Test-IsRunningInPipeline
+      in: band-pipeline
+    - id: r-true
+      kind: result
+      label: $true
+      in: band-pipeline
+    - id: c-output-root
+      kind: code
+      label: Get-OutputRoot
+      in: band-pipeline
+    - id: r-staging
+      kind: result
+      label: staging directory
+      in: band-pipeline
   edges:
-  - from: g-analyzer
-    to: r-report
-    kind: flow
-    label: ''
-  - from: g-analyzer
-    to: x-failed
-    kind: fail
-    label: ''
-  - from: c-in-pipeline
-    to: r-true
-    kind: flow
-    label: ''
-  - from: c-output-root
-    to: r-staging
-    kind: flow
-    label: ''
+    - from: g-analyzer
+      to: r-report
+      kind: flow
+      label: ""
+    - from: g-analyzer
+      to: x-failed
+      kind: fail
+      label: ""
+    - from: c-in-pipeline
+      to: r-true
+      kind: flow
+      label: ""
+    - from: c-output-root
+      to: r-staging
+      kind: flow
+      label: ""
   markers:
-  - at: g-analyzer
-    number: 1
-  - at: r-report
-    number: 2
-  - at: x-failed
-    number: 3
-  - at: c-in-pipeline
-    number: 4
-  - at: c-output-root
-    number: 5
+    - at: g-analyzer
+      number: 1
+    - at: r-report
+      number: 2
+    - at: x-failed
+      number: 3
+    - at: c-in-pipeline
+      number: 4
+    - at: c-output-root
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-devbox:
     x: 20

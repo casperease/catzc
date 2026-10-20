@@ -1,3 +1,22 @@
+// ---
+// catzc:
+//   immutable:
+//     repo_status: clean
+//     path: infrastructure/modules/nsg.bicep
+//     name: nsg
+//     filetype: bicep
+//     role: template
+//     subkind: module
+//     language: bicep
+//     track: infrastructure
+//     tracktype: infrastructure
+//     vendor: azure
+//     module: nsg
+//     moduletype: bicep
+//   edges:
+//     docs: "[nsg.bicep.md](docs/references/infrastructure/modules/nsg.bicep.md)"
+// ---
+
 @description('Network security group name (1-80 characters, unique within the resource group).')
 param name string
 

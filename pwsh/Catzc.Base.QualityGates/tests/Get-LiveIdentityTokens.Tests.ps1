@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Get-LiveIdentityTokens.Tests.ps1
+    folder: tests
+    name: get-live-identity-tokens-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-LiveIdentityTokens.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-LiveIdentityTokens.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:run = { & (Get-Module Catzc.Base.QualityGates) { Get-LiveIdentityTokens } }

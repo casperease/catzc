@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Get-AzureResourceTypeSet.Tests.ps1
+    folder: tests
+    name: get-azure-resource-type-set-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-AzureResourceTypeSet.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-AzureResourceTypeSet.Tests.ps1.md)"
+---
+#>
+
 Describe 'Get-AzureResourceTypeSet' -Tag 'L0', 'logic' {
     It 'exposes the starter resource types' {
         $types = Get-AzureResourceTypeSet

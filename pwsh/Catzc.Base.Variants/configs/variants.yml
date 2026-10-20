@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Variants/configs/variants.yml
+#     folder: configs
+#     name: variants
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Variants
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[variants.yml.md](docs/references/pwsh/catzc-base-variants/configs/variants.yml.md)"
+# ---
+
 ado_naming: standard
 
 git_workspace: main-direct

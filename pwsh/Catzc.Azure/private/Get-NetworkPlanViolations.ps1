@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/private/Get-NetworkPlanViolations.ps1
+    folder: private
+    name: get-network-plan-violations
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-NetworkPlanViolations.ps1.md](docs/references/pwsh/catzc-azure/private/Get-NetworkPlanViolations.ps1.md)"
+    cites:
+      - ADR-AZ-NETWORK-KEYEDBYENVIRONMENT
+      - ADR-AZ-NETWORK-SUBSCRIPTIONENVIRONMENTSNONETWORK
+      - ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION
+---
+#>
+
 function Get-NetworkPlanViolations {
     [OutputType([string])]
     param(

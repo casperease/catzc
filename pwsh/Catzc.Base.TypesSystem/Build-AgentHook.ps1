@@ -17,7 +17,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1
-    docs: "[Build-AgentHook.ps1.md](/docs/references/pwsh/catzc-base-typessystem/Build-AgentHook.ps1.md)"
+    docs: "[Build-AgentHook.ps1.md](docs/references/pwsh/catzc-base-typessystem/Build-AgentHook.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - ADR-DSGN-RUNMODE

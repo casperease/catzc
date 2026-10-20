@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AdrCitationMap.cs
+    folder: types
+    name: adr-citation-map
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AdrCitationMap.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationMap.cs.md)"
+    cites:
+      - ADR-AUTO
+      - ADR-PWSH-ERROR
+      - ADR-REPO-LINK-CODELINKS
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

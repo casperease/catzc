@@ -1,77 +1,78 @@
-description: 'A wait''s limit resolves in one order: the caller''s value, else the config file, else the declared default;
-  an exemption only raises it to a ceiling, and one bounded wait runs under the winner.'
+description:
+  "A wait's limit resolves in one order: the caller's value, else the config file, else the declared default; an exemption only raises it to
+  a ceiling, and one bounded wait runs under the winner."
 about:
   adrs:
-  - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-  - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
   lens: meta
 content:
-  title: 'Every wait is bounded: the caller''s value, else the config, else the default; an exemption only raises it'
+  title: "Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it"
   kind: explanation
   flow: left-to-right
   relation: resolution order
   theme: dark
   bands:
-  - id: band-limit
-    label: LIMIT
-  - id: band-raise
-    label: RAISE
-  - id: band-consumers
-    label: CONSUMERS
+    - id: band-limit
+      label: LIMIT
+    - id: band-raise
+      label: RAISE
+    - id: band-consumers
+      label: CONSUMERS
   glyphs:
-  - id: g-caller
-    kind: code
-    label: the caller
-    in: band-limit
-  - id: g-config
-    kind: file
-    label: the config file
-    in: band-limit
-  - id: g-default
-    kind: code
-    label: the declared default
-    in: band-limit
-  - id: g-ceiling
-    kind: file
-    label: the exemption ceiling
-    in: band-raise
-  - id: r-wait
-    kind: result
-    label: one bounded wait
-    in: band-consumers
+    - id: g-caller
+      kind: code
+      label: the caller
+      in: band-limit
+    - id: g-config
+      kind: file
+      label: the config file
+      in: band-limit
+    - id: g-default
+      kind: code
+      label: the declared default
+      in: band-limit
+    - id: g-ceiling
+      kind: file
+      label: the exemption ceiling
+      in: band-raise
+    - id: r-wait
+      kind: result
+      label: one bounded wait
+      in: band-consumers
   edges:
-  - from: g-caller
-    to: g-config
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-default
-    kind: flow
-    label: ''
-  - from: g-default
-    to: g-ceiling
-    kind: flow
-    label: ''
-  - from: g-ceiling
-    to: r-wait
-    kind: flow
-    label: ''
+    - from: g-caller
+      to: g-config
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-default
+      kind: flow
+      label: ""
+    - from: g-default
+      to: g-ceiling
+      kind: flow
+      label: ""
+    - from: g-ceiling
+      to: r-wait
+      kind: flow
+      label: ""
   markers:
-  - at: g-caller
-    number: 1
-  - at: g-config
-    number: 2
-  - at: g-default
-    number: 3
-  - at: g-ceiling
-    number: 4
-  - at: r-wait
-    number: 5
+    - at: g-caller
+      number: 1
+    - at: g-config
+      number: 2
+    - at: g-default
+      number: 3
+    - at: g-ceiling
+      number: 4
+    - at: r-wait
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-limit:
     x: 20

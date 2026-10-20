@@ -1,9 +1,10 @@
-description: Two rules govern each stage of a limit's resolution; tests gate the config and the resolver, the hook gates an
-  agent's shell calls, and the interactive executable mode has no gate, so two gaps remain.
+description:
+  Two rules govern each stage of a limit's resolution; tests gate the config and the resolver, the hook gates an agent's shell calls, and
+  the interactive executable mode has no gate, so two gaps remain.
 about:
   adrs:
-  - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-  - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
   lens: governance
 content:
   title: Two rules govern every stage, tests and the hook check them, and two gaps remain
@@ -12,110 +13,110 @@ content:
   relation: is checked by
   theme: dark
   bands:
-  - id: band-axes
-    label: AXES
-  - id: band-limit
-    label: LIMIT
-  - id: band-raise
-    label: RAISE
-  - id: band-consumers
-    label: CONSUMERS
+    - id: band-axes
+      label: AXES
+    - id: band-limit
+      label: LIMIT
+    - id: band-raise
+      label: RAISE
+    - id: band-consumers
+      label: CONSUMERS
   glyphs:
-  - id: g-environment
-    kind: code
-    label: Get-RunEnvironment
-    in: band-axes
-  - id: g-timeouts
-    kind: file
-    label: timeouts.yml
-    in: band-limit
-  - id: g-config
-    kind: code
-    label: TimeoutsConfig
-    in: band-limit
-  - id: g-config-tests
-    kind: gate
-    label: TimeoutsConfig.Tests
-    in: band-limit
-  - id: g-exemptions
-    kind: file
-    label: timeout-exemptions.yml
-    in: band-raise
-  - id: g-seconds-tests
-    kind: gate
-    label: Get-TimeoutSeconds.Tests
-    in: band-raise
-  - id: g-hook
-    kind: gate
-    label: Assert-BashTimeout
-    in: band-consumers
-  - id: g-direct
-    kind: code
-    label: Invoke-Executable -Direct
-    in: band-consumers
+    - id: g-environment
+      kind: code
+      label: Get-RunEnvironment
+      in: band-axes
+    - id: g-timeouts
+      kind: file
+      label: timeouts.yml
+      in: band-limit
+    - id: g-config
+      kind: code
+      label: TimeoutsConfig
+      in: band-limit
+    - id: g-config-tests
+      kind: gate
+      label: TimeoutsConfig.Tests
+      in: band-limit
+    - id: g-exemptions
+      kind: file
+      label: timeout-exemptions.yml
+      in: band-raise
+    - id: g-seconds-tests
+      kind: gate
+      label: Get-TimeoutSeconds.Tests
+      in: band-raise
+    - id: g-hook
+      kind: gate
+      label: Assert-BashTimeout
+      in: band-consumers
+    - id: g-direct
+      kind: code
+      label: Invoke-Executable -Direct
+      in: band-consumers
   edges:
-  - from: g-config
-    to: g-config-tests
-    kind: flow
-    label: ''
-  - from: g-timeouts
-    to: g-config-tests
-    kind: flow
-    label: ''
-  - from: g-exemptions
-    to: g-seconds-tests
-    kind: flow
-    label: ''
-  - from: g-environment
-    to: g-seconds-tests
-    kind: flow
-    label: ''
-  - from: g-exemptions
-    to: g-hook
-    kind: adr
-    label: ''
+    - from: g-config
+      to: g-config-tests
+      kind: flow
+      label: ""
+    - from: g-timeouts
+      to: g-config-tests
+      kind: flow
+      label: ""
+    - from: g-exemptions
+      to: g-seconds-tests
+      kind: flow
+      label: ""
+    - from: g-environment
+      to: g-seconds-tests
+      kind: flow
+      label: ""
+    - from: g-exemptions
+      to: g-hook
+      kind: adr
+      label: ""
   markers:
-  - at: g-environment
-    number: 1
-  - at: g-timeouts
-    number: 2
-  - at: g-config
-    number: 3
-  - at: g-config-tests
-    number: 4
-  - at: g-exemptions
-    number: 5
-  - at: g-seconds-tests
-    number: 6
-  - at: g-hook
-    number: 7
-  - at: g-direct
-    number: 8
+    - at: g-environment
+      number: 1
+    - at: g-timeouts
+      number: 2
+    - at: g-config
+      number: 3
+    - at: g-config-tests
+      number: 4
+    - at: g-exemptions
+      number: 5
+    - at: g-seconds-tests
+      number: 6
+    - at: g-hook
+      number: 7
+    - at: g-direct
+      number: 8
   chips:
-  - at: g-environment
-    kind: rule
-    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-  - at: g-timeouts
-    kind: rule
-    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-  - at: g-config
-    kind: rule
-    rule: ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-  - at: g-exemptions
-    kind: rule
-    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-  - at: g-hook
-    kind: rule
-    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-  - at: g-direct
-    kind: rule
-    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-    gated: false
+    - at: g-environment
+      kind: rule
+      rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - at: g-timeouts
+      kind: rule
+      rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - at: g-config
+      kind: rule
+      rule: ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+    - at: g-exemptions
+      kind: rule
+      rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - at: g-hook
+      kind: rule
+      rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - at: g-direct
+      kind: rule
+      rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      gated: false
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-axes:
     x: 20

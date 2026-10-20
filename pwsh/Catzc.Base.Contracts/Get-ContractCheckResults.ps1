@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/Get-ContractCheckResults.ps1
+    name: get-contract-check-results
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1
+    docs: "[Get-ContractCheckResults.ps1.md](docs/references/pwsh/catzc-base-contracts/Get-ContractCheckResults.ps1.md)"
+    cites:
+      - ADR-PWSH-VERBS-SEMANTICCONTRACT
+      - ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS
+      - ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE
+      - ADR-REPO-CONTRACT-PROVENBYTESTS
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+#>
+
 function Get-ContractCheckResults {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractCheckResult[]])]

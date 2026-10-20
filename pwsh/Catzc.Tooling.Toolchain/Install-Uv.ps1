@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Toolchain/Install-Uv.ps1
+    name: install-uv
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
+    docs: "[Install-Uv.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Install-Uv.ps1.md)"
+---
+#>
+
 function Install-Uv {
     [CmdletBinding()]
     param(

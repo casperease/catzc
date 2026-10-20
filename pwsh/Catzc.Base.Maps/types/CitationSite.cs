@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/CitationSite.cs
+    folder: types
+    name: citation-site
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[CitationSite.cs.md](docs/references/pwsh/catzc-base-maps/types/CitationSite.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 namespace Catzc.Base.Maps;
 
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Path), nameof(Line), nameof(Kind), nameof(Citation))]

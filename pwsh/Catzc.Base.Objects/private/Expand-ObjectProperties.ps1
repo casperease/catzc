@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1
+    folder: private
+    name: expand-object-properties
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Objects
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Expand-ObjectProperties.ps1.md](docs/references/pwsh/catzc-base-objects/private/Expand-ObjectProperties.ps1.md)"
+---
+#>
+
 function Expand-ObjectProperties {
     [CmdletBinding()]
     param(

@@ -1,11 +1,12 @@
-description: A change enters the server's main only through a pull request, and consumers build on the last verified commit,
-  a point that never moves, never on the provisional HEAD.
+description:
+  A change enters the server's main only through a pull request, and consumers build on the last verified commit, a point that never moves,
+  never on the provisional HEAD.
 about:
   adrs:
-  - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-  - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-  - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-  - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+    - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+    - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+    - ADR-DSGN-REMOTE-NORECONCILINGTIPS
+    - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
   lens: meta
 content:
   title: Changes enter through one door, and consumers build on one stable point
@@ -14,63 +15,63 @@ content:
   relation: a commit moves to
   theme: dark
   bands:
-  - id: band-in
-    label: IN
-  - id: band-server
-    label: SERVER REMOTE
-  - id: band-out
-    label: OUT
+    - id: band-in
+      label: IN
+    - id: band-server
+      label: SERVER REMOTE
+    - id: band-out
+      label: OUT
   glyphs:
-  - id: g-local-clone
-    kind: store
-    label: local clone
-    in: band-in
-  - id: g-pull-request
-    kind: gate
-    label: pull request
-    in: band-in
-  - id: g-head
-    kind: commit
-    label: HEAD
-    in: band-server
-    state: landed
-  - id: g-verified
-    kind: commit
-    label: verified point
-    in: band-server
-  - id: g-consumers
-    kind: store
-    label: consumer clones
-    in: band-out
+    - id: g-local-clone
+      kind: store
+      label: local clone
+      in: band-in
+    - id: g-pull-request
+      kind: gate
+      label: pull request
+      in: band-in
+    - id: g-head
+      kind: commit
+      label: HEAD
+      in: band-server
+      state: landed
+    - id: g-verified
+      kind: commit
+      label: verified point
+      in: band-server
+    - id: g-consumers
+      kind: store
+      label: consumer clones
+      in: band-out
   edges:
-  - from: g-local-clone
-    to: g-pull-request
-    kind: adr
-    label: ''
-  - from: g-pull-request
-    to: g-head
-    kind: flow
-    label: ''
-  - from: g-verified
-    to: g-consumers
-    kind: adr
-    label: ''
+    - from: g-local-clone
+      to: g-pull-request
+      kind: adr
+      label: ""
+    - from: g-pull-request
+      to: g-head
+      kind: flow
+      label: ""
+    - from: g-verified
+      to: g-consumers
+      kind: adr
+      label: ""
   markers:
-  - at: g-local-clone
-    number: 1
-  - at: g-pull-request
-    number: 2
-  - at: g-head
-    number: 3
-  - at: g-verified
-    number: 4
-  - at: g-consumers
-    number: 5
+    - at: g-local-clone
+      number: 1
+    - at: g-pull-request
+      number: 2
+    - at: g-head
+      number: 3
+    - at: g-verified
+      number: 4
+    - at: g-consumers
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-in:
     x: 20

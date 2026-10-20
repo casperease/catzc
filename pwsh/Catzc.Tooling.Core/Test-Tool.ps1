@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/Test-Tool.ps1
+    name: test-tool
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Core/tests/Test-Tool.Tests.ps1
+    docs: "[Test-Tool.ps1.md](docs/references/pwsh/catzc-tooling-core/Test-Tool.ps1.md)"
+---
+#>
+
 function Test-Tool {
     [OutputType([bool], [Catzc.Base.Execution.ExecutableProbe])]
     [CmdletBinding()]

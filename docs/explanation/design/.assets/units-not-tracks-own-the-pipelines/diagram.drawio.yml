@@ -1,11 +1,12 @@
-description: The four CD pipelines bind deployable-units composed from the infrastructure track, while the two CI pipelines
-  bind the pwsh and infrastructure track sets directly, with no unit between them.
+description:
+  The four CD pipelines bind deployable-units composed from the infrastructure track, while the two CI pipelines bind the pwsh and
+  infrastructure track sets directly, with no unit between them.
 about:
   adrs:
-  - ADR-DSGN-TRACK-ONETRACKTYPE
-  - ADR-DSGN-TRACK-ONETECHSTACK
-  - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
-  - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+    - ADR-DSGN-TRACK-ONETRACKTYPE
+    - ADR-DSGN-TRACK-ONETECHSTACK
+    - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+    - ADR-DSGN-TRACK-DEPLOYABLEUNIT
   lens: architecture
 content:
   title: CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly
@@ -14,88 +15,88 @@ content:
   relation: binds a pipeline (pipeline:)
   theme: dark
   bands:
-  - id: band-tracks
-    label: TRACKS
-  - id: band-units
-    label: DEPLOYABLE-UNITS
-  - id: band-pipelines
-    label: PIPELINES
+    - id: band-tracks
+      label: TRACKS
+    - id: band-units
+      label: DEPLOYABLE-UNITS
+    - id: band-pipelines
+      label: PIPELINES
   glyphs:
-  - id: s-automation
-    kind: set
-    label: pwsh
-    in: band-tracks
-  - id: s-infrastructure
-    kind: set
-    label: infrastructure
-    in: band-tracks
-  - id: s-base
-    kind: set
-    label: foundation base unit
-    in: band-units
-  - id: s-units
-    kind: set
-    label: nova · apex · flux · shared
-    in: band-units
-  - id: r-ci-automation
-    kind: runner
-    label: ci-pwsh
-    in: band-pipelines
-  - id: r-ci-infrastructure
-    kind: runner
-    label: ci-infrastructure
-    in: band-pipelines
-  - id: r-cd
-    kind: runner
-    label: cd-<unit>
-    in: band-pipelines
+    - id: s-automation
+      kind: set
+      label: pwsh
+      in: band-tracks
+    - id: s-infrastructure
+      kind: set
+      label: infrastructure
+      in: band-tracks
+    - id: s-base
+      kind: set
+      label: foundation base unit
+      in: band-units
+    - id: s-units
+      kind: set
+      label: nova · apex · flux · shared
+      in: band-units
+    - id: r-ci-automation
+      kind: runner
+      label: ci-pwsh
+      in: band-pipelines
+    - id: r-ci-infrastructure
+      kind: runner
+      label: ci-infrastructure
+      in: band-pipelines
+    - id: r-cd
+      kind: runner
+      label: cd-<unit>
+      in: band-pipelines
   edges:
-  - from: s-automation
-    to: r-ci-automation
-    kind: flow
-    label: ''
-  - from: s-infrastructure
-    to: r-ci-infrastructure
-    kind: flow
-    label: ''
-  - from: s-infrastructure
-    to: s-base
-    kind: thick
-    label: ''
-  - from: s-base
-    to: s-units
-    kind: thick
-    label: ''
-  - from: s-units
-    to: r-cd
-    kind: flow
-    label: ''
-  - from: s-infrastructure
-    to: s-automation
-    kind: adr
-    label: ''
+    - from: s-automation
+      to: r-ci-automation
+      kind: flow
+      label: ""
+    - from: s-infrastructure
+      to: r-ci-infrastructure
+      kind: flow
+      label: ""
+    - from: s-infrastructure
+      to: s-base
+      kind: thick
+      label: ""
+    - from: s-base
+      to: s-units
+      kind: thick
+      label: ""
+    - from: s-units
+      to: r-cd
+      kind: flow
+      label: ""
+    - from: s-infrastructure
+      to: s-automation
+      kind: adr
+      label: ""
   markers:
-  - at: s-automation
-    number: 1
-  - at: s-infrastructure->s-automation
-    number: 2
-  - at: s-automation->r-ci-automation
-    number: 3
-  - at: s-base
-    number: 4
-  - at: s-units
-    number: 5
-  - at: r-cd
-    number: 6
+    - at: s-automation
+      number: 1
+    - at: s-infrastructure->s-automation
+      number: 2
+    - at: s-automation->r-ci-automation
+      number: 3
+    - at: s-base
+      number: 4
+    - at: s-units
+      number: 5
+    - at: r-cd
+      number: 6
   chips:
-  - at: r-cd
-    kind: count
-    text: '4'
+    - at: r-cd
+      kind: count
+      text: "4"
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-tracks:
     x: 20

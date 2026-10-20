@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Timeouts/types/TestTiers.cs
+    folder: types
+    name: test-tiers
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Timeouts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Timeouts/tests/types/TestTiers.Tests.ps1
+    docs: "[TestTiers.cs.md](docs/references/pwsh/catzc-base-timeouts/types/TestTiers.cs.md)"
+    cites:
+      - ADR-AUTO-TEST-TWOMANDATORYTAGS
+      - ADR-AUTO-TEST-TESTINGINPRODUCTION
+---
+*/
+
 namespace Catzc.Base.Timeouts;
 
 public static class TestTiers

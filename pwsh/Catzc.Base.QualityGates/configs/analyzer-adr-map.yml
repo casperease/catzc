@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+#     folder: configs
+#     name: analyzer-adr-map
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.QualityGates
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[analyzer-adr-map.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md)"
+# ---
+
 analyzers:
   # Custom rules (pwsh/.scriptanalyzer)
   Measure-VariableCasing: [ADR-PWSH-FORMAT-VARIABLECASING]
@@ -27,6 +46,7 @@ analyzers:
   Measure-NoOptionalBooleanParameter: [ADR-PWSH-PARAM-SWITCHNOTBOOL]
   Measure-NoSwitchDefaultOn: [ADR-PWSH-PARAM-SWITCHNOTBOOL]
   Measure-NoUnsafeFirstIndex: [ADR-PWSH-ERROR-STRICTCLEAN]
+  Measure-NoCollapsingAssignment: [ADR-PWSH-ERROR-STRICTCLEAN]
   Measure-NoBareCacheEntryRead: [ADR-PWSH-CACHE-STRICTSAFEPROBE]
   Measure-NoUnboundedEnumeration: [ADR-PWSH-ENUM-RAWDOTNETENUMERATION, ADR-PWSH-ENUM-ALWAYSBOUNDED]
   Measure-NoOneLineHashtableIfElse: [ADR-PWSH-FORMAT-MULTILINECONDITIONALHASHTABLE]

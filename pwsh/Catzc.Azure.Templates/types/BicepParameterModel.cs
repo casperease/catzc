@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/types/BicepParameterModel.cs
+    folder: types
+    name: bicep-parameter-model
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[BicepParameterModel.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepParameterModel.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

@@ -1,3 +1,29 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs
+    folder: types
+    name: world-map-pdf
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/types/WorldMapPdf.Tests.ps1
+    docs: "[WorldMapPdf.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapPdf.cs.md)"
+    cites:
+      - ADR-DSGN-TRACK-ONETECHSTACK
+      - ADR-DSGN-TRACK-ROOTFILE
+      - ADR-DSGN-TRACK-UNLISTEDFILE
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;

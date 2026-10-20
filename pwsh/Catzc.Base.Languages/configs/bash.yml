@@ -1,2 +1,21 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Languages/configs/bash.yml
+#     folder: configs
+#     name: bash
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Languages
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[bash.yml.md](docs/references/pwsh/catzc-base-languages/configs/bash.yml.md)"
+# ---
+
 bats_version: "1.14.0"
 bats_sha256: "bb537b70b15b732f6d8827dd6578e3d8ce166636ce1f18ea9a074184fcce9177"

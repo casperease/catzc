@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/types/LanguageTestRunner.cs
+    folder: types
+    name: language-test-runner
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[LanguageTestRunner.cs.md](docs/references/pwsh/catzc-base-languages/types/LanguageTestRunner.cs.md)"
+    cites:
+      - ADR-AUTO-MODULE-CHECKSBYLANGUAGE
+---
+*/
+
 using System;
 using System.Collections.Generic;
 

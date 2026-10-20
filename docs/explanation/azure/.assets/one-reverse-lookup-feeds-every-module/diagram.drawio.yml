@@ -1,10 +1,11 @@
-description: One reverse lookup in Catzc.Azure.Cli turns the az session's subscription id into the identity azure.yml declares,
-  and the identity module and the templating module read that identity instead of asking the session again.
+description:
+  One reverse lookup in Catzc.Azure.Cli turns the az session's subscription id into the identity azure.yml declares, and the identity module
+  and the templating module read that identity instead of asking the session again.
 about:
   adrs:
-  - ADR-AZ-DATAMOD-CUSTOMERAXIS
-  - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
-  - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+    - ADR-AZ-DATAMOD-CUSTOMERAXIS
+    - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+    - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
   lens: architecture
 content:
   title: One reverse lookup in Catzc.Azure.Cli hands the session to every module
@@ -13,100 +14,100 @@ content:
   relation: feeds
   theme: dark
   bands:
-  - id: band-session
-    label: SESSION
-  - id: band-identity
-    label: IDENTITY
-  - id: band-templates
-    label: TEMPLATES
+    - id: band-session
+      label: SESSION
+    - id: band-identity
+      label: IDENTITY
+    - id: band-templates
+      label: TEMPLATES
   glyphs:
-  - id: x-connection
-    kind: external
-    label: service connection
-    in: band-session
-  - id: x-session
-    kind: external
-    label: az session
-    in: band-session
-  - id: g-cli
-    kind: code
-    label: Catzc.Azure.Cli
-    in: band-identity
-  - id: g-azure-file
-    kind: file
-    label: azure.yml
-    in: band-identity
-  - id: g-azure
-    kind: code
-    label: Catzc.Azure
-    in: band-identity
-  - id: g-templates
-    kind: code
-    label: Catzc.Azure.Templates
-    in: band-templates
-  - id: g-tree
-    kind: file
-    label: configuration tree
-    in: band-templates
-  - id: r-group
-    kind: result
-    label: resource-group name
-    in: band-templates
+    - id: x-connection
+      kind: external
+      label: service connection
+      in: band-session
+    - id: x-session
+      kind: external
+      label: az session
+      in: band-session
+    - id: g-cli
+      kind: code
+      label: Catzc.Azure.Cli
+      in: band-identity
+    - id: g-azure-file
+      kind: file
+      label: azure.yml
+      in: band-identity
+    - id: g-azure
+      kind: code
+      label: Catzc.Azure
+      in: band-identity
+    - id: g-templates
+      kind: code
+      label: Catzc.Azure.Templates
+      in: band-templates
+    - id: g-tree
+      kind: file
+      label: configuration tree
+      in: band-templates
+    - id: r-group
+      kind: result
+      label: resource-group name
+      in: band-templates
   edges:
-  - from: x-connection
-    to: x-session
-    kind: flow
-    label: ''
-  - from: x-session
-    to: g-cli
-    kind: flow
-    label: ''
-  - from: g-azure-file
-    to: g-azure
-    kind: flow
-    label: ''
-  - from: g-azure
-    to: g-cli
-    kind: flow
-    label: ''
-  - from: g-cli
-    to: g-templates
-    kind: flow
-    label: ''
-  - from: g-azure
-    to: g-templates
-    kind: flow
-    label: ''
-  - from: g-tree
-    to: g-templates
-    kind: flow
-    label: ''
-  - from: g-templates
-    to: r-group
-    kind: flow
-    label: ''
+    - from: x-connection
+      to: x-session
+      kind: flow
+      label: ""
+    - from: x-session
+      to: g-cli
+      kind: flow
+      label: ""
+    - from: g-azure-file
+      to: g-azure
+      kind: flow
+      label: ""
+    - from: g-azure
+      to: g-cli
+      kind: flow
+      label: ""
+    - from: g-cli
+      to: g-templates
+      kind: flow
+      label: ""
+    - from: g-azure
+      to: g-templates
+      kind: flow
+      label: ""
+    - from: g-tree
+      to: g-templates
+      kind: flow
+      label: ""
+    - from: g-templates
+      to: r-group
+      kind: flow
+      label: ""
   markers:
-  - at: x-connection
-    number: 1
-  - at: x-session
-    number: 2
-  - at: g-cli
-    number: 3
-  - at: g-azure-file
-    number: 4
-  - at: g-azure
-    number: 5
-  - at: g-templates
-    number: 6
-  - at: g-tree
-    number: 7
-  - at: r-group
-    number: 8
+    - at: x-connection
+      number: 1
+    - at: x-session
+      number: 2
+    - at: g-cli
+      number: 3
+    - at: g-azure-file
+      number: 4
+    - at: g-azure
+      number: 5
+    - at: g-templates
+      number: 6
+    - at: g-tree
+      number: 7
+    - at: r-group
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-session:
     x: 20

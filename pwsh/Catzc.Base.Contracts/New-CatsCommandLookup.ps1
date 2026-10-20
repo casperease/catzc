@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/New-CatsCommandLookup.ps1
+    name: new-cats-command-lookup
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/New-CatsCommandLookup.Tests.ps1
+    docs: "[New-CatsCommandLookup.ps1.md](docs/references/pwsh/catzc-base-contracts/New-CatsCommandLookup.ps1.md)"
+    cites:
+      - ADR-REPO-CMDCONTRACT-ONEREADER
+---
+#>
+
 function New-CatsCommandLookup {
     [CmdletBinding()]
     [OutputType([string])]

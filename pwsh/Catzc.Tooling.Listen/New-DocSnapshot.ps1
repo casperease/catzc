@@ -42,8 +42,6 @@ function New-DocSnapshot {
     Copy-Directory $watched (Join-Path $session 'baseline')
     Copy-Directory $watched (Join-Path $session 'seen')
     $index = Get-ListenFileIndex $watched -Prefix $Watch
-    Write-ListenIndex (Join-Path $session 'baseline.json') -Index $index
-    Write-ListenIndex (Join-Path $session 'seen.json') -Index $index
 
     Write-Message 'Building the committed reference at HEAD...'
     $reference = New-RepositorySnapshot -Committed -Destination (Join-Path $session 'reference')
@@ -54,6 +52,9 @@ function New-DocSnapshot {
         started_at = [DateTimeOffset]::Now.ToString('o')
     }
     [System.IO.File]::WriteAllText((Join-Path $session 'manifest.json'), (ConvertTo-Json -InputObject $manifest), [System.Text.UTF8Encoding]::new($false))
+    # seen.json is what makes a folder a session, so it is written last: a start that fails half way leaves no session behind.
+    Write-ListenIndex (Join-Path $session 'baseline.json') -Index $index
+    Write-ListenIndex (Join-Path $session 'seen.json') -Index $index
 
     [pscustomobject]@{
         Path   = $session

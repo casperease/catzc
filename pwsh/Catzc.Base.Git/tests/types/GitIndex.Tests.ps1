@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Git/tests/types/GitIndex.Tests.ps1
+    folder: tests/types
+    name: git-index-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Git
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[GitIndex.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/types/GitIndex.Tests.ps1.md)"
+---
+#>
+
 # cspell:ignore blåbær  -- the non-ASCII fixture path
 Describe 'GitIndex' -Tag 'L0', 'logic' {
     BeforeAll {

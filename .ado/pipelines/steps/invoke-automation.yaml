@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: ".ado/pipelines/steps/invoke-automation.yaml"
+#     folder: steps
+#     name: invoke-automation
+#     filetype: yaml
+#     role: pipeline-template
+#     language: pipeline-yaml
+#     track: ado-pipelines
+#     tracktype: pipelines
+#     vendor: ado
+#     module: pipelines
+#     moduletype: pipeline
+#   edges:
+#     docs: "[invoke-automation.yaml.md](docs/references/ado/pipelines/steps/invoke-automation.yaml.md)"
+# ---
+
 parameters:
   - name: RunCommand
     type: string

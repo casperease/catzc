@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Get-LanguageTestExecutable.Tests.ps1
+    folder: tests
+    name: get-language-test-executable-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-LanguageTestExecutable.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-LanguageTestExecutable.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Get-LanguageTestExecutable' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:folders = @(

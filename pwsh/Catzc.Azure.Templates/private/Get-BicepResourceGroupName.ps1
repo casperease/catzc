@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/private/Get-BicepResourceGroupName.ps1
+    folder: private
+    name: get-bicep-resource-group-name
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1
+    docs: "[Get-BicepResourceGroupName.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepResourceGroupName.ps1.md)"
+---
+#>
+
 function Get-BicepResourceGroupName {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]

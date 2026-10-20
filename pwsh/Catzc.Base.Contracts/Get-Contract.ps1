@@ -1,3 +1,32 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/Get-Contract.ps1
+    name: get-contract
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
+    docs: "[Get-Contract.ps1.md](docs/references/pwsh/catzc-base-contracts/Get-Contract.ps1.md)"
+    cites:
+      - ADR-AUTO-PATH-COMMUNICATIONFORM
+      - ADR-REPO-CONTRACT-LAYOUT
+      - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+      - ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION
+      - ADR-REPO-CONTRACT-CONFIGUREDADDRESSING
+---
+#>
+
 function Get-Contract {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractAsset[]])]

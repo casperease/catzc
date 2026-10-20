@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1
+    folder: tests
+    name: import-catzc-overlay-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Overlay
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Import-CatzcOverlay.Tests.ps1.md](docs/references/pwsh/catzc-base-overlay/tests/Import-CatzcOverlay.Tests.ps1.md)"
+---
+#>
+
 Describe 'Import-CatzcOverlay' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Overlay.Fixture.ps1')

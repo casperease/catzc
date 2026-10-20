@@ -1,3 +1,33 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+    name: test-world-map
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+    docs: "[Test-WorldMap.ps1.md](docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - ADR-DSGN-TRACK-ONETECHSTACK
+      - ADR-DSGN-TRACK-FILELANGUAGE
+      - ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS
+      - ADR-REPO-OUTDIR
+---
+#>
+
 function Test-WorldMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

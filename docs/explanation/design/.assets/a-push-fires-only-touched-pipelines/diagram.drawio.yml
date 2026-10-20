@@ -1,9 +1,10 @@
-description: 'A changed file fires only the pipelines whose globset holds it: pwsh and infrastructure changes reach their
-  pipelines, and a drift gate fails a trigger that no longer matches its globset''s projection.'
+description:
+  "A changed file fires only the pipelines whose globset holds it: pwsh and infrastructure changes reach their pipelines, and a drift gate
+  fails a trigger that no longer matches its globset's projection."
 about:
   adrs:
-  - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
-  - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+    - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+    - ADR-DSGN-TRACK-DEPLOYABLEUNIT
   lens: operations
 content:
   title: A push starts only the pipelines whose globset it touches
@@ -12,88 +13,88 @@ content:
   relation: a change here fires the next
   theme: dark
   bands:
-  - id: band-change
-    label: YOU CHANGE
-  - id: band-units
-    label: DEPLOYABLE-UNITS
-  - id: band-pipelines
-    label: PIPELINES
-  - id: band-drift
-    label: TRIGGER DRIFT
+    - id: band-change
+      label: YOU CHANGE
+    - id: band-units
+      label: DEPLOYABLE-UNITS
+    - id: band-pipelines
+      label: PIPELINES
+    - id: band-drift
+      label: TRIGGER DRIFT
   glyphs:
-  - id: s-powershell
-    kind: set
-    label: pwsh/**
-    in: band-change
-  - id: s-infrastructure
-    kind: set
-    label: infrastructure/**
-    in: band-change
-  - id: s-units
-    kind: set
-    label: nova · apex · flux · shared
-    in: band-units
-  - id: r-automation
-    kind: runner
-    label: ci-pwsh
-    in: band-pipelines
-  - id: r-infrastructure
-    kind: runner
-    label: ci-infrastructure
-    in: band-pipelines
-  - id: r-unit
-    kind: runner
-    label: cd-<unit>
-    in: band-pipelines
-  - id: g-drift
-    kind: gate
-    label: Test-AdoPipelineTriggerGlob
-    in: band-drift
-  - id: f-drifted
-    kind: failure
-    label: trigger drifted
-    in: band-drift
+    - id: s-powershell
+      kind: set
+      label: pwsh/**
+      in: band-change
+    - id: s-infrastructure
+      kind: set
+      label: infrastructure/**
+      in: band-change
+    - id: s-units
+      kind: set
+      label: nova · apex · flux · shared
+      in: band-units
+    - id: r-automation
+      kind: runner
+      label: ci-pwsh
+      in: band-pipelines
+    - id: r-infrastructure
+      kind: runner
+      label: ci-infrastructure
+      in: band-pipelines
+    - id: r-unit
+      kind: runner
+      label: cd-<unit>
+      in: band-pipelines
+    - id: g-drift
+      kind: gate
+      label: Test-AdoPipelineTriggerGlob
+      in: band-drift
+    - id: f-drifted
+      kind: failure
+      label: trigger drifted
+      in: band-drift
   edges:
-  - from: s-powershell
-    to: r-automation
-    kind: flow
-    label: ''
-  - from: s-infrastructure
-    to: r-infrastructure
-    kind: flow
-    label: ''
-  - from: s-infrastructure
-    to: s-units
-    kind: thick
-    label: ''
-  - from: s-units
-    to: r-unit
-    kind: flow
-    label: ''
-  - from: g-drift
-    to: f-drifted
-    kind: fail
-    label: ''
+    - from: s-powershell
+      to: r-automation
+      kind: flow
+      label: ""
+    - from: s-infrastructure
+      to: r-infrastructure
+      kind: flow
+      label: ""
+    - from: s-infrastructure
+      to: s-units
+      kind: thick
+      label: ""
+    - from: s-units
+      to: r-unit
+      kind: flow
+      label: ""
+    - from: g-drift
+      to: f-drifted
+      kind: fail
+      label: ""
   markers:
-  - at: s-powershell
-    number: 1
-  - at: r-automation
-    number: 2
-  - at: r-infrastructure
-    number: 3
-  - at: s-units
-    number: 4
-  - at: r-unit
-    number: 5
-  - at: g-drift
-    number: 6
-  - at: f-drifted
-    number: 7
+    - at: s-powershell
+      number: 1
+    - at: r-automation
+      number: 2
+    - at: r-infrastructure
+      number: 3
+    - at: s-units
+      number: 4
+    - at: r-unit
+      number: 5
+    - at: g-drift
+      number: 6
+    - at: f-drifted
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-change:
     x: 20

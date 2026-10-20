@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/Get-GlobSetHash.ps1
+    name: get-glob-set-hash
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
+    docs: "[Get-GlobSetHash.ps1.md](docs/references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md)"
+    cites:
+      - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+---
+#>
+
 function Get-GlobSetHash {
     [CmdletBinding(DefaultParameterSetName = 'ByName')]
     [OutputType([string])]

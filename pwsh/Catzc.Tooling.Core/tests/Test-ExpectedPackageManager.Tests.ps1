@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
+    folder: tests
+    name: test-expected-package-manager-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-ExpectedPackageManager.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Test-ExpectedPackageManager.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Test-ExpectedPackageManager — script-installed tools' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED' {
     BeforeEach {
         $script:managedDir = Join-Path $TestDrive 'widget-managed'

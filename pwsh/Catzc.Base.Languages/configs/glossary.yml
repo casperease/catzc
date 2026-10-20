@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Languages/configs/glossary.yml
+#     folder: configs
+#     name: glossary
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Languages
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-languages/configs/glossary.yml.md)"
+# ---
+
 concepts:
   go test module:
     key: go_test_module

@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
+    folder: tests/types
+    name: tools-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Execution
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ToolsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-LOGICANDINTEGRITY
+---
+#>
+
 Describe 'ToolsConfig' -Tag 'L0' {
     Context 'integrity (shipped tools.yml)' -Tag 'integrity' {
         It 'accepts the shipped tools.yml (all snake_case)' {

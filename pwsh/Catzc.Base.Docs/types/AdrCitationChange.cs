@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AdrCitationChange.cs
+    folder: types
+    name: adr-citation-change
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AdrCitationChange.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationChange.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+---
+*/
+
 using System;
 
 namespace Catzc.Base.Docs;

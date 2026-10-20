@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Cli/Invoke-InSubscription.ps1
+    name: invoke-in-subscription
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Cli
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    docs: "[Invoke-InSubscription.ps1.md](docs/references/pwsh/catzc-azure-cli/Invoke-InSubscription.ps1.md)"
+---
+#>
+
 function Invoke-InSubscription {
     [CmdletBinding()]
     param(

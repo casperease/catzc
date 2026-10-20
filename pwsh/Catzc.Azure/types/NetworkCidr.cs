@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/types/NetworkCidr.cs
+    folder: types
+    name: network-cidr
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[NetworkCidr.cs.md](docs/references/pwsh/catzc-azure/types/NetworkCidr.cs.md)"
+    cites:
+      - ADR-AZ-NETWORK
+---
+*/
+
 using System;
 using System.Net;
 using System.Net.Sockets;

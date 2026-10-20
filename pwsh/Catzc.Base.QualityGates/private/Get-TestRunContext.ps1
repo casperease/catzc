@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Get-TestRunContext.ps1
+    folder: private
+    name: get-test-run-context
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-TestRunContext.Tests.ps1
+    docs: "[Get-TestRunContext.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TestRunContext.ps1.md)"
+---
+#>
+
 function Get-TestRunContext {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

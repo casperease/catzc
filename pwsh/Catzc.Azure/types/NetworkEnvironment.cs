@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/types/NetworkEnvironment.cs
+    folder: types
+    name: network-environment
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[NetworkEnvironment.cs.md](docs/references/pwsh/catzc-azure/types/NetworkEnvironment.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-AZ-NETWORK
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

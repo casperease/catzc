@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Provisioning/tests/Install-Postman.Tests.ps1
+    folder: tests
+    name: install-postman-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Install-Postman.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Install-Postman.Tests.ps1.md)"
+---
+#>
+
 Describe 'Install-Postman' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-WebRequest { } -ModuleName Catzc.Tooling.Provisioning

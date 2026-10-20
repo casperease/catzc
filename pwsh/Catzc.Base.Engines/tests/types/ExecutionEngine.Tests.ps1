@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
+    folder: tests/types
+    name: execution-engine-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Engines
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ExecutionEngine.Tests.ps1.md](docs/references/pwsh/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-ENGINE
+---
+#>
+
 BeforeDiscovery {
     $script:startCases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/engine-start.yml') -Applicable)
     $script:locatorCases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/engine-locator.yml') -Applicable)

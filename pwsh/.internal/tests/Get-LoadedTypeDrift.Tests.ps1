@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.internal/tests/Get-LoadedTypeDrift.Tests.ps1
+    name: get-loaded-type-drift-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Internal.Tests
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
+  edges:
+    docs: "[Get-LoadedTypeDrift.Tests.ps1.md](docs/references/pwsh/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TYPES-STALETYPESGUARD
+      - ADR-AUTO-TYPES-ONEDRIFTMEASURE
+---
+#>
+
 BeforeAll {
     Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Types.psm1') -Force
 }

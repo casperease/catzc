@@ -1,3 +1,29 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
+    folder: types
+    name: execution-engine
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Engines
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
+    docs: "[ExecutionEngine.cs.md](docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md)"
+    cites:
+      - ADR-AUTO-ENGINE
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;

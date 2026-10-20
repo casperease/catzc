@@ -1,11 +1,11 @@
-description: 'The one real gate on the aspect convention checks shape: the variants config refuses any track whose last aspect
-  is not the bare remainder; whether the remainder ships is each track''s unchecked declaration, and the partition check runs
-  only in unit tests.'
+description:
+  "The one real gate on the aspect convention checks shape: the variants config refuses any track whose last aspect is not the bare
+  remainder; whether the remainder ships is each track's unchecked declaration, and the partition check runs only in unit tests."
 about:
   adrs:
-  - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-  - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
-  - ADR-DSGN-ASPECT-PARTITIONISCHECKED
+    - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+    - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+    - ADR-DSGN-ASPECT-PARTITIONISCHECKED
   lens: governance
 content:
   title: The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call
@@ -14,93 +14,93 @@ content:
   relation: checks
   theme: dark
   bands:
-  - id: band-code
-    label: PWSH
-  - id: band-deployment
-    label: INFRASTRUCTURE
+    - id: band-code
+      label: PWSH
+    - id: band-deployment
+      label: INFRASTRUCTURE
   glyphs:
-  - id: s-code-live
-    kind: set
-    label: live
-    in: band-code
-  - id: s-code-tests
-    kind: set
-    label: tests
-    in: band-code
-  - id: g-partition
-    kind: gate
-    label: AspectPartition.Validate
-    in: band-code
-  - id: g-config
-    kind: gate
-    label: VariantsConfig
-    in: band-code
-  - id: s-deployment-tests
-    kind: set
-    label: tests
-    in: band-deployment
-  - id: s-deployment-live
-    kind: set
-    label: live
-    in: band-deployment
-  - id: g-config-deployment
-    kind: gate
-    label: VariantsConfig
-    in: band-deployment
+    - id: s-code-live
+      kind: set
+      label: live
+      in: band-code
+    - id: s-code-tests
+      kind: set
+      label: tests
+      in: band-code
+    - id: g-partition
+      kind: gate
+      label: AspectPartition.Validate
+      in: band-code
+    - id: g-config
+      kind: gate
+      label: VariantsConfig
+      in: band-code
+    - id: s-deployment-tests
+      kind: set
+      label: tests
+      in: band-deployment
+    - id: s-deployment-live
+      kind: set
+      label: live
+      in: band-deployment
+    - id: g-config-deployment
+      kind: gate
+      label: VariantsConfig
+      in: band-deployment
   edges:
-  - from: g-partition
-    to: s-code-live
-    kind: adr
-    label: ''
-  - from: g-config
-    to: s-code-tests
-    kind: flow
-    label: ''
-  - from: g-config-deployment
-    to: s-deployment-live
-    kind: flow
-    label: ''
+    - from: g-partition
+      to: s-code-live
+      kind: adr
+      label: ""
+    - from: g-config
+      to: s-code-tests
+      kind: flow
+      label: ""
+    - from: g-config-deployment
+      to: s-deployment-live
+      kind: flow
+      label: ""
   markers:
-  - at: s-code-live
-    number: 1
-  - at: s-code-tests
-    number: 2
-  - at: g-config
-    number: 3
-  - at: g-partition
-    number: 4
-  - at: s-deployment-tests
-    number: 5
-  - at: s-deployment-live
-    number: 6
+    - at: s-code-live
+      number: 1
+    - at: s-code-tests
+      number: 2
+    - at: g-config
+      number: 3
+    - at: g-partition
+      number: 4
+    - at: s-deployment-tests
+      number: 5
+    - at: s-deployment-live
+      number: 6
   chips:
-  - at: s-code-live
-    kind: rule
-    rule: ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-    gated: false
-  - at: s-code-tests
-    kind: rule
-    rule: ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
-    gated: false
-  - at: g-config
-    kind: rule
-    rule: ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
-  - at: g-partition
-    kind: rule
-    rule: ADR-DSGN-ASPECT-PARTITIONISCHECKED
-    gated: false
-  - at: s-deployment-live
-    kind: rule
-    rule: ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
-    gated: false
-  - at: g-config-deployment
-    kind: rule
-    rule: ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+    - at: s-code-live
+      kind: rule
+      rule: ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+      gated: false
+    - at: s-code-tests
+      kind: rule
+      rule: ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+      gated: false
+    - at: g-config
+      kind: rule
+      rule: ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+    - at: g-partition
+      kind: rule
+      rule: ADR-DSGN-ASPECT-PARTITIONISCHECKED
+      gated: false
+    - at: s-deployment-live
+      kind: rule
+      rule: ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+      gated: false
+    - at: g-config-deployment
+      kind: rule
+      rule: ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-code:
     x: 20

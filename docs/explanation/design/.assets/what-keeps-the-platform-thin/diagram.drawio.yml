@@ -1,15 +1,16 @@
-description: 'Which rules that keep the platform thin have a gate: the function naming rule, the configuration check and the
-  az version pin do, while no reimplementation, everything as code and the swappable substrate are held by review alone.'
+description:
+  "Which rules that keep the platform thin have a gate: the function naming rule, the configuration check and the az version pin do, while
+  no reimplementation, everything as code and the swappable substrate are held by review alone."
 about:
   adrs:
-  - ADR-DSGN-THINPLAT-THINPLATFORM
-  - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-  - ADR-DSGN-THINPLAT-PLATFORMASCLI
-  - ADR-DSGN-THINPLAT-REPRESENTEDASCODE
-  - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-  - ADR-AZ-CLI-AZBYDEFAULT
-  - ADR-AZ-CLI-ASSERTAZ
-  - ADR-AZ-CLI-NOAZMODULEIMPORT
+    - ADR-DSGN-THINPLAT-THINPLATFORM
+    - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+    - ADR-DSGN-THINPLAT-PLATFORMASCLI
+    - ADR-DSGN-THINPLAT-REPRESENTEDASCODE
+    - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+    - ADR-AZ-CLI-AZBYDEFAULT
+    - ADR-AZ-CLI-ASSERTAZ
+    - ADR-AZ-CLI-NOAZMODULEIMPORT
   lens: governance
 content:
   title: Three gates guard the CLI and az, but nothing checks that cats stays thin
@@ -18,124 +19,124 @@ content:
   relation: guards
   theme: dark
   bands:
-  - id: band-surface
-    label: CLI SURFACE
-  - id: band-catzc
-    label: CATZC
-  - id: band-delegated
-    label: DELEGATED
-  - id: band-substrate
-    label: VENDOR SUBSTRATE
+    - id: band-surface
+      label: CLI SURFACE
+    - id: band-catzc
+      label: CATZC
+    - id: band-delegated
+      label: DELEGATED
+    - id: band-substrate
+      label: VENDOR SUBSTRATE
   glyphs:
-  - id: g-naming
-    kind: gate
-    label: NoAzModuleNaming
-    in: band-surface
-  - id: g-functions
-    kind: code
-    label: Verb-Noun functions
-    in: band-surface
-  - id: g-config
-    kind: gate
-    label: config validation
-    in: band-surface
-  - id: g-everything-code
-    kind: adronly
-    label: everything is code
-    in: band-catzc
-  - id: g-assert-tool
-    kind: gate
-    label: Assert-Tool 'az_cli'
-    in: band-catzc
-  - id: g-no-reimplementation
-    kind: adronly
-    label: no reimplementation
-    in: band-delegated
-  - id: g-az-cli
-    kind: external
-    label: az CLI
-    in: band-delegated
-  - id: g-substrate
-    kind: adronly
-    label: swappable substrate
-    in: band-substrate
+    - id: g-naming
+      kind: gate
+      label: NoAzModuleNaming
+      in: band-surface
+    - id: g-functions
+      kind: code
+      label: Verb-Noun functions
+      in: band-surface
+    - id: g-config
+      kind: gate
+      label: config validation
+      in: band-surface
+    - id: g-everything-code
+      kind: adronly
+      label: everything is code
+      in: band-catzc
+    - id: g-assert-tool
+      kind: gate
+      label: Assert-Tool 'az_cli'
+      in: band-catzc
+    - id: g-no-reimplementation
+      kind: adronly
+      label: no reimplementation
+      in: band-delegated
+    - id: g-az-cli
+      kind: external
+      label: az CLI
+      in: band-delegated
+    - id: g-substrate
+      kind: adronly
+      label: swappable substrate
+      in: band-substrate
   edges:
-  - from: g-naming
-    to: g-functions
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-functions
-    kind: flow
-    label: ''
-  - from: g-everything-code
-    to: g-functions
-    kind: adr
-    label: ''
-  - from: g-assert-tool
-    to: g-az-cli
-    kind: flow
-    label: ''
-  - from: g-no-reimplementation
-    to: g-az-cli
-    kind: adr
-    label: ''
-  - from: g-substrate
-    to: g-az-cli
-    kind: adr
-    label: ''
+    - from: g-naming
+      to: g-functions
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-functions
+      kind: flow
+      label: ""
+    - from: g-everything-code
+      to: g-functions
+      kind: adr
+      label: ""
+    - from: g-assert-tool
+      to: g-az-cli
+      kind: flow
+      label: ""
+    - from: g-no-reimplementation
+      to: g-az-cli
+      kind: adr
+      label: ""
+    - from: g-substrate
+      to: g-az-cli
+      kind: adr
+      label: ""
   markers:
-  - at: g-naming
-    number: 1
-  - at: g-functions
-    number: 2
-  - at: g-config
-    number: 3
-  - at: g-everything-code
-    number: 4
-  - at: g-assert-tool
-    number: 5
-  - at: g-no-reimplementation
-    number: 6
-  - at: g-az-cli
-    number: 7
-  - at: g-substrate
-    number: 8
+    - at: g-naming
+      number: 1
+    - at: g-functions
+      number: 2
+    - at: g-config
+      number: 3
+    - at: g-everything-code
+      number: 4
+    - at: g-assert-tool
+      number: 5
+    - at: g-no-reimplementation
+      number: 6
+    - at: g-az-cli
+      number: 7
+    - at: g-substrate
+      number: 8
   chips:
-  - at: g-naming
-    kind: rule
-    rule: ADR-AZ-CLI-NOAZMODULEIMPORT
-  - at: g-functions
-    kind: rule
-    rule: ADR-DSGN-THINPLAT-PLATFORMASCLI
-    gated: false
-  - at: g-config
-    kind: rule
-    rule: ADR-DSGN-THINPLAT-THINPLATFORM
-  - at: g-everything-code
-    kind: rule
-    rule: ADR-DSGN-THINPLAT-REPRESENTEDASCODE
-    gated: false
-  - at: g-assert-tool
-    kind: rule
-    rule: ADR-AZ-CLI-ASSERTAZ
-  - at: g-no-reimplementation
-    kind: rule
-    rule: ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-    gated: false
-  - at: g-az-cli
-    kind: rule
-    rule: ADR-AZ-CLI-AZBYDEFAULT
-    gated: false
-  - at: g-substrate
-    kind: rule
-    rule: ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-    gated: false
+    - at: g-naming
+      kind: rule
+      rule: ADR-AZ-CLI-NOAZMODULEIMPORT
+    - at: g-functions
+      kind: rule
+      rule: ADR-DSGN-THINPLAT-PLATFORMASCLI
+      gated: false
+    - at: g-config
+      kind: rule
+      rule: ADR-DSGN-THINPLAT-THINPLATFORM
+    - at: g-everything-code
+      kind: rule
+      rule: ADR-DSGN-THINPLAT-REPRESENTEDASCODE
+      gated: false
+    - at: g-assert-tool
+      kind: rule
+      rule: ADR-AZ-CLI-ASSERTAZ
+    - at: g-no-reimplementation
+      kind: rule
+      rule: ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+      gated: false
+    - at: g-az-cli
+      kind: rule
+      rule: ADR-AZ-CLI-AZBYDEFAULT
+      gated: false
+    - at: g-substrate
+      kind: rule
+      rule: ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+      gated: false
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-surface:
     x: 20

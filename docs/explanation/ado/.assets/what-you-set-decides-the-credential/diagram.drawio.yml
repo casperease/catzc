@@ -1,11 +1,12 @@
-description: What an operator sets decides the Azure DevOps credential, in a fixed order; each wrong setup stops with its
-  own message, and a working one gives the REST call its Authorization header.
+description:
+  What an operator sets decides the Azure DevOps credential, in a fixed order; each wrong setup stops with its own message, and a working
+  one gives the REST call its Authorization header.
 about:
   adrs:
-  - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-  - ADR-ADO-AUTH-PROVETARGET
-  - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
-  - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+    - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+    - ADR-ADO-AUTH-PROVETARGET
+    - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+    - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
   lens: operations
 content:
   title: What you set decides the credential, and each wrong setup stops with its own message
@@ -14,104 +15,104 @@ content:
   relation: what comes next
   theme: dark
   bands:
-  - id: band-returns
-    label: RETURNS
-  - id: band-set
-    label: YOU SET
-  - id: band-see
-    label: YOU SEE
+    - id: band-returns
+      label: RETURNS
+    - id: band-set
+      label: YOU SET
+    - id: band-see
+      label: YOU SEE
   glyphs:
-  - id: g-expose
-    kind: gate
-    label: 'ExposeAccessToken: true'
-    in: band-set
-  - id: g-pat
-    kind: gate
-    label: $env:AZURE_DEVOPS_PAT
-    in: band-set
-  - id: g-az-login
-    kind: gate
-    label: az login · Connect-AzCli
-    in: band-set
-  - id: r-header
-    kind: result
-    label: Authorization header
-    in: band-returns
-  - id: f-mismatch
-    kind: failure
-    label: does not match ado.yml
-    in: band-see
-  - id: f-no-login
-    kind: failure
-    label: Not logged in to az CLI
-    in: band-see
-  - id: f-context
-    kind: failure
-    label: set to the wrong context
-    in: band-see
-  - id: f-no-token
-    kind: failure
-    label: No ADO token available
-    in: band-see
+    - id: g-expose
+      kind: gate
+      label: "ExposeAccessToken: true"
+      in: band-set
+    - id: g-pat
+      kind: gate
+      label: $env:AZURE_DEVOPS_PAT
+      in: band-set
+    - id: g-az-login
+      kind: gate
+      label: az login · Connect-AzCli
+      in: band-set
+    - id: r-header
+      kind: result
+      label: Authorization header
+      in: band-returns
+    - id: f-mismatch
+      kind: failure
+      label: does not match ado.yml
+      in: band-see
+    - id: f-no-login
+      kind: failure
+      label: Not logged in to az CLI
+      in: band-see
+    - id: f-context
+      kind: failure
+      label: set to the wrong context
+      in: band-see
+    - id: f-no-token
+      kind: failure
+      label: No ADO token available
+      in: band-see
   edges:
-  - from: g-expose
-    to: g-pat
-    kind: flow
-    label: ''
-  - from: g-pat
-    to: g-az-login
-    kind: flow
-    label: ''
-  - from: g-expose
-    to: r-header
-    kind: flow
-    label: ''
-  - from: g-pat
-    to: r-header
-    kind: flow
-    label: ''
-  - from: g-az-login
-    to: r-header
-    kind: flow
-    label: ''
-  - from: g-expose
-    to: f-mismatch
-    kind: fail
-    label: ''
-  - from: g-az-login
-    to: f-no-login
-    kind: fail
-    label: ''
-  - from: g-az-login
-    to: f-context
-    kind: fail
-    label: ''
-  - from: g-az-login
-    to: f-no-token
-    kind: fail
-    label: ''
+    - from: g-expose
+      to: g-pat
+      kind: flow
+      label: ""
+    - from: g-pat
+      to: g-az-login
+      kind: flow
+      label: ""
+    - from: g-expose
+      to: r-header
+      kind: flow
+      label: ""
+    - from: g-pat
+      to: r-header
+      kind: flow
+      label: ""
+    - from: g-az-login
+      to: r-header
+      kind: flow
+      label: ""
+    - from: g-expose
+      to: f-mismatch
+      kind: fail
+      label: ""
+    - from: g-az-login
+      to: f-no-login
+      kind: fail
+      label: ""
+    - from: g-az-login
+      to: f-context
+      kind: fail
+      label: ""
+    - from: g-az-login
+      to: f-no-token
+      kind: fail
+      label: ""
   markers:
-  - at: g-expose
-    number: 1
-  - at: f-mismatch
-    number: 2
-  - at: g-pat
-    number: 3
-  - at: g-az-login
-    number: 4
-  - at: f-no-login
-    number: 5
-  - at: f-context
-    number: 6
-  - at: f-no-token
-    number: 7
-  - at: r-header
-    number: 8
+    - at: g-expose
+      number: 1
+    - at: f-mismatch
+      number: 2
+    - at: g-pat
+      number: 3
+    - at: g-az-login
+      number: 4
+    - at: f-no-login
+      number: 5
+    - at: f-context
+      number: 6
+    - at: f-no-token
+      number: 7
+    - at: r-header
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-returns:
     x: 20

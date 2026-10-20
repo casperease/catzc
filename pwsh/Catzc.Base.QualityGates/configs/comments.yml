@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.QualityGates/configs/comments.yml
+#     folder: configs
+#     name: comments
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.QualityGates
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[comments.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/comments.yml.md)"
+# ---
+
 languages: [powershell, yaml, pipeline-yaml, csharp, bicep]
 
 # A comment block with fewer prose lines than this stays in the file. Default: 2.

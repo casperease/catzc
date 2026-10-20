@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Files/Copy-Directory.ps1
+    name: copy-directory
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Files
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Files/tests/Copy-Directory.Tests.ps1
+    docs: "[Copy-Directory.ps1.md](docs/references/pwsh/catzc-base-files/Copy-Directory.ps1.md)"
+    cites:
+      - ADR-PWSH-ENUM-ALWAYSBOUNDED
+---
+#>
+
 function Copy-Directory {
     [CmdletBinding()]
     param(

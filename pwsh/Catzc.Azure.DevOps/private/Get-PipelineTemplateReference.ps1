@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1
+    folder: private
+    name: get-pipeline-template-reference
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
+    docs: "[Get-PipelineTemplateReference.ps1.md](docs/references/pwsh/catzc-azure-devops/private/Get-PipelineTemplateReference.ps1.md)"
+    cites:
+      - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
+---
+#>
+
 function Get-PipelineTemplateReference {
     [CmdletBinding()]
     [OutputType([string[]])]

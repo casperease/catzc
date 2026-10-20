@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
+    folder: tests
+    name: get-bicep-parameter-model-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-BicepParameterModel.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+---
+#>
+
 Describe 'Get-BicepParameterModel' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates

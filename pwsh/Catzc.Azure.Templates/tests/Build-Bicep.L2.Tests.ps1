@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.L2.Tests.ps1
+    folder: tests
+    name: build-bicep-l2-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-Bicep.L2.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
+      - ADR-AUTO-TEST-ONESCHEDULINGPOOL
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+---
+#>
+
 Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greedy' {
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates

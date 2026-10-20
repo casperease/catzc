@@ -1,11 +1,12 @@
-description: A variant edit is one key in variants.yml and a re-import; a wrong value fails once at load in the config type,
-  and a guard asked later or a committer asking for the workspace stops with a message naming the fix.
+description:
+  A variant edit is one key in variants.yml and a re-import; a wrong value fails once at load in the config type, and a guard asked later or
+  a committer asking for the workspace stops with a message naming the fix.
 about:
   adrs:
-  - ADR-REPO-VARIANT-SESSIONVARIANT
-  - ADR-REPO-VARIANT-NODIRECTREADS
-  - ADR-REPO-VARIANT-HAVECUSTOMERS
-  - ADR-REPO-VARIANT-GITWORKSPACE
+    - ADR-REPO-VARIANT-SESSIONVARIANT
+    - ADR-REPO-VARIANT-NODIRECTREADS
+    - ADR-REPO-VARIANT-HAVECUSTOMERS
+    - ADR-REPO-VARIANT-GITWORKSPACE
   lens: operations
 content:
   title: An edit to a variant lands at the next import, and a wrong value fails once, at load
@@ -14,98 +15,98 @@ content:
   relation: comes before
   theme: dark
   bands:
-  - id: band-edit
-    label: EDIT
-  - id: band-reimport
-    label: RE-IMPORT
-  - id: band-load
-    label: LOAD
-  - id: band-ask
-    label: ASK
+    - id: band-edit
+      label: EDIT
+    - id: band-reimport
+      label: RE-IMPORT
+    - id: band-load
+      label: LOAD
+    - id: band-ask
+      label: ASK
   groups:
-  - id: grp-askers
-    label: askers
-    in: band-ask
+    - id: grp-askers
+      label: askers
+      in: band-ask
   glyphs:
-  - id: g-variants-yml
-    kind: file
-    label: variants.yml
-    in: band-edit
-  - id: g-importer
-    kind: code
-    label: importer.ps1
-    in: band-reimport
-  - id: g-variants-config
-    kind: gate
-    label: VariantsConfig
-    in: band-load
-  - id: f-validation
-    kind: failure
-    label: validation failed
-    in: band-load
-  - id: g-assert-have-customers
-    kind: gate
-    label: Assert-HaveCustomers
-    in: grp-askers
-  - id: g-sync
-    kind: code
-    label: Sync-GeneratedFile
-    in: grp-askers
-  - id: f-disabled
-    kind: failure
-    label: deployments are disabled
-    in: band-ask
-  - id: f-skipped
-    kind: failure
-    label: 'Skipped: main-via-pr on main'
-    in: band-ask
+    - id: g-variants-yml
+      kind: file
+      label: variants.yml
+      in: band-edit
+    - id: g-importer
+      kind: code
+      label: importer.ps1
+      in: band-reimport
+    - id: g-variants-config
+      kind: gate
+      label: VariantsConfig
+      in: band-load
+    - id: f-validation
+      kind: failure
+      label: validation failed
+      in: band-load
+    - id: g-assert-have-customers
+      kind: gate
+      label: Assert-HaveCustomers
+      in: grp-askers
+    - id: g-sync
+      kind: code
+      label: Sync-GeneratedFile
+      in: grp-askers
+    - id: f-disabled
+      kind: failure
+      label: deployments are disabled
+      in: band-ask
+    - id: f-skipped
+      kind: failure
+      label: "Skipped: main-via-pr on main"
+      in: band-ask
   edges:
-  - from: g-variants-yml
-    to: g-importer
-    kind: flow
-    label: ''
-  - from: g-importer
-    to: g-variants-config
-    kind: flow
-    label: ''
-  - from: g-variants-config
-    to: g-assert-have-customers
-    kind: flow
-    label: ''
-  - from: g-variants-config
-    to: f-validation
-    kind: fail
-    label: ''
-  - from: g-assert-have-customers
-    to: f-disabled
-    kind: fail
-    label: ''
-  - from: g-sync
-    to: f-skipped
-    kind: fail
-    label: ''
+    - from: g-variants-yml
+      to: g-importer
+      kind: flow
+      label: ""
+    - from: g-importer
+      to: g-variants-config
+      kind: flow
+      label: ""
+    - from: g-variants-config
+      to: g-assert-have-customers
+      kind: flow
+      label: ""
+    - from: g-variants-config
+      to: f-validation
+      kind: fail
+      label: ""
+    - from: g-assert-have-customers
+      to: f-disabled
+      kind: fail
+      label: ""
+    - from: g-sync
+      to: f-skipped
+      kind: fail
+      label: ""
   markers:
-  - at: g-variants-yml
-    number: 1
-  - at: g-importer
-    number: 2
-  - at: g-variants-config
-    number: 3
-  - at: f-validation
-    number: 4
-  - at: g-assert-have-customers
-    number: 5
-  - at: f-disabled
-    number: 6
-  - at: g-sync
-    number: 7
-  - at: f-skipped
-    number: 8
+    - at: g-variants-yml
+      number: 1
+    - at: g-importer
+      number: 2
+    - at: g-variants-config
+      number: 3
+    - at: f-validation
+      number: 4
+    - at: g-assert-have-customers
+      number: 5
+    - at: f-disabled
+      number: 6
+    - at: g-sync
+      number: 7
+    - at: f-skipped
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-edit:
     x: 20

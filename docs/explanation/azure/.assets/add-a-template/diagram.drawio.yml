@@ -1,85 +1,85 @@
-description: Adding a template adds one folder to the templates place of the infrastructure track, with its main.bicep, options.yml,
-  README.md and a configuration folder holding its first slot; the tooling finds it through the track, and the CD pipelines'
-  path filters name it before any pipeline deploys it.
+description:
+  Adding a template adds one folder to the templates place of the infrastructure track, with its main.bicep, options.yml, README.md and a
+  configuration folder holding its first slot; the tooling finds it through the track, and the CD pipelines' path filters name it before any
+  pipeline deploys it.
 about:
   adrs:
-  - ADR-AZ-IACKIND-THREEKINDS
-  - ADR-AZ-IACKIND-TRACKPLACESKINDS
+    - ADR-AZ-IACKIND-THREEKINDS
+    - ADR-AZ-IACKIND-TRACKPLACESKINDS
   lens: operations
 content:
-  title: A new template is one folder in the templates place, found through the track and named in the pipelines that deploy
-    it
+  title: A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it
   kind: explanation
   flow: left-to-right
   relation: then
   theme: dark
   bands:
-  - id: band-folder
-    label: THE NEW FOLDER
-  - id: band-configs
-    label: FIRST SLOT
-  - id: band-found
-    label: FOUND AND DEPLOYED
+    - id: band-folder
+      label: THE NEW FOLDER
+    - id: band-configs
+      label: FIRST SLOT
+    - id: band-found
+      label: FOUND AND DEPLOYED
   spans:
-  - id: span-templates
-    label: templates
-    over:
-    - band-folder
-  - id: span-configs
-    label: configs
-    over:
-    - band-configs
+    - id: span-templates
+      label: templates
+      over:
+        - band-folder
+    - id: span-configs
+      label: configs
+      over:
+        - band-configs
   glyphs:
-  - id: g-main
-    kind: code
-    label: main.bicep
-    in: band-folder
-  - id: g-options
-    kind: file
-    label: options.yml
-    in: band-folder
-  - id: g-readme
-    kind: file
-    label: README.md
-    in: band-folder
-  - id: g-slot
-    kind: file
-    label: first slot
-    in: band-configs
-  - id: g-place
-    kind: gate
-    label: Get-TrackPlace
-    in: band-found
-  - id: r-filters
-    kind: runner
-    label: CD path filters
-    in: band-found
+    - id: g-main
+      kind: code
+      label: main.bicep
+      in: band-folder
+    - id: g-options
+      kind: file
+      label: options.yml
+      in: band-folder
+    - id: g-readme
+      kind: file
+      label: README.md
+      in: band-folder
+    - id: g-slot
+      kind: file
+      label: first slot
+      in: band-configs
+    - id: g-place
+      kind: gate
+      label: Get-TrackPlace
+      in: band-found
+    - id: r-filters
+      kind: runner
+      label: CD path filters
+      in: band-found
   edges:
-  - from: g-main
-    to: g-slot
-    kind: flow
-    label: ''
-  - from: g-slot
-    to: g-place
-    kind: flow
-    label: ''
-  - from: g-place
-    to: r-filters
-    kind: flow
-    label: ''
+    - from: g-main
+      to: g-slot
+      kind: flow
+      label: ""
+    - from: g-slot
+      to: g-place
+      kind: flow
+      label: ""
+    - from: g-place
+      to: r-filters
+      kind: flow
+      label: ""
   markers:
-  - at: g-main
-    number: 1
-  - at: g-options
-    number: 2
-  - at: g-readme
-    number: 3
-  - at: g-slot
-    number: 4
-  - at: g-place
-    number: 5
-  - at: r-filters
-    number: 6
+    - at: g-main
+      number: 1
+    - at: g-options
+      number: 2
+    - at: g-readme
+      number: 3
+    - at: g-slot
+      number: 4
+    - at: g-place
+      number: 5
+    - at: r-filters
+      number: 6
   legend: auto
 layout:
   g-main:

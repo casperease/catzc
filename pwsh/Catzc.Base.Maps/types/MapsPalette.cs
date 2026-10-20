@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/MapsPalette.cs
+    folder: types
+    name: maps-palette
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[MapsPalette.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsPalette.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 namespace Catzc.Base.Maps;
 
 public sealed class MapsPalette

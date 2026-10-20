@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Timeouts/types/TimeLimitAttribute.cs
+    folder: types
+    name: time-limit-attribute
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Timeouts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Timeouts/tests/types/TimeLimitAttribute.Tests.ps1
+    docs: "[TimeLimitAttribute.cs.md](docs/references/pwsh/catzc-base-timeouts/types/TimeLimitAttribute.cs.md)"
+    cites:
+      - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
+---
+*/
+
 using System;
 
 namespace Catzc.Base.Timeouts;

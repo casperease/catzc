@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
+    folder: tests/types
+    name: function-call-collector-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[FunctionCallCollector.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/types/FunctionCallCollector.Tests.ps1.md)"
+---
+#>
+
 Describe 'FunctionCallCollector' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:collect = {

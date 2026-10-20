@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
+    folder: tests
+    name: get-contract-freeze-findings-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ContractFreezeFindings.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
+---
+#>
+
 Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-RELEASEDIMMUTABLE' {
     BeforeAll {
         function Add-File {

@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/types/ContractFragment.cs
+    folder: types
+    name: contract-fragment
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/types/ContractFragment.Tests.ps1
+    docs: "[ContractFragment.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractFragment.cs.md)"
+    cites:
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

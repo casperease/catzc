@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.CodeMeta/types/PropertyHead.cs
+    folder: types
+    name: property-head
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.CodeMeta
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.CodeMeta/tests/types/PropertyHead.Tests.ps1
+    docs: "[PropertyHead.cs.md](docs/references/pwsh/catzc-base-codemeta/types/PropertyHead.cs.md)"
+    cites:
+      - ADR-REPO-FILEMETA-JSONCARRIER
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

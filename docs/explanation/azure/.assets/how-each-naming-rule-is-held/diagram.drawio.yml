@@ -1,16 +1,16 @@
-description: 'The eight naming rules and where code holds them: seven behind a check that throws, from template discovery
-  through the resolver and the namer''s registry, format and length checks, and one, that no subscription enters a name, held
-  by construction.'
+description:
+  "The eight naming rules and where code holds them: seven behind a check that throws, from template discovery through the resolver and the
+  namer's registry, format and length checks, and one, that no subscription enters a name, held by construction."
 about:
   adrs:
-  - ADR-AZ-NAMING-DETERMINISTICNAMES
-  - ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS
-  - ADR-AZ-NAMING-ENVIRONMENTFIRST
-  - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
-  - ADR-AZ-NAMING-ORDERISVARIANT
-  - ADR-AZ-NAMING-LOWERCASECOMPONENTS
-  - ADR-AZ-NAMING-NEVERTRUNCATE
-  - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+    - ADR-AZ-NAMING-DETERMINISTICNAMES
+    - ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS
+    - ADR-AZ-NAMING-ENVIRONMENTFIRST
+    - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+    - ADR-AZ-NAMING-ORDERISVARIANT
+    - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+    - ADR-AZ-NAMING-NEVERTRUNCATE
+    - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
   lens: governance
 content:
   title: Code holds all eight naming rules, seven of them behind a check that throws
@@ -19,122 +19,122 @@ content:
   relation: the next check
   theme: dark
   bands:
-  - id: band-discovery
-    label: DISCOVERY
-  - id: band-resolver
-    label: RESOLVER
-  - id: band-namer
-    label: NAMER
+    - id: band-discovery
+      label: DISCOVERY
+    - id: band-resolver
+      label: RESOLVER
+    - id: band-namer
+      label: NAMER
   glyphs:
-  - id: g-short-name
-    kind: gate
-    label: BicepShortName
-    in: band-discovery
-  - id: g-resource-name
-    kind: code
-    label: Get-BicepResourceName
-    in: band-resolver
-  - id: g-lookups
-    kind: gate
-    label: registry lookups
-    in: band-namer
-  - id: g-format
-    kind: gate
-    label: format checks
-    in: band-namer
-  - id: g-length
-    kind: gate
-    label: length limit
-    in: band-namer
-  - id: r-name
-    kind: result
-    label: the name
-    in: band-namer
-  - id: f-throw
-    kind: failure
-    label: throw
-    in: band-namer
+    - id: g-short-name
+      kind: gate
+      label: BicepShortName
+      in: band-discovery
+    - id: g-resource-name
+      kind: code
+      label: Get-BicepResourceName
+      in: band-resolver
+    - id: g-lookups
+      kind: gate
+      label: registry lookups
+      in: band-namer
+    - id: g-format
+      kind: gate
+      label: format checks
+      in: band-namer
+    - id: g-length
+      kind: gate
+      label: length limit
+      in: band-namer
+    - id: r-name
+      kind: result
+      label: the name
+      in: band-namer
+    - id: f-throw
+      kind: failure
+      label: throw
+      in: band-namer
   edges:
-  - from: g-short-name
-    to: g-resource-name
-    kind: flow
-    label: ''
-  - from: g-resource-name
-    to: g-lookups
-    kind: flow
-    label: ''
-  - from: g-lookups
-    to: g-format
-    kind: flow
-    label: ''
-  - from: g-format
-    to: g-length
-    kind: flow
-    label: ''
-  - from: g-length
-    to: r-name
-    kind: flow
-    label: ''
-  - from: g-short-name
-    to: f-throw
-    kind: fail
-    label: ''
-  - from: g-lookups
-    to: f-throw
-    kind: fail
-    label: ''
-  - from: g-format
-    to: f-throw
-    kind: fail
-    label: ''
-  - from: g-length
-    to: f-throw
-    kind: fail
-    label: ''
+    - from: g-short-name
+      to: g-resource-name
+      kind: flow
+      label: ""
+    - from: g-resource-name
+      to: g-lookups
+      kind: flow
+      label: ""
+    - from: g-lookups
+      to: g-format
+      kind: flow
+      label: ""
+    - from: g-format
+      to: g-length
+      kind: flow
+      label: ""
+    - from: g-length
+      to: r-name
+      kind: flow
+      label: ""
+    - from: g-short-name
+      to: f-throw
+      kind: fail
+      label: ""
+    - from: g-lookups
+      to: f-throw
+      kind: fail
+      label: ""
+    - from: g-format
+      to: f-throw
+      kind: fail
+      label: ""
+    - from: g-length
+      to: f-throw
+      kind: fail
+      label: ""
   markers:
-  - at: g-short-name
-    number: 1
-  - at: g-resource-name
-    number: 2
-  - at: g-lookups
-    number: 3
-  - at: g-format
-    number: 4
-  - at: g-length
-    number: 5
-  - at: f-throw
-    number: 6
+    - at: g-short-name
+      number: 1
+    - at: g-resource-name
+      number: 2
+    - at: g-lookups
+      number: 3
+    - at: g-format
+      number: 4
+    - at: g-length
+      number: 5
+    - at: f-throw
+      number: 6
   chips:
-  - at: g-short-name
-    kind: rule
-    rule: ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS
-  - at: g-resource-name
-    kind: rule
-    rule: ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
-    gated: false
-  - at: g-lookups
-    kind: rule
-    rule: ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
-  - at: g-lookups
-    kind: rule
-    rule: ADR-AZ-NAMING-ORDERISVARIANT
-  - at: g-format
-    kind: rule
-    rule: ADR-AZ-NAMING-DETERMINISTICNAMES
-  - at: g-format
-    kind: rule
-    rule: ADR-AZ-NAMING-ENVIRONMENTFIRST
-  - at: g-format
-    kind: rule
-    rule: ADR-AZ-NAMING-LOWERCASECOMPONENTS
-  - at: g-length
-    kind: rule
-    rule: ADR-AZ-NAMING-NEVERTRUNCATE
+    - at: g-short-name
+      kind: rule
+      rule: ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS
+    - at: g-resource-name
+      kind: rule
+      rule: ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      gated: false
+    - at: g-lookups
+      kind: rule
+      rule: ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+    - at: g-lookups
+      kind: rule
+      rule: ADR-AZ-NAMING-ORDERISVARIANT
+    - at: g-format
+      kind: rule
+      rule: ADR-AZ-NAMING-DETERMINISTICNAMES
+    - at: g-format
+      kind: rule
+      rule: ADR-AZ-NAMING-ENVIRONMENTFIRST
+    - at: g-format
+      kind: rule
+      rule: ADR-AZ-NAMING-LOWERCASECOMPONENTS
+    - at: g-length
+      kind: rule
+      rule: ADR-AZ-NAMING-NEVERTRUNCATE
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-discovery:
     x: 20

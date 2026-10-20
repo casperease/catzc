@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Get-ModuleDependency.ps1
+    name: get-module-dependency
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1
+    docs: "[Get-ModuleDependency.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-ModuleDependency.ps1.md)"
+---
+#>
+
 function Get-ModuleDependency {
     [CmdletBinding()]
     param(

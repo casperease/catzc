@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Get-FileMetaFact.ps1
+    name: get-file-meta-fact
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaFact.Tests.ps1
+    docs: "[Get-FileMetaFact.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Get-FileMetaFact.ps1.md)"
+    cites:
+      - ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION
+      - ADR-REPO-FILEMETA-NOREADBACK
+---
+#>
+
 function Get-FileMetaFact {
     [CmdletBinding(DefaultParameterSetName = 'Path')]
     [OutputType([pscustomobject])]
@@ -54,7 +79,8 @@ function Get-FileMetaFact {
         if (-not $Config.Selects($kind, $fileClass, $languageName)) {
             continue
         }
-        $processor = Get-Command -Name $kind.processor -CommandType Function -ErrorAction Ignore
+        # The engine API, not Get-Command: the cmdlet costs about a tenth of a millisecond per kind and file.
+        $processor = $ExecutionContext.InvokeCommand.GetCommand($kind.processor, [System.Management.Automation.CommandTypes]::Function)
         Assert-NotNull $processor -ErrorText "file-meta config: kind '$($kind.id)' is subscribed by '$($kind.processor)', but no such function exists."
         $produced = & $kind.processor -State $State -Path $Path[0] -Kind $kind
         $expected = @($kind.keys)

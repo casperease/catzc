@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/PdfDocument.cs
+    folder: types
+    name: pdf-document
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/types/PdfDocument.Tests.ps1
+    docs: "[PdfDocument.cs.md](docs/references/pwsh/catzc-base-maps/types/PdfDocument.cs.md)"
+    cites:
+      - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
+---
+*/
+
 // cspell:ignore startxref endstream nendobj
 
 using System;

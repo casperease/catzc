@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Docs/configs/capabilities.yml
+#     folder: configs
+#     name: capabilities
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Docs
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[capabilities.yml.md](docs/references/pwsh/catzc-base-docs/configs/capabilities.yml.md)"
+# ---
+
 capabilities:
   # The time safeguard for every shell call and cats command a robot runs.
   - name: catzc-run

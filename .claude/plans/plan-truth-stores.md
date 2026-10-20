@@ -37,7 +37,10 @@ with no check behind it, and the ADO writers below contradict it.
   junction.
 - Q2: Where the truth stores of a responsibility domain are declared. Recommendation: one config entry per store (kind, URL, owning state
   machine), with defaults declared once on the config type. Configure, don't program. Alternative: prose only, with no registry.
-- Q3: A truth-stores slide in the product-thesis deck. Recommendation: none until Q1 and Q2 are answered; render nothing unasked.
+- Q3: A truth-stores diagram. Recommendation: one diagram, made after Q1 because its answer decides whether ADO is drawn as one store or
+  two: the responsibility domain as a box holding the repository; fact sources outside it, reached by read arrows; state machines beside
+  their fact sources, reached by the two junction arrows, inbound and outbound. It goes in the product-thesis deck as one symbol-only slide,
+  its words in the ADR, and replaces most of the ADR's Context for a first reader. Alternative: no diagram.
 
 ## Open steps
 
@@ -48,5 +51,6 @@ with no check behind it, and the ADO writers below contradict it.
    (ADR-THES-ONETRUTH-TRUTHISQUERYABLE). Check: its L0 Pester file.
 4. The actionable-fact shape as a contract under `contracts/` (origin: store, address, read time; calls for: a change or a report), then one
    junction contract per direction, inbound and outbound. Check: `Test-Contracts`.
-5. `Test-Links` on `docs/adr/thesis/truth-stores.md`, `one-source-of-truth.md` and `dora-explains.md` after the user commits the new ADR.
-   The three untracked-target findings are expected until then.
+5. After Q1 and Q3: the truth-stores diagram as one new diagram for the user to approve (`drawio-diagram-waves`, a wave of one), then a
+   slide file under `docs/explanation/thesis/product-thesis/` and its line in `deck.md`. Check: the rendered png read, then `Test-Links` on
+   `deck.md`.

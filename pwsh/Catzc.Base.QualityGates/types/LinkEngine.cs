@@ -1,3 +1,29 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/LinkEngine.cs
+    folder: types
+    name: link-engine
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[LinkEngine.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinkEngine.cs.md)"
+    cites:
+      - ADR-REPO-LINK-KINDBYFILE
+      - ADR-REPO-LINK-ONECITATIONSPELLING
+      - ADR-REPO-LINK-STRINGSAREDATA
+      - ADR-REPO-LINK-ALIGNEDBYTOOL
+---
+*/
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

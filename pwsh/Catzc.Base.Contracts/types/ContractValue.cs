@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/types/ContractValue.cs
+    folder: types
+    name: contract-value
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/types/ContractValue.Tests.ps1
+    docs: "[ContractValue.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractValue.cs.md)"
+    cites:
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+*/
+
 using System;
 using System.Collections;
 using System.Globalization;

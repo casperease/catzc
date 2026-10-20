@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1
+    folder: tests
+    name: get-glossary-phrasing-violations-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-GlossaryPhrasingViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE
+      - ADR-REPO-VOCAB-GLOSSARYSOURCE
+      - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED
+---
+#>
+
 Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = {

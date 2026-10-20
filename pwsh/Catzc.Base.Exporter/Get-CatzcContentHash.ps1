@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
+    name: get-catzc-content-hash
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Exporter
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Exporter/tests/Get-CatzcContentHash.Tests.ps1
+    docs: "[Get-CatzcContentHash.ps1.md](docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md)"
+    cites:
+      - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+      - ADR-PWSH-ENUM-ALWAYSBOUNDED
+---
+#>
+
 function Get-CatzcContentHash {
     [CmdletBinding()]
     [OutputType([string])]

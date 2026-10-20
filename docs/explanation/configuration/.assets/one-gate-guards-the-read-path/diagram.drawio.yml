@@ -1,19 +1,20 @@
-description: 'Each stage of the config read path with the rules that govern it and what actually checks them: one quality
-  gate guards the typed step and one the validator extension point, while the one-reader and read-only rules rest on convention.'
+description:
+  "Each stage of the config read path with the rules that govern it and what actually checks them: one quality gate guards the typed step
+  and one the validator extension point, while the one-reader and read-only rules rest on convention."
 about:
   adrs:
-  - ADR-CONF-LOADING-ONEREADER
-  - ADR-CONF-LOADING-READINGISGLOBAL
-  - ADR-CONF-LOADING-EXISTENCEDISCOVERED
-  - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-  - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
-  - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-  - ADR-CONF-LOADING-CACHEBYPATH
-  - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
-  - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
-  - ADR-CONF-LOADING-POWERSHELLVALIDATOR
-  - ADR-CONF-LOADING-CSHARPCONFIGTYPE
-  - ADR-AUTO-TEST-QUALITYGATE
+    - ADR-CONF-LOADING-ONEREADER
+    - ADR-CONF-LOADING-READINGISGLOBAL
+    - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+    - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+    - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+    - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+    - ADR-CONF-LOADING-CACHEBYPATH
+    - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+    - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+    - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+    - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+    - ADR-AUTO-TEST-QUALITYGATE
   lens: governance
 content:
   title: One quality gate guards the config read path, and it checks only the typed step
@@ -22,145 +23,145 @@ content:
   relation: the read, or what a gate checks
   theme: dark
   bands:
-  - id: band-read
-    label: READ PATH
-  - id: band-miss
-    label: MISS
-  - id: band-extension
-    label: EXTENSION POINT
-  - id: band-gates
-    label: QUALITY GATES
+    - id: band-read
+      label: READ PATH
+    - id: band-miss
+      label: MISS
+    - id: band-extension
+      label: EXTENSION POINT
+    - id: band-gates
+      label: QUALITY GATES
   glyphs:
-  - id: a-reader
-    kind: adronly
-    label: one reader
-    in: band-read
-  - id: g-resolution
-    kind: code
-    label: resolution
-    in: band-read
-  - id: s-cache
-    kind: store
-    label: session cache
-    in: band-read
-  - id: a-copy
-    kind: adronly
-    label: a read, not a copy
-    in: band-read
-  - id: g-typed
-    kind: code
-    label: typed once
-    in: band-miss
-  - id: a-validator
-    kind: adronly
-    label: PowerShell validator
-    in: band-extension
-  - id: g-validators
-    kind: gate
-    label: Test-ConfigValidators
-    in: band-gates
-  - id: g-shipped
-    kind: gate
-    label: Test-ShippedConfigs
-    in: band-gates
+    - id: a-reader
+      kind: adronly
+      label: one reader
+      in: band-read
+    - id: g-resolution
+      kind: code
+      label: resolution
+      in: band-read
+    - id: s-cache
+      kind: store
+      label: session cache
+      in: band-read
+    - id: a-copy
+      kind: adronly
+      label: a read, not a copy
+      in: band-read
+    - id: g-typed
+      kind: code
+      label: typed once
+      in: band-miss
+    - id: a-validator
+      kind: adronly
+      label: PowerShell validator
+      in: band-extension
+    - id: g-validators
+      kind: gate
+      label: Test-ConfigValidators
+      in: band-gates
+    - id: g-shipped
+      kind: gate
+      label: Test-ShippedConfigs
+      in: band-gates
   edges:
-  - from: a-reader
-    to: g-resolution
-    kind: flow
-    label: ''
-  - from: g-resolution
-    to: s-cache
-    kind: flow
-    label: ''
-  - from: s-cache
-    to: g-typed
-    kind: flow
-    label: ''
-  - from: g-typed
-    to: a-copy
-    kind: flow
-    label: ''
-  - from: g-validators
-    to: a-validator
-    kind: flow
-    label: ''
-  - from: g-shipped
-    to: g-typed
-    kind: flow
-    label: ''
+    - from: a-reader
+      to: g-resolution
+      kind: flow
+      label: ""
+    - from: g-resolution
+      to: s-cache
+      kind: flow
+      label: ""
+    - from: s-cache
+      to: g-typed
+      kind: flow
+      label: ""
+    - from: g-typed
+      to: a-copy
+      kind: flow
+      label: ""
+    - from: g-validators
+      to: a-validator
+      kind: flow
+      label: ""
+    - from: g-shipped
+      to: g-typed
+      kind: flow
+      label: ""
   markers:
-  - at: a-reader
-    number: 1
-  - at: g-resolution
-    number: 2
-  - at: s-cache
-    number: 3
-  - at: a-copy
-    number: 4
-  - at: a-validator
-    number: 5
-  - at: g-typed
-    number: 6
-  - at: g-validators
-    number: 7
-  - at: g-shipped
-    number: 8
+    - at: a-reader
+      number: 1
+    - at: g-resolution
+      number: 2
+    - at: s-cache
+      number: 3
+    - at: a-copy
+      number: 4
+    - at: a-validator
+      number: 5
+    - at: g-typed
+      number: 6
+    - at: g-validators
+      number: 7
+    - at: g-shipped
+      number: 8
   chips:
-  - at: a-reader
-    kind: rule
-    rule: ADR-CONF-LOADING-ONEREADER
-    gated: false
-  - at: a-reader
-    kind: rule
-    rule: ADR-CONF-LOADING-READINGISGLOBAL
-    gated: false
-  - at: g-resolution
-    kind: rule
-    rule: ADR-CONF-LOADING-EXISTENCEDISCOVERED
-  - at: g-resolution
-    kind: rule
-    rule: ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-  - at: g-resolution
-    kind: rule
-    rule: ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
-  - at: g-resolution
-    kind: rule
-    rule: ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-  - at: s-cache
-    kind: rule
-    rule: ADR-CONF-LOADING-CACHEBYPATH
-  - at: a-copy
-    kind: rule
-    rule: ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
-    gated: false
-  - at: a-copy
-    kind: rule
-    rule: ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
-    gated: false
-  - at: a-validator
-    kind: rule
-    rule: ADR-CONF-LOADING-POWERSHELLVALIDATOR
-    gated: false
-  - at: g-typed
-    kind: rule
-    rule: ADR-CONF-LOADING-CSHARPCONFIGTYPE
-  - at: g-validators
-    kind: rule
-    rule: ADR-CONF-LOADING-POWERSHELLVALIDATOR
-  - at: g-validators
-    kind: rule
-    rule: ADR-AUTO-TEST-QUALITYGATE
-  - at: g-shipped
-    kind: rule
-    rule: ADR-CONF-LOADING-CSHARPCONFIGTYPE
-  - at: g-shipped
-    kind: rule
-    rule: ADR-AUTO-TEST-QUALITYGATE
+    - at: a-reader
+      kind: rule
+      rule: ADR-CONF-LOADING-ONEREADER
+      gated: false
+    - at: a-reader
+      kind: rule
+      rule: ADR-CONF-LOADING-READINGISGLOBAL
+      gated: false
+    - at: g-resolution
+      kind: rule
+      rule: ADR-CONF-LOADING-EXISTENCEDISCOVERED
+    - at: g-resolution
+      kind: rule
+      rule: ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+    - at: g-resolution
+      kind: rule
+      rule: ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+    - at: g-resolution
+      kind: rule
+      rule: ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+    - at: s-cache
+      kind: rule
+      rule: ADR-CONF-LOADING-CACHEBYPATH
+    - at: a-copy
+      kind: rule
+      rule: ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      gated: false
+    - at: a-copy
+      kind: rule
+      rule: ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+      gated: false
+    - at: a-validator
+      kind: rule
+      rule: ADR-CONF-LOADING-POWERSHELLVALIDATOR
+      gated: false
+    - at: g-typed
+      kind: rule
+      rule: ADR-CONF-LOADING-CSHARPCONFIGTYPE
+    - at: g-validators
+      kind: rule
+      rule: ADR-CONF-LOADING-POWERSHELLVALIDATOR
+    - at: g-validators
+      kind: rule
+      rule: ADR-AUTO-TEST-QUALITYGATE
+    - at: g-shipped
+      kind: rule
+      rule: ADR-CONF-LOADING-CSHARPCONFIGTYPE
+    - at: g-shipped
+      kind: rule
+      rule: ADR-AUTO-TEST-QUALITYGATE
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-read:
     x: 20

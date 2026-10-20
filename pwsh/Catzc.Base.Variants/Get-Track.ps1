@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Variants/Get-Track.ps1
+    name: get-track
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
+    docs: "[Get-Track.ps1.md](docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md)"
+    cites:
+      - ADR-DSGN-TRACK
+      - ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES
+      - ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS
+---
+#>
+
 function Get-Track {
     [CmdletBinding(DefaultParameterSetName = 'All')]
     [OutputType([Catzc.Base.Variants.VariantTrack])]

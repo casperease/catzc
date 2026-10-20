@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/tests/types/ContractCheckResult.Tests.ps1
+    folder: tests/types
+    name: contract-check-result-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ContractCheckResult.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractCheckResult.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TYPES-CONSOLEREADYTOSTRING
+      - ADR-REPO-CONTRACT-PROVENBYTESTS
+---
+#>
+
 Describe 'ContractCheckResult' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.0.0', 'Catzc.Widget', 'gadget.md',

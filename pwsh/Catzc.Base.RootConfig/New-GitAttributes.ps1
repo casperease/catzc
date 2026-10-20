@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.RootConfig/New-GitAttributes.ps1
+    name: new-git-attributes
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.RootConfig/tests/New-GitAttributes.Tests.ps1
+    docs: "[New-GitAttributes.ps1.md](docs/references/pwsh/catzc-base-rootconfig/New-GitAttributes.ps1.md)"
+    cites:
+      - ADR-REPO-ROOTCFG
+---
+#>
+
 function New-GitAttributes {
     [CmdletBinding()]
     [OutputType([string])]

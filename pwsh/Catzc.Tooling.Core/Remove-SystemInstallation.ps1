@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
+    name: remove-system-installation
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
+    docs: "[Remove-SystemInstallation.ps1.md](docs/references/pwsh/catzc-tooling-core/Remove-SystemInstallation.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
+---
+#>
+
 function Remove-SystemInstallation {
     [CmdletBinding()]
     param(

@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
+    folder: tests
+    name: convert-from-pytest-junit-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ConvertFrom-PytestJunit.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'ConvertFrom-PytestJunit' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:report = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/pytest-widget.xml')

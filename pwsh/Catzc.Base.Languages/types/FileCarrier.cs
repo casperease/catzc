@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/types/FileCarrier.cs
+    folder: types
+    name: file-carrier
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[FileCarrier.cs.md](docs/references/pwsh/catzc-base-languages/types/FileCarrier.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

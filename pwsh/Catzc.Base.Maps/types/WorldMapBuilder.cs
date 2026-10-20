@@ -1,3 +1,32 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
+    folder: types
+    name: world-map-builder
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1
+    docs: "[WorldMapBuilder.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-REFERENCESFOLLOWDEPENDENCIES
+      - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - ADR-DSGN-TRACK-ONETECHSTACK
+      - ADR-DSGN-TRACK-FILELANGUAGE
+      - ADR-DSGN-TRACK-STACKVIOLATION
+      - ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

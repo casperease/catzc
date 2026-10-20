@@ -1,3 +1,32 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1
+    name: test-source-conventions
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
+    docs: "[Test-SourceConventions.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-SourceConventions.ps1.md)"
+    cites:
+      - ADR-AUTO-ENGINE-THREEENGINES
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-PWSH-PESTER-TESTFILE
+      - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+---
+#>
+
 function Test-SourceConventions {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs
+    folder: types
+    name: file-kinds-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Globs/tests/types/FileKindsConfig.Tests.ps1
+    docs: "[FileKindsConfig.cs.md](docs/references/pwsh/catzc-base-globs/types/FileKindsConfig.cs.md)"
+    cites:
+      - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - ADR-REPO-FILEMETA-METAKIND
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

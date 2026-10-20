@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AdrRuleSet.cs
+    folder: types
+    name: adr-rule-set
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AdrRuleSet.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrRuleSet.cs.md)"
+    cites:
+      - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
+      - ADR-AUTO-TYPES
+      - ADR-DSGN-TRACK-VALUECHAINCONCERN
+---
+*/
+
 using System.Collections.Generic;
 
 namespace Catzc.Base.Docs;

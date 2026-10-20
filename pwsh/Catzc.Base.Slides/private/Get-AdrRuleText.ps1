@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Slides/private/Get-AdrRuleText.ps1
+    folder: private
+    name: get-adr-rule-text
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-AdrRuleText.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-AdrRuleText.ps1.md)"
+    cites:
+      - ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL
+      - ADR-REPO-SLIDES-CHECKABLECLAIMS
+---
+#>
+
 function Get-AdrRuleText {
     [CmdletBinding()]
     [OutputType([string])]

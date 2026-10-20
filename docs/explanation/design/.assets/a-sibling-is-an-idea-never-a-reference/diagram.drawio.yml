@@ -1,16 +1,17 @@
-description: Two sibling repositories share a model; an idea leaves the sibling named where it is used, the owning ADR decides,
-  and it lands here rebuilt to this repository's rules as one living version.
+description:
+  Two sibling repositories share a model; an idea leaves the sibling named where it is used, the owning ADR decides, and it lands here
+  rebuilt to this repository's rules as one living version.
 about:
   adrs:
-  - ADR-PRIN-ONELIVE-ONEVERSION
-  - ADR-PRIN-ONELIVE-HISTORYINGIT
-  - ADR-AUTO-GO-MODULESBYLAYOUT
-  - ADR-PRIN-CATS-CATZCISSOURCENAME
-  - ADR-PRIN-CATS-CATSISPERSONNAME
-  - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-  - ADR-DSGN-TRACK-ONETECHSTACK
-  - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-  - ADR-DSGN-TRACK-UNORDEREDTRACK
+    - ADR-PRIN-ONELIVE-ONEVERSION
+    - ADR-PRIN-ONELIVE-HISTORYINGIT
+    - ADR-AUTO-GO-MODULESBYLAYOUT
+    - ADR-PRIN-CATS-CATZCISSOURCENAME
+    - ADR-PRIN-CATS-CATSISPERSONNAME
+    - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+    - ADR-DSGN-TRACK-ONETECHSTACK
+    - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+    - ADR-DSGN-TRACK-UNORDEREDTRACK
   lens: meta
 content:
   title: A sibling is an idea, never a reference
@@ -19,69 +20,70 @@ content:
   relation: an idea crosses
   theme: dark
   bands:
-  - id: band-sibling
-    label: 'SIBLING: EAC, GO'
-  - id: band-meet
-    label: WHERE THE MODELS MEET
-  - id: band-this
-    label: 'CATZC: POWERSHELL AND C#'
+    - id: band-sibling
+      label: "SIBLING: EAC, GO"
+    - id: band-meet
+      label: WHERE THE MODELS MEET
+    - id: band-this
+      label: "CATZC: POWERSHELL AND C#"
   glyphs:
-  - id: s-sibling
-    kind: store
-    label: eac, the sibling repository
-    in: band-sibling
-  - id: a-sibling-own
-    kind: adronly
-    label: 'keeps its own: a rule is a .feature specification, no unordered file'
-    in: band-sibling
-  - id: n-model
-    kind: set
-    label: 'the shared model: a module is a placement with a kind, a default is declared once, public is what a contract names,
-      change is keyed by the unit''s hash, one output root'
-    in: band-meet
-  - id: g-owner
-    kind: gate
-    label: the owning ADR decides
-    in: band-meet
-  - id: s-this
-    kind: store
-    label: catzc, this repository
-    in: band-this
-  - id: r-rebuilt
-    kind: result
-    label: rebuilt to catzc's rules, one living version, nothing ported alongside
-    in: band-this
-  - id: a-this-own
-    kind: adronly
-    label: 'keeps its own: a rule is an ADR cited by code, .unordered is where an import lands'
-    in: band-this
+    - id: s-sibling
+      kind: store
+      label: eac, the sibling repository
+      in: band-sibling
+    - id: a-sibling-own
+      kind: adronly
+      label: "keeps its own: a rule is a .feature specification, no unordered file"
+      in: band-sibling
+    - id: n-model
+      kind: set
+      label:
+        "the shared model: a module is a placement with a kind, a default is declared once, public is what a contract names, change is keyed
+        by the unit's hash, one output root"
+      in: band-meet
+    - id: g-owner
+      kind: gate
+      label: the owning ADR decides
+      in: band-meet
+    - id: s-this
+      kind: store
+      label: catzc, this repository
+      in: band-this
+    - id: r-rebuilt
+      kind: result
+      label: rebuilt to catzc's rules, one living version, nothing ported alongside
+      in: band-this
+    - id: a-this-own
+      kind: adronly
+      label: "keeps its own: a rule is an ADR cited by code, .unordered is where an import lands"
+      in: band-this
   edges:
-  - from: s-sibling
-    to: g-owner
-    kind: flow
-    label: an idea, named where it is used
-  - from: g-owner
-    to: r-rebuilt
-    kind: flow
-    label: ''
-  - from: r-rebuilt
-    to: s-this
-    kind: flow
-    label: lands as a rule
+    - from: s-sibling
+      to: g-owner
+      kind: flow
+      label: an idea, named where it is used
+    - from: g-owner
+      to: r-rebuilt
+      kind: flow
+      label: ""
+    - from: r-rebuilt
+      to: s-this
+      kind: flow
+      label: lands as a rule
   markers:
-  - at: s-sibling
-    number: 1
-  - at: n-model
-    number: 2
-  - at: g-owner
-    number: 3
-  - at: r-rebuilt
-    number: 4
+    - at: s-sibling
+      number: 1
+    - at: n-model
+      number: 2
+    - at: g-owner
+      number: 3
+    - at: r-rebuilt
+      number: 4
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-sibling:
     x: 20

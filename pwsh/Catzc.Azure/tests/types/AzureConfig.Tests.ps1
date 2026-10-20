@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+    folder: tests/types
+    name: azure-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AzureConfig.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-ONECATEGORY
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AZ-CUSTOMER
+      - ADR-AZ-DATAMOD
+---
+#>
+
 # cspell:ignore toolong
 Describe 'AzureConfig' -Tag 'L0' {
     BeforeAll {

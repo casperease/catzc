@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
+    folder: tests
+    name: build-git-keep-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-GitKeep.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+---
+#>
+
 Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

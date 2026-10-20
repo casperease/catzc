@@ -1,12 +1,12 @@
-description: 'One typed registry, globs.yml, is validated and flattened by GlobsConfig and GlobSet, and the module computes
-  three roles from it: the trigger projection read by pipelines and workflows, the change report built from git, and the protection
-  identity read by the test run.'
+description:
+  "One typed registry, globs.yml, is validated and flattened by GlobsConfig and GlobSet, and the module computes three roles from it: the
+  trigger projection read by pipelines and workflows, the change report built from git, and the protection identity read by the test run."
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
-  - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-  - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-  - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+    - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
   lens: architecture
 content:
   title: Catzc.Base.Globs computes every globset role from one typed registry
@@ -15,90 +15,90 @@ content:
   relation: output read by the next
   theme: dark
   bands:
-  - id: band-module
-    label: GLOBS MODULE
-  - id: band-edge
-    label: EDGE
+    - id: band-module
+      label: GLOBS MODULE
+    - id: band-edge
+      label: EDGE
   glyphs:
-  - id: f-globs
-    kind: file
-    label: globs.yml
-    in: band-module
-  - id: g-config
-    kind: code
-    label: GlobsConfig → GlobSet
-    in: band-module
-  - id: g-trigger
-    kind: code
-    label: Trigger projection
-    in: band-module
-  - id: g-change-report
-    kind: code
-    label: Change report
-    in: band-module
-  - id: g-identity
-    kind: code
-    label: Protection identity
-    in: band-module
-  - id: g-pipelines
-    kind: runner
-    label: Pipelines · workflows
-    in: band-edge
-  - id: x-git
-    kind: external
-    label: git
-    in: band-edge
-  - id: g-automation
-    kind: code
-    label: Test-Automation
-    in: band-edge
+    - id: f-globs
+      kind: file
+      label: globs.yml
+      in: band-module
+    - id: g-config
+      kind: code
+      label: GlobsConfig → GlobSet
+      in: band-module
+    - id: g-trigger
+      kind: code
+      label: Trigger projection
+      in: band-module
+    - id: g-change-report
+      kind: code
+      label: Change report
+      in: band-module
+    - id: g-identity
+      kind: code
+      label: Protection identity
+      in: band-module
+    - id: g-pipelines
+      kind: runner
+      label: Pipelines · workflows
+      in: band-edge
+    - id: x-git
+      kind: external
+      label: git
+      in: band-edge
+    - id: g-automation
+      kind: code
+      label: Test-Automation
+      in: band-edge
   edges:
-  - from: f-globs
-    to: g-config
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-trigger
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-change-report
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-identity
-    kind: flow
-    label: ''
-  - from: g-trigger
-    to: g-pipelines
-    kind: flow
-    label: ''
-  - from: x-git
-    to: g-change-report
-    kind: flow
-    label: ''
-  - from: g-identity
-    to: g-automation
-    kind: flow
-    label: ''
+    - from: f-globs
+      to: g-config
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-trigger
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-change-report
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-identity
+      kind: flow
+      label: ""
+    - from: g-trigger
+      to: g-pipelines
+      kind: flow
+      label: ""
+    - from: x-git
+      to: g-change-report
+      kind: flow
+      label: ""
+    - from: g-identity
+      to: g-automation
+      kind: flow
+      label: ""
   markers:
-  - at: f-globs
-    number: 1
-  - at: g-config
-    number: 2
-  - at: g-trigger
-    number: 3
-  - at: g-change-report
-    number: 4
-  - at: g-identity
-    number: 5
-  - at: g-automation
-    number: 6
+    - at: f-globs
+      number: 1
+    - at: g-config
+      number: 2
+    - at: g-trigger
+      number: 3
+    - at: g-change-report
+      number: 4
+    - at: g-identity
+      number: 5
+    - at: g-automation
+      number: 6
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-module:
     x: 20

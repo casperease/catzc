@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Get-TestRuleTags.ps1
+    folder: private
+    name: get-test-rule-tags
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1
+    docs: "[Get-TestRuleTags.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TestRuleTags.ps1.md)"
+    cites:
+      - ADR-PWSH-ERROR-THROWNOTWRITEERROR
+---
+#>
+
 function Get-TestRuleTags {
     [CmdletBinding()]
     [OutputType([string[]])]

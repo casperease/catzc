@@ -1,3 +1,32 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1
+    name: test-value-chain-map
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+    docs: "[Test-ValueChainMap.ps1.md](docs/references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md)"
+    cites:
+      - ADR-AUTO-ONEJOB
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-DSGN-TRACK-VALUECHAINSTACK
+      - ADR-DSGN-TRACK-VALUECHAINCONCERN
+      - ADR-DSGN-TRACK-VALUECHAINMAP
+---
+#>
+
 function Test-ValueChainMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

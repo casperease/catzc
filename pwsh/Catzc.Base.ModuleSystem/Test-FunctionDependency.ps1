@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+    name: test-function-dependency
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
+    docs: "[Test-FunctionDependency.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Test-FunctionDependency.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-DSGN-RUNMODE
+      - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+---
+#>
+
 function Test-FunctionDependency {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

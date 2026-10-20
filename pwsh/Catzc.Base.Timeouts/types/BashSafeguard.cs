@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs
+    folder: types
+    name: bash-safeguard
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Timeouts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
+    docs: "[BashSafeguard.cs.md](docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md)"
+    cites:
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - ADR-AUTO-LAYERS
+---
+*/
+
 using System;
 using System.Globalization;
 using System.IO;

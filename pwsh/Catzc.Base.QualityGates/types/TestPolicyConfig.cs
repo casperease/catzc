@@ -1,3 +1,29 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/TestPolicyConfig.cs
+    folder: types
+    name: test-policy-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/types/TestPolicyConfig.Tests.ps1
+    docs: "[TestPolicyConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/TestPolicyConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-TEST-TESTINGINPRODUCTION
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

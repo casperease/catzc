@@ -1,13 +1,14 @@
-description: Two Azure modules do the platform's part on the Bicep deploy path, and every vendor call, a template compile
-  included, leaves through the az command-line tool, the one exit to Azure.
+description:
+  Two Azure modules do the platform's part on the Bicep deploy path, and every vendor call, a template compile included, leaves through the
+  az command-line tool, the one exit to Azure.
 about:
   adrs:
-  - ADR-DSGN-THINPLAT-THINPLATFORM
-  - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-  - ADR-DSGN-THINPLAT-PLATFORMASCLI
-  - ADR-AZ-CLI-AZBYDEFAULT
-  - ADR-AZ-CLI-ASSERTAZ
-  - ADR-AZ-CLI-NOAZMODULEIMPORT
+    - ADR-DSGN-THINPLAT-THINPLATFORM
+    - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+    - ADR-DSGN-THINPLAT-PLATFORMASCLI
+    - ADR-AZ-CLI-AZBYDEFAULT
+    - ADR-AZ-CLI-ASSERTAZ
+    - ADR-AZ-CLI-NOAZMODULEIMPORT
   lens: architecture
 content:
   title: Every vendor call leaves cats through the az CLI
@@ -16,92 +17,92 @@ content:
   relation: uses
   theme: dark
   bands:
-  - id: band-surface
-    label: CLI SURFACE
-  - id: band-platform
-    label: CATZC
-  - id: band-delegated
-    label: DELEGATED
-  - id: band-vendor
-    label: VENDOR SUBSTRATE
+    - id: band-surface
+      label: CLI SURFACE
+    - id: band-platform
+      label: CATZC
+    - id: band-delegated
+      label: DELEGATED
+    - id: band-vendor
+      label: VENDOR SUBSTRATE
   glyphs:
-  - id: c-templates
-    kind: code
-    label: Catzc.Azure.Templates
-    in: band-surface
-  - id: f-configuration
-    kind: file
-    label: azure.yml · options.yml
-    in: band-surface
-  - id: c-azure-cli
-    kind: code
-    label: Catzc.Azure.Cli
-    in: band-platform
-  - id: c-tooling
-    kind: code
-    label: Catzc.Tooling.Core
-    in: band-platform
-  - id: x-command
-    kind: external
-    label: az CLI
-    in: band-delegated
-  - id: x-bicep
-    kind: external
-    label: Bicep
-    in: band-delegated
-  - id: e-azure
-    kind: env
-    label: Azure
-    in: band-vendor
+    - id: c-templates
+      kind: code
+      label: Catzc.Azure.Templates
+      in: band-surface
+    - id: f-configuration
+      kind: file
+      label: azure.yml · options.yml
+      in: band-surface
+    - id: c-azure-cli
+      kind: code
+      label: Catzc.Azure.Cli
+      in: band-platform
+    - id: c-tooling
+      kind: code
+      label: Catzc.Tooling.Core
+      in: band-platform
+    - id: x-command
+      kind: external
+      label: az CLI
+      in: band-delegated
+    - id: x-bicep
+      kind: external
+      label: Bicep
+      in: band-delegated
+    - id: e-azure
+      kind: env
+      label: Azure
+      in: band-vendor
   edges:
-  - from: c-templates
-    to: f-configuration
-    kind: flow
-    label: ''
-  - from: c-templates
-    to: c-azure-cli
-    kind: flow
-    label: ''
-  - from: c-azure-cli
-    to: f-configuration
-    kind: flow
-    label: ''
-  - from: c-azure-cli
-    to: c-tooling
-    kind: flow
-    label: ''
-  - from: c-azure-cli
-    to: x-command
-    kind: flow
-    label: ''
-  - from: x-command
-    to: x-bicep
-    kind: flow
-    label: ''
-  - from: x-command
-    to: e-azure
-    kind: flow
-    label: the single exit
+    - from: c-templates
+      to: f-configuration
+      kind: flow
+      label: ""
+    - from: c-templates
+      to: c-azure-cli
+      kind: flow
+      label: ""
+    - from: c-azure-cli
+      to: f-configuration
+      kind: flow
+      label: ""
+    - from: c-azure-cli
+      to: c-tooling
+      kind: flow
+      label: ""
+    - from: c-azure-cli
+      to: x-command
+      kind: flow
+      label: ""
+    - from: x-command
+      to: x-bicep
+      kind: flow
+      label: ""
+    - from: x-command
+      to: e-azure
+      kind: flow
+      label: the single exit
   markers:
-  - at: c-templates
-    number: 1
-  - at: f-configuration
-    number: 2
-  - at: c-azure-cli
-    number: 3
-  - at: c-tooling
-    number: 4
-  - at: x-command
-    number: 5
-  - at: x-bicep
-    number: 6
-  - at: e-azure
-    number: 7
+    - at: c-templates
+      number: 1
+    - at: f-configuration
+      number: 2
+    - at: c-azure-cli
+      number: 3
+    - at: c-tooling
+      number: 4
+    - at: x-command
+      number: 5
+    - at: x-bicep
+      number: 6
+    - at: e-azure
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-surface:
     x: 20

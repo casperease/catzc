@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Azure.DevOps/configs/ado.yml
+#     folder: configs
+#     name: ado
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Azure.DevOps
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[ado.yml.md](docs/references/pwsh/catzc-azure-devops/configs/ado.yml.md)"
+# ---
+
 # Azure DevOps organization URL (the REST API host).
 organization: "https://dev.azure.com/Catzc"
 

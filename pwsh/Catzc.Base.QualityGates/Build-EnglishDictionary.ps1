@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1
+    name: build-english-dictionary
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Build-EnglishDictionary.Tests.ps1
+    docs: "[Build-EnglishDictionary.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md)"
+    cites:
+      - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
+      - ADR-AUTO-DRYRUN
+      - ADR-AUTO-SPELL
+      - ADR-REPO-OUTDIR-COMPILEDPREBUILD
+---
+#>
+
 function Build-EnglishDictionary {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
+    name: get-track-place
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Variants/tests/Get-TrackPlace.Tests.ps1
+    docs: "[Get-TrackPlace.ps1.md](docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md)"
+    cites:
+      - ADR-DSGN-TRACK
+---
+#>
+
 function Get-TrackPlace {
     [CmdletBinding()]
     [OutputType([string])]

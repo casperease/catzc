@@ -1,8 +1,9 @@
-description: A shell call inside the limit runs as if the safeguard were absent; a call outside it is denied by the hook with
-  the fix and logged, and a background call that outlives its prefix is stopped with exit 124.
+description:
+  A shell call inside the limit runs as if the safeguard were absent; a call outside it is denied by the hook with the fix and logged, and a
+  background call that outlives its prefix is stopped with exit 124.
 about:
   adrs:
-  - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
   lens: operations
 content:
   title: A call inside the limit runs; outside it, the hook denies it and says how to re-issue it
@@ -11,66 +12,66 @@ content:
   relation: the call goes on
   theme: dark
   bands:
-  - id: band-hook
-    label: HOOK
-  - id: band-outcome
-    label: OUTCOME
-  - id: band-after
-    label: AFTER
+    - id: band-hook
+      label: HOOK
+    - id: band-outcome
+      label: OUTCOME
+    - id: band-after
+      label: AFTER
   glyphs:
-  - id: g-hook
-    kind: gate
-    label: Assert-BashTimeout
-    in: band-hook
-  - id: f-denied
-    kind: failure
-    label: denied, with the fix
-    in: band-hook
-  - id: r-runs
-    kind: result
-    label: the call runs
-    in: band-outcome
-  - id: g-log
-    kind: file
-    label: out/time-safeguard.log
-    in: band-outcome
-  - id: f-stopped
-    kind: failure
-    label: 'exit 124: stopped'
-    in: band-after
+    - id: g-hook
+      kind: gate
+      label: Assert-BashTimeout
+      in: band-hook
+    - id: f-denied
+      kind: failure
+      label: denied, with the fix
+      in: band-hook
+    - id: r-runs
+      kind: result
+      label: the call runs
+      in: band-outcome
+    - id: g-log
+      kind: file
+      label: out/time-safeguard.log
+      in: band-outcome
+    - id: f-stopped
+      kind: failure
+      label: "exit 124: stopped"
+      in: band-after
   edges:
-  - from: g-hook
-    to: r-runs
-    kind: flow
-    label: ''
-  - from: f-denied
-    to: g-log
-    kind: flow
-    label: ''
-  - from: g-hook
-    to: f-denied
-    kind: fail
-    label: ''
-  - from: r-runs
-    to: f-stopped
-    kind: fail
-    label: ''
+    - from: g-hook
+      to: r-runs
+      kind: flow
+      label: ""
+    - from: f-denied
+      to: g-log
+      kind: flow
+      label: ""
+    - from: g-hook
+      to: f-denied
+      kind: fail
+      label: ""
+    - from: r-runs
+      to: f-stopped
+      kind: fail
+      label: ""
   markers:
-  - at: g-hook
-    number: 1
-  - at: r-runs
-    number: 2
-  - at: f-denied
-    number: 3
-  - at: g-log
-    number: 4
-  - at: f-stopped
-    number: 5
+    - at: g-hook
+      number: 1
+    - at: r-runs
+      number: 2
+    - at: f-denied
+      number: 3
+    - at: g-log
+      number: 4
+    - at: f-stopped
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-hook:
     x: 20

@@ -1,11 +1,11 @@
-description: 'Resolving a global config address is three small functions in a fixed order: the address is validated at binding,
-  stripped and split, the named config is read once, and the keys are walked one segment at a time; every wrong turn throws
-  where it happens.'
+description:
+  "Resolving a global config address is three small functions in a fixed order: the address is validated at binding, stripped and split, the
+  named config is read once, and the keys are walked one segment at a time; every wrong turn throws where it happens."
 about:
   adrs:
-  - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-  - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
-  - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+    - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+    - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+    - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
   lens: implementation
 content:
   title: Strip, split, read once, walk one segment at a time; every wrong turn throws
@@ -14,104 +14,104 @@ content:
   relation: calls, in code order
   theme: dark
   bands:
-  - id: band-resolve
-    label: RESOLVE
-  - id: band-fail
-    label: FAIL FAST
+    - id: band-resolve
+      label: RESOLVE
+    - id: band-fail
+      label: FAIL FAST
   glyphs:
-  - id: g-caller
-    kind: code
-    label: Write-EnvironmentSet
-    in: band-resolve
-  - id: g-pattern
-    kind: gate
-    label: ValidatePattern
-    in: band-resolve
-  - id: g-value
-    kind: code
-    label: Get-ConfigValue
-    in: band-resolve
-  - id: g-config
-    kind: code
-    label: Get-Config
-    in: band-resolve
-  - id: g-walk
-    kind: code
-    label: Resolve-ConfigKeyPath
-    in: band-resolve
-  - id: r-node
-    kind: result
-    label: '''0.43.8'''
-    in: band-resolve
-  - id: f-binding
-    kind: failure
-    label: rejected at binding
-    in: band-fail
-  - id: f-name
-    kind: failure
-    label: unknown or ambiguous name
-    in: band-fail
-  - id: f-key
-    kind: failure
-    label: key or property not found
-    in: band-fail
+    - id: g-caller
+      kind: code
+      label: Write-EnvironmentSet
+      in: band-resolve
+    - id: g-pattern
+      kind: gate
+      label: ValidatePattern
+      in: band-resolve
+    - id: g-value
+      kind: code
+      label: Get-ConfigValue
+      in: band-resolve
+    - id: g-config
+      kind: code
+      label: Get-Config
+      in: band-resolve
+    - id: g-walk
+      kind: code
+      label: Resolve-ConfigKeyPath
+      in: band-resolve
+    - id: r-node
+      kind: result
+      label: "'0.43.8'"
+      in: band-resolve
+    - id: f-binding
+      kind: failure
+      label: rejected at binding
+      in: band-fail
+    - id: f-name
+      kind: failure
+      label: unknown or ambiguous name
+      in: band-fail
+    - id: f-key
+      kind: failure
+      label: key or property not found
+      in: band-fail
   edges:
-  - from: g-caller
-    to: g-pattern
-    kind: flow
-    label: '''global.…'''
-  - from: g-pattern
-    to: g-value
-    kind: flow
-    label: ''
-  - from: g-value
-    to: g-config
-    kind: flow
-    label: -Config azure
-  - from: g-config
-    to: g-walk
-    kind: flow
-    label: -Node, -Segment
-  - from: g-walk
-    to: r-node
-    kind: flow
-    label: ''
-  - from: g-pattern
-    to: f-binding
-    kind: fail
-    label: ''
-  - from: g-config
-    to: f-name
-    kind: fail
-    label: ''
-  - from: g-walk
-    to: f-key
-    kind: fail
-    label: ''
+    - from: g-caller
+      to: g-pattern
+      kind: flow
+      label: "'global.…'"
+    - from: g-pattern
+      to: g-value
+      kind: flow
+      label: ""
+    - from: g-value
+      to: g-config
+      kind: flow
+      label: -Config azure
+    - from: g-config
+      to: g-walk
+      kind: flow
+      label: -Node, -Segment
+    - from: g-walk
+      to: r-node
+      kind: flow
+      label: ""
+    - from: g-pattern
+      to: f-binding
+      kind: fail
+      label: ""
+    - from: g-config
+      to: f-name
+      kind: fail
+      label: ""
+    - from: g-walk
+      to: f-key
+      kind: fail
+      label: ""
   markers:
-  - at: g-caller
-    number: 1
-  - at: g-pattern
-    number: 2
-  - at: g-value
-    number: 3
-  - at: g-config
-    number: 4
-  - at: g-walk
-    number: 5
-  - at: r-node
-    number: 6
-  - at: f-binding
-    number: 7
-  - at: f-name
-    number: 8
-  - at: f-key
-    number: 9
+    - at: g-caller
+      number: 1
+    - at: g-pattern
+      number: 2
+    - at: g-value
+      number: 3
+    - at: g-config
+      number: 4
+    - at: g-walk
+      number: 5
+    - at: r-node
+      number: 6
+    - at: f-binding
+      number: 7
+    - at: f-name
+      number: 8
+    - at: f-key
+      number: 9
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-resolve:
     x: 20

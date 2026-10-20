@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1
+    folder: tests
+    name: get-test-automation-test-paths-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-TestAutomationTestPaths.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-TestAutomationTestPaths.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:modulesRoot = Join-Path $TestDrive 'repo/pwsh'

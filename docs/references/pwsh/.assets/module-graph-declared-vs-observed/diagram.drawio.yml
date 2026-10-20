@@ -1,16 +1,17 @@
-description: The declared module graph in dependencies.yml is built into one map that orders the test run and closes a set
-  of modules; the graph observed from the parsed code is checked for cycles and against the declared allow-list.
+description:
+  The declared module graph in dependencies.yml is built into one map that orders the test run and closes a set of modules; the graph
+  observed from the parsed code is checked for cycles and against the declared allow-list.
 about:
   adrs:
-  - ADR-AUTO-TEST-SAFESEAMSWAPS
-  - ADR-AUTO-TEST-QUALITYGATE
-  - ADR-AUTO-CACHE-FILESYSTEMDERIVED
-  - ADR-AUTO-CACHE-KEYEDBYINPUTS
-  - ADR-AUTO-CACHE-READONLYVALUES
-  - ADR-AUTO-CACHE-IMPORTERINVALIDATES
-  - ADR-PWSH-CACHE-STRICTSAFEPROBE
-  - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
-  - ADR-DSGN-RUNMODE
+    - ADR-AUTO-TEST-SAFESEAMSWAPS
+    - ADR-AUTO-TEST-QUALITYGATE
+    - ADR-AUTO-CACHE-FILESYSTEMDERIVED
+    - ADR-AUTO-CACHE-KEYEDBYINPUTS
+    - ADR-AUTO-CACHE-READONLYVALUES
+    - ADR-AUTO-CACHE-IMPORTERINVALIDATES
+    - ADR-PWSH-CACHE-STRICTSAFEPROBE
+    - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+    - ADR-DSGN-RUNMODE
   lens: source
 content:
   title: Declared graph orders and closes; observed graph is checked
@@ -19,116 +20,116 @@ content:
   relation: feeds (a result to its caller)
   theme: dark
   bands:
-  - id: band-declared
-    label: DECLARED GRAPH
-  - id: band-observed
-    label: OBSERVED GRAPH
+    - id: band-declared
+      label: DECLARED GRAPH
+    - id: band-observed
+      label: OBSERVED GRAPH
   groups:
-  - id: grp-quality-gates
-    label: Catzc.Base.QualityGates
-    in: band-declared
+    - id: grp-quality-gates
+      label: Catzc.Base.QualityGates
+      in: band-declared
   glyphs:
-  - id: f-dependencies
-    kind: file
-    label: dependencies.yml
-    in: band-declared
-  - id: g-config
-    kind: private
-    label: Get-ModuleDependencyConfig
-    in: band-declared
-  - id: g-map
-    kind: private
-    label: Get-ModuleDependencyMap
-    in: band-declared
-  - id: g-order
-    kind: code
-    label: Get-ModuleOrder
-    in: band-declared
-  - id: g-test-paths
-    kind: private
-    label: Get-TestAutomationTestPaths
-    in: grp-quality-gates
-  - id: g-closure
-    kind: private
-    label: Get-ModuleDependencyClosure
-    in: band-declared
-  - id: g-function
-    kind: code
-    label: Get-FunctionDependency
-    in: band-observed
-  - id: g-module
-    kind: code
-    label: Get-ModuleDependency
-    in: band-observed
-  - id: g-violations
-    kind: private
-    label: Get-ModuleDependencyViolations
-    in: band-observed
-  - id: g-cycles
-    kind: gate
-    label: Test-ModuleCycles
-    in: band-observed
+    - id: f-dependencies
+      kind: file
+      label: dependencies.yml
+      in: band-declared
+    - id: g-config
+      kind: private
+      label: Get-ModuleDependencyConfig
+      in: band-declared
+    - id: g-map
+      kind: private
+      label: Get-ModuleDependencyMap
+      in: band-declared
+    - id: g-order
+      kind: code
+      label: Get-ModuleOrder
+      in: band-declared
+    - id: g-test-paths
+      kind: private
+      label: Get-TestAutomationTestPaths
+      in: grp-quality-gates
+    - id: g-closure
+      kind: private
+      label: Get-ModuleDependencyClosure
+      in: band-declared
+    - id: g-function
+      kind: code
+      label: Get-FunctionDependency
+      in: band-observed
+    - id: g-module
+      kind: code
+      label: Get-ModuleDependency
+      in: band-observed
+    - id: g-violations
+      kind: private
+      label: Get-ModuleDependencyViolations
+      in: band-observed
+    - id: g-cycles
+      kind: gate
+      label: Test-ModuleCycles
+      in: band-observed
   edges:
-  - from: f-dependencies
-    to: g-config
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-map
-    kind: flow
-    label: ''
-  - from: g-map
-    to: g-order
-    kind: flow
-    label: ''
-  - from: g-order
-    to: g-test-paths
-    kind: flow
-    label: ''
-  - from: g-map
-    to: g-closure
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-violations
-    kind: flow
-    label: ''
-  - from: g-function
-    to: g-module
-    kind: flow
-    label: ''
-  - from: g-module
-    to: g-violations
-    kind: flow
-    label: ''
-  - from: g-module
-    to: g-cycles
-    kind: flow
-    label: ''
+    - from: f-dependencies
+      to: g-config
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-map
+      kind: flow
+      label: ""
+    - from: g-map
+      to: g-order
+      kind: flow
+      label: ""
+    - from: g-order
+      to: g-test-paths
+      kind: flow
+      label: ""
+    - from: g-map
+      to: g-closure
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-violations
+      kind: flow
+      label: ""
+    - from: g-function
+      to: g-module
+      kind: flow
+      label: ""
+    - from: g-module
+      to: g-violations
+      kind: flow
+      label: ""
+    - from: g-module
+      to: g-cycles
+      kind: flow
+      label: ""
   markers:
-  - at: f-dependencies
-    number: 1
-  - at: g-map
-    number: 2
-  - at: g-order
-    number: 3
-  - at: g-test-paths
-    number: 4
-  - at: g-closure
-    number: 5
-  - at: g-function
-    number: 6
-  - at: g-module
-    number: 7
-  - at: g-violations
-    number: 8
-  - at: g-cycles
-    number: 9
+    - at: f-dependencies
+      number: 1
+    - at: g-map
+      number: 2
+    - at: g-order
+      number: 3
+    - at: g-test-paths
+      number: 4
+    - at: g-closure
+      number: 5
+    - at: g-function
+      number: 6
+    - at: g-module
+      number: 7
+    - at: g-violations
+      number: 8
+    - at: g-cycles
+      number: 9
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-declared:
     x: 20

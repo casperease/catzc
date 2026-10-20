@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+    name: test-git-hub-workflow-trigger-glob
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
+    docs: "[Test-GitHubWorkflowTriggerGlob.ps1.md](docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+      - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+---
+#>
+
 function Test-GitHubWorkflowTriggerGlob {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

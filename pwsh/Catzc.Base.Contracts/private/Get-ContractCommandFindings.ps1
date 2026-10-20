@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/private/Get-ContractCommandFindings.ps1
+    folder: private
+    name: get-contract-command-findings
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-ContractCommandFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractCommandFindings.ps1.md)"
+    cites:
+      - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+      - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
+      - ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE
+---
+#>
+
 function Get-ContractCommandFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

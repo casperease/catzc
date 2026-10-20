@@ -1,3 +1,29 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
+    folder: types
+    name: timeouts-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Timeouts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
+    docs: "[TimeoutsConfig.cs.md](docs/references/pwsh/catzc-base-timeouts/types/TimeoutsConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-ENGINE-THREEENGINES
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

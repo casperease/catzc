@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
+    folder: tests
+    name: reset-git-clean-fxd-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Git
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Reset-GitCleanFxd.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/Reset-GitCleanFxd.Tests.ps1.md)"
+---
+#>
+
 Describe 'Reset-GitCleanFxd' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-Command { } -ModuleName Catzc.Base.Git

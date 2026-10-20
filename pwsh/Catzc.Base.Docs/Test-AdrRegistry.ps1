@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/Test-AdrRegistry.ps1
+    name: test-adr-registry
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
+    docs: "[Test-AdrRegistry.ps1.md](docs/references/pwsh/catzc-base-docs/Test-AdrRegistry.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+---
+#>
+
 function Test-AdrRegistry {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

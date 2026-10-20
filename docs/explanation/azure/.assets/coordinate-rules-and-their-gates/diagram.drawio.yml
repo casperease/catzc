@@ -1,15 +1,15 @@
-description: 'The rules that govern a config file''s coordinate and the gates that hold them: discovery and the validator
-  both run the one shared check, an integrity test runs the validator over the shipped tree, and the derived resource-group
-  name has no gate.'
+description:
+  "The rules that govern a config file's coordinate and the gates that hold them: discovery and the validator both run the one shared check,
+  an integrity test runs the validator over the shipped tree, and the derived resource-group name has no gate."
 about:
   adrs:
-  - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
-  - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
-  - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-  - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
-  - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
-  - ADR-AZ-CUSTOMER-TWOBINDINGS
-  - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+    - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+    - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+    - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+    - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+    - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+    - ADR-AZ-CUSTOMER-TWOBINDINGS
+    - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
   lens: governance
 content:
   title: Two ADRs rule the coordinate; one shared check and the integrity tests hold them
@@ -18,121 +18,121 @@ content:
   relation: leads to the next stage
   theme: dark
   bands:
-  - id: band-configuration
-    label: CONFIGURATION
-  - id: band-gates
-    label: GATES
-  - id: band-resolved
-    label: RESOLVED
+    - id: band-configuration
+      label: CONFIGURATION
+    - id: band-gates
+      label: GATES
+    - id: band-resolved
+      label: RESOLVED
   glyphs:
-  - id: g-config
-    kind: file
-    label: config file
-    in: band-configuration
-  - id: g-discovery
-    kind: code
-    label: Get-BicepTemplates
-    in: band-gates
-  - id: g-integrity
-    kind: gate
-    label: shipped template integrity
-    in: band-gates
-  - id: g-validator
-    kind: code
-    label: Assert-BicepTemplate
-    in: band-gates
-  - id: g-check
-    kind: gate
-    label: Get-BicepSubscriptionConfigViolations
-    in: band-gates
-  - id: e-subscription
-    kind: env
-    label: subscription
-    in: band-resolved
-  - id: e-group
-    kind: env
-    label: resource group
-    in: band-resolved
+    - id: g-config
+      kind: file
+      label: config file
+      in: band-configuration
+    - id: g-discovery
+      kind: code
+      label: Get-BicepTemplates
+      in: band-gates
+    - id: g-integrity
+      kind: gate
+      label: shipped template integrity
+      in: band-gates
+    - id: g-validator
+      kind: code
+      label: Assert-BicepTemplate
+      in: band-gates
+    - id: g-check
+      kind: gate
+      label: Get-BicepSubscriptionConfigViolations
+      in: band-gates
+    - id: e-subscription
+      kind: env
+      label: subscription
+      in: band-resolved
+    - id: e-group
+      kind: env
+      label: resource group
+      in: band-resolved
   edges:
-  - from: g-config
-    to: g-discovery
-    kind: flow
-    label: ''
-  - from: g-discovery
-    to: g-check
-    kind: flow
-    label: ''
-  - from: g-integrity
-    to: g-validator
-    kind: flow
-    label: ''
-  - from: g-validator
-    to: g-check
-    kind: flow
-    label: ''
-  - from: g-check
-    to: e-subscription
-    kind: flow
-    label: ''
-  - from: e-subscription
-    to: e-group
-    kind: flow
-    label: ''
+    - from: g-config
+      to: g-discovery
+      kind: flow
+      label: ""
+    - from: g-discovery
+      to: g-check
+      kind: flow
+      label: ""
+    - from: g-integrity
+      to: g-validator
+      kind: flow
+      label: ""
+    - from: g-validator
+      to: g-check
+      kind: flow
+      label: ""
+    - from: g-check
+      to: e-subscription
+      kind: flow
+      label: ""
+    - from: e-subscription
+      to: e-group
+      kind: flow
+      label: ""
   markers:
-  - at: g-config
-    number: 1
-  - at: g-discovery
-    number: 2
-  - at: g-integrity
-    number: 3
-  - at: g-validator
-    number: 4
-  - at: g-check
-    number: 5
-  - at: e-subscription
-    number: 6
-  - at: e-group
-    number: 7
+    - at: g-config
+      number: 1
+    - at: g-discovery
+      number: 2
+    - at: g-integrity
+      number: 3
+    - at: g-validator
+      number: 4
+    - at: g-check
+      number: 5
+    - at: e-subscription
+      number: 6
+    - at: e-group
+      number: 7
   chips:
-  - at: g-config
-    kind: rule
-    rule: ADR-AZ-DATAMOD-TWOCONFIGLAYERS
-  - at: g-config
-    kind: rule
-    rule: ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
-  - at: g-config
-    kind: rule
-    rule: ADR-AZ-CUSTOMER-KEYISSUBFOLDER
-  - at: g-integrity
-    kind: rule
-    rule: ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-  - at: g-integrity
-    kind: rule
-    rule: ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
-  - at: g-check
-    kind: rule
-    rule: ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-  - at: g-check
-    kind: rule
-    rule: ADR-AZ-CUSTOMER-KEYISSUBFOLDER
-  - at: g-check
-    kind: rule
-    rule: ADR-AZ-CUSTOMER-TWOBINDINGS
-  - at: band-resolved
-    kind: rule
-    rule: ADR-AZ-DATAMOD-TWOCONFIGLAYERS
-  - at: band-gates
-    kind: rule
-    rule: ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
-  - at: e-group
-    kind: rule
-    rule: ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
-    gated: false
+    - at: g-config
+      kind: rule
+      rule: ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+    - at: g-config
+      kind: rule
+      rule: ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+    - at: g-config
+      kind: rule
+      rule: ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+    - at: g-integrity
+      kind: rule
+      rule: ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+    - at: g-integrity
+      kind: rule
+      rule: ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+    - at: g-check
+      kind: rule
+      rule: ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+    - at: g-check
+      kind: rule
+      rule: ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+    - at: g-check
+      kind: rule
+      rule: ADR-AZ-CUSTOMER-TWOBINDINGS
+    - at: band-resolved
+      kind: rule
+      rule: ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+    - at: band-gates
+      kind: rule
+      rule: ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+    - at: e-group
+      kind: rule
+      rule: ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+      gated: false
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-configuration:
     x: 20

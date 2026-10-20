@@ -1,10 +1,11 @@
-description: 'The three Azure DevOps credentials in their fixed order, as a column of gates: each returns one Authorization
-  header or raises its own error, and none falls back to the next.'
+description:
+  "The three Azure DevOps credentials in their fixed order, as a column of gates: each returns one Authorization header or raises its own
+  error, and none falls back to the next."
 about:
   adrs:
-  - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-  - ADR-ADO-AUTH-PROVETARGET
-  - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+    - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+    - ADR-ADO-AUTH-PROVETARGET
+    - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
   lens: meta
 content:
   title: The first configured credential wins, and it must prove its org
@@ -13,78 +14,78 @@ content:
   relation: what comes next
   theme: dark
   bands:
-  - id: band-returns
-    label: RETURNS
-  - id: band-sources
-    label: FIRST CONFIGURED SOURCE
-  - id: band-raises
-    label: RAISES
+    - id: band-returns
+      label: RETURNS
+    - id: band-sources
+      label: FIRST CONFIGURED SOURCE
+    - id: band-raises
+      label: RAISES
   glyphs:
-  - id: g-header
-    kind: result
-    label: Authorization header
-    in: band-returns
-  - id: g-pipeline
-    kind: gate
-    label: Pipeline token
-    in: band-sources
-  - id: g-pat
-    kind: gate
-    label: Personal access token
-    in: band-sources
-  - id: g-login
-    kind: gate
-    label: Interactive login
-    in: band-sources
-  - id: g-own
-    kind: failure
-    label: Own error, no fallback
-    in: band-raises
+    - id: g-header
+      kind: result
+      label: Authorization header
+      in: band-returns
+    - id: g-pipeline
+      kind: gate
+      label: Pipeline token
+      in: band-sources
+    - id: g-pat
+      kind: gate
+      label: Personal access token
+      in: band-sources
+    - id: g-login
+      kind: gate
+      label: Interactive login
+      in: band-sources
+    - id: g-own
+      kind: failure
+      label: Own error, no fallback
+      in: band-raises
   edges:
-  - from: g-pipeline
-    to: g-pat
-    kind: flow
-    label: ''
-  - from: g-pat
-    to: g-login
-    kind: flow
-    label: ''
-  - from: g-pipeline
-    to: g-header
-    kind: flow
-    label: ''
-  - from: g-pat
-    to: g-header
-    kind: flow
-    label: ''
-  - from: g-login
-    to: g-header
-    kind: flow
-    label: ''
-  - from: g-pipeline
-    to: g-own
-    kind: fail
-    label: ''
-  - from: g-login
-    to: g-own
-    kind: fail
-    label: ''
+    - from: g-pipeline
+      to: g-pat
+      kind: flow
+      label: ""
+    - from: g-pat
+      to: g-login
+      kind: flow
+      label: ""
+    - from: g-pipeline
+      to: g-header
+      kind: flow
+      label: ""
+    - from: g-pat
+      to: g-header
+      kind: flow
+      label: ""
+    - from: g-login
+      to: g-header
+      kind: flow
+      label: ""
+    - from: g-pipeline
+      to: g-own
+      kind: fail
+      label: ""
+    - from: g-login
+      to: g-own
+      kind: fail
+      label: ""
   markers:
-  - at: g-pipeline
-    number: 1
-  - at: g-pat
-    number: 2
-  - at: g-login
-    number: 3
-  - at: g-header
-    number: 4
-  - at: g-own
-    number: 5
+    - at: g-pipeline
+      number: 1
+    - at: g-pat
+      number: 2
+    - at: g-login
+      number: 3
+    - at: g-header
+      number: 4
+    - at: g-own
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-returns:
     x: 20

@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
+    folder: tests
+    name: install-catzc-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Exporter
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Install-Catzc.Tests.ps1.md](docs/references/pwsh/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Install-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:source = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"

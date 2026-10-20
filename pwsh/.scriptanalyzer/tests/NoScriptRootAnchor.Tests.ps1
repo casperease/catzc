@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: no-script-root-anchor-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NoScriptRootAnchor.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
+---
+#>
+
 Describe 'Measure-NoScriptRootAnchor' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoScriptRootAnchor.psm1') -Force

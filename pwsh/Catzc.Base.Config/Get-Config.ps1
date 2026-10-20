@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Config/Get-Config.ps1
+    name: get-config
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Config
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1
+    docs: "[Get-Config.ps1.md](docs/references/pwsh/catzc-base-config/Get-Config.ps1.md)"
+    cites:
+      - ADR-AUTO-OVERLAY
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+---
+#>
+
 function Get-Config {
     [CmdletBinding(DefaultParameterSetName = 'Load')]
     param(

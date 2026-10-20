@@ -1,8 +1,9 @@
-description: Whether a change touches a deployable unit is asked of git between two commits that exist after the merge; only
-  a confirmed untouched unit stops the stage, every doubt proceeds, and an undeclared unit name throws.
+description:
+  Whether a change touches a deployable unit is asked of git between two commits that exist after the merge; only a confirmed untouched unit
+  stops the stage, every doubt proceeds, and an undeclared unit name throws.
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
   lens: meta
 content:
   title: '"Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed'
@@ -11,66 +12,66 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-git
-    label: GIT
-  - id: band-check
-    label: THE CHECK
-  - id: band-answer
-    label: THE ANSWER
+    - id: band-git
+      label: GIT
+    - id: band-check
+      label: THE CHECK
+    - id: band-answer
+      label: THE ANSWER
   glyphs:
-  - id: s-git
-    kind: store
-    label: git at real refs
-    in: band-git
-  - id: g-touched
-    kind: gate
-    label: is this unit touched?
-    in: band-check
-  - id: f-typo
-    kind: failure
-    label: a typo throws
-    in: band-check
-  - id: r-stop
-    kind: result
-    label: stop
-    in: band-answer
-  - id: r-proceed
-    kind: result
-    label: proceed
-    in: band-answer
+    - id: s-git
+      kind: store
+      label: git at real refs
+      in: band-git
+    - id: g-touched
+      kind: gate
+      label: is this unit touched?
+      in: band-check
+    - id: f-typo
+      kind: failure
+      label: a typo throws
+      in: band-check
+    - id: r-stop
+      kind: result
+      label: stop
+      in: band-answer
+    - id: r-proceed
+      kind: result
+      label: proceed
+      in: band-answer
   edges:
-  - from: s-git
-    to: g-touched
-    kind: flow
-    label: ''
-  - from: g-touched
-    to: r-stop
-    kind: flow
-    label: ''
-  - from: g-touched
-    to: r-proceed
-    kind: flow
-    label: ''
-  - from: g-touched
-    to: f-typo
-    kind: fail
-    label: ''
+    - from: s-git
+      to: g-touched
+      kind: flow
+      label: ""
+    - from: g-touched
+      to: r-stop
+      kind: flow
+      label: ""
+    - from: g-touched
+      to: r-proceed
+      kind: flow
+      label: ""
+    - from: g-touched
+      to: f-typo
+      kind: fail
+      label: ""
   markers:
-  - at: s-git
-    number: 1
-  - at: g-touched
-    number: 2
-  - at: r-stop
-    number: 3
-  - at: r-proceed
-    number: 4
-  - at: f-typo
-    number: 5
+    - at: s-git
+      number: 1
+    - at: g-touched
+      number: 2
+    - at: r-stop
+      number: 3
+    - at: r-proceed
+      number: 4
+    - at: f-typo
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-git:
     x: 20

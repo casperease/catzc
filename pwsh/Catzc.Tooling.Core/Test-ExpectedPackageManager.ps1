@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/Test-ExpectedPackageManager.ps1
+    name: test-expected-package-manager
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
+    docs: "[Test-ExpectedPackageManager.ps1.md](docs/references/pwsh/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md)"
+    cites:
+      - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
+---
+#>
+
 function Test-ExpectedPackageManager {
     [OutputType([bool])]
     [CmdletBinding()]

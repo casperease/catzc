@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Files/types/InputStamp.cs
+    folder: types
+    name: input-stamp
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Files
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[InputStamp.cs.md](docs/references/pwsh/catzc-base-files/types/InputStamp.cs.md)"
+---
+*/
+
 // The fingerprint of a set of input files: one SHA-256 over the sorted (path, content hash) of every file, the same on every checkout.
 
 using System;

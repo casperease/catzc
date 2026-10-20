@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Languages/configs/file-carriers.yml
+#     folder: configs
+#     name: file-carriers
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Languages
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[file-carriers.yml.md](docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md)"
+# ---
+
 carriers:
   # Front matter is the Markdown convention, and the reserved catzc key is the block.
   markdown: { carrier: front-matter }

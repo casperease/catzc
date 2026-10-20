@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Azure/configs/identity-tokens.yml
+#     folder: configs
+#     name: identity-tokens
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Azure
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[identity-tokens.yml.md](docs/references/pwsh/catzc-azure/configs/identity-tokens.yml.md)"
+# ---
+
 tokens:
   - config: customer
     path: customers

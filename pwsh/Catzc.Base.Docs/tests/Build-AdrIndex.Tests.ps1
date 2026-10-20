@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Build-AdrIndex.Tests.ps1
+    folder: tests
+    name: build-adr-index-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-AdrIndex.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-AdrIndex.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-README-AUTHOREDSOURCES
+---
+#>
+
 Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
     BeforeAll {
         $script:indexEntries = & (Get-Module Catzc.Base.Docs) { Get-CatsAdrIndex }

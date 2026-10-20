@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
+    name: test-pipelines
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
+    docs: "[Test-Pipelines.ps1.md](docs/references/pwsh/catzc-azure-devops/Test-Pipelines.ps1.md)"
+    cites:
+      - ADR-ADO-NAME
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-FLOW-CD-PIPELINE-TYPEPREFIX
+      - ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION
+---
+#>
+
 function Test-Pipelines {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

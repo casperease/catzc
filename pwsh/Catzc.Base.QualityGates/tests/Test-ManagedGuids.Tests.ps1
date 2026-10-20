@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Test-ManagedGuids.Tests.ps1
+    folder: tests
+    name: test-managed-guids-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-ManagedGuids.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-ManagedGuids.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {
     BeforeAll {
         # Built at runtime, so the real guid scan never reads these fixture values as unregistered guids.

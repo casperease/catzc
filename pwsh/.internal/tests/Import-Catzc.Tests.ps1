@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.internal/tests/Import-Catzc.Tests.ps1
+    name: import-catzc-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Internal.Tests
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
+  edges:
+    docs: "[Import-Catzc.Tests.ps1.md](docs/references/pwsh/internal/tests/Import-Catzc.Tests.ps1.md)"
+---
+#>
+
 Describe 'Import-Catzc loads a full build (walking skeleton)' -Tag 'L2', 'integrity', 'greedy', 'source-only' {
     It 'a full build passes the bundle check and loads in build mode (Test-BuildArtifact)' {
         $result = Test-BuildArtifact -ModuleProfile full -Facet Load -PassThru -OutputFolder (Join-Path $TestDrive 'build-artifact')

@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
+    name: test-plans
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
+    docs: "[Test-Plans.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-FOLDERS-STABLEFILENAMES
+      - ADR-REPO-PLANS
+---
+#>
+
 function Test-Plans {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

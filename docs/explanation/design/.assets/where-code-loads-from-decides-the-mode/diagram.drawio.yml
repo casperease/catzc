@@ -1,11 +1,12 @@
-description: The repository and a built package are the two places the code loads from; both go through one importer into
-  the same modules, and the place it loaded from is the run mode, which nothing stores.
+description:
+  The repository and a built package are the two places the code loads from; both go through one importer into the same modules, and the
+  place it loaded from is the run mode, which nothing stores.
 about:
   adrs:
-  - ADR-DSGN-RUNMODE-TWORUNMODES
-  - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-  - ADR-DSGN-RUNMODE-MODEISDERIVED
-  - ADR-DSGN-RUNMODE-NEVERCOEXIST
+    - ADR-DSGN-RUNMODE-TWORUNMODES
+    - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+    - ADR-DSGN-RUNMODE-MODEISDERIVED
+    - ADR-DSGN-RUNMODE-NEVERCOEXIST
   lens: meta
 content:
   title: Where the code loads from decides the run mode
@@ -14,60 +15,60 @@ content:
   relation: the code loads into
   theme: dark
   bands:
-  - id: band-source
-    label: SOURCE
-  - id: band-build
-    label: BUILD
-  - id: band-importer
-    label: ONE IMPORTER
-  - id: band-modules
-    label: SAME MODULES
+    - id: band-source
+      label: SOURCE
+    - id: band-build
+      label: BUILD
+    - id: band-importer
+      label: ONE IMPORTER
+    - id: band-modules
+      label: SAME MODULES
   glyphs:
-  - id: g-repository
-    kind: store
-    label: the repository
-    in: band-source
-  - id: g-package
-    kind: store
-    label: a built package
-    in: band-build
-  - id: g-importer
-    kind: code
-    label: one importer
-    in: band-importer
-  - id: g-modules
-    kind: set
-    label: same modules
-    in: band-modules
+    - id: g-repository
+      kind: store
+      label: the repository
+      in: band-source
+    - id: g-package
+      kind: store
+      label: a built package
+      in: band-build
+    - id: g-importer
+      kind: code
+      label: one importer
+      in: band-importer
+    - id: g-modules
+      kind: set
+      label: same modules
+      in: band-modules
   edges:
-  - from: g-repository
-    to: g-importer
-    kind: flow
-    label: ''
-  - from: g-package
-    to: g-importer
-    kind: flow
-    label: ''
-  - from: g-importer
-    to: g-modules
-    kind: thick
-    label: ''
+    - from: g-repository
+      to: g-importer
+      kind: flow
+      label: ""
+    - from: g-package
+      to: g-importer
+      kind: flow
+      label: ""
+    - from: g-importer
+      to: g-modules
+      kind: thick
+      label: ""
   markers:
-  - at: g-repository
-    number: 1
-  - at: g-package
-    number: 2
-  - at: g-importer
-    number: 3
-  - at: g-modules
-    number: 4
-  - at: band-modules
-    number: 5
+    - at: g-repository
+      number: 1
+    - at: g-package
+      number: 2
+    - at: g-importer
+      number: 3
+    - at: g-modules
+      number: 4
+    - at: band-modules
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-source:
     x: 20

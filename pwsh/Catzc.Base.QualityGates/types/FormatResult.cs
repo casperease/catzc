@@ -1,3 +1,25 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/FormatResult.cs
+    folder: types
+    name: format-result
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/types/FormatResult.Tests.ps1
+    docs: "[FormatResult.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/FormatResult.cs.md)"
+---
+*/
+
 using System;
 using System.Collections.Generic;
 

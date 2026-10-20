@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1
+    folder: tests
+    name: test-catzc-build-parity-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-CatzcBuild.Parity.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.Parity.Tests.ps1.md)"
+    cites:
+      - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+---
+#>
+
 Describe 'Built modules match their source folders' -Tag 'L2', 'integrity', 'greedy', 'source-only', 'ADR-DSGN-RUNMODE-SAMEMODULEINBOTH' {
     It 'every built module exports exactly its public functions and carries exactly its private ones (Test-BuildArtifact)' {
         # The default selection — the exporter's default profile — so every module it ships is compared.

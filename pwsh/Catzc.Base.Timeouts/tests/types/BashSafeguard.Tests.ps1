@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
+    folder: tests/types
+    name: bash-safeguard-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Timeouts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[BashSafeguard.Tests.ps1.md](docs/references/pwsh/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE
+---
+#>
+
 # cspell:ignore tmain tforeground tbackground tsleep tsubagent tpipeline  -- "`t" escape artifacts in the tab-separated log lines
 Describe 'BashSafeguard' -Tag 'L0', 'logic' {
     BeforeAll {

@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
+    name: test-checked-in-binaries
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
+    docs: "[Test-CheckedInBinaries.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Test-CheckedInBinaries.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 function Test-CheckedInBinaries {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

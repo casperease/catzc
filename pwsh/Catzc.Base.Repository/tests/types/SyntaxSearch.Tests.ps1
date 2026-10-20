@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1
+    folder: tests/types
+    name: syntax-search-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Repository
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[SyntaxSearch.Tests.ps1.md](docs/references/pwsh/catzc-base-repository/tests/types/SyntaxSearch.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'SyntaxSearch' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:parse = {

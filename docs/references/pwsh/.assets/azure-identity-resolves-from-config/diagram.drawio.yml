@@ -1,10 +1,11 @@
-description: Azure identities resolve only from the typed azure.yml and customer.yml; the az session subscription is looked
-  up in the azure config and must match exactly one declared subscription before it reaches the subscription resolver.
+description:
+  Azure identities resolve only from the typed azure.yml and customer.yml; the az session subscription is looked up in the azure config and
+  must match exactly one declared subscription before it reaches the subscription resolver.
 about:
   adrs:
-  - ADR-AZ-SESSION
-  - ADR-AZ-DATAMOD
-  - ADR-AZ-CUSTOMER
+    - ADR-AZ-SESSION
+    - ADR-AZ-DATAMOD
+    - ADR-AZ-CUSTOMER
   lens: source
 content:
   title: Azure identities resolve from config; session must match one
@@ -13,136 +14,136 @@ content:
   relation: feeds
   theme: dark
   bands:
-  - id: band-session
-    label: SESSION
-  - id: band-config
-    label: CONFIG
+    - id: band-session
+      label: SESSION
+    - id: band-config
+      label: CONFIG
   groups:
-  - id: grp-cli
-    label: Catzc.Azure.Cli
-    in: band-session
-  - id: grp-base-config
-    label: Catzc.Base.Config
-    in: band-config
-  - id: grp-resolvers
-    label: resolvers
-    in: band-config
+    - id: grp-cli
+      label: Catzc.Azure.Cli
+      in: band-session
+    - id: grp-base-config
+      label: Catzc.Base.Config
+      in: band-config
+    - id: grp-resolvers
+      label: resolvers
+      in: band-config
   glyphs:
-  - id: g-current-sub
-    kind: code
-    label: Get-CurrentAzSubscription
-    in: grp-cli
-  - id: g-session-sub
-    kind: gate
-    label: Get-AzCliSessionSubscription
-    in: grp-cli
-  - id: g-azure-yml
-    kind: file
-    label: azure.yml
-    in: band-config
-  - id: g-customer-yml
-    kind: file
-    label: customer.yml
-    in: band-config
-  - id: g-get-config
-    kind: code
-    label: Get-Config
-    in: grp-base-config
-  - id: g-azure-config
-    kind: type
-    label: AzureConfig
-    in: band-config
-  - id: g-customer-config
-    kind: type
-    label: CustomerConfig
-    in: band-config
-  - id: g-azure-customer
-    kind: code
-    label: Get-AzureCustomer
-    in: band-config
-  - id: g-azure-sub
-    kind: code
-    label: Get-AzureSubscription
-    in: grp-resolvers
-  - id: g-azure-env
-    kind: code
-    label: Get-AzureEnvironment
-    in: grp-resolvers
+    - id: g-current-sub
+      kind: code
+      label: Get-CurrentAzSubscription
+      in: grp-cli
+    - id: g-session-sub
+      kind: gate
+      label: Get-AzCliSessionSubscription
+      in: grp-cli
+    - id: g-azure-yml
+      kind: file
+      label: azure.yml
+      in: band-config
+    - id: g-customer-yml
+      kind: file
+      label: customer.yml
+      in: band-config
+    - id: g-get-config
+      kind: code
+      label: Get-Config
+      in: grp-base-config
+    - id: g-azure-config
+      kind: type
+      label: AzureConfig
+      in: band-config
+    - id: g-customer-config
+      kind: type
+      label: CustomerConfig
+      in: band-config
+    - id: g-azure-customer
+      kind: code
+      label: Get-AzureCustomer
+      in: band-config
+    - id: g-azure-sub
+      kind: code
+      label: Get-AzureSubscription
+      in: grp-resolvers
+    - id: g-azure-env
+      kind: code
+      label: Get-AzureEnvironment
+      in: grp-resolvers
   edges:
-  - from: g-azure-yml
-    to: g-get-config
-    kind: flow
-    label: ''
-  - from: g-customer-yml
-    to: g-get-config
-    kind: flow
-    label: ''
-  - from: g-get-config
-    to: g-azure-config
-    kind: flow
-    label: ''
-  - from: g-get-config
-    to: g-customer-config
-    kind: flow
-    label: ''
-  - from: g-azure-config
-    to: g-azure-sub
-    kind: flow
-    label: ''
-  - from: g-azure-config
-    to: g-session-sub
-    kind: flow
-    label: ''
-  - from: g-customer-config
-    to: g-azure-customer
-    kind: flow
-    label: ''
-  - from: g-azure-customer
-    to: g-azure-sub
-    kind: flow
-    label: ''
-  - from: g-current-sub
-    to: g-session-sub
-    kind: flow
-    label: ''
-  - from: g-session-sub
-    to: g-azure-sub
-    kind: flow
-    label: ''
-  - from: g-azure-sub
-    to: g-azure-env
-    kind: flow
-    label: ''
+    - from: g-azure-yml
+      to: g-get-config
+      kind: flow
+      label: ""
+    - from: g-customer-yml
+      to: g-get-config
+      kind: flow
+      label: ""
+    - from: g-get-config
+      to: g-azure-config
+      kind: flow
+      label: ""
+    - from: g-get-config
+      to: g-customer-config
+      kind: flow
+      label: ""
+    - from: g-azure-config
+      to: g-azure-sub
+      kind: flow
+      label: ""
+    - from: g-azure-config
+      to: g-session-sub
+      kind: flow
+      label: ""
+    - from: g-customer-config
+      to: g-azure-customer
+      kind: flow
+      label: ""
+    - from: g-azure-customer
+      to: g-azure-sub
+      kind: flow
+      label: ""
+    - from: g-current-sub
+      to: g-session-sub
+      kind: flow
+      label: ""
+    - from: g-session-sub
+      to: g-azure-sub
+      kind: flow
+      label: ""
+    - from: g-azure-sub
+      to: g-azure-env
+      kind: flow
+      label: ""
   markers:
-  - at: g-azure-yml
-    number: 1
-  - at: g-customer-yml
-    number: 2
-  - at: g-get-config
-    number: 3
-  - at: g-azure-config
-    number: 4
-  - at: g-customer-config
-    number: 5
-  - at: g-azure-customer
-    number: 6
-  - at: g-azure-sub
-    number: 7
-  - at: g-azure-env
-    number: 8
-  - at: g-current-sub
-    number: 9
-  - at: g-session-sub
-    number: 10
+    - at: g-azure-yml
+      number: 1
+    - at: g-customer-yml
+      number: 2
+    - at: g-get-config
+      number: 3
+    - at: g-azure-config
+      number: 4
+    - at: g-customer-config
+      number: 5
+    - at: g-azure-customer
+      number: 6
+    - at: g-azure-sub
+      number: 7
+    - at: g-azure-env
+      number: 8
+    - at: g-current-sub
+      number: 9
+    - at: g-session-sub
+      number: 10
   chips:
-  - at: g-session-sub
-    kind: count
-    text: '1'
+    - at: g-session-sub
+      kind: count
+      text: "1"
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-session:
     x: 400

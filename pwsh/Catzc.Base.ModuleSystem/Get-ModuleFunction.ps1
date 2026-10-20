@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Get-ModuleFunction.ps1
+    name: get-module-function
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleFunction.Tests.ps1
+    docs: "[Get-ModuleFunction.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-ModuleFunction.ps1.md)"
+    cites:
+      - ADR-DSGN-RUNMODE
+      - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+---
+#>
+
 function Get-ModuleFunction {
     param(
         [switch] $NotUsedInternally,

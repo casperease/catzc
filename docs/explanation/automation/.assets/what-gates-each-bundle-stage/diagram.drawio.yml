@@ -1,13 +1,14 @@
-description: 'Every stage of the bundle follows a rule and two gates check it: the integrity gate on every build and again
-  before every install, and the build run that repeats the same tests against a fresh build.'
+description:
+  "Every stage of the bundle follows a rule and two gates check it: the integrity gate on every build and again before every install, and
+  the build run that repeats the same tests against a fresh build."
 about:
   adrs:
-  - ADR-AUTO-BUNDLE-BUNDLEISBUILD
-  - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
-  - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
-  - ADR-AUTO-BUNDLE-AUTOVERSION
-  - ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
-  - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
+    - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+    - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+    - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+    - ADR-AUTO-BUNDLE-AUTOVERSION
+    - ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
+    - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
   lens: governance
 content:
   title: Every stage of the bundle has a rule, and two gates check it
@@ -16,95 +17,95 @@ content:
   relation: feeds or runs the next step
   theme: dark
   bands:
-  - id: band-build
-    label: BUILD
-  - id: band-bundle
-    label: BUNDLE
-  - id: band-roots
-    label: CODE ROOTS
+    - id: band-build
+      label: BUILD
+    - id: band-bundle
+      label: BUNDLE
+    - id: band-roots
+      label: CODE ROOTS
   groups:
-  - id: grp-copies
-    label: ' '
-    in: band-roots
+    - id: grp-copies
+      label: " "
+      in: band-roots
   glyphs:
-  - id: g-build
-    kind: code
-    label: Build-Modules
-    in: band-build
-  - id: g-assert
-    kind: gate
-    label: Assert-CatzcBundle
-    in: band-build
-  - id: g-test-build
-    kind: gate
-    label: Test-CatzcBuild
-    in: band-build
-  - id: r-temporary
-    kind: result
-    label: Temporary build
-    in: band-bundle
-  - id: r-installed
-    kind: result
-    label: Installed · saved
-    in: grp-copies
+    - id: g-build
+      kind: code
+      label: Build-Modules
+      in: band-build
+    - id: g-assert
+      kind: gate
+      label: Assert-CatzcBundle
+      in: band-build
+    - id: g-test-build
+      kind: gate
+      label: Test-CatzcBuild
+      in: band-build
+    - id: r-temporary
+      kind: result
+      label: Temporary build
+      in: band-bundle
+    - id: r-installed
+      kind: result
+      label: Installed · saved
+      in: grp-copies
   edges:
-  - from: g-build
-    to: g-assert
-    kind: flow
-    label: ''
-  - from: g-assert
-    to: r-temporary
-    kind: flow
-    label: ''
-  - from: r-temporary
-    to: grp-copies
-    kind: flow
-    label: ''
-  - from: g-test-build
-    to: g-build
-    kind: flow
-    label: ''
-  - from: grp-copies
-    to: g-assert
-    kind: flow
-    label: checked again
+    - from: g-build
+      to: g-assert
+      kind: flow
+      label: ""
+    - from: g-assert
+      to: r-temporary
+      kind: flow
+      label: ""
+    - from: r-temporary
+      to: grp-copies
+      kind: flow
+      label: ""
+    - from: g-test-build
+      to: g-build
+      kind: flow
+      label: ""
+    - from: grp-copies
+      to: g-assert
+      kind: flow
+      label: checked again
   markers:
-  - at: g-build
-    number: 1
-  - at: g-assert
-    number: 2
-  - at: r-temporary
-    number: 3
-  - at: r-installed
-    number: 4
-  - at: grp-copies
-    number: 5
-  - at: g-test-build
-    number: 6
+    - at: g-build
+      number: 1
+    - at: g-assert
+      number: 2
+    - at: r-temporary
+      number: 3
+    - at: r-installed
+      number: 4
+    - at: grp-copies
+      number: 5
+    - at: g-test-build
+      number: 6
   chips:
-  - at: g-build
-    kind: rule
-    rule: ADR-AUTO-BUNDLE-BUNDLEISBUILD
-  - at: g-build
-    kind: rule
-    rule: ADR-AUTO-BUNDLE-AUTOVERSION
-  - at: g-build
-    kind: rule
-    rule: ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
-  - at: g-assert
-    kind: rule
-    rule: ADR-AUTO-BUNDLE-IMMUTABLEBUILD
-  - at: r-installed
-    kind: rule
-    rule: ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
-  - at: g-test-build
-    kind: rule
-    rule: ADR-AUTO-TEST-SAMETESTSBOTHRUNS
+    - at: g-build
+      kind: rule
+      rule: ADR-AUTO-BUNDLE-BUNDLEISBUILD
+    - at: g-build
+      kind: rule
+      rule: ADR-AUTO-BUNDLE-AUTOVERSION
+    - at: g-build
+      kind: rule
+      rule: ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
+    - at: g-assert
+      kind: rule
+      rule: ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+    - at: r-installed
+      kind: rule
+      rule: ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+    - at: g-test-build
+      kind: rule
+      rule: ADR-AUTO-TEST-SAMETESTSBOTHRUNS
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-build:
     x: 20

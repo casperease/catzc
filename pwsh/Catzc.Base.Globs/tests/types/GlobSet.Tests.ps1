@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+    folder: tests/types
+    name: glob-set-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[GlobSet.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md)"
+    cites:
+      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+      - ADR-FLOW-CD-GLOBS-COMPOSESETS
+---
+#>
+
 Describe 'GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {

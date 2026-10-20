@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Toolchain/private/Install-BicepStandalone.ps1
+    folder: private
+    name: install-bicep-standalone
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
+    docs: "[Install-BicepStandalone.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Install-BicepStandalone.ps1.md)"
+    cites:
+      - ADR-AUTO-PKGMGR
+---
+#>
+
 function Install-BicepStandalone {
     [CmdletBinding()]
     param(

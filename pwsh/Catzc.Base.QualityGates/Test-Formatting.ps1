@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1
+    name: test-formatting
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
+    docs: "[Test-Formatting.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Formatting.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+---
+#>
+
 function Test-Formatting {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

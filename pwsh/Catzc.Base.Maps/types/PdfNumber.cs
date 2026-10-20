@@ -1,3 +1,25 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/PdfNumber.cs
+    folder: types
+    name: pdf-number
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/types/PdfNumber.Tests.ps1
+    docs: "[PdfNumber.cs.md](docs/references/pwsh/catzc-base-maps/types/PdfNumber.cs.md)"
+---
+*/
+
 using System;
 using System.Globalization;
 

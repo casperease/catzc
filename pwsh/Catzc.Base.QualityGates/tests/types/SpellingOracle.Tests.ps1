@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
+    folder: tests/types
+    name: spelling-oracle-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[SpellingOracle.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/SpellingOracle.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-SPELL-CATEGORYANDMEANING
+      - ADR-AUTO-TEST-ONECATEGORY
+---
+#>
+
 Describe 'SpellingOracle.Tokenize' -Tag 'L0', 'logic' {
     # Tokenize is a pure function of its input — no dictionary, no Initialize required.
     It 'splits camelCase into lower-cased fragments' {

@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: no-env-repository-root-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NoEnvRepositoryRoot.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-NOPWD-ONEROOTACCESSOR
+---
+#>
+
 Describe 'Measure-NoEnvRepositoryRoot' -Tag 'L0', 'logic', 'ADR-AUTO-NOPWD-ONEROOTACCESSOR' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoEnvRepositoryRoot.psm1') -Force

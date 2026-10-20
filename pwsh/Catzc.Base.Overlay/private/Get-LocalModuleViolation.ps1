@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Overlay/private/Get-LocalModuleViolation.ps1
+    folder: private
+    name: get-local-module-violation
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Overlay
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-LocalModuleViolation.ps1.md](docs/references/pwsh/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md)"
+    cites:
+      - ADR-AUTO-OVERLAY
+      - ADR-PWSH-ENUM-ALWAYSBOUNDED
+---
+#>
+
 function Get-LocalModuleViolation {
     [CmdletBinding()]
     [OutputType([string])]

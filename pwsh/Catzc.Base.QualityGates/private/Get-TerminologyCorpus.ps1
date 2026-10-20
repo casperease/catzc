@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
+    folder: private
+    name: get-terminology-corpus
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-TerminologyCorpus.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md)"
+    cites:
+      - ADR-AZ-DATAMOD
+      - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+---
+#>
+
 function Get-TerminologyCorpus {
     [CmdletBinding()]
     [OutputType([string])]

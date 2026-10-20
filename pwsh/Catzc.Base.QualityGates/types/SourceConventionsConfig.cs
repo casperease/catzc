@@ -1,3 +1,31 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/SourceConventionsConfig.cs
+    folder: types
+    name: source-conventions-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1
+    docs: "[SourceConventionsConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/SourceConventionsConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-ENGINE-THREEENGINES
+      - ADR-AUTO-LAYERS
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections;
 using System.Globalization;

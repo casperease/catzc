@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AdrDomain.cs
+    folder: types
+    name: adr-domain
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AdrDomain.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrDomain.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-DSGN-TRACK-VALUECHAINSTACK
+      - ADR-DSGN-TRACK-VALUECHAINCONCERN
+---
+*/
+
 using System.Collections.Generic;
 
 namespace Catzc.Base.Docs;

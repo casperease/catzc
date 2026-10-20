@@ -1,18 +1,18 @@
-description: 'Which rules of a module folder''s layout a gate checks: two quality gates, the import guard and the config check
-  hold theirs, while the partition check runs only in unit tests, the manifest has no gate and the per-aspect sha lock has
-  no mechanism.'
+description:
+  "Which rules of a module folder's layout a gate checks: two quality gates, the import guard and the config check hold theirs, while the
+  partition check runs only in unit tests, the manifest has no gate and the per-aspect sha lock has no mechanism."
 about:
   adrs:
-  - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-  - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
-  - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-  - ADR-DSGN-ASPECT-PARTITIONISCHECKED
-  - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
-  - ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
-  - ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
-  - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
-  - ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
-  - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+    - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+    - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
+    - ADR-DSGN-ASPECT-PARTITIONISCHECKED
+    - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
+    - ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
+    - ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
+    - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
+    - ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
   lens: governance
 content:
   title: Partition integrity runs only in unit tests
@@ -21,133 +21,133 @@ content:
   relation: reads, then runs
   theme: dark
   bands:
-  - id: band-folder
-    label: FOLDER
-  - id: band-visibility
-    label: VISIBILITY
-  - id: band-aspect
-    label: ASPECT
-  - id: band-lock
-    label: SHA LOCK
+    - id: band-folder
+      label: FOLDER
+    - id: band-visibility
+      label: VISIBILITY
+    - id: band-aspect
+      label: ASPECT
+    - id: band-lock
+      label: SHA LOCK
   glyphs:
-  - id: g-root
-    kind: code
-    label: pwsh/<Module>/
-    in: band-folder
-  - id: g-source-conventions
-    kind: gate
-    label: Test-SourceConventions
-    in: band-folder
-  - id: g-folder-conventions
-    kind: gate
-    label: Test-FolderConventions
-    in: band-folder
-  - id: g-assert-unique
-    kind: gate
-    label: Assert-Unique...FunctionName
-    in: band-visibility
-  - id: g-manifest
-    kind: code
-    label: New-DynamicManifest
-    in: band-visibility
-  - id: g-variants-config
-    kind: gate
-    label: VariantsConfig
-    in: band-aspect
-  - id: g-validate
-    kind: adronly
-    label: AspectPartition.Validate
-    in: band-aspect
-  - id: g-sha-lock
-    kind: adronly
-    label: aspect sha lock
-    in: band-lock
+    - id: g-root
+      kind: code
+      label: pwsh/<Module>/
+      in: band-folder
+    - id: g-source-conventions
+      kind: gate
+      label: Test-SourceConventions
+      in: band-folder
+    - id: g-folder-conventions
+      kind: gate
+      label: Test-FolderConventions
+      in: band-folder
+    - id: g-assert-unique
+      kind: gate
+      label: Assert-Unique...FunctionName
+      in: band-visibility
+    - id: g-manifest
+      kind: code
+      label: New-DynamicManifest
+      in: band-visibility
+    - id: g-variants-config
+      kind: gate
+      label: VariantsConfig
+      in: band-aspect
+    - id: g-validate
+      kind: adronly
+      label: AspectPartition.Validate
+      in: band-aspect
+    - id: g-sha-lock
+      kind: adronly
+      label: aspect sha lock
+      in: band-lock
   edges:
-  - from: g-root
-    to: g-source-conventions
-    kind: flow
-    label: ''
-  - from: g-root
-    to: g-folder-conventions
-    kind: flow
-    label: ''
-  - from: g-root
-    to: g-assert-unique
-    kind: flow
-    label: ''
-  - from: g-assert-unique
-    to: g-manifest
-    kind: flow
-    label: ''
-  - from: g-variants-config
-    to: g-validate
-    kind: adr
-    label: ''
-  - from: g-variants-config
-    to: g-sha-lock
-    kind: adr
-    label: ''
+    - from: g-root
+      to: g-source-conventions
+      kind: flow
+      label: ""
+    - from: g-root
+      to: g-folder-conventions
+      kind: flow
+      label: ""
+    - from: g-root
+      to: g-assert-unique
+      kind: flow
+      label: ""
+    - from: g-assert-unique
+      to: g-manifest
+      kind: flow
+      label: ""
+    - from: g-variants-config
+      to: g-validate
+      kind: adr
+      label: ""
+    - from: g-variants-config
+      to: g-sha-lock
+      kind: adr
+      label: ""
   markers:
-  - at: g-root
-    number: 1
-  - at: g-source-conventions
-    number: 2
-  - at: g-folder-conventions
-    number: 3
-  - at: g-assert-unique
-    number: 4
-  - at: g-manifest
-    number: 5
-  - at: g-variants-config
-    number: 6
-  - at: g-validate
-    number: 7
-  - at: g-sha-lock
-    number: 8
+    - at: g-root
+      number: 1
+    - at: g-source-conventions
+      number: 2
+    - at: g-folder-conventions
+      number: 3
+    - at: g-assert-unique
+      number: 4
+    - at: g-manifest
+      number: 5
+    - at: g-variants-config
+      number: 6
+    - at: g-validate
+      number: 7
+    - at: g-sha-lock
+      number: 8
   chips:
-  - at: g-source-conventions
-    kind: rule
-    rule: ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
-  - at: g-source-conventions
-    kind: rule
-    rule: ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
-  - at: g-folder-conventions
-    kind: rule
-    rule: ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
-  - at: g-assert-unique
-    kind: rule
-    rule: ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
-  - at: g-manifest
-    kind: rule
-    rule: ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
-    gated: false
-  - at: g-manifest
-    kind: rule
-    rule: ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
-    gated: false
-  - at: g-variants-config
-    kind: rule
-    rule: ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-  - at: g-variants-config
-    kind: rule
-    rule: ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
-  - at: g-validate
-    kind: rule
-    rule: ADR-DSGN-ASPECT-PARTITIONISCHECKED
-    gated: false
-  - at: band-lock
-    kind: rule
-    rule: ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-    gated: false
-  - at: band-lock
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-    gated: false
+    - at: g-source-conventions
+      kind: rule
+      rule: ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
+    - at: g-source-conventions
+      kind: rule
+      rule: ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
+    - at: g-folder-conventions
+      kind: rule
+      rule: ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
+    - at: g-assert-unique
+      kind: rule
+      rule: ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
+    - at: g-manifest
+      kind: rule
+      rule: ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
+      gated: false
+    - at: g-manifest
+      kind: rule
+      rule: ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
+      gated: false
+    - at: g-variants-config
+      kind: rule
+      rule: ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+    - at: g-variants-config
+      kind: rule
+      rule: ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+    - at: g-validate
+      kind: rule
+      rule: ADR-DSGN-ASPECT-PARTITIONISCHECKED
+      gated: false
+    - at: band-lock
+      kind: rule
+      rule: ADR-DSGN-ASPECT-ASPECTISAGLOBSET
+      gated: false
+    - at: band-lock
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+      gated: false
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-folder:
     x: 20

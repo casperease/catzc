@@ -1,11 +1,12 @@
-description: A topic commit can reach an environment through an out-of-band deploy without reaching main; only landing on
-  main puts it on the ladder toward the build validation verified commit.
+description:
+  A topic commit can reach an environment through an out-of-band deploy without reaching main; only landing on main puts it on the ladder
+  toward the build validation verified commit.
 about:
   adrs:
-  - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-  - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-  - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-  - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
+    - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+    - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+    - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
   lens: meta
 content:
   title: Deploying a topic commit is not integrating it
@@ -14,84 +15,84 @@ content:
   relation: lands, then climbs
   theme: dark
   bands:
-  - id: band-topic
-    label: TOPIC
-  - id: band-out-of-band
-    label: OUT-OF-BAND
-  - id: band-main
-    label: MAIN
-  - id: band-landing
-    label: AFTER LANDING
+    - id: band-topic
+      label: TOPIC
+    - id: band-out-of-band
+      label: OUT-OF-BAND
+    - id: band-main
+      label: MAIN
+    - id: band-landing
+      label: AFTER LANDING
   spans:
-  - id: span-integration
-    label: CI
-    over:
-    - band-main
-    - band-landing
+    - id: span-integration
+      label: CI
+      over:
+        - band-main
+        - band-landing
   glyphs:
-  - id: c-topic
-    kind: commit
-    label: topic commit
-    in: band-topic
-    state: topic
-  - id: a-deploy
-    kind: adronly
-    label: out-of-band deploy
-    in: band-out-of-band
-  - id: e-environment
-    kind: env
-    label: environment (occupant inside)
-    in: band-out-of-band
-  - id: c-main
-    kind: commit
-    label: main
-    in: band-main
-    state: landed
-  - id: g-validation
-    kind: gate
-    label: BVT
-    in: band-landing
-  - id: c-verified
-    kind: commit
-    label: BVT-verified
-    in: band-landing
+    - id: c-topic
+      kind: commit
+      label: topic commit
+      in: band-topic
+      state: topic
+    - id: a-deploy
+      kind: adronly
+      label: out-of-band deploy
+      in: band-out-of-band
+    - id: e-environment
+      kind: env
+      label: environment (occupant inside)
+      in: band-out-of-band
+    - id: c-main
+      kind: commit
+      label: main
+      in: band-main
+      state: landed
+    - id: g-validation
+      kind: gate
+      label: BVT
+      in: band-landing
+    - id: c-verified
+      kind: commit
+      label: BVT-verified
+      in: band-landing
   edges:
-  - from: c-topic
-    to: a-deploy
-    kind: adr
-    label: ''
-  - from: a-deploy
-    to: e-environment
-    kind: adr
-    label: ''
-  - from: c-topic
-    to: c-main
-    kind: flow
-    label: ''
-  - from: c-main
-    to: g-validation
-    kind: flow
-    label: ''
-  - from: g-validation
-    to: c-verified
-    kind: flow
-    label: ''
+    - from: c-topic
+      to: a-deploy
+      kind: adr
+      label: ""
+    - from: a-deploy
+      to: e-environment
+      kind: adr
+      label: ""
+    - from: c-topic
+      to: c-main
+      kind: flow
+      label: ""
+    - from: c-main
+      to: g-validation
+      kind: flow
+      label: ""
+    - from: g-validation
+      to: c-verified
+      kind: flow
+      label: ""
   markers:
-  - at: c-topic
-    number: 1
-  - at: a-deploy
-    number: 2
-  - at: e-environment
-    number: 3
-  - at: c-main
-    number: 4
-  - at: g-validation
-    number: 5
+    - at: c-topic
+      number: 1
+    - at: a-deploy
+      number: 2
+    - at: e-environment
+      number: 3
+    - at: c-main
+      number: 4
+    - at: g-validation
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-topic:
     x: 20

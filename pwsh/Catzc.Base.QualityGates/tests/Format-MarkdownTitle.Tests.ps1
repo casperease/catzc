@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
+    folder: tests
+    name: format-markdown-title-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Format-MarkdownTitle.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Format-MarkdownTitle.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+      - ADR-REPO-FORMAT-MARKDOWNTITLE
+      - ADR-REPO-FORMAT-PLAINHEADINGS
+---
+#>
+
 Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-MARKDOWNTITLE' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

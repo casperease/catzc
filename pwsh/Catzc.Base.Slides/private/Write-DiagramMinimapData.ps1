@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Slides/private/Write-DiagramMinimapData.ps1
+    folder: private
+    name: write-diagram-minimap-data
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Write-DiagramMinimapData.ps1.md](docs/references/pwsh/catzc-base-slides/private/Write-DiagramMinimapData.ps1.md)"
+---
+#>
+
 function Write-DiagramMinimapData {
     [CmdletBinding()]
     [OutputType([string])]

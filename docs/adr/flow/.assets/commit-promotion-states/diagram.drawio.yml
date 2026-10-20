@@ -1,7 +1,7 @@
 description: >-
-  The promotion ladder of a commit, left to right and never backward: each rung a state in the locked commit palette, the
-  superseded ghost above every rung a newer commit rolled over, and the three terminal endings below, discarded at a named
-  gate or retired once a successor took over production.
+  The promotion ladder of a commit, left to right and never backward: each rung a state in the locked commit palette, the superseded ghost
+  above every rung a newer commit rolled over, and the three terminal endings below, discarded at a named gate or retired once a successor
+  took over production.
 about:
   adrs:
     - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG

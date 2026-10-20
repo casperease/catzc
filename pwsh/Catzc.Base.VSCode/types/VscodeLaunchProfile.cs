@@ -15,7 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[VscodeLaunchProfile.cs.md](/docs/references/pwsh/catzc-base-vscode/types/VscodeLaunchProfile.cs.md)"
+    docs: "[VscodeLaunchProfile.cs.md](docs/references/pwsh/catzc-base-vscode/types/VscodeLaunchProfile.cs.md)"
 ---
 */
 

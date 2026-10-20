@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-PythonLint.ps1
+    name: test-python-lint
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
+    docs: "[Test-PythonLint.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-PythonLint.ps1.md)"
+    cites:
+      - ADR-AUTO-PY-EVERYFILELINTED
+---
+#>
+
 function Test-PythonLint {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

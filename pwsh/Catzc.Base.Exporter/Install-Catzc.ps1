@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+    name: install-catzc
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Exporter
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
+    docs: "[Install-Catzc.ps1.md](docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md)"
+    cites:
+      - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE
+      - ADR-PWSH-ENUM-ALWAYSBOUNDED
+---
+#>
+
 function Install-Catzc {
     [CmdletBinding(DefaultParameterSetName = 'Root')]
     [OutputType([pscustomobject])]

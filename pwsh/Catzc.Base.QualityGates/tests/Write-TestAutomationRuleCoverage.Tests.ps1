@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1
+    folder: tests
+    name: write-test-automation-rule-coverage-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Write-TestAutomationRuleCoverage.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Write-TestAutomationRuleCoverage.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-COVERAGEREPORTEDONLY
+---
+#>
+
 Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGEREPORTEDONLY' {
     BeforeAll {
         $script:allRuleIds = @('ADR-FAKE-TURN', 'ADR-FAKE-PULL', 'ADR-FAKE-FOLD', 'ADR-FAKE-SPIN', 'ADR-FAKE-TWIST')

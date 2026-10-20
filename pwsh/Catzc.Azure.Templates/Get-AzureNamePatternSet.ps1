@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/Get-AzureNamePatternSet.ps1
+    name: get-azure-name-pattern-set
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.Templates/tests/Get-AzureNamePatternSet.Tests.ps1
+    docs: "[Get-AzureNamePatternSet.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-AzureNamePatternSet.ps1.md)"
+---
+#>
+
 function Get-AzureNamePatternSet {
     param()
 

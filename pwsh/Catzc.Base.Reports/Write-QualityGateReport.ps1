@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
+    name: write-quality-gate-report
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Reports
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
+    docs: "[Write-QualityGateReport.ps1.md](docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-PWSH-PARAM-RESOLUTIONORDER
+---
+#>
+
 function Write-QualityGateReport {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'Every gate forwards its own -OutputFolder here, empty when its caller gave none; an explicit empty argument would override a declared default (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
     [CmdletBinding()]

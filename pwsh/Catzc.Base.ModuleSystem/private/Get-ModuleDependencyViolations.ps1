@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyViolations.ps1
+    folder: private
+    name: get-module-dependency-violations
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-ModuleDependencyViolations.ps1.md](docs/references/pwsh/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md)"
+---
+#>
+
 function Get-ModuleDependencyViolations {
     [OutputType([string[]])]
     param()

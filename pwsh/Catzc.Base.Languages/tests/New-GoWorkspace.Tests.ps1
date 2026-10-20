@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
+    folder: tests
+    name: new-go-workspace-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[New-GoWorkspace.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-NOOVERMOCKING
+---
+#>
+
 Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

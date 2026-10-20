@@ -1,7 +1,7 @@
 # pwsh/Catzc.Base.Slides/private/Get-DiagramSupportsDrift.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## help
 
@@ -11,9 +11,9 @@ Holds each page that embeds a diagram against the diagram's declaration.
 
 ### description
 
-Reads each page's `Supports <codes> (<lens> lens)` lines and the folder's `diagram.drawio.yml` (about.adrs, about.lens). A page passes
-when one of its lines names the declaration's codes and lens; a page with no Supports line, or a folder without a declaration, is not
-checked (ADR-REPO-SLIDES-ONEBUILDCOMMAND).
+Reads each page's `Supports <codes> (<lens> lens)` lines and the folder's `diagram.drawio.yml` (about.adrs, about.lens). A page passes when
+one of its lines names the declaration's codes and lens; a page with no Supports line, or a folder without a declaration, is not checked
+(ADR-REPO-SLIDES-ONEBUILDCOMMAND).
 
 ### parameter `Folder`
 

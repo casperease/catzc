@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: announce-state-change-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[AnnounceStateChange.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/AnnounceStateChange.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
+      - ADR-PWSH-ANNOUNCE-INFORMATIONRECORD
+---
+#>
+
 Describe 'Measure-AnnounceStateChange' -Tag 'L0', 'logic', 'ADR-PWSH-ANNOUNCE-INFORMATIONRECORD' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/AnnounceStateChange.psm1') -Force

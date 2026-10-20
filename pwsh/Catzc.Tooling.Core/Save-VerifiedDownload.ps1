@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
+    name: save-verified-download
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1
+    docs: "[Save-VerifiedDownload.ps1.md](docs/references/pwsh/catzc-tooling-core/Save-VerifiedDownload.ps1.md)"
+---
+#>
+
 function Save-VerifiedDownload {
     [CmdletBinding()]
     [OutputType([string])]

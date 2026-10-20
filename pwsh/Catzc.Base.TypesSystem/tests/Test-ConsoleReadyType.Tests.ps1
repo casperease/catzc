@@ -15,7 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[Test-ConsoleReadyType.Tests.ps1.md](/docs/references/pwsh/catzc-base-typessystem/tests/Test-ConsoleReadyType.Tests.ps1.md)"
+    docs: "[Test-ConsoleReadyType.Tests.ps1.md](docs/references/pwsh/catzc-base-typessystem/tests/Test-ConsoleReadyType.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

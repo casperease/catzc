@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Get-ChangeCheckPlan.ps1
+    folder: private
+    name: get-change-check-plan
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1
+    docs: "[Get-ChangeCheckPlan.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-ChangeCheckPlan.ps1.md)"
+    cites:
+      - ADR-PRIN-CONFIG
+---
+#>
+
 function Get-ChangeCheckPlan {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

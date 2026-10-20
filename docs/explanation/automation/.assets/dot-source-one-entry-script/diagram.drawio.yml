@@ -1,9 +1,10 @@
-description: 'Two entry scripts, one per run mode, start the same load: session set-up, load, a run-mode check and the janitors,
-  ending on one line in a console session; each of the three checks that can stop the load fails with a named error.'
+description:
+  "Two entry scripts, one per run mode, start the same load: session set-up, load, a run-mode check and the janitors, ending on one line in
+  a console session; each of the three checks that can stop the load fails with a named error."
 about:
   adrs:
-  - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
-  - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+    - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+    - ADR-AUTO-BUNDLE-BUNDLEISSESSION
   lens: operations
 content:
   title: Dot-source one entry script, and a failed check stops the load with a named error
@@ -12,100 +13,100 @@ content:
   relation: runs next
   theme: dark
   bands:
-  - id: band-run
-    label: RUN AND SEE
+    - id: band-run
+      label: RUN AND SEE
   glyphs:
-  - id: g-importer
-    kind: code
-    label: . ./importer.ps1
-    in: band-run
-  - id: g-import-catzc
-    kind: code
-    label: . Import-Catzc.ps1
-    in: band-run
-  - id: g-session
-    kind: code
-    label: Session set-up
-    in: band-run
-  - id: g-load
-    kind: code
-    label: Load
-    in: band-run
-  - id: g-mode
-    kind: gate
-    label: Run-mode check
-    in: band-run
-  - id: g-janitors
-    kind: code
-    label: Janitors
-    in: band-run
-  - id: r-loaded
-    kind: result
-    label: Loaded in N seconds
-    in: band-run
-  - id: f-stops
-    kind: failure
-    label: Stops with a named error
-    in: band-run
+    - id: g-importer
+      kind: code
+      label: . ./importer.ps1
+      in: band-run
+    - id: g-import-catzc
+      kind: code
+      label: . Import-Catzc.ps1
+      in: band-run
+    - id: g-session
+      kind: code
+      label: Session set-up
+      in: band-run
+    - id: g-load
+      kind: code
+      label: Load
+      in: band-run
+    - id: g-mode
+      kind: gate
+      label: Run-mode check
+      in: band-run
+    - id: g-janitors
+      kind: code
+      label: Janitors
+      in: band-run
+    - id: r-loaded
+      kind: result
+      label: Loaded in N seconds
+      in: band-run
+    - id: f-stops
+      kind: failure
+      label: Stops with a named error
+      in: band-run
   edges:
-  - from: g-importer
-    to: g-session
-    kind: flow
-    label: ''
-  - from: g-import-catzc
-    to: g-session
-    kind: flow
-    label: ''
-  - from: g-session
-    to: g-load
-    kind: flow
-    label: ''
-  - from: g-load
-    to: g-mode
-    kind: flow
-    label: ''
-  - from: g-mode
-    to: g-janitors
-    kind: flow
-    label: ''
-  - from: g-janitors
-    to: r-loaded
-    kind: flow
-    label: ''
-  - from: g-session
-    to: f-stops
-    kind: fail
-    label: ''
-  - from: g-load
-    to: f-stops
-    kind: fail
-    label: ''
-  - from: g-mode
-    to: f-stops
-    kind: fail
-    label: ''
+    - from: g-importer
+      to: g-session
+      kind: flow
+      label: ""
+    - from: g-import-catzc
+      to: g-session
+      kind: flow
+      label: ""
+    - from: g-session
+      to: g-load
+      kind: flow
+      label: ""
+    - from: g-load
+      to: g-mode
+      kind: flow
+      label: ""
+    - from: g-mode
+      to: g-janitors
+      kind: flow
+      label: ""
+    - from: g-janitors
+      to: r-loaded
+      kind: flow
+      label: ""
+    - from: g-session
+      to: f-stops
+      kind: fail
+      label: ""
+    - from: g-load
+      to: f-stops
+      kind: fail
+      label: ""
+    - from: g-mode
+      to: f-stops
+      kind: fail
+      label: ""
   markers:
-  - at: g-importer
-    number: 1
-  - at: g-import-catzc
-    number: 2
-  - at: g-session
-    number: 3
-  - at: g-load
-    number: 4
-  - at: g-mode
-    number: 5
-  - at: g-janitors
-    number: 6
-  - at: r-loaded
-    number: 7
-  - at: f-stops
-    number: 8
+    - at: g-importer
+      number: 1
+    - at: g-import-catzc
+      number: 2
+    - at: g-session
+      number: 3
+    - at: g-load
+      number: 4
+    - at: g-mode
+      number: 5
+    - at: g-janitors
+      number: 6
+    - at: r-loaded
+      number: 7
+    - at: f-stops
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-run:
     x: 20

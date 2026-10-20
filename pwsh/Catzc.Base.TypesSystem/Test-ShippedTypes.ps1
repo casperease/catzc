@@ -17,7 +17,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
-    docs: "[Test-ShippedTypes.ps1.md](/docs/references/pwsh/catzc-base-typessystem/Test-ShippedTypes.ps1.md)"
+    docs: "[Test-ShippedTypes.ps1.md](docs/references/pwsh/catzc-base-typessystem/Test-ShippedTypes.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
 ---

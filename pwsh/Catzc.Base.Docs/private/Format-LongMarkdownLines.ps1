@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/private/Format-LongMarkdownLines.ps1
+    folder: private
+    name: format-long-markdown-lines
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Format-LongMarkdownLines.Tests.ps1
+    docs: "[Format-LongMarkdownLines.ps1.md](docs/references/pwsh/catzc-base-docs/private/Format-LongMarkdownLines.ps1.md)"
+---
+#>
+
 function Format-LongMarkdownLines {
     [CmdletBinding()]
     [OutputType([string])]

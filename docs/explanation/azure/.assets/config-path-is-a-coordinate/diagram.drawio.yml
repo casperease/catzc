@@ -1,11 +1,12 @@
-description: 'A config file''s place under a template''s configuration tree is its coordinate: a root config or a customer
-  config, checked against exactly one subscription, resolves to that subscription and to one resource group.'
+description:
+  "A config file's place under a template's configuration tree is its coordinate: a root config or a customer config, checked against
+  exactly one subscription, resolves to that subscription and to one resource group."
 about:
   adrs:
-  - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
-  - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
-  - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-  - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+    - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+    - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+    - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+    - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
   lens: meta
 content:
   title: A config file's path is a coordinate that resolves to one subscription and one resource group
@@ -14,64 +15,64 @@ content:
   relation: resolves to
   theme: dark
   bands:
-  - id: band-tree
-    label: CONFIGURATION TREE
-  - id: band-resolved
-    label: RESOLVED
+    - id: band-tree
+      label: CONFIGURATION TREE
+    - id: band-resolved
+      label: RESOLVED
   glyphs:
-  - id: g-root
-    kind: file
-    label: root config
-    in: band-tree
-  - id: g-customer
-    kind: file
-    label: customer config
-    in: band-tree
-  - id: g-one
-    kind: gate
-    label: exactly one subscription
-    in: band-resolved
-  - id: e-subscription
-    kind: env
-    label: subscription
-    in: band-resolved
-  - id: e-group
-    kind: env
-    label: resource group
-    in: band-resolved
+    - id: g-root
+      kind: file
+      label: root config
+      in: band-tree
+    - id: g-customer
+      kind: file
+      label: customer config
+      in: band-tree
+    - id: g-one
+      kind: gate
+      label: exactly one subscription
+      in: band-resolved
+    - id: e-subscription
+      kind: env
+      label: subscription
+      in: band-resolved
+    - id: e-group
+      kind: env
+      label: resource group
+      in: band-resolved
   edges:
-  - from: g-root
-    to: g-one
-    kind: flow
-    label: ''
-  - from: g-customer
-    to: g-one
-    kind: flow
-    label: ''
-  - from: g-one
-    to: e-subscription
-    kind: flow
-    label: ''
-  - from: e-subscription
-    to: e-group
-    kind: flow
-    label: ''
+    - from: g-root
+      to: g-one
+      kind: flow
+      label: ""
+    - from: g-customer
+      to: g-one
+      kind: flow
+      label: ""
+    - from: g-one
+      to: e-subscription
+      kind: flow
+      label: ""
+    - from: e-subscription
+      to: e-group
+      kind: flow
+      label: ""
   markers:
-  - at: g-root
-    number: 1
-  - at: g-customer
-    number: 2
-  - at: g-one
-    number: 3
-  - at: e-subscription
-    number: 4
-  - at: e-group
-    number: 5
+    - at: g-root
+      number: 1
+    - at: g-customer
+      number: 2
+    - at: g-one
+      number: 3
+    - at: e-subscription
+      number: 4
+    - at: e-group
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-tree:
     x: 20

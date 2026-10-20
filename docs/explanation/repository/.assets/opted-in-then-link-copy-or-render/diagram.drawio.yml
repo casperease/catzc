@@ -1,13 +1,13 @@
-description: Build-RootConfig loads the registry through its validating config type, keeps the opted-in entries, and sends
-  each one down the copy branch or the generator branch; one primitive writes every file, leaving a headed root file and never
-  a link.
+description:
+  Build-RootConfig loads the registry through its validating config type, keeps the opted-in entries, and sends each one down the copy
+  branch or the generator branch; one primitive writes every file, leaving a headed root file and never a link.
 about:
   adrs:
-  - ADR-REPO-ROOTCFG-REGISTRY
-  - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-  - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
-  - ADR-REPO-ROOTCFG-HEADEDCOPY
-  - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
+    - ADR-REPO-ROOTCFG-REGISTRY
+    - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+    - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
+    - ADR-REPO-ROOTCFG-HEADEDCOPY
+    - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
   lens: implementation
 content:
   title: The optIn filter, then copy or render, through one write primitive
@@ -16,110 +16,110 @@ content:
   relation: calls the next step
   theme: dark
   bands:
-  - id: band-source
-    label: SOURCE OF TRUTH
-  - id: band-materialise
-    label: MATERIALISE
-  - id: band-target
-    label: TARGET
+    - id: band-source
+      label: SOURCE OF TRUTH
+    - id: band-materialise
+      label: MATERIALISE
+    - id: band-target
+      label: TARGET
   glyphs:
-  - id: g-rootconfig-yml
-    kind: file
-    label: rootconfig.yml
-    in: band-source
-  - id: g-config-type
-    kind: type
-    label: RootConfigFiles
-    in: band-materialise
-  - id: f-validation
-    kind: failure
-    label: validation failed
-    in: band-materialise
-  - id: g-targets
-    kind: private
-    label: Get-RootConfigTargets
-    in: band-materialise
-  - id: g-build
-    kind: code
-    label: Build-RootConfig
-    in: band-materialise
-  - id: g-copy-content
-    kind: private
-    label: Get-RootConfigCopyContent
-    in: band-materialise
-  - id: g-rendered-file
-    kind: private
-    label: Get-RootConfigRenderedFile
-    in: band-materialise
-  - id: g-write-if-changed
-    kind: code
-    label: Write-FileIfChanged
-    in: band-materialise
-  - id: r-headed
-    kind: result
-    label: headed root file
-    in: band-target
+    - id: g-rootconfig-yml
+      kind: file
+      label: rootconfig.yml
+      in: band-source
+    - id: g-config-type
+      kind: type
+      label: RootConfigFiles
+      in: band-materialise
+    - id: f-validation
+      kind: failure
+      label: validation failed
+      in: band-materialise
+    - id: g-targets
+      kind: private
+      label: Get-RootConfigTargets
+      in: band-materialise
+    - id: g-build
+      kind: code
+      label: Build-RootConfig
+      in: band-materialise
+    - id: g-copy-content
+      kind: private
+      label: Get-RootConfigCopyContent
+      in: band-materialise
+    - id: g-rendered-file
+      kind: private
+      label: Get-RootConfigRenderedFile
+      in: band-materialise
+    - id: g-write-if-changed
+      kind: code
+      label: Write-FileIfChanged
+      in: band-materialise
+    - id: r-headed
+      kind: result
+      label: headed root file
+      in: band-target
   edges:
-  - from: g-rootconfig-yml
-    to: g-config-type
-    kind: flow
-    label: ''
-  - from: g-config-type
-    to: f-validation
-    kind: fail
-    label: ''
-  - from: g-config-type
-    to: g-targets
-    kind: flow
-    label: ''
-  - from: g-targets
-    to: g-build
-    kind: flow
-    label: ''
-  - from: g-build
-    to: g-copy-content
-    kind: flow
-    label: 13/28
-  - from: g-build
-    to: g-rendered-file
-    kind: flow
-    label: 15/28
-  - from: g-copy-content
-    to: g-write-if-changed
-    kind: flow
-    label: ''
-  - from: g-rendered-file
-    to: g-write-if-changed
-    kind: flow
-    label: ''
-  - from: g-write-if-changed
-    to: r-headed
-    kind: flow
-    label: ''
+    - from: g-rootconfig-yml
+      to: g-config-type
+      kind: flow
+      label: ""
+    - from: g-config-type
+      to: f-validation
+      kind: fail
+      label: ""
+    - from: g-config-type
+      to: g-targets
+      kind: flow
+      label: ""
+    - from: g-targets
+      to: g-build
+      kind: flow
+      label: ""
+    - from: g-build
+      to: g-copy-content
+      kind: flow
+      label: 13/28
+    - from: g-build
+      to: g-rendered-file
+      kind: flow
+      label: 15/28
+    - from: g-copy-content
+      to: g-write-if-changed
+      kind: flow
+      label: ""
+    - from: g-rendered-file
+      to: g-write-if-changed
+      kind: flow
+      label: ""
+    - from: g-write-if-changed
+      to: r-headed
+      kind: flow
+      label: ""
   markers:
-  - at: g-rootconfig-yml
-    number: 1
-  - at: g-config-type
-    number: 2
-  - at: f-validation
-    number: 3
-  - at: g-targets
-    number: 4
-  - at: g-build
-    number: 5
-  - at: g-copy-content
-    number: 6
-  - at: g-rendered-file
-    number: 7
-  - at: g-write-if-changed
-    number: 8
-  - at: r-headed
-    number: 9
+    - at: g-rootconfig-yml
+      number: 1
+    - at: g-config-type
+      number: 2
+    - at: f-validation
+      number: 3
+    - at: g-targets
+      number: 4
+    - at: g-build
+      number: 5
+    - at: g-copy-content
+      number: 6
+    - at: g-rendered-file
+      number: 7
+    - at: g-write-if-changed
+      number: 8
+    - at: r-headed
+      number: 9
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-source:
     x: 20

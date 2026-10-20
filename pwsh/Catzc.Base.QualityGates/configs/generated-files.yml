@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.QualityGates/configs/generated-files.yml
+#     folder: configs
+#     name: generated-files
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.QualityGates
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[generated-files.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/generated-files.yml.md)"
+# ---
+
 writers:
   Build-AdrIndex:
   Build-Glossary:

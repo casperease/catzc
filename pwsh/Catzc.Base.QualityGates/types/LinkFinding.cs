@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/LinkFinding.cs
+    folder: types
+    name: link-finding
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[LinkFinding.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinkFinding.cs.md)"
+---
+*/
+
 using System.Globalization;
 
 namespace Catzc.Base.QualityGates;

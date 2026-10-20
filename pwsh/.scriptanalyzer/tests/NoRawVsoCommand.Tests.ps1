@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: no-raw-vso-command-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NoRawVsoCommand.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1.md)"
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand', '', Justification = 'Test fixtures intentionally contain raw ##vso[task.*] strings to prove the rule flags them.')]
 param()
 

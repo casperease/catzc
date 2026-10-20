@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.QualityGates/configs/file-meta.yml
+#     folder: configs
+#     name: file-meta
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.QualityGates
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[file-meta.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/file-meta.yml.md)"
+# ---
+
 # Whether a file of a class must, may or must not carry a block; the first class that matches decides, else pages for a file with a comment page (required on the type), else the default (forbidden on the type).
 head_policy:
   classes:

@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1
+    folder: tests
+    name: get-azure-bicep-min-version-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-AzureBicepMinVersion.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SAFESEAMSWAPS
+      - ADR-AUTO-TEST-SETUPONCE
+---
+#>
+
 Describe 'Get-AzureBicepMinVersion' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate from the shipped azure.yml: resolve identity from the test config fixture.

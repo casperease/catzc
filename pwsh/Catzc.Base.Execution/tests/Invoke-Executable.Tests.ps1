@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
+    folder: tests
+    name: invoke-executable-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Execution
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Invoke-Executable.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-PROCESSTRIPWIRE
+      - ADR-AUTO-TEST-ONIONOFRINGS
+---
+#>
+
 Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:simpleCmd = if ($IsWindows) {

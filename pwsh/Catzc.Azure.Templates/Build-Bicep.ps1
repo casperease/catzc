@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
+    name: build-bicep
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
+    docs: "[Build-Bicep.ps1.md](docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md)"
+    cites:
+      - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - ADR-PWSH-ERROR-STRICTCLEAN
+      - ADR-PWSH-PREPOST
+---
+#>
+
 function Build-Bicep {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]

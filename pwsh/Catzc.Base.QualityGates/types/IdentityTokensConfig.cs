@@ -1,3 +1,25 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/IdentityTokensConfig.cs
+    folder: types
+    name: identity-tokens-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/types/IdentityTokensConfig.Tests.ps1
+    docs: "[IdentityTokensConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md)"
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

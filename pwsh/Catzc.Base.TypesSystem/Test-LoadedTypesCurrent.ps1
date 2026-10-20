@@ -17,7 +17,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Test-LoadedTypesCurrent.Tests.ps1
-    docs: "[Test-LoadedTypesCurrent.ps1.md](/docs/references/pwsh/catzc-base-typessystem/Test-LoadedTypesCurrent.ps1.md)"
+    docs: "[Test-LoadedTypesCurrent.ps1.md](docs/references/pwsh/catzc-base-typessystem/Test-LoadedTypesCurrent.ps1.md)"
     cites:
       - ADR-AUTO-TYPES-CHANGEDAFTERLOAD
 ---

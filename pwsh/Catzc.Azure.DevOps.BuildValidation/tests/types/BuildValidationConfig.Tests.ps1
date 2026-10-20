@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
+    folder: tests/types
+    name: build-validation-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps.BuildValidation
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[BuildValidationConfig.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
+---
+#>
+
 Describe 'BuildValidationConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {

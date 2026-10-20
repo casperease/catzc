@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Objects/Copy-Object.ps1
+    name: copy-object
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Objects
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
+    docs: "[Copy-Object.ps1.md](docs/references/pwsh/catzc-base-objects/Copy-Object.ps1.md)"
+---
+#>
+
 function Copy-Object {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = '$AcceptWarnings is consumed inside the nested Clone function (it gates the note-properties verbose message), which this rule does not trace across the nested-function boundary')]
     [CmdletBinding()]

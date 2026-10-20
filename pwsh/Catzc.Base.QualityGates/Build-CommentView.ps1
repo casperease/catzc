@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Build-CommentView.ps1
+    name: build-comment-view
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
+    docs: "[Build-CommentView.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Build-CommentView.ps1.md)"
+    cites:
+      - ADR-PRIN-ONELIVE-ONEVERSION
+      - ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION
+---
+#>
+
 function Build-CommentView {
     [CmdletBinding()]
     [OutputType([string[]])]

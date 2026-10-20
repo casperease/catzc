@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
+    folder: tests/types
+    name: network-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[NetworkConfig.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-ONECATEGORY
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION
+      - ADR-AZ-NETWORK-NOOVERLAP
+---
+#>
+
 Describe 'NetworkConfig' -Tag 'L0' {
     BeforeAll {
         $script:baseConfig = [ordered]@{

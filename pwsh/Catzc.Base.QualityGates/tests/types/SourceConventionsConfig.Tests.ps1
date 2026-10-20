@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1
+    folder: tests/types
+    name: source-conventions-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[SourceConventionsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/SourceConventionsConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+---
+#>
+
 Describe 'SourceConventionsConfig' -Tag 'L0' {
     Context 'logic (fixture configs)' -Tag 'logic' {
         It 'gives every check its defaults when the file is empty' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {

@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.SampleIndexed.Tests.ps1
+    folder: tests
+    name: build-bicep-sample-indexed-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-Bicep.SampleIndexed.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleIndexed.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SAFESEAMSWAPS
+      - ADR-AUTO-TEST-SETUPONCE
+---
+#>
+
 # cspell:ignore weutstsidxst
 Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
     BeforeAll {

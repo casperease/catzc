@@ -14,7 +14,7 @@
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
 #   edges:
-#     docs: "[vscode-pipeline-schema.yml.md](/docs/references/pwsh/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md)"
+#     docs: "[vscode-pipeline-schema.yml.md](docs/references/pwsh/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md)"
 # ---
 
 $schema: http://json-schema.org/draft-07/schema#

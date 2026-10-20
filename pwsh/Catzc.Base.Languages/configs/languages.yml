@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Languages/configs/languages.yml
+#     folder: configs
+#     name: languages
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Languages
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[languages.yml.md](docs/references/pwsh/catzc-base-languages/configs/languages.yml.md)"
+# ---
+
 formatters:
   # Prettier, for every language that names it; the extension reads the same .prettierrc.yml and .editorconfig.
   prettier:

@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Config/configs/configs.yml
+#     folder: configs
+#     name: configs
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Config
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[configs.yml.md](docs/references/pwsh/catzc-base-config/configs/configs.yml.md)"
+# ---
+
 configs:
   configs:
     type: Catzc.Base.Config.ConfigsConfig

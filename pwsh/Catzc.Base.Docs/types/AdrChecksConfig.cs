@@ -1,3 +1,32 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AdrChecksConfig.cs
+    folder: types
+    name: adr-checks-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1
+    docs: "[AdrChecksConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

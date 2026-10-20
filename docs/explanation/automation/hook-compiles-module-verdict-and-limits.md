@@ -26,9 +26,9 @@ their files, so the limits it reads and the verdict it gives are the ones `Get-T
 1. **Bash tool.** Claude Code runs shell commands through its Bash tool. The repository's `.claude/settings.json` registers a `PreToolUse`
    hook on it, matching `Bash`, that executes the published hook program before every call and passes the call's payload on standard input.
 2. **Assert-BashTimeout.** The hook is a compiled program under `.claude/hooks/Assert-BashTimeout/`, published to `.claude/hooks/bin/` by
-   `Build-AgentHook` whenever its sources change; the importer runs that publish on every import at a devbox. It is compiled rather
-   than scripted because it runs before every call and starts in about a third of the time a pwsh script does. The program itself only does
-   the I/O: it loads the limits, reads the run environment, asks for the verdict, prints a denial and appends the log line.
+   `Build-AgentHook` whenever its sources change; the importer runs that publish on every import at a devbox. It is compiled rather than
+   scripted because it runs before every call and starts in about a third of the time a pwsh script does. The program itself only does the
+   I/O: it loads the limits, reads the run environment, asks for the verdict, prints a denial and appends the log line.
 3. **BashSafeguard.** The verdict is `BashSafeguard.Decide`, a type that lives in the module and is compiled into the hook from its source
    file. Its one job is to turn a call's payload, the limits and the run environment into either nothing or a reason to deny.
 4. **BoundedCommand.** The background rule, that a call starts with a GNU `timeout` of at most the background limit around exactly one

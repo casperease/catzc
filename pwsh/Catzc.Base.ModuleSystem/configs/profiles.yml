@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.ModuleSystem/configs/profiles.yml
+#     folder: configs
+#     name: profiles
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.ModuleSystem
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[profiles.yml.md](docs/references/pwsh/catzc-base-modulesystem/configs/profiles.yml.md)"
+# ---
+
 profiles:
   minimal:
     - Catzc.Base.Asserts

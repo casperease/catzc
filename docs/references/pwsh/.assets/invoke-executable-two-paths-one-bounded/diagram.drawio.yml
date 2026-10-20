@@ -1,111 +1,111 @@
-description: 'Invoke-Executable forks by parameter set: the streamed path looks up the executable''s time limit and runs it
-  through the C# runner, which kills the process tree when the limit runs out; the direct path runs through Invoke-Expression
-  with no time limit.'
+description:
+  "Invoke-Executable forks by parameter set: the streamed path looks up the executable's time limit and runs it through the C# runner, which
+  kills the process tree when the limit runs out; the direct path runs through Invoke-Expression with no time limit."
 about:
   adrs:
-  - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
-  - ADR-AUTO-TEST
-  - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
+    - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+    - ADR-AUTO-TEST
+    - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
   lens: source
 content:
-  title: 'Invoke-Executable: only the streamed path is time-bounded'
+  title: "Invoke-Executable: only the streamed path is time-bounded"
   kind: reference
   flow: left-to-right
   relation: runs next (code order)
   theme: dark
   bands:
-  - id: band-entry
-    label: ENTRY
-  - id: band-stream
-    label: STREAM
-  - id: band-direct
-    label: DIRECT
+    - id: band-entry
+      label: ENTRY
+    - id: band-stream
+      label: STREAM
+    - id: band-direct
+      label: DIRECT
   groups:
-  - id: grp-timeouts
-    label: Catzc.Base.Timeouts
-    in: band-stream
+    - id: grp-timeouts
+      label: Catzc.Base.Timeouts
+      in: band-stream
   glyphs:
-  - id: g-invoke
-    kind: code
-    label: Invoke-Executable
-    in: band-entry
-  - id: g-timeout
-    kind: code
-    label: Get-TimeoutSeconds
-    in: grp-timeouts
-  - id: f-timeouts-yml
-    kind: file
-    label: timeouts.yml
-    in: grp-timeouts
-  - id: g-streamed
-    kind: private
-    label: Invoke-ExecutableStreamed
-    in: band-stream
-  - id: t-runner
-    kind: type
-    label: CliRunner
-    in: band-stream
-  - id: f-kill
-    kind: failure
-    label: Kill · TimeoutException
-    in: band-stream
-  - id: g-direct
-    kind: private
-    label: Invoke-ExecutableDirect
-    in: band-direct
-  - id: g-expression
-    kind: code
-    label: Invoke-Expression
-    in: band-direct
-  - id: n-no-limit
-    kind: adronly
-    label: no time limit
-    in: band-direct
+    - id: g-invoke
+      kind: code
+      label: Invoke-Executable
+      in: band-entry
+    - id: g-timeout
+      kind: code
+      label: Get-TimeoutSeconds
+      in: grp-timeouts
+    - id: f-timeouts-yml
+      kind: file
+      label: timeouts.yml
+      in: grp-timeouts
+    - id: g-streamed
+      kind: private
+      label: Invoke-ExecutableStreamed
+      in: band-stream
+    - id: t-runner
+      kind: type
+      label: CliRunner
+      in: band-stream
+    - id: f-kill
+      kind: failure
+      label: Kill · TimeoutException
+      in: band-stream
+    - id: g-direct
+      kind: private
+      label: Invoke-ExecutableDirect
+      in: band-direct
+    - id: g-expression
+      kind: code
+      label: Invoke-Expression
+      in: band-direct
+    - id: n-no-limit
+      kind: adronly
+      label: no time limit
+      in: band-direct
   edges:
-  - from: g-invoke
-    to: g-timeout
-    kind: flow
-    label: ''
-  - from: g-timeout
-    to: g-streamed
-    kind: flow
-    label: ''
-  - from: g-streamed
-    to: t-runner
-    kind: flow
-    label: ''
-  - from: t-runner
-    to: f-kill
-    kind: fail
-    label: ''
-  - from: g-invoke
-    to: g-direct
-    kind: flow
-    label: ''
-  - from: g-direct
-    to: g-expression
-    kind: flow
-    label: ''
+    - from: g-invoke
+      to: g-timeout
+      kind: flow
+      label: ""
+    - from: g-timeout
+      to: g-streamed
+      kind: flow
+      label: ""
+    - from: g-streamed
+      to: t-runner
+      kind: flow
+      label: ""
+    - from: t-runner
+      to: f-kill
+      kind: fail
+      label: ""
+    - from: g-invoke
+      to: g-direct
+      kind: flow
+      label: ""
+    - from: g-direct
+      to: g-expression
+      kind: flow
+      label: ""
   markers:
-  - at: g-invoke
-    number: 1
-  - at: g-timeout
-    number: 2
-  - at: g-streamed
-    number: 3
-  - at: t-runner
-    number: 4
-  - at: f-kill
-    number: 5
-  - at: g-direct
-    number: 6
-  - at: g-expression
-    number: 7
+    - at: g-invoke
+      number: 1
+    - at: g-timeout
+      number: 2
+    - at: g-streamed
+      number: 3
+    - at: t-runner
+      number: 4
+    - at: f-kill
+      number: 5
+    - at: g-direct
+      number: 6
+    - at: g-expression
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-entry:
     x: 20

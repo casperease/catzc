@@ -16,7 +16,7 @@ catzc:
     catzc_bundle: azure
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/types/VscodeExtensionsConfig.Tests.ps1
-    docs: "[VscodeExtensionsConfig.cs.md](/docs/references/pwsh/catzc-base-vscode/types/VscodeExtensionsConfig.cs.md)"
+    docs: "[VscodeExtensionsConfig.cs.md](docs/references/pwsh/catzc-base-vscode/types/VscodeExtensionsConfig.cs.md)"
     cites:
       - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-ROOTCFG

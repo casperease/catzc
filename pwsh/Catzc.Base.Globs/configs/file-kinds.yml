@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Globs/configs/file-kinds.yml
+#     folder: configs
+#     name: file-kinds
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Globs
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[file-kinds.yml.md](docs/references/pwsh/catzc-base-globs/configs/file-kinds.yml.md)"
+# ---
+
 kinds:
   comment-page:
     definition: The page that holds the long comments moved out of one code or config file.

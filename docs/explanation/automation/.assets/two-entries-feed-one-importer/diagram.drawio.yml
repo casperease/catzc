@@ -1,9 +1,10 @@
-description: Two entry scripts, one per run mode, feed one importer; the importer and its bootstrap are removed once the load
-  is done, and the shared internal layer, the vendored modules, the cats modules and the janitor owners stay loaded.
+description:
+  Two entry scripts, one per run mode, feed one importer; the importer and its bootstrap are removed once the load is done, and the shared
+  internal layer, the vendored modules, the cats modules and the janitor owners stay loaded.
 about:
   adrs:
-  - ADR-AUTO-BUNDLE-TWOROOTS
-  - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+    - ADR-AUTO-BUNDLE-TWOROOTS
+    - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
   lens: architecture
 content:
   title: Two entry scripts feed one importer, and the importer leaves once the load is done
@@ -12,98 +13,98 @@ content:
   relation: drives
   theme: dark
   bands:
-  - id: band-entry
-    label: ENTRY
-  - id: band-removed
-    label: REMOVED AFTER LOAD
-  - id: band-stays
-    label: STAYS LOADED
+    - id: band-entry
+      label: ENTRY
+    - id: band-removed
+      label: REMOVED AFTER LOAD
+    - id: band-stays
+      label: STAYS LOADED
   glyphs:
-  - id: g-importer-ps1
-    kind: code
-    label: importer.ps1
-    in: band-entry
-  - id: g-import-catzc
-    kind: code
-    label: Import-Catzc.ps1
-    in: band-entry
-  - id: g-importer
-    kind: code
-    label: Catzc.Internal.Importer
-    in: band-removed
-  - id: g-bootstrap
-    kind: code
-    label: Catzc.Internal.Bootstrap
-    in: band-removed
-  - id: s-internal
-    kind: set
-    label: .internal shared layer
-    in: band-stays
-  - id: s-vendor
-    kind: set
-    label: .vendor
-    in: band-stays
-  - id: s-janitors
-    kind: set
-    label: Janitor owners
-    in: band-stays
-  - id: s-modules
-    kind: set
-    label: Catzc.* modules
-    in: band-stays
+    - id: g-importer-ps1
+      kind: code
+      label: importer.ps1
+      in: band-entry
+    - id: g-import-catzc
+      kind: code
+      label: Import-Catzc.ps1
+      in: band-entry
+    - id: g-importer
+      kind: code
+      label: Catzc.Internal.Importer
+      in: band-removed
+    - id: g-bootstrap
+      kind: code
+      label: Catzc.Internal.Bootstrap
+      in: band-removed
+    - id: s-internal
+      kind: set
+      label: .internal shared layer
+      in: band-stays
+    - id: s-vendor
+      kind: set
+      label: .vendor
+      in: band-stays
+    - id: s-janitors
+      kind: set
+      label: Janitor owners
+      in: band-stays
+    - id: s-modules
+      kind: set
+      label: Catzc.* modules
+      in: band-stays
   edges:
-  - from: g-importer-ps1
-    to: g-importer
-    kind: flow
-    label: ''
-  - from: g-import-catzc
-    to: g-importer
-    kind: flow
-    label: ''
-  - from: g-importer
-    to: s-internal
-    kind: thick
-    label: ''
-  - from: g-importer
-    to: s-vendor
-    kind: thick
-    label: ''
-  - from: g-importer
-    to: s-janitors
-    kind: thick
-    label: ''
-  - from: g-importer
-    to: g-bootstrap
-    kind: flow
-    label: ''
-  - from: g-bootstrap
-    to: s-modules
-    kind: thick
-    label: ''
+    - from: g-importer-ps1
+      to: g-importer
+      kind: flow
+      label: ""
+    - from: g-import-catzc
+      to: g-importer
+      kind: flow
+      label: ""
+    - from: g-importer
+      to: s-internal
+      kind: thick
+      label: ""
+    - from: g-importer
+      to: s-vendor
+      kind: thick
+      label: ""
+    - from: g-importer
+      to: s-janitors
+      kind: thick
+      label: ""
+    - from: g-importer
+      to: g-bootstrap
+      kind: flow
+      label: ""
+    - from: g-bootstrap
+      to: s-modules
+      kind: thick
+      label: ""
   markers:
-  - at: g-importer-ps1
-    number: 1
-  - at: g-import-catzc
-    number: 2
-  - at: band-entry
-    number: 3
-  - at: g-importer
-    number: 4
-  - at: g-bootstrap
-    number: 5
-  - at: s-internal
-    number: 6
-  - at: s-vendor
-    number: 7
-  - at: s-modules
-    number: 8
-  - at: s-janitors
-    number: 9
+    - at: g-importer-ps1
+      number: 1
+    - at: g-import-catzc
+      number: 2
+    - at: band-entry
+      number: 3
+    - at: g-importer
+      number: 4
+    - at: g-bootstrap
+      number: 5
+    - at: s-internal
+      number: 6
+    - at: s-vendor
+      number: 7
+    - at: s-modules
+      number: 8
+    - at: s-janitors
+      number: 9
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-entry:
     x: 20

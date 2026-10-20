@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
+    folder: tests
+    name: sync-ado-build-validations-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps.BuildValidation
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[Sync-AdoBuildValidations.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/Sync-AdoBuildValidations.Tests.ps1.md)"
+---
+#>
+
 Describe 'Sync-AdoBuildValidations' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'build-validation' } -MockWith {

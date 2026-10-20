@@ -1,12 +1,13 @@
-description: The five keys of variants.yml are loaded through Get-Config and read by one private reader, which feeds the Get-
-  accessors, which feed the Test- and Assert- guards.
+description:
+  The five keys of variants.yml are loaded through Get-Config and read by one private reader, which feeds the Get- accessors, which feed the
+  Test- and Assert- guards.
 about:
   adrs:
-  - ADR-REPO-VARIANT-SESSIONVARIANT
-  - ADR-REPO-VARIANT-NODIRECTREADS
-  - ADR-REPO-VARIANT-ADONAMING
-  - ADR-REPO-VARIANT-HAVECUSTOMERS
-  - ADR-REPO-VARIANT-GITWORKSPACE
+    - ADR-REPO-VARIANT-SESSIONVARIANT
+    - ADR-REPO-VARIANT-NODIRECTREADS
+    - ADR-REPO-VARIANT-ADONAMING
+    - ADR-REPO-VARIANT-HAVECUSTOMERS
+    - ADR-REPO-VARIANT-GITWORKSPACE
   lens: implementation
 content:
   title: Five keys, one private reader, fifteen exported primitives
@@ -15,118 +16,118 @@ content:
   relation: feeds
   theme: dark
   bands:
-  - id: band-file
-    label: FILE
-  - id: band-read-path
-    label: READ PATH
-  - id: band-accessors
-    label: ACCESSORS
-  - id: band-guards
-    label: GUARDS
+    - id: band-file
+      label: FILE
+    - id: band-read-path
+      label: READ PATH
+    - id: band-accessors
+      label: ACCESSORS
+    - id: band-guards
+      label: GUARDS
   glyphs:
-  - id: g-variants-yml
-    kind: file
-    label: variants.yml
-    in: band-file
-  - id: g-get-config
-    kind: code
-    label: Get-Config -Config variants
-    in: band-read-path
-  - id: g-get-variant
-    kind: private
-    label: Get-Variant
-    in: band-read-path
-  - id: g-ado-naming
-    kind: code
-    label: Get-AdoNaming
-    in: band-accessors
-  - id: g-git-workspace
-    kind: code
-    label: Get-GitWorkspace
-    in: band-accessors
-  - id: g-enabled-customers
-    kind: code
-    label: Get-EnabledCustomers
-    in: band-accessors
-  - id: g-aspect-track
-    kind: code
-    label: Get-AspectDeclaration · Get-Track
-    in: band-accessors
-  - id: g-test-ado-naming
-    kind: code
-    label: Test-/Assert-AdoNaming
-    in: band-guards
-  - id: g-test-git-workspace
-    kind: code
-    label: Test-GitWorkspace
-    in: band-guards
-  - id: g-test-customers
-    kind: code
-    label: Test-/Assert-HaveCustomer(s)
-    in: band-guards
+    - id: g-variants-yml
+      kind: file
+      label: variants.yml
+      in: band-file
+    - id: g-get-config
+      kind: code
+      label: Get-Config -Config variants
+      in: band-read-path
+    - id: g-get-variant
+      kind: private
+      label: Get-Variant
+      in: band-read-path
+    - id: g-ado-naming
+      kind: code
+      label: Get-AdoNaming
+      in: band-accessors
+    - id: g-git-workspace
+      kind: code
+      label: Get-GitWorkspace
+      in: band-accessors
+    - id: g-enabled-customers
+      kind: code
+      label: Get-EnabledCustomers
+      in: band-accessors
+    - id: g-aspect-track
+      kind: code
+      label: Get-AspectDeclaration · Get-Track
+      in: band-accessors
+    - id: g-test-ado-naming
+      kind: code
+      label: Test-/Assert-AdoNaming
+      in: band-guards
+    - id: g-test-git-workspace
+      kind: code
+      label: Test-GitWorkspace
+      in: band-guards
+    - id: g-test-customers
+      kind: code
+      label: Test-/Assert-HaveCustomer(s)
+      in: band-guards
   edges:
-  - from: g-variants-yml
-    to: g-get-config
-    kind: flow
-    label: ''
-  - from: g-get-config
-    to: g-get-variant
-    kind: flow
-    label: ''
-  - from: g-get-variant
-    to: g-ado-naming
-    kind: flow
-    label: ''
-  - from: g-get-variant
-    to: g-git-workspace
-    kind: flow
-    label: ''
-  - from: g-get-variant
-    to: g-enabled-customers
-    kind: flow
-    label: ''
-  - from: g-get-variant
-    to: g-aspect-track
-    kind: flow
-    label: ''
-  - from: g-ado-naming
-    to: g-test-ado-naming
-    kind: flow
-    label: ''
-  - from: g-git-workspace
-    to: g-test-git-workspace
-    kind: flow
-    label: ''
-  - from: g-enabled-customers
-    to: g-test-customers
-    kind: flow
-    label: ''
+    - from: g-variants-yml
+      to: g-get-config
+      kind: flow
+      label: ""
+    - from: g-get-config
+      to: g-get-variant
+      kind: flow
+      label: ""
+    - from: g-get-variant
+      to: g-ado-naming
+      kind: flow
+      label: ""
+    - from: g-get-variant
+      to: g-git-workspace
+      kind: flow
+      label: ""
+    - from: g-get-variant
+      to: g-enabled-customers
+      kind: flow
+      label: ""
+    - from: g-get-variant
+      to: g-aspect-track
+      kind: flow
+      label: ""
+    - from: g-ado-naming
+      to: g-test-ado-naming
+      kind: flow
+      label: ""
+    - from: g-git-workspace
+      to: g-test-git-workspace
+      kind: flow
+      label: ""
+    - from: g-enabled-customers
+      to: g-test-customers
+      kind: flow
+      label: ""
   markers:
-  - at: g-variants-yml
-    number: 1
-  - at: g-get-config
-    number: 2
-  - at: g-get-variant
-    number: 3
-  - at: g-ado-naming
-    number: 4
-  - at: g-git-workspace
-    number: 5
-  - at: g-enabled-customers
-    number: 6
-  - at: g-aspect-track
-    number: 7
-  - at: g-test-ado-naming
-    number: 8
-  - at: g-test-git-workspace
-    number: 9
-  - at: g-test-customers
-    number: 10
+    - at: g-variants-yml
+      number: 1
+    - at: g-get-config
+      number: 2
+    - at: g-get-variant
+      number: 3
+    - at: g-ado-naming
+      number: 4
+    - at: g-git-workspace
+      number: 5
+    - at: g-enabled-customers
+      number: 6
+    - at: g-aspect-track
+      number: 7
+    - at: g-test-ado-naming
+      number: 8
+    - at: g-test-git-workspace
+      number: 9
+    - at: g-test-customers
+      number: 10
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-file:
     x: 20

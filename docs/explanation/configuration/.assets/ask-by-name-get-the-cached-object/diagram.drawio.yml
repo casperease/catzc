@@ -1,12 +1,13 @@
-description: Get-ConfigValue and Get-Config resolve a name to one file and answer with the session's cached object; the first
-  read parses and types the file, and a bad key, an unknown or ambiguous name or a malformed config throws at the call.
+description:
+  Get-ConfigValue and Get-Config resolve a name to one file and answer with the session's cached object; the first read parses and types the
+  file, and a bad key, an unknown or ambiguous name or a malformed config throws at the call.
 about:
   adrs:
-  - ADR-CONF-LOADING-ONEREADER
-  - ADR-CONF-LOADING-EXISTENCEDISCOVERED
-  - ADR-CONF-LOADING-CACHEBYPATH
-  - ADR-CONF-LOADING-CSHARPCONFIGTYPE
-  - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+    - ADR-CONF-LOADING-ONEREADER
+    - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+    - ADR-CONF-LOADING-CACHEBYPATH
+    - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+    - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
   lens: operations
 content:
   title: Ask for a config by name and get the cached object back
@@ -15,100 +16,100 @@ content:
   relation: what runs next
   theme: dark
   bands:
-  - id: band-run
-    label: WHAT YOU RUN
-  - id: band-first
-    label: FIRST READ
-  - id: band-throws
-    label: THROWS
+    - id: band-run
+      label: WHAT YOU RUN
+    - id: band-first
+      label: FIRST READ
+    - id: band-throws
+      label: THROWS
   glyphs:
-  - id: g-commands
-    kind: code
-    label: Get-ConfigValue · Get-Config
-    in: band-run
-  - id: g-resolve
-    kind: code
-    label: name -> one file
-    in: band-run
-  - id: s-cache
-    kind: store
-    label: session cache
-    in: band-run
-  - id: r-same
-    kind: result
-    label: same object
-    in: band-run
-  - id: g-parsed
-    kind: code
-    label: parsed and typed
-    in: band-first
-  - id: f-bad-key
-    kind: failure
-    label: bad key
-    in: band-throws
-  - id: f-unknown
-    kind: failure
-    label: unknown or ambiguous name
-    in: band-throws
-  - id: f-malformed
-    kind: failure
-    label: malformed config
-    in: band-throws
+    - id: g-commands
+      kind: code
+      label: Get-ConfigValue · Get-Config
+      in: band-run
+    - id: g-resolve
+      kind: code
+      label: name -> one file
+      in: band-run
+    - id: s-cache
+      kind: store
+      label: session cache
+      in: band-run
+    - id: r-same
+      kind: result
+      label: same object
+      in: band-run
+    - id: g-parsed
+      kind: code
+      label: parsed and typed
+      in: band-first
+    - id: f-bad-key
+      kind: failure
+      label: bad key
+      in: band-throws
+    - id: f-unknown
+      kind: failure
+      label: unknown or ambiguous name
+      in: band-throws
+    - id: f-malformed
+      kind: failure
+      label: malformed config
+      in: band-throws
   edges:
-  - from: g-commands
-    to: g-resolve
-    kind: flow
-    label: ''
-  - from: g-resolve
-    to: s-cache
-    kind: flow
-    label: ''
-  - from: s-cache
-    to: r-same
-    kind: flow
-    label: ''
-  - from: s-cache
-    to: g-parsed
-    kind: flow
-    label: ''
-  - from: g-parsed
-    to: r-same
-    kind: flow
-    label: ''
-  - from: g-commands
-    to: f-bad-key
-    kind: fail
-    label: ''
-  - from: g-resolve
-    to: f-unknown
-    kind: fail
-    label: ''
-  - from: g-parsed
-    to: f-malformed
-    kind: fail
-    label: ''
+    - from: g-commands
+      to: g-resolve
+      kind: flow
+      label: ""
+    - from: g-resolve
+      to: s-cache
+      kind: flow
+      label: ""
+    - from: s-cache
+      to: r-same
+      kind: flow
+      label: ""
+    - from: s-cache
+      to: g-parsed
+      kind: flow
+      label: ""
+    - from: g-parsed
+      to: r-same
+      kind: flow
+      label: ""
+    - from: g-commands
+      to: f-bad-key
+      kind: fail
+      label: ""
+    - from: g-resolve
+      to: f-unknown
+      kind: fail
+      label: ""
+    - from: g-parsed
+      to: f-malformed
+      kind: fail
+      label: ""
   markers:
-  - at: g-commands
-    number: 1
-  - at: g-resolve
-    number: 2
-  - at: s-cache
-    number: 3
-  - at: r-same
-    number: 4
-  - at: g-parsed
-    number: 5
-  - at: f-bad-key
-    number: 6
-  - at: f-unknown
-    number: 7
-  - at: f-malformed
-    number: 8
+    - at: g-commands
+      number: 1
+    - at: g-resolve
+      number: 2
+    - at: s-cache
+      number: 3
+    - at: r-same
+      number: 4
+    - at: g-parsed
+      number: 5
+    - at: f-bad-key
+      number: 6
+    - at: f-unknown
+      number: 7
+    - at: f-malformed
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-run:
     x: 20

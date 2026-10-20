@@ -1,1 +1,20 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Reports/configs/reports.yml
+#     folder: configs
+#     name: reports
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Reports
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[reports.yml.md](docs/references/pwsh/catzc-base-reports/configs/reports.yml.md)"
+# ---
+
 {}

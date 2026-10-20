@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
+    folder: tests
+    name: register-ado-build-validation-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps.BuildValidation
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[Register-AdoBuildValidation.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/Register-AdoBuildValidation.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN
+---
+#>
+
 Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:globSet = [Catzc.Base.Globs.GlobSet]::new(

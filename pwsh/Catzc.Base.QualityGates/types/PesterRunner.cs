@@ -1,3 +1,25 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/PesterRunner.cs
+    folder: types
+    name: pester-runner
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1
+    docs: "[PesterRunner.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/PesterRunner.cs.md)"
+---
+*/
+
 namespace Catzc.Base.QualityGates;
 
 using System;

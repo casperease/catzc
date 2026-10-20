@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/private/Remove-UvPipOrStrayInstall.ps1
+    folder: private
+    name: remove-uv-pip-or-stray-install
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Remove-UvPipOrStrayInstall.ps1.md](docs/references/pwsh/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md)"
+    cites:
+      - ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM
+---
+#>
+
 function Remove-UvPipOrStrayInstall {
     [CmdletBinding()]
     [OutputType([bool])]

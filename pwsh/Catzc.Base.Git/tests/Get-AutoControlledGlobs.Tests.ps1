@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
+    folder: tests
+    name: get-auto-controlled-globs-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Git
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-AutoControlledGlobs.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/Get-AutoControlledGlobs.Tests.ps1.md)"
+    cites:
+      - ADR-REPO-OUTDIR-PLANNOTES
+---
+#>
+
 Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config {

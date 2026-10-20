@@ -17,7 +17,7 @@ catzc:
     visibility: private
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
-    docs: "[Test-ConsoleReadyType.ps1.md](/docs/references/pwsh/catzc-base-typessystem/private/Test-ConsoleReadyType.ps1.md)"
+    docs: "[Test-ConsoleReadyType.ps1.md](docs/references/pwsh/catzc-base-typessystem/private/Test-ConsoleReadyType.ps1.md)"
 ---
 #>
 

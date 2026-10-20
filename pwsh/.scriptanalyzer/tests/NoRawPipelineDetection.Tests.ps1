@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: no-raw-pipeline-detection-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NoRawPipelineDetection.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1.md)"
+---
+#>
+
 Describe 'Measure-NoRawPipelineDetection' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoRawPipelineDetection.psm1') -Force

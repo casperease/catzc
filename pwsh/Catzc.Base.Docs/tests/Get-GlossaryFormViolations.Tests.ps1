@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Get-GlossaryFormViolations.Tests.ps1
+    folder: tests
+    name: get-glossary-form-violations-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-GlossaryFormViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryFormViolations.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE
+      - ADR-REPO-FILEMETA-HEADPOLICY
+      - ADR-REPO-VOCAB-GLOSSARYSOURCE
+      - ADR-REPO-VOCAB-FAMILYFORMS
+---
+#>
+
 Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = {

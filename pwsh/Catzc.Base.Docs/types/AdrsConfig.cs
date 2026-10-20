@@ -1,3 +1,35 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+    folder: types
+    name: adrs-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
+    docs: "[AdrsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
+      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
+      - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - ADR-DSGN-TRACK-VALUECHAINSTACK
+      - ADR-DSGN-TRACK-VALUECHAINCONCERN
+      - ADR-FLOW-CD
+      - ADR-REPO-AI
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

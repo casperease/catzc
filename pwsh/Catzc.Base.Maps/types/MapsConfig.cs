@@ -1,3 +1,29 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/MapsConfig.cs
+    folder: types
+    name: maps-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1
+    docs: "[MapsConfig.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

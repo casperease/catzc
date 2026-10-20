@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+    name: test-ado-pipeline-trigger-glob
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
+    docs: "[Test-AdoPipelineTriggerGlob.ps1.md](docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+      - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+---
+#>
+
 function Test-AdoPipelineTriggerGlob {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

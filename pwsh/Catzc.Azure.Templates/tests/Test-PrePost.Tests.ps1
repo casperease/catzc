@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Test-PrePost.Tests.ps1
+    folder: tests
+    name: test-pre-post-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-PrePost.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md)"
+---
+#>
+
 BeforeAll {
     Import-Module (Join-Path $PSScriptRoot '../assets/PrePost.psm1') -Force
 }

@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Writers/Write-Message.ps1
+    name: write-message
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Writers
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Writers/tests/Write-Message.Tests.ps1
+    docs: "[Write-Message.ps1.md](docs/references/pwsh/catzc-base-writers/Write-Message.ps1.md)"
+    cites:
+      - ADR-AUTO-CONSOLE-SPARINGCOLOUR
+      - ADR-AUTO-CONSOLE-NOBOXDRAWING
+---
+#>
+
 function Write-Message {
     [CmdletBinding(DefaultParameterSetName = 'Default')]
     param(

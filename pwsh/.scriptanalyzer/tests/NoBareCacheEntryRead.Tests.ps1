@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: no-bare-cache-entry-read-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NoBareCacheEntryRead.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+---
+#>
+
 Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE-STRICTSAFEPROBE' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoBareCacheEntryRead.psm1') -Force

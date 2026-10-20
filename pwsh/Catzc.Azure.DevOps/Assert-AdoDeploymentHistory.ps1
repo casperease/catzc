@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/Assert-AdoDeploymentHistory.ps1
+    name: assert-ado-deployment-history
+    filetype: ps1
+    role: function
+    subkind: assert
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.DevOps/tests/Assert-AdoDeploymentHistory.Tests.ps1
+    docs: "[Assert-AdoDeploymentHistory.ps1.md](docs/references/pwsh/catzc-azure-devops/Assert-AdoDeploymentHistory.ps1.md)"
+    cites:
+      - ADR-FLOW-CD-CERTIFYINGRECORD
+---
+#>
+
 function Assert-AdoDeploymentHistory {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,12 +1,13 @@
-description: A source of truth and the registry feed the single writer, which reproduces every opted-in root file as a headed
-  file; one boolean per entry sends it to a gitignored or a tracked target.
+description:
+  A source of truth and the registry feed the single writer, which reproduces every opted-in root file as a headed file; one boolean per
+  entry sends it to a gitignored or a tracked target.
 about:
   adrs:
-  - ADR-REPO-ROOTCFG-FULLYMANAGED
-  - ADR-REPO-ROOTCFG-REGISTRY
-  - ADR-REPO-ROOTCFG-COMMITTEDFLAG
-  - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-  - ADR-REPO-ROOTCFG-HEADEDCOPY
+    - ADR-REPO-ROOTCFG-FULLYMANAGED
+    - ADR-REPO-ROOTCFG-REGISTRY
+    - ADR-REPO-ROOTCFG-COMMITTEDFLAG
+    - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+    - ADR-REPO-ROOTCFG-HEADEDCOPY
   lens: meta
 content:
   title: Every managed root file has one source of truth, one writer, and one boolean that decides git membership
@@ -15,66 +16,66 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-source
-    label: SOURCE OF TRUTH
-  - id: band-materialise
-    label: MATERIALISE
-  - id: band-target
-    label: TARGET
+    - id: band-source
+      label: SOURCE OF TRUTH
+    - id: band-materialise
+      label: MATERIALISE
+    - id: band-target
+      label: TARGET
   glyphs:
-  - id: g-source
-    kind: file
-    label: source of truth
-    in: band-source
-  - id: g-registry
-    kind: file
-    label: registry
-    in: band-source
-  - id: g-writer
-    kind: code
-    label: single writer
-    in: band-materialise
-  - id: r-gitignored
-    kind: result
-    label: gitignored target
-    in: band-target
-  - id: r-tracked
-    kind: result
-    label: tracked target
-    in: band-target
+    - id: g-source
+      kind: file
+      label: source of truth
+      in: band-source
+    - id: g-registry
+      kind: file
+      label: registry
+      in: band-source
+    - id: g-writer
+      kind: code
+      label: single writer
+      in: band-materialise
+    - id: r-gitignored
+      kind: result
+      label: gitignored target
+      in: band-target
+    - id: r-tracked
+      kind: result
+      label: tracked target
+      in: band-target
   edges:
-  - from: g-source
-    to: g-writer
-    kind: flow
-    label: ''
-  - from: g-registry
-    to: g-writer
-    kind: flow
-    label: ''
-  - from: g-writer
-    to: r-gitignored
-    kind: flow
-    label: 22/28
-  - from: g-writer
-    to: r-tracked
-    kind: flow
-    label: 6/28
+    - from: g-source
+      to: g-writer
+      kind: flow
+      label: ""
+    - from: g-registry
+      to: g-writer
+      kind: flow
+      label: ""
+    - from: g-writer
+      to: r-gitignored
+      kind: flow
+      label: 22/28
+    - from: g-writer
+      to: r-tracked
+      kind: flow
+      label: 6/28
   markers:
-  - at: g-source
-    number: 1
-  - at: g-registry
-    number: 2
-  - at: g-writer
-    number: 3
-  - at: r-gitignored
-    number: 4
-  - at: r-tracked
-    number: 5
+    - at: g-source
+      number: 1
+    - at: g-registry
+      number: 2
+    - at: g-writer
+      number: 3
+    - at: r-gitignored
+      number: 4
+    - at: r-tracked
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-source:
     x: 20

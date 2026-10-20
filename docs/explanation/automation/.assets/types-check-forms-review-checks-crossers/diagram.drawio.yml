@@ -1,16 +1,17 @@
-description: Three types check path forms at construction and throw on a mis-formed or wrong-anchor path; the rules about
-  crossing the boundary, through the two crossers and only at the point of use, have no gate and are left to code review.
+description:
+  Three types check path forms at construction and throw on a mis-formed or wrong-anchor path; the rules about crossing the boundary,
+  through the two crossers and only at the point of use, have no gate and are left to code review.
 about:
   adrs:
-  - ADR-AUTO-PATH-TWOFORMS
-  - ADR-AUTO-PATH-COMMUNICATIONFORM
-  - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
-  - ADR-AUTO-PATH-CENTRALNORMALIZATION
-  - ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM
-  - ADR-AUTO-PATH-NAMEBYFORM
-  - ADR-AUTO-PATH-OUTANCHOR
-  - ADR-AUTO-PATH-PUBLISHEDARTIFACT
-  - ADR-AUTO-PATH-WORKSPACEANCHOR
+    - ADR-AUTO-PATH-TWOFORMS
+    - ADR-AUTO-PATH-COMMUNICATIONFORM
+    - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+    - ADR-AUTO-PATH-CENTRALNORMALIZATION
+    - ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM
+    - ADR-AUTO-PATH-NAMEBYFORM
+    - ADR-AUTO-PATH-OUTANCHOR
+    - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+    - ADR-AUTO-PATH-WORKSPACEANCHOR
   lens: governance
 content:
   title: Three types check path forms at construction, and the crossing rules are left to review
@@ -19,114 +20,114 @@ content:
   relation: checks
   theme: dark
   bands:
-  - id: band-communication
-    label: COMMUNICATION FORM
-  - id: band-crossers
-    label: THE TWO CROSSERS
-  - id: band-binding
-    label: BINDING FORM
-  - id: band-stage
-    label: CROSS-STAGE
+    - id: band-communication
+      label: COMMUNICATION FORM
+    - id: band-crossers
+      label: THE TWO CROSSERS
+    - id: band-binding
+      label: BINDING FORM
+    - id: band-stage
+      label: CROSS-STAGE
   glyphs:
-  - id: s-communication
-    kind: set
-    label: Communication form
-    in: band-communication
-  - id: g-repo-relative
-    kind: gate
-    label: RepoRelativePath
-    in: band-communication
-  - id: g-inspiration
-    kind: gate
-    label: InspirationRoot
-    in: band-communication
-  - id: g-crossers
-    kind: code
-    label: The two crossers
-    in: band-crossers
-  - id: a-review
-    kind: adronly
-    label: Code review
-    in: band-crossers
-  - id: s-binding
-    kind: set
-    label: Binding form
-    in: band-binding
-  - id: s-artifact
-    kind: set
-    label: Published artifact
-    in: band-stage
-  - id: g-reference
-    kind: gate
-    label: ArtifactRef
-    in: band-stage
+    - id: s-communication
+      kind: set
+      label: Communication form
+      in: band-communication
+    - id: g-repo-relative
+      kind: gate
+      label: RepoRelativePath
+      in: band-communication
+    - id: g-inspiration
+      kind: gate
+      label: InspirationRoot
+      in: band-communication
+    - id: g-crossers
+      kind: code
+      label: The two crossers
+      in: band-crossers
+    - id: a-review
+      kind: adronly
+      label: Code review
+      in: band-crossers
+    - id: s-binding
+      kind: set
+      label: Binding form
+      in: band-binding
+    - id: s-artifact
+      kind: set
+      label: Published artifact
+      in: band-stage
+    - id: g-reference
+      kind: gate
+      label: ArtifactRef
+      in: band-stage
   edges:
-  - from: g-repo-relative
-    to: s-communication
-    kind: flow
-    label: ''
-  - from: g-inspiration
-    to: s-communication
-    kind: flow
-    label: ''
-  - from: g-reference
-    to: s-artifact
-    kind: flow
-    label: ''
+    - from: g-repo-relative
+      to: s-communication
+      kind: flow
+      label: ""
+    - from: g-inspiration
+      to: s-communication
+      kind: flow
+      label: ""
+    - from: g-reference
+      to: s-artifact
+      kind: flow
+      label: ""
   markers:
-  - at: s-communication
-    number: 1
-  - at: g-crossers
-    number: 2
-  - at: s-binding
-    number: 3
-  - at: g-repo-relative
-    number: 4
-  - at: g-inspiration
-    number: 5
-  - at: a-review
-    number: 6
-  - at: s-artifact
-    number: 7
-  - at: g-reference
-    number: 8
+    - at: s-communication
+      number: 1
+    - at: g-crossers
+      number: 2
+    - at: s-binding
+      number: 3
+    - at: g-repo-relative
+      number: 4
+    - at: g-inspiration
+      number: 5
+    - at: a-review
+      number: 6
+    - at: s-artifact
+      number: 7
+    - at: g-reference
+      number: 8
   chips:
-  - at: s-communication
-    kind: rule
-    rule: ADR-AUTO-PATH-TWOFORMS
-  - at: s-communication
-    kind: rule
-    rule: ADR-AUTO-PATH-COMMUNICATIONFORM
-  - at: s-communication
-    kind: rule
-    rule: ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM
-  - at: s-communication
-    kind: rule
-    rule: ADR-AUTO-PATH-WORKSPACEANCHOR
-  - at: g-crossers
-    kind: rule
-    rule: ADR-AUTO-PATH-CENTRALNORMALIZATION
-    gated: false
-  - at: g-crossers
-    kind: rule
-    rule: ADR-AUTO-PATH-NAMEBYFORM
-    gated: false
-  - at: g-crossers
-    kind: rule
-    rule: ADR-AUTO-PATH-OUTANCHOR
-    gated: false
-  - at: s-binding
-    kind: rule
-    rule: ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
-    gated: false
-  - at: s-artifact
-    kind: rule
-    rule: ADR-AUTO-PATH-PUBLISHEDARTIFACT
+    - at: s-communication
+      kind: rule
+      rule: ADR-AUTO-PATH-TWOFORMS
+    - at: s-communication
+      kind: rule
+      rule: ADR-AUTO-PATH-COMMUNICATIONFORM
+    - at: s-communication
+      kind: rule
+      rule: ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM
+    - at: s-communication
+      kind: rule
+      rule: ADR-AUTO-PATH-WORKSPACEANCHOR
+    - at: g-crossers
+      kind: rule
+      rule: ADR-AUTO-PATH-CENTRALNORMALIZATION
+      gated: false
+    - at: g-crossers
+      kind: rule
+      rule: ADR-AUTO-PATH-NAMEBYFORM
+      gated: false
+    - at: g-crossers
+      kind: rule
+      rule: ADR-AUTO-PATH-OUTANCHOR
+      gated: false
+    - at: s-binding
+      kind: rule
+      rule: ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+      gated: false
+    - at: s-artifact
+      kind: rule
+      rule: ADR-AUTO-PATH-PUBLISHEDARTIFACT
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-communication:
     x: 20

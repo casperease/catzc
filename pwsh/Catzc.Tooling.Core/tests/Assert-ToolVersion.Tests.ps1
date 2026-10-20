@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
+    folder: tests
+    name: assert-tool-version-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Assert-ToolVersion.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 # cspell:ignore lockedtool
 Describe 'Assert-ToolVersion' -Tag 'L0', 'logic' {
     BeforeEach {

@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Get-BashTestCases.Tests.ps1
+    folder: tests
+    name: get-bash-test-cases-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-BashTestCases.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-BashTestCases.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Get-BashTestCases' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {

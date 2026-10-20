@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml
+#     folder: configs
+#     name: key-handler-bindings
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Tooling.KeyHandler
+#     moduletype: pwsh-folder
+#     catzc_bundle: full
+#   edges:
+#     docs: "[key-handler-bindings.yml.md](docs/references/pwsh/catzc-tooling-keyhandler/configs/key-handler-bindings.yml.md)"
+# ---
+
 - key: Enter
   function: AcceptLine
 - key: Shift+Enter

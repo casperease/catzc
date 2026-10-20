@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
+    folder: tests
+    name: invoke-test-run-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Invoke-TestRun.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-TestRun.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
+      - ADR-AUTO-TEST-SOURCEONLYTAG
+      - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
+      - ADR-AUTO-TEST-TESTRUN
+      - ADR-AUTO-TEST-ALLTESTS
+      - ADR-AUTO-TEST-TESTSUITE
+---
+#>
+
 Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:testsDir = Join-Path $TestDrive 'widget/tests'

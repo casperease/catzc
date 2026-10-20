@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/NoAutomaticVariableMisuse.psm1
+    folder: pwsh/.scriptanalyzer
+    name: no-automatic-variable-misuse
+    filetype: psm1
+    role: analyzer-rule
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NoAutomaticVariableMisuse.psm1.md](docs/references/pwsh/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md)"
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 function Measure-NoAutomaticVariableMisuse {

@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1
+    folder: tests
+    name: get-root-config-rendered-file-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-RootConfigRenderedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-rootconfig/tests/Get-RootConfigRenderedFile.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Get-RootConfigRenderedFile' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:render = {

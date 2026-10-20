@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Docs/configs/readme.yml
+#     folder: configs
+#     name: readme
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Docs
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[readme.yml.md](docs/references/pwsh/catzc-base-docs/configs/readme.yml.md)"
+# ---
+
 patterns:
   - glob: pwsh/*
     source: docs/references/pwsh/{kebab}.md

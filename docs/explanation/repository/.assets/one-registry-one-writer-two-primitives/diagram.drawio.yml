@@ -1,10 +1,11 @@
-description: The registry, the templates and the generators feed one writer in the RootConfig module, which writes every target
-  through the one primitive in the Files module; the targets split into gitignored and tracked by one boolean.
+description:
+  The registry, the templates and the generators feed one writer in the RootConfig module, which writes every target through the one
+  primitive in the Files module; the targets split into gitignored and tracked by one boolean.
 about:
   adrs:
-  - ADR-REPO-ROOTCFG-REGISTRY
-  - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-  - ADR-REPO-ROOTCFG-HEADEDCOPY
+    - ADR-REPO-ROOTCFG-REGISTRY
+    - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+    - ADR-REPO-ROOTCFG-HEADEDCOPY
   lens: architecture
 content:
   title: One registry, one writer, one write primitive, two kinds of target
@@ -13,88 +14,88 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-source
-    label: SOURCE OF TRUTH
-  - id: band-root-config
-    label: CATZC.BASE.ROOTCONFIG
-  - id: band-files
-    label: CATZC.BASE.FILES
-  - id: band-target
-    label: TARGET
+    - id: band-source
+      label: SOURCE OF TRUTH
+    - id: band-root-config
+      label: CATZC.BASE.ROOTCONFIG
+    - id: band-files
+      label: CATZC.BASE.FILES
+    - id: band-target
+      label: TARGET
   glyphs:
-  - id: g-templates
-    kind: file
-    label: template files
-    in: band-source
-  - id: g-generators
-    kind: set
-    label: generator functions
-    in: band-source
-  - id: g-rootconfig-yml
-    kind: file
-    label: rootconfig.yml
-    in: band-source
-  - id: g-build-root-config
-    kind: code
-    label: Build-RootConfig (importer tail)
-    in: band-root-config
-  - id: g-write-if-changed
-    kind: code
-    label: Write-FileIfChanged
-    in: band-files
-  - id: r-gitignored
-    kind: result
-    label: gitignored targets
-    in: band-target
-  - id: r-tracked
-    kind: result
-    label: tracked targets
-    in: band-target
+    - id: g-templates
+      kind: file
+      label: template files
+      in: band-source
+    - id: g-generators
+      kind: set
+      label: generator functions
+      in: band-source
+    - id: g-rootconfig-yml
+      kind: file
+      label: rootconfig.yml
+      in: band-source
+    - id: g-build-root-config
+      kind: code
+      label: Build-RootConfig (importer tail)
+      in: band-root-config
+    - id: g-write-if-changed
+      kind: code
+      label: Write-FileIfChanged
+      in: band-files
+    - id: r-gitignored
+      kind: result
+      label: gitignored targets
+      in: band-target
+    - id: r-tracked
+      kind: result
+      label: tracked targets
+      in: band-target
   edges:
-  - from: g-templates
-    to: g-build-root-config
-    kind: flow
-    label: ''
-  - from: g-generators
-    to: g-build-root-config
-    kind: flow
-    label: ''
-  - from: g-rootconfig-yml
-    to: g-build-root-config
-    kind: flow
-    label: ''
-  - from: g-build-root-config
-    to: g-write-if-changed
-    kind: flow
-    label: 28/28
-  - from: g-write-if-changed
-    to: r-gitignored
-    kind: flow
-    label: '22'
-  - from: g-write-if-changed
-    to: r-tracked
-    kind: flow
-    label: '6'
+    - from: g-templates
+      to: g-build-root-config
+      kind: flow
+      label: ""
+    - from: g-generators
+      to: g-build-root-config
+      kind: flow
+      label: ""
+    - from: g-rootconfig-yml
+      to: g-build-root-config
+      kind: flow
+      label: ""
+    - from: g-build-root-config
+      to: g-write-if-changed
+      kind: flow
+      label: 28/28
+    - from: g-write-if-changed
+      to: r-gitignored
+      kind: flow
+      label: "22"
+    - from: g-write-if-changed
+      to: r-tracked
+      kind: flow
+      label: "6"
   markers:
-  - at: g-templates
-    number: 1
-  - at: g-generators
-    number: 2
-  - at: g-rootconfig-yml
-    number: 3
-  - at: g-build-root-config
-    number: 4
-  - at: g-write-if-changed
-    number: 5
-  - at: r-gitignored
-    number: 6
-  - at: r-tracked
-    number: 7
+    - at: g-templates
+      number: 1
+    - at: g-generators
+      number: 2
+    - at: g-rootconfig-yml
+      number: 3
+    - at: g-build-root-config
+      number: 4
+    - at: g-write-if-changed
+      number: 5
+    - at: r-gitignored
+      number: 6
+    - at: r-tracked
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-source:
     x: 20

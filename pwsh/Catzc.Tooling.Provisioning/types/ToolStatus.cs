@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Provisioning/types/ToolStatus.cs
+    folder: types
+    name: tool-status
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ToolStatus.cs.md](docs/references/pwsh/catzc-tooling-provisioning/types/ToolStatus.cs.md)"
+---
+*/
+
 using System;
 
 namespace Catzc.Tooling.Provisioning;

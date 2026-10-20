@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/types/GlossaryEntry.Tests.ps1
+    folder: tests/types
+    name: glossary-entry-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[GlossaryEntry.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/GlossaryEntry.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-VOCAB-GLOSSARYSOURCE
+      - ADR-REPO-VOCAB-SOURCESINREPOSITORY
+---
+#>
+
 Describe 'GlossaryEntry' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:source = [Catzc.Base.Docs.GlossaryConfig]::new([ordered]@{

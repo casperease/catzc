@@ -1,11 +1,12 @@
-description: A globset registry flattens into one ordered program, and the trigger, the change report and the protection identity
-  are read-outs derived live from it, never committed.
+description:
+  A globset registry flattens into one ordered program, and the trigger, the change report and the protection identity are read-outs derived
+  live from it, never committed.
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
-  - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
-  - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-  - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+    - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+    - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
   lens: meta
 content:
   title: A globset is one ordered program, and its three views are derived live, never committed
@@ -14,66 +15,66 @@ content:
   relation: derives the next
   theme: dark
   bands:
-  - id: band-source
-    label: SOURCE
-  - id: band-flatten
-    label: FLATTEN
-  - id: band-derived
-    label: DERIVED LIVE
+    - id: band-source
+      label: SOURCE
+    - id: band-flatten
+      label: FLATTEN
+    - id: band-derived
+      label: DERIVED LIVE
   glyphs:
-  - id: f-registry
-    kind: file
-    label: Registry
-    in: band-source
-  - id: c-program
-    kind: code
-    label: Ordered program
-    in: band-flatten
-  - id: c-trigger
-    kind: code
-    label: Trigger
-    in: band-derived
-  - id: c-change-report
-    kind: code
-    label: Change report
-    in: band-derived
-  - id: c-protection
-    kind: code
-    label: Protection
-    in: band-derived
+    - id: f-registry
+      kind: file
+      label: Registry
+      in: band-source
+    - id: c-program
+      kind: code
+      label: Ordered program
+      in: band-flatten
+    - id: c-trigger
+      kind: code
+      label: Trigger
+      in: band-derived
+    - id: c-change-report
+      kind: code
+      label: Change report
+      in: band-derived
+    - id: c-protection
+      kind: code
+      label: Protection
+      in: band-derived
   edges:
-  - from: f-registry
-    to: c-program
-    kind: flow
-    label: ''
-  - from: c-program
-    to: c-trigger
-    kind: flow
-    label: ''
-  - from: c-program
-    to: c-change-report
-    kind: flow
-    label: ''
-  - from: c-program
-    to: c-protection
-    kind: flow
-    label: ''
+    - from: f-registry
+      to: c-program
+      kind: flow
+      label: ""
+    - from: c-program
+      to: c-trigger
+      kind: flow
+      label: ""
+    - from: c-program
+      to: c-change-report
+      kind: flow
+      label: ""
+    - from: c-program
+      to: c-protection
+      kind: flow
+      label: ""
   markers:
-  - at: f-registry
-    number: 1
-  - at: c-program
-    number: 2
-  - at: c-trigger
-    number: 3
-  - at: c-change-report
-    number: 4
-  - at: c-protection
-    number: 5
+    - at: f-registry
+      number: 1
+    - at: c-program
+      number: 2
+    - at: c-trigger
+      number: 3
+    - at: c-change-report
+      number: 4
+    - at: c-protection
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-source:
     x: 20

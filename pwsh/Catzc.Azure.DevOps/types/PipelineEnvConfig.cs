@@ -1,3 +1,25 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/types/PipelineEnvConfig.cs
+    folder: types
+    name: pipeline-env-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1
+    docs: "[PipelineEnvConfig.cs.md](docs/references/pwsh/catzc-azure-devops/types/PipelineEnvConfig.cs.md)"
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

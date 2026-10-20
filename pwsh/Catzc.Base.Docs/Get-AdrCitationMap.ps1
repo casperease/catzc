@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/Get-AdrCitationMap.ps1
+    name: get-adr-citation-map
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Get-AdrCitationMap.Tests.ps1
+    docs: "[Get-AdrCitationMap.ps1.md](docs/references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - ADR-PWSH-ERROR
+      - ADR-REPO-LINK-CODELINKS
+---
+#>
+
 function Get-AdrCitationMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Docs.AdrCitationMap])]

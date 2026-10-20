@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+    name: write-environment-set
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Environment
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
+    docs: "[Write-EnvironmentSet.ps1.md](docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md)"
+    cites:
+      - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+      - ADR-CONF-ADDRESSING
+---
+#>
+
 function Write-EnvironmentSet {
     [CmdletBinding(DefaultParameterSetName = 'Scoped')]
     param(

@@ -1,11 +1,12 @@
-description: 'The code path behind a globset: globs.yml through the validating load to GlobSet.ScanProgram(), then to the
-  three role functions and the callers that read each one''s output.'
+description:
+  "The code path behind a globset: globs.yml through the validating load to GlobSet.ScanProgram(), then to the three role functions and the
+  callers that read each one's output."
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
-  - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-  - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-  - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+    - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
   lens: implementation
 content:
   title: One method, GlobSet.ScanProgram(), feeds all three globset role functions
@@ -14,116 +15,116 @@ content:
   relation: output read by the next
   theme: dark
   bands:
-  - id: band-config
-    label: CONFIG
-  - id: band-program
-    label: PROGRAM
-  - id: band-functions
-    label: FUNCTIONS
-  - id: band-callers
-    label: CALLERS
+    - id: band-config
+      label: CONFIG
+    - id: band-program
+      label: PROGRAM
+    - id: band-functions
+      label: FUNCTIONS
+    - id: band-callers
+      label: CALLERS
   glyphs:
-  - id: f-globs-yml
-    kind: file
-    label: globs.yml
-    in: band-config
-  - id: c-globs-config
-    kind: code
-    label: GlobsConfig
-    in: band-config
-  - id: x-validation
-    kind: failure
-    label: validation failed
-    in: band-config
-  - id: c-scan-program
-    kind: code
-    label: GlobSet.ScanProgram()
-    in: band-program
-  - id: c-trigger
-    kind: code
-    label: Get-GlobSetTrigger
-    in: band-functions
-  - id: c-changed
-    kind: code
-    label: Get-ChangedGlobSet
-    in: band-functions
-  - id: c-hash
-    kind: code
-    label: Get-GlobSetHash
-    in: band-functions
-  - id: g-trigger-gates
-    kind: gate
-    label: Trigger gates
-    in: band-callers
-  - id: c-affected
-    kind: code
-    label: Test-GlobSetAffected
-    in: band-callers
-  - id: c-protection
-    kind: code
-    label: Test-GlobSetProtection
-    in: band-callers
+    - id: f-globs-yml
+      kind: file
+      label: globs.yml
+      in: band-config
+    - id: c-globs-config
+      kind: code
+      label: GlobsConfig
+      in: band-config
+    - id: x-validation
+      kind: failure
+      label: validation failed
+      in: band-config
+    - id: c-scan-program
+      kind: code
+      label: GlobSet.ScanProgram()
+      in: band-program
+    - id: c-trigger
+      kind: code
+      label: Get-GlobSetTrigger
+      in: band-functions
+    - id: c-changed
+      kind: code
+      label: Get-ChangedGlobSet
+      in: band-functions
+    - id: c-hash
+      kind: code
+      label: Get-GlobSetHash
+      in: band-functions
+    - id: g-trigger-gates
+      kind: gate
+      label: Trigger gates
+      in: band-callers
+    - id: c-affected
+      kind: code
+      label: Test-GlobSetAffected
+      in: band-callers
+    - id: c-protection
+      kind: code
+      label: Test-GlobSetProtection
+      in: band-callers
   edges:
-  - from: f-globs-yml
-    to: c-globs-config
-    kind: flow
-    label: ''
-  - from: c-globs-config
-    to: x-validation
-    kind: fail
-    label: ''
-  - from: c-globs-config
-    to: c-scan-program
-    kind: flow
-    label: ''
-  - from: c-scan-program
-    to: c-trigger
-    kind: flow
-    label: ''
-  - from: c-scan-program
-    to: c-changed
-    kind: flow
-    label: ''
-  - from: c-scan-program
-    to: c-hash
-    kind: flow
-    label: ''
-  - from: c-trigger
-    to: g-trigger-gates
-    kind: flow
-    label: ''
-  - from: c-changed
-    to: c-affected
-    kind: flow
-    label: ''
-  - from: c-hash
-    to: c-protection
-    kind: flow
-    label: ''
+    - from: f-globs-yml
+      to: c-globs-config
+      kind: flow
+      label: ""
+    - from: c-globs-config
+      to: x-validation
+      kind: fail
+      label: ""
+    - from: c-globs-config
+      to: c-scan-program
+      kind: flow
+      label: ""
+    - from: c-scan-program
+      to: c-trigger
+      kind: flow
+      label: ""
+    - from: c-scan-program
+      to: c-changed
+      kind: flow
+      label: ""
+    - from: c-scan-program
+      to: c-hash
+      kind: flow
+      label: ""
+    - from: c-trigger
+      to: g-trigger-gates
+      kind: flow
+      label: ""
+    - from: c-changed
+      to: c-affected
+      kind: flow
+      label: ""
+    - from: c-hash
+      to: c-protection
+      kind: flow
+      label: ""
   markers:
-  - at: f-globs-yml
-    number: 1
-  - at: c-globs-config
-    number: 2
-  - at: c-scan-program
-    number: 3
-  - at: c-trigger
-    number: 4
-  - at: c-changed
-    number: 5
-  - at: c-hash
-    number: 6
-  - at: g-trigger-gates
-    number: 7
-  - at: c-affected
-    number: 8
-  - at: c-protection
-    number: 9
+    - at: f-globs-yml
+      number: 1
+    - at: c-globs-config
+      number: 2
+    - at: c-scan-program
+      number: 3
+    - at: c-trigger
+      number: 4
+    - at: c-changed
+      number: 5
+    - at: c-hash
+      number: 6
+    - at: g-trigger-gates
+      number: 7
+    - at: c-affected
+      number: 8
+    - at: c-protection
+      number: 9
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-config:
     x: 20

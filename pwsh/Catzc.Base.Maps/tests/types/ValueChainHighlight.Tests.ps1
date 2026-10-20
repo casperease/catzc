@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
+    folder: tests/types
+    name: value-chain-highlight-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ValueChainHighlight.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/types/ValueChainHighlight.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-DSGN-TRACK-LITCELL
+      - ADR-DSGN-TRACK-VALUECHAINSTACK
+      - ADR-DSGN-TRACK-VALUECHAINCONCERN
+      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+---
+#>
+
 Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {

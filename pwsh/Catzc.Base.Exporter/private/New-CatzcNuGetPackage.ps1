@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
+    folder: private
+    name: new-catzc-nu-get-package
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Exporter
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
+    docs: "[New-CatzcNuGetPackage.ps1.md](docs/references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md)"
+    cites:
+      - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - ADR-GH-RELEASE
+---
+#>
+
 function New-CatzcNuGetPackage {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

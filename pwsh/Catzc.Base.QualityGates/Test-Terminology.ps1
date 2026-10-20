@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-Terminology.ps1
+    name: test-terminology
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1
+    docs: "[Test-Terminology.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Terminology.ps1.md)"
+    cites:
+      - ADR-AUTO-SPELL
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 function Test-Terminology {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

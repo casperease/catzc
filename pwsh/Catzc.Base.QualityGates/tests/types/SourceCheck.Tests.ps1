@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/types/SourceCheck.Tests.ps1
+    folder: tests/types
+    name: source-check-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[SourceCheck.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/SourceCheck.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+---
+#>
+
 Describe 'SourceCheck' -Tag 'L0', 'logic' {
     It 'takes gate mode and no exemptions when nothing is given' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $check = [Catzc.Base.QualityGates.SourceCheck]::new('widget_check', $null)

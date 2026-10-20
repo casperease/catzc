@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1
+    folder: tests
+    name: get-test-rule-tags-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-TestRuleTags.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-TestRuleTags.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-PROVENANCETAGS
+---
+#>
+
 Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCETAGS' {
     BeforeAll {
         function New-FakeTest {

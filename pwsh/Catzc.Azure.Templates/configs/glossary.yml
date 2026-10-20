@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Azure.Templates/configs/glossary.yml
+#     folder: configs
+#     name: glossary
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Azure.Templates
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[glossary.yml.md](docs/references/pwsh/catzc-azure-templates/configs/glossary.yml.md)"
+# ---
+
 concepts:
   slot:
     key: slot

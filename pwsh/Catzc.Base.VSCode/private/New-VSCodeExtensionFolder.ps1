@@ -17,7 +17,7 @@ catzc:
     visibility: private
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeExtensionFolder.Tests.ps1
-    docs: "[New-VSCodeExtensionFolder.ps1.md](/docs/references/pwsh/catzc-base-vscode/private/New-VSCodeExtensionFolder.ps1.md)"
+    docs: "[New-VSCodeExtensionFolder.ps1.md](docs/references/pwsh/catzc-base-vscode/private/New-VSCodeExtensionFolder.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
 ---

@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-Links.ps1
+    name: test-links
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
+    docs: "[Test-Links.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Links.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-LINK-ONECITATIONSPELLING
+---
+#>
+
 function Test-Links {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

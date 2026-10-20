@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/private/Resolve-AdrLinkTarget.ps1
+    folder: private
+    name: resolve-adr-link-target
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Resolve-AdrLinkTarget.Tests.ps1
+    docs: "[Resolve-AdrLinkTarget.ps1.md](docs/references/pwsh/catzc-base-docs/private/Resolve-AdrLinkTarget.ps1.md)"
+    cites:
+      - ADR-REPO-LINK-MARKDOWNRELATIVE
+---
+#>
+
 function Resolve-AdrLinkTarget {
     [OutputType([string])]
     [CmdletBinding()]

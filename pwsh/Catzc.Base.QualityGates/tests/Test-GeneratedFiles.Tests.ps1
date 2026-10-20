@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
+    folder: tests
+    name: test-generated-files-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-GeneratedFiles.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-GeneratedFiles.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-FILEMETA-COMPOSEDFILES
+---
+#>
+
 Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }

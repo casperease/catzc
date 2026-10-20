@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Get-ModuleDependencyEdges.ps1
+    name: get-module-dependency-edges
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyEdges.Tests.ps1
+    docs: "[Get-ModuleDependencyEdges.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-ModuleDependencyEdges.ps1.md)"
+---
+#>
+
 function Get-ModuleDependencyEdges {
     [OutputType([Catzc.Base.ModuleSystem.ModuleDependencyEdge[]])]
     param(

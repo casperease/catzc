@@ -1,12 +1,13 @@
-description: The out-of-band deploy of a topic commit, which no gate checks, beside the one gate in code on deploys, main-only,
-  and the climb from the topic commit through main and the BVT to a BVT-verified commit.
+description:
+  The out-of-band deploy of a topic commit, which no gate checks, beside the one gate in code on deploys, main-only, and the climb from the
+  topic commit through main and the BVT to a BVT-verified commit.
 about:
   adrs:
-  - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-  - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-  - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-  - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-  - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
+    - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+    - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
+    - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+    - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
   lens: governance
 content:
   title: No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only
@@ -15,130 +16,130 @@ content:
   relation: lands, then climbs
   theme: dark
   bands:
-  - id: band-topic
-    label: TOPIC
-  - id: band-out-of-band
-    label: OUT-OF-BAND
-  - id: band-main
-    label: MAIN
-  - id: band-after
-    label: AFTER LANDING
+    - id: band-topic
+      label: TOPIC
+    - id: band-out-of-band
+      label: OUT-OF-BAND
+    - id: band-main
+      label: MAIN
+    - id: band-after
+      label: AFTER LANDING
   spans:
-  - id: span-ci
-    label: CI
-    over:
-    - band-main
-    - band-after
+    - id: span-ci
+      label: CI
+      over:
+        - band-main
+        - band-after
   glyphs:
-  - id: c-topic
-    kind: commit
-    label: topic
-    in: band-topic
-    state: topic
-  - id: a-deploy
-    kind: adronly
-    label: out-of-band deploy
-    in: band-out-of-band
-  - id: e-environment
-    kind: env
-    label: environment
-    in: band-out-of-band
-  - id: c-occupant
-    kind: commit
-    label: topic
-    in: e-environment
-    state: topic
-  - id: c-main
-    kind: commit
-    label: main
-    in: band-main
-    state: landed
-  - id: g-main-only
-    kind: gate
-    label: main only
-    in: band-main
-  - id: g-bvt
-    kind: gate
-    label: BVT
-    in: band-after
-  - id: c-verified
-    kind: commit
-    label: BVT-verified
-    in: band-after
+    - id: c-topic
+      kind: commit
+      label: topic
+      in: band-topic
+      state: topic
+    - id: a-deploy
+      kind: adronly
+      label: out-of-band deploy
+      in: band-out-of-band
+    - id: e-environment
+      kind: env
+      label: environment
+      in: band-out-of-band
+    - id: c-occupant
+      kind: commit
+      label: topic
+      in: e-environment
+      state: topic
+    - id: c-main
+      kind: commit
+      label: main
+      in: band-main
+      state: landed
+    - id: g-main-only
+      kind: gate
+      label: main only
+      in: band-main
+    - id: g-bvt
+      kind: gate
+      label: BVT
+      in: band-after
+    - id: c-verified
+      kind: commit
+      label: BVT-verified
+      in: band-after
   edges:
-  - from: c-topic
-    to: c-main
-    kind: flow
-    label: ''
-  - from: c-topic
-    to: a-deploy
-    kind: adr
-    label: ''
-    via:
-    - - 105
-      - 312
-  - from: a-deploy
-    to: e-environment
-    kind: adr
-    label: ''
-  - from: c-main
-    to: g-main-only
-    kind: flow
-    label: ''
-  - from: c-main
-    to: g-bvt
-    kind: flow
-    label: ''
-  - from: g-bvt
-    to: c-verified
-    kind: flow
-    label: ''
+    - from: c-topic
+      to: c-main
+      kind: flow
+      label: ""
+    - from: c-topic
+      to: a-deploy
+      kind: adr
+      label: ""
+      via:
+        - - 105
+          - 312
+    - from: a-deploy
+      to: e-environment
+      kind: adr
+      label: ""
+    - from: c-main
+      to: g-main-only
+      kind: flow
+      label: ""
+    - from: c-main
+      to: g-bvt
+      kind: flow
+      label: ""
+    - from: g-bvt
+      to: c-verified
+      kind: flow
+      label: ""
   markers:
-  - at: c-topic
-    number: 1
-  - at: a-deploy
-    number: 2
-  - at: e-environment
-    number: 3
-  - at: c-main
-    number: 4
-  - at: g-main-only
-    number: 5
-  - at: g-bvt
-    number: 6
+    - at: c-topic
+      number: 1
+    - at: a-deploy
+      number: 2
+    - at: e-environment
+      number: 3
+    - at: c-main
+      number: 4
+    - at: g-main-only
+      number: 5
+    - at: g-bvt
+      number: 6
   chips:
-  - at: c-topic
-    kind: rule
-    rule: ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-    gated: false
-  - at: c-topic
-    kind: rule
-    rule: ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-    gated: false
-    corner: bottom-right
-  - at: a-deploy
-    kind: rule
-    rule: ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-    gated: false
-    corner: bottom-right
-  - at: e-environment
-    kind: rule
-    rule: ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
-    gated: false
-  - at: c-main
-    kind: rule
-    rule: ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-    gated: false
-    corner: bottom-right
-  - at: c-verified
-    kind: rule
-    rule: ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-    gated: false
+    - at: c-topic
+      kind: rule
+      rule: ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
+      gated: false
+    - at: c-topic
+      kind: rule
+      rule: ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+      gated: false
+      corner: bottom-right
+    - at: a-deploy
+      kind: rule
+      rule: ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      gated: false
+      corner: bottom-right
+    - at: e-environment
+      kind: rule
+      rule: ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
+      gated: false
+    - at: c-main
+      kind: rule
+      rule: ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      gated: false
+      corner: bottom-right
+    - at: c-verified
+      kind: rule
+      rule: ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+      gated: false
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-topic:
     x: 20

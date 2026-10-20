@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
+    name: test-folder-conventions-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Internal.Tests
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
+  edges:
+    docs: "[Test-FolderConventions.Tests.ps1.md](docs/references/pwsh/internal/tests/Test-FolderConventions.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 Describe 'Folder & file conventions' -Tag 'L0', 'integrity' {
     BeforeAll {
         $script:result = Test-FolderConventions -PassThru -OutputFolder (Join-Path $TestDrive 'folder-conventions')

@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
+    folder: types
+    name: key-handler-supported-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.KeyHandler
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    test: pwsh/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
+    docs: "[KeyHandlerSupportedConfig.cs.md](docs/references/pwsh/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

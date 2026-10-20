@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
+    folder: tests/types
+    name: tool-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Execution
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ToolConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS
+      - ADR-AUTO-PKGMGR-VERIFYDOWNLOADS
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'ToolConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:required = @{ version = '1.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; winget_id = 'Widget.Widget' }

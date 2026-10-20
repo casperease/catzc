@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
+    folder: types
+    name: exporter-bundle
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Exporter
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ExporterBundle.cs.md](docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md)"
+    cites:
+      - ADR-AUTO-BUNDLE
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

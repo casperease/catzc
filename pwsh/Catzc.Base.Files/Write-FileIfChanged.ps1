@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
+    name: write-file-if-changed
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Files
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Files/tests/Write-FileIfChanged.Tests.ps1
+    docs: "[Write-FileIfChanged.ps1.md](docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE
+      - ADR-AUTO-DRYRUN
+      - ADR-PRIN-ONELIVE
+---
+#>
+
 function Write-FileIfChanged {
     [CmdletBinding()]
     [OutputType([bool])]

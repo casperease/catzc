@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Get-FormatEngineStamp.ps1
+    folder: private
+    name: get-format-engine-stamp
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1
+    docs: "[Get-FormatEngineStamp.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-FormatEngineStamp.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
+---
+#>
+
 function Get-FormatEngineStamp {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,13 +1,13 @@
-description: Before the workers start, a module's globset hashes fold into one identity that is compared with the identity
-  recorded after its last green run; a match skips the module, the asked identity is held as pending, and a green result promotes
-  it afterwards.
+description:
+  Before the workers start, a module's globset hashes fold into one identity that is compared with the identity recorded after its last
+  green run; a match skips the module, the asked identity is held as pending, and a green result promotes it afterwards.
 about:
   adrs:
-  - ADR-REPO-PROTGLOB
-  - ADR-FLOW-CD-GLOBS
-  - ADR-FLOW-CD-DETECT
-  - ADR-PWSH-CACHE
-  - ADR-DSGN-ASPECT
+    - ADR-REPO-PROTGLOB
+    - ADR-FLOW-CD-GLOBS
+    - ADR-FLOW-CD-DETECT
+    - ADR-PWSH-CACHE
+    - ADR-DSGN-ASPECT
   lens: source
 content:
   title: Skip a module only if its folded hash matches its last green
@@ -16,118 +16,118 @@ content:
   relation: calls
   theme: dark
   bands:
-  - id: band-loader
-    label: CATZC.INTERNAL.LOADER
-  - id: band-query
-    label: QUERY · BEFORE THE WORKERS
-  - id: band-session
-    label: SESSION MAP
-  - id: band-record
-    label: RECORD · AFTER THE WORKERS
+    - id: band-loader
+      label: CATZC.INTERNAL.LOADER
+    - id: band-query
+      label: QUERY · BEFORE THE WORKERS
+    - id: band-session
+      label: SESSION MAP
+    - id: band-record
+      label: RECORD · AFTER THE WORKERS
   groups:
-  - id: grp-session
-    label: session maps
-    in: band-session
+    - id: grp-session
+      label: session maps
+      in: band-session
   glyphs:
-  - id: g-pipeline
-    kind: code
-    label: Test-IsRunningInPipeline
-    in: band-loader
-  - id: g-select
-    kind: private
-    label: Select-ProtectedTestFile
-    in: band-query
-  - id: g-identity
-    kind: private
-    label: Get-ModuleProtectionIdentity
-    in: band-query
-  - id: g-glob-hash
-    kind: code
-    label: Get-GlobSetHash
-    in: band-query
-  - id: t-durable
-    kind: type
-    label: DurableHash
-    in: band-query
-  - id: g-protection
-    kind: gate
-    label: Test-GlobSetProtection
-    in: band-query
-  - id: s-pending
-    kind: store
-    label: pendingGlobProtections
-    in: grp-session
-  - id: s-protected
-    kind: store
-    label: protectedGlobSets
-    in: grp-session
-  - id: g-tested
-    kind: private
-    label: Protect-TestedModule
-    in: band-record
-  - id: g-protect
-    kind: code
-    label: Protect-GlobSet
-    in: band-record
+    - id: g-pipeline
+      kind: code
+      label: Test-IsRunningInPipeline
+      in: band-loader
+    - id: g-select
+      kind: private
+      label: Select-ProtectedTestFile
+      in: band-query
+    - id: g-identity
+      kind: private
+      label: Get-ModuleProtectionIdentity
+      in: band-query
+    - id: g-glob-hash
+      kind: code
+      label: Get-GlobSetHash
+      in: band-query
+    - id: t-durable
+      kind: type
+      label: DurableHash
+      in: band-query
+    - id: g-protection
+      kind: gate
+      label: Test-GlobSetProtection
+      in: band-query
+    - id: s-pending
+      kind: store
+      label: pendingGlobProtections
+      in: grp-session
+    - id: s-protected
+      kind: store
+      label: protectedGlobSets
+      in: grp-session
+    - id: g-tested
+      kind: private
+      label: Protect-TestedModule
+      in: band-record
+    - id: g-protect
+      kind: code
+      label: Protect-GlobSet
+      in: band-record
   edges:
-  - from: g-select
-    to: g-pipeline
-    kind: flow
-    label: ''
-  - from: g-select
-    to: g-identity
-    kind: flow
-    label: ''
-  - from: g-identity
-    to: g-glob-hash
-    kind: flow
-    label: ''
-  - from: g-glob-hash
-    to: t-durable
-    kind: flow
-    label: ''
-  - from: g-identity
-    to: t-durable
-    kind: flow
-    label: ''
-  - from: g-select
-    to: g-protection
-    kind: flow
-    label: ''
-  - from: g-protection
-    to: s-protected
-    kind: flow
-    label: ''
-  - from: g-tested
-    to: g-protect
-    kind: flow
-    label: ''
-  - from: g-protect
-    to: s-protected
-    kind: flow
-    label: ''
+    - from: g-select
+      to: g-pipeline
+      kind: flow
+      label: ""
+    - from: g-select
+      to: g-identity
+      kind: flow
+      label: ""
+    - from: g-identity
+      to: g-glob-hash
+      kind: flow
+      label: ""
+    - from: g-glob-hash
+      to: t-durable
+      kind: flow
+      label: ""
+    - from: g-identity
+      to: t-durable
+      kind: flow
+      label: ""
+    - from: g-select
+      to: g-protection
+      kind: flow
+      label: ""
+    - from: g-protection
+      to: s-protected
+      kind: flow
+      label: ""
+    - from: g-tested
+      to: g-protect
+      kind: flow
+      label: ""
+    - from: g-protect
+      to: s-protected
+      kind: flow
+      label: ""
   markers:
-  - at: g-select
-    number: 1
-  - at: g-pipeline
-    number: 2
-  - at: g-identity
-    number: 3
-  - at: g-glob-hash
-    number: 4
-  - at: t-durable
-    number: 5
-  - at: g-protection
-    number: 6
-  - at: g-tested
-    number: 7
-  - at: g-protect
-    number: 8
+    - at: g-select
+      number: 1
+    - at: g-pipeline
+      number: 2
+    - at: g-identity
+      number: 3
+    - at: g-glob-hash
+      number: 4
+    - at: t-durable
+      number: 5
+    - at: g-protection
+      number: 6
+    - at: g-tested
+      number: 7
+    - at: g-protect
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-loader:
     x: 20

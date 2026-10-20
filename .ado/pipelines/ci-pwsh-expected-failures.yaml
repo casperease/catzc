@@ -1,3 +1,21 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: ".ado/pipelines/ci-pwsh-expected-failures.yaml"
+#     name: ci-pwsh-expected-failures
+#     filetype: yaml
+#     role: pipeline
+#     language: pipeline-yaml
+#     track: ado-pipelines
+#     tracktype: pipelines
+#     vendor: ado
+#     module: pipelines
+#     moduletype: pipeline
+#   edges:
+#     docs: "[ci-pwsh-expected-failures.yaml.md](docs/references/ado/pipelines/ci-pwsh-expected-failures.yaml.md)"
+# ---
+
 trigger:
   branches:
     include: [main]

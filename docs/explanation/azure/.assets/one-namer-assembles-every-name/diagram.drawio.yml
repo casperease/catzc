@@ -1,11 +1,12 @@
-description: Every Azure name comes out of one resolver, which gathers the components from three config sources, and one namer,
-  which reads three registries and assembles and checks the name; the resource-group name is the one in-tree consumer.
+description:
+  Every Azure name comes out of one resolver, which gathers the components from three config sources, and one namer, which reads three
+  registries and assembles and checks the name; the resource-group name is the one in-tree consumer.
 about:
   adrs:
-  - ADR-AZ-NAMING-DETERMINISTICNAMES
-  - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
-  - ADR-AZ-NAMING-ORDERISVARIANT
-  - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+    - ADR-AZ-NAMING-DETERMINISTICNAMES
+    - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+    - ADR-AZ-NAMING-ORDERISVARIANT
+    - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
   lens: architecture
 content:
   title: One resolver gathers the components and one namer assembles every Azure name
@@ -14,102 +15,102 @@ content:
   relation: feeds the next
   theme: dark
   bands:
-  - id: band-sources
-    label: SOURCES
-  - id: band-resolver
-    label: RESOLVER
-  - id: band-assembler
-    label: ASSEMBLER
-  - id: band-consumers
-    label: CONSUMERS
+    - id: band-sources
+      label: SOURCES
+    - id: band-resolver
+      label: RESOLVER
+    - id: band-assembler
+      label: ASSEMBLER
+    - id: band-consumers
+      label: CONSUMERS
   glyphs:
-  - id: g-azure
-    kind: file
-    label: azure.yml · customer.yml
-    in: band-sources
-  - id: g-options
-    kind: file
-    label: template · options.yml
-    in: band-sources
-  - id: g-variants
-    kind: file
-    label: variants.yml
-    in: band-sources
-  - id: g-resolver
-    kind: code
-    label: Get-BicepResourceName
-    in: band-resolver
-  - id: s-registries
-    kind: set
-    label: registries
-    in: band-assembler
-  - id: g-namer
-    kind: code
-    label: Get-AzureResourceName
-    in: band-assembler
-  - id: f-throw
-    kind: failure
-    label: throw
-    in: band-assembler
-  - id: g-group
-    kind: code
-    label: Get-BicepResourceGroupName
-    in: band-consumers
+    - id: g-azure
+      kind: file
+      label: azure.yml · customer.yml
+      in: band-sources
+    - id: g-options
+      kind: file
+      label: template · options.yml
+      in: band-sources
+    - id: g-variants
+      kind: file
+      label: variants.yml
+      in: band-sources
+    - id: g-resolver
+      kind: code
+      label: Get-BicepResourceName
+      in: band-resolver
+    - id: s-registries
+      kind: set
+      label: registries
+      in: band-assembler
+    - id: g-namer
+      kind: code
+      label: Get-AzureResourceName
+      in: band-assembler
+    - id: f-throw
+      kind: failure
+      label: throw
+      in: band-assembler
+    - id: g-group
+      kind: code
+      label: Get-BicepResourceGroupName
+      in: band-consumers
   edges:
-  - from: g-azure
-    to: g-resolver
-    kind: flow
-    label: ''
-  - from: g-options
-    to: g-resolver
-    kind: flow
-    label: ''
-  - from: g-variants
-    to: g-resolver
-    kind: flow
-    label: ''
-  - from: g-resolver
-    to: g-namer
-    kind: flow
-    label: ''
-  - from: s-registries
-    to: g-namer
-    kind: flow
-    label: ''
-  - from: g-namer
-    to: g-group
-    kind: flow
-    label: ''
-  - from: g-namer
-    to: f-throw
-    kind: fail
-    label: ''
-  - from: g-resolver
-    to: f-throw
-    kind: fail
-    label: ''
+    - from: g-azure
+      to: g-resolver
+      kind: flow
+      label: ""
+    - from: g-options
+      to: g-resolver
+      kind: flow
+      label: ""
+    - from: g-variants
+      to: g-resolver
+      kind: flow
+      label: ""
+    - from: g-resolver
+      to: g-namer
+      kind: flow
+      label: ""
+    - from: s-registries
+      to: g-namer
+      kind: flow
+      label: ""
+    - from: g-namer
+      to: g-group
+      kind: flow
+      label: ""
+    - from: g-namer
+      to: f-throw
+      kind: fail
+      label: ""
+    - from: g-resolver
+      to: f-throw
+      kind: fail
+      label: ""
   markers:
-  - at: g-azure
-    number: 1
-  - at: g-options
-    number: 2
-  - at: g-variants
-    number: 3
-  - at: g-resolver
-    number: 4
-  - at: s-registries
-    number: 5
-  - at: g-namer
-    number: 6
-  - at: f-throw
-    number: 7
-  - at: g-group
-    number: 8
+    - at: g-azure
+      number: 1
+    - at: g-options
+      number: 2
+    - at: g-variants
+      number: 3
+    - at: g-resolver
+      number: 4
+    - at: s-registries
+      number: 5
+    - at: g-namer
+      number: 6
+    - at: f-throw
+      number: 7
+    - at: g-group
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-sources:
     x: 20

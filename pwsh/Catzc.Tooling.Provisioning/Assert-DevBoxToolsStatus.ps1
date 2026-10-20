@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
+    name: assert-dev-box-tools-status
+    filetype: ps1
+    role: function
+    subkind: assert
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
+    docs: "[Assert-DevBoxToolsStatus.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Assert-DevBoxToolsStatus.ps1.md)"
+---
+#>
+
 function Assert-DevBoxToolsStatus {
     [CmdletBinding()]
     param()

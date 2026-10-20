@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Github/Reset-GitHubRepository.ps1
+    name: reset-git-hub-repository
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Github
+    moduletype: pwsh-folder
+    catzc_bundle: full
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1
+    docs: "[Reset-GitHubRepository.ps1.md](docs/references/pwsh/catzc-tooling-github/Reset-GitHubRepository.ps1.md)"
+---
+#>
+
 function Reset-GitHubRepository {
     [CmdletBinding()]
     [Catzc.Base.Timeouts.TimeLimit(600, Pipeline = 3600)]

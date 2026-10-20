@@ -15,7 +15,7 @@ catzc:
     module: ".claude"
     moduletype: settings
   edges:
-    docs: "[Program.cs.md](/docs/references/pwsh/claude-hooks/Record-AgentWrite/Program.cs.md)"
+    docs: "[Program.cs.md](docs/references/pwsh/claude-hooks/Record-AgentWrite/Program.cs.md)"
 ---
 */
 

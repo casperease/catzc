@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/GlossaryScan.cs
+    folder: types
+    name: glossary-scan
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[GlossaryScan.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryScan.cs.md)"
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

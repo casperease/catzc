@@ -17,7 +17,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Assert-LoadedTypesCurrent.Tests.ps1
-    docs: "[Assert-LoadedTypesCurrent.ps1.md](/docs/references/pwsh/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md)"
+    docs: "[Assert-LoadedTypesCurrent.ps1.md](docs/references/pwsh/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST-ASSERTPRECONDITIONS
       - ADR-AUTO-TYPES-CHANGEDAFTERLOAD

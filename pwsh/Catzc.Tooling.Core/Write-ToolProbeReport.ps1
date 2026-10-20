@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/Write-ToolProbeReport.ps1
+    name: write-tool-probe-report
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
+    docs: "[Write-ToolProbeReport.ps1.md](docs/references/pwsh/catzc-tooling-core/Write-ToolProbeReport.ps1.md)"
+    cites:
+      - ADR-PWSH-ANNOUNCE-CORRECTSTREAM
+---
+#>
+
 function Write-ToolProbeReport {
     [CmdletBinding()]
     param(

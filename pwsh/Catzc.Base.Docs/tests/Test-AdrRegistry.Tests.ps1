@@ -1,3 +1,32 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
+    folder: tests
+    name: test-adr-registry-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-AdrRegistry.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - ADR-REPO-ADRCODE-PATHOFSEGMENTS
+      - ADR-REPO-ADRCODE-DOMAINSEGMENT
+      - ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
+      - ADR-REPO-ADRCODE-ONESTRINGONEFACT
+---
+#>
+
 Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

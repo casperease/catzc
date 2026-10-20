@@ -1,3 +1,29 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/FileMetaKind.cs
+    folder: types
+    name: file-meta-kind
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[FileMetaKind.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/FileMetaKind.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-FILEMETA-METAKIND
+      - ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION
+      - ADR-REPO-FILEMETA-FILEISNODE
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

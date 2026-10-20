@@ -40,8 +40,9 @@ prompt hook.
 ### Rule ADR-PWSH-ERROR-STRICTCLEAN
 
 All code is written strict-clean, because it runs under `Set-StrictMode -Version Latest`: take the first element of a result that may be
-empty with `<result> | Select-Object -First 1`, never `@(<result>)[0]`; wrap a producer in `@()` before reading `.Count`; read an optional
-key through `.Contains()`, an indexer, or the typed config record, never as a bare property.
+empty with `<result> | Select-Object -First 1`, never `@(<result>)[0]`; wrap a producer in `@()` before reading `.Count`, and an `if`,
+`switch` or `try` whose result is counted in `@()` or an array-typed variable; read an optional key through `.Contains()`, an indexer, or
+the typed config record, never as a bare property.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -210,9 +211,10 @@ its own scriptblock-taking wrapper and never in a test.
   `Set-StrictMode -Version Latest` as its first line. All code is therefore written strict-clean (ADR-PWSH-ERROR-STRICTCLEAN); a lazy
   `$script:` cache entry is probed as [script-scope-caching](script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe) prescribes.
 - **Custom analyzer rules** — `Measure-NoWriteErrorOrWarning` flags `Write-Error` and `Write-Warning`; `Measure-NoUnsafeFirstIndex` flags
-  `@(<result>)[0]` and `(<a | b>)[0]`; and `Measure-NoBareCacheEntryRead` flags a function file reading a `$script:` cache entry it has
-  neither assigned nor probed. The `.Count` and optional-key forms of ADR-PWSH-ERROR-STRICTCLEAN need type knowledge an AST does not carry,
-  so code review owns them.
+  `@(<result>)[0]` and `(<a | b>)[0]`; `Measure-NoCollapsingAssignment` flags a variable assigned an `if`, `switch` or `try` and later
+  counted without `@()` or an array type; and `Measure-NoBareCacheEntryRead` flags a function file reading a `$script:` cache entry it has
+  neither assigned nor probed. The other `.Count` and optional-key forms of ADR-PWSH-ERROR-STRICTCLEAN need type knowledge an AST does not
+  carry, so code review owns them.
 - **Interactive prompt hook** — `Write-Exception` fires automatically after every failed command, providing full diagnostics.
 
 ## Consequences

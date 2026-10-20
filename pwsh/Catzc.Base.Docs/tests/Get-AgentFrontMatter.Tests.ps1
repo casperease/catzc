@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Get-AgentFrontMatter.Tests.ps1
+    folder: tests
+    name: get-agent-front-matter-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-AgentFrontMatter.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-AgentFrontMatter.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-AGENTS-ONEFILEPERAGENT
+---
+#>
+
 Describe 'Get-AgentFrontMatter' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-ONEFILEPERAGENT' {
     BeforeAll {
         function Write-AgentFixture {

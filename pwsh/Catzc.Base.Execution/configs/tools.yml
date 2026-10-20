@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Execution/configs/tools.yml
+#     folder: configs
+#     name: tools
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Execution
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[tools.yml.md](docs/references/pwsh/catzc-base-execution/configs/tools.yml.md)"
+# ---
+
 winget:
   version: "1"
   command: winget

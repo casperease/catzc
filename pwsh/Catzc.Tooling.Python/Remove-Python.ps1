@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Python/Remove-Python.ps1
+    name: remove-python
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Python
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    docs: "[Remove-Python.ps1.md](docs/references/pwsh/catzc-tooling-python/Remove-Python.ps1.md)"
+---
+#>
+
 function Remove-Python {
     [CmdletBinding()]
     param(

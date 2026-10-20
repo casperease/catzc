@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Toolchain/private/Get-GoRelease.ps1
+    folder: private
+    name: get-go-release
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Tooling.Toolchain/tests/Get-GoRelease.Tests.ps1
+    docs: "[Get-GoRelease.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Get-GoRelease.ps1.md)"
+---
+#>
+
 function Get-GoRelease {
     [OutputType([pscustomobject])]
     [CmdletBinding()]

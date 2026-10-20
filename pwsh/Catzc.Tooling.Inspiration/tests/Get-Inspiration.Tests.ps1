@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
+    folder: tests
+    name: get-inspiration-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Inspiration
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[Get-Inspiration.Tests.ps1.md](docs/references/pwsh/catzc-tooling-inspiration/tests/Get-Inspiration.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-INSPIRE-SIBLINGFORIDEAS
+---
+#>
+
 Describe 'Get-Inspiration' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:workspace = [IO.Path]::GetFullPath((Join-Path $TestDrive 'workspace'))

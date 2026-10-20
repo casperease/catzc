@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/LinkFindingType.cs
+    folder: types
+    name: link-finding-type
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[LinkFindingType.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinkFindingType.cs.md)"
+    cites:
+      - ADR-REPO-LINK
+---
+*/
+
 namespace Catzc.Base.QualityGates;
 
 public enum LinkFindingType

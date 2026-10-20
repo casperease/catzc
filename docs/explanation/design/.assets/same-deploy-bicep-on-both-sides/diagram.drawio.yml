@@ -1,9 +1,10 @@
-description: A developer after Connect-AzCli and a pipeline step in azcli mode type the same Deploy-Bicep; only the pipeline
-  must pin the subscription, and a run ends as a rejection, a preview, a failure or a deployment.
+description:
+  A developer after Connect-AzCli and a pipeline step in azcli mode type the same Deploy-Bicep; only the pipeline must pin the subscription,
+  and a run ends as a rejection, a preview, a failure or a deployment.
 about:
   adrs:
-  - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-  - ADR-DSGN-THINPLAT-PLATFORMASCLI
+    - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+    - ADR-DSGN-THINPLAT-PLATFORMASCLI
   lens: operations
 content:
   title: A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription
@@ -12,90 +13,90 @@ content:
   relation: then
   theme: dark
   bands:
-  - id: band-consumers
-    label: CONSUMERS
-  - id: band-surface
-    label: CLI SURFACE
-  - id: band-catzc
-    label: CATZC
-  - id: band-delegated
-    label: DELEGATED
-  - id: band-substrate
-    label: VENDOR SUBSTRATE
+    - id: band-consumers
+      label: CONSUMERS
+    - id: band-surface
+      label: CLI SURFACE
+    - id: band-catzc
+      label: CATZC
+    - id: band-delegated
+      label: DELEGATED
+    - id: band-substrate
+      label: VENDOR SUBSTRATE
   glyphs:
-  - id: g-connect
-    kind: code
-    label: Connect-AzCli
-    in: band-consumers
-  - id: g-mode
-    kind: runner
-    label: 'Mode: azcli'
-    in: band-consumers
-  - id: g-deploy
-    kind: code
-    label: Deploy-Bicep
-    in: band-surface
-  - id: f-rejected
-    kind: failure
-    label: subscription target rejected
-    in: band-catzc
-  - id: r-preview
-    kind: result
-    label: what-if preview
-    in: band-delegated
-  - id: f-failed
-    kind: failure
-    label: '... failed (az exited N)'
-    in: band-delegated
-  - id: r-succeeded
-    kind: result
-    label: Deployment ... succeeded
-    in: band-substrate
+    - id: g-connect
+      kind: code
+      label: Connect-AzCli
+      in: band-consumers
+    - id: g-mode
+      kind: runner
+      label: "Mode: azcli"
+      in: band-consumers
+    - id: g-deploy
+      kind: code
+      label: Deploy-Bicep
+      in: band-surface
+    - id: f-rejected
+      kind: failure
+      label: subscription target rejected
+      in: band-catzc
+    - id: r-preview
+      kind: result
+      label: what-if preview
+      in: band-delegated
+    - id: f-failed
+      kind: failure
+      label: "... failed (az exited N)"
+      in: band-delegated
+    - id: r-succeeded
+      kind: result
+      label: Deployment ... succeeded
+      in: band-substrate
   edges:
-  - from: g-connect
-    to: g-deploy
-    kind: flow
-    label: ''
-  - from: g-mode
-    to: g-deploy
-    kind: flow
-    label: ''
-  - from: g-deploy
-    to: f-rejected
-    kind: fail
-    label: ''
-  - from: g-deploy
-    to: r-preview
-    kind: flow
-    label: ''
-  - from: g-deploy
-    to: f-failed
-    kind: fail
-    label: ''
-  - from: g-deploy
-    to: r-succeeded
-    kind: flow
-    label: ''
+    - from: g-connect
+      to: g-deploy
+      kind: flow
+      label: ""
+    - from: g-mode
+      to: g-deploy
+      kind: flow
+      label: ""
+    - from: g-deploy
+      to: f-rejected
+      kind: fail
+      label: ""
+    - from: g-deploy
+      to: r-preview
+      kind: flow
+      label: ""
+    - from: g-deploy
+      to: f-failed
+      kind: fail
+      label: ""
+    - from: g-deploy
+      to: r-succeeded
+      kind: flow
+      label: ""
   markers:
-  - at: g-connect
-    number: 1
-  - at: g-mode
-    number: 2
-  - at: g-deploy
-    number: 3
-  - at: f-rejected
-    number: 4
-  - at: r-preview
-    number: 5
-  - at: f-failed
-    number: 6
-  - at: r-succeeded
-    number: 7
+    - at: g-connect
+      number: 1
+    - at: g-mode
+      number: 2
+    - at: g-deploy
+      number: 3
+    - at: f-rejected
+      number: 4
+    - at: r-preview
+      number: 5
+    - at: f-failed
+      number: 6
+    - at: r-succeeded
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-consumers:
     x: 20

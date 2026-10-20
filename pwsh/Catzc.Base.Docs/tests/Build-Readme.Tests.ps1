@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1
+    folder: tests
+    name: build-readme-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-Readme.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-Readme.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+      - ADR-REPO-README-WORKINGLINKS
+---
+#>
+
 Describe 'Build-Readme' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

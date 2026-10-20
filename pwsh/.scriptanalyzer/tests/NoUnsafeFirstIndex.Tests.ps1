@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/NoUnsafeFirstIndex.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: no-unsafe-first-index-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NoUnsafeFirstIndex.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoUnsafeFirstIndex.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-ERROR-STRICTCLEAN
+---
+#>
+
 Describe 'Measure-NoUnsafeFirstIndex' -Tag 'L0', 'logic', 'ADR-PWSH-ERROR-STRICTCLEAN' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoUnsafeFirstIndex.psm1') -Force

@@ -1,11 +1,12 @@
-description: Each run mode is entered through its own dot-sourced script, all of them ending in one exclusivity check that
-  stops a session holding modules from two roots; a source-tree tool run in a build stops on its own check.
+description:
+  Each run mode is entered through its own dot-sourced script, all of them ending in one exclusivity check that stops a session holding
+  modules from two roots; a source-tree tool run in a build stops on its own check.
 about:
   adrs:
-  - ADR-DSGN-RUNMODE-TWORUNMODES
-  - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-  - ADR-DSGN-RUNMODE-NEVERCOEXIST
-  - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+    - ADR-DSGN-RUNMODE-TWORUNMODES
+    - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+    - ADR-DSGN-RUNMODE-NEVERCOEXIST
+    - ADR-DSGN-RUNMODE-THREEBUILDKINDS
   lens: operations
 content:
   title: Each run mode has one entry script, and a mixed session throws
@@ -14,94 +15,94 @@ content:
   relation: hands the load on to
   theme: dark
   bands:
-  - id: band-source
-    label: SOURCE
-  - id: band-tail
-    label: IMPORTER TAIL
-  - id: band-build
-    label: BUILD
-  - id: band-stops
-    label: WHEN IT STOPS
+    - id: band-source
+      label: SOURCE
+    - id: band-tail
+      label: IMPORTER TAIL
+    - id: band-build
+      label: BUILD
+    - id: band-stops
+      label: WHEN IT STOPS
   glyphs:
-  - id: g-importer
-    kind: code
-    label: . ./importer.ps1
-    in: band-source
-  - id: g-assert-exclusive
-    kind: gate
-    label: Assert-CatzcRunModeExclusive
-    in: band-tail
-  - id: g-import-module
-    kind: code
-    label: Import-Module Catzc
-    in: band-build
-  - id: g-import-catzc
-    kind: code
-    label: . Import-Catzc.ps1
-    in: band-build
-  - id: g-dir-importer
-    kind: code
-    label: . <dir>/importer.ps1
-    in: band-build
-  - id: f-exclusivity
-    kind: failure
-    label: Exclusivity violated
-    in: band-stops
-  - id: g-assert-source
-    kind: gate
-    label: Assert-SourceTree
-    in: band-stops
-  - id: f-source-only
-    kind: failure
-    label: Source tree only
-    in: band-stops
+    - id: g-importer
+      kind: code
+      label: . ./importer.ps1
+      in: band-source
+    - id: g-assert-exclusive
+      kind: gate
+      label: Assert-CatzcRunModeExclusive
+      in: band-tail
+    - id: g-import-module
+      kind: code
+      label: Import-Module Catzc
+      in: band-build
+    - id: g-import-catzc
+      kind: code
+      label: . Import-Catzc.ps1
+      in: band-build
+    - id: g-dir-importer
+      kind: code
+      label: . <dir>/importer.ps1
+      in: band-build
+    - id: f-exclusivity
+      kind: failure
+      label: Exclusivity violated
+      in: band-stops
+    - id: g-assert-source
+      kind: gate
+      label: Assert-SourceTree
+      in: band-stops
+    - id: f-source-only
+      kind: failure
+      label: Source tree only
+      in: band-stops
   edges:
-  - from: g-importer
-    to: g-assert-exclusive
-    kind: flow
-    label: ''
-  - from: g-import-module
-    to: g-import-catzc
-    kind: flow
-    label: ''
-  - from: g-dir-importer
-    to: g-import-catzc
-    kind: flow
-    label: ''
-  - from: g-import-catzc
-    to: g-assert-exclusive
-    kind: flow
-    label: ''
-  - from: g-assert-exclusive
-    to: f-exclusivity
-    kind: fail
-    label: ''
-  - from: g-assert-source
-    to: f-source-only
-    kind: fail
-    label: ''
+    - from: g-importer
+      to: g-assert-exclusive
+      kind: flow
+      label: ""
+    - from: g-import-module
+      to: g-import-catzc
+      kind: flow
+      label: ""
+    - from: g-dir-importer
+      to: g-import-catzc
+      kind: flow
+      label: ""
+    - from: g-import-catzc
+      to: g-assert-exclusive
+      kind: flow
+      label: ""
+    - from: g-assert-exclusive
+      to: f-exclusivity
+      kind: fail
+      label: ""
+    - from: g-assert-source
+      to: f-source-only
+      kind: fail
+      label: ""
   markers:
-  - at: g-importer
-    number: 1
-  - at: g-import-module
-    number: 2
-  - at: g-import-catzc
-    number: 3
-  - at: g-dir-importer
-    number: 4
-  - at: g-assert-exclusive
-    number: 5
-  - at: f-exclusivity
-    number: 6
-  - at: g-assert-source
-    number: 7
-  - at: f-source-only
-    number: 8
+    - at: g-importer
+      number: 1
+    - at: g-import-module
+      number: 2
+    - at: g-import-catzc
+      number: 3
+    - at: g-dir-importer
+      number: 4
+    - at: g-assert-exclusive
+      number: 5
+    - at: f-exclusivity
+      number: 6
+    - at: g-assert-source
+      number: 7
+    - at: f-source-only
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-source:
     x: 20

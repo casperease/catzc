@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/tests/types/FilesConfig.Tests.ps1
+    folder: tests/types
+    name: files-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[FilesConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/types/FilesConfig.Tests.ps1.md)"
+---
+#>
+
 Describe 'Catzc.Base.ModuleSystem.FilesConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

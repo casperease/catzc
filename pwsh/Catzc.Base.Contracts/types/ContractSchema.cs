@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/types/ContractSchema.cs
+    folder: types
+    name: contract-schema
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/types/ContractSchema.Tests.ps1
+    docs: "[ContractSchema.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractSchema.cs.md)"
+    cites:
+      - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

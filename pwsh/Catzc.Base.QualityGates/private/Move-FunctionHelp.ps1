@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Move-FunctionHelp.ps1
+    folder: private
+    name: move-function-help
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Move-FunctionHelp.Tests.ps1
+    docs: "[Move-FunctionHelp.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Move-FunctionHelp.ps1.md)"
+    cites:
+      - ADR-REPO-FILEMETA-NOREADBACK
+      - ADR-REPO-HELP-HELPONCOMMENTPAGE
+---
+#>
+
 function Move-FunctionHelp {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

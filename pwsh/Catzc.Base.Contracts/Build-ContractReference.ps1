@@ -1,3 +1,32 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/Build-ContractReference.ps1
+    name: build-contract-reference
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
+    docs: "[Build-ContractReference.ps1.md](docs/references/pwsh/catzc-base-contracts/Build-ContractReference.ps1.md)"
+    cites:
+      - ADR-REPO-CMDCONTRACT-ONEREADER
+      - ADR-REPO-CONTRACT-LAYOUT
+      - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
+      - ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED
+      - ADR-REPO-README-AUTHOREDSOURCES
+---
+#>
+
 function Build-ContractReference {
     [CmdletBinding()]
     [OutputType([string[]], [pscustomobject[]])]

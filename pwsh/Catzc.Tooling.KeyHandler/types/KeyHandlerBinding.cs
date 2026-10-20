@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.KeyHandler/types/KeyHandlerBinding.cs
+    folder: types
+    name: key-handler-binding
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.KeyHandler
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[KeyHandlerBinding.cs.md](docs/references/pwsh/catzc-tooling-keyhandler/types/KeyHandlerBinding.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

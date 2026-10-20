@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/ValueChainReason.cs
+    folder: types
+    name: value-chain-reason
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ValueChainReason.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainReason.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-DSGN-TRACK-VALUECHAINSTACK
+      - ADR-DSGN-TRACK-VALUECHAINCONCERN
+---
+*/
+
 using System;
 using System.Collections.Generic;
 

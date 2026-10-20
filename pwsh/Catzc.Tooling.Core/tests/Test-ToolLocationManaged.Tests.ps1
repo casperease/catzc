@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
+    folder: tests
+    name: test-tool-location-managed-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-ToolLocationManaged.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Test-ToolLocationManaged.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
     BeforeEach {
         if (-not $IsWindows) {

@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Languages/configs/generated-head.yml
+#     folder: configs
+#     name: generated-head
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Languages
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[generated-head.yml.md](docs/references/pwsh/catzc-base-languages/configs/generated-head.yml.md)"
+# ---
+
 keys:
   - with_body_sha
   - warning

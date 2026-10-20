@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1
+    folder: pwsh/.scriptanalyzer
+    name: test-analyzed-file-is-test
+    filetype: ps1
+    role: analyzer-rule
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[Test-AnalyzedFileIsTest.ps1.md](docs/references/pwsh/scriptanalyzer/Test-AnalyzedFileIsTest.ps1.md)"
+---
+#>
+
 function Test-AnalyzedFileIsTest {
     [CmdletBinding()]
     [OutputType([bool])]

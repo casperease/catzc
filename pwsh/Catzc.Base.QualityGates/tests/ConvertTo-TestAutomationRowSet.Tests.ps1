@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1
+    folder: tests
+    name: convert-to-test-automation-row-set-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ConvertTo-TestAutomationRowSet.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1.md)"
+---
+#>
+
 Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FakeTest {

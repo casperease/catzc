@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Globs/configs/globs.yml
+#     folder: configs
+#     name: globs
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Globs
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[globs.yml.md](docs/references/pwsh/catzc-base-globs/configs/globs.yml.md)"
+# ---
+
 globsets:
   pwsh:
     description: The pwsh track - the module system under pwsh/.

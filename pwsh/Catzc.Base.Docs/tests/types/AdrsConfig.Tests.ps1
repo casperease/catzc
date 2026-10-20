@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
+    folder: tests/types
+    name: adrs-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AdrsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
+      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-DSGN-TRACK-VALUECHAINSTACK
+      - ADR-DSGN-TRACK-VALUECHAINCONCERN
+      - ADR-REPO-LANG
+---
+#>
+
 Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         function New-ValidRaw {

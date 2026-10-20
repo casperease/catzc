@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Toolchain/Remove-Dotnet.ps1
+    name: remove-dotnet
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Toolchain/tests/Remove-Dotnet.Tests.ps1
+    docs: "[Remove-Dotnet.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Remove-Dotnet.ps1.md)"
+    cites:
+      - ADR-AUTO-REMOVE
+---
+#>
+
 function Remove-Dotnet {
     [CmdletBinding()]
     param(

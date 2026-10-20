@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
+    name: assert-bicep-template
+    filetype: ps1
+    role: function
+    subkind: assert
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
+    docs: "[Assert-BicepTemplate.ps1.md](docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md)"
+    cites:
+      - ADR-AZ-DATAMOD-PARAMETERCONTRACT
+---
+#>
+
 function Assert-BicepTemplate {
     [CmdletBinding()]
     param(

@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Git/New-GitIgnore.ps1
+    name: new-git-ignore
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Git
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Git/tests/New-GitIgnore.Tests.ps1
+    docs: "[New-GitIgnore.ps1.md](docs/references/pwsh/catzc-base-git/New-GitIgnore.ps1.md)"
+    cites:
+      - ADR-REPO-ROOTCFG
+---
+#>
+
 function New-GitIgnore {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/HelveticaMetrics.cs
+    folder: types
+    name: helvetica-metrics
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[HelveticaMetrics.cs.md](docs/references/pwsh/catzc-base-maps/types/HelveticaMetrics.cs.md)"
+    cites:
+      - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
+---
+*/
+
 using System;
 
 namespace Catzc.Base.Maps;

@@ -1,9 +1,9 @@
-description: An Azure resource name is assembled from eight components in a fixed order; the type's pattern picks the form
-  and the limit, a render past the limit throws at deploy time and is never truncated, and three worked examples show the
-  names that come out.
+description:
+  An Azure resource name is assembled from eight components in a fixed order; the type's pattern picks the form and the limit, a render past
+  the limit throws at deploy time and is never truncated, and three worked examples show the names that come out.
 about:
   adrs:
-  - ADR-AZ-NAMING
+    - ADR-AZ-NAMING
   lens: implementation
 content:
   title: Every Azure name is assembled from fixed components; an over-limit name throws, never truncated
@@ -12,132 +12,132 @@ content:
   relation: assembles into
   theme: dark
   bands:
-  - id: band-components
-    label: COMPONENTS IN STANDARD ORDER
-  - id: band-render
-    label: RENDER BY THE TYPE'S PATTERN
-  - id: band-names
-    label: 'EXAMPLES: prod fin weu apex'
+    - id: band-components
+      label: COMPONENTS IN STANDARD ORDER
+    - id: band-render
+      label: RENDER BY THE TYPE'S PATTERN
+    - id: band-names
+      label: "EXAMPLES: prod fin weu apex"
   groups:
-  - id: grp-name
-    label: Resource Name
-    in: band-components
-  - id: grp-resource-groups
-    label: Resource Groups
-    in: band-names
-  - id: grp-storage
-    label: Storage
-    in: band-names
-  - id: grp-virtual-machine
-    label: Virtual Machine
-    in: band-names
+    - id: grp-name
+      label: Resource Name
+      in: band-components
+    - id: grp-resource-groups
+      label: Resource Groups
+      in: band-names
+    - id: grp-storage
+      label: Storage
+      in: band-names
+    - id: grp-virtual-machine
+      label: Virtual Machine
+      in: band-names
   glyphs:
-  - id: c-env
-    kind: set
-    label: 1 env
-    in: grp-name
-  - id: c-slot
-    kind: set
-    label: 2 slot (optional)
-    in: grp-name
-  - id: c-region
-    kind: set
-    label: 3 region
-    in: grp-name
-  - id: c-org
-    kind: set
-    label: 4 org
-    in: grp-name
-  - id: c-short-name
-    kind: set
-    label: 5 short_name
-    in: grp-name
-  - id: c-customer
-    kind: set
-    label: 6 customer
-    in: grp-name
-  - id: c-role
-    kind: set
-    label: 7 role (optional)
-    in: grp-name
-  - id: c-type
-    kind: set
-    label: 8 type
-    in: grp-name
-  - id: g-pattern
-    kind: code
-    label: pattern of the type
-    in: band-render
-  - id: g-limit
-    kind: gate
-    label: fits the limit?
-    in: band-render
-  - id: f-throws
-    kind: failure
-    label: throws at deploy time, never truncated
-    in: band-render
-  - id: r-name
-    kind: result
-    label: deterministic name
-    in: band-render
-  - id: n-rg-base
-    kind: result
-    label: prod-weu-fin-disc-rg
-    in: grp-resource-groups
-  - id: n-rg-slot
-    kind: result
-    label: prod-001-weu-fin-edge-waf
-    in: grp-resource-groups
-  - id: n-rg-customer
-    kind: result
-    label: prod-weu-fin-disc-apex-rg
-    in: grp-resource-groups
-  - id: n-storage-base
-    kind: result
-    label: prweufindiscaphotst (19)
-    in: grp-storage
-  - id: n-storage-slot
-    kind: result
-    label: pr001weufindiscxaphotst (23)
-    in: grp-storage
-  - id: n-vm
-    kind: result
-    label: pr001weudiscvm (14)
-    in: grp-virtual-machine
+    - id: c-env
+      kind: set
+      label: 1 env
+      in: grp-name
+    - id: c-slot
+      kind: set
+      label: 2 slot (optional)
+      in: grp-name
+    - id: c-region
+      kind: set
+      label: 3 region
+      in: grp-name
+    - id: c-org
+      kind: set
+      label: 4 org
+      in: grp-name
+    - id: c-short-name
+      kind: set
+      label: 5 short_name
+      in: grp-name
+    - id: c-customer
+      kind: set
+      label: 6 customer
+      in: grp-name
+    - id: c-role
+      kind: set
+      label: 7 role (optional)
+      in: grp-name
+    - id: c-type
+      kind: set
+      label: 8 type
+      in: grp-name
+    - id: g-pattern
+      kind: code
+      label: pattern of the type
+      in: band-render
+    - id: g-limit
+      kind: gate
+      label: fits the limit?
+      in: band-render
+    - id: f-throws
+      kind: failure
+      label: throws at deploy time, never truncated
+      in: band-render
+    - id: r-name
+      kind: result
+      label: deterministic name
+      in: band-render
+    - id: n-rg-base
+      kind: result
+      label: prod-weu-fin-disc-rg
+      in: grp-resource-groups
+    - id: n-rg-slot
+      kind: result
+      label: prod-001-weu-fin-edge-waf
+      in: grp-resource-groups
+    - id: n-rg-customer
+      kind: result
+      label: prod-weu-fin-disc-apex-rg
+      in: grp-resource-groups
+    - id: n-storage-base
+      kind: result
+      label: prweufindiscaphotst (19)
+      in: grp-storage
+    - id: n-storage-slot
+      kind: result
+      label: pr001weufindiscxaphotst (23)
+      in: grp-storage
+    - id: n-vm
+      kind: result
+      label: pr001weudiscvm (14)
+      in: grp-virtual-machine
   edges:
-  - from: grp-name
-    to: g-pattern
-    kind: flow
-    label: ''
-  - from: g-pattern
-    to: g-limit
-    kind: flow
-    label: ''
-  - from: g-limit
-    to: r-name
-    kind: flow
-    label: fits
-  - from: g-limit
-    to: f-throws
-    kind: fail
-    label: exceeds
-  - from: r-name
-    to: grp-resource-groups
-    kind: flow
-    label: ''
-  - from: r-name
-    to: grp-storage
-    kind: flow
-    label: ''
-  - from: r-name
-    to: grp-virtual-machine
-    kind: flow
-    label: ''
+    - from: grp-name
+      to: g-pattern
+      kind: flow
+      label: ""
+    - from: g-pattern
+      to: g-limit
+      kind: flow
+      label: ""
+    - from: g-limit
+      to: r-name
+      kind: flow
+      label: fits
+    - from: g-limit
+      to: f-throws
+      kind: fail
+      label: exceeds
+    - from: r-name
+      to: grp-resource-groups
+      kind: flow
+      label: ""
+    - from: r-name
+      to: grp-storage
+      kind: flow
+      label: ""
+    - from: r-name
+      to: grp-virtual-machine
+      kind: flow
+      label: ""
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-components:
     x: 20

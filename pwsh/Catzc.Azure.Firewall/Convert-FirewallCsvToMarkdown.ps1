@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
+    name: convert-firewall-csv-to-markdown
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Firewall
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1
+    docs: "[Convert-FirewallCsvToMarkdown.ps1.md](docs/references/pwsh/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md)"
+    cites:
+      - ADR-PWSH-PARAM-RESOLUTIONORDER
+---
+#>
+
 function Convert-FirewallCsvToMarkdown {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'In Object mode -SourceName derives from the piped input, bound after defaults are evaluated (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'GroupPriority is consumed inside the Sort-Object Expression scriptblock, which this rule does not trace; the render-only parameters are forwarded to Get-FirewallMarkdownTable')]

@@ -1,11 +1,12 @@
-description: tools.yml is the one locked list of tools; three readers take its typed map, and the devbox install walks the
-  keys in dependency order and dispatches each to the install function whose name it derives, throwing when none exists.
+description:
+  tools.yml is the one locked list of tools; three readers take its typed map, and the devbox install walks the keys in dependency order and
+  dispatches each to the install function whose name it derives, throwing when none exists.
 about:
   adrs:
-  - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
-  - ADR-AUTO-PKGMGR
-  - ADR-AUTO-ENGINE
-  - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
+    - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
+    - ADR-AUTO-PKGMGR
+    - ADR-AUTO-ENGINE
+    - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
   lens: source
 content:
   title: tools.yml is the one locked list; dispatch is by key name
@@ -14,137 +15,137 @@ content:
   relation: feeds (data moves)
   theme: dark
   bands:
-  - id: band-config
-    label: CONFIG
-  - id: band-read
-    label: READ
-  - id: band-dispatch
-    label: DISPATCH
+    - id: band-config
+      label: CONFIG
+    - id: band-read
+      label: READ
+    - id: band-dispatch
+      label: DISPATCH
   groups:
-  - id: grp-execution
-    label: Catzc.Base.Execution
-    in: band-config
-  - id: grp-core
-    label: Catzc.Tooling.Core
-    in: band-read
+    - id: grp-execution
+      label: Catzc.Base.Execution
+      in: band-config
+    - id: grp-core
+      label: Catzc.Tooling.Core
+      in: band-read
   glyphs:
-  - id: f-tools-yml
-    kind: file
-    label: tools.yml
-    in: grp-execution
-  - id: t-config
-    kind: type
-    label: ToolsConfig
-    in: grp-execution
-  - id: g-status
-    kind: code
-    label: Get-ToolsStatus
-    in: band-read
-  - id: t-status
-    kind: type
-    label: ToolStatus
-    in: band-read
-  - id: g-order
-    kind: code
-    label: Get-ToolInstallOrder
-    in: grp-core
-  - id: g-tool-config
-    kind: code
-    label: Get-ToolConfig
-    in: grp-core
-  - id: g-suffix
-    kind: code
-    label: Get-ToolCommandSuffix
-    in: grp-core
-  - id: g-install
-    kind: code
-    label: Install-DevBoxTools
-    in: band-dispatch
-  - id: s-installers
-    kind: set
-    label: Install-<Suffix>
-    in: band-dispatch
-  - id: f-missing
-    kind: failure
-    label: No Install function found
-    in: band-dispatch
+    - id: f-tools-yml
+      kind: file
+      label: tools.yml
+      in: grp-execution
+    - id: t-config
+      kind: type
+      label: ToolsConfig
+      in: grp-execution
+    - id: g-status
+      kind: code
+      label: Get-ToolsStatus
+      in: band-read
+    - id: t-status
+      kind: type
+      label: ToolStatus
+      in: band-read
+    - id: g-order
+      kind: code
+      label: Get-ToolInstallOrder
+      in: grp-core
+    - id: g-tool-config
+      kind: code
+      label: Get-ToolConfig
+      in: grp-core
+    - id: g-suffix
+      kind: code
+      label: Get-ToolCommandSuffix
+      in: grp-core
+    - id: g-install
+      kind: code
+      label: Install-DevBoxTools
+      in: band-dispatch
+    - id: s-installers
+      kind: set
+      label: Install-<Suffix>
+      in: band-dispatch
+    - id: f-missing
+      kind: failure
+      label: No Install function found
+      in: band-dispatch
   edges:
-  - from: f-tools-yml
-    to: t-config
-    kind: flow
-    label: ''
-  - from: t-config
-    to: g-status
-    kind: flow
-    label: ''
-  - from: t-config
-    to: g-order
-    kind: flow
-    label: ''
-  - from: t-config
-    to: g-tool-config
-    kind: flow
-    label: ''
-  - from: t-config
-    to: g-suffix
-    kind: flow
-    label: ''
-  - from: g-status
-    to: t-status
-    kind: flow
-    label: ''
-  - from: t-status
-    to: g-install
-    kind: flow
-    label: ''
-  - from: g-order
-    to: g-install
-    kind: flow
-    label: ''
-  - from: g-tool-config
-    to: g-install
-    kind: flow
-    label: ''
-  - from: g-suffix
-    to: g-install
-    kind: flow
-    label: ''
-  - from: g-install
-    to: s-installers
-    kind: flow
-    label: ''
-  - from: g-install
-    to: f-missing
-    kind: fail
-    label: ''
+    - from: f-tools-yml
+      to: t-config
+      kind: flow
+      label: ""
+    - from: t-config
+      to: g-status
+      kind: flow
+      label: ""
+    - from: t-config
+      to: g-order
+      kind: flow
+      label: ""
+    - from: t-config
+      to: g-tool-config
+      kind: flow
+      label: ""
+    - from: t-config
+      to: g-suffix
+      kind: flow
+      label: ""
+    - from: g-status
+      to: t-status
+      kind: flow
+      label: ""
+    - from: t-status
+      to: g-install
+      kind: flow
+      label: ""
+    - from: g-order
+      to: g-install
+      kind: flow
+      label: ""
+    - from: g-tool-config
+      to: g-install
+      kind: flow
+      label: ""
+    - from: g-suffix
+      to: g-install
+      kind: flow
+      label: ""
+    - from: g-install
+      to: s-installers
+      kind: flow
+      label: ""
+    - from: g-install
+      to: f-missing
+      kind: fail
+      label: ""
   markers:
-  - at: f-tools-yml
-    number: 1
-  - at: t-config
-    number: 2
-  - at: g-status
-    number: 3
-  - at: g-order
-    number: 4
-  - at: g-tool-config
-    number: 5
-  - at: g-suffix
-    number: 6
-  - at: g-install
-    number: 7
-  - at: s-installers
-    number: 8
-  - at: f-missing
-    number: 9
+    - at: f-tools-yml
+      number: 1
+    - at: t-config
+      number: 2
+    - at: g-status
+      number: 3
+    - at: g-order
+      number: 4
+    - at: g-tool-config
+      number: 5
+    - at: g-suffix
+      number: 6
+    - at: g-install
+      number: 7
+    - at: s-installers
+      number: 8
+    - at: f-missing
+      number: 9
   chips:
-  - at: s-installers
-    kind: count
-    text: '16'
+    - at: s-installers
+      kind: count
+      text: "16"
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-config:
     x: 20

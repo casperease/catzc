@@ -15,7 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[Clear-ModuleTypeCache.Tests.ps1.md](/docs/references/pwsh/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md)"
+    docs: "[Clear-ModuleTypeCache.Tests.ps1.md](docs/references/pwsh/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md)"
 ---
 #>
 

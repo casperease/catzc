@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Slides/private/Get-DiagramEmbedder.ps1
+    folder: private
+    name: get-diagram-embedder
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-DiagramEmbedder.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-DiagramEmbedder.ps1.md)"
+    cites:
+      - ADR-REPO-SLIDES-ONEBUILDCOMMAND
+---
+#>
+
 function Get-DiagramEmbedder {
     [CmdletBinding()]
     [OutputType([hashtable])]

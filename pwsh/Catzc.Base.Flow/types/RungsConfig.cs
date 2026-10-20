@@ -1,3 +1,33 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+    folder: types
+    name: rungs-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Flow
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
+    docs: "[RungsConfig.cs.md](docs/references/pwsh/catzc-base-flow/types/RungsConfig.cs.md)"
+    cites:
+      - ADR-FLOW-CD-CDSTAYSINNONPROD
+      - ADR-FLOW-CD-TWORELEASEGATES
+      - ADR-FLOW-CD-PREPRODRUNG
+      - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - ADR-FLOW-CD-PRODAPPROVALGATE
+      - ADR-FLOW-CD-RUNGSREGISTRY
+      - ADR-FLOW-CD-CERTIFYINGRECORD
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

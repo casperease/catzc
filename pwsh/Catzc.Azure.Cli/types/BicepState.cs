@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Cli/types/BicepState.cs
+    folder: types
+    name: bicep-state
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Cli
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[BicepState.cs.md](docs/references/pwsh/catzc-azure-cli/types/BicepState.cs.md)"
+---
+*/
+
 using System;
 
 namespace Catzc.Azure.Cli;

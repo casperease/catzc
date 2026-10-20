@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/private/Get-EngineContract.ps1
+    folder: private
+    name: get-engine-contract
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
+    docs: "[Get-EngineContract.ps1.md](docs/references/pwsh/catzc-base-languages/private/Get-EngineContract.ps1.md)"
+    cites:
+      - ADR-AUTO-ENGINE
+      - ADR-AUTO-GO-BLACKBOXTESTS
+      - ADR-AUTO-PY-BLACKBOXTESTS
+---
+#>
+
 function Get-EngineContract {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

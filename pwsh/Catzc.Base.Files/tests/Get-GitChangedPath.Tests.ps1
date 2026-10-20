@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
+    folder: tests
+    name: get-git-changed-path-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Files
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-GitChangedPath.Tests.ps1.md](docs/references/pwsh/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Get-GitChangedPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:porcelain = ''

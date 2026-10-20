@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
+    folder: private
+    name: get-auto-controlled-globs
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Git
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
+    docs: "[Get-AutoControlledGlobs.ps1.md](docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md)"
+    cites:
+      - ADR-CONF-LOADING-READINGISGLOBAL
+      - ADR-REPO-OUTDIR-DICTIONARIESGENERATED
+      - ADR-REPO-OUTDIR-PLANNOTES
+---
+#>
+
 function Get-AutoControlledGlobs {
     [CmdletBinding()]
     [OutputType([string[]])]

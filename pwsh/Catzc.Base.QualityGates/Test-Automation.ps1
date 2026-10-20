@@ -1,3 +1,36 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
+    name: test-automation
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
+    docs: "[Test-Automation.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-ONESCHEDULINGPOOL
+      - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
+      - ADR-AUTO-TEST-RUNSNEVERWAIT
+      - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
+      - ADR-AUTO-TEST-TESTSUITE
+      - ADR-AUTO-TEST-TESTINGINPRODUCTION
+      - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+      - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
+      - ADR-PWSH-ERROR-THROWNOTWRITEERROR
+---
+#>
+
 function Test-Automation {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.TestRunResult])]

@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/GlossarySegment.cs
+    folder: types
+    name: glossary-segment
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[GlossarySegment.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossarySegment.cs.md)"
+---
+*/
+
 namespace Catzc.Base.Docs;
 
 public sealed class GlossarySegment

@@ -1,9 +1,10 @@
-description: 'One rule bounds every agent call: the limits, the verdict and the hook follow it, three tests at three tiers
-  prove the hook, and the exemption route has no gate because it exists only in the ADR.'
+description:
+  "One rule bounds every agent call: the limits, the verdict and the hook follow it, three tests at three tiers prove the hook, and the
+  exemption route has no gate because it exists only in the ADR."
 about:
   adrs:
-  - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-  - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
   lens: governance
 content:
   title: One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only
@@ -12,91 +13,91 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-limits
-    label: LIMITS
-  - id: band-verdict
-    label: VERDICT
-  - id: band-hook
-    label: HOOK
-  - id: band-no-gate
-    label: NO GATE
-  - id: band-tests
-    label: TESTS
+    - id: band-limits
+      label: LIMITS
+    - id: band-verdict
+      label: VERDICT
+    - id: band-hook
+      label: HOOK
+    - id: band-no-gate
+      label: NO GATE
+    - id: band-tests
+      label: TESTS
   glyphs:
-  - id: g-config
-    kind: code
-    label: TimeoutsConfig
-    in: band-limits
-  - id: g-decide
-    kind: code
-    label: BashSafeguard.Decide
-    in: band-verdict
-  - id: g-hook
-    kind: code
-    label: Assert-BashTimeout
-    in: band-hook
-  - id: a-exemptions
-    kind: adronly
-    label: timeout-exemptions.yml
-    in: band-no-gate
-  - id: g-logic
-    kind: gate
-    label: BashSafeguard (L0 logic)
-    in: band-tests
-  - id: g-parity
-    kind: gate
-    label: parity (L1 integrity)
-    in: band-tests
-  - id: g-published
-    kind: gate
-    label: published hook (L2 logic)
-    in: band-tests
+    - id: g-config
+      kind: code
+      label: TimeoutsConfig
+      in: band-limits
+    - id: g-decide
+      kind: code
+      label: BashSafeguard.Decide
+      in: band-verdict
+    - id: g-hook
+      kind: code
+      label: Assert-BashTimeout
+      in: band-hook
+    - id: a-exemptions
+      kind: adronly
+      label: timeout-exemptions.yml
+      in: band-no-gate
+    - id: g-logic
+      kind: gate
+      label: BashSafeguard (L0 logic)
+      in: band-tests
+    - id: g-parity
+      kind: gate
+      label: parity (L1 integrity)
+      in: band-tests
+    - id: g-published
+      kind: gate
+      label: published hook (L2 logic)
+      in: band-tests
   edges:
-  - from: g-config
-    to: g-decide
-    kind: flow
-    label: ''
-  - from: g-decide
-    to: g-hook
-    kind: flow
-    label: ''
+    - from: g-config
+      to: g-decide
+      kind: flow
+      label: ""
+    - from: g-decide
+      to: g-hook
+      kind: flow
+      label: ""
   markers:
-  - at: g-config
-    number: 1
-  - at: g-decide
-    number: 2
-  - at: g-hook
-    number: 3
-  - at: g-logic
-    number: 4
-  - at: g-parity
-    number: 5
-  - at: g-published
-    number: 6
-  - at: a-exemptions
-    number: 7
+    - at: g-config
+      number: 1
+    - at: g-decide
+      number: 2
+    - at: g-hook
+      number: 3
+    - at: g-logic
+      number: 4
+    - at: g-parity
+      number: 5
+    - at: g-published
+      number: 6
+    - at: a-exemptions
+      number: 7
   chips:
-  - at: g-config
-    kind: rule
-    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-  - at: g-config
-    kind: rule
-    rule: ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-  - at: g-decide
-    kind: rule
-    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-  - at: g-hook
-    kind: rule
-    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-  - at: a-exemptions
-    kind: rule
-    rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-    gated: false
+    - at: g-config
+      kind: rule
+      rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - at: g-config
+      kind: rule
+      rule: ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+    - at: g-decide
+      kind: rule
+      rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - at: g-hook
+      kind: rule
+      rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - at: a-exemptions
+      kind: rule
+      rule: ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      gated: false
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-limits:
     x: 20

@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.KeyHandler/Import-PSReadLineKeyHandlerSet.ps1
+    name: import-ps-read-line-key-handler-set
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.KeyHandler
+    moduletype: pwsh-folder
+    catzc_bundle: full
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
+    docs: "[Import-PSReadLineKeyHandlerSet.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/Import-PSReadLineKeyHandlerSet.ps1.md)"
+---
+#>
+
 function Import-PSReadLineKeyHandlerSet {
     [CmdletBinding()]
     param(

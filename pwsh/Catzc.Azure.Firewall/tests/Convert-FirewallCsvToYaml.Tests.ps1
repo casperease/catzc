@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1
+    folder: tests
+    name: convert-firewall-csv-to-yaml-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Firewall
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Convert-FirewallCsvToYaml.Tests.ps1.md](docs/references/pwsh/catzc-azure-firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1.md)"
+---
+#>
+
 Describe 'Convert-FirewallCsvToYaml' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:assets = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Firewall/tests/assets'

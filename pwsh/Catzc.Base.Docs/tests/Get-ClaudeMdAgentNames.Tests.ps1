@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Get-ClaudeMdAgentNames.Tests.ps1
+    folder: tests
+    name: get-claude-md-agent-names-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ClaudeMdAgentNames.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-ClaudeMdAgentNames.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-AGENTS-LISTEDINCLAUDEFILE
+---
+#>
+
 Describe 'Get-ClaudeMdAgentNames' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-LISTEDINCLAUDEFILE' {
     BeforeAll {
         function Write-ClaudeMdFixture {

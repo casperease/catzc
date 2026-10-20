@@ -1,3 +1,31 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/types/ContractCommand.cs
+    folder: types
+    name: contract-command
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/types/ContractCommand.Tests.ps1
+    docs: "[ContractCommand.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractCommand.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
+      - ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS
+      - ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

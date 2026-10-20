@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
+    folder: tests
+    name: build-comment-view-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-CommentView.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-IDEM-CHECKBEFOREACTING
+      - ADR-PRIN-ONELIVE-ONEVERSION
+      - ADR-REPO-COMMENTS-INLINEVIEWGENERATED
+      - ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION
+---
+#>
+
 Describe 'Build-CommentView' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {

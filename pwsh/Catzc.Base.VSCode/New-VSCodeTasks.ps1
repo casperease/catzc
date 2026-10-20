@@ -17,7 +17,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeTasks.Tests.ps1
-    docs: "[New-VSCodeTasks.ps1.md](/docs/references/pwsh/catzc-base-vscode/New-VSCodeTasks.ps1.md)"
+    docs: "[New-VSCodeTasks.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VSCodeTasks.ps1.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---

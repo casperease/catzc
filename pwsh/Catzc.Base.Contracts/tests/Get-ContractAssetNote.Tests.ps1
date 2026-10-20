@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1
+    folder: tests
+    name: get-contract-asset-note-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ContractAssetNote.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-ContractAssetNote.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+#>
+
 Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     BeforeAll {
         # The lines of a fixture file, each ended by LF.

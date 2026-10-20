@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
+    folder: tests
+    name: build-bicep-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-Bicep.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SAFESEAMSWAPS
+      - ADR-AUTO-TEST-SETUPONCE
+      - ADR-AUTO-TEST-ONESCHEDULINGPOOL
+---
+#>
+
 # cspell:ignore alweutstsmplst
 Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     BeforeAll {

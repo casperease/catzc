@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
+    folder: tests/types
+    name: executable-probe-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Execution
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ExecutableProbe.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'ExecutableProbe' -Tag 'L0', 'logic' {
 
     It 'reads a found executable as Found with its path' {

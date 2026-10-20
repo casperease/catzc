@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Modules/Get-CatzcModule.ps1
+    name: get-catzc-module
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Modules
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
+    docs: "[Get-CatzcModule.ps1.md](docs/references/pwsh/catzc-base-modules/Get-CatzcModule.ps1.md)"
+    cites:
+      - ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
+      - ADR-AUTO-MODULE-EXISTSBYLAYOUT
+      - ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS
+      - ADR-PWSH-ENUM-ALWAYSBOUNDED
+---
+#>
+
 function Get-CatzcModule {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Modules.Module])]

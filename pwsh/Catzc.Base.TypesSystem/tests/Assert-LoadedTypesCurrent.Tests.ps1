@@ -15,7 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[Assert-LoadedTypesCurrent.Tests.ps1.md](/docs/references/pwsh/catzc-base-typessystem/tests/Assert-LoadedTypesCurrent.Tests.ps1.md)"
+    docs: "[Assert-LoadedTypesCurrent.Tests.ps1.md](docs/references/pwsh/catzc-base-typessystem/tests/Assert-LoadedTypesCurrent.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-NOOVERMOCKING

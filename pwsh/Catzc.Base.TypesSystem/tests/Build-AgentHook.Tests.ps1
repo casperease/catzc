@@ -15,7 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[Build-AgentHook.Tests.ps1.md](/docs/references/pwsh/catzc-base-typessystem/tests/Build-AgentHook.Tests.ps1.md)"
+    docs: "[Build-AgentHook.Tests.ps1.md](docs/references/pwsh/catzc-base-typessystem/tests/Build-AgentHook.Tests.ps1.md)"
 ---
 #>
 

@@ -1,11 +1,10 @@
-description: 'A track composes into a deployable-unit, and a deployable-unit binds one pipeline: the delivery side of cats
-  in a line.'
+description: "A track composes into a deployable-unit, and a deployable-unit binds one pipeline: the delivery side of cats in a line."
 about:
   adrs:
-  - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-  - ADR-DSGN-TRACK-ONETRACKTYPE
-  - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
-  - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+    - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+    - ADR-DSGN-TRACK-ONETRACKTYPE
+    - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+    - ADR-DSGN-TRACK-DEPLOYABLEUNIT
   lens: meta
 content:
   title: A track ships through a deployable-unit, and each unit has one pipeline
@@ -14,50 +13,50 @@ content:
   relation: binds one pipeline (1-1)
   theme: dark
   bands:
-  - id: band-tracks
-    label: TRACKS
-  - id: band-units
-    label: DEPLOYABLE-UNITS
-  - id: band-pipelines
-    label: PIPELINES
+    - id: band-tracks
+      label: TRACKS
+    - id: band-units
+      label: DEPLOYABLE-UNITS
+    - id: band-pipelines
+      label: PIPELINES
   glyphs:
-  - id: s-track
-    kind: set
-    label: Track
-    in: band-tracks
-  - id: s-unit
-    kind: set
-    label: Deployable-unit
-    in: band-units
-  - id: r-pipeline
-    kind: runner
-    label: Pipeline
-    in: band-pipelines
+    - id: s-track
+      kind: set
+      label: Track
+      in: band-tracks
+    - id: s-unit
+      kind: set
+      label: Deployable-unit
+      in: band-units
+    - id: r-pipeline
+      kind: runner
+      label: Pipeline
+      in: band-pipelines
   edges:
-  - from: s-track
-    to: s-unit
-    kind: thick
-    label: ''
-  - from: s-unit
-    to: r-pipeline
-    kind: flow
-    label: ''
+    - from: s-track
+      to: s-unit
+      kind: thick
+      label: ""
+    - from: s-unit
+      to: r-pipeline
+      kind: flow
+      label: ""
   markers:
-  - at: s-track
-    number: 1
-  - at: s-track->s-unit
-    number: 2
-  - at: s-unit
-    number: 3
-  - at: s-unit->r-pipeline
-    number: 4
-  - at: r-pipeline
-    number: 5
+    - at: s-track
+      number: 1
+    - at: s-track->s-unit
+      number: 2
+    - at: s-unit
+      number: 3
+    - at: s-unit->r-pipeline
+      number: 4
+    - at: r-pipeline
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-tracks:
     x: 20

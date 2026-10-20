@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.internal/tests/Set-RedirectedOutputEncoding.Tests.ps1
+    name: set-redirected-output-encoding-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Internal.Tests
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
+  edges:
+    docs: "[Set-RedirectedOutputEncoding.Tests.ps1.md](docs/references/pwsh/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT
+      - ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE
+---
+#>
+
 BeforeAll {
     $script:sandbox = Join-Path ([System.IO.Path]::GetTempPath()) "redirected-encoding-$([guid]::NewGuid().ToString('N'))"
     $sandboxAuto = Join-Path $script:sandbox (Get-CatzcModulesFolder)

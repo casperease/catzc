@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+#     folder: configs
+#     name: build-validation
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Azure.DevOps.BuildValidation
+#     moduletype: pwsh-folder
+#     catzc_bundle: full
+#   edges:
+#     docs: "[build-validation.yml.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md)"
+# ---
+
 branch: main
 validations:
   - globset: pwsh

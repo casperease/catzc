@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
+    name: update-adr-citation
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
+    docs: "[Update-AdrCitation.ps1.md](docs/references/pwsh/catzc-base-docs/Update-AdrCitation.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN
+      - ADR-AUTO-IDEM
+      - ADR-REPO-LINK-MARKDOWNRELATIVE
+---
+#>
+
 function Update-AdrCitation {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Docs.AdrCitationChange])]

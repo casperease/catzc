@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Reports/Clear-Output.ps1
+    name: clear-output
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Reports
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Reports/tests/Clear-Output.Tests.ps1
+    docs: "[Clear-Output.ps1.md](docs/references/pwsh/catzc-base-reports/Clear-Output.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN-SIDEEFFECTSTAKEDRYRUN
+      - ADR-REPO-OUTDIR-ONECLEANCOMMAND
+---
+#>
+
 function Clear-Output {
     [CmdletBinding()]
     [OutputType([string[]])]

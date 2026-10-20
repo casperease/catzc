@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.internal/Catzc.Internal.Importer.psm1
+    name: catzc-internal-importer
+    filetype: psm1
+    role: module
+    subkind: internal
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Internal.Importer
+    moduletype: pwsh-psm1
+    catzc_bundle: minimal
+  edges:
+    docs: "[Catzc.Internal.Importer.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md)"
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
 $script:modulesFolder = 'pwsh'

@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.RootConfig/private/Get-RootConfigInputStamp.ps1
+    folder: private
+    name: get-root-config-input-stamp
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.RootConfig/tests/Get-RootConfigInputStamp.Tests.ps1
+    docs: "[Get-RootConfigInputStamp.ps1.md](docs/references/pwsh/catzc-base-rootconfig/private/Get-RootConfigInputStamp.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
+      - ADR-PWSH-ENUM-RAWDOTNETENUMERATION
+---
+#>
+
 function Get-RootConfigInputStamp {
     [CmdletBinding()]
     [OutputType([string])]

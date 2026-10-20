@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
+    name: get-bicep-deployment-name
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
+    docs: "[Get-BicepDeploymentName.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md)"
+    cites:
+      - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+---
+#>
+
 function Get-BicepDeploymentName {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]

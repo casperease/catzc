@@ -1,9 +1,9 @@
-description: 'The operator''s path through a unit''s triggers: edit globs.yml, print the projection with Get-GlobSetTrigger,
-  paste the Azure DevOps lists into the pipeline file, and two gates fail naming the missing include, the drifted filter or
-  the missing file.'
+description:
+  "The operator's path through a unit's triggers: edit globs.yml, print the projection with Get-GlobSetTrigger, paste the Azure DevOps lists
+  into the pipeline file, and two gates fail naming the missing include, the drifted filter or the missing file."
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
   lens: operations
 content:
   title: Print the projection, and a drifted pipeline fails naming the filter that differs
@@ -12,100 +12,100 @@ content:
   relation: feeds
   theme: dark
   bands:
-  - id: band-compose
-    label: COMPOSE
-  - id: band-projection
-    label: PROJECTION
-  - id: band-checked
-    label: CHECKED BY
+    - id: band-compose
+      label: COMPOSE
+    - id: band-projection
+      label: PROJECTION
+    - id: band-checked
+      label: CHECKED BY
   glyphs:
-  - id: f-globs-yml
-    kind: file
-    label: globs.yml
-    in: band-compose
-  - id: c-trigger
-    kind: code
-    label: Get-GlobSetTrigger
-    in: band-projection
-  - id: f-cd-apex
-    kind: file
-    label: .ado/pipelines/cd-apex.yaml
-    in: band-projection
-  - id: g-coverage
-    kind: gate
-    label: Test-GlobSetTriggerCoverage
-    in: band-checked
-  - id: x-no-include
-    kind: failure
-    label: matches no ADO include
-    in: band-checked
-  - id: g-trigger-glob
-    kind: gate
-    label: Test-AdoPipelineTriggerGlob
-    in: band-checked
-  - id: x-drifted
-    kind: failure
-    label: trigger drifted
-    in: band-checked
-  - id: x-not-found
-    kind: failure
-    label: pipeline file not found
-    in: band-checked
+    - id: f-globs-yml
+      kind: file
+      label: globs.yml
+      in: band-compose
+    - id: c-trigger
+      kind: code
+      label: Get-GlobSetTrigger
+      in: band-projection
+    - id: f-cd-apex
+      kind: file
+      label: .ado/pipelines/cd-apex.yaml
+      in: band-projection
+    - id: g-coverage
+      kind: gate
+      label: Test-GlobSetTriggerCoverage
+      in: band-checked
+    - id: x-no-include
+      kind: failure
+      label: matches no ADO include
+      in: band-checked
+    - id: g-trigger-glob
+      kind: gate
+      label: Test-AdoPipelineTriggerGlob
+      in: band-checked
+    - id: x-drifted
+      kind: failure
+      label: trigger drifted
+      in: band-checked
+    - id: x-not-found
+      kind: failure
+      label: pipeline file not found
+      in: band-checked
   edges:
-  - from: f-globs-yml
-    to: c-trigger
-    kind: flow
-    label: ''
-  - from: c-trigger
-    to: f-cd-apex
-    kind: adr
-    label: ''
-  - from: c-trigger
-    to: g-coverage
-    kind: flow
-    label: ''
-  - from: c-trigger
-    to: g-trigger-glob
-    kind: flow
-    label: ''
-  - from: f-cd-apex
-    to: g-trigger-glob
-    kind: flow
-    label: ''
-  - from: g-coverage
-    to: x-no-include
-    kind: fail
-    label: ''
-  - from: g-trigger-glob
-    to: x-drifted
-    kind: fail
-    label: ''
-  - from: g-trigger-glob
-    to: x-not-found
-    kind: fail
-    label: ''
+    - from: f-globs-yml
+      to: c-trigger
+      kind: flow
+      label: ""
+    - from: c-trigger
+      to: f-cd-apex
+      kind: adr
+      label: ""
+    - from: c-trigger
+      to: g-coverage
+      kind: flow
+      label: ""
+    - from: c-trigger
+      to: g-trigger-glob
+      kind: flow
+      label: ""
+    - from: f-cd-apex
+      to: g-trigger-glob
+      kind: flow
+      label: ""
+    - from: g-coverage
+      to: x-no-include
+      kind: fail
+      label: ""
+    - from: g-trigger-glob
+      to: x-drifted
+      kind: fail
+      label: ""
+    - from: g-trigger-glob
+      to: x-not-found
+      kind: fail
+      label: ""
   markers:
-  - at: f-globs-yml
-    number: 1
-  - at: c-trigger
-    number: 2
-  - at: f-cd-apex
-    number: 3
-  - at: g-coverage
-    number: 4
-  - at: x-no-include
-    number: 5
-  - at: g-trigger-glob
-    number: 6
-  - at: x-drifted
-    number: 7
-  - at: x-not-found
-    number: 8
+    - at: f-globs-yml
+      number: 1
+    - at: c-trigger
+      number: 2
+    - at: f-cd-apex
+      number: 3
+    - at: g-coverage
+      number: 4
+    - at: x-no-include
+      number: 5
+    - at: g-trigger-glob
+      number: 6
+    - at: x-drifted
+      number: 7
+    - at: x-not-found
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-compose:
     x: 20

@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/Get-AxisMinimapData.ps1
+    name: get-axis-minimap-data
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/Get-AxisMinimapData.Tests.ps1
+    docs: "[Get-AxisMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-AxisMinimapData.ps1.md)"
+---
+#>
+
 function Get-AxisMinimapData {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]

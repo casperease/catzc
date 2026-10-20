@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1
+    folder: tests
+    name: save-verified-download-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Save-VerifiedDownload.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Save-VerifiedDownload.Tests.ps1.md)"
+---
+#>
+
 Describe 'Save-VerifiedDownload' -Tag 'L0', 'logic' {
 
     It 'returns the path when the SHA-256 matches (tolerates a sha256: prefix)' {

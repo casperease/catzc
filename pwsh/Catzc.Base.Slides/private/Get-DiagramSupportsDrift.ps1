@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Slides/private/Get-DiagramSupportsDrift.ps1
+    folder: private
+    name: get-diagram-supports-drift
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-DiagramSupportsDrift.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-DiagramSupportsDrift.ps1.md)"
+    cites:
+      - ADR-REPO-SLIDES-ONEBUILDCOMMAND
+---
+#>
+
 function Get-DiagramSupportsDrift {
     [CmdletBinding()]
     [OutputType([string])]

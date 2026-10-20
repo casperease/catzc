@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.CodeMeta/types/HeadForm.cs
+    folder: types
+    name: head-form
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.CodeMeta
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.CodeMeta/tests/types/HeadForm.Tests.ps1
+    docs: "[HeadForm.cs.md](docs/references/pwsh/catzc-base-codemeta/types/HeadForm.cs.md)"
+    cites:
+      - ADR-REPO-CODEMETA-CODEFILEHEAD
+---
+*/
+
 using System;
 using System.Collections.Generic;
 

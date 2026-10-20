@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
+    folder: tests/types
+    name: inspiration-root-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Inspiration
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[InspirationRoot.Tests.ps1.md](docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-PATH-WORKSPACEANCHOR
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Catzc.Tooling.Inspiration.InspirationRoot' -Tag 'L0', 'logic' {
     Context 'ToNative' {
         It 'maps a Git Bash drive path to a drive path on Windows' {

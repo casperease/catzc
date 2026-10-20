@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
+    folder: tests
+    name: test-git-hub-workflow-trigger-glob-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-GitHubWorkflowTriggerGlob.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 Describe 'Test-GitHubWorkflowTriggerGlob' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot { 'X:/repo' } -ModuleName Catzc.Base.Globs

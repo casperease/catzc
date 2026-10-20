@@ -1,3 +1,31 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/LinksConfig.cs
+    folder: types
+    name: links-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1
+    docs: "[LinksConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinksConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-PWSH-PARAM-RESOLUTIONORDER
+      - ADR-REPO-LINK-ONECITATIONSPELLING
+      - ADR-REPO-LINK-ALIGNEDBYTOOL
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,3 +1,25 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Execution/types/ExecutableProbe.cs
+    folder: types
+    name: executable-probe
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Execution
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
+    docs: "[ExecutableProbe.cs.md](docs/references/pwsh/catzc-base-execution/types/ExecutableProbe.cs.md)"
+---
+*/
+
 using System;
 
 namespace Catzc.Base.Execution;

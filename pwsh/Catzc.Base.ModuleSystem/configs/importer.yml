@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.ModuleSystem/configs/importer.yml
+#     folder: configs
+#     name: importer
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.ModuleSystem
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[importer.yml.md](docs/references/pwsh/catzc-base-modulesystem/configs/importer.yml.md)"
+# ---
+
 # auto: the executable languages of the loaded modules.
 languages: auto
 

@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Save-TestDurationHistory.Tests.ps1
+    folder: tests
+    name: save-test-duration-history-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Save-TestDurationHistory.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Save-TestDurationHistory.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Save-TestDurationHistory' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:path = Join-Path $TestDrive "history-$([guid]::NewGuid().ToString('N'))/durations.json"

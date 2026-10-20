@@ -1,12 +1,12 @@
-description: One declared allow-list says which layer may depend on which, and every allowed edge points down through the
-  layers to the base libraries, which make the last hop to the vendor tool; an edge the declaration does not list fails the
-  build.
+description:
+  One declared allow-list says which layer may depend on which, and every allowed edge points down through the layers to the base libraries,
+  which make the last hop to the vendor tool; an edge the declaration does not list fails the build.
 about:
   adrs:
-  - ADR-AUTO-DEPM-CODEBUILTFROM
-  - ADR-AUTO-DEPM-TWOSECTIONS
-  - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-  - ADR-AUTO-DEPM-EXTENDBYDECLARING
+    - ADR-AUTO-DEPM-CODEBUILTFROM
+    - ADR-AUTO-DEPM-TWOSECTIONS
+    - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+    - ADR-AUTO-DEPM-EXTENDBYDECLARING
   lens: meta
 content:
   title: One declared allow-list says what may depend on what, and every edge points down to the vendor tool
@@ -15,88 +15,88 @@ content:
   relation: may depend on
   theme: dark
   bands:
-  - id: band-top
-    label: TOP LAYER
-  - id: band-middle
-    label: MIDDLE LAYER
-  - id: band-foundation
-    label: FOUNDATION
-  - id: band-vendor
-    label: LAST HOP
-  - id: band-invariant
-    label: INVARIANT
+    - id: band-top
+      label: TOP LAYER
+    - id: band-middle
+      label: MIDDLE LAYER
+    - id: band-foundation
+      label: FOUNDATION
+    - id: band-vendor
+      label: LAST HOP
+    - id: band-invariant
+      label: INVARIANT
   glyphs:
-  - id: g-top
-    kind: set
-    label: Topmost modules
-    in: band-top
-  - id: g-root
-    kind: code
-    label: Vendor root module
-    in: band-middle
-  - id: g-tools
-    kind: set
-    label: Tool managers
-    in: band-middle
-  - id: g-base
-    kind: set
-    label: Base libraries
-    in: band-foundation
-  - id: g-vendor
-    kind: external
-    label: Vendor tool
-    in: band-vendor
-  - id: f-undeclared
-    kind: failure
-    label: Undeclared edge
-    in: band-invariant
+    - id: g-top
+      kind: set
+      label: Topmost modules
+      in: band-top
+    - id: g-root
+      kind: code
+      label: Vendor root module
+      in: band-middle
+    - id: g-tools
+      kind: set
+      label: Tool managers
+      in: band-middle
+    - id: g-base
+      kind: set
+      label: Base libraries
+      in: band-foundation
+    - id: g-vendor
+      kind: external
+      label: Vendor tool
+      in: band-vendor
+    - id: f-undeclared
+      kind: failure
+      label: Undeclared edge
+      in: band-invariant
   edges:
-  - from: g-top
-    to: g-root
-    kind: flow
-    label: ''
-  - from: g-top
-    to: g-tools
-    kind: thick
-    label: ''
-  - from: g-top
-    to: g-base
-    kind: thick
-    label: ''
-  - from: g-root
-    to: g-base
-    kind: thick
-    label: ''
-  - from: g-tools
-    to: g-base
-    kind: thick
-    label: ''
-  - from: g-base
-    to: g-vendor
-    kind: flow
-    label: ''
-  - from: g-base
-    to: f-undeclared
-    kind: fail
-    label: ''
+    - from: g-top
+      to: g-root
+      kind: flow
+      label: ""
+    - from: g-top
+      to: g-tools
+      kind: thick
+      label: ""
+    - from: g-top
+      to: g-base
+      kind: thick
+      label: ""
+    - from: g-root
+      to: g-base
+      kind: thick
+      label: ""
+    - from: g-tools
+      to: g-base
+      kind: thick
+      label: ""
+    - from: g-base
+      to: g-vendor
+      kind: flow
+      label: ""
+    - from: g-base
+      to: f-undeclared
+      kind: fail
+      label: ""
   markers:
-  - at: g-top
-    number: 1
-  - at: g-root
-    number: 2
-  - at: g-tools
-    number: 3
-  - at: g-base
-    number: 4
-  - at: g-vendor
-    number: 5
-  - at: f-undeclared
-    number: 6
+    - at: g-top
+      number: 1
+    - at: g-root
+      number: 2
+    - at: g-tools
+      number: 3
+    - at: g-base
+      number: 4
+    - at: g-vendor
+      number: 5
+    - at: f-undeclared
+      number: 6
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-top:
     x: 20

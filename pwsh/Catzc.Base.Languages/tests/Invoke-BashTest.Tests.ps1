@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
+    folder: tests
+    name: invoke-bash-test-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Invoke-BashTest.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Invoke-BashTest.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-NOOVERMOCKING
+---
+#>
+
 Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

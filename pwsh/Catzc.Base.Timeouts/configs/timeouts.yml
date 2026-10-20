@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Timeouts/configs/timeouts.yml
+#     folder: configs
+#     name: timeouts
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Timeouts
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[timeouts.yml.md](docs/references/pwsh/catzc-base-timeouts/configs/timeouts.yml.md)"
+# ---
+
 executables:
   pwsh: 360 # isolated test runs (Test-InIsolation) and snapshot imports — a full snapshot run takes about 250 s
   dotnet: 600 # builds

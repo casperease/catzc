@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
+    folder: tests
+    name: uninstall-java-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Uninstall-Java.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-REMOVE-DOUBLYGUARDED
+      - ADR-AUTO-REMOVE-ONECALLESCALATION
+      - ADR-PWSH-ENV-NOPESTERISOLATION
+---
+#>
+
 Describe 'Uninstall-Java' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:savedProcessJavaHome = $env:JAVA_HOME

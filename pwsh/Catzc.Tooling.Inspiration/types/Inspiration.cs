@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Inspiration/types/Inspiration.cs
+    folder: types
+    name: inspiration
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Inspiration
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[Inspiration.cs.md](docs/references/pwsh/catzc-tooling-inspiration/types/Inspiration.cs.md)"
+    cites:
+      - ADR-AUTO-PATH-FOREIGNPATHS
+      - ADR-REPO-INSPIRE-SIBLINGFORIDEAS
+---
+*/
+
 using System;
 
 namespace Catzc.Tooling.Inspiration;

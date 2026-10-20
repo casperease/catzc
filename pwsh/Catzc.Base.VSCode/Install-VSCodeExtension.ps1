@@ -16,7 +16,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/Install-VSCodeExtension.Tests.ps1
-    docs: "[Install-VSCodeExtension.ps1.md](/docs/references/pwsh/catzc-base-vscode/Install-VSCodeExtension.ps1.md)"
+    docs: "[Install-VSCodeExtension.ps1.md](docs/references/pwsh/catzc-base-vscode/Install-VSCodeExtension.ps1.md)"
 ---
 #>
 

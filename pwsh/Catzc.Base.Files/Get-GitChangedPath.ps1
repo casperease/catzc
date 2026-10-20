@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Files/Get-GitChangedPath.ps1
+    name: get-git-changed-path
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Files
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
+    docs: "[Get-GitChangedPath.ps1.md](docs/references/pwsh/catzc-base-files/Get-GitChangedPath.ps1.md)"
+---
+#>
+
 function Get-GitChangedPath {
     [CmdletBinding()]
     [OutputType([string])]

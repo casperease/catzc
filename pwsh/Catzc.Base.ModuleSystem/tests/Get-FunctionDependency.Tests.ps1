@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/tests/Get-FunctionDependency.Tests.ps1
+    folder: tests
+    name: get-function-dependency-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-FunctionDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Get-FunctionDependency.Tests.ps1.md)"
+---
+#>
+
 Describe 'Get-FunctionDependency' -Tag 'L0', 'integrity', 'source-only' {
     BeforeAll {
         $script:dependencies = Get-FunctionDependency

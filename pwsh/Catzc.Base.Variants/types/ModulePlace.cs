@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Variants/types/ModulePlace.cs
+    folder: types
+    name: module-place
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ModulePlace.cs.md](docs/references/pwsh/catzc-base-variants/types/ModulePlace.cs.md)"
+    cites:
+      - ADR-DSGN-TRACK-ONETECHSTACK
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

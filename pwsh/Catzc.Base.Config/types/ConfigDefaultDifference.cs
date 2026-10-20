@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Config/types/ConfigDefaultDifference.cs
+    folder: types
+    name: config-default-difference
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Config
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ConfigDefaultDifference.cs.md](docs/references/pwsh/catzc-base-config/types/ConfigDefaultDifference.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

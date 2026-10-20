@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1
+    name: get-internal-asset-dependency
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Tests.ps1
+    docs: "[Get-InternalAssetDependency.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-LITERALCHILDPATH
+      - ADR-DSGN-RUNMODE
+---
+#>
+
 function Get-InternalAssetDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

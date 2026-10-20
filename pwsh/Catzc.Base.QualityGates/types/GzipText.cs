@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/GzipText.cs
+    folder: types
+    name: gzip-text
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/types/GzipText.Tests.ps1
+    docs: "[GzipText.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/GzipText.cs.md)"
+    cites:
+      - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
+---
+*/
+
 namespace Catzc.Base.QualityGates;
 
 using System.IO;

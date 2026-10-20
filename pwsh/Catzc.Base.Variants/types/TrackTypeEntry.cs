@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Variants/types/TrackTypeEntry.cs
+    folder: types
+    name: track-type-entry
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[TrackTypeEntry.cs.md](docs/references/pwsh/catzc-base-variants/types/TrackTypeEntry.cs.md)"
+---
+*/
+
 using System.Collections.Generic;
 
 namespace Catzc.Base.Variants;

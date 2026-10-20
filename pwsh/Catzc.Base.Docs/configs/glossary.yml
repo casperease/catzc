@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Docs/configs/glossary.yml
+#     folder: configs
+#     name: glossary
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Docs
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md)"
+# ---
+
 concepts:
   domain rules:
     key: domain_rules
@@ -320,8 +339,7 @@ concepts:
     contrasts:
       source of truth:
         The source of truth is the record everything is driven from; an adjacent store is a one-way projection of it, never a second record.
-      fact source:
-        A fact source is owned by a state machine and only read; an adjacent store is driven one way from the trunk's pipelines.
+      fact source: A fact source is owned by a state machine and only read; an adjacent store is driven one way from the trunk's pipelines.
   truth store:
     key: truth_store
     domain: thesis
@@ -337,8 +355,7 @@ concepts:
     key: version_controlled_repository
     domain: thesis
     defined_by: ADR-THES-STORES-VERSIONCONTROLLEDREPOSITORY
-    short:
-      The kind of truth store whose content is a versioned history of reviewed changes; a git repository is one subgroup of it.
+    short: The kind of truth store whose content is a versioned history of reviewed changes; a git repository is one subgroup of it.
     realized_by: { kind: prose-only }
   responsibility domain:
     key: responsibility_domain
@@ -349,20 +366,17 @@ concepts:
       controls stop.
     realized_by: { kind: prose-only }
     contrasts:
-      domain:
-        A domain is a group of ADRs; a responsibility domain is what one repository is accountable for.
+      domain: A domain is a group of ADRs; a responsibility domain is what one repository is accountable for.
   fact source:
     key: fact_source
     domain: thesis
     defined_by: ADR-THES-STORES-FACTSOURCEREADONLY
-    short:
-      A state store — a database with a reachable live URL holding state about delivery outside the repository — that catzc reads only.
+    short: A state store — a database with a reachable live URL holding state about delivery outside the repository — that catzc reads only.
     realized_by: { kind: prose-only }
     contrasts:
       adjacent store:
         An adjacent store is driven one way from the trunk's pipelines; a fact source is owned by a state machine and only read.
-      state machine:
-        A state machine is the application that owns and changes a fact source; a fact source is the store catzc reads.
+      state machine: A state machine is the application that owns and changes a fact source; a fact source is the store catzc reads.
   state machine:
     key: state_machine
     domain: thesis
@@ -371,8 +385,7 @@ concepts:
       An application that owns fact sources and changes their state by its own rules, met by catzc only at a junction, inbound or outbound.
     realized_by: { kind: prose-only }
     contrasts:
-      fact source:
-        A fact source is the store catzc reads; a state machine is the application that owns and changes it.
+      fact source: A fact source is the store catzc reads; a state machine is the application that owns and changes it.
   actionable fact:
     key: actionable_fact
     domain: thesis

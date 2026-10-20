@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Node/Remove-NodeJs.ps1
+    name: remove-node-js
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Node
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    docs: "[Remove-NodeJs.ps1.md](docs/references/pwsh/catzc-tooling-node/Remove-NodeJs.ps1.md)"
+    cites:
+      - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
+      - ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM
+---
+#>
+
 function Remove-NodeJs {
     [CmdletBinding()]
     param(

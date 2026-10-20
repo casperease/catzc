@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
+    folder: private
+    name: get-glossary-sources
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Get-GlossarySources.Tests.ps1
+    docs: "[Get-GlossarySources.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossarySources.ps1.md)"
+    cites:
+      - ADR-CONF-LOADING-ONEREADER
+      - ADR-REPO-VOCAB-GLOSSARYSOURCE
+      - ADR-REPO-VOCAB-SOURCESINREPOSITORY
+---
+#>
+
 function Get-GlossarySources {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

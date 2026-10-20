@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
+    folder: private
+    name: get-root-config-rendered-file
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1
+    docs: "[Get-RootConfigRenderedFile.ps1.md](docs/references/pwsh/catzc-base-rootconfig/private/Get-RootConfigRenderedFile.ps1.md)"
+    cites:
+      - ADR-REPO-ROOTCFG
+---
+#>
+
 function Get-RootConfigRenderedFile {
     [OutputType([pscustomobject])]
     param(

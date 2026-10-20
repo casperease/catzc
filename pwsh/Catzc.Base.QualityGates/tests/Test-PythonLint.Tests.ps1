@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
+    folder: tests
+    name: test-python-lint-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-PythonLint.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-PythonLint.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 Describe 'Test-PythonLint' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:repo = Join-Path $TestDrive 'repo'

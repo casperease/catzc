@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Get-AdrFileIndex.Tests.ps1
+    folder: tests
+    name: get-adr-file-index-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-AdrFileIndex.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-AdrFileIndex.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Get-AdrFileIndex' -Tag 'L0', 'logic' {
     BeforeAll {
         $adrs = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

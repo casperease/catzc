@@ -1,13 +1,14 @@
-description: One artifact is built and verified once, tested in non-prod, and let into production by a manual gate, so production
-  runs exactly the bytes non-prod certified; today the CD pipelines also deploy production themselves, in the same run.
+description:
+  One artifact is built and verified once, tested in non-prod, and let into production by a manual gate, so production runs exactly the
+  bytes non-prod certified; today the CD pipelines also deploy production themselves, in the same run.
 about:
   adrs:
-  - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-  - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-  - ADR-FLOW-CD-CDSTAYSINNONPROD
-  - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-  - ADR-FLOW-CD-TWORELEASEGATES
-  - ADR-FLOW-CD-GATEDEFINED
+    - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
+    - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+    - ADR-FLOW-CD-CDSTAYSINNONPROD
+    - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
+    - ADR-FLOW-CD-TWORELEASEGATES
+    - ADR-FLOW-CD-GATEDEFINED
   lens: meta
 content:
   title: One artifact is built once and climbs to production unchanged
@@ -16,84 +17,84 @@ content:
   relation: the artifact moves on
   theme: dark
   bands:
-  - id: band-automated
-    label: AUTOMATED
-  - id: band-governed
-    label: GOVERNED
+    - id: band-automated
+      label: AUTOMATED
+    - id: band-governed
+      label: GOVERNED
   spans:
-  - id: span-ci
-    label: CI
-    over:
-    - g-build
-    - r-artifact
-  - id: span-cd
-    label: CD
-    over:
-    - g-build
-    - r-artifact
-    - e-non-prod
-  - id: span-deploy
-    label: DEPLOY
-    over:
-    - e-production
+    - id: span-ci
+      label: CI
+      over:
+        - g-build
+        - r-artifact
+    - id: span-cd
+      label: CD
+      over:
+        - g-build
+        - r-artifact
+        - e-non-prod
+    - id: span-deploy
+      label: DEPLOY
+      over:
+        - e-production
   glyphs:
-  - id: g-build
-    kind: runner
-    label: build & verify
-    in: band-automated
-  - id: r-artifact
-    kind: result
-    label: tagged artifact
-    in: band-automated
-  - id: e-non-prod
-    kind: env
-    label: non-prod
-    in: band-automated
-  - id: a-human-gate
-    kind: adronly
-    label: human gate
-    in: band-governed
-  - id: e-production
-    kind: env
-    label: production
-    in: band-governed
+    - id: g-build
+      kind: runner
+      label: build & verify
+      in: band-automated
+    - id: r-artifact
+      kind: result
+      label: tagged artifact
+      in: band-automated
+    - id: e-non-prod
+      kind: env
+      label: non-prod
+      in: band-automated
+    - id: a-human-gate
+      kind: adronly
+      label: human gate
+      in: band-governed
+    - id: e-production
+      kind: env
+      label: production
+      in: band-governed
   edges:
-  - from: g-build
-    to: r-artifact
-    kind: flow
-    label: ''
-  - from: r-artifact
-    to: e-non-prod
-    kind: flow
-    label: ''
-  - from: e-non-prod
-    to: a-human-gate
-    kind: adr
-    label: ''
-  - from: a-human-gate
-    to: e-production
-    kind: adr
-    label: ''
-  - from: r-artifact
-    to: e-production
-    kind: flow
-    label: 6 · the shortcut
+    - from: g-build
+      to: r-artifact
+      kind: flow
+      label: ""
+    - from: r-artifact
+      to: e-non-prod
+      kind: flow
+      label: ""
+    - from: e-non-prod
+      to: a-human-gate
+      kind: adr
+      label: ""
+    - from: a-human-gate
+      to: e-production
+      kind: adr
+      label: ""
+    - from: r-artifact
+      to: e-production
+      kind: flow
+      label: 6 · the shortcut
   markers:
-  - at: g-build
-    number: 1
-  - at: r-artifact
-    number: 2
-  - at: e-non-prod
-    number: 3
-  - at: a-human-gate
-    number: 4
-  - at: e-production
-    number: 5
+    - at: g-build
+      number: 1
+    - at: r-artifact
+      number: 2
+    - at: e-non-prod
+      number: 3
+    - at: a-human-gate
+      number: 4
+    - at: e-production
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-automated:
     x: 20

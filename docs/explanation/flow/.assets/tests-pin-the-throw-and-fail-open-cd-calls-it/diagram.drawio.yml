@@ -1,10 +1,11 @@
-description: 'Which checks pin the touched-unit check: logic tests pin the throw, the fail-open and the range, an analyzer
-  rule pins the detection, and the deep checkout and the Changes step are wired into the CD pipelines with no gate.'
+description:
+  "Which checks pin the touched-unit check: logic tests pin the throw, the fail-open and the range, an analyzer rule pins the detection, and
+  the deep checkout and the Changes step are wired into the CD pipelines with no gate."
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-  - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-  - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+    - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
   lens: governance
 content:
   title: Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate
@@ -13,104 +14,104 @@ content:
   relation: checks
   theme: dark
   bands:
-  - id: band-answer
-    label: THE NAME AND THE ANSWER
-  - id: band-range
-    label: THE RANGE
-  - id: band-context
-    label: THE CONTEXT
-  - id: band-no-gate
-    label: NO GATE
+    - id: band-answer
+      label: THE NAME AND THE ANSWER
+    - id: band-range
+      label: THE RANGE
+    - id: band-context
+      label: THE CONTEXT
+    - id: band-no-gate
+      label: NO GATE
   glyphs:
-  - id: c-affected
-    kind: code
-    label: Test-GlobSetAffected
-    in: band-answer
-  - id: g-affected-tests
-    kind: gate
-    label: Test-GlobSetAffected.Tests
-    in: band-answer
-  - id: c-change-range
-    kind: code
-    label: Get-GlobSetChangeRange
-    in: band-range
-  - id: g-range-tests
-    kind: gate
-    label: Get-GlobSetChangeRange.Tests
-    in: band-range
-  - id: c-in-pipeline
-    kind: code
-    label: Test-IsRunningInPipeline
-    in: band-context
-  - id: g-analyzer
-    kind: gate
-    label: Test-ScriptAnalyzer
-    in: band-context
-  - id: c-fetch-depth
-    kind: code
-    label: 'fetchDepth: 0'
-    in: band-no-gate
-  - id: c-changes-step
-    kind: code
-    label: Changes step
-    in: band-no-gate
+    - id: c-affected
+      kind: code
+      label: Test-GlobSetAffected
+      in: band-answer
+    - id: g-affected-tests
+      kind: gate
+      label: Test-GlobSetAffected.Tests
+      in: band-answer
+    - id: c-change-range
+      kind: code
+      label: Get-GlobSetChangeRange
+      in: band-range
+    - id: g-range-tests
+      kind: gate
+      label: Get-GlobSetChangeRange.Tests
+      in: band-range
+    - id: c-in-pipeline
+      kind: code
+      label: Test-IsRunningInPipeline
+      in: band-context
+    - id: g-analyzer
+      kind: gate
+      label: Test-ScriptAnalyzer
+      in: band-context
+    - id: c-fetch-depth
+      kind: code
+      label: "fetchDepth: 0"
+      in: band-no-gate
+    - id: c-changes-step
+      kind: code
+      label: Changes step
+      in: band-no-gate
   edges:
-  - from: g-affected-tests
-    to: c-affected
-    kind: flow
-    label: ''
-  - from: g-range-tests
-    to: c-change-range
-    kind: flow
-    label: ''
-  - from: g-analyzer
-    to: c-in-pipeline
-    kind: flow
-    label: ''
+    - from: g-affected-tests
+      to: c-affected
+      kind: flow
+      label: ""
+    - from: g-range-tests
+      to: c-change-range
+      kind: flow
+      label: ""
+    - from: g-analyzer
+      to: c-in-pipeline
+      kind: flow
+      label: ""
   markers:
-  - at: c-affected
-    number: 1
-  - at: g-affected-tests
-    number: 2
-  - at: c-change-range
-    number: 3
-  - at: g-range-tests
-    number: 4
-  - at: c-in-pipeline
-    number: 5
-  - at: g-analyzer
-    number: 6
-  - at: c-fetch-depth
-    number: 7
-  - at: c-changes-step
-    number: 8
+    - at: c-affected
+      number: 1
+    - at: g-affected-tests
+      number: 2
+    - at: c-change-range
+      number: 3
+    - at: g-range-tests
+      number: 4
+    - at: c-in-pipeline
+      number: 5
+    - at: g-analyzer
+      number: 6
+    - at: c-fetch-depth
+      number: 7
+    - at: c-changes-step
+      number: 8
   chips:
-  - at: c-affected
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-  - at: c-affected
-    kind: rule
-    rule: ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
-    gated: false
-  - at: c-change-range
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-  - at: c-in-pipeline
-    kind: rule
-    rule: ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-  - at: c-fetch-depth
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-    gated: false
-  - at: c-changes-step
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-    gated: false
+    - at: c-affected
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - at: c-affected
+      kind: rule
+      rule: ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
+      gated: false
+    - at: c-change-range
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - at: c-in-pipeline
+      kind: rule
+      rule: ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+    - at: c-fetch-depth
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+      gated: false
+    - at: c-changes-step
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+      gated: false
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-answer:
     x: 20

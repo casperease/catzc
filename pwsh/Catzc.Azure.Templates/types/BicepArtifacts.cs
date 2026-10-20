@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/types/BicepArtifacts.cs
+    folder: types
+    name: bicep-artifacts
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[BicepArtifacts.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepArtifacts.cs.md)"
+---
+*/
+
 using System;
 
 namespace Catzc.Azure.Templates;

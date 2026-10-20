@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+    name: test-glob-set-trigger-coverage
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1
+    docs: "[Test-GlobSetTriggerCoverage.ps1.md](docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+---
+#>
+
 function Test-GlobSetTriggerCoverage {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

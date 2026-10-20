@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithModule.Tests.ps1
+    folder: tests
+    name: build-bicep-sample-with-module-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-Bicep.SampleWithModule.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithModule.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SAFESEAMSWAPS
+      - ADR-AUTO-TEST-SETUPONCE
+      - ADR-AUTO-TEST-ONESCHEDULINGPOOL
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+---
+#>
+
 # cspell:ignore alweutstsmodst
 Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic' {
     BeforeAll {

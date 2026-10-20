@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Node/Install-NodeJs.ps1
+    name: install-node-js
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Node
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    docs: "[Install-NodeJs.ps1.md](docs/references/pwsh/catzc-tooling-node/Install-NodeJs.ps1.md)"
+---
+#>
+
 function Install-NodeJs {
     [CmdletBinding()]
     param(

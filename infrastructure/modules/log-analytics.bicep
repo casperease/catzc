@@ -1,3 +1,22 @@
+// ---
+// catzc:
+//   immutable:
+//     repo_status: clean
+//     path: infrastructure/modules/log-analytics.bicep
+//     name: log-analytics
+//     filetype: bicep
+//     role: template
+//     subkind: module
+//     language: bicep
+//     track: infrastructure
+//     tracktype: infrastructure
+//     vendor: azure
+//     module: log-analytics
+//     moduletype: bicep
+//   edges:
+//     docs: "[log-analytics.bicep.md](docs/references/infrastructure/modules/log-analytics.bicep.md)"
+// ---
+
 @description('Log Analytics workspace name.')
 param name string
 

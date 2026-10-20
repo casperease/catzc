@@ -1,3 +1,22 @@
+// ---
+// catzc:
+//   immutable:
+//     repo_status: clean
+//     path: infrastructure/modules/virtual-network.bicep
+//     name: virtual-network
+//     filetype: bicep
+//     role: template
+//     subkind: module
+//     language: bicep
+//     track: infrastructure
+//     tracktype: infrastructure
+//     vendor: azure
+//     module: virtual-network
+//     moduletype: bicep
+//   edges:
+//     docs: "[virtual-network.bicep.md](docs/references/infrastructure/modules/virtual-network.bicep.md)"
+// ---
+
 @description('A subnet of the virtual network.')
 type subnetSpec = {
   @description('Subnet name (1-80 characters, unique within the VNet).')

@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/tests/New-Importer.Tests.ps1
+    folder: tests
+    name: new-importer-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[New-Importer.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/New-Importer.Tests.ps1.md)"
+---
+#>
+
 Describe 'New-Importer' -Tag 'L0', 'logic', 'source-only' {
     BeforeAll {
         $script:realOverlay = Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Importer.psm1'

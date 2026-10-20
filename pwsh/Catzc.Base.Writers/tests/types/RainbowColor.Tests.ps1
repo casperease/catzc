@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1
+    folder: tests/types
+    name: rainbow-color-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Writers
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[RainbowColor.Tests.ps1.md](docs/references/pwsh/catzc-base-writers/tests/types/RainbowColor.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-CONSOLE-SPARINGCOLOUR
+---
+#>
+
 Describe 'RainbowColor' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:green = [Catzc.Base.Writers.RainbowColor]::new([System.ConsoleColor]::Green)

@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1
+    name: test-azure-network-plan
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
+    docs: "[Test-AzureNetworkPlan.ps1.md](docs/references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-AZ-NETWORK-KEYEDBYENVIRONMENT
+      - ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION
+---
+#>
+
 function Test-AzureNetworkPlan {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

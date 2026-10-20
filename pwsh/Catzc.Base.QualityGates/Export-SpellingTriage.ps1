@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
+    name: export-spelling-triage
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1
+    docs: "[Export-SpellingTriage.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Export-SpellingTriage.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN
+      - ADR-AUTO-SPELL-ONEVOCABULARYSOURCE
+      - ADR-AUTO-SPELL-CATEGORYANDMEANING
+      - ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED
+---
+#>
+
 function Export-SpellingTriage {
     [CmdletBinding()]
     [OutputType([string[]])]

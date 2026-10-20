@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
+    name: test-adr-engine-neutrality
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
+    docs: "[Test-AdrEngineNeutrality.ps1.md](docs/references/pwsh/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md)"
+    cites:
+      - ADR-AUTO-ENGINE-THREEENGINES
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 function Test-AdrEngineNeutrality {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

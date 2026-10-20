@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
+    folder: tests/types
+    name: contract-asset-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ContractAsset.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-PATH-TWOFORMS
+      - ADR-AUTO-PATH-COMMUNICATIONFORM
+      - ADR-REPO-CONTRACT-LAYOUT
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+#>
+
 Describe 'ContractAsset' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fragment = [Catzc.Base.Contracts.ContractAssetKind]::Fragment

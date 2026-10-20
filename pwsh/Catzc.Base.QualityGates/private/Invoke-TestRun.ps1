@@ -1,3 +1,34 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1
+    folder: private
+    name: invoke-test-run
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
+    docs: "[Invoke-TestRun.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-ONESCHEDULINGPOOL
+      - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
+      - ADR-AUTO-TEST-SOURCEONLYTAG
+      - ADR-AUTO-TEST-DEVBOXRUNBUDGET
+      - ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE
+      - ADR-PWSH-PARAM-RESOLUTIONORDER
+      - ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES
+---
+#>
+
 function Invoke-TestRun {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-OutputFolder is forwarded empty by every entry point that got none, and its default is keyed by the entry point the body resolves; an explicit empty argument would override a declared default (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
     [CmdletBinding()]

@@ -1,8 +1,9 @@
-description: The hook program compiles the Timeouts module's own verdict and limit types from their source files, so the agent-side
-  hook and the pwsh-side resolver read the same typed limits from the same config.
+description:
+  The hook program compiles the Timeouts module's own verdict and limit types from their source files, so the agent-side hook and the
+  pwsh-side resolver read the same typed limits from the same config.
 about:
   adrs:
-  - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
   lens: architecture
 content:
   title: The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree
@@ -11,90 +12,90 @@ content:
   relation: depends on
   theme: dark
   bands:
-  - id: band-claude
-    label: CLAUDE CODE
-  - id: band-hook
-    label: HOOK
-  - id: band-module
-    label: CATZC.BASE.TIMEOUTS
+    - id: band-claude
+      label: CLAUDE CODE
+    - id: band-hook
+      label: HOOK
+    - id: band-module
+      label: CATZC.BASE.TIMEOUTS
   groups:
-  - id: grp-types
-    label: compiled into the hook
-    in: band-module
+    - id: grp-types
+      label: compiled into the hook
+      in: band-module
   glyphs:
-  - id: x-bash
-    kind: external
-    label: Bash tool
-    in: band-claude
-  - id: g-hook
-    kind: code
-    label: Assert-BashTimeout
-    in: band-hook
-  - id: g-seconds
-    kind: code
-    label: Get-TimeoutSeconds
-    in: band-module
-  - id: g-config
-    kind: code
-    label: TimeoutsConfig
-    in: grp-types
-  - id: g-safeguard
-    kind: code
-    label: BashSafeguard
-    in: grp-types
-  - id: g-bounded
-    kind: code
-    label: BoundedCommand
-    in: grp-types
-  - id: g-timeouts
-    kind: file
-    label: timeouts.yml
-    in: band-module
+    - id: x-bash
+      kind: external
+      label: Bash tool
+      in: band-claude
+    - id: g-hook
+      kind: code
+      label: Assert-BashTimeout
+      in: band-hook
+    - id: g-seconds
+      kind: code
+      label: Get-TimeoutSeconds
+      in: band-module
+    - id: g-config
+      kind: code
+      label: TimeoutsConfig
+      in: grp-types
+    - id: g-safeguard
+      kind: code
+      label: BashSafeguard
+      in: grp-types
+    - id: g-bounded
+      kind: code
+      label: BoundedCommand
+      in: grp-types
+    - id: g-timeouts
+      kind: file
+      label: timeouts.yml
+      in: band-module
   edges:
-  - from: x-bash
-    to: g-hook
-    kind: flow
-    label: ''
-  - from: g-hook
-    to: grp-types
-    kind: flow
-    label: ''
-  - from: g-seconds
-    to: g-config
-    kind: flow
-    label: ''
-  - from: g-safeguard
-    to: g-config
-    kind: flow
-    label: ''
-  - from: g-safeguard
-    to: g-bounded
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-timeouts
-    kind: flow
-    label: ''
+    - from: x-bash
+      to: g-hook
+      kind: flow
+      label: ""
+    - from: g-hook
+      to: grp-types
+      kind: flow
+      label: ""
+    - from: g-seconds
+      to: g-config
+      kind: flow
+      label: ""
+    - from: g-safeguard
+      to: g-config
+      kind: flow
+      label: ""
+    - from: g-safeguard
+      to: g-bounded
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-timeouts
+      kind: flow
+      label: ""
   markers:
-  - at: x-bash
-    number: 1
-  - at: g-hook
-    number: 2
-  - at: g-safeguard
-    number: 3
-  - at: g-bounded
-    number: 4
-  - at: g-config
-    number: 5
-  - at: g-timeouts
-    number: 6
-  - at: g-seconds
-    number: 7
+    - at: x-bash
+      number: 1
+    - at: g-hook
+      number: 2
+    - at: g-safeguard
+      number: 3
+    - at: g-bounded
+      number: 4
+    - at: g-config
+      number: 5
+    - at: g-timeouts
+      number: 6
+    - at: g-seconds
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-claude:
     x: 20

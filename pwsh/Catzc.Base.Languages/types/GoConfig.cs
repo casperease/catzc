@@ -1,3 +1,29 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/types/GoConfig.cs
+    folder: types
+    name: go-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Languages/tests/types/GoConfig.Tests.ps1
+    docs: "[GoConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/GoConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-FOLDERS-DOTMEANSTOOLING
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

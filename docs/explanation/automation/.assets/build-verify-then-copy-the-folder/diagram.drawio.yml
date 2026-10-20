@@ -1,11 +1,12 @@
-description: 'The bundle in code: Build-Modules reads exporter.yml and calls the build engine, Assert-CatzcBundle checks what
-  the engine wrote, and each target verifies the build folder again before it copies or packs it whole.'
+description:
+  "The bundle in code: Build-Modules reads exporter.yml and calls the build engine, Assert-CatzcBundle checks what the engine wrote, and
+  each target verifies the build folder again before it copies or packs it whole."
 about:
   adrs:
-  - ADR-AUTO-BUNDLE-BUNDLEISBUILD
-  - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
-  - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
-  - ADR-AUTO-BUNDLE-AUTOVERSION
+    - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+    - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+    - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+    - ADR-AUTO-BUNDLE-AUTOVERSION
   lens: implementation
 content:
   title: Build-Modules builds, verifies, and leaves one folder that every target copies whole
@@ -14,94 +15,94 @@ content:
   relation: feeds or runs the next step
   theme: dark
   bands:
-  - id: band-source
-    label: SOURCE
-  - id: band-build
-    label: BUILD
-  - id: band-bundle
-    label: BUNDLE
-  - id: band-targets
-    label: TARGETS
+    - id: band-source
+      label: SOURCE
+    - id: band-build
+      label: BUILD
+    - id: band-bundle
+      label: BUNDLE
+    - id: band-targets
+      label: TARGETS
   groups:
-  - id: grp-targets
-    label: ' '
-    in: band-targets
+    - id: grp-targets
+      label: " "
+      in: band-targets
   glyphs:
-  - id: g-config
-    kind: file
-    label: exporter.yml
-    in: band-source
-  - id: g-build
-    kind: code
-    label: Build-Modules
-    in: band-build
-  - id: g-engine
-    kind: code
-    label: Invoke-ModuleBuild
-    in: band-build
-  - id: g-assert
-    kind: gate
-    label: Assert-CatzcBundle
-    in: band-build
-  - id: r-folder
-    kind: result
-    label: Catzc/6.6.666/
-    in: band-bundle
-  - id: g-install
-    kind: code
-    label: Install-Catzc
-    in: grp-targets
-  - id: g-package
-    kind: code
-    label: New-CatzcNuGetPackage
-    in: grp-targets
+    - id: g-config
+      kind: file
+      label: exporter.yml
+      in: band-source
+    - id: g-build
+      kind: code
+      label: Build-Modules
+      in: band-build
+    - id: g-engine
+      kind: code
+      label: Invoke-ModuleBuild
+      in: band-build
+    - id: g-assert
+      kind: gate
+      label: Assert-CatzcBundle
+      in: band-build
+    - id: r-folder
+      kind: result
+      label: Catzc/6.6.666/
+      in: band-bundle
+    - id: g-install
+      kind: code
+      label: Install-Catzc
+      in: grp-targets
+    - id: g-package
+      kind: code
+      label: New-CatzcNuGetPackage
+      in: grp-targets
   edges:
-  - from: g-config
-    to: g-build
-    kind: flow
-    label: ''
-  - from: g-build
-    to: g-engine
-    kind: flow
-    label: ''
-  - from: g-engine
-    to: g-assert
-    kind: flow
-    label: ''
-  - from: g-assert
-    to: r-folder
-    kind: flow
-    label: ''
-  - from: r-folder
-    to: grp-targets
-    kind: flow
-    label: ''
-  - from: g-install
-    to: g-assert
-    kind: flow
-    label: checked again
+    - from: g-config
+      to: g-build
+      kind: flow
+      label: ""
+    - from: g-build
+      to: g-engine
+      kind: flow
+      label: ""
+    - from: g-engine
+      to: g-assert
+      kind: flow
+      label: ""
+    - from: g-assert
+      to: r-folder
+      kind: flow
+      label: ""
+    - from: r-folder
+      to: grp-targets
+      kind: flow
+      label: ""
+    - from: g-install
+      to: g-assert
+      kind: flow
+      label: checked again
   markers:
-  - at: g-config
-    number: 1
-  - at: g-build
-    number: 2
-  - at: g-engine
-    number: 3
-  - at: g-assert
-    number: 4
-  - at: r-folder
-    number: 5
-  - at: g-install
-    number: 6
-  - at: g-package
-    number: 7
-  - at: grp-targets
-    number: 8
+    - at: g-config
+      number: 1
+    - at: g-build
+      number: 2
+    - at: g-engine
+      number: 3
+    - at: g-assert
+      number: 4
+    - at: r-folder
+      number: 5
+    - at: g-install
+      number: 6
+    - at: g-package
+      number: 7
+    - at: grp-targets
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-source:
     x: 20

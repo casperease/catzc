@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
+    name: set-ado-pipeline-variable
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
+    docs: "[Set-AdoPipelineVariable.ps1.md](docs/references/pwsh/catzc-azure-devops/Set-AdoPipelineVariable.ps1.md)"
+    cites:
+      - ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT
+---
+#>
+
 function Set-AdoPipelineVariable {
     [CmdletBinding()]
     param(

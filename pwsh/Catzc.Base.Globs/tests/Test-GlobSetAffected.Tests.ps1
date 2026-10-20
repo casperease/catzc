@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1
+    folder: tests
+    name: test-glob-set-affected-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-GlobSetAffected.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetAffected.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-PROTGLOB-FAILOPEN
+---
+#>
+
 Describe 'Test-GlobSetAffected' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{

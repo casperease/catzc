@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/tests/types/ContractFragment.Tests.ps1
+    folder: tests/types
+    name: contract-fragment-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ContractFragment.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractFragment.Tests.ps1.md)"
+    cites:
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+#>
+
 Describe 'ContractFragment' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     Context 'a key subset of JSON and YAML' {
         BeforeAll {

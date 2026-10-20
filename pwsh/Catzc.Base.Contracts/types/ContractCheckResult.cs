@@ -1,3 +1,29 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/types/ContractCheckResult.cs
+    folder: types
+    name: contract-check-result
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/types/ContractCheckResult.Tests.ps1
+    docs: "[ContractCheckResult.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractCheckResult.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-CONTRACT-PROVENBYTESTS
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

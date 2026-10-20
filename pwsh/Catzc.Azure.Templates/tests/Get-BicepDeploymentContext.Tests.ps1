@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1
+    folder: tests
+    name: get-bicep-deployment-context-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-BicepDeploymentContext.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SAFESEAMSWAPS
+      - ADR-AUTO-TEST-SETUPONCE
+      - ADR-AUTO-TEST-ONESCHEDULINGPOOL
+      - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES
+      - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+---
+#>
+
 Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample'

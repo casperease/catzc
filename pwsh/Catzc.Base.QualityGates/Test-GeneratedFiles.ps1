@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
+    name: test-generated-files
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
+    docs: "[Test-GeneratedFiles.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-GeneratedFiles.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-FILEMETA-COMPOSEDFILES
+---
+#>
+
 function Test-GeneratedFiles {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

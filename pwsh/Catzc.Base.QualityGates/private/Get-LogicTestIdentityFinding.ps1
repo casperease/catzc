@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1
+    folder: private
+    name: get-logic-test-identity-finding
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-LogicTestIdentityFinding.Tests.ps1
+    docs: "[Get-LogicTestIdentityFinding.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-ONECATEGORY
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
+      - ADR-REPO-LANG
+---
+#>
+
 function Get-LogicTestIdentityFinding {
     [CmdletBinding()]
     [OutputType([object[]])]

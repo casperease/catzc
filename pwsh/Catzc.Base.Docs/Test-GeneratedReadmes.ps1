@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
+    name: test-generated-readmes
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
+    docs: "[Test-GeneratedReadmes.ps1.md](docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-README
+---
+#>
+
 function Test-GeneratedReadmes {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

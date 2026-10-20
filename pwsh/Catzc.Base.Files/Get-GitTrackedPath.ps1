@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
+    name: get-git-tracked-path
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Files
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1
+    docs: "[Get-GitTrackedPath.ps1.md](docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE
+      - ADR-AUTO-TRACKED
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+---
+#>
+
 function Get-GitTrackedPath {
     [CmdletBinding()]
     [OutputType([string])]

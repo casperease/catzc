@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: test-analyzed-file-is-test-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[Test-AnalyzedFileIsTest.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1.md)"
+---
+#>
+
 Describe 'Test-AnalyzedFileIsTest' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/Test-AnalyzedFileIsTest.ps1')

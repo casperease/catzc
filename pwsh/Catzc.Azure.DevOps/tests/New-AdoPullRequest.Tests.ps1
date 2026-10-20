@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/tests/New-AdoPullRequest.Tests.ps1
+    folder: tests
+    name: new-ado-pull-request-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[New-AdoPullRequest.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops/tests/New-AdoPullRequest.Tests.ps1.md)"
+---
+#>
+
 Describe 'New-AdoPullRequest' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'ado' } -MockWith {

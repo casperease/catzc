@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Reports/configs/output-formats.yml
+#     folder: configs
+#     name: output-formats
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Reports
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[output-formats.yml.md](docs/references/pwsh/catzc-base-reports/configs/output-formats.yml.md)"
+# ---
+
 # The area sets how long a format's files stay (OutputFormat's area defaults); keep and max_age override it, and Clear-Output applies it.
 
 formats:

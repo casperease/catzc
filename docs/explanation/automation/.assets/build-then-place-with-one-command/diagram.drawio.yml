@@ -1,10 +1,11 @@
-description: A source-mode session builds the bundle, the build checks its own output, and one placement command then copies
-  the build into a module path, beside a working root, or into a package.
+description:
+  A source-mode session builds the bundle, the build checks its own output, and one placement command then copies the build into a module
+  path, beside a working root, or into a package.
 about:
   adrs:
-  - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
-  - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
-  - ADR-AUTO-BUNDLE-AUTOVERSION
+    - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+    - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+    - ADR-AUTO-BUNDLE-AUTOVERSION
   lens: operations
 content:
   title: Build the bundle once, then place it with one command
@@ -13,94 +14,94 @@ content:
   relation: feeds or runs the next step
   theme: dark
   bands:
-  - id: band-source
-    label: SOURCE
-  - id: band-build
-    label: BUILD
-  - id: band-bundle
-    label: BUNDLE
-  - id: band-targets
-    label: TARGETS
+    - id: band-source
+      label: SOURCE
+    - id: band-build
+      label: BUILD
+    - id: band-bundle
+      label: BUNDLE
+    - id: band-targets
+      label: TARGETS
   groups:
-  - id: grp-places
-    label: placement commands
-    in: band-targets
+    - id: grp-places
+      label: placement commands
+      in: band-targets
   glyphs:
-  - id: g-importer
-    kind: code
-    label: . ./importer.ps1
-    in: band-source
-  - id: g-build
-    kind: code
-    label: Build-Modules
-    in: band-build
-  - id: g-assert
-    kind: gate
-    label: Assert-CatzcBundle
-    in: band-build
-  - id: f-invalid
-    kind: failure
-    label: Catzc build ... is invalid
-    in: band-build
-  - id: r-built
-    kind: result
-    label: Built Catzc 6.6.666
-    in: band-bundle
-  - id: g-install
-    kind: code
-    label: Install-Catzc -Scope
-    in: grp-places
-  - id: g-root
-    kind: code
-    label: Export-Catzc -Root
-    in: grp-places
-  - id: g-nuget
-    kind: code
-    label: Export-Catzc -To nuget
-    in: grp-places
+    - id: g-importer
+      kind: code
+      label: . ./importer.ps1
+      in: band-source
+    - id: g-build
+      kind: code
+      label: Build-Modules
+      in: band-build
+    - id: g-assert
+      kind: gate
+      label: Assert-CatzcBundle
+      in: band-build
+    - id: f-invalid
+      kind: failure
+      label: Catzc build ... is invalid
+      in: band-build
+    - id: r-built
+      kind: result
+      label: Built Catzc 6.6.666
+      in: band-bundle
+    - id: g-install
+      kind: code
+      label: Install-Catzc -Scope
+      in: grp-places
+    - id: g-root
+      kind: code
+      label: Export-Catzc -Root
+      in: grp-places
+    - id: g-nuget
+      kind: code
+      label: Export-Catzc -To nuget
+      in: grp-places
   edges:
-  - from: g-importer
-    to: g-build
-    kind: flow
-    label: ''
-  - from: g-build
-    to: g-assert
-    kind: flow
-    label: ''
-  - from: g-assert
-    to: r-built
-    kind: flow
-    label: ''
-  - from: g-assert
-    to: f-invalid
-    kind: fail
-    label: ''
-  - from: r-built
-    to: grp-places
-    kind: flow
-    label: ''
+    - from: g-importer
+      to: g-build
+      kind: flow
+      label: ""
+    - from: g-build
+      to: g-assert
+      kind: flow
+      label: ""
+    - from: g-assert
+      to: r-built
+      kind: flow
+      label: ""
+    - from: g-assert
+      to: f-invalid
+      kind: fail
+      label: ""
+    - from: r-built
+      to: grp-places
+      kind: flow
+      label: ""
   markers:
-  - at: g-importer
-    number: 1
-  - at: g-build
-    number: 2
-  - at: g-assert
-    number: 3
-  - at: f-invalid
-    number: 4
-  - at: r-built
-    number: 5
-  - at: g-install
-    number: 6
-  - at: g-root
-    number: 7
-  - at: g-nuget
-    number: 8
+    - at: g-importer
+      number: 1
+    - at: g-build
+      number: 2
+    - at: g-assert
+      number: 3
+    - at: f-invalid
+      number: 4
+    - at: r-built
+      number: 5
+    - at: g-install
+      number: 6
+    - at: g-root
+      number: 7
+    - at: g-nuget
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-source:
     x: 20

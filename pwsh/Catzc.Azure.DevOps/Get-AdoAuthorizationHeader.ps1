@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+    name: get-ado-authorization-header
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.DevOps/tests/Get-AdoAuthorizationHeader.Tests.ps1
+    docs: "[Get-AdoAuthorizationHeader.ps1.md](docs/references/pwsh/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md)"
+---
+#>
+
 function Get-AdoAuthorizationHeader {
     [CmdletBinding()]
     [OutputType([hashtable])]

@@ -41,8 +41,8 @@ where a guarantee is enforced and where it is only a discipline.
 - Consumers integrate from the last remote-verified commit, never the current remote HEAD (ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED).
 - The pull request authenticates the author, runs the merge gates and performs the merge: it is the ingress engine, not merely a review
   (ADR-DSGN-REMOTE-PULLREQUESTISINGRESS).
-- The stable integration point is the BVT-verified server head, the same commit `main-UAT` takes first (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD),
-  and the dirty HEAD is never a source to sync from (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE).
+- The stable integration point is the BVT-verified server head, the same commit `main-UAT` takes first
+  (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD), and the dirty HEAD is never a source to sync from (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE).
 
 ## Where the code and the ADR differ
 

@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSummaryLines.Tests.ps1
+    folder: tests
+    name: get-adr-rule-summary-lines-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-AdrRuleSummaryLines.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-AdrRuleSummaryLines.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-LINK-ONECITATIONSPELLING
+---
+#>
+
 Describe 'Get-AdrRuleSummaryLines' -Tag 'L0', 'logic' {
     BeforeAll {
         $path = Join-Path $TestDrive 'widget-one.md'

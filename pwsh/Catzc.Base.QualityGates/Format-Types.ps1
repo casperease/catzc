@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Format-Types.ps1
+    name: format-types
+    filetype: ps1
+    role: function
+    subkind: formatter
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
+    docs: "[Format-Types.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Format-Types.ps1.md)"
+    cites:
+      - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+---
+#>
+
 function Format-Types {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/NeverDependOnPwd.psm1
+    folder: pwsh/.scriptanalyzer
+    name: never-depend-on-pwd
+    filetype: psm1
+    role: analyzer-rule
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NeverDependOnPwd.psm1.md](docs/references/pwsh/scriptanalyzer/NeverDependOnPwd.psm1.md)"
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 function Measure-NeverDependOnPwd {

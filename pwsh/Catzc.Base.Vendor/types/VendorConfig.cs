@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Vendor/types/VendorConfig.cs
+    folder: types
+    name: vendor-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Vendor
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Vendor/tests/types/VendorConfig.Tests.ps1
+    docs: "[VendorConfig.cs.md](docs/references/pwsh/catzc-base-vendor/types/VendorConfig.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-PWSH-VENDOR
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

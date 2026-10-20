@@ -56,12 +56,13 @@ Every agent and every skill reads this first, at every start and after every cle
 
 ### Rule ADR-REPO-AI-OUTISOUTPUT
 
-**out/ is output, never input; render nothing unasked.** Plans live in .claude/plans; no diagram without an ask. (ADR-REPO-OUTDIR)
+**out/ is output; render nothing unasked.** A run reads back only its own stamped folder there, and waits through its absence, since out/
+can be wiped at any time. Plans live in .claude/plans; no diagram without an ask. (ADR-REPO-OUTDIR)
 
 ### Rule ADR-REPO-AI-EDITORISFACT
 
-**In listen mode the editor's edit is fact.** A doc correction outranks the tree; the repository at the pinned commit is what disagrees. The
-session's notes in out/listen are the processor's one input from out/. (ADR-PRIN-ONELIVE)
+**In listen mode the editor's edit is fact.** A doc correction outranks the tree; the repository at the pinned commit is what disagrees. A
+fact-check verdict on a note never stands alone: it is written with its reason and the path:line it rests on. (ADR-PRIN-ONELIVE)
 
 ## Context
 

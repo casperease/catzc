@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/GlossaryOptions.cs
+    folder: types
+    name: glossary-options
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[GlossaryOptions.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryOptions.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-VOCAB-GLOSSARYSOURCE
+      - ADR-REPO-VOCAB-SOURCESINREPOSITORY
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Execution/types/ToolsConfig.cs
+    folder: types
+    name: tools-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Execution
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
+    docs: "[ToolsConfig.cs.md](docs/references/pwsh/catzc-base-execution/types/ToolsConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

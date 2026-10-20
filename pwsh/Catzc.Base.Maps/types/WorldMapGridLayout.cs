@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/WorldMapGridLayout.cs
+    folder: types
+    name: world-map-grid-layout
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[WorldMapGridLayout.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapGridLayout.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-DSGN-TRACK-ROOTFILE
+      - ADR-DSGN-TRACK-UNLISTEDFILE
+---
+*/
+
 using System;
 using System.Globalization;
 

@@ -1,11 +1,12 @@
-description: An Azure name is computed from fixed components and the type's pattern; it fits the pattern's length limit and
-  is the same every time, or the deploy stops, and it is never truncated.
+description:
+  An Azure name is computed from fixed components and the type's pattern; it fits the pattern's length limit and is the same every time, or
+  the deploy stops, and it is never truncated.
 about:
   adrs:
-  - ADR-AZ-NAMING-DETERMINISTICNAMES
-  - ADR-AZ-NAMING-ENVIRONMENTFIRST
-  - ADR-AZ-NAMING-NEVERTRUNCATE
-  - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+    - ADR-AZ-NAMING-DETERMINISTICNAMES
+    - ADR-AZ-NAMING-ENVIRONMENTFIRST
+    - ADR-AZ-NAMING-NEVERTRUNCATE
+    - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
   lens: meta
 content:
   title: An Azure name is a pure function of its components, and it is never truncated
@@ -14,66 +15,66 @@ content:
   relation: the next stage
   theme: dark
   bands:
-  - id: band-components
-    label: COMPONENTS
-  - id: band-pattern
-    label: PATTERN
-  - id: band-limit
-    label: LIMIT
+    - id: band-components
+      label: COMPONENTS
+    - id: band-pattern
+      label: PATTERN
+    - id: band-limit
+      label: LIMIT
   glyphs:
-  - id: s-components
-    kind: set
-    label: fixed components
-    in: band-components
-  - id: s-pattern
-    kind: set
-    label: type pattern
-    in: band-pattern
-  - id: g-limit
-    kind: gate
-    label: <= limit?
-    in: band-limit
-  - id: f-throw
-    kind: failure
-    label: throw
-    in: band-limit
-  - id: r-name
-    kind: result
-    label: the same name
-    in: band-limit
+    - id: s-components
+      kind: set
+      label: fixed components
+      in: band-components
+    - id: s-pattern
+      kind: set
+      label: type pattern
+      in: band-pattern
+    - id: g-limit
+      kind: gate
+      label: <= limit?
+      in: band-limit
+    - id: f-throw
+      kind: failure
+      label: throw
+      in: band-limit
+    - id: r-name
+      kind: result
+      label: the same name
+      in: band-limit
   edges:
-  - from: s-components
-    to: s-pattern
-    kind: flow
-    label: ''
-  - from: s-pattern
-    to: g-limit
-    kind: flow
-    label: ''
-  - from: g-limit
-    to: f-throw
-    kind: fail
-    label: ''
-  - from: g-limit
-    to: r-name
-    kind: flow
-    label: ''
+    - from: s-components
+      to: s-pattern
+      kind: flow
+      label: ""
+    - from: s-pattern
+      to: g-limit
+      kind: flow
+      label: ""
+    - from: g-limit
+      to: f-throw
+      kind: fail
+      label: ""
+    - from: g-limit
+      to: r-name
+      kind: flow
+      label: ""
   markers:
-  - at: s-components
-    number: 1
-  - at: s-pattern
-    number: 2
-  - at: g-limit
-    number: 3
-  - at: f-throw
-    number: 4
-  - at: r-name
-    number: 5
+    - at: s-components
+      number: 1
+    - at: s-pattern
+      number: 2
+    - at: g-limit
+      number: 3
+    - at: f-throw
+      number: 4
+    - at: r-name
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-components:
     x: 20

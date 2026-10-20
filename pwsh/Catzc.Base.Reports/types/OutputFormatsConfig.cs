@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Reports/types/OutputFormatsConfig.cs
+    folder: types
+    name: output-formats-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Reports
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
+    docs: "[OutputFormatsConfig.cs.md](docs/references/pwsh/catzc-base-reports/types/OutputFormatsConfig.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-OUTFMT-OUTPUTFORMAT
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

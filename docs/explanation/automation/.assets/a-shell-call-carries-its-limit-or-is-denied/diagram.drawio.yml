@@ -1,8 +1,9 @@
-description: 'A coding agent''s shell call meets the time safeguard first: a call that carries its limit goes ahead untouched,
-  and one that does not is denied with the reason, never rewritten.'
+description:
+  "A coding agent's shell call meets the time safeguard first: a call that carries its limit goes ahead untouched, and one that does not is
+  denied with the reason, never rewritten."
 about:
   adrs:
-  - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
   lens: meta
 content:
   title: A shell call carries its limit, or the hook denies it with a reason; it is never rewritten
@@ -11,54 +12,54 @@ content:
   relation: hands the call on
   theme: dark
   bands:
-  - id: band-call
-    label: CALL
-  - id: band-verdict
-    label: VERDICT
+    - id: band-call
+      label: CALL
+    - id: band-verdict
+      label: VERDICT
   glyphs:
-  - id: g-agent
-    kind: actor
-    label: coding agent
-    in: band-call
-  - id: g-safeguard
-    kind: gate
-    label: time safeguard
-    in: band-verdict
-  - id: r-ahead
-    kind: result
-    label: call goes ahead
-    in: band-verdict
-  - id: f-denied
-    kind: failure
-    label: call denied
-    in: band-verdict
+    - id: g-agent
+      kind: actor
+      label: coding agent
+      in: band-call
+    - id: g-safeguard
+      kind: gate
+      label: time safeguard
+      in: band-verdict
+    - id: r-ahead
+      kind: result
+      label: call goes ahead
+      in: band-verdict
+    - id: f-denied
+      kind: failure
+      label: call denied
+      in: band-verdict
   edges:
-  - from: g-agent
-    to: g-safeguard
-    kind: flow
-    label: ''
-  - from: g-safeguard
-    to: r-ahead
-    kind: flow
-    label: ''
-  - from: g-safeguard
-    to: f-denied
-    kind: fail
-    label: ''
+    - from: g-agent
+      to: g-safeguard
+      kind: flow
+      label: ""
+    - from: g-safeguard
+      to: r-ahead
+      kind: flow
+      label: ""
+    - from: g-safeguard
+      to: f-denied
+      kind: fail
+      label: ""
   markers:
-  - at: g-agent
-    number: 1
-  - at: g-safeguard
-    number: 2
-  - at: r-ahead
-    number: 3
-  - at: f-denied
-    number: 4
+    - at: g-agent
+      number: 1
+    - at: g-safeguard
+      number: 2
+    - at: r-ahead
+      number: 3
+    - at: f-denied
+      number: 4
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-call:
     x: 20

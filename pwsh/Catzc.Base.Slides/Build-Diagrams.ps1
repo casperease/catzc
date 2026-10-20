@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
+    name: build-diagrams
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1
+    docs: "[Build-Diagrams.ps1.md](docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md)"
+    cites:
+      - ADR-REPO-SLIDES-MINIMAPSFROMDATA
+---
+#>
+
 function Build-Diagrams {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -98,7 +123,7 @@ function Build-Diagrams {
             $step = [System.Diagnostics.Stopwatch]::StartNew()
             $result = Invoke-Executable "$uv $arguments" -WorkingDirectory $root -PassThru -NoAssert -Silent
             $run.ExitCode = $result.ExitCode
-            $row =@($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{') }) | Select-Object -Last 1 | ForEach-Object { $_ | ConvertFrom-Json }
+            $row = @($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{') }) | Select-Object -Last 1 | ForEach-Object { $_ | ConvertFrom-Json }
             Assert-True ($result.ExitCode -eq 0 -and $row -and -not $row.PSObject.Properties['error']) -ErrorText "Build-Diagrams: the sync of $folderPath stopped: $(if ($row -and $row.PSObject.Properties['error']) { $row.error } else { @($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ' })"
             $run.Stage = "sync ($(@($row.ran) -join ', '))"
             $run.Status = 'clean'

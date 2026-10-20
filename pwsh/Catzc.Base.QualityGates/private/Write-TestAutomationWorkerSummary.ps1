@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationWorkerSummary.ps1
+    folder: private
+    name: write-test-automation-worker-summary
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationWorkerSummary.Tests.ps1
+    docs: "[Write-TestAutomationWorkerSummary.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationWorkerSummary.ps1.md)"
+---
+#>
+
 function Write-TestAutomationWorkerSummary {
     [CmdletBinding()]
     param(

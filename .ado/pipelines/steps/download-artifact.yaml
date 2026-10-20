@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: ".ado/pipelines/steps/download-artifact.yaml"
+#     folder: steps
+#     name: download-artifact
+#     filetype: yaml
+#     role: pipeline-template
+#     language: pipeline-yaml
+#     track: ado-pipelines
+#     tracktype: pipelines
+#     vendor: ado
+#     module: pipelines
+#     moduletype: pipeline
+#   edges:
+#     docs: "[download-artifact.yaml.md](docs/references/ado/pipelines/steps/download-artifact.yaml.md)"
+# ---
+
 parameters:
   - name: Artifact
     type: string

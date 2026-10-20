@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Get-ImportMix.ps1
+    name: get-import-mix
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ImportMix.Tests.ps1
+    docs: "[Get-ImportMix.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-ImportMix.ps1.md)"
+    cites:
+      - ADR-AUTO-IMPORTER
+---
+#>
+
 function Get-ImportMix {
     [CmdletBinding()]
     [OutputType([Catzc.Base.ModuleSystem.ImportMix])]

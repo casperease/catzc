@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
+    folder: tests
+    name: get-file-language-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-FileLanguage.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md)"
+    cites:
+      - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - ADR-DSGN-TRACK-ONETECHSTACK
+      - ADR-DSGN-TRACK-FILELANGUAGE
+---
+#>
+
 Describe 'Get-FileLanguage' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{

@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Format-Links.ps1
+    name: format-links
+    filetype: ps1
+    role: function
+    subkind: formatter
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
+    docs: "[Format-Links.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Format-Links.ps1.md)"
+    cites:
+      - ADR-REPO-LINK-ALIGNEDBYTOOL
+---
+#>
+
 function Format-Links {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,3 +1,32 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Provisioning/Install-Zsh.ps1
+    name: install-zsh
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
+    docs: "[Install-Zsh.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Install-Zsh.ps1.md)"
+    cites:
+      - ADR-AUTO-ENTERP
+      - ADR-AUTO-IDEM-CHECKBEFOREACTING
+      - ADR-AUTO-PKGMGR-PLATFORMNATIVEMANAGERS
+      - ADR-AUTO-PKGMGR-VERIFYDOWNLOADS
+      - ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+---
+#>
+
 function Install-Zsh {
     [CmdletBinding()]
     param(

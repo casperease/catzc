@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Format-Code.ps1
+    name: format-code
+    filetype: ps1
+    role: function
+    subkind: formatter
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1
+    docs: "[Format-Code.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Format-Code.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE
+      - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
+      - ADR-PRIN-CONFIG
+      - ADR-REPO-FORMAT-BASELINEISFLOOR
+---
+#>
+
 function Format-Code {
     [CmdletBinding()]
     [OutputType([Catzc.Base.QualityGates.FormatResult])]

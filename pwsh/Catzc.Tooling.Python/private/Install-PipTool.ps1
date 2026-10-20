@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Python/private/Install-PipTool.ps1
+    folder: private
+    name: install-pip-tool
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Python
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
+    docs: "[Install-PipTool.ps1.md](docs/references/pwsh/catzc-tooling-python/private/Install-PipTool.ps1.md)"
+    cites:
+      - ADR-AUTO-UVPY-TWOINSTALLSHAPES
+---
+#>
+
 function Install-PipTool {
     [CmdletBinding()]
     param(

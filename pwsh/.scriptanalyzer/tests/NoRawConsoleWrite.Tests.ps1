@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: no-raw-console-write-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NoRawConsoleWrite.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1.md)"
+---
+#>
+
 Describe 'Measure-NoRawConsoleWrite' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoRawConsoleWrite.psm1') -Force

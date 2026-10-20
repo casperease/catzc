@@ -1,3 +1,31 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/types/AzureConfig.cs
+    folder: types
+    name: azure-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+    docs: "[AzureConfig.cs.md](docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
+      - ADR-AZ-DATAMOD
+      - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

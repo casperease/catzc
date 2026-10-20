@@ -15,7 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[Get-CSharpTypeDependency.Tests.ps1.md](/docs/references/pwsh/catzc-base-typessystem/tests/Get-CSharpTypeDependency.Tests.ps1.md)"
+    docs: "[Get-CSharpTypeDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-typessystem/tests/Get-CSharpTypeDependency.Tests.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
 ---

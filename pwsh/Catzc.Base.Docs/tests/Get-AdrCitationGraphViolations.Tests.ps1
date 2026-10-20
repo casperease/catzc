@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
+    folder: tests
+    name: get-adr-citation-graph-violations-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-AdrCitationGraphViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-AdrCitationGraphViolations.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
         $adrs = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

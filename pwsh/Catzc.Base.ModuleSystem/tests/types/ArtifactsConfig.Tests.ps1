@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1
+    folder: tests/types
+    name: artifacts-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ArtifactsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/types/ArtifactsConfig.Tests.ps1.md)"
+---
+#>
+
 Describe 'Catzc.Base.ModuleSystem.ArtifactsConfig' -Tag 'L0' {
     BeforeAll {
         $script:valid = {

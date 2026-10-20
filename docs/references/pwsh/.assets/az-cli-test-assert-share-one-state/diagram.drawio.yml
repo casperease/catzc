@@ -1,148 +1,149 @@
-description: Each of the three az checks has a Test and an Assert half that call one state function, which runs az once through
-  the shared runner; the config-aware wrappers look the subscription up in Catzc.Azure first.
+description:
+  Each of the three az checks has a Test and an Assert half that call one state function, which runs az once through the shared runner; the
+  config-aware wrappers look the subscription up in Catzc.Azure first.
 about:
   adrs:
-  - ADR-AZ-CLI
-  - ADR-AZ-DATAMOD
-  - ADR-AZ-CUSTOMER
-  - ADR-AUTO-FAILFAST
-  - ADR-AUTO-ENTERP
-  - ADR-AUTO-PRELOG
+    - ADR-AZ-CLI
+    - ADR-AZ-DATAMOD
+    - ADR-AZ-CUSTOMER
+    - ADR-AUTO-FAILFAST
+    - ADR-AUTO-ENTERP
+    - ADR-AUTO-PRELOG
   lens: source
 content:
-  title: 'Three az checks: Test and Assert share one state call'
+  title: "Three az checks: Test and Assert share one state call"
   kind: reference
   flow: top-to-bottom
   relation: calls
   theme: dark
   bands:
-  - id: band-azure
-    label: CATZC.AZURE
-  - id: band-connection
-    label: CONNECTION
-  - id: band-access
-    label: ACCESS
-  - id: band-bicep
-    label: BICEP
-  - id: band-shared
-    label: SHARED
+    - id: band-azure
+      label: CATZC.AZURE
+    - id: band-connection
+      label: CONNECTION
+    - id: band-access
+      label: ACCESS
+    - id: band-bicep
+      label: BICEP
+    - id: band-shared
+      label: SHARED
   glyphs:
-  - id: g-subscription
-    kind: code
-    label: Get-AzureSubscription
-    in: band-azure
-  - id: g-test-is-connected
-    kind: code
-    label: Test-AzCliIsConnected
-    in: band-connection
-  - id: g-assert-is-connected
-    kind: code
-    label: Assert-AzCliIsConnected
-    in: band-connection
-  - id: g-test-connected
-    kind: code
-    label: Test-AzCliConnected
-    in: band-connection
-  - id: g-assert-connected
-    kind: code
-    label: Assert-AzCliConnected
-    in: band-connection
-  - id: g-connection-state
-    kind: code
-    label: Get-AzCliConnectionState
-    in: band-connection
-  - id: g-access-state
-    kind: set
-    label: SubscriptionAccessState
-    in: band-access
-  - id: g-bicep-state
-    kind: set
-    label: BicepState
-    in: band-bicep
-  - id: g-invoke
-    kind: code
-    label: Invoke-AzCli
-    in: band-shared
-  - id: g-az
-    kind: external
-    label: az
-    in: band-shared
+    - id: g-subscription
+      kind: code
+      label: Get-AzureSubscription
+      in: band-azure
+    - id: g-test-is-connected
+      kind: code
+      label: Test-AzCliIsConnected
+      in: band-connection
+    - id: g-assert-is-connected
+      kind: code
+      label: Assert-AzCliIsConnected
+      in: band-connection
+    - id: g-test-connected
+      kind: code
+      label: Test-AzCliConnected
+      in: band-connection
+    - id: g-assert-connected
+      kind: code
+      label: Assert-AzCliConnected
+      in: band-connection
+    - id: g-connection-state
+      kind: code
+      label: Get-AzCliConnectionState
+      in: band-connection
+    - id: g-access-state
+      kind: set
+      label: SubscriptionAccessState
+      in: band-access
+    - id: g-bicep-state
+      kind: set
+      label: BicepState
+      in: band-bicep
+    - id: g-invoke
+      kind: code
+      label: Invoke-AzCli
+      in: band-shared
+    - id: g-az
+      kind: external
+      label: az
+      in: band-shared
   edges:
-  - from: g-test-is-connected
-    to: g-subscription
-    kind: flow
-    label: ''
-  - from: g-assert-is-connected
-    to: g-subscription
-    kind: flow
-    label: ''
-  - from: g-access-state
-    to: g-subscription
-    kind: flow
-    label: ''
-  - from: g-test-is-connected
-    to: g-test-connected
-    kind: flow
-    label: ''
-  - from: g-test-connected
-    to: g-connection-state
-    kind: flow
-    label: ''
-  - from: g-assert-connected
-    to: g-connection-state
-    kind: flow
-    label: ''
-  - from: g-assert-is-connected
-    to: g-connection-state
-    kind: flow
-    label: ''
-  - from: g-connection-state
-    to: g-invoke
-    kind: flow
-    label: ''
-  - from: g-access-state
-    to: g-invoke
-    kind: flow
-    label: ''
-  - from: g-bicep-state
-    to: g-invoke
-    kind: flow
-    label: ''
-  - from: g-invoke
-    to: g-az
-    kind: flow
-    label: ''
+    - from: g-test-is-connected
+      to: g-subscription
+      kind: flow
+      label: ""
+    - from: g-assert-is-connected
+      to: g-subscription
+      kind: flow
+      label: ""
+    - from: g-access-state
+      to: g-subscription
+      kind: flow
+      label: ""
+    - from: g-test-is-connected
+      to: g-test-connected
+      kind: flow
+      label: ""
+    - from: g-test-connected
+      to: g-connection-state
+      kind: flow
+      label: ""
+    - from: g-assert-connected
+      to: g-connection-state
+      kind: flow
+      label: ""
+    - from: g-assert-is-connected
+      to: g-connection-state
+      kind: flow
+      label: ""
+    - from: g-connection-state
+      to: g-invoke
+      kind: flow
+      label: ""
+    - from: g-access-state
+      to: g-invoke
+      kind: flow
+      label: ""
+    - from: g-bicep-state
+      to: g-invoke
+      kind: flow
+      label: ""
+    - from: g-invoke
+      to: g-az
+      kind: flow
+      label: ""
   markers:
-  - at: g-subscription
-    number: 1
-  - at: g-test-is-connected
-    number: 2
-  - at: g-assert-is-connected
-    number: 3
-  - at: g-test-connected
-    number: 4
-  - at: g-connection-state
-    number: 5
-  - at: g-access-state
-    number: 6
-  - at: g-bicep-state
-    number: 7
-  - at: g-invoke
-    number: 8
-  - at: g-az
-    number: 9
+    - at: g-subscription
+      number: 1
+    - at: g-test-is-connected
+      number: 2
+    - at: g-assert-is-connected
+      number: 3
+    - at: g-test-connected
+      number: 4
+    - at: g-connection-state
+      number: 5
+    - at: g-access-state
+      number: 6
+    - at: g-bicep-state
+      number: 7
+    - at: g-invoke
+      number: 8
+    - at: g-az
+      number: 9
   chips:
-  - at: g-access-state
-    kind: count
-    text: '5'
-  - at: g-bicep-state
-    kind: count
-    text: '3'
+    - at: g-access-state
+      kind: count
+      text: "5"
+    - at: g-bicep-state
+      kind: count
+      text: "3"
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-azure:
     x: 20

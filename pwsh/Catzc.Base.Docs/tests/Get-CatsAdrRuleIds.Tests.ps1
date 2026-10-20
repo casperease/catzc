@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1
+    folder: tests
+    name: get-cats-adr-rule-ids-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-CatsAdrRuleIds.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-CatsAdrRuleIds.Tests.ps1.md)"
+---
+#>
+
 Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:adrRoot = Join-Path $TestDrive 'adr'

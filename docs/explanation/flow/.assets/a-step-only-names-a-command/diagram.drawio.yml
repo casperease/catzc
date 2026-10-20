@@ -1,10 +1,10 @@
-description: A pipeline step names a command and holds no PowerShell; the pipeline task adds the authentication and the runner
-  loads the modules once, so the command runs exactly as a developer runs it after loading the modules, with no gate checking
-  that.
+description:
+  A pipeline step names a command and holds no PowerShell; the pipeline task adds the authentication and the runner loads the modules once,
+  so the command runs exactly as a developer runs it after loading the modules, with no gate checking that.
 about:
   adrs:
-  - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-  - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
+    - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+    - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
   lens: meta
 content:
   title: A pipeline step only names a command that a developer can run locally
@@ -13,64 +13,64 @@ content:
   relation: passes the command on
   theme: dark
   bands:
-  - id: band-pipeline
-    label: PIPELINE
-  - id: band-developer
-    label: DEVELOPER
+    - id: band-pipeline
+      label: PIPELINE
+    - id: band-developer
+      label: DEVELOPER
   glyphs:
-  - id: g-step
-    kind: runner
-    label: pipeline step
-    in: band-pipeline
-  - id: g-task
-    kind: runner
-    label: pipeline task
-    in: band-pipeline
-  - id: g-runner
-    kind: code
-    label: runner
-    in: band-pipeline
-  - id: g-same-command
-    kind: code
-    label: same command
-    in: band-pipeline
-  - id: g-developer
-    kind: actor
-    label: developer
-    in: band-developer
+    - id: g-step
+      kind: runner
+      label: pipeline step
+      in: band-pipeline
+    - id: g-task
+      kind: runner
+      label: pipeline task
+      in: band-pipeline
+    - id: g-runner
+      kind: code
+      label: runner
+      in: band-pipeline
+    - id: g-same-command
+      kind: code
+      label: same command
+      in: band-pipeline
+    - id: g-developer
+      kind: actor
+      label: developer
+      in: band-developer
   edges:
-  - from: g-step
-    to: g-task
-    kind: flow
-    label: ''
-  - from: g-task
-    to: g-runner
-    kind: flow
-    label: ''
-  - from: g-runner
-    to: g-same-command
-    kind: flow
-    label: ''
-  - from: g-developer
-    to: g-same-command
-    kind: adr
-    label: ''
+    - from: g-step
+      to: g-task
+      kind: flow
+      label: ""
+    - from: g-task
+      to: g-runner
+      kind: flow
+      label: ""
+    - from: g-runner
+      to: g-same-command
+      kind: flow
+      label: ""
+    - from: g-developer
+      to: g-same-command
+      kind: adr
+      label: ""
   markers:
-  - at: g-step
-    number: 1
-  - at: g-task
-    number: 2
-  - at: g-runner
-    number: 3
-  - at: g-same-command
-    number: 4
-  - at: g-developer
-    number: 5
+    - at: g-step
+      number: 1
+    - at: g-task
+      number: 2
+    - at: g-runner
+      number: 3
+    - at: g-same-command
+      number: 4
+    - at: g-developer
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-pipeline:
     x: 20

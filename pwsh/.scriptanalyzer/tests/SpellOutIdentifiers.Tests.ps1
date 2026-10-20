@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: spell-out-identifiers-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[SpellOutIdentifiers.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS
+      - ADR-AUTO-SPELL-IDENTIFIERSNOTDATA
+---
+#>
+
 Describe 'Measure-SpellOutIdentifiers' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/SpellOutIdentifiers.psm1') -Force

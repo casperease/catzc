@@ -1,14 +1,15 @@
-description: 'Who takes which commit: the upstream integrator takes the BVT-verified head, which the main-UAT environment
-  takes first and so holds, each rung of the promotion ladder takes its commit from the rung before it, and the dirty head
-  at the tip of main, which failed in main-UAT, is taken by nobody.'
+description:
+  "Who takes which commit: the upstream integrator takes the BVT-verified head, which the main-UAT environment takes first and so holds,
+  each rung of the promotion ladder takes its commit from the rung before it, and the dirty head at the tip of main, which failed in
+  main-UAT, is taken by nobody."
 about:
   adrs:
-  - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-  - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-  - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-  - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-  - ADR-FLOW-CD-TWORELEASEGATES
-  - ADR-FLOW-CD-PREPRODRUNG
+    - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - ADR-FLOW-CD-TWORELEASEGATES
+    - ADR-FLOW-CD-PREPRODRUNG
   lens: architecture
 content:
   title: Upstream integrators sync from the BVT-verified head, never from the tip of main
@@ -17,102 +18,102 @@ content:
   relation: promotes to
   theme: dark
   bands:
-  - id: band-external
-    label: EXTERNAL
-  - id: band-ladder
-    label: PROMOTION LADDER
-  - id: band-tip
-    label: TIP OF MAIN
+    - id: band-external
+      label: EXTERNAL
+    - id: band-ladder
+      label: PROMOTION LADDER
+    - id: band-tip
+      label: TIP OF MAIN
   groups:
-  - id: grp-dirty
-    label: dirty HEAD
-    in: band-tip
+    - id: grp-dirty
+      label: dirty HEAD
+      in: band-tip
   glyphs:
-  - id: x-integrator
-    kind: adronly
-    label: upstream integrator
-    in: band-external
-  - id: g-production
-    kind: env
-    label: production
-    in: band-ladder
-  - id: c-production
-    kind: commit
-    label: '4'
-    in: g-production
-    state: prod
-  - id: g-pre-prod
-    kind: env
-    label: pre-prod
-    in: band-ladder
-  - id: c-pre-prod
-    kind: commit
-    label: P
-    in: g-pre-prod
-    state: prod
-  - id: g-release-uat
-    kind: env
-    label: release-uat
-    in: band-ladder
-  - id: c-release-uat
-    kind: commit
-    label: '5'
-    in: g-release-uat
-    state: release-uat
-  - id: g-main-uat
-    kind: env
-    label: main-UAT
-    in: band-ladder
-  - id: c-main-uat
-    kind: commit
-    label: '6'
-    in: g-main-uat
-    state: main-uat
-  - id: c-dirty
-    kind: commit
-    label: '10'
-    in: grp-dirty
-    state: l3
+    - id: x-integrator
+      kind: adronly
+      label: upstream integrator
+      in: band-external
+    - id: g-production
+      kind: env
+      label: production
+      in: band-ladder
+    - id: c-production
+      kind: commit
+      label: "4"
+      in: g-production
+      state: prod
+    - id: g-pre-prod
+      kind: env
+      label: pre-prod
+      in: band-ladder
+    - id: c-pre-prod
+      kind: commit
+      label: P
+      in: g-pre-prod
+      state: prod
+    - id: g-release-uat
+      kind: env
+      label: release-uat
+      in: band-ladder
+    - id: c-release-uat
+      kind: commit
+      label: "5"
+      in: g-release-uat
+      state: release-uat
+    - id: g-main-uat
+      kind: env
+      label: main-UAT
+      in: band-ladder
+    - id: c-main-uat
+      kind: commit
+      label: "6"
+      in: g-main-uat
+      state: main-uat
+    - id: c-dirty
+      kind: commit
+      label: "10"
+      in: grp-dirty
+      state: l3
   edges:
-  - from: x-integrator
-    to: g-main-uat
-    kind: adr
-    label: ''
-  - from: g-main-uat
-    to: g-release-uat
-    kind: adr
-    label: ''
-  - from: g-release-uat
-    to: g-pre-prod
-    kind: adr
-    label: ''
-  - from: g-pre-prod
-    to: g-production
-    kind: adr
-    label: ''
-  - from: g-main-uat
-    to: grp-dirty
-    kind: fail
-    label: ''
+    - from: x-integrator
+      to: g-main-uat
+      kind: adr
+      label: ""
+    - from: g-main-uat
+      to: g-release-uat
+      kind: adr
+      label: ""
+    - from: g-release-uat
+      to: g-pre-prod
+      kind: adr
+      label: ""
+    - from: g-pre-prod
+      to: g-production
+      kind: adr
+      label: ""
+    - from: g-main-uat
+      to: grp-dirty
+      kind: fail
+      label: ""
   markers:
-  - at: x-integrator
-    number: 1
-  - at: g-main-uat
-    number: 2
-  - at: g-release-uat
-    number: 3
-  - at: g-pre-prod
-    number: 4
-  - at: g-production
-    number: 5
-  - at: grp-dirty
-    number: 6
-    corner: top-right
+    - at: x-integrator
+      number: 1
+    - at: g-main-uat
+      number: 2
+    - at: g-release-uat
+      number: 3
+    - at: g-pre-prod
+      number: 4
+    - at: g-production
+      number: 5
+    - at: grp-dirty
+      number: 6
+      corner: top-right
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-external:
     x: 20

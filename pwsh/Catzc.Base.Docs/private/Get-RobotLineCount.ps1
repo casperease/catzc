@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/private/Get-RobotLineCount.ps1
+    folder: private
+    name: get-robot-line-count
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-RobotLineCount.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-RobotLineCount.ps1.md)"
+    cites:
+      - ADR-REPO-AGENTS-ROBOTBODYLIMIT
+      - ADR-REPO-AGENTS-CAPABILITYFILE
+---
+#>
+
 function Get-RobotLineCount {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

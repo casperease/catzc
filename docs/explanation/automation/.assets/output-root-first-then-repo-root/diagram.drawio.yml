@@ -1,11 +1,12 @@
-description: A path is converted under the output root first, then the repository root, else kept absolute; Resolve-RepoPath
-  re-anchors out/ on the output root, and an artifact reference carries the relative and absolute forms across stages.
+description:
+  A path is converted under the output root first, then the repository root, else kept absolute; Resolve-RepoPath re-anchors out/ on the
+  output root, and an artifact reference carries the relative and absolute forms across stages.
 about:
   adrs:
-  - ADR-AUTO-PATH-CENTRALNORMALIZATION
-  - ADR-AUTO-PATH-FOREIGNPATHS
-  - ADR-AUTO-PATH-OUTANCHOR
-  - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+    - ADR-AUTO-PATH-CENTRALNORMALIZATION
+    - ADR-AUTO-PATH-FOREIGNPATHS
+    - ADR-AUTO-PATH-OUTANCHOR
+    - ADR-AUTO-PATH-PUBLISHEDARTIFACT
   lens: implementation
 content:
   title: Output root first, then repository root, else absolute, and out/ re-anchors on the output root
@@ -14,114 +15,114 @@ content:
   relation: passes the path on
   theme: dark
   bands:
-  - id: band-communication
-    label: COMMUNICATION FORM
-  - id: band-crossers
-    label: THE TWO CROSSERS
-  - id: band-binding
-    label: BINDING FORM
-  - id: band-stage
-    label: CROSS-STAGE
+    - id: band-communication
+      label: COMMUNICATION FORM
+    - id: band-crossers
+      label: THE TWO CROSSERS
+    - id: band-binding
+      label: BINDING FORM
+    - id: band-stage
+      label: CROSS-STAGE
   groups:
-  - id: grp-paths
-    label: communicated paths
-    in: band-communication
+    - id: grp-paths
+      label: communicated paths
+      in: band-communication
   glyphs:
-  - id: r-out
-    kind: result
-    label: out/template/.../main.json
-    in: grp-paths
-  - id: r-repository
-    kind: result
-    label: pwsh/mod/file.ps1
-    in: grp-paths
-  - id: r-foreign
-    kind: result
-    label: D:\a\1\ws\sample\main.json
-    in: grp-paths
-  - id: g-resolve
-    kind: code
-    label: Resolve-RepoPath
-    in: band-crossers
-  - id: g-output-root
-    kind: code
-    label: Get-OutputRoot
-    in: band-crossers
-  - id: g-convert
-    kind: code
-    label: ConvertTo-RepoRelativePath
-    in: band-crossers
-  - id: s-effects
-    kind: set
-    label: Reads, writes, tool calls
-    in: band-binding
-  - id: g-materialize
-    kind: code
-    label: ArtifactRef.Materialize
-    in: band-stage
-  - id: g-reference
-    kind: code
-    label: ArtifactRef
-    in: band-stage
-  - id: g-resolve-at
-    kind: code
-    label: ResolveAt / ExistsAt
-    in: band-stage
+    - id: r-out
+      kind: result
+      label: out/template/.../main.json
+      in: grp-paths
+    - id: r-repository
+      kind: result
+      label: pwsh/mod/file.ps1
+      in: grp-paths
+    - id: r-foreign
+      kind: result
+      label: D:\a\1\ws\sample\main.json
+      in: grp-paths
+    - id: g-resolve
+      kind: code
+      label: Resolve-RepoPath
+      in: band-crossers
+    - id: g-output-root
+      kind: code
+      label: Get-OutputRoot
+      in: band-crossers
+    - id: g-convert
+      kind: code
+      label: ConvertTo-RepoRelativePath
+      in: band-crossers
+    - id: s-effects
+      kind: set
+      label: Reads, writes, tool calls
+      in: band-binding
+    - id: g-materialize
+      kind: code
+      label: ArtifactRef.Materialize
+      in: band-stage
+    - id: g-reference
+      kind: code
+      label: ArtifactRef
+      in: band-stage
+    - id: g-resolve-at
+      kind: code
+      label: ResolveAt / ExistsAt
+      in: band-stage
   edges:
-  - from: grp-paths
-    to: g-resolve
-    kind: flow
-    label: ''
-  - from: g-resolve
-    to: s-effects
-    kind: flow
-    label: ''
-  - from: g-output-root
-    to: g-resolve
-    kind: flow
-    label: ''
-  - from: g-output-root
-    to: g-convert
-    kind: flow
-    label: ''
-  - from: g-convert
-    to: grp-paths
-    kind: flow
-    label: ''
-  - from: g-materialize
-    to: g-reference
-    kind: flow
-    label: ''
-  - from: g-reference
-    to: g-resolve-at
-    kind: flow
-    label: ''
+    - from: grp-paths
+      to: g-resolve
+      kind: flow
+      label: ""
+    - from: g-resolve
+      to: s-effects
+      kind: flow
+      label: ""
+    - from: g-output-root
+      to: g-resolve
+      kind: flow
+      label: ""
+    - from: g-output-root
+      to: g-convert
+      kind: flow
+      label: ""
+    - from: g-convert
+      to: grp-paths
+      kind: flow
+      label: ""
+    - from: g-materialize
+      to: g-reference
+      kind: flow
+      label: ""
+    - from: g-reference
+      to: g-resolve-at
+      kind: flow
+      label: ""
   markers:
-  - at: r-out
-    number: 1
-  - at: r-repository
-    number: 2
-  - at: r-foreign
-    number: 3
-  - at: g-resolve
-    number: 4
-  - at: g-output-root
-    number: 5
-  - at: s-effects
-    number: 6
-  - at: g-convert
-    number: 7
-  - at: g-materialize
-    number: 8
-  - at: g-reference
-    number: 9
-  - at: g-resolve-at
-    number: 10
+    - at: r-out
+      number: 1
+    - at: r-repository
+      number: 2
+    - at: r-foreign
+      number: 3
+    - at: g-resolve
+      number: 4
+    - at: g-output-root
+      number: 5
+    - at: s-effects
+      number: 6
+    - at: g-convert
+      number: 7
+    - at: g-materialize
+      number: 8
+    - at: g-reference
+      number: 9
+    - at: g-resolve-at
+      number: 10
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-communication:
     x: 20

@@ -1,3 +1,30 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/ValueChainMap.cs
+    folder: types
+    name: value-chain-map
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
+    docs: "[ValueChainMap.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainMap.cs.md)"
+    cites:
+      - ADR-DSGN-TRACK-VALUECHAINSTACK
+      - ADR-DSGN-TRACK-VALUECHAINCONCERN
+      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

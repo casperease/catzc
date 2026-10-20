@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Engines/configs/glossary.yml
+#     folder: configs
+#     name: glossary
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Engines
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-engines/configs/glossary.yml.md)"
+# ---
+
 concepts:
   execution engine:
     key: execution_engine

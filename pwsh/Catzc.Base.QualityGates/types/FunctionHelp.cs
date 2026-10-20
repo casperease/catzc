@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/FunctionHelp.cs
+    folder: types
+    name: function-help
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/types/FunctionHelp.Tests.ps1
+    docs: "[FunctionHelp.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/FunctionHelp.cs.md)"
+    cites:
+      - ADR-REPO-HELP-HELPONCOMMENTPAGE
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/LinkEngineResult.cs
+    folder: types
+    name: link-engine-result
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[LinkEngineResult.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinkEngineResult.cs.md)"
+---
+*/
+
 using System.Collections.Generic;
 
 namespace Catzc.Base.QualityGates;

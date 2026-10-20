@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/AnnounceStateChange.psm1
+    folder: pwsh/.scriptanalyzer
+    name: announce-state-change
+    filetype: psm1
+    role: analyzer-rule
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[AnnounceStateChange.psm1.md](docs/references/pwsh/scriptanalyzer/AnnounceStateChange.psm1.md)"
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 . (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 

@@ -64,6 +64,11 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
    - **Recommended:** yes, `bcl`, with `.cs` as its extension; the row names the language, `.cs` names its syntax. One change with every
      caller (`ADR-PRIN-ONELIVE`).
    - Alternative: keep `csharp`, and say in the row's comment that it means BCL.
+4. **Is the BCL diagram wanted?** One drawing: BCL inside .NET, pwsh hosting the combined assembly, and the host bindings as a small listed
+   exception box with the kinds Q1 keeps.
+   - **Recommended:** yes, after Q1 is answered (a drawing before it shows an undecided state), as one sample in `out/diagrams/dark-sample/`
+     only; it goes to `docs/adr/automation/BCL/.assets/` once the user approves it.
+   - Alternative: no drawing; the reference index's text carries it.
 
 ## Open steps
 
@@ -99,6 +104,14 @@ The doc moves have no open question and go first; each later step waits on the a
       the tree).
 - [ ] `pwsh/Catzc.Base.Languages/configs/languages.yml`: rename the `csharp` row to `bcl`, then every caller in the same change (waits on
       Q3) (check: `Catzc.Base.Languages` and `Catzc.Base.QualityGates` Pester, then `Test-Formatting -Language bcl`).
+- [ ] `docs/references/BCL/index.md` (after the move): the one page that defines the BCL language, its host and its reference set; the
+      reference-set wording leaves `docs/references/pwsh/index.md` and links here instead, so the definition has one living version
+      (`ADR-PRIN-ONELIVE`) (waits on Q1) (check: `Test-Links` on both pages, `grep -c "System.Management.Automation"` on the pwsh index is
+      0).
+- [ ] `.claude/CLAUDE.md`, section Project structure: one line, "`types/*.cs` are written in BCL, a subset of .NET; pwsh hosts them",
+      linking the BCL reference index, after the doc moves land (check: `Test-AgentDefinitions`, `Test-Links -Path .claude/CLAUDE.md`).
+- [ ] The BCL diagram as Q4 settles: one sample `out/diagrams/dark-sample/bcl-language.drawio.png` from its `diagram.drawio.yml`, nothing in
+      `docs/` until approved (waits on Q1 and Q4) (check: the user approves the sample).
 
 ## Refs
 

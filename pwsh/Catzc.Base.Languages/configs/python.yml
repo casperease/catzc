@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Languages/configs/python.yml
+#     folder: configs
+#     name: python
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Languages
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[python.yml.md](docs/references/pwsh/catzc-base-languages/configs/python.yml.md)"
+# ---
+
 dependencies:
   jsonschema: "4.26.0"
   pillow: "12.3.0"

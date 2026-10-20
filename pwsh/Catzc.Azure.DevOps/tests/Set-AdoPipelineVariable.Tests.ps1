@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
+    folder: tests
+    name: set-ado-pipeline-variable-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Set-AdoPipelineVariable.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops/tests/Set-AdoPipelineVariable.Tests.ps1.md)"
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to capture the ##vso line, which goes through the writer chokepoint; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 

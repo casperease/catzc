@@ -1,11 +1,12 @@
-description: 'Get-Config stays fast because three script-scope caches stand behind it, each filled once and kept until re-import:
-  the name index, the parsed configs keyed by path, and the type registry.'
+description:
+  "Get-Config stays fast because three script-scope caches stand behind it, each filled once and kept until re-import: the name index, the
+  parsed configs keyed by path, and the type registry."
 about:
   adrs:
-  - ADR-CONF-LOADING-ONEREADER
-  - ADR-CONF-LOADING-EXISTENCEDISCOVERED
-  - ADR-CONF-LOADING-CACHEBYPATH
-  - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+    - ADR-CONF-LOADING-ONEREADER
+    - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+    - ADR-CONF-LOADING-CACHEBYPATH
+    - ADR-CONF-LOADING-CSHARPCONFIGTYPE
   lens: implementation
 content:
   title: Three session caches back the one config reader
@@ -14,122 +15,122 @@ content:
   relation: call order
   theme: dark
   bands:
-  - id: band-chain
-    label: CALL CHAIN
-  - id: band-index
-    label: INDEX
-  - id: band-miss
-    label: MISS
-  - id: band-registry
-    label: REGISTRY
+    - id: band-chain
+      label: CALL CHAIN
+    - id: band-index
+      label: INDEX
+    - id: band-miss
+      label: MISS
+    - id: band-registry
+      label: REGISTRY
   glyphs:
-  - id: g-reader
-    kind: code
-    label: Get-Config
-    in: band-chain
-  - id: g-entry
-    kind: code
-    label: Resolve-ConfigEntry
-    in: band-chain
-  - id: s-cache
-    kind: store
-    label: $script:configCache
-    in: band-chain
-  - id: r-same
-    kind: result
-    label: same reference
-    in: band-chain
-  - id: s-index
-    kind: store
-    label: $script:configIndex
-    in: band-index
-  - id: g-file
-    kind: file
-    label: configs/<name>.yml
-    in: band-miss
-  - id: g-type
-    kind: code
-    label: '[type]::new($raw)'
-    in: band-miss
-  - id: g-registry-file
-    kind: file
-    label: configs.yml
-    in: band-registry
-  - id: g-registry
-    kind: code
-    label: Get-ConfigRegistry
-    in: band-registry
-  - id: s-registry
-    kind: store
-    label: $script:configRegistryCache
-    in: band-registry
+    - id: g-reader
+      kind: code
+      label: Get-Config
+      in: band-chain
+    - id: g-entry
+      kind: code
+      label: Resolve-ConfigEntry
+      in: band-chain
+    - id: s-cache
+      kind: store
+      label: $script:configCache
+      in: band-chain
+    - id: r-same
+      kind: result
+      label: same reference
+      in: band-chain
+    - id: s-index
+      kind: store
+      label: $script:configIndex
+      in: band-index
+    - id: g-file
+      kind: file
+      label: configs/<name>.yml
+      in: band-miss
+    - id: g-type
+      kind: code
+      label: "[type]::new($raw)"
+      in: band-miss
+    - id: g-registry-file
+      kind: file
+      label: configs.yml
+      in: band-registry
+    - id: g-registry
+      kind: code
+      label: Get-ConfigRegistry
+      in: band-registry
+    - id: s-registry
+      kind: store
+      label: $script:configRegistryCache
+      in: band-registry
   edges:
-  - from: g-reader
-    to: g-entry
-    kind: flow
-    label: ''
-  - from: g-entry
-    to: s-cache
-    kind: flow
-    label: ''
-  - from: s-cache
-    to: r-same
-    kind: flow
-    label: ''
-  - from: g-entry
-    to: s-index
-    kind: flow
-    label: ''
-  - from: s-cache
-    to: g-file
-    kind: flow
-    label: ''
-  - from: g-file
-    to: g-type
-    kind: flow
-    label: ''
-  - from: g-type
-    to: s-cache
-    kind: flow
-    label: ''
-  - from: g-registry-file
-    to: g-registry
-    kind: flow
-    label: ''
-  - from: g-registry
-    to: s-registry
-    kind: flow
-    label: ''
-  - from: g-registry
-    to: g-type
-    kind: flow
-    label: ''
+    - from: g-reader
+      to: g-entry
+      kind: flow
+      label: ""
+    - from: g-entry
+      to: s-cache
+      kind: flow
+      label: ""
+    - from: s-cache
+      to: r-same
+      kind: flow
+      label: ""
+    - from: g-entry
+      to: s-index
+      kind: flow
+      label: ""
+    - from: s-cache
+      to: g-file
+      kind: flow
+      label: ""
+    - from: g-file
+      to: g-type
+      kind: flow
+      label: ""
+    - from: g-type
+      to: s-cache
+      kind: flow
+      label: ""
+    - from: g-registry-file
+      to: g-registry
+      kind: flow
+      label: ""
+    - from: g-registry
+      to: s-registry
+      kind: flow
+      label: ""
+    - from: g-registry
+      to: g-type
+      kind: flow
+      label: ""
   markers:
-  - at: g-reader
-    number: 1
-  - at: g-entry
-    number: 2
-  - at: s-index
-    number: 3
-  - at: s-cache
-    number: 4
-  - at: r-same
-    number: 5
-  - at: g-file
-    number: 6
-  - at: g-type
-    number: 7
-  - at: g-registry-file
-    number: 8
-  - at: g-registry
-    number: 9
-  - at: s-registry
-    number: 10
+    - at: g-reader
+      number: 1
+    - at: g-entry
+      number: 2
+    - at: s-index
+      number: 3
+    - at: s-cache
+      number: 4
+    - at: r-same
+      number: 5
+    - at: g-file
+      number: 6
+    - at: g-type
+      number: 7
+    - at: g-registry-file
+      number: 8
+    - at: g-registry
+      number: 9
+    - at: s-registry
+      number: 10
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-chain:
     x: 20

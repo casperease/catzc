@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/GitHubAnchor.cs
+    folder: types
+    name: git-hub-anchor
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1
+    docs: "[GitHubAnchor.cs.md](docs/references/pwsh/catzc-base-docs/types/GitHubAnchor.cs.md)"
+    cites:
+      - ADR-REPO-LINK-MARKDOWNRELATIVE
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;

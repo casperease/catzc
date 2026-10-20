@@ -1,3 +1,32 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1
+    folder: tests
+    name: get-bicep-parameter-model-shipped-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-BicepParameterModel.Shipped.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
+      - ADR-AUTO-TEST-GENERICTEMPLATETESTS
+      - ADR-AUTO-TEST-SETUPONCE
+      - ADR-AUTO-TEST-ONESCHEDULINGPOOL
+      - ADR-AUTO-TEST-TESTSUITE
+      - ADR-AZ-DATAMOD-PARAMETERCONTRACT
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+---
+#>
+
 BeforeDiscovery {
     $script:templateNames = @(Get-BicepTemplateNames)
 }

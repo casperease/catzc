@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Execution/Resolve-ToolExecutable.ps1
+    name: resolve-tool-executable
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Execution
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
+    docs: "[Resolve-ToolExecutable.ps1.md](docs/references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md)"
+    cites:
+      - ADR-CONF-LOADING-READINGISGLOBAL
+---
+#>
+
 function Resolve-ToolExecutable {
     [OutputType([Catzc.Base.Execution.ExecutableProbe])]
     [CmdletBinding()]

@@ -1,10 +1,11 @@
-description: Two environment variables are read in one function, Test-IsRunningInPipeline; callers ask it, and one analyzer
-  rule, loaded through the one settings file, turns any other read of those variables into an error.
+description:
+  Two environment variables are read in one function, Test-IsRunningInPipeline; callers ask it, and one analyzer rule, loaded through the
+  one settings file, turns any other read of those variables into an error.
 about:
   adrs:
-  - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-  - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-  - ADR-FLOW-CD-DETECT-FASTDETECTION
+    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+    - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
+    - ADR-FLOW-CD-DETECT-FASTDETECTION
   lens: implementation
 content:
   title: Two variables, one reader, 24 callers, and one analyzer rule for every other read
@@ -13,110 +14,110 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-platform
-    label: PLATFORM
-  - id: band-loader
-    label: LOADER
-  - id: band-consumers
-    label: CONSUMERS
-  - id: band-analyzer
-    label: ANALYZER
+    - id: band-platform
+      label: PLATFORM
+    - id: band-loader
+      label: LOADER
+    - id: band-consumers
+      label: CONSUMERS
+    - id: band-analyzer
+      label: ANALYZER
   groups:
-  - id: grp-callers
-    label: callers of the detector
-    in: band-consumers
+    - id: grp-callers
+      label: callers of the detector
+      in: band-consumers
   glyphs:
-  - id: r-azure-agent
-    kind: runner
-    label: Azure DevOps agent
-    in: band-platform
-  - id: r-github-runner
-    kind: runner
-    label: GitHub Actions runner
-    in: band-platform
-  - id: c-detector
-    kind: code
-    label: Test-IsRunningInPipeline
-    in: band-loader
-  - id: c-output-root
-    kind: code
-    label: Get-OutputRoot
-    in: grp-callers
-  - id: c-run-environment
-    kind: code
-    label: Get-RunEnvironment
-    in: grp-callers
-  - id: c-change-range
-    kind: code
-    label: Get-GlobSetChangeRange
-    in: grp-callers
-  - id: c-set-variable
-    kind: code
-    label: Set-AdoPipelineVariable
-    in: grp-callers
-  - id: f-settings
-    kind: file
-    label: PSScriptAnalyzerSettings.psd1
-    in: band-analyzer
-  - id: c-rules
-    kind: code
-    label: CatzcRules.psm1
-    in: band-analyzer
-  - id: g-rule
-    kind: gate
-    label: Measure-NoRawPipelineDetection
-    in: band-analyzer
+    - id: r-azure-agent
+      kind: runner
+      label: Azure DevOps agent
+      in: band-platform
+    - id: r-github-runner
+      kind: runner
+      label: GitHub Actions runner
+      in: band-platform
+    - id: c-detector
+      kind: code
+      label: Test-IsRunningInPipeline
+      in: band-loader
+    - id: c-output-root
+      kind: code
+      label: Get-OutputRoot
+      in: grp-callers
+    - id: c-run-environment
+      kind: code
+      label: Get-RunEnvironment
+      in: grp-callers
+    - id: c-change-range
+      kind: code
+      label: Get-GlobSetChangeRange
+      in: grp-callers
+    - id: c-set-variable
+      kind: code
+      label: Set-AdoPipelineVariable
+      in: grp-callers
+    - id: f-settings
+      kind: file
+      label: PSScriptAnalyzerSettings.psd1
+      in: band-analyzer
+    - id: c-rules
+      kind: code
+      label: CatzcRules.psm1
+      in: band-analyzer
+    - id: g-rule
+      kind: gate
+      label: Measure-NoRawPipelineDetection
+      in: band-analyzer
   edges:
-  - from: r-azure-agent
-    to: c-detector
-    kind: flow
-    label: TF_BUILD
-  - from: r-github-runner
-    to: c-detector
-    kind: flow
-    label: GITHUB_ACTIONS
-  - from: c-detector
-    to: grp-callers
-    kind: flow
-    label: ''
-  - from: f-settings
-    to: c-rules
-    kind: flow
-    label: ''
-  - from: c-rules
-    to: g-rule
-    kind: flow
-    label: ''
+    - from: r-azure-agent
+      to: c-detector
+      kind: flow
+      label: TF_BUILD
+    - from: r-github-runner
+      to: c-detector
+      kind: flow
+      label: GITHUB_ACTIONS
+    - from: c-detector
+      to: grp-callers
+      kind: flow
+      label: ""
+    - from: f-settings
+      to: c-rules
+      kind: flow
+      label: ""
+    - from: c-rules
+      to: g-rule
+      kind: flow
+      label: ""
   markers:
-  - at: r-azure-agent
-    number: 1
-  - at: r-github-runner
-    number: 2
-  - at: c-detector
-    number: 3
-  - at: c-output-root
-    number: 4
-  - at: c-run-environment
-    number: 5
-  - at: c-change-range
-    number: 6
-  - at: c-set-variable
-    number: 7
-  - at: f-settings
-    number: 8
-  - at: c-rules
-    number: 9
-  - at: g-rule
-    number: 10
+    - at: r-azure-agent
+      number: 1
+    - at: r-github-runner
+      number: 2
+    - at: c-detector
+      number: 3
+    - at: c-output-root
+      number: 4
+    - at: c-run-environment
+      number: 5
+    - at: c-change-range
+      number: 6
+    - at: c-set-variable
+      number: 7
+    - at: f-settings
+      number: 8
+    - at: c-rules
+      number: 9
+    - at: g-rule
+      number: 10
   chips:
-  - at: grp-callers
-    kind: count
-    text: '24'
+    - at: grp-callers
+      kind: count
+      text: "24"
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-platform:
     x: 20

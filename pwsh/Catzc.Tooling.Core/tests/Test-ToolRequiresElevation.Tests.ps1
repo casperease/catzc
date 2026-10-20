@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/tests/Test-ToolRequiresElevation.Tests.ps1
+    folder: tests
+    name: test-tool-requires-elevation-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-ToolRequiresElevation.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Test-ToolRequiresElevation.Tests.ps1.md)"
+---
+#>
+
 Describe 'Test-ToolRequiresElevation' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-TestToolConfig {

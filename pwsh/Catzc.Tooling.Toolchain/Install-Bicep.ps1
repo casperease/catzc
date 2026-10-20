@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Toolchain/Install-Bicep.ps1
+    name: install-bicep
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Toolchain/tests/Install-Bicep.Tests.ps1
+    docs: "[Install-Bicep.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Install-Bicep.ps1.md)"
+    cites:
+      - ADR-AUTO-PKGMGR
+      - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+---
+#>
+
 function Install-Bicep {
     [CmdletBinding()]
     param(

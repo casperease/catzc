@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Docs/configs/adr-checks.yml
+#     folder: configs
+#     name: adr-checks
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Docs
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[adr-checks.yml.md](docs/references/pwsh/catzc-base-docs/configs/adr-checks.yml.md)"
+# ---
+
 engine_neutrality:
   domains: [automation]
   tokens:

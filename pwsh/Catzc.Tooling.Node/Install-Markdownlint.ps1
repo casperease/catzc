@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Node/Install-Markdownlint.ps1
+    name: install-markdownlint
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Node
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    docs: "[Install-Markdownlint.ps1.md](docs/references/pwsh/catzc-tooling-node/Install-Markdownlint.ps1.md)"
+---
+#>
+
 function Install-Markdownlint {
     [CmdletBinding()]
     param(

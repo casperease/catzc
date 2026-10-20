@@ -1,3 +1,30 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AgentEntry.cs
+    folder: types
+    name: agent-entry
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
+    docs: "[AgentEntry.cs.md](docs/references/pwsh/catzc-base-docs/types/AgentEntry.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-PWSH-ERROR-THROWNOTWRITEERROR
+      - ADR-REPO-AGENTS-BACKEDBYRULE
+      - ADR-REPO-AGENTS-NAMEDMODEL
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

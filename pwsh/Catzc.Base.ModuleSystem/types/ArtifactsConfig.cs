@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
+    folder: types
+    name: artifacts-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1
+    docs: "[ArtifactsConfig.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ArtifactsConfig.cs.md)"
+    cites:
+      - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

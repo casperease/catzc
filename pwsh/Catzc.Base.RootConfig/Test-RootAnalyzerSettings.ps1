@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
+    name: test-root-analyzer-settings
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1
+    docs: "[Test-RootAnalyzerSettings.ps1.md](docs/references/pwsh/catzc-base-rootconfig/Test-RootAnalyzerSettings.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-ROOTCFG
+---
+#>
+
 function Test-RootAnalyzerSettings {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

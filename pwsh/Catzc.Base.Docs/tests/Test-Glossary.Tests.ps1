@@ -1,3 +1,34 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+    folder: tests
+    name: test-glossary-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-Glossary.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-FAILFAST
+      - ADR-AUTO-TEST-SETUPONCE
+      - ADR-AUTO-TEST-ONEIMPORTPERCASE
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-VOCAB-DEFINEDTERM
+      - ADR-REPO-VOCAB-GLOSSARYSOURCE
+      - ADR-REPO-VOCAB-SOURCESINREPOSITORY
+      - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED
+      - ADR-REPO-VOCAB-REALIZEDBY
+---
+#>
+
 Describe 'Test-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
         # Two real entries: the mocked checks keep their typed -Entry parameter, so the glossary must bind to it.

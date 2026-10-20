@@ -39,8 +39,7 @@ that no gate bounds.
    thing here the ADR states and no code does.
 6. **Get-TimeoutSeconds.Tests.** The gate on the resolution: an executable's own entry, the pwsh limit for an unlisted executable, the raise
    of an exempt budget to the ceiling, the unchanged limit for a budget that is not exempt, and a limit above the ceiling that is never
-   lowered. `Build-AgentHook.Tests` adds parity: the published hook allows exactly the limit the resolver gives and denies one unit
-   more.
+   lowered. `Build-AgentHook.Tests` adds parity: the published hook allows exactly the limit the resolver gives and denies one unit more.
 7. **Assert-BashTimeout.** The rule says the bash limits bound every shell call an agent makes and a hook denies a call outside them. The
    hook is that gate, compiled from the module's own types so it cannot drift from the resolver.
 8. **Invoke-Executable -Direct.** The rule bounds every external call. The interactive mode has no limit, and no test or gate catches it;

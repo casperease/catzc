@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
+    folder: private
+    name: stop-dotnet-install-holder
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Tooling.Toolchain/tests/Stop-DotnetInstallHolder.Tests.ps1
+    docs: "[Stop-DotnetInstallHolder.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Stop-DotnetInstallHolder.ps1.md)"
+    cites:
+      - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+---
+#>
+
 function Stop-DotnetInstallHolder {
     [CmdletBinding()]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Private step of Uninstall-Dotnet, whose -Force is the confirmation — see ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS')]

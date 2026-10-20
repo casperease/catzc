@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/types/PathParts.cs
+    folder: types
+    name: path-parts
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Languages/tests/types/PathParts.Tests.ps1
+    docs: "[PathParts.cs.md](docs/references/pwsh/catzc-base-languages/types/PathParts.cs.md)"
+    cites:
+      - ADR-REPO-FILEMETA-ROLE
+---
+*/
+
 using System;
 using System.Globalization;
 using System.Linq;

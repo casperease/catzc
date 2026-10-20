@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Language.Bridge.ps1
+    folder: tests
+    name: language-bridge
+    filetype: ps1
+    role: fixture
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Language.Bridge.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Language.Bridge.ps1.md)"
+    cites:
+      - ADR-AUTO-ENGINE-STARTENVIRONMENT
+      - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
+      - ADR-AUTO-TEST-NOCLOUDBELOWLTHREE
+      - ADR-AUTO-TEST-ONESCHEDULINGPOOL
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'TestFolder', Justification = 'Read in the BeforeDiscovery block, which the analyzer does not follow.')]
 param(
     # go, python or bash.

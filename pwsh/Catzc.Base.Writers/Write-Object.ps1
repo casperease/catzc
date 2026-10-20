@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Writers/Write-Object.ps1
+    name: write-object
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Writers
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Writers/tests/Write-Object.Tests.ps1
+    docs: "[Write-Object.ps1.md](docs/references/pwsh/catzc-base-writers/Write-Object.ps1.md)"
+---
+#>
+
 function Write-Object {
     [CmdletBinding()]
     param(

@@ -16,7 +16,7 @@ catzc:
     catzc_bundle: azure
     visibility: private
   edges:
-    docs: "[Format-FileLockingProcess.ps1.md](/docs/references/pwsh/catzc-base-typessystem/private/Format-FileLockingProcess.ps1.md)"
+    docs: "[Format-FileLockingProcess.ps1.md](docs/references/pwsh/catzc-base-typessystem/private/Format-FileLockingProcess.ps1.md)"
 ---
 #>
 

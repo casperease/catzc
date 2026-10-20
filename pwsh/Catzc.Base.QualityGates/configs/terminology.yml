@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+#     folder: configs
+#     name: terminology
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.QualityGates
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[terminology.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/terminology.yml.md)"
+# ---
+
 categories:
   product:
     description: "A real product, tool, protocol, or general technical term this codebase uses that fits no more specific category below."
@@ -1068,7 +1087,8 @@ terms:
       meaning: "PowerShell $WhatIfPreference variable"
   coined:
     - term: catzcbaserepository
-      meaning: "the module Catzc.Base.Repository rendered in Go's flat naming case, its Go test folder name (ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM)"
+      meaning:
+        "the module Catzc.Base.Repository rendered in Go's flat naming case, its Go test folder name (ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM)"
     - term: getcommandcontract
       meaning: "the command get_command_contract rendered in the flat naming case, the example of that case (ADR-AUTO-IDIOM-CLOSEDCASES)"
     - term: adronly

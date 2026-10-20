@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
+    folder: tests/types
+    name: agent-entry-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AgentEntry.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-AGENTS-BACKEDBYRULE
+---
+#>
+
 Describe 'AgentEntry' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
     It 'constructs and exposes name, supported_by, and checks' {
         $entry = [Catzc.Base.Docs.AgentEntry]::new([ordered]@{

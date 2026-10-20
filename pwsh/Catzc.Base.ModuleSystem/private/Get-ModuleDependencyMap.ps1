@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyMap.ps1
+    folder: private
+    name: get-module-dependency-map
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-ModuleDependencyMap.ps1.md](docs/references/pwsh/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md)"
+---
+#>
+
 function Get-ModuleDependencyMap {
     [OutputType([hashtable])]
     param(

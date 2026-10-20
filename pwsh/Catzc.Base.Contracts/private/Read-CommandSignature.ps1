@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/private/Read-CommandSignature.ps1
+    folder: private
+    name: read-command-signature
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/Read-CommandSignature.Tests.ps1
+    docs: "[Read-CommandSignature.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Read-CommandSignature.ps1.md)"
+    cites:
+      - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
+      - ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE
+---
+#>
+
 function Read-CommandSignature {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractCommand])]

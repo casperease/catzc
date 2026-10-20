@@ -1,3 +1,34 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
+    folder: tests/types
+    name: glossary-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[GlossaryConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
+      - ADR-REPO-VOCAB-DEFINEDTERM
+      - ADR-REPO-VOCAB-GLOSSARYSOURCE
+      - ADR-REPO-VOCAB-SOURCESINREPOSITORY
+      - ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED
+      - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED
+      - ADR-REPO-VOCAB-REALIZEDBY
+      - ADR-REPO-VOCAB-FAMILYFORMS
+---
+#>
+
 Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {

@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/Protect-GlobSet.ps1
+    name: protect-glob-set
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    docs: "[Protect-GlobSet.ps1.md](docs/references/pwsh/catzc-base-globs/Protect-GlobSet.ps1.md)"
+    cites:
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - ADR-REPO-PROTGLOB
+---
+#>
+
 function Protect-GlobSet {
     [CmdletBinding()]
     param(

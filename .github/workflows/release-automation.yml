@@ -1,3 +1,21 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: ".github/workflows/release-automation.yml"
+#     name: release-automation
+#     filetype: yml
+#     role: pipeline
+#     language: yaml
+#     track: github-workflows
+#     tracktype: pipelines
+#     vendor: github
+#     module: workflows
+#     moduletype: pipeline
+#   edges:
+#     docs: "[release-automation.yml.md](docs/references/github/workflows/release-automation.yml.md)"
+# ---
+
 name: Release
 
 on:

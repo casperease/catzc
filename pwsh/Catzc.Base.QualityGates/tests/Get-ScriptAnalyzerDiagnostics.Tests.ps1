@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1
+    folder: tests
+    name: get-script-analyzer-diagnostics-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ScriptAnalyzerDiagnostics.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+---
+#>
+
 # Get-ScriptAnalyzerDiagnostics is a private (non-exported) function, so it is invoked via InModuleScope.
 Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L0', 'logic' {
     It 'returns empty for an empty file list (no shards spawned)' {

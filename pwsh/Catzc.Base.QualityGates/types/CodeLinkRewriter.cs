@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs
+    folder: types
+    name: code-link-rewriter
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[CodeLinkRewriter.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md)"
+    cites:
+      - ADR-REPO-LINK-CODELINKS
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;

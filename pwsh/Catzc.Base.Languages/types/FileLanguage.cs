@@ -1,3 +1,30 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/types/FileLanguage.cs
+    folder: types
+    name: file-language
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[FileLanguage.cs.md](docs/references/pwsh/catzc-base-languages/types/FileLanguage.cs.md)"
+    cites:
+      - ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS
+      - ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION
+      - ADR-AUTO-MODULE-EXISTSBYLAYOUT
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-DSGN-TRACK-FILELANGUAGE
+---
+*/
+
 using System;
 using System.Collections.Generic;
 

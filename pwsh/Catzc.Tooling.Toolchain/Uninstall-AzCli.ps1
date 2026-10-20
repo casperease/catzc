@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Toolchain/Uninstall-AzCli.ps1
+    name: uninstall-az-cli
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
+    docs: "[Uninstall-AzCli.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md)"
+    cites:
+      - ADR-AUTO-ONEJOB-CALLERHANDLESERRORS
+      - ADR-AUTO-REMOVE-DOUBLYGUARDED
+      - ADR-AUTO-REMOVE-ONECALLESCALATION
+---
+#>
+
 function Uninstall-AzCli {
     [CmdletBinding()]
     param(

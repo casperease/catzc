@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Cli/Assert-AzCliBicep.ps1
+    name: assert-az-cli-bicep
+    filetype: ps1
+    role: function
+    subkind: assert
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Cli
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.Cli/tests/Assert-AzCliBicep.Tests.ps1
+    docs: "[Assert-AzCliBicep.ps1.md](docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md)"
+    cites:
+      - ADR-AUTO-ENTERP
+      - ADR-AZ-CLI-AZBYDEFAULT
+---
+#>
+
 function Assert-AzCliBicep {
     param(
         [string] $ErrorText

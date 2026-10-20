@@ -1,10 +1,11 @@
-description: An upstream integrator takes its commit from the BVT-verified server head, which main-UAT also takes first, never
-  from the dirty HEAD, the newest commit on main, which failed there.
+description:
+  An upstream integrator takes its commit from the BVT-verified server head, which main-UAT also takes first, never from the dirty HEAD, the
+  newest commit on main, which failed there.
 about:
   adrs:
-  - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-  - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-  - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
   lens: meta
 content:
   title: Sync from the BVT-verified head, not from the tip of main
@@ -13,42 +14,42 @@ content:
   relation: takes its commit from
   theme: dark
   bands:
-  - id: band-mainline
-    label: MAINLINE
+    - id: band-mainline
+      label: MAINLINE
   glyphs:
-  - id: g-integrator
-    kind: adronly
-    label: upstream integrator
-    in: band-mainline
-  - id: g-main-uat
-    kind: env
-    label: 'BVT-verified head: commit 6, also the main-UAT occupant'
-    in: band-mainline
-  - id: f-dirty-head
-    kind: failure
-    label: 'dirty HEAD: commit 10'
-    in: band-mainline
+    - id: g-integrator
+      kind: adronly
+      label: upstream integrator
+      in: band-mainline
+    - id: g-main-uat
+      kind: env
+      label: "BVT-verified head: commit 6, also the main-UAT occupant"
+      in: band-mainline
+    - id: f-dirty-head
+      kind: failure
+      label: "dirty HEAD: commit 10"
+      in: band-mainline
   edges:
-  - from: g-integrator
-    to: g-main-uat
-    kind: adr
-    label: ''
-  - from: g-main-uat
-    to: f-dirty-head
-    kind: fail
-    label: ''
+    - from: g-integrator
+      to: g-main-uat
+      kind: adr
+      label: ""
+    - from: g-main-uat
+      to: f-dirty-head
+      kind: fail
+      label: ""
   markers:
-  - at: g-integrator
-    number: 1
-  - at: g-main-uat
-    number: 2
-  - at: f-dirty-head
-    number: 3
+    - at: g-integrator
+      number: 1
+    - at: g-main-uat
+      number: 2
+    - at: f-dirty-head
+      number: 3
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-mainline:
     x: 20

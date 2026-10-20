@@ -1,3 +1,21 @@
+// ---
+// catzc:
+//   immutable:
+//     repo_status: clean
+//     path: infrastructure/templates/foundation/main.bicep
+//     name: main
+//     filetype: bicep
+//     role: template
+//     language: bicep
+//     track: infrastructure
+//     tracktype: infrastructure
+//     vendor: azure
+//     module: foundation
+//     moduletype: bicep
+//   edges:
+//     docs: "[main.bicep.md](docs/references/infrastructure/templates/foundation/main.bicep.md)"
+// ---
+
 param location string = resourceGroup().location
 
 param logAnalyticsName string

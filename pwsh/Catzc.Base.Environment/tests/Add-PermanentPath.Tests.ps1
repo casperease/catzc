@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Environment/tests/Add-PermanentPath.Tests.ps1
+    folder: tests
+    name: add-permanent-path-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Environment
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Add-PermanentPath.Tests.ps1.md](docs/references/pwsh/catzc-base-environment/tests/Add-PermanentPath.Tests.ps1.md)"
+---
+#>
+
 Describe 'Add-PermanentPath' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tempDir = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-test-path-$([guid]::NewGuid().ToString('N').Substring(0,8))"

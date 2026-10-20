@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Format-MarkdownTitle.ps1
+    name: format-markdown-title
+    filetype: ps1
+    role: function
+    subkind: formatter
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
+    docs: "[Format-MarkdownTitle.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Format-MarkdownTitle.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - ADR-REPO-FORMAT-MARKDOWNTITLE
+      - ADR-REPO-FORMAT-PLAINHEADINGS
+---
+#>
+
 function Format-MarkdownTitle {
     [CmdletBinding()]
     [OutputType([string[]])]

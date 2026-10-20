@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/Get-AzureCustomer.ps1
+    name: get-azure-customer
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1
+    docs: "[Get-AzureCustomer.ps1.md](docs/references/pwsh/catzc-azure/Get-AzureCustomer.ps1.md)"
+---
+#>
+
 function Get-AzureCustomer {
     [CmdletBinding()]
     param(

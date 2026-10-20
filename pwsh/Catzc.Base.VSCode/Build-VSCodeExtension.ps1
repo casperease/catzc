@@ -17,7 +17,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/Build-VSCodeExtension.Tests.ps1
-    docs: "[Build-VSCodeExtension.ps1.md](/docs/references/pwsh/catzc-base-vscode/Build-VSCodeExtension.ps1.md)"
+    docs: "[Build-VSCodeExtension.ps1.md](docs/references/pwsh/catzc-base-vscode/Build-VSCodeExtension.ps1.md)"
 ---
 #>
 

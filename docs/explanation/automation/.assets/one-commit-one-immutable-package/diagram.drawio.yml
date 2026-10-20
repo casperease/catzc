@@ -1,10 +1,11 @@
-description: Selected modules are built once into one versioned package, an integrity check proves it, and every other code
-  root is a copy of that package that is checked again before the copy is placed.
+description:
+  Selected modules are built once into one versioned package, an integrity check proves it, and every other code root is a copy of that
+  package that is checked again before the copy is placed.
 about:
   adrs:
-  - ADR-AUTO-BUNDLE-BUNDLEISBUILD
-  - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
-  - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+    - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+    - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+    - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
   lens: meta
 content:
   title: One commit becomes one verified, immutable package, and every code root is a copy of it
@@ -13,78 +14,78 @@ content:
   relation: feeds or runs the next step
   theme: dark
   bands:
-  - id: band-source
-    label: SOURCE
-  - id: band-build
-    label: BUILD
-  - id: band-bundle
-    label: BUNDLE
-  - id: band-roots
-    label: CODE ROOTS
+    - id: band-source
+      label: SOURCE
+    - id: band-build
+      label: BUILD
+    - id: band-bundle
+      label: BUNDLE
+    - id: band-roots
+      label: CODE ROOTS
   groups:
-  - id: grp-copies
-    label: ' '
-    in: band-roots
+    - id: grp-copies
+      label: " "
+      in: band-roots
   glyphs:
-  - id: s-modules
-    kind: set
-    label: Selected modules
-    in: band-source
-  - id: g-build
-    kind: code
-    label: One build
-    in: band-build
-  - id: g-integrity
-    kind: gate
-    label: Integrity check
-    in: band-build
-  - id: r-temporary
-    kind: result
-    label: Temporary build
-    in: band-bundle
-  - id: r-installed
-    kind: result
-    label: Installed · saved
-    in: grp-copies
+    - id: s-modules
+      kind: set
+      label: Selected modules
+      in: band-source
+    - id: g-build
+      kind: code
+      label: One build
+      in: band-build
+    - id: g-integrity
+      kind: gate
+      label: Integrity check
+      in: band-build
+    - id: r-temporary
+      kind: result
+      label: Temporary build
+      in: band-bundle
+    - id: r-installed
+      kind: result
+      label: Installed · saved
+      in: grp-copies
   edges:
-  - from: s-modules
-    to: g-build
-    kind: flow
-    label: ''
-  - from: g-build
-    to: g-integrity
-    kind: flow
-    label: ''
-  - from: g-integrity
-    to: r-temporary
-    kind: flow
-    label: ''
-  - from: r-temporary
-    to: grp-copies
-    kind: flow
-    label: ''
-  - from: grp-copies
-    to: g-integrity
-    kind: flow
-    label: checked again
+    - from: s-modules
+      to: g-build
+      kind: flow
+      label: ""
+    - from: g-build
+      to: g-integrity
+      kind: flow
+      label: ""
+    - from: g-integrity
+      to: r-temporary
+      kind: flow
+      label: ""
+    - from: r-temporary
+      to: grp-copies
+      kind: flow
+      label: ""
+    - from: grp-copies
+      to: g-integrity
+      kind: flow
+      label: checked again
   markers:
-  - at: s-modules
-    number: 1
-  - at: g-build
-    number: 2
-  - at: g-integrity
-    number: 3
-  - at: r-temporary
-    number: 4
-  - at: r-installed
-    number: 5
-  - at: grp-copies
-    number: 6
+    - at: s-modules
+      number: 1
+    - at: g-build
+      number: 2
+    - at: g-integrity
+      number: 3
+    - at: r-temporary
+      number: 4
+    - at: r-installed
+      number: 5
+    - at: grp-copies
+      number: 6
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-source:
     x: 20

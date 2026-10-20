@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/DocMapping.cs
+    folder: types
+    name: doc-mapping
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/types/DocMapping.Tests.ps1
+    docs: "[DocMapping.cs.md](docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md)"
+    cites:
+      - ADR-AUTO-PATH
+---
+*/
+
 using System;
 using System.Collections;
 

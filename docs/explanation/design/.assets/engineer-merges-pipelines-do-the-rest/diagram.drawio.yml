@@ -1,9 +1,10 @@
-description: An engineer runs the tests and merges once the pull request build validation is green; the pipelines run everything
-  after the merge, and each failed rung shows the person a red result.
+description:
+  An engineer runs the tests and merges once the pull request build validation is green; the pipelines run everything after the merge, and
+  each failed rung shows the person a red result.
 about:
   adrs:
-  - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-  - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
   lens: operations
 content:
   title: An engineer runs the tests and merges; pipelines do the rest
@@ -12,108 +13,108 @@ content:
   relation: runs next
   theme: dark
   bands:
-  - id: band-person
-    label: PERSON RUNS
-  - id: band-integration
-    label: 'PIPELINE RUNS: CI'
-  - id: band-delivery
-    label: 'PIPELINE RUNS: CD'
-  - id: band-failure
-    label: ON FAILURE
+    - id: band-person
+      label: PERSON RUNS
+    - id: band-integration
+      label: "PIPELINE RUNS: CI"
+    - id: band-delivery
+      label: "PIPELINE RUNS: CD"
+    - id: band-failure
+      label: ON FAILURE
   spans:
-  - id: span-integration
-    label: CI
-    over:
-    - band-person
-    - band-integration
-  - id: span-delivery
-    label: CD
-    over:
-    - band-delivery
+    - id: span-integration
+      label: CI
+      over:
+        - band-person
+        - band-integration
+    - id: span-delivery
+      label: CD
+      over:
+        - band-delivery
   glyphs:
-  - id: r-test
-    kind: runner
-    label: Test-Automation
-    in: band-person
-  - id: g-merge
-    kind: gate
-    label: merge the PR
-    in: band-person
-  - id: r-post-commit
-    kind: runner
-    label: post-commit CI
-    in: band-integration
-  - id: a-level-three
-    kind: adronly
-    label: L3 run
-    in: band-integration
-  - id: r-deliver
-    kind: runner
-    label: cd-shared · cd-<customer>
-    in: band-delivery
-  - id: f-blocked
-    kind: failure
-    label: PR blocked
-    in: band-failure
-  - id: f-red
-    kind: failure
-    label: red CI run
-    in: band-failure
-  - id: f-stage
-    kind: failure
-    label: stage failed
-    in: band-failure
+    - id: r-test
+      kind: runner
+      label: Test-Automation
+      in: band-person
+    - id: g-merge
+      kind: gate
+      label: merge the PR
+      in: band-person
+    - id: r-post-commit
+      kind: runner
+      label: post-commit CI
+      in: band-integration
+    - id: a-level-three
+      kind: adronly
+      label: L3 run
+      in: band-integration
+    - id: r-deliver
+      kind: runner
+      label: cd-shared · cd-<customer>
+      in: band-delivery
+    - id: f-blocked
+      kind: failure
+      label: PR blocked
+      in: band-failure
+    - id: f-red
+      kind: failure
+      label: red CI run
+      in: band-failure
+    - id: f-stage
+      kind: failure
+      label: stage failed
+      in: band-failure
   edges:
-  - from: r-test
-    to: g-merge
-    kind: flow
-    label: ''
-  - from: g-merge
-    to: r-post-commit
-    kind: flow
-    label: ''
-  - from: r-post-commit
-    to: a-level-three
-    kind: adr
-    label: ''
-  - from: a-level-three
-    to: r-deliver
-    kind: adr
-    label: ''
-  - from: g-merge
-    to: f-blocked
-    kind: fail
-    label: ''
-  - from: r-post-commit
-    to: f-red
-    kind: fail
-    label: ''
-  - from: r-deliver
-    to: f-stage
-    kind: fail
-    label: ''
+    - from: r-test
+      to: g-merge
+      kind: flow
+      label: ""
+    - from: g-merge
+      to: r-post-commit
+      kind: flow
+      label: ""
+    - from: r-post-commit
+      to: a-level-three
+      kind: adr
+      label: ""
+    - from: a-level-three
+      to: r-deliver
+      kind: adr
+      label: ""
+    - from: g-merge
+      to: f-blocked
+      kind: fail
+      label: ""
+    - from: r-post-commit
+      to: f-red
+      kind: fail
+      label: ""
+    - from: r-deliver
+      to: f-stage
+      kind: fail
+      label: ""
   markers:
-  - at: r-test
-    number: 1
-  - at: g-merge
-    number: 2
-  - at: r-post-commit
-    number: 3
-  - at: a-level-three
-    number: 4
-  - at: r-deliver
-    number: 5
-  - at: f-blocked
-    number: 6
-  - at: f-red
-    number: 7
-  - at: f-stage
-    number: 8
+    - at: r-test
+      number: 1
+    - at: g-merge
+      number: 2
+    - at: r-post-commit
+      number: 3
+    - at: a-level-three
+      number: 4
+    - at: r-deliver
+      number: 5
+    - at: f-blocked
+      number: 6
+    - at: f-red
+      number: 7
+    - at: f-stage
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-person:
     x: 20

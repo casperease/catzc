@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Environment/Set-EnvironmentPath.ps1
+    name: set-environment-path
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Environment
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    docs: "[Set-EnvironmentPath.ps1.md](docs/references/pwsh/catzc-base-environment/Set-EnvironmentPath.ps1.md)"
+    cites:
+      - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
+---
+#>
+
 function Set-EnvironmentPath {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Thin wrapper around [Environment]::SetEnvironmentVariable — the registry I/O seam that exists for testability; guarding/dry-run is the caller''s concern (see Add-/Remove-PermanentPath).')]
     [CmdletBinding()]

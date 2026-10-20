@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1
+    folder: tests
+    name: deploy-bicep-sample-subscription-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Deploy-Bicep.SampleSubscription.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SETUPONCE
+      - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES
+---
+#>
+
 Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-subscription'

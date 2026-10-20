@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/private/Get-ContractPresenceFindings.ps1
+    folder: private
+    name: get-contract-presence-findings
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-ContractPresenceFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractPresenceFindings.ps1.md)"
+    cites:
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+#>
+
 function Get-ContractPresenceFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

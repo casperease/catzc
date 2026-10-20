@@ -52,8 +52,8 @@ Deploying a topic commit is not integrating it ([commit-lifecycle](../../adr/flo
 
 ## The sync point
 
-Upstream integrators sync from the last certified commit, not from the tip of main
-([commit-lifecycle](../../adr/flow/commit-lifecycle.md)). This diagram has no implementation or operations lens.
+Upstream integrators sync from the last certified commit, not from the tip of main ([commit-lifecycle](../../adr/flow/commit-lifecycle.md)).
+This diagram has no implementation or operations lens.
 
 | Lens         | Article                                                                                                                            |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |

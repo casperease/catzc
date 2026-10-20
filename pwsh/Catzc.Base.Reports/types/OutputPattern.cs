@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Reports/types/OutputPattern.cs
+    folder: types
+    name: output-pattern
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Reports
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[OutputPattern.cs.md](docs/references/pwsh/catzc-base-reports/types/OutputPattern.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-CONSOLEREADYTOSTRING
+      - ADR-REPO-OUTFMT-OUTPUTFORMAT
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

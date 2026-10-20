@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.RootConfig/private/Get-RootConfigCopyContent.ps1
+    folder: private
+    name: get-root-config-copy-content
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.RootConfig
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-RootConfigCopyContent.ps1.md](docs/references/pwsh/catzc-base-rootconfig/private/Get-RootConfigCopyContent.ps1.md)"
+    cites:
+      - ADR-REPO-ROOTCFG-HEADEDCOPY
+---
+#>
+
 function Get-RootConfigCopyContent {
     [CmdletBinding()]
     [OutputType([string])]

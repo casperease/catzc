@@ -1,11 +1,11 @@
-description: 'A pull request or a merge to main starts the CD pipeline: the CI stage builds, the deploy stages run on main
-  only and reach every target the pipeline lists, prod tier included, with no approval step in the YAML; two deploy functions
-  throw on a missing or wrong subscription.'
+description:
+  "A pull request or a merge to main starts the CD pipeline: the CI stage builds, the deploy stages run on main only and reach every target
+  the pipeline lists, prod tier included, with no approval step in the YAML; two deploy functions throw on a missing or wrong subscription."
 about:
   adrs:
-  - ADR-FLOW-CD-CDSTAYSINNONPROD
-  - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-  - ADR-FLOW-CD-TWORELEASEGATES
+    - ADR-FLOW-CD-CDSTAYSINNONPROD
+    - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
+    - ADR-FLOW-CD-TWORELEASEGATES
   lens: operations
 content:
   title: A merge to main runs the CD pipeline all the way to prod, with no approval
@@ -14,100 +14,100 @@ content:
   relation: what runs next
   theme: dark
   bands:
-  - id: band-trigger
-    label: TRIGGER
-  - id: band-ci
-    label: CI STAGE
-  - id: band-deploy
-    label: DEPLOY STAGES
-  - id: band-targets
-    label: TARGETS
-  - id: band-failures
-    label: FAILURES
+    - id: band-trigger
+      label: TRIGGER
+    - id: band-ci
+      label: CI STAGE
+    - id: band-deploy
+      label: DEPLOY STAGES
+    - id: band-targets
+      label: TARGETS
+    - id: band-failures
+      label: FAILURES
   spans:
-  - id: span-ci
-    label: CI
-    over:
-    - band-ci
-  - id: span-cd
-    label: CD
-    over:
-    - band-ci
-    - band-deploy
+    - id: span-ci
+      label: CI
+      over:
+        - band-ci
+    - id: span-cd
+      label: CD
+      over:
+        - band-ci
+        - band-deploy
   glyphs:
-  - id: g-developer
-    kind: actor
-    label: developer
-    in: band-trigger
-  - id: g-build-bicep
-    kind: runner
-    label: Build-Bicep
-    in: band-ci
-  - id: g-deploy-stages
-    kind: runner
-    label: Deploy_* stages
-    in: band-deploy
-  - id: e-non-prod
-    kind: env
-    label: nsub · dev · test
-    in: band-targets
-  - id: e-prod-tier
-    kind: env
-    label: psub · prod
-    in: band-targets
-  - id: f-deploy-bicep
-    kind: failure
-    label: Deploy-Bicep
-    in: band-failures
-  - id: f-deployment-context
-    kind: failure
-    label: Get-BicepDeploymentContext
-    in: band-failures
+    - id: g-developer
+      kind: actor
+      label: developer
+      in: band-trigger
+    - id: g-build-bicep
+      kind: runner
+      label: Build-Bicep
+      in: band-ci
+    - id: g-deploy-stages
+      kind: runner
+      label: Deploy_* stages
+      in: band-deploy
+    - id: e-non-prod
+      kind: env
+      label: nsub · dev · test
+      in: band-targets
+    - id: e-prod-tier
+      kind: env
+      label: psub · prod
+      in: band-targets
+    - id: f-deploy-bicep
+      kind: failure
+      label: Deploy-Bicep
+      in: band-failures
+    - id: f-deployment-context
+      kind: failure
+      label: Get-BicepDeploymentContext
+      in: band-failures
   edges:
-  - from: g-developer
-    to: g-build-bicep
-    kind: flow
-    label: ''
-  - from: g-build-bicep
-    to: g-deploy-stages
-    kind: flow
-    label: ''
-  - from: g-deploy-stages
-    to: e-non-prod
-    kind: flow
-    label: ''
-  - from: g-deploy-stages
-    to: e-prod-tier
-    kind: flow
-    label: ''
-  - from: g-deploy-stages
-    to: f-deploy-bicep
-    kind: fail
-    label: ''
-  - from: g-deploy-stages
-    to: f-deployment-context
-    kind: fail
-    label: ''
+    - from: g-developer
+      to: g-build-bicep
+      kind: flow
+      label: ""
+    - from: g-build-bicep
+      to: g-deploy-stages
+      kind: flow
+      label: ""
+    - from: g-deploy-stages
+      to: e-non-prod
+      kind: flow
+      label: ""
+    - from: g-deploy-stages
+      to: e-prod-tier
+      kind: flow
+      label: ""
+    - from: g-deploy-stages
+      to: f-deploy-bicep
+      kind: fail
+      label: ""
+    - from: g-deploy-stages
+      to: f-deployment-context
+      kind: fail
+      label: ""
   markers:
-  - at: g-developer
-    number: 1
-  - at: g-build-bicep
-    number: 2
-  - at: g-deploy-stages
-    number: 3
-  - at: e-non-prod
-    number: 4
-  - at: e-prod-tier
-    number: 5
-  - at: f-deploy-bicep
-    number: 6
-  - at: f-deployment-context
-    number: 7
+    - at: g-developer
+      number: 1
+    - at: g-build-bicep
+      number: 2
+    - at: g-deploy-stages
+      number: 3
+    - at: e-non-prod
+      number: 4
+    - at: e-prod-tier
+      number: 5
+    - at: f-deploy-bicep
+      number: 6
+    - at: f-deployment-context
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-trigger:
     x: 20

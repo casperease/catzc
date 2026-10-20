@@ -1,9 +1,10 @@
-description: The pipeline agent sets the signal, one detection function reads it and answers true or false, every function
-  that behaves differently in a pipeline asks that function, and an analyzer rule flags any read of the signal outside it.
+description:
+  The pipeline agent sets the signal, one detection function reads it and answers true or false, every function that behaves differently in
+  a pipeline asks that function, and an analyzer rule flags any read of the signal outside it.
 about:
   adrs:
-  - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-  - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
+    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+    - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
   lens: meta
 content:
   title: One function answers "am I in a pipeline?", and every branch on context asks it
@@ -12,58 +13,58 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-platform
-    label: PLATFORM
-  - id: band-detection
-    label: DETECTION
-  - id: band-consumers
-    label: CONSUMERS
-  - id: band-enforcement
-    label: ENFORCEMENT
+    - id: band-platform
+      label: PLATFORM
+    - id: band-detection
+      label: DETECTION
+    - id: band-consumers
+      label: CONSUMERS
+    - id: band-enforcement
+      label: ENFORCEMENT
   glyphs:
-  - id: g-agent
-    kind: runner
-    label: pipeline agent
-    in: band-platform
-  - id: g-detection
-    kind: code
-    label: one detection function
-    in: band-detection
-  - id: s-behavior
-    kind: set
-    label: context-dependent behavior
-    in: band-consumers
-  - id: g-analyzer
-    kind: gate
-    label: analyzer rule
-    in: band-enforcement
+    - id: g-agent
+      kind: runner
+      label: pipeline agent
+      in: band-platform
+    - id: g-detection
+      kind: code
+      label: one detection function
+      in: band-detection
+    - id: s-behavior
+      kind: set
+      label: context-dependent behavior
+      in: band-consumers
+    - id: g-analyzer
+      kind: gate
+      label: analyzer rule
+      in: band-enforcement
   edges:
-  - from: g-agent
-    to: g-detection
-    kind: flow
-    label: ''
-  - from: g-detection
-    to: s-behavior
-    kind: thick
-    label: ''
-  - from: s-behavior
-    to: g-analyzer
-    kind: flow
-    label: ''
+    - from: g-agent
+      to: g-detection
+      kind: flow
+      label: ""
+    - from: g-detection
+      to: s-behavior
+      kind: thick
+      label: ""
+    - from: s-behavior
+      to: g-analyzer
+      kind: flow
+      label: ""
   markers:
-  - at: g-agent
-    number: 1
-  - at: g-detection
-    number: 2
-  - at: s-behavior
-    number: 3
-  - at: g-analyzer
-    number: 4
+    - at: g-agent
+      number: 1
+    - at: g-detection
+      number: 2
+    - at: s-behavior
+      number: 3
+    - at: g-analyzer
+      number: 4
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-platform:
     x: 20

@@ -1,10 +1,11 @@
-description: Four modules hold config addresses and hand them to the one public resolver in Catzc.Base.Config, which keeps
-  the key walk private and builds on its own reader; the only file an address can reach is a committed config file.
+description:
+  Four modules hold config addresses and hand them to the one public resolver in Catzc.Base.Config, which keeps the key walk private and
+  builds on its own reader; the only file an address can reach is a committed config file.
 about:
   adrs:
-  - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-  - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
-  - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+    - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+    - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+    - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
   lens: architecture
 content:
   title: Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private
@@ -13,82 +14,82 @@ content:
   relation: depends on
   theme: dark
   bands:
-  - id: band-callers
-    label: CALLERS
-  - id: band-config
-    label: CATZC.BASE.CONFIG
-  - id: band-committed
-    label: COMMITTED CONFIG
+    - id: band-callers
+      label: CALLERS
+    - id: band-config
+      label: CATZC.BASE.CONFIG
+    - id: band-committed
+      label: COMMITTED CONFIG
   groups:
-  - id: grp-consumers
-    label: four consumers
-    in: band-callers
+    - id: grp-consumers
+      label: four consumers
+      in: band-callers
   glyphs:
-  - id: g-environment
-    kind: code
-    label: Catzc.Tooling.Environment
-    in: grp-consumers
-  - id: g-templates
-    kind: code
-    label: Catzc.Azure.Templates
-    in: grp-consumers
-  - id: g-languages
-    kind: code
-    label: Catzc.Base.Languages
-    in: grp-consumers
-  - id: g-gates
-    kind: code
-    label: Catzc.Base.QualityGates
-    in: grp-consumers
-  - id: g-value
-    kind: code
-    label: Get-ConfigValue
-    in: band-config
-  - id: g-walk
-    kind: code
-    label: Resolve-ConfigKeyPath
-    in: band-config
-  - id: g-reader
-    kind: code
-    label: Get-Config
-    in: band-config
-  - id: g-file
-    kind: file
-    label: configs/<name>.yml
-    in: band-committed
+    - id: g-environment
+      kind: code
+      label: Catzc.Tooling.Environment
+      in: grp-consumers
+    - id: g-templates
+      kind: code
+      label: Catzc.Azure.Templates
+      in: grp-consumers
+    - id: g-languages
+      kind: code
+      label: Catzc.Base.Languages
+      in: grp-consumers
+    - id: g-gates
+      kind: code
+      label: Catzc.Base.QualityGates
+      in: grp-consumers
+    - id: g-value
+      kind: code
+      label: Get-ConfigValue
+      in: band-config
+    - id: g-walk
+      kind: code
+      label: Resolve-ConfigKeyPath
+      in: band-config
+    - id: g-reader
+      kind: code
+      label: Get-Config
+      in: band-config
+    - id: g-file
+      kind: file
+      label: configs/<name>.yml
+      in: band-committed
   edges:
-  - from: grp-consumers
-    to: g-value
-    kind: flow
-    label: 4/4
-  - from: g-value
-    to: g-walk
-    kind: flow
-    label: ''
-  - from: g-value
-    to: g-reader
-    kind: flow
-    label: ''
-  - from: g-reader
-    to: g-file
-    kind: flow
-    label: ''
+    - from: grp-consumers
+      to: g-value
+      kind: flow
+      label: 4/4
+    - from: g-value
+      to: g-walk
+      kind: flow
+      label: ""
+    - from: g-value
+      to: g-reader
+      kind: flow
+      label: ""
+    - from: g-reader
+      to: g-file
+      kind: flow
+      label: ""
   markers:
-  - at: grp-consumers
-    number: 1
-  - at: g-value
-    number: 2
-  - at: g-walk
-    number: 3
-  - at: g-reader
-    number: 4
-  - at: g-file
-    number: 5
+    - at: grp-consumers
+      number: 1
+    - at: g-value
+      number: 2
+    - at: g-walk
+      number: 3
+    - at: g-reader
+      number: 4
+    - at: g-file
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-callers:
     x: 20

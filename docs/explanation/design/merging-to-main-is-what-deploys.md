@@ -42,7 +42,8 @@ pipeline behind it.
 
 ## Where the code and the ADR differ
 
-ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND describes an out-of-band topic deploy that no pipeline offers, so an operator has nothing to run for it.
+ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND describes an out-of-band topic deploy that no pipeline offers, so an operator has nothing to run for
+it.
 
 ## See also
 

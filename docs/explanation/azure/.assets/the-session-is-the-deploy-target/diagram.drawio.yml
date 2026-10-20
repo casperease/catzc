@@ -1,8 +1,9 @@
-description: The deploy target is the subscription the az session is signed in to; the guard states which subscription the
-  session is expected to target and only confirms it, stopping a mis-wired connection, and never selects one.
+description:
+  The deploy target is the subscription the az session is signed in to; the guard states which subscription the session is expected to
+  target and only confirms it, stopping a mis-wired connection, and never selects one.
 about:
   adrs:
-  - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+    - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
   lens: meta
 content:
   title: The az session is the deploy target, and the guard only checks it
@@ -11,54 +12,54 @@ content:
   relation: decides the next step
   theme: dark
   bands:
-  - id: band-session
-    label: SESSION
-  - id: band-guard
-    label: GUARD
+    - id: band-session
+      label: SESSION
+    - id: band-guard
+      label: GUARD
   glyphs:
-  - id: x-session
-    kind: external
-    label: az session
-    in: band-session
-  - id: g-guard
-    kind: gate
-    label: subscription guard
-    in: band-guard
-  - id: r-target
-    kind: result
-    label: deploy target
-    in: band-guard
-  - id: f-mis-wired
-    kind: failure
-    label: mis-wired connection
-    in: band-guard
+    - id: x-session
+      kind: external
+      label: az session
+      in: band-session
+    - id: g-guard
+      kind: gate
+      label: subscription guard
+      in: band-guard
+    - id: r-target
+      kind: result
+      label: deploy target
+      in: band-guard
+    - id: f-mis-wired
+      kind: failure
+      label: mis-wired connection
+      in: band-guard
   edges:
-  - from: x-session
-    to: g-guard
-    kind: flow
-    label: ''
-  - from: g-guard
-    to: r-target
-    kind: flow
-    label: ''
-  - from: g-guard
-    to: f-mis-wired
-    kind: fail
-    label: ''
+    - from: x-session
+      to: g-guard
+      kind: flow
+      label: ""
+    - from: g-guard
+      to: r-target
+      kind: flow
+      label: ""
+    - from: g-guard
+      to: f-mis-wired
+      kind: fail
+      label: ""
   markers:
-  - at: x-session
-    number: 1
-  - at: g-guard
-    number: 2
-  - at: r-target
-    number: 3
-  - at: f-mis-wired
-    number: 4
+    - at: x-session
+      number: 1
+    - at: g-guard
+      number: 2
+    - at: r-target
+      number: 3
+    - at: f-mis-wired
+      number: 4
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-session:
     x: 20

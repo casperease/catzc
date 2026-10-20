@@ -1,10 +1,11 @@
-description: 'Get-BicepDeploymentContext reads the az session and resolves it against azure.yml, applies the optional subscription
-  guard, and only then addresses the slot: the environment check, the configuration file and the resource-group name.'
+description:
+  "Get-BicepDeploymentContext reads the az session and resolves it against azure.yml, applies the optional subscription guard, and only then
+  addresses the slot: the environment check, the configuration file and the resource-group name."
 about:
   adrs:
-  - ADR-AZ-DATAMOD-CUSTOMERAXIS
-  - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
-  - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+    - ADR-AZ-DATAMOD-CUSTOMERAXIS
+    - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+    - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
   lens: implementation
 content:
   title: Get-BicepDeploymentContext reads the session, guards it, then picks the slot
@@ -13,102 +14,102 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-session
-    label: SESSION
-  - id: band-guard
-    label: GUARD
-  - id: band-slot
-    label: SLOT
+    - id: band-session
+      label: SESSION
+    - id: band-guard
+      label: GUARD
+    - id: band-slot
+      label: SLOT
   groups:
-  - id: grp-slot
-    label: the slot
-    in: band-slot
+    - id: grp-slot
+      label: the slot
+      in: band-slot
   glyphs:
-  - id: g-current
-    kind: code
-    label: Get-CurrentAzSubscription
-    in: band-session
-  - id: g-session
-    kind: code
-    label: Get-AzCliSessionSubscription
-    in: band-session
-  - id: g-azure
-    kind: file
-    label: azure.yml
-    in: band-session
-  - id: f-undeclared
-    kind: failure
-    label: undeclared subscription
-    in: band-session
-  - id: g-assert
-    kind: gate
-    label: -SubscriptionIdAssertIs
-    in: band-guard
-  - id: f-wrong
-    kind: failure
-    label: wrong subscription
-    in: band-guard
-  - id: g-environment
-    kind: code
-    label: Get-AzureEnvironment
-    in: grp-slot
-  - id: g-configuration
-    kind: code
-    label: Get-BicepTemplateConfiguration
-    in: grp-slot
-  - id: g-group
-    kind: code
-    label: Get-BicepResourceGroupName
-    in: grp-slot
+    - id: g-current
+      kind: code
+      label: Get-CurrentAzSubscription
+      in: band-session
+    - id: g-session
+      kind: code
+      label: Get-AzCliSessionSubscription
+      in: band-session
+    - id: g-azure
+      kind: file
+      label: azure.yml
+      in: band-session
+    - id: f-undeclared
+      kind: failure
+      label: undeclared subscription
+      in: band-session
+    - id: g-assert
+      kind: gate
+      label: -SubscriptionIdAssertIs
+      in: band-guard
+    - id: f-wrong
+      kind: failure
+      label: wrong subscription
+      in: band-guard
+    - id: g-environment
+      kind: code
+      label: Get-AzureEnvironment
+      in: grp-slot
+    - id: g-configuration
+      kind: code
+      label: Get-BicepTemplateConfiguration
+      in: grp-slot
+    - id: g-group
+      kind: code
+      label: Get-BicepResourceGroupName
+      in: grp-slot
   edges:
-  - from: g-current
-    to: g-session
-    kind: flow
-    label: ''
-  - from: g-azure
-    to: g-session
-    kind: flow
-    label: ''
-  - from: g-session
-    to: f-undeclared
-    kind: fail
-    label: ''
-  - from: g-session
-    to: g-assert
-    kind: flow
-    label: ''
-  - from: g-assert
-    to: f-wrong
-    kind: fail
-    label: ''
-  - from: g-assert
-    to: grp-slot
-    kind: flow
-    label: ''
+    - from: g-current
+      to: g-session
+      kind: flow
+      label: ""
+    - from: g-azure
+      to: g-session
+      kind: flow
+      label: ""
+    - from: g-session
+      to: f-undeclared
+      kind: fail
+      label: ""
+    - from: g-session
+      to: g-assert
+      kind: flow
+      label: ""
+    - from: g-assert
+      to: f-wrong
+      kind: fail
+      label: ""
+    - from: g-assert
+      to: grp-slot
+      kind: flow
+      label: ""
   markers:
-  - at: g-current
-    number: 1
-  - at: g-session
-    number: 2
-  - at: g-azure
-    number: 3
-  - at: f-undeclared
-    number: 4
-  - at: g-assert
-    number: 5
-  - at: f-wrong
-    number: 6
-  - at: g-environment
-    number: 7
-  - at: g-configuration
-    number: 8
-  - at: g-group
-    number: 9
+    - at: g-current
+      number: 1
+    - at: g-session
+      number: 2
+    - at: g-azure
+      number: 3
+    - at: f-undeclared
+      number: 4
+    - at: g-assert
+      number: 5
+    - at: f-wrong
+      number: 6
+    - at: g-environment
+      number: 7
+    - at: g-configuration
+      number: 8
+    - at: g-group
+      number: 9
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-session:
     x: 20

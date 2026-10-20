@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/private/Get-ReadmeContent.ps1
+    folder: private
+    name: get-readme-content
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-ReadmeContent.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-ReadmeContent.ps1.md)"
+    cites:
+      - ADR-REPO-README-WORKINGLINKS
+---
+#>
+
 function Get-ReadmeContent {
     [CmdletBinding()]
     [OutputType([string])]

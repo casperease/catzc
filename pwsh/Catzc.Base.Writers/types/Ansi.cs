@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Writers/types/Ansi.cs
+    folder: types
+    name: ansi
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Writers
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Writers/tests/types/Ansi.Tests.ps1
+    docs: "[Ansi.cs.md](docs/references/pwsh/catzc-base-writers/types/Ansi.cs.md)"
+    cites:
+      - ADR-AUTO-CONSOLE-SPARINGCOLOUR
+---
+*/
+
 using System;
 
 namespace Catzc.Base.Writers;

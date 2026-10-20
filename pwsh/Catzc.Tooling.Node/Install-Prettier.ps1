@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Node/Install-Prettier.ps1
+    name: install-prettier
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Node
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    docs: "[Install-Prettier.ps1.md](docs/references/pwsh/catzc-tooling-node/Install-Prettier.ps1.md)"
+---
+#>
+
 function Install-Prettier {
     [CmdletBinding()]
     param(

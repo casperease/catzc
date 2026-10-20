@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
+    folder: tests
+    name: convert-to-contract-note-markdown-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ConvertTo-ContractNoteMarkdown.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-LINK-MARKDOWNRELATIVE
+      - ADR-REPO-LINK-CODELINKS
+      - ADR-REPO-LINK-OFFREPOSITORYURLS
+---
+#>
+
 Describe 'ConvertTo-ContractNoteMarkdown' -Tag 'L0', 'logic' {
     BeforeAll {
         function ConvertTo-Markdown {

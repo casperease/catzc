@@ -1,10 +1,11 @@
-description: Every import runs the root-file writer, which leaves each managed root file a current headed file; the drift
-  gate and the integrity gate each report the file and the exact fix when something is out of step.
+description:
+  Every import runs the root-file writer, which leaves each managed root file a current headed file; the drift gate and the integrity gate
+  each report the file and the exact fix when something is out of step.
 about:
   adrs:
-  - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-  - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
-  - ADR-REPO-ROOTCFG-HEADEDCOPY
+    - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+    - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+    - ADR-REPO-ROOTCFG-HEADEDCOPY
   lens: operations
 content:
   title: The import materialises every root file; two gates catch drift and name the fix
@@ -13,86 +14,86 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-run
-    label: RUN
-  - id: band-materialise
-    label: MATERIALISE
-  - id: band-target
-    label: TARGET
+    - id: band-run
+      label: RUN
+    - id: band-materialise
+      label: MATERIALISE
+    - id: band-target
+      label: TARGET
   groups:
-  - id: grp-gates
-    label: gates
-    in: band-target
+    - id: grp-gates
+      label: gates
+      in: band-target
   glyphs:
-  - id: g-importer
-    kind: code
-    label: importer.ps1
-    in: band-run
-  - id: g-build-root-config
-    kind: code
-    label: Build-RootConfig
-    in: band-materialise
-  - id: r-current
-    kind: result
-    label: root file current
-    in: band-target
-  - id: g-generated-files
-    kind: gate
-    label: Test-GeneratedFiles
-    in: grp-gates
-  - id: g-root-config-files
-    kind: gate
-    label: Test-RootConfigFiles
-    in: grp-gates
-  - id: f-stale
-    kind: failure
-    label: stale, regenerate
-    in: band-target
-  - id: f-disagree
-    kind: failure
-    label: registry and git disagree
-    in: band-target
+    - id: g-importer
+      kind: code
+      label: importer.ps1
+      in: band-run
+    - id: g-build-root-config
+      kind: code
+      label: Build-RootConfig
+      in: band-materialise
+    - id: r-current
+      kind: result
+      label: root file current
+      in: band-target
+    - id: g-generated-files
+      kind: gate
+      label: Test-GeneratedFiles
+      in: grp-gates
+    - id: g-root-config-files
+      kind: gate
+      label: Test-RootConfigFiles
+      in: grp-gates
+    - id: f-stale
+      kind: failure
+      label: stale, regenerate
+      in: band-target
+    - id: f-disagree
+      kind: failure
+      label: registry and git disagree
+      in: band-target
   edges:
-  - from: g-importer
-    to: g-build-root-config
-    kind: flow
-    label: ''
-  - from: g-build-root-config
-    to: r-current
-    kind: flow
-    label: ''
-  - from: r-current
-    to: grp-gates
-    kind: flow
-    label: ''
-  - from: g-generated-files
-    to: f-stale
-    kind: fail
-    label: ''
-  - from: g-root-config-files
-    to: f-disagree
-    kind: fail
-    label: ''
+    - from: g-importer
+      to: g-build-root-config
+      kind: flow
+      label: ""
+    - from: g-build-root-config
+      to: r-current
+      kind: flow
+      label: ""
+    - from: r-current
+      to: grp-gates
+      kind: flow
+      label: ""
+    - from: g-generated-files
+      to: f-stale
+      kind: fail
+      label: ""
+    - from: g-root-config-files
+      to: f-disagree
+      kind: fail
+      label: ""
   markers:
-  - at: g-importer
-    number: 1
-  - at: g-build-root-config
-    number: 2
-  - at: r-current
-    number: 3
-  - at: g-generated-files
-    number: 4
-  - at: f-stale
-    number: 5
-  - at: g-root-config-files
-    number: 6
-  - at: f-disagree
-    number: 7
+    - at: g-importer
+      number: 1
+    - at: g-build-root-config
+      number: 2
+    - at: r-current
+      number: 3
+    - at: g-generated-files
+      number: 4
+    - at: f-stale
+      number: 5
+    - at: g-root-config-files
+      number: 6
+    - at: f-disagree
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-run:
     x: 20

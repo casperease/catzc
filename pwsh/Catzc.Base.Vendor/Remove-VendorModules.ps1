@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
+    name: remove-vendor-modules
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Vendor
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Vendor/tests/Remove-VendorModules.Tests.ps1
+    docs: "[Remove-VendorModules.ps1.md](docs/references/pwsh/catzc-base-vendor/Remove-VendorModules.ps1.md)"
+    cites:
+      - ADR-DSGN-RUNMODE
+---
+#>
+
 function Remove-VendorModules {
     [CmdletBinding()]
     param(

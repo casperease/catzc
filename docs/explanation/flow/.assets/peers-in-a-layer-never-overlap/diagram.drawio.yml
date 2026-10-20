@@ -1,9 +1,10 @@
-description: 'The three globset layers as bands: deployable-unit, loose-fileset and module sets, with one rule across them,
-  peers in a layer are disjoint, which a gate checks for the two boundary layers and the loose-fileset layer is exempt from.'
+description:
+  "The three globset layers as bands: deployable-unit, loose-fileset and module sets, with one rule across them, peers in a layer are
+  disjoint, which a gate checks for the two boundary layers and the loose-fileset layer is exempt from."
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-  - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+    - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+    - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
   lens: meta
 content:
   title: Peers in a layer never share a file, except in the loose-fileset layer
@@ -12,52 +13,52 @@ content:
   relation: checks its peers
   theme: dark
   bands:
-  - id: band-unit
-    label: DEPLOYABLE-UNIT
-  - id: band-loose
-    label: LOOSE-FILESET
-  - id: band-module
-    label: MODULE
+    - id: band-unit
+      label: DEPLOYABLE-UNIT
+    - id: band-loose
+      label: LOOSE-FILESET
+    - id: band-module
+      label: MODULE
   glyphs:
-  - id: s-ships
-    kind: set
-    label: What ships
-    in: band-unit
-  - id: g-peers-disjoint
-    kind: gate
-    label: Peers disjoint
-    in: band-unit
-  - id: s-cross-cutting
-    kind: set
-    label: Cross-cutting surfaces
-    in: band-loose
-  - id: s-module-space
-    kind: set
-    label: Module space
-    in: band-module
+    - id: s-ships
+      kind: set
+      label: What ships
+      in: band-unit
+    - id: g-peers-disjoint
+      kind: gate
+      label: Peers disjoint
+      in: band-unit
+    - id: s-cross-cutting
+      kind: set
+      label: Cross-cutting surfaces
+      in: band-loose
+    - id: s-module-space
+      kind: set
+      label: Module space
+      in: band-module
   edges:
-  - from: g-peers-disjoint
-    to: s-ships
-    kind: flow
-    label: ''
-  - from: g-peers-disjoint
-    to: s-module-space
-    kind: flow
-    label: ''
+    - from: g-peers-disjoint
+      to: s-ships
+      kind: flow
+      label: ""
+    - from: g-peers-disjoint
+      to: s-module-space
+      kind: flow
+      label: ""
   markers:
-  - at: s-ships
-    number: 1
-  - at: s-cross-cutting
-    number: 2
-  - at: s-module-space
-    number: 3
-  - at: g-peers-disjoint
-    number: 4
+    - at: s-ships
+      number: 1
+    - at: s-cross-cutting
+      number: 2
+    - at: s-module-space
+      number: 3
+    - at: g-peers-disjoint
+      number: 4
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-unit:
     x: 20

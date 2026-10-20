@@ -14,7 +14,7 @@
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
 #   edges:
-#     docs: "[vscode-extensions.yml.md](/docs/references/pwsh/catzc-base-vscode/configs/vscode-extensions.yml.md)"
+#     docs: "[vscode-extensions.yml.md](docs/references/pwsh/catzc-base-vscode/configs/vscode-extensions.yml.md)"
 # ---
 
 # cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp tomoki redhat Anson Levett iliazeus gopls

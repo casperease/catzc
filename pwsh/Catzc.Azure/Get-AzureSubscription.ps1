@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/Get-AzureSubscription.ps1
+    name: get-azure-subscription
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure/tests/Get-AzureSubscription.Tests.ps1
+    docs: "[Get-AzureSubscription.ps1.md](docs/references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md)"
+    cites:
+      - ADR-AZ-CUSTOMER
+      - ADR-AZ-DATAMOD-CUSTOMERAXIS
+---
+#>
+
 function Get-AzureSubscription {
     [CmdletBinding()]
     param(

@@ -1,10 +1,11 @@
-description: 'A config file placed under a template is discovered as a slot, or stops discovery with one line naming the file
-  and why: no subscription, more than one, or a subfolder that is not a customer key.'
+description:
+  "A config file placed under a template is discovered as a slot, or stops discovery with one line naming the file and why: no subscription,
+  more than one, or a subfolder that is not a customer key."
 about:
   adrs:
-  - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-  - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
-  - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+    - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+    - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+    - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
   lens: operations
 content:
   title: A config file that resolves to no subscription, or to two, stops discovery with one line
@@ -13,84 +14,84 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-run
-    label: RUN
-  - id: band-see
-    label: SEE
+    - id: band-run
+      label: RUN
+    - id: band-see
+      label: SEE
   groups:
-  - id: grp-failures
-    label: discovery stops
-    in: band-see
+    - id: grp-failures
+      label: discovery stops
+      in: band-see
   glyphs:
-  - id: g-config
-    kind: file
-    label: configuration/apex/nsub.yml
-    in: band-run
-  - id: g-discovery
-    kind: code
-    label: Get-BicepTemplates
-    in: band-run
-  - id: g-validator
-    kind: code
-    label: Assert-BicepTemplate
-    in: band-run
-  - id: r-slot
-    kind: result
-    label: apex/nsub -> apex_nonprod
-    in: band-see
-  - id: f-unresolved
-    kind: failure
-    label: cannot be resolved
-    in: grp-failures
-  - id: f-several
-    kind: failure
-    label: more than one subscription
-    in: grp-failures
-  - id: f-not-customer
-    kind: failure
-    label: is not a customer key
-    in: grp-failures
+    - id: g-config
+      kind: file
+      label: configuration/apex/nsub.yml
+      in: band-run
+    - id: g-discovery
+      kind: code
+      label: Get-BicepTemplates
+      in: band-run
+    - id: g-validator
+      kind: code
+      label: Assert-BicepTemplate
+      in: band-run
+    - id: r-slot
+      kind: result
+      label: apex/nsub -> apex_nonprod
+      in: band-see
+    - id: f-unresolved
+      kind: failure
+      label: cannot be resolved
+      in: grp-failures
+    - id: f-several
+      kind: failure
+      label: more than one subscription
+      in: grp-failures
+    - id: f-not-customer
+      kind: failure
+      label: is not a customer key
+      in: grp-failures
   edges:
-  - from: g-config
-    to: g-discovery
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-validator
-    kind: flow
-    label: ''
-  - from: g-discovery
-    to: r-slot
-    kind: flow
-    label: ''
-  - from: g-discovery
-    to: grp-failures
-    kind: fail
-    label: ''
-  - from: g-validator
-    to: grp-failures
-    kind: fail
-    label: ''
+    - from: g-config
+      to: g-discovery
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-validator
+      kind: flow
+      label: ""
+    - from: g-discovery
+      to: r-slot
+      kind: flow
+      label: ""
+    - from: g-discovery
+      to: grp-failures
+      kind: fail
+      label: ""
+    - from: g-validator
+      to: grp-failures
+      kind: fail
+      label: ""
   markers:
-  - at: g-config
-    number: 1
-  - at: g-discovery
-    number: 2
-  - at: g-validator
-    number: 3
-  - at: r-slot
-    number: 4
-  - at: f-unresolved
-    number: 5
-  - at: f-several
-    number: 6
-  - at: f-not-customer
-    number: 7
+    - at: g-config
+      number: 1
+    - at: g-discovery
+      number: 2
+    - at: g-validator
+      number: 3
+    - at: r-slot
+      number: 4
+    - at: f-unresolved
+      number: 5
+    - at: f-several
+      number: 6
+    - at: f-not-customer
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-run:
     x: 20

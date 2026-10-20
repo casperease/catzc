@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Import-VendoredPester.Tests.ps1
+    folder: tests
+    name: import-vendored-pester-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Import-VendoredPester.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Import-VendoredPester.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE
+---
+#>
+
 Describe 'Import-VendoredPester' -Tag 'L0', 'logic', 'ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE' {
     BeforeEach {
         $script:codeRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

@@ -1,8 +1,9 @@
-description: 'Where the pipeline detector lives: the CI platforms set the variables, one loader function reads them, the bootstrap,
-  the builder and the modules ask that function, an analyzer rule bans a raw read, and only the C# hook repeats the test.'
+description:
+  "Where the pipeline detector lives: the CI platforms set the variables, one loader function reads them, the bootstrap, the builder and the
+  modules ask that function, an analyzer rule bans a raw read, and only the C# hook repeats the test."
 about:
   adrs:
-  - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
   lens: architecture
 content:
   title: The detector lives in the loader, which both run modes import first and keep loaded
@@ -11,99 +12,99 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-platform
-    label: PLATFORM
-  - id: band-loader
-    label: LOADER
-  - id: band-callers
-    label: CALLERS
-  - id: band-hook
-    label: HOOK
-  - id: band-enforcement
-    label: ENFORCEMENT
+    - id: band-platform
+      label: PLATFORM
+    - id: band-loader
+      label: LOADER
+    - id: band-callers
+      label: CALLERS
+    - id: band-hook
+      label: HOOK
+    - id: band-enforcement
+      label: ENFORCEMENT
   groups:
-  - id: grp-platforms
-    label: sets TF_BUILD or GITHUB_ACTIONS
-    in: band-platform
-  - id: grp-callers
-    label: ask the one detector
-    in: band-callers
+    - id: grp-platforms
+      label: sets TF_BUILD or GITHUB_ACTIONS
+      in: band-platform
+    - id: grp-callers
+      label: ask the one detector
+      in: band-callers
   glyphs:
-  - id: r-azure-agent
-    kind: runner
-    label: Azure DevOps agent
-    in: grp-platforms
-  - id: r-github-runner
-    kind: runner
-    label: GitHub Actions runner
-    in: grp-platforms
-  - id: c-detector
-    kind: code
-    label: Test-IsRunningInPipeline
-    in: band-loader
-  - id: c-bootstrap
-    kind: code
-    label: Catzc.Internal.Bootstrap
-    in: grp-callers
-  - id: c-builder
-    kind: code
-    label: Catzc.Internal.Builder
-    in: grp-callers
-  - id: s-modules
-    kind: set
-    label: Catzc modules
-    in: grp-callers
-  - id: c-hook
-    kind: code
-    label: Assert-BashTimeout
-    in: band-hook
-  - id: g-analyzer-rule
-    kind: gate
-    label: Measure-NoRawPipelineDetection
-    in: band-enforcement
+    - id: r-azure-agent
+      kind: runner
+      label: Azure DevOps agent
+      in: grp-platforms
+    - id: r-github-runner
+      kind: runner
+      label: GitHub Actions runner
+      in: grp-platforms
+    - id: c-detector
+      kind: code
+      label: Test-IsRunningInPipeline
+      in: band-loader
+    - id: c-bootstrap
+      kind: code
+      label: Catzc.Internal.Bootstrap
+      in: grp-callers
+    - id: c-builder
+      kind: code
+      label: Catzc.Internal.Builder
+      in: grp-callers
+    - id: s-modules
+      kind: set
+      label: Catzc modules
+      in: grp-callers
+    - id: c-hook
+      kind: code
+      label: Assert-BashTimeout
+      in: band-hook
+    - id: g-analyzer-rule
+      kind: gate
+      label: Measure-NoRawPipelineDetection
+      in: band-enforcement
   edges:
-  - from: grp-platforms
-    to: c-detector
-    kind: flow
-    label: ''
-  - from: c-detector
-    to: grp-callers
-    kind: flow
-    label: ''
-  - from: grp-platforms
-    to: c-hook
-    kind: flow
-    label: ''
-  - from: grp-callers
-    to: g-analyzer-rule
-    kind: flow
-    label: ''
+    - from: grp-platforms
+      to: c-detector
+      kind: flow
+      label: ""
+    - from: c-detector
+      to: grp-callers
+      kind: flow
+      label: ""
+    - from: grp-platforms
+      to: c-hook
+      kind: flow
+      label: ""
+    - from: grp-callers
+      to: g-analyzer-rule
+      kind: flow
+      label: ""
   markers:
-  - at: r-azure-agent
-    number: 1
-  - at: r-github-runner
-    number: 2
-  - at: c-detector
-    number: 3
-  - at: c-bootstrap
-    number: 4
-  - at: c-builder
-    number: 5
-  - at: s-modules
-    number: 6
-  - at: g-analyzer-rule
-    number: 7
-  - at: c-hook
-    number: 8
+    - at: r-azure-agent
+      number: 1
+    - at: r-github-runner
+      number: 2
+    - at: c-detector
+      number: 3
+    - at: c-bootstrap
+      number: 4
+    - at: c-builder
+      number: 5
+    - at: s-modules
+      number: 6
+    - at: g-analyzer-rule
+      number: 7
+    - at: c-hook
+      number: 8
   chips:
-  - at: s-modules
-    kind: count
-    text: '22'
+    - at: s-modules
+      kind: count
+      text: "22"
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-platform:
     x: 20

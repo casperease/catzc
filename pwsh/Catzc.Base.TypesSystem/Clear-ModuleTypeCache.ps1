@@ -16,7 +16,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
-    docs: "[Clear-ModuleTypeCache.ps1.md](/docs/references/pwsh/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md)"
+    docs: "[Clear-ModuleTypeCache.ps1.md](docs/references/pwsh/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
       - ADR-DSGN-RUNMODE

@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Get-ModuleOrder.ps1
+    name: get-module-order
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleOrder.Tests.ps1
+    docs: "[Get-ModuleOrder.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-ModuleOrder.ps1.md)"
+    cites:
+      - ADR-AUTO-MODULE-TOPOLOGICALORDER
+---
+#>
+
 function Get-ModuleOrder {
     [OutputType([string[]])]
     param(

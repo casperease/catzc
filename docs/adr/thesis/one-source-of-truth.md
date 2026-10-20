@@ -16,9 +16,9 @@ stores of other kinds ([ADR-THES-STORES](truth-stores.md)).
 ### Rule ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 
 The repository is the configuration record of everything it delivers. Infrastructure is reproducible from a commit, so no second database is
-kept in parity with it, and nothing about delivery state lives outside it. An **adjacent store** is the one legitimate second store: a
-repository or service, such as a GitOps or configuration repository, that keeps its own history and is driven one way from the trunk's
-pipelines, never edited beside it.
+kept in parity with it, and nothing about delivery state have source of truth (for BVT) outside it. An **adjacent store** is the one
+legitimate second store: a repository or service, such as a GitOps or configuration repository or Azure Devops Services SaaS / GitHub SaaS,
+that keeps its own history and is driven one way from the trunk's pipelines, never edited beside it.
 
 - [The repository is the configuration record](#the-repository-is-the-configuration-record)
 - [Adjacent stores](#adjacent-stores)

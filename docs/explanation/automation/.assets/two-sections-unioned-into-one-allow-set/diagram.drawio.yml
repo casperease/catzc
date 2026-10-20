@@ -1,10 +1,11 @@
-description: The two sections of dependencies.yml are validated at load and then unioned into one allow-set per source module,
-  which the quality gate checks every function-call and type edge against, throwing one error that lists every issue.
+description:
+  The two sections of dependencies.yml are validated at load and then unioned into one allow-set per source module, which the quality gate
+  checks every function-call and type edge against, throwing one error that lists every issue.
 about:
   adrs:
-  - ADR-AUTO-DEPM-UNIFIEDGRAPH
-  - ADR-AUTO-DEPM-TWOSECTIONS
-  - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+    - ADR-AUTO-DEPM-UNIFIEDGRAPH
+    - ADR-AUTO-DEPM-TWOSECTIONS
+    - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
   lens: implementation
 content:
   title: Two sections of dependencies.yml are unioned into one allow-set per source module
@@ -13,108 +14,108 @@ content:
   relation: feeds
   theme: dark
   bands:
-  - id: band-file
-    label: DEPENDENCIES.YML
-  - id: band-load
-    label: AT LOAD
-  - id: band-allow
-    label: ALLOW-SET
-  - id: band-gate
-    label: GATE
+    - id: band-file
+      label: DEPENDENCIES.YML
+    - id: band-load
+      label: AT LOAD
+    - id: band-allow
+      label: ALLOW-SET
+    - id: band-gate
+      label: GATE
   glyphs:
-  - id: g-groups
-    kind: file
-    label: 'groups:'
-    in: band-file
-  - id: g-modules
-    kind: file
-    label: 'modules:'
-    in: band-file
-  - id: g-config
-    kind: code
-    label: DependenciesConfig
-    in: band-load
-  - id: f-validation
-    kind: failure
-    label: validation failed
-    in: band-load
-  - id: g-function
-    kind: code
-    label: Get-ModuleDependency
-    in: band-allow
-  - id: g-allowed
-    kind: code
-    label: $resolveAllowed
-    in: band-allow
-  - id: g-type
-    kind: code
-    label: Get-CSharpTypeDependency
-    in: band-allow
-  - id: g-test
-    kind: gate
-    label: Test-ModuleDependency
-    in: band-gate
-  - id: f-issues
-    kind: failure
-    label: 'failed: N issue(s)'
-    in: band-gate
+    - id: g-groups
+      kind: file
+      label: "groups:"
+      in: band-file
+    - id: g-modules
+      kind: file
+      label: "modules:"
+      in: band-file
+    - id: g-config
+      kind: code
+      label: DependenciesConfig
+      in: band-load
+    - id: f-validation
+      kind: failure
+      label: validation failed
+      in: band-load
+    - id: g-function
+      kind: code
+      label: Get-ModuleDependency
+      in: band-allow
+    - id: g-allowed
+      kind: code
+      label: $resolveAllowed
+      in: band-allow
+    - id: g-type
+      kind: code
+      label: Get-CSharpTypeDependency
+      in: band-allow
+    - id: g-test
+      kind: gate
+      label: Test-ModuleDependency
+      in: band-gate
+    - id: f-issues
+      kind: failure
+      label: "failed: N issue(s)"
+      in: band-gate
   edges:
-  - from: g-groups
-    to: g-config
-    kind: flow
-    label: ''
-  - from: g-modules
-    to: g-config
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-allowed
-    kind: flow
-    label: ''
-  - from: g-function
-    to: g-allowed
-    kind: flow
-    label: ''
-  - from: g-type
-    to: g-allowed
-    kind: flow
-    label: ''
-  - from: g-allowed
-    to: g-test
-    kind: flow
-    label: ''
-  - from: g-config
-    to: f-validation
-    kind: fail
-    label: ''
-  - from: g-test
-    to: f-issues
-    kind: fail
-    label: ''
+    - from: g-groups
+      to: g-config
+      kind: flow
+      label: ""
+    - from: g-modules
+      to: g-config
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-allowed
+      kind: flow
+      label: ""
+    - from: g-function
+      to: g-allowed
+      kind: flow
+      label: ""
+    - from: g-type
+      to: g-allowed
+      kind: flow
+      label: ""
+    - from: g-allowed
+      to: g-test
+      kind: flow
+      label: ""
+    - from: g-config
+      to: f-validation
+      kind: fail
+      label: ""
+    - from: g-test
+      to: f-issues
+      kind: fail
+      label: ""
   markers:
-  - at: g-groups
-    number: 1
-  - at: g-modules
-    number: 2
-  - at: g-config
-    number: 3
-  - at: f-validation
-    number: 4
-  - at: g-function
-    number: 5
-  - at: g-allowed
-    number: 6
-  - at: g-type
-    number: 7
-  - at: g-test
-    number: 8
-  - at: f-issues
-    number: 9
+    - at: g-groups
+      number: 1
+    - at: g-modules
+      number: 2
+    - at: g-config
+      number: 3
+    - at: f-validation
+      number: 4
+    - at: g-function
+      number: 5
+    - at: g-allowed
+      number: 6
+    - at: g-type
+      number: 7
+    - at: g-test
+      number: 8
+    - at: f-issues
+      number: 9
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-file:
     x: 20

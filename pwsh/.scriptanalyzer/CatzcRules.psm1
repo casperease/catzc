@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/CatzcRules.psm1
+    folder: pwsh/.scriptanalyzer
+    name: catzc-rules
+    filetype: psm1
+    role: analyzer-rule
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[CatzcRules.psm1.md](docs/references/pwsh/scriptanalyzer/CatzcRules.psm1.md)"
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The check modules load nested in this rule module, inside the analyzer engine; nothing in the session changes, so there is no state to announce')]
 param()
 
@@ -20,6 +38,7 @@ $checks = @(
     'NoEnvRepositoryRoot'
     'ParameterDesign'
     'NoUnsafeFirstIndex'
+    'NoCollapsingAssignment'
     'NoBareCacheEntryRead'
     'NoUnboundedEnumeration'
     'NoOneLineHashtableIfElse'

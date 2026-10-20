@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AdrCitationRewriter.cs
+    folder: types
+    name: adr-citation-rewriter
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AdrCitationRewriter.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationRewriter.cs.md)"
+    cites:
+      - ADR-REPO-LINK-MARKDOWNRELATIVE
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

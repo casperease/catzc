@@ -17,7 +17,7 @@ catzc:
     visibility: private
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Stop-FileLockingProcess.Tests.ps1
-    docs: "[Stop-FileLockingProcess.ps1.md](/docs/references/pwsh/catzc-base-typessystem/private/Stop-FileLockingProcess.ps1.md)"
+    docs: "[Stop-FileLockingProcess.ps1.md](docs/references/pwsh/catzc-base-typessystem/private/Stop-FileLockingProcess.ps1.md)"
 ---
 #>
 

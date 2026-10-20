@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+    folder: tests
+    name: get-config-value-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Config
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ConfigValue.Tests.ps1.md](docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-LOGICANDINTEGRITY
+      - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+      - ADR-CONF-LOADING-ONEREADER
+---
+#>
+
 Describe 'Get-ConfigValue' -Tag 'L0' {
     Context 'address resolution over a raw dictionary' -Tag 'logic' {
         BeforeAll {

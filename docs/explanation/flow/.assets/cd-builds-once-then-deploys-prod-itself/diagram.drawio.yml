@@ -1,11 +1,12 @@
-description: The customer CD pipeline builds each of the three templates once in the CI stage, then three chained deploy stages
-  apply the published artifacts, reaching the non-prod targets and the prod tier in the same run.
+description:
+  The customer CD pipeline builds each of the three templates once in the CI stage, then three chained deploy stages apply the published
+  artifacts, reaching the non-prod targets and the prod tier in the same run.
 about:
   adrs:
-  - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-  - ADR-FLOW-CD-CDCONTAINSCI
-  - ADR-FLOW-CD-CDSTAYSINNONPROD
-  - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+    - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+    - ADR-FLOW-CD-CDCONTAINSCI
+    - ADR-FLOW-CD-CDSTAYSINNONPROD
+    - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
   lens: implementation
 content:
   title: The customer CD pipeline builds once, then deploys the prod tier itself
@@ -14,118 +15,118 @@ content:
   relation: next in code order
   theme: dark
   bands:
-  - id: band-ci
-    label: CI STAGE
-  - id: band-deploy
-    label: DEPLOY STAGES
-  - id: band-targets
-    label: TARGETS
+    - id: band-ci
+      label: CI STAGE
+    - id: band-deploy
+      label: DEPLOY STAGES
+    - id: band-targets
+      label: TARGETS
   spans:
-  - id: span-ci
-    label: CI
-    over:
-    - band-ci
-  - id: span-cd
-    label: CD
-    over:
-    - band-ci
-    - band-deploy
+    - id: span-ci
+      label: CI
+      over:
+        - band-ci
+    - id: span-cd
+      label: CD
+      over:
+        - band-ci
+        - band-deploy
   glyphs:
-  - id: g-build-bicep
-    kind: runner
-    label: Build-Bicep
-    in: band-ci
-  - id: r-foundation
-    kind: result
-    label: foundation
-    in: band-ci
-  - id: r-discovery
-    kind: result
-    label: discovery
-    in: band-ci
-  - id: r-expedition
-    kind: result
-    label: expedition
-    in: band-ci
-  - id: g-deploy-foundation
-    kind: runner
-    label: Deploy_Foundation
-    in: band-deploy
-  - id: g-deploy-discovery
-    kind: runner
-    label: Deploy_Discovery
-    in: band-deploy
-  - id: g-deploy-expedition
-    kind: runner
-    label: Deploy_Expedition
-    in: band-deploy
-  - id: e-non-prod
-    kind: env
-    label: nsub · dev · test
-    in: band-targets
-  - id: e-prod-tier
-    kind: env
-    label: psub · prod
-    in: band-targets
+    - id: g-build-bicep
+      kind: runner
+      label: Build-Bicep
+      in: band-ci
+    - id: r-foundation
+      kind: result
+      label: foundation
+      in: band-ci
+    - id: r-discovery
+      kind: result
+      label: discovery
+      in: band-ci
+    - id: r-expedition
+      kind: result
+      label: expedition
+      in: band-ci
+    - id: g-deploy-foundation
+      kind: runner
+      label: Deploy_Foundation
+      in: band-deploy
+    - id: g-deploy-discovery
+      kind: runner
+      label: Deploy_Discovery
+      in: band-deploy
+    - id: g-deploy-expedition
+      kind: runner
+      label: Deploy_Expedition
+      in: band-deploy
+    - id: e-non-prod
+      kind: env
+      label: nsub · dev · test
+      in: band-targets
+    - id: e-prod-tier
+      kind: env
+      label: psub · prod
+      in: band-targets
   edges:
-  - from: g-build-bicep
-    to: r-foundation
-    kind: flow
-    label: ''
-  - from: g-build-bicep
-    to: r-discovery
-    kind: flow
-    label: ''
-  - from: g-build-bicep
-    to: r-expedition
-    kind: flow
-    label: ''
-  - from: r-foundation
-    to: g-deploy-foundation
-    kind: flow
-    label: ''
-  - from: r-discovery
-    to: g-deploy-discovery
-    kind: flow
-    label: ''
-  - from: r-expedition
-    to: g-deploy-expedition
-    kind: flow
-    label: ''
-  - from: g-deploy-foundation
-    to: g-deploy-discovery
-    kind: flow
-    label: ''
-  - from: g-deploy-discovery
-    to: g-deploy-expedition
-    kind: flow
-    label: ''
-  - from: g-deploy-foundation
-    to: e-non-prod
-    kind: flow
-    label: ''
-  - from: g-deploy-expedition
-    to: e-prod-tier
-    kind: flow
-    label: ''
+    - from: g-build-bicep
+      to: r-foundation
+      kind: flow
+      label: ""
+    - from: g-build-bicep
+      to: r-discovery
+      kind: flow
+      label: ""
+    - from: g-build-bicep
+      to: r-expedition
+      kind: flow
+      label: ""
+    - from: r-foundation
+      to: g-deploy-foundation
+      kind: flow
+      label: ""
+    - from: r-discovery
+      to: g-deploy-discovery
+      kind: flow
+      label: ""
+    - from: r-expedition
+      to: g-deploy-expedition
+      kind: flow
+      label: ""
+    - from: g-deploy-foundation
+      to: g-deploy-discovery
+      kind: flow
+      label: ""
+    - from: g-deploy-discovery
+      to: g-deploy-expedition
+      kind: flow
+      label: ""
+    - from: g-deploy-foundation
+      to: e-non-prod
+      kind: flow
+      label: ""
+    - from: g-deploy-expedition
+      to: e-prod-tier
+      kind: flow
+      label: ""
   markers:
-  - at: g-build-bicep
-    number: 1
-  - at: r-foundation
-    number: 2
-  - at: g-deploy-foundation
-    number: 3
-  - at: g-deploy-discovery
-    number: 4
-  - at: e-non-prod
-    number: 5
-  - at: e-prod-tier
-    number: 6
+    - at: g-build-bicep
+      number: 1
+    - at: r-foundation
+      number: 2
+    - at: g-deploy-foundation
+      number: 3
+    - at: g-deploy-discovery
+      number: 4
+    - at: e-non-prod
+      number: 5
+    - at: e-prod-tier
+      number: 6
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-ci:
     x: 20

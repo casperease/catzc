@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
+    folder: tests/types
+    name: comments-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[CommentsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/CommentsConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
+---
+#>
+
 Describe 'CommentsConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})

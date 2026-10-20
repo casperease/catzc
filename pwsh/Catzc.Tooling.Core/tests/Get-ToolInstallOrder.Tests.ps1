@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
+    folder: tests
+    name: get-tool-install-order-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ToolInstallOrder.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Get-ToolInstallOrder.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-GENERICTEMPLATETESTS
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+      - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES
+---
+#>
+
 Describe 'Get-ToolInstallOrder' -Tag 'L0' {
     Context 'topological sort (fixture graph)' -Tag 'logic' {
         It 'orders every dependency before its dependents (diamond + independent root)' {

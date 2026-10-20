@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/ParameterDesign.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: parameter-design-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[ParameterDesign.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/ParameterDesign.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-PARAM-POSITIONALPRIMARY
+      - ADR-PWSH-PARAM-SWITCHNOTBOOL
+      - ADR-PWSH-PARAM-RESOLUTIONORDER
+---
+#>
+
 BeforeAll {
     Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/ParameterDesign.psm1') -Force
     if (-not (Get-Module PSScriptAnalyzer)) {

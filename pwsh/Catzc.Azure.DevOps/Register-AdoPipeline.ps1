@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/Register-AdoPipeline.ps1
+    name: register-ado-pipeline
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    docs: "[Register-AdoPipeline.ps1.md](docs/references/pwsh/catzc-azure-devops/Register-AdoPipeline.ps1.md)"
+---
+#>
+
 function Register-AdoPipeline {
     [CmdletBinding(DefaultParameterSetName = 'AzureRepos')]
     param(

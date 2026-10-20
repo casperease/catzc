@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
+    folder: tests
+    name: get-test-tag-violations-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-TestTagViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-TestTagViolations.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST
+---
+#>
+
 Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
     It 'flags tests missing or ambiguous on either axis, and passes fully-tagged tests' -Tag 'ADR-AUTO-TEST-ONECATEGORY', 'ADR-AUTO-TEST-TWOMANDATORYTAGS' {
         InModuleScope Catzc.Base.QualityGates {

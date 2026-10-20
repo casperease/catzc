@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Azure.DevOps/configs/environment-approvals.yml
+#     folder: configs
+#     name: environment-approvals
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Azure.DevOps
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[environment-approvals.yml.md](docs/references/pwsh/catzc-azure-devops/configs/environment-approvals.yml.md)"
+# ---
+
 approver_group:
   name: Prod Approvers
   members:

@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
+    folder: tests
+    name: test-git-history-clean-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Github
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[Test-GitHistoryClean.Tests.ps1.md](docs/references/pwsh/catzc-tooling-github/tests/Test-GitHistoryClean.Tests.ps1.md)"
+---
+#>
+
 Describe 'Test-GitHistoryClean' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:repo = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-ghtest-' + [guid]::NewGuid().ToString('N').Substring(0, 12))

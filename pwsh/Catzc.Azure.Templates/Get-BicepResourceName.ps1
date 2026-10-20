@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+    name: get-bicep-resource-name
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1
+    docs: "[Get-BicepResourceName.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md)"
+    cites:
+      - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+---
+#>
+
 # cspell:ignore deweuzctsmplst
 function Get-BicepResourceName {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]

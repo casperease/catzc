@@ -14,7 +14,7 @@
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
 #   edges:
-#     docs: "[vscode-settings.yml.md](/docs/references/pwsh/catzc-base-vscode/configs/vscode-settings.yml.md)"
+#     docs: "[vscode-settings.yml.md](docs/references/pwsh/catzc-base-vscode/configs/vscode-settings.yml.md)"
 # ---
 
 settings:

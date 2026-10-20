@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-FileMeta.ps1
+    name: test-file-meta
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    docs: "[Test-FileMeta.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-FileMeta.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 function Test-FileMeta {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

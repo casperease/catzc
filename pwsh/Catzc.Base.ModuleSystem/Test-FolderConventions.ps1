@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
+    name: test-folder-conventions
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Test-FolderConventions.Tests.ps1
+    docs: "[Test-FolderConventions.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Test-FolderConventions.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-FOLDERS
+---
+#>
+
 function Test-FolderConventions {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

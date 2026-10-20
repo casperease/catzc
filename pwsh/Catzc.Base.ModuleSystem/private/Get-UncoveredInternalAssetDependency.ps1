@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
+    folder: private
+    name: get-uncovered-internal-asset-dependency
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
+    docs: "[Get-UncoveredInternalAssetDependency.ps1.md](docs/references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+      - ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY
+      - ADR-AUTO-TEST-TWOMANDATORYTAGS
+      - ADR-PWSH-PESTER-TESTFILE
+---
+#>
+
 function Get-UncoveredInternalAssetDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

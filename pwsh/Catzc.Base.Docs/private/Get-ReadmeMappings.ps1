@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
+    folder: private
+    name: get-readme-mappings
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
+    docs: "[Get-ReadmeMappings.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-ReadmeMappings.ps1.md)"
+    cites:
+      - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+      - ADR-REPO-README
+---
+#>
+
 function Get-ReadmeMappings {
     [OutputType([object[]])]
     param(

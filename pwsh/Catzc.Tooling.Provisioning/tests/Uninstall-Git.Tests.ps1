@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-Git.Tests.ps1
+    folder: tests
+    name: uninstall-git-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Uninstall-Git.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Git.Tests.ps1.md)"
+---
+#>
+
 Describe 'Uninstall-Git' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Remove-Item { } -ModuleName Catzc.Tooling.Provisioning

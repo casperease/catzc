@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Variants/types/VariantTrack.cs
+    folder: types
+    name: variant-track
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[VariantTrack.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-DSGN-TRACK
+      - ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES
+---
+*/
+
 using System;
 using System.Collections.Generic;
 

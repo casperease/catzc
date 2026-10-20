@@ -1,3 +1,22 @@
+// ---
+// catzc:
+//   immutable:
+//     repo_status: clean
+//     path: infrastructure/modules/private-endpoint.bicep
+//     name: private-endpoint
+//     filetype: bicep
+//     role: template
+//     subkind: module
+//     language: bicep
+//     track: infrastructure
+//     tracktype: infrastructure
+//     vendor: azure
+//     module: private-endpoint
+//     moduletype: bicep
+//   edges:
+//     docs: "[private-endpoint.bicep.md](docs/references/infrastructure/modules/private-endpoint.bicep.md)"
+// ---
+
 @description('Private endpoint name (2-64 characters, unique within the resource group).')
 param name string
 

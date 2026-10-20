@@ -14,7 +14,7 @@
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
 #   edges:
-#     docs: "[gitignore.yml.md](/docs/references/pwsh/catzc-base-git/configs/gitignore.yml.md)"
+#     docs: "[gitignore.yml.md](docs/references/pwsh/catzc-base-git/configs/gitignore.yml.md)"
 # ---
 
 sections:

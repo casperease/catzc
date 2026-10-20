@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/types/AzureCustomer.cs
+    folder: types
+    name: azure-customer
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AzureCustomer.cs.md](docs/references/pwsh/catzc-azure/types/AzureCustomer.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-AZ-CUSTOMER
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

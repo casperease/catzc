@@ -1,9 +1,10 @@
-description: 'Every config read goes through one reader and one session cache: a hit returns the same object, and only a miss
-  opens the file and parses and types it once.'
+description:
+  "Every config read goes through one reader and one session cache: a hit returns the same object, and only a miss opens the file and parses
+  and types it once."
 about:
   adrs:
-  - ADR-CONF-LOADING-ONEREADER
-  - ADR-CONF-LOADING-CACHEBYPATH
+    - ADR-CONF-LOADING-ONEREADER
+    - ADR-CONF-LOADING-CACHEBYPATH
   lens: meta
 content:
   title: Every config read goes through one reader and one session cache
@@ -12,68 +13,68 @@ content:
   relation: the read
   theme: dark
   bands:
-  - id: band-read
-    label: READ PATH
-  - id: band-miss
-    label: MISS
+    - id: band-read
+      label: READ PATH
+    - id: band-miss
+      label: MISS
   glyphs:
-  - id: g-reader
-    kind: code
-    label: one reader
-    in: band-read
-  - id: s-cache
-    kind: store
-    label: session cache
-    in: band-read
-  - id: r-same
-    kind: result
-    label: same object
-    in: band-read
-  - id: g-file
-    kind: file
-    label: config file
-    in: band-miss
-  - id: g-parse
-    kind: code
-    label: parse and type once
-    in: band-miss
+    - id: g-reader
+      kind: code
+      label: one reader
+      in: band-read
+    - id: s-cache
+      kind: store
+      label: session cache
+      in: band-read
+    - id: r-same
+      kind: result
+      label: same object
+      in: band-read
+    - id: g-file
+      kind: file
+      label: config file
+      in: band-miss
+    - id: g-parse
+      kind: code
+      label: parse and type once
+      in: band-miss
   edges:
-  - from: g-reader
-    to: s-cache
-    kind: flow
-    label: ''
-  - from: s-cache
-    to: r-same
-    kind: flow
-    label: ''
-  - from: s-cache
-    to: g-file
-    kind: flow
-    label: ''
-  - from: g-file
-    to: g-parse
-    kind: flow
-    label: ''
-  - from: g-parse
-    to: r-same
-    kind: flow
-    label: ''
+    - from: g-reader
+      to: s-cache
+      kind: flow
+      label: ""
+    - from: s-cache
+      to: r-same
+      kind: flow
+      label: ""
+    - from: s-cache
+      to: g-file
+      kind: flow
+      label: ""
+    - from: g-file
+      to: g-parse
+      kind: flow
+      label: ""
+    - from: g-parse
+      to: r-same
+      kind: flow
+      label: ""
   markers:
-  - at: g-reader
-    number: 1
-  - at: s-cache
-    number: 2
-  - at: r-same
-    number: 3
-  - at: g-file
-    number: 4
-  - at: g-parse
-    number: 5
+    - at: g-reader
+      number: 1
+    - at: s-cache
+      number: 2
+    - at: r-same
+      number: 3
+    - at: g-file
+      number: 4
+    - at: g-parse
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-read:
     x: 20

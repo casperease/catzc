@@ -1,10 +1,11 @@
-description: A config read resolves the name to one entry and the overlay root; on a cache miss the registry is read, a fragment
-  of a sealed config throws, any other fragment is merged onto the shipped config, and the registered type builds the result.
+description:
+  A config read resolves the name to one entry and the overlay root; on a cache miss the registry is read, a fragment of a sealed config
+  throws, any other fragment is merged onto the shipped config, and the registered type builds the result.
 about:
   adrs:
-  - ADR-AUTO-OVERLAY
-  - ADR-PWSH-CACHE-STRICTSAFEPROBE
-  - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
+    - ADR-AUTO-OVERLAY
+    - ADR-PWSH-CACHE-STRICTSAFEPROBE
+    - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
   lens: source
 content:
   title: Overlay merges unless sealed; the registered type builds it
@@ -13,102 +14,102 @@ content:
   relation: runs next (code order)
   theme: dark
   bands:
-  - id: band-resolve
-    label: RESOLVE
-  - id: band-miss
-    label: CACHE MISS
+    - id: band-resolve
+      label: RESOLVE
+    - id: band-miss
+      label: CACHE MISS
   glyphs:
-  - id: g-get-config
-    kind: code
-    label: Get-Config
-    in: band-resolve
-  - id: g-resolve-entry
-    kind: private
-    label: Resolve-ConfigEntry
-    in: band-resolve
-  - id: g-overlay-root
-    kind: private
-    label: Get-ConfigOverlayRoot
-    in: band-resolve
-  - id: g-registry
-    kind: private
-    label: Get-ConfigRegistry
-    in: band-miss
-  - id: g-sealed
-    kind: gate
-    label: 'overridable: false?'
-    in: band-miss
-  - id: f-sealed
-    kind: failure
-    label: 'sealed: throw'
-    in: band-miss
-  - id: g-merge
-    kind: private
-    label: Merge-ConfigFragment
-    in: band-miss
-  - id: t-new
-    kind: type
-    label: $type::new($raw)
-    in: band-miss
-  - id: f-configs-yml
-    kind: file
-    label: configs.yml
-    in: band-miss
-  - id: f-fragment
-    kind: file
-    label: <Module>/configs/<name>.yml
-    in: band-miss
+    - id: g-get-config
+      kind: code
+      label: Get-Config
+      in: band-resolve
+    - id: g-resolve-entry
+      kind: private
+      label: Resolve-ConfigEntry
+      in: band-resolve
+    - id: g-overlay-root
+      kind: private
+      label: Get-ConfigOverlayRoot
+      in: band-resolve
+    - id: g-registry
+      kind: private
+      label: Get-ConfigRegistry
+      in: band-miss
+    - id: g-sealed
+      kind: gate
+      label: "overridable: false?"
+      in: band-miss
+    - id: f-sealed
+      kind: failure
+      label: "sealed: throw"
+      in: band-miss
+    - id: g-merge
+      kind: private
+      label: Merge-ConfigFragment
+      in: band-miss
+    - id: t-new
+      kind: type
+      label: $type::new($raw)
+      in: band-miss
+    - id: f-configs-yml
+      kind: file
+      label: configs.yml
+      in: band-miss
+    - id: f-fragment
+      kind: file
+      label: <Module>/configs/<name>.yml
+      in: band-miss
   edges:
-  - from: g-get-config
-    to: g-resolve-entry
-    kind: flow
-    label: ''
-  - from: g-resolve-entry
-    to: g-overlay-root
-    kind: flow
-    label: ''
-  - from: g-overlay-root
-    to: g-registry
-    kind: flow
-    label: ''
-  - from: g-registry
-    to: g-sealed
-    kind: flow
-    label: ''
-  - from: g-sealed
-    to: f-sealed
-    kind: fail
-    label: ''
-  - from: g-sealed
-    to: g-merge
-    kind: flow
-    label: ''
-  - from: g-merge
-    to: t-new
-    kind: flow
-    label: ''
+    - from: g-get-config
+      to: g-resolve-entry
+      kind: flow
+      label: ""
+    - from: g-resolve-entry
+      to: g-overlay-root
+      kind: flow
+      label: ""
+    - from: g-overlay-root
+      to: g-registry
+      kind: flow
+      label: ""
+    - from: g-registry
+      to: g-sealed
+      kind: flow
+      label: ""
+    - from: g-sealed
+      to: f-sealed
+      kind: fail
+      label: ""
+    - from: g-sealed
+      to: g-merge
+      kind: flow
+      label: ""
+    - from: g-merge
+      to: t-new
+      kind: flow
+      label: ""
   markers:
-  - at: g-get-config
-    number: 1
-  - at: g-resolve-entry
-    number: 2
-  - at: g-overlay-root
-    number: 3
-  - at: g-registry
-    number: 4
-  - at: g-sealed
-    number: 5
-  - at: f-sealed
-    number: 6
-  - at: g-merge
-    number: 7
-  - at: t-new
-    number: 8
+    - at: g-get-config
+      number: 1
+    - at: g-resolve-entry
+      number: 2
+    - at: g-overlay-root
+      number: 3
+    - at: g-registry
+      number: 4
+    - at: g-sealed
+      number: 5
+    - at: f-sealed
+      number: 6
+    - at: g-merge
+      number: 7
+    - at: t-new
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-resolve:
     x: 20

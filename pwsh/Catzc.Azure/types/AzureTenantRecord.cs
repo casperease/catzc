@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/types/AzureTenantRecord.cs
+    folder: types
+    name: azure-tenant-record
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AzureTenantRecord.cs.md](docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-AZ-DATAMOD
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/tests/Get-ToolCommandSuffix.Tests.ps1
+    folder: tests
+    name: get-tool-command-suffix-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ToolCommandSuffix.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Get-ToolCommandSuffix.Tests.ps1.md)"
+---
+#>
+
 Describe 'Get-ToolCommandSuffix' -Tag 'L0', 'logic' {
     It 'maps snake_case key <Tool> to PascalCase suffix <Expected>' -ForEach @(
         @{ Tool = 'python'; Expected = 'Python' }

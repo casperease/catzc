@@ -1,11 +1,11 @@
-description: The apex unit's glob program flattens to 13 rules; one pass of the trigger projection fills the GitHub list with
-  those 13 rules and the Azure DevOps lists with 7 includes and 6 excludes, and the pipeline trigger test compares the projection
-  with cd-apex.yaml.
+description:
+  The apex unit's glob program flattens to 13 rules; one pass of the trigger projection fills the GitHub list with those 13 rules and the
+  Azure DevOps lists with 7 includes and 6 excludes, and the pipeline trigger test compares the projection with cd-apex.yaml.
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
-  - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-  - ADR-FLOW-CD-GLOBS-COMPOSESETS
+    - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+    - ADR-FLOW-CD-GLOBS-COMPOSESETS
   lens: implementation
 content:
   title: The apex unit flattens to 13 rules, 13 GitHub paths, and 7 Azure DevOps includes with 6 excludes
@@ -14,130 +14,130 @@ content:
   relation: feeds
   theme: dark
   bands:
-  - id: band-compose
-    label: COMPOSE
-  - id: band-projection
-    label: PROJECTION
-  - id: band-checked
-    label: CHECKED BY
+    - id: band-compose
+      label: COMPOSE
+    - id: band-projection
+      label: PROJECTION
+    - id: band-checked
+      label: CHECKED BY
   groups:
-  - id: grp-ado-lists
-    label: Azure DevOps lists
-    in: band-projection
+    - id: grp-ado-lists
+      label: Azure DevOps lists
+      in: band-projection
   glyphs:
-  - id: f-globs
-    kind: file
-    label: globs.yml
-    in: band-compose
-  - id: g-scan-program
-    kind: code
-    label: GlobSet.ScanProgram()
-    in: band-compose
-  - id: r-flattened
-    kind: result
-    label: flattened scan program
-    in: band-compose
-  - id: g-trigger
-    kind: code
-    label: Get-GlobSetTrigger
-    in: band-projection
-  - id: r-github
-    kind: result
-    label: .GitHub
-    in: band-projection
-  - id: r-include
-    kind: result
-    label: .AdoInclude
-    in: grp-ado-lists
-  - id: r-exclude
-    kind: result
-    label: .AdoExclude
-    in: grp-ado-lists
-  - id: f-cd-apex
-    kind: file
-    label: .ado/pipelines/cd-apex.yaml
-    in: band-checked
-  - id: g-pipeline-trigger
-    kind: code
-    label: Get-PipelineTrigger
-    in: band-checked
-  - id: g-test-trigger
-    kind: gate
-    label: Test-AdoPipelineTriggerGlob
-    in: band-checked
+    - id: f-globs
+      kind: file
+      label: globs.yml
+      in: band-compose
+    - id: g-scan-program
+      kind: code
+      label: GlobSet.ScanProgram()
+      in: band-compose
+    - id: r-flattened
+      kind: result
+      label: flattened scan program
+      in: band-compose
+    - id: g-trigger
+      kind: code
+      label: Get-GlobSetTrigger
+      in: band-projection
+    - id: r-github
+      kind: result
+      label: .GitHub
+      in: band-projection
+    - id: r-include
+      kind: result
+      label: .AdoInclude
+      in: grp-ado-lists
+    - id: r-exclude
+      kind: result
+      label: .AdoExclude
+      in: grp-ado-lists
+    - id: f-cd-apex
+      kind: file
+      label: .ado/pipelines/cd-apex.yaml
+      in: band-checked
+    - id: g-pipeline-trigger
+      kind: code
+      label: Get-PipelineTrigger
+      in: band-checked
+    - id: g-test-trigger
+      kind: gate
+      label: Test-AdoPipelineTriggerGlob
+      in: band-checked
   edges:
-  - from: f-globs
-    to: g-scan-program
-    kind: flow
-    label: ''
-  - from: g-scan-program
-    to: r-flattened
-    kind: flow
-    label: ''
-  - from: r-flattened
-    to: g-trigger
-    kind: flow
-    label: ''
-  - from: g-trigger
-    to: r-github
-    kind: flow
-    label: ''
-  - from: g-trigger
-    to: r-include
-    kind: flow
-    label: ''
-  - from: g-trigger
-    to: r-exclude
-    kind: flow
-    label: ''
-  - from: grp-ado-lists
-    to: g-test-trigger
-    kind: flow
-    label: ''
-  - from: f-cd-apex
-    to: g-pipeline-trigger
-    kind: flow
-    label: ''
-  - from: g-pipeline-trigger
-    to: g-test-trigger
-    kind: flow
-    label: ''
+    - from: f-globs
+      to: g-scan-program
+      kind: flow
+      label: ""
+    - from: g-scan-program
+      to: r-flattened
+      kind: flow
+      label: ""
+    - from: r-flattened
+      to: g-trigger
+      kind: flow
+      label: ""
+    - from: g-trigger
+      to: r-github
+      kind: flow
+      label: ""
+    - from: g-trigger
+      to: r-include
+      kind: flow
+      label: ""
+    - from: g-trigger
+      to: r-exclude
+      kind: flow
+      label: ""
+    - from: grp-ado-lists
+      to: g-test-trigger
+      kind: flow
+      label: ""
+    - from: f-cd-apex
+      to: g-pipeline-trigger
+      kind: flow
+      label: ""
+    - from: g-pipeline-trigger
+      to: g-test-trigger
+      kind: flow
+      label: ""
   markers:
-  - at: f-globs
-    number: 1
-  - at: g-scan-program
-    number: 2
-  - at: r-flattened
-    number: 3
-  - at: g-trigger
-    number: 4
-  - at: r-github
-    number: 5
-  - at: r-include
-    number: 6
-  - at: r-exclude
-    number: 7
-  - at: f-cd-apex
-    number: 8
-  - at: g-pipeline-trigger
-    number: 9
-  - at: g-test-trigger
-    number: 10
+    - at: f-globs
+      number: 1
+    - at: g-scan-program
+      number: 2
+    - at: r-flattened
+      number: 3
+    - at: g-trigger
+      number: 4
+    - at: r-github
+      number: 5
+    - at: r-include
+      number: 6
+    - at: r-exclude
+      number: 7
+    - at: f-cd-apex
+      number: 8
+    - at: g-pipeline-trigger
+      number: 9
+    - at: g-test-trigger
+      number: 10
   chips:
-  - at: r-flattened
-    kind: count
-    text: '13'
-  - at: r-include
-    kind: count
-    text: '7'
-  - at: r-exclude
-    kind: count
-    text: '6'
+    - at: r-flattened
+      kind: count
+      text: "13"
+    - at: r-include
+      kind: count
+      text: "7"
+    - at: r-exclude
+      kind: count
+      text: "6"
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-compose:
     x: 20

@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1
+    folder: tests
+    name: remove-mac-tool-install-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Remove-MacToolInstall.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Remove-MacToolInstall.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
+      - ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM
+      - ADR-AUTO-REMOVE-THREEPLATFORMCORES
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Remove-MacToolInstall' -Tag 'L1', 'logic' {
     BeforeEach {
         $script:config = [pscustomobject]@{ command = 'widget'; pip_package = 'widgetlib' }

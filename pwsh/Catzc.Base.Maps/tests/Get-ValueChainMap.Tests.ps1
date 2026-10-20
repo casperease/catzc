@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
+    folder: tests
+    name: get-value-chain-map-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ValueChainMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-DSGN-TRACK-VALUECHAINSTACK
+      - ADR-DSGN-TRACK-VALUECHAINCONCERN
+      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+---
+#>
+
 Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:stacks = @([Catzc.Base.Docs.AdrsConfig]::Stacks)

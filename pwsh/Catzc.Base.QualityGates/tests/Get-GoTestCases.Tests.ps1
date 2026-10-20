@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Get-GoTestCases.Tests.ps1
+    folder: tests
+    name: get-go-test-cases-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-GoTestCases.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-GoTestCases.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 # cspell:ignore Testlowercase  -- a Go function name that is not a test (lowercase after Test), on purpose
 Describe 'Get-GoTestCases' -Tag 'L0', 'logic' {
     BeforeAll {

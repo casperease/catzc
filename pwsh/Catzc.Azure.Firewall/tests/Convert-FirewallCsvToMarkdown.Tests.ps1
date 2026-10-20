@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1
+    folder: tests
+    name: convert-firewall-csv-to-markdown-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Firewall
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Convert-FirewallCsvToMarkdown.Tests.ps1.md](docs/references/pwsh/catzc-azure-firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1.md)"
+---
+#>
+
 Describe 'Convert-FirewallCsvToMarkdown' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:assets = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Firewall/tests/assets'

@@ -1,1 +1,20 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.QualityGates/configs/test-policy.yml
+#     folder: configs
+#     name: test-policy
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.QualityGates
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[test-policy.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/test-policy.yml.md)"
+# ---
+
 l4_mutation: {}

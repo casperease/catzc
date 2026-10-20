@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/types/DurableHash.cs
+    folder: types
+    name: durable-hash
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[DurableHash.cs.md](docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md)"
+    cites:
+      - ADR-FLOW-CD-GLOBS
+---
+*/
+
 using System;
 using System.IO;
 using System.Security.Cryptography;

@@ -1,3 +1,34 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
+    name: test-contracts
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
+    docs: "[Test-Contracts.ps1.md](docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-CONTRACT-LAYOUT
+      - ADR-REPO-CONTRACT-KEPTWHILEPINNED
+      - ADR-REPO-CONTRACT-PROVENBYTESTS
+      - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+      - ADR-REPO-CONTRACT-NODOTFOLDERS
+---
+#>
+
 function Test-Contracts {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

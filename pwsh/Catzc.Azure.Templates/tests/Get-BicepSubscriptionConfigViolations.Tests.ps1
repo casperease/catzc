@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1
+    folder: tests
+    name: get-bicep-subscription-config-violations-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-BicepSubscriptionConfigViolations.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES
+---
+#>
+
 Describe 'Get-BicepSubscriptionConfigViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:azure = [ordered]@{

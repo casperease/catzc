@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1
+    folder: tests
+    name: invoke-python-test-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Invoke-PythonTest.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-NOOVERMOCKING
+---
+#>
+
 Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

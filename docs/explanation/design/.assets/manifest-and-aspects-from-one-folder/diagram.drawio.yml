@@ -1,9 +1,10 @@
-description: 'Two code paths read the same module folder: the import guards its function names and writes a manifest, and
-  the aspect compiler derives a live set and a tests set from the layout of languages.yml.'
+description:
+  "Two code paths read the same module folder: the import guards its function names and writes a manifest, and the aspect compiler derives a
+  live set and a tests set from the layout of languages.yml."
 about:
   adrs:
-  - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
-  - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+    - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+    - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
   lens: implementation
 content:
   title: The manifest and the aspects both come from one folder
@@ -12,106 +13,106 @@ content:
   relation: call order
   theme: dark
   bands:
-  - id: band-root
-    label: ONE FOLDER
-  - id: band-import
-    label: EVERY IMPORT
-  - id: band-sets
-    label: DERIVED SETS
+    - id: band-root
+      label: ONE FOLDER
+    - id: band-import
+      label: EVERY IMPORT
+    - id: band-sets
+      label: DERIVED SETS
   glyphs:
-  - id: g-root
-    kind: code
-    label: pwsh/<Module>/
-    in: band-root
-  - id: g-assert-unique
-    kind: gate
-    label: Assert-Unique...FunctionName
-    in: band-import
-  - id: g-manifest
-    kind: code
-    label: New-DynamicManifest
-    in: band-import
-  - id: g-psd1
-    kind: file
-    label: <Module>.psd1
-    in: band-import
-  - id: g-languages
-    kind: file
-    label: languages.yml
-    in: band-sets
-  - id: g-get-aspect
-    kind: code
-    label: Get-Aspect
-    in: band-sets
-  - id: g-compile
-    kind: code
-    label: AspectPartition.Compile
-    in: band-sets
-  - id: g-live
-    kind: set
-    label: <kebab>-live
-    in: band-sets
-  - id: g-tests
-    kind: set
-    label: <kebab>-tests
-    in: band-sets
+    - id: g-root
+      kind: code
+      label: pwsh/<Module>/
+      in: band-root
+    - id: g-assert-unique
+      kind: gate
+      label: Assert-Unique...FunctionName
+      in: band-import
+    - id: g-manifest
+      kind: code
+      label: New-DynamicManifest
+      in: band-import
+    - id: g-psd1
+      kind: file
+      label: <Module>.psd1
+      in: band-import
+    - id: g-languages
+      kind: file
+      label: languages.yml
+      in: band-sets
+    - id: g-get-aspect
+      kind: code
+      label: Get-Aspect
+      in: band-sets
+    - id: g-compile
+      kind: code
+      label: AspectPartition.Compile
+      in: band-sets
+    - id: g-live
+      kind: set
+      label: <kebab>-live
+      in: band-sets
+    - id: g-tests
+      kind: set
+      label: <kebab>-tests
+      in: band-sets
   edges:
-  - from: g-root
-    to: g-assert-unique
-    kind: flow
-    label: ''
-  - from: g-assert-unique
-    to: g-manifest
-    kind: flow
-    label: ''
-  - from: g-manifest
-    to: g-psd1
-    kind: flow
-    label: ''
-  - from: g-languages
-    to: g-get-aspect
-    kind: flow
-    label: ''
-  - from: g-get-aspect
-    to: g-compile
-    kind: flow
-    label: ''
-  - from: g-root
-    to: g-compile
-    kind: flow
-    label: ''
-  - from: g-compile
-    to: g-live
-    kind: thick
-    label: ''
-  - from: g-compile
-    to: g-tests
-    kind: thick
-    label: ''
+    - from: g-root
+      to: g-assert-unique
+      kind: flow
+      label: ""
+    - from: g-assert-unique
+      to: g-manifest
+      kind: flow
+      label: ""
+    - from: g-manifest
+      to: g-psd1
+      kind: flow
+      label: ""
+    - from: g-languages
+      to: g-get-aspect
+      kind: flow
+      label: ""
+    - from: g-get-aspect
+      to: g-compile
+      kind: flow
+      label: ""
+    - from: g-root
+      to: g-compile
+      kind: flow
+      label: ""
+    - from: g-compile
+      to: g-live
+      kind: thick
+      label: ""
+    - from: g-compile
+      to: g-tests
+      kind: thick
+      label: ""
   markers:
-  - at: g-root
-    number: 1
-  - at: g-assert-unique
-    number: 2
-  - at: g-manifest
-    number: 3
-  - at: g-psd1
-    number: 4
-  - at: g-languages
-    number: 5
-  - at: g-get-aspect
-    number: 6
-  - at: g-compile
-    number: 7
-  - at: g-live
-    number: 8
-  - at: g-tests
-    number: 9
+    - at: g-root
+      number: 1
+    - at: g-assert-unique
+      number: 2
+    - at: g-manifest
+      number: 3
+    - at: g-psd1
+      number: 4
+    - at: g-languages
+      number: 5
+    - at: g-get-aspect
+      number: 6
+    - at: g-compile
+      number: 7
+    - at: g-live
+      number: 8
+    - at: g-tests
+      number: 9
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-root:
     x: 20

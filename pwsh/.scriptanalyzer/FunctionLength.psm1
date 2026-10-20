@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/FunctionLength.psm1
+    folder: pwsh/.scriptanalyzer
+    name: function-length
+    filetype: psm1
+    role: analyzer-rule
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[FunctionLength.psm1.md](docs/references/pwsh/scriptanalyzer/FunctionLength.psm1.md)"
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 function Measure-FunctionLength {

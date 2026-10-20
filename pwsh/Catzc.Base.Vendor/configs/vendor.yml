@@ -1,1 +1,20 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Vendor/configs/vendor.yml
+#     folder: configs
+#     name: vendor
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Vendor
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[vendor.yml.md](docs/references/pwsh/catzc-base-vendor/configs/vendor.yml.md)"
+# ---
+
 source: PSGallery

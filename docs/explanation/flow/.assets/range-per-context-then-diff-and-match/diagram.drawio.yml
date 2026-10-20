@@ -1,9 +1,10 @@
-description: Test-GlobSetAffected checks the globset name against the registry, asks the resolver for the git range of the
-  current context, diffs that range and matches the paths; an unresolved range or a failed diff answers true.
+description:
+  Test-GlobSetAffected checks the globset name against the registry, asks the resolver for the git range of the current context, diffs that
+  range and matches the paths; an unresolved range or a failed diff answers true.
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-  - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
   lens: implementation
 content:
   title: Check the name, pick the range per context, then diff git and match the paths
@@ -12,123 +13,123 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-entry
-    label: ENTRY
-  - id: band-range
-    label: RANGE PER CONTEXT
-  - id: band-diff
-    label: DIFF AND MATCH
-  - id: band-answer
-    label: ANSWER
+    - id: band-entry
+      label: ENTRY
+    - id: band-range
+      label: RANGE PER CONTEXT
+    - id: band-diff
+      label: DIFF AND MATCH
+    - id: band-answer
+      label: ANSWER
   groups:
-  - id: grp-ranges
-    label: the three ranges
-    in: band-range
+    - id: grp-ranges
+      label: the three ranges
+      in: band-range
   glyphs:
-  - id: g-affected
-    kind: code
-    label: Test-GlobSetAffected
-    in: band-entry
-  - id: g-globs
-    kind: file
-    label: globs.yml
-    in: band-entry
-  - id: f-undeclared
-    kind: failure
-    label: not a declared globset
-    in: band-entry
-  - id: g-range
-    kind: code
-    label: Get-GlobSetChangeRange
-    in: band-range
-  - id: r-head
-    kind: result
-    label: HEAD
-    in: grp-ranges
-  - id: r-push
-    kind: result
-    label: HEAD^1..HEAD
-    in: grp-ranges
-  - id: r-pull-request
-    kind: result
-    label: origin/<target>...HEAD
-    in: grp-ranges
-  - id: g-changed
-    kind: code
-    label: Get-ChangedGlobSet
-    in: band-diff
-  - id: r-false
-    kind: result
-    label: $false, confirmed untouched
-    in: band-answer
-  - id: r-true
-    kind: result
-    label: $true, touched or doubt
-    in: band-answer
+    - id: g-affected
+      kind: code
+      label: Test-GlobSetAffected
+      in: band-entry
+    - id: g-globs
+      kind: file
+      label: globs.yml
+      in: band-entry
+    - id: f-undeclared
+      kind: failure
+      label: not a declared globset
+      in: band-entry
+    - id: g-range
+      kind: code
+      label: Get-GlobSetChangeRange
+      in: band-range
+    - id: r-head
+      kind: result
+      label: HEAD
+      in: grp-ranges
+    - id: r-push
+      kind: result
+      label: HEAD^1..HEAD
+      in: grp-ranges
+    - id: r-pull-request
+      kind: result
+      label: origin/<target>...HEAD
+      in: grp-ranges
+    - id: g-changed
+      kind: code
+      label: Get-ChangedGlobSet
+      in: band-diff
+    - id: r-false
+      kind: result
+      label: $false, confirmed untouched
+      in: band-answer
+    - id: r-true
+      kind: result
+      label: $true, touched or doubt
+      in: band-answer
   edges:
-  - from: g-affected
-    to: g-globs
-    kind: flow
-    label: ''
-  - from: g-affected
-    to: f-undeclared
-    kind: fail
-    label: undeclared
-  - from: g-affected
-    to: g-range
-    kind: flow
-    label: ''
-  - from: g-range
-    to: grp-ranges
-    kind: flow
-    label: ''
-  - from: grp-ranges
-    to: g-changed
-    kind: flow
-    label: ''
-  - from: g-changed
-    to: r-false
-    kind: flow
-    label: untouched
-  - from: g-changed
-    to: r-true
-    kind: flow
-    label: touched, or git throws
-  - from: g-range
-    to: r-true
-    kind: flow
-    label: $null
-    via:
-    - - 920
-      - 272
-    - - 920
-      - 656
+    - from: g-affected
+      to: g-globs
+      kind: flow
+      label: ""
+    - from: g-affected
+      to: f-undeclared
+      kind: fail
+      label: undeclared
+    - from: g-affected
+      to: g-range
+      kind: flow
+      label: ""
+    - from: g-range
+      to: grp-ranges
+      kind: flow
+      label: ""
+    - from: grp-ranges
+      to: g-changed
+      kind: flow
+      label: ""
+    - from: g-changed
+      to: r-false
+      kind: flow
+      label: untouched
+    - from: g-changed
+      to: r-true
+      kind: flow
+      label: touched, or git throws
+    - from: g-range
+      to: r-true
+      kind: flow
+      label: $null
+      via:
+        - - 920
+          - 272
+        - - 920
+          - 656
   markers:
-  - at: g-affected
-    number: 1
-  - at: g-globs
-    number: 2
-  - at: f-undeclared
-    number: 3
-  - at: g-range
-    number: 4
-  - at: grp-ranges
-    number: 5
-    corner: top-right
-  - at: g-range
-    number: 6
-    corner: bottom-right
-  - at: g-changed
-    number: 7
-  - at: r-false
-    number: 8
-  - at: r-true
-    number: 9
+    - at: g-affected
+      number: 1
+    - at: g-globs
+      number: 2
+    - at: f-undeclared
+      number: 3
+    - at: g-range
+      number: 4
+    - at: grp-ranges
+      number: 5
+      corner: top-right
+    - at: g-range
+      number: 6
+      corner: bottom-right
+    - at: g-changed
+      number: 7
+    - at: r-false
+      number: 8
+    - at: r-true
+      number: 9
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-entry:
     x: 20

@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Variants/configs/module-types.yml
+#     folder: configs
+#     name: module-types
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Variants
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[module-types.yml.md](docs/references/pwsh/catzc-base-variants/configs/module-types.yml.md)"
+# ---
+
 module_types:
   pwsh-folder:
     definition: A PowerShell module that is a folder of function files under the track folder, named by the folder.

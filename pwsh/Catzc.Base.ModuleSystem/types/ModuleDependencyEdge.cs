@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/types/ModuleDependencyEdge.cs
+    folder: types
+    name: module-dependency-edge
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ModuleDependencyEdge.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ModuleDependencyEdge.cs.md)"
+---
+*/
+
 using System;
 
 namespace Catzc.Base.ModuleSystem;

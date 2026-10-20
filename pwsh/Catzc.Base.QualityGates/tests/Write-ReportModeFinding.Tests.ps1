@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Write-ReportModeFinding.Tests.ps1
+    folder: tests
+    name: write-report-mode-finding-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Write-ReportModeFinding.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Write-ReportModeFinding.Tests.ps1.md)"
+    cites:
+      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+---
+#>
+
 Describe 'Write-ReportModeFinding' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:printed = [System.Collections.Generic.List[string]]::new()

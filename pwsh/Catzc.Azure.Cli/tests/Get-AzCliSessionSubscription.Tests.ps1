@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
+    folder: tests
+    name: get-az-cli-session-subscription-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Cli
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-AzCliSessionSubscription.Tests.ps1.md](docs/references/pwsh/catzc-azure-cli/tests/Get-AzCliSessionSubscription.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES
+---
+#>
+
 Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'customer' } -MockWith {

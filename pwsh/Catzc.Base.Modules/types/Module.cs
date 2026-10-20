@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Modules/types/Module.cs
+    folder: types
+    name: module
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Modules
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Modules/tests/types/Module.Tests.ps1
+    docs: "[Module.cs.md](docs/references/pwsh/catzc-base-modules/types/Module.cs.md)"
+    cites:
+      - ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
+      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+---
+*/
+
 using System;
 using System.Collections.Generic;
 

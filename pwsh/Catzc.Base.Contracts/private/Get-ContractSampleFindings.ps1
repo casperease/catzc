@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/private/Get-ContractSampleFindings.ps1
+    folder: private
+    name: get-contract-sample-findings
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-ContractSampleFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractSampleFindings.ps1.md)"
+    cites:
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+#>
+
 function Get-ContractSampleFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

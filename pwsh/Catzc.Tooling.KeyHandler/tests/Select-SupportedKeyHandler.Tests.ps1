@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
+    folder: tests
+    name: select-supported-key-handler-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.KeyHandler
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[Select-SupportedKeyHandler.Tests.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/tests/Select-SupportedKeyHandler.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS
+---
+#>
+
 Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS' {
 
     It 'marks a binding supported only when its function is in the allow-list' {

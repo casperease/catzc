@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-Change.ps1
+    name: test-change
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-Change.Tests.ps1
+    docs: "[Test-Change.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Change.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-PRIN-CONFIG
+---
+#>
+
 function Test-Change {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

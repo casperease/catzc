@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/Get-AdoYamlFiles.ps1
+    name: get-ado-yaml-files
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
+    docs: "[Get-AdoYamlFiles.ps1.md](docs/references/pwsh/catzc-azure-devops/Get-AdoYamlFiles.ps1.md)"
+    cites:
+      - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+---
+#>
+
 function Get-AdoYamlFiles {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

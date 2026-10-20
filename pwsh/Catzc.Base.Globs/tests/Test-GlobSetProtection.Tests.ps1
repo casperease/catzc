@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
+    folder: tests
+    name: test-glob-set-protection-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-GlobSetProtection.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetProtection.Tests.ps1.md)"
+    cites:
+      - ADR-REPO-PROTGLOB
+---
+#>
+
 Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {
     BeforeEach {
         Clear-GlobSetProtection

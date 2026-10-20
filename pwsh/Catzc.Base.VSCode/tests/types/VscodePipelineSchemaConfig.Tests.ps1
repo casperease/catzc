@@ -15,7 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[VscodePipelineSchemaConfig.Tests.ps1.md](/docs/references/pwsh/catzc-base-vscode/tests/types/VscodePipelineSchemaConfig.Tests.ps1.md)"
+    docs: "[VscodePipelineSchemaConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/types/VscodePipelineSchemaConfig.Tests.ps1.md)"
 ---
 #>
 

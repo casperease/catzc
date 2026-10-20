@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/Get-CatsAdrRuleIds.ps1
+    name: get-cats-adr-rule-ids
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1
+    docs: "[Get-CatsAdrRuleIds.ps1.md](docs/references/pwsh/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE
+      - ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS
+      - ADR-PRIN-REDUCEVAR
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - ADR-PWSH-ERROR-THROWNOTWRITEERROR
+---
+#>
+
 function Get-CatsAdrRuleIds {
     [OutputType([string[]])]
     [CmdletBinding()]

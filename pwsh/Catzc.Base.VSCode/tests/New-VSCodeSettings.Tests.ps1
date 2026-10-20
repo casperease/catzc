@@ -15,7 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[New-VSCodeSettings.Tests.ps1.md](/docs/references/pwsh/catzc-base-vscode/tests/New-VSCodeSettings.Tests.ps1.md)"
+    docs: "[New-VSCodeSettings.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VSCodeSettings.Tests.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS

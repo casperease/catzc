@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/types/AzureEnvironment.cs
+    folder: types
+    name: azure-environment
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AzureEnvironment.cs.md](docs/references/pwsh/catzc-azure/types/AzureEnvironment.cs.md)"
+---
+*/
+
 using System;
 
 namespace Catzc.Azure;

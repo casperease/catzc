@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+    folder: types
+    name: globs-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+    docs: "[GlobsConfig.cs.md](docs/references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md)"
+    cites:
+      - ADR-FLOW-CD-GLOBS
+      - ADR-REPO-PROTGLOB
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

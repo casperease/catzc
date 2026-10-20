@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/Build-AdrCodeDictionary.ps1
+    name: build-adr-code-dictionary
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Build-AdrCodeDictionary.Tests.ps1
+    docs: "[Build-AdrCodeDictionary.ps1.md](docs/references/pwsh/catzc-base-docs/Build-AdrCodeDictionary.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN
+      - ADR-REPO-ADRCODE-SEGMENTSAREWORDS
+---
+#>
+
 function Build-AdrCodeDictionary {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,1 +1,20 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Slides/configs/slides.yml
+#     folder: configs
+#     name: slides
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Slides
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[slides.yml.md](docs/references/pwsh/catzc-base-slides/configs/slides.yml.md)"
+# ---
+
 kit: python/Catzc.Diagrams/assets/slides

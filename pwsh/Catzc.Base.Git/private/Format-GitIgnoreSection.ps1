@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Git/private/Format-GitIgnoreSection.ps1
+    folder: private
+    name: format-git-ignore-section
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Git
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Format-GitIgnoreSection.ps1.md](docs/references/pwsh/catzc-base-git/private/Format-GitIgnoreSection.ps1.md)"
+---
+#>
+
 function Format-GitIgnoreSection {
     [OutputType([string[]])]
     param(

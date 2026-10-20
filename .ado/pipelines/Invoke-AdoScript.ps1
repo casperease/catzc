@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: ".ado/pipelines/Invoke-AdoScript.ps1"
+    name: invoke-ado-script
+    filetype: ps1
+    role: script
+    language: powershell
+    track: ado-pipelines
+    tracktype: pipelines
+    vendor: ado
+    module: pipelines
+    moduletype: pipeline
+  edges:
+    docs: "[Invoke-AdoScript.ps1.md](docs/references/ado/pipelines/Invoke-AdoScript.ps1.md)"
+---
+#>
+
 param(
     [Parameter(Mandatory)]
     [string] $Command,

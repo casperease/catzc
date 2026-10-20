@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/SquarifiedTreemap.cs
+    folder: types
+    name: squarified-treemap
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/types/SquarifiedTreemap.Tests.ps1
+    docs: "[SquarifiedTreemap.cs.md](docs/references/pwsh/catzc-base-maps/types/SquarifiedTreemap.cs.md)"
+    cites:
+      - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;

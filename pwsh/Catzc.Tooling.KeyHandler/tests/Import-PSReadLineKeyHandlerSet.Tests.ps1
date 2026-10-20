@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
+    folder: tests
+    name: import-ps-read-line-key-handler-set-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.KeyHandler
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[Import-PSReadLineKeyHandlerSet.Tests.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Import-PSReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $sequence = [System.Collections.Generic.List[object]]::new()

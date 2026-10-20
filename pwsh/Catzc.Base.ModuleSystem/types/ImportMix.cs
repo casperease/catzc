@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/types/ImportMix.cs
+    folder: types
+    name: import-mix
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/types/ImportMix.Tests.ps1
+    docs: "[ImportMix.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ImportMix.cs.md)"
+    cites:
+      - ADR-AUTO-IMPORTER-ONEMIXRECORD
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

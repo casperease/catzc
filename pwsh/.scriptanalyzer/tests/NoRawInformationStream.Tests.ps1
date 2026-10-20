@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/NoRawInformationStream.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: no-raw-information-stream-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NoRawInformationStream.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoRawInformationStream.Tests.ps1.md)"
+---
+#>
+
 Describe 'Measure-NoRawInformationStream' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoRawInformationStream.psm1') -Force

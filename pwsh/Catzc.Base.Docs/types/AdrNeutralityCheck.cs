@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AdrNeutralityCheck.cs
+    folder: types
+    name: adr-neutrality-check
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AdrNeutralityCheck.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrNeutralityCheck.cs.md)"
+    cites:
+      - ADR-AUTO-ENGINE-THREEENGINES
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

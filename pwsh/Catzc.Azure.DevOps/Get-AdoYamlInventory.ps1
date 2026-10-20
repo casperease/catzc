@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/Get-AdoYamlInventory.ps1
+    name: get-ado-yaml-inventory
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    docs: "[Get-AdoYamlInventory.ps1.md](docs/references/pwsh/catzc-azure-devops/Get-AdoYamlInventory.ps1.md)"
+---
+#>
+
 function Get-AdoYamlInventory {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

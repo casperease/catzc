@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+    name: get-ado-build-validations
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps.BuildValidation
+    moduletype: pwsh-folder
+    catzc_bundle: full
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Get-AdoBuildValidations.Tests.ps1
+    docs: "[Get-AdoBuildValidations.ps1.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md)"
+    cites:
+      - ADR-FLOW-CD-GLOBS
+      - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+---
+#>
+
 function Get-AdoBuildValidations {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

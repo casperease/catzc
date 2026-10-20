@@ -1,19 +1,20 @@
-description: The promotion flow from the CI inner loop to deploy to prod, with the one rule a quality gate checks (the per-test
-  limits of the CI budget) set apart from the rules only a code reviewer enforces, drawn dashed.
+description:
+  The promotion flow from the CI inner loop to deploy to prod, with the one rule a quality gate checks (the per-test limits of the CI
+  budget) set apart from the rules only a code reviewer enforces, drawn dashed.
 about:
   adrs:
-  - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-  - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-  - ADR-FLOW-CD-CDSTAYSINNONPROD
-  - ADR-FLOW-CD-TWORELEASEGATES
-  - ADR-FLOW-CD-PREPRODRUNG
-  - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-  - ADR-FLOW-CD-GATEDEFINED
-  - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
-  - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-  - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-  - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-  - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+    - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
+    - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+    - ADR-FLOW-CD-CDSTAYSINNONPROD
+    - ADR-FLOW-CD-TWORELEASEGATES
+    - ADR-FLOW-CD-PREPRODRUNG
+    - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+    - ADR-FLOW-CD-GATEDEFINED
+    - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+    - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
+    - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
+    - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
+    - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
   lens: governance
 content:
   title: The CI budget is the only promotion rule a quality gate checks
@@ -22,122 +23,122 @@ content:
   relation: checks
   theme: dark
   bands:
-  - id: band-flow
-    label: FLOW
-  - id: band-checks
-    label: CHECKS
+    - id: band-flow
+      label: FLOW
+    - id: band-checks
+      label: CHECKS
   spans:
-  - id: span-ci
-    label: CI
-    over:
-    - g-inner-loop
-  - id: span-cd
-    label: CD
-    over:
-    - g-inner-loop
-    - g-cd
-  - id: span-deploy
-    label: DEPLOY
-    over:
-    - g-rc
-    - g-deploy-non-prod
-    - g-rbc
-    - g-deploy-prod
+    - id: span-ci
+      label: CI
+      over:
+        - g-inner-loop
+    - id: span-cd
+      label: CD
+      over:
+        - g-inner-loop
+        - g-cd
+    - id: span-deploy
+      label: DEPLOY
+      over:
+        - g-rc
+        - g-deploy-non-prod
+        - g-rbc
+        - g-deploy-prod
   groups:
-  - id: grp-flow
-    label: kinds and gates, merge to production
-    in: band-flow
+    - id: grp-flow
+      label: kinds and gates, merge to production
+      in: band-flow
   glyphs:
-  - id: g-inner-loop
-    kind: runner
-    label: CI inner loop
-    in: grp-flow
-  - id: g-cd
-    kind: runner
-    label: CD
-    in: grp-flow
-  - id: g-rc
-    kind: adronly
-    label: RC
-    in: grp-flow
-  - id: g-deploy-non-prod
-    kind: adronly
-    label: DEPLOY-Non-Prod
-    in: grp-flow
-  - id: g-rbc
-    kind: adronly
-    label: RBC
-    in: grp-flow
-  - id: g-deploy-prod
-    kind: adronly
-    label: DEPLOY-Prod
-    in: grp-flow
-  - id: g-machine-gate
-    kind: gate
-    label: machine gate
-    in: band-checks
-  - id: g-reviewer
-    kind: actor
-    label: reviewer
-    in: band-checks
+    - id: g-inner-loop
+      kind: runner
+      label: CI inner loop
+      in: grp-flow
+    - id: g-cd
+      kind: runner
+      label: CD
+      in: grp-flow
+    - id: g-rc
+      kind: adronly
+      label: RC
+      in: grp-flow
+    - id: g-deploy-non-prod
+      kind: adronly
+      label: DEPLOY-Non-Prod
+      in: grp-flow
+    - id: g-rbc
+      kind: adronly
+      label: RBC
+      in: grp-flow
+    - id: g-deploy-prod
+      kind: adronly
+      label: DEPLOY-Prod
+      in: grp-flow
+    - id: g-machine-gate
+      kind: gate
+      label: machine gate
+      in: band-checks
+    - id: g-reviewer
+      kind: actor
+      label: reviewer
+      in: band-checks
   edges:
-  - from: g-machine-gate
-    to: g-inner-loop
-    kind: flow
-    label: ''
-  - from: g-reviewer
-    to: grp-flow
-    kind: adr
-    label: ''
+    - from: g-machine-gate
+      to: g-inner-loop
+      kind: flow
+      label: ""
+    - from: g-reviewer
+      to: grp-flow
+      kind: adr
+      label: ""
   markers:
-  - at: g-inner-loop
-    number: 1
-  - at: g-machine-gate
-    number: 2
-  - at: g-cd
-    number: 3
-  - at: g-rc
-    number: 4
-  - at: g-deploy-non-prod
-    number: 5
-  - at: g-rbc
-    number: 6
-  - at: g-deploy-prod
-    number: 7
-  - at: g-reviewer
-    number: 8
+    - at: g-inner-loop
+      number: 1
+    - at: g-machine-gate
+      number: 2
+    - at: g-cd
+      number: 3
+    - at: g-rc
+      number: 4
+    - at: g-deploy-non-prod
+      number: 5
+    - at: g-rbc
+      number: 6
+    - at: g-deploy-prod
+      number: 7
+    - at: g-reviewer
+      number: 8
   chips:
-  - at: g-inner-loop
-    kind: rule
-    rule: ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-  - at: g-machine-gate
-    kind: rule
-    rule: ADR-FLOW-CD-GATEDEFINED
-  - at: g-cd
-    kind: rule
-    rule: ADR-FLOW-CD-CDSTAYSINNONPROD
-    gated: false
-  - at: g-rc
-    kind: rule
-    rule: ADR-FLOW-CD-TWORELEASEGATES
-    gated: false
-  - at: g-deploy-non-prod
-    kind: rule
-    rule: ADR-FLOW-CD-PREPRODRUNG
-    gated: false
-  - at: g-rbc
-    kind: rule
-    rule: ADR-FLOW-CD-TWORELEASEGATES
-    gated: false
-  - at: g-deploy-prod
-    kind: rule
-    rule: ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-    gated: false
+    - at: g-inner-loop
+      kind: rule
+      rule: ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
+    - at: g-machine-gate
+      kind: rule
+      rule: ADR-FLOW-CD-GATEDEFINED
+    - at: g-cd
+      kind: rule
+      rule: ADR-FLOW-CD-CDSTAYSINNONPROD
+      gated: false
+    - at: g-rc
+      kind: rule
+      rule: ADR-FLOW-CD-TWORELEASEGATES
+      gated: false
+    - at: g-deploy-non-prod
+      kind: rule
+      rule: ADR-FLOW-CD-PREPRODRUNG
+      gated: false
+    - at: g-rbc
+      kind: rule
+      rule: ADR-FLOW-CD-TWORELEASEGATES
+      gated: false
+    - at: g-deploy-prod
+      kind: rule
+      rule: ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      gated: false
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-flow:
     x: 20

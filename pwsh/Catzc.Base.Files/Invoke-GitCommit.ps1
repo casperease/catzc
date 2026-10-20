@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1
+    name: invoke-git-commit
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Files
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Files/tests/Invoke-GitCommit.Tests.ps1
+    docs: "[Invoke-GitCommit.ps1.md](docs/references/pwsh/catzc-base-files/Invoke-GitCommit.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN
+      - ADR-AUTO-IDEM
+      - ADR-AUTO-PRELOG
+---
+#>
+
 function Invoke-GitCommit {
     [CmdletBinding()]
     [OutputType([string])]

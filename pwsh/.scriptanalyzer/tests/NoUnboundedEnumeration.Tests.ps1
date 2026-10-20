@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: no-unbounded-enumeration-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NoUnboundedEnumeration.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-ENUM-RAWDOTNETENUMERATION
+      - ADR-PWSH-ENUM-ALWAYSBOUNDED
+---
+#>
+
 Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM-RAWDOTNETENUMERATION', 'ADR-PWSH-ENUM-ALWAYSBOUNDED' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoUnboundedEnumeration.psm1') -Force

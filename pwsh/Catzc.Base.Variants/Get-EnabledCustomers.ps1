@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Variants/Get-EnabledCustomers.ps1
+    name: get-enabled-customers
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Variants/tests/Get-EnabledCustomers.Tests.ps1
+    docs: "[Get-EnabledCustomers.ps1.md](docs/references/pwsh/catzc-base-variants/Get-EnabledCustomers.ps1.md)"
+---
+#>
+
 function Get-EnabledCustomers {
     [CmdletBinding()]
     param()

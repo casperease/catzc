@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/types/AzureSubscription.cs
+    folder: types
+    name: azure-subscription
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AzureSubscription.cs.md](docs/references/pwsh/catzc-azure/types/AzureSubscription.cs.md)"
+---
+*/
+
 using System;
 
 namespace Catzc.Azure;

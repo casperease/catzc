@@ -16,7 +16,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
-    docs: "[Get-CSharpTypeDependency.ps1.md](/docs/references/pwsh/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md)"
+    docs: "[Get-CSharpTypeDependency.ps1.md](docs/references/pwsh/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md)"
     cites:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS

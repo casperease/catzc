@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1
+    name: get-marker-blast-radius
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Globs/tests/Get-MarkerBlastRadius.Tests.ps1
+    docs: "[Get-MarkerBlastRadius.ps1.md](docs/references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md)"
+    cites:
+      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+      - ADR-REPO-PROTGLOB
+---
+#>
+
 function Get-MarkerBlastRadius {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

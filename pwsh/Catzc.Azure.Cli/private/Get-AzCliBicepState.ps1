@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1
+    folder: private
+    name: get-az-cli-bicep-state
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Cli
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Get-AzCliBicepState.ps1.md](docs/references/pwsh/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md)"
+    cites:
+      - ADR-AUTO-PRELOG-SILENTSWITCH
+---
+#>
+
 function Get-AzCliBicepState {
     param()
 

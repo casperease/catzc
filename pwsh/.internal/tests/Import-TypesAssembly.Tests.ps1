@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.internal/tests/Import-TypesAssembly.Tests.ps1
+    name: import-types-assembly-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Internal.Tests
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
+  edges:
+    docs: "[Import-TypesAssembly.Tests.ps1.md](docs/references/pwsh/internal/tests/Import-TypesAssembly.Tests.ps1.md)"
+---
+#>
+
 Describe 'Import-TypesAssembly' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)

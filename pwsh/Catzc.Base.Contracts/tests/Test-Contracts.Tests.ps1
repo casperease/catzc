@@ -1,3 +1,32 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
+    folder: tests
+    name: test-contracts-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-Contracts.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-CONTRACT-LAYOUT
+      - ADR-REPO-CONTRACT-KEPTWHILEPINNED
+      - ADR-REPO-CONTRACT-PROVENBYTESTS
+      - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
+      - ADR-REPO-CONTRACT-NODOTFOLDERS
+---
+#>
+
 Describe 'Test-Contracts' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-File {

@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Slides/Move-Diagram.ps1
+    name: move-diagram
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Slides/tests/Move-Diagram.Tests.ps1
+    docs: "[Move-Diagram.ps1.md](docs/references/pwsh/catzc-base-slides/Move-Diagram.ps1.md)"
+    cites:
+      - ADR-REPO-LINK-MARKDOWNRELATIVE
+---
+#>
+
 function Move-Diagram {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

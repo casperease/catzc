@@ -1,10 +1,11 @@
-description: 'globs.yml is the only file a person writes; the config load validates it, and three commands then print what
-  was derived from it: the projection of one set, the globsets a commit range touched, and the skip line of the test run.'
+description:
+  "globs.yml is the only file a person writes; the config load validates it, and three commands then print what was derived from it: the
+  projection of one set, the globsets a commit range touched, and the skip line of the test run."
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-  - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-  - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
   lens: operations
 content:
   title: You edit globs.yml, and every other step prints what cats derived from it
@@ -13,98 +14,98 @@ content:
   relation: feeds, then prints
   theme: dark
   bands:
-  - id: band-edit
-    label: YOU EDIT
-  - id: band-load
-    label: CONFIG LOAD
-  - id: band-run
-    label: YOU RUN
-  - id: band-see
-    label: YOU SEE
+    - id: band-edit
+      label: YOU EDIT
+    - id: band-load
+      label: CONFIG LOAD
+    - id: band-run
+      label: YOU RUN
+    - id: band-see
+      label: YOU SEE
   glyphs:
-  - id: f-globs
-    kind: file
-    label: globs.yml
-    in: band-edit
-  - id: g-config-load
-    kind: gate
-    label: Config load
-    in: band-load
-  - id: g-trigger
-    kind: code
-    label: Get-GlobSetTrigger
-    in: band-run
-  - id: g-changed
-    kind: code
-    label: Get-ChangedGlobSet
-    in: band-run
-  - id: g-automation
-    kind: code
-    label: Test-Automation
-    in: band-run
-  - id: r-projected
-    kind: result
-    label: Projected paths
-    in: band-see
-  - id: r-touched
-    kind: result
-    label: Touched globsets
-    in: band-see
-  - id: r-skip
-    kind: result
-    label: Skip line
-    in: band-see
+    - id: f-globs
+      kind: file
+      label: globs.yml
+      in: band-edit
+    - id: g-config-load
+      kind: gate
+      label: Config load
+      in: band-load
+    - id: g-trigger
+      kind: code
+      label: Get-GlobSetTrigger
+      in: band-run
+    - id: g-changed
+      kind: code
+      label: Get-ChangedGlobSet
+      in: band-run
+    - id: g-automation
+      kind: code
+      label: Test-Automation
+      in: band-run
+    - id: r-projected
+      kind: result
+      label: Projected paths
+      in: band-see
+    - id: r-touched
+      kind: result
+      label: Touched globsets
+      in: band-see
+    - id: r-skip
+      kind: result
+      label: Skip line
+      in: band-see
   edges:
-  - from: f-globs
-    to: g-config-load
-    kind: flow
-    label: ''
-  - from: g-config-load
-    to: g-trigger
-    kind: flow
-    label: ''
-  - from: g-config-load
-    to: g-changed
-    kind: flow
-    label: ''
-  - from: g-config-load
-    to: g-automation
-    kind: flow
-    label: ''
-  - from: g-trigger
-    to: r-projected
-    kind: flow
-    label: ''
-  - from: g-changed
-    to: r-touched
-    kind: flow
-    label: ''
-  - from: g-automation
-    to: r-skip
-    kind: flow
-    label: ''
+    - from: f-globs
+      to: g-config-load
+      kind: flow
+      label: ""
+    - from: g-config-load
+      to: g-trigger
+      kind: flow
+      label: ""
+    - from: g-config-load
+      to: g-changed
+      kind: flow
+      label: ""
+    - from: g-config-load
+      to: g-automation
+      kind: flow
+      label: ""
+    - from: g-trigger
+      to: r-projected
+      kind: flow
+      label: ""
+    - from: g-changed
+      to: r-touched
+      kind: flow
+      label: ""
+    - from: g-automation
+      to: r-skip
+      kind: flow
+      label: ""
   markers:
-  - at: f-globs
-    number: 1
-  - at: g-config-load
-    number: 2
-  - at: g-trigger
-    number: 3
-  - at: g-changed
-    number: 4
-  - at: g-automation
-    number: 5
-  - at: r-projected
-    number: 6
-  - at: r-touched
-    number: 7
-  - at: r-skip
-    number: 8
+    - at: f-globs
+      number: 1
+    - at: g-config-load
+      number: 2
+    - at: g-trigger
+      number: 3
+    - at: g-changed
+      number: 4
+    - at: g-automation
+      number: 5
+    - at: r-projected
+      number: 6
+    - at: r-touched
+      number: 7
+    - at: r-skip
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-edit:
     x: 20

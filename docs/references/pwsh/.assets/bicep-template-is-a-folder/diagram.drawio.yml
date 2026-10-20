@@ -1,13 +1,13 @@
-description: Template discovery walks the template folders, lets an optional options.yml override five derived defaults, and
-  resolves each template's short name and type; the build then resolves the parameter addresses per slot and compiles through
-  the az runner.
+description:
+  Template discovery walks the template folders, lets an optional options.yml override five derived defaults, and resolves each template's
+  short name and type; the build then resolves the parameter addresses per slot and compiles through the az runner.
 about:
   adrs:
-  - ADR-AZ-DATAMOD
-  - ADR-AZ-NAMING
-  - ADR-AZ-CUSTOMER
-  - ADR-CONF-ADDRESSING
-  - ADR-AUTO-TYPES
+    - ADR-AZ-DATAMOD
+    - ADR-AZ-NAMING
+    - ADR-AZ-CUSTOMER
+    - ADR-CONF-ADDRESSING
+    - ADR-AUTO-TYPES
   lens: source
 content:
   title: A template is a folder; options.yml overrides five defaults
@@ -16,98 +16,98 @@ content:
   relation: runs next (code order)
   theme: dark
   bands:
-  - id: band-entry
-    label: ENTRY
-  - id: band-folder
-    label: EACH FOLDER
-  - id: band-slot
-    label: EACH SLOT
+    - id: band-entry
+      label: ENTRY
+    - id: band-folder
+      label: EACH FOLDER
+    - id: band-slot
+      label: EACH SLOT
   groups:
-  - id: grp-cli
-    label: Catzc.Azure.Cli
-    in: band-slot
+    - id: grp-cli
+      label: Catzc.Azure.Cli
+      in: band-slot
   glyphs:
-  - id: g-build
-    kind: code
-    label: Build-Bicep
-    in: band-entry
-  - id: g-templates
-    kind: code
-    label: Get-BicepTemplates
-    in: band-entry
-  - id: g-options
-    kind: gate
-    label: Read-BicepTemplateOptions
-    in: band-folder
-  - id: f-options-yml
-    kind: file
-    label: options.yml
-    in: band-folder
-  - id: t-short-name
-    kind: type
-    label: BicepShortName
-    in: band-folder
-  - id: t-template
-    kind: type
-    label: BicepTemplate
-    in: band-folder
-  - id: g-addresses
-    kind: private
-    label: Resolve-BicepParameterAddresses
-    in: band-slot
-  - id: f-parameters
-    kind: file
-    label: parameters.<config>.json
-    in: band-slot
-  - id: g-invoke
-    kind: code
-    label: Invoke-AzCli
-    in: grp-cli
+    - id: g-build
+      kind: code
+      label: Build-Bicep
+      in: band-entry
+    - id: g-templates
+      kind: code
+      label: Get-BicepTemplates
+      in: band-entry
+    - id: g-options
+      kind: gate
+      label: Read-BicepTemplateOptions
+      in: band-folder
+    - id: f-options-yml
+      kind: file
+      label: options.yml
+      in: band-folder
+    - id: t-short-name
+      kind: type
+      label: BicepShortName
+      in: band-folder
+    - id: t-template
+      kind: type
+      label: BicepTemplate
+      in: band-folder
+    - id: g-addresses
+      kind: private
+      label: Resolve-BicepParameterAddresses
+      in: band-slot
+    - id: f-parameters
+      kind: file
+      label: parameters.<config>.json
+      in: band-slot
+    - id: g-invoke
+      kind: code
+      label: Invoke-AzCli
+      in: grp-cli
   edges:
-  - from: g-build
-    to: g-templates
-    kind: flow
-    label: ''
-  - from: g-templates
-    to: g-options
-    kind: flow
-    label: ''
-  - from: g-options
-    to: t-short-name
-    kind: flow
-    label: ''
-  - from: t-short-name
-    to: t-template
-    kind: flow
-    label: ''
-  - from: t-template
-    to: g-addresses
-    kind: flow
-    label: ''
-  - from: g-addresses
-    to: g-invoke
-    kind: flow
-    label: ''
+    - from: g-build
+      to: g-templates
+      kind: flow
+      label: ""
+    - from: g-templates
+      to: g-options
+      kind: flow
+      label: ""
+    - from: g-options
+      to: t-short-name
+      kind: flow
+      label: ""
+    - from: t-short-name
+      to: t-template
+      kind: flow
+      label: ""
+    - from: t-template
+      to: g-addresses
+      kind: flow
+      label: ""
+    - from: g-addresses
+      to: g-invoke
+      kind: flow
+      label: ""
   markers:
-  - at: g-templates
-    number: 1
-  - at: g-options
-    number: 2
-  - at: t-short-name
-    number: 3
-  - at: t-template
-    number: 4
-  - at: g-addresses
-    number: 5
-  - at: f-parameters
-    number: 6
-  - at: g-invoke
-    number: 7
+    - at: g-templates
+      number: 1
+    - at: g-options
+      number: 2
+    - at: t-short-name
+      number: 3
+    - at: t-template
+      number: 4
+    - at: g-addresses
+      number: 5
+    - at: f-parameters
+      number: 6
+    - at: g-invoke
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-entry:
     x: 20

@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
+    folder: tests
+    name: assert-dev-box-tools-status-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Assert-DevBoxToolsStatus.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1.md)"
+---
+#>
+
 Describe 'Assert-DevBoxToolsStatus' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:ok = [Catzc.Tooling.Provisioning.ToolStatus]::new('alpha', '1.x', '1.2', 'OK', '/bin/alpha', 'winget', 'user', 'None')

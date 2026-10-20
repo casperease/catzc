@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/private/ConvertFrom-BatsJunit.ps1
+    folder: private
+    name: convert-from-bats-junit
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1
+    docs: "[ConvertFrom-BatsJunit.ps1.md](docs/references/pwsh/catzc-base-languages/private/ConvertFrom-BatsJunit.ps1.md)"
+---
+#>
+
 function ConvertFrom-BatsJunit {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.BashTestResult])]

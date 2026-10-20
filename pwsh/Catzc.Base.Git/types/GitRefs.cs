@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Git/types/GitRefs.cs
+    folder: types
+    name: git-refs
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Git
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Git/tests/types/GitRefs.Tests.ps1
+    docs: "[GitRefs.cs.md](docs/references/pwsh/catzc-base-git/types/GitRefs.cs.md)"
+    cites:
+      - ADR-AUTO-TRACKED
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.IO;

@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/tests/types/ContractManifest.Tests.ps1
+    folder: tests/types
+    name: contract-manifest-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ContractManifest.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractManifest.Tests.ps1.md)"
+    cites:
+      - ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION
+---
+#>
+
 Describe 'ContractManifest' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION' {
     It 'is empty for an absent or empty file' {
         [Catzc.Base.Contracts.ContractManifest]::new($null).direction.Count | Should -Be 0

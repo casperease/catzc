@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/types/PipelineDefinition.cs
+    folder: types
+    name: pipeline-definition
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[PipelineDefinition.cs.md](docs/references/pwsh/catzc-azure-devops/types/PipelineDefinition.cs.md)"
+---
+*/
+
 using System;
 
 namespace Catzc.Azure.DevOps;

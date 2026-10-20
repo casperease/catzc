@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Get-TestSkipReason.Tests.ps1
+    folder: tests
+    name: get-test-skip-reason-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-TestSkipReason.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-TestSkipReason.Tests.ps1.md)"
+---
+#>
+
 Describe 'Get-TestSkipReason' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FakeSkip {

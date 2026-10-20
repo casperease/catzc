@@ -1,3 +1,34 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+    name: get-module-glob-set
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+    docs: "[Get-ModuleGlobSet.ps1.md](docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md)"
+    cites:
+      - ADR-AUTO-BASH-ONEBASHROOT
+      - ADR-AUTO-GO-ONEGOROOT
+      - ADR-AUTO-PY-ONEPYTHONROOT
+      - ADR-DSGN-ASPECT
+      - ADR-DSGN-RUNMODE
+      - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+      - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - ADR-REPO-PROTGLOB
+---
+#>
+
 function Get-ModuleGlobSet {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Globs.GlobSet])]

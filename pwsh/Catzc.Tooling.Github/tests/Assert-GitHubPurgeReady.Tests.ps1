@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
+    folder: tests
+    name: assert-git-hub-purge-ready-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Github
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[Assert-GitHubPurgeReady.Tests.ps1.md](docs/references/pwsh/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md)"
+---
+#>
+
 Describe 'Assert-GitHubPurgeReady' -Tag 'L1', 'logic' {
     BeforeAll {
         # Calls the function under test with the standard-good arguments, plus any override.

@@ -14,6 +14,11 @@ Imprints the place facts and the edges into the meta block of every in-scope Mar
 The output is byte-identical on every run, so a second run changes no file. The authored `config` part is kept as written, and a file whose
 block holds a key no meta kind owns is reported and left unchanged.
 
+It announces how many files it checks before it checks them. It shares Format-Code's result cache for the file-meta imprint step, keyed on
+each file's SHA-256 and a stamp of the step's settings files, so a file either command last found clean is not checked again
+([ADR-AUTO-CACHE](../../../adr/automation/caching.md)). A file the run would change, or one a person must decide by hand, is never recorded
+as clean. -NoCache checks every file.
+
 It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts) and
 [ADR-REPO-FORMAT-METAIMPRINT](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-metaimprint).
 
@@ -28,6 +33,10 @@ The repository root paths are relative to. Default: the loaded repository root.
 ### parameter `DryRun`
 
 Report what would change without writing any file.
+
+### parameter `NoCache`
+
+Check every file, ignoring the result cache (which is still refreshed).
 
 ### parameter `PassThru`
 

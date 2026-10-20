@@ -1,1 +1,20 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Maps/configs/maps.yml
+#     folder: configs
+#     name: maps
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Maps
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[maps.yml.md](docs/references/pwsh/catzc-base-maps/configs/maps.yml.md)"
+# ---
+
 {}

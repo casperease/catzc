@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Slides/Test-Diagrams.ps1
+    name: test-diagrams
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Slides/tests/Test-Diagrams.Tests.ps1
+    docs: "[Test-Diagrams.ps1.md](docs/references/pwsh/catzc-base-slides/Test-Diagrams.ps1.md)"
+---
+#>
+
 function Test-Diagrams {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

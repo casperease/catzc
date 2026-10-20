@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/GeneratedWriter.cs
+    folder: types
+    name: generated-writer
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[GeneratedWriter.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/GeneratedWriter.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

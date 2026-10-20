@@ -1,3 +1,22 @@
+// ---
+// catzc:
+//   immutable:
+//     repo_status: clean
+//     path: infrastructure/modules/diagnostic-setting.bicep
+//     name: diagnostic-setting
+//     filetype: bicep
+//     role: template
+//     subkind: module
+//     language: bicep
+//     track: infrastructure
+//     tracktype: infrastructure
+//     vendor: azure
+//     module: diagnostic-setting
+//     moduletype: bicep
+//   edges:
+//     docs: "[diagnostic-setting.bicep.md](docs/references/infrastructure/modules/diagnostic-setting.bicep.md)"
+// ---
+
 @description('Kind of the target resource.')
 @allowed([
   'storageAccount'

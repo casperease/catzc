@@ -1,1 +1,20 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Flow/configs/rungs.yml
+#     folder: configs
+#     name: rungs
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Flow
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[rungs.yml.md](docs/references/pwsh/catzc-base-flow/configs/rungs.yml.md)"
+# ---
+
 {}

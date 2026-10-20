@@ -1,3 +1,26 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
+    folder: types
+    name: module-group
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ModuleGroup.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md)"
+    cites:
+      - ADR-AUTO-DEPM-TWOSECTIONS
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

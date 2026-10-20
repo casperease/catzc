@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Get-GitAttributeValue.ps1
+    folder: private
+    name: get-git-attribute-value
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-GitAttributeValue.Tests.ps1
+    docs: "[Get-GitAttributeValue.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-GitAttributeValue.ps1.md)"
+---
+#>
+
 function Get-GitAttributeValue {
     [CmdletBinding()]
     [OutputType([hashtable])]

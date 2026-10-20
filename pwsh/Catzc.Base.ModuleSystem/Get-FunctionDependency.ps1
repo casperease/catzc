@@ -1,3 +1,34 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
+    name: get-function-dependency
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Get-FunctionDependency.Tests.ps1
+    docs: "[Get-FunctionDependency.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-FunctionDependency.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE-FILESYSTEMDERIVED
+      - ADR-AUTO-CACHE-KEYEDBYINPUTS
+      - ADR-AUTO-CACHE-READONLYVALUES
+      - ADR-AUTO-CACHE-IMPORTERINVALIDATES
+      - ADR-AUTO-TEST-SAFESEAMSWAPS
+      - ADR-DSGN-RUNMODE
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+---
+#>
+
 function Get-FunctionDependency {
     param(
         [string] $ModulesRoot = (Get-CatzcModulesRoot),

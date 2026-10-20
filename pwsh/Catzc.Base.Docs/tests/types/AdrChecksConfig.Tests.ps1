@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1
+    folder: tests/types
+    name: adr-checks-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AdrChecksConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrChecksConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+---
+#>
+
 Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
     Context 'defaults' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         It 'gives every check the gate mode and empty lists when the file states nothing' {

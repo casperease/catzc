@@ -1,8 +1,9 @@
-description: 'Get-Aspect answers each track''s aspect order from variants.yml, naming the remainder: the code track ends in
-  tests, the deployment track ends in live, and a wrong order fails the next time the config loads.'
+description:
+  "Get-Aspect answers each track's aspect order from variants.yml, naming the remainder: the code track ends in tests, the deployment track
+  ends in live, and a wrong order fails the next time the config loads."
 about:
   adrs:
-  - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+    - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
   lens: operations
 content:
   title: Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads
@@ -11,96 +12,96 @@ content:
   relation: feeds
   theme: dark
   bands:
-  - id: band-config
-    label: THE CONFIG
-  - id: band-code
-    label: PWSH
-  - id: band-deployment
-    label: INFRASTRUCTURE
+    - id: band-config
+      label: THE CONFIG
+    - id: band-code
+      label: PWSH
+    - id: band-deployment
+      label: INFRASTRUCTURE
   glyphs:
-  - id: f-variants
-    kind: file
-    label: variants.yml
-    in: band-config
-  - id: f-last-aspect
-    kind: failure
-    label: the last aspect must be '**'
-    in: band-config
-  - id: c-code-aspect
-    kind: code
-    label: Get-Aspect -Track pwsh
-    in: band-code
-  - id: s-code-live
-    kind: set
-    label: live
-    in: band-code
-  - id: s-code-tests
-    kind: set
-    label: tests
-    in: band-code
-  - id: c-deployment-aspect
-    kind: code
-    label: Get-Aspect -Track infrastructure
-    in: band-deployment
-  - id: s-deployment-tests
-    kind: set
-    label: tests
-    in: band-deployment
-  - id: s-deployment-live
-    kind: set
-    label: live
-    in: band-deployment
+    - id: f-variants
+      kind: file
+      label: variants.yml
+      in: band-config
+    - id: f-last-aspect
+      kind: failure
+      label: the last aspect must be '**'
+      in: band-config
+    - id: c-code-aspect
+      kind: code
+      label: Get-Aspect -Track pwsh
+      in: band-code
+    - id: s-code-live
+      kind: set
+      label: live
+      in: band-code
+    - id: s-code-tests
+      kind: set
+      label: tests
+      in: band-code
+    - id: c-deployment-aspect
+      kind: code
+      label: Get-Aspect -Track infrastructure
+      in: band-deployment
+    - id: s-deployment-tests
+      kind: set
+      label: tests
+      in: band-deployment
+    - id: s-deployment-live
+      kind: set
+      label: live
+      in: band-deployment
   edges:
-  - from: f-variants
-    to: f-last-aspect
-    kind: fail
-    label: ''
-  - from: f-variants
-    to: c-code-aspect
-    kind: flow
-    label: ''
-  - from: f-variants
-    to: c-deployment-aspect
-    kind: flow
-    label: ''
-  - from: c-code-aspect
-    to: s-code-live
-    kind: thick
-    label: ''
-  - from: s-code-live
-    to: s-code-tests
-    kind: thick
-    label: ''
-  - from: c-deployment-aspect
-    to: s-deployment-tests
-    kind: thick
-    label: ''
-  - from: s-deployment-tests
-    to: s-deployment-live
-    kind: thick
-    label: ''
+    - from: f-variants
+      to: f-last-aspect
+      kind: fail
+      label: ""
+    - from: f-variants
+      to: c-code-aspect
+      kind: flow
+      label: ""
+    - from: f-variants
+      to: c-deployment-aspect
+      kind: flow
+      label: ""
+    - from: c-code-aspect
+      to: s-code-live
+      kind: thick
+      label: ""
+    - from: s-code-live
+      to: s-code-tests
+      kind: thick
+      label: ""
+    - from: c-deployment-aspect
+      to: s-deployment-tests
+      kind: thick
+      label: ""
+    - from: s-deployment-tests
+      to: s-deployment-live
+      kind: thick
+      label: ""
   markers:
-  - at: f-variants
-    number: 1
-  - at: f-last-aspect
-    number: 2
-  - at: c-code-aspect
-    number: 3
-  - at: s-code-live
-    number: 4
-  - at: s-code-tests
-    number: 5
-  - at: c-deployment-aspect
-    number: 6
-  - at: s-deployment-tests
-    number: 7
-  - at: s-deployment-live
-    number: 8
+    - at: f-variants
+      number: 1
+    - at: f-last-aspect
+      number: 2
+    - at: c-code-aspect
+      number: 3
+    - at: s-code-live
+      number: 4
+    - at: s-code-tests
+      number: 5
+    - at: c-deployment-aspect
+      number: 6
+    - at: s-deployment-tests
+      number: 7
+    - at: s-deployment-live
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-config:
     x: 20

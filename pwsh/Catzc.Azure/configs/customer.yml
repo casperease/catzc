@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Azure/configs/customer.yml
+#     folder: configs
+#     name: customer
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Azure
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[customer.yml.md](docs/references/pwsh/catzc-azure/configs/customer.yml.md)"
+# ---
+
 customers:
   apex:
     shortcode: ap

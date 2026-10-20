@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
+    name: build-adr-index
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Build-AdrIndex.Tests.ps1
+    docs: "[Build-AdrIndex.ps1.md](docs/references/pwsh/catzc-base-docs/Build-AdrIndex.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN
+      - ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED
+      - ADR-REPO-README
+---
+#>
+
 function Build-AdrIndex {
     [CmdletBinding()]
     [OutputType([string])]

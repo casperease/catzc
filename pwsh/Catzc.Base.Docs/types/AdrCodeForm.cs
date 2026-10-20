@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AdrCodeForm.cs
+    folder: types
+    name: adr-code-form
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
+    docs: "[AdrCodeForm.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCodeForm.cs.md)"
+    cites:
+      - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
+      - ADR-REPO-ADRCODE
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

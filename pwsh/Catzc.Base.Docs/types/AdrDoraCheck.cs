@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AdrDoraCheck.cs
+    folder: types
+    name: adr-dora-check
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[AdrDoraCheck.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrDoraCheck.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+---
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 

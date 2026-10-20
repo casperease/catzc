@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/private/Get-ContractFreezeFindings.ps1
+    folder: private
+    name: get-contract-freeze-findings
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
+    docs: "[Get-ContractFreezeFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractFreezeFindings.ps1.md)"
+    cites:
+      - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
+---
+#>
+
 function Get-ContractFreezeFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

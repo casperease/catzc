@@ -1,3 +1,21 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: python/Catzc.Diagrams/configs/drawio.yml
+#     folder: configs
+#     name: drawio
+#     filetype: yml
+#     role: drawio-kit
+#     language: yaml
+#     track: python
+#     tracktype: modules
+#     module: Catzc.Diagrams
+#     moduletype: python
+#   edges:
+#     docs: "[drawio.yml.md](docs/references/python/catzc-diagrams/configs/drawio.yml.md)"
+# ---
+
 renderer:
   page: dark # dark | model. dark: every render sits on the dark page (STYLE.md tokens); model: the model's own background, white allowed. Parameter: --page
   out: out/drawio # where drawio_forward.py lands its artifacts when no <out_dir> argument is given

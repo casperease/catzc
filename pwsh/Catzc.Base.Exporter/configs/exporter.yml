@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Exporter/configs/exporter.yml
+#     folder: configs
+#     name: exporter
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Exporter
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[exporter.yml.md](docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md)"
+# ---
+
 direct_install_version: 6.6.666
 
 bundles:

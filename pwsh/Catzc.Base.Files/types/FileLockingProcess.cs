@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Files/types/FileLockingProcess.cs
+    folder: types
+    name: file-locking-process
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Files
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[FileLockingProcess.cs.md](docs/references/pwsh/catzc-base-files/types/FileLockingProcess.cs.md)"
+---
+*/
+
 using System;
 using System.Globalization;
 

@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
+    folder: tests
+    name: get-world-map-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-WorldMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md)"
+    cites:
+      - ADR-DSGN-TRACK-ONETECHSTACK
+---
+#>
+
 Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

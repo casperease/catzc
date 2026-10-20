@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1
+    name: test-config-identity-hygiene
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
+    docs: "[Test-ConfigIdentityHygiene.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-LANG
+---
+#>
+
 function Test-ConfigIdentityHygiene {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

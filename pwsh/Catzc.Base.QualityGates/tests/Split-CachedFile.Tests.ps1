@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Split-CachedFile.Tests.ps1
+    folder: tests
+    name: split-cached-file-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Split-CachedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Split-CachedFile.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'Split-CachedFile' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
     BeforeEach {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive "repo-$([guid]::NewGuid().ToString('N'))"))

@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/WorldMapHighlight.cs
+    folder: types
+    name: world-map-highlight
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
+    docs: "[WorldMapHighlight.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md)"
+    cites:
+      - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+    folder: tests
+    name: test-value-chain-map-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-ValueChainMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-DSGN-TRACK-VALUECHAINSTACK
+      - ADR-DSGN-TRACK-VALUECHAINCONCERN
+      - ADR-DSGN-TRACK-VALUECHAINMAP
+---
+#>
+
 Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {

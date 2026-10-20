@@ -31,6 +31,14 @@ Describe 'New-DocSnapshot' -Tag 'L0', 'logic' {
         $manifest.commit | Should -BeExactly $session.Commit
     }
 
+    It 'leaves no session behind when the committed reference fails' {
+        Mock New-RepositorySnapshot -ModuleName Catzc.Tooling.Listen { throw 'the checkout broke' }
+        { New-DocSnapshot } | Should -Throw '*the checkout broke*'
+        $folders = @([System.IO.Directory]::GetDirectories((Join-Path $script:root 'out/listen')))
+        [System.IO.File]::Exists((Join-Path $folders[0] 'seen.json')) | Should -BeFalse
+        { Get-DocNote } | Should -Throw '*No listen session under*'
+    }
+
     It 'throws when the watched folder does not exist' {
         { New-DocSnapshot -Watch 'gizmo' } | Should -Throw "*watched folder 'gizmo' does not exist*"
     }

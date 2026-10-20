@@ -1,3 +1,29 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/ValueChainHighlight.cs
+    folder: types
+    name: value-chain-highlight
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
+    docs: "[ValueChainHighlight.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainHighlight.cs.md)"
+    cites:
+      - ADR-DSGN-TRACK-LITCELL
+      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

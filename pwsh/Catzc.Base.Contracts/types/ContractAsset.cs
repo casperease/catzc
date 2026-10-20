@@ -1,3 +1,32 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/types/ContractAsset.cs
+    folder: types
+    name: contract-asset
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
+    docs: "[ContractAsset.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractAsset.cs.md)"
+    cites:
+      - ADR-AUTO-PATH-TWOFORMS
+      - ADR-AUTO-PATH-COMMUNICATIONFORM
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-CONTRACT-LAYOUT
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+      - ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION
+---
+*/
+
 using System;
 using System.Text.RegularExpressions;
 

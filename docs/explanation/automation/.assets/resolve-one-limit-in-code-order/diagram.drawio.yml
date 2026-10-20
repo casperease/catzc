@@ -1,9 +1,10 @@
-description: The resolver reads the run environment, then the config entry or its declared default, then the exemption ceiling,
-  and hands one answer in seconds to the two bounded runners; the hook asks the same config type for bash directly.
+description:
+  The resolver reads the run environment, then the config entry or its declared default, then the exemption ceiling, and hands one answer in
+  seconds to the two bounded runners; the hook asks the same config type for bash directly.
 about:
   adrs:
-  - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-  - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
   lens: implementation
 content:
   title: Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order
@@ -12,102 +13,102 @@ content:
   relation: feeds
   theme: dark
   bands:
-  - id: band-axes
-    label: AXES
-  - id: band-limit
-    label: LIMIT
-  - id: band-raise
-    label: RAISE
-  - id: band-consumers
-    label: CONSUMERS
+    - id: band-axes
+      label: AXES
+    - id: band-limit
+      label: LIMIT
+    - id: band-raise
+      label: RAISE
+    - id: band-consumers
+      label: CONSUMERS
   groups:
-  - id: grp-consumers
-    label: bounded runs
-    in: band-consumers
+    - id: grp-consumers
+      label: bounded runs
+      in: band-consumers
   glyphs:
-  - id: g-environment
-    kind: code
-    label: Get-RunEnvironment
-    in: band-axes
-  - id: g-timeouts
-    kind: file
-    label: timeouts.yml
-    in: band-limit
-  - id: g-config
-    kind: code
-    label: TimeoutsConfig
-    in: band-limit
-  - id: g-exemptions
-    kind: file
-    label: timeout-exemptions.yml
-    in: band-raise
-  - id: g-seconds
-    kind: code
-    label: Get-TimeoutSeconds
-    in: band-raise
-  - id: g-hook
-    kind: gate
-    label: Assert-BashTimeout
-    in: band-consumers
-  - id: g-executable
-    kind: code
-    label: Invoke-Executable
-    in: grp-consumers
-  - id: g-with-timeout
-    kind: code
-    label: Invoke-WithTimeout
-    in: grp-consumers
+    - id: g-environment
+      kind: code
+      label: Get-RunEnvironment
+      in: band-axes
+    - id: g-timeouts
+      kind: file
+      label: timeouts.yml
+      in: band-limit
+    - id: g-config
+      kind: code
+      label: TimeoutsConfig
+      in: band-limit
+    - id: g-exemptions
+      kind: file
+      label: timeout-exemptions.yml
+      in: band-raise
+    - id: g-seconds
+      kind: code
+      label: Get-TimeoutSeconds
+      in: band-raise
+    - id: g-hook
+      kind: gate
+      label: Assert-BashTimeout
+      in: band-consumers
+    - id: g-executable
+      kind: code
+      label: Invoke-Executable
+      in: grp-consumers
+    - id: g-with-timeout
+      kind: code
+      label: Invoke-WithTimeout
+      in: grp-consumers
   edges:
-  - from: g-timeouts
-    to: g-config
-    kind: flow
-    label: ''
-  - from: g-environment
-    to: g-seconds
-    kind: flow
-    label: Devbox | Pipeline
-  - from: g-config
-    to: g-seconds
-    kind: flow
-    label: SecondsFor
-  - from: g-config
-    to: g-hook
-    kind: flow
-    label: SecondsFor(bash)
-  - from: g-exemptions
-    to: g-seconds
-    kind: flow
-    label: ''
-  - from: g-seconds
-    to: grp-consumers
-    kind: flow
-    label: -Executable · -Budget
+    - from: g-timeouts
+      to: g-config
+      kind: flow
+      label: ""
+    - from: g-environment
+      to: g-seconds
+      kind: flow
+      label: Devbox | Pipeline
+    - from: g-config
+      to: g-seconds
+      kind: flow
+      label: SecondsFor
+    - from: g-config
+      to: g-hook
+      kind: flow
+      label: SecondsFor(bash)
+    - from: g-exemptions
+      to: g-seconds
+      kind: flow
+      label: ""
+    - from: g-seconds
+      to: grp-consumers
+      kind: flow
+      label: -Executable · -Budget
   markers:
-  - at: g-environment
-    number: 1
-  - at: g-timeouts
-    number: 2
-  - at: g-config
-    number: 3
-  - at: g-exemptions
-    number: 4
-  - at: g-seconds
-    number: 5
-  - at: g-hook
-    number: 6
-  - at: g-executable
-    number: 7
-  - at: g-with-timeout
-    number: 8
+    - at: g-environment
+      number: 1
+    - at: g-timeouts
+      number: 2
+    - at: g-config
+      number: 3
+    - at: g-exemptions
+      number: 4
+    - at: g-seconds
+      number: 5
+    - at: g-hook
+      number: 6
+    - at: g-executable
+      number: 7
+    - at: g-with-timeout
+      number: 8
   chips:
-  - at: g-timeouts
-    kind: count
-    text: '22'
+    - at: g-timeouts
+      kind: count
+      text: "22"
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-axes:
     x: 20

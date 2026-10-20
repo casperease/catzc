@@ -1,11 +1,12 @@
-description: 'Which checks keep globset layers disjoint: one quality gate covers the deployable-unit and module layers, config-load
-  validation keeps the module layer derived-only, loose-filesets are exempt, and two prohibitions have no check at all.'
+description:
+  "Which checks keep globset layers disjoint: one quality gate covers the deployable-unit and module layers, config-load validation keeps
+  the module layer derived-only, loose-filesets are exempt, and two prohibitions have no check at all."
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-  - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
-  - ADR-AUTO-TEST-QUALITYGATE
-  - ADR-REPO-PROTGLOB
+    - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+    - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+    - ADR-AUTO-TEST-QUALITYGATE
+    - ADR-REPO-PROTGLOB
   lens: governance
 content:
   title: A gate checks overlap for units and modules, and loose-filesets are exempt
@@ -14,105 +15,105 @@ content:
   relation: checks
   theme: dark
   bands:
-  - id: band-unit
-    label: DEPLOYABLE-UNIT
-  - id: band-loose
-    label: LOOSE-FILESET
-  - id: band-module
-    label: MODULE
+    - id: band-unit
+      label: DEPLOYABLE-UNIT
+    - id: band-loose
+      label: LOOSE-FILESET
+    - id: band-module
+      label: MODULE
   glyphs:
-  - id: a-phantom
-    kind: adronly
-    label: No phantom unit
-    in: band-unit
-  - id: s-unit-sets
-    kind: set
-    label: deployable-unit sets
-    in: band-unit
-  - id: g-independence
-    kind: gate
-    label: Independence gate
-    in: band-unit
-  - id: a-demonstrated
-    kind: adronly
-    label: Demonstrated use
-    in: band-loose
-  - id: s-loose-sets
-    kind: set
-    label: loose-fileset sets
-    in: band-loose
-  - id: s-module-sets
-    kind: set
-    label: module sets
-    in: band-module
-  - id: g-config-load
-    kind: gate
-    label: Config-load validation
-    in: band-module
+    - id: a-phantom
+      kind: adronly
+      label: No phantom unit
+      in: band-unit
+    - id: s-unit-sets
+      kind: set
+      label: deployable-unit sets
+      in: band-unit
+    - id: g-independence
+      kind: gate
+      label: Independence gate
+      in: band-unit
+    - id: a-demonstrated
+      kind: adronly
+      label: Demonstrated use
+      in: band-loose
+    - id: s-loose-sets
+      kind: set
+      label: loose-fileset sets
+      in: band-loose
+    - id: s-module-sets
+      kind: set
+      label: module sets
+      in: band-module
+    - id: g-config-load
+      kind: gate
+      label: Config-load validation
+      in: band-module
   edges:
-  - from: g-independence
-    to: s-unit-sets
-    kind: flow
-    label: ''
-  - from: g-independence
-    to: s-module-sets
-    kind: flow
-    label: ''
-  - from: g-config-load
-    to: s-module-sets
-    kind: flow
-    label: ''
+    - from: g-independence
+      to: s-unit-sets
+      kind: flow
+      label: ""
+    - from: g-independence
+      to: s-module-sets
+      kind: flow
+      label: ""
+    - from: g-config-load
+      to: s-module-sets
+      kind: flow
+      label: ""
   markers:
-  - at: a-phantom
-    number: 1
-  - at: s-unit-sets
-    number: 2
-  - at: g-independence
-    number: 3
-  - at: a-demonstrated
-    number: 4
-  - at: s-loose-sets
-    number: 5
-  - at: s-module-sets
-    number: 6
-  - at: g-config-load
-    number: 7
+    - at: a-phantom
+      number: 1
+    - at: s-unit-sets
+      number: 2
+    - at: g-independence
+      number: 3
+    - at: a-demonstrated
+      number: 4
+    - at: s-loose-sets
+      number: 5
+    - at: s-module-sets
+      number: 6
+    - at: g-config-load
+      number: 7
   chips:
-  - at: a-phantom
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-    gated: false
-  - at: s-unit-sets
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
-  - at: g-independence
-    kind: rule
-    rule: ADR-AUTO-TEST-QUALITYGATE
-  - at: a-demonstrated
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-    gated: false
-  - at: s-loose-sets
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
-    gated: false
-  - at: s-module-sets
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-  - at: s-module-sets
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
-  - at: g-config-load
-    kind: rule
-    rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-  - at: g-config-load
-    kind: rule
-    rule: ADR-REPO-PROTGLOB
+    - at: a-phantom
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+      gated: false
+    - at: s-unit-sets
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+    - at: g-independence
+      kind: rule
+      rule: ADR-AUTO-TEST-QUALITYGATE
+    - at: a-demonstrated
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+      gated: false
+    - at: s-loose-sets
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+      gated: false
+    - at: s-module-sets
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+    - at: s-module-sets
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+    - at: g-config-load
+      kind: rule
+      rule: ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+    - at: g-config-load
+      kind: rule
+      rule: ADR-REPO-PROTGLOB
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-unit:
     x: 20

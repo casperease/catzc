@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
+    folder: tests
+    name: get-pipeline-template-reference-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-PipelineTemplateReference.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops/tests/Get-PipelineTemplateReference.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE
+---
+#>
+
 Describe 'Get-PipelineTemplateReference' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-Yaml {

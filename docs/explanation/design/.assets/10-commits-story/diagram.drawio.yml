@@ -1,6 +1,6 @@
 description: >-
-  Ten commits climb the promotion ladder at once: each stage gate passes some on and discards others, every environment
-  holds one occupant, and git keeps the whole history, with the dirty heads called out.
+  Ten commits climb the promotion ladder at once: each stage gate passes some on and discards others, every environment holds one occupant,
+  and git keeps the whole history, with the dirty heads called out.
 about:
   adrs:
     - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
@@ -25,7 +25,11 @@ content:
     - { id: span-ci, label: CI, over: [gate-precommit, gate-commit] }
     - { id: span-deploy-nonprod, label: DEPLOY-Non Prod, over: [gate-l3, gate-main-at, gate-release-at] }
     - { id: span-cd-rbc, label: CD+RBC, over: [gate-precommit, gate-commit, gate-l3, gate-main-at, gate-release-at] }
-    - { id: span-cde, label: CDe, over: [gate-precommit, gate-commit, gate-l3, gate-main-at, gate-release-at, gate-pre-prod, gate-production] }
+    - {
+        id: span-cde,
+        label: CDe,
+        over: [gate-precommit, gate-commit, gate-l3, gate-main-at, gate-release-at, gate-pre-prod, gate-production],
+      }
     - { id: span-cd, label: CD, over: [gate-precommit, gate-commit, gate-l3, gate-main-at] }
     - { id: span-authoring, label: Authoring, over: [gate-precommit] }
     - { id: span-pr-bvt, label: PR+BVT, over: [gate-commit] }

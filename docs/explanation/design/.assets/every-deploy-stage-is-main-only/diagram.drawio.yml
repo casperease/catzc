@@ -1,8 +1,9 @@
-description: A pull request run builds in a CI stage but its Deploy stages carry a main-only condition and skip, so only the
-  run on main deploys and no topic commit is deployed by a pipeline.
+description:
+  A pull request run builds in a CI stage but its Deploy stages carry a main-only condition and skip, so only the run on main deploys and no
+  topic commit is deployed by a pipeline.
 about:
   adrs:
-  - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
   lens: implementation
 content:
   title: Every Deploy stage in cats runs only from main, so no topic commit is deployed
@@ -11,111 +12,111 @@ content:
   relation: starts or runs next
   theme: dark
   bands:
-  - id: band-topic
-    label: TOPIC
-  - id: band-out-of-band
-    label: OUT-OF-BAND
-  - id: band-main
-    label: MAIN
-  - id: band-landing
-    label: AFTER LANDING
+    - id: band-topic
+      label: TOPIC
+    - id: band-out-of-band
+      label: OUT-OF-BAND
+    - id: band-main
+      label: MAIN
+    - id: band-landing
+      label: AFTER LANDING
   spans:
-  - id: span-integration
-    label: CI
-    over:
-    - band-out-of-band
-  - id: span-delivery
-    label: CD
-    over:
-    - band-landing
+    - id: span-integration
+      label: CI
+      over:
+        - band-out-of-band
+    - id: span-delivery
+      label: CD
+      over:
+        - band-landing
   glyphs:
-  - id: c-topic
-    kind: commit
-    label: topic branch
-    in: band-topic
-    state: topic
-  - id: r-pull-request-stage
-    kind: runner
-    label: 'stage: CI'
-    in: band-out-of-band
-  - id: g-pull-request-condition
-    kind: gate
-    label: main only
-    in: band-out-of-band
-  - id: a-deploy
-    kind: adronly
-    label: out-of-band deploy
-    in: band-out-of-band
-  - id: c-main
-    kind: commit
-    label: main
-    in: band-main
-    state: landed
-  - id: r-main-stage
-    kind: runner
-    label: 'stage: CI'
-    in: band-landing
-  - id: g-main-condition
-    kind: gate
-    label: main only
-    in: band-landing
-  - id: r-deploy
-    kind: runner
-    label: Deploy_* stages
-    in: band-landing
+    - id: c-topic
+      kind: commit
+      label: topic branch
+      in: band-topic
+      state: topic
+    - id: r-pull-request-stage
+      kind: runner
+      label: "stage: CI"
+      in: band-out-of-band
+    - id: g-pull-request-condition
+      kind: gate
+      label: main only
+      in: band-out-of-band
+    - id: a-deploy
+      kind: adronly
+      label: out-of-band deploy
+      in: band-out-of-band
+    - id: c-main
+      kind: commit
+      label: main
+      in: band-main
+      state: landed
+    - id: r-main-stage
+      kind: runner
+      label: "stage: CI"
+      in: band-landing
+    - id: g-main-condition
+      kind: gate
+      label: main only
+      in: band-landing
+    - id: r-deploy
+      kind: runner
+      label: Deploy_* stages
+      in: band-landing
   edges:
-  - from: c-topic
-    to: r-pull-request-stage
-    kind: flow
-    label: ''
-  - from: r-pull-request-stage
-    to: g-pull-request-condition
-    kind: flow
-    label: ''
-  - from: c-topic
-    to: a-deploy
-    kind: adr
-    label: ''
-  - from: c-topic
-    to: c-main
-    kind: flow
-    label: ''
-  - from: c-main
-    to: r-main-stage
-    kind: flow
-    label: ''
-  - from: r-main-stage
-    to: g-main-condition
-    kind: flow
-    label: ''
-  - from: g-main-condition
-    to: r-deploy
-    kind: flow
-    label: ''
+    - from: c-topic
+      to: r-pull-request-stage
+      kind: flow
+      label: ""
+    - from: r-pull-request-stage
+      to: g-pull-request-condition
+      kind: flow
+      label: ""
+    - from: c-topic
+      to: a-deploy
+      kind: adr
+      label: ""
+    - from: c-topic
+      to: c-main
+      kind: flow
+      label: ""
+    - from: c-main
+      to: r-main-stage
+      kind: flow
+      label: ""
+    - from: r-main-stage
+      to: g-main-condition
+      kind: flow
+      label: ""
+    - from: g-main-condition
+      to: r-deploy
+      kind: flow
+      label: ""
   markers:
-  - at: c-topic
-    number: 1
-  - at: r-pull-request-stage
-    number: 2
-  - at: g-pull-request-condition
-    number: 3
-  - at: a-deploy
-    number: 4
-  - at: c-main
-    number: 5
-  - at: r-main-stage
-    number: 6
-  - at: r-deploy
-    number: 7
+    - at: c-topic
+      number: 1
+    - at: r-pull-request-stage
+      number: 2
+    - at: g-pull-request-condition
+      number: 3
+    - at: a-deploy
+      number: 4
+    - at: c-main
+      number: 5
+    - at: r-main-stage
+      number: 6
+    - at: r-deploy
+      number: 7
   chips:
-  - at: r-deploy
-    kind: count
-    text: '6'
+    - at: r-deploy
+      kind: count
+      text: "6"
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-topic:
     x: 20

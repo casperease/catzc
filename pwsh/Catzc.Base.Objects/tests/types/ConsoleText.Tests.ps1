@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
+    folder: tests/types
+    name: console-text-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Objects
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ConsoleText.Tests.ps1.md](docs/references/pwsh/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+---
+#>
+
 Describe 'ConsoleText' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         if (-not ([System.Management.Automation.PSTypeName]'ConsoleTextWidgetProbe').Type) {

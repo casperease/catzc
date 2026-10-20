@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
+    name: test-agent-definitions
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+    docs: "[Test-AgentDefinitions.ps1.md](docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-AGENTS
+---
+#>
+
 function Test-AgentDefinitions {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

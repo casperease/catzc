@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1
+    folder: tests
+    name: enter-system-test-lock-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Enter-SystemTestLock.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Enter-SystemTestLock.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The lock-holding helper''s Name parameter is consumed via $using: inside its Start-ThreadJob scriptblock, which this rule does not trace')]
 param()
 

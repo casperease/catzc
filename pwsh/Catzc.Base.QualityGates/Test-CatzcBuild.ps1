@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
+    name: test-catzc-build
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1
+    docs: "[Test-CatzcBuild.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
+      - ADR-AUTO-TEST-SOURCEONLYTAG
+      - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
+      - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
+---
+#>
+
 function Test-CatzcBuild {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.TestRunResult])]

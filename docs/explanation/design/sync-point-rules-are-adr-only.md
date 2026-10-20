@@ -24,8 +24,8 @@ ADR-only, so "sync from the BVT-verified head" is a convention that no code chec
 
 ## Walkthrough
 
-1. **Upstream integrator.** Takes its commit from the BVT-verified head (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD) and never from the dirty HEAD
-   (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE). Nothing in code checks either.
+1. **Upstream integrator.** Takes its commit from the BVT-verified head (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD) and never from the dirty
+   HEAD (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE). Nothing in code checks either.
 2. **Production.** Holds one occupant, commit 4, plus a history (ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT). No pipeline records which commit
    that is.
 3. **Pre-prod.** The staged rung between release-uat and production (ADR-FLOW-CD-PREPRODRUNG). It holds one green commit with no
@@ -33,16 +33,16 @@ ADR-only, so "sync from the BVT-verified head" is a convention that no code chec
 4. **Release-uat.** Holds commit 5. Its commit moves on through RBC, the manual gate on release-AT (ADR-FLOW-CD-TWORELEASEGATES). No code
    runs RBC.
 5. **main-UAT.** Holds commit 6, the BVT-verified head it took first, so the sync point and the occupant are one commit
-   (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD). Its commit moves on through RC, the manual gate on main-AT (ADR-FLOW-CD-TWORELEASEGATES). No code
-   runs RC.
+   (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD). Its commit moves on through RC, the manual gate on main-AT (ADR-FLOW-CD-TWORELEASEGATES). No
+   code runs RC.
 6. **On-demand (L3).** The on-demand environment where CD runs the L3 system-level end-to-end tests before it rolls the artifact onto the
    always-on environment (ADR-FLOW-CD-CDSTAYSINNONPROD). No pipeline defines it.
 7. **ci-pwsh.** The one gate on the ladder that code enforces: BVT. It runs on every push to main and on pull requests to main that touch
    `pwsh/**`, in Azure DevOps and in GitHub Actions, and it runs `Test-Automation -Level 2`. A failing run rejects the commit automatically,
    as BVT should (ADR-FLOW-CD-LIFE-DISCARDISTERMINAL).
 8. **Dirty HEAD.** Commit 10, the tip of main, which entered `main-UAT` and failed there. Nothing syncs from it
-   (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE), and it feeds nothing downstream (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM). It keeps the blue of the state it
-   carried into `main-UAT`.
+   (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE), and it feeds nothing downstream (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM). It keeps the blue of the
+   state it carried into `main-UAT`.
 
 ## Why it holds
 

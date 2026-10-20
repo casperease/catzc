@@ -1,9 +1,10 @@
-description: 'What an Azure DevOps run shows of one step: the label is the command, the log names the mode and echoes the
-  command, a failure prints a full exception, and a developer copies the command from the label with no gate checking that.'
+description:
+  "What an Azure DevOps run shows of one step: the label is the command, the log names the mode and echoes the command, a failure prints a
+  full exception, and a developer copies the command from the label with no gate checking that."
 about:
   adrs:
-  - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
-  - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
+    - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+    - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
   lens: operations
 content:
   title: The Azure DevOps step is named after its command, and its log echoes the command before it runs
@@ -12,84 +13,84 @@ content:
   relation: run order
   theme: dark
   bands:
-  - id: band-run
-    label: PIPELINE RUN
-  - id: band-developer
-    label: DEVELOPER
+    - id: band-run
+      label: PIPELINE RUN
+    - id: band-developer
+      label: DEVELOPER
   glyphs:
-  - id: r-step
-    kind: runner
-    label: pipeline step
-    in: band-run
-  - id: r-label
-    kind: result
-    label: step label
-    in: band-run
-  - id: r-invoke
-    kind: result
-    label: Invoke-Automation [Mode]
-    in: band-run
-  - id: r-echo
-    kind: result
-    label: echoed command
-    in: band-run
-  - id: x-guard
-    kind: failure
-    label: guard throw
-    in: band-run
-  - id: x-exception
-    kind: failure
-    label: Write-Exception
-    in: band-run
-  - id: a-developer
-    kind: actor
-    label: developer
-    in: band-developer
+    - id: r-step
+      kind: runner
+      label: pipeline step
+      in: band-run
+    - id: r-label
+      kind: result
+      label: step label
+      in: band-run
+    - id: r-invoke
+      kind: result
+      label: Invoke-Automation [Mode]
+      in: band-run
+    - id: r-echo
+      kind: result
+      label: echoed command
+      in: band-run
+    - id: x-guard
+      kind: failure
+      label: guard throw
+      in: band-run
+    - id: x-exception
+      kind: failure
+      label: Write-Exception
+      in: band-run
+    - id: a-developer
+      kind: actor
+      label: developer
+      in: band-developer
   edges:
-  - from: r-step
-    to: r-label
-    kind: flow
-    label: ''
-  - from: r-label
-    to: r-invoke
-    kind: flow
-    label: ''
-  - from: r-invoke
-    to: r-echo
-    kind: flow
-    label: ''
-  - from: r-step
-    to: x-guard
-    kind: fail
-    label: ''
-  - from: r-echo
-    to: x-exception
-    kind: fail
-    label: ''
-  - from: r-label
-    to: a-developer
-    kind: adr
-    label: ''
+    - from: r-step
+      to: r-label
+      kind: flow
+      label: ""
+    - from: r-label
+      to: r-invoke
+      kind: flow
+      label: ""
+    - from: r-invoke
+      to: r-echo
+      kind: flow
+      label: ""
+    - from: r-step
+      to: x-guard
+      kind: fail
+      label: ""
+    - from: r-echo
+      to: x-exception
+      kind: fail
+      label: ""
+    - from: r-label
+      to: a-developer
+      kind: adr
+      label: ""
   markers:
-  - at: r-step
-    number: 1
-  - at: r-label
-    number: 2
-  - at: x-guard
-    number: 3
-  - at: r-invoke
-    number: 4
-  - at: r-echo
-    number: 5
-  - at: x-exception
-    number: 6
-  - at: a-developer
-    number: 7
+    - at: r-step
+      number: 1
+    - at: r-label
+      number: 2
+    - at: x-guard
+      number: 3
+    - at: r-invoke
+      number: 4
+    - at: r-echo
+      number: 5
+    - at: x-exception
+      number: 6
+    - at: a-developer
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-run:
     x: 20

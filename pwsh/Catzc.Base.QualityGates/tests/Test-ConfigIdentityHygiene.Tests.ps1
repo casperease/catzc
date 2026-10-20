@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
+    folder: tests
+    name: test-config-identity-hygiene-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-ConfigIdentityHygiene.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-ConfigIdentityHygiene.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-LANG
+---
+#>
+
 Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity', 'source-only' {
     It 'the shipped config is free of test-fixture identities, and no fixture identity is a live one' {
         $result = Test-ConfigIdentityHygiene -PassThru -OutputFolder (Join-Path $TestDrive 'config-identity-hygiene')

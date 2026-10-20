@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+    folder: tests/types
+    name: globs-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[GlobsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-TESTSUITE
+      - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+      - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+      - ADR-FLOW-CD-GLOBS-COMPOSESETS
+---
+#>
+
 # cspell:ignore dedupe
 Describe 'GlobsConfig' -Tag 'L0', 'logic' {
     BeforeAll {

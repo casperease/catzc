@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/types/DocPattern.Tests.ps1
+    folder: tests/types
+    name: doc-pattern-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[DocPattern.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/DocPattern.Tests.ps1.md)"
+---
+#>
+
 Describe 'DocPattern' -Tag 'L0', 'logic' {
     It 'constructs and exposes glob + source' {
         $p = [Catzc.Base.Docs.DocPattern]::new(@{ glob = 'widgets/*'; source = 'docs/references/pwsh/{kebab}.md' })

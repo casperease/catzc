@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
+    folder: private
+    name: convert-to-contract-note-markdown
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
+    docs: "[ConvertTo-ContractNoteMarkdown.ps1.md](docs/references/pwsh/catzc-base-contracts/private/ConvertTo-ContractNoteMarkdown.ps1.md)"
+    cites:
+      - ADR-REPO-LINK-MARKDOWNRELATIVE
+      - ADR-REPO-LINK-CODELINKS
+---
+#>
+
 function ConvertTo-ContractNoteMarkdown {
     [CmdletBinding()]
     [OutputType([string])]

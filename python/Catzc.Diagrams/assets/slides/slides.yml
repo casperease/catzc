@@ -1,3 +1,21 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: python/Catzc.Diagrams/assets/slides/slides.yml
+#     folder: assets/slides
+#     name: slides
+#     filetype: yml
+#     role: slides-kit
+#     language: yaml
+#     track: python
+#     tracktype: modules
+#     module: Catzc.Diagrams
+#     moduletype: python
+#   edges:
+#     docs: "[slides.yml.md](docs/references/python/catzc-diagrams/assets/slides/slides.yml.md)"
+# ---
+
 token:
   bg: "#1B2A41" # the deck's base dark tone
   bg_deep: "#14213A" # the second dark tone; patterns alternate the two so neighbouring slides read as different pages

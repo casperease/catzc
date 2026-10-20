@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/ConvertTo-AdrDomainDiagram.ps1
+    name: convert-to-adr-domain-diagram
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1
+    docs: "[ConvertTo-AdrDomainDiagram.ps1.md](docs/references/pwsh/catzc-base-docs/ConvertTo-AdrDomainDiagram.ps1.md)"
+---
+#>
+
 function ConvertTo-AdrDomainDiagram {
     [OutputType([string])]
     [CmdletBinding()]

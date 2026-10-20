@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1
+    folder: pwsh/.scriptanalyzer/tests
+    name: no-az-module-naming-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+  edges:
+    docs: "[NoAzModuleNaming.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1.md)"
+---
+#>
+
 Describe 'Measure-NoAzModuleNaming' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoAzModuleNaming.psm1') -Force

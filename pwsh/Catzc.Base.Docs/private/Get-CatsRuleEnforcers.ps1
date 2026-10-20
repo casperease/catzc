@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+    folder: private
+    name: get-cats-rule-enforcers
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1
+    docs: "[Get-CatsRuleEnforcers.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md)"
+    cites:
+      - ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS
+      - ADR-CONF-LOADING-READINGISGLOBAL
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+---
+#>
+
 function Get-CatsRuleEnforcers {
     [OutputType([hashtable])]
     [CmdletBinding()]

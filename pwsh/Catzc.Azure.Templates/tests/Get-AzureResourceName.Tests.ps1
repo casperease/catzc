@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Get-AzureResourceName.Tests.ps1
+    folder: tests
+    name: get-azure-resource-name-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-AzureResourceName.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-AzureResourceName.Tests.ps1.md)"
+---
+#>
+
 # cspell:ignore alweutstsmplst weuwkspvm sttstsmplalweu alweusmplvm vmsmplalweu weutstsmplst
 Describe 'Get-AzureResourceName' -Tag 'L0', 'logic' {
     It 'renders the env NAME for a generous (long) type' {

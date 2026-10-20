@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/types/WorkerParentWatch.Tests.ps1
+    folder: tests/types
+    name: worker-parent-watch-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[WorkerParentWatch.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/WorkerParentWatch.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-ENV-NOPESTERISOLATION
+---
+#>
+
 Describe 'WorkerParentWatch' -Tag 'logic' {
     Context 'liveness check' -Tag 'L0' {
         It 'reports this process alive at its own start time' {

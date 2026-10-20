@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/private/Get-BicepCustomerClassViolations.ps1
+    folder: private
+    name: get-bicep-customer-class-violations
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Azure.Templates/tests/Get-BicepCustomerClassViolations.Tests.ps1
+    docs: "[Get-BicepCustomerClassViolations.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md)"
+    cites:
+      - ADR-AZ-CUSTOMER
+---
+#>
+
 function Get-BicepCustomerClassViolations {
     [CmdletBinding()]
     [OutputType([string[]])]

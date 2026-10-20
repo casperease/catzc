@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
+    folder: tests
+    name: test-formatting-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-Formatting.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-Formatting.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+---
+#>
+
 Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{

@@ -1,9 +1,10 @@
-description: Catzc.Base.Variants rests on Config, Objects and Asserts in the foundation and is called from Azure extension,
-  upper-Base and Tooling modules; the config file feeds Config only.
+description:
+  Catzc.Base.Variants rests on Config, Objects and Asserts in the foundation and is called from Azure extension, upper-Base and Tooling
+  modules; the config file feeds Config only.
 about:
   adrs:
-  - ADR-REPO-VARIANT-SESSIONVARIANT
-  - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
+    - ADR-REPO-VARIANT-SESSIONVARIANT
+    - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
   lens: architecture
 content:
   title: Catzc.Base.Variants sits in Base, over Config, under every real caller
@@ -12,96 +13,96 @@ content:
   relation: is used by
   theme: dark
   bands:
-  - id: band-foundation
-    label: FOUNDATION
-  - id: band-variants
-    label: VARIANTS
-  - id: band-callers
-    label: CALLERS
+    - id: band-foundation
+      label: FOUNDATION
+    - id: band-variants
+      label: VARIANTS
+    - id: band-callers
+      label: CALLERS
   glyphs:
-  - id: g-variants-yml
-    kind: file
-    label: variants.yml
-    in: band-foundation
-  - id: g-config
-    kind: code
-    label: Catzc.Base.Config
-    in: band-foundation
-  - id: g-objects
-    kind: code
-    label: Catzc.Base.Objects
-    in: band-foundation
-  - id: g-asserts
-    kind: code
-    label: Catzc.Base.Asserts
-    in: band-foundation
-  - id: g-variants
-    kind: code
-    label: Catzc.Base.Variants
-    in: band-variants
-  - id: g-azure-ext
-    kind: set
-    label: AzureExt
-    in: band-callers
-  - id: g-upper-base
-    kind: code
-    label: Globs · ModuleSystem · Maps
-    in: band-callers
-  - id: g-tooling
-    kind: adronly
-    label: Tooling
-    in: band-callers
+    - id: g-variants-yml
+      kind: file
+      label: variants.yml
+      in: band-foundation
+    - id: g-config
+      kind: code
+      label: Catzc.Base.Config
+      in: band-foundation
+    - id: g-objects
+      kind: code
+      label: Catzc.Base.Objects
+      in: band-foundation
+    - id: g-asserts
+      kind: code
+      label: Catzc.Base.Asserts
+      in: band-foundation
+    - id: g-variants
+      kind: code
+      label: Catzc.Base.Variants
+      in: band-variants
+    - id: g-azure-ext
+      kind: set
+      label: AzureExt
+      in: band-callers
+    - id: g-upper-base
+      kind: code
+      label: Globs · ModuleSystem · Maps
+      in: band-callers
+    - id: g-tooling
+      kind: adronly
+      label: Tooling
+      in: band-callers
   edges:
-  - from: g-variants-yml
-    to: g-config
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-variants
-    kind: flow
-    label: ''
-  - from: g-objects
-    to: g-variants
-    kind: flow
-    label: ''
-  - from: g-asserts
-    to: g-variants
-    kind: flow
-    label: ''
-  - from: g-variants
-    to: g-azure-ext
-    kind: thick
-    label: ''
-  - from: g-variants
-    to: g-upper-base
-    kind: flow
-    label: ''
-  - from: g-variants
-    to: g-tooling
-    kind: adr
-    label: ''
+    - from: g-variants-yml
+      to: g-config
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-variants
+      kind: flow
+      label: ""
+    - from: g-objects
+      to: g-variants
+      kind: flow
+      label: ""
+    - from: g-asserts
+      to: g-variants
+      kind: flow
+      label: ""
+    - from: g-variants
+      to: g-azure-ext
+      kind: thick
+      label: ""
+    - from: g-variants
+      to: g-upper-base
+      kind: flow
+      label: ""
+    - from: g-variants
+      to: g-tooling
+      kind: adr
+      label: ""
   markers:
-  - at: g-variants-yml
-    number: 1
-  - at: g-config
-    number: 2
-  - at: g-objects
-    number: 3
-  - at: g-asserts
-    number: 4
-  - at: g-variants
-    number: 5
-  - at: g-azure-ext
-    number: 6
-  - at: g-upper-base
-    number: 7
-  - at: g-tooling
-    number: 8
+    - at: g-variants-yml
+      number: 1
+    - at: g-config
+      number: 2
+    - at: g-objects
+      number: 3
+    - at: g-asserts
+      number: 4
+    - at: g-variants
+      number: 5
+    - at: g-azure-ext
+      number: 6
+    - at: g-upper-base
+      number: 7
+    - at: g-tooling
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-foundation:
     x: 20

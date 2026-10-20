@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Invoke-PSScriptAnalyzerFormat.ps1
+    folder: private
+    name: invoke-ps-script-analyzer-format
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Invoke-PSScriptAnalyzerFormat.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
+      - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
+      - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
+      - ADR-REPO-FORMAT-CROSSLANGUAGEBASELINE
+---
+#>
+
 function Invoke-PSScriptAnalyzerFormat {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The shard worker''s analyzer import runs inside each background Start-Job process, never in this session')]
     [CmdletBinding()]

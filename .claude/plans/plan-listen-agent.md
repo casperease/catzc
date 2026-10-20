@@ -1,9 +1,8 @@
 ---
 plan:
-  status: blocked
-  blocked_on: the user's commit of the fact-checker change (agents.yml, CLAUDE.md, catzc-worker.md, fact-checker.md)
+  status: active
   value: high
-  reviewed: 2026-10-20
+  reviewed: 2026-10-21
   class: feature
   targets:
     [
@@ -11,27 +10,32 @@ plan:
       .claude/CLAUDE.md,
       .claude/agents/catzc-worker.md,
       .claude/agents/fact-checker.md,
-      docs/adr/thesis/one-source-of-truth.md,
+      pwsh/Catzc.Tooling.Listen/Get-DocChange.ps1,
+      .claude/plans,
     ]
 ---
 
-# The listen mode: register the processor and settle the seed
+# The listen mode: register the processor, process the first notes, settle the seed
 
-The listen mode's listener (`Start-DocListener`, `Catzc.Tooling.Listen`), its processor robot (`listen-very-carefully-to-doc-changes`), its
-scout (`doc-pattern-scout`) and their three capabilities are in the tree. Left: the registration that waits on the fact-checker change, the
-fact-checker's fit for the mode, and the questions the session's seed raised.
+The listen mode is in the tree: the listener (`Start-DocListener`, `Catzc.Tooling.Listen`) that notes each change with its source (editor,
+agent or unknown, from the `Record-AgentWrite` hook and the `catzc-save-ledger` extension), the processor robot
+(`listen-very-carefully-to-doc-changes`), its scout (`doc-pattern-scout`) and their three capabilities. Left: the registration that waits on
+the fact-checker change, the first editor notes to process, one refinement of the notes, and the seed's open questions.
 
 ## Why its value is high
 
-Until the two robots are registered, `Test-AgentDefinitions` fails and a session cannot be told the processor exists.
+The editor's first three corrections are waiting as notes in `out/`, which can be wiped; until the processor runs, they exist only there and
+in the Carried section below. Until the two robots are registered, `Test-AgentDefinitions` fails.
 
-## Decided (2026-10-20, from the user)
+## Decided (2026-10-20 and 2026-10-21, from the user)
 
 - In listen mode the editor's edit is fact (ADR-REPO-AI-EDITORISFACT); everywhere else the truth is the repository at one commit.
 - The listener is a command with no model; the processor is the robot; the notes and the ledger are their contract, one writer each.
 - Doc types are the file kinds of `file-kinds.yml`; `listen.yml` groups them into tiers, so no doc-type registry of its own.
-- The processor's wait is bounded by `listen.yml`'s `note_wait_seconds` (300 s, under the background roof), so it needs no `timeouts.yml`
-  entry.
+- The processor plans from editor notes only; agent and unknown notes are context. The agent-write hook runs in every session.
+- A fact-check verdict never stands alone: `Complete-DocNote` requires its reason, with the path:line it rests on.
+- A stamped folder in `out/` is fine as input; it can be missing at start or vanish mid-run, and the tooling waits through both.
+- The term stays **responsibility domain** (ADR-THES-STORES-RESPONSIBILITYDOMAIN).
 
 ## Open steps
 
@@ -41,19 +45,30 @@ Until the two robots are registered, `Test-AgentDefinitions` fails and a session
 - [ ] `.claude/agents/catzc-worker.md`: name the two robots in its `Do NOT` clause (check: `Test-AgentDefinitions`).
 - [ ] `.claude/agents/fact-checker.md`: read the listen session's `reference/` when the brief names one, and search it through
       `Find-DocPattern` (check: `Test-AgentDefinitions`).
+- [ ] `.claude/plans/plan-listen-<pattern>.md`: the processor processes the three editor notes carried below (session
+      `out/listen/20261021-005743`, reference pinned at `ed41b3e`), or the carried text when the session is gone (check: `Test-Plans`).
+- [ ] `pwsh/Catzc.Tooling.Listen/Get-DocChange.ps1`: `Rules` lists only the ADR codes cited in the changed lines, not every code in the file
+      (a whole-file list ran to 40 codes on `dora-explains.md`) (check: `Invoke-TestFile` on `Get-DocChange.Tests.ps1`).
 
 ## Open questions
 
 - Does the `fact-checker` drop from sonnet to haiku, as asked for the listen mode, or keep its `model_reason`?
 - From the seed below: is the mode a thesis rule or a principles rule that specialises the thesis?
-- From the seed below: what is the term for what one repository is the responsibility boundary for, given that "domain" already means an ADR
-  domain?
 - From the seed below: the gates and agents work on the working tree; is the working tree the proposal for the next commit, with the last
   commit the truth?
 
 ## Carried
 
-The user's seed for this session (2026-10-20), the worked example the processor's first cycle runs on:
+The editor's first three corrections (2026-10-21, notes 0001 to 0003, all `source: editor`, tier `rule`), verbatim from the notes:
+
+1. `docs/adr/thesis/eac-normal-form.md`: "A fragment can stay unordered while its migration is under way, but nothing **internally** reads
+   it as truth until it is in the form."
+2. `docs/adr/thesis/one-source-of-truth.md`, ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD: "nothing about delivery state lives outside
+   it" became "nothing about delivery state **have source of truth (for BVT)** outside it".
+3. Same rule: the adjacent store's examples became "such as a GitOps or configuration repository **or Azure Devops Services SaaS / GitHub
+   SaaS**".
+
+The user's seed for the first session (2026-10-20), the worked example of the mode:
 
 > In any other context the AI must always use the current state of truth in a global, repository-wide context, with no preference for where
 > truth comes from, looking only at committed files. This is fundamental to the single-source-of-truth ADR. Our single source of truth in

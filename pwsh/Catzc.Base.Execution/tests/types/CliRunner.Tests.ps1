@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
+    folder: tests/types
+    name: cli-runner-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Execution
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[CliRunner.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
 Describe 'CliRunner.ExecutableName' -Tag 'L0', 'logic' {
 
     It 'reads the first token of <commandLine> as <expected>' -ForEach @(

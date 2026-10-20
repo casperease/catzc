@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
+    folder: types
+    name: build-validation-entry
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.DevOps.BuildValidation
+    moduletype: pwsh-folder
+    catzc_bundle: full
+  edges:
+    docs: "[BuildValidationEntry.cs.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
+      - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

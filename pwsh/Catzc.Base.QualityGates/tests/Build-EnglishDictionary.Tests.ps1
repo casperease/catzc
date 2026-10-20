@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Build-EnglishDictionary.Tests.ps1
+    folder: tests
+    name: build-english-dictionary-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-EnglishDictionary.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Build-EnglishDictionary.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-ONECATEGORY
+---
+#>
+
 Describe 'Build-EnglishDictionary' -Tag 'L0', 'logic' {
     It 'refuses to run outside the source tree before touching node (Assert-SourceTree)' {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { throw 'operates on the catzc source tree' }

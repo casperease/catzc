@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/types/ContractParameter.cs
+    folder: types
+    name: contract-parameter
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ContractParameter.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractParameter.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;

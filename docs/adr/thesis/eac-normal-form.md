@@ -7,8 +7,8 @@
 Everything inside a responsibility domain is code, managed through the one change process
 ([ADR-THES-STORES-RESPONSIBILITYDOMAIN](truth-stores.md#rule-adr-thes-stores-responsibilitydomain),
 [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)). So any
-code can be brought into an **eac normal form**: the shape in which the repository can verify it. That holds for code written in the trunk
-and for an **unordered code fragment**, code that comes from outside the trunk in whatever shape its origin left it.
+code can be brought into an **eac normal form**: the shape in which the repository's automation can verify it. That holds for code written
+in the trunk and for an **unordered code fragment**, code that comes from outside the trunk in whatever shape its origin left it.
 
 - [Any code has a normal form](#any-code-has-a-normal-form)
 
@@ -76,8 +76,8 @@ both finds it and proves it. A file that a formatter still rewrites is not yet i
 
 An unordered code fragment is code the repository holds but does not yet decide by. Migration moves it into the eac normal form through the
 same reviewed commits as any other change, one fragment at a time, until it is uncontested. A fragment can stay unordered while its
-migration is under way, but nothing reads it as truth until it is in the form. How fragments land, how they are sorted, and how a migration
-is tracked are technical decisions for the implementation domains, which specialise this thesis.
+migration is under way, but nothing internally reads it as truth until it is in the form. How fragments land, how they are sorted, and how a
+migration is tracked are technical decisions for the implementation domains, which specialise this thesis.
 
 ## Consequences
 

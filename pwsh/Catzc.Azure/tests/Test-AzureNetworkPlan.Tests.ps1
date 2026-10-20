@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
+    folder: tests
+    name: test-azure-network-plan-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-AzureNetworkPlan.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AZ-NETWORK-KEYEDBYENVIRONMENT
+      - ADR-AZ-NETWORK-SUBSCRIPTIONENVIRONMENTSNONETWORK
+      - ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION
+---
+#>
+
 Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
     BeforeAll {
         $environment = { param($code) [ordered]@{ shortcode = $code; region = 'westeurope'; region_code = 'weu' } }

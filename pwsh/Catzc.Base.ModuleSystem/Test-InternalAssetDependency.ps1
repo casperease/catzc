@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
+    name: test-internal-asset-dependency
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
+    docs: "[Test-InternalAssetDependency.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Test-InternalAssetDependency.ps1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-LITERALCHILDPATH
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+      - ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 function Test-InternalAssetDependency {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

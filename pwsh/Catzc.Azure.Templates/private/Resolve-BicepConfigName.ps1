@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1
+    folder: private
+    name: resolve-bicep-config-name
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Resolve-BicepConfigName.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md)"
+    cites:
+      - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+---
+#>
+
 function Resolve-BicepConfigName {
     [CmdletBinding()]
     param(

@@ -1,10 +1,11 @@
-description: The touched-unit check of the globs module asks the loader which context it runs in, to pick the reference commit,
-  and asks git for the changed paths; the pipeline stage that should call it is drawn dashed because no pipeline does.
+description:
+  The touched-unit check of the globs module asks the loader which context it runs in, to pick the reference commit, and asks git for the
+  changed paths; the pipeline stage that should call it is drawn dashed because no pipeline does.
 about:
   adrs:
-  - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
-  - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-  - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+    - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
   lens: architecture
 content:
   title: Catzc.Base.Globs owns the check, the loader names the context, and git names the change
@@ -13,98 +14,98 @@ content:
   relation: asks
   theme: dark
   bands:
-  - id: band-globs
-    label: CATZC.BASE.GLOBS
-  - id: band-pipeline
-    label: PIPELINE
-  - id: band-loader
-    label: CATZC.INTERNAL.LOADER
-  - id: band-outside
-    label: OUTSIDE CATS
+    - id: band-globs
+      label: CATZC.BASE.GLOBS
+    - id: band-pipeline
+      label: PIPELINE
+    - id: band-loader
+      label: CATZC.INTERNAL.LOADER
+    - id: band-outside
+      label: OUTSIDE CATS
   glyphs:
-  - id: a-stage
-    kind: adronly
-    label: a unit's pipeline stage
-    in: band-pipeline
-  - id: g-affected
-    kind: code
-    label: Test-GlobSetAffected
-    in: band-globs
-  - id: f-globs
-    kind: file
-    label: globs.yml
-    in: band-globs
-  - id: g-change-range
-    kind: code
-    label: Get-GlobSetChangeRange
-    in: band-globs
-  - id: g-changed-globset
-    kind: code
-    label: Get-ChangedGlobSet
-    in: band-globs
-  - id: g-changed-file
-    kind: code
-    label: Get-ChangedFile
-    in: band-globs
-  - id: g-running
-    kind: code
-    label: Test-IsRunningInPipeline
-    in: band-loader
-  - id: x-git
-    kind: external
-    label: git
-    in: band-outside
+    - id: a-stage
+      kind: adronly
+      label: a unit's pipeline stage
+      in: band-pipeline
+    - id: g-affected
+      kind: code
+      label: Test-GlobSetAffected
+      in: band-globs
+    - id: f-globs
+      kind: file
+      label: globs.yml
+      in: band-globs
+    - id: g-change-range
+      kind: code
+      label: Get-GlobSetChangeRange
+      in: band-globs
+    - id: g-changed-globset
+      kind: code
+      label: Get-ChangedGlobSet
+      in: band-globs
+    - id: g-changed-file
+      kind: code
+      label: Get-ChangedFile
+      in: band-globs
+    - id: g-running
+      kind: code
+      label: Test-IsRunningInPipeline
+      in: band-loader
+    - id: x-git
+      kind: external
+      label: git
+      in: band-outside
   edges:
-  - from: a-stage
-    to: g-affected
-    kind: adr
-    label: ''
-  - from: g-affected
-    to: f-globs
-    kind: flow
-    label: ''
-  - from: g-affected
-    to: g-change-range
-    kind: flow
-    label: ''
-  - from: g-affected
-    to: g-changed-globset
-    kind: flow
-    label: ''
-  - from: g-change-range
-    to: g-running
-    kind: flow
-    label: ''
-  - from: g-changed-globset
-    to: g-changed-file
-    kind: flow
-    label: ''
-  - from: g-changed-file
-    to: x-git
-    kind: flow
-    label: ''
+    - from: a-stage
+      to: g-affected
+      kind: adr
+      label: ""
+    - from: g-affected
+      to: f-globs
+      kind: flow
+      label: ""
+    - from: g-affected
+      to: g-change-range
+      kind: flow
+      label: ""
+    - from: g-affected
+      to: g-changed-globset
+      kind: flow
+      label: ""
+    - from: g-change-range
+      to: g-running
+      kind: flow
+      label: ""
+    - from: g-changed-globset
+      to: g-changed-file
+      kind: flow
+      label: ""
+    - from: g-changed-file
+      to: x-git
+      kind: flow
+      label: ""
   markers:
-  - at: a-stage
-    number: 1
-  - at: g-affected
-    number: 2
-  - at: f-globs
-    number: 3
-  - at: g-change-range
-    number: 4
-  - at: g-running
-    number: 5
-  - at: g-changed-globset
-    number: 6
-  - at: g-changed-file
-    number: 7
-  - at: x-git
-    number: 8
+    - at: a-stage
+      number: 1
+    - at: g-affected
+      number: 2
+    - at: f-globs
+      number: 3
+    - at: g-change-range
+      number: 4
+    - at: g-running
+      number: 5
+    - at: g-changed-globset
+      number: 6
+    - at: g-changed-file
+      number: 7
+    - at: x-git
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-globs:
     x: 20

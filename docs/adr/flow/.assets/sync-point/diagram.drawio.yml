@@ -1,13 +1,13 @@
-description: Upstream consumers sync from the latest BVT-verified HEAD of the server's main and never from the dirty tip,
-  a commit that landed after it and is not yet judged or failed; the main-UAT occupant is a separate fact, with the verified
-  HEAD queued as its next candidate.
+description:
+  Upstream consumers sync from the latest BVT-verified HEAD of the server's main and never from the dirty tip, a commit that landed after it
+  and is not yet judged or failed; the main-UAT occupant is a separate fact, with the verified HEAD queued as its next candidate.
 about:
   adrs:
-  - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-  - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-  - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-  - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-  - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
   lens: architecture
 content:
   title: Upstream consumers sync from the BVT-verified HEAD, never from the dirty tip
@@ -16,58 +16,58 @@ content:
   relation: points at
   theme: dark
   bands:
-  - id: band-consumers
-    label: UPSTREAM
-  - id: band-server
-    label: SERVER MAIN
-  - id: band-uat
-    label: MAIN-UAT
+    - id: band-consumers
+      label: UPSTREAM
+    - id: band-server
+      label: SERVER MAIN
+    - id: band-uat
+      label: MAIN-UAT
   glyphs:
-  - id: g-integrator
-    kind: actor
-    label: upstream integrator
-    in: band-consumers
-  - id: c-verified
-    kind: commit
-    label: BVT-verified HEAD
-    in: band-server
-  - id: c-tip
-    kind: commit
-    label: dirty tip
-    in: band-server
-    state: landed
-    ghost: true
-  - id: e-main-uat
-    kind: env
-    label: main-UAT
-    in: band-uat
-  - id: c-occupant
-    kind: commit
-    label: occupant
-    in: e-main-uat
-    state: main-uat
+    - id: g-integrator
+      kind: actor
+      label: upstream integrator
+      in: band-consumers
+    - id: c-verified
+      kind: commit
+      label: BVT-verified HEAD
+      in: band-server
+    - id: c-tip
+      kind: commit
+      label: dirty tip
+      in: band-server
+      state: landed
+      ghost: true
+    - id: e-main-uat
+      kind: env
+      label: main-UAT
+      in: band-uat
+    - id: c-occupant
+      kind: commit
+      label: occupant
+      in: e-main-uat
+      state: main-uat
   edges:
-  - from: g-integrator
-    to: c-verified
-    kind: flow
-    label: syncs from
-  - from: g-integrator
-    to: c-tip
-    kind: fail
-    label: never
-  - from: c-verified
-    to: e-main-uat
-    kind: flow
-    label: next candidate
-  - from: c-verified
-    to: c-tip
-    kind: flow
-    label: lands after
+    - from: g-integrator
+      to: c-verified
+      kind: flow
+      label: syncs from
+    - from: g-integrator
+      to: c-tip
+      kind: fail
+      label: never
+    - from: c-verified
+      to: e-main-uat
+      kind: flow
+      label: next candidate
+    - from: c-verified
+      to: c-tip
+      kind: flow
+      label: lands after
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-consumers:
     x: 20

@@ -1,10 +1,11 @@
-description: 'The whole cats load is one call chain inside Invoke-Importer: internal modules, vendored modules, every module,
-  a run-mode check, the janitors and the removal of the bootstrap; both entry scripts end in this one function.'
+description:
+  "The whole cats load is one call chain inside Invoke-Importer: internal modules, vendored modules, every module, a run-mode check, the
+  janitors and the removal of the bootstrap; both entry scripts end in this one function."
 about:
   adrs:
-  - ADR-AUTO-BUNDLE-TWOROOTS
-  - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
-  - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+    - ADR-AUTO-BUNDLE-TWOROOTS
+    - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+    - ADR-AUTO-BUNDLE-BUNDLEISSESSION
   lens: implementation
 content:
   title: Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain
@@ -13,102 +14,102 @@ content:
   relation: calls next
   theme: dark
   bands:
-  - id: band-order
-    label: CALL ORDER
+    - id: band-order
+      label: CALL ORDER
   glyphs:
-  - id: g-importer
-    kind: code
-    label: importer.ps1
-    in: band-order
-  - id: g-invoke
-    kind: code
-    label: Invoke-Importer
-    in: band-order
-  - id: g-internal
-    kind: code
-    label: Import-InternalModule
-    in: band-order
-  - id: g-vendor
-    kind: code
-    label: Import-VendorModules
-    in: band-order
-  - id: g-all
-    kind: code
-    label: Import-AllModules
-    in: band-order
-  - id: g-exclusive
-    kind: gate
-    label: Assert-CatzcRunModeExclusive
-    in: band-order
-  - id: g-janitors
-    kind: code
-    label: Janitors
-    in: band-order
-  - id: g-remove
-    kind: code
-    label: Remove-Module
-    in: band-order
-  - id: g-import-catzc
-    kind: code
-    label: Import-Catzc.ps1
-    in: band-order
+    - id: g-importer
+      kind: code
+      label: importer.ps1
+      in: band-order
+    - id: g-invoke
+      kind: code
+      label: Invoke-Importer
+      in: band-order
+    - id: g-internal
+      kind: code
+      label: Import-InternalModule
+      in: band-order
+    - id: g-vendor
+      kind: code
+      label: Import-VendorModules
+      in: band-order
+    - id: g-all
+      kind: code
+      label: Import-AllModules
+      in: band-order
+    - id: g-exclusive
+      kind: gate
+      label: Assert-CatzcRunModeExclusive
+      in: band-order
+    - id: g-janitors
+      kind: code
+      label: Janitors
+      in: band-order
+    - id: g-remove
+      kind: code
+      label: Remove-Module
+      in: band-order
+    - id: g-import-catzc
+      kind: code
+      label: Import-Catzc.ps1
+      in: band-order
   edges:
-  - from: g-importer
-    to: g-invoke
-    kind: flow
-    label: ''
-  - from: g-invoke
-    to: g-internal
-    kind: flow
-    label: ''
-  - from: g-internal
-    to: g-vendor
-    kind: flow
-    label: ''
-  - from: g-vendor
-    to: g-all
-    kind: flow
-    label: ''
-  - from: g-all
-    to: g-exclusive
-    kind: flow
-    label: ''
-  - from: g-exclusive
-    to: g-janitors
-    kind: flow
-    label: ''
-  - from: g-janitors
-    to: g-remove
-    kind: flow
-    label: ''
-  - from: g-import-catzc
-    to: g-invoke
-    kind: flow
-    label: ''
+    - from: g-importer
+      to: g-invoke
+      kind: flow
+      label: ""
+    - from: g-invoke
+      to: g-internal
+      kind: flow
+      label: ""
+    - from: g-internal
+      to: g-vendor
+      kind: flow
+      label: ""
+    - from: g-vendor
+      to: g-all
+      kind: flow
+      label: ""
+    - from: g-all
+      to: g-exclusive
+      kind: flow
+      label: ""
+    - from: g-exclusive
+      to: g-janitors
+      kind: flow
+      label: ""
+    - from: g-janitors
+      to: g-remove
+      kind: flow
+      label: ""
+    - from: g-import-catzc
+      to: g-invoke
+      kind: flow
+      label: ""
   markers:
-  - at: g-importer
-    number: 1
-  - at: g-invoke
-    number: 2
-  - at: g-internal
-    number: 3
-  - at: g-vendor
-    number: 4
-  - at: g-all
-    number: 5
-  - at: g-exclusive
-    number: 6
-  - at: g-janitors
-    number: 7
-  - at: g-remove
-    number: 8
-  - at: g-import-catzc
-    number: 9
+    - at: g-importer
+      number: 1
+    - at: g-invoke
+      number: 2
+    - at: g-internal
+      number: 3
+    - at: g-vendor
+      number: 4
+    - at: g-all
+      number: 5
+    - at: g-exclusive
+      number: 6
+    - at: g-janitors
+      number: 7
+    - at: g-remove
+      number: 8
+    - at: g-import-catzc
+      number: 9
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-order:
     x: 20

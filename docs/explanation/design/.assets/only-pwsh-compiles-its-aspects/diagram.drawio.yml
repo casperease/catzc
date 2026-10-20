@@ -1,11 +1,11 @@
-description: 'The aspect conventions are declared in one variants file and read by two modules: the globs engine compiles
-  only the pwsh convention into a live and a tests globset per module, while the maps module reads every track''s convention
-  to classify files and derives no globset.'
+description:
+  "The aspect conventions are declared in one variants file and read by two modules: the globs engine compiles only the pwsh convention into
+  a live and a tests globset per module, while the maps module reads every track's convention to classify files and derives no globset."
 about:
   adrs:
-  - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-  - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
-  - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
+    - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+    - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+    - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
   lens: architecture
 content:
   title: Both tracks' conventions are read, but only the pwsh track's compiles into globsets
@@ -14,86 +14,86 @@ content:
   relation: feeds
   theme: dark
   bands:
-  - id: band-declared
-    label: DECLARED
-  - id: band-pwsh
-    label: PWSH
-  - id: band-infrastructure
-    label: INFRASTRUCTURE
+    - id: band-declared
+      label: DECLARED
+    - id: band-pwsh
+      label: PWSH
+    - id: band-infrastructure
+      label: INFRASTRUCTURE
   groups:
-  - id: grp-globsets
-    label: two globsets per module
-    in: band-pwsh
+    - id: grp-globsets
+      label: two globsets per module
+      in: band-pwsh
   glyphs:
-  - id: g-variants-yml
-    kind: file
-    label: variants.yml
-    in: band-declared
-  - id: g-variants
-    kind: code
-    label: Catzc.Base.Variants
-    in: band-declared
-  - id: g-globs
-    kind: code
-    label: Catzc.Base.Globs
-    in: band-pwsh
-  - id: g-live
-    kind: set
-    label: <module>-live
-    in: grp-globsets
-  - id: g-tests
-    kind: set
-    label: <module>-tests
-    in: grp-globsets
-  - id: g-maps
-    kind: code
-    label: Catzc.Base.Maps
-    in: band-infrastructure
-  - id: r-world-map
-    kind: result
-    label: world map
-    in: band-infrastructure
+    - id: g-variants-yml
+      kind: file
+      label: variants.yml
+      in: band-declared
+    - id: g-variants
+      kind: code
+      label: Catzc.Base.Variants
+      in: band-declared
+    - id: g-globs
+      kind: code
+      label: Catzc.Base.Globs
+      in: band-pwsh
+    - id: g-live
+      kind: set
+      label: <module>-live
+      in: grp-globsets
+    - id: g-tests
+      kind: set
+      label: <module>-tests
+      in: grp-globsets
+    - id: g-maps
+      kind: code
+      label: Catzc.Base.Maps
+      in: band-infrastructure
+    - id: r-world-map
+      kind: result
+      label: world map
+      in: band-infrastructure
   edges:
-  - from: g-variants-yml
-    to: g-variants
-    kind: flow
-    label: ''
-  - from: g-variants
-    to: g-globs
-    kind: flow
-    label: ''
-  - from: g-variants
-    to: g-maps
-    kind: flow
-    label: ''
-  - from: g-globs
-    to: grp-globsets
-    kind: thick
-    label: ''
-  - from: g-maps
-    to: r-world-map
-    kind: flow
-    label: ''
+    - from: g-variants-yml
+      to: g-variants
+      kind: flow
+      label: ""
+    - from: g-variants
+      to: g-globs
+      kind: flow
+      label: ""
+    - from: g-variants
+      to: g-maps
+      kind: flow
+      label: ""
+    - from: g-globs
+      to: grp-globsets
+      kind: thick
+      label: ""
+    - from: g-maps
+      to: r-world-map
+      kind: flow
+      label: ""
   markers:
-  - at: g-variants-yml
-    number: 1
-  - at: g-variants
-    number: 2
-  - at: g-globs
-    number: 3
-  - at: g-live
-    number: 4
-  - at: g-tests
-    number: 5
-  - at: g-maps
-    number: 6
-  - at: r-world-map
-    number: 7
+    - at: g-variants-yml
+      number: 1
+    - at: g-variants
+      number: 2
+    - at: g-globs
+      number: 3
+    - at: g-live
+      number: 4
+    - at: g-tests
+      number: 5
+    - at: g-maps
+      number: 6
+    - at: r-world-map
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-declared:
     x: 20

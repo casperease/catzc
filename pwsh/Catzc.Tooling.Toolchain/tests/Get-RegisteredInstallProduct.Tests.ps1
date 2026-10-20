@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
+    folder: tests
+    name: get-registered-install-product-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Toolchain
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-RegisteredInstallProduct.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-REMOVE-THREEPLATFORMCORES
+---
+#>
+
 Describe 'Get-RegisteredInstallProduct' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
     BeforeEach {
         $script:entries = @{

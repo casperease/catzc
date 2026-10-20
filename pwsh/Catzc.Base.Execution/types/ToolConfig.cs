@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Execution/types/ToolConfig.cs
+    folder: types
+    name: tool-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Execution
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
+    docs: "[ToolConfig.cs.md](docs/references/pwsh/catzc-base-execution/types/ToolConfig.cs.md)"
+    cites:
+      - ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS
+      - ADR-AUTO-PKGMGR-VERIFYDOWNLOADS
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

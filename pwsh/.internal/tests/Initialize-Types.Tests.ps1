@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.internal/tests/Initialize-Types.Tests.ps1
+    name: initialize-types-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Internal.Tests
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
+  edges:
+    docs: "[Initialize-Types.Tests.ps1.md](docs/references/pwsh/internal/tests/Initialize-Types.Tests.ps1.md)"
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests set and read $global:__CatzcDeferredTypes, the session-global pending record the deferred load reads')]
 param()
 

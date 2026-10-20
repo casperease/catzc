@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Get-PythonTestCases.ps1
+    folder: private
+    name: get-python-test-cases
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-PythonTestCases.Tests.ps1
+    docs: "[Get-PythonTestCases.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-PythonTestCases.ps1.md)"
+---
+#>
+
 function Get-PythonTestCases {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

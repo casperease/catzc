@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/CommentPageMap.cs
+    folder: types
+    name: comment-page-map
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[CommentPageMap.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/CommentPageMap.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-PRIN-ONELIVE-ONEVERSION
+      - ADR-REPO-README-AUTHOREDSOURCES
+---
+*/
+
 using System;
 using System.Collections;
 using System.Globalization;

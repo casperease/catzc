@@ -14,7 +14,7 @@
 #     moduletype: pwsh-folder
 #     catzc_bundle: azure
 #   edges:
-#     docs: "[vscode-launch.yml.md](/docs/references/pwsh/catzc-base-vscode/configs/vscode-launch.yml.md)"
+#     docs: "[vscode-launch.yml.md](docs/references/pwsh/catzc-base-vscode/configs/vscode-launch.yml.md)"
 # ---
 
 version: "0.2.0"

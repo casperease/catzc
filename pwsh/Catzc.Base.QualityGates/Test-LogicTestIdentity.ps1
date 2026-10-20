@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1
+    name: test-logic-test-identity
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
+    docs: "[Test-LogicTestIdentity.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-LANG
+---
+#>
+
 function Test-LogicTestIdentity {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

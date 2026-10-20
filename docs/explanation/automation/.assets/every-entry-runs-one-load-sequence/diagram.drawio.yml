@@ -1,9 +1,10 @@
-description: 'Whatever the entry point, cats loads through the same five stages in the same order: enter, set up the session,
-  load, prove one run mode, then tidy and leave.'
+description:
+  "Whatever the entry point, cats loads through the same five stages in the same order: enter, set up the session, load, prove one run mode,
+  then tidy and leave."
 about:
   adrs:
-  - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
-  - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+    - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+    - ADR-AUTO-BUNDLE-BUNDLEISSESSION
   lens: meta
 content:
   title: Every entry runs one load sequence
@@ -12,62 +13,62 @@ content:
   relation: runs next
   theme: dark
   bands:
-  - id: band-load
-    label: LOAD SEQUENCE
+    - id: band-load
+      label: LOAD SEQUENCE
   glyphs:
-  - id: g-enter
-    kind: code
-    label: Enter
-    in: band-load
-  - id: g-session
-    kind: code
-    label: Set up the session
-    in: band-load
-  - id: g-load
-    kind: code
-    label: Load
-    in: band-load
-  - id: g-prove
-    kind: gate
-    label: Prove one run mode
-    in: band-load
-  - id: g-tidy
-    kind: code
-    label: Tidy, then leave
-    in: band-load
+    - id: g-enter
+      kind: code
+      label: Enter
+      in: band-load
+    - id: g-session
+      kind: code
+      label: Set up the session
+      in: band-load
+    - id: g-load
+      kind: code
+      label: Load
+      in: band-load
+    - id: g-prove
+      kind: gate
+      label: Prove one run mode
+      in: band-load
+    - id: g-tidy
+      kind: code
+      label: Tidy, then leave
+      in: band-load
   edges:
-  - from: g-enter
-    to: g-session
-    kind: flow
-    label: ''
-  - from: g-session
-    to: g-load
-    kind: flow
-    label: ''
-  - from: g-load
-    to: g-prove
-    kind: flow
-    label: ''
-  - from: g-prove
-    to: g-tidy
-    kind: flow
-    label: ''
+    - from: g-enter
+      to: g-session
+      kind: flow
+      label: ""
+    - from: g-session
+      to: g-load
+      kind: flow
+      label: ""
+    - from: g-load
+      to: g-prove
+      kind: flow
+      label: ""
+    - from: g-prove
+      to: g-tidy
+      kind: flow
+      label: ""
   markers:
-  - at: g-enter
-    number: 1
-  - at: g-session
-    number: 2
-  - at: g-load
-    number: 3
-  - at: g-prove
-    number: 4
-  - at: g-tidy
-    number: 5
+    - at: g-enter
+      number: 1
+    - at: g-session
+      number: 2
+    - at: g-load
+      number: 3
+    - at: g-prove
+      number: 4
+    - at: g-tidy
+      number: 5
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-load:
     x: 20

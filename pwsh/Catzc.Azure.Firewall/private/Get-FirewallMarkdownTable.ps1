@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
+    folder: private
+    name: get-firewall-markdown-table
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Firewall
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownTable.Tests.ps1
+    docs: "[Get-FirewallMarkdownTable.ps1.md](docs/references/pwsh/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md)"
+---
+#>
+
 function Get-FirewallMarkdownTable {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'MultiValueFields/IpGroupColumns/SplitPattern/DoNotCutIpgNames are consumed inside the $renderField scriptblock, which this rule does not trace')]
     [CmdletBinding()]

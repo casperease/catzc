@@ -43,8 +43,8 @@ ladder. Keeping the two events apart is what lets a commit's colour stay a true 
 
 ## Where the code and the ADR differ
 
-ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows the out-of-band deploy, but no pipeline or workflow in cats runs one: every `Deploy_*` stage runs
-only from main.
+ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows the out-of-band deploy, but no pipeline or workflow in cats runs one: every `Deploy_*` stage
+runs only from main.
 
 ## See also
 

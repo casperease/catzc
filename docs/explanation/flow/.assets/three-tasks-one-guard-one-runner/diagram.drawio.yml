@@ -1,10 +1,11 @@
-description: 'The path from a pipeline''s RunCommand to the running command: the step template''s three tasks carry one inline
-  guard that can throw, then the runner imports, traps, sanitizes and invokes in a fixed order.'
+description:
+  "The path from a pipeline's RunCommand to the running command: the step template's three tasks carry one inline guard that can throw, then
+  the runner imports, traps, sanitizes and invokes in a fixed order."
 about:
   adrs:
-  - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-  - ADR-FLOW-CD-RUNNER-IMPORTONCE
-  - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+    - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+    - ADR-FLOW-CD-RUNNER-IMPORTONCE
+    - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
   lens: implementation
 content:
   title: Three tasks share one guard, and one runner imports, traps, sanitizes and invokes
@@ -13,98 +14,98 @@ content:
   relation: next in code order
   theme: dark
   bands:
-  - id: band-template
-    label: TEMPLATE
-  - id: band-runner
-    label: RUNNER
+    - id: band-template
+      label: TEMPLATE
+    - id: band-runner
+      label: RUNNER
   glyphs:
-  - id: f-ci-automation
-    kind: file
-    label: ci-pwsh.yaml
-    in: band-template
-  - id: f-template
-    kind: file
-    label: invoke-automation.yaml
-    in: band-template
-  - id: g-inline-guard
-    kind: gate
-    label: inline guard
-    in: band-template
-  - id: x-throw
-    kind: failure
-    label: throw
-    in: band-template
-  - id: c-importer
-    kind: code
-    label: importer.ps1
-    in: band-runner
-  - id: c-trap
-    kind: code
-    label: trap
-    in: band-runner
-  - id: c-sanitize
-    kind: code
-    label: sanitize
-    in: band-runner
-  - id: c-invoke-command
-    kind: code
-    label: Invoke-Command
-    in: band-runner
+    - id: f-ci-automation
+      kind: file
+      label: ci-pwsh.yaml
+      in: band-template
+    - id: f-template
+      kind: file
+      label: invoke-automation.yaml
+      in: band-template
+    - id: g-inline-guard
+      kind: gate
+      label: inline guard
+      in: band-template
+    - id: x-throw
+      kind: failure
+      label: throw
+      in: band-template
+    - id: c-importer
+      kind: code
+      label: importer.ps1
+      in: band-runner
+    - id: c-trap
+      kind: code
+      label: trap
+      in: band-runner
+    - id: c-sanitize
+      kind: code
+      label: sanitize
+      in: band-runner
+    - id: c-invoke-command
+      kind: code
+      label: Invoke-Command
+      in: band-runner
   edges:
-  - from: f-ci-automation
-    to: f-template
-    kind: flow
-    label: ''
-  - from: f-template
-    to: g-inline-guard
-    kind: flow
-    label: ''
-  - from: g-inline-guard
-    to: x-throw
-    kind: fail
-    label: ''
-  - from: g-inline-guard
-    to: c-importer
-    kind: flow
-    label: ''
-  - from: c-importer
-    to: c-trap
-    kind: flow
-    label: ''
-  - from: c-trap
-    to: c-sanitize
-    kind: flow
-    label: ''
-  - from: c-sanitize
-    to: c-invoke-command
-    kind: flow
-    label: ''
+    - from: f-ci-automation
+      to: f-template
+      kind: flow
+      label: ""
+    - from: f-template
+      to: g-inline-guard
+      kind: flow
+      label: ""
+    - from: g-inline-guard
+      to: x-throw
+      kind: fail
+      label: ""
+    - from: g-inline-guard
+      to: c-importer
+      kind: flow
+      label: ""
+    - from: c-importer
+      to: c-trap
+      kind: flow
+      label: ""
+    - from: c-trap
+      to: c-sanitize
+      kind: flow
+      label: ""
+    - from: c-sanitize
+      to: c-invoke-command
+      kind: flow
+      label: ""
   markers:
-  - at: f-ci-automation
-    number: 1
-  - at: f-template
-    number: 2
-  - at: g-inline-guard
-    number: 3
-  - at: x-throw
-    number: 4
-  - at: c-importer
-    number: 5
-  - at: c-trap
-    number: 6
-  - at: c-sanitize
-    number: 7
-  - at: c-invoke-command
-    number: 8
+    - at: f-ci-automation
+      number: 1
+    - at: f-template
+      number: 2
+    - at: g-inline-guard
+      number: 3
+    - at: x-throw
+      number: 4
+    - at: c-importer
+      number: 5
+    - at: c-trap
+      number: 6
+    - at: c-sanitize
+      number: 7
+    - at: c-invoke-command
+      number: 8
   chips:
-  - at: g-inline-guard
-    kind: count
-    text: 3/3
+    - at: g-inline-guard
+      kind: count
+      text: 3/3
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-template:
     x: 20

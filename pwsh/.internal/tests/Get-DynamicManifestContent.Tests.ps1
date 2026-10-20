@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/.internal/tests/Get-DynamicManifestContent.Tests.ps1
+    name: get-dynamic-manifest-content-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Internal.Tests
+    moduletype: pwsh-folder
+    catzc_bundle: minimal
+  edges:
+    docs: "[Get-DynamicManifestContent.Tests.ps1.md](docs/references/pwsh/internal/tests/Get-DynamicManifestContent.Tests.ps1.md)"
+---
+#>
+
 Describe 'Get-DynamicManifestContent' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force

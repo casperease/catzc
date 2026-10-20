@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
+    folder: tests
+    name: test-catzc-build-scope-isolation-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Test-CatzcBuild.ScopeIsolation.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md)"
+    cites:
+      - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
+---
+#>
+
 Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE' {
     BeforeAll {
         $script:probeName = 'catzcScopeIsolationProbe'

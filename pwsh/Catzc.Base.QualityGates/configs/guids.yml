@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.QualityGates/configs/guids.yml
+#     folder: configs
+#     name: guids
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.QualityGates
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[guids.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/guids.yml.md)"
+# ---
+
 # cspell:ignore oilzstgq
 
 denied:

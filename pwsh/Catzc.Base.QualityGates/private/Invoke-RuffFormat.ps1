@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Invoke-RuffFormat.ps1
+    folder: private
+    name: invoke-ruff-format
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Invoke-RuffFormat.Tests.ps1
+    docs: "[Invoke-RuffFormat.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-RuffFormat.ps1.md)"
+    cites:
+      - ADR-AUTO-PY-EVERYFILELINTED
+      - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
+---
+#>
+
 function Invoke-RuffFormat {
     [CmdletBinding()]
     [OutputType([string[]])]

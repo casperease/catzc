@@ -1,10 +1,11 @@
-description: 'One module folder is read by two components that never read each other: the loader derives the manifest and
-  so what the module exports, and the globs engine derives the live and tests sets and so what ships.'
+description:
+  "One module folder is read by two components that never read each other: the loader derives the manifest and so what the module exports,
+  and the globs engine derives the live and tests sets and so what ships."
 about:
   adrs:
-  - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
-  - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-  - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
+    - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+    - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+    - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
   lens: architecture
 content:
   title: One module folder has two independent readers
@@ -13,100 +14,100 @@ content:
   relation: reads, then derives
   theme: dark
   bands:
-  - id: band-root
-    label: ONE FOLDER
-  - id: band-visibility
-    label: VISIBILITY
-  - id: band-aspects
-    label: ASPECTS
+    - id: band-root
+      label: ONE FOLDER
+    - id: band-visibility
+      label: VISIBILITY
+    - id: band-aspects
+      label: ASPECTS
   glyphs:
-  - id: g-root
-    kind: code
-    label: pwsh/<Module>/
-    in: band-root
-  - id: g-bootstrap
-    kind: code
-    label: Catzc.Internal.Bootstrap
-    in: band-visibility
-  - id: g-psd1
-    kind: file
-    label: <Module>.psd1
-    in: band-visibility
-  - id: g-variants
-    kind: code
-    label: Catzc.Base.Variants
-    in: band-aspects
-  - id: g-globs
-    kind: code
-    label: Catzc.Base.Globs
-    in: band-aspects
-  - id: g-live
-    kind: set
-    label: <module>-live
-    in: band-aspects
-  - id: g-tests
-    kind: set
-    label: <module>-tests
-    in: band-aspects
-  - id: g-locks
-    kind: adronly
-    label: aspect sha locks
-    in: band-aspects
+    - id: g-root
+      kind: code
+      label: pwsh/<Module>/
+      in: band-root
+    - id: g-bootstrap
+      kind: code
+      label: Catzc.Internal.Bootstrap
+      in: band-visibility
+    - id: g-psd1
+      kind: file
+      label: <Module>.psd1
+      in: band-visibility
+    - id: g-variants
+      kind: code
+      label: Catzc.Base.Variants
+      in: band-aspects
+    - id: g-globs
+      kind: code
+      label: Catzc.Base.Globs
+      in: band-aspects
+    - id: g-live
+      kind: set
+      label: <module>-live
+      in: band-aspects
+    - id: g-tests
+      kind: set
+      label: <module>-tests
+      in: band-aspects
+    - id: g-locks
+      kind: adronly
+      label: aspect sha locks
+      in: band-aspects
   edges:
-  - from: g-root
-    to: g-bootstrap
-    kind: flow
-    label: ''
-  - from: g-bootstrap
-    to: g-psd1
-    kind: flow
-    label: ''
-  - from: g-variants
-    to: g-globs
-    kind: flow
-    label: ''
-  - from: g-root
-    to: g-globs
-    kind: flow
-    label: ''
-  - from: g-globs
-    to: g-live
-    kind: thick
-    label: ''
-  - from: g-globs
-    to: g-tests
-    kind: thick
-    label: ''
-  - from: g-live
-    to: g-locks
-    kind: adr
-    label: ''
-  - from: g-tests
-    to: g-locks
-    kind: adr
-    label: ''
+    - from: g-root
+      to: g-bootstrap
+      kind: flow
+      label: ""
+    - from: g-bootstrap
+      to: g-psd1
+      kind: flow
+      label: ""
+    - from: g-variants
+      to: g-globs
+      kind: flow
+      label: ""
+    - from: g-root
+      to: g-globs
+      kind: flow
+      label: ""
+    - from: g-globs
+      to: g-live
+      kind: thick
+      label: ""
+    - from: g-globs
+      to: g-tests
+      kind: thick
+      label: ""
+    - from: g-live
+      to: g-locks
+      kind: adr
+      label: ""
+    - from: g-tests
+      to: g-locks
+      kind: adr
+      label: ""
   markers:
-  - at: g-root
-    number: 1
-  - at: g-bootstrap
-    number: 2
-  - at: g-psd1
-    number: 3
-  - at: g-variants
-    number: 4
-  - at: g-globs
-    number: 5
-  - at: g-live
-    number: 6
-  - at: g-tests
-    number: 7
-  - at: g-locks
-    number: 8
+    - at: g-root
+      number: 1
+    - at: g-bootstrap
+      number: 2
+    - at: g-psd1
+      number: 3
+    - at: g-variants
+      number: 4
+    - at: g-globs
+      number: 5
+    - at: g-live
+      number: 6
+    - at: g-tests
+      number: 7
+    - at: g-locks
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-root:
     x: 20

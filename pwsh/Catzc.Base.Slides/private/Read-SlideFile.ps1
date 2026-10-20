@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Slides/private/Read-SlideFile.ps1
+    folder: private
+    name: read-slide-file
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Slides
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Read-SlideFile.ps1.md](docs/references/pwsh/catzc-base-slides/private/Read-SlideFile.ps1.md)"
+    cites:
+      - ADR-REPO-SLIDES-SLIDEFILE
+---
+#>
+
 function Read-SlideFile {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

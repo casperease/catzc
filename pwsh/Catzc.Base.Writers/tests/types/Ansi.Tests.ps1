@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Writers/tests/types/Ansi.Tests.ps1
+    folder: tests/types
+    name: ansi-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Writers
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Ansi.Tests.ps1.md](docs/references/pwsh/catzc-base-writers/tests/types/Ansi.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-CONSOLE-SPARINGCOLOUR
+---
+#>
+
 Describe 'Ansi' -Tag 'L0', 'logic' {
     It 'maps <color> to its SGR foreground escape' -ForEach @(
         @{ color = 'Red'; code = "`e[91m" }

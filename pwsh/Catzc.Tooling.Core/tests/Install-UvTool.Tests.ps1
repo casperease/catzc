@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
+    folder: tests
+    name: install-uv-tool-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Install-UvTool.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Install-UvTool.Tests.ps1.md)"
+---
+#>
+
 Describe 'Install-UvTool' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-TestToolConfig {

@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/ConvertTo-TestAutomationRowSet.ps1
+    folder: private
+    name: convert-to-test-automation-row-set
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1
+    docs: "[ConvertTo-TestAutomationRowSet.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/ConvertTo-TestAutomationRowSet.ps1.md)"
+---
+#>
+
 function ConvertTo-TestAutomationRowSet {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -17,7 +17,7 @@ catzc:
     visibility: public
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
-    docs: "[New-VSCodeSettings.ps1.md](/docs/references/pwsh/catzc-base-vscode/New-VSCodeSettings.ps1.md)"
+    docs: "[New-VSCodeSettings.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VSCodeSettings.ps1.md)"
     cites:
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
       - ADR-REPO-ROOTCFG

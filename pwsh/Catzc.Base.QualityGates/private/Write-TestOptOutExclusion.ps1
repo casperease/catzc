@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Write-TestOptOutExclusion.ps1
+    folder: private
+    name: write-test-opt-out-exclusion
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    docs: "[Write-TestOptOutExclusion.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SOURCEONLYTAG
+---
+#>
+
 function Write-TestOptOutExclusion {
     [CmdletBinding()]
     param(

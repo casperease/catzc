@@ -1,9 +1,10 @@
-description: 'A dropped Verb-Noun file needs no registration: the next import exports it, or throws on a name collision, the
-  module''s aspect sets place it in the live set, and the quality gates report a non-conventional file.'
+description:
+  "A dropped Verb-Noun file needs no registration: the next import exports it, or throws on a name collision, the module's aspect sets place
+  it in the live set, and the quality gates report a non-conventional file."
 about:
   adrs:
-  - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
-  - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+    - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+    - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
   lens: operations
 content:
   title: Drop a file, and the next import exports it
@@ -12,86 +13,86 @@ content:
   relation: runs, then yields
   theme: dark
   bands:
-  - id: band-file
-    label: THE FILE
-  - id: band-import
-    label: EVERY IMPORT
-  - id: band-aspect
-    label: WHICH ASPECT
+    - id: band-file
+      label: THE FILE
+    - id: band-import
+      label: EVERY IMPORT
+    - id: band-aspect
+      label: WHICH ASPECT
   glyphs:
-  - id: c-file
-    kind: code
-    label: Verb-Noun.ps1
-    in: band-file
-  - id: g-quality
-    kind: gate
-    label: Quality gates
-    in: band-file
-  - id: c-importer
-    kind: code
-    label: . ./importer.ps1
-    in: band-import
-  - id: r-exported
-    kind: result
-    label: Verb-Noun exported
-    in: band-import
-  - id: f-collision
-    kind: failure
-    label: Function name collision(s)
-    in: band-import
-  - id: c-globset
-    kind: code
-    label: Get-ModuleGlobSet
-    in: band-aspect
-  - id: r-live
-    kind: result
-    label: in <kebab>-live
-    in: band-aspect
+    - id: c-file
+      kind: code
+      label: Verb-Noun.ps1
+      in: band-file
+    - id: g-quality
+      kind: gate
+      label: Quality gates
+      in: band-file
+    - id: c-importer
+      kind: code
+      label: . ./importer.ps1
+      in: band-import
+    - id: r-exported
+      kind: result
+      label: Verb-Noun exported
+      in: band-import
+    - id: f-collision
+      kind: failure
+      label: Function name collision(s)
+      in: band-import
+    - id: c-globset
+      kind: code
+      label: Get-ModuleGlobSet
+      in: band-aspect
+    - id: r-live
+      kind: result
+      label: in <kebab>-live
+      in: band-aspect
   edges:
-  - from: c-file
-    to: c-importer
-    kind: flow
-    label: ''
-  - from: c-importer
-    to: r-exported
-    kind: flow
-    label: ''
-  - from: c-importer
-    to: f-collision
-    kind: fail
-    label: ''
-  - from: c-file
-    to: c-globset
-    kind: flow
-    label: ''
-  - from: c-globset
-    to: r-live
-    kind: flow
-    label: ''
-  - from: c-file
-    to: g-quality
-    kind: flow
-    label: ''
+    - from: c-file
+      to: c-importer
+      kind: flow
+      label: ""
+    - from: c-importer
+      to: r-exported
+      kind: flow
+      label: ""
+    - from: c-importer
+      to: f-collision
+      kind: fail
+      label: ""
+    - from: c-file
+      to: c-globset
+      kind: flow
+      label: ""
+    - from: c-globset
+      to: r-live
+      kind: flow
+      label: ""
+    - from: c-file
+      to: g-quality
+      kind: flow
+      label: ""
   markers:
-  - at: c-file
-    number: 1
-  - at: c-importer
-    number: 2
-  - at: r-exported
-    number: 3
-  - at: f-collision
-    number: 4
-  - at: c-globset
-    number: 5
-  - at: r-live
-    number: 6
-  - at: g-quality
-    number: 7
+    - at: c-file
+      number: 1
+    - at: c-importer
+      number: 2
+    - at: r-exported
+      number: 3
+    - at: f-collision
+      number: 4
+    - at: c-globset
+      number: 5
+    - at: r-live
+      number: 6
+    - at: g-quality
+      number: 7
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-file:
     x: 20

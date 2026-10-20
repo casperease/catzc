@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1
+    folder: tests/types
+    name: links-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[LinksConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/LinksConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+      - ADR-REPO-LINK-ONECITATIONSPELLING
+      - ADR-REPO-LINK-ALIGNEDBYTOOL
+---
+#>
+
 Describe 'LinksConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.QualityGates.LinksConfig]::new(@{})

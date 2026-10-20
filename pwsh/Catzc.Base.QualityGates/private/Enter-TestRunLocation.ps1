@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Enter-TestRunLocation.ps1
+    folder: private
+    name: enter-test-run-location
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Enter-TestRunLocation.Tests.ps1
+    docs: "[Enter-TestRunLocation.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
+      - ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE
+      - ADR-AUTO-TEST-RUNSNEVERWAIT
+---
+#>
+
 function Enter-TestRunLocation {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

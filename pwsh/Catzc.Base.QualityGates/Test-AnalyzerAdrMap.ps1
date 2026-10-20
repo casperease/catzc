@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
+    name: test-analyzer-adr-map
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1
+    docs: "[Test-AnalyzerAdrMap.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-PWSH-FORMAT-ANALYZERADRMAPPING
+---
+#>
+
 function Test-AnalyzerAdrMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

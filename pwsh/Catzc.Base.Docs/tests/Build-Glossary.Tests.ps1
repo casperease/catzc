@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
+    folder: tests
+    name: build-glossary-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-Glossary.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-README-AUTHOREDSOURCES
+      - ADR-REPO-VOCAB-DEFINEDTERM
+---
+#>
+
 Describe 'Build-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
         # A rule whose link is longer than a line: the page wraps it the way Prettier does, so the formatter leaves it unchanged.

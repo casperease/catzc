@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Languages/configs/go.yml
+#     folder: configs
+#     name: go
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Languages
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[go.yml.md](docs/references/pwsh/catzc-base-languages/configs/go.yml.md)"
+# ---
+
 module_root: catzc/go
 
 dependencies: {}

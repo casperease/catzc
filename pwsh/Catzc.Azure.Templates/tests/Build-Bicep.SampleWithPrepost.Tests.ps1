@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1
+    folder: tests
+    name: build-bicep-sample-with-prepost-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-Bicep.SampleWithPrepost.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-SETUPONCE
+      - ADR-AUTO-TEST-ONEIMPORTPERCASE
+---
+#>
+
 Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-with-prepost'

@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+    name: new-go-workspace
+    filetype: ps1
+    role: function
+    subkind: writer
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
+    docs: "[New-GoWorkspace.ps1.md](docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md)"
+    cites:
+      - ADR-CONF-ADDRESSING
+      - ADR-REPO-ROOTCFG
+---
+#>
+
 function New-GoWorkspace {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.GoWorkspaceFile])]

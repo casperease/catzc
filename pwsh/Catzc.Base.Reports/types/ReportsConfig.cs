@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
+    folder: types
+    name: reports-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Reports
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+    docs: "[ReportsConfig.cs.md](docs/references/pwsh/catzc-base-reports/types/ReportsConfig.cs.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

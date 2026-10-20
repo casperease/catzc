@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
+    folder: tests
+    name: build-bicep-integrity-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-Bicep.Integrity.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-ONECATEGORY
+      - ADR-AUTO-TEST-INTEGRITYREADSFILES
+      - ADR-AUTO-TEST-GENERICTEMPLATETESTS
+      - ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS
+---
+#>
+
 Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     BeforeAll {
         $script:discoveryError = $null

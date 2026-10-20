@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
+    name: get-module-neighbourhood-minimap-data
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/Get-ModuleNeighbourhoodMinimapData.Tests.ps1
+    docs: "[Get-ModuleNeighbourhoodMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md)"
+    cites:
+      - ADR-AUTO-DEPM
+---
+#>
+
 function Get-ModuleNeighbourhoodMinimapData {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]

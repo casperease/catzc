@@ -1,1 +1,20 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Timeouts/configs/timeout-exemptions.yml
+#     folder: configs
+#     name: timeout-exemptions
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Timeouts
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[timeout-exemptions.yml.md](docs/references/pwsh/catzc-base-timeouts/configs/timeout-exemptions.yml.md)"
+# ---
+
 exempt: []

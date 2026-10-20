@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
+    name: test-module-cycles
+    filetype: ps1
+    role: function
+    subkind: gate
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.ModuleSystem
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleCycles.Tests.ps1
+    docs: "[Test-ModuleCycles.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Test-ModuleCycles.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 function Test-ModuleCycles {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

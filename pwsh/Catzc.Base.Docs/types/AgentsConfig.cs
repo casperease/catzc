@@ -1,3 +1,33 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
+    folder: types
+    name: agents-config
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Docs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
+    docs: "[AgentsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - ADR-REPO-AGENTS-BACKEDBYRULE
+      - ADR-REPO-AGENTS-STANDARDWORKER
+      - ADR-REPO-AGENTS-ROBOTBODYLIMIT
+      - ADR-REPO-AGENTS-CAPABILITYFILE
+      - ADR-REPO-AI
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,3 +1,24 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/types/FileSelector.cs
+    folder: types
+    name: file-selector
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[FileSelector.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/FileSelector.cs.md)"
+---
+*/
+
 // A file is picked by its class and its language, never by a glob: the globs live once, in the registry's ordered classes.
 
 using System;

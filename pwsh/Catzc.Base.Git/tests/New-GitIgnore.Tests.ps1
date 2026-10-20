@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Git/tests/New-GitIgnore.Tests.ps1
+    folder: tests
+    name: new-git-ignore-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Git
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[New-GitIgnore.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/New-GitIgnore.Tests.ps1.md)"
+    cites:
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+---
+#>
+
 Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.Git {

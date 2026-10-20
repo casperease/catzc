@@ -1,3 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
+    folder: private
+    name: select-supported-key-handler
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.KeyHandler
+    moduletype: pwsh-folder
+    catzc_bundle: full
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
+    docs: "[Select-SupportedKeyHandler.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/private/Select-SupportedKeyHandler.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE-READONLYVALUES
+      - ADR-AUTO-TEST
+---
+#>
+
 function Select-SupportedKeyHandler {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
+    folder: tests
+    name: get-changed-file-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ChangedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md)"
+    cites:
+      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+---
+#>
+
 # cspell:ignore nsrc  -- the escape-sequence artifact in the "a.txt`nsrc/b.cs" fixture strings
 Describe 'Get-ChangedFile' -Tag 'L0', 'logic' {
     It 'splits git diff output into paths and drops empty lines' {

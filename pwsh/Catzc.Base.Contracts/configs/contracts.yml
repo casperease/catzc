@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.Contracts/configs/contracts.yml
+#     folder: configs
+#     name: contracts
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.Contracts
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[contracts.yml.md](docs/references/pwsh/catzc-base-contracts/configs/contracts.yml.md)"
+# ---
+
 addressing: full-path
 
 target_roots:

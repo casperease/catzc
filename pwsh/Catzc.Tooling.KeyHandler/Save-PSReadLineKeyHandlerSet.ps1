@@ -1,3 +1,25 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.KeyHandler/Save-PSReadLineKeyHandlerSet.ps1
+    name: save-ps-read-line-key-handler-set
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.KeyHandler
+    moduletype: pwsh-folder
+    catzc_bundle: full
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Tooling.KeyHandler/tests/Save-PSReadLineKeyHandlerSet.Tests.ps1
+    docs: "[Save-PSReadLineKeyHandlerSet.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/Save-PSReadLineKeyHandlerSet.ps1.md)"
+---
+#>
+
 function Save-PSReadLineKeyHandlerSet {
     [CmdletBinding()]
     param(

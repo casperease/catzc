@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
+    name: set-bicep-tracking-tag-set
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.Templates/tests/Set-BicepTrackingTagSet.Tests.ps1
+    docs: "[Set-BicepTrackingTagSet.ps1.md](docs/references/pwsh/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md)"
+    cites:
+      - ADR-AUTO-DRYRUN
+      - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+---
+#>
+
 function Set-BicepTrackingTagSet {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]

@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/Measure-QualityGates.ps1
+    name: measure-quality-gates
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Measure-QualityGates.Tests.ps1
+    docs: "[Measure-QualityGates.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Measure-QualityGates.ps1.md)"
+    cites:
+      - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
+---
+#>
+
 function Measure-QualityGates {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

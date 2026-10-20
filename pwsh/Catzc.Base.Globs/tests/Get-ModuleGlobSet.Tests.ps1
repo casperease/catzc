@@ -1,3 +1,31 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+    folder: tests
+    name: get-module-glob-set-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Globs
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ModuleGlobSet.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-BASH-ONEBASHROOT
+      - ADR-AUTO-GO-ONEGOROOT
+      - ADR-AUTO-PY-ONEPYTHONROOT
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-DSGN-ASPECT
+      - ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS
+---
+#>
+
 Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

@@ -1,12 +1,13 @@
-description: CI, CD and DEPLOY are separate pipeline kinds keyed together by one tagged artifact that CI builds once; the
-  two release gates sit between the kinds, and the CD run's own path to production runs below them.
+description:
+  CI, CD and DEPLOY are separate pipeline kinds keyed together by one tagged artifact that CI builds once; the two release gates sit between
+  the kinds, and the CD run's own path to production runs below them.
 about:
   adrs:
-  - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-  - ADR-FLOW-CD-CDCONTAINSCI
-  - ADR-FLOW-CD-CDSTAYSINNONPROD
-  - ADR-FLOW-CD-TWORELEASEGATES
-  - ADR-FLOW-CD-PREPRODRUNG
+    - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+    - ADR-FLOW-CD-CDCONTAINSCI
+    - ADR-FLOW-CD-CDSTAYSINNONPROD
+    - ADR-FLOW-CD-TWORELEASEGATES
+    - ADR-FLOW-CD-PREPRODRUNG
   lens: architecture
 content:
   title: CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact
@@ -15,121 +16,121 @@ content:
   relation: the artifact moves on
   theme: dark
   bands:
-  - id: band-cd
-    label: CD
-  - id: band-non-prod
-    label: DEPLOY-NON-PROD
-  - id: band-prod
-    label: DEPLOY-PROD
+    - id: band-cd
+      label: CD
+    - id: band-non-prod
+      label: DEPLOY-NON-PROD
+    - id: band-prod
+      label: DEPLOY-PROD
   spans:
-  - id: span-ci
-    label: CI
-    over:
-    - g-ci
-    - g-artifact
-  - id: span-cd
-    label: CD
-    over:
-    - band-cd
-  - id: span-deploy
-    label: DEPLOY
-    over:
-    - band-non-prod
-    - band-prod
+    - id: span-ci
+      label: CI
+      over:
+        - g-ci
+        - g-artifact
+    - id: span-cd
+      label: CD
+      over:
+        - band-cd
+    - id: span-deploy
+      label: DEPLOY
+      over:
+        - band-non-prod
+        - band-prod
   glyphs:
-  - id: g-main-uat
-    kind: env
-    label: main-uat
-    in: band-cd
-  - id: g-ci
-    kind: runner
-    label: CI component
-    in: band-cd
-  - id: g-artifact
-    kind: result
-    label: tagged artifact
-    in: band-cd
-  - id: g-rc
-    kind: adronly
-    label: RC
-    in: band-cd
-  - id: g-rbc
-    kind: adronly
-    label: RBC
-    in: band-non-prod
-  - id: g-release-uat
-    kind: env
-    label: release-uat
-    in: band-non-prod
-  - id: g-pre-prod
-    kind: env
-    label: pre-prod
-    in: band-prod
-  - id: g-production
-    kind: env
-    label: production
-    in: band-prod
+    - id: g-main-uat
+      kind: env
+      label: main-uat
+      in: band-cd
+    - id: g-ci
+      kind: runner
+      label: CI component
+      in: band-cd
+    - id: g-artifact
+      kind: result
+      label: tagged artifact
+      in: band-cd
+    - id: g-rc
+      kind: adronly
+      label: RC
+      in: band-cd
+    - id: g-rbc
+      kind: adronly
+      label: RBC
+      in: band-non-prod
+    - id: g-release-uat
+      kind: env
+      label: release-uat
+      in: band-non-prod
+    - id: g-pre-prod
+      kind: env
+      label: pre-prod
+      in: band-prod
+    - id: g-production
+      kind: env
+      label: production
+      in: band-prod
   edges:
-  - from: g-ci
-    to: g-artifact
-    kind: flow
-    label: ''
-  - from: g-artifact
-    to: g-main-uat
-    kind: flow
-    label: ''
-  - from: g-main-uat
-    to: g-rc
-    kind: adr
-    label: ''
-  - from: g-rc
-    to: g-release-uat
-    kind: adr
-    label: ''
-  - from: g-release-uat
-    to: g-rbc
-    kind: adr
-    label: ''
-  - from: g-rbc
-    to: g-pre-prod
-    kind: adr
-    label: ''
-  - from: g-pre-prod
-    to: g-production
-    kind: adr
-    label: ''
-  - from: g-artifact
-    to: g-production
-    kind: flow
-    label: ''
-    via:
-    - - 265
-      - 292
-    - - 1195
-      - 292
+    - from: g-ci
+      to: g-artifact
+      kind: flow
+      label: ""
+    - from: g-artifact
+      to: g-main-uat
+      kind: flow
+      label: ""
+    - from: g-main-uat
+      to: g-rc
+      kind: adr
+      label: ""
+    - from: g-rc
+      to: g-release-uat
+      kind: adr
+      label: ""
+    - from: g-release-uat
+      to: g-rbc
+      kind: adr
+      label: ""
+    - from: g-rbc
+      to: g-pre-prod
+      kind: adr
+      label: ""
+    - from: g-pre-prod
+      to: g-production
+      kind: adr
+      label: ""
+    - from: g-artifact
+      to: g-production
+      kind: flow
+      label: ""
+      via:
+        - - 265
+          - 292
+        - - 1195
+          - 292
   markers:
-  - at: g-ci
-    number: 1
-  - at: g-artifact
-    number: 2
-  - at: g-main-uat
-    number: 3
-  - at: g-rc
-    number: 4
-  - at: g-release-uat
-    number: 5
-  - at: g-rbc
-    number: 6
-  - at: g-pre-prod
-    number: 7
-  - at: g-production
-    number: 8
-    corner: bottom-right
+    - at: g-ci
+      number: 1
+    - at: g-artifact
+      number: 2
+    - at: g-main-uat
+      number: 3
+    - at: g-rc
+      number: 4
+    - at: g-release-uat
+      number: 5
+    - at: g-rbc
+      number: 6
+    - at: g-pre-prod
+      number: 7
+    - at: g-production
+      number: 8
+      corner: bottom-right
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-cd:
     x: 20

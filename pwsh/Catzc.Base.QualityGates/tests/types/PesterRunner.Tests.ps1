@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1
+    folder: tests/types
+    name: pester-runner-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[PesterRunner.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/PesterRunner.Tests.ps1.md)"
+---
+#>
+
 # cspell:ignore nexit  -- the escape-sequence artifact in the "`nexit" fixture strings
 Describe 'PesterRunner' -Tag 'logic' {
     Context 'argument validation' -Tag 'L0' {

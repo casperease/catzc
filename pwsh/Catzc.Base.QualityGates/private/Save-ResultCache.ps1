@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/private/Save-ResultCache.ps1
+    folder: private
+    name: save-result-cache
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Save-ResultCache.Tests.ps1
+    docs: "[Save-ResultCache.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Save-ResultCache.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
+---
+#>
+
 function Save-ResultCache {
     [CmdletBinding()]
     param(

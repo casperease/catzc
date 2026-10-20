@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
+    folder: private
+    name: assert-tool-version
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Core
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
+    docs: "[Assert-ToolVersion.ps1.md](docs/references/pwsh/catzc-tooling-core/private/Assert-ToolVersion.ps1.md)"
+    cites:
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+---
+#>
+
 function Assert-ToolVersion {
     [CmdletBinding()]
     param(

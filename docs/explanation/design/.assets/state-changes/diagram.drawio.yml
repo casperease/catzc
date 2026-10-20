@@ -1,6 +1,6 @@
 description: >-
-  Six pipeline shapes, each a run of the promotion ladder from its first state: every step a commit takes is labelled with the
-  stage that moves it, and every state it holds can be discarded.
+  Six pipeline shapes, each a run of the promotion ladder from its first state: every step a commit takes is labelled with the stage that
+  moves it, and every state it holds can be discarded.
 about:
   adrs:
     - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
@@ -20,11 +20,33 @@ content:
       states: { PR: landed, BVT: bvt, L3-vertical-AT: l3, main-UAT: main-uat, release-uat: release-uat, release: prod }
       drop: discarded
   rows:
-    - { id: pr-cd-rbc, template: pipeline-shape, label: PR + CD + RBC, in: band-shapes, start: topic, steps: [PR, BVT, L3-vertical-AT, main-UAT, release-uat, release], skip: [main-UAT] }
+    - {
+        id: pr-cd-rbc,
+        template: pipeline-shape,
+        label: PR + CD + RBC,
+        in: band-shapes,
+        start: topic,
+        steps: [PR, BVT, L3-vertical-AT, main-UAT, release-uat, release],
+        skip: [main-UAT],
+      }
     - { id: cde, template: pipeline-shape, label: CDe, in: band-shapes, start: landed, steps: [BVT, L3-vertical-AT, release] }
-    - { id: pr-cd-rc, template: pipeline-shape, label: PR + CD + RC, in: band-shapes, start: topic, steps: [PR, BVT, L3-vertical-AT, main-UAT, release] }
+    - {
+        id: pr-cd-rc,
+        template: pipeline-shape,
+        label: PR + CD + RC,
+        in: band-shapes,
+        start: topic,
+        steps: [PR, BVT, L3-vertical-AT, main-UAT, release],
+      }
     - { id: pr-cde, template: pipeline-shape, label: PR + CDe, in: band-shapes, start: topic, steps: [PR, BVT, L3-vertical-AT, release] }
-    - { id: cd-rc, template: pipeline-shape, label: CD + RC, in: band-shapes, start: landed, steps: [BVT, L3-vertical-AT, main-UAT, release] }
+    - {
+        id: cd-rc,
+        template: pipeline-shape,
+        label: CD + RC,
+        in: band-shapes,
+        start: landed,
+        steps: [BVT, L3-vertical-AT, main-UAT, release],
+      }
     - { id: pr-ci-plus, template: pipeline-shape, label: PR + CI+, in: band-shapes, start: topic, steps: [PR, BVT, L3-vertical-AT] }
   notes:
     - id: note-names

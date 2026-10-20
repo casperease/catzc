@@ -1,13 +1,14 @@
-description: Deploy-Bicep resolves one immutable deployment context from the az session and the Azure config, then builds,
-  deploys through the az runner and sets the tracking tags, all from that one context.
+description:
+  Deploy-Bicep resolves one immutable deployment context from the az session and the Azure config, then builds, deploys through the az
+  runner and sets the tracking tags, all from that one context.
 about:
   adrs:
-  - ADR-AZ-DATAMOD-CUSTOMERAXIS
-  - ADR-AZ-DATAMOD-VALUEBYADDRESS
-  - ADR-AZ-SESSION
-  - ADR-AUTO-DRYRUN
-  - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
-  - ADR-PWSH-PREPOST
+    - ADR-AZ-DATAMOD-CUSTOMERAXIS
+    - ADR-AZ-DATAMOD-VALUEBYADDRESS
+    - ADR-AZ-SESSION
+    - ADR-AUTO-DRYRUN
+    - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+    - ADR-PWSH-PREPOST
   lens: source
 content:
   title: One immutable context, resolved from the az session
@@ -16,130 +17,130 @@ content:
   relation: calls
   theme: dark
   bands:
-  - id: band-entry
-    label: ENTRY
-  - id: band-resolve
-    label: RESOLVE
-  - id: band-deploy
-    label: DEPLOY
+    - id: band-entry
+      label: ENTRY
+    - id: band-resolve
+      label: RESOLVE
+    - id: band-deploy
+      label: DEPLOY
   groups:
-  - id: grp-types
-    label: context types
-    in: band-resolve
-  - id: grp-cli
-    label: Catzc.Azure.Cli
-    in: band-resolve
-  - id: grp-azure
-    label: Catzc.Azure
-    in: band-resolve
+    - id: grp-types
+      label: context types
+      in: band-resolve
+    - id: grp-cli
+      label: Catzc.Azure.Cli
+      in: band-resolve
+    - id: grp-azure
+      label: Catzc.Azure
+      in: band-resolve
   glyphs:
-  - id: g-deploy
-    kind: code
-    label: Deploy-Bicep
-    in: band-entry
-  - id: g-context
-    kind: code
-    label: Get-BicepDeploymentContext
-    in: band-resolve
-  - id: t-plan
-    kind: type
-    label: BicepDeploymentPlan
-    in: grp-types
-  - id: t-artifacts
-    kind: type
-    label: BicepArtifacts
-    in: grp-types
-  - id: t-context
-    kind: type
-    label: BicepDeploymentContext
-    in: grp-types
-  - id: g-build
-    kind: code
-    label: Build-Bicep
-    in: band-resolve
-  - id: g-session-sub
-    kind: code
-    label: Get-AzCliSessionSubscription
-    in: grp-cli
-  - id: g-invoke
-    kind: code
-    label: Invoke-AzCli
-    in: grp-cli
-  - id: g-environment
-    kind: code
-    label: Get-AzureEnvironment
-    in: grp-azure
-  - id: g-tracking
-    kind: code
-    label: Set-BicepTrackingTagSet
-    in: band-deploy
+    - id: g-deploy
+      kind: code
+      label: Deploy-Bicep
+      in: band-entry
+    - id: g-context
+      kind: code
+      label: Get-BicepDeploymentContext
+      in: band-resolve
+    - id: t-plan
+      kind: type
+      label: BicepDeploymentPlan
+      in: grp-types
+    - id: t-artifacts
+      kind: type
+      label: BicepArtifacts
+      in: grp-types
+    - id: t-context
+      kind: type
+      label: BicepDeploymentContext
+      in: grp-types
+    - id: g-build
+      kind: code
+      label: Build-Bicep
+      in: band-resolve
+    - id: g-session-sub
+      kind: code
+      label: Get-AzCliSessionSubscription
+      in: grp-cli
+    - id: g-invoke
+      kind: code
+      label: Invoke-AzCli
+      in: grp-cli
+    - id: g-environment
+      kind: code
+      label: Get-AzureEnvironment
+      in: grp-azure
+    - id: g-tracking
+      kind: code
+      label: Set-BicepTrackingTagSet
+      in: band-deploy
   edges:
-  - from: g-deploy
-    to: g-context
-    kind: flow
-    label: ''
-  - from: g-context
-    to: grp-types
-    kind: flow
-    label: ''
-  - from: g-context
-    to: g-build
-    kind: flow
-    label: ''
-  - from: g-context
-    to: g-session-sub
-    kind: flow
-    label: ''
-  - from: g-context
-    to: g-environment
-    kind: flow
-    label: ''
-  - from: g-build
-    to: g-invoke
-    kind: flow
-    label: ''
-  - from: g-deploy
-    to: g-invoke
-    kind: flow
-    label: ''
-  - from: g-deploy
-    to: g-tracking
-    kind: flow
-    label: ''
-  - from: g-tracking
-    to: g-invoke
-    kind: flow
-    label: ''
-  - from: g-tracking
-    to: g-session-sub
-    kind: flow
-    label: ''
-  - from: g-tracking
-    to: g-environment
-    kind: flow
-    label: ''
+    - from: g-deploy
+      to: g-context
+      kind: flow
+      label: ""
+    - from: g-context
+      to: grp-types
+      kind: flow
+      label: ""
+    - from: g-context
+      to: g-build
+      kind: flow
+      label: ""
+    - from: g-context
+      to: g-session-sub
+      kind: flow
+      label: ""
+    - from: g-context
+      to: g-environment
+      kind: flow
+      label: ""
+    - from: g-build
+      to: g-invoke
+      kind: flow
+      label: ""
+    - from: g-deploy
+      to: g-invoke
+      kind: flow
+      label: ""
+    - from: g-deploy
+      to: g-tracking
+      kind: flow
+      label: ""
+    - from: g-tracking
+      to: g-invoke
+      kind: flow
+      label: ""
+    - from: g-tracking
+      to: g-session-sub
+      kind: flow
+      label: ""
+    - from: g-tracking
+      to: g-environment
+      kind: flow
+      label: ""
   markers:
-  - at: g-deploy
-    number: 1
-  - at: g-context
-    number: 2
-  - at: g-session-sub
-    number: 3
-  - at: g-environment
-    number: 4
-  - at: g-build
-    number: 5
-  - at: t-context
-    number: 6
-  - at: g-invoke
-    number: 7
-  - at: g-tracking
-    number: 8
+    - at: g-deploy
+      number: 1
+    - at: g-context
+      number: 2
+    - at: g-session-sub
+      number: 3
+    - at: g-environment
+      number: 4
+    - at: g-build
+      number: 5
+    - at: t-context
+      number: 6
+    - at: g-invoke
+      number: 7
+    - at: g-tracking
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-entry:
     x: 20

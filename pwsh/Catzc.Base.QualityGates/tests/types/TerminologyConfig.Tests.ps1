@@ -1,3 +1,26 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.QualityGates/tests/types/TerminologyConfig.Tests.ps1
+    folder: tests/types
+    name: terminology-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.QualityGates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[TerminologyConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/TerminologyConfig.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-SPELL-CATEGORYANDMEANING
+---
+#>
+
 Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:cats = @{

@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/types/CitationScanner.cs
+    folder: types
+    name: citation-scanner
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1
+    docs: "[CitationScanner.cs.md](docs/references/pwsh/catzc-base-maps/types/CitationScanner.cs.md)"
+    cites:
+      - ADR-REPO-LINK-CODELINKS
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

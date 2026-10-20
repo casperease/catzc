@@ -1,3 +1,33 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
+    name: get-world-map
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Maps
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
+    docs: "[Get-WorldMap.ps1.md](docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE-IMPORTERINVALIDATES
+      - ADR-AUTO-TRACKED
+      - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - ADR-DSGN-TRACK-ONETECHSTACK
+      - ADR-DSGN-TRACK-FILELANGUAGE
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+---
+#>
+
 function Get-WorldMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.WorldMap], [string])]

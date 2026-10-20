@@ -1,3 +1,30 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/private/Get-ContractCommandRoot.ps1
+    folder: private
+    name: get-contract-command-root
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: private
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/Get-ContractCommandRoot.Tests.ps1
+    docs: "[Get-ContractCommandRoot.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractCommandRoot.ps1.md)"
+    cites:
+      - ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
+      - ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS
+      - ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE
+---
+#>
+
 function Get-ContractCommandRoot {
     [CmdletBinding()]
     [OutputType([string])]

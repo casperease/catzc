@@ -1,13 +1,13 @@
-description: 'The four stages a pipeline step passes through (the YAML, the step template, the runner, the command) and the
-  gates that touch them: no gate checks the YAML or the command, and the gates that touch the template and the runner check
-  something nearby, not the rule itself.'
+description:
+  "The four stages a pipeline step passes through (the YAML, the step template, the runner, the command) and the gates that touch them: no
+  gate checks the YAML or the command, and the gates that touch the template and the runner check something nearby, not the rule itself."
 about:
   adrs:
-  - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-  - ADR-FLOW-CD-RUNNER-IMPORTONCE
-  - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
-  - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-  - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
+    - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+    - ADR-FLOW-CD-RUNNER-IMPORTONCE
+    - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+    - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
+    - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
   lens: governance
 content:
   title: No gate checks the runner rules 1 or 4, and the step template breaks rule 3
@@ -16,90 +16,90 @@ content:
   relation: checks
   theme: dark
   bands:
-  - id: band-rules
-    label: RULES
-  - id: band-gates
-    label: GATES
+    - id: band-rules
+      label: RULES
+    - id: band-gates
+      label: GATES
   glyphs:
-  - id: a-pipeline-yaml
-    kind: adronly
-    label: pipeline YAML
-    in: band-rules
-  - id: f-step-template
-    kind: file
-    label: step template
-    in: band-rules
-  - id: g-runner
-    kind: code
-    label: runner
-    in: band-rules
-  - id: a-run-command
-    kind: adronly
-    label: same RunCommand
-    in: band-rules
-  - id: g-test-pipelines
-    kind: gate
-    label: Test-Pipelines
-    in: band-gates
-  - id: g-failures-1b
-    kind: gate
-    label: expected-failures 1b
-    in: band-gates
-  - id: g-failures-pester
-    kind: gate
-    label: expected-failures · Pester
-    in: band-gates
+    - id: a-pipeline-yaml
+      kind: adronly
+      label: pipeline YAML
+      in: band-rules
+    - id: f-step-template
+      kind: file
+      label: step template
+      in: band-rules
+    - id: g-runner
+      kind: code
+      label: runner
+      in: band-rules
+    - id: a-run-command
+      kind: adronly
+      label: same RunCommand
+      in: band-rules
+    - id: g-test-pipelines
+      kind: gate
+      label: Test-Pipelines
+      in: band-gates
+    - id: g-failures-1b
+      kind: gate
+      label: expected-failures 1b
+      in: band-gates
+    - id: g-failures-pester
+      kind: gate
+      label: expected-failures · Pester
+      in: band-gates
   edges:
-  - from: g-test-pipelines
-    to: a-pipeline-yaml
-    kind: flow
-    label: ''
-  - from: g-failures-1b
-    to: f-step-template
-    kind: flow
-    label: ''
-  - from: g-failures-pester
-    to: g-runner
-    kind: flow
-    label: ''
+    - from: g-test-pipelines
+      to: a-pipeline-yaml
+      kind: flow
+      label: ""
+    - from: g-failures-1b
+      to: f-step-template
+      kind: flow
+      label: ""
+    - from: g-failures-pester
+      to: g-runner
+      kind: flow
+      label: ""
   markers:
-  - at: a-pipeline-yaml
-    number: 1
-  - at: f-step-template
-    number: 2
-  - at: g-runner
-    number: 3
-  - at: a-run-command
-    number: 4
-  - at: g-test-pipelines
-    number: 5
-  - at: g-failures-1b
-    number: 6
-  - at: g-failures-pester
-    number: 7
+    - at: a-pipeline-yaml
+      number: 1
+    - at: f-step-template
+      number: 2
+    - at: g-runner
+      number: 3
+    - at: a-run-command
+      number: 4
+    - at: g-test-pipelines
+      number: 5
+    - at: g-failures-1b
+      number: 6
+    - at: g-failures-pester
+      number: 7
   chips:
-  - at: a-pipeline-yaml
-    kind: rule
-    rule: ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-    gated: false
-  - at: f-step-template
-    kind: rule
-    rule: ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
-  - at: g-runner
-    kind: rule
-    rule: ADR-FLOW-CD-RUNNER-IMPORTONCE
-  - at: a-run-command
-    kind: rule
-    rule: ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-    gated: false
-  - at: g-test-pipelines
-    kind: rule
-    rule: ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
+    - at: a-pipeline-yaml
+      kind: rule
+      rule: ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+      gated: false
+    - at: f-step-template
+      kind: rule
+      rule: ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+    - at: g-runner
+      kind: rule
+      rule: ADR-FLOW-CD-RUNNER-IMPORTONCE
+    - at: a-run-command
+      kind: rule
+      rule: ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
+      gated: false
+    - at: g-test-pipelines
+      kind: rule
+      rule: ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-rules:
     x: 20

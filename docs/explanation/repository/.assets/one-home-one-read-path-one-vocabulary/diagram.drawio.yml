@@ -1,9 +1,10 @@
-description: A repo-wide switch lives in one file, is read through one private reader, is asked through one guard vocabulary,
-  and is called from any module above Config.
+description:
+  A repo-wide switch lives in one file, is read through one private reader, is asked through one guard vocabulary, and is called from any
+  module above Config.
 about:
   adrs:
-  - ADR-REPO-VARIANT-SESSIONVARIANT
-  - ADR-REPO-VARIANT-NODIRECTREADS
+    - ADR-REPO-VARIANT-SESSIONVARIANT
+    - ADR-REPO-VARIANT-NODIRECTREADS
   lens: meta
 content:
   title: A repo-wide switch has one home, one read path and one guard vocabulary
@@ -12,58 +13,58 @@ content:
   relation: feeds
   theme: dark
   bands:
-  - id: band-variant
-    label: VARIANT
-  - id: band-reader
-    label: READER
-  - id: band-primitives
-    label: PRIMITIVES
-  - id: band-callers
-    label: CALLERS
+    - id: band-variant
+      label: VARIANT
+    - id: band-reader
+      label: READER
+    - id: band-primitives
+      label: PRIMITIVES
+    - id: band-callers
+      label: CALLERS
   glyphs:
-  - id: g-home
-    kind: file
-    label: one home
-    in: band-variant
-  - id: g-read-path
-    kind: code
-    label: one read path
-    in: band-reader
-  - id: g-vocabulary
-    kind: code
-    label: one guard vocabulary
-    in: band-primitives
-  - id: g-callers
-    kind: set
-    label: any module above Config
-    in: band-callers
+    - id: g-home
+      kind: file
+      label: one home
+      in: band-variant
+    - id: g-read-path
+      kind: code
+      label: one read path
+      in: band-reader
+    - id: g-vocabulary
+      kind: code
+      label: one guard vocabulary
+      in: band-primitives
+    - id: g-callers
+      kind: set
+      label: any module above Config
+      in: band-callers
   edges:
-  - from: g-home
-    to: g-read-path
-    kind: flow
-    label: ''
-  - from: g-read-path
-    to: g-vocabulary
-    kind: flow
-    label: ''
-  - from: g-vocabulary
-    to: g-callers
-    kind: thick
-    label: ''
+    - from: g-home
+      to: g-read-path
+      kind: flow
+      label: ""
+    - from: g-read-path
+      to: g-vocabulary
+      kind: flow
+      label: ""
+    - from: g-vocabulary
+      to: g-callers
+      kind: thick
+      label: ""
   markers:
-  - at: g-home
-    number: 1
-  - at: g-read-path
-    number: 2
-  - at: g-vocabulary
-    number: 3
-  - at: g-callers
-    number: 4
+    - at: g-home
+      number: 1
+    - at: g-read-path
+      number: 2
+    - at: g-vocabulary
+      number: 3
+    - at: g-callers
+      number: 4
   legend: auto
   minimaps:
-  - code-locations
-  - grid
-  - axis
+    - code-locations
+    - grid
+    - axis
 layout:
   band-variant:
     x: 20

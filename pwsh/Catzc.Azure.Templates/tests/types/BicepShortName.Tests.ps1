@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
+    folder: tests/types
+    name: bicep-short-name-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Templates
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[BicepShortName.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS
+---
+#>
+
 # cspell:ignore deriv abcdef gadge gadgetry getry gadg
 Describe 'BicepShortName' -Tag 'L0', 'logic' {
 

@@ -1,3 +1,34 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
+    folder: tests
+    name: build-contract-reference-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Contracts
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Build-ContractReference.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-CMDCONTRACT-ONEREADER
+      - ADR-REPO-CONTRACT-LAYOUT
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+      - ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION
+      - ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED
+      - ADR-REPO-README-AUTHOREDSOURCES
+---
+#>
+
 Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-File {

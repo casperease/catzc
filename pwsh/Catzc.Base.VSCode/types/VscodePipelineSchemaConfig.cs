@@ -16,7 +16,7 @@ catzc:
     catzc_bundle: azure
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/types/VscodePipelineSchemaConfig.Tests.ps1
-    docs: "[VscodePipelineSchemaConfig.cs.md](/docs/references/pwsh/catzc-base-vscode/types/VscodePipelineSchemaConfig.cs.md)"
+    docs: "[VscodePipelineSchemaConfig.cs.md](docs/references/pwsh/catzc-base-vscode/types/VscodePipelineSchemaConfig.cs.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---

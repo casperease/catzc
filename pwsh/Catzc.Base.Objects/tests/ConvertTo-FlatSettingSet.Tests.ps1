@@ -1,3 +1,24 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
+    folder: tests
+    name: convert-to-flat-setting-set-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Objects
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[ConvertTo-FlatSettingSet.Tests.ps1.md](docs/references/pwsh/catzc-base-objects/tests/ConvertTo-FlatSettingSet.Tests.ps1.md)"
+---
+#>
+
 class CatzcFlatSettingSetDb {
     [string] $Host
     [int] $Port

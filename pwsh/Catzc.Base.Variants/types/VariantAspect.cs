@@ -1,3 +1,27 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Variants/types/VariantAspect.cs
+    folder: types
+    name: variant-aspect
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Variants
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[VariantAspect.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-DSGN-ASPECT
+---
+*/
+
 namespace Catzc.Base.Variants;
 
 public sealed class VariantAspect

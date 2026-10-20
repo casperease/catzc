@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
+    folder: tests
+    name: uninstall-zsh-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Tooling.Provisioning
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Uninstall-Zsh.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-AUTO-TEST-NOCLOUDBELOWLTHREE
+---
+#>
+
 Describe 'Uninstall-Zsh' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:gitHome = Join-Path $TestDrive 'git'

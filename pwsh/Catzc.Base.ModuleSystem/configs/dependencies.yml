@@ -1,3 +1,22 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml
+#     folder: configs
+#     name: dependencies
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.ModuleSystem
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+#   edges:
+#     docs: "[dependencies.yml.md](docs/references/pwsh/catzc-base-modulesystem/configs/dependencies.yml.md)"
+# ---
+
 groups:
   Base:
     Catzc.Base.Asserts: []
@@ -139,6 +158,7 @@ groups:
         Catzc.Base.Asserts,
         Catzc.Base.Folders,
         Catzc.Base.Variants,
+        Catzc.Base.Timeouts,
       ]
     Catzc.Base.VSCode:
       [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Execution, Catzc.Base.Folders, Catzc.Base.Repository, Catzc.Base.Asserts]

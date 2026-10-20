@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
+    folder: tests
+    name: get-config-registry-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Config
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    docs: "[Get-ConfigRegistry.Tests.ps1.md](docs/references/pwsh/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+      - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES
+      - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE
+---
+#>
+
 Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

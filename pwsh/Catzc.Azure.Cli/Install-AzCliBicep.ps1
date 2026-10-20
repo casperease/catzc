@@ -1,3 +1,27 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Azure.Cli/Install-AzCliBicep.ps1
+    name: install-az-cli-bicep
+    filetype: ps1
+    role: function
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Azure.Cli
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+    visibility: public
+  edges:
+    test: pwsh/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1
+    docs: "[Install-AzCliBicep.ps1.md](docs/references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md)"
+    cites:
+      - ADR-AZ-CLI-AZBYDEFAULT
+---
+#>
+
 function Install-AzCliBicep {
     [CmdletBinding()]
     param(

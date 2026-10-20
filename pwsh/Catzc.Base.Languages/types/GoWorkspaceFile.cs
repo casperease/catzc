@@ -1,3 +1,28 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Languages/types/GoWorkspaceFile.cs
+    folder: types
+    name: go-workspace-file
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Languages
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    test: pwsh/Catzc.Base.Languages/tests/types/GoWorkspaceFile.Tests.ps1
+    docs: "[GoWorkspaceFile.cs.md](docs/references/pwsh/catzc-base-languages/types/GoWorkspaceFile.cs.md)"
+    cites:
+      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-ROOTCFG
+---
+*/
+
 using System;
 
 namespace Catzc.Base.Languages;

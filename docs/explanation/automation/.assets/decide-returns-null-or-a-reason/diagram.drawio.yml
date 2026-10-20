@@ -1,8 +1,9 @@
-description: 'The bash hook''s program loads the limits and the run environment, hands the call to Decide, and acts on what
-  comes back: nothing to let the call through, or a reason that becomes a denial and one line in the blocker log.'
+description:
+  "The bash hook's program loads the limits and the run environment, hands the call to Decide, and acts on what comes back: nothing to let
+  the call through, or a reason that becomes a denial and one line in the blocker log."
 about:
   adrs:
-  - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
   lens: implementation
 content:
   title: Main loads the limits and the run environment, then Decide returns null or a reason
@@ -11,98 +12,98 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-  - id: band-load
-    label: LOAD
-  - id: band-decide
-    label: DECIDE
-  - id: band-verdict
-    label: VERDICT
-  - id: band-log
-    label: LOG
+    - id: band-load
+      label: LOAD
+    - id: band-decide
+      label: DECIDE
+    - id: band-verdict
+      label: VERDICT
+    - id: band-log
+      label: LOG
   glyphs:
-  - id: g-timeouts
-    kind: file
-    label: timeouts.yml
-    in: band-load
-  - id: g-config
-    kind: code
-    label: TimeoutsConfig
-    in: band-load
-  - id: g-environment
-    kind: code
-    label: BashSafeguard.EnvironmentOf
-    in: band-load
-  - id: g-decide
-    kind: code
-    label: BashSafeguard.Decide
-    in: band-decide
-  - id: g-bounded
-    kind: code
-    label: BoundedCommand.Check
-    in: band-decide
-  - id: r-through
-    kind: result
-    label: let through, no output
-    in: band-verdict
-  - id: f-deny
-    kind: failure
-    label: 'DenyOutput: deny + reason'
-    in: band-verdict
-  - id: g-log
-    kind: file
-    label: out/time-safeguard.log
-    in: band-log
+    - id: g-timeouts
+      kind: file
+      label: timeouts.yml
+      in: band-load
+    - id: g-config
+      kind: code
+      label: TimeoutsConfig
+      in: band-load
+    - id: g-environment
+      kind: code
+      label: BashSafeguard.EnvironmentOf
+      in: band-load
+    - id: g-decide
+      kind: code
+      label: BashSafeguard.Decide
+      in: band-decide
+    - id: g-bounded
+      kind: code
+      label: BoundedCommand.Check
+      in: band-decide
+    - id: r-through
+      kind: result
+      label: let through, no output
+      in: band-verdict
+    - id: f-deny
+      kind: failure
+      label: "DenyOutput: deny + reason"
+      in: band-verdict
+    - id: g-log
+      kind: file
+      label: out/time-safeguard.log
+      in: band-log
   edges:
-  - from: g-timeouts
-    to: g-config
-    kind: flow
-    label: ''
-  - from: g-config
-    to: g-decide
-    kind: flow
-    label: ''
-  - from: g-environment
-    to: g-decide
-    kind: flow
-    label: ''
-  - from: g-decide
-    to: g-bounded
-    kind: flow
-    label: ''
-  - from: g-decide
-    to: r-through
-    kind: flow
-    label: ''
-  - from: g-decide
-    to: f-deny
-    kind: fail
-    label: ''
-  - from: f-deny
-    to: g-log
-    kind: flow
-    label: ''
+    - from: g-timeouts
+      to: g-config
+      kind: flow
+      label: ""
+    - from: g-config
+      to: g-decide
+      kind: flow
+      label: ""
+    - from: g-environment
+      to: g-decide
+      kind: flow
+      label: ""
+    - from: g-decide
+      to: g-bounded
+      kind: flow
+      label: ""
+    - from: g-decide
+      to: r-through
+      kind: flow
+      label: ""
+    - from: g-decide
+      to: f-deny
+      kind: fail
+      label: ""
+    - from: f-deny
+      to: g-log
+      kind: flow
+      label: ""
   markers:
-  - at: g-timeouts
-    number: 1
-  - at: g-config
-    number: 2
-  - at: g-environment
-    number: 3
-  - at: g-decide
-    number: 4
-  - at: g-bounded
-    number: 5
-  - at: r-through
-    number: 6
-  - at: f-deny
-    number: 7
-  - at: g-log
-    number: 8
+    - at: g-timeouts
+      number: 1
+    - at: g-config
+      number: 2
+    - at: g-environment
+      number: 3
+    - at: g-decide
+      number: 4
+    - at: g-bounded
+      number: 5
+    - at: r-through
+      number: 6
+    - at: f-deny
+      number: 7
+    - at: g-log
+      number: 8
   legend: auto
   minimaps:
-  - code-locations
-  - module-neighbourhood
-  - axis
+    - code-locations
+    - module-neighbourhood
+    - axis
 layout:
   band-load:
     x: 20
