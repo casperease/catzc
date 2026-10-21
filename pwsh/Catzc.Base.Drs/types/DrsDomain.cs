@@ -22,8 +22,6 @@ public sealed class DrsDomain
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     public string Name { get; }
-    // null under a kind the domain owns
-    // ([ADR-REPO-DRSCODE-DOMAINSEGMENT](/docs/drs/repository/drs-code-language.md#rule-adr-repo-drscode-domainsegment))
     public string Code { get; }
     public string Kind { get; }                    // one of DrsConfig.Kinds
     public string Prefix => Code == null ? Kind : Kind + "-" + Code; // the code every record of the domain starts with

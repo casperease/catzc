@@ -1,0 +1,13 @@
+# pwsh/Catzc.Base.Contracts/types/AccostedFile.cs
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## comment:1
+
+Above `public sealed class AccostedFile`, written with `//`.
+
+```text
+An accosted file ([ADR-AUTO-ACCOSTED-FILEFORM](/docs/drs/automation/accosted-language.md#rule-adr-auto-accosted-fileform)): its one key,
+runs, a non-empty list of runs.
+```

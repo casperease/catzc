@@ -65,8 +65,6 @@ Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy
     }) {
     BeforeAll {
         $script:languageOutcomes = @{}
-        # A run that throws (a ruff or pytest error, a sync that fails) fails each of its cases with its message, so the results name the
-        # cause instead of one BeforeAll failure hiding it; the other engines still run.
         $script:languageErrors = @{}
         foreach ($engineName in $Engines) {
             try {

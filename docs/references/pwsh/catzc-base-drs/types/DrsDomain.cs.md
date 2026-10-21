@@ -16,3 +16,12 @@ order), and the RuleSets it owns. Built and validated by DrsConfig
 [DDR-TRACK-VALUECHAINSTACK](/docs/drs/design/tracks.md#rule-ddr-track-valuechainstack),
 [DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern)).
 ```
+
+## comment:2
+
+Above `public string Code { get; }`, written with `//`.
+
+```text
+null under a kind the domain owns
+([ADR-REPO-DRSCODE-DOMAINSEGMENT](/docs/drs/repository/drs-code-language.md#rule-adr-repo-drscode-domainsegment))
+```

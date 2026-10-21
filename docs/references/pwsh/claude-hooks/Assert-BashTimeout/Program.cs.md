@@ -39,3 +39,12 @@ Above `Console.Out.Write(BashSafeguard.DenyOutput("Bash time safeguard hook fail
 The safeguard is a control: when it cannot decide, it denies, and the reason names why
 ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
 ```
+
+## comment:4
+
+Above `string userCommand = UserCommandIn(payload, repositoryRoot);`, written with `//`.
+
+```text
+The git topic commands change the repository, so they run only at the user's hand
+([FDR-GIT-USERRUNSGIT](/docs/drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)).
+```

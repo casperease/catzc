@@ -170,3 +170,12 @@ Above `foreach ($key in @($options.Keys)) {`, written with `#`.
 Overlay the remaining deployment overrides. short_name is resolved via BicepShortName and
 environment_kind / customer_deployment are already applied above, so all three are excluded here.
 ```
+
+## comment:11
+
+Above `foreach ($pair in @($files | Group-Object {...`, written with `#`.
+
+```text
+One config per coordinate
+([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)): never a yml and a bicepparam of one name.
+```

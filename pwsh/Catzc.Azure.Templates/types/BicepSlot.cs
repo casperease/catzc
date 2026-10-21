@@ -34,8 +34,6 @@ public sealed class BicepSlot
     // The slot's config file, a .yml or a .bicepparam under the template's configuration folder.
     public string file { get; }
 
-    // The config's source format, from its extension: yml or bicepparam
-    // ([ADR-AZ-DATAMOD-BICEPPARAMSLOT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)).
     public string format { get; }
 
     public const string YmlFormat = "yml";

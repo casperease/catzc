@@ -43,3 +43,12 @@ Every test runs once per execution engine
 ([ADR-AUTO-ENGINE-STARTENVIRONMENT](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-startenvironment)): the same test, a
 different contract.
 ```
+
+## comment:4
+
+Above `$script:languageErrors = @{}`, written with `#`.
+
+```text
+A run that throws (a ruff or pytest error, a sync that fails) fails each of its cases with its message, so the results name the
+cause instead of one BeforeAll failure hiding it; the other engines still run.
+```

@@ -95,8 +95,6 @@ function Write-DiagramMinimapData {
                 $draw.Facts = $facts
             }
             $data = & $maps.minimap_data[$id] @draw
-            # The computed data is kept whole for the declaration's writer; the drawn data lights only the cells the declaration lists,
-            # and a dropped cell is reported, since a lit cell nobody declared is unverifiable.
             [System.IO.File]::WriteAllText((Join-Path $computed "$id.json"), "$($data.ToJson())`n", $utf8)
             $placed = $entry.Placed[$id]
             $kept = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { $placed.Contains($_.At -join '/') })

@@ -13,8 +13,6 @@ using System;
 
 namespace Catzc.Base.Languages;
 
-// One misnamed folder or file and the idiomatic name its language gives it
-// ([ADR-AUTO-IDIOM-LANGUAGEIDIOM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom)).
 [Catzc.Base.Objects.ConsoleDisplay("path", "target")]
 public sealed class PathRename
 {

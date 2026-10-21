@@ -37,8 +37,6 @@ public static class AssertBashTimeout
             string repositoryRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
             string payload = Console.In.ReadToEnd();
 
-            // The git topic commands change the repository, so they run only at the user's hand
-            // ([FDR-GIT-USERRUNSGIT](/docs/drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)).
             string userCommand = UserCommandIn(payload, repositoryRoot);
             if (userCommand != null)
             {

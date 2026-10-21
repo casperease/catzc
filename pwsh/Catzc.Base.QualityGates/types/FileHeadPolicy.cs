@@ -67,8 +67,6 @@ public sealed class FileHeadPolicy
         classes = list;
     }
 
-    // A class entry decides first; an authored file in a code carrier takes the file-heads variant
-    // ([ADR-REPO-VARIANT-FILEHEADS](/docs/drs/repository/repo-variants.md#rule-adr-repo-variant-fileheads)), else the default.
     public HeadPolicy For(string fileClass, bool codeCarrier = false, bool codeHeads = false)
     {
         foreach (KeyValuePair<string, HeadPolicy> entry in classes)

@@ -9,8 +9,6 @@
 
 version: "2.0.0"
 tasks:
-  # The git topic flow ([FDR-GIT](/docs/drs/flow/git-topic-flow.md)), each step at the user's hand: rebase the topic onto the sync
-  # point. Bind keys to these in your user keybindings.
   - label: Sync
     type: process
     command: pwsh

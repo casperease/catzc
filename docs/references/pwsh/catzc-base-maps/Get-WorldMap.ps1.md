@@ -65,3 +65,14 @@ Above `$script:worldMapTextCache = @{}`, written with `#`.
 strict-clean probe of the lazy cache entry
 ([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
+
+## comment:2
+
+Above `$carrier = $resolver.For($path)`, written with `#`.
+
+```text
+A file's catzc head is derived from its citations, never read back as them
+([ADR-REPO-FILEMETA-NOREADBACK](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)): the
+file cites from
+its body and its comment page, the same source the head is built from.
+```

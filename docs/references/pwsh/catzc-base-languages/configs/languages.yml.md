@@ -62,3 +62,12 @@ Above `layout:`, written with `#`.
 The layout: the folders of a module this language owns. assets/ and tests/ are on LayoutRow, since no one language owns them.
 shipped means a build copies the folder verbatim; the functions are merged into one file instead, so their rows are not shipped.
 ```
+
+## comment:4
+
+Above `accosted:`, written with `#`.
+
+```text
+A flat list of harmless contracted calls, run under every engine
+([ADR-AUTO-ACCOSTED](/docs/drs/automation/accosted-language.md)); its compound extension wins over .yml.
+```

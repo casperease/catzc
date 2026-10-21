@@ -111,8 +111,6 @@ languages:
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments, Test-AgentDefinitions]
     layout:
       - { folder: configs, role: config }
-  # A flat list of harmless contracted calls, run under every engine
-  # ([ADR-AUTO-ACCOSTED](/docs/drs/automation/accosted-language.md)); its compound extension wins over .yml.
   accosted:
     extensions: [.accosted.yml]
     formatter: prettier

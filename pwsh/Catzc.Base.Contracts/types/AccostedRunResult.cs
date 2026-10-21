@@ -12,9 +12,6 @@ catzc:
 
 namespace Catzc.Base.Contracts;
 
-// The outcome of one run of an accosted file under one engine
-// ([ADR-AUTO-ACCOSTED-RUNNER](/docs/drs/automation/accosted-language.md#rule-adr-auto-accosted-runner)): passed exactly when the engine
-// exited 0.
 public sealed class AccostedRunResult
 {
     // The run's position in its file, from 1.

@@ -11,8 +11,6 @@ catzc:
 
 namespace Catzc.Base.Variants;
 
-// The `file_heads` variant: which files carry a head, by the kind of file
-// ([ADR-REPO-VARIANT-FILEHEADS](/docs/drs/repository/repo-variants.md#rule-adr-repo-variant-fileheads)).
 public sealed class VariantFileHeads
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

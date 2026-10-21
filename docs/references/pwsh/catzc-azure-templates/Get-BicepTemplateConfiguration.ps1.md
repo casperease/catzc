@@ -64,3 +64,12 @@ Above `$configName = Get-BicepConfigName $Environment $Slot`, written with `#`.
 One config file per (customer?, env, slot): the coordinate is the file address — root for the
 shared platform, configuration/<customer>/ for a customer deployment.
 ```
+
+## comment:2
+
+Above `$bicepParamFile = Join-Path $folder "$configName.bicepparam"`, written with `#`.
+
+```text
+A bicepparam slot is read by the Bicep compiler, not here: its descriptor carries its source path
+([ADR-AZ-DATAMOD-BICEPPARAMSLOT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)).
+```

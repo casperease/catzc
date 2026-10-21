@@ -19,8 +19,6 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
-// The accosted language's settings
-// ([ADR-AUTO-ACCOSTED](/docs/drs/automation/accosted-language.md)): which verbs are harmless, and the timeouts.yml key that bounds one run.
 public sealed class AccostedConfig
 {
     public static readonly string[] DefaultHarmlessVerbs = { "get", "test", "find", "measure" };

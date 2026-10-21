@@ -41,3 +41,12 @@ The customer this slot is for — the configuration subfolder name (a customer k
 string "" (NOT null) for a configuration-root (shared) slot — a sentinel because downstream
 filters by value (`customer -eq ''`).
 ```
+
+## comment:5
+
+Above `public string format { get; }`, written with `//`.
+
+```text
+The config's source format, from its extension: yml or bicepparam
+([ADR-AZ-DATAMOD-BICEPPARAMSLOT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)).
+```

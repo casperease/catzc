@@ -11,3 +11,12 @@ Above `public sealed class FileHeadPolicy`, written with `//`.
 The head policy of the meta-kind registry: whether a file of a class must, may or must not carry a meta block
 ([ADR-REPO-FILEMETA-HEADPOLICY](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)).
 ```
+
+## comment:2
+
+Above `public HeadPolicy For(string fileClass, bool codeCarrier = false, bool...`, written with `//`.
+
+```text
+A class entry decides first; an authored file in a code carrier takes the file-heads variant
+([ADR-REPO-VARIANT-FILEHEADS](/docs/drs/repository/repo-variants.md#rule-adr-repo-variant-fileheads)), else the default.
+```
