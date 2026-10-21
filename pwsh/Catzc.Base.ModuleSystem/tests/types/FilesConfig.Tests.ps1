@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "265fc52065f3"
   edges:
-    docs: "[FilesConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/types/FilesConfig.Tests.ps1.md)"
+    docs: "[FilesConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/types/FilesConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ModuleSystem/types/FilesConfig.cs
 ---
 #>

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5ff46dce0063"
+    with_body_sha: ed4490c34d3d
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1
     docs: "[Build-Diagrams.ps1.md](docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md)"

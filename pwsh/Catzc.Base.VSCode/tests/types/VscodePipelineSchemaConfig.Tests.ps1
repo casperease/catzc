@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5b0ffe8b5c13"
   edges:
-    docs: "[VscodePipelineSchemaConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/types/VscodePipelineSchemaConfig.Tests.ps1.md)"
+    docs: "[VscodePipelineSchemaConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-vs-code/tests/types/VscodePipelineSchemaConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
 ---
 #>

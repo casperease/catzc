@@ -5,7 +5,7 @@ catzc:
     with_body_sha: bc6dd9624929
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1
-    docs: "[SourceConventionsConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/SourceConventionsConfig.cs.md)"
+    docs: "[SourceConventionsConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/SourceConventionsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-ENGINE-THREEENGINES

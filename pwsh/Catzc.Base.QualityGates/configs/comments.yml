@@ -1,9 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "46221cfdd1f0"
+#     with_body_sha: a2ebd311971c
 #   edges:
-#     docs: "[comments.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/comments.yml.md)"
+#     docs: "[comments.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/comments.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0e967649a97f"
   edges:
     test: pwsh/Catzc.Base.CodeMeta/tests/types/HeadForm.Tests.ps1
-    docs: "[HeadForm.cs.md](docs/references/pwsh/catzc-base-codemeta/types/HeadForm.cs.md)"
+    docs: "[HeadForm.cs.md](docs/references/pwsh/catzc-base-code-meta/types/HeadForm.cs.md)"
     cites:
       - ADR-REPO-CODEMETA-CODEFILEHEAD
 ---

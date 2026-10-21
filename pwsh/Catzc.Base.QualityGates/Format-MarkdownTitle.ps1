@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fe694630132f
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
-    docs: "[Format-MarkdownTitle.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Format-MarkdownTitle.ps1.md)"
+    docs: "[Format-MarkdownTitle.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Format-MarkdownTitle.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
       - ADR-REPO-FORMAT-MARKDOWNTITLE

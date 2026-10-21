@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7e3f66a59a45"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
-    docs: "[Test-GeneratedFiles.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-GeneratedFiles.ps1.md)"
+    docs: "[Test-GeneratedFiles.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-GeneratedFiles.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-FILEMETA-COMPOSEDFILES

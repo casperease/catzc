@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9590f37db2d7"
   edges:
-    docs: "[Test-MarkdownTitle.Repository.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-MarkdownTitle.Repository.Tests.ps1.md)"
+    docs: "[Test-MarkdownTitle.Repository.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-MarkdownTitle.Repository.Tests.ps1.md)"
     cites:
       - ADR-REPO-FORMAT-MARKDOWNTITLE
 ---

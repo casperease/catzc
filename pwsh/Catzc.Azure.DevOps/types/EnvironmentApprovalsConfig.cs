@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "30628f559992"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/types/EnvironmentApprovalsConfig.Tests.ps1
-    docs: "[EnvironmentApprovalsConfig.cs.md](docs/references/pwsh/catzc-azure-devops/types/EnvironmentApprovalsConfig.cs.md)"
+    docs: "[EnvironmentApprovalsConfig.cs.md](docs/references/pwsh/catzc-azure-dev-ops/types/EnvironmentApprovalsConfig.cs.md)"
 ---
 */
 

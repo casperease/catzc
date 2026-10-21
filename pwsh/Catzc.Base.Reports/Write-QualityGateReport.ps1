@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ef12363b8b28
+    with_body_sha: "3436d5609c01"
   edges:
     test: pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
     docs: "[Write-QualityGateReport.ps1.md](docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md)"
@@ -81,8 +81,11 @@ function Write-QualityGateReport {
         Write-Message "No $Subject issues found."
     }
     else {
-        foreach ($issue in $Issues) {
-            Write-Message $issue -NoHeader
+        # Each finding is printed once: here when the result is returned, else in the one throw below.
+        if ($PassThru) {
+            foreach ($issue in $Issues) {
+                Write-Message $issue -NoHeader
+            }
         }
         Write-Message "$($Issues.Count) $Subject issue(s)."
     }

@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: b6fc6afa58fe
 #   edges:
-#     docs: "[analyzer-adr-map.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md)"
+#     docs: "[analyzer-adr-map.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-adr-map.yml.md)"
 #     cites:
 #       - ADR-ADO-VAR-NORAWLOGGINGCOMMANDS
 #       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY

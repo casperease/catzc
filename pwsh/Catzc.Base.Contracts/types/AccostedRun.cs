@@ -16,7 +16,8 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
-// One run of an accosted file (ADR-AUTO-ACCOSTED-FILEFORM): a list of commands run in order, nothing passed between them.
+// One run of an accosted file ([ADR-AUTO-ACCOSTED-FILEFORM](/docs/adr/automation/accosted-language.md#rule-adr-auto-accosted-fileform)): a
+// list of commands run in order, nothing passed between them.
 public sealed class AccostedRun
 {
     public IReadOnlyList<AccostedCommand> commands { get; }

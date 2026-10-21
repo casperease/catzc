@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dad6d86d4096
+    with_body_sha: "449b12c6e1c0"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
     docs: "[Build-SlideDeck.ps1.md](docs/references/pwsh/catzc-base-slides/Build-SlideDeck.ps1.md)"
@@ -117,6 +117,26 @@ function Build-SlideDeck {
     foreach ($entry in $rendered) {
         if ($entry.Html) {
             [System.IO.File]::WriteAllText((Join-Path $slidesFolder "$($entry.Slide.Id).html"), $entry.Html + "`n", $utf8)
+            # An image the slide shows sits beside its slide file; it lands at the same relative path beside the slide's HTML.
+            $slideRelative = [System.IO.Path]::GetRelativePath($RepositoryRoot, $entry.Slide.Path).Replace('\', '/')
+            foreach ($match in [regex]::Matches($entry.Html, 'src="([^"]+)"')) {
+                $asset = $match.Groups[1].Value
+                if ($asset -match '^[a-z][a-z0-9+.-]*:') {
+                    continue
+                }
+                if ([System.IO.Path]::IsPathRooted($asset) -or @($asset -split '[\\/]') -contains '..') {
+                    $faults.Add([Catzc.Base.Slides.SlideFault]::new($slideRelative, 'image', "the image '$asset' must sit beside the slide file, a relative path with no '..'"))
+                    continue
+                }
+                $assetSource = Join-Path (Split-Path $entry.Slide.Path -Parent) $asset
+                if (-not [System.IO.File]::Exists($assetSource)) {
+                    $faults.Add([Catzc.Base.Slides.SlideFault]::new($slideRelative, 'image', "the image '$asset' does not exist beside the slide file"))
+                    continue
+                }
+                $assetTarget = Join-Path $slidesFolder $asset
+                [System.IO.Directory]::CreateDirectory((Split-Path $assetTarget -Parent)) | Out-Null
+                [System.IO.File]::Copy($assetSource, $assetTarget, $true)
+            }
         }
     }
 

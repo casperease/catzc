@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0e34d3d4ee5c"
   edges:
-    docs: "[Get-ModuleDependencyMap.ps1.md](docs/references/pwsh/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md)"
+    docs: "[Get-ModuleDependencyMap.ps1.md](docs/references/pwsh/catzc-base-module-system/private/Get-ModuleDependencyMap.ps1.md)"
 ---
 #>
 

@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f8405000d336
+    with_body_sha: "6a0ffc7f2fc1"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
-    docs: "[Invoke-ImprintStep.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md)"
+    docs: "[Invoke-ImprintStep.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-ImprintStep.ps1.md)"
     cites:
       - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS

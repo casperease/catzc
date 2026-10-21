@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4dc7957e0780"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
-    docs: "[SpellingOracle.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/SpellingOracle.cs.md)"
+    docs: "[SpellingOracle.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/SpellingOracle.cs.md)"
     cites:
       - ADR-AUTO-SPELL
       - ADR-BCL-TYPES-NATIVETYPEDMODEL

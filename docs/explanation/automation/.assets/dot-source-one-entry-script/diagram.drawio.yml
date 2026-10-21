@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: bceb2f81091f
+#     with_body_sha: "375b7060bb4e"
 # ---
 
 description:
@@ -110,9 +110,104 @@ content:
       number: 8
   legend: auto
   minimaps:
-    - code-locations
-    - grid
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: docs/-/.
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/platform-bundle.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md
+          - docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
+          - docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md
+          - docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md
+          - docs/references/pwsh/internal/assets/Import-Catzc.ps1.md
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/Catzc.Base.Exporter/configs
+        by:
+          - pwsh/Catzc.Base.Exporter/configs/exporter.yml
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/Catzc.Base.Exporter/private
+        by:
+          - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/Catzc.Base.Exporter/types
+        by:
+          - pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
+          - pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/Catzc.Internal.Assets/.
+        by:
+          - pwsh/.internal/assets/Import-Catzc.ps1
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+    grid:
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: docs/markdown
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/platform-bundle.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md
+          - docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
+          - docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md
+          - docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md
+          - docs/references/pwsh/internal/assets/Import-Catzc.ps1.md
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
+          - pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/powershell
+        by:
+          - pwsh/.internal/assets/Import-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Exporter/configs/exporter.yml
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: (no track)/powershell
+        by:
+          - importer.ps1
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+    axis:
+      - cell: AUTO/build
+        by:
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: AUTO/release
+        by:
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
 layout:
   band-run:
     x: 20

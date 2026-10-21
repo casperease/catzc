@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: a5de5dcec82e
+#     with_body_sha: ff8592842773
 # ---
 
 description:
@@ -131,9 +131,107 @@ content:
       number: 10
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: docs/-/.
+        by:
+          - docs/adr/index.md
+          - docs/adr/repository/dora-explains.md
+          - docs/adr/repository/repo-variants.md
+          - docs/references/pwsh/catzc-base-module-system/Sync-GeneratedFile.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-AspectDeclaration.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Test-AspectDeclaration.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
+          - ADR-REPO-VARIANT-GITWORKSPACE
+      - cell: pwsh/Catzc.Base.Variants/.
+        by:
+          - pwsh/Catzc.Base.Variants/Get-AspectDeclaration.ps1
+          - pwsh/Catzc.Base.Variants/Test-AspectDeclaration.ps1
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: pwsh/Catzc.Base.Variants/types
+        by:
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
+          - ADR-REPO-VARIANT-GITWORKSPACE
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/Get-AspectDeclaration.ps1
+          - pwsh/Catzc.Base.Variants/Test-AspectDeclaration.ps1
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
 layout:
   band-file:
     x: 20

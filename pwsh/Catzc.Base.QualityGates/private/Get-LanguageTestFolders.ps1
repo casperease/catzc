@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "090d75fe5f38"
+    with_body_sha: "124fbd1ad2ae"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-LanguageTestFolders.Tests.ps1
-    docs: "[Get-LanguageTestFolders.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md)"
+    docs: "[Get-LanguageTestFolders.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-LanguageTestFolders.ps1.md)"
     cites:
       - ADR-AUTO-BASH-ONEBASHROOT
       - ADR-AUTO-GO-ONEGOROOT
@@ -20,10 +20,8 @@ function Get-LanguageTestFolders {
     param()
 
     $repositoryRoot = Get-RepositoryRoot
-    # Each language with a test runner: its root from its own config, named for the language, its test-file pattern from the registry,
-    # and every catzc module by the test folder that names it in the language's folder case.
     $languagesConfig = Get-Config -Config languages
-    $moduleNames = @((Get-CatzcModule -EngineTrack).name.Where({ [Catzc.Base.Languages.LanguageNaming]::IsInCase('pascal-dotted', $_) }))
+    $moduleNames = @((Get-CatzcModule -EngineTrack).name.Where({ [Catzc.Base.Objects.NameCase]::IsInCase('pascal-dotted', $_) }))
     $languages = @(foreach ($entry in $languagesConfig.languages) {
             if ($entry.tests) {
                 $modulesByFolder = @{}

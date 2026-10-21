@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6421f473b86d"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
-    docs: "[CommentsConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/CommentsConfig.cs.md)"
+    docs: "[CommentsConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/CommentsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

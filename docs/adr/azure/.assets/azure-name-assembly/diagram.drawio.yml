@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4ee19917fe75"
+#     with_body_sha: d00a0b24b891
 # ---
 
 description:
@@ -141,9 +141,122 @@ content:
       label: ""
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AZ-NAMING
+      - cell: docs/-/.
+        by:
+          - docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.verify.md
+          - docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.yml
+          - docs/adr/azure/azure-naming-standard.md
+          - docs/adr/azure/dora-explains.md
+          - docs/adr/index.md
+          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
+          - docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md
+          - docs/references/pwsh/catzc-azure/configs/azure.yml.md
+          - docs/references/pwsh/catzc-azure/configs/customer.yml.md
+          - docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - ADR-AZ-NAMING
+      - cell: pwsh/Catzc.Azure/configs
+        by:
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - ADR-AZ-NAMING
+      - cell: pwsh/Catzc.Azure/types
+        by:
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - ADR-AZ-NAMING
+      - cell: pwsh/Catzc.Azure.Cli/.
+        by:
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+          - ADR-AZ-NAMING
+      - cell: pwsh/Catzc.Azure.Templates/.
+        by:
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - ADR-AZ-NAMING
+      - cell: pwsh/Catzc.Azure.Templates/tests
+        by:
+          - pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
+          - ADR-AZ-NAMING
+      - cell: pwsh/Catzc.Azure.Templates/tests/types
+        by:
+          - pwsh/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
+          - ADR-AZ-NAMING
+      - cell: pwsh/Catzc.Azure.Templates/types
+        by:
+          - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
+          - ADR-AZ-NAMING
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-NAMING
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - ADR-AZ-NAMING
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-AZ-NAMING
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure
+        by:
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - ADR-AZ-NAMING
+      - cell: subject/Catzc.Azure.Cli
+        by:
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+          - ADR-AZ-NAMING
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
+          - pwsh/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
+          - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
+          - ADR-AZ-NAMING
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-NAMING
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - ADR-AZ-NAMING
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-AZ-NAMING
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AZ-NAMING
+    axis:
+      - cell: CLOUD/deploy
+        by:
+          - ADR-AZ-NAMING
 layout:
   band-components:
     x: 20

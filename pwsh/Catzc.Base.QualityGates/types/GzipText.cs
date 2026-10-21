@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "63fc75d894bf"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/GzipText.Tests.ps1
-    docs: "[GzipText.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/GzipText.cs.md)"
+    docs: "[GzipText.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/GzipText.cs.md)"
     cites:
       - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
 ---

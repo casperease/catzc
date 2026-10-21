@@ -7,13 +7,13 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The file facts of a minimap subject's paths, read in one Get-FileMetaFact call.
+The place of each of a minimap subject's paths: its track, the module that holds it and its language.
 
 ### description
 
-A caller that draws many minimaps in one run collects the subject paths of every diagram first and reads their facts once, so the git
-processes of the read are paid once per run rather than once per minimap. Each tracked path maps to its immutable facts; a path the read
-skips (ignored, without a carrier, or not on disk) is absent and has no facts.
+A caller that draws many minimaps in one run collects the subject paths of every diagram first and reads their places once. A place is read
+from where the file sits, never from its head: the track (`Get-Track`, with its type and vendor), the module (`Get-PathModule`, with its
+type) and the language (languages.yml). A fact a path has none of is empty, and a minimap places no file by an empty fact.
 
 ### parameter `Path`
 
@@ -21,7 +21,7 @@ The repository-relative paths of the subject files; repeats are read once.
 
 ### outputs
 
-`[hashtable]`, path to its immutable facts.
+`[hashtable]`, path to its facts: track, tracktype, vendor, module, moduletype and language.
 
 ### example 1
 

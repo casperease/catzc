@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c4d3c84017a4
   edges:
-    docs: "[Invoke-Prettier.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-Prettier.Tests.ps1.md)"
+    docs: "[Invoke-Prettier.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-Prettier.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Invoke-Prettier.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

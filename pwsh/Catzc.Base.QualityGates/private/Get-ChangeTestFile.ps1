@@ -5,7 +5,7 @@ catzc:
     with_body_sha: bb5c6f6575d2
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ChangeTestFile.Tests.ps1
-    docs: "[Get-ChangeTestFile.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-ChangeTestFile.ps1.md)"
+    docs: "[Get-ChangeTestFile.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ChangeTestFile.ps1.md)"
     cites:
       - ADR-PWSH-ONEFUNC
 ---

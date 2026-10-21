@@ -1,0 +1,21 @@
+<!--
+---
+catzc:
+  immutable:
+    with_body_sha: e8b18ca82ba0
+---
+-->
+
+<section
+    id="{{@id}}"
+    data-transition="fade"
+    style="background:{{@token.bg}};color:{{@token.ink}};font-family:{{@face.text}};padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px"
+>
+    <h2 style="font-family:{{@face.display}};font-size:{{@scale.h3}}px;font-weight:400;line-height:1.1;color:{{@token.accent}}">
+        {{title}}
+    </h2>
+    <img src="{{image}}" alt="{{title}}" style="flex: 1; min-height: 0; max-width: 100%; object-fit: contain; align-self: center" />
+    <p style="font-size:{{@scale.caption}}px;line-height:1.4;color:{{@token.ink_soft}};max-width:1600px">{{caption}}</p>
+    <p style="position:absolute;left:128px;bottom:64px;font-size:{{@scale.caption}}px;color:{{@token.ink_muted}}">{{@page}}</p>
+    <aside>{{notes?}}</aside>
+</section>

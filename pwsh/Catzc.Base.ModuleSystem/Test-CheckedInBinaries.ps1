@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "134ccb1fac12"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
-    docs: "[Test-CheckedInBinaries.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Test-CheckedInBinaries.ps1.md)"
+    docs: "[Test-CheckedInBinaries.ps1.md](docs/references/pwsh/catzc-base-module-system/Test-CheckedInBinaries.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
 ---

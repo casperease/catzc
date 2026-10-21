@@ -8,7 +8,7 @@ expression of a reproducible, content-addressed, self-service artifact (see [sel
 build-once / deploy-many (see [cd-discipline-and-promotion-flow](../../adr/flow/cd-discipline-and-promotion-flow.md)); the identity it
 computes reuses the durable-SHA recipe of [durable-sha-globs](../../adr/flow/durable-sha-globs.md). The rules it implements are
 [platform-bundle](../../adr/automation/platform-bundle.md). It is a member of the `Base` group and depends on
-[Catzc.Base.ModuleSystem](catzc-base-modulesystem.md), [Catzc.Base.Config](catzc-base-config.md), [Catzc.Base.Globs](catzc-base-globs.md),
+[Catzc.Base.ModuleSystem](catzc-base-module-system.md), [Catzc.Base.Config](catzc-base-config.md), [Catzc.Base.Globs](catzc-base-globs.md),
 [Catzc.Base.Files](catzc-base-files.md), [Catzc.Base.Repository](catzc-base-repository.md), [Catzc.Base.Writers](catzc-base-writers.md), and
 [Catzc.Base.Asserts](catzc-base-asserts.md).
 

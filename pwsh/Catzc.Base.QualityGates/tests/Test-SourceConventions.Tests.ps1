@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e42a655a165c
   edges:
-    docs: "[Test-SourceConventions.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-SourceConventions.Tests.ps1.md)"
+    docs: "[Test-SourceConventions.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-SourceConventions.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES

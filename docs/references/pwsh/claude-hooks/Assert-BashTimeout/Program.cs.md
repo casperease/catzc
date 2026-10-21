@@ -13,7 +13,8 @@ Claude Code PreToolUse hook: denies a Bash call that does not run inside the tim
 
 The decision is Catzc.Base.Timeouts.BashSafeguard and the limits are Catzc.Base.Timeouts.TimeoutsConfig — the
 module's own source files, compiled into this program (see the .csproj), so the hook, Get-TimeoutSeconds and the
-L0 tests share one parser, one set of defaults and one verdict. This file only does the I/O: read the payload
+L0 tests share one parser, one set of defaults and one verdict
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). This file only does the I/O: read the payload
 from stdin, load timeouts.yml, detect the run environment, print a denial, and append each denial to
 out/time-safeguard.log — the list of blockers to tune.
 

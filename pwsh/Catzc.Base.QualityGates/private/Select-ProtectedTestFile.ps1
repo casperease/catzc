@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d1b13dc4e0b1
   edges:
-    docs: "[Select-ProtectedTestFile.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Select-ProtectedTestFile.ps1.md)"
+    docs: "[Select-ProtectedTestFile.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Select-ProtectedTestFile.ps1.md)"
     cites:
       - ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES
 ---

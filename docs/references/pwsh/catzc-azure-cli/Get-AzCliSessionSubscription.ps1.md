@@ -15,7 +15,13 @@ The reverse lookup that makes the session the deploy-target selector: reads the 
 pipeline, exactly what the service connection logged into), finds the azure.yml subscription with that GUID, and returns the declared
 identity. Read-only — it never logs in or switches context (verify is not connect,
 [ADR-AZ-SESSION](../../../adr/azure/az-session-verification.md)); config defines correct, so a session pointed at a subscription azure.yml
-does not declare is an error, not a fallback.
+does not declare is an error, not a fallback. It is the cross-layer join in PowerShell that turns the session into the deploy-time
+subscription
+([ADR-AZ-DATAMOD-JOINSINPOWERSHELL](../../../adr/azure/azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)), and the `customer` it
+returns is the customer axis derived from the session, never a deploy argument
+([ADR-AZ-DATAMOD-CUSTOMERAXIS](../../../adr/azure/azure-data-model.md#rule-adr-az-datamod-customeraxis)): the subscription only resolves,
+and the customer is what renders into names
+([ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT](../../../adr/azure/azure-naming-standard.md#rule-adr-az-naming-subscriptionnotcomponent)).
 
 ### outputs
 

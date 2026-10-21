@@ -6,6 +6,16 @@ catzc:
     role: glossary
     track: docs
     generator: pwsh/Catzc.Base.Docs/Build-Glossary.ps1
+    source:
+      - pwsh/Catzc.Azure.Templates/configs/glossary.yml
+      - pwsh/Catzc.Base.Config/configs/glossary.yml
+      - pwsh/Catzc.Base.Docs/configs/glossary.yml
+      - pwsh/Catzc.Base.Engines/configs/glossary.yml
+      - pwsh/Catzc.Base.Languages/configs/glossary.yml
+      - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+      - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+      - pwsh/Catzc.Base.Slides/configs/glossary.yml
+      - pwsh/Catzc.Tooling.Inspiration/configs/glossary.yml
 ---
 
 # docs/adr/glossary.md

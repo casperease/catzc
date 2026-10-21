@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "81e6b745d945"
 #   edges:
-#     docs: "[identity-tokens.yml.md](docs/references/pwsh/catzc-azure-devops/configs/identity-tokens.yml.md)"
+#     docs: "[identity-tokens.yml.md](docs/references/pwsh/catzc-azure-dev-ops/configs/identity-tokens.yml.md)"
 #     cites:
 #       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 # ---

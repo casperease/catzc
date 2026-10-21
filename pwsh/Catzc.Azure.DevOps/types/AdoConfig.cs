@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6623a0b34bf7"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/types/AdoConfig.Tests.ps1
-    docs: "[AdoConfig.cs.md](docs/references/pwsh/catzc-azure-devops/types/AdoConfig.cs.md)"
+    docs: "[AdoConfig.cs.md](docs/references/pwsh/catzc-azure-dev-ops/types/AdoConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

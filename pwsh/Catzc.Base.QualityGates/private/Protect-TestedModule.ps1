@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "89bb199c1ab6"
   edges:
-    docs: "[Protect-TestedModule.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Protect-TestedModule.ps1.md)"
+    docs: "[Protect-TestedModule.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Protect-TestedModule.ps1.md)"
     cites:
       - ADR-REPO-PROTGLOB-PROTECTIONKEY
       - ADR-REPO-PROTGLOB-ORCHESTRATORDECIDES

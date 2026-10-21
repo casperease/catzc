@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b0f64e403e88
   edges:
-    docs: "[ConvertTo-PesterRunTarget.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md)"
+    docs: "[ConvertTo-PesterRunTarget.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/ConvertTo-PesterRunTarget.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

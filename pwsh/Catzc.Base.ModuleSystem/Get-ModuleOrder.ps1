@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e5a25483ec7e
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleOrder.Tests.ps1
-    docs: "[Get-ModuleOrder.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-ModuleOrder.ps1.md)"
+    docs: "[Get-ModuleOrder.ps1.md](docs/references/pwsh/catzc-base-module-system/Get-ModuleOrder.ps1.md)"
     cites:
       - ADR-AUTO-MODULE-TOPOLOGICALORDER
 ---

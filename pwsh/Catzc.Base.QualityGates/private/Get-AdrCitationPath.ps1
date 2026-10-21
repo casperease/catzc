@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4db5498e8872"
   edges:
-    docs: "[Get-AdrCitationPath.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-AdrCitationPath.ps1.md)"
+    docs: "[Get-AdrCitationPath.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-AdrCitationPath.ps1.md)"
 ---
 #>
 

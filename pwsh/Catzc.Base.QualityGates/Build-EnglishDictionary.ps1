@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1bfb3a771be9"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Build-EnglishDictionary.Tests.ps1
-    docs: "[Build-EnglishDictionary.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md)"
+    docs: "[Build-EnglishDictionary.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Build-EnglishDictionary.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
       - ADR-AUTO-DRYRUN

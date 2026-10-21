@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8deb4aeab729"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Get-AdoGraphContext.Tests.ps1
-    docs: "[Get-AdoGraphContext.ps1.md](docs/references/pwsh/catzc-azure-devops/private/Get-AdoGraphContext.ps1.md)"
+    docs: "[Get-AdoGraphContext.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/private/Get-AdoGraphContext.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "285f75980b98"
   edges:
-    docs: "[Save-TestDurationHistory.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Save-TestDurationHistory.Tests.ps1.md)"
+    docs: "[Save-TestDurationHistory.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Save-TestDurationHistory.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Save-TestDurationHistory.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

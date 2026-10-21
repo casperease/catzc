@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5b2b62506f5e"
+    with_body_sha: "7e6bebc47be6"
   edges:
     docs: "[Get-ContractCommandFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractCommandFindings.ps1.md)"
     cites:
@@ -52,7 +52,7 @@ function Get-ContractCommandFindings {
     # The command's file spells its names in PowerShell's idiom; rendered to the normal form, they compare with the contract's.
     $toNormal = [Func[string, string]] {
         param([string] $text)
-        [Catzc.Base.Languages.LanguageNaming]::IsInCase($normalForm, $text) ? $text : [Catzc.Base.Languages.LanguageNaming]::ToNormal('pascal', $text, $normalForm)
+        [Catzc.Base.Objects.NameCase]::IsInCase($normalForm, $text) ? $text : [Catzc.Base.Objects.NameCase]::ToNormal('pascal', $text, $normalForm)
     }.GetNewClosure()
     try {
         $command = (Read-CommandSignature -Path (Join-Path $RepositoryRoot $Asset.Target) -Name $name).Renamed($toNormal)

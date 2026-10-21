@@ -2,7 +2,7 @@
 
 The importer overlay — the single living copy of the toolset's whole load sequence. It exports one function, `Invoke-Importer`, whose
 parameter block **is** the importer's public switch surface. The root `importer.ps1` is a thin, generated shim (produced by `New-Importer`
-in [Catzc.Base.ModuleSystem](../catzc-base-modulesystem.md)) that carries the same parameter block, sets `$env:RepositoryRoot`, and
+in [Catzc.Base.ModuleSystem](../catzc-base-module-system.md)) that carries the same parameter block, sets `$env:RepositoryRoot`, and
 delegates here — so the committed entry point can never drift from the load logic it delegates to (see
 [one-living-version](../../../adr/principles/one-living-version.md)). Like the bootstrap, this overlay is import-time orchestration, not
 shared library code: the shim removes it once `Invoke-Importer` returns.
@@ -44,6 +44,6 @@ test-run snapshot's never commits.
 
 - ADR: [one-living-version](../../../adr/principles/one-living-version.md) — why the shim is a generated copy of this one body.
 - ADR: [use-ps1-not-psm1](../../../adr/automation/pwsh/use-ps1-not-psm1.md) — the overlay is a sanctioned `.psm1`.
-- Reference: [Catzc.Base.ModuleSystem](../catzc-base-modulesystem.md) — `New-Importer` generates the `importer.ps1` shim from this block;
+- Reference: [Catzc.Base.ModuleSystem](../catzc-base-module-system.md) — `New-Importer` generates the `importer.ps1` shim from this block;
   [Bootstrap](catzc-internal-bootstrap.md), [Vendor](catzc-internal-vendor.md), and [Types](catzc-internal-types.md) — the shared modules it
   drives; the [internal area overview](index.md).

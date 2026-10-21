@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: table
     deck: product-thesis
-    order: 14
+    order: 15
 ---
 
 # Poka-yoke, make mistakes impossible

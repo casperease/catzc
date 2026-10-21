@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: table
     deck: product-thesis
-    order: 11
+    order: 12
 ---
 
 # Configure, don't program

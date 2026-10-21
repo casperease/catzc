@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: c1258e4a5e2e
 #   edges:
-#     docs: "[generated-files.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/generated-files.yml.md)"
+#     docs: "[generated-files.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/generated-files.yml.md)"
 #     cites:
 #       - ADR-AUTO-TEST-QUALITYGATE
 # ---

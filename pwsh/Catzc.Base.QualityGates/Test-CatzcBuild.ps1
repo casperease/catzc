@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f81bacbe0d66
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1
-    docs: "[Test-CatzcBuild.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md)"
+    docs: "[Test-CatzcBuild.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-CatzcBuild.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
       - ADR-AUTO-TEST-SOURCEONLYTAG

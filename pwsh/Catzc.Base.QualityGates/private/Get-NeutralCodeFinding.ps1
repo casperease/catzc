@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "17061e68c859"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1
-    docs: "[Get-NeutralCodeFinding.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-NeutralCodeFinding.ps1.md)"
+    docs: "[Get-NeutralCodeFinding.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-NeutralCodeFinding.ps1.md)"
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

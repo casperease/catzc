@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "04ccee9adbad"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1
-    docs: "[ConvertTo-TestAutomationRowSet.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/ConvertTo-TestAutomationRowSet.ps1.md)"
+    docs: "[ConvertTo-TestAutomationRowSet.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/ConvertTo-TestAutomationRowSet.ps1.md)"
 ---
 #>
 

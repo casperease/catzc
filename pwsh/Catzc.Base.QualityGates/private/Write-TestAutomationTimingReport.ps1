@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e40912e0686f
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationTimingReport.Tests.ps1
-    docs: "[Write-TestAutomationTimingReport.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationTimingReport.ps1.md)"
+    docs: "[Write-TestAutomationTimingReport.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationTimingReport.ps1.md)"
 ---
 #>
 

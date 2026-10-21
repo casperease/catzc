@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c625853f3cb1
   edges:
     test: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
-    docs: "[Register-AdoBuildValidation.ps1.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md)"
+    docs: "[Register-AdoBuildValidation.ps1.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md)"
     cites:
       - ADR-AUTO-IDEM
       - ADR-FLOW-CD-GLOBS

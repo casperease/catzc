@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5c72854e9e9d"
+    with_body_sha: aca099b42d0b
   edges:
     docs: "[Write-QualityGateReport.Tests.ps1.md](docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
@@ -37,6 +37,14 @@ Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
         $thrown.Exception.Message | Should -BeLike 'Test-Widget failed: 2 issue(s) — see *'
         $thrown.Exception.Message | Should -Match 'first problem'
         $thrown.Exception.Message | Should -Match 'second problem'
+        # The throw carries the findings, so the summary does not print them again.
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -Times 0 -Exactly -ParameterFilter { $Message -in 'first problem', 'second problem' }
+    }
+
+    It 'prints each finding once when it returns the result instead of throwing' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+        $null = Write-QualityGateReport -Subject widget -Title Test-Widget -Issues @('first problem', 'second problem') -PassThru
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -Times 1 -Exactly -ParameterFilter { $Message -eq 'first problem' }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -Times 1 -Exactly -ParameterFilter { $Message -eq 'second problem' }
     }
 
     It 'returns the result with its facts instead of throwing under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {

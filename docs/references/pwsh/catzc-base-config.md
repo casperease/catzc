@@ -4,7 +4,7 @@ The single config reader for the platform. It owns `Get-Config` — the one publ
 cache a named config file — `Get-ConfigValue`, the by-reference addressing that resolves a `global.<config>.<key.path>` address to a value
 on top of that reader, and the `configs.yml` registry that binds every shipped config to its C# config type. It does **not** own the config
 types themselves (each lives in its owning module's `types/`), the config files they guard, the PowerShell validator extension point (that
-is [Catzc.Base.ConfigExtensions](catzc-base-configextensions.md)), or the object-shaping helpers that manipulate already-loaded config
+is [Catzc.Base.ConfigExtensions](catzc-base-config-extensions.md)), or the object-shaping helpers that manipulate already-loaded config
 objects (those live in [Catzc.Base.Objects](catzc-base-objects.md)). The design is governed by
 [module-config-loading](../../adr/configuration/module-config-loading.md).
 

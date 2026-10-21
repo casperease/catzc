@@ -42,7 +42,7 @@ that binds without its row. A value that only crosses from pwsh, such as a `PSOb
 
 The modules most involved are [`Catzc.Base.Languages`](../pwsh/catzc-base-languages.md) (`bcl.yml` and `BclConfig`),
 [`Catzc.Base.Objects`](../pwsh/catzc-base-objects.md) (the `DictionaryRecord` base, shared records and `ConvertTo-BclValue`) and
-[`Catzc.Base.TypesSystem`](../pwsh/catzc-base-typessystem.md) (the IDE project build).
+[`Catzc.Base.TypesSystem`](../pwsh/catzc-base-types-system.md) (the IDE project build).
 
 ## Microsoft references
 

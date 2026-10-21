@@ -2,10 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b0f7aca73ef2
+    with_body_sha: "3ed09a0ae68a"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Get-AdoAuthorizationHeader.Tests.ps1
-    docs: "[Get-AdoAuthorizationHeader.ps1.md](docs/references/pwsh/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md)"
+    docs: "[Get-AdoAuthorizationHeader.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Get-AdoAuthorizationHeader.ps1.md)"
+    cites:
+      - ADR-ADO-AUTH
 ---
 #>
 
@@ -17,7 +19,6 @@ function Get-AdoAuthorizationHeader {
     )
 
     if ((Test-IsRunningInPipeline) -and $env:SYSTEM_ACCESSTOKEN) {
-        # The agent token is scoped to the org the pipeline runs in — prove that is the configured org.
         $collectionUri = "$env:SYSTEM_COLLECTIONURI".TrimEnd('/')
         $org = "$((Get-Config -Config ado).organization)".TrimEnd('/')
         if ($collectionUri -and $collectionUri -ne $org) {

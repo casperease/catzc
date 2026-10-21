@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "4aedd15d0f81"
 #   edges:
-#     docs: "[ado.yml.md](docs/references/pwsh/catzc-azure-devops/configs/ado.yml.md)"
+#     docs: "[ado.yml.md](docs/references/pwsh/catzc-azure-dev-ops/configs/ado.yml.md)"
 # ---
 
 # Azure DevOps organization URL (the REST API host).

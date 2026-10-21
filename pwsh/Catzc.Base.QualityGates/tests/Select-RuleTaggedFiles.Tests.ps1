@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8786c105dc5e"
   edges:
-    docs: "[Select-RuleTaggedFiles.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Select-RuleTaggedFiles.Tests.ps1.md)"
+    docs: "[Select-RuleTaggedFiles.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Select-RuleTaggedFiles.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Select-RuleTaggedFiles.ps1
     cites:
       - ADR-AUTO-TEST-PROVENANCETAGS

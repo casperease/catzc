@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: ad12ea8aa04c
+#     with_body_sha: "30ff6abf005f"
 #   edges:
 #     docs: "[adrs.yml.md](docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md)"
 #     cites:
@@ -9,6 +9,7 @@
 #       - ADR-ADO-NAME
 #       - ADR-ADO-TEMPLATE
 #       - ADR-ADO-VAR
+#       - ADR-AUTO-ACCOSTED
 #       - ADR-AUTO-ASSETDEP
 #       - ADR-AUTO-BASH
 #       - ADR-AUTO-BUNDLE

@@ -2,9 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "92fccf0db9c2"
+    with_body_sha: "4fd4e9edcd31"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/ConvertTo-NormalName.Tests.ps1
+    docs: "[ConvertTo-NormalName.ps1.md](docs/references/pwsh/catzc-base-languages/ConvertTo-NormalName.ps1.md)"
+    cites:
+      - ADR-AUTO-IDIOM-NORMALFORM
 ---
 #>
 
@@ -34,10 +37,10 @@ function ConvertTo-NormalName {
 
     process {
         # The first of the language's cases the name is in.
-        $case = @($cases.Where({ [Catzc.Base.Languages.LanguageNaming]::IsInCase($_, $Name) }, 'First'))
+        $case = @($cases.Where({ [Catzc.Base.Objects.NameCase]::IsInCase($_, $Name) }, 'First'))
         if ($case.Count -eq 0) {
             throw "'$Name' is not a $Language $NameKind name (it is in none of: $($cases -join ', '))."
         }
-        [Catzc.Base.Languages.LanguageNaming]::ToNormal($case[0], $Name, $config.naming_normal_form)
+        [Catzc.Base.Objects.NameCase]::ToNormal($case[0], $Name, $config.naming_normal_form)
     }
 }

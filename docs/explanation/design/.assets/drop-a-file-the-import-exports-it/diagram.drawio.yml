@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "37c02fc1c327"
+#     with_body_sha: e256e166da79
 # ---
 
 description:
@@ -96,9 +96,121 @@ content:
       number: 7
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: docs/-/.
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/module-aspects.md
+          - docs/adr/index.md
+          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
+          - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md
+          - docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.Globs/.
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by:
+          - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by:
+          - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.Globs/types
+        by:
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.Modules/.
+        by:
+          - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.Modules/tests
+        by:
+          - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.Variants/types
+        by:
+          - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: subject/Catzc.Base.Modules
+        by:
+          - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
+          - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
 layout:
   band-file:
     x: 20

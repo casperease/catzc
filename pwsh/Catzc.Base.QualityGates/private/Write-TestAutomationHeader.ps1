@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fc57769308e9
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationHeader.Tests.ps1
-    docs: "[Write-TestAutomationHeader.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md)"
+    docs: "[Write-TestAutomationHeader.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationHeader.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
 ---

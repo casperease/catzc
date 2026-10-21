@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4f54b76738d8"
+#     with_body_sha: "1c0479f44126"
 # ---
 
 description:
@@ -106,9 +106,147 @@ content:
       number: 8
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: docs/-/.
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/platform-bundle.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/references/github/workflows/ci-pwsh.yml.md
+          - docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Build-Modules.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md
+          - docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
+          - docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md
+          - docs/references/pwsh/internal/assets/Import-Catzc.ps1.md
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Base.Contracts/.
+        by:
+          - pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Base.Exporter/.
+        by:
+          - pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
+          - pwsh/Catzc.Base.Exporter/Build-Modules.ps1
+          - pwsh/Catzc.Base.Exporter/Export-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Base.Exporter/configs
+        by:
+          - pwsh/Catzc.Base.Exporter/configs/exporter.yml
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Base.Exporter/private
+        by:
+          - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+          - pwsh/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Base.Exporter/types
+        by:
+          - pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
+          - pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Internal.Assets/.
+        by:
+          - pwsh/.internal/assets/Import-Catzc.ps1
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Contracts
+        by:
+          - pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: subject/Catzc.Base.Exporter
+        by:
+          - pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
+          - pwsh/Catzc.Base.Exporter/Build-Modules.ps1
+          - pwsh/Catzc.Base.Exporter/Export-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
+          - pwsh/Catzc.Base.Exporter/configs/exporter.yml
+          - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+          - pwsh/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
+          - pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
+          - pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: subject/Catzc.Internal.Assets
+        by:
+          - pwsh/.internal/assets/Import-Catzc.ps1
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+    axis:
+      - cell: AUTO/build
+        by:
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: AUTO/release
+        by:
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
 layout:
   band-source:
     x: 20

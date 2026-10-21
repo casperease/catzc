@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1a8cf2fdd5f0"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
-    docs: "[Get-AdrCodesFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md)"
+    docs: "[Get-AdrCodesFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-AdrCodesFileMetaFact.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-NOREADBACK
       - ADR-REPO-LINK-ONECITATIONSPELLING

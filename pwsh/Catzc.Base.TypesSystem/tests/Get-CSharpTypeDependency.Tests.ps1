@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: bd16710f0437
   edges:
-    docs: "[Get-CSharpTypeDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-typessystem/tests/Get-CSharpTypeDependency.Tests.ps1.md)"
+    docs: "[Get-CSharpTypeDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-types-system/tests/Get-CSharpTypeDependency.Tests.ps1.md)"
     code: pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
     cites:
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS

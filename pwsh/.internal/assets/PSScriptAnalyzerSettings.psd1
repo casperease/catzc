@@ -3,6 +3,11 @@
 catzc:
   immutable:
     with_body_sha: "016df956143b"
+  edges:
+    cites:
+      - ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT
+      - ADR-PWSH-VENDOR-ONLYWHATLOADS
+      - ADR-REPO-HELP
 ---
 #>
 

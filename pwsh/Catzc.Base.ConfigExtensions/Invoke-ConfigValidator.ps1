@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d9e01555ed38
   edges:
     test: pwsh/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
-    docs: "[Invoke-ConfigValidator.ps1.md](docs/references/pwsh/catzc-base-configextensions/Invoke-ConfigValidator.ps1.md)"
+    docs: "[Invoke-ConfigValidator.ps1.md](docs/references/pwsh/catzc-base-config-extensions/Invoke-ConfigValidator.ps1.md)"
 ---
 #>
 

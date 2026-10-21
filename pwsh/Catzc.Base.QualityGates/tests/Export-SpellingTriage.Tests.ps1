@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "238118a702a4"
   edges:
-    docs: "[Export-SpellingTriage.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Export-SpellingTriage.Tests.ps1.md)"
+    docs: "[Export-SpellingTriage.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Export-SpellingTriage.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
 ---
 #>

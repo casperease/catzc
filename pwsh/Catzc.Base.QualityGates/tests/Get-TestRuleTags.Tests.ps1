@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: de66140d6ad9
   edges:
-    docs: "[Get-TestRuleTags.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-TestRuleTags.Tests.ps1.md)"
+    docs: "[Get-TestRuleTags.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestRuleTags.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-TestRuleTags.ps1
     cites:
       - ADR-AUTO-TEST-PROVENANCETAGS

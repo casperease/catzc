@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "01de1737c5f1"
   edges:
-    docs: "[Get-ParameterTypeConflict.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-ParameterTypeConflict.Tests.ps1.md)"
+    docs: "[Get-ParameterTypeConflict.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-ParameterTypeConflict.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-ParameterTypeConflict.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

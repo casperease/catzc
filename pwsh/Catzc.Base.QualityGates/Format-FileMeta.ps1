@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0a6257ada895"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
-    docs: "[Format-FileMeta.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Format-FileMeta.ps1.md)"
+    docs: "[Format-FileMeta.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Format-FileMeta.ps1.md)"
     cites:
       - ADR-AUTO-CACHE
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT

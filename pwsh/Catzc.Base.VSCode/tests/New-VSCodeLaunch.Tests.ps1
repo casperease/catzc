@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1247dc9e0179"
   edges:
-    docs: "[New-VSCodeLaunch.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VSCodeLaunch.Tests.ps1.md)"
+    docs: "[New-VSCodeLaunch.Tests.ps1.md](docs/references/pwsh/catzc-base-vs-code/tests/New-VSCodeLaunch.Tests.ps1.md)"
     code: pwsh/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS

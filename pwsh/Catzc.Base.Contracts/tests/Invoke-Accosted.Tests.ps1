@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: acfc7778624c
+    with_body_sha: da0a2e599b35
   edges:
     code: pwsh/Catzc.Base.Contracts/Invoke-Accosted.ps1
 ---
@@ -43,7 +43,7 @@ Describe 'Invoke-Accosted' -Tag 'L0', 'logic' {
     }
 
     It 'renders each run in the idiom of each engine, the commands chained with &&' {
-        $results = @(Invoke-Accosted -Path 'widgets.accosted.yml' -Engine pwsh, bash -RepositoryRoot $script:root)
+        $results = @(Invoke-Accosted -Path 'widgets.accosted.yml' -Engine ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name), ([Catzc.Base.Engines.ExecutionEngines]::Bash.Name) -RepositoryRoot $script:root)
         $results.Count | Should -Be 4
         $results[0].Command | Should -BeExactly "Get-Widget -WidgetPath 'a b''s' -Depth 2 -Strict && Test-Gadget -Quiet `$false"
         $results[2].Engine | Should -Be 'bash'

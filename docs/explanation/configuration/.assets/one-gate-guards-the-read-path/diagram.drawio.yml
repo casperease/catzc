@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1b2bec224176"
+#     with_body_sha: "4c41b459d4da"
 # ---
 
 description:
@@ -165,9 +165,829 @@ content:
       rule: ADR-AUTO-TEST-QUALITYGATE
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: .claude/.claude/agents
+        by:
+          - .claude/agents/test-optimization.md
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: .claude/.claude/skills/test-speed
+        by:
+          - .claude/skills/test-speed/SKILL.md
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: docs/-/.
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/test-automation.md
+          - docs/adr/configuration/config-value-addressing.md
+          - docs/adr/configuration/dora-explains.md
+          - docs/adr/configuration/module-config-loading.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/how-to/getting-started/pwsh/add-a-module.md
+          - docs/how-to/pwsh/manual-test-plan/configs.md
+          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
+          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
+          - docs/references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.yml
+          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
+          - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
+          - docs/references/pwsh/catzc-azure-dev-ops/Test-Pipelines.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
+          - docs/references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md
+          - docs/references/pwsh/catzc-base-config-extensions/Test-ConfigValidators.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-Config.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
+          - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
+          - docs/references/pwsh/catzc-base-config/tests/Config-Conventions.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md
+          - docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs.md
+          - docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Test-AdrRegistry.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
+          - docs/references/pwsh/catzc-base-docs/configs/adr-checks.yml.md
+          - docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
+          - docs/references/pwsh/catzc-base-docs/private/Get-GlossarySources.ps1.md
+          - docs/references/pwsh/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/CheckMode.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md
+          - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
+          - docs/references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md
+          - docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md
+          - docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md
+          - docs/references/pwsh/catzc-base-globs.md
+          - docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-module-system.md
+          - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-CheckedInBinaries.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-FolderConventions.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-FunctionDependency.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-InternalAssetDependency.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-ModuleCycles.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-ModuleDependency.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/configs/artifacts.yml.md
+          - docs/references/pwsh/catzc-base-module-system/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/tests/Test-CheckedInBinaries.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/tests/Test-FunctionDependency.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/tests/Test-ModuleDependency.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-AnalyzerAdrMap.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-BuildArtifact.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Change.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ConfigIdentityHygiene.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-FileMeta.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-FileMetaProcessors.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Formatting.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-GeneratedFiles.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Links.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-LogicTestIdentity.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ManagedGuids.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ManualTestPlan.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-MarkdownTitle.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Markdownlint.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ParameterConsistency.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ScriptAnalyzer.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ShippedConfigs.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-SourceConventions.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Spelling.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Terminology.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-TestTitles.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/generated-files.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedFileGenerator.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-LiveIdentityTokens.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Format-Types.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-AnalyzerAdrCoverage.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-RepositoryGuids.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestTagViolations.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/ManualTestPlan-Coverage.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-Automation.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-BuildArtifact.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-ConfigIdentityHygiene.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-Formatting.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-GeneratedFiles.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-LogicTestIdentity.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-ParameterConsistency.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-PythonLint.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-ShellScripts.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/TestTitle-TemplateTokens.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/types/FileMetaConfig.cs.md
+          - docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md
+          - docs/references/pwsh/catzc-base-reports/configs/reports.yml.md
+          - docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/types/ReportsConfig.cs.md
+          - docs/references/pwsh/catzc-base-root-config.md
+          - docs/references/pwsh/catzc-base-root-config/Test-RootAnalyzerSettings.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/Test-RootConfigFiles.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/tests/Test-RootConfigIntegrity.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/types/RootConfigFiles.cs.md
+          - docs/references/pwsh/catzc-base-types-system/Test-ShippedTypes.ps1.md
+          - docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+          - docs/references/pwsh/catzc-tooling-key-handler/private/Select-SupportedKeyHandler.ps1.md
+          - docs/references/pwsh/internal/tests/Test-FolderConventions.Tests.ps1.md
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Azure/.
+        by:
+          - pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Azure.DevOps/tests
+        by:
+          - pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Azure.Templates/private
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Config/.
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.Config/private
+        by:
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Config/tests
+        by:
+          - pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
+          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.ConfigExtensions/.
+        by:
+          - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Contracts/.
+        by:
+          - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Contracts/tests
+        by:
+          - pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Docs/.
+        by:
+          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - pwsh/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Docs/Test-AdrRegistry.ps1
+          - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
+          - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
+          - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adr-checks.yml
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Docs/private
+        by:
+          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Docs/tests
+        by:
+          - pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrChecksConfig.cs
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs
+          - pwsh/Catzc.Base.Docs/types/CheckMode.cs
+          - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Execution/.
+        by:
+          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
+          - pwsh/Catzc.Base.Execution/Resolve-ToolExecutable.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Folders/tests/types
+        by:
+          - pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+      - cell: pwsh/Catzc.Base.Git/private
+        by:
+          - pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Git/types
+        by:
+          - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Globs/.
+        by:
+          - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by:
+          - pwsh/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Globs/types
+        by:
+          - pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - cell: pwsh/Catzc.Base.Languages/.
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1
+          - pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Modules/tests
+        by:
+          - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.ModuleSystem/tests
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.QualityGates/.
+        by:
+          - pwsh/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Change.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-FileMeta.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Links.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ManagedGuids.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ManualTestPlan.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-MarkdownTitle.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Markdownlint.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Spelling.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Terminology.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-TestTitles.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/generated-files.yml
+          - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-GeneratedFileGenerator.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.QualityGates/tests
+        by:
+          - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.QualityGates/tests/types
+        by:
+          - pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - cell: pwsh/Catzc.Base.QualityGates/types
+        by:
+          - pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - cell: pwsh/Catzc.Base.Reports/.
+        by:
+          - pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Reports/configs
+        by:
+          - pwsh/Catzc.Base.Reports/configs/reports.yml
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Reports/tests
+        by:
+          - pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Reports/tests/types
+        by:
+          - pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Reports/types
+        by:
+          - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.RootConfig/.
+        by:
+          - pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
+          - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.RootConfig/tests
+        by:
+          - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.RootConfig/types
+        by:
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.TypesSystem/.
+        by:
+          - pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Internal.Tests/.
+        by:
+          - pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Tooling.Environment/.
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Tooling.KeyHandler/private
+        by:
+          - pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+    module-neighbourhood:
+      - cell: subject/.claude
+        by:
+          - .claude/CLAUDE.md
+          - .claude/agents/test-optimization.md
+          - .claude/skills/test-speed/SKILL.md
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Azure
+        by:
+          - pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Azure.DevOps
+        by:
+          - pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
+          - pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Base.Config
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
+          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: subject/Catzc.Base.ConfigExtensions
+        by:
+          - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Base.Contracts
+        by:
+          - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
+          - pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - pwsh/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Docs/Test-AdrRegistry.ps1
+          - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
+          - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
+          - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
+          - pwsh/Catzc.Base.Docs/configs/adr-checks.yml
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
+          - pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - pwsh/Catzc.Base.Docs/types/AdrChecksConfig.cs
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs
+          - pwsh/Catzc.Base.Docs/types/CheckMode.cs
+          - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.Execution
+        by:
+          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
+          - pwsh/Catzc.Base.Execution/Resolve-ToolExecutable.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.Folders
+        by:
+          - pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+      - cell: subject/Catzc.Base.Git
+        by:
+          - pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
+          - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+          - pwsh/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+          - pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - cell: subject/Catzc.Base.Languages
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1
+          - pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
+          - pwsh/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.Modules
+        by:
+          - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Change.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-FileMeta.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Links.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ManagedGuids.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ManualTestPlan.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-MarkdownTitle.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Markdownlint.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Spelling.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Terminology.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-TestTitles.ps1
+          - pwsh/Catzc.Base.QualityGates/configs/generated-files.yml
+          - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - pwsh/Catzc.Base.QualityGates/private/Get-GeneratedFileGenerator.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.Reports
+        by:
+          - pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
+          - pwsh/Catzc.Base.Reports/configs/reports.yml
+          - pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
+          - pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
+          - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
+          - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.TypesSystem
+        by:
+          - pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Internal.Tests
+        by:
+          - pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Tooling.Environment
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Tooling.KeyHandler
+        by:
+          - pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
+    axis:
+      - cell: AUTO/quality-control
+        by:
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: AUTO/*
+        by:
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-POWERSHELLVALIDATOR
+          - ADR-CONF-LOADING-READINGISGLOBAL
 layout:
   band-read:
     x: 20

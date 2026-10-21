@@ -21,6 +21,18 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 
 - **The learnings log stays signed `Cats`** (Q7): no `persona` key on `CapabilityEntry`.
 
+## Open questions (session-finalize catzc-05, 2026-10-21)
+
+- Should `edit-reminders.yml` gain an entry for `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml` saying a new key lands in
+  `TimeoutsConfig.cs` first, then one fresh import (which rebuilds the Bash hook), then the yml line? It would replace a memory entry with a
+  config line. Recommended: yes.
+- Should the glossary reminder in `edit-reminders.yml` add "quote a `short:` value that holds `: `", the one YAML slip that broke every
+  import today? Recommended: yes, merged into the existing reminder.
+- Should `catzc-run` say in its existing line 2 that `Invoke-TestFile` takes test files only, and a language test folder runs only through
+  `Test-Automation -Modules`? Recommended: yes, one clause.
+- Should `drawio-declaration` say a sample under `out/` renders by `Write-DiagramMinimapData` plus declaration.py put, since
+  `Build-Diagrams -Path` refuses folders outside `docs/`? Recommended: yes, one clause.
+
 ## Open steps
 
 1. [ ] Susan from HR: `.claude/CLAUDE.md`, section Sub-agents (4797 bytes of a 14407-byte file, 2026-10-21): each bullet cut to the agent
@@ -32,13 +44,3 @@ It cuts a cost paid by every session and every spawn that loads the project inst
        Project structure names `docs/references/pwsh/index.md` as where a design round starts (about 70 bytes added, paid for by step 1's
        cut; no new line, no new file). Cost today: no robot, capability or CLAUDE.md line names the index. Check:
        `Test-Links -Path .claude/CLAUDE.md`, and `wc -c .claude/CLAUDE.md` still at most 12100.
-
-## Open questions
-
-- From catzc-72's finalize (2026-10-21): the `session-finalize` skill's step 2 runs `Format-Code -Language markdown` over the whole tree,
-  which this run used and which reformatted two files outside the session (a peer's learnings file and a reference page), against decision
-  Q5. Should step 2 say `Format-Code -Path` on the plans touched? Recommendation: yes, the same clause Q5 gives `catzc-run`.
-- Same finalize: `plan-decide` names no folder for its questionnaire and decisions files (older rounds used `.claude/plans`, this one
-  `out/`). Should its step 2 name `out/`? Recommendation: yes, three words merged into the line, since `out/` keeps them off `Test-Plans`.
-- Same finalize: bash `find` and `grep -r` over the tree exceed the 3 s foreground roof. Should `catzc-run`'s fastest-runner line say the
-  Grep and Glob tools answer a tree sweep? Recommendation: yes, a merged clause, no new line.

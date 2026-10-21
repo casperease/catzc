@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "3a2b4bcc7e40"
 #   edges:
-#     docs: "[dependencies.yml.md](docs/references/pwsh/catzc-base-modulesystem/configs/dependencies.yml.md)"
+#     docs: "[dependencies.yml.md](docs/references/pwsh/catzc-base-module-system/configs/dependencies.yml.md)"
 # ---
 
 groups:
@@ -243,6 +243,8 @@ groups:
         Catzc.Base.Folders,
         Catzc.Base.Globs,
         Catzc.Base.Modules,
+        Catzc.Base.Asserts,
+        Catzc.Base.Execution,
       ]
 
   AzureExt:

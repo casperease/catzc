@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "197ca274180d"
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Invoke-BuildForVSCode.Tests.ps1
-    docs: "[Invoke-BuildForVSCode.ps1.md](docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md)"
+    docs: "[Invoke-BuildForVSCode.ps1.md](docs/references/pwsh/catzc-base-types-system/Invoke-BuildForVSCode.ps1.md)"
     cites:
       - ADR-BCL-TYPES
       - ADR-DSGN-RUNMODE

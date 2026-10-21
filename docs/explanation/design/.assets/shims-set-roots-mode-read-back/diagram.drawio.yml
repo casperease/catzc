@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1efebfeec867"
+#     with_body_sha: e485410f50b1
 # ---
 
 description:
@@ -126,9 +126,207 @@ content:
       number: 10
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: docs/-/.
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/run-modes.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
+          - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Get-FunctionDependency.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Get-InternalAssetDependency.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Get-ModuleFunction.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/New-Importer.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Sync-GeneratedFile.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-FunctionDependency.ps1.md
+          - docs/references/pwsh/catzc-base-repository/Assert-SourceTree.ps1.md
+          - docs/references/pwsh/catzc-base-repository/Get-CatzcModuleRoot.ps1.md
+          - docs/references/pwsh/catzc-base-repository/Get-CatzcRunMode.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/Build-RootConfig.ps1.md
+          - docs/references/pwsh/catzc-base-types-system/Clear-ModuleTypeCache.ps1.md
+          - docs/references/pwsh/catzc-base-types-system/Get-CSharpTypeDependency.ps1.md
+          - docs/references/pwsh/catzc-base-types-system/Invoke-BuildForVsCode.ps1.md
+          - docs/references/pwsh/catzc-base-vendor/Install-VendorModule.ps1.md
+          - docs/references/pwsh/catzc-base-vendor/Remove-VendorModules.ps1.md
+          - docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md
+          - docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md
+          - docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md
+          - docs/references/pwsh/internal/assets/Import-Catzc.ps1.md
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: pwsh/Catzc.Base.Globs/.
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Get-ModuleFunction.ps1
+          - pwsh/Catzc.Base.ModuleSystem/New-Importer.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: pwsh/Catzc.Base.Repository/.
+        by:
+          - pwsh/Catzc.Base.Repository/Assert-SourceTree.ps1
+          - pwsh/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
+          - pwsh/Catzc.Base.Repository/Get-CatzcRunMode.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: pwsh/Catzc.Base.RootConfig/.
+        by:
+          - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: pwsh/Catzc.Base.TypesSystem/.
+        by:
+          - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
+          - pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
+          - pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
+          - pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: pwsh/Catzc.Base.Vendor/.
+        by:
+          - pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
+          - pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: pwsh/Catzc.Internal.Assets/.
+        by:
+          - pwsh/.internal/assets/Import-Catzc.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: pwsh/Catzc.Internal.Tests/.
+        by:
+          - pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Get-ModuleFunction.ps1
+          - pwsh/Catzc.Base.ModuleSystem/New-Importer.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: subject/Catzc.Base.Repository
+        by:
+          - pwsh/Catzc.Base.Repository/Assert-SourceTree.ps1
+          - pwsh/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
+          - pwsh/Catzc.Base.Repository/Get-CatzcRunMode.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: subject/Catzc.Base.TypesSystem
+        by:
+          - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
+          - pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
+          - pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
+          - pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: subject/Catzc.Base.Vendor
+        by:
+          - pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
+          - pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: subject/Catzc.Internal.Assets
+        by:
+          - pwsh/.internal/assets/Import-Catzc.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+      - cell: subject/Catzc.Internal.Tests
+        by:
+          - pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+          - ADR-DSGN-RUNMODE-TWORUNMODES
 layout:
   band-source:
     x: 20

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "3902a5e894b5"
   edges:
-    docs: "[Get-ModuleSourceFunctions.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleSourceFunctions.ps1.md)"
+    docs: "[Get-ModuleSourceFunctions.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleSourceFunctions.ps1.md)"
 ---
 #>
 

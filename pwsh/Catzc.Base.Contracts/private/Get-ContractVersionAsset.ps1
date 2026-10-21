@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f63dbcf10108
+    with_body_sha: "569d348757df"
   edges:
     docs: "[Get-ContractVersionAsset.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractVersionAsset.ps1.md)"
     cites:
@@ -50,8 +50,8 @@ function Get-ContractVersionAsset {
         $module = [System.IO.Path]::GetFileName($moduleFolder)
         # target_roots names a module in the normal form; a unit that keeps its source's folder names is looked up by its rendering.
         $key = $module
-        if ([Catzc.Base.Languages.LanguageNaming]::IsInCase('pascal-dotted', $module)) {
-            $key = [Catzc.Base.Languages.LanguageNaming]::ToNormal('pascal-dotted', $module, $normalForm)
+        if ([Catzc.Base.Objects.NameCase]::IsInCase('pascal-dotted', $module)) {
+            $key = [Catzc.Base.Objects.NameCase]::ToNormal('pascal-dotted', $module, $normalForm)
         }
         $root = [Catzc.Base.Contracts.ContractsConfig]::ResolveTargetRoot($TargetRoot, $key)
         $files = [string[]] @(Get-ChildPath $moduleFolder -File -Depth 64 -Exclude @() -PruneVendor $false)

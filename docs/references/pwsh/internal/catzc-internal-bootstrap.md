@@ -30,7 +30,7 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   once per hash, verifies every expected type resolved, and publishes each type's `[PSTypeAlias]` accelerator. On a devbox it degrades
   gracefully when a live type changed or was removed (warn and keep the loaded copy), and fails fast when a type was added since load; in CI
   a stale-types load is a hard failure. The full contract is the [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md)
-  ADR and the [BCL type-system reference](../BCL/types-system.md).
+  ADR and the [BCL type-system reference](../../BCL/types-system.md).
 - **Collision guard** — `Assert-UniqueModuleFunctionName` turns PowerShell's silent last-writer-wins command shadowing into a loud, fast
   failure before anything loads. It catches two cases and reports all of them at once: two catzc modules exporting the same name, and an
   automation function whose name would shadow an already-imported shipped command (a vendored module, a built-in, or an `.internal` module).
@@ -62,6 +62,6 @@ The module-internal engine `Import-AllModules` drives (not exported):
 - ADR: [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) and [caching](../../../adr/automation/caching.md) — the one
   combined assembly, its committed prebuild, and the hash key `Import-CSharpTypes` loads by.
 - ADR: [uniform-formatting](../../../adr/repository/uniform-formatting.md) — the canonical, hand-alignment-free manifest text.
-- Reference: [Catzc.Internal.Types](catzc-internal-types.md) — the shared hash; the [BCL type-system reference](../BCL/types-system.md);
-  [Catzc.Base.ModuleSystem](../catzc-base-modulesystem.md) — the post-import dependency-graph check over the same modules; the
+- Reference: [Catzc.Internal.Types](catzc-internal-types.md) — the shared hash; the [BCL type-system reference](../../BCL/types-system.md);
+  [Catzc.Base.ModuleSystem](../catzc-base-module-system.md) — the post-import dependency-graph check over the same modules; the
   [internal area overview](index.md).

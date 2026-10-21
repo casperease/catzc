@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "65af9bb0b6e2"
+    with_body_sha: "36bb4933eca0"
   edges:
     code: pwsh/Catzc.Base.Contracts/private/Get-ContractCommandRoot.ps1
     cites:

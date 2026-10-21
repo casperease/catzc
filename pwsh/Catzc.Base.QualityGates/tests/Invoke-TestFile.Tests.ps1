@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c8a86d46a995
   edges:
-    docs: "[Invoke-TestFile.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md)"
+    docs: "[Invoke-TestFile.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-TestFile.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Invoke-TestFile.ps1
     cites:
       - ADR-AUTO-TEST-FEWINTEGRATIONTESTS

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "22b23beafc2b"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
-    docs: "[Test-PythonLint.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-PythonLint.ps1.md)"
+    docs: "[Test-PythonLint.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-PythonLint.ps1.md)"
     cites:
       - ADR-AUTO-PY-EVERYFILELINTED
 ---

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5f78f48cb0c8"
+#     with_body_sha: dfde951ce258
 # ---
 
 description:
@@ -91,6 +91,51 @@ content:
     - at: e-group
       number: 5
   legend: auto
+  minimaps:
+    axis:
+      - cell: CLOUD/deploy
+        by:
+          - ADR-AZ-IACKIND-THREEKINDS
+          - ADR-AZ-IACKIND-TRACKPLACESKINDS
+    lifecycle-position:
+      - cell: main-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-IACKIND-THREEKINDS
+          - ADR-AZ-IACKIND-TRACKPLACESKINDS
+      - cell: release-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-IACKIND-THREEKINDS
+          - ADR-AZ-IACKIND-TRACKPLACESKINDS
+      - cell: pre-prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-IACKIND-THREEKINDS
+          - ADR-AZ-IACKIND-TRACKPLACESKINDS
+      - cell: prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-IACKIND-THREEKINDS
+          - ADR-AZ-IACKIND-TRACKPLACESKINDS
+    layer-stack:
+      - cell: automation
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/azure/dora-explains.md
+          - docs/adr/azure/infrastructure-kinds.md
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-IACKIND-THREEKINDS
+          - ADR-AZ-IACKIND-TRACKPLACESKINDS
 layout:
   g-slot:
     x: 680

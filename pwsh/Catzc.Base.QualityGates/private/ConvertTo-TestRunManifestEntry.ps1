@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "76af8cad9106"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/ConvertTo-TestRunManifestEntry.Tests.ps1
-    docs: "[ConvertTo-TestRunManifestEntry.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/ConvertTo-TestRunManifestEntry.ps1.md)"
+    docs: "[ConvertTo-TestRunManifestEntry.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/ConvertTo-TestRunManifestEntry.ps1.md)"
 ---
 #>
 

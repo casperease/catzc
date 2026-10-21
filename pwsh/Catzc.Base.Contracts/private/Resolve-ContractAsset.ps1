@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9cc53d0235b8"
+    with_body_sha: e65c85d4fe5e
   edges:
     docs: "[Resolve-ContractAsset.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Resolve-ContractAsset.ps1.md)"
     cites:
@@ -69,7 +69,7 @@ function Resolve-ContractAsset {
         $commandLanguage = $languages.languages | Where-Object name -ceq 'powershell' | Select-Object -First 1
         $stem = $name.Substring(0, $name.Length - '.command.yml'.Length)
         try {
-            $command = [Catzc.Base.Languages.LanguageNaming]::FromNormal($stem, $commandLanguage.naming.function[0], $languages.naming_normal_form)
+            $command = [Catzc.Base.Objects.NameCase]::FromNormal($stem, $commandLanguage.naming.function[0], $languages.naming_normal_form)
         }
         catch {
             throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': the command '$stem' is not in the repository normal form, $($languages.naming_normal_form) (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2fdfea89c041"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
-    docs: "[Invoke-TestFile.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Invoke-TestFile.ps1.md)"
+    docs: "[Invoke-TestFile.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Invoke-TestFile.ps1.md)"
     cites:
       - ADR-AUTO-NOPWD
       - ADR-AUTO-TEST-FILEPARALLELISM

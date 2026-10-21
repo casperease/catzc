@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1e67cd0a6a91"
+    with_body_sha: a98a8be0af7b
   edges:
     docs: "[Get-SlideFinding.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-SlideFinding.ps1.md)"
     cites:
@@ -88,7 +88,9 @@ function Get-SlideFinding {
         }
     }
 
-    $rendered = [Catzc.Base.Slides.SlidePattern]::TextOf($render.Html)
+    # A field shows as the slide's text or, such as an image's path, as an attribute's value.
+    $attributes = @([regex]::Matches($render.Html, '\s[A-Za-z][\w-]*="([^"]*)"') | ForEach-Object { [System.Net.WebUtility]::HtmlDecode($_.Groups[1].Value) }) -join "`n"
+    $rendered = [Catzc.Base.Slides.SlidePattern]::TextOf($render.Html) + "`n" + $attributes
     if ($Slide.Source.Title -and $rendered.IndexOf($Slide.Source.Title, [System.StringComparison]::Ordinal) -lt 0) {
         $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'title', 'the title is not in the rendered slide'))
     }

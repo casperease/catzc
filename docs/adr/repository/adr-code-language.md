@@ -4,16 +4,19 @@
 
 ### Rule ADR-REPO-ADRCODE-PATHOFSEGMENTS
 
-An ADR code is `ADR` followed by zero or more segments, each `-` plus an upper-case letter and then upper-case letters or digits. It reads
-from the most general part to the most specific: `ADR`, then the domain, then the ADR, then the rule. `ADR` is always the first part, so it
-stays the one searchable marker for an ADR reference anywhere in the repository.
+A decision record code is a record kind followed by zero or more segments, each `-` plus an upper-case letter and then upper-case letters
+or digits. It reads from the most general part to the most specific: the kind, then the domain where the kind is shared, then the record,
+then the rule. The kind is always the first part and is one of the closed set of kinds registered in `adrs.yml` (`ADR`, `TDR`, `PDR`,
+`WDR`, `DDR`, `FDR`, `RDR`), so the registered kinds are the searchable markers for a decision record reference anywhere in the repository.
 
 - [One path for every level](#one-path-for-every-level)
 
 ### Rule ADR-REPO-ADRCODE-DOMAINSEGMENT
 
-The second segment is the domain's `code` in `adrs.yml`, a closed set with one code per `docs/adr/<domain>/` folder. Every ADR code in a
-domain starts with that domain's segment.
+Every domain has a `kind` in `adrs.yml`. A kind one domain owns stands for that domain, and its codes carry no domain segment
+(`DDR-TRACK-UNORDEREDTRACK`). The shared kind `ADR` holds the implementation domains, and each of them adds its `code` as the second segment
+(`ADR-AUTO-FAILFAST`), a closed set with one code per `docs/adr/<domain>/` folder. Every code in a domain starts with that domain's prefix:
+its kind, then its code where it has one.
 
 - [The domain comes first](#the-domain-comes-first)
 
@@ -42,8 +45,9 @@ Every segment of every registered code and rule heading is a known word to the s
 
 ### Rule ADR-REPO-ADRCODE-CODEISSELECTOR
 
-Every code is also a selector: it selects itself and every code whose segments start with it. `ADR` selects every ADR and rule, `ADR-AUTO`
-the automation domain, and `ADR-AUTO-FAILFAST` that ADR and all its rules. A match compares whole segments, so `ADR-AUTO-GO` never selects
+Every code is also a selector: it selects itself and every code whose segments start with it. A kind selects its records and rules, so
+`ADR` selects the implementation domains and every decision record is the list of all kinds; `ADR-AUTO` selects the automation domain, `DDR`
+the design domain, and `ADR-AUTO-FAILFAST` that ADR and all its rules. A match compares whole segments, so `ADR-AUTO-GO` never selects
 `ADR-AUTO-GOLD`.
 
 - [Every string is a selector](#every-string-is-a-selector)
@@ -92,8 +96,10 @@ tree, so a domain, an ADR, and a rule are read, searched, and parsed the same wa
 ### The domain comes first
 
 The most general part comes first, so the codes of one domain sort together and one prefix search finds them. A code that leaves out its
-domain, or names another domain than the folder it lives in, breaks both. The research domain's segment is `DORA`, the research program it
-records, so a capability reads as the program's own (`ADR-DORA-VCS`).
+domain's prefix, or names another domain than the folder it lives in, breaks both. The kind says before the record is opened whether it is a
+thesis, an axiom, a way of working, a design, a flow, research, or an architecture decision; a framing domain owns its kind, so one segment
+says both and the domain segment would only repeat it. The research domain's records group under `DORA`, the research program they record,
+as a vendor framework groups (`RDR-DORA-VCS`).
 
 ### Vendor references are a level
 
@@ -148,13 +154,13 @@ written.
 
 ## Decision
 
-ADR codes are paths of named segments: `ADR`, the domain, the ADR (behind a vendor group where there is one), and the rule. Every code is a
-fact and a selector of everything under it, with no numbers and no group syntax.
+Decision record codes are paths of named segments: the record kind, the domain where the kind is shared, the record (behind a vendor group
+where there is one), and the rule. Every code is a fact and a selector of everything under it, with no numbers and no group syntax.
 
 ### How this is enforced
 
 - **`Test-AdrRegistry`** (in `Catzc.Base.Docs`) runs the `code_language` check: a code outside the segment grammar, a code that does not
-  start with its domain's segment, a numbered rule heading, and a rule that shares a segment with a sibling ADR are findings. The check's
+  start with its domain's prefix, a kind that is not registered, a numbered rule heading, and a rule that shares a segment with a sibling ADR are findings. The check's
   mode is configured in `adr-checks.yml`; in `report` mode its findings are printed in their own report and never fail the run.
 - **`Test-Links`** (in `Catzc.Base.QualityGates`) reports a numbered citation in a markdown file or a code string as a finding; the test
   files whose fixtures carry one on purpose are named, each with its reason, in `links.yml` `string_citations.exempt`.

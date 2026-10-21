@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "88fbb59b90fb"
 #   edges:
-#     docs: "[vscode-pipeline-schema.yml.md](docs/references/pwsh/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md)"
+#     docs: "[vscode-pipeline-schema.yml.md](docs/references/pwsh/catzc-base-vs-code/configs/vscode-pipeline-schema.yml.md)"
 #     cites:
 #       - ADR-REPO-ROOTCFG
 # ---

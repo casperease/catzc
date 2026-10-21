@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6aec7ac306bb"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
-    docs: "[Get-UncoveredInternalAssetDependency.ps1.md](docs/references/pwsh/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md)"
+    docs: "[Get-UncoveredInternalAssetDependency.ps1.md](docs/references/pwsh/catzc-base-module-system/private/Get-UncoveredInternalAssetDependency.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
       - ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY

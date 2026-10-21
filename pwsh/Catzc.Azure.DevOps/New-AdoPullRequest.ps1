@@ -5,7 +5,7 @@ catzc:
     with_body_sha: eb5b8c38e74d
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/New-AdoPullRequest.Tests.ps1
-    docs: "[New-AdoPullRequest.ps1.md](docs/references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md)"
+    docs: "[New-AdoPullRequest.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/New-AdoPullRequest.ps1.md)"
     cites:
       - ADR-FLOW-CD-TYPE
       - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD

@@ -1,9 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "70c2646bcc05"
+#     with_body_sha: fccef1f941ed
 #   edges:
-#     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-modulesystem/configs/glossary.yml.md)"
+#     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-module-system/configs/glossary.yml.md)"
 #     cites:
 #       - ADR-AUTO-IMPORTER-ONEENTRY
 #       - ADR-AUTO-MODULE-EXISTSBYLAYOUT

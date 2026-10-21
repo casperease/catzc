@@ -19,17 +19,13 @@ step below moves one of those to the one place that serves it; steps 1 and 2 lan
   (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT), the hook, its log `out/time-safeguard.log`, `timeouts.yml`, the denial rule and the fastest-runner
   rule, and points at `catzc-run` for the call shapes.
 
-## Open questions (session-finalize, 2026-10-21)
-
-- Should `edit-reminders.yml` gain an entry for `pwsh/**/*.ps1` that reminds of the instant parse check
-  (`[System.Management.Automation.Language.Parser]::ParseFile`), so the importer-outage memory shrinks to a config entry? Recommended: yes.
-- Should step 1's trim add one clause that the Bash hook also denies the git topic commands (ADR-FLOW-GIT-USERRUNSGIT), named from
-  `git.yml`, and that a script naming them is written with the Write tool? Recommended: yes, in the same cut.
+- **Delegated to the orchestrator, recommendations taken (2026-10-21):** step 1's trim adds one clause that the Bash hook also denies the
+  git topic commands (ADR-FLOW-GIT-USERRUNSGIT), named from `git.yml`, and that a script naming them is written with the Write tool.
 
 ## Open steps
 
-1. [ ] After plan-agent-shortcuts' CLAUDE.md line (its step 1): `.claude/CLAUDE.md`, section Time safeguard, trimmed as decided, when no
-       peer has the file dirty. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
+1. [ ] After plan-agent-shortcuts' CLAUDE.md line (its step 1): `.claude/CLAUDE.md`, section Time safeguard, trimmed as decided, including
+       the git-topic clause, when no peer has the file dirty. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
 2. [ ] Susan from HR: In step 1's trim, `.claude/CLAUDE.md` (hindsight 226bbf, "which grep"): the probe line names the Grep tool for a
        recursive search and bash `grep` only for one file, since a recursive bash grep cannot finish inside the 3 s roof; the multi-step
        "script under `out/`" clause is cut for `Invoke-CatzcCommand.ps1` (the tree contradicts itself today); the same section says in one

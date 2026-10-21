@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "840d52afc34b"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationReport.Tests.ps1
-    docs: "[Write-TestAutomationReport.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md)"
+    docs: "[Write-TestAutomationReport.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationReport.ps1.md)"
     cites:
       - ADR-AUTO-TEST-DEVBOXRUNBUDGET
 ---

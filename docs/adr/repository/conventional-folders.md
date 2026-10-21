@@ -276,8 +276,7 @@ buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.
 under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is one folder in the `.assets/` beside
 the page that embeds it, so moving the diagram moves the folder and the page finds it by locality. The folder holds the diagram under role
 names: its yml declaration, the one source its words and cells live in; the png put from it; and its verify record, so every drawn claim
-stays checkable against the code. A minimap's reasons travel in its computed data and in the article that embeds the diagram, never in a
-file of the folder.
+stays checkable against the code. A minimap's reasons travel in its computed data and in the folder's verify record.
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's

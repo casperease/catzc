@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "94a7602ee271"
+    with_body_sha: "782fb6be1496"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
     docs: "[Get-ReadmeMappings.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-ReadmeMappings.ps1.md)"
@@ -55,7 +55,7 @@ function Get-ReadmeMappings {
                 continue   # an explicit mapping already owns this folder
             }
 
-            $kebab = $leaf.ToLowerInvariant().Replace('.', '-')
+            $kebab = [Catzc.Base.Objects.NameCase]::Render($leaf, 'kebab')
             $source = $pattern.source.Replace('{kebab}', $kebab)
             $sourcePath = Join-Path $RepositoryRoot $source
             if (-not (Test-Path $sourcePath -PathType Leaf)) {

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2b20033ebcf0"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Split-CommandLineBatch.Tests.ps1
-    docs: "[Split-CommandLineBatch.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Split-CommandLineBatch.ps1.md)"
+    docs: "[Split-CommandLineBatch.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Split-CommandLineBatch.ps1.md)"
 ---
 #>
 

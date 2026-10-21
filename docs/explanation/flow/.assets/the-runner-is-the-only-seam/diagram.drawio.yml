@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1b0ef5e4a4fb"
+#     with_body_sha: cc06ed2552c2
 # ---
 
 description:
@@ -93,9 +93,122 @@ content:
       text: 6/7
   legend: auto
   minimaps:
-    - code-locations
-    - grid
-    - axis
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: docs/-/.
+        by:
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/flow/pipeline-runner-pattern.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/steps/invoke-automation.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+    grid:
+      - cell: .claude/markdown
+        by:
+          - .claude/CLAUDE.md
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: docs/markdown
+        by:
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/flow/pipeline-runner-pattern.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/steps/invoke-automation.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+    axis:
+      - cell: DSGN/*
+        by:
+          - ADR-FLOW-CD-RUNNER-IMPORTONCE
+          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
 layout:
   band-yaml:
     x: 20

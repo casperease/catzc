@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "46e96331ef1b"
+    with_body_sha: c43b8099fe62
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
-    docs: "[Test-Spelling.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Spelling.ps1.md)"
+    docs: "[Test-Spelling.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Spelling.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-SELFCONTAINEDERRORS
       - ADR-AUTO-TEST-QUALITYGATE
@@ -17,20 +17,7 @@ function Test-Spelling {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
-        [string[]] $Path = @(
-            '**/*.md'
-            '**/*.ps1'
-            '**/*.psm1'
-            '**/*.psd1'
-            '**/*.yml'
-            '**/*.yaml'
-            '**/*.json'
-            '**/*.cs'
-            '**/*.csproj'
-            '**/*.bicep'
-            '**/*.go'
-            '**/*.py'
-        ),
+        [string[]] $Path = @((Get-Config -Config languages).ExtensionsCheckedBy('Test-Spelling') | ForEach-Object { "**/*$_" }),
 
         [string[]] $Exclude = @(
             'out/**'

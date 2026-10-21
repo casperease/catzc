@@ -5,10 +5,9 @@
 ### Rule ADR-THES-ONETRUTH-ONESTOREDECIDES
 
 A **source of truth** is the one store whose content decides what is true about the delivered system. Delivery is slow because that truth is
-spread across disjoint stores that drift apart — servers, databases, CMDBs, deployment engines, ticket systems, requirement databases.
+spread across disjoint stores that drift apart: servers, databases, CMDBs, deployment engines, ticket systems, requirement databases.
 Catzc's answer is one source of truth, the repository, with one simple, fast, and robust change process for everything in it, never
-synchronisation between stores inside the responsibility domain the repository holds. Outside it, the stores catzc does not own are truth
-stores of other kinds ([ADR-THES-STORES](truth-stores.md)).
+synchronisation between stores inside its responsibility domain.
 
 - [The problem](#the-problem)
 - [One source of truth, one change process](#one-source-of-truth-one-change-process)
@@ -92,6 +91,9 @@ diff and its history, integrated into the trunk and delivered by its pipelines. 
 continuous delivery as the DORA research defines it ([continuous-delivery](../research/continuous-delivery.md)) and as catzc's flow model
 implements it. The thesis describes the product; the research is the authority it rests on. Audit and retrospection are answered once, by
 the history.
+
+The one source of truth covers the responsibility domain the repository holds. Outside it, the stores catzc does not own are truth stores of
+other kinds ([ADR-THES-STORES](truth-stores.md)).
 
 ### The repository is the configuration record
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "88185494cb1a"
   edges:
-    docs: "[Write-TestOptOutExclusion.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md)"
+    docs: "[Write-TestOptOutExclusion.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Write-TestOptOutExclusion.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SOURCEONLYTAG
 ---

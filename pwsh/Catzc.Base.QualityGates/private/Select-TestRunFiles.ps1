@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d9b35be5f8fc
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Select-TestRunFiles.Tests.ps1
-    docs: "[Select-TestRunFiles.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Select-TestRunFiles.ps1.md)"
+    docs: "[Select-TestRunFiles.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Select-TestRunFiles.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SOURCEONLYTAG
 ---

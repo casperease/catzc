@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c66f82b6c521
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-BodyShaFileMetaFact.Tests.ps1
-    docs: "[Get-BodyShaFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-BodyShaFileMetaFact.ps1.md)"
+    docs: "[Get-BodyShaFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-BodyShaFileMetaFact.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-IMPRINTEDPARTS
 ---

@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: divider
     deck: product-thesis
-    order: 9
+    order: 10
 ---
 
 # The six principles

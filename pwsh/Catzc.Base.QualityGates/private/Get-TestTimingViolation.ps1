@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f773a5acf4a2
   edges:
-    docs: "[Get-TestTimingViolation.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TestTimingViolation.ps1.md)"
+    docs: "[Get-TestTimingViolation.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestTimingViolation.ps1.md)"
 ---
 #>
 

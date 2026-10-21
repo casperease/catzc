@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c20fcd679467
   edges:
     test: pwsh/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerBindingsConfig.Tests.ps1
-    docs: "[KeyHandlerBindingsConfig.cs.md](docs/references/pwsh/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md)"
+    docs: "[KeyHandlerBindingsConfig.cs.md](docs/references/pwsh/catzc-tooling-key-handler/types/KeyHandlerBindingsConfig.cs.md)"
 ---
 */
 

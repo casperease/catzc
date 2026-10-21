@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7412e855d131"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestRunLocationEntry.Tests.ps1
-    docs: "[Get-TestRunLocationEntry.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TestRunLocationEntry.ps1.md)"
+    docs: "[Get-TestRunLocationEntry.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestRunLocationEntry.ps1.md)"
     cites:
       - ADR-AUTO-NOPWD
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS

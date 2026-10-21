@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b6c4f8fded52
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1
-    docs: "[Format-Code.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Format-Code.ps1.md)"
+    docs: "[Format-Code.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Format-Code.ps1.md)"
     cites:
       - ADR-AUTO-CACHE
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING

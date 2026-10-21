@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "30ca38a1412d"
   edges:
-    docs: "[ArtifactsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/types/ArtifactsConfig.Tests.ps1.md)"
+    docs: "[ArtifactsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/types/ArtifactsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
 ---
 #>

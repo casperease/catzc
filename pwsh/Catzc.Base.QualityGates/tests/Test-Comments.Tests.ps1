@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2a53df5c81cc"
   edges:
-    docs: "[Test-Comments.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-Comments.Tests.ps1.md)"
+    docs: "[Test-Comments.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Comments.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
     cites:
       - ADR-PRIN-ONELIVE-ONEVERSION

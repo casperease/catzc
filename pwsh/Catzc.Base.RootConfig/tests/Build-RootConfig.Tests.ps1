@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "155d273aef5a"
   edges:
-    docs: "[Build-RootConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md)"
+    docs: "[Build-RootConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-root-config/tests/Build-RootConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS

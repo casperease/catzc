@@ -19,7 +19,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         foreach ($d in 'widgets/Catzc.Azure.DevOps', 'widgets/Catzc.Base.Files', 'widgets/Catzc.NoDoc', 'widgets/.vendor', 'docs/references/pwsh') {
             [System.IO.Directory]::CreateDirectory((Join-Path $script:root $d)) | Out-Null
         }
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/references/pwsh/catzc-azure-devops.md'), '# x')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/references/pwsh/catzc-azure-dev-ops.md'), '# x')
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/references/pwsh/catzc-base-files.md'), '# x')
     }
 
@@ -34,7 +34,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
             @($result.folder) | Should -Contain 'widgets/Catzc.Azure.DevOps'
             @($result.folder) | Should -Contain 'widgets/Catzc.Base.Files'
             ($result | Where-Object folder -EQ 'widgets/Catzc.Azure.DevOps').source |
-                Should -Be 'docs/references/pwsh/catzc-azure-devops.md'
+                Should -Be 'docs/references/pwsh/catzc-azure-dev-ops.md'
         }
     }
 

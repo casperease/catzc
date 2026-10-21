@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8fcff102ad72"
+    with_body_sha: f2c43c8d112e
 ---
 
 # Documentation
@@ -51,15 +51,15 @@ describes it in those terms, and sorts its functions and configs into them:
   [Catzc.Base.Environment](references/pwsh/catzc-base-environment.md), [Catzc.Base.Objects](references/pwsh/catzc-base-objects.md),
   [Catzc.Base.Writers](references/pwsh/catzc-base-writers.md), [Catzc.Base.Config](references/pwsh/catzc-base-config.md),
   [Catzc.Base.Execution](references/pwsh/catzc-base-execution.md), [Catzc.Base.Files](references/pwsh/catzc-base-files.md),
-  [Catzc.Base.TypesSystem](references/pwsh/catzc-base-typessystem.md),
-  [Catzc.Base.ModuleSystem](references/pwsh/catzc-base-modulesystem.md),
-  [Catzc.Base.QualityGates](references/pwsh/catzc-base-qualitygates.md), [Catzc.Base.Git](references/pwsh/catzc-base-git.md),
-  [Catzc.Base.VSCode](references/pwsh/catzc-base-vscode.md), [Catzc.Base.RootConfig](references/pwsh/catzc-base-rootconfig.md)
+  [Catzc.Base.TypesSystem](references/pwsh/catzc-base-types-system.md),
+  [Catzc.Base.ModuleSystem](references/pwsh/catzc-base-module-system.md),
+  [Catzc.Base.QualityGates](references/pwsh/catzc-base-quality-gates.md), [Catzc.Base.Git](references/pwsh/catzc-base-git.md),
+  [Catzc.Base.VSCode](references/pwsh/catzc-base-vs-code.md), [Catzc.Base.RootConfig](references/pwsh/catzc-base-root-config.md)
 - [Catzc.Tooling.Core](references/pwsh/catzc-tooling-core.md), [Catzc.Tooling.Python](references/pwsh/catzc-tooling-python.md),
   [Catzc.Tooling.Node](references/pwsh/catzc-tooling-node.md), [Catzc.Tooling.Toolchain](references/pwsh/catzc-tooling-toolchain.md),
   [Catzc.Tooling.Provisioning](references/pwsh/catzc-tooling-provisioning.md)
 - [Catzc.Azure](references/pwsh/catzc-azure.md), [Catzc.Azure.Cli](references/pwsh/catzc-azure-cli.md),
-  [Catzc.Azure.DevOps](references/pwsh/catzc-azure-devops.md), [Catzc.Azure.Firewall](references/pwsh/catzc-azure-firewall.md),
+  [Catzc.Azure.DevOps](references/pwsh/catzc-azure-dev-ops.md), [Catzc.Azure.Firewall](references/pwsh/catzc-azure-firewall.md),
   [Catzc.Azure.Templates](references/pwsh/catzc-azure-templates.md)
 
 ## Automation ADRs

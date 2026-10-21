@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "631c5c4e516e"
   edges:
-    docs: "[Build-EnglishDictionary.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Build-EnglishDictionary.Tests.ps1.md)"
+    docs: "[Build-EnglishDictionary.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Build-EnglishDictionary.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1
     cites:
       - ADR-AUTO-TEST-ONECATEGORY

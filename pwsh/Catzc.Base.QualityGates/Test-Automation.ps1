@@ -5,7 +5,7 @@ catzc:
     with_body_sha: adde15099147
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
-    docs: "[Test-Automation.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Automation.ps1.md)"
+    docs: "[Test-Automation.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Automation.ps1.md)"
     cites:
       - ADR-AUTO-TEST-ONESCHEDULINGPOOL
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS

@@ -2,7 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1c3fae583ce4"
+    with_body_sha: "1ced0b6d5261"
+  edges:
+    cites:
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
 ---
 #>
 
@@ -11,7 +14,8 @@ catzc:
     Runs each named cats command in one imported session, prints each verdict, and goes on past a failure.
 
 .DESCRIPTION
-    The one way a gate or test runs in a background call (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT): one command, no script of its own in out/.
+    The one way a gate or test runs in a background call
+    ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)): one command, no script of its own in out/.
     It dot-sources the importer once, then runs every command line it is given in order, from the repository root (the importer's folder),
     and gives the caller its location back at the end. A command that throws, or writes an error, is a
     failure: its verdict line names it with the message, and the next command still runs. So is a command whose result object reports

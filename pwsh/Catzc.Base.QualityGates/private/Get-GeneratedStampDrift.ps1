@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c9a0b503ef98
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-GeneratedStampDrift.Tests.ps1
-    docs: "[Get-GeneratedStampDrift.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-GeneratedStampDrift.ps1.md)"
+    docs: "[Get-GeneratedStampDrift.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedStampDrift.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-COMPOSEDFILES
 ---

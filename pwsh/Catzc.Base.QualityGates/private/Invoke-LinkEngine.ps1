@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9bd717bb274d"
   edges:
-    docs: "[Invoke-LinkEngine.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-LinkEngine.ps1.md)"
+    docs: "[Invoke-LinkEngine.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-LinkEngine.ps1.md)"
 ---
 #>
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ed453af49c72
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/CommentLexer.Tests.ps1
-    docs: "[CommentLexer.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/CommentLexer.cs.md)"
+    docs: "[CommentLexer.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/CommentLexer.cs.md)"
     cites:
       - ADR-REPO-LINK-KINDBYFILE
       - ADR-REPO-LINK-STRINGSAREDATA

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a7ba9c681f0f
   edges:
-    docs: "[Test-PythonLint.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-PythonLint.Tests.ps1.md)"
+    docs: "[Test-PythonLint.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-PythonLint.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-PythonLint.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: table
     deck: product-thesis
-    order: 7
+    order: 8
 ---
 
 # Service management follows delivery, never the reverse

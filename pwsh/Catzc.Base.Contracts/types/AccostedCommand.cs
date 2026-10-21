@@ -17,7 +17,9 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
-// One command of an accosted run (ADR-AUTO-ACCOSTED-COMMANDFORM): a contracted command's normal-form name and its literal arguments.
+// One command of an accosted run
+// ([ADR-AUTO-ACCOSTED-COMMANDFORM](/docs/adr/automation/accosted-language.md#rule-adr-auto-accosted-commandform)): a contracted command's
+// normal-form name and its literal arguments.
 public sealed class AccostedCommand
 {
     private static readonly Regex NormalName = new Regex("^[a-z][a-z0-9]*(_[a-z0-9]+)*$");

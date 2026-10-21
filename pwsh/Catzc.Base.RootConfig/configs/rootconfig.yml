@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: c6dda46eadd1
 #   edges:
-#     docs: "[rootconfig.yml.md](docs/references/pwsh/catzc-base-rootconfig/configs/rootconfig.yml.md)"
+#     docs: "[rootconfig.yml.md](docs/references/pwsh/catzc-base-root-config/configs/rootconfig.yml.md)"
 #     cites:
 #       - ADR-AUTO-ENGINE
 #       - ADR-AUTO-PATH

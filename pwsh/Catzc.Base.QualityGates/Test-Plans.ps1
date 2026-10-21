@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "78d97f573e88"
+    with_body_sha: "80946a82ff32"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
-    docs: "[Test-Plans.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md)"
+    docs: "[Test-Plans.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-FOLDERS-STABLEFILENAMES
@@ -75,7 +75,12 @@ function Test-Plans {
     $issues = [System.Collections.Generic.List[string]]::new()
     $plans = 0
     $tasks = 0
-    $files = @(@(foreach ($target in @(if ($targets.Count -gt 0) { $targets } else { $folder })) {
+    $files = @(@(foreach ($target in @(if ($targets.Count -gt 0) {
+                        $targets
+                    }
+                    else {
+                        $folder
+                    })) {
                 if ([System.IO.Directory]::Exists($target)) {
                     Get-ChildPath $target -Depth 1 -File -Filter '*.md'
                 }
@@ -237,31 +242,12 @@ function Test-Plans {
             }
         }
 
-        # An open step is the `- [ ]` or `1. [ ]` line with its indented continuation lines; each names its check.
-        $stepLine = 0
-        $step = $null
-        $flush = {
-            if ($stepLine -gt 0 -and $step -notmatch '(?i)check:') {
-                & $add $stepLine 'ADR-REPO-PLANS-OPENSTEP'"the open step names no check: `"$($step.Trim())`""
+        # An open step is a `- [ ]` or `1. [ ]` list item, its continuation lines included; each names its check.
+        foreach ($item in @(Get-MarkdownListItem -Line $lines)) {
+            if ($item.First -match '^\s*(-|\d+\.) \[ \]' -and $item.Text -notmatch '(?i)check:') {
+                & $add $item.LineNumber 'ADR-REPO-PLANS-OPENSTEP' "the open step names no check: `"$($item.Text.Trim())`""
             }
         }
-        for ($i = 0; $i -lt $lines.Count; $i++) {
-            $line = $lines[$i]
-            if ($line -match '^\s*(-|\d+\.) \[ \]') {
-                & $flush
-                $stepLine = $i + 1
-                $step = $line
-            }
-            elseif ($stepLine -gt 0 -and $line -match '^\s{2,}\S' -and $line -notmatch '^\s*(-|\d+\.) \[') {
-                $step += ' ' + $line.Trim()
-            }
-            elseif ($stepLine -gt 0) {
-                & $flush
-                $stepLine = 0
-                $step = $null
-            }
-        }
-        & $flush
     }
 
     Write-QualityGateReport -Subject plans -Title Test-Plans -Issues $issues.ToArray() `

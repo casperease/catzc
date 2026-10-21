@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "149b74997318"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
-    docs: "[Invoke-FileMetaEngine.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md)"
+    docs: "[Invoke-FileMetaEngine.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-FileMetaEngine.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-KINDSCOPE
 ---

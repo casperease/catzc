@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2cd966acd487"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-AdrDefinedRule.Tests.ps1
-    docs: "[Get-AdrDefinedRule.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-AdrDefinedRule.ps1.md)"
+    docs: "[Get-AdrDefinedRule.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-AdrDefinedRule.ps1.md)"
     cites:
       - ADR-REPO-LINK-ONECITATIONSPELLING
 ---

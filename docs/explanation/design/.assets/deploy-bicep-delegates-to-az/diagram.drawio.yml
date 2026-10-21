@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6118c6f25cb3"
+#     with_body_sha: "5cf36c818d24"
 # ---
 
 description:
@@ -136,9 +136,40 @@ content:
       number: 10
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+      - cell: docs/-/.
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/thin-platforms.md
+          - docs/adr/index.md
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+    axis:
+      - cell: DSGN/deploy
+        by:
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
 layout:
   band-consumers:
     x: 20

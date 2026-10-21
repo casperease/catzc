@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "22f48a3659d8"
   edges:
-    docs: "[SpellingOracle.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/SpellingOracle.Tests.ps1.md)"
+    docs: "[SpellingOracle.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/SpellingOracle.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/SpellingOracle.cs
     cites:
       - ADR-AUTO-SPELL-CATEGORYANDMEANING

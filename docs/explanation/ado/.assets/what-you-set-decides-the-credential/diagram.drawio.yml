@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "500ed099aead"
+#     with_body_sha: "55df21470575"
 # ---
 
 description:
@@ -116,9 +116,67 @@ content:
       number: 8
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+      - cell: docs/-/.
+        by:
+          - docs/adr/ado/dora-explains.md
+          - docs/adr/ado/dual-authentication.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Get-AdoAuthorizationHeader.ps1.md
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure.DevOps
+        by:
+          - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+    axis:
+      - cell: FLOW/access
+        by:
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
 layout:
   band-returns:
     x: 20

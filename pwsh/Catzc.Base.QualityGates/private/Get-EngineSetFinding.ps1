@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "58f290c4c483"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-EngineSetFinding.Tests.ps1
-    docs: "[Get-EngineSetFinding.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-EngineSetFinding.ps1.md)"
+    docs: "[Get-EngineSetFinding.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-EngineSetFinding.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
 ---

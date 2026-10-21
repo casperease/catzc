@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e755342a284b
   edges:
-    docs: "[ArtifactoryArtifactsTarget.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ArtifactoryArtifactsTarget.cs.md)"
+    docs: "[ArtifactoryArtifactsTarget.cs.md](docs/references/pwsh/catzc-base-module-system/types/ArtifactoryArtifactsTarget.cs.md)"
 ---
 */
 

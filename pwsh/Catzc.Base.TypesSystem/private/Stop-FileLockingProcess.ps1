@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1a04e7135c23"
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Stop-FileLockingProcess.Tests.ps1
-    docs: "[Stop-FileLockingProcess.ps1.md](docs/references/pwsh/catzc-base-typessystem/private/Stop-FileLockingProcess.ps1.md)"
+    docs: "[Stop-FileLockingProcess.ps1.md](docs/references/pwsh/catzc-base-types-system/private/Stop-FileLockingProcess.ps1.md)"
 ---
 #>
 

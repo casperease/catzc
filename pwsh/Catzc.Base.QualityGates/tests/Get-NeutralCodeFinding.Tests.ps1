@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a3c937ba2035
   edges:
-    docs: "[Get-NeutralCodeFinding.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-NeutralCodeFinding.Tests.ps1.md)"
+    docs: "[Get-NeutralCodeFinding.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-NeutralCodeFinding.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-NeutralCodeFinding.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

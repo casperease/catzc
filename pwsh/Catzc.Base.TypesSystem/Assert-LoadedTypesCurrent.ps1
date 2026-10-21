@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e8a46906cd1a
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Assert-LoadedTypesCurrent.Tests.ps1
-    docs: "[Assert-LoadedTypesCurrent.ps1.md](docs/references/pwsh/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md)"
+    docs: "[Assert-LoadedTypesCurrent.ps1.md](docs/references/pwsh/catzc-base-types-system/Assert-LoadedTypesCurrent.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST-ASSERTPRECONDITIONS
       - ADR-BCL-TYPES-CHANGEDAFTERLOAD

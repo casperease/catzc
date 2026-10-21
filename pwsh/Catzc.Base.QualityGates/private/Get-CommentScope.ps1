@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "33e27b055fd5"
   edges:
-    docs: "[Get-CommentScope.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-CommentScope.ps1.md)"
+    docs: "[Get-CommentScope.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-CommentScope.ps1.md)"
     cites:
       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---

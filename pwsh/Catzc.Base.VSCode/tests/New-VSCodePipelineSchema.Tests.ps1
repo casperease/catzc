@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "34d8490a1829"
   edges:
-    docs: "[New-VSCodePipelineSchema.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VSCodePipelineSchema.Tests.ps1.md)"
+    docs: "[New-VSCodePipelineSchema.Tests.ps1.md](docs/references/pwsh/catzc-base-vs-code/tests/New-VSCodePipelineSchema.Tests.ps1.md)"
     code: pwsh/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS

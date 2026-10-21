@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5ebfc2db408c"
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/Get-RootConfigInputStamp.Tests.ps1
-    docs: "[Get-RootConfigInputStamp.ps1.md](docs/references/pwsh/catzc-base-rootconfig/private/Get-RootConfigInputStamp.ps1.md)"
+    docs: "[Get-RootConfigInputStamp.ps1.md](docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigInputStamp.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
       - ADR-PWSH-ENUM-RAWDOTNETENUMERATION

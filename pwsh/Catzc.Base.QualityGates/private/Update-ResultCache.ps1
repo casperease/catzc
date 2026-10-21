@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "42ec847be125"
   edges:
-    docs: "[Update-ResultCache.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Update-ResultCache.ps1.md)"
+    docs: "[Update-ResultCache.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Update-ResultCache.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 ---

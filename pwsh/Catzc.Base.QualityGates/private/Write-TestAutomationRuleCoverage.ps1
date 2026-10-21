@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6c0280cfc186"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1
-    docs: "[Write-TestAutomationRuleCoverage.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md)"
+    docs: "[Write-TestAutomationRuleCoverage.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationRuleCoverage.ps1.md)"
     cites:
       - ADR-AUTO-NOPWD
 ---

@@ -3,6 +3,9 @@
 catzc:
   immutable:
     with_body_sha: "74674e9666c9"
+  edges:
+    cites:
+      - ADR-PWSH-ERROR-STRICTCLEAN
 ---
 #>
 

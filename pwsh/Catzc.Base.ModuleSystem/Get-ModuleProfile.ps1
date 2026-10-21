@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d5f390e9504f
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1
-    docs: "[Get-ModuleProfile.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-ModuleProfile.ps1.md)"
+    docs: "[Get-ModuleProfile.ps1.md](docs/references/pwsh/catzc-base-module-system/Get-ModuleProfile.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "330180dd1786"
   edges:
-    docs: "[Write-TestRunLockRecord.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestRunLockRecord.ps1.md)"
+    docs: "[Write-TestRunLockRecord.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Write-TestRunLockRecord.ps1.md)"
 ---
 #>
 

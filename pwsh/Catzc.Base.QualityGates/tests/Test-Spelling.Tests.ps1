@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c360a363d13f
+    with_body_sha: "586b75c3a263"
   edges:
-    docs: "[Test-Spelling.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-Spelling.Tests.ps1.md)"
+    docs: "[Test-Spelling.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Spelling.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Spelling.ps1
     cites:
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
@@ -144,7 +144,7 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
 
 Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'the repository globset covers every tracked file the spelling scan reads' -Tag 'ADR-REPO-PROTGLOB-INCLUDESOWNCONFIG' {
-        $spelledExtensions = @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.csproj', '.bicep', '.go', '.py')
+        $spelledExtensions = @((Get-Config -Config languages).ExtensionsCheckedBy('Test-Spelling'))
         $spelled = foreach ($file in (Get-GitTrackedPath '.')) {
             if ($file.StartsWith("$(Get-CatzcModulesFolder)/.vendor/")) {
                 continue

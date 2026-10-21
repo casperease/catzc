@@ -2,12 +2,17 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e560df31c7a0
+    with_body_sha: d7c4f6db5ed2
   edges:
     test: pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1
     docs: "[Get-Config.ps1.md](docs/references/pwsh/catzc-base-config/Get-Config.ps1.md)"
     cites:
       - ADR-AUTO-OVERLAY
+      - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - ADR-CONF-LOADING-ONEREADER
+      - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+      - ADR-CONF-LOADING-CACHEBYPATH
+      - ADR-CONF-LOADING-CSHARPCONFIGTYPE
       - ADR-PWSH-CACHE-STRICTSAFEPROBE
 ---
 #>
@@ -80,7 +85,6 @@ function Get-Config {
 
     $ret = $raw
     if ($registered) {
-        # The registered C# type maps and validates the parsed dictionary at construction.
         $type = [type] $registered['type']
         $ret = $type::new($raw)
     }

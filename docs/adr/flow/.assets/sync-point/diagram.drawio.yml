@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "98460b2c998a"
+#     with_body_sha: b480ad4c0416
 # ---
 
 description:
@@ -71,9 +71,181 @@ content:
       label: lands after
   legend: auto
   minimaps:
-    - code-locations
-    - grid
-    - axis
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: docs/-/.
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/server-remote-integration.md
+          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/adr/flow/commit-lifecycle.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+    grid:
+      - cell: .claude/markdown
+        by:
+          - .claude/CLAUDE.md
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: docs/markdown
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/server-remote-integration.md
+          - docs/adr/flow/commit-lifecycle.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: docs/yaml
+        by:
+          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+      - cell: DSGN/quality-control
+        by:
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: DSGN/release
+        by:
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: DSGN/deploy
+        by:
+          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
 layout:
   band-consumers:
     x: 20

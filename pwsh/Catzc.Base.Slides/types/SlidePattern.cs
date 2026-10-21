@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4e866fa8700a"
+    with_body_sha: cb2901d4f758
   edges:
     test: pwsh/Catzc.Base.Slides/tests/types/SlidePattern.Tests.ps1
 ---
@@ -136,6 +136,19 @@ public sealed class SlidePattern
                 }
 
                 fields.Add(new SlideFieldSpec(fieldName, SlideFieldKind.Inline, !match.Groups[2].Success, 1, 0));
+            }
+        }
+
+        // A field may also fill an attribute, such as an image's src.
+        foreach (XAttribute attribute in root.DescendantsAndSelf().Attributes())
+        {
+            foreach (Match match in FieldPlaceholder.Matches(attribute.Value))
+            {
+                string fieldName = match.Groups[1].Value;
+                if (!fields.Any(f => f.Name == fieldName))
+                {
+                    fields.Add(new SlideFieldSpec(fieldName, SlideFieldKind.Inline, !match.Groups[2].Success, 1, 0));
+                }
             }
         }
 
@@ -415,6 +428,31 @@ public sealed class SlidePattern
             }
 
             text.Value = value.Trim();
+        }
+
+        foreach (XAttribute attribute in clone.DescendantsAndSelf().Attributes().Where(a => FieldPlaceholder.IsMatch(a.Value)).ToList())
+        {
+            attribute.Value = FieldPlaceholder.Replace(attribute.Value, match =>
+            {
+                string fieldName = match.Groups[1].Value;
+                if (fieldName == TitleField)
+                {
+                    return source.Title ?? string.Empty;
+                }
+
+                SlideFieldContent content;
+                if (source.Fields.TryGetValue(fieldName, out content) && content.Items.Count == 1 && !content.IsTable)
+                {
+                    return content.Items[0].ToString().Trim();
+                }
+
+                if (!match.Groups[2].Success)
+                {
+                    faults.Add(new SlideFault(path, fieldName, string.Format(CultureInfo.InvariantCulture, "pattern '{0}' requires this field as one line and the slide has none", Name)));
+                }
+
+                return string.Empty;
+            }).Trim();
         }
     }
 

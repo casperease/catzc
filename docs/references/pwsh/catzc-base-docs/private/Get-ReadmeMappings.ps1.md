@@ -12,8 +12,8 @@ Resolves the readme config into the concrete folder -> source README copy-in lis
 ### description
 
 Expands each `patterns` glob against the filesystem and merges the result with the explicit `mappings`. A pattern's `source` template has
-its `{kebab}` placeholder replaced with the matched folder's leaf name lowercased with dots turned to hyphens (pwsh/Catzc.Azure.DevOps ->
-docs/references/pwsh/catzc-azure-devops.md). A matched folder whose derived source file does not exist is skipped, so a module with no
+its `{kebab}` placeholder replaced with the matched folder's leaf name rendered in the kebab case of NameCase (pwsh/Catzc.Azure.DevOps ->
+docs/references/pwsh/catzc-azure-dev-ops.md). A matched folder whose derived source file does not exist is skipped, so a module with no
 reference article yet simply gets no generated README — the importer runs Build-Readme on every load and must never throw when a source is
 missing. An explicit mapping WINS over a pattern that targets the same folder.
 

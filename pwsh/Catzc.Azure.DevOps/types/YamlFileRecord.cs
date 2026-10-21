@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "25f33f3ca8c5"
   edges:
-    docs: "[YamlFileRecord.cs.md](docs/references/pwsh/catzc-azure-devops/types/YamlFileRecord.cs.md)"
+    docs: "[YamlFileRecord.cs.md](docs/references/pwsh/catzc-azure-dev-ops/types/YamlFileRecord.cs.md)"
 ---
 */
 

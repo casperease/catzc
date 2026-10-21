@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1f5fc7e33249"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1
-    docs: "[Test-AnalyzerAdrMap.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md)"
+    docs: "[Test-AnalyzerAdrMap.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-AnalyzerAdrMap.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-PWSH-FORMAT-ANALYZERADRMAPPING

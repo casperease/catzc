@@ -9,7 +9,8 @@
 
 version: "2.0.0"
 tasks:
-  # The git topic flow (ADR-FLOW-GIT), each step at the user's hand: rebase the topic onto the sync point. Bind keys to these in your user keybindings.
+  # The git topic flow ([ADR-FLOW-GIT](/docs/adr/flow/git-topic-flow.md)), each step at the user's hand: rebase the topic onto the sync
+  # point. Bind keys to these in your user keybindings.
   - label: Sync
     type: process
     command: pwsh

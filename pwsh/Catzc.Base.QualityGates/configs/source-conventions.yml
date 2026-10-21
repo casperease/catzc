@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "2b50912349d8"
 #   edges:
-#     docs: "[source-conventions.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/source-conventions.yml.md)"
+#     docs: "[source-conventions.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/source-conventions.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-AUTO-ENGINE-THREEENGINES

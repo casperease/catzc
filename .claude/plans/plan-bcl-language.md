@@ -56,6 +56,10 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
 - **The BCL drawing is wanted**, after the host bindings land, as one sample folder `out/diagrams/dark-sample/.assets/bcl-language/`; on
   approval it goes to `docs/adr/automation/BCL/.assets/bcl-language/`, kept in step with the one definition page.
 
+## Decided (delegated to the orchestrator, 2026-10-21, recommendations taken)
+
+- `.claude/CLAUDE.md` does not say `catzc.sln` is a gitignored output, since `rootconfig.yml` already does.
+
 ## Open steps
 
 Everything else landed on 2026-10-21 and waits for the user's commit: the doc moves, the host bindings, the `bcl` domain with the re-cite to
@@ -64,14 +68,6 @@ Everything else landed on 2026-10-21 and waits for the user's commit: the doc mo
 - [ ] `.claude/CLAUDE.md`, section Project structure: one line saying that the `types/*.cs` files are written in BCL, a subset of .NET, and
       pwsh hosts them, linking the BCL reference index, after the doc moves land (check: `Test-AgentDefinitions`,
       `Test-Links -Path .claude/CLAUDE.md`).
-
-## Open questions
-
-- From the session that added `ADR-AUTO-TYPES-DEBUGANYCPU` (2026-10-21), two facts each could shrink what the next session reads, as one
-  clause merged into an existing line: should `catzc-run` say that changing a code line whose long comment moved to a `docs/references/`
-  comment page means editing that page's "Above `…`" line too? Should `.claude/CLAUDE.md`'s Project structure say that `catzc.sln` at the
-  root is a gitignored output of `Build-RootConfig`, with only its asset tracked? Recommendation: yes to the first; no to the second, which
-  `rootconfig.yml` already says.
 
 ## Refs
 

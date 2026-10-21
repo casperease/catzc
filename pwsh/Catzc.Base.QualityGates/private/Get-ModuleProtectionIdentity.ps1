@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f9e601790bec
+    with_body_sha: "3d14ced7cea8"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ModuleProtectionIdentity.Tests.ps1
-    docs: "[Get-ModuleProtectionIdentity.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md)"
+    docs: "[Get-ModuleProtectionIdentity.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md)"
     cites:
       - ADR-DSGN-ASPECT
       - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
@@ -58,7 +58,7 @@ function Get-ModuleProtectionIdentity {
     [void]$constituents.Add('vendor')
     [void]$constituents.Add('compiled')
     [void]$constituents.Add('scriptanalyzer')
-    [void]$constituents.Add('catzc-base-qualitygates')   # the runner: Test-Automation + the shard machinery
+    [void]$constituents.Add('catzc-base-quality-gates')   # the runner: Test-Automation + the shard machinery
 
     $widen = [bool]$HasIntegrityTests
 
@@ -71,7 +71,7 @@ function Get-ModuleProtectionIdentity {
         $widen = $true
     }
     else {
-        [void]$constituents.Add($Module.ToLowerInvariant().Replace('.', '-'))
+        [void]$constituents.Add([Catzc.Base.Objects.NameCase]::Render($Module, 'kebab'))
 
         $dependencies = Get-Config -Config dependencies
         $moduleDeclarations = $dependencies.modules
@@ -112,7 +112,7 @@ function Get-ModuleProtectionIdentity {
                     }
                     foreach ($dependencyModule in $expanded) {
                         if ($visited.Add($dependencyModule)) {
-                            [void]$constituents.Add($dependencyModule.ToLowerInvariant().Replace('.', '-'))
+                            [void]$constituents.Add([Catzc.Base.Objects.NameCase]::Render($dependencyModule, 'kebab'))
                             $queue.Enqueue($dependencyModule)
                         }
                     }

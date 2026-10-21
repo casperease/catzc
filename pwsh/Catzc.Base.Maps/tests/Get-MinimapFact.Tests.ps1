@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e092871a0102
+    with_body_sha: "0205243c2c87"
   edges:
     code: pwsh/Catzc.Base.Maps/Get-MinimapFact.ps1
 ---
@@ -10,31 +10,46 @@ catzc:
 
 Describe 'Get-MinimapFact' -Tag 'L0', 'logic' {
     BeforeAll {
-        Mock Get-FileMetaFact -ModuleName Catzc.Base.Maps {
-            foreach ($file in $Path) {
-                if ($file -ne 'gadgets/ignored.txt') {
-                    [pscustomobject]@{ Path = $file; Immutable = @{ track = $file.Split('/')[0] }; Edges = @{} }
-                }
+        Mock Get-Track -ModuleName Catzc.Base.Maps {
+            if ($Path -like 'widgets/*') {
+                [pscustomobject]@{ name = 'widgets'; type = 'modules'; vendor = $null }
             }
+            elseif ($Path -like 'gadgets/*') {
+                [pscustomobject]@{ name = 'gadgets'; type = 'vendored'; vendor = 'Gadget Inc' }
+            }
+        }
+        Mock Get-PathModule -ModuleName Catzc.Base.Maps {
+            if ($Path -like 'widgets/Catzc.Widget/*') {
+                [pscustomobject]@{ name = 'Catzc.Widget'; type = 'pwsh-folder' }
+            }
+        }
+        Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'languages' } {
+            [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name ForPath -Value {
+                param($file)
+                if ($file -like '*.ps1') {
+                    [pscustomobject]@{ name = 'powershell' }
+                }
+            } -PassThru
         }
     }
 
-    It 'reads every path once, in one call, and maps each to its immutable facts' {
-        $facts = Get-MinimapFact -Path 'widgets/Get-Widget.ps1', 'gadgets/Get-Gadget.ps1', 'widgets/Get-Widget.ps1'
-        Should -Invoke Get-FileMetaFact -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { $Path.Count -eq 2 }
-        @($facts.Keys | Sort-Object) | Should -Be @('gadgets/Get-Gadget.ps1', 'widgets/Get-Widget.ps1')
-        $facts['widgets/Get-Widget.ps1']['track'] | Should -Be 'widgets'
+    It 'places every path by its track, module and language, each read once' {
+        $facts = Get-MinimapFact -Path 'widgets/Catzc.Widget/Get-Widget.ps1', 'gadgets/notes.md', 'widgets/Catzc.Widget/Get-Widget.ps1'
+        @($facts.Keys | Sort-Object) | Should -Be @('gadgets/notes.md', 'widgets/Catzc.Widget/Get-Widget.ps1')
+        Should -Invoke Get-Track -ModuleName Catzc.Base.Maps -Times 2 -Exactly
+        $widget = $facts['widgets/Catzc.Widget/Get-Widget.ps1']
+        $widget['track'], $widget['tracktype'], $widget['module'], $widget['moduletype'], $widget['language'] |
+            Should -Be @('widgets', 'modules', 'Catzc.Widget', 'pwsh-folder', 'powershell')
+        $facts['gadgets/notes.md']['vendor'] | Should -Be 'Gadget Inc'
     }
 
-    It 'leaves out a path the read skips, so it has no facts' {
-        $facts = Get-MinimapFact -Path 'gadgets/ignored.txt', 'gadgets/Get-Gadget.ps1'
-        $facts.ContainsKey('gadgets/ignored.txt') | Should -BeFalse
-        $facts['gadgets/Get-Gadget.ps1']['track'] | Should -Be 'gadgets'
+    It 'gives a path outside every track, module and language empty facts, so no minimap places it' {
+        $facts = Get-MinimapFact -Path 'loose.txt'
+        $facts['loose.txt'].Values | ForEach-Object { $_ | Should -Be '' }
     }
 
     It 'reads nothing for no paths' {
-        $facts = Get-MinimapFact -Path @()
-        $facts.Count | Should -Be 0
-        Should -Invoke Get-FileMetaFact -ModuleName Catzc.Base.Maps -Times 0 -Exactly
+        (Get-MinimapFact -Path @()).Count | Should -Be 0
+        Should -Invoke Get-Track -ModuleName Catzc.Base.Maps -Times 0 -Exactly
     }
 }

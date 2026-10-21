@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b016f60d2a1b
   edges:
-    docs: "[Test-FileMeta.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-FileMeta.ps1.md)"
+    docs: "[Test-FileMeta.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-FileMeta.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
 ---

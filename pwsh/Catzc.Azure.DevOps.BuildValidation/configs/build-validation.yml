@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "1d1db95405fd"
 #   edges:
-#     docs: "[build-validation.yml.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md)"
+#     docs: "[build-validation.yml.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/configs/build-validation.yml.md)"
 #     cites:
 #       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
 #       - ADR-FLOW-CD-GLOBS

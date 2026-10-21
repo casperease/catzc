@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5c6bfa9c7dac"
+    with_body_sha: "222cb1015e42"
   edges:
     code: pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs
     cites:

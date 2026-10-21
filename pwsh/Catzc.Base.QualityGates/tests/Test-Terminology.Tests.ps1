@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9d201e7c8de3"
   edges:
-    docs: "[Test-Terminology.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-Terminology.Tests.ps1.md)"
+    docs: "[Test-Terminology.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Terminology.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Terminology.ps1
     cites:
       - ADR-AUTO-SPELL-ONEVOCABULARYSOURCE

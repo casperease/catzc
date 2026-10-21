@@ -36,7 +36,7 @@ Listed in load order.
 | [Catzc.Internal.Bootstrap](catzc-internal-bootstrap.md) | Module discovery, manifest generation, C# type compile/load, and the name-collision guard                               | Transient |
 | [Catzc.Internal.Vendor](catzc-internal-vendor.md)       | The vendored-module loader shared by the importer and `Catzc.Base.Vendor`                                               | Resident  |
 | [Catzc.Internal.Types](catzc-internal-types.md)         | The one combined C# type-source hash both the loader and the cache janitor agree on                                     | Resident  |
-| [Catzc.Internal.TestKit](catzc-internal-testkit.md)     | An on-demand Pester fixture library — synthetic repository roots and module folders                                     | On-demand |
+| [Catzc.Internal.TestKit](catzc-internal-test-kit.md)    | An on-demand Pester fixture library — synthetic repository roots and module folders                                     | On-demand |
 
 ## Related
 

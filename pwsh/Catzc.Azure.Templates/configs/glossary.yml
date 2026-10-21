@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5700991808db"
+#     with_body_sha: "1b2837ae118e"
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-azure-templates/configs/glossary.yml.md)"
 #     cites:

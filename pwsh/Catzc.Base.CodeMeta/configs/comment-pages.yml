@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "26d4dfc795b4"
 #   edges:
-#     docs: "[comment-pages.yml.md](docs/references/pwsh/catzc-base-codemeta/configs/comment-pages.yml.md)"
+#     docs: "[comment-pages.yml.md](docs/references/pwsh/catzc-base-code-meta/configs/comment-pages.yml.md)"
 # ---
 
 pages:

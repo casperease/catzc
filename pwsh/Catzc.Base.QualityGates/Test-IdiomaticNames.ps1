@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d437c4a1cd86
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-IdiomaticNames.Tests.ps1
-    docs: "[Test-IdiomaticNames.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-IdiomaticNames.ps1.md)"
+    docs: "[Test-IdiomaticNames.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-IdiomaticNames.ps1.md)"
     cites:
       - ADR-AUTO-IDIOM-LANGUAGEIDIOM
 ---

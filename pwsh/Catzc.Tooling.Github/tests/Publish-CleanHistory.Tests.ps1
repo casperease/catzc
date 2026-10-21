@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3e3bd27b319c"
+    with_body_sha: cde5a047bbca
   edges:
     code: pwsh/Catzc.Tooling.Github/Publish-CleanHistory.ps1
 ---

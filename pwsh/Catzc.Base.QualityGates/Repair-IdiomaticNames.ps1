@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "193c2bdb6b4d"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Repair-IdiomaticNames.Tests.ps1
-    docs: "[Repair-IdiomaticNames.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Repair-IdiomaticNames.ps1.md)"
+    docs: "[Repair-IdiomaticNames.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Repair-IdiomaticNames.ps1.md)"
     cites:
       - ADR-AUTO-IDIOM-HELDBYGATE
       - ADR-PWSH-DRYRUN

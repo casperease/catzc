@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "7cad89fa4982"
 #   edges:
-#     docs: "[links.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/links.yml.md)"
+#     docs: "[links.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/links.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-PWSH-PARAM-RESOLUTIONORDER

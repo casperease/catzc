@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "14bb4d64da53"
   edges:
-    docs: "[Get-PropertyMetaState.ps1.md](docs/references/pwsh/catzc-base-codemeta/Get-PropertyMetaState.ps1.md)"
+    docs: "[Get-PropertyMetaState.ps1.md](docs/references/pwsh/catzc-base-code-meta/Get-PropertyMetaState.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-JSONCARRIER
 ---

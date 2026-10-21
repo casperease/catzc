@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7a11b9c4efee"
   edges:
-    docs: "[Build-TerminologyDictionary.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Build-TerminologyDictionary.Tests.ps1.md)"
+    docs: "[Build-TerminologyDictionary.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Build-TerminologyDictionary.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST

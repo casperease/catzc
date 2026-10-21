@@ -23,7 +23,7 @@ runtime that provides it.
 
 The tools that ride on npm — cSpell (spell-checking), markdownlint (Markdown linting), and Prettier (formatting) — each with the same
 install and uninstall shape over Core's engine, pinned to its locked version. These are the binaries the repository's quality gates in
-[Catzc.Base.QualityGates](catzc-base-qualitygates.md) shell out to; this module is what puts them on the machine.
+[Catzc.Base.QualityGates](catzc-base-quality-gates.md) shell out to; this module is what puts them on the machine.
 
 ## What the module does
 

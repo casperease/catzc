@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b7703b6a5d14
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Measure-QualityGates.Tests.ps1
-    docs: "[Measure-QualityGates.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Measure-QualityGates.ps1.md)"
+    docs: "[Measure-QualityGates.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Measure-QualityGates.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
 ---

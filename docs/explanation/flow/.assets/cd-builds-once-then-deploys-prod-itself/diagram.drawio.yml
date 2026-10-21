@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "04ac8999ccbc"
+#     with_body_sha: "7cbaea9ec3d5"
 # ---
 
 description:
@@ -130,9 +130,149 @@ content:
       number: 6
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: docs/-/.
+        by:
+          - docs/adr/flow/cd-discipline-and-promotion-flow.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: pwsh/Catzc.Base.Flow/types
+        by:
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+    module-neighbourhood:
+      - cell: subject/.claude
+        by:
+          - .claude/CLAUDE.md
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: subject/Catzc.Azure.DevOps
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: subject/Catzc.Base.Flow
+        by:
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: DSGN/quality-control
+        by:
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: DSGN/release
+        by:
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      - cell: DSGN/deploy
+        by:
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
 layout:
   band-ci:
     x: 20

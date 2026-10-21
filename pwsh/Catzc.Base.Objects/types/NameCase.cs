@@ -1,0 +1,170 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: de59ed163260
+  edges:
+    cites:
+      - ADR-AUTO-IDIOM-CLOSEDCASES
+---
+*/
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
+
+namespace Catzc.Base.Objects;
+
+// The closed set of name cases, and a name split into its words and joined in another case; rests on [ADR-AUTO-IDIOM-CLOSEDCASES](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-closedcases).
+public static class NameCase
+{
+    // A new case is new mechanism: its pattern here, and its split and its join below, land together.
+    private static readonly Dictionary<string, Regex> Patterns = new Dictionary<string, Regex>(StringComparer.Ordinal)
+    {
+        { "pascal", new Regex("^[A-Z][A-Za-z0-9]*$") },
+        // A lowercase first word, then capitalised words: Go's unexported names, getCommandContract.
+        { "camel", new Regex("^[a-z][a-z0-9]*([A-Z][a-z0-9]*)*$") },
+        { "pascal-dotted", new Regex("^[A-Z][A-Za-z0-9]*(\\.[A-Z][A-Za-z0-9]*)*$") },
+        { "verb-noun", new Regex("^[A-Z][A-Za-z0-9]*-[A-Z][A-Za-z0-9]*$") },
+        { "kebab", new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$") },
+        // Python's leading and trailing underscores sit outside the case: drawio_png, _private, __init__.
+        { "snake", new Regex("^_*[a-z][a-z0-9]*(_[a-z0-9]+)*_*$") },
+        // One lowercase word, Go's package directory: catzcbaserepository.
+        { "flat", new Regex("^[a-z][a-z0-9]*$") },
+    };
+
+    // A word starts at a lower-to-upper step, and at the last capital of a run before a lowercase letter: HTTPServer is http, server.
+    private static readonly Regex Boundary = new Regex("(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])");
+    private static readonly Regex NotWord = new Regex("[^a-z0-9]+");
+    private static readonly Regex Word = new Regex("^[a-z0-9]+$");
+
+    // The engine's approved verbs, each as its words (ConvertTo is convert, to); the engine owns the set.
+    private static readonly Lazy<HashSet<string>> ApprovedVerbs = new Lazy<HashSet<string>>(ReadApprovedVerbs);
+
+    public static IReadOnlyList<string> Cases { get; } = Patterns.Keys.ToArray();
+
+    public static bool IsCase(string name) => name != null && Patterns.ContainsKey(name);
+
+    public static bool IsInCase(string caseName, string name) => name != null && CaseOf(caseName).IsMatch(name);
+
+    // A name in a case as its namespace segments, each a list of lowercase words; null when the name is not in the case.
+    public static string[][] Split(string caseName, string name)
+    {
+        if (!IsInCase(caseName, name)) { return null; }
+        switch (caseName)
+        {
+            case "pascal-dotted": return name.Split('.').Select(PascalWords).ToArray();
+            case "verb-noun": return new[] { name.Split('-').SelectMany(PascalWords).ToArray() };
+            case "kebab": return new[] { name.Split('-') };
+            case "snake": return new[] { name.Trim('_').Split('_') };
+            case "flat": return new[] { new[] { name } };
+            default: return new[] { PascalWords(name) };
+        }
+    }
+
+    // Namespace segments of lowercase words joined in a case; a case without namespaces joins every segment's words as one run.
+    public static string Join(string caseName, string[][] segments)
+    {
+        CaseOf(caseName);
+        if (segments == null) { throw new ArgumentNullException(nameof(segments)); }
+        string[] bad = segments.SelectMany(s => s ?? Array.Empty<string>()).Where(w => w == null || !Word.IsMatch(w)).ToArray();
+        if (bad.Length > 0)
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "naming: '{0}' is not a lowercase word", bad[0]));
+        }
+        string[] words = segments.SelectMany(s => s ?? Array.Empty<string>()).ToArray();
+        switch (caseName)
+        {
+            case "pascal-dotted": return string.Join(".", segments.Where(s => s != null && s.Length > 0).Select(s => string.Concat(s.Select(Capitalize))));
+            case "verb-noun": return JoinVerbNoun(words);
+            case "kebab": return string.Join("-", words);
+            case "snake": return string.Join("_", words);
+            case "flat": return string.Concat(words);
+            case "camel": return string.Concat(words.Take(1).Concat(words.Skip(1).Select(Capitalize)));
+            default: return string.Concat(words.Select(Capitalize));
+        }
+    }
+
+    public static string ToNormal(string caseName, string name, string normalForm)
+    {
+        string[][] segments = Split(caseName, name);
+        if (segments == null)
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "naming: '{0}' is not {1}", name, caseName));
+        }
+        string joined = string.Join(".", segments.Select(s => Join(normalForm, new[] { s })));
+        if (caseName != "snake") { return joined; }
+        return name.Substring(0, name.Length - name.TrimStart('_').Length) + joined + name.Substring(name.TrimEnd('_').Length);
+    }
+
+    // A normal-form name rendered in a case; snake's leading and trailing underscores stay outside the case, so a snake name keeps them.
+    public static string FromNormal(string normal, string caseName, string normalForm)
+    {
+        string core = normal ?? "";
+        string prefix = core.Substring(0, core.Length - core.TrimStart('_').Length);
+        string suffix = core.Substring(core.TrimEnd('_').Length);
+        string[][] segments = core.Trim('_').Split('.').Select(s =>
+        {
+            string[][] words = Split(normalForm, s);
+            if (words == null)
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "naming: '{0}' is not in the normal form ({1} segments joined by '.')", normal, normalForm));
+            }
+            return words[0];
+        }).ToArray();
+        string joined = Join(caseName, segments);
+        return caseName == "snake" ? prefix + joined + suffix : joined;
+    }
+
+    // Any text as one segment of words: a case boundary, '.', '_', '-' and any other non-letter start a new word.
+    public static string[] WordsOf(string text) =>
+        NotWord.Replace(Boundary.Replace(text ?? "", "-").ToLowerInvariant(), "-").Split('-', StringSplitOptions.RemoveEmptyEntries);
+
+    // Any text rendered in a case by its words: Render('Get-FooBar', 'kebab') is get-foo-bar; empty for text with no word.
+    public static string Render(string text, string caseName) => Join(caseName, new[] { WordsOf(text) });
+
+    private static Regex CaseOf(string caseName)
+    {
+        Regex pattern;
+        if (caseName == null || !Patterns.TryGetValue(caseName, out pattern))
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "naming: unknown case '{0}' (one of: {1})", caseName, string.Join(", ", Cases)));
+        }
+        return pattern;
+    }
+
+    private static string[] PascalWords(string segment) => Boundary.Split(segment).Select(w => w.ToLowerInvariant()).ToArray();
+
+    private static string Capitalize(string word) => word.Length == 0 ? word : char.ToUpperInvariant(word[0]) + word.Substring(1);
+
+    // The verb is the longest leading run of words that forms an approved verb, and at least one word is left for the noun.
+    private static string JoinVerbNoun(string[] words)
+    {
+        for (int length = words.Length - 1; length > 0; length--)
+        {
+            if (ApprovedVerbs.Value.Contains(string.Join(" ", words.Take(length))))
+            {
+                return string.Concat(words.Take(length).Select(Capitalize)) + "-" + string.Concat(words.Skip(length).Select(Capitalize));
+            }
+        }
+        throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "naming: '{0}' starts with no approved verb and a noun after it", string.Join(" ", words)));
+    }
+
+    private static HashSet<string> ReadApprovedVerbs()
+    {
+        HashSet<string> verbs = new HashSet<string>(StringComparer.Ordinal);
+        IEnumerable<Type> holders = typeof(System.Management.Automation.VerbsCommon).Assembly.GetExportedTypes()
+            .Where(t => t.Namespace == "System.Management.Automation" && t.Name.StartsWith("Verbs", StringComparison.Ordinal) && t.IsAbstract && t.IsSealed);
+        foreach (Type holder in holders)
+        {
+            foreach (FieldInfo field in holder.GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.IsLiteral && f.FieldType == typeof(string)))
+            {
+                verbs.Add(string.Join(" ", PascalWords((string)field.GetRawConstantValue())));
+            }
+        }
+        return verbs;
+    }
+}

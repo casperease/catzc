@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4ccbbcce1319"
   edges:
-    docs: "[Format-Links.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Format-Links.Tests.ps1.md)"
+    docs: "[Format-Links.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Format-Links.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Format-Links.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
@@ -223,6 +223,12 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
             & $writeFile $root 'src/widget.ps1' "`$path = 'docs/adr/nowhere/widget.md'`n"
             $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -PassThru
             @($result.Unfixable.Type) | Should -Be @('StringPathMissing')
+        }
+
+        It 'leaves a docs path in a string of a test fixture helper unreported' -Tag 'ADR-REPO-LINK-STRINGSAREDATA' {
+            & $writeFile $root 'src/tests/Widget.Fixture.ps1' "`$path = 'docs/adr/nowhere/widget.md'`n"
+            $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src/tests') -PassThru
+            @($result.Unfixable | Where-Object Type -EQ 'StringPathMissing') | Should -BeNullOrEmpty
         }
 
         It 'leaves a contract asset as written, and never reports it' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {

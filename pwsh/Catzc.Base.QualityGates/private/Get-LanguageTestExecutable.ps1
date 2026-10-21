@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d72c6bdbfb8d
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-LanguageTestExecutable.Tests.ps1
-    docs: "[Get-LanguageTestExecutable.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md)"
+    docs: "[Get-LanguageTestExecutable.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-LanguageTestExecutable.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-AUTO-ENGINE-STARTENVIRONMENT

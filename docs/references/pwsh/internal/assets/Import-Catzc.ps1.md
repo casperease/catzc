@@ -14,12 +14,14 @@ Loads this Catzc build into the session — build mode's entry point.
 The initializer of a built Catzc package ([ADR-DSGN-RUNMODE](../../../../adr/design/run-modes.md),
 [ADR-AUTO-BUNDLE](../../../../adr/automation/platform-bundle.md)). Authored once under pwsh/.internal/assets/ and copied verbatim into every
 build by Invoke-ModuleBuild; the build's Catzc.psm1 dot-sources it, so `Import-Module Catzc` and dot-sourcing this file set up the same
-session. Dot-source it (. `<build>/Import-Catzc.ps1`) so its $global:/$env: effects land in the caller's session.
+session. Dot-source it (. `<build>/Import-Catzc.ps1`) so its $global:/$env: effects land in the caller's session: a bundle is a session,
+not a passive library ([ADR-AUTO-BUNDLE-BUNDLEISSESSION](../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-bundleissession)).
 
-It sets the two roots — CatzcModulesRoot to this build's folder (the code root), RepositoryRoot to -RepositoryRoot, else the value already
-set, else the current location (the working root, where out/ and repo-relative paths resolve) — then runs the one living importer in its
--Bundle mode: preferences, the error view, vendored modules, the prebuilt types assembly and its accelerators, then every module's prebuilt
-manifest.
+It sets the two roots ([ADR-AUTO-BUNDLE-TWOROOTS](../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-tworoots)) —
+CatzcModulesRoot to this build's folder (the code root), RepositoryRoot to -RepositoryRoot, else the value already set, else the current
+location (the working root, where out/ and repo-relative paths resolve) — then runs the one living importer in its -Bundle mode
+([ADR-AUTO-BUNDLE-ONELIVINGIMPORTER](../../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-onelivingimporter)): preferences,
+the error view, vendored modules, the prebuilt types assembly and its accelerators, then every module's prebuilt manifest.
 
 ### parameter `RepositoryRoot`
 

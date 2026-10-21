@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2690d5052743"
   edges:
-    docs: "[New-AdoPullRequest.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops/tests/New-AdoPullRequest.Tests.ps1.md)"
+    docs: "[New-AdoPullRequest.Tests.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/tests/New-AdoPullRequest.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
 ---
 #>

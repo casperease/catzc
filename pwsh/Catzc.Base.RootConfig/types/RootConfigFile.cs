@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4ac28183739b"
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/types/RootConfigFile.Tests.ps1
-    docs: "[RootConfigFile.cs.md](docs/references/pwsh/catzc-base-rootconfig/types/RootConfigFile.cs.md)"
+    docs: "[RootConfigFile.cs.md](docs/references/pwsh/catzc-base-root-config/types/RootConfigFile.cs.md)"
     cites:
       - ADR-AUTO-PATH
 ---

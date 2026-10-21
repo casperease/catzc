@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "63de6f2e5edb"
+#     with_body_sha: "63dc8d06b9a7"
 # ---
 
 description:
@@ -121,9 +121,67 @@ content:
       number: 7
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-EXPLICITDETECTION
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+      - cell: docs/-/.
+        by:
+          - docs/adr/ado/dora-explains.md
+          - docs/adr/ado/dual-authentication.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Get-AdoAuthorizationHeader.ps1.md
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-EXPLICITDETECTION
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-EXPLICITDETECTION
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-EXPLICITDETECTION
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure.DevOps
+        by:
+          - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-EXPLICITDETECTION
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-EXPLICITDETECTION
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-EXPLICITDETECTION
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+    axis:
+      - cell: FLOW/access
+        by:
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-EXPLICITDETECTION
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
 layout:
   band-returns:
     x: 20

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a9addb3d010f
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
-    docs: "[Test-BuildArtifact.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-BuildArtifact.ps1.md)"
+    docs: "[Test-BuildArtifact.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-BuildArtifact.ps1.md)"
     cites:
       - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
       - ADR-AUTO-TEST-QUALITYGATE

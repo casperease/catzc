@@ -6,7 +6,9 @@ catzc:
     role: index
     track: docs
     generator: pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
-    source: pwsh/Catzc.Base.Docs/configs/adrs.yml
+    source:
+      - pwsh/Catzc.Base.Docs/configs/adrs.yml
+      - pwsh/Catzc.Base.Docs/configs/adr-index.yml
 ---
 
 # ADR index and rule-citation registry

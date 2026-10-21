@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: statement
     deck: product-thesis
-    order: 4
+    order: 5
 ---
 
 # Remove the problem instead of managing it

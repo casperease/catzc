@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "81238f9cf885"
 #   edges:
-#     docs: "[files.yml.md](docs/references/pwsh/catzc-base-modulesystem/configs/files.yml.md)"
+#     docs: "[files.yml.md](docs/references/pwsh/catzc-base-module-system/configs/files.yml.md)"
 # ---
 
 modules:

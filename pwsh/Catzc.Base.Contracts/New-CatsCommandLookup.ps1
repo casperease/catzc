@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "762f796d27b2"
+    with_body_sha: f6a7cc5bbb78
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/New-CatsCommandLookup.Tests.ps1
     docs: "[New-CatsCommandLookup.ps1.md](docs/references/pwsh/catzc-base-contracts/New-CatsCommandLookup.ps1.md)"
@@ -23,7 +23,7 @@ function New-CatsCommandLookup {
     $normalForm = $languages.naming_normal_form
     $commandLanguage = $languages.languages | Where-Object name -ceq 'powershell' | Select-Object -First 1
     $functionCase = $commandLanguage.naming.function[0]
-    $render = { param([string] $name, [string] $case) [Catzc.Base.Languages.LanguageNaming]::FromNormal($name, $case, $normalForm) }
+    $render = { param([string] $name, [string] $case) [Catzc.Base.Objects.NameCase]::FromNormal($name, $case, $normalForm) }
 
     $lines = [System.Collections.Generic.List[string]]::new()
     $lines.Add('# shellcheck shell=bash')

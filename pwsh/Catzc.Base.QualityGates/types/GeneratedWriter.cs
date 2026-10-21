@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "91d5cb217175"
   edges:
-    docs: "[GeneratedWriter.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/GeneratedWriter.cs.md)"
+    docs: "[GeneratedWriter.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/GeneratedWriter.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 ---

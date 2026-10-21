@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9f6e7469d592"
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1
-    docs: "[New-VSCodeLaunch.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VSCodeLaunch.ps1.md)"
+    docs: "[New-VSCodeLaunch.ps1.md](docs/references/pwsh/catzc-base-vs-code/New-VSCodeLaunch.ps1.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---

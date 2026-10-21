@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b429aa2c52b3
   edges:
-    docs: "[Get-PythonCheckScope.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-PythonCheckScope.Tests.ps1.md)"
+    docs: "[Get-PythonCheckScope.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-PythonCheckScope.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-PythonCheckScope.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

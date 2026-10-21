@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1c743c57507e"
+    with_body_sha: "4b29c49c4940"
   edges:
     docs: "[Build-Glossary.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Build-Glossary.ps1
@@ -12,6 +12,7 @@ catzc:
       - ADR-REPO-FILEMETA-IMPRINTEDPARTS
       - ADR-REPO-README-AUTHOREDSOURCES
       - ADR-REPO-VOCAB-DEFINEDTERM
+      - ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED
 ---
 #>
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c793a8bb02c4
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1
-    docs: "[Build-AgentHook.ps1.md](docs/references/pwsh/catzc-base-typessystem/Build-AgentHook.ps1.md)"
+    docs: "[Build-AgentHook.ps1.md](docs/references/pwsh/catzc-base-types-system/Build-AgentHook.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - ADR-DSGN-RUNMODE

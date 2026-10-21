@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "64a5ffff3773"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestFileModule.Tests.ps1
-    docs: "[Get-TestFileModule.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TestFileModule.ps1.md)"
+    docs: "[Get-TestFileModule.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestFileModule.ps1.md)"
     cites:
       - ADR-REPO-PROTGLOB
 ---

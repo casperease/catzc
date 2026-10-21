@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8a7a5939fef8"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-Prettier.Tests.ps1
-    docs: "[Invoke-Prettier.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-Prettier.ps1.md)"
+    docs: "[Invoke-Prettier.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-Prettier.ps1.md)"
     cites:
       - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
 ---

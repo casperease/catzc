@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d95ce35f4a64
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
-    docs: "[Test-InternalAssetDependency.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Test-InternalAssetDependency.ps1.md)"
+    docs: "[Test-InternalAssetDependency.ps1.md](docs/references/pwsh/catzc-base-module-system/Test-InternalAssetDependency.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-LITERALCHILDPATH
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST

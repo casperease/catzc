@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: fbe8358363c6
+#     with_body_sha: "3df8c3872645"
 #   edges:
 #     docs: "[adr-index.yml.md](docs/references/pwsh/catzc-base-docs/configs/adr-index.yml.md)"
 #     cites:
@@ -26,13 +26,16 @@ preamble: |
   Every ADR carries a rule registry as its first content section: `## Rules: <code>`, followed by `### Rule <code>-<NAME>` entries (each a
   normative summary plus internal links to the prose that justifies it). The grammar is its own ADR, ADR-REPO-ADRCODE.
 
-  - A code is a path: `ADR`, then the domain, then the ADR, then the rule, each an upper-case segment joined by `-`, so `ADR-` is the single
-    searchable marker for a reference anywhere in the repository (ADR-REPO-ADRCODE-PATHOFSEGMENTS).
+  - A code is a path: the record kind, then the domain where the kind is shared, then the record, then the rule, each an upper-case segment
+    joined by `-`; the registered kinds (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`) are the searchable markers for a reference
+    anywhere in the repository (ADR-REPO-ADRCODE-PATHOFSEGMENTS). A framing domain owns its kind and drops its domain segment; the
+    implementation domains share `ADR` and keep theirs (ADR-REPO-ADRCODE-DOMAINSEGMENT).
   - **Cite a rule** by its code, which names it — e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, `ADR-AUTO-CACHE-READONLYVALUES`,
     `ADR-AZ-NAMING-NEVERTRUNCATE`. A rule is never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED).
   - The code resolves to the heading's anchor, `#rule-` and the code in lower case — e.g.
     `automation/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror`.
-  - A code selects everything below it: `ADR-PWSH` is every ADR of the domain, `ADR-PWSH-ERROR` every rule of the ADR
+  - A code selects everything below it: a kind is every record of that kind, `ADR-PWSH` every ADR of the domain, `ADR-PWSH-ERROR` every rule
+    of the ADR
     (ADR-REPO-ADRCODE-CODEISSELECTOR). There is no group or range spelling; a list of rules is the list of their codes
     (ADR-REPO-ADRCODE-NOSUBSETSPELLING).
   - A name is unique under its parent and never reused once retired; the tables below are the authoritative code ↔ ADR mapping.

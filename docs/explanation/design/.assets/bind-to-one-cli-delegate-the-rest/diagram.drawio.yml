@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5b68d646bc50"
+#     with_body_sha: "349cdb7e4153"
 # ---
 
 description:
@@ -70,9 +70,61 @@ content:
       number: 4
   legend: auto
   minimaps:
-    - code-locations
-    - grid
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+      - cell: docs/-/.
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/thin-platforms.md
+          - docs/adr/index.md
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+    grid:
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+      - cell: docs/markdown
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/thin-platforms.md
+          - docs/adr/index.md
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+    axis:
+      - cell: DSGN/deploy
+        by:
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+          - ADR-DSGN-THINPLAT-THINPLATFORM
 layout:
   band-consumers:
     x: 20

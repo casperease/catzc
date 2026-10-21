@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "57de2be6e2a3"
+#     with_body_sha: "5b4c846f314a"
 # ---
 
 description:
@@ -124,9 +124,45 @@ content:
       number: 10
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+      - cell: docs/-/.
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/server-remote-integration.md
+          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/adr/index.md
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+      - cell: DSGN/quality-control
+        by:
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
 layout:
   band-local:
     x: 20

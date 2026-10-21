@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6b498f4bcccc"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/GuidsConfig.Tests.ps1
-    docs: "[GuidsConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/GuidsConfig.cs.md)"
+    docs: "[GuidsConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/GuidsConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

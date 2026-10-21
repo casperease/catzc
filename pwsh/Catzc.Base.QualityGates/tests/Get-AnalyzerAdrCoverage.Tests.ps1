@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "65d408e7c2d5"
   edges:
-    docs: "[Get-AnalyzerAdrCoverage.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-AnalyzerAdrCoverage.Tests.ps1.md)"
+    docs: "[Get-AnalyzerAdrCoverage.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-AnalyzerAdrCoverage.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-AnalyzerAdrCoverage.ps1
     cites:
       - ADR-AUTO-TEST-COVERAGEREPORTEDONLY

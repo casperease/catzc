@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "49fd109eedb4"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/FormatResult.Tests.ps1
-    docs: "[FormatResult.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/FormatResult.cs.md)"
+    docs: "[FormatResult.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/FormatResult.cs.md)"
 ---
 */
 

@@ -89,6 +89,14 @@ Invoke-PythonTest Catzc.Base.Repository
 Invoke-PythonTest Catzc.Base.Repository -EntryScript out/build/Import-Catzc.ps1
 ```
 
+### example 3
+
+A kit's own Python tests: name the catzc module the kit serves and the kit's tests folder.
+
+```powershell
+Invoke-PythonTest Catzc.Base.Slides -Folder python/catzc_diagrams/tests
+```
+
 ## comment:1
 
 Above `$pythonRelative = (Get-Config -Config python).ResolveRoot($root)`, written with `#`.

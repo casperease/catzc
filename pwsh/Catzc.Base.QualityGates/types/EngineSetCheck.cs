@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "156756c12dd4"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1
-    docs: "[EngineSetCheck.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/EngineSetCheck.cs.md)"
+    docs: "[EngineSetCheck.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/EngineSetCheck.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-ENGINE-THREEENGINES

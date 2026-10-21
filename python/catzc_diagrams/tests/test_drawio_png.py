@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "197567869f04"
+#     with_body_sha: d4f91cb9dd9f
 # ---
 
 # cspell:ignore mxfile getpixel

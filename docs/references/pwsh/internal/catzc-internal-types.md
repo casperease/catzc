@@ -26,7 +26,7 @@ culture-aware `Sort-Object`).
 What it deliberately does **not** do is validate namespaces or reject dotted filenames — those are the loader's poka-yokes, kept out of the
 shared enumerator on purpose, because the janitor must never throw on a source that is malformed. The full contract of the combined assembly
 and its committed prebuild is the [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) ADR and the
-[BCL type-system reference](../BCL/types-system.md).
+[BCL type-system reference](../../BCL/types-system.md).
 
 ## Functions
 
@@ -39,5 +39,5 @@ and its committed prebuild is the [native-csharp-types](../../../adr/automation/
 - ADR: [caching](../../../adr/automation/caching.md) — the committed compiled-type prebuild this hash names.
 - ADR: [one-living-version](../../../adr/principles/one-living-version.md) — why the algorithm lives here once.
 - Reference: [Catzc.Internal.Bootstrap](catzc-internal-bootstrap.md) — the loader (`Import-CSharpTypes`) that consumes this hash;
-  [Catzc.Base.TypesSystem](../catzc-base-typessystem.md) — the module whose `Clear-ModuleTypeCache` janitor also calls it; the
-  [BCL type-system reference](../BCL/types-system.md) and the [internal area overview](index.md).
+  [Catzc.Base.TypesSystem](../catzc-base-types-system.md) — the module whose `Clear-ModuleTypeCache` janitor also calls it; the
+  [BCL type-system reference](../../BCL/types-system.md) and the [internal area overview](index.md).

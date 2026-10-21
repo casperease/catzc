@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8c9cb192146a"
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/types/RootConfigFiles.Tests.ps1
-    docs: "[RootConfigFiles.cs.md](docs/references/pwsh/catzc-base-rootconfig/types/RootConfigFiles.cs.md)"
+    docs: "[RootConfigFiles.cs.md](docs/references/pwsh/catzc-base-root-config/types/RootConfigFiles.cs.md)"
     cites:
       - ADR-CONF-LOADING
       - ADR-REPO-ROOTCFG

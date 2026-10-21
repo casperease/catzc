@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7f9e4d2c90a2"
   edges:
-    docs: "[Invoke-FormatterEngine.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-FormatterEngine.ps1.md)"
+    docs: "[Invoke-FormatterEngine.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-FormatterEngine.ps1.md)"
     cites:
       - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
 ---

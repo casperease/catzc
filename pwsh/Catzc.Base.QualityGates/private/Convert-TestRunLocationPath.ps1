@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "421068a27964"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Convert-TestRunLocationPath.Tests.ps1
-    docs: "[Convert-TestRunLocationPath.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Convert-TestRunLocationPath.ps1.md)"
+    docs: "[Convert-TestRunLocationPath.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Convert-TestRunLocationPath.ps1.md)"
 ---
 #>
 

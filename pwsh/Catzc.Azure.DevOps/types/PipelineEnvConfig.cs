@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5516a06b9ca3"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1
-    docs: "[PipelineEnvConfig.cs.md](docs/references/pwsh/catzc-azure-devops/types/PipelineEnvConfig.cs.md)"
+    docs: "[PipelineEnvConfig.cs.md](docs/references/pwsh/catzc-azure-dev-ops/types/PipelineEnvConfig.cs.md)"
 ---
 */
 

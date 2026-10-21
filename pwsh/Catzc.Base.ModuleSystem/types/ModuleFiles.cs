@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b26eba3f5413
   edges:
-    docs: "[ModuleFiles.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ModuleFiles.cs.md)"
+    docs: "[ModuleFiles.cs.md](docs/references/pwsh/catzc-base-module-system/types/ModuleFiles.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

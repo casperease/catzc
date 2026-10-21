@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "19c974342c76"
   edges:
-    docs: "[ModuleGroup.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ModuleGroup.cs.md)"
+    docs: "[ModuleGroup.cs.md](docs/references/pwsh/catzc-base-module-system/types/ModuleGroup.cs.md)"
     cites:
       - ADR-AUTO-DEPM-TWOSECTIONS
 ---

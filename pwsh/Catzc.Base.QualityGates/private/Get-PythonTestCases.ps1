@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "86d18cac812a"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-PythonTestCases.Tests.ps1
-    docs: "[Get-PythonTestCases.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-PythonTestCases.ps1.md)"
+    docs: "[Get-PythonTestCases.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-PythonTestCases.ps1.md)"
 ---
 #>
 

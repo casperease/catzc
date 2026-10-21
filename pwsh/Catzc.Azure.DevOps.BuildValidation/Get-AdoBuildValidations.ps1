@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9babdb3ca0d2"
   edges:
     test: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Get-AdoBuildValidations.Tests.ps1
-    docs: "[Get-AdoBuildValidations.ps1.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md)"
+    docs: "[Get-AdoBuildValidations.ps1.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/Get-AdoBuildValidations.ps1.md)"
     cites:
       - ADR-FLOW-CD-GLOBS
       - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET

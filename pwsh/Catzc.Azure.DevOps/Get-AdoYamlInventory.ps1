@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "66e7fafe226a"
   edges:
-    docs: "[Get-AdoYamlInventory.ps1.md](docs/references/pwsh/catzc-azure-devops/Get-AdoYamlInventory.ps1.md)"
+    docs: "[Get-AdoYamlInventory.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Get-AdoYamlInventory.ps1.md)"
 ---
 #>
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: bd1f4ae8f308
+#     with_body_sha: "8921ecab2201"
 # ---
 
 description:
@@ -144,9 +144,401 @@ content:
       number: 8
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-DRYRUN
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+          - ADR-AZ-SESSION
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+          - ADR-PWSH-PREPOST
+      - cell: docs/-/.
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/dry-run.md
+          - docs/adr/automation/pwsh/dora-explains.md
+          - docs/adr/automation/pwsh/prefer-dryrun-over-shouldprocess.md
+          - docs/adr/automation/pwsh/prepost-extension-modules.md
+          - docs/adr/azure/az-session-verification.md
+          - docs/adr/azure/azure-data-model.md
+          - docs/adr/azure/dora-explains.md
+          - docs/adr/index.md
+          - docs/references/ado/pipelines/cd-shared.yaml.md
+          - docs/references/ado/pipelines/extends/cd-customer.yaml.md
+          - docs/references/infrastructure/templates/discovery/options.yml.md
+          - docs/references/infrastructure/templates/expedition/options.yml.md
+          - docs/references/infrastructure/templates/foundation/options.yml.md
+          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
+          - docs/references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.yml
+          - docs/references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.yml
+          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
+          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
+          - docs/references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.yml
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/Register-AdoBuildValidation.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/Unregister-AdoBuildValidation.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
+          - docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md
+          - docs/references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md
+          - docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md
+          - docs/references/pwsh/catzc-azure/configs/azure.yml.md
+          - docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
+          - docs/references/pwsh/catzc-base-docs/Build-AdrCodeDictionary.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Build-AdrIndex.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Build-GitKeep.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Update-AdrCitation.ps1.md
+          - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Build-Modules.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md
+          - docs/references/pwsh/catzc-base-files/Invoke-GitCommit.ps1.md
+          - docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md
+          - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
+          - docs/references/pwsh/catzc-base-git/Reset-GitCleanFxd.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Build-EnglishDictionary.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Build-TerminologyDictionary.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Export-SpellingTriage.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Format-FileMeta.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Format-MarkdownTitle.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Repair-IdiomaticNames.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
+          - docs/references/pwsh/catzc-base-reports/Clear-Output.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/Build-RootConfig.ps1.md
+          - docs/references/pwsh/catzc-tooling-provisioning/Clear-TempFolders.ps1.md
+          - docs/references/pwsh/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
+          - ADR-AUTO-DRYRUN
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+          - ADR-AZ-SESSION
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+          - ADR-PWSH-PREPOST
+      - cell: pwsh/Catzc.Azure/.
+        by:
+          - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscription.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: pwsh/Catzc.Azure/configs
+        by:
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: pwsh/Catzc.Azure/tests/types
+        by:
+          - pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: pwsh/Catzc.Azure/types
+        by:
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs
+          - pwsh/Catzc.Azure/types/AzureTenantRecord.cs
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: pwsh/Catzc.Azure.Cli/.
+        by:
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+          - ADR-AZ-SESSION
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/tests
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Unregister-AdoBuildValidation.Tests.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Azure.Templates/.
+        by:
+          - pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
+          - ADR-AUTO-DRYRUN
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+          - ADR-PWSH-PREPOST
+      - cell: pwsh/Catzc.Azure.Templates/private
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: pwsh/Catzc.Azure.Templates/tests
+        by:
+          - pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: pwsh/Catzc.Base.Docs/.
+        by:
+          - pwsh/Catzc.Base.Docs/Build-AdrCodeDictionary.ps1
+          - pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
+          - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
+          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AUTO-DRYRUN
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+          - ADR-AZ-SESSION
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+          - ADR-PWSH-PREPOST
+      - cell: pwsh/Catzc.Base.Docs/tests
+        by:
+          - pwsh/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Base.Environment/.
+        by:
+          - pwsh/Catzc.Base.Environment/Remove-PermanentPath.ps1
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+      - cell: pwsh/Catzc.Base.Execution/.
+        by:
+          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Base.Exporter/.
+        by:
+          - pwsh/Catzc.Base.Exporter/Build-Modules.ps1
+          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Base.Files/.
+        by:
+          - pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1
+          - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Base.Git/.
+        by:
+          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
+          - pwsh/Catzc.Base.Git/Reset-GitCleanFxd.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Base.ModuleSystem/tests
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/tests/Set-ImportMix.Tests.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Base.QualityGates/.
+        by:
+          - pwsh/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1
+          - pwsh/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
+          - pwsh/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
+          - pwsh/Catzc.Base.QualityGates/Format-FileMeta.ps1
+          - pwsh/Catzc.Base.QualityGates/Format-MarkdownTitle.ps1
+          - pwsh/Catzc.Base.QualityGates/Repair-IdiomaticNames.ps1
+          - ADR-AUTO-DRYRUN
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: pwsh/Catzc.Base.QualityGates/tests
+        by:
+          - pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Move-FunctionHelp.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Sync-FileMeta.Tests.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Base.Reports/.
+        by:
+          - pwsh/Catzc.Base.Reports/Clear-Output.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Base.RootConfig/.
+        by:
+          - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Base.Slides/tests
+        by:
+          - pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Tooling.Provisioning/.
+        by:
+          - pwsh/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
+          - pwsh/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Tooling.Toolchain/private
+        by:
+          - pwsh/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure
+        by:
+          - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscription.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs
+          - pwsh/Catzc.Azure/types/AzureTenantRecord.cs
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: subject/Catzc.Azure.Cli
+        by:
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+          - ADR-AZ-SESSION
+      - cell: subject/Catzc.Azure.DevOps.BuildValidation
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Unregister-AdoBuildValidation.Tests.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
+          - ADR-AUTO-DRYRUN
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+          - ADR-PWSH-PREPOST
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/Build-AdrCodeDictionary.ps1
+          - pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
+          - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
+          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
+          - ADR-AUTO-DRYRUN
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+          - ADR-AZ-SESSION
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+          - ADR-PWSH-PREPOST
+      - cell: subject/Catzc.Base.Environment
+        by:
+          - pwsh/Catzc.Base.Environment/Remove-PermanentPath.ps1
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+      - cell: subject/Catzc.Base.Execution
+        by:
+          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: subject/Catzc.Base.Exporter
+        by:
+          - pwsh/Catzc.Base.Exporter/Build-Modules.ps1
+          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: subject/Catzc.Base.Files
+        by:
+          - pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1
+          - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: subject/Catzc.Base.Git
+        by:
+          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
+          - pwsh/Catzc.Base.Git/Reset-GitCleanFxd.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/tests/Set-ImportMix.Tests.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1
+          - pwsh/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
+          - pwsh/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
+          - pwsh/Catzc.Base.QualityGates/Format-FileMeta.ps1
+          - pwsh/Catzc.Base.QualityGates/Format-MarkdownTitle.ps1
+          - pwsh/Catzc.Base.QualityGates/Repair-IdiomaticNames.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Move-FunctionHelp.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Sync-FileMeta.Tests.ps1
+          - ADR-AUTO-DRYRUN
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+      - cell: subject/Catzc.Base.Reports
+        by:
+          - pwsh/Catzc.Base.Reports/Clear-Output.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: subject/Catzc.Base.Slides
+        by:
+          - pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: subject/Catzc.Tooling.Provisioning
+        by:
+          - pwsh/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
+          - pwsh/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: subject/Catzc.Tooling.Toolchain
+        by:
+          - pwsh/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-DRYRUN
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+          - ADR-AZ-SESSION
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+          - ADR-PWSH-PREPOST
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-AUTO-DRYRUN
+          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+          - ADR-PWSH-PREPOST
+      - cell: CLOUD/deploy
+        by:
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: CLOUD/access
+        by:
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+          - ADR-AZ-SESSION
 layout:
   band-entry:
     x: 20

@@ -163,15 +163,64 @@ def test_top_to_bottom_stacks_the_bands_and_stands_the_span_beside_them():
 def test_declared_minimaps_must_be_three_known_views_and_none_declared_leaves_the_defaults_to_the_data():
     raw = __import__("yaml").safe_load(WIDGETS)
     views = lambda r: declaration.normalise(r)["content"]["minimaps"]
-    assert views(raw) == []
-    raw["content"]["minimaps"] = ["grid", "code-locations", "track-placement"]
-    assert views(raw) == ["grid", "code-locations", "track-placement"]
-    raw["content"]["minimaps"] = ["grid", "axis", "moon"]
+    assert views(raw) == {}
+    raw["content"]["minimaps"] = {"grid": [], "code-locations": [], "track-placement": []}
+    assert views(raw) == {"grid": [], "code-locations": [], "track-placement": []}
+    raw["content"]["minimaps"] = {"grid": [], "axis": [], "moon": []}
     with pytest.raises(declaration.DeclarationError, match="minimap view 'moon' is not one of: grid, code-locations"):
         declaration.normalise(raw)
-    raw["content"]["minimaps"] = ["grid"]
+    raw["content"]["minimaps"] = {"grid": []}
     with pytest.raises(declaration.DeclarationError, match="exactly three"):
         declaration.normalise(raw)
+    raw["content"]["minimaps"] = ["grid", "axis", "layer-stack"]
+    with pytest.raises(declaration.DeclarationError, match="minimaps is a map"):
+        declaration.normalise(raw)
+
+
+WIDGET_CELLS = {
+    "grid": [{"cell": "widgets/widget-script", "by": ["widgets/Get-Widget.ps1", "ADR-WIDGET-SPIN"]}],
+    "axis": [{"cell": "AUTO/*", "by": ["ADR-WIDGET-SPIN"]}],
+    "layer-stack": [],
+}
+
+
+def test_each_minimap_lists_its_lit_cells_with_what_lit_them_and_a_bad_entry_fails():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["minimaps"] = WIDGET_CELLS
+    assert declaration.normalise(raw)["content"]["minimaps"] == WIDGET_CELLS
+    bad = {**WIDGET_CELLS, "grid": [{"cell": "widgets/widget-script", "by": []}]}
+    with pytest.raises(declaration.DeclarationError, match="cell 'widgets/widget-script' names what lit it in by"):
+        declaration.normalise({**raw, "content": {**raw["content"], "minimaps": bad}})
+    twice = {**WIDGET_CELLS, "axis": WIDGET_CELLS["axis"] * 2}
+    with pytest.raises(declaration.DeclarationError, match="lists cell 'AUTO/\\*' twice"):
+        declaration.normalise({**raw, "content": {**raw["content"], "minimaps": twice}})
+
+
+def test_the_lit_cells_survive_a_put_then_a_get_through_save(tmp_path):
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["minimaps"] = WIDGET_CELLS
+    (tmp_path / declaration.SOURCE).write_text(declaration.dump(declaration.normalise(raw)), encoding="utf-8")
+    first = declaration.load(tmp_path)
+    declaration.put_png(tmp_path, first)
+    back = declaration.get(declaration.model_of(tmp_path), kind="explanation")
+    assert all(cells == [] for cells in back["content"]["minimaps"].values())  # the drawing carries the views, not what lit them
+    declaration.save(tmp_path, back)
+    assert declaration.load(tmp_path)["content"]["minimaps"] == WIDGET_CELLS
+
+
+def test_declare_minimaps_writes_the_computed_cells_files_first_then_rules(tmp_path, monkeypatch):
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["minimaps"] = {view: [] for view in WIDGET_CELLS}
+    (tmp_path / declaration.SOURCE).write_text(declaration.dump(declaration.normalise(raw)), encoding="utf-8")
+    reason = lambda subject, rule: {"subject": subject, "basis": "citation", "requested": rule, "note": ""}
+    data = {
+        "grid": {"lit": [{"at": ["widgets", "widget-script"], "reasons": [reason("widgets/Get-Widget.ps1", "ADR-WIDGET-SPIN")] * 2}]},
+        "axis": {"lit": [{"at": ["AUTO", "*"], "reasons": [reason("ADR-WIDGET", "ADR-WIDGET-SPIN")]}]},
+        "layer-stack": {"lit": []},
+    }
+    monkeypatch.setattr(declaration, "minimap_data", lambda folder: data)
+    declaration.declare_minimaps(tmp_path)
+    assert declaration.load(tmp_path)["content"]["minimaps"] == WIDGET_CELLS
 
 
 def claimed():
@@ -185,7 +234,7 @@ def claimed():
         "modules": ["Catzc.Base.Repository"],
         "files": ["python/catzc_diagrams/minimaps.py"],
     }
-    raw["content"]["minimaps"] = ["code-locations", "module-neighbourhood", "axis"]
+    raw["content"]["minimaps"] = {"code-locations": [], "module-neighbourhood": [], "axis": []}
     return raw
 
 
@@ -225,7 +274,7 @@ def test_put_png_embeds_the_model_and_get_reads_it_back(tmp_path):
         assert img.size[0] > 1500
     back = declaration.get(declaration.model_of(tmp_path), kind="explanation")
     # A declaration that names no minimaps takes the folder's data's three, and get writes them out.
-    assert back["content"]["minimaps"] == list(declaration.minimap_data(tmp_path))
+    assert list(back["content"]["minimaps"]) == list(declaration.minimap_data(tmp_path))
     assert declaration.dump(back) == declaration.dump({**first, "content": {**first["content"], "minimaps": back["content"]["minimaps"]}})
 
 
@@ -545,7 +594,7 @@ def vocabulary_cases():
         raw["content"]["edges"][0]["kind"] = "wobble"
 
     def minimap(raw):
-        raw["content"]["minimaps"] = ["grid", "axis", "moon"]
+        raw["content"]["minimaps"] = {"grid": [], "axis": [], "moon": []}
 
     def flow(raw):
         raw["content"]["flow"] = "inside-out"
@@ -890,7 +939,7 @@ def test_a_layout_that_moves_an_item_out_of_its_band_fails_naming_the_band_it_si
 def test_span_room_moves_the_drawing_but_a_put_then_a_get_returns_the_declared_geometry_byte_equal(tmp_path):
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"]["edges"][0]["via"] = [[400, 300], [900, 300]]
-    raw["content"]["minimaps"] = ["grid", "axis", "layer-stack"]  # the three the fixture data draws, so get reads back what is declared
+    raw["content"]["minimaps"] = {"grid": [], "axis": [], "layer-stack": []}  # the three the fixture data draws, so get reads back what is declared
     raw["layout"] = {"band-widgets": {"x": 20, "y": 60, "w": 620, "h": 300}, "band-gadgets": {"x": 660, "y": 60, "w": 620, "h": 300}}
     text = declaration.dump(declaration.normalise(raw))
     (tmp_path / declaration.SOURCE).write_text(text, encoding="utf-8")

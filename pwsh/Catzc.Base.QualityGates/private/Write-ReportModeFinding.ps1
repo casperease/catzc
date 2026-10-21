@@ -5,7 +5,7 @@ catzc:
     with_body_sha: aeeba2f56f86
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-ReportModeFinding.Tests.ps1
-    docs: "[Write-ReportModeFinding.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-ReportModeFinding.ps1.md)"
+    docs: "[Write-ReportModeFinding.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Write-ReportModeFinding.ps1.md)"
     cites:
       - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
 ---

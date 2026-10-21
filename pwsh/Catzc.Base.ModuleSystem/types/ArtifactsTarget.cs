@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: fea30780db51
   edges:
-    docs: "[ArtifactsTarget.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ArtifactsTarget.cs.md)"
+    docs: "[ArtifactsTarget.cs.md](docs/references/pwsh/catzc-base-module-system/types/ArtifactsTarget.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

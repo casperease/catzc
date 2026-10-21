@@ -17,8 +17,11 @@ function Get-TruthStore {
         Emits the truth stores of truth-stores.yml as data: each store's name, kind, URL and owning state machine.
 
     .DESCRIPTION
-        The query a question about where truth lives is answered by (ADR-THES-ONETRUTH-TRUTHISQUERYABLE): every store catzc reads, writes
-        or reports to is one entry of truth-stores.yml, classified by its kind (ADR-THES-STORES-THREEKINDS). With no filter it emits every
+        The query a question about where truth lives is answered by
+        ([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)): every store catzc reads, writes
+        or reports to is one entry of truth-stores.yml, classified by its kind
+        ([ADR-THES-STORES-THREEKINDS](/docs/adr/thesis/truth-stores.md#rule-adr-thes-stores-threekinds)). With no filter
+        it emits every
         store in declared order.
 
     .PARAMETER Name

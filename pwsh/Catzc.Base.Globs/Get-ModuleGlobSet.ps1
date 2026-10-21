@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e846e480dec1
+    with_body_sha: "3680f939db71"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
     docs: "[Get-ModuleGlobSet.ps1.md](docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md)"
@@ -70,7 +70,7 @@ function Get-ModuleGlobSet {
     $codeModules = @(Get-CatzcModule -Track $codeTrack.name -IncludeInternal -RepositoryRoot $repositoryRoot)
     foreach ($module in $codeModules.Where({ $_.shape -ceq 'folder' -and $_.place -ceq $codeRoot })) {
         $moduleName = $module.name
-        $kebab = $moduleName.ToLowerInvariant().Replace('.', '-')
+        $kebab = [Catzc.Base.Objects.NameCase]::Render($moduleName, 'kebab')
         if ($kebab -in $declaredNames) {
             throw "Declared globset '$kebab' in globs.yml shadows the derived module '$moduleName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
         }
@@ -101,7 +101,7 @@ function Get-ModuleGlobSet {
 
     foreach ($module in $codeModules.Where({ $_.shape -ceq 'file' })) {
         $internalName = $module.name
-        $kebab = $internalName.ToLowerInvariant().Replace('.', '-')
+        $kebab = [Catzc.Base.Objects.NameCase]::Render($internalName, 'kebab')
         if ($kebab -in $declaredNames) {
             throw "Declared globset '$kebab' in globs.yml shadows the derived set of internal module '$internalName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
         }

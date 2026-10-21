@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6e719409c781"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1
-    docs: "[Test-InIsolation.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-InIsolation.ps1.md)"
+    docs: "[Test-InIsolation.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-InIsolation.ps1.md)"
 ---
 #>
 

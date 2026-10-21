@@ -2,7 +2,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "325682cc0e27"
+    with_body_sha: "09433ad02c93"
+  edges:
+    docs: "[ConvertTo-AccostedCallText.ps1.md](docs/references/pwsh/catzc-base-contracts/private/ConvertTo-AccostedCallText.ps1.md)"
+    cites:
+      - ADR-AUTO-ACCOSTED
 ---
 #>
 
@@ -24,11 +28,11 @@ function ConvertTo-AccostedCallText {
     $normalForm = (Get-Config -Config languages).naming_normal_form
     $isPwsh = $Engine.Name -ceq [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
     $parts = [System.Collections.Generic.List[string]]::new()
-    $parts.Add([Catzc.Base.Languages.LanguageNaming]::FromNormal($Command.name, ($isPwsh ? 'verb-noun' : 'kebab'), $normalForm))
+    $parts.Add([Catzc.Base.Objects.NameCase]::FromNormal($Command.name, ($isPwsh ? 'verb-noun' : 'kebab'), $normalForm))
     foreach ($argument in $Command.arguments.Keys) {
         $value = $Command.arguments[$argument]
-        $type = @($Contract.parameters | Where-Object { $_.Name -ceq $argument })[0].Type
-        $flag = $isPwsh ? "-$([Catzc.Base.Languages.LanguageNaming]::FromNormal($argument, 'pascal', $normalForm))" : "--$([Catzc.Base.Languages.LanguageNaming]::FromNormal($argument, 'kebab', $normalForm))"
+        $type = ($Contract.parameters | Where-Object { $_.Name -ceq $argument } | Select-Object -First 1)?.Type
+        $flag = $isPwsh ? "-$([Catzc.Base.Objects.NameCase]::FromNormal($argument, 'pascal', $normalForm))" : "--$([Catzc.Base.Objects.NameCase]::FromNormal($argument, 'kebab', $normalForm))"
         if ($type -ceq 'switch') {
             if ($value) {
                 $parts.Add($flag)

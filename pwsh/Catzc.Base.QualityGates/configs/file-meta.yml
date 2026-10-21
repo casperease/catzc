@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "47c1dd235250"
 #   edges:
-#     docs: "[file-meta.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/file-meta.yml.md)"
+#     docs: "[file-meta.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/file-meta.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-REPO-FILEMETA-METAKIND
@@ -45,4 +45,8 @@ kinds:
   adr-codes:
     section: edges
     keys: [cites]
-    select: [{ classes: [type, function, config] }, { classes: [test, fixture], languages: [powershell] }]
+    select:
+      [
+        { classes: [type, function, config, hook, module/internal] },
+        { classes: [test, fixture, asset], languages: [powershell] },
+      ]

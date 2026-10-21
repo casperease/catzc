@@ -5,6 +5,9 @@ catzc:
     with_body_sha: dde44aa116b4
   edges:
     docs: "[Import-Catzc.ps1.md](docs/references/pwsh/internal/assets/Import-Catzc.ps1.md)"
+    cites:
+      - ADR-AUTO-BUNDLE
+      - ADR-DSGN-RUNMODE
 ---
 #>
 

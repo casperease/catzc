@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f4b37b1bf84b
+#     with_body_sha: b4e51a2623fb
 # ---
 
 description:
@@ -106,9 +106,116 @@ content:
       number: 7
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AZ-CLI-ASSERTAZ
+          - ADR-AZ-CLI-AZBYDEFAULT
+          - ADR-AZ-CLI-NOAZMODULEIMPORT
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+      - cell: docs/-/.
+        by:
+          - docs/adr/azure/dora-explains.md
+          - docs/adr/azure/prefer-az-cli.md
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/thin-platforms.md
+          - docs/adr/index.md
+          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Test-AzCliBicep.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md
+          - ADR-AZ-CLI-ASSERTAZ
+          - ADR-AZ-CLI-AZBYDEFAULT
+          - ADR-AZ-CLI-NOAZMODULEIMPORT
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+      - cell: pwsh/Catzc.Azure.Cli/.
+        by:
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1
+          - pwsh/Catzc.Azure.Cli/Install-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1
+          - ADR-AZ-CLI-AZBYDEFAULT
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-CLI-ASSERTAZ
+          - ADR-AZ-CLI-AZBYDEFAULT
+          - ADR-AZ-CLI-NOAZMODULEIMPORT
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - ADR-AZ-CLI-ASSERTAZ
+          - ADR-AZ-CLI-AZBYDEFAULT
+          - ADR-AZ-CLI-NOAZMODULEIMPORT
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure.Cli
+        by:
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1
+          - pwsh/Catzc.Azure.Cli/Install-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1
+          - ADR-AZ-CLI-AZBYDEFAULT
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-CLI-ASSERTAZ
+          - ADR-AZ-CLI-AZBYDEFAULT
+          - ADR-AZ-CLI-NOAZMODULEIMPORT
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - ADR-AZ-CLI-ASSERTAZ
+          - ADR-AZ-CLI-AZBYDEFAULT
+          - ADR-AZ-CLI-NOAZMODULEIMPORT
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AZ-CLI-ASSERTAZ
+          - ADR-AZ-CLI-AZBYDEFAULT
+          - ADR-AZ-CLI-NOAZMODULEIMPORT
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+    axis:
+      - cell: DSGN/deploy
+        by:
+          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - ADR-DSGN-THINPLAT-THINPLATFORM
+      - cell: CLOUD/deploy
+        by:
+          - ADR-AZ-CLI-ASSERTAZ
+          - ADR-AZ-CLI-AZBYDEFAULT
+          - ADR-AZ-CLI-NOAZMODULEIMPORT
+      - cell: CLOUD/access
+        by:
+          - ADR-AZ-CLI-ASSERTAZ
+          - ADR-AZ-CLI-AZBYDEFAULT
+          - ADR-AZ-CLI-NOAZMODULEIMPORT
 layout:
   band-surface:
     x: 20

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9a56f4b55a4f"
+    with_body_sha: "47e990716417"
   edges:
     docs: "[Get-GlossarySourceViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1

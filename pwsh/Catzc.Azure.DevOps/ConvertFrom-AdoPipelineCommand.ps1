@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0e16ef79acb0"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/ConvertFrom-AdoPipelineCommand.Tests.ps1
-    docs: "[ConvertFrom-AdoPipelineCommand.ps1.md](docs/references/pwsh/catzc-azure-devops/ConvertFrom-AdoPipelineCommand.ps1.md)"
+    docs: "[ConvertFrom-AdoPipelineCommand.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/ConvertFrom-AdoPipelineCommand.ps1.md)"
 ---
 #>
 

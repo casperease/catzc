@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: table
     deck: product-thesis
-    order: 12
+    order: 13
 ---
 
 # Reduce variability

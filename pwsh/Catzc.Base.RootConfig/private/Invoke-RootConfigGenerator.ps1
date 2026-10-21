@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: aae69797af47
   edges:
-    docs: "[Invoke-RootConfigGenerator.ps1.md](docs/references/pwsh/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md)"
+    docs: "[Invoke-RootConfigGenerator.ps1.md](docs/references/pwsh/catzc-base-root-config/private/Invoke-RootConfigGenerator.ps1.md)"
     cites:
       - ADR-AUTO-GO-MANAGEDTOOLCHAIN
       - ADR-AUTO-PY-GENERATEDWORKSPACE

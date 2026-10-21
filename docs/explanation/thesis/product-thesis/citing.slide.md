@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: rule
     deck: product-thesis
-    order: 20
+    order: 21
 ---
 
 # Every rule has one code

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "871cd84b7e37"
+#     with_body_sha: "52c37add6dd9"
 # ---
 
 description:
@@ -97,6 +97,120 @@ content:
       to: r-plans
       kind: thick
       label: plans
+  legend: auto
+  minimaps:
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+          - ADR-REPO-AI-EDITORISFACT
+    lifecycle-position:
+      - cell: main-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+          - ADR-REPO-AI-EDITORISFACT
+      - cell: release-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+          - ADR-REPO-AI-EDITORISFACT
+      - cell: pre-prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+          - ADR-REPO-AI-EDITORISFACT
+      - cell: prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+          - ADR-REPO-AI-EDITORISFACT
+    layer-stack:
+      - cell: automation
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - .claude/hindsight/hindsight226bbf.md
+          - .claude/hooks/Assert-BashTimeout/Program.cs
+          - .claude/learnings/learned494e73.md
+          - .claude/plans/plan-agent-friction.md
+          - .claude/plans/plan-listen-internal-readers.md
+          - .claude/plans/task-user-runs-and-commits.md
+          - .claude/skills/listen-insight/SKILL.md
+          - .claude/skills/listen-notes/SKILL.md
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/fail-fast-with-asserts.md
+          - docs/adr/index.md
+          - docs/adr/repository/ai-agent-contract.md
+          - docs/adr/repository/dora-explains.md
+          - docs/references/agent-contracts.md
+          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
+          - docs/references/pwsh/.assets/listen-mode-flow/diagram.drawio.yml
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
+          - docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md
+          - docs/references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md
+          - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md
+          - docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Test-TestRunOverBudget.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationVerdict.ps1.md
+          - docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md
+          - docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md
+          - docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md
+          - docs/references/pwsh/catzc-base-types-system.md
+          - docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md
+          - importer.ps1
+          - pwsh/.internal/assets/Invoke-CatzcCommand.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
+          - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
+          - pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
+          - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
+          - pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
+          - pwsh/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1
+          - pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1
+          - pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs
+          - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
+          - pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1
+          - pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1
+          - pwsh/Catzc.Tooling.Listen/tests/Wait-DocChange.Tests.ps1
+          - pwsh/Catzc.Tooling.Listen/tests/Wait-DocNote.Tests.ps1
+          - pwsh/Catzc.Tooling.Listen/tests/types/WriteLedger.Tests.ps1
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+          - ADR-REPO-AI-EDITORISFACT
 layout:
   a-editor:
     x: 110

@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: pair
     deck: product-thesis
-    order: 5
+    order: 6
 ---
 
 # The repository is the configuration record, and it answers

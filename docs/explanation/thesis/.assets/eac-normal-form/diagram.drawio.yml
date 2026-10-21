@@ -1,6 +1,12 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "5377a61444d0"
+# ---
+
 description:
-  "One band holds four groups left to right: a file in the unordered track, a runner and a gate that loops back to it on a failure path,
-  and a result that feeds a named set; a group of three named sets stands beneath."
+  "One band holds four groups left to right: a file in the unordered track, a runner and a gate that loops back to it on a failure path, and
+  a result that feeds a named set; a group of three named sets stands beneath."
 about:
   adrs:
     - ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
@@ -87,3 +93,141 @@ content:
       kind: flow
       label: leaves
   legend: auto
+  minimaps:
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+          - ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+          - ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+          - ADR-THES-NORMALFORM-UNCONTESTED
+      - cell: DSGN/quality-control
+        by:
+          - ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+          - ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+          - ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+          - ADR-THES-NORMALFORM-UNCONTESTED
+      - cell: DSGN/release
+        by:
+          - ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+          - ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+          - ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+          - ADR-THES-NORMALFORM-UNCONTESTED
+      - cell: DSGN/deploy
+        by:
+          - ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+          - ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+          - ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+          - ADR-THES-NORMALFORM-UNCONTESTED
+      - cell: DSGN/access
+        by:
+          - ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+          - ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+          - ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+          - ADR-THES-NORMALFORM-UNCONTESTED
+      - cell: DSGN/*
+        by:
+          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+    lifecycle-position:
+      - cell: main-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+          - ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+          - ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+          - ADR-THES-NORMALFORM-UNCONTESTED
+      - cell: release-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+          - ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+          - ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+          - ADR-THES-NORMALFORM-UNCONTESTED
+      - cell: pre-prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+          - ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+          - ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+          - ADR-THES-NORMALFORM-UNCONTESTED
+      - cell: prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+          - ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+          - ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+          - ADR-THES-NORMALFORM-UNCONTESTED
+    layer-stack:
+      - cell: automation
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - .claude/hindsight/hindsight226bbf.md
+          - .claude/learnings/learned80b500.md
+          - .claude/plans/plan-listen-internal-readers.md
+          - .claude/plans/plan-xdr-codes.md
+          - .claude/plans/value-of-plan.md
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/tracks.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/adr/thesis/dora-explains.md
+          - docs/adr/thesis/eac-normal-form.md
+          - docs/how-to/automation/sort-an-import.md
+          - docs/how-to/getting-started/automation/add-a-doc-chapter.md
+          - docs/how-to/getting-started/automation/add-an-adr.md
+          - docs/how-to/pwsh/manual-test-plan/repository-conventions.md
+          - docs/references/note-file-kind.md
+          - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Formatting.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-ContentExemptPath.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
+          - pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1
+          - pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml
+          - pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
+          - pwsh/Catzc.Base.Variants/Get-Track.ps1
+          - pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
+          - pwsh/Catzc.Base.Variants/configs/track-types.yml
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
+          - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+          - ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+          - ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+          - ADR-THES-NORMALFORM-UNCONTESTED

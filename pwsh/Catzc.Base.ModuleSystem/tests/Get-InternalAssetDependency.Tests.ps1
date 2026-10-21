@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f6277b7e0a92
   edges:
-    docs: "[Get-InternalAssetDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md)"
+    docs: "[Get-InternalAssetDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/Get-InternalAssetDependency.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1
     cites:
       - ADR-AUTO-ASSETDEP-LITERALCHILDPATH

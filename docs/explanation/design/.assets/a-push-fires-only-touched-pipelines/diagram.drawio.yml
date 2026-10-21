@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4c85ca9cfebb"
+#     with_body_sha: "519d4824a2a1"
 # ---
 
 description:
@@ -98,9 +98,106 @@ content:
       number: 7
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: docs/-/.
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/tracks.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/references/note-file-kind.md
+          - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: pwsh/Catzc.Base.Globs/configs
+        by:
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by:
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+      - cell: pwsh/Catzc.Base.Variants/.
+        by:
+          - pwsh/Catzc.Base.Variants/Get-Track.ps1
+          - pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: pwsh/Catzc.Base.Variants/types
+        by:
+          - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/Get-Track.ps1
+          - pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+    axis:
+      - cell: DSGN/*
+        by:
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
 layout:
   band-change:
     x: 20

@@ -61,7 +61,17 @@ final full run last.
     `pwsh/Catzc.Base.Git/tests/Git.Flow.Tests.ps1` passes.
 11. Edit `.claude/CLAUDE.md`, section Project structure: one line saying the `types/*.cs` files are written in BCL, a subset of .NET, hosted
     by pwsh (plan-bcl-language.md, the CLAUDE.md step). Check: `Test-AgentDefinitions` passes.
-12. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+12. The live proof of the Language bridge's setup-error step (plan-test-signal-proposals, done and deleted): run
+    `Test-Automation -Modules Catzc.Base.Repository` once with a temporary lint-failing `test_probe.py` (an unused import) in that module's
+    Python test folder, check that every Python case fails with the ruff message instead of "a setup in some parent block failed", then
+    delete the probe file. Check: the run's case messages.
+13. Commit the kebab reference-page renames (plan-idiomatic-names): `{kebab}` now renders through `NameCase`, so the pages of 12 modules
+    moved on disk under `docs/references/pwsh/` (`catzc-base-qualitygates` to `catzc-base-quality-gates`, `-modulesystem` to
+    `-module-system`, `-codemeta`, `-typessystem`, `-vscode` to `-vs-code`, `-rootconfig`, `-markdownmeta`, `-configextensions`,
+    `catzc-tooling-keyhandler`, `catzc-azure-devops` to `catzc-azure-dev-ops` and its `-build-validation`, and
+    `internal/catzc-internal-testkit` to `catzc-internal-test-kit`; 581 files, folder and module page each), with the `docs:` head edges of
+    605 files, the four renderers and the hand links. Check: `Test-Links` reports no `[Untracked]` issue under `docs/references/pwsh`.
+14. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

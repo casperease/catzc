@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: fa7d76ffe1f9
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-ScopeLookup.ps1
+---
+#>
+
 Describe 'Get-ScopeLookup' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'

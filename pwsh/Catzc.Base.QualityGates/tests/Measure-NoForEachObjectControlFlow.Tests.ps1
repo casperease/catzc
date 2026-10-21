@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b0543cfca0ef
   edges:
-    docs: "[Measure-NoForEachObjectControlFlow.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Measure-NoForEachObjectControlFlow.Tests.ps1.md)"
+    docs: "[Measure-NoForEachObjectControlFlow.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Measure-NoForEachObjectControlFlow.Tests.ps1.md)"
 ---
 #>
 

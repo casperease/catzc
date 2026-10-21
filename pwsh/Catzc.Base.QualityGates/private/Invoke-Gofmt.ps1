@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ba2b989af4a0
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-Gofmt.Tests.ps1
-    docs: "[Invoke-Gofmt.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-Gofmt.ps1.md)"
+    docs: "[Invoke-Gofmt.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-Gofmt.ps1.md)"
     cites:
       - ADR-AUTO-GO
       - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE

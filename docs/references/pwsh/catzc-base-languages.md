@@ -5,8 +5,8 @@ declares the generated workspace once (`go.yml`, `python.yml`) and renders the g
 a uv workspace root and a member `pyproject.toml` per module); for Bash it declares the vendored test runner's pin (`bash.yml`); and for
 each it runs a catzc module's tests, returning one result per test. It does not install the tools (that is
 [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md)'s and the uv tooling's), write the rendered files (that is
-[Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s, per [ADR-REPO-ROOTCFG](../../adr/repository/generated-root-configs.md)), or turn the
-results into Pester tests (that is the test harness's language bridge, in [Catzc.Base.QualityGates](catzc-base-qualitygates.md)).
+[Catzc.Base.RootConfig](catzc-base-root-config.md)'s, per [ADR-REPO-ROOTCFG](../../adr/repository/generated-root-configs.md)), or turn the
+results into Pester tests (that is the test harness's language bridge, in [Catzc.Base.QualityGates](catzc-base-quality-gates.md)).
 
 ## Responsibilities
 
@@ -108,7 +108,7 @@ access), [Catzc.Base.Objects](catzc-base-objects.md) for the config type's recor
 for the repository root, and [Catzc.Base.Execution](catzc-base-execution.md) for locating the managed `go` and running the go commands,
 whose time limit is the `go` entry of [Catzc.Base.Timeouts](catzc-base-timeouts.md)' `timeouts.yml`. The root-config registry names the
 renderer as the generator of the `go.work` and `go.mod` targets — one record per file, written by
-[Catzc.Base.RootConfig](catzc-base-rootconfig.md) — and the harness's language bridge calls the run once per mapped module, tagging every
+[Catzc.Base.RootConfig](catzc-base-root-config.md) — and the harness's language bridge calls the run once per mapped module, tagging every
 result `L2` with its category. Python follows the same shape — a uv workspace root in place of `go.work`, a member `pyproject.toml` in place
 of each `go.mod` — with one environment and one lock for the whole workspace; the renderer is the generator of the workspace targets, and
 the same bridge calls the Python run. Bash needs no workspace: its runner is vendored, and the same bridge calls the Bash run under the bash

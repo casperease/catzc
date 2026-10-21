@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6a970436deb3"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaScope.Tests.ps1
-    docs: "[Get-FileMetaScope.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-FileMetaScope.ps1.md)"
+    docs: "[Get-FileMetaScope.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-FileMetaScope.ps1.md)"
 ---
 #>
 

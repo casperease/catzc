@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f2c47f1b9a4c
   edges:
-    docs: "[Get-ModuleDependencyClosure.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Get-ModuleDependencyClosure.Tests.ps1.md)"
+    docs: "[Get-ModuleDependencyClosure.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/Get-ModuleDependencyClosure.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyClosure.ps1
 ---
 #>

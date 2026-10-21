@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c515e91cef42
+    with_body_sha: "029b33cf5666"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1
-    docs: "[Export-SpellingTriage.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Export-SpellingTriage.ps1.md)"
+    docs: "[Export-SpellingTriage.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Export-SpellingTriage.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-SPELL-ONEVOCABULARYSOURCE
@@ -18,20 +18,7 @@ function Export-SpellingTriage {
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
-        [string[]] $Path = @(
-            '**/*.md'
-            '**/*.ps1'
-            '**/*.psm1'
-            '**/*.psd1'
-            '**/*.yml'
-            '**/*.yaml'
-            '**/*.json'
-            '**/*.cs'
-            '**/*.csproj'
-            '**/*.bicep'
-            '**/*.go'
-            '**/*.py'
-        ),
+        [string[]] $Path = @((Get-Config -Config languages).ExtensionsCheckedBy('Test-Spelling') | ForEach-Object { "**/*$_" }),
 
         [string[]] $Exclude = @(
             'out/**'

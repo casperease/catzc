@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e876676be2a7
+    with_body_sha: f18bdd244e85
   edges:
-    docs: "[Get-TerminologyCorpus.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md)"
+    docs: "[Get-TerminologyCorpus.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
@@ -22,7 +22,7 @@ function Get-TerminologyCorpus {
     )
 
     $exts = [System.Collections.Generic.HashSet[string]]::new(
-        [string[]] @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.csproj', '.bicep', '.py'),
+        [string[]] @((Get-Config -Config languages).ExtensionsCheckedBy('Test-Spelling')),
         [System.StringComparer]::OrdinalIgnoreCase)
 
     $names = [System.Collections.Generic.HashSet[string]]::new(

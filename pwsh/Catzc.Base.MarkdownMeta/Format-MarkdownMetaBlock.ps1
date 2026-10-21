@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8b628a6a7229"
   edges:
     test: pwsh/Catzc.Base.MarkdownMeta/tests/Format-MarkdownMetaBlock.Tests.ps1
-    docs: "[Format-MarkdownMetaBlock.ps1.md](docs/references/pwsh/catzc-base-markdownmeta/Format-MarkdownMetaBlock.ps1.md)"
+    docs: "[Format-MarkdownMetaBlock.ps1.md](docs/references/pwsh/catzc-base-markdown-meta/Format-MarkdownMetaBlock.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-IMPRINTEDPARTS
 ---

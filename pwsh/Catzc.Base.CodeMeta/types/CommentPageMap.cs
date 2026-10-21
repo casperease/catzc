@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "55faa45dda5d"
+    with_body_sha: "6e91502219a3"
   edges:
-    docs: "[CommentPageMap.cs.md](docs/references/pwsh/catzc-base-codemeta/types/CommentPageMap.cs.md)"
+    docs: "[CommentPageMap.cs.md](docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-PRIN-ONELIVE-ONEVERSION
@@ -88,7 +88,7 @@ public sealed class CommentPageMap
         if (slash <= 0 || slash == underPrefix.Length - 1) { return null; }
         string leaf = underPrefix.Substring(0, slash);
         if (leaf[0] == '.') { return null; }
-        string kebab = leaf.ToLowerInvariant().Replace('.', '-');
+        string kebab = Catzc.Base.Objects.NameCase.Render(leaf, "kebab");
         return docs.Replace(KebabPlaceholder, kebab) + "/" + underPrefix.Substring(slash + 1) + ".md";
     }
 

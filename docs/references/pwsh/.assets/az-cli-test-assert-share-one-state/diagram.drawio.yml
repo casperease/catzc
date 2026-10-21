@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c1a70ff96ff4
+#     with_body_sha: e55f8a1e75c1
 # ---
 
 description:
@@ -147,9 +147,562 @@ content:
       text: "3"
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - ADR-AUTO-FAILFAST
+      - cell: .claude/.claude/hooks/Assert-BashTimeout
+        by:
+          - .claude/hooks/Assert-BashTimeout/Program.cs
+          - ADR-AUTO-FAILFAST
+      - cell: .claude/.claude/plans
+        by:
+          - .claude/plans/plan-agent-friction.md
+          - ADR-AUTO-FAILFAST
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-ENTERP
+          - ADR-AUTO-FAILFAST
+          - ADR-AUTO-PRELOG
+          - ADR-AZ-CLI
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: docs/-/.
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/effective-in-enterprises.md
+          - docs/adr/automation/fail-fast-with-asserts.md
+          - docs/adr/automation/log-before-invoke.md
+          - docs/adr/azure/azure-customer-model.md
+          - docs/adr/azure/azure-data-model.md
+          - docs/adr/azure/dora-explains.md
+          - docs/adr/azure/prefer-az-cli.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/how-to/pwsh/manual-test-plan/azure.md
+          - docs/references/ado/pipelines/cd-shared.yaml.md
+          - docs/references/ado/pipelines/ci-infrastructure.yaml.md
+          - docs/references/ado/pipelines/extends/cd-customer.yaml.md
+          - docs/references/infrastructure/templates/discovery/options.yml.md
+          - docs/references/infrastructure/templates/expedition/options.yml.md
+          - docs/references/infrastructure/templates/foundation/options.yml.md
+          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
+          - docs/references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.yml
+          - docs/references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.yml
+          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
+          - docs/references/pwsh/.assets/listen-mode-flow/diagram.drawio.yml
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Test-AzCliBicep.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/configs/build-validation.yml.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/types/BuildValidationConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/types/BuildValidationEntry.cs.md
+          - docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/types/BicepParamWriter.cs.md
+          - docs/references/pwsh/catzc-azure-templates/types/BicepTemplate.cs.md
+          - docs/references/pwsh/catzc-azure/Get-AzureCustomers.ps1.md
+          - docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md
+          - docs/references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md
+          - docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md
+          - docs/references/pwsh/catzc-azure/configs/azure.yml.md
+          - docs/references/pwsh/catzc-azure/configs/customer.yml.md
+          - docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureCustomer.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
+          - docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md
+          - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
+          - docs/references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md
+          - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/GlossaryConfig.cs.md
+          - docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
+          - docs/references/pwsh/catzc-base-files/Invoke-GitCommit.ps1.md
+          - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-adr-map.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Test-TestRunOverBudget.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationVerdict.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerAdrMapConfig.cs.md
+          - docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md
+          - docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md
+          - docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md
+          - docs/references/pwsh/catzc-base-types-system.md
+          - docs/references/pwsh/catzc-base-types-system/Assert-LoadedTypesCurrent.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-tooling-provisioning/Install-Zsh.ps1.md
+          - docs/references/pwsh/catzc-tooling-provisioning/private/Get-ZshInstallLayout.ps1.md
+          - docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md
+          - ADR-AUTO-ENTERP
+          - ADR-AUTO-FAILFAST
+          - ADR-AUTO-PRELOG
+          - ADR-AZ-CLI
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Azure/.
+        by:
+          - pwsh/Catzc.Azure/Get-AzureCustomers.ps1
+          - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscription.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Azure/configs
+        by:
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Azure/tests/types
+        by:
+          - pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+          - pwsh/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Azure/types
+        by:
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureCustomer.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs
+          - pwsh/Catzc.Azure/types/AzureTenantRecord.cs
+          - pwsh/Catzc.Azure/types/CustomerConfig.cs
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Azure.Cli/.
+        by:
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1
+          - pwsh/Catzc.Azure.Cli/Install-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1
+          - ADR-AUTO-ENTERP
+          - ADR-AUTO-FAILFAST
+          - ADR-AZ-CLI
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Azure.Cli/private
+        by:
+          - pwsh/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1
+          - ADR-AUTO-PRELOG
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+          - ADR-AZ-CUSTOMER
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
+          - ADR-AZ-CUSTOMER
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/types
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
+          - ADR-AZ-CUSTOMER
+      - cell: pwsh/Catzc.Azure.Templates/.
+        by:
+          - pwsh/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
+          - pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/ConvertTo-BicepParam.ps1
+          - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Azure.Templates/configs
+        by:
+          - pwsh/Catzc.Azure.Templates/configs/glossary.yml
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Azure.Templates/private
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigClassViolations.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigName.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepCustomerClassViolations.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepSubscriptionConfigViolations.ps1
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Azure.Templates/tests
+        by:
+          - pwsh/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
+          - pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1
+          - pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
+          - pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Azure.Templates/types
+        by:
+          - pwsh/Catzc.Azure.Templates/types/BicepParamWriter.cs
+          - pwsh/Catzc.Azure.Templates/types/BicepSlot.cs
+          - pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Base.Docs/.
+        by:
+          - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - ADR-AUTO-ENTERP
+          - ADR-AUTO-FAILFAST
+          - ADR-AUTO-PRELOG
+          - ADR-AZ-CLI
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Base.Docs/private
+        by:
+          - pwsh/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Docs/tests
+        by:
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
+          - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
+          - ADR-AZ-CUSTOMER
+      - cell: pwsh/Catzc.Base.Engines/types
+        by:
+          - pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Files/.
+        by:
+          - pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1
+          - ADR-AUTO-PRELOG
+      - cell: pwsh/Catzc.Base.Folders/tests
+        by:
+          - pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Folders/tests/types
+        by:
+          - pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Git/.
+        by:
+          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Globs/.
+        by:
+          - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Languages/tests
+        by:
+          - pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - ADR-AZ-CLI
+          - ADR-AZ-CUSTOMER
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
+          - ADR-AUTO-FAILFAST
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Base.QualityGates/types
+        by:
+          - pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+          - ADR-AZ-CUSTOMER
+      - cell: pwsh/Catzc.Base.RootConfig/assets/root
+        by:
+          - pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Base.Slides/tests
+        by:
+          - pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
+          - pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Timeouts/.
+        by:
+          - pwsh/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1
+          - pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Timeouts/tests/types
+        by:
+          - pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Timeouts/types
+        by:
+          - pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.TypesSystem/.
+        by:
+          - pwsh/Catzc.Base.TypesSystem/Assert-LoadedTypesCurrent.ps1
+          - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-AZ-CUSTOMER
+      - cell: pwsh/Catzc.Internal.Assets/.
+        by:
+          - pwsh/.internal/assets/Invoke-CatzcCommand.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Tooling.Listen/.
+        by:
+          - pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1
+          - pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Tooling.Listen/tests
+        by:
+          - pwsh/Catzc.Tooling.Listen/tests/Wait-DocChange.Tests.ps1
+          - pwsh/Catzc.Tooling.Listen/tests/Wait-DocNote.Tests.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Tooling.Provisioning/.
+        by:
+          - pwsh/Catzc.Tooling.Provisioning/Install-Zsh.ps1
+          - ADR-AUTO-ENTERP
+      - cell: pwsh/Catzc.Tooling.Provisioning/private
+        by:
+          - pwsh/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1
+          - ADR-AUTO-ENTERP
+    module-neighbourhood:
+      - cell: subject/.claude
+        by:
+          - .claude/CLAUDE.md
+          - .claude/hooks/Assert-BashTimeout/Program.cs
+          - .claude/plans/plan-agent-friction.md
+          - ADR-AUTO-FAILFAST
+      - cell: subject/Catzc.Azure
+        by:
+          - pwsh/Catzc.Azure/Get-AzureCustomers.ps1
+          - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscription.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+          - pwsh/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureCustomer.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs
+          - pwsh/Catzc.Azure/types/AzureTenantRecord.cs
+          - pwsh/Catzc.Azure/types/CustomerConfig.cs
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: subject/Catzc.Azure.Cli
+        by:
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1
+          - pwsh/Catzc.Azure.Cli/Install-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliBicep.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1
+          - pwsh/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1
+          - ADR-AUTO-ENTERP
+          - ADR-AUTO-FAILFAST
+          - ADR-AUTO-PRELOG
+          - ADR-AZ-CLI
+          - ADR-AZ-DATAMOD
+      - cell: subject/Catzc.Azure.DevOps.BuildValidation
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
+          - ADR-AZ-CUSTOMER
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
+          - pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/ConvertTo-BicepParam.ps1
+          - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/configs/glossary.yml
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigClassViolations.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigName.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepCustomerClassViolations.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepSubscriptionConfigViolations.ps1
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - pwsh/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
+          - pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1
+          - pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
+          - pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
+          - pwsh/Catzc.Azure.Templates/types/BicepParamWriter.cs
+          - pwsh/Catzc.Azure.Templates/types/BicepSlot.cs
+          - pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
+          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
+          - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
+          - ADR-AUTO-ENTERP
+          - ADR-AUTO-FAILFAST
+          - ADR-AUTO-PRELOG
+          - ADR-AZ-CLI
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: subject/Catzc.Base.Engines
+        by:
+          - pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
+          - ADR-AUTO-FAILFAST
+      - cell: subject/Catzc.Base.Files
+        by:
+          - pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1
+          - ADR-AUTO-PRELOG
+      - cell: subject/Catzc.Base.Folders
+        by:
+          - pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
+          - pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: subject/Catzc.Base.Git
+        by:
+          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: subject/Catzc.Base.Languages
+        by:
+          - pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
+          - pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+          - ADR-AUTO-FAILFAST
+          - ADR-AZ-CLI
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml
+          - ADR-AZ-DATAMOD
+      - cell: subject/Catzc.Base.Slides
+        by:
+          - pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
+          - pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: subject/Catzc.Base.Timeouts
+        by:
+          - pwsh/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1
+          - pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1
+          - pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs
+          - ADR-AUTO-FAILFAST
+      - cell: subject/Catzc.Base.TypesSystem
+        by:
+          - pwsh/Catzc.Base.TypesSystem/Assert-LoadedTypesCurrent.ps1
+          - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-AZ-CUSTOMER
+      - cell: subject/Catzc.Internal.Assets
+        by:
+          - pwsh/.internal/assets/Invoke-CatzcCommand.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: subject/Catzc.Tooling.Listen
+        by:
+          - pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1
+          - pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1
+          - pwsh/Catzc.Tooling.Listen/tests/Wait-DocChange.Tests.ps1
+          - pwsh/Catzc.Tooling.Listen/tests/Wait-DocNote.Tests.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: subject/Catzc.Tooling.Provisioning
+        by:
+          - pwsh/Catzc.Tooling.Provisioning/Install-Zsh.ps1
+          - pwsh/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1
+          - ADR-AUTO-ENTERP
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-ENTERP
+          - ADR-AUTO-FAILFAST
+          - ADR-AUTO-PRELOG
+          - ADR-AZ-CLI
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-AUTO-ENTERP
+          - ADR-AUTO-FAILFAST
+          - ADR-AUTO-PRELOG
+      - cell: CLOUD/deploy
+        by:
+          - ADR-AZ-CLI
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: CLOUD/access
+        by:
+          - ADR-AZ-CLI
+          - ADR-AZ-DATAMOD
 layout:
   band-azure:
     x: 20

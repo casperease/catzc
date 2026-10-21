@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "17ac1db915f4"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Enter-TestRunLocation.Tests.ps1
-    docs: "[Enter-TestRunLocation.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md)"
+    docs: "[Enter-TestRunLocation.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Enter-TestRunLocation.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
       - ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE

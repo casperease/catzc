@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2969e7180356"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-MarkdownScope.Tests.ps1
-    docs: "[Get-MarkdownScope.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-MarkdownScope.ps1.md)"
+    docs: "[Get-MarkdownScope.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownScope.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-KINDSCOPE
       - ADR-REPO-FORMAT-MARKDOWNTITLE

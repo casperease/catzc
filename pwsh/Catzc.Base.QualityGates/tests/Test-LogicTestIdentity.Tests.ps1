@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c0c7b8a461dd
   edges:
-    docs: "[Test-LogicTestIdentity.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-LogicTestIdentity.Tests.ps1.md)"
+    docs: "[Test-LogicTestIdentity.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-LogicTestIdentity.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1
     cites:
       - ADR-AUTO-TEST-ONECATEGORY

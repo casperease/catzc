@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f5dc1d53a795
+#     with_body_sha: "64ef90491146"
 #   edges:
 #     docs: "[languages.yml.md](docs/references/pwsh/catzc-base-languages/configs/languages.yml.md)"
 #     cites:
@@ -111,7 +111,8 @@ languages:
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments, Test-AgentDefinitions]
     layout:
       - { folder: configs, role: config }
-  # A flat list of harmless contracted calls, run under every engine (ADR-AUTO-ACCOSTED); its compound extension wins over .yml.
+  # A flat list of harmless contracted calls, run under every engine
+  # ([ADR-AUTO-ACCOSTED](/docs/adr/automation/accosted-language.md)); its compound extension wins over .yml.
   accosted:
     extensions: [.accosted.yml]
     formatter: prettier
@@ -168,6 +169,7 @@ languages:
       - { folder: ".", role: script, extensions: [.sh] }
   xml:
     extensions: [.ps1xml, .xml, .xsd, .dtd, .csproj]
+    checks: [Test-Spelling]
     no_formatter: no engine is configured for XML; .editorconfig and the editor's XML extension cover its layout
   html:
     extensions: [.html]

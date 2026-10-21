@@ -1,0 +1,276 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "33609f921710"
+# ---
+
+description:
+  "Four bands left to right: a responsibility domain band holds a store, a code unit and a runner, then an adjacent store band, a fact
+  sources band with a store, and a state machines band with two external tools, joined by flow edges."
+about:
+  adrs:
+    - ADR-THES-STORES-THREEKINDS
+    - ADR-THES-STORES-RESPONSIBILITYDOMAIN
+    - ADR-THES-STORES-FACTSOURCEREADONLY
+    - ADR-THES-STORES-STATEMACHINE
+    - ADR-THES-STORES-RECONCILEFACTS
+    - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+  lens: architecture
+content:
+  title: Catzc writes its domain, reads fact sources, meets state machines
+  kind: explanation
+  flow: left-to-right
+  relation: reaches
+  theme: dark
+  bands:
+    - id: band-domain
+      label: RESPONSIBILITY DOMAIN
+    - id: band-adjacent
+      label: ADJACENT STORE
+    - id: band-facts
+      label: FACT SOURCES
+    - id: band-machines
+      label: STATE MACHINES
+  glyphs:
+    - id: s-repo
+      kind: store
+      label: repository at one commit
+      in: band-domain
+    - id: r-pipelines
+      kind: runner
+      label: trunk pipelines
+      in: band-domain
+    - id: c-catzc
+      kind: code
+      label: catzc
+      in: band-domain
+    - id: s-ado-config
+      kind: store
+      label: ADO configuration
+      in: band-adjacent
+    - id: s-ado-runtime
+      kind: store
+      label: ADO runtime state
+      in: band-facts
+    - id: x-ado
+      kind: external
+      label: Azure DevOps
+      in: band-machines
+    - id: x-snow
+      kind: external
+      label: ITSM (ServiceNow)
+      in: band-machines
+  edges:
+    - from: s-repo
+      to: r-pipelines
+      kind: flow
+      label: trunk
+    - from: r-pipelines
+      to: s-ado-config
+      kind: thick
+      label: one way
+    - from: c-catzc
+      to: s-repo
+      kind: flow
+      label: writes
+    - from: c-catzc
+      to: s-ado-runtime
+      kind: flow
+      label: reads
+    - from: x-ado
+      to: c-catzc
+      kind: flow
+      label: verdict
+    - from: c-catzc
+      to: x-snow
+      kind: flow
+      label: facts
+  legend: auto
+  minimaps:
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - ADR-THES-STORES-FACTSOURCEREADONLY
+          - ADR-THES-STORES-RECONCILEFACTS
+          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
+          - ADR-THES-STORES-STATEMACHINE
+          - ADR-THES-STORES-THREEKINDS
+      - cell: DSGN/quality-control
+        by:
+          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - ADR-THES-STORES-FACTSOURCEREADONLY
+          - ADR-THES-STORES-RECONCILEFACTS
+          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
+          - ADR-THES-STORES-STATEMACHINE
+          - ADR-THES-STORES-THREEKINDS
+      - cell: DSGN/release
+        by:
+          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - ADR-THES-STORES-FACTSOURCEREADONLY
+          - ADR-THES-STORES-RECONCILEFACTS
+          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
+          - ADR-THES-STORES-STATEMACHINE
+          - ADR-THES-STORES-THREEKINDS
+      - cell: DSGN/deploy
+        by:
+          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - ADR-THES-STORES-FACTSOURCEREADONLY
+          - ADR-THES-STORES-RECONCILEFACTS
+          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
+          - ADR-THES-STORES-STATEMACHINE
+          - ADR-THES-STORES-THREEKINDS
+      - cell: DSGN/access
+        by:
+          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - ADR-THES-STORES-FACTSOURCEREADONLY
+          - ADR-THES-STORES-RECONCILEFACTS
+          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
+          - ADR-THES-STORES-STATEMACHINE
+          - ADR-THES-STORES-THREEKINDS
+    lifecycle-position:
+      - cell: main-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - ADR-THES-STORES-FACTSOURCEREADONLY
+          - ADR-THES-STORES-RECONCILEFACTS
+          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
+          - ADR-THES-STORES-STATEMACHINE
+          - ADR-THES-STORES-THREEKINDS
+      - cell: release-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - ADR-THES-STORES-FACTSOURCEREADONLY
+          - ADR-THES-STORES-RECONCILEFACTS
+          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
+          - ADR-THES-STORES-STATEMACHINE
+          - ADR-THES-STORES-THREEKINDS
+      - cell: pre-prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - ADR-THES-STORES-FACTSOURCEREADONLY
+          - ADR-THES-STORES-RECONCILEFACTS
+          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
+          - ADR-THES-STORES-STATEMACHINE
+          - ADR-THES-STORES-THREEKINDS
+      - cell: prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - ADR-THES-STORES-FACTSOURCEREADONLY
+          - ADR-THES-STORES-RECONCILEFACTS
+          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
+          - ADR-THES-STORES-STATEMACHINE
+          - ADR-THES-STORES-THREEKINDS
+    layer-stack:
+      - cell: automation
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/hindsight/hindsight226bbf.md
+          - .claude/learnings/learned494e73.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/adr/thesis/dora-explains.md
+          - docs/adr/thesis/one-source-of-truth.md
+          - docs/adr/thesis/truth-stores.md
+          - docs/references/contracts/catzc.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Sync-AdoBuildValidations.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops/New-AdoPullRequest.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Register-AdoPipeline.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-flow.md
+          - docs/references/pwsh/catzc-base-flow/types/TruthStoresConfig.cs.md
+          - docs/references/pwsh/catzc-base-git/New-RepositorySnapshot.ps1.md
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Sync-AdoBuildValidations.ps1
+          - pwsh/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
+          - pwsh/Catzc.Azure.DevOps/Register-AdoPipeline.ps1
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Flow/Get-TruthStore.ps1
+          - pwsh/Catzc.Base.Flow/tests/types/TruthStoresConfig.Tests.ps1
+          - pwsh/Catzc.Base.Flow/types/TruthStoresConfig.cs
+          - pwsh/Catzc.Base.Git/New-RepositorySnapshot.ps1
+          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - ADR-THES-STORES-FACTSOURCEREADONLY
+          - ADR-THES-STORES-RECONCILEFACTS
+          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
+          - ADR-THES-STORES-STATEMACHINE
+          - ADR-THES-STORES-THREEKINDS
+layout:
+  band-domain:
+    x: 20
+    y: 84
+    w: 400
+    h: 460
+  band-adjacent:
+    x: 440
+    y: 84
+    w: 220
+    h: 460
+  band-facts:
+    x: 680
+    y: 84
+    w: 220
+    h: 460
+  band-machines:
+    x: 920
+    y: 84
+    w: 360
+    h: 460
+  s-repo:
+    x: 90
+    y: 230
+    w: 260
+    h: 90
+  r-pipelines:
+    x: 90
+    y: 130
+    w: 260
+    h: 56
+  c-catzc:
+    x: 90
+    y: 400
+    w: 260
+    h: 56
+  s-ado-config:
+    x: 470
+    y: 116
+    w: 160
+    h: 84
+  s-ado-runtime:
+    x: 710
+    y: 130
+    w: 160
+    h: 84
+  x-ado:
+    x: 990
+    y: 400
+    w: 220
+    h: 56
+  x-snow:
+    x: 990
+    y: 270
+    w: 220
+    h: 56

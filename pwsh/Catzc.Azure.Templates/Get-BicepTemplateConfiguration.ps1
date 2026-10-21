@@ -57,7 +57,8 @@ function Get-BicepTemplateConfiguration {
     else {
         "under configuration/$Customer/"
     }
-    # A bicepparam slot is read by the Bicep compiler, not here: its descriptor carries its source path (ADR-AZ-DATAMOD-BICEPPARAMSLOT).
+    # A bicepparam slot is read by the Bicep compiler, not here: its descriptor carries its source path
+    # ([ADR-AZ-DATAMOD-BICEPPARAMSLOT](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)).
     $bicepParamFile = Join-Path $folder "$configName.bicepparam"
     if ([System.IO.File]::Exists($bicepParamFile)) {
         return [ordered]@{ BicepParamFile = $bicepParamFile }

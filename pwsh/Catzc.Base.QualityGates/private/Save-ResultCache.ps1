@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "87f5f4c70e2f"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Save-ResultCache.Tests.ps1
-    docs: "[Save-ResultCache.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Save-ResultCache.ps1.md)"
+    docs: "[Save-ResultCache.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Save-ResultCache.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 ---

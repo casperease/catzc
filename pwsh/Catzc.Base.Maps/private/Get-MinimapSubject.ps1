@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: be8192176a7f
+    with_body_sha: "62379beab47c"
 ---
 #>
 
@@ -31,7 +31,7 @@ function Get-MinimapSubject {
                 }
             }
         })
-    # Facts read once for every folder of a call are handed in; a path they lack has no facts, as Get-FileMetaFact would return none.
+    # Facts read once for every folder of a call are handed in; a path they lack has no facts.
     if ($null -eq $Facts) {
         $Facts = Get-MinimapFact -Path @($reasons | ForEach-Object Path)
     }

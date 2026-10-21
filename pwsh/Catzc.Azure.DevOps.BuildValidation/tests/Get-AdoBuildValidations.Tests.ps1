@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d3e328a6558b
   edges:
-    docs: "[Get-AdoBuildValidations.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/Get-AdoBuildValidations.Tests.ps1.md)"
+    docs: "[Get-AdoBuildValidations.Tests.ps1.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/Get-AdoBuildValidations.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
 ---
 #>

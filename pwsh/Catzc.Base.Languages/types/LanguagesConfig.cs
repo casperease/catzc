@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "50fc48e29294"
+    with_body_sha: "3968d0fe6c9c"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
     docs: "[LanguagesConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/LanguagesConfig.cs.md)"
@@ -81,6 +81,10 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     public IReadOnlyList<FileLanguage> languages { get; }
 
     public IReadOnlyDictionary<string, FormatterEngine> formatters { get; }
+
+    // The extensions of every language whose checks name the gate, once each, in declared order (e.g. the files Test-Spelling reads).
+    public IReadOnlyList<string> ExtensionsCheckedBy(string check) =>
+        languages.Where(l => l.checks.Contains(check)).SelectMany(l => l.extensions).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
 
     // Folders whose files no language's naming judges, at any depth (e.g. assets, named by their source); empty when the file lists none.
     public IReadOnlyList<string> naming_exempt_folders { get; }
@@ -424,9 +428,9 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         foreach (object item in list)
         {
             string name = Text(item);
-            if (!LanguageNaming.IsCase(name))
+            if (!Catzc.Base.Objects.NameCase.IsCase(name))
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: unknown case '{1}' (one of: {2})", where, name, string.Join(", ", LanguageNaming.Cases)));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: unknown case '{1}' (one of: {2})", where, name, string.Join(", ", Catzc.Base.Objects.NameCase.Cases)));
             }
             else if (cases.Contains(name))
             {

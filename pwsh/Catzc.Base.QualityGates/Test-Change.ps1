@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a34433c4165e
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Change.Tests.ps1
-    docs: "[Test-Change.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Change.ps1.md)"
+    docs: "[Test-Change.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Change.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-PRIN-CONFIG

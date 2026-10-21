@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5720bfb4769f"
   edges:
-    docs: "[PesterRunner.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/PesterRunner.Tests.ps1.md)"
+    docs: "[PesterRunner.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/PesterRunner.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/PesterRunner.cs
 ---
 #>

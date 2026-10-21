@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "49af9d12da84"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
-    docs: "[Build-CommentView.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Build-CommentView.ps1.md)"
+    docs: "[Build-CommentView.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Build-CommentView.ps1.md)"
     cites:
       - ADR-PRIN-ONELIVE-ONEVERSION
       - ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION

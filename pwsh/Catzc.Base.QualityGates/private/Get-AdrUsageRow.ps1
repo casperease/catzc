@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7929e2929f94"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-AdrUsageRow.Tests.ps1
-    docs: "[Get-AdrUsageRow.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-AdrUsageRow.ps1.md)"
+    docs: "[Get-AdrUsageRow.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-AdrUsageRow.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-NOREADBACK
 ---

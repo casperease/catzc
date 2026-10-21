@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "71a4136f217e"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-GuidScanFiles.Tests.ps1
-    docs: "[Get-GuidScanFiles.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md)"
+    docs: "[Get-GuidScanFiles.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-GuidScanFiles.ps1.md)"
     cites:
       - ADR-AUTO-TRACKED-ONESEAM
       - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY

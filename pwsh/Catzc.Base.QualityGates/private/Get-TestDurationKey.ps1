@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8ad081989f31"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestDurationKey.Tests.ps1
-    docs: "[Get-TestDurationKey.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TestDurationKey.ps1.md)"
+    docs: "[Get-TestDurationKey.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestDurationKey.ps1.md)"
 ---
 #>
 

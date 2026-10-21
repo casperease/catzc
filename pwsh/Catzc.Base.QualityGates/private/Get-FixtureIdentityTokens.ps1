@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a3d605fc984b
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1
-    docs: "[Get-FixtureIdentityTokens.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md)"
+    docs: "[Get-FixtureIdentityTokens.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-FixtureIdentityTokens.ps1.md)"
     cites:
       - ADR-REPO-LANG
 ---

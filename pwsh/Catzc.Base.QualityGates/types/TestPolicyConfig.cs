@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "74c54646707a"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/TestPolicyConfig.Tests.ps1
-    docs: "[TestPolicyConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/TestPolicyConfig.cs.md)"
+    docs: "[TestPolicyConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/TestPolicyConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-TEST-TESTINGINPRODUCTION

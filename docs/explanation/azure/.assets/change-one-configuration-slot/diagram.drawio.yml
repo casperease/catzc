@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "757b9c126a0a"
+#     with_body_sha: "55250000d022"
 # ---
 
 description:
@@ -66,6 +66,110 @@ content:
     - at: e-group
       number: 4
   legend: auto
+  minimaps:
+    axis:
+      - cell: CLOUD/deploy
+        by:
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-IACKIND-THREEKINDS
+      - cell: CLOUD/access
+        by:
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+    lifecycle-position:
+      - cell: main-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-IACKIND-THREEKINDS
+      - cell: release-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-IACKIND-THREEKINDS
+      - cell: pre-prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-IACKIND-THREEKINDS
+      - cell: prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-IACKIND-THREEKINDS
+    layer-stack:
+      - cell: automation
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/azure/azure-data-model.md
+          - docs/adr/azure/dora-explains.md
+          - docs/adr/azure/infrastructure-kinds.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/references/ado/pipelines/cd-shared.yaml.md
+          - docs/references/ado/pipelines/extends/cd-customer.yaml.md
+          - docs/references/infrastructure/templates/discovery/options.yml.md
+          - docs/references/infrastructure/templates/expedition/options.yml.md
+          - docs/references/infrastructure/templates/foundation/options.yml.md
+          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
+          - docs/references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.yml
+          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md
+          - docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md
+          - docs/references/pwsh/catzc-azure/configs/azure.yml.md
+          - docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/configs/glossary.yml
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigName.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs
+          - pwsh/Catzc.Azure/types/AzureTenantRecord.cs
+          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-IACKIND-THREEKINDS
 layout:
   r-owner:
     x: 540

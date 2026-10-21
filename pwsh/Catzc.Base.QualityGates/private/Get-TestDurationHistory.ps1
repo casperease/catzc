@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f40dab41ad9f
   edges:
-    docs: "[Get-TestDurationHistory.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TestDurationHistory.ps1.md)"
+    docs: "[Get-TestDurationHistory.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestDurationHistory.ps1.md)"
 ---
 #>
 

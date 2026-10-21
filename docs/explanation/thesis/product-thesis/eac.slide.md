@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: table
     deck: product-thesis
-    order: 10
+    order: 11
 ---
 
 # Everything as code

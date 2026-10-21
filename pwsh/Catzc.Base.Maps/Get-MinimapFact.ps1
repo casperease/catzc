@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "98de20dbf195"
+    with_body_sha: "71f42c784767"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-MinimapFact.Tests.ps1
     docs: "[Get-MinimapFact.ps1.md](docs/references/pwsh/catzc-base-maps/Get-MinimapFact.ps1.md)"
@@ -18,12 +18,50 @@ function Get-MinimapFact {
         [string[]] $Path
     )
 
-    # One Get-FileMetaFact read for every path, so a call over many folders pays its git processes once.
+    # A file's place is read from where it sits, never from its head: its track, the module that holds it and its language.
+    $languages = Get-Config -Config languages
     $facts = @{}
-    $unique = @($Path | Sort-Object -Unique)
-    if ($unique.Count -gt 0) {
-        foreach ($fact in @(Get-FileMetaFact -Path $unique)) {
-            $facts[$fact.Path] = $fact.Immutable
+    foreach ($file in @($Path | Sort-Object -Unique)) {
+        $track = Get-Track -Path $file
+        $module = Get-PathModule $file
+        $language = $languages.ForPath($file)
+        $facts[$file] = @{
+            track      = if ($track) {
+                $track.name
+            }
+            else {
+                ''
+            }
+            tracktype  = if ($track) {
+                $track.type
+            }
+            else {
+                ''
+            }
+            vendor     = if ($track -and $track.vendor) {
+                $track.vendor
+            }
+            else {
+                ''
+            }
+            module     = if ($module) {
+                $module.name
+            }
+            else {
+                ''
+            }
+            moduletype = if ($module) {
+                $module.type
+            }
+            else {
+                ''
+            }
+            language   = if ($language) {
+                $language.name
+            }
+            else {
+                ''
+            }
         }
     }
     $facts

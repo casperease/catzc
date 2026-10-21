@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "463cc31a2650"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-RepointedMarkdownText.Tests.ps1
-    docs: "[Get-RepointedMarkdownText.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-RepointedMarkdownText.ps1.md)"
+    docs: "[Get-RepointedMarkdownText.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-RepointedMarkdownText.ps1.md)"
     cites:
       - ADR-REPO-FORMAT-PLAINHEADINGS
 ---

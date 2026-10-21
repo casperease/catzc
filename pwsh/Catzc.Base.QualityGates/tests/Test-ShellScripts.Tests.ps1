@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ba49d68fd2fe
   edges:
-    docs: "[Test-ShellScripts.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-ShellScripts.Tests.ps1.md)"
+    docs: "[Test-ShellScripts.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-ShellScripts.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-ShellScripts.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: eb4cf03d4801
   edges:
-    docs: "[Get-FunctionDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Get-FunctionDependency.Tests.ps1.md)"
+    docs: "[Get-FunctionDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/Get-FunctionDependency.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
 ---
 #>

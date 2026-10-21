@@ -25,6 +25,7 @@ usage (repo root, background):
   uv run --project python python python/catzc_diagrams/declaration.py check <diagram folder>...
   uv run --project python python python/catzc_diagrams/declaration.py sync <diagram folder>
   uv run --project python python python/catzc_diagrams/declaration.py tidy <diagram folder>
+  uv run --project python python python/catzc_diagrams/declaration.py minimaps <diagram folder>
 
 A pair whose yml and png both moved from the pair committed at git HEAD, and now disagree, is a conflict: check names its cells, the bulk
 put skips it, and only put or get by name, the author's pick of the side that wins, clears it. Nothing merges.
@@ -38,6 +39,7 @@ import io
 import itertools
 import json
 import math
+import re
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
@@ -253,6 +255,9 @@ def undrawn(content, declared):
     from where it sits (put refuses a place inside another band)."""
     source, layout = declared["content"], declared["layout"]
     out = {**content, **{k: source[k] for k in SOURCE_ONLY}}
+    # The drawing shows which minimaps but not what lit their cells: the source's lit cells stay while it shows the same three.
+    if not content.get("minimaps") or list(content["minimaps"]) == list(source["minimaps"]):
+        out["minimaps"] = source["minimaps"]
     if source["bands"] and all(b["id"] in layout for b in source["bands"]) and {b["id"] for b in source["bands"]} == {b["id"] for b in content["bands"]}:
         out["bands"] = source["bands"]
     bands = {b["id"] for b in source["bands"]}
@@ -563,15 +568,30 @@ def normalise(raw, where="the declaration"):
     # The three minimaps: the ones the declaration names, or, when it names none, the kind's defaults maps.yml declares, which reach
     # the kit as the folder's minimap data (with_data).
     allowed = tuple(str(DEFAULTS["minimaps"]["ids"]).replace(",", " ").split())
-    declared = content.get("minimaps") or []
+    declared = content.get("minimaps") or {}
+    # Each shown minimap maps to its lit cells, each listed with what lit it: the placement is declared, so the gate can hold the drawing
+    # to it; `declaration.py minimaps` writes it from the folder's computed data.
+    if not isinstance(declared, dict):
+        raise DeclarationError(f"{where}: minimaps is a map from each shown minimap to its lit cells")
     if declared and len(declared) != 3:
         raise DeclarationError(f"{where}: minimaps names exactly three views of: {', '.join(allowed)}; it names {len(declared)}")
-    for view in declared:
+    out["minimaps"] = {}
+    for view, cells_lit in declared.items():
         if view not in allowed:
             choices(f"{where}: minimap view", view, allowed)
-    if declared and len(set(declared)) != 3:
-        raise DeclarationError(f"{where}: the three minimaps show three different views")
-    out["minimaps"] = [str(v) for v in declared]
+        if not isinstance(cells_lit, list):
+            raise DeclarationError(f"{where}: minimaps.{view} is a list of lit cells, each a map of cell and by")
+        placed = []
+        for lit_cell in cells_lit:
+            if not isinstance(lit_cell, dict) or set(lit_cell) != {"cell", "by"} or not str(lit_cell["cell"] or "").strip():
+                raise DeclarationError(f"{where}: minimaps.{view} lists a lit cell as a map of cell and by; got {lit_cell!r}")
+            by = lit_cell["by"] if isinstance(lit_cell["by"], list) else None
+            if not by or not all(isinstance(b, str) and b.strip() for b in by):
+                raise DeclarationError(f"{where}: minimaps.{view} cell '{lit_cell['cell']}' names what lit it in by, a list of files and rule codes")
+            if any(p["cell"] == str(lit_cell["cell"]) for p in placed):
+                raise DeclarationError(f"{where}: minimaps.{view} lists cell '{lit_cell['cell']}' twice")
+            placed.append({"cell": str(lit_cell["cell"]), "by": [str(b) for b in by]})
+        out["minimaps"][str(view)] = placed
     # What the diagram is about: the lens it is drawn through and the ADR codes every minimap is computed from, each checked against
     # the ADR registry.
     about = {"lens": lens, **{key: [str(v) for v in (about_raw.get(key) or [])] for key in minimaps.ABOUT_KEYS}}
@@ -1022,7 +1042,7 @@ def place(declaration):
     # Each minimap is drawn from the data Catzc.Base.Maps computed for the folder (with_data); a declaration put without its folder
     # draws the declared minimaps empty.
     data = declaration.get("minimap_data") or {}
-    for (cid, y, h), minimap in zip(SIDEBAR, list(data) or content["minimaps"]):
+    for (cid, y, h), minimap in zip(SIDEBAR, list(data) or list(content["minimaps"])):
         drawn = data.get(minimap) or {"id": minimap, "axes": [], "cells": [], "lit": []}
         image = minimaps.picture_from(drawn, SIDEBAR_W, h, content["theme"])
         cells.append(cell(cid, minimap, MINIMAP + f"noLabel=1;image={image};", SIDEBAR_X, y, SIDEBAR_W, h))
@@ -1204,8 +1224,8 @@ def get(model, kind=None):
     adrs: list = []
     content.update({"theme": next(iter(DEFAULTS["themes"])), "bands": [], "spans": [], "groups": [], "glyphs": []})
     content.update({"edges": [], "markers": [], "chips": [], "legend": "auto"})
-    # The drawing carries each minimap's view, not its claims: save() keeps the claims the source already holds.
-    content["minimaps"] = [plain(cells[cid].get("value")) for cid, _, _ in SIDEBAR if cid in cells]
+    # The drawing carries each minimap's view, not what lit its cells: save() keeps the lit cells the source already declares.
+    content["minimaps"] = {plain(cells[cid].get("value")): [] for cid, _, _ in SIDEBAR if cid in cells}
     flow_phrase = plain(cells["lg-edge-flow-t"].get("value")) if "lg-edge-flow-t" in cells else ""
     content["relation"] = flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") else ""
     thick_phrase = plain(cells["lg-edge-thick-t"].get("value")) if "lg-edge-thick-t" in cells else ""
@@ -1428,6 +1448,30 @@ def minimap_data(folder):
     return {view: minimap_contract.load_minimap(root / f"{view}.json") for view in json.loads(index.read_text(encoding="utf-8"))}
 
 
+def placement(data):
+    """Each minimap's lit cells as the declaration lists them: the cell's axis values joined by `/`, and what lit it, the subject files
+    first and then the rule codes they were requested by, each once and sorted."""
+    out = {}
+    for view, minimap in data.items():
+        lit = []
+        for entry in minimap.get("lit") or []:
+            reasons = entry.get("reasons") or []
+            files = sorted({r["subject"] for r in reasons if r.get("subject") and not re.fullmatch(r"ADR(-[A-Z0-9]+)+", r["subject"])})
+            rules = sorted({r["requested"] for r in reasons if r.get("requested")})
+            lit.append({"cell": "/".join(entry["at"]), "by": files + rules})
+        out[view] = lit
+    return out
+
+
+def declare_minimaps(folder):
+    """Write a folder's computed minimap placement into its source: content.minimaps lists each shown minimap's lit cells."""
+    declaration = load(folder)
+    declaration["content"]["minimaps"] = placement(minimap_data(folder))
+    source = Path(folder) / SOURCE
+    source.write_text(dump(normalise(yaml.safe_load(dump(declaration)), where=str(source))), encoding="utf-8")
+    return source
+
+
 def with_data(folder, declaration):
     """The declaration with its folder's minimap data, which put draws the sidebar from."""
     return {**declaration, "minimap_data": minimap_data(folder)}
@@ -1520,6 +1564,9 @@ def main():
         folder = Path(args[1])
         save(folder, load(folder))
         print(f"tidy {folder / SOURCE}")
+        return
+    if len(args) == 2 and args[0] == "minimaps":  # the folder's computed minimap cells written into its source
+        print(f"minimaps {declare_minimaps(Path(args[1]))}")
         return
     if len(args) == 2 and args[0] == "sync":  # one JSON line: the directions run, or the conflict that stopped them
         try:

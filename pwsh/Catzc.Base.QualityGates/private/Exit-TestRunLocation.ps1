@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0ea94b4007d5"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Exit-TestRunLocation.Tests.ps1
-    docs: "[Exit-TestRunLocation.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md)"
+    docs: "[Exit-TestRunLocation.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Exit-TestRunLocation.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 ---

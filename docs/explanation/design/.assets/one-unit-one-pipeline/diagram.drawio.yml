@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "48e23f93d218"
+#     with_body_sha: ee3860390100
 # ---
 
 description: "A track composes into a deployable-unit, and a deployable-unit binds one pipeline: the delivery side of cats in a line."
@@ -60,9 +60,197 @@ content:
       number: 5
   legend: auto
   minimaps:
-    - code-locations
-    - grid
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: docs/-/.
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/tracks.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/how-to/pwsh/manual-test-plan/repository-conventions.md
+          - docs/references/ado/pipelines/ci-pwsh.yaml.md
+          - docs/references/note-file-kind.md
+          - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/types/MapCell.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMap.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-LanguageTestFolders.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.Globs/configs
+        by:
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by:
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+      - cell: pwsh/Catzc.Base.Languages/tests
+        by:
+          - pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.Maps/types
+        by:
+          - pwsh/Catzc.Base.Maps/types/MapCell.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMap.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapHighlight.cs
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+      - cell: pwsh/Catzc.Base.Variants/.
+        by:
+          - pwsh/Catzc.Base.Variants/Get-Track.ps1
+          - pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.Variants/types
+        by:
+          - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+    grid:
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: docs/markdown
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/tracks.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/how-to/pwsh/manual-test-plan/repository-conventions.md
+          - docs/references/ado/pipelines/ci-pwsh.yaml.md
+          - docs/references/note-file-kind.md
+          - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/types/MapCell.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMap.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-LanguageTestFolders.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Maps/types/MapCell.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMap.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapHighlight.cs
+          - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1
+          - pwsh/Catzc.Base.Variants/Get-Track.ps1
+          - pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+    axis:
+      - cell: DSGN/*
+        by:
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETRACKTYPE
+          - ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
 layout:
   band-tracks:
     x: 20

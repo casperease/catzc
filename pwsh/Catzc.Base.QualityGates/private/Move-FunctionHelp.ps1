@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1569e05c481c"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Move-FunctionHelp.Tests.ps1
-    docs: "[Move-FunctionHelp.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Move-FunctionHelp.ps1.md)"
+    docs: "[Move-FunctionHelp.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Move-FunctionHelp.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-NOREADBACK
       - ADR-REPO-HELP-HELPONCOMMENTPAGE

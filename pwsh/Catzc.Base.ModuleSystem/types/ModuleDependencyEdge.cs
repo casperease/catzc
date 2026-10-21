@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "56b13f1a7844"
   edges:
-    docs: "[ModuleDependencyEdge.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ModuleDependencyEdge.cs.md)"
+    docs: "[ModuleDependencyEdge.cs.md](docs/references/pwsh/catzc-base-module-system/types/ModuleDependencyEdge.cs.md)"
 ---
 */
 

@@ -15,7 +15,7 @@ metadata:
 
 1. One questionnaire item per open question: one to five lines of context, the options, no links; items are numbered once and never
    renumbered.
-2. Ask four at a time; the first option is the recommendation and says so; a decision row records Q, Decision, Rec taken, Outcome (two to
+2. Ask four at a time; the first option is the recommendation and says so; a decision row (questionnaire and decisions files in `out/`) records Q, Decision, Rec taken, Outcome (two to
    ten words), Note; a reframing answer is quoted where it carries a new rule.
 3. The user decides; nothing unanswered is decided by the agent; after the round each decision moves into its owning plan one file at a time
    and the decisions file stays until its decisions are in ADRs.

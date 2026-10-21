@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b295f4e89251
+#     with_body_sha: "3150bd0abd7b"
 # ---
 
 reminders:
@@ -17,3 +17,7 @@ reminders:
     say: >-
       You edited a glossary source. Before you report: run `Build-Glossary`, then `Test-Glossary`; a contrast is declared once, on either
       term.
+  - paths: ["pwsh/**/*.ps1"]
+    say: >-
+      You edited a PowerShell file that every session's next import may dot-source. Parse-check it now, instantly and without an import,
+      with `[System.Management.Automation.Language.Parser]::ParseFile`; one parse error breaks every session.

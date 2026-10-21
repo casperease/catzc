@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "28c8902f6f34"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
-    docs: "[Export-Comments.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Export-Comments.ps1.md)"
+    docs: "[Export-Comments.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Export-Comments.ps1.md)"
     cites:
       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
       - ADR-PRIN-ONELIVE-ONEVERSION

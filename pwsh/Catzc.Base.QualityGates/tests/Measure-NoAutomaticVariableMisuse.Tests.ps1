@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5876873bae4b"
   edges:
-    docs: "[Measure-NoAutomaticVariableMisuse.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1.md)"
+    docs: "[Measure-NoAutomaticVariableMisuse.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1.md)"
 ---
 #>
 

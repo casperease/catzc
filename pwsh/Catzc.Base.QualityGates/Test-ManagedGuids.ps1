@@ -5,7 +5,7 @@ catzc:
     with_body_sha: db662c052b39
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-ManagedGuids.Tests.ps1
-    docs: "[Test-ManagedGuids.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-ManagedGuids.ps1.md)"
+    docs: "[Test-ManagedGuids.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-ManagedGuids.ps1.md)"
     cites:
       - ADR-AUTO-GUIDS
       - ADR-AUTO-TEST-QUALITYGATE

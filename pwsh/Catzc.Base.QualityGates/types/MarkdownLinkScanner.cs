@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "514f8b75ca30"
   edges:
-    docs: "[MarkdownLinkScanner.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md)"
+    docs: "[MarkdownLinkScanner.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/MarkdownLinkScanner.cs.md)"
     cites:
       - ADR-REPO-LINK-MARKDOWNRELATIVE
 ---

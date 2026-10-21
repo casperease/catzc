@@ -39,4 +39,4 @@ cache follows.
 - ADR: [caching](../../../adr/automation/caching.md) — the re-import invalidation boundary `-Force` honours.
 - ADR: [pipeline-detection](../../../adr/flow/pipeline-detection.md) — the one detection function the loader carries.
 - Reference: the [internal area overview](index.md) and the shared modules it loads — [Types](catzc-internal-types.md),
-  [Vendor](catzc-internal-vendor.md), [Bootstrap](catzc-internal-bootstrap.md), [TestKit](catzc-internal-testkit.md).
+  [Vendor](catzc-internal-vendor.md), [Bootstrap](catzc-internal-bootstrap.md), [TestKit](catzc-internal-test-kit.md).

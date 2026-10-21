@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ceee4617522b
   edges:
-    docs: "[Get-LinkLineLimit.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-LinkLineLimit.ps1.md)"
+    docs: "[Get-LinkLineLimit.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-LinkLineLimit.ps1.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f4e4a321c280
   edges:
-    docs: "[YamlTemplateType.cs.md](docs/references/pwsh/catzc-azure-devops/types/YamlTemplateType.cs.md)"
+    docs: "[YamlTemplateType.cs.md](docs/references/pwsh/catzc-azure-dev-ops/types/YamlTemplateType.cs.md)"
 ---
 */
 

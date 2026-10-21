@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: def2f4c13125
+    with_body_sha: b95710442b78
   edges:
     code: pwsh/Catzc.Tooling.Github/Reset-GitHubRepository.ps1
 ---

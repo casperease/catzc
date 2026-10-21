@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "041c919f8e4d"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
-    docs: "[Test-SourceConventions.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-SourceConventions.ps1.md)"
+    docs: "[Test-SourceConventions.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-SourceConventions.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

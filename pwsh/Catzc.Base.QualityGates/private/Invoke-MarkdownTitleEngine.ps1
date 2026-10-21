@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c8786d9bcc59
   edges:
-    docs: "[Invoke-MarkdownTitleEngine.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-MarkdownTitleEngine.ps1.md)"
+    docs: "[Invoke-MarkdownTitleEngine.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-MarkdownTitleEngine.ps1.md)"
 ---
 #>
 

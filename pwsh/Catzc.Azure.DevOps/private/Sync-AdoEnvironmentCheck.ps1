@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e76abb9acb07
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Sync-AdoEnvironmentCheck.Tests.ps1
-    docs: "[Sync-AdoEnvironmentCheck.ps1.md](docs/references/pwsh/catzc-azure-devops/private/Sync-AdoEnvironmentCheck.ps1.md)"
+    docs: "[Sync-AdoEnvironmentCheck.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/private/Sync-AdoEnvironmentCheck.ps1.md)"
 ---
 #>
 

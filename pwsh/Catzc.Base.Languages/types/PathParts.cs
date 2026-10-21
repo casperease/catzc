@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a65ddaf49d9b
+    with_body_sha: "4961fe5f8a6d"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/PathParts.Tests.ps1
     docs: "[PathParts.cs.md](docs/references/pwsh/catzc-base-languages/types/PathParts.cs.md)"
@@ -58,7 +58,7 @@ public sealed class PathParts
         string file = normalized.Substring(slash + 1);
         string filetype = FileTypeOf(file);
         string stem = filetype.Length == 0 ? file : file.Substring(0, file.Length - filetype.Length - 1);
-        string name = LanguageNaming.Render(stem, "kebab");
+        string name = Catzc.Base.Objects.NameCase.Render(stem, "kebab");
         if (!KebabPattern.IsMatch(name))
         {
             throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
@@ -72,8 +72,8 @@ public sealed class PathParts
         if (folder.Length > 0) { built.Append(folder).Append('/'); }
         built.Append(name);
         if (filetype.Length > 0) { built.Append('.').Append(filetype); }
-        string expected = string.Join("/", normalized.Split('/').Select(s => LanguageNaming.Render(s, "kebab")));
-        string actual = string.Join("/", built.ToString().Split('/').Select(s => LanguageNaming.Render(s, "kebab")));
+        string expected = string.Join("/", normalized.Split('/').Select(s => Catzc.Base.Objects.NameCase.Render(s, "kebab")));
+        string actual = string.Join("/", built.ToString().Split('/').Select(s => Catzc.Base.Objects.NameCase.Render(s, "kebab")));
         if (!string.Equals(expected, actual, StringComparison.Ordinal))
         {
             throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ca1483bfff71
   edges:
-    docs: "[Set-AdoPipelineVariable.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops/tests/Set-AdoPipelineVariable.Tests.ps1.md)"
+    docs: "[Set-AdoPipelineVariable.Tests.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/tests/Set-AdoPipelineVariable.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
 ---
 #>

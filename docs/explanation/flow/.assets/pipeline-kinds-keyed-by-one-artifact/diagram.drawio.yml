@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "57b6528d0950"
+#     with_body_sha: "2801ef6d3e0c"
 # ---
 
 description:
@@ -134,9 +134,189 @@ content:
       corner: bottom-right
   legend: auto
   minimaps:
-    - code-locations
-    - grid
-    - axis
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: docs/-/.
+        by:
+          - docs/adr/flow/cd-discipline-and-promotion-flow.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/ado/pipelines/deploy-nova.yaml.md
+          - docs/references/ado/pipelines/deploy-shared.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Flow/tests/types
+        by:
+          - pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
+          - ADR-FLOW-CD-PREPRODRUNG
+      - cell: pwsh/Catzc.Base.Flow/types
+        by:
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+    grid:
+      - cell: .claude/markdown
+        by:
+          - .claude/CLAUDE.md
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: docs/markdown
+        by:
+          - docs/adr/flow/cd-discipline-and-promotion-flow.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/ado/pipelines/deploy-nova.yaml.md
+          - docs/references/ado/pipelines/deploy-shared.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: DSGN/quality-control
+        by:
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: DSGN/release
+        by:
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: DSGN/deploy
+        by:
+          - ADR-FLOW-CD-CDCONTAINSCI
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-PREPRODRUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - ADR-FLOW-CD-TWORELEASEGATES
 layout:
   band-cd:
     x: 20

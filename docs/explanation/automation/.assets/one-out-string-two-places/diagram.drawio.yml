@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9cd5a929fc3f"
+#     with_body_sha: ebc3c405ce73
 # ---
 
 description:
@@ -96,9 +96,130 @@ content:
       number: 7
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: .claude/.claude/skills/catzc-module
+        by:
+          - .claude/skills/catzc-module/SKILL.md
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: docs/-/.
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/path-representation.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-base-docs/configs/readme.yml.md
+          - docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/DocPattern.cs.md
+          - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md
+          - docs/references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md
+          - docs/references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
+          - docs/references/pwsh/catzc-base-repository/Resolve-RepoPath.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/configs/rootconfig.yml.md
+          - docs/references/pwsh/catzc-base-root-config/types/RootConfigFile.cs.md
+          - docs/references/pwsh/catzc-tooling-inspiration/private/Resolve-InspirationRoot.ps1.md
+          - docs/references/pwsh/catzc-tooling-inspiration/types/InspirationRoot.cs.md
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/readme.yml
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/DocMapping.cs
+          - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: pwsh/Catzc.Base.Objects/types
+        by:
+          - pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: pwsh/Catzc.Base.Repository/.
+        by:
+          - pwsh/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+          - pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: pwsh/Catzc.Base.RootConfig/configs
+        by:
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: pwsh/Catzc.Base.RootConfig/types
+        by:
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: pwsh/Catzc.Tooling.Inspiration/private
+        by:
+          - pwsh/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+      - cell: pwsh/Catzc.Tooling.Inspiration/types
+        by:
+          - pwsh/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+    module-neighbourhood:
+      - cell: subject/.claude
+        by:
+          - .claude/skills/catzc-module/SKILL.md
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/readme.yml
+          - pwsh/Catzc.Base.Docs/types/DocMapping.cs
+          - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: subject/Catzc.Base.Objects
+        by:
+          - pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: subject/Catzc.Base.Repository
+        by:
+          - pwsh/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+          - pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+      - cell: subject/Catzc.Tooling.Inspiration
+        by:
+          - pwsh/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
+          - pwsh/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-OUTANCHOR
 layout:
   band-communication:
     x: 20

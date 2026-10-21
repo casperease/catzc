@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "41e6d95540e4"
+    with_body_sha: "26472344cdbf"
   edges:
     code: pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs
     cites:
@@ -467,9 +467,9 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             @{ Case = 'snake'; Name = 'widget_gadget_part'; Words = 'widget gadget part' }
             @{ Case = 'flat'; Name = 'widgetgadget'; Words = 'widgetgadget' }
         ) {
-            $segments = [Catzc.Base.Languages.LanguageNaming]::Split($Case, $Name)
+            $segments = [Catzc.Base.Objects.NameCase]::Split($Case, $Name)
             ($segments.ForEach({ $_ -join ' ' }) -join '|') | Should -BeExactly $Words
-            [Catzc.Base.Languages.LanguageNaming]::Join($Case, $segments) | Should -BeExactly $Name
+            [Catzc.Base.Objects.NameCase]::Join($Case, $segments) | Should -BeExactly $Name
         }
 
         It 'renders one name in every case, the namespaces joined as one run where a case has none' -Tag 'ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM' -ForEach @(
@@ -480,32 +480,32 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             @{ Case = 'camel'; Expected = 'widgetBaseGadgetParts' }
             @{ Case = 'pascal-dotted'; Expected = 'Widget.Base.GadgetParts' }
         ) {
-            $segments = [Catzc.Base.Languages.LanguageNaming]::Split('pascal-dotted', 'Widget.Base.GadgetParts')
-            [Catzc.Base.Languages.LanguageNaming]::Join($Case, $segments) | Should -BeExactly $Expected
+            $segments = [Catzc.Base.Objects.NameCase]::Split('pascal-dotted', 'Widget.Base.GadgetParts')
+            [Catzc.Base.Objects.NameCase]::Join($Case, $segments) | Should -BeExactly $Expected
         }
 
         It 'reads an acronym as one ordinary word, so a capitalised run does not round-trip' -Tag 'ADR-AUTO-IDIOM-ACRONYMISWORD' {
-            $segments = [Catzc.Base.Languages.LanguageNaming]::Split('pascal', 'HTTPGadget')
+            $segments = [Catzc.Base.Objects.NameCase]::Split('pascal', 'HTTPGadget')
             $segments[0] | Should -Be @('http', 'gadget')
-            [Catzc.Base.Languages.LanguageNaming]::Join('pascal', $segments) | Should -BeExactly 'HttpGadget'
+            [Catzc.Base.Objects.NameCase]::Join('pascal', $segments) | Should -BeExactly 'HttpGadget'
         }
 
         It 'takes the longest leading approved verb, and throws when the words start with none' -Tag 'ADR-AUTO-IDIOM-ROUNDTRIP' {
-            [Catzc.Base.Languages.LanguageNaming]::Join('verb-noun', [string[][]] @(, [string[]] @('convert', 'from', 'gadget'))) | Should -BeExactly 'ConvertFrom-Gadget'
-            { [Catzc.Base.Languages.LanguageNaming]::Join('verb-noun', [string[][]] @(, [string[]] @('gadget', 'part'))) } | Should -Throw '*no approved verb*'
-            { [Catzc.Base.Languages.LanguageNaming]::Join('verb-noun', [string[][]] @(, [string[]] @('get'))) } | Should -Throw '*no approved verb*'
+            [Catzc.Base.Objects.NameCase]::Join('verb-noun', [string[][]] @(, [string[]] @('convert', 'from', 'gadget'))) | Should -BeExactly 'ConvertFrom-Gadget'
+            { [Catzc.Base.Objects.NameCase]::Join('verb-noun', [string[][]] @(, [string[]] @('gadget', 'part'))) } | Should -Throw '*no approved verb*'
+            { [Catzc.Base.Objects.NameCase]::Join('verb-noun', [string[][]] @(, [string[]] @('get'))) } | Should -Throw '*no approved verb*'
         }
 
         It 'keeps snake''s leading and trailing underscores outside the case' -Tag 'ADR-AUTO-IDIOM-CLOSEDCASES' {
-            [Catzc.Base.Languages.LanguageNaming]::Split('snake', '__init__')[0] | Should -Be @('init')
-            [Catzc.Base.Languages.LanguageNaming]::Split('snake', '_private_part')[0] | Should -Be @('private', 'part')
+            [Catzc.Base.Objects.NameCase]::Split('snake', '__init__')[0] | Should -Be @('init')
+            [Catzc.Base.Objects.NameCase]::Split('snake', '_private_part')[0] | Should -Be @('private', 'part')
         }
 
         It 'splits nothing for a name outside the case, and throws on an unknown case or a word that is not lowercase' -Tag 'ADR-AUTO-IDIOM-CLOSEDCASES' {
-            [Catzc.Base.Languages.LanguageNaming]::Split('kebab', 'Gadget-Part') | Should -BeNullOrEmpty
-            [Catzc.Base.Languages.LanguageNaming]::Split('pascal', 'Widget.Gadget') | Should -BeNullOrEmpty
-            { [Catzc.Base.Languages.LanguageNaming]::Split('title', 'Gadget Part') } | Should -Throw "*unknown case 'title'*"
-            { [Catzc.Base.Languages.LanguageNaming]::Join('kebab', [string[][]] @(, [string[]] @('Gadget'))) } | Should -Throw "*'Gadget' is not a lowercase word*"
+            [Catzc.Base.Objects.NameCase]::Split('kebab', 'Gadget-Part') | Should -BeNullOrEmpty
+            [Catzc.Base.Objects.NameCase]::Split('pascal', 'Widget.Gadget') | Should -BeNullOrEmpty
+            { [Catzc.Base.Objects.NameCase]::Split('title', 'Gadget Part') } | Should -Throw "*unknown case 'title'*"
+            { [Catzc.Base.Objects.NameCase]::Join('kebab', [string[][]] @(, [string[]] @('Gadget'))) } | Should -Throw "*'Gadget' is not a lowercase word*"
         }
 
         It 'renders any text by its words, a case boundary and any non-letter starting a word' -Tag 'ADR-AUTO-IDIOM-CLOSEDCASES' -ForEach @(
@@ -515,7 +515,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             @{ Text = 'already-kebab'; Expected = 'already-kebab' }
             @{ Text = '..'; Expected = '' }
         ) {
-            [Catzc.Base.Languages.LanguageNaming]::Render($Text, 'kebab') | Should -BeExactly $Expected
+            [Catzc.Base.Objects.NameCase]::Render($Text, 'kebab') | Should -BeExactly $Expected
         }
 
         It 'names a module''s test folder in each language''s first folder case, and throws for a language without one or a name not dotted pascal' -Tag 'ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM' {
@@ -556,12 +556,12 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         }
 
         It 'carries a name to the normal form and back, snake''s outer underscores outside the case' -Tag 'ADR-AUTO-IDIOM-NORMALFORM' {
-            [Catzc.Base.Languages.LanguageNaming]::ToNormal('pascal-dotted', 'Widget.Base.GadgetParts', 'snake') | Should -BeExactly 'widget.base.gadget_parts'
-            [Catzc.Base.Languages.LanguageNaming]::FromNormal('widget.base.gadget_parts', 'pascal-dotted', 'snake') | Should -BeExactly 'Widget.Base.GadgetParts'
-            [Catzc.Base.Languages.LanguageNaming]::ToNormal('snake', '__init__', 'snake') | Should -BeExactly '__init__'
-            [Catzc.Base.Languages.LanguageNaming]::FromNormal('__init__', 'snake', 'snake') | Should -BeExactly '__init__'
-            [Catzc.Base.Languages.LanguageNaming]::FromNormal('_private_part', 'pascal', 'snake') | Should -BeExactly 'PrivatePart'
-            { [Catzc.Base.Languages.LanguageNaming]::ToNormal('kebab', 'Gadget', 'snake') } | Should -Throw "*'Gadget' is not kebab*"
+            [Catzc.Base.Objects.NameCase]::ToNormal('pascal-dotted', 'Widget.Base.GadgetParts', 'snake') | Should -BeExactly 'widget.base.gadget_parts'
+            [Catzc.Base.Objects.NameCase]::FromNormal('widget.base.gadget_parts', 'pascal-dotted', 'snake') | Should -BeExactly 'Widget.Base.GadgetParts'
+            [Catzc.Base.Objects.NameCase]::ToNormal('snake', '__init__', 'snake') | Should -BeExactly '__init__'
+            [Catzc.Base.Objects.NameCase]::FromNormal('__init__', 'snake', 'snake') | Should -BeExactly '__init__'
+            [Catzc.Base.Objects.NameCase]::FromNormal('_private_part', 'pascal', 'snake') | Should -BeExactly 'PrivatePart'
+            { [Catzc.Base.Objects.NameCase]::ToNormal('kebab', 'Gadget', 'snake') } | Should -Throw "*'Gadget' is not kebab*"
         }
 
         It 'judges a file name past its role suffix and the one qualifier before it' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {

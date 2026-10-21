@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "251caac2c428"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1
-    docs: "[Get-FormatEngineStamp.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-FormatEngineStamp.ps1.md)"
+    docs: "[Get-FormatEngineStamp.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-FormatEngineStamp.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "83407217dd34"
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
-    docs: "[Test-ShippedTypes.ps1.md](docs/references/pwsh/catzc-base-typessystem/Test-ShippedTypes.ps1.md)"
+    docs: "[Test-ShippedTypes.ps1.md](docs/references/pwsh/catzc-base-types-system/Test-ShippedTypes.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
 ---

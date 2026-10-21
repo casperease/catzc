@@ -42,28 +42,23 @@ plans stay the durable record; task files and this master are derived from them 
 
 ## Chunks
 
-Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. Questions raised after the round of
-2026-10-21 are open in agent-friction, claude-diet, truth-stores, session-learnings and test-signal-proposals; they wait on the next
-plan-decide round, and only truth-stores and test-signal-proposals are blocked by them.
+Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
+of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
 - idiomatic-names -> plan-idiomatic-names.md: wire the naming gate in (the three folder renames are tracked), then the repository normal
   form: helper and acronym renames, the repair command, and the `0.0.0` command contracts.
 - listen-internal-readers -> plan-listen-internal-readers.md: one step left, the user's `.claude/CLAUDE.md` edit
   (task-user-runs-and-commits); the plan closes when it lands.
 - agent-shortcuts -> plan-agent-shortcuts.md: one step left, the gate runner's CLAUDE.md line (the user's, task-user-runs-and-commits).
-- truth-stores -> plan-truth-stores.md: the approved sample enters the product-thesis deck; blocked_on its Q1 (no slide pattern carries an
-  image).
 - bcl-language -> plan-bcl-language.md: one step left, the CLAUDE.md line (the user's, task-user-runs-and-commits).
 - agent-friction -> plan-agent-friction.md: the head how-to and its drawing sample (free now that minimal-heads has landed); the CLAUDE.md
   trim (the user's).
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
-- accosted-language -> plan-accosted-language.md: one check left, the accosted run under zsh once zsh is installed.
-- session-learnings -> plan-session-learnings.md: one learning reworded and catzc-49's lines appended; eight open questions wait on a
-  plan-decide round.
-- test-signal-proposals -> plan-test-signal-proposals.md: blocked_on its three questions for the user (the bridge's setup error, one
-  spelled-types list, the RungsConfig case); a plan-decide round answers them.
-- debt-diagram-render -> plan-debt-diagram-render.md: The png renderer silently drops unresolved style tokens, and the glyph library renders
-  only through a throwaway script; fail loud and render it through the one build.
+- session-learnings -> plan-session-learnings.md: one learning reworded and catzc-49's lines appended; its questions are decided.
+- minimap-reasons-gate -> plan-minimap-reasons-gate.md: every diagram's placed minimap data written into its `diagram.drawio.yml` under
+  `content.minimaps`, then the gate in Write-DiagramMinimapData drops an undeclared lit cell.
+- xdr-codes -> plan-xdr-codes.md: record-kind codes for the framing domains (RDR, TDR, PDR, WDR, DDR, FDR), the registry and parsers first,
+  then the rewrite one domain per step; after the minimap run, as one burst.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

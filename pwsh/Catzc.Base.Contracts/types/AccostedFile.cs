@@ -17,7 +17,8 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
-// An accosted file (ADR-AUTO-ACCOSTED-FILEFORM): its one key, runs, a non-empty list of runs.
+// An accosted file ([ADR-AUTO-ACCOSTED-FILEFORM](/docs/adr/automation/accosted-language.md#rule-adr-auto-accosted-fileform)): its one key,
+// runs, a non-empty list of runs.
 public sealed class AccostedFile
 {
     public IReadOnlyList<AccostedRun> runs { get; }

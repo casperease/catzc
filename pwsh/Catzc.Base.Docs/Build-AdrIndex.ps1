@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "73433978c063"
+    with_body_sha: "78abae8e20f6"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Build-AdrIndex.Tests.ps1
     docs: "[Build-AdrIndex.ps1.md](docs/references/pwsh/catzc-base-docs/Build-AdrIndex.ps1.md)"
@@ -120,7 +120,9 @@ function Build-AdrIndex {
 
     $content = (& $reflow $preamble) + "`n`n" + ($sections -join "`n`n") + "`n`n" + (& $reflow $conventions) + "`n"
 
-    $content = Format-GeneratedFileHead -Text $content -Path 'docs/adr/index.md' -Generator Build-AdrIndex -Source (ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/adrs.yml')) -FileKind (Get-FileKind 'docs/adr/index.md')
+    $content = Format-GeneratedFileHead -Text $content -Path 'docs/adr/index.md' -Generator Build-AdrIndex -Source @(foreach ($config in 'adrs.yml', 'adr-index.yml') {
+            ConvertTo-RepoRelativePath (Get-CatzcModuleRoot "configs/$config")
+        }) -FileKind (Get-FileKind 'docs/adr/index.md')
     $target = Resolve-RepoPath 'docs/adr/index.md'
     $changed = Write-FileIfChanged $target $content -DryRun:$DryRun
 

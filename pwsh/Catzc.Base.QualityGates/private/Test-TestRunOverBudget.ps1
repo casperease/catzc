@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f63557b18856
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-TestRunOverBudget.Tests.ps1
-    docs: "[Test-TestRunOverBudget.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md)"
+    docs: "[Test-TestRunOverBudget.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Test-TestRunOverBudget.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - ADR-AUTO-TEST-DEVBOXRUNBUDGET

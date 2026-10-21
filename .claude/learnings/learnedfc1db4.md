@@ -82,3 +82,25 @@ Started 2026-10-21T06:22:09.4408143+02:00.
   a script per check.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: reading a function's Invoke-Executable defaults before writing an L1 test against
   scratch repositories.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Catzc.Base.Languages depends on Catzc.Base.CodeMeta (FileCarrier builds a
+  CodeMeta.HeadForm), so a CodeMeta type reaches the name-case logic only through Catzc.Base.Objects.NameCase.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Test-ManualTestPlan requires a row for every Describe tagged integrity, and a row
+  title must equal its Describe name, so renaming an integrity block means editing its manual-test-plan row too.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: a function whose help sits inline fails Format-Code until the help moves to its
+  comment page's ## help section; Get-Help then shows only the syntax line, the same as every page-backed function.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Move-Diagram moves only tracked diagram folders; an approved sample in out/ is
+  placed by copying its diagram.drawio.png and diagram.drawio.yml.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Get-SlideFinding checks that every slide field shows in the rendered slide, so a
+  field rendered into an attribute (an image src) must be read from the attribute values too.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: an assembly cannot unload, so a session that loaded the old Catzc.Types sees a
+  renamed config key as an error until it imports in a fresh pwsh.
+- 2026-10-21 Cats: Token tip: Next time, save tokens by: checking dependencies.yml for a cycle before planning a cross-module type call,
+  which turned a sized rename into a design question.
+- 2026-10-21 Cats: Token tip: Next time, save tokens by: replacing a whole type prefix ([Ns.Type]::) rather than its member names one by
+  one, so no half-renamed [Old.Ns.NewType] is left behind.
+- 2026-10-21 Cats: The Bash hook binary validates timeouts.yml against its own linked copy of TimeoutsConfig.cs and is rebuilt by the import
+  janitor Build-AgentHook, so a new timeouts key lands in the type first, then one fresh import, then the yml line.
+- 2026-10-21 Cats: Every glossary.yml is parsed by the Build-Glossary import janitor, so a short value holding a colon and a space must be
+  quoted or every session's import fails.
+- 2026-10-21 Cats: Invoke-TestFile takes test files only; a language test folder (Go, Python, Bash) reaches Language.Bridge.ps1 only through
+  Test-Automation container mapping.

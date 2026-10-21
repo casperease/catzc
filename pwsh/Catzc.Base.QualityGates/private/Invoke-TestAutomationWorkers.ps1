@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5c1c05c8bda5"
   edges:
-    docs: "[Invoke-TestAutomationWorkers.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md)"
+    docs: "[Invoke-TestAutomationWorkers.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-TestAutomationWorkers.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
       - ADR-AUTO-TEST-ONESCHEDULINGPOOL

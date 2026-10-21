@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "35fb9a833967"
+#     with_body_sha: "4f1539429d69"
 # ---
 
 description:
@@ -75,9 +75,72 @@ content:
       number: 5
   legend: auto
   minimaps:
-    - code-locations
-    - grid
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+      - cell: docs/-/.
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/server-remote-integration.md
+          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/adr/index.md
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+    grid:
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+      - cell: docs/markdown
+        by:
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/server-remote-integration.md
+          - docs/adr/index.md
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+      - cell: docs/yaml
+        by:
+          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+      - cell: DSGN/quality-control
+        by:
+          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
+          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
 layout:
   band-in:
     x: 20

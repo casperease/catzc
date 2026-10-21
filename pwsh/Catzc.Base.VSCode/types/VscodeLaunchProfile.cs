@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2f8ffc182b35"
   edges:
-    docs: "[VscodeLaunchProfile.cs.md](docs/references/pwsh/catzc-base-vscode/types/VscodeLaunchProfile.cs.md)"
+    docs: "[VscodeLaunchProfile.cs.md](docs/references/pwsh/catzc-base-vs-code/types/VscodeLaunchProfile.cs.md)"
 ---
 */
 

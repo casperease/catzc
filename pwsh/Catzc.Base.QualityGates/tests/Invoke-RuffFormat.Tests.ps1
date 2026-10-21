@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "277c2ed3884b"
   edges:
-    docs: "[Invoke-RuffFormat.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-RuffFormat.Tests.ps1.md)"
+    docs: "[Invoke-RuffFormat.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-RuffFormat.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Invoke-RuffFormat.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

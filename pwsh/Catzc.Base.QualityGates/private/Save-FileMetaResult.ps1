@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "637b54e55b5b"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Save-FileMetaResult.Tests.ps1
-    docs: "[Save-FileMetaResult.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Save-FileMetaResult.ps1.md)"
+    docs: "[Save-FileMetaResult.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Save-FileMetaResult.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-IMPRINTEDPARTS
 ---

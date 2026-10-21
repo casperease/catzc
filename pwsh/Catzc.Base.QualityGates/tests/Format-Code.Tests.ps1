@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "841e9875e259"
   edges:
-    docs: "[Format-Code.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md)"
+    docs: "[Format-Code.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Format-Code.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Format-Code.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST

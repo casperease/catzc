@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: table
     deck: product-thesis
-    order: 13
+    order: 14
 ---
 
 # Reduce waste

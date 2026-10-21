@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "67fda0297add"
+#     with_body_sha: "6ed939360134"
 # ---
 
 description:
@@ -95,9 +95,90 @@ content:
       number: 6
   legend: auto
   minimaps:
-    - code-locations
-    - grid
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: docs/-/.
+        by:
+          - docs/adr/automation/controlling-module-dependencies.md
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/ModuleGroup.cs.md
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/Catzc.Base.ModuleSystem/types
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+    grid:
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: docs/markdown
+        by:
+          - docs/adr/automation/controlling-module-dependencies.md
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/ModuleGroup.cs.md
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
 layout:
   band-top:
     x: 20

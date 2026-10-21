@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: dcb24c9c9f2e
   edges:
-    docs: "[TerminologyConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/TerminologyConfig.Tests.ps1.md)"
+    docs: "[TerminologyConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/TerminologyConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/TerminologyConfig.cs
     cites:
       - ADR-AUTO-SPELL-CATEGORYANDMEANING

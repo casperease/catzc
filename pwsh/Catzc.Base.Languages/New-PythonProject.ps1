@@ -98,7 +98,7 @@ function New-PythonProject {
             [pscustomobject]@{ Name = $folder; Folder = "tests/$folder" }
         }) +
     @(foreach ($module in $modules) {
-            [pscustomobject]@{ Name = $module.ToLowerInvariant().Replace('.', '-'); Folder = $module }
+            [pscustomobject]@{ Name = [Catzc.Base.Objects.NameCase]::Render($module, 'kebab'); Folder = $module }
         })
     foreach ($entry in $members) {
         $member = [System.Collections.Generic.List[string]]::new()

@@ -44,8 +44,9 @@ function Write-DiagramMinimapData {
         else {
             'explanation'
         }
+        # The declared minimaps map each shown id to its lit cells, so the ids are the map's keys.
         $ids = [string[]] @(if ($content -and $content.Contains('minimaps') -and $content['minimaps']) {
-                $content['minimaps']
+                $content['minimaps'].Keys
             }
             else {
                 $maps.MinimapsOf($kind).defaults

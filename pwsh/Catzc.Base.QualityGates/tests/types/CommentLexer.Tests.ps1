@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d08ae8afdeb5
   edges:
-    docs: "[CommentLexer.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/CommentLexer.Tests.ps1.md)"
+    docs: "[CommentLexer.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/CommentLexer.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/CommentLexer.cs
     cites:
       - ADR-REPO-LINK-KINDBYFILE

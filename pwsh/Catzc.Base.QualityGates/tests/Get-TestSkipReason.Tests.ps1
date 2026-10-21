@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c61a5d3f9cde
   edges:
-    docs: "[Get-TestSkipReason.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-TestSkipReason.Tests.ps1.md)"
+    docs: "[Get-TestSkipReason.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestSkipReason.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-TestSkipReason.ps1
 ---
 #>

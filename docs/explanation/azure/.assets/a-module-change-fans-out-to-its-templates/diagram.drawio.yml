@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0075cc7d062b"
+#     with_body_sha: "8844be4898ec"
 # ---
 
 description:
@@ -73,6 +73,45 @@ content:
     - at: r-cd
       number: 4
   legend: auto
+  minimaps:
+    axis:
+      - cell: CLOUD/deploy
+        by:
+          - ADR-AZ-IACKIND-THREEKINDS
+    lifecycle-position:
+      - cell: main-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-IACKIND-THREEKINDS
+      - cell: release-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-IACKIND-THREEKINDS
+      - cell: pre-prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-IACKIND-THREEKINDS
+      - cell: prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-IACKIND-THREEKINDS
+    layer-stack:
+      - cell: automation
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - docs/adr/azure/dora-explains.md
+          - docs/adr/azure/infrastructure-kinds.md
+          - docs/adr/index.md
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AZ-IACKIND-THREEKINDS
 layout:
   s-templates:
     x: 500

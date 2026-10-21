@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2fc96a5914e4"
+#     with_body_sha: a581deda2e80
 # ---
 
 description:
@@ -238,9 +238,432 @@ content:
       corner: bottom-right
   legend: auto
   minimaps:
-    - code-locations
-    - grid
-    - axis
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: .claude/.claude/agents
+        by:
+          - .claude/agents/test-optimization.md
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+      - cell: .claude/.claude/skills/test-speed
+        by:
+          - .claude/skills/test-speed/SKILL.md
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: docs/-/.
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/test-automation.md
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/visual-design.md
+          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/adr/flow/cd-discipline-and-promotion-flow.md
+          - docs/adr/flow/commit-lifecycle.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/ci-pwsh.yaml.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/ado/pipelines/deploy-nova.yaml.md
+          - docs/references/ado/pipelines/deploy-shared.yaml.md
+          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
+          - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/configs/artifacts.yml.md
+          - docs/references/pwsh/catzc-base-module-system/types/ArtifactsConfig.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-BuildArtifact.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestTagViolations.Tests.ps1.md
+          - docs/references/pwsh/catzc-tooling-key-handler/private/Select-SupportedKeyHandler.ps1.md
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Execution/.
+        by:
+          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+      - cell: pwsh/Catzc.Base.Flow/types
+        by:
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Modules/tests
+        by:
+          - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+      - cell: pwsh/Catzc.Base.ModuleSystem/types
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+      - cell: pwsh/Catzc.Base.QualityGates/.
+        by:
+          - pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+      - cell: pwsh/Catzc.Base.QualityGates/tests
+        by:
+          - pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+      - cell: pwsh/Catzc.Tooling.KeyHandler/private
+        by:
+          - pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+    grid:
+      - cell: .claude/markdown
+        by:
+          - .claude/CLAUDE.md
+          - .claude/agents/test-optimization.md
+          - .claude/skills/test-speed/SKILL.md
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: docs/markdown
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/test-automation.md
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/visual-design.md
+          - docs/adr/flow/cd-discipline-and-promotion-flow.md
+          - docs/adr/flow/commit-lifecycle.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/ci-pwsh.yaml.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/ado/pipelines/deploy-nova.yaml.md
+          - docs/references/ado/pipelines/deploy-shared.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/configs/artifacts.yml.md
+          - docs/references/pwsh/catzc-base-module-system/types/ArtifactsConfig.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-BuildArtifact.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestTagViolations.Tests.ps1.md
+          - docs/references/pwsh/catzc-tooling-key-handler/private/Select-SupportedKeyHandler.ps1.md
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: docs/yaml
+        by:
+          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
+          - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
+          - pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: DSGN/quality-control
+        by:
+          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: DSGN/release
+        by:
+          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: DSGN/deploy
+        by:
+          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+          - ADR-FLOW-CD-CDSTAYSINNONPROD
+          - ADR-FLOW-CD-INNERANDOUTERLOOP
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD
+          - ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
+          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+          - ADR-FLOW-CD-TWORELEASEGATES
+      - cell: AUTO/quality-control
+        by:
+          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
 layout:
   band-all:
     x: 20

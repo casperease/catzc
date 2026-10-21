@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6f0cd292ffff"
+#     with_body_sha: "63596bb55b02"
 # ---
 
 description:
@@ -115,9 +115,122 @@ content:
       number: 9
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: docs/-/.
+        by:
+          - docs/adr/configuration/config-value-addressing.md
+          - docs/adr/configuration/dora-explains.md
+          - docs/adr/index.md
+          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
+          - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-Config.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
+          - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md
+          - docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Azure.Templates/private
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+      - cell: pwsh/Catzc.Base.Config/.
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Base.Config/private
+        by:
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Base.Config/tests
+        by:
+          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Base.Folders/tests/types
+        by:
+          - pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+      - cell: pwsh/Catzc.Base.Languages/.
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Tooling.Environment/.
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+      - cell: subject/Catzc.Base.Config
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: subject/Catzc.Base.Folders
+        by:
+          - pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+      - cell: subject/Catzc.Base.Languages
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: subject/Catzc.Tooling.Environment
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
 layout:
   band-resolve:
     x: 20

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0c8452716db7"
   edges:
-    docs: "[Test-ParameterConsistency.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-ParameterConsistency.Tests.ps1.md)"
+    docs: "[Test-ParameterConsistency.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-ParameterConsistency.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST

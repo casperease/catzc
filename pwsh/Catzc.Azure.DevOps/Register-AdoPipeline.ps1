@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5d4dc075fcef"
   edges:
-    docs: "[Register-AdoPipeline.ps1.md](docs/references/pwsh/catzc-azure-devops/Register-AdoPipeline.ps1.md)"
+    docs: "[Register-AdoPipeline.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Register-AdoPipeline.ps1.md)"
     cites:
       - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 ---

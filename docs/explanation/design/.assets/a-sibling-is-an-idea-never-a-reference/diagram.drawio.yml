@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: eaded90f0f0f
+#     with_body_sha: "04988408f842"
 # ---
 
 description:
@@ -87,9 +87,486 @@ content:
       number: 4
   legend: auto
   minimaps:
-    - code-locations
-    - grid
-    - axis
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - ADR-AUTO-GO-MODULESBYLAYOUT
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: .claude/.claude/plans
+        by:
+          - .claude/plans/plan-agent-shortcuts.md
+          - .claude/plans/plan-bcl-language.md
+          - .claude/plans/plan-idiomatic-names.md
+          - .claude/plans/plan-listen-internal-readers.md
+          - .claude/plans/plan-xdr-codes.md
+          - .claude/plans/value-of-plan.md
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-GO-MODULESBYLAYOUT
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: docs/-/.
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/go/go-test-artifacts.md
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/tracks.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/adr/principles/cats-and-catzc.md
+          - docs/adr/principles/dora-explains.md
+          - docs/adr/principles/one-living-version.md
+          - docs/how-to/automation/sort-an-import.md
+          - docs/how-to/getting-started/automation/go/index.md
+          - docs/how-to/pwsh/manual-test-plan/repository-conventions.md
+          - docs/references/ado/pipelines/ci-pwsh.yaml.md
+          - docs/references/agent-contracts.md
+          - docs/references/note-file-kind.md
+          - docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md
+          - docs/references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md
+          - docs/references/pwsh/catzc-base-files/Get-CodeCaller.ps1.md
+          - docs/references/pwsh/catzc-base-files/Get-InputStamp.ps1.md
+          - docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md
+          - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
+          - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
+          - docs/references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps.md
+          - docs/references/pwsh/catzc-base-maps/Export-WorldMapPdf.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/types/MapCell.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMap.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapPdf.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/Build-CommentView.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Export-Comments.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/comments.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-ContentExemptPath.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Invoke-Gofmt.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Build-CommentView.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Export-Comments.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-Comments.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/types/CommentsConfig.cs.md
+          - docs/references/pwsh/catzc-base-variants/Get-PathModule.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md
+          - docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md
+          - docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md
+          - ADR-AUTO-GO-MODULESBYLAYOUT
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.CodeMeta/types
+        by:
+          - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-AUTO-GO-MODULESBYLAYOUT
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.Docs/tests/types
+        by:
+          - pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/CheckModes.cs
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.Files/.
+        by:
+          - pwsh/Catzc.Base.Files/Get-CodeCaller.ps1
+          - pwsh/Catzc.Base.Files/Get-InputStamp.ps1
+          - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.Git/.
+        by:
+          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+      - cell: pwsh/Catzc.Base.Git/configs
+        by:
+          - pwsh/Catzc.Base.Git/configs/gitignore.yml
+          - ADR-AUTO-GO-MODULESBYLAYOUT
+      - cell: pwsh/Catzc.Base.Git/tests
+        by:
+          - pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+      - cell: pwsh/Catzc.Base.Globs/configs
+        by:
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by:
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+      - cell: pwsh/Catzc.Base.Languages/tests
+        by:
+          - pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Export-WorldMapPdf.ps1
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.Maps/types
+        by:
+          - pwsh/Catzc.Base.Maps/types/MapCell.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMap.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapHighlight.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+      - cell: pwsh/Catzc.Base.QualityGates/.
+        by:
+          - pwsh/Catzc.Base.QualityGates/Build-CommentView.ps1
+          - pwsh/Catzc.Base.QualityGates/Export-Comments.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/comments.yml
+          - pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Invoke-Gofmt.ps1
+          - ADR-AUTO-GO-MODULESBYLAYOUT
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+      - cell: pwsh/Catzc.Base.QualityGates/tests
+        by:
+          - pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.QualityGates/tests/types
+        by:
+          - pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.QualityGates/types
+        by:
+          - pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs
+          - pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs
+          - pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.Variants/.
+        by:
+          - pwsh/Catzc.Base.Variants/Get-PathModule.ps1
+          - pwsh/Catzc.Base.Variants/Get-Track.ps1
+          - pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/track-types.yml
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+      - cell: pwsh/Catzc.Base.Variants/tests
+        by:
+          - pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
+          - pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+      - cell: pwsh/Catzc.Base.Variants/tests/types
+        by:
+          - pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
+          - ADR-DSGN-TRACK-ONETECHSTACK
+      - cell: pwsh/Catzc.Base.Variants/types
+        by:
+          - pwsh/Catzc.Base.Variants/types/ModulePlace.cs
+          - pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs
+          - pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs
+          - pwsh/Catzc.Base.Variants/types/PathModule.cs
+          - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+    grid:
+      - cell: .claude/markdown
+        by:
+          - .claude/CLAUDE.md
+          - .claude/plans/plan-agent-shortcuts.md
+          - .claude/plans/plan-bcl-language.md
+          - .claude/plans/plan-idiomatic-names.md
+          - .claude/plans/plan-listen-internal-readers.md
+          - .claude/plans/plan-xdr-codes.md
+          - .claude/plans/value-of-plan.md
+          - ADR-AUTO-GO-MODULESBYLAYOUT
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-GO-MODULESBYLAYOUT
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: docs/markdown
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/go/go-test-artifacts.md
+          - docs/adr/design/dora-explains.md
+          - docs/adr/design/tracks.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/adr/principles/cats-and-catzc.md
+          - docs/adr/principles/dora-explains.md
+          - docs/adr/principles/one-living-version.md
+          - docs/how-to/automation/sort-an-import.md
+          - docs/how-to/getting-started/automation/go/index.md
+          - docs/how-to/pwsh/manual-test-plan/repository-conventions.md
+          - docs/references/ado/pipelines/ci-pwsh.yaml.md
+          - docs/references/agent-contracts.md
+          - docs/references/note-file-kind.md
+          - docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md
+          - docs/references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md
+          - docs/references/pwsh/catzc-base-files/Get-CodeCaller.ps1.md
+          - docs/references/pwsh/catzc-base-files/Get-InputStamp.ps1.md
+          - docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md
+          - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
+          - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
+          - docs/references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps.md
+          - docs/references/pwsh/catzc-base-maps/Export-WorldMapPdf.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/types/MapCell.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMap.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapPdf.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/Build-CommentView.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Export-Comments.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/comments.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-ContentExemptPath.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Invoke-Gofmt.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Build-CommentView.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Export-Comments.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-Comments.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/types/CommentsConfig.cs.md
+          - docs/references/pwsh/catzc-base-variants/Get-PathModule.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md
+          - docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md
+          - docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md
+          - ADR-AUTO-GO-MODULESBYLAYOUT
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
+          - pwsh/Catzc.Base.Docs/types/CheckModes.cs
+          - pwsh/Catzc.Base.Maps/types/MapCell.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMap.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapHighlight.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs
+          - pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs
+          - pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs
+          - pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
+          - pwsh/Catzc.Base.Variants/types/ModulePlace.cs
+          - pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs
+          - pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs
+          - pwsh/Catzc.Base.Variants/types/PathModule.cs
+          - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
+          - pwsh/Catzc.Base.Files/Get-CodeCaller.ps1
+          - pwsh/Catzc.Base.Files/Get-InputStamp.ps1
+          - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
+          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
+          - pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
+          - pwsh/Catzc.Base.Maps/Export-WorldMapPdf.ps1
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/Build-CommentView.ps1
+          - pwsh/Catzc.Base.QualityGates/Export-Comments.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Invoke-Gofmt.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
+          - pwsh/Catzc.Base.Variants/Get-PathModule.ps1
+          - pwsh/Catzc.Base.Variants/Get-Track.ps1
+          - pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
+          - pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
+          - pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
+          - pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
+          - ADR-AUTO-GO-MODULESBYLAYOUT
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Git/configs/gitignore.yml
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - pwsh/Catzc.Base.QualityGates/configs/comments.yml
+          - pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml
+          - pwsh/Catzc.Base.Variants/configs/track-types.yml
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-AUTO-GO-MODULESBYLAYOUT
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+      - cell: DSGN/quality-control
+        by:
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+      - cell: DSGN/release
+        by:
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - ADR-PRIN-ONELIVE-HISTORYINGIT
+          - ADR-PRIN-ONELIVE-ONEVERSION
+      - cell: DSGN/deploy
+        by:
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+      - cell: DSGN/access
+        by:
+          - ADR-PRIN-CATS-CATSISPERSONNAME
+          - ADR-PRIN-CATS-CATZCISSOURCENAME
+      - cell: DSGN/*
+        by:
+          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - ADR-DSGN-TRACK-ONETECHSTACK
+          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - ADR-DSGN-TRACK-UNORDEREDTRACK
+      - cell: AUTO/quality-control
+        by:
+          - ADR-AUTO-GO-MODULESBYLAYOUT
 layout:
   band-sibling:
     x: 20

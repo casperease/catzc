@@ -5,7 +5,7 @@ catzc:
     with_body_sha: bc4de333415a
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationVerdict.Tests.ps1
-    docs: "[Write-TestAutomationVerdict.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md)"
+    docs: "[Write-TestAutomationVerdict.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationVerdict.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-SPARINGCOLOUR
       - ADR-AUTO-FAILFAST

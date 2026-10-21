@@ -77,3 +77,33 @@ Above `$script:configCache = @{}`, written with `#`.
 strict-clean probe of the lazy cache entry
 ([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
+
+## comment:3
+
+Above `$entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name;...`, written with `#`.
+
+```text
+The one reader
+([ADR-CONF-LOADING-ONEREADER](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-onereader));
+the name is discovered and an unknown one throws
+([ADR-CONF-LOADING-EXISTENCEDISCOVERED](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-existencediscovered),
+[ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST](/docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing-resolutionfailsfast)).
+```
+
+## comment:4
+
+Above `if ($null -eq...`, written with `#`.
+
+```text
+Cached by the resolved file path
+([ADR-CONF-LOADING-CACHEBYPATH](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-cachebypath)).
+```
+
+## comment:5
+
+Above `$type = [type] $registered['type']`, written with `#`.
+
+```text
+The registered C# type maps and validates the parsed dictionary at construction
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)).
+```

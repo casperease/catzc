@@ -1,12 +1,12 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e206686f8f33
+#     with_body_sha: "0bc0cd2dee96"
 # ---
 
-description: >-
-  Six pipeline shapes, each a run of the promotion ladder from its first state: every step a commit takes is labelled with the stage that
-  moves it, and every state it holds can be discarded.
+description:
+  "Six pipeline shapes, each a run of the promotion ladder from its first state: every step a commit takes is labelled with the stage that
+  moves it, and every state it holds can be discarded."
 about:
   adrs:
     - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
@@ -18,52 +18,237 @@ content:
   kind: explanation
   flow: top-to-bottom
   relation: moved by the stage
+  theme: dark
   bands:
-    - { id: band-shapes, label: PIPELINE SHAPES }
-    - { id: band-key, label: NAMES }
+    - id: band-shapes
+      label: PIPELINE SHAPES
+    - id: band-key
+      label: NAMES
   templates:
     pipeline-shape:
-      states: { PR: landed, BVT: bvt, L3-vertical-AT: l3, main-UAT: main-uat, release-uat: release-uat, release: prod }
+      states:
+        PR: landed
+        BVT: bvt
+        L3-vertical-AT: l3
+        main-UAT: main-uat
+        release-uat: release-uat
+        release: prod
       drop: discarded
   rows:
-    - {
-        id: pr-cd-rbc,
-        template: pipeline-shape,
-        label: PR + CD + RBC,
-        in: band-shapes,
-        start: topic,
-        steps: [PR, BVT, L3-vertical-AT, main-UAT, release-uat, release],
-        skip: [main-UAT],
-      }
-    - { id: cde, template: pipeline-shape, label: CDe, in: band-shapes, start: landed, steps: [BVT, L3-vertical-AT, release] }
-    - {
-        id: pr-cd-rc,
-        template: pipeline-shape,
-        label: PR + CD + RC,
-        in: band-shapes,
-        start: topic,
-        steps: [PR, BVT, L3-vertical-AT, main-UAT, release],
-      }
-    - { id: pr-cde, template: pipeline-shape, label: PR + CDe, in: band-shapes, start: topic, steps: [PR, BVT, L3-vertical-AT, release] }
-    - {
-        id: cd-rc,
-        template: pipeline-shape,
-        label: CD + RC,
-        in: band-shapes,
-        start: landed,
-        steps: [BVT, L3-vertical-AT, main-UAT, release],
-      }
-    - { id: pr-ci-plus, template: pipeline-shape, label: PR + CI+, in: band-shapes, start: topic, steps: [PR, BVT, L3-vertical-AT] }
+    - id: pr-cd-rbc
+      template: pipeline-shape
+      label: PR + CD + RBC
+      in: band-shapes
+      start: topic
+      steps:
+        - PR
+        - BVT
+        - L3-vertical-AT
+        - main-UAT
+        - release-uat
+        - release
+      skip:
+        - main-UAT
+    - id: cde
+      template: pipeline-shape
+      label: CDe
+      in: band-shapes
+      start: landed
+      steps:
+        - BVT
+        - L3-vertical-AT
+        - release
+    - id: pr-cd-rc
+      template: pipeline-shape
+      label: PR + CD + RC
+      in: band-shapes
+      start: topic
+      steps:
+        - PR
+        - BVT
+        - L3-vertical-AT
+        - main-UAT
+        - release
+    - id: pr-cde
+      template: pipeline-shape
+      label: PR + CDe
+      in: band-shapes
+      start: topic
+      steps:
+        - PR
+        - BVT
+        - L3-vertical-AT
+        - release
+    - id: cd-rc
+      template: pipeline-shape
+      label: CD + RC
+      in: band-shapes
+      start: landed
+      steps:
+        - BVT
+        - L3-vertical-AT
+        - main-UAT
+        - release
+    - id: pr-ci-plus
+      template: pipeline-shape
+      label: PR + CI+
+      in: band-shapes
+      start: topic
+      steps:
+        - PR
+        - BVT
+        - L3-vertical-AT
   notes:
     - id: note-names
       in: band-key
-      text: |-
-        PR: Pull Request
+      text: "PR: Pull Request
+
         Direct: integrates to main via a direct pull
+
         CI: Continuous Integration (basic)
+
         CI+: Continuous Integration (with system tests)
+
         CD: Continuous Delivery
+
         CDe: Continuous Deployment
+
         RC: Release Certification (hands on)
-        RBC: Release Branch Certification (hands on)
+
+        RBC: Release Branch Certification (hands on)"
   legend: auto
+  minimaps:
+    axis:
+      - cell: DSGN/build
+        by:
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+      - cell: DSGN/quality-control
+        by:
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+      - cell: DSGN/release
+        by:
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+      - cell: DSGN/deploy
+        by:
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+    lifecycle-position:
+      - cell: main-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+      - cell: release-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+      - cell: pre-prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+      - cell: prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+    layer-stack:
+      - cell: automation
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/adr/flow/cd-discipline-and-promotion-flow.md
+          - docs/adr/flow/commit-lifecycle.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS

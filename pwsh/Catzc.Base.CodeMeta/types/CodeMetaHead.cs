@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c3f90649ab88
   edges:
     test: pwsh/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1
-    docs: "[CodeMetaHead.cs.md](docs/references/pwsh/catzc-base-codemeta/types/CodeMetaHead.cs.md)"
+    docs: "[CodeMetaHead.cs.md](docs/references/pwsh/catzc-base-code-meta/types/CodeMetaHead.cs.md)"
     cites:
       - ADR-REPO-CODEMETA-CODEFILEHEAD
       - ADR-REPO-FILEMETA-PUREPARTS

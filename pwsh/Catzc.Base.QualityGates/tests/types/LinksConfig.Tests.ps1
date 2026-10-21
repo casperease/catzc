@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c4057abf4f5f
   edges:
-    docs: "[LinksConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/LinksConfig.Tests.ps1.md)"
+    docs: "[LinksConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/LinksConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/LinksConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER

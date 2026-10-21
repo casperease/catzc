@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ef26c79f4ec2
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Import-VendoredPester.Tests.ps1
-    docs: "[Import-VendoredPester.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Import-VendoredPester.ps1.md)"
+    docs: "[Import-VendoredPester.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Import-VendoredPester.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b0f18ad01c8f
   edges:
-    docs: "[Test-FolderConventions.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Test-FolderConventions.Tests.ps1.md)"
+    docs: "[Test-FolderConventions.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/Test-FolderConventions.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

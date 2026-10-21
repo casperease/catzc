@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e787e0e4dba9
   edges:
-    docs: "[Enter-SystemTestLock.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Enter-SystemTestLock.Tests.ps1.md)"
+    docs: "[Enter-SystemTestLock.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Enter-SystemTestLock.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Enter-SystemTestLock.ps1
     cites:
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE

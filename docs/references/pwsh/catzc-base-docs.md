@@ -90,7 +90,8 @@ check to an existing command.
 The one way generated markdown wraps its prose: a paragraph or list item filled at the 140-column width the way the formatter fills it, so a
 page a generator writes is the page the formatter leaves alone (see
 [uniform-formatting](../../adr/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). Every generator that
-writes markdown wraps through it, in this module or another.
+writes markdown wraps through it, in this module or another. The reverse is one reader too: a list item with the continuation lines the
+formatter wrapped it onto is read back whole by one command, which every checker that reads list items calls.
 
 ### responsibility:9 — Rolling logs
 
@@ -114,7 +115,7 @@ bad entry fails fast rather than producing a broken README.
 
 The ADR index and the glossary follow the same pattern: an authored source (`adrs.yml` and the index's own text in `adr-index.yml`, the
 glossary sources) and a generated page reproduced from it, which `Test-GeneratedFiles`
-([Catzc.Base.QualityGates](catzc-base-qualitygates.md)) checks for drift.
+([Catzc.Base.QualityGates](catzc-base-quality-gates.md)) checks for drift.
 
 ## Division
 
@@ -144,6 +145,7 @@ The module's public surface, sorted into the responsibilities above.
 | responsibility:7 — Sub-agent registry     | `Test-AgentDefinitions`      |
 | config                                    | `agents.yml`                 |
 | responsibility:8 — Generated markdown     | `Format-MarkdownParagraph`   |
+|                                           | `Get-MarkdownListItem`       |
 | responsibility:9 — Rolling logs           | `Add-SessionLearning`        |
 | config                                    | `learnings.yml`              |
 |                                           | `hindsight.yml`              |

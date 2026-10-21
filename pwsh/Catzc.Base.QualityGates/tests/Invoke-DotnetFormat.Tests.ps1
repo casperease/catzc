@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c4193c585ef9
   edges:
-    docs: "[Invoke-DotnetFormat.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-DotnetFormat.Tests.ps1.md)"
+    docs: "[Invoke-DotnetFormat.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-DotnetFormat.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Invoke-DotnetFormat.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

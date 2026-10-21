@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9a6970125458"
+    with_body_sha: "85c36f5c939b"
   edges:
     code: pwsh/Catzc.Base.Slides/Build-SlideDeck.ps1
     cites:
@@ -124,6 +124,31 @@ Notes for $Id.
         $result = Build-SlideDeck -Deck 'decks/gadget-deck' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
         $result.OutputFolder | Should -Be $out
         Test-Path (Join-Path $out 'project/deck.json') | Should -BeTrue
+    }
+
+    It 'renders an image slide: fills the src from the slide, copies the png beside the slide HTML, and faults a path that leaves the slide folder or is missing' -Tag 'ADR-REPO-SLIDES-PATTERN' {
+        # A kit of its own, so the shared kit's pattern list stays as the other tests expect it.
+        & $write 'image-kit/slides.yml' (Get-Content (Join-Path $root 'kit/slides.yml') -Raw)
+        & $write 'image-kit/patterns/gadget-image.html' "<section id=`"{{@id}}`"><h2>{{title}}</h2><img src=`"{{image}}`" alt=`"{{title}}`" /><p>{{caption}}</p><aside>{{notes?}}</aside></section>`n"
+        $imageSlide = {
+            param([string] $Id, [int] $Order, [string] $Image)
+            "---`ncatzc:`n  config:`n    pattern: gadget-image`n    deck: image-deck`n    order: $Order`n---`n`n# The gadget $Id`n`n## Image`n`n$Image`n`n## Caption`n`nThe gadget, drawn.`n"
+        }
+        & $write 'decks/image-deck/deck.md' "# Images`n"
+        & $write 'decks/image-deck/.assets/gadget/gadget.png' 'not really a png'
+        & $write 'decks/image-deck/shown.slide.md' (& $imageSlide 'shown' 1 '.assets/gadget/gadget.png')
+        & $write 'decks/image-deck/escaping.slide.md' (& $imageSlide 'escaping' 2 '../gadget-deck/gadget.png')
+        & $write 'decks/image-deck/missing.slide.md' (& $imageSlide 'missing' 3 '.assets/gadget/widget.png')
+        $result = Build-SlideDeck -Deck 'decks/image-deck' -Kit 'image-kit' -RepositoryRoot $root -PassThru
+
+        $shown = Get-Content (Join-Path $result.OutputFolder 'project/slides/shown.html') -Raw
+        $shown | Should -Match '<img src="\.assets/gadget/gadget\.png" alt="The gadget shown"'
+        $shown | Should -Match '<p>The gadget, drawn\.</p>'
+        Get-Content (Join-Path $result.OutputFolder 'project/slides/.assets/gadget/gadget.png') -Raw | Should -BeExactly 'not really a png'
+        $faults = @($result.Faults | ForEach-Object ToString)
+        $faults.Count | Should -Be 2 -Because ($faults -join "`n")
+        ($faults -join "`n") | Should -Match "decks/image-deck/escaping\.slide\.md: field 'image': the image '\.\./gadget-deck/gadget\.png' must sit beside the slide file"
+        ($faults -join "`n") | Should -Match "decks/image-deck/missing\.slide\.md: field 'image': the image '\.assets/gadget/widget\.png' does not exist beside the slide file"
     }
 
     It 'reports a duplicate order and a gap, and still renders every slide' -Tag 'ADR-REPO-SLIDES-SLIDEFILE' {

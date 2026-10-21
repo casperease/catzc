@@ -3,6 +3,9 @@
 catzc:
   immutable:
     with_body_sha: "803c32aac523"
+  edges:
+    cites:
+      - ADR-PWSH-MANIFEST
 ---
 #>
 

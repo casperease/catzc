@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "440e965291c3"
+#     with_body_sha: "58f277eae20b"
 # ---
 
 description:
@@ -118,9 +118,121 @@ content:
       number: 8
   legend: auto
   minimaps:
-    - code-locations
-    - grid
-    - axis
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: docs/-/.
+        by:
+          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/adr/flow/commit-lifecycle.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+    grid:
+      - cell: .claude/markdown
+        by:
+          - .claude/CLAUDE.md
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: docs/markdown
+        by:
+          - docs/adr/flow/commit-lifecycle.md
+          - docs/adr/flow/dora-explains.md
+          - docs/adr/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: docs/yaml
+        by:
+          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+    axis:
+      - cell: DSGN/quality-control
+        by:
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: DSGN/release
+        by:
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      - cell: DSGN/deploy
+        by:
+          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
 layout:
   band-person:
     x: 20

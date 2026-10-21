@@ -2,9 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4992e15d3413"
+    with_body_sha: f216d90a8801
   edges:
     docs: "[Program.cs.md](docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md)"
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - ADR-FLOW-GIT-USERRUNSGIT
 ---
 */
 
@@ -33,7 +37,8 @@ public static class AssertBashTimeout
             string repositoryRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
             string payload = Console.In.ReadToEnd();
 
-            // The git topic commands change the repository, so they run only at the user's hand (ADR-FLOW-GIT-USERRUNSGIT).
+            // The git topic commands change the repository, so they run only at the user's hand
+            // ([ADR-FLOW-GIT-USERRUNSGIT](/docs/adr/flow/git-topic-flow.md#rule-adr-flow-git-userrunsgit)).
             string userCommand = UserCommandIn(payload, repositoryRoot);
             if (userCommand != null)
             {

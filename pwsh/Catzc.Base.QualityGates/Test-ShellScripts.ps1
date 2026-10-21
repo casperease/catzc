@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3f69bc555822"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
-    docs: "[Test-ShellScripts.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-ShellScripts.ps1.md)"
+    docs: "[Test-ShellScripts.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-ShellScripts.ps1.md)"
     cites:
       - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
       - ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE

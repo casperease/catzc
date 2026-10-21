@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4329c67123d6"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1
-    docs: "[Get-TestTargetSkipReason.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md)"
+    docs: "[Get-TestTargetSkipReason.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Get-TestTargetSkipReason.ps1.md)"
     cites:
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
       - ADR-AUTO-TEST-TESTINGINPRODUCTION

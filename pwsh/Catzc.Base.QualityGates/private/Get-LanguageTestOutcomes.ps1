@@ -5,7 +5,7 @@ catzc:
     with_body_sha: eef63b89ef3f
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-LanguageTestOutcomes.Tests.ps1
-    docs: "[Get-LanguageTestOutcomes.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md)"
+    docs: "[Get-LanguageTestOutcomes.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-LanguageTestOutcomes.ps1.md)"
     cites:
       - ADR-AUTO-BASH-ONEBASHROOT
       - ADR-AUTO-ENGINE

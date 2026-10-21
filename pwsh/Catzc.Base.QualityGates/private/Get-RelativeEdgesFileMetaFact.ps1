@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4a512d1ed455"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-RelativeEdgesFileMetaFact.Tests.ps1
-    docs: "[Get-RelativeEdgesFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-RelativeEdgesFileMetaFact.ps1.md)"
+    docs: "[Get-RelativeEdgesFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-RelativeEdgesFileMetaFact.ps1.md)"
     cites:
       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
       - ADR-REPO-FILEMETA-FEWLINKS

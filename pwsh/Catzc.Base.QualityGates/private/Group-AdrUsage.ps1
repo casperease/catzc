@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "74c097155f58"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Group-AdrUsage.Tests.ps1
-    docs: "[Group-AdrUsage.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Group-AdrUsage.ps1.md)"
+    docs: "[Group-AdrUsage.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Group-AdrUsage.ps1.md)"
 ---
 #>
 

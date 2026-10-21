@@ -22,6 +22,7 @@ reach.
 
 - A learning completes "In hindsight I wish I knew this fact: …": a fact true of the repository now, never the story of a session.
 - Five files of fifty learnings, tracked, the oldest dropped first, repeats kept; nothing reads the log at session start yet.
+- **Repeats stay (the user, 2026-10-21):** `Add-SessionLearning` skips only within-call duplicates, never a learning already in the log.
 - Every session appends its own lines; lines relayed through another session are not kept in the log.
 - **Decision round 2026-10-21, every recommendation taken:** the burst protocol (`hold` / `go`, `burst start` / `burst done`, no
   import-backed check during a hold) is two lines in `plans-orchestrate`, and its line 3 says a step left open names its check (Q8, Q9);

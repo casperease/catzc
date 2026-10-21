@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "56fca9e37484"
+#     with_body_sha: "3b14f441b4ae"
 # ---
 
 description:
@@ -100,9 +100,88 @@ content:
       number: 6
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-EXTENDBYDECLARING
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: docs/-/.
+        by:
+          - docs/adr/automation/controlling-module-dependencies.md
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/ModuleGroup.cs.md
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-EXTENDBYDECLARING
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-EXTENDBYDECLARING
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-EXTENDBYDECLARING
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/Catzc.Base.ModuleSystem/types
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-EXTENDBYDECLARING
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-EXTENDBYDECLARING
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-EXTENDBYDECLARING
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-EXTENDBYDECLARING
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-EXTENDBYDECLARING
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-EXTENDBYDECLARING
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
 layout:
   band-top:
     x: 20

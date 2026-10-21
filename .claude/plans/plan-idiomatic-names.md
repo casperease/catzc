@@ -62,22 +62,20 @@ L1 round trip in `ConvertTo-NormalName.Tests.ps1` passes once the user commits t
 
 From the session's finalizer (catzc-73, 2026-10-21); its `catzc-verify` line and the rename how-to landed:
 
-- [ ] `CommentPageMap.cs` (in `Catzc.Base.CodeMeta`), `Get-ReadmeMappings.ps1`, `Get-ModuleGlobSet.ps1` and
-      `Get-ModuleProtectionIdentity.ps1` render `{kebab}` by `ToLowerInvariant().Replace('.', '-')`; moving them to `LanguageNaming` renames
-      the `catzc-base-*` reference pages, so it waits on the user's yes (check: the user answers; then `Invoke-TestFile` on each one's tests
-      and `Test-GeneratedFiles`).
+- [ ] `NameCase.IsInCase` takes a dotted name in one call, the way `FromNormal` already does, and its callers that split on `.` first change
+      in the same pass (delegated to the orchestrator, 2026-10-21; check: `Invoke-TestFile` on `LanguagesConfig.Tests.ps1`, which holds the
+      case tests).
+- [ ] `catzc-verify` skill: step 1's list of import-path readers adds "the contract readers" (the lookup janitor `New-CatsCommandLookup`
+      runs every contract reader), and step 2 says to format before the fresh import, since formatting a C# type file changes the types hash
+      (delegated to the orchestrator, 2026-10-21; check: `Test-AgentDefinitions`).
 
 ## Open questions
 
-- From catzc-73's finalize (2026-10-21): `catzc-verify` step 1 names the import-path readers of a folder rename, but not that the import's
-  lookup janitor (`New-CatsCommandLookup`) runs every contract reader, so a reader edit ahead of its data turned every session's import red.
-  Should step 1's clause say "the contract readers" too? Recommendation: yes, three words merged into the existing list.
-- Same finalize: `LanguageNaming.IsInCase` is false for a dotted name, so every caller with a module or type name splits on `.` first.
-  Should `LanguageNaming` take a dotted name in one call, the way `FromNormal` already does? Recommendation: yes, one method, its callers in
-  the same pass.
-- Same finalize: `Format-Code` on a C# type file changes the types hash, so a gate run right after in the same process looks for a DLL the
-  next import builds. Should `catzc-verify` step 2 say to format before the fresh import? Recommendation: yes, an order clause merged into
-  the step.
+- From catzc-8b's finalize (2026-10-21): the kebab step stalled on a cycle (`Catzc.Base.Languages` depends on `Catzc.Base.CodeMeta`) found
+  only after sizing. Should `catzc-verify` step 1 say to read `dependencies.yml` for a cycle before a cross-module type call?
+  Recommendation: yes, a clause merged into the step the open `catzc-verify` step above already changes.
+- Same finalize: `Test-ManualTestPlan` names a block with no row but not the row file to edit. Should its message name the
+  `manual-test-plan/*.md` that holds the block's file? Recommendation: yes, one clause in the message, so the fix is one edit.
 
 ## Refs
 

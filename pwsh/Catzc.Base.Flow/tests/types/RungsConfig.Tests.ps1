@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d5527f993233
+    with_body_sha: fb128ce56567
   edges:
     code: pwsh/Catzc.Base.Flow/types/RungsConfig.cs
     cites:
@@ -13,7 +13,7 @@ catzc:
 ---
 #>
 
-Describe 'RungsConfig' -Tag 'L0', 'logic' {
+Describe 'RungsConfig declared ladder' -Tag 'L1', 'integrity' {
     It 'takes the declared ladder for an omitted key, in climbing order' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.Flow.RungsConfig]::new(@{})
         $config.rungs.name | Should -Be @('main-uat', 'release-uat', 'pre-prod', 'prod')
@@ -21,7 +21,9 @@ Describe 'RungsConfig' -Tag 'L0', 'logic' {
         $config.rungs.gate | Should -Be @('none', 'rc', 'rbc', 'prod-approval')
         $config.rungs[2].rules | Should -Be @('ADR-FLOW-CD-PREPRODRUNG', 'ADR-FLOW-CD-CERTIFYINGRECORD')
     }
+}
 
+Describe 'RungsConfig' -Tag 'L0', 'logic' {
     It 'reads the rule codes that define a rung, and none when it lists none' -Tag 'ADR-FLOW-CD-RUNGSREGISTRY' {
         $config = [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = [ordered]@{
                     'widget-uat' = @{ environment = 'widget'; gate = 'none'; rules = @('ADR-WIDGET-GADGET-SPIN') }

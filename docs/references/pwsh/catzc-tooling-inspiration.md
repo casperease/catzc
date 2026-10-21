@@ -4,7 +4,7 @@ The inspiration module of the Tooling group: one checked way to find the sibling
 implementation ([inspiration](../../adr/repository/inspiration.md)). It declares each inspiration in config, resolves where it lives on this
 machine, and reports whether it is there, so an agent or a human asks the module instead of trusting a path written into prose. It reads
 nothing inside an inspiration and decides nothing from it; catzc's own ADRs decide. Like
-[Catzc.Tooling.KeyHandler](catzc-tooling-keyhandler.md), it installs nothing, so it rests only on the `Base` group.
+[Catzc.Tooling.KeyHandler](catzc-tooling-key-handler.md), it installs nothing, so it rests only on the `Base` group.
 
 ## Responsibilities
 

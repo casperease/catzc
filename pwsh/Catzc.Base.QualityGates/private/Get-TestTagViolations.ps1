@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8d7e4f74bdf6"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
-    docs: "[Get-TestTagViolations.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md)"
+    docs: "[Get-TestTagViolations.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestTagViolations.ps1.md)"
     cites:
       - ADR-PWSH-ERROR-THROWNOTWRITEERROR
 ---

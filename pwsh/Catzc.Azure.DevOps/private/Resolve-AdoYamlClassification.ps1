@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "137a74646777"
   edges:
-    docs: "[Resolve-AdoYamlClassification.ps1.md](docs/references/pwsh/catzc-azure-devops/private/Resolve-AdoYamlClassification.ps1.md)"
+    docs: "[Resolve-AdoYamlClassification.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/private/Resolve-AdoYamlClassification.ps1.md)"
 ---
 #>
 

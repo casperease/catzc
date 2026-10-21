@@ -7,6 +7,9 @@ catzc:
     test: pwsh/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
     docs: "[Get-AzCliSessionSubscription.ps1.md](docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md)"
     cites:
+      - ADR-AZ-DATAMOD-CUSTOMERAXIS
+      - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
       - ADR-AZ-SESSION
 ---
 #>

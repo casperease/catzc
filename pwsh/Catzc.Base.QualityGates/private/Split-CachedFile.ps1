@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "30673ce572fb"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Split-CachedFile.Tests.ps1
-    docs: "[Split-CachedFile.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Split-CachedFile.ps1.md)"
+    docs: "[Split-CachedFile.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Split-CachedFile.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 ---

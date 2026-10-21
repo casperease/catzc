@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "15078dc33d81"
   edges:
-    docs: "[Sync-GeneratedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Sync-GeneratedFile.Tests.ps1.md)"
+    docs: "[Sync-GeneratedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/Sync-GeneratedFile.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD

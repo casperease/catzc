@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "864a4a493045"
+#     with_body_sha: c63ce07bb460
 # ---
 
 description:
@@ -126,9 +126,162 @@ content:
       number: 10
   legend: auto
   minimaps:
-    - code-locations
-    - module-neighbourhood
-    - axis
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: docs/-/.
+        by:
+          - docs/adr/automation/dora-explains.md
+          - docs/adr/automation/path-representation.md
+          - docs/adr/glossary.md
+          - docs/adr/index.md
+          - docs/references/pwsh/catzc-base-docs/configs/readme.yml.md
+          - docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/DocPattern.cs.md
+          - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md
+          - docs/references/pwsh/catzc-base-objects/types/ArtifactRef.cs.md
+          - docs/references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md
+          - docs/references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
+          - docs/references/pwsh/catzc-base-repository/Resolve-RepoPath.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/configs/rootconfig.yml.md
+          - docs/references/pwsh/catzc-base-root-config/types/RootConfigFile.cs.md
+          - docs/references/pwsh/catzc-tooling-inspiration/types/Inspiration.cs.md
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/readme.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/DocMapping.cs
+          - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Objects/tests/types
+        by:
+          - pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Objects/types
+        by:
+          - pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
+          - pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Repository/.
+        by:
+          - pwsh/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+          - pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.RootConfig/configs
+        by:
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.RootConfig/types
+        by:
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Tooling.Inspiration/types
+        by:
+          - pwsh/Catzc.Tooling.Inspiration/types/Inspiration.cs
+          - ADR-AUTO-PATH-FOREIGNPATHS
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/readme.yml
+          - pwsh/Catzc.Base.Docs/types/DocMapping.cs
+          - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.Objects
+        by:
+          - pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
+          - pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
+          - pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.Repository
+        by:
+          - pwsh/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+          - pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Tooling.Inspiration
+        by:
+          - pwsh/Catzc.Tooling.Inspiration/types/Inspiration.cs
+          - ADR-AUTO-PATH-FOREIGNPATHS
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
 layout:
   band-communication:
     x: 20

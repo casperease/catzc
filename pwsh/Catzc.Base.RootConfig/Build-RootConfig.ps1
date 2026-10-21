@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "494f82ab9d86"
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
-    docs: "[Build-RootConfig.ps1.md](docs/references/pwsh/catzc-base-rootconfig/Build-RootConfig.ps1.md)"
+    docs: "[Build-RootConfig.ps1.md](docs/references/pwsh/catzc-base-root-config/Build-RootConfig.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-DSGN-RUNMODE

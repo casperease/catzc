@@ -5,7 +5,7 @@ catzc:
     with_body_sha: bac2dccec20a
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/New-TestAutomationRunDirectory.Tests.ps1
-    docs: "[New-TestAutomationRunDirectory.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/New-TestAutomationRunDirectory.ps1.md)"
+    docs: "[New-TestAutomationRunDirectory.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/New-TestAutomationRunDirectory.ps1.md)"
 ---
 #>
 

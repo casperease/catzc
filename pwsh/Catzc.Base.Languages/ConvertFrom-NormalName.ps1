@@ -2,10 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f21b312895e3
+    with_body_sha: "0ec7a9d8a0e3"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/ConvertFrom-NormalName.Tests.ps1
+    docs: "[ConvertFrom-NormalName.ps1.md](docs/references/pwsh/catzc-base-languages/ConvertFrom-NormalName.ps1.md)"
     cites:
+      - ADR-AUTO-IDIOM-ROUNDTRIP
       - ADR-PWSH-PARAM-RESOLUTIONORDER
 ---
 #>
@@ -25,7 +27,7 @@ function ConvertFrom-NormalName {
         [ValidateSet('function', 'type', 'file', 'folder')]
         [string] $NameKind = 'function',
 
-        [ArgumentCompleter({ [Catzc.Base.Languages.LanguageNaming]::Cases })]
+        [ArgumentCompleter({ [Catzc.Base.Objects.NameCase]::Cases })]
         [string] $Case
     )
 
@@ -46,7 +48,7 @@ function ConvertFrom-NormalName {
 
     process {
         try {
-            [Catzc.Base.Languages.LanguageNaming]::FromNormal($Name, $Case, $config.naming_normal_form)
+            [Catzc.Base.Objects.NameCase]::FromNormal($Name, $Case, $config.naming_normal_form)
         }
         catch [System.Management.Automation.MethodInvocationException] {
             throw $_.Exception.InnerException.Message

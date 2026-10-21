@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "92888805cc7a"
   edges:
-    docs: "[Export-Comments.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md)"
+    docs: "[Export-Comments.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Export-Comments.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Export-Comments.ps1
     cites:
       - ADR-AUTO-DRYRUN-SIDEEFFECTSTAKEDRYRUN

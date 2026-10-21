@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f118c052e47c
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
-    docs: "[FileMetaConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/FileMetaConfig.cs.md)"
+    docs: "[FileMetaConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/FileMetaConfig.cs.md)"
     cites:
       - ADR-CONF-LOADING-CSHARPCONFIGTYPE
       - ADR-REPO-FILEMETA-METAKIND

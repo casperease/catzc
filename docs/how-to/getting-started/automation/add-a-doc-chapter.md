@@ -52,7 +52,9 @@ An explanation article narrates one diagram: how one part of cats works and why 
 
 1. Create `docs/explanation/<adr-domain>/<kebab-title>.md`, in the folder of the ADR domain whose decision it explains.
 2. Declare the diagram in `docs/explanation/<adr-domain>/.assets/<kebab-title>/diagram.drawio.yml` (its `description:`, the lens and ADR
-   codes under `about:`, and the `content:` it draws), then put it with `Build-Diagrams -Path <that folder>`.
+   codes under `about:`, and the `content:` it draws), then put it with `Build-Diagrams -Path <that folder>`. Judge every lit minimap in one
+   hand-written line in the folder's `diagram.drawio.verify.md`, under `## Minimap reasons`: `- <minimap>: <reason>`, read against the
+   minimap's data in `out/minimaps/<folder>/`.
 3. After the title, open with a fenced `text` block that gives the overview: the finding in one line, then one line per numbered point of
    the diagram. Then a short opening paragraph, the image, a Walkthrough that narrates every numbered point in order, the ADR rules that
    make it hold, and links to the ADR, the asset description and the related articles.

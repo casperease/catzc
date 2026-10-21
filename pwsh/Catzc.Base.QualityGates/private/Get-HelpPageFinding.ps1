@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e0a91ab4e138
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-HelpPageFinding.Tests.ps1
-    docs: "[Get-HelpPageFinding.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-HelpPageFinding.ps1.md)"
+    docs: "[Get-HelpPageFinding.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-HelpPageFinding.ps1.md)"
     cites:
       - ADR-REPO-HELP-FIVEFAULTSREPORTED
 ---

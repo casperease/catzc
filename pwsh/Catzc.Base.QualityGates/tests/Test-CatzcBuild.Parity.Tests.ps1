@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "498499b05723"
   edges:
-    docs: "[Test-CatzcBuild.Parity.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.Parity.Tests.ps1.md)"
+    docs: "[Test-CatzcBuild.Parity.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-CatzcBuild.Parity.Tests.ps1.md)"
     cites:
       - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
 ---

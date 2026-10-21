@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "82f6dfbebd50"
+    with_body_sha: "855ed7e2b713"
   edges:
-    docs: "[Language.Bridge.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Language.Bridge.ps1.md)"
+    docs: "[Language.Bridge.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Language.Bridge.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE-STARTENVIRONMENT
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
@@ -65,18 +65,29 @@ Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy
     }) {
     BeforeAll {
         $script:languageOutcomes = @{}
+        # A run that throws (a ruff or pytest error, a sync that fails) fails each of its cases with its message, so the results name the
+        # cause instead of one BeforeAll failure hiding it; the other engines still run.
+        $script:languageErrors = @{}
         foreach ($engineName in $Engines) {
-            $script:languageOutcomes[$engineName] = & (Get-Module Catzc.Base.QualityGates) {
-                param($language, $module, $cases, $entry, $tool, $engine, $engineTool, $folder)
-                Get-LanguageTestOutcomes -Language $language -Module $module -Case $cases -EntryScript $entry -Executable $tool `
-                    -Engine $engine -EngineExecutable $engineTool -Folder $folder
-            } $Language $Module $Cases $Entry $Tool $engineName "$($EngineTools[$engineName])" $Folder
+            try {
+                $script:languageOutcomes[$engineName] = & (Get-Module Catzc.Base.QualityGates) {
+                    param($language, $module, $cases, $entry, $tool, $engine, $engineTool, $folder)
+                    Get-LanguageTestOutcomes -Language $language -Module $module -Case $cases -EntryScript $entry -Executable $tool `
+                        -Engine $engine -EngineExecutable $engineTool -Folder $folder
+                } $Language $Module $Cases $Entry $Tool $engineName "$($EngineTools[$engineName])" $Folder
+            }
+            catch {
+                $script:languageErrors[$engineName] = $_.Exception.Message
+            }
         }
     }
 
     foreach ($engineName in $Engines) {
         foreach ($languageCase in $Cases) {
             It "$($languageCase.Title) [$engineName]" -Tag $languageCase.Category -ForEach @(@{ Key = $languageCase.Key; EngineName = $engineName }) {
+                if ($script:languageErrors.ContainsKey($EngineName)) {
+                    throw "The $EngineName run failed before its cases ran: $($script:languageErrors[$EngineName])"
+                }
                 $outcome = $script:languageOutcomes[$EngineName][$Key]
                 if ($outcome.Outcome -eq 'skip') {
                     Set-ItResult -Skipped -Because $outcome.Reason

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "74e886a01698"
   edges:
-    docs: "[LinkEngine.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinkEngine.cs.md)"
+    docs: "[LinkEngine.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/LinkEngine.cs.md)"
     cites:
       - ADR-REPO-LINK-KINDBYFILE
       - ADR-REPO-LINK-ONECITATIONSPELLING
@@ -105,7 +105,9 @@ public sealed class LinkEngine
 
     string AlignCode(string text, string file, string extension, List<CodeLinkRewriter.Hit> hits)
     {
-        bool isTestFile = file.EndsWith(".Tests.ps1", StringComparison.OrdinalIgnoreCase);
+        // A test is a .Tests.ps1 file or any file in a tests folder, its fixture helpers included.
+        bool isTestFile = file.EndsWith(".Tests.ps1", StringComparison.OrdinalIgnoreCase)
+            || file.StartsWith("tests/", StringComparison.Ordinal) || file.Contains("/tests/", StringComparison.Ordinal);
         string newline = text.Contains("\r\n") ? "\r\n" : "\n";
         int limit = lineLimits.TryGetValue(extension, out int configured) ? configured : defaultLineLimit;
 

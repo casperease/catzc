@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d71ae2f6c43a
+    with_body_sha: bb101a3b93fb
   edges:
-    docs: "[Get-ModuleProtectionIdentity.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md)"
+    docs: "[Get-ModuleProtectionIdentity.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
     cites:
       - ADR-REPO-PROTGLOB-COMPOSITEIDENTITY
@@ -27,14 +27,14 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
         # per-set hashes keyed by name; a test flips one entry to prove it re-keys (or not) the composite
         $script:setHashes = @{}
         foreach ($setName in @('catzc-base-alpha', 'catzc-base-beta', 'catzc-gamma', 'internal', 'vendor',
-                'compiled', 'scriptanalyzer', 'catzc-base-qualitygates', 'repository', 'catzc-unknown')) {
+                'compiled', 'scriptanalyzer', 'catzc-base-quality-gates', 'repository', 'catzc-unknown')) {
             $script:setHashes[$setName] = ($setName + ('0' * 64)).Substring(0, 64)
         }
 
         Mock Get-Config { $script:dependencies } -ModuleName Catzc.Base.QualityGates
         Mock Get-TrackedFile { @('x/widget.ps1', 'x/gadget.ps1') } -ModuleName Catzc.Base.QualityGates
         Mock Get-ModuleGlobSet {
-            [Catzc.Base.Globs.GlobSet]::new($Name.ToLowerInvariant().Replace('.', '-'), 'd', 'module', @('x/**'), @(), @(), @(), -1, $null)
+            [Catzc.Base.Globs.GlobSet]::new([Catzc.Base.Objects.NameCase]::Render($Name, 'kebab'), 'd', 'module', @('x/**'), @(), @(), @(), -1, $null)
         } -ModuleName Catzc.Base.QualityGates
         Mock Get-GlobSetHash {
             $byName = Get-Variable -Name Name -ValueOnly -ErrorAction Ignore
@@ -85,7 +85,7 @@ Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
         $before = InModuleScope Catzc.Base.QualityGates {
             Get-ModuleProtectionIdentity -Module 'Catzc.Base.Alpha' -HashCache @{}
         }
-        $script:setHashes['catzc-base-qualitygates'] = 'f' * 64
+        $script:setHashes['catzc-base-quality-gates'] = 'f' * 64
         $after = InModuleScope Catzc.Base.QualityGates {
             Get-ModuleProtectionIdentity -Module 'Catzc.Base.Alpha' -HashCache @{}
         }

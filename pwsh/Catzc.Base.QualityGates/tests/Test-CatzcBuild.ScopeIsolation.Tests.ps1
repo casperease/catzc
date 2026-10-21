@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1734974c0aaa"
   edges:
-    docs: "[Test-CatzcBuild.ScopeIsolation.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md)"
+    docs: "[Test-CatzcBuild.ScopeIsolation.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md)"
     cites:
       - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
 ---

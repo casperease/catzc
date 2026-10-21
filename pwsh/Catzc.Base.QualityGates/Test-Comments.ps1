@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d6a13b352dc9
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
-    docs: "[Test-Comments.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Comments.ps1.md)"
+    docs: "[Test-Comments.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG

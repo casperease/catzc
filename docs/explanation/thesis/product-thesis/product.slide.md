@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: rule
     deck: product-thesis
-    order: 3
+    order: 4
 ---
 
 # Cats is one command surface for delivery as code

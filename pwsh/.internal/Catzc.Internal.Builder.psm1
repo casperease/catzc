@@ -5,6 +5,12 @@ catzc:
     with_body_sha: a41332907d76
   edges:
     docs: "[Catzc.Internal.Builder.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY
+      - ADR-AUTO-BUNDLE
+      - ADR-DSGN-RUNMODE
+      - ADR-PWSH-ENUM-ALWAYSBOUNDED
+      - ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
 ---
 #>
 

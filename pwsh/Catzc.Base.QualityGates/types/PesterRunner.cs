@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6913e3896e46"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1
-    docs: "[PesterRunner.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/PesterRunner.cs.md)"
+    docs: "[PesterRunner.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/PesterRunner.cs.md)"
 ---
 */
 

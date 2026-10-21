@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b4afda9cd4cb
+    with_body_sha: "2eefb4d275a8"
   edges:
-    docs: "[Get-ScopeLookup.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-ScopeLookup.ps1.md)"
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-ScopeLookup.Tests.ps1
+    docs: "[Get-ScopeLookup.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ScopeLookup.ps1.md)"
 ---
 #>
 

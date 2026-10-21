@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4227dc4c1c63"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestRunContext.Tests.ps1
-    docs: "[Get-TestRunContext.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TestRunContext.ps1.md)"
+    docs: "[Get-TestRunContext.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestRunContext.ps1.md)"
 ---
 #>
 

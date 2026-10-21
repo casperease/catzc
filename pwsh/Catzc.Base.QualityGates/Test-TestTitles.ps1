@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fddfc1010e3a
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-TestTitles.Tests.ps1
-    docs: "[Test-TestTitles.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-TestTitles.ps1.md)"
+    docs: "[Test-TestTitles.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-TestTitles.ps1.md)"
     cites:
       - ADR-AUTO-TEST-FILEPARALLELISM
       - ADR-AUTO-TEST-QUALITYGATE

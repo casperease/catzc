@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "03f14052c1e8"
 #   edges:
-#     docs: "[key-handler-bindings.yml.md](docs/references/pwsh/catzc-tooling-keyhandler/configs/key-handler-bindings.yml.md)"
+#     docs: "[key-handler-bindings.yml.md](docs/references/pwsh/catzc-tooling-key-handler/configs/key-handler-bindings.yml.md)"
 # ---
 
 - key: Enter

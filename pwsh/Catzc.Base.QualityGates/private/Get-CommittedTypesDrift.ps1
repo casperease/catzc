@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f55634c23916
   edges:
-    docs: "[Get-CommittedTypesDrift.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-CommittedTypesDrift.ps1.md)"
+    docs: "[Get-CommittedTypesDrift.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-CommittedTypesDrift.ps1.md)"
 ---
 #>
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "732c1cd366c2"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-FunctionDependencyTree.Tests.ps1
-    docs: "[Get-FunctionDependencyTree.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-FunctionDependencyTree.ps1.md)"
+    docs: "[Get-FunctionDependencyTree.ps1.md](docs/references/pwsh/catzc-base-module-system/Get-FunctionDependencyTree.ps1.md)"
 ---
 #>
 

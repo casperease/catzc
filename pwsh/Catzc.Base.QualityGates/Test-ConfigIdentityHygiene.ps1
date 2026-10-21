@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c27a9ae8687b
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
-    docs: "[Test-ConfigIdentityHygiene.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md)"
+    docs: "[Test-ConfigIdentityHygiene.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-ConfigIdentityHygiene.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-LANG

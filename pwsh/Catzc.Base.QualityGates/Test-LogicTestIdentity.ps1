@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "37259a66ce44"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
-    docs: "[Test-LogicTestIdentity.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md)"
+    docs: "[Test-LogicTestIdentity.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-LogicTestIdentity.ps1.md)"
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE

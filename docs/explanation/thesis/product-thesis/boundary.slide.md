@@ -3,7 +3,7 @@ catzc:
   config:
     pattern: pair
     deck: product-thesis
-    order: 6
+    order: 7
 ---
 
 # Inside the trunk only HEAD, versions only at the boundary

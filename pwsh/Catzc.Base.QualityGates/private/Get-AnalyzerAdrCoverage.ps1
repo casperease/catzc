@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e488b38f56d9
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
-    docs: "[Get-AnalyzerAdrCoverage.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-AnalyzerAdrCoverage.ps1.md)"
+    docs: "[Get-AnalyzerAdrCoverage.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-AnalyzerAdrCoverage.ps1.md)"
     cites:
       - ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS
 ---

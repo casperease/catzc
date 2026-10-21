@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8954ffd0f616"
   edges:
-    docs: "[Get-LanguageTestExecutable.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-LanguageTestExecutable.Tests.ps1.md)"
+    docs: "[Get-LanguageTestExecutable.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-LanguageTestExecutable.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestExecutable.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

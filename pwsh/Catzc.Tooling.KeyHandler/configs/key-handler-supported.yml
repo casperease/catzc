@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "366d1b64070f"
 #   edges:
-#     docs: "[key-handler-supported.yml.md](docs/references/pwsh/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md)"
+#     docs: "[key-handler-supported.yml.md](docs/references/pwsh/catzc-tooling-key-handler/configs/key-handler-supported.yml.md)"
 # ---
 
 # cspell:ignore begining

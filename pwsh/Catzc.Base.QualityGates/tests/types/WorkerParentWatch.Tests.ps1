@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "58d2a694d9f5"
   edges:
-    docs: "[WorkerParentWatch.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/WorkerParentWatch.Tests.ps1.md)"
+    docs: "[WorkerParentWatch.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/WorkerParentWatch.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/WorkerParentWatch.cs
     cites:
       - ADR-PWSH-ENV-NOPESTERISOLATION

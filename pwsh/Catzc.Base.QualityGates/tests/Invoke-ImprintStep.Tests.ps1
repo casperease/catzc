@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "944b8df521cb"
+    with_body_sha: e36200f445ee
   edges:
-    docs: "[Invoke-ImprintStep.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-ImprintStep.Tests.ps1.md)"
+    docs: "[Invoke-ImprintStep.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-ImprintStep.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Invoke-ImprintStep.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

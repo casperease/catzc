@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2c20d931ec43"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Invoke-AdoRestMethod.Tests.ps1
-    docs: "[Invoke-AdoRestMethod.ps1.md](docs/references/pwsh/catzc-azure-devops/Invoke-AdoRestMethod.ps1.md)"
+    docs: "[Invoke-AdoRestMethod.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Invoke-AdoRestMethod.ps1.md)"
 ---
 #>
 

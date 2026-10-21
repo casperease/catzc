@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8c310f593da3"
+    with_body_sha: b64f52d3137c
   edges:
     docs: "[ContractsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/types/ContractsConfig.cs
@@ -90,9 +90,9 @@ Describe 'ContractsConfig (shipped contracts.yml)' -Tag 'L1', 'integrity' {
         $normalForm = (Get-Config -Config languages).naming_normal_form
         foreach ($module in (Get-Config -Config contracts).target_roots.Keys) {
             foreach ($segment in $module.Split('.')) {
-                [Catzc.Base.Languages.LanguageNaming]::IsInCase($normalForm, $segment) | Should -BeTrue -Because "'$module' keys a target root"
+                [Catzc.Base.Objects.NameCase]::IsInCase($normalForm, $segment) | Should -BeTrue -Because "'$module' keys a target root"
             }
-            Join-Path (Get-CatzcModulesRoot) ([Catzc.Base.Languages.LanguageNaming]::FromNormal($module, 'pascal-dotted', $normalForm)) | Should -Exist
+            Join-Path (Get-CatzcModulesRoot) ([Catzc.Base.Objects.NameCase]::FromNormal($module, 'pascal-dotted', $normalForm)) | Should -Exist
         }
     }
 }

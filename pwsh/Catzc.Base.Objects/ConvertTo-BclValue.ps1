@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "77eee3e2a930"
+    with_body_sha: "5bd393d7c869"
   edges:
     test: pwsh/Catzc.Base.Objects/tests/ConvertTo-BclValue.Tests.ps1
 ---

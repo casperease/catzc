@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c11967dbdbea
   edges:
-    docs: "[Get-AdoPipelineDefinitions.ps1.md](docs/references/pwsh/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md)"
+    docs: "[Get-AdoPipelineDefinitions.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Get-AdoPipelineDefinitions.ps1.md)"
 ---
 #>
 

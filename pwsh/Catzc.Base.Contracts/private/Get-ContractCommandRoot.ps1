@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bd954ec00ec8
+    with_body_sha: "1a75db2ebb9e"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-ContractCommandRoot.Tests.ps1
     docs: "[Get-ContractCommandRoot.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractCommandRoot.ps1.md)"
@@ -28,7 +28,7 @@ function Get-ContractCommandRoot {
     $languages = Get-Config -Config languages
     $commandLanguage = $languages.languages | Where-Object name -ceq 'powershell' | Select-Object -First 1
     try {
-        $name = [Catzc.Base.Languages.LanguageNaming]::FromNormal($Module, $commandLanguage.naming.folder[0], $languages.naming_normal_form)
+        $name = [Catzc.Base.Objects.NameCase]::FromNormal($Module, $commandLanguage.naming.folder[0], $languages.naming_normal_form)
     }
     catch {
         throw "contract asset: the module folder '$Module' is not in the repository normal form, $($languages.naming_normal_form) (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."

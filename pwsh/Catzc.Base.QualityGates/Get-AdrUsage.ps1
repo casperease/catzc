@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9590b80cbab6"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-AdrUsage.Tests.ps1
-    docs: "[Get-AdrUsage.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Get-AdrUsage.ps1.md)"
+    docs: "[Get-AdrUsage.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Get-AdrUsage.ps1.md)"
     cites:
       - ADR-PWSH-ERROR
       - ADR-REPO-FILEMETA-NOREADBACK

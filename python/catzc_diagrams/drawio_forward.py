@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3ff05cf2a5fc"
+#     with_body_sha: "120c45907a2e"
 # ---
 
 # cspell:ignore mxfile minimaps pnginfo XMLMATCH

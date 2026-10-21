@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f99895912af8
+    with_body_sha: "309e122fb3c7"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
     docs: "[Build-Glossary.ps1.md](docs/references/pwsh/catzc-base-docs/Build-Glossary.ps1.md)"
@@ -150,7 +150,7 @@ function Build-Glossary {
     }
 
     $glossaryPath = ConvertTo-RepoRelativePath $Path
-    $content = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path $glossaryPath -Generator Build-Glossary -FileKind (Get-FileKind $glossaryPath)
+    $content = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path $glossaryPath -Generator Build-Glossary -Source ([string[]] @($entries.SourcePath | Sort-Object -Unique)) -FileKind (Get-FileKind $glossaryPath)
     $changed = Write-FileIfChanged $Path $content -DryRun:$DryRun
 
     $relativePath = ConvertTo-RepoRelativePath $Path

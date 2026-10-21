@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "38fb0231a497"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaInputStamp.Tests.ps1
-    docs: "[Get-FileMetaInputStamp.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-FileMetaInputStamp.ps1.md)"
+    docs: "[Get-FileMetaInputStamp.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-FileMetaInputStamp.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 ---

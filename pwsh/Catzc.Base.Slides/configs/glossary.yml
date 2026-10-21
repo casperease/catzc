@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d9c397c4134d
+#     with_body_sha: "1727b848c8e4"
 #   edges:
 #     cites:
 #       - ADR-REPO-SLIDES-SLIDEFILE
