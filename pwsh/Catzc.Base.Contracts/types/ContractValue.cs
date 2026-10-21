@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/types/ContractValue.cs
-    folder: types
-    name: contract-value
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "13052228b796"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractValue.Tests.ps1
     docs: "[ContractValue.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractValue.cs.md)"
@@ -25,7 +14,6 @@ catzc:
 using System;
 using System.Collections;
 using System.Globalization;
-using System.Management.Automation;
 using System.Numerics;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -36,12 +24,9 @@ public static class ContractValue
 {
     private static readonly Regex PlainKey = new Regex("^[A-Za-z0-9_-]+$");
 
-    public static object Unwrap(object value) => value is PSObject wrapped ? wrapped.BaseObject : value;
-
     // The JSON kind of a value: object, array, string, integer, number, boolean or null.
     public static string Kind(object value)
     {
-        value = Unwrap(value);
         switch (value)
         {
             case null:
@@ -81,7 +66,6 @@ public static class ContractValue
 
     private static void Render(object value, StringBuilder text)
     {
-        value = Unwrap(value);
         switch (Kind(value))
         {
             case "null":
@@ -122,7 +106,7 @@ public static class ContractValue
     }
 
     // A key or a string value as invariant text.
-    public static string Text(object value) => Convert.ToString(Unwrap(value), CultureInfo.InvariantCulture);
+    public static string Text(object value) => Convert.ToString(value, CultureInfo.InvariantCulture);
 
     // The JSONPath of a member of the value at `path`: .key for a plain key, ['key'] for any other.
     public static string MemberPath(string path, string key) =>
@@ -145,8 +129,6 @@ public static class ContractValue
 
     public static bool Equal(object left, object right)
     {
-        left = Unwrap(left);
-        right = Unwrap(right);
         if (left is int leftInt && right is int rightInt)
         {
             return leftInt == rightInt;

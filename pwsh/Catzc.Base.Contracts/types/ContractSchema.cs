@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/types/ContractSchema.cs
-    folder: types
-    name: contract-schema
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5233bb0e97d8"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractSchema.Tests.ps1
     docs: "[ContractSchema.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractSchema.cs.md)"
@@ -62,7 +51,6 @@ public static class ContractSchema
     // The schema's own findings: what the subset cannot read.
     private static void Read(object schema, string at, List<string> findings)
     {
-        schema = ContractValue.Unwrap(schema);
         if (schema is bool)
         {
             return;
@@ -76,7 +64,7 @@ public static class ContractSchema
         foreach (DictionaryEntry entry in map)
         {
             string keyword = ContractValue.Text(entry.Key);
-            object argument = ContractValue.Unwrap(entry.Value);
+            object argument = entry.Value;
             string here = at + "/" + Pointer(keyword);
             switch (keyword)
             {
@@ -155,8 +143,6 @@ public static class ContractSchema
 
     private static void Check(object schema, object value, string at, string path, List<string> findings)
     {
-        schema = ContractValue.Unwrap(schema);
-        value = ContractValue.Unwrap(value);
         if (schema is bool admits)
         {
             if (!admits)
@@ -170,7 +156,6 @@ public static class ContractSchema
         string kind = ContractValue.Kind(value);
         if (ContractValue.TryGetMember(map, "type", out object type))
         {
-            type = ContractValue.Unwrap(type);
             string[] allowed = type is IList list ? list.Cast<object>().Select(ContractValue.Text).ToArray() : new[] { ContractValue.Text(type) };
             bool typed = allowed.Contains(kind) || (kind == "integer" && allowed.Contains("number"));
             if (!typed)
@@ -181,7 +166,7 @@ public static class ContractSchema
         }
         if (ContractValue.TryGetMember(map, "enum", out object choices))
         {
-            var options = ((IList)ContractValue.Unwrap(choices)).Cast<object>().ToArray();
+            var options = ((IList)choices).Cast<object>().ToArray();
             if (!options.Any(option => ContractValue.Equal(option, value)))
             {
                 findings.Add(string.Format(CultureInfo.InvariantCulture, "{0}: {1} is not one of the enum values {2}",
@@ -210,7 +195,7 @@ public static class ContractSchema
     {
         if (ContractValue.TryGetMember(map, "required", out object required))
         {
-            foreach (object name in (IList)ContractValue.Unwrap(required))
+            foreach (object name in (IList)required)
             {
                 if (!ContractValue.TryGetMember(instance, ContractValue.Text(name), out _))
                 {
@@ -221,9 +206,9 @@ public static class ContractSchema
         }
 
         IDictionary properties = ContractValue.TryGetMember(map, "properties", out object declared)
-            ? (IDictionary)ContractValue.Unwrap(declared)
+            ? (IDictionary)declared
             : null;
-        bool closed = ContractValue.TryGetMember(map, "additionalProperties", out object additional) && !(bool)ContractValue.Unwrap(additional);
+        bool closed = ContractValue.TryGetMember(map, "additionalProperties", out object additional) && !(bool)additional;
         foreach (DictionaryEntry entry in instance)
         {
             string key = ContractValue.Text(entry.Key);

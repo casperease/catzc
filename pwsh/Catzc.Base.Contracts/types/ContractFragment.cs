@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/types/ContractFragment.cs
-    folder: types
-    name: contract-fragment
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: be1506e7714e
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractFragment.Tests.ps1
     docs: "[ContractFragment.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractFragment.cs.md)"
@@ -89,8 +78,6 @@ public static class ContractFragment
 
     private static void Match(object fragment, object target, string path, List<string> findings)
     {
-        fragment = ContractValue.Unwrap(fragment);
-        target = ContractValue.Unwrap(target);
         if (fragment == null)
         {
             return;

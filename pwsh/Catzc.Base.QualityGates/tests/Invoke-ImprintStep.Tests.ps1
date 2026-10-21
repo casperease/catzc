@@ -36,7 +36,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
     BeforeEach {
         $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'docs') -Force
         [System.IO.File]::WriteAllText($script:widget, "# Widget`n")
-        [System.IO.File]::WriteAllText($script:gadget, "---`ncatzc:`n  immutable:`n    colour: red`n---`n# Gadget`n")
+        [System.IO.File]::WriteAllText($script:gadget, "---`ncatzc:`n  colour: red`n---`n# Gadget`n")
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'file-carriers' } { $script:carriers }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:languages }
@@ -70,7 +70,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
                 Invoke-ImprintStep -Step file-meta -File $File -RepositoryRoot $Root
             }
             $outcome.Changed.Count | Should -Be 0
-            $outcome.Unfixable[$script:gadget] | Should -BeLike '*a meta key no kind owns (catzc.immutable.colour)*'
+            $outcome.Unfixable[$script:gadget] | Should -BeLike '*a meta key no kind owns (catzc.colour)*'
             [System.IO.File]::ReadAllText($script:gadget) | Should -BeExactly $before
         }
     }

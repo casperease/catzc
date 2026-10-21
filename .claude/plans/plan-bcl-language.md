@@ -74,9 +74,16 @@ rules; its "How this is enforced" line comes with `Test-BclReferences` below.
 - [ ] `pwsh/Catzc.Base.QualityGates/Test-BclReferences.ps1` (the planner's name, 2026-10-21): fails a `types/*.cs` file that references
       `System.Management.Automation` and has no `bcl.yml` row, with its L0 tests on widget/gadget fixtures (check: `Invoke-TestFile` on its
       test file).
-- [ ] The five `PSObject`-unwrapping types, one file per step: the pwsh caller unwraps and the type drops the `using`:
-      `pwsh/Catzc.Base.Contracts/types/ContractValue.cs`, then `pwsh/Catzc.Base.Maps/types/ValueChainHighlight.cs`, `ValueChainMap.cs`,
-      `WorldMapBuilder.cs` and `WorldMapHighlight.cs` (check: the owning module's Pester files after each, then a fresh full import).
+- [ ] `pwsh/Catzc.Base.Objects/ConvertTo-BclValue.ps1`: the one deep-unwrap mechanism (decided, delegated by the orchestrator,
+      2026-10-21): it returns a value with every `PSObject` at any depth replaced by its base object, rebuilding lists and dictionaries,
+      since `ContractValue.Unwrap` and the Maps types unwrap nested elements, not only arguments (check: `Invoke-TestFile` on its L0 tests
+      for nested lists, dictionaries and a scalar).
+- [ ] The callers pass their values through `ConvertTo-BclValue`, one file per step: `Get-ContractFragmentFindings.ps1`, then
+      `Get-ContractSchemaFindings.ps1`, then each pwsh caller of the four Maps types (check: the owning module's Pester files after each).
+- [ ] The five types drop the `using System.Management.Automation` and their unwrap, one file per step: `ContractValue.cs` (its `Unwrap`
+      deleted, with the callers in `ContractSchema.cs` and `ContractFragment.cs`), then `ValueChainHighlight.cs`, `ValueChainMap.cs`,
+      `WorldMapBuilder.cs` and `WorldMapHighlight.cs` (check: a fresh full import after each, the owning module's Pester files, and
+      `Test-BclReferences` with 0 issues after the last). Then `Test-BclReferences` joins the `csharp` row's checks in `languages.yml`.
 - [ ] `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `docs/adr/index.md`: the `bcl` domain and its table; `automation/`'s description stops
       listing `BCL/` as a language layer (check: `Test-AdrRegistry`).
 - [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first; the dry run lists

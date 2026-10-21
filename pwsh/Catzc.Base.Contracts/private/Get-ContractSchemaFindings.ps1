@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Get-ContractSchemaFindings.ps1
-    folder: private
-    name: get-contract-schema-findings
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "95cd650ab608"
   edges:
     docs: "[Get-ContractSchemaFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractSchemaFindings.ps1.md)"
     cites:
@@ -36,11 +24,11 @@ function Get-ContractSchemaFindings {
     )
 
     try {
-        $schema = Read-ContractData -RepositoryRoot $RepositoryRoot -Path $SchemaPath
+        $schema = ConvertTo-BclValue (Read-ContractData -RepositoryRoot $RepositoryRoot -Path $SchemaPath)
         if (-not $InstancePath) {
             return [Catzc.Base.Contracts.ContractSchema]::Inspect($schema)
         }
-        $value = Read-ContractData -RepositoryRoot $RepositoryRoot -Path $InstancePath
+        $value = ConvertTo-BclValue (Read-ContractData -RepositoryRoot $RepositoryRoot -Path $InstancePath)
     }
     catch {
         return $_.Exception.Message

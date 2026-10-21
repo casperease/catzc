@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Get-ContractFragmentFindings.ps1
-    folder: private
-    name: get-contract-fragment-findings
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "23b9a923dec4"
   edges:
     docs: "[Get-ContractFragmentFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractFragmentFindings.ps1.md)"
     cites:
@@ -45,8 +33,8 @@ function Get-ContractFragmentFindings {
     }
 
     try {
-        $fragment = Read-ContractData -RepositoryRoot $RepositoryRoot -Path $Asset.AssetPath
-        $target = Read-ContractData -RepositoryRoot $RepositoryRoot -Path $Asset.Target
+        $fragment = ConvertTo-BclValue (Read-ContractData -RepositoryRoot $RepositoryRoot -Path $Asset.AssetPath)
+        $target = ConvertTo-BclValue (Read-ContractData -RepositoryRoot $RepositoryRoot -Path $Asset.Target)
     }
     catch {
         return $_.Exception.Message

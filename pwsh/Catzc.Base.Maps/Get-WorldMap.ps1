@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
-    name: get-world-map
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "95ec0b9b81c7"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
     docs: "[Get-WorldMap.ps1.md](docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md)"
@@ -91,8 +80,8 @@ function Get-WorldMap {
     }
 
     $citationExclude = @((Get-Config -Config maps).highlight.citation_exclude)
-    $map = [Catzc.Base.Maps.WorldMapBuilder]::Build($tracks, @(Get-FileLanguage), $paths, $aspects, $adrIndex, $adrFiles, $texts, $rootOwners,
-        @(Get-GlobSet), $citationExclude)
+    $map = [Catzc.Base.Maps.WorldMapBuilder]::Build((ConvertTo-BclValue $tracks), (ConvertTo-BclValue @(Get-FileLanguage)), (ConvertTo-BclValue $paths),
+        (ConvertTo-BclValue $aspects), $adrIndex, $adrFiles, $texts, $rootOwners, (ConvertTo-BclValue @(Get-GlobSet)), (ConvertTo-BclValue $citationExclude))
     if ($AsJson) {
         return $map.ToJson()
     }
