@@ -18,7 +18,7 @@ catzc:
 
 Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
     BeforeAll {
-        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } -MockWith {
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'drs' } -MockWith {
             [pscustomobject]@{ Domains = @([pscustomobject]@{ Name = 'automation' }, [pscustomobject]@{ Name = 'repository' }) }
         }
         # A well-formed concept body; a test adds or changes one field.

@@ -30,7 +30,7 @@ public sealed class DrsIndexConfig
     {
         List<string> errors = new List<string>();
         if (raw == null) { throw new ArgumentException("drs-index.yml is invalid:\n  - the configuration must be a mapping with preamble and conventions"); }
-        DrsChecksConfig.CheckKeys(raw, AllowedKeys, "adr-index", errors);
+        DrsChecksConfig.CheckKeys(raw, AllowedKeys, "drs-index", errors);
         preamble = Text(raw, "preamble", errors);
         conventions = Text(raw, "conventions", errors);
         if (errors.Count > 0)

@@ -35,7 +35,7 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
             "# Spinner`n`n## Rules: ADR-WI-SPINNER`n`n### Rule ADR-WI-SPINNER-SPINS`n`n### Rule ADR-WI-SPINNER:2`n`n``````text`n### Rule ADR-WI-SPINNER-HIDDEN`n```````n")
         [System.IO.File]::WriteAllText((Join-Path $root 'docs/drs/widget/widget-gadget.md'), "# Gadget`n`n## Rules: ADR-WI-GADGET`n")
         $script:root = $root
-        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'adrs' } { $script:fixture }
+        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs' } { $script:fixture }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $script:root 'docs/drs' }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Drs { $script:root }
         Mock Write-Message -ModuleName Catzc.Base.Drs { }

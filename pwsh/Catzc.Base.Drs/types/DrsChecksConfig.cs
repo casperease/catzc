@@ -38,7 +38,7 @@ public sealed class DrsChecksConfig
     public DrsChecksConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
-        if (raw != null) { CheckKeys(raw, AllowedKeys, "adr-checks", errors); }
+        if (raw != null) { CheckKeys(raw, AllowedKeys, "drs-checks", errors); }
 
         engine_neutrality = new DrsNeutralityCheck(Section(raw, "engine_neutrality", errors), "engine_neutrality", errors);
         citation_graph = new DrsCheck(Section(raw, "citation_graph", errors), "citation_graph", errors);

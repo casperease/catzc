@@ -39,7 +39,7 @@ Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
     BeforeEach {
         Reset-EnforcerCache
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
-        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'analyzer-adr-map' } {
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'analyzer-drs-map' } {
             @{ analyzers = @{ 'Measure-Widget' = @('ADR-WIDGET-GADGET-TAG', 'ADR-WIDGET-GADGET-RULE') } }
         }
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Docs { Join-Path $script:repo 'widget-modules' }

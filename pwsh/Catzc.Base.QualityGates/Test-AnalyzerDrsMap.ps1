@@ -54,7 +54,7 @@ function Test-AnalyzerDrsMap {
         }
     }
 
-    Write-QualityGateReport -Subject 'analyzer-adr-map' -Title 'Test-AnalyzerDrsMap' -Issues $issues `
+    Write-QualityGateReport -Subject 'analyzer-drs-map' -Title 'Test-AnalyzerDrsMap' -Issues $issues `
         -Facts ([ordered]@{ Analyzers = $mapped.Count; CustomRules = $customRules.Count }) `
         -OutputFolder $OutputFolder -PassThru:$PassThru
 }

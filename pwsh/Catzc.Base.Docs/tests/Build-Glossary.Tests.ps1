@@ -55,7 +55,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         }
         Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.Docs -MockWith { $citations }.GetNewClosure()
-        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } -MockWith { $domains }.GetNewClosure()
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'drs' } -MockWith { $domains }.GetNewClosure()
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         $script:page = Join-Path $TestDrive 'glossary.md'
     }

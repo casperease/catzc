@@ -35,7 +35,7 @@ Describe 'Get-DrsDomainEdges' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'adrs' } { $script:fixture }
+        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs' } { $script:fixture }
     }
 
     It 'returns one typed edge per depends_on link, in declaration order' {

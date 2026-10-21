@@ -70,8 +70,8 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         Write-AdrFixture 'index.md' "# Index`n"
 
         $script:checks = New-ChecksConfig -CitationGraph 'report' -DoraCoverage 'report'
-        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'adrs' } { $script:fixture }
-        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'adr-checks' } { $script:checks }
+        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs' } { $script:fixture }
+        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs-checks' } { $script:checks }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $TestDrive 'adr' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }

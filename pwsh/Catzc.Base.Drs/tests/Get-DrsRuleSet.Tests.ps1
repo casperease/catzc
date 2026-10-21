@@ -35,7 +35,7 @@ Describe 'Get-DrsRuleSet' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'adrs' } { $script:fixture }
+        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs' } { $script:fixture }
     }
 
     It 'returns every typed rule set in declaration order' {

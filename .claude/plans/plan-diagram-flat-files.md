@@ -22,11 +22,11 @@ Every diagram becomes two files beside its page's `.assets/`: `<name>.drawio.png
 ## Open steps
 
 1. [ ] The rules: ADR-REPO-SLIDES and the conventional-folders rule say a diagram is the pair `<name>.drawio.png` + `<name>.drawio.yml` in
-       `.assets/`, named by the diagram; the how-to and `add-a-doc-chapter.md` follow (check: `Test-AdrRegistry`, `Test-Links`).
+       `.assets/`, named by the diagram; the how-to and `add-a-doc-chapter.md` follow (check: `Test-DrsRegistry`, `Test-Links`).
 2. [ ] The tools read and write the pair, one mechanism, staged and swapped as one burst: `declaration.py` (put/get/save/check/minimaps,
        legend), `drawio_forward.py`, `Build-Diagrams` (`-Path` takes a `.drawio.yml`, `-Stale` finds pairs), `Test-Diagrams`,
        `Write-DiagramMinimapData` (its `out/minimaps/<name>/` key), `Move-Diagram`, the `file-kinds.yml` / globs / `drawio.yml` entries that
        name `diagram.drawio.*` (check: pytest, the Slides Pester, `Test-Diagrams` on a fixture pair).
-3. [ ] The move: every `.assets/<name>/diagram.drawio.{png,yml}` moved on disk to `.assets/<name>.drawio.{png,yml}` and every link and
-       embed re-pointed by the tool (a dry run first, counts reported), the empty folders removed, the glyph library included (check:
+3. [ ] The move: every `.assets/<name>/diagram.drawio.{png,yml}` moved on disk to `.assets/<name>.drawio.{png,yml}` and every link and embed
+       re-pointed by the tool (a dry run first, counts reported), the empty folders removed, the glyph library included (check:
        `Test-Links`, `Test-Diagrams` over the tree: 0 issues, 0 stale).

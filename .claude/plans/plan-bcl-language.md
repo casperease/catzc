@@ -13,7 +13,7 @@ plan:
       docs/drs/automation/BCL/index.md,
       docs/drs/automation/pwsh/hosting-csharp-types.md,
       docs/drs/index.md,
-      pwsh/Catzc.Base.Docs/configs/adrs.yml,
+      pwsh/Catzc.Base.Drs/configs/drs.yml,
       pwsh/Catzc.Base.Languages/configs/languages.yml,
       docs/index.md,
       docs/how-to/getting-started/automation/index.md,
@@ -48,7 +48,7 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
   `ValueChainHighlight`, `ValueChainMap`, `WorldMapBuilder`, `WorldMapHighlight`) unwrap in their pwsh callers instead, so
   `ContractValue.Unwrap`'s signature changes; the parser and runspace types keep their rows.
 - **BCL is its own ADR domain**, `bcl` (folder `automation/BCL`, depends on `automation`): `ADR-AUTO-TYPES` is re-cited to `ADR-BCL-TYPES`
-  with `Update-AdrCitation`, dry run first, and `ADR-PWSH-TYPES` depends on `bcl`.
+  with `Update-DrsCitation`, dry run first, and `ADR-PWSH-TYPES` depends on `bcl`.
 - **BCL is two things** (the user, 2026-10-21): a .NET language in catzc's domain, where a language carries more than its file row (its
   build pair, its projects and solution, its reference set); and its use inside pwsh, which compiles the types in the .NET runtime already
   running the session, intrinsic to pwsh. The build pair of `ADR-AUTO-TYPES-DEBUGANYCPU` is the language's, so it lives in `bcl.yml` on

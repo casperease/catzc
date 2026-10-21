@@ -22,7 +22,7 @@ Describe 'Get-AnalyzerDrsCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGERE
                         'PSUseFakeRule'     = @('ADR-FAKE-LIFT')
                     }
                 }
-            } -ParameterFilter { $Config -eq 'analyzer-adr-map' }
+            } -ParameterFilter { $Config -eq 'analyzer-drs-map' }
 
             $rows = @(Get-AnalyzerDrsCoverage)
             $rows | Should -HaveCount 3
@@ -35,7 +35,7 @@ Describe 'Get-AnalyzerDrsCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGERE
 
 Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'ADR-PWSH-FORMAT-ANALYZERADRMAPPING' {
     BeforeAll {
-        $script:result = Test-AnalyzerDrsMap -PassThru -OutputFolder (Join-Path $TestDrive 'analyzer-adr-map')
+        $script:result = Test-AnalyzerDrsMap -PassThru -OutputFolder (Join-Path $TestDrive 'analyzer-drs-map')
     }
 
     It 'found custom analyzer rules to check (guards against a silent no-op)' {
