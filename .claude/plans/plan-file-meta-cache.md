@@ -25,9 +25,9 @@ Test-FileMeta keeps no cache, so it still catches a stale head; `-NoCache` repai
 
 ## Decided (the user, 2026-10-21, decision round)
 
-- **The ADR code map joins the key as a code stamp**: `Get-FileMetaInputStamp` adds a hash of the registered codes
-  (`Get-AdrCitationMap`), so only a change to the codes rechecks a file. A `languages.yml` settings line is too coarse: the map is built
-  from the index and every ADR's rule headings, so it would name every ADR file and recheck the tree on any ADR edit.
+- **The ADR code map joins the key as a code stamp**: `Get-FileMetaInputStamp` adds a hash of the registered codes (`Get-AdrCitationMap`),
+  so only a change to the codes rechecks a file. A `languages.yml` settings line is too coarse: the map is built from the index and every
+  ADR's rule headings, so it would name every ADR file and recheck the tree on any ADR edit.
 - **The beside-file input is one sentence in caching.md's "Result caches for quality checks" section**, not in the rule: a check whose
   verdict reads files beside the file stamps them into that file's key, with `Get-FileMetaInputStamp` as the exemplar.
 

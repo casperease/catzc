@@ -37,8 +37,8 @@ in the Carried section below.
 - A fact-check verdict never stands alone: `Complete-DocNote` requires its reason, with the path:line it rests on.
 - A stamped folder in `out/` is fine as input; it can be missing at start or vanish mid-run, and the tooling waits through both.
 - The term stays **responsibility domain** (ADR-THES-STORES-RESPONSIBILITYDOMAIN).
-- (decision round, 2026-10-21) The fact-checker already runs on haiku; its stale `model_reason` in `agents.yml` goes, since that key is
-  only for a robot above the default.
+- (decision round, 2026-10-21) The fact-checker already runs on haiku; its stale `model_reason` in `agents.yml` goes, since that key is only
+  for a robot above the default.
 - (decision round) The mode stays a rule of the AI agent contract, ADR-REPO-AI-EDITORISFACT, specialising the thesis; it cites
   ADR-THES-ONETRUTH-ONESTOREDECIDES in place of ADR-PRIN-ONELIVE, which governs versions, not truth.
 - (decision round) The working tree is the proposal for the next commit and the committed tree at one commit is the truth;

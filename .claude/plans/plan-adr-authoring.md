@@ -19,14 +19,14 @@ Lessons from adding ADR-THES-NORMALFORM (catzc-4f, 2026-10-21). Adding one ADR t
 glossary entries, the build of the glossary, the domain's `dora-explains.md`, formatting), needed three throwaway `out/*.ps1` scripts to run
 the checks, and failed `Test-Glossary` once on a contrast written on one side only. The throwaway scripts are plan-agent-shortcuts' gate
 runner, and the plan-edit hook is plan-agent-friction's step 4; this plan follows them and never restates them. Recommended order: step 1
-first (it removes a duplicated fact), then 4 (free), then 2 and 3. Every new ADR or defined term pays these costs again, so each moves
-from an agent's memory or a failing gate into the tree.
+first (it removes a duplicated fact), then 4 (free), then 2 and 3. Every new ADR or defined term pays these costs again, so each moves from
+an agent's memory or a failing gate into the tree.
 
 ## Decided (the user, 2026-10-21, decision round)
 
 - **An untracked link target stays a failing finding**, as the tree has it (`LinkFindingType.Untracked`): a pipeline's clean checkout
-  reports the same link as Dangling and fails, so a devbox-only `pending` kind would break ADR-AUTO-PARITY-CHECKEDEQUALLY. The fix for a
-  new file stays its commit.
+  reports the same link as Dangling and fails, so a devbox-only `pending` kind would break ADR-AUTO-PARITY-CHECKEDEQUALLY. The fix for a new
+  file stays its commit.
 - **The ADR-edit reminder is an entry in the plan-edit hook's path-pattern map** (plan-agent-friction's step 4): an edit of `adrs.yml` or
   any `*/configs/glossary.yml` prints `Build-AdrIndex` / `Build-Glossary` and the checks to run; one mechanism, config entries
   (ADR-PRIN-CONFIG).

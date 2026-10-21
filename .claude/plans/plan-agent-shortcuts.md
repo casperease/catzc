@@ -12,14 +12,16 @@ plan:
       .claude/hooks/Assert-BashTimeout,
       pwsh/Catzc.Base.Docs/configs/glossary.yml,
       docs/adr/repository/plans.md,
+      .claude/agents/gate-runner.md,
+      .claude/CLAUDE.md,
     ]
 ---
 
 # Agent shortcuts: a gate runner, a plan starter, a reviewer check and a glossary hint
 
 Two lessons from the truth-stores session (2026-10-20/21), each moved from a step an agent must remember into a file that carries it. The
-plan-edit hook is plan-agent-friction's, and the trim of `.claude/CLAUDE.md`'s time safeguard is that plan's Q3; this plan follows them and
-never restates them. Recommended order: the gate runner, then `New-Plan`.
+plan-edit hook is plan-agent-friction's, and the trim of `.claude/CLAUDE.md`'s time safeguard is that plan's step 7; this plan follows them
+and never restates them. Recommended order: the gate runner, then `New-Plan`.
 
 ## Why its value is high
 
@@ -29,12 +31,12 @@ Both recur in every session that runs a gate or starts a plan.
 ## Decided (the user, 2026-10-21, decision round)
 
 - **The gate runner is a repo asset**: one checked-in entry script under `pwsh/.internal/assets/`, beside `Import-ModuleFiles.ps1`, that
-  dot-sources the importer, runs each named command with its arguments, prints each verdict and goes on past a failure. It is the one way
-  a gate runs in a background call: `.claude/CLAUDE.md:151` (which advises a `;` command the safeguard forbids),
+  dot-sources the importer, runs each named command with its arguments, prints each verdict and goes on past a failure. It is the one way a
+  gate runs in a background call: `.claude/CLAUDE.md:151` (which advises a `;` command the safeguard forbids),
   `.claude/agents/gate-runner.md:34` (a per-gate `out/*.ps1`) and catzc-run's step 2 change with it (ADR-PRIN-ONELIVE).
-- **`New-Plan -Topic <t> -Value <v> -Class <c>` writes the plan file only**: the head and `## Open steps`, the sections ADR-REPO-PLANS-
-  ONESHAPE requires, and it refuses a topic whose file exists. The value row and the master line join once plan-agent-friction's step 1
-  makes `Test-Plans` check them, since both files are derived and edited by many sessions.
+- **`New-Plan -Topic <t> -Value <v> -Class <c>` writes the plan file only**: the head and `## Open steps`, the sections
+  ADR-REPO-PLANS-ONESHAPE requires, and it refuses a topic whose file exists. The value row and the master line join once
+  plan-agent-friction's step 1 makes `Test-Plans` check them, since both files are derived and edited by many sessions.
 
 ## Open steps
 

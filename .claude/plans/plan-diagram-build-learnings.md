@@ -59,8 +59,8 @@ blocks a feature.
       and the total at the end; that a full run takes minutes and `-Stale` or `-Path` is the everyday journey. Replace the locality
       paragraph with what the code does: every page anywhere that embeds a folder's png is its article, a folder no page embeds is an orphan
       (reported, still rendered), and each page's Supports line is held against the yml (reported as drift). Then rebuild the comment view
-      with `Build-CommentView` on `Build-Diagrams.ps1`. The page also names the sample sequence: `Write-DiagramMinimapData`
-      inside its module, then `put` (check: `Test-Links` on the page, `Test-GeneratedFiles` on its head).
+      with `Build-CommentView` on `Build-Diagrams.ps1`. The page also names the sample sequence: `Write-DiagramMinimapData` inside its
+      module, then `put` (check: `Test-Links` on the page, `Test-GeneratedFiles` on its head).
 
 ### Instructions
 
@@ -89,8 +89,8 @@ blocks a feature.
       articles, minimap data, render or sync, report), the minimap stage marked as the cost, `about.adrs`
       `ADR-REPO-SLIDES-MINIMAPSFROMDATA`. Words go in an article, not on the slide. The user approves before anything lands in `docs/`
       (check: `Test-Diagrams -Path` on the sample folder, then the user's approval).
-- [ ] On approval: the folder lands in the `.assets` of the explanation page that embeds it (the user names the page),
-      put with `Build-Diagrams -Path` (check: `Test-Diagrams` on the folder, `Test-Links` on the article).
+- [ ] On approval: the folder lands in the `.assets` of the explanation page that embeds it (the user names the page), put with
+      `Build-Diagrams -Path` (check: `Test-Diagrams` on the folder, `Test-Links` on the article).
 
 ## Refs
 
