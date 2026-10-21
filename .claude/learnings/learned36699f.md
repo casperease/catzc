@@ -39,3 +39,20 @@ Started 2026-10-21T20:42:19.8972026+02:00.
   before the first plan edit, instead of guessing an existing script name.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: waiting for a background run's notification instead of polling its output file or
   reaching for Monitor.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a diagram is a flat pair .assets/\<name>.drawio.yml + .drawio.png named by its stem
+  .assets/\<name>, and the yml may instead live in a `yml drawio` block above its image when the kit's drawio.yml carriers: names the stem.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a minimap lights only the cells its yml declares (Write-DiagramMinimapData drops
+  and warns on the rest) and declaration.py minimaps reads out/minimaps/\<stem>/computed/, so every citation change ends in recompute,
+  re-declare, Build-Diagrams -Stale.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Get-WorldMap reads a file's citations from its body plus its comment page, never
+  its catzc head, and citation_exclude keeps .claude/{learnings,hindsight,plans}/** and docs/**/.assets/** from lighting cells.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: dot-sourcing a staged copy into a module replaces a private function but not a
+  public one, whose exported command keeps the old definition; a public staged copy needs a global wrapper or a real swap.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Build-Diagrams -Stale over the tree takes about 210 s, so a following tree
+  Test-Diagrams in the same call breaks the 360 s roof; run them as two calls.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: in a PowerShell -like pattern a backtick is the escape character, so a pattern with
+  literal backticks never matches; use StartsWith/Contains instead.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: reading a gate's verdict with one grep for "issues|FAIL|TEST:" instead of tailing
+  whole outputs.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: keeping one reusable check script per burst under out/gate/ and editing its path
+  list, rather than writing a new script per check.

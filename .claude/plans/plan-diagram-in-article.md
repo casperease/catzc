@@ -30,10 +30,8 @@ A diagram's declaration may live inside its article, in a fenced block the kit r
 
 ## Open steps
 
-3. [ ] The kit and the Slides tools read and write the block, one mechanism, as one staged burst: `declaration.py` `source_of` finds the
-       `yml drawio` block in the article; save, tidy and `declare_minimaps` write it back in place keeping the page intact; discovery in
-       `drawio_forward.py`, `Build-Diagrams` and `Test-Diagrams` finds articles carrying a block; the gate's drift, conflict and committed
-       base read the block from git; Supports and the embedder still pair the article with `.assets/<name>.drawio.png` (check: pytest with a
-       fixture article, the Slides Pester, `Test-Diagrams` on the fixture).
-4. [ ] `build-diagrams-runs-five-stages` moved to the article mode as the proof (the user, 2026-10-21) (check: `Build-Diagrams -Path` on it re-renders the same
-       png, `Test-Diagrams` and `Test-Links` clean).
+3. [ ] The tree checks of the step-3 tools burst (its code and tests landed: pytest 149, Slides Pester green; the run of the tree checks was
+       stopped for low memory; the user frees memory first, then the orchestrator sends catzc-1c on): run `out/gate/article-final.ps1`, or by hand `Test-ParameterConsistency`, `Test-Links` and `Test-Diagrams`
+       over the tree (check: all three report 0 issues, so the default file carrier is unchanged).
+4. [ ] `build-diagrams-runs-five-stages` moved to the article mode as the proof (the user, 2026-10-21) (check: `Build-Diagrams -Path` on it
+       re-renders the same png, `Test-Diagrams` and `Test-Links` clean).

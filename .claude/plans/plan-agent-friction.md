@@ -31,3 +31,9 @@ step below moves one of those to the one place that serves it; steps 1 and 2 lan
        "script under `out/`" clause is cut for `Invoke-CatzcCommand.ps1` (the tree contradicts itself today); the same section says in one
        clause that Bash calls use absolute paths (hindsight 226bbf, "the second half"; no line says it, a drifting folder is learned by
        failure), paid for by the cut. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
+
+## Open questions
+
+- From catzc-11's finalize (2026-10-21): an import-path burst HOLDed the named workers but not the orchestrator, whose import hit a
+  half-moved tree. Should `catzc-verify` step 1's import-path clause say the HOLD and GO go to every peer `ListAgents` shows, the orchestrator
+  included? Recommendation: yes, one clause, paid for by the cuts of step 1.

@@ -34,6 +34,9 @@ It cuts a cost paid by every session and every spawn that loads the project inst
   `Build-Diagrams -Path` refuses folders outside `docs/`? Recommended: yes, one clause.
 - Should the plan-edit reminder in `edit-reminders.yml` (the Show-EditReminder hook) also say "every open step names its check", the one
   Test-Plans failure a new plan hit on 2026-10-21? Recommended: yes, merged into the existing reminder.
+- Should `debt-reduce` line 1 say that an item is planned only after a grep or file read shows its gap is still in the tree? On 2026-10-21
+  a round planned 10 steps and 8 had already landed, because hindsight lines go stale within the day (catzc-ba's finalize). Recommended:
+  yes, one clause, no new line.
 
 ## Open steps
 

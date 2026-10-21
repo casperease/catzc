@@ -32,6 +32,14 @@ reach.
   a shared head mechanism (Q13, Q15); `Test-IsRunningInVsCode` stays on `TERM_PROGRAM` until a session reports the mark missing (Q14); no
   session reads the log at start until it has filled for a week (Q16).
 
+## Open questions (the orchestrator's finalize, 2026-10-22)
+
+- Three simplifications, none applied: (a) the `catzc-module` capability gains one line, "a validation attribute also runs when the
+  function reassigns its parameter; put a computed default in a local", so no command repeats the `ValidatePathGiven` trap; (b)
+  `plans-orchestrate` gains one line, "an idle notice older than the session's last reply is stale; ask nothing"; (c) the
+  `implementation-orchestrator` robot cites `ADR-REPO-PLANS-DONEPLANDELETED` for the deletion line in `value-of-plan.md`. Recommendation:
+  all three.
+
 ## Open steps
 
 - [ ] `.claude/learnings`: append catzc-49's "What I learned" lines, asked for on 2026-10-21, each rewritten to a current fact first; no
