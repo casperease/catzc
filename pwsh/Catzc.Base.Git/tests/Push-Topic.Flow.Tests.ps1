@@ -60,20 +60,20 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'integration', 'F
         & git init --quiet --bare --initial-branch=main $script:server 2>&1 | Out-Null
         $script:seed = New-Clone 'seed'
         Invoke-Scratch $script:seed @('checkout', '--quiet', '-b', 'main') | Out-Null
-        Add-Commit $script:seed 'widget.txt' 'one' -Push
+        Add-Commit -Path $script:seed -File 'widget.txt' -Text 'one' -Push
         $script:topic = New-Clone 'topic' -Branch 'spin-widget'
     }
 
     It 'resolves the current server HEAD as the sync point and announces the fallback' -Tag 'FDR-GIT-FALLBACKISANNOUNCED' {
-        $point = Get-SyncPoint -Config $script:config -RepositoryRoot $script:topic -WarningVariable warned -WarningAction SilentlyContinue
+        $point = Get-SyncPoint -Config $script:config -RepositoryRoot $script:topic
         $point.Source | Should -BeExactly 'fallback'
         $point.Commit | Should -BeExactly (Invoke-Scratch $script:server @('rev-parse', 'main'))
-        "$warned" | Should -BeLike '*marks no BVT-verified head*'
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Git -Times 1 -Exactly -ParameterFilter { $Warning -and $Message -like '*marks no BVT-verified head*' }
     }
 
     It 'rebases the topic onto new server work' -Tag 'FDR-GIT-SYNCBYREBASE' {
-        Add-Commit $script:topic 'gadget.txt' 'topic'
-        Add-Commit $script:seed 'sprocket.txt' 'server' -Push
+        Add-Commit -Path $script:topic -File 'gadget.txt' -Text 'topic'
+        Add-Commit -Path $script:seed -File 'sprocket.txt' -Text 'server' -Push
         $result = Sync-Topic -Config $script:config -RepositoryRoot $script:topic -WarningAction SilentlyContinue
         $result.Onto | Should -BeExactly (Invoke-Scratch $script:server @('rev-parse', 'main'))
         Invoke-Scratch $script:topic @('rev-parse', 'HEAD~1') | Should -BeExactly $result.Onto
@@ -82,8 +82,8 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'integration', 'F
     }
 
     It 'stops on a conflict and leaves the rebase to the user' {
-        Add-Commit $script:topic 'widget.txt' 'topic edit'
-        Add-Commit $script:seed 'widget.txt' 'server edit' -Push
+        Add-Commit -Path $script:topic -File 'widget.txt' -Text 'topic edit'
+        Add-Commit -Path $script:seed -File 'widget.txt' -Text 'server edit' -Push
         { Sync-Topic -Config $script:config -RepositoryRoot $script:topic -WarningAction SilentlyContinue } | Should -Throw '*conflicts in: widget.txt*git rebase --abort*'
         Test-Path -LiteralPath (Join-Path $script:topic '.git/rebase-merge') | Should -BeTrue -Because 'the rebase waits for the user'
         Invoke-Scratch $script:topic @('rebase', '--abort') | Out-Null
@@ -91,8 +91,8 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'integration', 'F
 
     It 'lands a three-commit topic as one commit on main in main-direct' -Tag 'FDR-GIT-ONESQUASHEDCOMMIT' {
         $before = Invoke-Scratch $script:server @('rev-parse', 'main')
-        Add-Commit $script:topic 'gadget.txt' 'one'
-        Add-Commit $script:topic 'sprocket.txt' 'two'
+        Add-Commit -Path $script:topic -File 'gadget.txt' -Text 'one'
+        Add-Commit -Path $script:topic -File 'sprocket.txt' -Text 'two'
         [System.IO.File]::WriteAllText((Join-Path $script:topic 'cog.txt'), "three`n")
         $result = Push-Topic -Message 'spin the widget' -Config $script:config -RepositoryRoot $script:topic
         $result.Target | Should -BeExactly 'main'
@@ -104,7 +104,7 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'integration', 'F
 
     It 'stops on a rejected push and keeps the commit' {
         [System.IO.File]::WriteAllText((Join-Path $script:server 'hooks/pre-receive'), "#!/bin/sh`nexit 1`n")
-        Add-Commit $script:topic 'gadget.txt' 'one'
+        Add-Commit -Path $script:topic -File 'gadget.txt' -Text 'one'
         { Push-Topic -Config $script:config -RepositoryRoot $script:topic } | Should -Throw '*rejected*is kept*'
         Invoke-Scratch $script:topic @('rev-list', '--count', 'origin/main..HEAD') | Should -Be '1'
     }

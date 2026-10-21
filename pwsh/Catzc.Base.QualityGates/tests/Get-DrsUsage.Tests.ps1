@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "773d2c4ea06a"
+    with_body_sha: abc710d8bf87
   edges:
     code: pwsh/Catzc.Base.QualityGates/Get-DrsUsage.ps1
     cites:
@@ -58,5 +58,16 @@ Describe 'Get-DrsUsage (repository)' -Tag 'L1', 'integrity', 'source-only' {
         $one = @(Get-DrsUsage -Path (Join-Path (Get-RepositoryRoot) $path))
         $one.Count | Should -BeGreaterThan 0
         @($one.Path | Sort-Object -Unique) | Should -Be @($path)
+    }
+
+    It 'skips a path the index still lists but the working tree has deleted' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
+        $path = 'docs/drs/repository/file-meta.md'
+        Mock Get-FileMetaScope -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Path = 'docs/widget-deleted.md'; Carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter } }
+            [pscustomobject]@{ Path = 'docs/drs/repository/file-meta.md'; Carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter } }
+        }
+        $kept = @(Get-DrsUsage)
+        $kept.Count | Should -BeGreaterThan 0
+        @($kept.Path | Sort-Object -Unique) | Should -Be @($path)
     }
 }

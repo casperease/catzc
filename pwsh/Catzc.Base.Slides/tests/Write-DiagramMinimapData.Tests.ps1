@@ -42,12 +42,12 @@ content:
             )
             [Catzc.Base.Maps.MinimapData]::new('layer-stack', @([Catzc.Base.Maps.MinimapAxis]::new('layer', [string[]] @('automation', 'contract'))), $cells, $cells)
         }
+        $script:warned = [System.Collections.Generic.List[string]]::new()
+        Mock Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Warning } { $script:warned.Add($Message) }
         $script:target = InModuleScope Catzc.Base.Slides -Parameters @{ Folder = $script:folder; Root = $script:root } {
             param($Folder, $Root)
-            Write-DiagramMinimapData -Stem $Folder -RepositoryRoot $Root -WarningVariable warned -WarningAction SilentlyContinue
-            $script:warned = $warned
+            Write-DiagramMinimapData -Stem $Folder -RepositoryRoot $Root
         }
-        $script:warned = InModuleScope Catzc.Base.Slides { $script:warned }
     }
 
     It 'draws only the lit cells the declaration lists' {

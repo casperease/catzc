@@ -61,6 +61,6 @@ function Get-SyncPoint {
     else {
         'the server marks no BVT-verified head (bvt_mark: none)'
     }
-    Write-Warning "Get-SyncPoint: syncing from the current server HEAD $head of '$branch', because $missing."
+    Write-Message -Warning "Get-SyncPoint: syncing from the current server HEAD $head of '$branch', because $missing."
     [pscustomobject]@{ Commit = $head; Source = 'fallback'; Branch = $branch }
 }

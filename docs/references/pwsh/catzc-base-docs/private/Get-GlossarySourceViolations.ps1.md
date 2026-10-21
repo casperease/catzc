@@ -38,7 +38,8 @@ The GlossaryConfig type checks each source on its own when it loads; this checks
 ([ADR-REPO-VOCAB-SOURCESINREPOSITORY](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-sourcesinrepository));
 ```
 
-- a contrast that is not reciprocal — A contrasts B, but B does not contrast A
+- a contrast declared on both terms — A contrasts B and B contrasts A; a contrast is declared once, the build shows it on both entries, and
+  the second declaration of the pair is the finding
 
 ```text
 ([ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-similartermscontrasted));

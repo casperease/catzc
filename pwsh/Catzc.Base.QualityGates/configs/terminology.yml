@@ -360,6 +360,9 @@ terms:
     - term: cmdb
       meaning: "CMDB — the configuration management database the product thesis contrasts with the repository"
       expands_to: "configuration management database"
+    - term: drs
+      meaning: "DRS — the decision record system: the records under docs/drs and their registry, the Catzc.Base.Drs module"
+      expands_to: "decision record system"
     - term: LOCAL
       meaning:
         "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (DDR-TRACK-VALUECHAINCONCERN)"

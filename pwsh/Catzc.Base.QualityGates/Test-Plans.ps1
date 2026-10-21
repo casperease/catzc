@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "80946a82ff32"
+    with_body_sha: "46c5a2a0e8f6"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
     docs: "[Test-Plans.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md)"
@@ -73,6 +73,7 @@ function Test-Plans {
     $masterLines = @(& $readLines $Config.master_file)
     $valueLines = @(& $readLines $Config.value_file)
 
+    $stepWords = @{ one = 1; two = 2; three = 3; four = 4; five = 5; six = 6; seven = 7; eight = 8; nine = 9; ten = 10; eleven = 11; twelve = 12 }
     $issues = [System.Collections.Generic.List[string]]::new()
     $plans = 0
     $tasks = 0
@@ -216,14 +217,42 @@ function Test-Plans {
             }
         }
 
+        $items = @(Get-MarkdownListItem -Line $lines)
+        $openCount = @($items | Where-Object { $_.First -match '^\s*(-|\d+\.) \[ \]' }).Count
+        # A step count an overlay states ("three steps", "one step left") is the plan's open steps, or it has drifted.
+        $assertCount = {
+            param([string] $Text, [string] $Overlay)
+            if ($Text -match "(?i)\b(?<n>\d+|$($stepWords.Keys -join '|'))\s+steps?\b") {
+                $count = $Matches['n'].ToLowerInvariant()
+                $stated = if ($stepWords.ContainsKey($count)) {
+                    $stepWords[$count]
+                }
+                else {
+                    [int] $count
+                }
+                if ($stated -ne $openCount) {
+                    & $add 1 'ADR-REPO-PLANS-THREEPARTS' "$Overlay says $stated step(s), but the plan has $openCount open step(s)"
+                }
+            }
+        }
+
         $topic = [System.IO.Path]::GetFileNameWithoutExtension($name)
         $pointer = '^\s*-\s.*->\s*' + [regex]::Escape($name) + '\b'
-        if (-not ($masterLines | Where-Object { $_ -match $pointer })) {
+        $chunk = @(Get-MarkdownListItem -Line $masterLines | Where-Object { $_.First -match $pointer }) | Select-Object -First 1
+        if (-not $chunk) {
             & $add 1 'ADR-REPO-PLANS-THREEPARTS' "the plan has no chunk line in $($Config.master_file) ('- <chunk> -> ${name}: ...')"
         }
+        else {
+            & $assertCount $chunk.Text "its chunk line in $($Config.master_file)"
+        }
         $row = '^\|[^|]*\|\s*' + [regex]::Escape($topic) + '\s*\|'
-        if (-not ($valueLines | Where-Object { $_ -match $row })) {
+        $valueRow = $valueLines | Where-Object { $_ -match $row } | Select-Object -First 1
+        if (-not $valueRow) {
             & $add 1 'ADR-REPO-PLANS-THREEPARTS' "the plan has no row in $($Config.value_file) ('| <value> | $topic | ...')"
+        }
+        else {
+            $state = @($valueRow.Trim().Trim('|') -split '\|')[-1]
+            & $assertCount $state "its row in $($Config.value_file)"
         }
 
         foreach ($section in $Config.sections_required) {
@@ -244,7 +273,7 @@ function Test-Plans {
         }
 
         # An open step is a `- [ ]` or `1. [ ]` list item, its continuation lines included; each names its check.
-        foreach ($item in @(Get-MarkdownListItem -Line $lines)) {
+        foreach ($item in $items) {
             if ($item.First -match '^\s*(-|\d+\.) \[ \]' -and $item.Text -notmatch '(?i)check:') {
                 & $add $item.LineNumber 'ADR-REPO-PLANS-OPENSTEP' "the open step names no check: `"$($item.Text.Trim())`""
             }

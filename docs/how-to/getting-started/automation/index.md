@@ -150,6 +150,8 @@ Short, focused how-to articles for the common jobs:
 | Vendor a third-party PowerShell module     | [Vendor a module](../pwsh/vendor-a-module.md)                       |
 | Write a new doc chapter or decision record | [Add a doc chapter](add-a-doc-chapter.md)                           |
 | Land a decision as a decision record       | [Add a decision record](add-an-adr.md)                              |
+| Make a command public through a contract   | [Add a command contract](../../pwsh/add-a-command-contract.md)      |
+| Feed an agent hook a payload by hand       | [Test an agent hook](../../pwsh/test-an-agent-hook.md)              |
 
 Looking for what a specific module does rather than how to do a task? See the [module reference](../../../references/pwsh/index.md).
 

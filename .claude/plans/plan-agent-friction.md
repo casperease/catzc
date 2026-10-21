@@ -33,13 +33,10 @@ step below moves one of those to the one place that serves it; steps 1 and 2 lan
        that Bash calls use absolute paths (hindsight 226bbf, "the second half"; no line says it, a drifting folder is learned by failure),
        paid for by the cut. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
 
-3. [ ] The terminology scope config that `Test-Glossary` G6 reads (the file that declares its sources): `.claude/hindsight/**` and
-       `.claude/learnings/**` scoped out of G6, one entry (the user, 2026-10-22: the logs are append-only `Add-SessionLearning` output, so
-       G6 cannot be met without breaking the write-only rule). Check: `Test-ShippedConfigs`, and `Test-Glossary` reports 0 issues.
-
 ## Decided (the user, 2026-10-22)
 
-- The learnings and hindsight logs are out of G6's scope (step 3); no hand edit, no write-time check, no new family forms.
+- The learnings and hindsight logs are out of the glossary scan, as append-only `Add-SessionLearning` output; no hand edit, no write-time
+  check, no new family forms (landed in `GlossaryOptions.DefaultExclude`, next to `.claude/plans/**`).
 
 ## Decided (delegated, the orchestrator, 2026-10-22)
 

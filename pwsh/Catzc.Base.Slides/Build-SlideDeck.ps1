@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "449b12c6e1c0"
+    with_body_sha: "2ea5f20f1626"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
     docs: "[Build-SlideDeck.ps1.md](../../docs/references/pwsh/catzc-base-slides/Build-SlideDeck.ps1.md)"
@@ -82,17 +82,8 @@ function Build-SlideDeck {
             else {
                 [long]::MaxValue
             } }, Id)
-    $orders = @($ordered | Where-Object { $_.Order -is [int] -or $_.Order -is [long] } | ForEach-Object { [long] $_.Order })
-    foreach ($group in ($orders | Group-Object | Where-Object Count -GT 1)) {
-        $names = @($ordered | Where-Object { "$($_.Order)" -eq $group.Name } | ForEach-Object Id) -join ', '
-        $faults.Add([Catzc.Base.Slides.SlideFault]::new($Deck, 'order', "the order $($group.Name) is held by $($group.Count) slides: $names"))
-    }
-    $distinct = @($orders | Sort-Object -Unique)
-    for ($expected = 1; $expected -le $distinct.Count; $expected++) {
-        if ($distinct[$expected - 1] -ne $expected) {
-            $faults.Add([Catzc.Base.Slides.SlideFault]::new($Deck, 'order', "the orders have a gap: expected $expected, found $($distinct[$expected - 1])"))
-            break
-        }
+    foreach ($fault in @(Get-SlideOrderFinding -Slide $ordered -Deck $Deck)) {
+        $faults.Add($fault)
     }
 
     $rendered = [System.Collections.Generic.List[pscustomobject]]::new()

@@ -57,8 +57,9 @@ Describe 'EditRemindersConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-VARYINGBEHAVIOURI
 
     It 'reminds an edit of the ADR registry or a glossary source of its build and its check' -Tag 'L1' {
         $shipped = Get-Config -Config edit-reminders
-        $shipped.For('pwsh/Catzc.Base.Drs/configs/drs.yml') | Should -BeLike '*Build-DrsIndex*Test-DrsRegistry*'
-        $shipped.For('pwsh/Catzc.Base.Slides/configs/glossary.yml') | Should -BeLike '*Build-Glossary*Test-Glossary*'
-        $shipped.For('pwsh/Catzc.Base.Docs/configs/adrs-checks.yml').Count | Should -Be 0
+        $modules = Get-CatzcModulesFolder
+        $shipped.For("$modules/Catzc.Base.Drs/configs/drs.yml") | Should -BeLike '*Build-DrsIndex*Test-DrsRegistry*'
+        $shipped.For("$modules/Catzc.Base.Slides/configs/glossary.yml") | Should -BeLike '*Build-Glossary*Test-Glossary*'
+        $shipped.For("$modules/Catzc.Base.Docs/configs/adrs-checks.yml").Count | Should -Be 0
     }
 }

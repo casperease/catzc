@@ -18,8 +18,9 @@ skills: [plan-decide, plan-value, git-readonly, report-fixed]
 Run one decision round; the user decides, the agent records.
 
 1. Grep the plans for open questions and open steps that need a decision; Read each plan's head and open sections.
-2. Write `questionnaire-<date>.md`: one item per question, one to five lines of context a reader needs, the options, no links.
-3. Write `decisions-<date>.md` with the table head: Q, Decision, Rec taken, Outcome, Note.
+2. Write `out/question-round/questionnaire-<date>.md`: one item per question, one to five lines of context a reader needs, the options, no
+   links.
+3. Write `out/question-round/decisions-<date>.md` with the table head: Q, Decision, Rec taken, Outcome, Note.
 4. Ask with AskUserQuestion, four items per call; the first option is the recommendation and is labelled so; the question text keeps its
    nuance. A "clarify" answer gets one reformulated question with the added context before moving on.
 5. After each call, add one row per answer: the decision, whether the recommendation was taken, the projected outcome in two to ten words,

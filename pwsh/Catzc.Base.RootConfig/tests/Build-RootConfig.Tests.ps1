@@ -138,7 +138,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         $script:beta = Join-Path $script:fake.Root 'widgets/beta/gadget.txt'
         # The pattern of the generated head a generator's file carries, over the content the generator rendered; the body hash is any 12 hex digits.
         $script:headed = {
-            param([string] $Target, [string] $Body)
+            param([string] $Body)
             '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     role: other\n#     generator: widgets/Catzc\.Widget/New-Widget\.ps1\n# ---\n\n' + [regex]::Escape($Body).Replace("`n", '\n') + '$'
         }
 
@@ -168,8 +168,8 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
 
     It 'passes the wildcard target to the generator and writes every record' {
         Build-RootConfig | Out-Null
-        [System.IO.File]::ReadAllText($script:alpha) | Should -MatchExactly (& $script:headed 'widgets/alpha/gadget.txt' "alpha`n")
-        [System.IO.File]::ReadAllText($script:beta) | Should -MatchExactly (& $script:headed 'widgets/beta/gadget.txt' "beta`n")
+        [System.IO.File]::ReadAllText($script:alpha) | Should -MatchExactly (& $script:headed "alpha`n")
+        [System.IO.File]::ReadAllText($script:beta) | Should -MatchExactly (& $script:headed "beta`n")
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'New-Widget' -and $Target -eq 'widgets/*/gadget.txt' }
     }
 
@@ -185,7 +185,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:beta, "stale`n")
         $result = Build-RootConfig -PassThru
         @($result | Where-Object Changed).Target | Should -Be 'widgets/beta/gadget.txt'
-        [System.IO.File]::ReadAllText($script:beta) | Should -MatchExactly (& $script:headed 'widgets/beta/gadget.txt' "beta`n")
+        [System.IO.File]::ReadAllText($script:beta) | Should -MatchExactly (& $script:headed "beta`n")
     }
 
     It '-Target naming one file of the wildcard entry writes only that file' {

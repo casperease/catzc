@@ -57,13 +57,27 @@ Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-R
 }
 
 Describe 'Command contracts' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CMDCONTRACT-COMMANDCONTRACT', 'ADR-REPO-CMDCONTRACT-ONEREADER' {
+    BeforeAll {
+        $script:commandContracts = @{}
+        foreach ($contract in Get-CommandContract -Unit '*' -Version '*' -Module '*') {
+            $key = "$($contract.Asset.Unit)|$($contract.Asset.Version)|$($contract.Asset.Module)|$($contract.Name)"
+            if (-not $script:commandContracts.ContainsKey($key)) {
+                $script:commandContracts[$key] = [System.Collections.Generic.List[object]]::new()
+            }
+            $script:commandContracts[$key].Add($contract)
+        }
+    }
+
     It 'holds at least the pilot set (<Count> command assets)' -ForEach @(@{ Count = $script:commandCases.Count }) {
         $Count | Should -BeGreaterOrEqual 12
     }
 
     It '<Unit> <Version> <Module>: <Name> reads as one typed record through Get-CommandContract' -ForEach $script:commandCases {
-        $contracts = @(Get-CommandContract -Name ([WildcardPattern]::Escape($Name)) -Module ([WildcardPattern]::Escape($Module)) `
-                -Unit ([WildcardPattern]::Escape($Unit)) -Version ([WildcardPattern]::Escape($Version)))
+        $key = "$Unit|$Version|$Module|$Name"
+        $contracts = @()
+        if ($script:commandContracts.ContainsKey($key)) {
+            $contracts = @($script:commandContracts[$key])
+        }
         $contracts.Count | Should -Be 1
         $contracts[0].Name | Should -Be $Name
         $contracts[0].Signature | Should -Not -BeNullOrEmpty

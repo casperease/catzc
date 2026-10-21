@@ -27,7 +27,9 @@ Describe 'Get-DiagramDeclarationText' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-DECLA
     }
 
     AfterEach {
-        Get-ChildItem -Path (Join-Path $script:root 'docs/widgets') -Filter '*.md' -File | Remove-Item
+        foreach ($page in Get-ChildPath (Join-Path $script:root 'docs/widgets') -Depth 1 -File -Filter '*.md') {
+            [System.IO.File]::Delete($page)
+        }
     }
 
     It 'reads the file carrier: the yml beside the png' {

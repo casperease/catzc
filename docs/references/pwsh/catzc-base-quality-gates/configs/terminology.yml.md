@@ -42,6 +42,8 @@ is therefore enforced by
 [ADR-AUTO-TEST](/docs/drs/automation/test-automation.md) + code review (and, prospectively, a TAG-AWARE AST gate over test files —
 an extension of Get-TestTagViolations that inspects string literals, not comments), with `scope` as the
 machine-readable zone map that gate would consume. All categories are effectively GLOBAL to cspell today.
+The one scope matched today is the `reserved` category's, by Test-Terminology, and it matches case-insensitively: the glob and the tracked
+path are both lowercased before the match, as the term itself is matched ignoring case.
 See [ADR-REPO-LANG](/docs/drs/repository/domain-language-separation.md) and
 [ADR-AUTO-SPELL](/docs/drs/automation/spell-out-names.md).
 ```

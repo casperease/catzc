@@ -1,0 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e03ff0e41e59
+  edges:
+    docs: "[NameCase.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-objects/tests/types/NameCase.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Objects/types/NameCase.cs
+---
+#>
+
+Describe 'NameCase' -Tag 'L0', 'logic' {
+    It 'renders DevOps in kebab case as dev-ops' {
+        [Catzc.Base.Objects.NameCase]::Render('DevOps', 'kebab') | Should -BeExactly 'dev-ops'
+    }
+
+    It 'renders a run of capitals before a word as one word' {
+        [Catzc.Base.Objects.NameCase]::Render('HTTPServer', 'kebab') | Should -BeExactly 'http-server'
+    }
+
+    It 'brings a pascal-dotted name with DevOps to the snake normal form as dev_ops' {
+        [Catzc.Base.Objects.NameCase]::ToNormal('pascal-dotted', 'Widget.DevOps', 'snake') | Should -BeExactly 'widget.dev_ops'
+    }
+
+    It 'renders the snake normal form widget.dev_ops in kebab case as widget-dev-ops' {
+        [Catzc.Base.Objects.NameCase]::FromNormal('widget.dev_ops', 'kebab', 'snake') | Should -BeExactly 'widget-dev-ops'
+    }
+}

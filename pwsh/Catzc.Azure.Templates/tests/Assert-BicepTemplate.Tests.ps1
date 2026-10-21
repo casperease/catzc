@@ -58,27 +58,27 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
         BeforeEach {
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
-            $script:bpp = Join-Path $script:templatesRoot 'sample-bicepparam'
+            $script:sampleTemplate = Join-Path $script:templatesRoot 'sample-bicepparam'
             Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName Catzc.Azure.Templates
         }
 
         It 'reports a yml and a bicepparam for one coordinate' {
-            Copy-Item (Join-Path $script:bpp 'configuration/beta.yml') (Join-Path $script:bpp 'configuration/alpha.yml')
+            Copy-Item (Join-Path $script:sampleTemplate 'configuration/beta.yml') (Join-Path $script:sampleTemplate 'configuration/alpha.yml')
             { Assert-BicepTemplate sample-bicepparam } | Should -Throw '*both configuration/alpha.yml and configuration/alpha.bicepparam*'
         }
 
         It 'reports a using line that is not the template''s main.bicep' {
-            [System.IO.File]::WriteAllText((Join-Path $script:bpp 'configuration/alpha.bicepparam'), "using '../widget.bicep'`n")
+            [System.IO.File]::WriteAllText((Join-Path $script:sampleTemplate 'configuration/alpha.bicepparam'), "using '../widget.bicep'`n")
             { Assert-BicepTemplate sample-bicepparam } | Should -Throw "*alpha.bicepparam uses '../widget.bicep'*"
         }
 
         It 'refuses a bicepparam slot in a template with a PrePost hook' {
-            [System.IO.File]::WriteAllText((Join-Path $script:bpp 'PrePost.psm1'), '')
+            [System.IO.File]::WriteAllText((Join-Path $script:sampleTemplate 'PrePost.psm1'), '')
             { Assert-BicepTemplate sample-bicepparam } | Should -Throw '*has a PrePost hook, so it takes no bicepparam slot*'
         }
 
         It 'reports a bicepparam parameter the template does not declare' {
-            [System.IO.File]::WriteAllText((Join-Path $script:bpp 'configuration/alpha.bicepparam'), "using '../main.bicep'`n`nparam gadgetName = 'gadget'`n")
+            [System.IO.File]::WriteAllText((Join-Path $script:sampleTemplate 'configuration/alpha.bicepparam'), "using '../main.bicep'`n`nparam gadgetName = 'gadget'`n")
             { Assert-BicepTemplate sample-bicepparam } | Should -Throw "*configuration/alpha.bicepparam sets parameter 'gadgetName'*"
         }
     }

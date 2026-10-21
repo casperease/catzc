@@ -74,6 +74,13 @@ Update-DrsCitation 'docs/index.md' -CodeMap 'out/split/code-map.tsv' -RuleMap 'o
 Lists what would change in docs/index.md without writing it.
 ```
 
+### example 2
+
+```powershell
+git ls-files '*.md' '*.ps1' '*.cs' '*.yml' | ForEach-Object { Update-DrsCitation $_ -CodeMap 'out/split/code-map.tsv' -RuleMap 'out/split/rule-moves.tsv' -DryRun } | Group-Object Path
+Lists, file by file, what would change across the tracked text files without writing any. -Path takes one file, so a tree-wide dry run is one pipeline that calls the command per file; each call reads both maps and the ADR index again, and a file that is not valid UTF-8, such as a binary, throws, so the list names text files only.
+```
+
 ## comment:1
 
 Above `$bytes = [System.IO.File]::ReadAllBytes($file)`, written with `#`.

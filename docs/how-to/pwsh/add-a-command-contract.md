@@ -1,0 +1,55 @@
+# Add a command contract
+
+A **command contract** makes a command public: callers outside the module system, `cats` from a POSIX shell, a black-box test or a pipeline
+step, call it through the contract. The rules are [command-contracts](../../drs/repository/command-contracts.md); this guide takes a command
+to a checked contract and restates none of them.
+
+## Start from a real contract
+
+Copy the shape of one that holds today,
+[`get_command_contract.command.yml`](../../../contracts/catzc/0.0.0/catzc.base.contracts/get_command_contract.command.yml), the contract of
+the one reader, `Get-CommandContract`:
+
+```yaml
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT and ADR-REPO-CMDCONTRACT-ONEREADER): the call interface of Get-CommandContract, the one reader of command
+# contracts. RepositoryRoot defaults to the repository root, a computed default the contract does not restate.
+parameters:
+  name: string[] = *
+  module: string[] = *
+  unit: string[] = *
+  version: string[] = 0.0.0
+  repository_root: string
+output: catzc.base.contracts.contract_command[]
+```
+
+## Write the asset
+
+1. Name the file after the command and place it in the module's folder of the unit's draft, both in the repository normal form:
+   `contracts/catzc/0.0.0/<module>/<command>.command.yml`, such as `catzc.base.contracts/get_command_contract.command.yml`
+   ([ADR-REPO-CMDCONTRACT-COMMANDCONTRACT](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-commandcontract)). The name,
+   the module, the version and the language are the placement, never keys in the file
+   ([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)).
+2. Write one `parameters:` entry per parameter, one string each, and the `output:` type, in the contract language
+   ([ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage)). A header
+   comment says what the signature does not.
+3. Read it back through the one reader, which is how every consumer sees it
+   ([ADR-REPO-CMDCONTRACT-ONEREADER](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader)):
+
+   ```powershell
+   Get-CommandContract -Name <command>
+   ```
+
+## Check it
+
+1. Run the contracts gate. Its PowerShell checker compares the asset with the command's parameter block and output type, without loading the
+   module
+   ([ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage)):
+
+   ```powershell
+   Test-Contracts
+   ```
+
+2. Run `Build-RootConfig`. It regenerates the lookup `cats` reads, `pwsh/.internal/assets/importer-commands.sh`, from the contracts through
+   `New-CatsCommandLookup`, so the new command answers to `cats <command-in-kebab-case>`.
+3. A later change to the command's signature edits its asset in the same change; a released version folder pins it
+   ([ADR-REPO-CMDCONTRACT-VERSIONSWITHUNIT](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-versionswithunit)).

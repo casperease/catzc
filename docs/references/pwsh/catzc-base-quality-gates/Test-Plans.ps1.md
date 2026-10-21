@@ -19,7 +19,8 @@ One finding per broken rule, each naming the rule ([ADR-REPO-PLANS](../../../drs
 - a plan head without the `plan:` block, a required key missing, a key outside the allowed set, a status or value outside the declared sets,
   a blocked plan that names nothing it is blocked on, or a target path that does not exist
   ([ADR-REPO-PLANS-PLANHEAD](../../../drs/repository/plans.md#rule-adr-repo-plans-planhead));
-- a plan with no row in the value overlay or no chunk line in the master plan
+- a plan with no row in the value overlay or no chunk line in the master plan, and a step count that its chunk line or the last cell of its
+  row states ("three steps", "one step left") other than the plan's open steps
   ([ADR-REPO-PLANS-THREEPARTS](../../../drs/repository/plans.md#rule-adr-repo-plans-threeparts));
 - a plan without a required section, the open steps first among them
   ([ADR-REPO-PLANS-ONESHAPE](../../../drs/repository/plans.md#rule-adr-repo-plans-oneshape));

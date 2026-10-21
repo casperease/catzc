@@ -38,5 +38,7 @@ Each owning module's target root: the repository-relative folder its assets' pat
 ([ADR-REPO-CONTRACT-LAYOUT](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-layout)). A module not named here takes
 the default, the repository root. contracts/ holds no dot-prefixed folder
 ([ADR-REPO-CONTRACT-NODOTFOLDERS](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-nodotfolders)), so a module whose files sit
-under a dot-prefixed root names that root here.
+under a dot-prefixed root names that root here. A key is the module in the naming normal form (`naming_normal_form` in languages.yml, as
+in catzc.azure.dev_ops), matched case-sensitively: an asset folder in pascal-dotted form (Catzc.Azure.DevOps) is rendered into that form
+before the lookup, and a folder in any other form, as a unit that keeps its source's names, is looked up by its name as it stands.
 ```

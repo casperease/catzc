@@ -8,6 +8,9 @@ catzc:
 ---
 #>
 
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The fixture languages config keeps the source parameter of the ForPath method it stands in for, and answers bash for every path')]
+param()
+
 Describe 'Get-SkippedClassCitationFinding' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

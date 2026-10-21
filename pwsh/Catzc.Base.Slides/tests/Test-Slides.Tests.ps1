@@ -2,11 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7ad2e32f144d"
+    with_body_sha: de84de0701aa
   edges:
     code: pwsh/Catzc.Base.Slides/Test-Slides.ps1
     cites:
       - ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY
+      - ADR-REPO-SLIDES-SLIDEFILE
       - ADR-REPO-SLIDES-CHECKABLECLAIMS
 ---
 #>
@@ -60,6 +61,15 @@ Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
 
     It 'checks every slide file under docs when no path is given' {
         { Test-Slides -Kit 'kit' -RepositoryRoot $root -OutputFolder $out } | Should -Throw '*Test-Slides failed: 1 issue(s)*'
+    }
+
+    It 'reports a gap in the orders of a deck folder it reads whole, and never of one slide file named alone' -Tag 'ADR-REPO-SLIDES-SLIDEFILE' {
+        & $write 'gaps/gap-deck/one.slide.md' (& $slide 1 'One' 'a.')
+        & $write 'gaps/gap-deck/three.slide.md' (& $slide 3 'Three' 'c.')
+        $report = Test-Slides -Path 'gaps/gap-deck' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
+        $report.Issues | Should -Be @("gaps/gap-deck: field 'order': the orders have a gap: expected 2, found 3")
+        $alone = Test-Slides -Path 'gaps/gap-deck/three.slide.md' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
+        $alone.IssueCount | Should -Be 0
     }
 
     It 'fails fast on a path that is neither a slide file nor a deck folder' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {

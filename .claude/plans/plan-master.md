@@ -51,16 +51,15 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   (task-user-runs-and-commits); the plan closes when it lands.
 - agent-shortcuts -> plan-agent-shortcuts.md: one step left, the gate runner's CLAUDE.md line (the user's, task-user-runs-and-commits).
 - bcl-language -> plan-bcl-language.md: one step left, the CLAUDE.md line (the user's, task-user-runs-and-commits).
-- agent-friction -> plan-agent-friction.md: step 3, one Format-Code form in three files (agents), then the user's CLAUDE.md trims
-  (task-user-runs-and-commits).
+- agent-friction -> plan-agent-friction.md: the user's CLAUDE.md trims only (task-user-runs-and-commits).
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
-- session-learnings -> plan-session-learnings.md: three capability lines free (catzc-module, session-finalize, plan-decide.md, one file
-  each); catzc-49's lines wait on catzc-49.
+- session-learnings -> plan-session-learnings.md: two capability lines free (catzc-worker.md, catzc-run, one file each); catzc-49's lines
+  wait on catzc-49.
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
-- debt-reference-pages -> plan-debt-reference-pages.md: four reference pages say what their code does today (hindsight 031350); four steps,
-  page edits only
-- debt-gate-findings -> plan-debt-gate-findings.md: three gates report what sessions met by hand: a deleted indexed path, step-list drift, a
-  slide order gap (hindsight 031350, d7c207)
+- debt-red-tests -> plan-debt-red-tests.md: two red tests green again, since a red test blocks the user's full run: the analyzer test (73
+  findings) and the glossary rule-code test; three steps, step 3 an import-path burst
+- debt-gate-findings -> plan-debt-gate-findings.md: one step left, the deck order check shared by Build-SlideDeck and Test-Slides (hindsight
+  d7c207)
 - debt-docs -> plan-debt-docs.md: two how-tos for facts found only by whoever knew them, a command contract sample and a hook fed from a
   payload file (hindsight 031350); two open questions
 - debt-import-path -> plan-debt-import-path.md: an instant parse check before the next import, and importer.sh passing list parameters

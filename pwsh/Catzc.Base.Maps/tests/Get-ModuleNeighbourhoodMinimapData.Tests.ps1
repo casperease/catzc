@@ -18,7 +18,7 @@ Describe 'Get-ModuleNeighbourhoodMinimapData' -Tag 'L0', 'logic' {
             }
         }
         Mock Get-MinimapSubject -ModuleName Catzc.Base.Maps {
-            [pscustomobject]@{ Path = 'pwsh/Widgets/Get-Widget.ps1'; Requested = 'ADR-WIDGET'; Citations = @(); Facts = @{ module = 'Widgets'; moduletype = 'pwsh-folder' } }
+            [pscustomobject]@{ Path = (Get-CatzcModulesFolder) + '/Widgets/Get-Widget.ps1'; Requested = 'ADR-WIDGET'; Citations = @(); Facts = @{ module = 'Widgets'; moduletype = 'pwsh-folder' } }
             [pscustomobject]@{ Path = 'docs/widget.md'; Requested = 'ADR-WIDGET'; Citations = @(); Facts = @{ track = 'docs' } }
         }
     }

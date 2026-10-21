@@ -2,11 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "575be444e20a"
+    with_body_sha: b1c1120d6d64
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
     docs: "[Test-Slides.ps1.md](../../docs/references/pwsh/catzc-base-slides/Test-Slides.ps1.md)"
     cites:
+      - ADR-REPO-SLIDES-SLIDEFILE
       - ADR-REPO-SLIDES-CHECKABLECLAIMS
 ---
 #>
@@ -32,11 +33,14 @@ function Test-Slides {
     $suffix = [Catzc.Base.Slides.SlidesConfig]::SlideSuffix
 
     $files = [System.Collections.Generic.List[string]]::new()
+    # A deck's order is checked only where every slide of its folder is read; one slide file named alone is no deck.
+    $decks = [ordered]@{}
     if (-not $Path -or $Path.Count -eq 0) {
         $docs = Join-Path $RepositoryRoot 'docs'
         if (Test-Path -LiteralPath $docs -PathType Container) {
             foreach ($file in Get-ChildPath $docs -Depth 6 -File -Filter "*$suffix") {
                 $files.Add($file)
+                $decks[[System.IO.Path]::GetDirectoryName($file)] = $true
             }
         }
     }
@@ -52,6 +56,7 @@ function Test-Slides {
             if (Test-Path -LiteralPath $absolute -PathType Container) {
                 foreach ($file in Get-ChildPath $absolute -Depth 1 -File -Filter "*$suffix") {
                     $files.Add($file)
+                    $decks[[System.IO.Path]::GetDirectoryName($file)] = $true
                 }
             }
             else {
@@ -61,8 +66,10 @@ function Test-Slides {
     }
 
     $issues = [System.Collections.Generic.List[string]]::new()
+    $read = @{}
     foreach ($file in $files) {
         $slide = Read-SlideFile -Path $file
+        $read[$file] = $slide
         $page = if ($slide.Order -is [int] -or $slide.Order -is [long]) {
             [int] $slide.Order
         }
@@ -71,6 +78,17 @@ function Test-Slides {
         }
         $finding = Get-SlideFinding -Slide $slide -Kit $kitLoaded -Page $page -RepositoryRoot $RepositoryRoot
         foreach ($fault in $finding.Faults) {
+            $issues.Add("$fault")
+        }
+    }
+    $rootPrefix = $RepositoryRoot.TrimEnd('\', '/')
+    foreach ($folder in $decks.Keys) {
+        $deck = $folder
+        if ($deck.StartsWith($rootPrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+            $deck = $deck.Substring($rootPrefix.Length).TrimStart('\', '/')
+        }
+        $slides = @($files | Where-Object { [System.IO.Path]::GetDirectoryName($_) -eq $folder } | ForEach-Object { $read[$_] })
+        foreach ($fault in @(Get-SlideOrderFinding -Slide $slides -Deck $deck.Replace('\', '/'))) {
             $issues.Add("$fault")
         }
     }

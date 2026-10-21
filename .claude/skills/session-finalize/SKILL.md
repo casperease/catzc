@@ -17,8 +17,8 @@ metadata:
 1. A checkpoint, run any time and repeatable: the session can end without warning, so what it owes lives in the tree, never only in context;
    it never ends or clears the session, the user does.
 2. Plans: every plan in `.claude/plans/` this session touched or owes work to records that work as open steps (git and `Test-Automation`
-   runs are the user's, never steps); a repeat run adds only what is new; a plan dirty in a peer's session gets a new plan instead; then
-   `Format-Code -Path` on the plans touched, never the whole tree, and `Test-Plans`.
+   runs are the user's, never steps); a repeat run first probes `git status --short .claude/plans` and adds only what is new; a plan dirty
+   in a peer's session gets a new plan instead; then `Format-Code -Path` on the plans touched, never the whole tree, and `Test-Plans`.
 3. Report three sections: **What the repository learned**, the changes made, at most 5 lines, condensed and factual; **What I learned**, at
    most 10 lines, each completing "In hindsight I wish I knew this fact: …", a fact true of the repository now, never the session's story;
    **Token tips**, 1 to 3 lines, each completing "Next time, save tokens by: …"; append both learned and tips (as `Token tip: <line>`) to

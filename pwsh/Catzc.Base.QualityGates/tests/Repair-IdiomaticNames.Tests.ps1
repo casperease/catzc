@@ -66,12 +66,13 @@ Describe 'Repair-IdiomaticNames' -Tag 'L0', 'logic' {
     }
 
     It 'leaves a name its case cannot render to a person, moving nothing' {
-        $script:tracked = @('pwsh/Widget/lower case.ps1')
-        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'pwsh/Widget') -Force
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'pwsh/Widget/lower case.ps1'), "1`n")
+        $widgetFile = (Get-CatzcModulesFolder) + '/Widget/lower case.ps1'
+        $script:tracked = @($widgetFile)
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:root ((Get-CatzcModulesFolder) + '/Widget')) -Force
+        [System.IO.File]::WriteAllText((Join-Path $script:root $widgetFile), "1`n")
         $plan = @(Repair-IdiomaticNames | Where-Object Kind -eq 'file')
         $plan[0].Target | Should -BeNullOrEmpty
         $plan[0].Moved | Should -BeFalse
-        Join-Path $script:root 'pwsh/Widget/lower case.ps1' | Should -Exist
+        Join-Path $script:root $widgetFile | Should -Exist
     }
 }

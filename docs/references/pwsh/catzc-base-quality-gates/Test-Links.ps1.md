@@ -15,7 +15,10 @@ Runs the same engine as Format-Links, read-only, and reports every violation: a 
 markdown link that is rooted or climbs above the repository root, a rule citation spelled `ADR-X:n` in prose, a comment, or a code string
 literal, a link target or #fragment that does not exist, an unknown citation code or rule, an absolute URL into this repository outside
 .github/, and a docs path in a PowerShell string that names no file. A fixable violation is fixed by running Format-Links, and its issue
-says so; the rest need a person. Informational findings (a comment line that stays over its limit) are counted but never fail the gate.
+says so; the rest need a person. A docs path in a string of a test is never reported
+([ADR-REPO-LINK-STRINGSAREDATA](../../../drs/repository/markdown-links.md#rule-adr-repo-link-stringsaredata)), and a test is a `.Tests.ps1`
+file, its suffix matched in any case, or any file under a `tests/` folder at any depth, that folder name matched in lower case only, so a
+test's fixture helpers count too. Informational findings (a comment line that stays over its limit) are counted but never fail the gate.
 
 The string-citation check (`ADR-X:n` in a string literal,
 [ADR-REPO-LINK-ONECITATIONSPELLING](../../../drs/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling)) takes its mode and

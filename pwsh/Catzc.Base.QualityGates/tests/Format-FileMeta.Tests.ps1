@@ -14,6 +14,9 @@ catzc:
 ---
 #>
 
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The fixture fact processor keeps the State, Path and Kind parameters the engine passes by name, though it reads only Path')]
+param()
+
 Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-REPO-FORMAT-METAIMPRINT' {
     BeforeAll {
         # A fixture kind with a fixture processor, so the commands are proven on a place fact of their own.

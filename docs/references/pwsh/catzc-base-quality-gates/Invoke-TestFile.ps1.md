@@ -34,8 +34,11 @@ It never waits for another test run's use of the working folder
 ([ADR-AUTO-TEST-RUNSNEVERWAIT](../../../drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait), Enter-TestRunLocation): when
 the working folder is free it runs in place; when another run holds it, it runs in a verified snapshot of the working folder instead — the
 test files map to the same repository-relative paths inside the snapshot, a test file outside the repository runs as given, and the
-artifacts still land in the working folder's out/test-file/. Every tier up to L3 runs in place; a snapshot run skips the L3 vertical system
-tests, which change state outside the repository, and says so (Resolve-TestRunMaxLevel,
+artifacts still land in the working folder's out/test-file/. The snapshot is primed by one import before any test runs; when that import
+fails, the run stops with an error naming its exit code and its last ten lines, keeps the full output in out/test-snapshot-priming/ (one log
+per snapshot) and the snapshot itself for a look, and writes no run.json, so a retry meets the same failure until the import is fixed. Every
+tier up to L3 runs in place; a snapshot run skips the L3 vertical system tests, which change state outside the repository, and says so
+(Resolve-TestRunMaxLevel,
 [ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../drs/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)). The opt-in L4 tests
 run only with -MaxLevel 4
 ([ADR-AUTO-TEST-TESTINGINPRODUCTION](../../../drs/automation/test-automation.md#rule-adr-auto-test-testinginproduction)).

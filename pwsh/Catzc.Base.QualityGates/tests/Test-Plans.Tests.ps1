@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04e842ae460d"
+    with_body_sha: f40f1c1dd8ee
   edges:
     code: pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
     cites:
@@ -112,6 +112,16 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         $result.Issues | Should -Be @(
             "plans/plan-gizmo.md:1 [ADR-REPO-PLANS-THREEPARTS] the plan has no chunk line in plan-master.md ('- <chunk> -> plan-gizmo.md: ...')",
             "plans/plan-gizmo.md:1 [ADR-REPO-PLANS-THREEPARTS] the plan has no row in value-of-plan.md ('| <value> | plan-gizmo | ...')"
+        )
+    }
+
+    It 'reports a step count in the master or the value overlay that differs from the plan''s open steps' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
+        Write-Plan 'plan-master.md' ($script:master[0..16] + @('- widget -> plan-widget.md: three steps,', '  spin it.', '- gadget -> plan-gadget.md: oil it.', '- sprocket -> plan-sprocket.md: turn it.'))
+        Write-Plan 'value-of-plan.md' ($script:value[0..3] + @('| medium | plan-widget | 2 steps |', '| low | plan-gadget | one step left |', '| low | plan-sprocket |'))
+        Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '', '- [ ] Oil (check: no squeak).', '- [x] Done already.'))
+        $result = Invoke-Gate
+        $result.Issues | Should -Be @(
+            'plans/plan-widget.md:1 [ADR-REPO-PLANS-THREEPARTS] its chunk line in plan-master.md says 3 step(s), but the plan has 2 open step(s)'
         )
     }
 
