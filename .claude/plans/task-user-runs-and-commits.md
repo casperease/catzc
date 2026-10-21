@@ -58,7 +58,7 @@ final full run last.
 10. Commit the git topic commands (plan-git-topic-commands, done and deleted; the hook's deny now matches an invocation only):
     `pwsh/Catzc.Base.Git` (GitFlowConfig, `git.yml`, `Get-SyncPoint`, `Save-Topic`, `Sync-Topic`, `Push-Topic`, the L1 flow test), the VS
     Code tasks, the `Assert-BashTimeout` deny, and the deletion of `Push-Dirty.ps1`, its test and its page. Check: `Invoke-TestFile` on
-    `pwsh/Catzc.Base.Git/tests/Git.Flow.Tests.ps1` passes.
+    `pwsh/Catzc.Base.Git/tests/Push-Topic.Flow.Tests.ps1` passes.
 11. Edit `.claude/CLAUDE.md`, section Project structure: one line saying the `types/*.cs` files are written in BCL, a subset of .NET, hosted
     by pwsh (plan-bcl-language.md, the CLAUDE.md step). Check: `Test-AgentDefinitions` passes.
 12. The live proof of the Language bridge's setup-error step (plan-test-signal-proposals, done and deleted): run

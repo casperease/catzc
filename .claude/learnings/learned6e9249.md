@@ -8,7 +8,7 @@ Started 2026-10-21T20:09:00.4651213+02:00.
   chooses the maps.
 - 2026-10-21 Cats: Contracted commands output only closed contract types, so a command returning pscustomobject needs a typed result before
   it can be contracted.
-- 2026-10-21 Cats: importer.sh cats passes one value per parameter, so a list argument cannot run under bash or zsh.
+- 2026-10-21 Cats: importer.sh cats passes one value per parameter, so a list argument cannot run through importer.sh.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: parse-checking a YAML or ps1 edit on the import path standalone before any import
   reads it, instead of finding out through a broken import.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: reading a gate parameter set (Test-SourceConventions has no -Path, Invoke-TestFile

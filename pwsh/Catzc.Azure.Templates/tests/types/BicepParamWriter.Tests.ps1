@@ -66,7 +66,7 @@ Describe 'BicepParamWriter — bicep format leaves the render unchanged' -Tag 'L
     It 'renders a shipped literal-and-secret slot in the layout bicep format keeps' {
         $bicep = Resolve-ToolExecutable -Tool bicep
         if (-not ($bicep.Found -and $bicep.VersionOk)) {
-            Set-ItResult -Skipped -Because 'the Bicep CLI at the tools.yml pin is not installed'
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
         $config = Get-Content (Join-Path (Get-RepositoryRoot) 'infrastructure/templates/expedition/configuration/dev.yml') -Raw | ConvertFrom-Yaml -Ordered

@@ -30,7 +30,7 @@ Describe 'ConvertTo-BicepParam — every shipped yml slot renders as bicep forma
     It 'renders each shipped slot, addresses resolved, in the layout bicep format keeps' {
         $bicep = Resolve-ToolExecutable -Tool bicep
         if (-not ($bicep.Found -and $bicep.VersionOk)) {
-            Set-ItResult -Skipped -Because 'the Bicep CLI at the tools.yml pin is not installed'
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
         $folder = Join-Path $TestDrive 'render'

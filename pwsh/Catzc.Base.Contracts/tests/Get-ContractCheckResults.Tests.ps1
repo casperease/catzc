@@ -323,7 +323,7 @@ widget: cog
             $result.Passed | Should -BeTrue -Because ($result.Findings -join "`n")
         }
 
-        It 'fails when the contract names anything outside the normal form' {
+        It 'fails when the contract names anything outside the normal form' -Tag 'ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE' {
             Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    param([string] `$Path)`n}`n"
             Add-Asset 'get_widget.command.yml' "parameters:`n  Path: string`n"
             $result = Get-CheckResult 'get_widget.command.yml'

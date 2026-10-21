@@ -78,7 +78,7 @@ Describe 'Every slot compiles through the .bicepparam path to the same parameter
     It 'renders every shipped yml slot both ways, and the compiled .bicepparam holds the values the ConvertTo-Json file holds' {
         $bicep = Resolve-ToolExecutable -Tool bicep
         if (-not ($bicep.Found -and $bicep.VersionOk)) {
-            Set-ItResult -Skipped -Because 'the Bicep CLI at the tools.yml pin is not installed'
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
         $folder = Join-Path $TestDrive 'both-ways'
