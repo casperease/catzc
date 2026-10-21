@@ -1,4 +1,4 @@
-# ADR: Module aspects — a unit's files partition into live and tests
+# Design: Module aspects — a unit's files partition into live and tests
 
 ## Rules: DDR-ASPECT
 

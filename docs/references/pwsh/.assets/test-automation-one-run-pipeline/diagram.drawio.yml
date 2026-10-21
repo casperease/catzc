@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d254170c4f12
+#     with_body_sha: c0fbda6e5ba8
 # ---
 
 description:
@@ -155,9 +155,9 @@ content:
           - ADR-AUTO-TEST
       - cell: ado-pipelines/pipelines/.
         by:
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - ADR-AUTO-TEST
-          - ADR-REPO-PROTGLOB
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -234,22 +234,11 @@ content:
           - docs/references/pwsh/catzc-base-contracts/tests/Publish-ContractRelease.Tests.ps1.md
           - docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs.md
-          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
           - docs/references/pwsh/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/tests/ConvertTo-DrsDomainDiagram.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsCitationGraphViolations.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsCitationMap.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsDomainEdges.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsFileIndex.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSet.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSummaryLines.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Get-AgentFrontMatter.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Get-CatsRuleEnforcers.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Get-ClaudeMdAgentNames.Tests.ps1.md
@@ -262,23 +251,32 @@ content:
           - docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryRuleStatements.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySources.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/tests/Resolve-DrsLinkTarget.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/tests/Test-DrsEngineNeutrality.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/tests/types/GlossaryEntry.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
+          - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
+          - docs/references/pwsh/catzc-base-drs/tests/ConvertTo-DrsDomainDiagram.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsCitationGraphViolations.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsCitationMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsDomainEdges.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsFileIndex.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSet.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSummaryLines.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Resolve-DrsLinkTarget.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Test-DrsEngineNeutrality.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/tests/Update-DrsCitation.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/tests/types/DrsChecksConfig.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/tests/types/DrsDomainEdge.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/tests/types/GlossaryEntry.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
-          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
           - docs/references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md
           - docs/references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md
@@ -494,6 +492,8 @@ content:
           - docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md
           - docs/references/pwsh/catzc-base-reports/configs/reports.yml.md
           - docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
           - docs/references/pwsh/catzc-base-reports/types/ReportsConfig.cs.md
           - docs/references/pwsh/catzc-base-repository/tests/Get-RepositoryFile.Tests.ps1.md
           - docs/references/pwsh/catzc-base-repository/tests/Get-RepositoryFolder.Tests.ps1.md
@@ -659,20 +659,15 @@ content:
           - ADR-AUTO-TEST
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
           - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
           - ADR-AUTO-TEST
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - ADR-AUTO-TEST
-          - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.Docs/private
         by:
           - pwsh/Catzc.Base.Docs/private/Get-GlossaryRuleStatements.ps1
@@ -680,14 +675,6 @@ content:
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
           - pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/ConvertTo-DrsDomainDiagram.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationMap.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsDomainEdges.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsFileIndex.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSummaryLines.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Get-AgentFrontMatter.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Get-ClaudeMdAgentNames.Tests.ps1
@@ -700,13 +687,9 @@ content:
           - pwsh/Catzc.Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Get-GlossarySources.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Resolve-DrsLinkTarget.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
           - ADR-AUTO-TEST
       - cell: pwsh/Catzc.Base.Docs/tests/assets/glossary/gadget
         by:
@@ -718,20 +701,50 @@ content:
           - ADR-AUTO-TEST
       - cell: pwsh/Catzc.Base.Docs/tests/types
         by:
-          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1
-          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/GlossaryEntry.Tests.ps1
           - ADR-AUTO-TEST
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
+          - ADR-AUTO-TEST
+      - cell: pwsh/Catzc.Base.Drs/.
+        by:
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
+          - ADR-AUTO-TEST
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-TEST
+          - ADR-REPO-PROTGLOB
+      - cell: pwsh/Catzc.Base.Drs/tests
+        by:
+          - pwsh/Catzc.Base.Drs/tests/ConvertTo-DrsDomainDiagram.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationMap.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsDomainEdges.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsFileIndex.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSummaryLines.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Resolve-DrsLinkTarget.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
+          - ADR-AUTO-TEST
+      - cell: pwsh/Catzc.Base.Drs/tests/types
+        by:
+          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
+          - ADR-AUTO-TEST
+      - cell: pwsh/Catzc.Base.Drs/types
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
           - ADR-AUTO-TEST
       - cell: pwsh/Catzc.Base.Engines/tests/assets/engine-cases
         by:
@@ -1080,10 +1093,12 @@ content:
           - ADR-AUTO-TEST
       - cell: pwsh/Catzc.Base.Reports/tests/types
         by:
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
           - ADR-AUTO-TEST
       - cell: pwsh/Catzc.Base.Reports/types
         by:
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
           - ADR-AUTO-TEST
       - cell: pwsh/Catzc.Base.Repository/tests
@@ -1282,25 +1297,13 @@ content:
           - ADR-AUTO-TEST
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
           - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.Docs/private/Get-GlossaryRuleStatements.ps1
           - pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/ConvertTo-DrsDomainDiagram.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationMap.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsDomainEdges.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsFileIndex.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSummaryLines.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Get-AgentFrontMatter.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Get-ClaudeMdAgentNames.Tests.ps1
@@ -1313,26 +1316,39 @@ content:
           - pwsh/Catzc.Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Get-GlossarySources.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Resolve-DrsLinkTarget.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/assets/glossary/gadget/glossary.yml
           - pwsh/Catzc.Base.Docs/tests/assets/glossary/widget/glossary.yml
-          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1
-          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/GlossaryEntry.Tests.ps1
-          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
+          - ADR-AUTO-TEST
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/tests/ConvertTo-DrsDomainDiagram.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationMap.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsDomainEdges.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsFileIndex.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSummaryLines.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Resolve-DrsLinkTarget.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
           - ADR-AUTO-TEST
           - ADR-REPO-PROTGLOB
       - cell: subject/Catzc.Base.Engines
@@ -1615,7 +1631,9 @@ content:
           - pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
           - pwsh/Catzc.Base.Reports/configs/reports.yml
           - pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
           - ADR-AUTO-TEST
       - cell: subject/Catzc.Base.Repository
@@ -1702,9 +1720,9 @@ content:
           - ADR-AUTO-TEST
       - cell: subject/pipelines
         by:
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - ADR-AUTO-TEST
-          - ADR-REPO-PROTGLOB
     axis:
       - cell: AUTO/quality-control
         by:

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3ab6bc5a4063"
+#     with_body_sha: b15e80264ca9
 # ---
 
 description:
@@ -107,13 +107,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-RUNMODE-NEVERCOEXIST
-          - DDR-RUNMODE-SAMEMODULEINBOTH
-          - DDR-RUNMODE-THREEBUILDKINDS
-          - DDR-RUNMODE-TWORUNMODES
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -154,16 +147,19 @@ content:
           - DDR-RUNMODE-SAMEMODULEINBOTH
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
-          - DDR-RUNMODE-NEVERCOEXIST
-          - DDR-RUNMODE-SAMEMODULEINBOTH
-          - DDR-RUNMODE-THREEBUILDKINDS
           - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.Docs/private
         by:
           - pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
           - DDR-RUNMODE-SAMEMODULEINBOTH
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
@@ -239,9 +235,13 @@ content:
           - DDR-RUNMODE-SAMEMODULEINBOTH
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-TWORUNMODES
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-RUNMODE-NEVERCOEXIST
           - DDR-RUNMODE-SAMEMODULEINBOTH
           - DDR-RUNMODE-THREEBUILDKINDS
@@ -307,13 +307,6 @@ content:
       - cell: subject/Catzc.Internal.Assets
         by:
           - pwsh/.internal/assets/Import-Catzc.ps1
-          - DDR-RUNMODE-NEVERCOEXIST
-          - DDR-RUNMODE-SAMEMODULEINBOTH
-          - DDR-RUNMODE-THREEBUILDKINDS
-          - DDR-RUNMODE-TWORUNMODES
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - DDR-RUNMODE-NEVERCOEXIST
           - DDR-RUNMODE-SAMEMODULEINBOTH
           - DDR-RUNMODE-THREEBUILDKINDS

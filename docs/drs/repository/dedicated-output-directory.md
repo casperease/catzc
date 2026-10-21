@@ -167,8 +167,8 @@ every file under the output root is a format, and the format's area says how lon
 folders, so a run's report, rows and results go together. A build keeps its newest version, because the build is regenerated from source. A
 cache stays, because its own keys decide when an entry is stale, and age is not staleness. A review artifact and a plan stay until a person
 retires them. A session's scripts, dumps and logs go after a week, and an appended log stays while it is written. The defaults sit once on
-the format type and a format states only what differs, so retention is configured, not programmed (PDR-CONFIG). A file no format covers
-is reported and left alone: removing what nobody declared would guess at its owner.
+the format type and a format states only what differs, so retention is configured, not programmed (PDR-CONFIG). A file no format covers is
+reported and left alone: removing what nobody declared would guess at its owner.
 
 ## Consequences
 

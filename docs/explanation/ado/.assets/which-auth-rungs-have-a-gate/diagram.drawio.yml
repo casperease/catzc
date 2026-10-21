@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: acb4f202fd4c
+#     with_body_sha: "685314fbbb0b"
 # ---
 
 description:
@@ -128,16 +128,6 @@ content:
         by:
           - .claude/CLAUDE.md
           - FDR-CD-PIPELINE-NOSTOREDTOKENS
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
-          - ADR-ADO-AUTH-EXPLICITDETECTION
-          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-          - ADR-ADO-AUTH-PROVETARGET
-          - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
-          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
-          - FDR-CD-PIPELINE-NOSTOREDTOKENS
       - cell: docs/-/.
         by:
           - docs/drs/ado/dora-explains.md
@@ -170,7 +160,7 @@ content:
           - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
           - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
           - FDR-CD-PIPELINE-NOSTOREDTOKENS
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
@@ -180,7 +170,7 @@ content:
           - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
           - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
           - FDR-CD-PIPELINE-NOSTOREDTOKENS
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-PIPELINE-NOSTOREDTOKENS
@@ -210,7 +200,7 @@ content:
           - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
           - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
           - FDR-CD-PIPELINE-NOSTOREDTOKENS
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
@@ -227,16 +217,6 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - FDR-CD-PIPELINE-NOSTOREDTOKENS
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
-          - ADR-ADO-AUTH-EXPLICITDETECTION
-          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-          - ADR-ADO-AUTH-PROVETARGET
-          - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
-          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
           - FDR-CD-PIPELINE-NOSTOREDTOKENS
     axis:
       - cell: DSGN/build

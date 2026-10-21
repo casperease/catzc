@@ -1,8 +1,8 @@
 # Sort an import into the modules
 
 An **import** brings an outside repository into this one with its full history, at a **landing address** under the unordered track
-([DDR-TRACK-UNORDEREDTRACK](../../drs/design/tracks.md#rule-ddr-track-unorderedtrack)). **Sorting** moves its files, one file or
-folder at a time, to the module or track where each belongs. This guide covers both.
+([DDR-TRACK-UNORDEREDTRACK](../../drs/design/tracks.md#rule-ddr-track-unorderedtrack)). **Sorting** moves its files, one file or folder at a
+time, to the module or track where each belongs. This guide covers both.
 
 ## Import the repository
 

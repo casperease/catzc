@@ -44,14 +44,13 @@ root tells apart, so no gate is needed. A reader who wants to know which run-mod
 
 ## Why it holds
 
-- Cats runs in exactly two modes, each with its own entry script (DDR-RUNMODE-TWORUNMODES). Both test runs load their workers through
-  those entry scripts.
-- Every module is the same module in both modes (DDR-RUNMODE-SAMEMODULEINBOTH). The parity test and `Assert-SourceTree` check it, and
-  the analyzer rule `Measure-NoScriptRootAnchor` keeps module code from anchoring on its own file's folder.
+- Cats runs in exactly two modes, each with its own entry script (DDR-RUNMODE-TWORUNMODES). Both test runs load their workers through those
+  entry scripts.
+- Every module is the same module in both modes (DDR-RUNMODE-SAMEMODULEINBOTH). The parity test and `Assert-SourceTree` check it, and the
+  analyzer rule `Measure-NoScriptRootAnchor` keeps module code from anchoring on its own file's folder.
 - Each module keeps its own script scope in both modes (DDR-RUNMODE-OWNSCRIPTSCOPE). The scope-isolation test checks it.
 - The mode is derived, never stored (DDR-RUNMODE-MODEISDERIVED). `Get-CatzcRunMode` derives it, and its tests check the derivation.
-- The two modes never coexist in one session (DDR-RUNMODE-NEVERCOEXIST). `Assert-CatzcRunModeExclusive` checks it at the end of every
-  load.
+- The two modes never coexist in one session (DDR-RUNMODE-NEVERCOEXIST). `Assert-CatzcRunModeExclusive` checks it at the end of every load.
 - Both modes are tested by the same tests, and a test leaves the build run only through the `source-only` tag
   (DDR-RUNMODE-SAMETESTSBOTHMODES).
 - Build mode has three kinds of root, told apart by where the code root lives (DDR-RUNMODE-THREEBUILDKINDS). No code reports the kind.

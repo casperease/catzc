@@ -38,16 +38,15 @@ identity.
 - Ordered first match with a `**` remainder makes the partition true by construction: each aspect is its own patterns minus every earlier
   one (DDR-ASPECT-ASPECTSAREDERIVED).
 - Each aspect is an immutable, independently versioned lock, never one lock for the whole module (DDR-ASPECT-ASPECTISAGLOBSET).
-- A file claimed by two aspects, or by none, fails the integrity check (DDR-ASPECT-PARTITIONISCHECKED). That check exists, but only
-  unit tests on fixture files run it.
+- A file claimed by two aspects, or by none, fails the integrity check (DDR-ASPECT-PARTITIONISCHECKED). That check exists, but only unit
+  tests on fixture files run it.
 
 ## Where the code and the decision record differ
 
-- DDR-ASPECT-ASPECTISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of
-  FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, but that rule computes change from git at real refs, never from a committed hash, and no aspect
-  marker exists.
-- DDR-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern with the unit root, but the tests aspect also reaches the language test
-  folders outside it.
+- DDR-ASPECT-ASPECTISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT,
+  but that rule computes change from git at real refs, never from a committed hash, and no aspect marker exists.
+- DDR-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern with the unit root, but the tests aspect also reaches the language test folders
+  outside it.
 - DDR-ASPECT-PARTITIONISCHECKED makes the partition an integrity check over `git ls-files`, but no gate runs it on the real tree.
 
 ## See also

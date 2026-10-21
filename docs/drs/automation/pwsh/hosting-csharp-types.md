@@ -52,10 +52,9 @@ goes on, its pipeline check calls `Test-IsRunningInPipeline` like every other ca
 
 ### Rule ADR-PWSH-TYPES-NOLOOSESHAPES
 
-In pwsh, the loose shapes the internal model is never written as are `[pscustomobject]` and `[ordered]@{}`
-(ADR-BCL-TYPES-NATIVETYPEDMODEL): a model concept is a `[Catzc.…]` type that a function takes as a typed parameter and declares as its
-`[OutputType()]`, while a parsed `.yml`, an `az` JSON result, or a splat stays a dictionary or `[pscustomobject]` up to the boundary that
-validates it.
+In pwsh, the loose shapes the internal model is never written as are `[pscustomobject]` and `[ordered]@{}` (ADR-BCL-TYPES-NATIVETYPEDMODEL):
+a model concept is a `[Catzc.…]` type that a function takes as a typed parameter and declares as its `[OutputType()]`, while a parsed
+`.yml`, an `az` JSON result, or a splat stays a dictionary or `[pscustomobject]` up to the boundary that validates it.
 
 - [Model types in pwsh](#model-types-in-pwsh)
 

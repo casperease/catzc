@@ -1,4 +1,4 @@
-# ADR: DORA — Test data management
+# RDR: DORA — Test data management
 
 ## Rules: RDR-DORA-TESTDATA
 

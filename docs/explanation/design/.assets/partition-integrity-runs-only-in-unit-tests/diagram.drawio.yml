@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c87c6e00b6f8
+#     with_body_sha: "0650d0825c4f"
 # ---
 
 description:
@@ -155,22 +155,17 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: ado-pipelines/pipelines/.
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
-          - DDR-ASPECT-ASPECTISAGLOBSET
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-PARTITIONISCHECKED
-          - DDR-ASPECT-TRACKPICKSCATCHALL
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
-          - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
-          - ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
-          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
-          - ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
       - cell: ado-pipelines/pipelines/extends
         by:
           - .ado/pipelines/extends/cd-customer.yaml
@@ -225,16 +220,20 @@ content:
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
-          - DDR-ASPECT-ASPECTISAGLOBSET
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-PARTITIONISCHECKED
-          - DDR-ASPECT-TRACKPICKSCATCHALL
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
           - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
           - ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
           - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
           - ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+      - cell: github-workflows/workflows/.
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -255,19 +254,22 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - DDR-ASPECT-ASPECTISAGLOBSET
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-PARTITIONISCHECKED
-          - DDR-ASPECT-TRACKPICKSCATCHALL
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
           - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
           - ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
           - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
           - ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
-      - cell: pwsh/Catzc.Base.Docs/types
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
@@ -351,11 +353,11 @@ content:
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-ChangeTestFile.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
           - DDR-ASPECT-ASPECTISAGLOBSET
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-PARTITIONISCHECKED
           - DDR-ASPECT-TRACKPICKSCATCHALL
-          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
       - cell: pwsh/Catzc.Base.Variants/configs
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
@@ -381,8 +383,8 @@ content:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -397,19 +399,22 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - DDR-ASPECT-ASPECTISAGLOBSET
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-PARTITIONISCHECKED
-          - DDR-ASPECT-TRACKPICKSCATCHALL
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
           - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
           - ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
           - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
           - ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
@@ -453,12 +458,12 @@ content:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-ChangeTestFile.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
           - DDR-ASPECT-ASPECTISAGLOBSET
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-PARTITIONISCHECKED
           - DDR-ASPECT-TRACKPICKSCATCHALL
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
       - cell: subject/Catzc.Base.Variants
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
@@ -476,19 +481,18 @@ content:
           - ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
       - cell: subject/pipelines
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - .ado/pipelines/extends/cd-customer.yaml
-          - DDR-ASPECT-ASPECTISAGLOBSET
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-PARTITIONISCHECKED
-          - DDR-ASPECT-TRACKPICKSCATCHALL
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
-          - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
-          - ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
-          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
-          - ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
+      - cell: subject/workflows
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
     axis:
       - cell: DSGN/build
         by:

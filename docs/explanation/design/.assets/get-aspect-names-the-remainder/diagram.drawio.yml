@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: a8bef4394381
+#     with_body_sha: cf95a90f43b3
 # ---
 
 description:
@@ -106,10 +106,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -125,7 +121,7 @@ content:
           - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
           - DDR-ASPECT-TRACKPICKSCATCHALL
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT-TRACKPICKSCATCHALL
@@ -167,7 +163,7 @@ content:
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
           - DDR-ASPECT-TRACKPICKSCATCHALL
     module-neighbourhood:
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT-TRACKPICKSCATCHALL
@@ -192,10 +188,6 @@ content:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - DDR-ASPECT-TRACKPICKSCATCHALL
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - DDR-ASPECT-TRACKPICKSCATCHALL
     axis:
       - cell: DSGN/build

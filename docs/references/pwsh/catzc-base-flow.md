@@ -1,10 +1,10 @@
 # Catzc.Base.Flow
 
 Owns the promotion ladder a commit climbs: the rungs in climbing order, each with the gate a commit clears to enter it and the configuration
-environment it deploys ([FDR-CD-RUNGSREGISTRY](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)), and
-the truth stores the delivery reads, drives or reports to, each classified by its kind
-([TDR-STORES-THREEKINDS](../../drs/thesis/truth-stores.md#rule-tdr-stores-threekinds)). It does not run a gate, deploy anything or
-call a store; it is the data the pipelines and the registration code read.
+environment it deploys ([FDR-CD-RUNGSREGISTRY](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)), and the truth
+stores the delivery reads, drives or reports to, each classified by its kind
+([TDR-STORES-THREEKINDS](../../drs/thesis/truth-stores.md#rule-tdr-stores-threekinds)). It does not run a gate, deploy anything or call a
+store; it is the data the pipelines and the registration code read.
 
 ## Responsibilities
 
@@ -27,8 +27,8 @@ the state machine that owns it, and, for a repository, its projections: the adja
 defaults on the `TruthStoresConfig` type name Azure DevOps twice, its configuration as the repository's projection and its runtime state as
 a fact source the platform owns; a repository with other stores states them in the shipped `truth-stores.yml`. The stores come back as data,
 so where truth lives is a query
-([TDR-ONETRUTH-TRUTHISQUERYABLE](../../drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)). The module also
-owns the provided contracts of the facts the delivery emits: the actionable fact and the inbound and outbound junction messages.
+([TDR-ONETRUTH-TRUTHISQUERYABLE](../../drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)). The module also owns the
+provided contracts of the facts the delivery emits: the actionable fact and the inbound and outbound junction messages.
 
 ## What the module does
 

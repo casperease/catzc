@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3b8a0a845c69"
+#     with_body_sha: fb824e4be902
 # ---
 
 description:
@@ -118,9 +118,12 @@ content:
           - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: ado-pipelines/pipelines/.
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: ado-pipelines/pipelines/extends
@@ -176,6 +179,11 @@ content:
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-NAMEDGLOBSETS
+      - cell: github-workflows/workflows/.
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -203,13 +211,13 @@ content:
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-NAMEDGLOBSETS
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
@@ -303,7 +311,7 @@ content:
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
@@ -353,10 +361,18 @@ content:
           - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: subject/pipelines
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - .ado/pipelines/extends/cd-customer.yaml
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
+      - cell: subject/workflows
+        by:
+          - .github/workflows/ci-pwsh.yml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-NAMEDGLOBSETS
     axis:

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8fa48443cafe"
+#     with_body_sha: "2e59d47a6bc8"
 # ---
 
 description:
@@ -193,9 +193,12 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: ado-pipelines/pipelines/.
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-TEST-QUALITYGATE
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-DURABLESHAIDENTITY
@@ -244,17 +247,16 @@ content:
           - docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md
           - docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs.md
-          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
           - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
           - docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSet.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
           - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
-          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
           - docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md
           - docs/references/pwsh/catzc-base-globs.md
@@ -367,6 +369,7 @@ content:
           - docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md
           - docs/references/pwsh/catzc-base-reports/configs/reports.yml.md
           - docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
           - docs/references/pwsh/catzc-base-reports/types/ReportsConfig.cs.md
           - docs/references/pwsh/catzc-base-root-config.md
           - docs/references/pwsh/catzc-base-root-config/Test-RootAnalyzerSettings.ps1.md
@@ -376,6 +379,19 @@ content:
           - docs/references/pwsh/catzc-tooling-key-handler/private/Select-SupportedKeyHandler.ps1.md
           - docs/references/pwsh/internal/tests/Test-FolderConventions.Tests.ps1.md
           - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: github-workflows/workflows/.
+        by:
+          - .github/workflows/ci-pwsh.yml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-DURABLESHAIDENTITY
@@ -468,18 +484,29 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
           - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Docs/tests
+        by:
+          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Drs/.
+        by:
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-TEST-QUALITYGATE
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-COMPOSESETS
@@ -491,21 +518,18 @@ content:
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
-      - cell: pwsh/Catzc.Base.Docs/tests
+      - cell: pwsh/Catzc.Base.Drs/tests
         by:
           - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - ADR-AUTO-TEST-QUALITYGATE
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-COMPOSESETS
@@ -782,6 +806,7 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Reports/types
         by:
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.RootConfig/.
@@ -874,25 +899,27 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
           - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - ADR-AUTO-TEST-QUALITYGATE
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-COMPOSESETS
@@ -1078,6 +1105,7 @@ content:
           - pwsh/Catzc.Base.Reports/configs/reports.yml
           - pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
           - pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: subject/Catzc.Base.RootConfig
@@ -1100,10 +1128,26 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: subject/pipelines
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/workflows
+        by:
+          - .github/workflows/ci-pwsh.yml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-DURABLESHAIDENTITY

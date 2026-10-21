@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d00e5afb0cd9
+#     with_body_sha: "32b402073603"
 # ---
 
 description:
@@ -142,13 +142,8 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-NAMING
       - cell: docs/-/.
         by:
-          - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.verify.md
           - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.yml
           - docs/drs/azure/azure-naming-standard.md
           - docs/drs/azure/dora-explains.md
@@ -201,7 +196,7 @@ content:
         by:
           - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
           - ADR-AZ-NAMING
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -236,7 +231,7 @@ content:
           - pwsh/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
           - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
           - ADR-AZ-NAMING
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -248,10 +243,6 @@ content:
       - cell: subject/Catzc.Base.Variants
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-AZ-NAMING
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-AZ-NAMING
     axis:
       - cell: CLOUD/deploy

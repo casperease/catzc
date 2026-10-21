@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8f00ae1072d6"
+#     with_body_sha: e0e6d0758a89
 # ---
 
 description:
@@ -124,11 +124,6 @@ content:
           - .claude/CLAUDE.md
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       - cell: docs/-/.
         by:
           - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
@@ -149,12 +144,12 @@ content:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
@@ -175,11 +170,6 @@ content:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       - cell: docs/markdown

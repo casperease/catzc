@@ -1,9 +1,9 @@
-# ADR: The audited server git remote — verified integration and PR ingress
+# Design: The audited server git remote — verified integration and PR ingress
 
 The mainline lives on an **audited server git remote** (Azure DevOps or GitHub); every developer box and CI agent is a client that bridges
-to it. This ADR fixes how work crosses that boundary in both directions: what a consumer reads _out_ (integrate from the last verified
+to it. This DDR fixes how work crosses that boundary in both directions: what a consumer reads _out_ (integrate from the last verified
 commit, never the dirty remote HEAD) and how a change gets _in_ (ingress through a pull request that authenticates and merges). The
-commit-lifecycle states it builds on — the stable sync point and the dirty HEAD — belong to the delivery flow's commit lifecycle; this ADR
+commit-lifecycle states it builds on — the stable sync point and the dirty HEAD — belong to the delivery flow's commit lifecycle; this DDR
 owns the remote topology and the integration/ingress discipline over it.
 
 ## Rules: DDR-REMOTE
@@ -55,7 +55,7 @@ every change is attributed, passes its merge gate, and is recorded. That somewhe
 repository whose branch policy and identity model make those guarantees real. Developer and CI machines are clients that clone and bridge to
 it.
 
-Two questions arise at that client/server boundary, and this ADR answers both. Reading _from_ the remote: the tip of main is not always safe
+Two questions arise at that client/server boundary, and this DDR answers both. Reading _from_ the remote: the tip of main is not always safe
 to build on, because it can be a dirty HEAD (for example, a tip that entered main-UAT and failed there). Writing _to_ the remote: how does a
 change legitimately become part of the audited main at all? The answer to the first is "integrate from the last verified commit"; the answer
 to the second is "through a PR, which is the authenticated ingress" — and the two together are what keep the mainline both trustworthy to
@@ -93,8 +93,8 @@ commit, never the raw HEAD.
 `Why verified is stable and the tip is not`
 
 The verified history is monotonic and immutable: a commit that reached the verified point is a durable fact no later event un-makes
-(`PDR-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by a newer commit
-that overtakes it; it is never cut back. Whatever happens, the tip is subject to change while the verified point is not. So the choice of
+(`PDR-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by a newer commit that
+overtakes it; it is never cut back. Whatever happens, the tip is subject to change while the verified point is not. So the choice of
 integration base is a choice between a stable anchor and a moving one. Building on the stable anchor means a later fix to the tip is simply
 the next thing you pull; building on the moving tip means that same fix can rewrite the ground under your work and force a reconciliation
 you did not need to have. Integrating from verified is what makes "the dirty HEAD got fixed later" a non-event for everyone downstream.
@@ -118,10 +118,10 @@ doorway collapses to a direct commit; the moment there is more than one author, 
   bypass the authenticate-and-merge path (`DDR-REMOTE-PULLREQUESTISINGRESS`).
 - **`git_workspace` variant** — `main-via-pr` vs `main-direct` selects the audited-ingress regime; `Sync-GeneratedFile`'s branch guard is
   the local half.
-- **The stable sync point** — the BVT-verified server head, as against the dirty HEAD, is the "last verified commit" this ADR tells
+- **The stable sync point** — the BVT-verified server head, as against the dirty HEAD, is the "last verified commit" this DDR tells
   consumers to integrate from; the delivery flow's commit lifecycle defines both.
 - **Code review** — a build or workflow that pins its integration base to the remote HEAD rather than the last verified commit, or a process
-  that reaches the protected branch outside a PR, is rejected against this ADR.
+  that reaches the protected branch outside a PR, is rejected against this DDR.
 
 ## Consequences
 

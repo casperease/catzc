@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "277265befa21"
+#     with_body_sha: ea2aaf8fb9ee
 # ---
 
 description:
@@ -147,13 +147,14 @@ content:
     code-locations:
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-DRYRUN
+          - .ado/pipelines/cd-shared.yaml
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-VALUEBYADDRESS
-          - ADR-AZ-SESSION
-          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
-          - ADR-PWSH-PREPOST
+      - cell: ado-pipelines/pipelines/extends
+        by:
+          - .ado/pipelines/extends/cd-customer.yaml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -202,10 +203,10 @@ content:
           - docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
-          - docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Build-DrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-docs/Build-GitKeep.ps1.md
           - docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Build-DrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-drs/Update-DrsCitation.ps1.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
           - docs/references/pwsh/catzc-base-exporter/Build-Modules.ps1.md
@@ -221,7 +222,6 @@ content:
           - docs/references/pwsh/catzc-base-quality-gates/Format-MarkdownTitle.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Repair-IdiomaticNames.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
           - docs/references/pwsh/catzc-base-reports/Clear-Output.ps1.md
           - docs/references/pwsh/catzc-base-root-config/Build-RootConfig.ps1.md
           - docs/references/pwsh/catzc-tooling-provisioning/Clear-TempFolders.ps1.md
@@ -232,6 +232,21 @@ content:
           - ADR-AZ-SESSION
           - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
           - ADR-PWSH-PREPOST
+      - cell: infrastructure/discovery/.
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: infrastructure/expedition/.
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: infrastructure/foundation/.
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
       - cell: pwsh/Catzc.Azure/.
         by:
           - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
@@ -299,13 +314,16 @@ content:
           - ADR-AZ-DATAMOD-VALUEBYADDRESS
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
-          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
           - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: pwsh/Catzc.Base.Drs/.
+        by:
+          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
+          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
           - pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
           - ADR-AUTO-DRYRUN
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DRYRUN
@@ -314,7 +332,7 @@ content:
           - ADR-AZ-SESSION
           - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
           - ADR-PWSH-PREPOST
-      - cell: pwsh/Catzc.Base.Docs/tests
+      - cell: pwsh/Catzc.Base.Drs/tests
         by:
           - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
           - ADR-AUTO-DRYRUN
@@ -358,7 +376,6 @@ content:
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-VALUEBYADDRESS
       - cell: pwsh/Catzc.Base.QualityGates/tests
@@ -437,10 +454,13 @@ content:
           - ADR-PWSH-PREPOST
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
-          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
           - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - ADR-AUTO-DRYRUN
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
+          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
           - pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
@@ -486,7 +506,6 @@ content:
           - pwsh/Catzc.Base.QualityGates/Format-MarkdownTitle.ps1
           - pwsh/Catzc.Base.QualityGates/Repair-IdiomaticNames.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Move-FunctionHelp.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Sync-FileMeta.Tests.ps1
@@ -515,15 +534,27 @@ content:
         by:
           - pwsh/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
           - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
-      - cell: subject/pipelines
+      - cell: subject/discovery
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-DRYRUN
+          - infrastructure/templates/discovery/options.yml
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-VALUEBYADDRESS
-          - ADR-AZ-SESSION
-          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
-          - ADR-PWSH-PREPOST
+      - cell: subject/expedition
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: subject/foundation
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/extends/cd-customer.yaml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-VALUEBYADDRESS
     axis:
       - cell: AUTO/*
         by:

@@ -34,21 +34,21 @@ Flow is measured, not felt. Throughput, work-in-progress, and lead time are defi
 ### Rule WDR-LEANTERMS-AUTOMATEDORMANUAL
 
 Work is classified by who acts: an automated step runs to completion with no human action, a manual step requires a person. Human attention
-is the scarce constraint and machine time is cheap and falling (Moore's Law, [WDR-LEAN](lean.md)), so the platform's direction of
-travel is to convert manual steps into automated ones — spending the cheap resource to protect the dear one.
+is the scarce constraint and machine time is cheap and falling (Moore's Law, [WDR-LEAN](lean.md)), so the platform's direction of travel is
+to convert manual steps into automated ones — spending the cheap resource to protect the dear one.
 
 - [Automated and manual](#automated-and-manual)
 
 ## Context
 
-The process ADRs — lean ([WDR-LEAN](lean.md)), pulling work ([WDR-PULLWORK](pull-work.md)), queues
-([WDR-QUEUECOST](queues-cost-money.md)), and the rest — all reason in the same vocabulary: constraint, throughput, lead time,
-work-in-progress, batch, queue. That reasoning only holds together if the words mean exactly one thing across every article. When
-"bottleneck" means the constraint to one author and "the slowest thing I noticed" to another, a flow argument stops being checkable.
+The process ADRs — lean ([WDR-LEAN](lean.md)), pulling work ([WDR-PULLWORK](pull-work.md)), queues ([WDR-QUEUECOST](queues-cost-money.md)),
+and the rest — all reason in the same vocabulary: constraint, throughput, lead time, work-in-progress, batch, queue. That reasoning only
+holds together if the words mean exactly one thing across every article. When "bottleneck" means the constraint to one author and "the
+slowest thing I noticed" to another, a flow argument stops being checkable.
 
 This article is the glossary those articles share. It fixes the primitive terms so the others can build on them without re-defining them,
-and it names the two laws — Little's and Moore's — that make the flow claims quantitative, pointing to [WDR-LEAN](lean.md) as the
-article that owns and elaborates them. It defines the nouns; the companion articles state the laws and rules that relate them.
+and it names the two laws — Little's and Moore's — that make the flow claims quantitative, pointing to [WDR-LEAN](lean.md) as the article
+that owns and elaborates them. It defines the nouns; the companion articles state the laws and rules that relate them.
 
 ## The terms
 
@@ -90,13 +90,13 @@ Terms from the Theory of Constraints [^1] — the account of why a system has ex
 How a step is classified by the actor it requires.
 
 - **Automated.** A step that runs to completion with no human action once triggered — repeatable, unattended, and identical every time. The
-  platform's default and destination for every step it can reach ([PDR-EAC](../principles/everything-as-code.md)), with no ceremony
-  asked of the person who triggers it.
+  platform's default and destination for every step it can reach ([PDR-EAC](../principles/everything-as-code.md)), with no ceremony asked of
+  the person who triggers it.
 - **Manual.** A step that requires a person to act. Manual steps are legitimate where human judgement is the point (a review, a release
   decision); they are waste where they are merely un-automated toil.
 - **The direction of travel.** Because human attention is the scarce constraint and machine time is cheap and falling (Moore's Law,
-  [WDR-LEAN](lean.md)), a manual step that needs no judgement is a candidate for automation — spend compute to drain the human queue,
-  never the reverse.
+  [WDR-LEAN](lean.md)), a manual step that needs no judgement is a candidate for automation — spend compute to drain the human queue, never
+  the reverse.
 
 ### The named laws
 
@@ -126,8 +126,8 @@ called automation, and pinning the scarce resource to human attention explains w
 
 When a process or flow decision is in question, use these words with these meanings and no others. Before proposing a speed-up, name the
 constraint and check the change against it — a change that improves a non-constraint is waste
-([PDR-NOWASTE](../principles/reduce-waste.md)). Before calling a step "automated", check it runs with no human action and is identical
-every time. When an article needs a term elaborated — Little's Law, cost of delay, pull versus push — cite the ADR that owns it rather than
+([PDR-NOWASTE](../principles/reduce-waste.md)). Before calling a step "automated", check it runs with no human action and is identical every
+time. When an article needs a term elaborated — Little's Law, cost of delay, pull versus push — cite the ADR that owns it rather than
 redefining it here, so the vocabulary stays single-source.
 
 ## References

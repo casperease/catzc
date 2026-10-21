@@ -17,7 +17,7 @@ Supports FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER, ADR-A
 The per-layer independence rule says that peers in a layer never share a file on their own contribution. In cats a quality gate enforces it
 for the `deployable-unit` and `module` layers, config-load validation keeps the `module` layer derived-only, and the `loose-fileset` layer
 is exempt by design. Two prohibitions in the same ADR, the phantom unit and the loose-fileset without a demonstrated use, have no check
-behind them: they hold only as ADR rules.
+behind them: they hold only as DRS rules.
 
 ![A gate on overlap for units and modules](.assets/overlap-gated-for-units-and-modules/diagram.drawio.png)
 

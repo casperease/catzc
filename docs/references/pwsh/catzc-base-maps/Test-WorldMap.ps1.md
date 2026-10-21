@@ -16,20 +16,20 @@ that Get-WorldMap returns; it reads the map's placements and never places a file
 issue:
 
 - Stack violations. A cell that holds a live file whose file language its track does not declare is a second tech-stack inside the track
-  ([DDR-TRACK-ONETECHSTACK](../../../drs/design/tracks.md#rule-ddr-track-onetechstack)): one issue per cell, with its file count
-  and its first file in ordinal order.
+  ([DDR-TRACK-ONETECHSTACK](../../../drs/design/tracks.md#rule-ddr-track-onetechstack)): one issue per cell, with its file count and its
+  first file in ordinal order.
 - Undeclared root folders. A root folder that holds a tracked file names a track, except out/, which holds gitignored output
   ([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster),
   [ADR-REPO-OUTDIR](../../../drs/repository/dedicated-output-directory.md)). The map places the files of any other root folder no track
   names among the root files: one issue per such folder, with its file count.
 - Printed labels. Every label the world map prints names a defined term
-  ([DDR-TRACK-LABELSNAMEDEFINEDTERMS](../../../drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms)): each world-map label
-  of maps.yml (Get-Config -Config maps; the value_chain_ labels are Test-ValueChainMap's) names a glossary term (Get-Glossary) in its head,
-  the text before its first ':' (Resolve-MapLabelTerm). A row prints a track's name and a column a file language's name, so the names
-  resolve through their axis's term: the glossary holds 'track'
+  ([DDR-TRACK-LABELSNAMEDEFINEDTERMS](../../../drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms)): each world-map label of
+  maps.yml (Get-Config -Config maps; the value_chain_ labels are Test-ValueChainMap's) names a glossary term (Get-Glossary) in its head, the
+  text before its first ':' (Resolve-MapLabelTerm). A row prints a track's name and a column a file language's name, so the names resolve
+  through their axis's term: the glossary holds 'track'
   ([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)) and 'file language'
-  ([DDR-TRACK-FILELANGUAGE](../../../drs/design/tracks.md#rule-ddr-track-filelanguage)). The two catch-all lines print their
-  labels, root_files and unlisted_files, which the maps.yml check covers.
+  ([DDR-TRACK-FILELANGUAGE](../../../drs/design/tracks.md#rule-ddr-track-filelanguage)). The two catch-all lines print their labels,
+  root_files and unlisted_files, which the maps.yml check covers.
 
 It ends through Write-QualityGateReport: the report goes to out/test-world-map/, every issue is printed, and the quality gate throws once
 listing them all; -PassThru returns the result instead.

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: cd4216593e00
+#     with_body_sha: ac2f203d9093
 # ---
 
 description:
@@ -99,11 +99,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -120,7 +115,7 @@ content:
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-DEPLOYABLEUNIT
@@ -160,7 +155,7 @@ content:
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
     module-neighbourhood:
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-DEPLOYABLEUNIT
@@ -186,11 +181,6 @@ content:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
     axis:

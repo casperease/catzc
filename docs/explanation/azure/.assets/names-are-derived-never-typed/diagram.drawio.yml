@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "41008c2fc923"
+#     with_body_sha: "9610b3855a4b"
 # ---
 
 description:
@@ -100,17 +100,8 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-NAMING-DETERMINISTICNAMES
-          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
-          - ADR-AZ-NAMING-NEVERTRUNCATE
-          - ADR-AZ-NAMING-ORDERISVARIANT
-          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
       - cell: docs/-/.
         by:
-          - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.verify.md
           - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.yml
           - docs/drs/azure/azure-naming-standard.md
           - docs/drs/azure/dora-explains.md
@@ -172,7 +163,7 @@ content:
           - ADR-AZ-NAMING-NEVERTRUNCATE
           - ADR-AZ-NAMING-ORDERISVARIANT
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -224,7 +215,7 @@ content:
           - ADR-AZ-NAMING-NEVERTRUNCATE
           - ADR-AZ-NAMING-ORDERISVARIANT
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -244,14 +235,6 @@ content:
       - cell: subject/Catzc.Base.Variants
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-AZ-NAMING-DETERMINISTICNAMES
-          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
-          - ADR-AZ-NAMING-NEVERTRUNCATE
-          - ADR-AZ-NAMING-ORDERISVARIANT
-          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-AZ-NAMING-DETERMINISTICNAMES
           - ADR-AZ-NAMING-LOWERCASECOMPONENTS
           - ADR-AZ-NAMING-NEVERTRUNCATE

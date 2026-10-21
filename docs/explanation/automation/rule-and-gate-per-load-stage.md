@@ -34,10 +34,9 @@ Each stage has its own band, and a stage's gate sits in its band beside the rule
    (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE). `Import-AllModules.Tests` checks that a duplicated or
    shadowing function name fails the import, and `Import-CSharpTypes.Tests` and the walking-skeleton `Import-Catzc.Tests` also cover this
    stage.
-4. **Run mode.** The two run modes never coexist (DDR-RUNMODE-NEVERCOEXIST). The stage is itself a check:
-   `Assert-CatzcRunModeExclusive` runs on every load and throws when a module from the other run mode's root is still loaded.
-   `Assert-CatzcRunModeExclusive.Tests` checks it, and the eviction block of `Import-AllModules.Tests` checks the removal that comes before
-   it.
+4. **Run mode.** The two run modes never coexist (DDR-RUNMODE-NEVERCOEXIST). The stage is itself a check: `Assert-CatzcRunModeExclusive`
+   runs on every load and throws when a module from the other run mode's root is still loaded. `Assert-CatzcRunModeExclusive.Tests` checks
+   it, and the eviction block of `Import-AllModules.Tests` checks the removal that comes before it.
 5. **Janitors.** Generation is idempotent and runs on every import (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION), and who runs the importer
    decides what the janitors may change, read from `Get-SessionActor` (ADR-BCL-TYPES-JANITORSBYCALLER). `Invoke-TypeCacheJanitor.Tests`
    checks that holders are never stopped in a `Pipeline` or `Agent` session.

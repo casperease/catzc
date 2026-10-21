@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "35f021322a67"
+#     with_body_sha: "3c56239af025"
 # ---
 
 description:
@@ -121,13 +121,6 @@ content:
           - ADR-BCL-TYPES-DEBUGANYCPU
           - ADR-PWSH-TYPES-ADDTYPECOMPILES
           - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
-      - cell: pipelines/ado-pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-BCL-TYPES-BCLREFERENCESET
-          - ADR-BCL-TYPES-DEBUGANYCPU
-          - ADR-PWSH-TYPES-ADDTYPECOMPILES
-          - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
       - cell: documentation/docs
         by:
           - docs/drs/automation/BCL/.assets/bcl-language/diagram.drawio.yml
@@ -152,15 +145,6 @@ content:
           - ADR-BCL-TYPES-DEBUGANYCPU
           - ADR-PWSH-TYPES-ADDTYPECOMPILES
           - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
-      - cell: vendor-settings/.claude
-        by:
-          - .claude/plans/plan-bcl-language.md
-          - .claude/plans/task-user-runs-and-commits.md
-          - .claude/plans/value-of-plan.md
-          - ADR-BCL-TYPES-BCLREFERENCESET
-          - ADR-BCL-TYPES-DEBUGANYCPU
-          - ADR-PWSH-TYPES-ADDTYPECOMPILES
-          - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
     engine-strip:
       - cell: pwsh/powershell
         by:
@@ -169,20 +153,11 @@ content:
           - ADR-BCL-TYPES-BCLREFERENCESET
           - ADR-BCL-TYPES-DEBUGANYCPU
     module-neighbourhood:
-      - cell: subject/.claude
-        by:
-          - .claude/plans/plan-bcl-language.md
-          - .claude/plans/task-user-runs-and-commits.md
-          - .claude/plans/value-of-plan.md
-          - ADR-BCL-TYPES-BCLREFERENCESET
-          - ADR-BCL-TYPES-DEBUGANYCPU
-          - ADR-PWSH-TYPES-ADDTYPECOMPILES
-          - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
       - cell: subject/Catzc.Base.Contracts
         by:
           - pwsh/Catzc.Base.Contracts/types/ContractSchema.cs
           - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsCodeForm.cs
@@ -215,13 +190,6 @@ content:
           - pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
           - ADR-BCL-TYPES-BCLREFERENCESET
           - ADR-BCL-TYPES-DEBUGANYCPU
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-BCL-TYPES-BCLREFERENCESET
-          - ADR-BCL-TYPES-DEBUGANYCPU
-          - ADR-PWSH-TYPES-ADDTYPECOMPILES
-          - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
 layout:
   band-language:
     x: 20

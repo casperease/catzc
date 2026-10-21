@@ -13,10 +13,10 @@ FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only, and the one gate on deploys in co
 Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG and FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and DDR-VISUAL-BRANCHDIRECTIONISROLE, DDR-VISUAL-FIXEDCOMMITPALETTE and DDR-VISUAL-ENVIRONMENTISCONTAINER (governance lens).
 ```
 
-FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND lets a workflow deploy a topic commit without integrating it. Looked at as governance, the rule
-stands alone: no gate or checker in cats tests it, and nothing in the repository runs the deploy it allows. The one gate in code on the
-deploy side points the other way, since every `Deploy_*` stage runs only from main. The drawing rules of DDR-VISUAL that colour these
-commits have no checker either, and none is expected.
+FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND lets a workflow deploy a topic commit without integrating it. Looked at as governance, the rule stands
+alone: no gate or checker in cats tests it, and nothing in the repository runs the deploy it allows. The one gate in code on the deploy side
+points the other way, since every `Deploy_*` stage runs only from main. The drawing rules of DDR-VISUAL that colour these commits have no
+checker either, and none is expected.
 
 ![FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-adr-only/diagram.drawio.png)
 
@@ -38,8 +38,7 @@ commits have no checker either, and none is expected.
 
 - A topic commit can be deployed out-of-band without integrating into main, and the deploy confers no promotion state on the mainline
   (FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
-- A commit holds one lifecycle state at a time and advances one rung along the ladder or leaves it
-  (FDR-CD-LIFE-ONESTATEADVANCESONERUNG).
+- A commit holds one lifecycle state at a time and advances one rung along the ladder or leaves it (FDR-CD-LIFE-ONESTATEADVANCESONERUNG).
 - Topic branches render below the mainline and release branches above it (DDR-VISUAL-BRANCHDIRECTIONISROLE).
 - The commit colours are fixed: a topic commit is brown and never grey, and yellow is past the BVT with an immutable artifact
   (DDR-VISUAL-FIXEDCOMMITPALETTE).
@@ -49,8 +48,8 @@ commits have no checker either, and none is expected.
 
 - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit; no pipeline or workflow does, and every
   `Deploy_*` stage is main-only.
-- The pipeline guide says the CI type produces no artifact, while DDR-VISUAL-FIXEDCOMMITPALETTE makes yellow carry an immutable
-  versioned artifact.
+- The pipeline guide says the CI type produces no artifact, while DDR-VISUAL-FIXEDCOMMITPALETTE makes yellow carry an immutable versioned
+  artifact.
 
 ## See also
 

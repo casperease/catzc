@@ -14,8 +14,8 @@ Principle 2 of 6 · PDR-CONFIG
 
 ## Rows
 
-| Rule                                            | Says                                                                                    |
-| ----------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Rule                                       | Says                                                                                    |
+| ------------------------------------------ | --------------------------------------------------------------------------------------- |
 | PDR-CONFIG-VARYINGBEHAVIOURISCONFIG        | Behaviour that varies by instance is a config entry; code is one mechanism per kind     |
 | PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE       | Adding an instance is a config change; new code means the mechanism is missing or wrong |
 | PDR-CONFIG-DEFAULTDECLAREDONCE             | Every setting has a sensible default, declared once on its config type                  |

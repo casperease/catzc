@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c09403baf5b1
+#     with_body_sha: "4001f3aabc4d"
 # ---
 
 description:
@@ -128,15 +128,6 @@ content:
         by:
           - .claude/CLAUDE.md
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-NORECONCILINGTIPS
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-REPO-VARIANT-GITWORKSPACE
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -158,26 +149,26 @@ content:
           - docs/references/pwsh/catzc-base-variants/Test-AspectDeclaration.ps1.md
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - ADR-REPO-VARIANT-GITWORKSPACE
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-NORECONCILINGTIPS
           - DDR-REMOTE-PULLREQUESTISINGRESS
           - DDR-REMOTE-SERVERREMOTEISTRUTH
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-REPO-VARIANT-GITWORKSPACE
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-REPO-VARIANT-GITWORKSPACE
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-NORECONCILINGTIPS
           - DDR-REMOTE-PULLREQUESTISINGRESS
           - DDR-REMOTE-SERVERREMOTEISTRUTH
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-REPO-VARIANT-GITWORKSPACE
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
@@ -217,16 +208,16 @@ content:
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-REPO-VARIANT-GITWORKSPACE
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-NORECONCILINGTIPS
           - DDR-REMOTE-PULLREQUESTISINGRESS
           - DDR-REMOTE-SERVERREMOTEISTRUTH
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-REPO-VARIANT-GITWORKSPACE
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
@@ -244,15 +235,6 @@ content:
           - pwsh/Catzc.Base.Variants/Test-AspectDeclaration.ps1
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-REPO-VARIANT-GITWORKSPACE
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-NORECONCILINGTIPS
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
           - ADR-REPO-VARIANT-GITWORKSPACE
     axis:
       - cell: DSGN/build

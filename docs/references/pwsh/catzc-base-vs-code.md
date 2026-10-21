@@ -33,8 +33,8 @@ Which editor behaviour the workspace pins, and why. Four registries, each entry 
   (`VscodeSettingsConfig`) checks only the structure (a non-empty map, each language override a map, `search.exclude` a map of glob to
   boolean) — notably the PowerShell `codeFormatting` block that must stay in step with `PSScriptAnalyzerSettings.psd1`, and the authored
   `search.exclude` map for the generated manifests. The managed-targets completion is deliberately **not** in this registry: it is injected
-  by [Catzc.Base.RootConfig](catzc-base-root-config.md)'s generator dispatch from its own registry, so the list lives once and the dependency
-  edge stays one-way (RootConfig → VSCode; a renderer never reads `rootconfig.yml`).
+  by [Catzc.Base.RootConfig](catzc-base-root-config.md)'s generator dispatch from its own registry, so the list lives once and the
+  dependency edge stays one-way (RootConfig → VSCode; a renderer never reads `rootconfig.yml`).
 - `vscode-extensions.yml` — the recommended-extension ids, **binding**: validated on load by its config type (`VscodeExtensionsConfig` —
   non-empty, unique `publisher.name` ids).
 - `vscode-launch.yml` — the debug launch profiles, **binding**: validated on load by its config type (`VscodeLaunchConfig` — a version plus

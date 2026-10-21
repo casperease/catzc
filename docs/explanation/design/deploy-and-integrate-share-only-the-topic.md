@@ -47,8 +47,8 @@ the promotion ladder.
 
 ## Where the code and the decision record differ
 
-- FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit, but no pipeline or workflow in cats does:
-  every `Deploy_*` stage runs only when the source branch is `refs/heads/main`.
+- FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit, but no pipeline or workflow in cats does: every
+  `Deploy_*` stage runs only when the source branch is `refs/heads/main`.
 - DDR-VISUAL lets the BVT accept a brown commit as well as a grey one; the integration path here follows the commit after it lands.
 
 ## See also

@@ -135,7 +135,7 @@ The module's public surface, sorted into the responsibilities above.
 |                                           | `ConvertTo-DrsDomainDiagram` |
 |                                           | `Test-DrsRegistry`           |
 |                                           | `Test-DrsEngineNeutrality`   |
-| config                                    | `drs.yml`                   |
+| config                                    | `drs.yml`                    |
 |                                           | `drs-checks.yml`             |
 |                                           | `drs-index.yml`              |
 | responsibility:5 — Controlled vocabulary  | `Get-Glossary`               |

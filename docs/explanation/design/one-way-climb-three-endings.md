@@ -38,8 +38,7 @@ or the commit delivered its value.
 - Retirement is a successful end of life, not a discard (FDR-CD-LIFE-RETIREMENTISNOTDISCARD).
 - Supersession abandons a still-valid commit that a newer one overtook (FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
 - A commit that fails a stage cannot go downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
-- The endings each have their own rendering: red for discarded, kept green for retired, a ghost for superseded
-  (DDR-VISUAL-DISTINCTENDINGS).
+- The endings each have their own rendering: red for discarded, kept green for retired, a ghost for superseded (DDR-VISUAL-DISTINCTENDINGS).
 
 ## See also
 

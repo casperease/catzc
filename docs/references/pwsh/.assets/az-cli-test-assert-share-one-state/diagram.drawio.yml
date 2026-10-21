@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "05da232ba7dd"
+#     with_body_sha: a8ebca4cca24
 # ---
 
 description:
@@ -156,18 +156,14 @@ content:
         by:
           - .claude/hooks/Assert-BashTimeout/Program.cs
           - ADR-AUTO-FAILFAST
-      - cell: .claude/.claude/plans
-        by:
-          - .claude/plans/plan-agent-friction.md
-          - ADR-AUTO-FAILFAST
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-ENTERP
-          - ADR-AUTO-FAILFAST
-          - ADR-AUTO-PRELOG
-          - ADR-AZ-CLI
-          - ADR-AZ-CUSTOMER
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - ADR-AZ-DATAMOD
+      - cell: ado-pipelines/pipelines/extends
+        by:
+          - .ado/pipelines/extends/cd-customer.yaml
           - ADR-AZ-DATAMOD
       - cell: docs/-/.
         by:
@@ -240,18 +236,17 @@ content:
           - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
           - docs/references/pwsh/catzc-base-files/Invoke-GitCommit.ps1.md
           - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
           - docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-drs-map.yml.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Test-TestRunOverBudget.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationVerdict.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerDrsMapConfig.cs.md
@@ -269,6 +264,18 @@ content:
           - ADR-AUTO-PRELOG
           - ADR-AZ-CLI
           - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: infrastructure/discovery/.
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: infrastructure/expedition/.
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: infrastructure/foundation/.
+        by:
+          - infrastructure/templates/foundation/options.yml
           - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Azure/.
         by:
@@ -381,19 +388,8 @@ content:
           - ADR-AUTO-FAILFAST
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - ADR-AUTO-ENTERP
-          - ADR-AUTO-FAILFAST
-          - ADR-AUTO-PRELOG
-          - ADR-AZ-CLI
-          - ADR-AZ-CUSTOMER
-          - ADR-AZ-DATAMOD
-      - cell: pwsh/Catzc.Base.Docs/private
-        by:
-          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - ADR-AUTO-FAILFAST
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
@@ -401,9 +397,26 @@ content:
           - ADR-AUTO-FAILFAST
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
+          - ADR-AZ-CUSTOMER
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-ENTERP
+          - ADR-AUTO-FAILFAST
+          - ADR-AUTO-PRELOG
+          - ADR-AZ-CLI
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+      - cell: pwsh/Catzc.Base.Drs/private
+        by:
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
+          - ADR-AUTO-FAILFAST
+      - cell: pwsh/Catzc.Base.Drs/types
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - ADR-AZ-CUSTOMER
       - cell: pwsh/Catzc.Base.Engines/types
         by:
@@ -442,7 +455,6 @@ content:
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
           - pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
           - ADR-AUTO-FAILFAST
@@ -509,7 +521,6 @@ content:
         by:
           - .claude/CLAUDE.md
           - .claude/hooks/Assert-BashTimeout/Program.cs
-          - .claude/plans/plan-agent-friction.md
           - ADR-AUTO-FAILFAST
       - cell: subject/Catzc.Azure
         by:
@@ -585,15 +596,19 @@ content:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
+          - ADR-AUTO-FAILFAST
+          - ADR-AZ-CUSTOMER
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - ADR-AUTO-ENTERP
           - ADR-AUTO-FAILFAST
           - ADR-AUTO-PRELOG
@@ -630,7 +645,6 @@ content:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
           - pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
           - pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
@@ -679,14 +693,23 @@ content:
           - pwsh/Catzc.Tooling.Provisioning/Install-Zsh.ps1
           - pwsh/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1
           - ADR-AUTO-ENTERP
+      - cell: subject/discovery
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: subject/expedition
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: subject/foundation
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD
       - cell: subject/pipelines
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-ENTERP
-          - ADR-AUTO-FAILFAST
-          - ADR-AUTO-PRELOG
-          - ADR-AZ-CLI
-          - ADR-AZ-CUSTOMER
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - .ado/pipelines/extends/cd-customer.yaml
           - ADR-AZ-DATAMOD
     axis:
       - cell: AUTO/*

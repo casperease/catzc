@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6258006a7800"
+#     with_body_sha: cd23dcc3f58b
 # ---
 
 description:
@@ -100,12 +100,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-REPO-ROOTCFG-HEADEDCOPY
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-          - ADR-REPO-ROOTCFG-REGISTRY
       - cell: docs/-/.
         by:
           - docs/drs/index.md
@@ -146,7 +140,7 @@ content:
           - ADR-REPO-ROOTCFG-HEADEDCOPY
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
           - ADR-REPO-ROOTCFG-REGISTRY
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-HEADEDCOPY
@@ -248,7 +242,7 @@ content:
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
           - ADR-REPO-ROOTCFG-REGISTRY
     module-neighbourhood:
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-HEADEDCOPY
@@ -301,12 +295,6 @@ content:
           - pwsh/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
           - pwsh/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
           - pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs
-          - ADR-REPO-ROOTCFG-HEADEDCOPY
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-          - ADR-REPO-ROOTCFG-REGISTRY
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-REPO-ROOTCFG-HEADEDCOPY
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
           - ADR-REPO-ROOTCFG-REGISTRY

@@ -96,10 +96,10 @@ production one `preprod`, `prod` and `psub`; `dev` and `test` share a subscripti
 configuration slot ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)).
 
 Self-service is a pull request, not a vending machine
-([DDR-SELFSERV-CONSUMERSPROVISIONTHEMSELVES](../../design/self-service.md#rule-ddr-selfserv-consumersprovisionthemselves)). A team
-adds a subscription entry to `azure.yml`, a network to `network.yml`, and one config per template; the CD pipeline of the customer then
-deploys `foundation`, `discovery` and `expedition` into it. Creating the subscription itself and placing it in a management group are not
-adopted: the repository deploys into subscriptions it is given and needs no rights above them
+([DDR-SELFSERV-CONSUMERSPROVISIONTHEMSELVES](../../design/self-service.md#rule-ddr-selfserv-consumersprovisionthemselves)). A team adds a
+subscription entry to `azure.yml`, a network to `network.yml`, and one config per template; the CD pipeline of the customer then deploys
+`foundation`, `discovery` and `expedition` into it. Creating the subscription itself and placing it in a management group are not adopted:
+the repository deploys into subscriptions it is given and needs no rights above them
 ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The two kinds of landing zone, a hub for a shared subscription
 and a spoke for a customer subscription
 ([ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-networkpersubscription)), are the repository's two
@@ -209,8 +209,8 @@ never hiding or cloning the vendor's behaviour
 ([DDR-THINPLAT-DELEGATENOTREIMPLEMENT](../../design/thin-platforms.md#rule-ddr-thinplat-delegatenotreimplement)). Access is the
 subscription's own role-based access control, through the service connection that deploys it, and governance is Azure Policy
 (ADR-AZ-CAF-PRIN-POLICYDRIVENGOVERNANCE). The repository is the single place a change is made
-([DDR-SELFSERV-REPOSITORYISSOURCEOFTRUTH](../../design/self-service.md#rule-ddr-selfserv-repositoryissourceoftruth)), and what it
-changes is plain Azure resources that the portal, the az CLI, and any Azure tool see as they are.
+([DDR-SELFSERV-REPOSITORYISSOURCEOFTRUTH](../../design/self-service.md#rule-ddr-selfserv-repositoryissourceoftruth)), and what it changes is
+plain Azure resources that the portal, the az CLI, and any Azure tool see as they are.
 
 The management plane deviates. Monitoring is per subscription: `foundation` gives every subscription its own Log Analytics workspace, and
 the landing zone and the workload of that subscription send their diagnostics and activity log there. There is no central workspace across

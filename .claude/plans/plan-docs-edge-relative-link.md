@@ -4,7 +4,7 @@ plan:
   value: medium
   reviewed: 2026-10-21
   class: fix
-  targets: [pwsh/Catzc.Base.QualityGates/configs/file-meta.yml, pwsh/Catzc.Base.QualityGates/private/Get-RelativeEdgesFileMetaFact.ps1]
+  targets: [pwsh/Catzc.Base.QualityGates/types/LinkEngine.cs, pwsh/Catzc.Base.QualityGates/configs/file-meta.yml]
 ---
 
 # Docs edge as a file-relative link
@@ -22,8 +22,8 @@ file that has a head.
 ## Decided (the user, 2026-10-21)
 
 - The `docs` link target is relative to the file that carries the head, e.g. from
-  `pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs`:
-  `"[AnalyzerAdrMapConfig.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerAdrMapConfig.cs.md)"`. This replaces
+  `pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs`:
+  `"[AnalyzerDrsMapConfig.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerDrsMapConfig.cs.md)"`. This replaces
   the repository-relative form; one living version, no fallback for the old form.
 
 ## Open questions
@@ -33,20 +33,12 @@ file that has a head.
 
 ## Open steps
 
-- [ ] Run `Test-Links -Path pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs` on today's repository-relative edge, which is broken
-      from the file's folder. If it reports nothing, `Test-Links` does not read code heads: make it resolve a head's `docs` target from the
-      file's folder, with a Pester case for a broken edge. Check: the run reports today's edge as broken, and reports nothing after the
-      re-imprint.
-- [ ] `file-meta.yml` `relative-edges`: add a `{relpath}` token (the found path made relative to the head's file, `/` separators) and set
-      `docs` to `link: "[{leaf}]({relpath})"`; reword the kind's comment line. `{path}` stays for a link that wants the repository path.
-      Check: `Test-FileMetaProcessors` passes.
-- [ ] `Get-RelativeEdgesFileMetaFact.ps1`: resolve `{relpath}` from `$Path` and the found path (`[System.IO.Path]::GetRelativePath` on the
-      two parents, `\` to `/`). Check: its test file gets a `{relpath}` case for a file two levels below a module and one at the module
-      root, and passes.
-- [ ] ADR text: `ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY` in `docs/drs/repository/code-file-meta.md` says "by its repository-relative path"
-      and its example head shows `docs/references/...`; change both to the file-relative form (the example's file is
-      `pwsh/Catzc.Base.Languages/types/FileLanguage.cs`, so `../../../docs/...`). Check the same wording in `file-meta.md` FEWLINKS. Check:
-      `Test-Links` on both pages.
-- [ ] Re-imprint the heads with `Sync-FileMeta` (one-shot). Peer-dirty code files are skipped and picked up on the next sync. Check:
-      `Test-FileMeta -Path` on `AnalyzerAdrMapConfig.cs` and `FileLanguage.cs` shows the `../`-relative `docs` edge, and the edge opens the
-      page from the file's folder.
+The last two steps land as one burst, after catzc-8b's b3 re-imprint and catzc-1c's re-declare (delegated, 2026-10-21): the link check goes
+live on a tree the re-imprint has already made pass it.
+
+- [ ] `pwsh/Catzc.Base.QualityGates/types/LinkEngine.cs`: `Test-Links` skips a code file's meta head whole, so a broken `docs` edge goes
+      unreported (probed 2026-10-21); `AlignCode` resolves the head's `docs` link target from the file's folder and reports a missing
+      target, with a Pester case for a broken edge (check: the case passes; `Test-Links` on a re-imprinted code file reports nothing).
+- [ ] Re-imprint the heads with `Sync-FileMeta` (one-shot), which also covers the 269 heads drifted by the module renames and the kind
+      change; peer-dirty code files are skipped and picked up on the next sync (check: `Test-FileMeta` over the tree at 0;
+      `AnalyzerDrsMapConfig.cs` and `FileLanguage.cs` show the `../`-relative `docs` edge).

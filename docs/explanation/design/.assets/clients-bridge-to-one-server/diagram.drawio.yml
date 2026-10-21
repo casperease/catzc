@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2408ec40158b"
+#     with_body_sha: "2e44e5bec500"
 # ---
 
 description:
@@ -94,14 +94,6 @@ content:
           - .claude/CLAUDE.md
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -126,7 +118,7 @@ content:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
@@ -134,7 +126,7 @@ content:
           - DDR-REMOTE-SERVERREMOTEISTRUTH
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
@@ -155,14 +147,6 @@ content:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/markdown

@@ -17,15 +17,16 @@ language's comments, never written into the head's code.
 
 An authored code or config file's head is the **navigation head**, and it holds exactly `with_body_sha` under `immutable` and the edges
 under `edges`: `cites`, the ADR codes that bind the file, sorted and without duplicates, each a rule code or a bare domain-level code;
-`docs`, the link to its comment page by its repository-relative path; `test`, the file that tests it; and, on a test, `code`, the file it
-tests ([ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)). Each edge is left out when it has no target. `cites` is
-each code the file and its comment page cite that the ADR index registers, so a fixture code or a placeholder named in prose is no citation,
-derived on every run and never read back from the head ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)).
-`with_body_sha` is the hash of the body below the head, and its cost is accepted: it changes on every edit of the body, so two concurrent
-edits of one file also meet on that line. Every place fact, the path, the role, the language, the track, the module and the visibility, is
-derived on demand and never written into the head. A code head has no `config` part: a code file's prose, its help included, lives on its
-comment page ([ADR-REPO-HELP-HELPONCOMMENTPAGE](function-help.md#rule-adr-repo-help-helponcommentpage)). A generated code file carries the
-generated-file head instead ([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)).
+`docs`, the link to its comment page by its path from the file's own folder; `test`, the file that tests it; and, on a test, `code`, the
+file it tests ([ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)). Each edge is left out when it has no target.
+`cites` is each code the file and its comment page cite that the ADR index registers, so a fixture code or a placeholder named in prose is
+no citation, derived on every run and never read back from the head
+([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)). `with_body_sha` is the hash of the body below the head,
+and its cost is accepted: it changes on every edit of the body, so two concurrent edits of one file also meet on that line. Every place
+fact, the path, the role, the language, the track, the module and the visibility, is derived on demand and never written into the head. A
+code head has no `config` part: a code file's prose, its help included, lives on its comment page
+([ADR-REPO-HELP-HELPONCOMMENTPAGE](function-help.md#rule-adr-repo-help-helponcommentpage)). A generated code file carries the generated-file
+head instead ([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)).
 
 - [What the head holds](#what-the-head-holds)
 
@@ -89,7 +90,7 @@ catzc:
   edges:
     cites:
       - ADR-BCL-TYPES-ONETYPEPERFILE
-    docs: "[FileLanguage.cs.md](docs/references/pwsh/catzc-base-languages/types/FileLanguage.cs.md)"
+    docs: "[FileLanguage.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/FileLanguage.cs.md)"
     test: pwsh/Catzc.Base.Languages/tests/types/FileLanguage.Tests.ps1
 ---
 */

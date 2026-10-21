@@ -1,8 +1,8 @@
 # DORA explanations — principles
 
-The `Dora explains` rationale for the ADRs in the `principles/` domain, consolidated in one place. Each entry names its ADR and rule code,
-then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions
-live in the ADRs themselves; this file carries only their DORA rationale.
+The `Dora explains` rationale for the decision records in the `principles/` domain, consolidated in one place. Each entry names its decision record and rule
+code, then reproduces that record's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The
+decisions live in the decision records themselves; this file carries only their DORA rationale.
 
 ## Everything as code
 

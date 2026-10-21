@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3e07cd025eba"
+#     with_body_sha: "86b8e64b591a"
 # ---
 
 description:
@@ -94,12 +94,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
       - cell: docs/-/.
         by:
           - docs/drs/configuration/config-value-addressing.md
@@ -132,7 +126,7 @@ content:
           - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
@@ -168,7 +162,7 @@ content:
           - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
@@ -188,12 +182,6 @@ content:
       - cell: subject/Catzc.Tooling.Environment
         by:
           - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
-          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY

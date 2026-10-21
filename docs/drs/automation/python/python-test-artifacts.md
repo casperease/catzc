@@ -106,16 +106,16 @@ mechanism.
 
 The `python` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a
 module is a folder under the Python root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays
-PowerShell and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Python module is a tool the engine runs as a
-process, and a Python test verifies the engine from outside, as a black box. The builder reads the engine's track, so no bundle holds a
-Python file unless `files.yml` packages it ([platform-bundle](../platform-bundle.md)). The Python-based tools the devbox installs are a
-separate matter: they are tools, each installed in isolation through uv, and nothing here changes how.
+PowerShell and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Python module is a tool the engine runs as a process,
+and a Python test verifies the engine from outside, as a black box. The builder reads the engine's track, so no bundle holds a Python file
+unless `files.yml` packages it ([platform-bundle](../platform-bundle.md)). The Python-based tools the devbox installs are a separate matter:
+they are tools, each installed in isolation through uv, and nothing here changes how.
 
 ### The layout
 
 The Python root is the one folder every Python file lives under. When the repository has a `python/` folder, that folder is the root, and it
-is the `python` track ([tracks](../../design/tracks.md#rule-ddr-track-onetracktype)). Otherwise the root is `.python/`, dot-prefixed as
-the tooling folders are. This is the one convention every test language's root follows, Go's included: the default is declared once, on the
+is the `python` track ([tracks](../../design/tracks.md#rule-ddr-track-onetracktype)). Otherwise the root is `.python/`, dot-prefixed as the
+tooling folders are. This is the one convention every test language's root follows, Go's included: the default is declared once, on the
 `PythonConfig` type ([sensible-defaults](../sensible-defaults.md)), `PythonConfig.ResolveRoot` is the one resolver every caller asks, and
 `python.yml` declares a `root` only to place the Python root elsewhere.
 

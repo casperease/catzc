@@ -50,23 +50,24 @@ to how-to churn).
 
 An explanation article narrates one diagram: how one part of cats works and why it holds.
 
-1. Create `docs/explanation/<adr-domain>/<kebab-title>.md`, in the folder of the ADR domain whose decision it explains.
+1. Create `docs/explanation/<adr-domain>/<kebab-title>.md`, in the folder of the decision-record domain whose decision it explains.
 2. Declare the diagram in `docs/explanation/<adr-domain>/.assets/<kebab-title>/diagram.drawio.yml` (its `description:`, the lens and ADR
    codes under `about:`, and the `content:` it draws), then put it with `Build-Diagrams -Path <that folder>`. Declare its minimaps' lit
    cells with `declaration.py minimaps <that folder>`, which writes each cell and what lit it under `content.minimaps`, then read them once
    against the drawing.
 3. After the title, open with a fenced `text` block that gives the overview: the finding in one line, then one line per numbered point of
-   the diagram. Then a short opening paragraph, the image, a Walkthrough that narrates every numbered point in order, the ADR rules that
+   the diagram. Then a short opening paragraph, the image, a Walkthrough that narrates every numbered point in order, the DRS rules that
    make it hold, and links to the ADR, the asset description and the related articles.
-4. List it in its domain's `index.md`. Cite ADRs from the article; an ADR never links back to it.
+4. List it in its domain's `index.md`. Cite decision records from the article; an ADR never links back to it.
 
 ## Writing an ADR
 
-ADRs capture a decision so it can be cited and enforced. They follow a fixed shape — read [`docs/drs/index.md`](../../../drs/index.md)
-("Authoring conventions") in full before writing, and copy the structure of an existing ADR. The essentials:
+Decision records capture a decision so it can be cited and enforced. They follow a fixed shape — read
+[`docs/drs/index.md`](../../../drs/index.md) ("Authoring conventions") in full before writing, and copy the structure of an existing ADR.
+The essentials:
 
-1. **Pick the domain and a code.** ADRs are grouped into the domains `pwsh/Catzc.Base.Drs/configs/drs.yml` lists, each in its own folder
-   under `docs/drs/`. The code is the domain's prefix plus a segment that names the decision (e.g. `TDR-NORMALFORM`), as
+1. **Pick the domain and a code.** Decision records are grouped into the domains `pwsh/Catzc.Base.Drs/configs/drs.yml` lists, each in its
+   own folder under `docs/drs/`. The code is the domain's prefix plus a segment that names the decision (e.g. `TDR-NORMALFORM`), as
    [adr-code-language](../../../drs/repository/drs-code-language.md) sets out.
 2. **Create `docs/drs/<domain-folder>/<kebab-title>.md`.** Start with the rule registry: a `## Rules: <code>` section followed by one
    `### Rule <code>-<RULENAME>` entry per rule, each a one-paragraph normative summary that links to the prose section justifying it. Other

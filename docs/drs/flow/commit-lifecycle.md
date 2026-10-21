@@ -1,11 +1,11 @@
-# ADR: The commit lifecycle — states, environment occupancy, and the stable sync point
+# Flow: The commit lifecycle — states, environment occupancy, and the stable sync point
 
 The value-chain diagrams under `docs/.assets/commits-quality` — the `value-chain` promotion diagram and its `state-changes` flow-variant
 companion — encode more than a promotion ladder: they encode what _happens to a commit_ — how it advances, where it dies, how it retires,
 how it is overtaken by a newer commit, which commit an environment currently hosts, and which commit the outside world should integrate
-from. This ADR states that lifecycle and integration model. The pipeline _domains_ (CI / CD / DEPLOY, the tagged artifact,
+from. This FDR states that lifecycle and integration model. The pipeline _domains_ (CI / CD / DEPLOY, the tagged artifact,
 build-once-deploy-many) are owned by [cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md) (`FDR-CD`); the _visual
-grammar_ (colours, lanes, ghosts, numbers) by [visual-design](../design/visual-design.md) (`DDR-VISUAL`). This ADR owns the commit's
+grammar_ (colours, lanes, ghosts, numbers) by [visual-design](../design/visual-design.md) (`DDR-VISUAL`). This FDR owns the commit's
 lifecycle states and the upstream/downstream sync semantics.
 
 ## Rules: FDR-CD-LIFE
@@ -56,8 +56,8 @@ stateful, not pass-through: at any moment each holds one **occupant** — the co
 and a trail of the commits it held before. Each rung is its own Azure DevOps environment per deployable-unit (`<unit>-main-uat`,
 `<unit>-release-uat`), so each has its own occupant and its own deployment history. `pre-prod` is a **staging slot** inside the production
 subscription, inactive until it is activated, not a separate subscription. An environment box in the diagram is a neutral container naming
-its occupant, drawn in that commit's state colour (DDR-VISUAL-ENVIRONMENTISCONTAINER), so reading the occupant tells you the true state
-of that environment right now.
+its occupant, drawn in that commit's state colour (DDR-VISUAL-ENVIRONMENTISCONTAINER), so reading the occupant tells you the true state of
+that environment right now.
 
 - [One occupant per environment](#one-occupant-per-environment)
 
@@ -66,8 +66,8 @@ of that environment right now.
 **The stable integration point is the BVT-verified server head, and upstream integrators sync from it — never from the raw HEAD.** The
 BVT-verified server head is the newest commit on the server's main that the BVT has verified and no later stage has failed. It is also the
 commit that goes into `main-UAT` first, so once it is deployed it is the `main-UAT` occupant too: the commit synced from and the commit
-`main-UAT` takes are one. Nobody syncs from a landed head the BVT has not judged yet (FDR-CD-LIFE-LANDEDUNTILFAILED) or from a dirty
-HEAD (FDR-CD-LIFE-DIRTYHEADUNSAFE). While the server marks no BVT-verified head, a topic syncs from the current server HEAD and says so
+`main-UAT` takes are one. Nobody syncs from a landed head the BVT has not judged yet (FDR-CD-LIFE-LANDEDUNTILFAILED) or from a dirty HEAD
+(FDR-CD-LIFE-DIRTYHEADUNSAFE). While the server marks no BVT-verified head, a topic syncs from the current server HEAD and says so
 (FDR-GIT-SYNCPOINT, FDR-GIT-FALLBACKISANNOUNCED).
 
 - [Sync from the verified head](#sync-from-the-verified-head)
@@ -77,8 +77,8 @@ HEAD (FDR-CD-LIFE-DIRTYHEADUNSAFE). While the server marks no BVT-verified head,
 **The dirty HEAD is the latest commit on main and is not a source that is safe to sync or promote from.** HEAD is simply the newest commit;
 it may have _failed_ a downstream stage (for example, died in `main-UAT`). Such a commit is the **dirty HEAD**: it is the tip of main, but
 it must not be synced from and cannot be promoted downstream. Consumers who naively track HEAD are pointed instead at the BVT-verified
-server head (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD). "Latest" and "safe to build on" are different questions, and the model keeps them
-separate. A newest commit that no stage has judged yet is _landed_, not dirty (FDR-CD-LIFE-LANDEDUNTILFAILED).
+server head (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD). "Latest" and "safe to build on" are different questions, and the model keeps them separate.
+A newest commit that no stage has judged yet is _landed_, not dirty (FDR-CD-LIFE-LANDEDUNTILFAILED).
 
 - [The dirty HEAD](#the-dirty-head)
 
@@ -114,16 +114,16 @@ canonical encoding of this lifecycle (they render the grammar of
 **In `main-direct`, the client lands a commit by one fast push to main, and a push is never a history change.** Every commit reaches the
 server as a single push from the client, carrying the text-field message or `...` when the field is empty. The push fast-forwards the
 server's main; a rejected push (main moved) stops and reports, and the client integrates by hand. A force push, an amend of a pushed commit,
-and an administrator's history change are not supported (FDR-CD-LIFE-DISCARDISTERMINAL). In `main-via-pr` the push is refused locally
-while standing on main/master, the `git_workspace` variant's one stop condition.
+and an administrator's history change are not supported (FDR-CD-LIFE-DISCARDISTERMINAL). In `main-via-pr` the push is refused locally while
+standing on main/master, the `git_workspace` variant's one stop condition.
 
 - [Fast push to main](#fast-push-to-main)
 
 ### Rule FDR-CD-LIFE-LANDEDUNTILFAILED
 
 **A pushed head is _landed_ until a stage fails it; only a failed head is the dirty HEAD.** A head on main that no stage has verified yet is
-**landed** (grey, FDR-CD-LIFE-ONESTATEADVANCESONERUNG). It becomes the dirty HEAD (FDR-CD-LIFE-DIRTYHEADUNSAFE) only when a
-downstream stage fails it, and the repair is a successor commit that fixes forward, never a rewrite of the failed one.
+**landed** (grey, FDR-CD-LIFE-ONESTATEADVANCESONERUNG). It becomes the dirty HEAD (FDR-CD-LIFE-DIRTYHEADUNSAFE) only when a downstream stage
+fails it, and the repair is a successor commit that fixes forward, never a rewrite of the failed one.
 
 - [Landed, then dirty](#landed-then-dirty)
 
@@ -139,8 +139,8 @@ terminal.
 
 The RC and RBC gates and the acceptance testing that clears them belong to the flow model:
 [FDR-CD-TWORELEASEGATES](cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates) defines the gates, and
-[FDR-CD-ACCEPTANCETESTINGISNOTUAT](cd-discipline-and-promotion-flow.md#rule-fdr-cd-acceptancetestingisnotuat) separates the
-acceptance testing from the environment it runs in.
+[FDR-CD-ACCEPTANCETESTINGISNOTUAT](cd-discipline-and-promotion-flow.md#rule-fdr-cd-acceptancetestingisnotuat) separates the acceptance
+testing from the environment it runs in.
 
 ![A commit only climbs — it ends discarded, retired or superseded](.assets/commit-promotion-states/diagram.drawio.png)
 
@@ -152,8 +152,7 @@ Every gate exists to reject, and the diagram records not just that a commit was 
 diagnosis. BVT and L3 reject automatically the moment their checks fail; release-uat rejects only when a human opens its manual gate (RBC)
 the wrong way; `main-UAT` rejects a commit that cannot stand up on the always-on environment, or that a human holds at its gate (RC).
 Keeping the rejection point in the record turns "it was discarded" into "it was discarded at L3", which is the difference between a shrug
-and a lead. The RC and RBC gates are defined by
-[FDR-CD-TWORELEASEGATES](cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates).
+and a lead. The RC and RBC gates are defined by [FDR-CD-TWORELEASEGATES](cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates).
 
 ## Retirement
 
@@ -217,9 +216,9 @@ nonetheless reached an environment captures that a deploy and an integration are
 ## One number, one story
 
 A single commit is hard to follow across stage-organised lanes, so each traced commit carries a time-ordered number and the number is the
-thread. Because git is the only true left-to-right timeline (DDR-VISUAL-ONLYGITLANEISTIME), the numbers restore both identity and
-chronology everywhere else: the same digit appears in each lane at its state-of-the-moment colour, and its final appearance is the verdict.
-The worked examples below are the canonical set.
+thread. Because git is the only true left-to-right timeline (DDR-VISUAL-ONLYGITLANEISTIME), the numbers restore both identity and chronology
+everywhere else: the same digit appears in each lane at its state-of-the-moment colour, and its final appearance is the verdict. The worked
+examples below are the canonical set.
 
 ## Fast push to main
 
@@ -229,8 +228,8 @@ Integration here is continuous, so the cheapest landing wins: the client commits
 the commit after it is on main, not before. That only works if a push can never damage what the server already holds, hence the two
 refusals: no force, no amend of a pushed commit. The one sanctioned failure is a rejected push, where another client landed first; the
 tooling stops and reports rather than rebasing, because rebasing builds the commit on the server's tip, which may be a dirty HEAD
-([DDR-REMOTE-INTEGRATEFROMVERIFIED](../design/server-remote-integration.md#rule-ddr-remote-integratefromverified)). The shortcut
-belongs to the solo `main-direct` regime of the `git_workspace` variant; once the repo is `main-via-pr`, the PR is the only ingress
+([DDR-REMOTE-INTEGRATEFROMVERIFIED](../design/server-remote-integration.md#rule-ddr-remote-integratefromverified)). The shortcut belongs to
+the solo `main-direct` regime of the `git_workspace` variant; once the repo is `main-via-pr`, the PR is the only ingress
 ([DDR-REMOTE-PULLREQUESTISINGRESS](../design/server-remote-integration.md#rule-ddr-remote-pullrequestisingress)).
 
 ## Landed, then dirty

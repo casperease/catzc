@@ -40,8 +40,8 @@ is written into code that a consumer runs elsewhere.
 ### The three kinds
 
 The product mono-repository runs in source mode, where the working root and the code root are the same folder
-([DDR-RUNMODE-TWORUNMODES](../design/run-modes.md#rule-ddr-runmode-tworunmodes)); it is the only kind that edits catzc itself. A
-consumer repository and no repository both run a built bundle in build mode and differ only in whether the working root is a git repository.
+([DDR-RUNMODE-TWORUNMODES](../design/run-modes.md#rule-ddr-runmode-tworunmodes)); it is the only kind that edits catzc itself. A consumer
+repository and no repository both run a built bundle in build mode and differ only in whether the working root is a git repository.
 Whichever kind it is, a placement comes from a track, never from a path written in code
 ([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)).
 

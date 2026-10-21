@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "614d8e513032"
+#     with_body_sha: "1fe89330635a"
 # ---
 
 description:
@@ -124,14 +124,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
-          - ADR-REPO-ROOTCFG-HEADEDCOPY
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-          - ADR-REPO-ROOTCFG-REGISTRY
-          - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
       - cell: docs/-/.
         by:
           - docs/drs/index.md
@@ -174,7 +166,7 @@ content:
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
           - ADR-REPO-ROOTCFG-REGISTRY
           - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
@@ -304,7 +296,7 @@ content:
           - ADR-REPO-ROOTCFG-REGISTRY
           - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
     module-neighbourhood:
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
@@ -365,14 +357,6 @@ content:
           - pwsh/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
           - pwsh/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
           - pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs
-          - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
-          - ADR-REPO-ROOTCFG-HEADEDCOPY
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-          - ADR-REPO-ROOTCFG-REGISTRY
-          - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
           - ADR-REPO-ROOTCFG-HEADEDCOPY
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION

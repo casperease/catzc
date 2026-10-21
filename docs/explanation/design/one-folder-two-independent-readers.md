@@ -51,11 +51,10 @@ sits, so a module author shapes visibility and shipping identity with the same a
 
 ## Where the code and the decision record differ
 
-- DDR-ASPECT-ASPECTISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of
-  FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, but that rule computes change from git at real refs, never from a committed hash, and no aspect
-  marker exists.
-- DDR-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern with the unit root, but the tests set also reaches the language test
-  folders outside it.
+- DDR-ASPECT-ASPECTISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT,
+  but that rule computes change from git at real refs, never from a committed hash, and no aspect marker exists.
+- DDR-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern with the unit root, but the tests set also reaches the language test folders
+  outside it.
 
 ## See also
 

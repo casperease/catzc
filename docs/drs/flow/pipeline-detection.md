@@ -1,4 +1,4 @@
-# ADR: Pipeline detection — how functions adapt to their execution context
+# Flow: Pipeline detection — how functions adapt to their execution context
 
 ## Rules: FDR-CD-DETECT
 

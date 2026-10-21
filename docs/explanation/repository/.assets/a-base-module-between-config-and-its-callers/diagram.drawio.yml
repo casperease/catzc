@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c79d521a8ac0
+#     with_body_sha: "365a992aeff9"
 # ---
 
 description:
@@ -107,11 +107,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
-          - ADR-REPO-VARIANT-SESSIONVARIANT
       - cell: docs/-/.
         by:
           - docs/drs/index.md
@@ -123,7 +118,7 @@ content:
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
           - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
           - ADR-REPO-VARIANT-SESSIONVARIANT
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
@@ -145,7 +140,7 @@ content:
           - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
           - ADR-REPO-VARIANT-SESSIONVARIANT
     module-neighbourhood:
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
@@ -156,11 +151,6 @@ content:
           - pwsh/Catzc.Base.Variants/Test-AspectDeclaration.ps1
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
-          - ADR-REPO-VARIANT-SESSIONVARIANT
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
           - ADR-REPO-VARIANT-SESSIONVARIANT
     axis:

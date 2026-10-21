@@ -1,4 +1,4 @@
-# ADR: The CI discipline and the promotion flow — pipeline kinds keyed by the tagged artifact
+# Flow: The CI discipline and the promotion flow — pipeline kinds keyed by the tagged artifact
 
 ## Rules: FDR-CD
 
@@ -16,28 +16,28 @@ discipline is primary; the CI pipeline is its instrument.
 The discipline's binding constraint is a **5–10 minute integration cycle, on a team basis**: getting a change _into_ main/master must clear
 its build-validation inside that budget, because a gate slower than that stops being a gate and becomes a queue that stalls the whole team's
 flow into the mainline. The CI pipeline concept confines pre-commit validation and the post-commit BVT to that budget
-([pipeline-types](pipeline-types.md#rule-fdr-cd-type-precommitbudget)); this rule is _why_. The budget binds the **inner** CI
-gate only — the slower system-test **outer loop** (CI+, FDR-CD-INNERANDOUTERLOOP) is deliberately exempt and runs post-commit, where
-its cost is affordable.
+([pipeline-types](pipeline-types.md#rule-fdr-cd-type-precommitbudget)); this rule is _why_. The budget binds the **inner** CI gate only —
+the slower system-test **outer loop** (CI+, FDR-CD-INNERANDOUTERLOOP) is deliberately exempt and runs post-commit, where its cost is
+affordable.
 
 - [The integration budget](#the-integration-budget)
 
 ### Rule FDR-CD-SEPARATEPIPELINEKINDS
 
 CI, CD, CDe, and DEPLOY are **separate pipeline kinds keyed together by the tagged artifact**, not merged into one construct. Each is its
-own ADO pipeline with its own trigger, governance, and history (see [pipeline-types](pipeline-types.md)); they compose into a
-promotion flow because they share one key — the immutable, **tagged** artifact a CI component produces and every downstream kind consumes
-unchanged. Build-once, deploy-many: nothing downstream rebuilds, so what reaches prod is byte-identical to what was certified in non-prod.
+own ADO pipeline with its own trigger, governance, and history (see [pipeline-types](pipeline-types.md)); they compose into a promotion flow
+because they share one key — the immutable, **tagged** artifact a CI component produces and every downstream kind consumes unchanged.
+Build-once, deploy-many: nothing downstream rebuilds, so what reaches prod is byte-identical to what was certified in non-prod.
 
 - [Separate kinds, one key](#separate-kinds-one-key)
 
 ### Rule FDR-CD-CDCONTAINSCI
 
 A **CD pipeline always contains a CI component; a solo CI pipeline contains only it.** The CI component is the same build-and-verify in both
-— one CI engine ([FDR-CD-TYPE-ONECIENGINE](pipeline-types.md#rule-fdr-cd-type-oneciengine)). A solo CI's terminal output
-is a pass/fail signal and nothing to deploy ([pipeline-types](pipeline-types.md#ci)); the **tagged artifact** is what the CI
-component produces when it runs as the front of a CD, which then takes the artifact in a direction (FDR-CD-CDSTAYSINNONPROD). "CD
-includes CI" is not duplication — it is the one engine run as the front of a longer pipeline.
+— one CI engine ([FDR-CD-TYPE-ONECIENGINE](pipeline-types.md#rule-fdr-cd-type-oneciengine)). A solo CI's terminal output is a pass/fail
+signal and nothing to deploy ([pipeline-types](pipeline-types.md#ci)); the **tagged artifact** is what the CI component produces when it
+runs as the front of a CD, which then takes the artifact in a direction (FDR-CD-CDSTAYSINNONPROD). "CD includes CI" is not duplication — it
+is the one engine run as the front of a longer pipeline.
 
 - [A CD is a CI that keeps going](#a-cd-is-a-ci-that-keeps-going)
 
@@ -55,26 +55,25 @@ automatically reconciled to latest main — is fixed here; its _name_ is org sem
 
 **Progression toward prod leaves the automated flow and enters DEPLOY.** From non-prod, the same tagged artifact is promoted toward
 production via **DEPLOY** activities — a solo, manually-governed DEPLOY pipeline that drives the artifact into a **non-automated**
-environment behind a manual gate
-([FDR-CD-TYPE-DEPLOYISCDTAIL–FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE](pipeline-types.md#deploy)). The boundary between CD and
-DEPLOY is the automated/manual-governance line: CD owns the automated non-prod direction; the human certification is a manual gate — **RC**
-at main-UAT or **RBC** at release-uat (FDR-CD-TWORELEASEGATES) — and **DEPLOY** is the pipeline that actuates the roll to prod once
-that gate clears. RC/RBC decide _whether_ to proceed; DEPLOY performs the advance. DEPLOY takes the exact artifact CI built, named by the
-**run id** of the CI run that built it, and never rebuilds it; the CD run that certified the artifact records that run id, so the artifact
-DEPLOY ships is the one the gates cleared.
+environment behind a manual gate ([FDR-CD-TYPE-DEPLOYISCDTAIL–FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE](pipeline-types.md#deploy)). The boundary
+between CD and DEPLOY is the automated/manual-governance line: CD owns the automated non-prod direction; the human certification is a manual
+gate — **RC** at main-UAT or **RBC** at release-uat (FDR-CD-TWORELEASEGATES) — and **DEPLOY** is the pipeline that actuates the roll to prod
+once that gate clears. RC/RBC decide _whether_ to proceed; DEPLOY performs the advance. DEPLOY takes the exact artifact CI built, named by
+the **run id** of the CI run that built it, and never rebuilds it; the CD run that certified the artifact records that run id, so the
+artifact DEPLOY ships is the one the gates cleared.
 
 - [The boundary to prod is DEPLOY](#the-boundary-to-prod-is-deploy)
 
 ### Rule FDR-CD-CDEINTERNALIZESPROMOTION
 
 CDe (Continuous Deployment) is a CD that **internalizes the prod promotion**: it runs the same CI component and the same non-prod direction
-(FDR-CD-CDCONTAINSCI–FDR-CD-CDSTAYSINNONPROD), then **automatically** rolls the locked commit's tagged artifact the rest of the
-way to production — the step CD leaves to a separately-triggered DEPLOY (FDR-CD-PRODPROGRESSIONISDEPLOY). Internal manual gates (an
-approval stage before production) may punctuate the roll, but the **activity of advancing a locked commit-and-build toward prod is
-automatically determined**, not started by a human as a separate pipeline. This is the Continuous **Delivery** vs Continuous **Deployment**
-line: **CD** stops at non-prod and hands prod to DEPLOY's human-owned decision; **CDe** owns the whole path to prod as one automated flow.
-Build-once still holds — CDe consumes the same tagged artifact CI stamped and never rebuilds; internalizing the prod step changes _who
-decides_, not _what ships_.
+(FDR-CD-CDCONTAINSCI–FDR-CD-CDSTAYSINNONPROD), then **automatically** rolls the locked commit's tagged artifact the rest of the way to
+production — the step CD leaves to a separately-triggered DEPLOY (FDR-CD-PRODPROGRESSIONISDEPLOY). Internal manual gates (an approval stage
+before production) may punctuate the roll, but the **activity of advancing a locked commit-and-build toward prod is automatically
+determined**, not started by a human as a separate pipeline. This is the Continuous **Delivery** vs Continuous **Deployment** line: **CD**
+stops at non-prod and hands prod to DEPLOY's human-owned decision; **CDe** owns the whole path to prod as one automated flow. Build-once
+still holds — CDe consumes the same tagged artifact CI stamped and never rebuilds; internalizing the prod step changes _who decides_, not
+_what ships_.
 
 - [CDe](#cde)
 
@@ -83,9 +82,9 @@ decides_, not _what ships_.
 **The CI discipline has an inner loop and an outer loop, and integration is not complete until the outer loop returns.** The **inner CI
 loop** is the CI gate, the fast build-validation bound by the 5–10 minute budget (FDR-CD-SHORTINTEGRATIONCYCLE) — L0–L2 and the BVT —
 proving at machine speed that the merge is integrable. The **outer CI+ loop** adds the post-commit **system tests** (the L3-vertical run of
-FDR-CD-CDSTAYSINNONPROD) and is deliberately **not** bound by that budget: it can take an hour or two. A green inner CI is necessary
-but not sufficient — from the contributor's view the change is not truly integrated until the CI+ outer loop reports back — so CI+ is where
-the slow verification the inner CI gate cannot afford is allowed to live. CI+ is a part of the CI discipline, not a separate pipeline kind
+FDR-CD-CDSTAYSINNONPROD) and is deliberately **not** bound by that budget: it can take an hour or two. A green inner CI is necessary but not
+sufficient — from the contributor's view the change is not truly integrated until the CI+ outer loop reports back — so CI+ is where the slow
+verification the inner CI gate cannot afford is allowed to live. CI+ is a part of the CI discipline, not a separate pipeline kind
 (FDR-CD-SEPARATEPIPELINEKINDS); mechanically its L3 leg runs in the CD pipeline's post-commit path.
 
 - [The outer CI+ loop](#the-outer-ci-loop)
@@ -97,9 +96,9 @@ gate**, a human-owned certification, on an always-on environment: **RC** (Releas
 (Release Branch Certification) is the gate at **release-uat**. Each clears when its **acceptance testing (AT)** is verified — RC on
 **main-AT** (AT against the `main-uat` environment), RBC on **release-AT** (AT against `release-uat`), the automated and manual tests a
 commit must pass there (FDR-CD-ACCEPTANCETESTINGISNOTUAT) — with a human certifying the environment's occupant
-(FDR-CD-LIFE-ONECOMMITPERENVIRONMENT) before it may advance. The gate is distinct from the **DEPLOY** pipeline that actuates the
-advance once the gate clears (FDR-CD-PRODPROGRESSIONISDEPLOY): RC/RBC decide _whether_ to proceed, DEPLOY performs the roll. Each gate
-is an **approval check on the next environment**: RC on the unit's `release-uat` environment, RBC on its `pre-prod` environment, so a run
+(FDR-CD-LIFE-ONECOMMITPERENVIRONMENT) before it may advance. The gate is distinct from the **DEPLOY** pipeline that actuates the advance
+once the gate clears (FDR-CD-PRODPROGRESSIONISDEPLOY): RC/RBC decide _whether_ to proceed, DEPLOY performs the roll. Each gate is an
+**approval check on the next environment**: RC on the unit's `release-uat` environment, RBC on its `pre-prod` environment, so a run
 promoting the occupant waits there for the certifier. The checks are configuration, applied like the prod approval gate
 (FDR-CD-PRODAPPROVALGATE). Clearing a gate is a promotion; failing it holds or discards the occupant. Whether a human owns the gate
 (delivery) or the pipeline advances past it automatically (deployment) is the CD-vs-CDe posture of
@@ -124,8 +123,8 @@ FDR-CD-TWORELEASEGATES); **`release-AT`** is the AT against `release-uat` (the m
 
 **The prod tail adds a pre-prod rung, and DEPLOY splits by target into non-prod and prod.** Past the RBC gate the artifact is promoted
 through a **pre-prod** environment (staged, not yet live) before **production**, so the promotion ladder's tail is
-`release-uat → pre-prod → production` (FDR-CD-LIFE-ONESTATEADVANCESONERUNG). The DEPLOY activity (FDR-CD-PRODPROGRESSIONISDEPLOY)
-is correspondingly two-part on the same build-once artifact: **DEPLOY-Non-Prod** drives it into the non-prod AT environments (the on-demand
+`release-uat → pre-prod → production` (FDR-CD-LIFE-ONESTATEADVANCESONERUNG). The DEPLOY activity (FDR-CD-PRODPROGRESSIONISDEPLOY) is
+correspondingly two-part on the same build-once artifact: **DEPLOY-Non-Prod** drives it into the non-prod AT environments (the on-demand
 environments, `main-uat`, `release-uat`), and **DEPLOY-Prod** drives the RBC-cleared artifact through `pre-prod` into `production`. Only the
 target and its governance differ; the tagged artifact is identical across both.
 
@@ -140,26 +139,26 @@ get a final rehearsal against production-shaped dependencies. Pre-prod is a **st
 azure config and inactive until activated, not a subscription of its own. Only then is that same artifact **activated to live production**
 (the inactive → live cutover). The go-live is therefore a **promotion of already-validated bytes, not a fresh untested deploy**, which is
 what keeps the production cutover low-risk. When the new version goes live, the previous production occupant is superseded and steps down
-(FDR-CD-LIFE-RETIREMENTISNOTDISCARD/FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN). Build-once holds throughout: pre-prod and
-production receive the identical tagged artifact (FDR-CD-SEPARATEPIPELINEKINDS).
+(FDR-CD-LIFE-RETIREMENTISNOTDISCARD/FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN). Build-once holds throughout: pre-prod and production receive
+the identical tagged artifact (FDR-CD-SEPARATEPIPELINEKINDS).
 
 - [Deploy to prod](#deploy-to-prod)
 
 ### Rule FDR-CD-GATEDEFINED
 
 A **gate** is a check whose verdict decides whether work may proceed past a point in the flow: it clears or holds, never half. A gate gives
-its verdict either by machine — a quality gate, run inside the inner CI gate and its integration budget (FDR-CD-SHORTINTEGRATIONCYCLE)
-— or by human certification, as a manual gate — RC and RBC (FDR-CD-TWORELEASEGATES). A gate decides; the pipeline that acts once a gate
-clears (DEPLOY, FDR-CD-PRODPROGRESSIONISDEPLOY) is not a gate.
+its verdict either by machine — a quality gate, run inside the inner CI gate and its integration budget (FDR-CD-SHORTINTEGRATIONCYCLE) — or
+by human certification, as a manual gate — RC and RBC (FDR-CD-TWORELEASEGATES). A gate decides; the pipeline that acts once a gate clears
+(DEPLOY, FDR-CD-PRODPROGRESSIONISDEPLOY) is not a gate.
 
 - [RC and RBC](#rc-and-rbc)
 
 ### Rule FDR-CD-RELEASECANDIDATE
 
 A **release candidate** is the immutable, tagged artifact a CI component builds from one commit of a deployable-unit
-(FDR-CD-SEPARATEPIPELINEKINDS): versioned, never rebuilt, and promotable toward production. Every gate it clears promotes the same
-bytes, and the environment it is deployed to has the commit it was built from as its occupant (FDR-CD-LIFE-ONECOMMITPERENVIRONMENT).
-Its verification beyond the fast CI gate is a release-candidate test run — CD's post-commit system test (FDR-CD-CDSTAYSINNONPROD,
+(FDR-CD-SEPARATEPIPELINEKINDS): versioned, never rebuilt, and promotable toward production. Every gate it clears promotes the same bytes,
+and the environment it is deployed to has the commit it was built from as its occupant (FDR-CD-LIFE-ONECOMMITPERENVIRONMENT). Its
+verification beyond the fast CI gate is a release-candidate test run — CD's post-commit system test (FDR-CD-CDSTAYSINNONPROD,
 FDR-CD-INNERANDOUTERLOOP).
 
 - [RC and RBC](#rc-and-rbc)
@@ -169,19 +168,18 @@ FDR-CD-INNERANDOUTERLOOP).
 Every prod-tier environment a pipeline deploys to carries an **approval gate**: an Approval check by one named approver group, so a run that
 reaches it waits for a person. The gate is configuration, never a portal setting: `environment-approvals.yml` declares the approver group,
 its members, the timeout, the units and the prod-tier environments, and one deterministic apply, `Sync-AdoEnvironmentApprovals`, makes the
-organization match it. An environment a pipeline deploys the prod tier to is listed there; the RC and RBC checks of
-FDR-CD-TWORELEASEGATES on each unit's `release-uat` and `pre-prod` environments are derived from the rungs registry
-(FDR-CD-RUNGSREGISTRY).
+organization match it. An environment a pipeline deploys the prod tier to is listed there; the RC and RBC checks of FDR-CD-TWORELEASEGATES
+on each unit's `release-uat` and `pre-prod` environments are derived from the rungs registry (FDR-CD-RUNGSREGISTRY).
 
 - [The prod approval gate](#the-prod-approval-gate)
 
 ### Rule FDR-CD-RUNGSREGISTRY
 
 The promotion ladder's **rungs** are declared once, in climbing order, by the rungs registry: each rung names the gate a commit clears to
-enter it, the configuration environment it deploys, and the rule codes that define it, so a file that cites one of them, or the ADR that
-holds it, concerns that rung. A unit's ADO environment for a rung is `<unit>-<rung>`, so every environment name, approval check and diagram
-that refers to a rung reads it from the registry, and remapping a rung to another environment is one edit there. The registry is `rungs.yml`
-in `Catzc.Base.Flow`, with its ladder declared on `RungsConfig`.
+enter it, the configuration environment it deploys, and the rule codes that define it, so a file that cites one of them, or the decision
+record that holds it, concerns that rung. A unit's ADO environment for a rung is `<unit>-<rung>`, so every environment name, approval check
+and diagram that refers to a rung reads it from the registry, and remapping a rung to another environment is one edit there. The registry is
+`rungs.yml` in `Catzc.Base.Flow`, with its ladder declared on `RungsConfig`.
 
 - [The rungs registry](#the-rungs-registry)
 
@@ -197,19 +195,19 @@ every deploy job of the prod target.
 
 ## Context
 
-[pipeline-types](pipeline-types.md) is the _taxonomy_ — it fixes what each of the six ADO artifact kinds **is**. This ADR is the
-_design layer_ above it: it records that "CI" names a **discipline** before it names a pipeline, and that the pipeline kinds are not a flat
-list: they **compose into a directional promotion flow**, keyed together by one shared object — the tagged artifact. The taxonomy answers
-"what is a CD pipeline"; this answers "what is Continuous Integration as a practice, and how do CI, CD, and DEPLOY chain a commit all the
-way to production without any of them rebuilding it."
+[pipeline-types](pipeline-types.md) is the _taxonomy_ — it fixes what each of the six ADO artifact kinds **is**. This FDR is the _design
+layer_ above it: it records that "CI" names a **discipline** before it names a pipeline, and that the pipeline kinds are not a flat list:
+they **compose into a directional promotion flow**, keyed together by one shared object — the tagged artifact. The taxonomy answers "what is
+a CD pipeline"; this answers "what is Continuous Integration as a practice, and how do CI, CD, and DEPLOY chain a commit all the way to
+production without any of them rebuilding it."
 
 Two of those kinds share the letters "CD" and must not be confused. **CD is Continuous _Delivery_**: the flow is automated through non-prod
 and the artifact is left _ready_ for prod, with the production cutover handed to a separately-governed DEPLOY
-(FDR-CD-CDSTAYSINNONPROD–FDR-CD-PRODPROGRESSIONISDEPLOY). **CDe is Continuous _Deployment_**: the same flow with the prod roll
-internalized and automated, so a locked commit reaches production without a human starting a separate pipeline
-(FDR-CD-CDEINTERNALIZESPROMOTION). Delivery makes prod a human decision; deployment makes it an automated activity of the pipeline.
+(FDR-CD-CDSTAYSINNONPROD–FDR-CD-PRODPROGRESSIONISDEPLOY). **CDe is Continuous _Deployment_**: the same flow with the prod roll internalized
+and automated, so a locked commit reaches production without a human starting a separate pipeline (FDR-CD-CDEINTERNALIZESPROMOTION).
+Delivery makes prod a human decision; deployment makes it an automated activity of the pipeline.
 
-The word "CI" carries both meanings, and conflating them is the mistake this ADR guards against. Read as a pipeline only, "CI" shrinks to a
+The word "CI" carries both meanings, and conflating them is the mistake this FDR guards against. Read as a pipeline only, "CI" shrinks to a
 YAML file that compiles something. Read as a discipline, it is the team-scale practice — small, frequent integrations into one mainline,
 each proven fast — that the pipeline exists to _serve_. The 5–10 minute budget, the always-on environment that mirrors main, and the
 build-once artifact that flows to prod are all consequences of taking the discipline as primary. The complement is
@@ -260,9 +258,9 @@ The discipline only works if integrating _into_ main is cheap and fast for the w
 pre-commit budget; DORA's ten-minute working number). It is a **team** constraint, not an individual one: one contributor waiting fifteen
 minutes is an annoyance, but a gate that takes fifteen minutes on every merge across a team is a standing queue, and a queue is the opposite
 of _continuous_ integration. So the budget is a hard design constraint on the CI pipeline concept, enforced there
-([FDR-CD-TYPE-PRECOMMITBUDGET](pipeline-types.md#rule-fdr-cd-type-precommitbudget)); this ADR records that the reason is
-the discipline, not the pipeline's convenience. Work too slow for the budget is pushed right — into the CD deploy path or a DEPLOY step —
-never into the pre-commit gate.
+([FDR-CD-TYPE-PRECOMMITBUDGET](pipeline-types.md#rule-fdr-cd-type-precommitbudget)); this FDR records that the reason is the discipline, not
+the pipeline's convenience. Work too slow for the budget is pushed right — into the CD deploy path or a DEPLOY step — never into the
+pre-commit gate.
 
 ### Separate kinds, one key
 
@@ -277,12 +275,10 @@ small and independently reasoned; the artifact carries the continuity.
 ### A CD is a CI that keeps going
 
 There is exactly one CI component, and both a solo CI pipeline and a CD pipeline run it — the same build-and-verify engine
-([FDR-CD-TYPE-ONECIENGINE](pipeline-types.md#rule-fdr-cd-type-oneciengine)). The difference is only what happens _after_
-it:
+([FDR-CD-TYPE-ONECIENGINE](pipeline-types.md#rule-fdr-cd-type-oneciengine)). The difference is only what happens _after_ it:
 
 - A **solo CI pipeline** stops at the verdict. Its terminal output is a pass/fail signal — the build was green (or not). It publishes no
-  deployable artifact and deploys nothing; a unit with an artifact to carry forward is a CD
-  ([pipeline-types](pipeline-types.md#ci)).
+  deployable artifact and deploys nothing; a unit with an artifact to carry forward is a CD ([pipeline-types](pipeline-types.md#ci)).
 - A **CD pipeline** runs that same CI component and then takes the artifact in a direction (below). "CD contains CI" therefore costs no
   duplicated build logic: it is the one engine, run as the front of a longer pipeline, followed by the deploy-and-verify tail.
 
@@ -298,7 +294,7 @@ A CD pipeline's job, after the build, is to move the artifact through non-prod i
    that exists only for the run.
 2. **The always-on mirror of main.** Then roll the same artifact onto an **always-on, hands-off non-prod environment that continuously
    matches latest main/master** — reconciled automatically by the post-commit run, so it is always a live reflection of the mainline.
-   Whether an organization calls this `main-UAT`, `DEV`, or `TEST` is its own semantics; the **shape** is what this ADR fixes: always up, no
+   Whether an organization calls this `main-UAT`, `DEV`, or `TEST` is its own semantics; the **shape** is what this FDR fixes: always up, no
    manual step to refresh it, tracking the head of main.
 
 All of this is automated and lives entirely in non-prod. CD never touches production.
@@ -308,10 +304,10 @@ All of this is automated and lives entirely in non-prod. CD never touches produc
 The step from non-prod to production is where automation stops and organizational governance begins, and that is exactly the CD/DEPLOY
 boundary. From the certified non-prod state, the **same tagged artifact** is promoted toward prod through **DEPLOY** activities: a solo,
 manually-governed DEPLOY pipeline that drives the artifact into a **non-automated** environment behind a manual gate
-([FDR-CD-TYPE-DEPLOYISCDTAIL–FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE](pipeline-types.md#deploy)). A DEPLOY pipeline is where a
-certification environment locked to a release commit, or a production cutover behind an approval gate, lives. The line is clean: **CD is the
-automated non-prod direction; DEPLOY is the human-governed step toward prod** — two kinds, one artifact, keyed together at the boundary
-rather than fused into a single pipeline that would bury the manual gate inside an automated flow.
+([FDR-CD-TYPE-DEPLOYISCDTAIL–FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE](pipeline-types.md#deploy)). A DEPLOY pipeline is where a certification
+environment locked to a release commit, or a production cutover behind an approval gate, lives. The line is clean: **CD is the automated
+non-prod direction; DEPLOY is the human-governed step toward prod** — two kinds, one artifact, keyed together at the boundary rather than
+fused into a single pipeline that would bury the manual gate inside an automated flow.
 
 ### CDe
 
@@ -342,12 +338,12 @@ under instead of leaving "CD" to mean both.
 
 `The outer CI+ loop closes integration`
 
-Continuous Integration as a discipline (FDR-CD-DISCIPLINEBEFOREPIPELINE) asks that every change be validated fast enough that the
-mainline stays continuously integrable. In practice that validation runs at two speeds, and conflating them is the mistake. The **inner
-loop** — the CI gate — must clear in 5–10 minutes (FDR-CD-SHORTINTEGRATIONCYCLE) or it stops being a gate and becomes a queue; it runs
-the fast, hermetic checks (L0–L2) and the BVT. The **outer loop** — CI+ — runs the system-level tests that exercise the built artifact
-against real boundaries (the L3-vertical run of FDR-CD-CDSTAYSINNONPROD), and those cannot be made to fit the inner budget: they take
-an hour or two, and forcing them into the pre-commit stage is exactly the shared-fate failure the budget rule exists to prevent.
+Continuous Integration as a discipline (FDR-CD-DISCIPLINEBEFOREPIPELINE) asks that every change be validated fast enough that the mainline
+stays continuously integrable. In practice that validation runs at two speeds, and conflating them is the mistake. The **inner loop** — the
+CI gate — must clear in 5–10 minutes (FDR-CD-SHORTINTEGRATIONCYCLE) or it stops being a gate and becomes a queue; it runs the fast, hermetic
+checks (L0–L2) and the BVT. The **outer loop** — CI+ — runs the system-level tests that exercise the built artifact against real boundaries
+(the L3-vertical run of FDR-CD-CDSTAYSINNONPROD), and those cannot be made to fit the inner budget: they take an hour or two, and forcing
+them into the pre-commit stage is exactly the shared-fate failure the budget rule exists to prevent.
 
 The discipline's honesty depends on naming this. A green inner CI proves the merge builds and passes the fast checks; it does not prove the
 system works. Integration, as the contributor experiences it, is not finished until the CI+ outer loop returns — that feedback, not the CI
@@ -360,9 +356,9 @@ outer loop rather than forked into a second pipeline.
 
 `RC and RBC: the two hands-on release gates`
 
-The automated flow (FDR-CD-CDSTAYSINNONPROD) carries the artifact through non-prod on its own. Progression toward production, by
-contrast, passes through **human certification** — at two manual gates, one per always-on release environment, each a deliberate hands-on
-stop rather than an automated check:
+The automated flow (FDR-CD-CDSTAYSINNONPROD) carries the artifact through non-prod on its own. Progression toward production, by contrast,
+passes through **human certification** — at two manual gates, one per always-on release environment, each a deliberate hands-on stop rather
+than an automated check:
 
 - **RC — Release Certification**, at **main-UAT**. The always-on environment that tracks latest main holds one occupant
   (FDR-CD-LIFE-ONECOMMITPERENVIRONMENT); RC is the human decision to certify the main-UAT occupant for onward release. It is the gate a
@@ -370,11 +366,11 @@ stop rather than an automated check:
 - **RBC — Release Branch Certification**, at **release-uat**. When a release variant is stabilized on a release branch, RBC is the human
   certification of the release-uat occupant before it is cut to production.
 
-Each is a **gate, not a pipeline**. The gate is the human decision; the **DEPLOY** pipeline (FDR-CD-PRODPROGRESSIONISDEPLOY) is the
-actuator that rolls the certified artifact onward once the gate clears. Keeping them distinct is what lets one DEPLOY mechanism serve either
-gate, and lets a Continuous **Deployment** (CDe) posture internalize the roll (FDR-CD-CDEINTERNALIZESPROMOTION) by automating past the
-point where RC/RBC would otherwise stop it. Which gates a unit passes through — and whether a human or the pipeline owns the decision to
-advance — is the delivery-vs-deployment posture of FDR-CD-PRODPROGRESSIONISDEPLOY/FDR-CD-CDEINTERNALIZESPROMOTION.
+Each is a **gate, not a pipeline**. The gate is the human decision; the **DEPLOY** pipeline (FDR-CD-PRODPROGRESSIONISDEPLOY) is the actuator
+that rolls the certified artifact onward once the gate clears. Keeping them distinct is what lets one DEPLOY mechanism serve either gate,
+and lets a Continuous **Deployment** (CDe) posture internalize the roll (FDR-CD-CDEINTERNALIZESPROMOTION) by automating past the point where
+RC/RBC would otherwise stop it. Which gates a unit passes through — and whether a human or the pipeline owns the decision to advance — is
+the delivery-vs-deployment posture of FDR-CD-PRODPROGRESSIONISDEPLOY/FDR-CD-CDEINTERNALIZESPROMOTION.
 
 RC and RBC are the manual gates. A gate a machine decides is a quality gate, which is a gate in this sense.
 
@@ -399,15 +395,15 @@ shared; the AT is per-commit and is what the gate certifies.
 
 The promotion tail is longer than "non-prod, then prod." After the RBC gate the artifact lands first in a **pre-prod** environment — staged
 and inactive, a last rehearsal of the exact bytes before they go live — and only then in **production**. So the ladder gains a rung,
-`release-uat → pre-prod → production` (FDR-CD-LIFE-ONESTATEADVANCESONERUNG), and pre-prod is a single-occupant environment like the
-others (FDR-CD-LIFE-ONECOMMITPERENVIRONMENT).
+`release-uat → pre-prod → production` (FDR-CD-LIFE-ONESTATEADVANCESONERUNG), and pre-prod is a single-occupant environment like the others
+(FDR-CD-LIFE-ONECOMMITPERENVIRONMENT).
 
 Because the deploy activity spans several environments with different governance, it reads as two named halves of one build-once flow.
 **DEPLOY-Non-Prod** is the deploy into the non-prod AT environments — the on-demand L3 environments, `main-uat`, and `release-uat` — the
 targets CD's automated direction covers (FDR-CD-CDSTAYSINNONPROD). **DEPLOY-Prod** is the governed deploy of the RBC-cleared artifact
 through `pre-prod` into `production` (FDR-CD-PRODPROGRESSIONISDEPLOY, and
-[FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE](pipeline-types.md#rule-fdr-cd-type-deploycarriesgovernance)). The split is by
-_target and governance_, not by artifact: the same tagged build flows through both, so build-once / deploy-many holds end to end.
+[FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE](pipeline-types.md#rule-fdr-cd-type-deploycarriesgovernance)). The split is by _target and governance_,
+not by artifact: the same tagged build flows through both, so build-once / deploy-many holds end to end.
 
 ### Deploy to prod
 
@@ -422,12 +418,12 @@ production configuration, before any user sees them. Second, once pre-prod is go
 
 The reason to split them is risk. Because the live cutover is the **activation of bytes already validated in a prod-identical environment**,
 not a fresh deploy of something only ever seen in non-prod, the moment of going live carries almost no new risk — nothing is compiled,
-rendered, or first-run at cutover (build-once, FDR-CD-SEPARATEPIPELINEKINDS). What flips is _which environment serves traffic_, not
-_what the bytes are_. When the new version goes live, the previous production occupant is superseded and steps down
-(FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN) — the diagram shows the new version occupying both `pre-prod` and `production` at the
-moment of cutover, and the version it replaced leaving. Whether that activation is a human-triggered DEPLOY (delivery) or an automated
-continuation (CDe, deployment) is the posture of FDR-CD-PRODPROGRESSIONISDEPLOY/FDR-CD-CDEINTERNALIZESPROMOTION; either way the
-mechanic — stage inactive, validate, activate live — is the same.
+rendered, or first-run at cutover (build-once, FDR-CD-SEPARATEPIPELINEKINDS). What flips is _which environment serves traffic_, not _what
+the bytes are_. When the new version goes live, the previous production occupant is superseded and steps down
+(FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN) — the diagram shows the new version occupying both `pre-prod` and `production` at the moment of
+cutover, and the version it replaced leaving. Whether that activation is a human-triggered DEPLOY (delivery) or an automated continuation
+(CDe, deployment) is the posture of FDR-CD-PRODPROGRESSIONISDEPLOY/FDR-CD-CDEINTERNALIZESPROMOTION; either way the mechanic — stage
+inactive, validate, activate live — is the same.
 
 ### The prod approval gate
 
@@ -443,8 +439,8 @@ then one check per environment — and reports each step, so a second run change
 [Apply the prod-tier approvals](../../how-to/automation/apply-environment-approvals.md).
 
 The gate is the stop the promotion ladder does not yet have rungs for: until main-uat, RC, RBC and DEPLOY exist in code, it is what stands
-between a merge and production. It stays when the ladder lands, as the CDe's internal approval gate (FDR-CD-CDEINTERNALIZESPROMOTION)
-or DEPLOY's.
+between a merge and production. It stays when the ladder lands, as the CDe's internal approval gate (FDR-CD-CDEINTERNALIZESPROMOTION) or
+DEPLOY's.
 
 ### The rungs registry
 
@@ -461,11 +457,11 @@ a subscription or a configuration slot, not by the rung, so `environment-approva
 
 `Prod ships only what stood on pre-prod`
 
-The RBC gate and the two-environment activation (FDR-CD-TWOENVIRONMENTACTIVATION) both assume that what goes live is what stood on
-pre-prod. A DEPLOY run is started by hand with a CI run id, so nothing in its parameters proves that assumption: a rerun of the prod stage,
-or a run id typed wrong, can name an artifact that pre-prod never held. The proof is the environment's deployment history. The execution
-engine writes it as a side effect of every deploy job, so no pipeline can forge it, and it names the run behind each deployment, from which
-the commit follows. A record the pipeline writes itself, such as a `certified-<rung>` tag, would be a second store of the same fact that can
+The RBC gate and the two-environment activation (FDR-CD-TWOENVIRONMENTACTIVATION) both assume that what goes live is what stood on pre-prod.
+A DEPLOY run is started by hand with a CI run id, so nothing in its parameters proves that assumption: a rerun of the prod stage, or a run
+id typed wrong, can name an artifact that pre-prod never held. The proof is the environment's deployment history. The execution engine
+writes it as a side effect of every deploy job, so no pipeline can forge it, and it names the run behind each deployment, from which the
+commit follows. A record the pipeline writes itself, such as a `certified-<rung>` tag, would be a second store of the same fact that can
 drift from the first, so the history is the only record.
 
 The check runs inside each deploy job of the prod target, before the job downloads the artifact. It resolves the commit of the CI run the
@@ -476,22 +472,21 @@ the CI run that run named. A unit whose DEPLOY has no prod target has nothing to
 
 - **The pipeline taxonomy carries the mechanics.** The 5–10 minute budget, the CI-engine sharing, and the DEPLOY governance rules are
   enforced through [pipeline-types](pipeline-types.md) (FDR-CD-TYPE-ONECIENGINE, FDR-CD-TYPE-PRECOMMITBUDGET,
-  FDR-CD-TYPE-DEPLOYISCDTAIL–FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE) and the runner pattern. This ADR is the design rationale those
-  rules point back to; it is enforced in **code review** of pipeline design, using the flow above as the reference shape.
+  FDR-CD-TYPE-DEPLOYISCDTAIL–FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE) and the runner pattern. This FDR is the design rationale those rules point
+  back to; it is enforced in **code review** of pipeline design, using the flow above as the reference shape.
 - **Artifact identity is the checkable invariant.** A promotion that rebuilds — a CD, CDe, or DEPLOY that recompiles instead of consuming
-  the CI component's tagged artifact — violates FDR-CD-SEPARATEPIPELINEKINDS and is caught in review: the same tag must flow from CI
-  through the non-prod direction to the prod step (DEPLOY's, or CDe's internalized one), never re-derived.
+  the CI component's tagged artifact — violates FDR-CD-SEPARATEPIPELINEKINDS and is caught in review: the same tag must flow from CI through
+  the non-prod direction to the prod step (DEPLOY's, or CDe's internalized one), never re-derived.
 - **Delivery vs deployment is a named posture.** Review checks that a unit that auto-rolls to prod is a **CDe**
-  (FDR-CD-CDEINTERNALIZESPROMOTION) — the prod promotion internalized and automated, with any human step expressed as an _internal_
-  approval gate — and not a DEPLOY's human-owned cutover fused into a CD under the "CD" label. Which posture a unit is under is a
-  deliberate, reviewable choice, not an accident of where a stage was placed.
+  (FDR-CD-CDEINTERNALIZESPROMOTION) — the prod promotion internalized and automated, with any human step expressed as an _internal_ approval
+  gate — and not a DEPLOY's human-owned cutover fused into a CD under the "CD" label. Which posture a unit is under is a deliberate,
+  reviewable choice, not an accident of where a stage was placed.
 - **The environment shape, not its name, is the contract.** Review checks that the always-on non-prod environment is auto-reconciled to
-  latest main (FDR-CD-CDSTAYSINNONPROD), whatever the org names it — a manually-refreshed "UAT" that drifts from main is not the
-  always-on mirror this flow requires.
+  latest main (FDR-CD-CDSTAYSINNONPROD), whatever the org names it — a manually-refreshed "UAT" that drifts from main is not the always-on
+  mirror this flow requires.
 - **CI+ and the release gates are review-checked.** Review confirms the slow system tests live in the CI+ outer loop, never the inner CI
-  gate (FDR-CD-SHORTINTEGRATIONCYCLE/FDR-CD-INNERANDOUTERLOOP), and that a promotion to prod passes a named manual gate — RC at
-  main-UAT or RBC at release-uat (FDR-CD-TWORELEASEGATES) — with DEPLOY as the actuator, not a human cutover fused into CD under
-  another label.
+  gate (FDR-CD-SHORTINTEGRATIONCYCLE/FDR-CD-INNERANDOUTERLOOP), and that a promotion to prod passes a named manual gate — RC at main-UAT or
+  RBC at release-uat (FDR-CD-TWORELEASEGATES) — with DEPLOY as the actuator, not a human cutover fused into CD under another label.
 - **The prod approval gate is applied, not hand-set.** `EnvironmentApprovalsConfig` validates `environment-approvals.yml` when it loads, an
   integrity test loads the shipped file, and `Sync-AdoEnvironmentApprovals` applies it; review checks that a pipeline deploying a new
   prod-tier environment lists it there (FDR-CD-PRODAPPROVALGATE).
@@ -519,10 +514,9 @@ the CI run that run named. A unit whose DEPLOY has no prod target has nothing to
 
 ## Related
 
-- [pipeline-types](pipeline-types.md) — the taxonomy this ADR layers on (CRON / CI / CD / CDe / DEPLOY / INPUT).
+- [pipeline-types](pipeline-types.md) — the taxonomy this FDR layers on (CRON / CI / CD / CDe / DEPLOY / INPUT).
 - [pipeline-runner-pattern](pipeline-runner-pattern.md) — how every pipeline kind invokes automation.
-- The L0–L3 test tiers — L3 is the system-level E2E CD runs in its on-demand environment, and the outer CI+ loop
-  (FDR-CD-INNERANDOUTERLOOP).
+- The L0–L3 test tiers — L3 is the system-level E2E CD runs in its on-demand environment, and the outer CI+ loop (FDR-CD-INNERANDOUTERLOOP).
 - The `git_workspace` variant — the PR-vs-Direct integration mode the value-chain diagrams prefix a flow with.
 - [everything-as-code](../principles/everything-as-code.md), [reduce-waste](../principles/reduce-waste.md) — build-once/deploy-many and the
   version-aligned artifact are these principles applied to the flow.

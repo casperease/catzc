@@ -32,13 +32,13 @@ does not stop the line is not holding the line.
 
 ## Context
 
-The Toyota Production System ([WDR-LEAN](lean.md)) gives every worker an andon cord: pull it and the line stops. This sounds expensive
-— a whole line idled by one station — but it is the cheapest policy Toyota found, because a defect allowed to travel down the line is
-multiplied by every station it passes before someone notices. Stopping at the source turns a potential recall into a one-station fix [^1].
+The Toyota Production System ([WDR-LEAN](lean.md)) gives every worker an andon cord: pull it and the line stops. This sounds expensive — a
+whole line idled by one station — but it is the cheapest policy Toyota found, because a defect allowed to travel down the line is multiplied
+by every station it passes before someone notices. Stopping at the source turns a potential recall into a one-station fix [^1].
 
-Software delivery has the same physics ([PDR-NOWASTE](../principles/reduce-waste.md), waste seven: defects grow with distance
-travelled). A broken build that is allowed to stand while work piles on top of it does not stay one defect; it becomes a tangle in which
-every new change is suspect and the original fault is buried. The question this article settles is what happens the instant a gate goes red.
+Software delivery has the same physics ([PDR-NOWASTE](../principles/reduce-waste.md), waste seven: defects grow with distance travelled). A
+broken build that is allowed to stand while work piles on top of it does not stay one defect; it becomes a tangle in which every new change
+is suspect and the original fault is buried. The question this article settles is what happens the instant a gate goes red.
 
 ## Decision
 
@@ -50,9 +50,9 @@ When a gate fails, the line stops. Concretely:
 - No new work builds on the broken baseline. The fix goes in — or the offending change is reverted — before anything integrates on top.
 
 The mechanism is the same fail-fast jidoka the platform uses everywhere
-([PDR-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-pdr-pokayoke-failfast)): stop the moment a defect is detected, fix it at
-the source, then resume. "Holding the line" is that principle applied to the mainline and the promotion flow rather than to a single
-function call [^2].
+([PDR-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-pdr-pokayoke-failfast)): stop the moment a defect is detected, fix it at the
+source, then resume. "Holding the line" is that principle applied to the mainline and the promotion flow rather than to a single function
+call [^2].
 
 ## Why
 

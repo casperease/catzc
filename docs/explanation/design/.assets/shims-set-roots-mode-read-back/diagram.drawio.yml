@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8ed88dc93395"
+#     with_body_sha: "4eb5cbace8eb"
 # ---
 
 description:
@@ -127,13 +127,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-RUNMODE-MODEISDERIVED
-          - DDR-RUNMODE-NEVERCOEXIST
-          - DDR-RUNMODE-THREEBUILDKINDS
-          - DDR-RUNMODE-TWORUNMODES
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -168,8 +161,11 @@ content:
           - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - DDR-RUNMODE-TWORUNMODES
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-RUNMODE-MODEISDERIVED
           - DDR-RUNMODE-NEVERCOEXIST
           - DDR-RUNMODE-THREEBUILDKINDS
@@ -242,8 +238,11 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - DDR-RUNMODE-TWORUNMODES
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-RUNMODE-MODEISDERIVED
           - DDR-RUNMODE-NEVERCOEXIST
           - DDR-RUNMODE-THREEBUILDKINDS
@@ -313,13 +312,6 @@ content:
         by:
           - pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
           - DDR-RUNMODE-MODEISDERIVED
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-RUNMODE-MODEISDERIVED
-          - DDR-RUNMODE-NEVERCOEXIST
-          - DDR-RUNMODE-THREEBUILDKINDS
-          - DDR-RUNMODE-TWORUNMODES
     axis:
       - cell: DSGN/build
         by:

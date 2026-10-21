@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "037ad093b232"
+#     with_body_sha: "2f23f7aa3109"
 # ---
 
 description:
@@ -150,10 +150,13 @@ content:
     code-locations:
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CUSTOMER
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - ADR-AZ-DATAMOD
-          - ADR-AZ-SESSION
+      - cell: ado-pipelines/pipelines/extends
+        by:
+          - .ado/pipelines/extends/cd-customer.yaml
+          - ADR-AZ-DATAMOD
       - cell: docs/-/.
         by:
           - docs/drs/azure/az-session-verification.md
@@ -212,17 +215,28 @@ content:
           - docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-drs-map.yml.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerDrsMapConfig.cs.md
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
           - ADR-AZ-SESSION
+      - cell: infrastructure/discovery/.
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: infrastructure/expedition/.
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: infrastructure/foundation/.
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Azure/.
         by:
           - pwsh/Catzc.Azure/Get-AzureCustomers.ps1
@@ -316,18 +330,21 @@ content:
           - pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
+          - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
+          - ADR-AZ-CUSTOMER
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
           - ADR-AZ-SESSION
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
-          - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
           - ADR-AZ-CUSTOMER
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
@@ -336,7 +353,6 @@ content:
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Base.QualityGates/types
         by:
@@ -414,11 +430,14 @@ content:
           - ADR-AZ-DATAMOD
       - cell: subject/Catzc.Base.Docs
         by:
+          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
+          - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
+          - ADR-AZ-CUSTOMER
+      - cell: subject/Catzc.Base.Drs
+        by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
-          - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
           - ADR-AZ-SESSION
@@ -426,7 +445,6 @@ content:
         by:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
@@ -438,12 +456,24 @@ content:
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - ADR-AZ-CUSTOMER
+      - cell: subject/discovery
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: subject/expedition
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: subject/foundation
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD
       - cell: subject/pipelines
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CUSTOMER
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - .ado/pipelines/extends/cd-customer.yaml
           - ADR-AZ-DATAMOD
-          - ADR-AZ-SESSION
     axis:
       - cell: CLOUD/deploy
         by:

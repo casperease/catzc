@@ -26,7 +26,9 @@ Every diagram becomes two files beside its page's `.assets/`: `<name>.drawio.png
 2. [ ] The tools read and write the pair, one mechanism, staged and swapped as one burst: `declaration.py` (put/get/save/check/minimaps,
        legend), `drawio_forward.py`, `Build-Diagrams` (`-Path` takes a `.drawio.yml`, `-Stale` finds pairs), `Test-Diagrams`,
        `Write-DiagramMinimapData` (its `out/minimaps/<name>/` key), `Move-Diagram`, the `file-kinds.yml` / globs / `drawio.yml` entries that
-       name `diagram.drawio.*` (check: pytest, the Slides Pester, `Test-Diagrams` on a fixture pair).
+       name `diagram.drawio.*`; `declare_minimaps` writes `content.minimaps` into the raw yml keeping its generated head and prettier
+       formatting, never through a `yaml.safe_dump` of the whole file (catzc-1c, 2026-10-21: a re-dump stripped 166 heads) (check: pytest
+       with a case that a declared yml keeps its head and formatting, the Slides Pester, `Test-Diagrams` on a fixture pair).
 3. [ ] The move: every `.assets/<name>/diagram.drawio.{png,yml}` moved on disk to `.assets/<name>.drawio.{png,yml}` and every link and embed
        re-pointed by the tool (a dry run first, counts reported), the empty folders removed, the glyph library included (check:
        `Test-Links`, `Test-Diagrams` over the tree: 0 issues, 0 stale).

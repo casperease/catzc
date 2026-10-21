@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "20f43af1db7a"
+#     with_body_sha: "981149fb01d7"
 # ---
 
 description:
@@ -97,29 +97,10 @@ content:
           - PDR-CATS-CATZCISSOURCENAME
           - PDR-ONELIVE-HISTORYINGIT
           - PDR-ONELIVE-ONEVERSION
-      - cell: .claude/.claude/plans
-        by:
-          - .claude/plans/plan-agent-shortcuts.md
-          - .claude/plans/plan-bcl-language.md
-          - .claude/plans/plan-idiomatic-names.md
-          - .claude/plans/plan-listen-internal-readers.md
-          - .claude/plans/plan-xdr-codes.md
-          - .claude/plans/value-of-plan.md
-          - DDR-TRACK-UNORDEREDTRACK
-          - PDR-ONELIVE-HISTORYINGIT
-          - PDR-ONELIVE-ONEVERSION
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-GO-MODULESBYLAYOUT
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-ONETECHSTACK
           - DDR-TRACK-TRACKISPLACEDCLUSTER
-          - DDR-TRACK-UNORDEREDTRACK
-          - PDR-CATS-CATSISPERSONNAME
-          - PDR-CATS-CATZCISSOURCENAME
-          - PDR-ONELIVE-HISTORYINGIT
-          - PDR-ONELIVE-ONEVERSION
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -138,10 +119,9 @@ content:
           - docs/references/agent-contracts.md
           - docs/references/note-file-kind.md
           - docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md
-          - docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md
           - docs/references/pwsh/catzc-base-files/Get-CodeCaller.ps1.md
           - docs/references/pwsh/catzc-base-files/Get-InputStamp.ps1.md
+          - docs/references/pwsh/catzc-base-files/Rename-CodeName.ps1.md
           - docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md
           - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
           - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
@@ -170,6 +150,8 @@ content:
           - docs/references/pwsh/catzc-base-quality-gates/tests/Export-Comments.Tests.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/tests/Test-Comments.Tests.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/types/CommentsConfig.cs.md
+          - docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md
           - docs/references/pwsh/catzc-base-variants/Get-PathModule.ps1.md
           - docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md
           - docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md
@@ -194,10 +176,16 @@ content:
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-GO-MODULESBYLAYOUT
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-ONETECHSTACK
@@ -207,18 +195,11 @@ content:
           - PDR-CATS-CATZCISSOURCENAME
           - PDR-ONELIVE-HISTORYINGIT
           - PDR-ONELIVE-ONEVERSION
-      - cell: pwsh/Catzc.Base.Docs/tests/types
-        by:
-          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
-          - PDR-ONELIVE-ONEVERSION
-      - cell: pwsh/Catzc.Base.Docs/types
-        by:
-          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
-          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Files/.
         by:
           - pwsh/Catzc.Base.Files/Get-CodeCaller.ps1
           - pwsh/Catzc.Base.Files/Get-InputStamp.ps1
+          - pwsh/Catzc.Base.Files/Rename-CodeName.ps1
           - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
           - PDR-ONELIVE-HISTORYINGIT
           - PDR-ONELIVE-ONEVERSION
@@ -315,6 +296,14 @@ content:
           - pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
           - PDR-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.Reports/tests/types
+        by:
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
+          - PDR-ONELIVE-ONEVERSION
+      - cell: pwsh/Catzc.Base.Reports/types
+        by:
+          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Variants/.
         by:
           - pwsh/Catzc.Base.Variants/Get-PathModule.ps1
@@ -358,12 +347,6 @@ content:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - .claude/plans/plan-agent-shortcuts.md
-          - .claude/plans/plan-bcl-language.md
-          - .claude/plans/plan-idiomatic-names.md
-          - .claude/plans/plan-listen-internal-readers.md
-          - .claude/plans/plan-xdr-codes.md
-          - .claude/plans/value-of-plan.md
           - ADR-AUTO-GO-MODULESBYLAYOUT
           - DDR-TRACK-UNORDEREDTRACK
           - PDR-CATS-CATSISPERSONNAME
@@ -373,15 +356,7 @@ content:
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-GO-MODULESBYLAYOUT
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-ONETECHSTACK
           - DDR-TRACK-TRACKISPLACEDCLUSTER
-          - DDR-TRACK-UNORDEREDTRACK
-          - PDR-CATS-CATSISPERSONNAME
-          - PDR-CATS-CATZCISSOURCENAME
-          - PDR-ONELIVE-HISTORYINGIT
-          - PDR-ONELIVE-ONEVERSION
       - cell: docs/markdown
         by:
           - docs/drs/automation/dora-explains.md
@@ -400,10 +375,9 @@ content:
           - docs/references/agent-contracts.md
           - docs/references/note-file-kind.md
           - docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md
-          - docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md
           - docs/references/pwsh/catzc-base-files/Get-CodeCaller.ps1.md
           - docs/references/pwsh/catzc-base-files/Get-InputStamp.ps1.md
+          - docs/references/pwsh/catzc-base-files/Rename-CodeName.ps1.md
           - docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md
           - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
           - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
@@ -432,6 +406,8 @@ content:
           - docs/references/pwsh/catzc-base-quality-gates/tests/Export-Comments.Tests.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/tests/Test-Comments.Tests.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/types/CommentsConfig.cs.md
+          - docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md
           - docs/references/pwsh/catzc-base-variants/Get-PathModule.ps1.md
           - docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md
           - docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md
@@ -453,7 +429,6 @@ content:
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
-          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - pwsh/Catzc.Base.Maps/types/MapCell.cs
           - pwsh/Catzc.Base.Maps/types/WorldMap.cs
           - pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
@@ -462,6 +437,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
+          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - pwsh/Catzc.Base.Variants/types/ModulePlace.cs
           - pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs
           - pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs
@@ -475,9 +451,9 @@ content:
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/powershell
         by:
-          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Files/Get-CodeCaller.ps1
           - pwsh/Catzc.Base.Files/Get-InputStamp.ps1
+          - pwsh/Catzc.Base.Files/Rename-CodeName.ps1
           - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
           - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
           - pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
@@ -500,6 +476,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Variants/Get-PathModule.ps1
           - pwsh/Catzc.Base.Variants/Get-Track.ps1
           - pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
@@ -515,10 +492,10 @@ content:
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Git/configs/gitignore.yml
           - pwsh/Catzc.Base.Globs/configs/globs.yml
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml

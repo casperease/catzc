@@ -290,8 +290,8 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-STACKVIOLATION
     short:
-      A world-map cell holding a live file whose file language its track does not declare — the second tech-stack
-      DDR-TRACK-ONETECHSTACK forbids.
+      A world-map cell holding a live file whose file language its track does not declare — the second tech-stack DDR-TRACK-ONETECHSTACK
+      forbids.
     realized_by: { kind: prose-only }
     contrasts:
       lit cell:

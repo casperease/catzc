@@ -16,9 +16,9 @@ Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT
 ```
 
 Every stage of a cats module's folder layout is ruled by an ADR, and most of those rules have a gate: a quality gate, a guard at import, or
-a check when the config loads. Two do not. The partition check of DDR-ASPECT-PARTITIONISCHECKED runs only in unit tests, on fixtures,
-and the per-aspect sha lock of DDR-ASPECT-ASPECTISAGLOBSET has no mechanism at all. Knowing which rules a gate holds, and which only
-the ADR states, tells a reviewer where a mistake would slip through.
+a check when the config loads. Two do not. The partition check of DDR-ASPECT-PARTITIONISCHECKED runs only in unit tests, on fixtures, and
+the per-aspect sha lock of DDR-ASPECT-ASPECTISAGLOBSET has no mechanism at all. Knowing which rules a gate holds, and which only the ADR
+states, tells a reviewer where a mistake would slip through.
 
 ![Partition integrity runs only in unit tests](.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.png)
 
@@ -39,10 +39,10 @@ the ADR states, tells a reviewer where a mistake would slip through.
    (ADR-PWSH-MANIFEST-GENERATEDMANIFESTS, ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED).
 6. **VariantsConfig.** The config type checks the aspect order when the config loads: the last aspect is the bare `**` catch-all and no
    earlier aspect uses it, so `live` stays closed (DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL).
-7. **AspectPartition.Validate.** The disjoint and exhaustive check over `git ls-files` (DDR-ASPECT-PARTITIONISCHECKED). The code
-   exists, but its only callers are unit tests on fixture files, so on the real tree it is ADR-only.
-8. **Aspect sha lock.** One immutable lock per aspect, so a module is two independently versioned artifacts
-   (DDR-ASPECT-ASPECTISAGLOBSET), with the mechanism placed in FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT. Nothing writes such a lock.
+7. **AspectPartition.Validate.** The disjoint and exhaustive check over `git ls-files` (DDR-ASPECT-PARTITIONISCHECKED). The code exists, but
+   its only callers are unit tests on fixture files, so on the real tree it is ADR-only.
+8. **Aspect sha lock.** One immutable lock per aspect, so a module is two independently versioned artifacts (DDR-ASPECT-ASPECTISAGLOBSET),
+   with the mechanism placed in FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT. Nothing writes such a lock.
 
 ## Why it holds
 
@@ -54,15 +54,15 @@ the ADR states, tells a reviewer where a mistake would slip through.
 - Module-internal folder names are fixed (ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS).
 - Aspects are derived by ordered first match, the last one is the `**` remainder, and in the code track that remainder is `tests`
   (DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL).
-- Each aspect is an immutable, independently versioned lock (DDR-ASPECT-ASPECTISAGLOBSET), and a file claimed by two aspects, or by
-  none, fails the integrity check (DDR-ASPECT-PARTITIONISCHECKED).
+- Each aspect is an immutable, independently versioned lock (DDR-ASPECT-ASPECTISAGLOBSET), and a file claimed by two aspects, or by none,
+  fails the integrity check (DDR-ASPECT-PARTITIONISCHECKED).
 
 ## Where the code and the decision record differ
 
-- DDR-ASPECT-PARTITIONISCHECKED says a broken partition fails `AspectPartition.Validate`, and the type's reference page
-  (`Aspect.cs.md`) says it re-checks "for the integrity gate", but no gate runs it on the real tree.
-- DDR-ASPECT-ASPECTISAGLOBSET cites FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT for an immutable sha lock with marker
-  `<unit>-<aspect>.yml`; that rule computes change from git, never from a committed hash, and no marker exists.
+- DDR-ASPECT-PARTITIONISCHECKED says a broken partition fails `AspectPartition.Validate`, and the type's reference page (`Aspect.cs.md`)
+  says it re-checks "for the integrity gate", but no gate runs it on the real tree.
+- DDR-ASPECT-ASPECTISAGLOBSET cites FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT for an immutable sha lock with marker `<unit>-<aspect>.yml`; that
+  rule computes change from git, never from a committed hash, and no marker exists.
 - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED names `New-DynamicManifest` as the step that deletes a manifest when no `.ps1` is left; the code
   deletes it in `Import-AllModules`.
 - ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED says unknown folders are ignored, not errors; `Test-FolderConventions` reports every

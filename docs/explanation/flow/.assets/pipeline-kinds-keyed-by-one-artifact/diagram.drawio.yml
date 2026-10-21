@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: fff7c5210a3a
+#     with_body_sha: "0baff229c800"
 # ---
 
 description:
@@ -145,11 +145,9 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-CDCONTAINSCI
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-PREPRODRUNG
-          - FDR-CD-SEPARATEPIPELINEKINDS
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
         by:
@@ -178,7 +176,7 @@ content:
           - FDR-CD-PREPRODRUNG
           - FDR-CD-SEPARATEPIPELINEKINDS
           - FDR-CD-TWORELEASEGATES
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-CDCONTAINSCI
@@ -186,7 +184,7 @@ content:
           - FDR-CD-PREPRODRUNG
           - FDR-CD-SEPARATEPIPELINEKINDS
           - FDR-CD-TWORELEASEGATES
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-CDCONTAINSCI
@@ -233,11 +231,9 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipeline-yaml
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-CDCONTAINSCI
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-PREPRODRUNG
-          - FDR-CD-SEPARATEPIPELINEKINDS
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - FDR-CD-TWORELEASEGATES
       - cell: docs/markdown
         by:

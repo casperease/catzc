@@ -35,13 +35,13 @@ commit. Read together, the ten numbers show every state a commit can hold and ev
    keeps its number there. Recording where it died is the point: "discarded at BVT" and "discarded at release-uat" are different facts
    ([FDR-CD-LIFE-DISCARDISTERMINAL](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
 5. **The environments lane.** Each hexagon is an env slot. The commit inside it is its occupant, drawn in that commit's own state colour
-   ([DDR-VISUAL-ENVIRONMENTISCONTAINER](../../drs/design/visual-design.md#rule-ddr-visual-environmentiscontainer)). In this
-   picture, 8 sits in the BVT env slot, 6 is the main-UAT occupant, 5 is the release-UAT occupant, and 4 is both the pre-prod and the
-   production occupant. Slot 9 shows a topic commit deployed on demand, and slot 10 shows a commit that was deployed and then discarded.
+   ([DDR-VISUAL-ENVIRONMENTISCONTAINER](../../drs/design/visual-design.md#rule-ddr-visual-environmentiscontainer)). In this picture, 8 sits
+   in the BVT env slot, 6 is the main-UAT occupant, 5 is the release-UAT occupant, and 4 is both the pre-prod and the production occupant.
+   Slot 9 shows a topic commit deployed on demand, and slot 10 shows a commit that was deployed and then discarded.
 6. **The git lane.** This is the only lane where left to right is real time
-   ([DDR-VISUAL-ONLYGITLANEISTIME](../../drs/design/visual-design.md#rule-ddr-visual-onlygitlaneistime)). The main line carries
-   the landed commits, and side branches carry topic commits. Reading along it, the three newest commits, 7, 8 and 10, are labelled as dirty
-   heads: the tip of main is not always a commit that is safe to build on.
+   ([DDR-VISUAL-ONLYGITLANEISTIME](../../drs/design/visual-design.md#rule-ddr-visual-onlygitlaneistime)). The main line carries the landed
+   commits, and side branches carry topic commits. Reading along it, the three newest commits, 7, 8 and 10, are labelled as dirty heads: the
+   tip of main is not always a commit that is safe to build on.
 7. **The legend.** Each state has a solid circle, a dashed ghost and a crossed discard. The legend also names the symbols: manual gate, a
    gate that runs by itself, env slot, push and pull.
 

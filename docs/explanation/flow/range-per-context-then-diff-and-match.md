@@ -53,8 +53,7 @@ globset is among the matches. Two places in that order can be in doubt, the rang
 - The change is computed from git at real refs: `Get-ChangedGlobSet` diffs a commit range with `git diff --name-only --no-renames` and
   matches the paths against the registry; `Test-GlobSetAffected` resolves the reference commit per context and fails open on any doubt
   (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
-- The context is read through `Test-IsRunningInPipeline`, never from the detection variables directly
-  (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
+- The context is read through `Test-IsRunningInPipeline`, never from the detection variables directly (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
 
 ## See also
 

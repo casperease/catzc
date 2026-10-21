@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f2cd8b65507a
+#     with_body_sha: "8a756ce892dc"
 # ---
 
 description:
@@ -250,15 +250,6 @@ content:
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
           - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
           - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-      - cell: pipelines/ado-pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-VISUAL-DISTINCTENDINGS
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
-          - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
       - cell: documentation/docs
         by:
           - docs/drs/design/dora-explains.md
@@ -318,7 +309,7 @@ content:
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
           - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
           - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
@@ -334,15 +325,6 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
-          - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-VISUAL-DISTINCTENDINGS
           - FDR-CD-LIFE-DISCARDISTERMINAL
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG

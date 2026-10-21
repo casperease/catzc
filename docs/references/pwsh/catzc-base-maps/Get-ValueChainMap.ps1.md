@@ -12,11 +12,11 @@ Returns the value-chain map: the rows of the value-chain stack crossed with the 
 ### description
 
 Builds the value-chain map ([DDR-TRACK-VALUECHAINMAP](../../../drs/design/tracks.md#rule-ddr-track-valuechainmap)) with
-Catzc.Base.Maps.ValueChainMap from drs.yml: the rows are the value-chain stack the registry type declares (Catzc.Base.Drs.DrsConfig
-Stacks, [DDR-TRACK-VALUECHAINSTACK](../../../drs/design/tracks.md#rule-ddr-track-valuechainstack)), the columns its value-chain
-concerns (DrsConfig Concerns, [DDR-TRACK-VALUECHAINCONCERN](../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)), and
-each ADR (Get-DrsRuleSet) sits on its ADR domain's row in the column of each of its value-chain concerns. Every row meets every column, so
-the map holds every cell, empty ones included, row by row.
+Catzc.Base.Maps.ValueChainMap from drs.yml: the rows are the value-chain stack the registry type declares (Catzc.Base.Drs.DrsConfig Stacks,
+[DDR-TRACK-VALUECHAINSTACK](../../../drs/design/tracks.md#rule-ddr-track-valuechainstack)), the columns its value-chain concerns (DrsConfig
+Concerns, [DDR-TRACK-VALUECHAINCONCERN](../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)), and each ADR (Get-DrsRuleSet) sits
+on its ADR domain's row in the column of each of its value-chain concerns. Every row meets every column, so the map holds every cell, empty
+ones included, row by row.
 
 ### parameter `AsJson`
 

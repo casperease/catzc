@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "70adc9dacfef"
+#     with_body_sha: d1d8c291f5d1
 # ---
 
 description:
@@ -79,14 +79,6 @@ content:
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -117,14 +109,17 @@ content:
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
@@ -155,14 +150,6 @@ content:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
@@ -215,8 +202,8 @@ content:
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - FDR-CD-LIFE-DIRTYHEADUNSAFE

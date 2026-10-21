@@ -22,8 +22,8 @@ contract version stays byte-frozen
 ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)), so a
 formatter upgrade must never rewrite one. Nor is a file .gitattributes marks `binary`, such as the generated output under pwsh/.compiled:
 git stores its bytes as they are, so no text formatter rewrites them. The classes are declared once, in the .gitattributes source
-([PDR-CONFIG-EXCEPTIONISCONFIGENTRY](../../../../drs/principles/configure-not-program.md#rule-pdr-config-exceptionisconfigentry)).
-A tracked file deleted from the working tree is left out.
+([PDR-CONFIG-EXCEPTIONISCONFIGENTRY](../../../../drs/principles/configure-not-program.md#rule-pdr-config-exceptionisconfigentry)). A tracked
+file deleted from the working tree is left out.
 
 ### parameter `RepositoryRoot`
 

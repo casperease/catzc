@@ -73,12 +73,12 @@ path is one more way to drift. The thesis is to remove the problem instead.
 
 Catzc is tooling, a cmdlet and CLI tool, that controls every aspect of software and infrastructure delivery as code: delivery, DevOps,
 infrastructure as code, architecture, and test constructs, through one command surface. Its purpose is to simplify software and
-infrastructure delivery. Every other ADR serves that purpose, and this one states how catzc achieves it.
+infrastructure delivery. Every other decision record serves that purpose, and this one states how catzc achieves it.
 
 ### Where the repository model comes from
 
 The repository taxonomy (a product mono-repository, a trunk, adjacent stores) and the pin-and-stitch model at the repository boundary are
-ideas from the sibling repository `eac`, read for inspiration. They are rebuilt here to catzc's rules, and this ADR decides them.
+ideas from the sibling repository `eac`, read for inspiration. They are rebuilt here to catzc's rules, and this TDR decides them.
 
 ## Decision
 
@@ -147,11 +147,11 @@ one trunk without its atomic commits and the cost of a pin without its control.
 
 Service management (change management, approvals, audit, and higher-level release processes) aligns to the real delivery mechanism. A change
 record is the commit and its review; an approval is a step in the one change process; an audit reads the history through the query surface.
-A process that keeps its own model of delivery recreates the disjoint store this ADR removes.
+A process that keeps its own model of delivery recreates the disjoint store this TDR removes.
 
 ## Consequences
 
-- Every other ADR rests on this one: the principles state its mechanics, and the later ADRs specialise them.
+- Every other decision record rests on this one: the principles state its mechanics, and the later decision records specialise them.
 - Delivery state whose source of truth is outside the repository is a defect, unless it is an adjacent store driven one way from the trunk,
   or a fact source that a state machine owns and catzc only reads ([TDR-STORES](truth-stores.md)).
 - A question about the system's state has one place to be answered, and the tooling owes an answer to it, as cmdlets and as data.

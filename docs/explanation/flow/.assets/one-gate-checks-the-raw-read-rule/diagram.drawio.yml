@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: de0b0b86c1f9
+#     with_body_sha: "2200ef816f7b"
 # ---
 
 description:
@@ -112,15 +112,6 @@ content:
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
           - FDR-CD-DETECT-PARAMETERSOVERDETECTION
           - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-PARITY-ONESEAM
-          - FDR-CD-DETECT-BOOLEANNOTMODAL
-          - FDR-CD-DETECT-FASTDETECTION
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
-          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: docs/-/.
         by:
           - docs/drs/automation/devbox-pipeline-parity.md
@@ -157,7 +148,7 @@ content:
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-PARITY-ONESEAM
@@ -166,7 +157,7 @@ content:
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
           - FDR-CD-DETECT-PARAMETERSOVERDETECTION
           - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-DETECT-BOOLEANNOTMODAL
@@ -220,15 +211,6 @@ content:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - FDR-CD-DETECT-BOOLEANNOTMODAL
-          - FDR-CD-DETECT-FASTDETECTION
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
-          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-PARITY-ONESEAM
           - FDR-CD-DETECT-BOOLEANNOTMODAL
           - FDR-CD-DETECT-FASTDETECTION
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK

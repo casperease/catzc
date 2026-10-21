@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "42b8543d4560"
+#     with_body_sha: d6dad63c5f4d
 # ---
 
 description:
@@ -82,7 +82,11 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: ado-pipelines/pipelines/.
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: ado-pipelines/pipelines/extends
@@ -122,6 +126,10 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+      - cell: github-workflows/workflows/.
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -140,11 +148,11 @@ content:
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
@@ -199,7 +207,7 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
@@ -228,9 +236,17 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/pipelines
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - .ado/pipelines/extends/cd-customer.yaml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+      - cell: subject/workflows
+        by:
+          - .github/workflows/ci-pwsh.yml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
     axis:
       - cell: DSGN/*

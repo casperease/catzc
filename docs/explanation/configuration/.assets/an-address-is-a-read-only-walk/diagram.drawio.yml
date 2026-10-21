@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9dc9ec51df9d"
+#     with_body_sha: "281f3aa9c8fd"
 # ---
 
 description:
@@ -76,12 +76,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
       - cell: docs/-/.
         by:
           - docs/drs/configuration/config-value-addressing.md
@@ -120,7 +114,7 @@ content:
           - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
@@ -157,7 +151,7 @@ content:
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
@@ -177,12 +171,6 @@ content:
       - cell: subject/Catzc.Tooling.Environment
         by:
           - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD

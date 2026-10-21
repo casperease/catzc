@@ -34,10 +34,9 @@ and any other argument that names a write target is rejected. An accosted file h
 ### Rule ADR-AUTO-ACCOSTED-RESERVEDNAME
 
 The word accosted is reserved, as the catzc token is
-([PDR-CATS-CATZCISSOURCENAME](../principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename)): it names this language and
-nothing else, so it appears only in the language's row, its extension, this ADR, its glossary entry, its module types and their tests, and
-the plans and session logs that name it. The places are the scope of the `reserved` terminology category, and a gate fails the word anywhere
-else.
+([PDR-CATS-CATZCISSOURCENAME](../principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename)): it names this language and nothing else, so
+it appears only in the language's row, its extension, this ADR, its glossary entry, its module types and their tests, and the plans and
+session logs that name it. The places are the scope of the `reserved` terminology category, and a gate fails the word anywhere else.
 
 - [A reserved word](#a-reserved-word)
 

@@ -1,4 +1,4 @@
-# ADR: Run modes — source mode and build mode
+# Design: Run modes — source mode and build mode
 
 ## Rules: DDR-RUNMODE
 

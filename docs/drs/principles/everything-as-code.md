@@ -31,8 +31,8 @@ pipeline definitions, and operational artifacts as second-class citizens — man
 This creates a class of assets that cannot be reproduced, compared, audited, or rolled back.
 
 This principle is the mechanics of
-[TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord):
-the repository is the configuration record of everything it delivers, and the rules here say what that requires of each artifact.
+[TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord): the
+repository is the configuration record of everything it delivers, and the rules here say what that requires of each artifact.
 
 ## Principle
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b5dafe27af89
+#     with_body_sha: f7dc20538d55
 # ---
 
 description:
@@ -78,12 +78,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
-          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -101,7 +95,7 @@ content:
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
           - DDR-ASPECT-TRACKPICKSCATCHALL
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT-ASPECTSAREDERIVED
@@ -163,12 +157,6 @@ content:
           - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
           - DDR-ASPECT-TRACKPICKSCATCHALL
     grid:
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
-          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: docs/markdown
         by:
           - docs/drs/design/dora-explains.md

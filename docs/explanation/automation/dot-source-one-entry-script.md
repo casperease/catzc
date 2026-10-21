@@ -34,7 +34,7 @@ what is wrong. Otherwise a console session ends on one "Loaded in N seconds" lin
 4. **Load.** `-DiagnoseLoadTime` prints per-stage timings and a summary. Two modules exporting one name, or a function that would shadow a
    vendored or built-in command, stops here; so does a bundle that is missing its prebuilt types DLL or a module manifest.
 5. **Run-mode check.** A catzc module still loaded from the other mode's root stops the load here.
-6. **Janitors.** The janitors may rewrite generated files, such as the ADR index, the READMEs and the managed root configs. On Windows they
+6. **Janitors.** The janitors may rewrite generated files, such as the DRS index, the READMEs and the managed root configs. On Windows they
    warn when `PSModulePath` holds a network share and print the fix script. They are skipped with `-SkipJanitors`, and always in build mode.
 7. **Loaded in N seconds.** A console session prints "Loaded in N seconds (module import …s, session initializer/finalizer …s)". A script
    that dot-sources an entry script sees no such line.

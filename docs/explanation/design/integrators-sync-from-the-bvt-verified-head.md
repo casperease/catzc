@@ -17,7 +17,7 @@ Each always-on environment in cats holds one commit, its occupant, and anyone ou
 BVT-verified server head, not the tip of main. That same commit is the one `main-UAT` takes first, so when it is deployed it is the
 `main-UAT` occupant too. Every environment on the promotion ladder likewise takes its commit from the rung before it, so the whole chain
 rests on occupants, never on HEAD. Keeping "what is newest" apart from "what is safe to build on" is what stops one broken commit from
-spreading. All of this is stated by the ADRs; no pipeline in the repository runs it yet.
+spreading. All of this is stated by the decision records; no pipeline in the repository runs it yet.
 
 ![Upstream integrators sync from the BVT-verified head, never from the tip of main](.assets/integrators-sync-from-the-bvt-verified-head/diagram.drawio.png)
 
@@ -49,11 +49,11 @@ spreading. All of this is stated by the ADRs; no pipeline in the repository runs
 
 ## Where the code and the decision record differ
 
-The ADRs describe `main-UAT`, release-uat and pre-prod as always-on environments with one occupant each, joined by the RC and RBC gates. The
-CD pipelines define no `main-uat` or release-uat environment and record no occupant: once a main commit passes its CI stage, CD deploys it
-to every target of a stage at once, non-prod and prod tier side by side (`nsub` and `psub`, or the expedition's `dev` and `prod`), with no
-gate between them. In code, every environment therefore takes the tip of main. The ADRs also spell the environment two ways: `main-UAT` in
-the commit lifecycle and `main-uat` in the promotion flow.
+The decision records describe `main-UAT`, release-uat and pre-prod as always-on environments with one occupant each, joined by the RC and
+RBC gates. The CD pipelines define no `main-uat` or release-uat environment and record no occupant: once a main commit passes its CI stage,
+CD deploys it to every target of a stage at once, non-prod and prod tier side by side (`nsub` and `psub`, or the expedition's `dev` and
+`prod`), with no gate between them. In code, every environment therefore takes the tip of main. The decision records also spell the
+environment two ways: `main-UAT` in the commit lifecycle and `main-uat` in the promotion flow.
 
 ## See also
 

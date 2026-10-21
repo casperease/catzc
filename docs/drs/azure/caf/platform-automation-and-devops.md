@@ -271,12 +271,12 @@ The platform automation and DevOps design area applies DevOps to the landing zon
 through version control, review, and pipelines, by a team with a deliberate toolchain. This is where the repository is strongest, because
 its delivery machinery exists for its own reasons: everything as code ([PDR-EAC](../../principles/everything-as-code.md)), one living
 version on one trunk ([PDR-ONELIVE](../../principles/one-living-version.md)), the CI discipline and promotion flow
-([FDR-CD](../../flow/cd-discipline-and-promotion-flow.md)), the six pipeline types ([FDR-CD-TYPE](../../flow/pipeline-types.md)),
-the runner ([FDR-CD-RUNNER](../../flow/pipeline-runner-pattern.md)), deployable units as globsets
-([FDR-CD-GLOBS](../../flow/durable-sha-globs.md)), pipeline layout ([ADR-ADO-NAME](../../ado/pipeline-naming-and-placement.md),
-[ADR-ADO-TEMPLATE](../../ado/custom-template-discipline.md)), and the test tiers ([ADR-AUTO-TEST](../../automation/test-automation.md)). The
-Operational Excellence review of the same machinery is [ADR-AZ-WAF-OE](../waf/operational-excellence.md); the rules below cite those
-decisions rather than derive them again, and name the gap where a CAF item asks for more.
+([FDR-CD](../../flow/cd-discipline-and-promotion-flow.md)), the six pipeline types ([FDR-CD-TYPE](../../flow/pipeline-types.md)), the runner
+([FDR-CD-RUNNER](../../flow/pipeline-runner-pattern.md)), deployable units as globsets ([FDR-CD-GLOBS](../../flow/durable-sha-globs.md)),
+pipeline layout ([ADR-ADO-NAME](../../ado/pipeline-naming-and-placement.md), [ADR-ADO-TEMPLATE](../../ado/custom-template-discipline.md)),
+and the test tiers ([ADR-AUTO-TEST](../../automation/test-automation.md)). The Operational Excellence review of the same machinery is
+[ADR-AZ-WAF-OE](../waf/operational-excellence.md); the rules below cite those decisions rather than derive them again, and name the gap
+where a CAF item asks for more.
 
 These rules are vendor recommendation, not principled theory. They do not argue from first principles the way the axioms and DORA's research
 do; they record what the repository does about each of Microsoft's 37 recommendations in this area, numbered in the order of the area's
@@ -320,12 +320,12 @@ Summary (ours): Treat the platform, its documentation, its deployment, and its t
 
 #### What 1 means here
 
-This is [PDR-EAC-EVERYTHINGINVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-everythinginversioncontrol):
-every artifact needed to build, test, deploy, or operate the system lives in version control. The templates under
-`infrastructure/templates/`, the shared modules under `infrastructure/modules/`, the configs under each template's `configuration/`, the
-repository-wide settings in `azure.yml`, `network.yml`, and `customer.yml`, the ado pipelines under `.ado/pipelines/`, the automation under
-`pwsh/`, the tests beside it, and the ADRs that decide them are all files in one repository. The build-validation policies are config too
-(`build-validation.yml`, applied by `Sync-AdoBuildValidations`), and a pipeline is registered from its file by `Register-AdoPipeline`.
+This is [PDR-EAC-EVERYTHINGINVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-everythinginversioncontrol): every artifact
+needed to build, test, deploy, or operate the system lives in version control. The templates under `infrastructure/templates/`, the shared
+modules under `infrastructure/modules/`, the configs under each template's `configuration/`, the repository-wide settings in `azure.yml`,
+`network.yml`, and `customer.yml`, the ado pipelines under `.ado/pipelines/`, the automation under `pwsh/`, the tests beside it, and the
+ADRs that decide them are all files in one repository. The build-validation policies are config too (`build-validation.yml`, applied by
+`Sync-AdoBuildValidations`), and a pipeline is registered from its file by `Register-AdoPipeline`.
 
 What stays outside is Azure DevOps state the pipelines depend on: the service connections (`sc-shared-nonprod`, `sc-apex-prod`, …), the
 environments the deployment jobs name, and any check or approval on either. They are created in the Azure DevOps portal, which
@@ -361,11 +361,11 @@ Summary (ours): Put infrastructure, policy, configuration, deployment, and docum
 #### What 2 means here
 
 Every one of those kinds is in the one Git repository
-([PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-diffablebelongsinversioncontrol)),
-and the history of each lives in Git, not in retained copies
-([PDR-ONELIVE-HISTORYINGIT](../../principles/one-living-version.md#rule-pdr-onelive-historyingit)). Version control here is also
-the DORA capability [version-control](../../research/version-control.md). The recommendation bears on no single template: all three are
-versioned the same way.
+([PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-diffablebelongsinversioncontrol)), and the
+history of each lives in Git, not in retained copies
+([PDR-ONELIVE-HISTORYINGIT](../../principles/one-living-version.md#rule-pdr-onelive-historyingit)). Version control here is also the DORA
+capability [version-control](../../research/version-control.md). The recommendation bears on no single template: all three are versioned the
+same way.
 
 ##### 2 status
 
@@ -382,11 +382,11 @@ Summary (ours): Have every change reviewed by a second person, by pair programmi
 #### What 3 means here
 
 How a change reaches `main` is a repository variant, `git_workspace`. In `main-via-pr` a pull request is the one authenticated way into
-`main` ([DDR-REMOTE-PULLREQUESTISINGRESS](../../design/server-remote-integration.md#rule-ddr-remote-pullrequestisingress)), and it
-carries the blocking build validations of `build-validation.yml`. Review is a gate the pull request can carry, but the repository configures
-no required-reviewer policy, a gap [ADR-AZ-WAF-OE-OE03](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe03) records. This repository
-sets `git_workspace: main-direct` in `variants.yml`, the single-author trunk, where a second reviewer does not exist; the four-eyes rule
-starts to apply when the variant flips.
+`main` ([DDR-REMOTE-PULLREQUESTISINGRESS](../../design/server-remote-integration.md#rule-ddr-remote-pullrequestisingress)), and it carries
+the blocking build validations of `build-validation.yml`. Review is a gate the pull request can carry, but the repository configures no
+required-reviewer policy, a gap [ADR-AZ-WAF-OE-OE03](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe03) records. This repository sets
+`git_workspace: main-direct` in `variants.yml`, the single-author trunk, where a second reviewer does not exist; the four-eyes rule starts
+to apply when the variant flips.
 
 ##### 3 in `foundation`
 
@@ -422,8 +422,8 @@ repository owns are the build validations: `build-validation.yml` binds each dec
 `nova`, `apex`, `flux`) to its pipeline as a blocking check, with the globset's native path projection as the filter
 ([FDR-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-nativepathfilter)), applied to the server by
 `Sync-AdoBuildValidations`. The rule that `main` takes no direct push and admits merges only through a pull request is the server's branch
-protection ([DDR-REMOTE-PULLREQUESTISINGRESS](../../design/server-remote-integration.md#rule-ddr-remote-pullrequestisingress)),
-set in Azure DevOps, not in a file here.
+protection ([DDR-REMOTE-PULLREQUESTISINGRESS](../../design/server-remote-integration.md#rule-ddr-remote-pullrequestisingress)), set in Azure
+DevOps, not in a file here.
 
 ##### 4 in `foundation`
 
@@ -455,22 +455,21 @@ Summary (ours): Automate testing and the deployment to each environment with con
 
 The repository's pipelines follow its types ([FDR-CD-TYPE](../../flow/pipeline-types.md)) and layout
 ([ADR-ADO-NAME](../../ado/pipeline-naming-and-placement.md)). `ci-infrastructure.yaml` is the CI pipeline: build and verify, no deploy. Each
-CD pipeline runs the same CI engine ([FDR-CD-TYPE-ONECIENGINE](../../flow/pipeline-types.md#rule-fdr-cd-type-oneciengine)),
-publishes one artifact per template, and deploys those artifacts unchanged
-([FDR-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-separatepipelinekinds)); the customer
-CD structure is one extends template, the sanctioned large-template case ([ADR-ADO-TEMPLATE](../../ado/custom-template-discipline.md)).
-Every step calls automation through the runner
-([FDR-CD-RUNNER-NOINLINEPOWERSHELL](../../flow/pipeline-runner-pattern.md#rule-fdr-cd-runner-noinlinepowershell)), so a pipeline
-command can be run unchanged on a devbox.
+CD pipeline runs the same CI engine ([FDR-CD-TYPE-ONECIENGINE](../../flow/pipeline-types.md#rule-fdr-cd-type-oneciengine)), publishes one
+artifact per template, and deploys those artifacts unchanged
+([FDR-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-separatepipelinekinds)); the customer CD
+structure is one extends template, the sanctioned large-template case ([ADR-ADO-TEMPLATE](../../ado/custom-template-discipline.md)). Every
+step calls automation through the runner
+([FDR-CD-RUNNER-NOINLINEPOWERSHELL](../../flow/pipeline-runner-pattern.md#rule-fdr-cd-runner-noinlinepowershell)), so a pipeline command can
+be run unchanged on a devbox.
 
 The gap is the direction CD takes. The flow model keeps CD within non-production and reaches production through a DEPLOY pipeline behind a
 manual gate ([FDR-CD-CDSTAYSINNONPROD](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdstaysinnonprod),
-[FDR-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodprogressionisdeploy)); the shipped
-CD pipelines deploy non-production and production side by side in the same stage, and `.ado/pipelines/` holds no DEPLOY pipeline.
+[FDR-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodprogressionisdeploy)); the shipped CD
+pipelines deploy non-production and production side by side in the same stage, and `.ado/pipelines/` holds no DEPLOY pipeline.
 [ADR-AZ-WAF-OE-OE06](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe06) records the same gap; which way it closes — CD plus DEPLOY,
-or a CDe with an internal approval
-([FDR-CD-TYPE-CDESHARESDEPLOYPATH](../../flow/pipeline-types.md#rule-fdr-cd-type-cdesharesdeploypath)) — is a per-unit governance
-choice not made here.
+or a CDe with an internal approval ([FDR-CD-TYPE-CDESHARESDEPLOYPATH](../../flow/pipeline-types.md#rule-fdr-cd-type-cdesharesdeploypath)) —
+is a per-unit governance choice not made here.
 
 ##### 5 in `foundation`
 
@@ -599,9 +598,9 @@ Summary (ours): Make emergency fixes through code as well, and record each in th
 
 A fix is a commit like any other: it reaches `main`, the globset of the unit it touches starts that unit's CD pipeline, and the pipeline
 deploys it. Configuration that reaches the cloud enters only through version control
-([FDR-CD-TYPE-CONFIGENTERSTHROUGHINPUT](../../flow/pipeline-types.md#rule-fdr-cd-type-configentersthroughinput)), and a red
-pipeline stops the line until it is fixed. Nothing stops a person with rights from changing a resource in the portal, though: outside the
-three policies, drift is caught only when the next deploy overwrites it. There is no written emergency-change procedure, a gap
+([FDR-CD-TYPE-CONFIGENTERSTHROUGHINPUT](../../flow/pipeline-types.md#rule-fdr-cd-type-configentersthroughinput)), and a red pipeline stops
+the line until it is fixed. Nothing stops a person with rights from changing a resource in the portal, though: outside the three policies,
+drift is caught only when the next deploy overwrites it. There is no written emergency-change procedure, a gap
 [ADR-AZ-WAF-OE-OE02](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe02) records, and no convention for logging a quick fix's
 follow-up.
 
@@ -735,10 +734,10 @@ Summary (ours): Start from available frameworks — the Microsoft DevOps Resourc
 
 #### What 13 means here
 
-The repository's DevOps framework is its own flow model ([FDR-CD](../../flow/cd-discipline-and-promotion-flow.md)), its process rules,
-and the DORA research, which it cites through [the DORA reference](../../../references/dora/index.md). DORA is research rather than a
-vendor's taxonomy, and the repository's rules are argued from it. Microsoft's material is reviewed item by item where it bears on Azure, as
-in this ADR and the WAF reviews, not adopted as the framework.
+The repository's DevOps framework is its own flow model ([FDR-CD](../../flow/cd-discipline-and-promotion-flow.md)), its process rules, and
+the DORA research, which it cites through [the DORA reference](../../../references/dora/index.md). DORA is research rather than a vendor's
+taxonomy, and the repository's rules are argued from it. Microsoft's material is reviewed item by item where it bears on Azure, as in this
+ADR and the WAF reviews, not adopted as the framework.
 
 ##### 13 status
 
@@ -837,9 +836,8 @@ Summary (ours): Use Git for version control.
 #### What 18 means here
 
 The repository is a Git repository, and its automation reads Git directly: a deployable-unit's change is computed from `git diff` at real
-refs ([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit)), and a
-globset selects from `git ls-files`
-([FDR-CD-GLOBS-TRACKEDFILESONLY](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)).
+refs ([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit)), and a globset selects
+from `git ls-files` ([FDR-CD-GLOBS-TRACKEDFILESONLY](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)).
 
 ##### 18 status
 
@@ -929,10 +927,9 @@ Summary (ours): Use trunk-based development: everyone integrates into one branch
 #### What 22 means here
 
 Trunk-based development is a rule here, not a preference: work integrates continuously into `main`, branches are short-lived, and there is
-no long-lived release or version branch
-([PDR-ONELIVE-TRUNKBASED](../../principles/one-living-version.md#rule-pdr-onelive-trunkbased),
-[FDR-CD-DISCIPLINEBEFOREPIPELINE](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-disciplinebeforepipeline)). It is
-also the DORA capability [trunk-based-development](../../research/trunk-based-development.md). Every pipeline triggers on `main` only.
+no long-lived release or version branch ([PDR-ONELIVE-TRUNKBASED](../../principles/one-living-version.md#rule-pdr-onelive-trunkbased),
+[FDR-CD-DISCIPLINEBEFOREPIPELINE](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-disciplinebeforepipeline)). It is also the DORA
+capability [trunk-based-development](../../research/trunk-based-development.md). Every pipeline triggers on `main` only.
 
 ##### 22 status
 
@@ -967,8 +964,8 @@ Summary (ours): Set read and write permissions per branch for users and groups.
 
 Branch permissions are held by the server remote. The repository's model needs one of them: `main` is protected and reached only through a
 pull request in the `main-via-pr` variant
-([DDR-REMOTE-PULLREQUESTISINGRESS](../../design/server-remote-integration.md#rule-ddr-remote-pullrequestisingress)). Finer
-permissions per user or group belong to whoever administers the Azure DevOps project.
+([DDR-REMOTE-PULLREQUESTISINGRESS](../../design/server-remote-integration.md#rule-ddr-remote-pullrequestisingress)). Finer permissions per
+user or group belong to whoever administers the Azure DevOps project.
 
 ##### 24 status
 
@@ -1019,10 +1016,9 @@ Summary (ours): Squash-merge pull requests so each lands on the default branch a
 
 The delivery design depends on it. `main` advances only by squash merge, so a merged commit's first parent is the prior mainline, and
 `Get-GlobSetChangeRange` diffs `HEAD^1..HEAD` to find exactly what a merge changed
-([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit));
-`Test-GlobSetAffected` fails open on doubt, so a different merge type would start a pipeline rather than skip one. The merge type is a
-branch policy, though, and nothing in the repository sets it; it belongs beside the build validations (see
-[25](#25--set-branch-policies-on-the-main-branch)).
+([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit)); `Test-GlobSetAffected`
+fails open on doubt, so a different merge type would start a pipeline rather than skip one. The merge type is a branch policy, though, and
+nothing in the repository sets it; it belongs beside the build validations (see [25](#25--set-branch-policies-on-the-main-branch)).
 
 ##### 26 status
 
@@ -1041,10 +1037,9 @@ Summary (ours): Use continuous integration so every commit is built and tested a
 
 `ci-infrastructure.yaml` triggers on every change under `infrastructure/`, as a pull-request build validation and again on the merged
 commit, and runs the CI engine for all three templates inside the integration budget
-([FDR-CD-SHORTINTEGRATIONCYCLE](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle)). Each CD
-pipeline runs the same engine before it deploys
-([FDR-CD-CDCONTAINSCI](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdcontainsci)). The triggers are generated from
-the globsets and kept equal to them by `Test-AdoPipelineTriggerGlob`
+([FDR-CD-SHORTINTEGRATIONCYCLE](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle)). Each CD pipeline runs
+the same engine before it deploys ([FDR-CD-CDCONTAINSCI](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdcontainsci)). The
+triggers are generated from the globsets and kept equal to them by `Test-AdoPipelineTriggerGlob`
 ([FDR-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-nativepathfilter)).
 
 ##### 27 in `foundation`
@@ -1116,8 +1111,8 @@ Summary (ours): Prefer Microsoft-hosted agents over self-hosted ones, for an iso
 
 Every job and deployment job of every pipeline uses `vmImage: ubuntu-latest`, a Microsoft-hosted agent. A fresh agent fits the repository's
 own rule that a pipeline behaves like a devbox ([ADR-AUTO-PARITY](../../automation/devbox-pipeline-parity.md)): the runner imports the
-module system on every run ([FDR-CD-RUNNER-IMPORTONCE](../../flow/pipeline-runner-pattern.md#rule-fdr-cd-runner-importonce)), and
-the pinned tools install the same way on a devbox and in a pipeline
+module system on every run ([FDR-CD-RUNNER-IMPORTONCE](../../flow/pipeline-runner-pattern.md#rule-fdr-cd-runner-importonce)), and the pinned
+tools install the same way on a devbox and in a pipeline
 ([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions)), so nothing
 depends on a machine kept between runs. A self-hosted agent would become necessary once the deploy targets accept only private network
 traffic.
@@ -1238,8 +1233,8 @@ non-production configs (`dev`, `test`) and a customer's `dev` are production-lik
 environment class. The flow model asks for more before an artifact counts as integrated: a deploy to an on-demand environment with L3 system
 tests, then the always-on non-production environment
 ([FDR-CD-CDSTAYSINNONPROD](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdstaysinnonprod),
-[FDR-CD-INNERANDOUTERLOOP](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-innerandouterloop)); the pipelines have no
-on-demand environment and no system test.
+[FDR-CD-INNERANDOUTERLOOP](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-innerandouterloop)); the pipelines have no on-demand
+environment and no system test.
 
 ##### 32 in `foundation`
 
@@ -1339,11 +1334,10 @@ Summary (ours): Roll back by Git's undo operations: revert, discard, or reset.
 
 On the shared trunk the undo is a revert: a new commit that the same CI and CD pipelines build and deploy, so a rollback is tested like any
 change. Resetting `main` is not used, because history lives in Git and the trunk is never rewritten
-([PDR-ONELIVE-HISTORYINGIT](../../principles/one-living-version.md#rule-pdr-onelive-historyingit)). The flow model's faster path
-is to deploy the artifact of the commit before
-([FDR-CD-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-fdr-cd-type-deployispinned)), which needs the DEPLOY pipeline the
-repository does not have. And a revert that removes a resource from a template leaves it in Azure, because deploys are incremental
-([ADR-AZ-WAF-OE-OE05](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe05)).
+([PDR-ONELIVE-HISTORYINGIT](../../principles/one-living-version.md#rule-pdr-onelive-historyingit)). The flow model's faster path is to
+deploy the artifact of the commit before ([FDR-CD-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-fdr-cd-type-deployispinned)), which
+needs the DEPLOY pipeline the repository does not have. And a revert that removes a resource from a template leaves it in Azure, because
+deploys are incremental ([ADR-AZ-WAF-OE-OE05](../waf/operational-excellence.md#rule-adr-az-waf-oe-oe05)).
 
 ##### 35 in `foundation`
 
@@ -1393,8 +1387,8 @@ Summary (ours): The second option combines Azure DevOps and GitHub, to use the s
 
 The repository uses both: Azure DevOps Pipelines deploy the infrastructure, and GitHub Actions run the catzc automation's CI
 (`.github/workflows/ci-pwsh.yml`) and its manual release. The globsets project to both vendors' trigger dialects from one registry
-([FDR-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-nativepathfilter)), so a unit can move between
-them without its trigger being written again.
+([FDR-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-nativepathfilter)), so a unit can move between them
+without its trigger being written again.
 
 ##### 37 status
 

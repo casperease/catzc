@@ -11,10 +11,10 @@ Imports an outside repository with its full history at one landing address under
 
 ### description
 
-An import ([DDR-TRACK-UNORDEREDTRACK](../../../drs/design/tracks.md#rule-ddr-track-unorderedtrack)): every commit of the source
-ref becomes part of this repository's history, and the source's files land at the landing address `<unordered>/<name>`, where `<unordered>`
-is the place of the track of type `unordered`. Nothing outside the address changes; sorting the files into their modules is a later
-`git mv`, one file or folder at a time.
+An import ([DDR-TRACK-UNORDEREDTRACK](../../../drs/design/tracks.md#rule-ddr-track-unorderedtrack)): every commit of the source ref becomes
+part of this repository's history, and the source's files land at the landing address `<unordered>/<name>`, where `<unordered>` is the place
+of the track of type `unordered`. Nothing outside the address changes; sorting the files into their modules is a later `git mv`, one file or
+folder at a time.
 
 The name resolves once
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): -Name when

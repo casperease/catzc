@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1595bafaacdf"
   edges:
     test: pwsh/Catzc.Base.Files/tests/Rename-CodeName.Tests.ps1
-    docs: "[Rename-CodeName.ps1.md](docs/references/pwsh/catzc-base-files/Rename-CodeName.ps1.md)"
+    docs: "[Rename-CodeName.ps1.md](../../docs/references/pwsh/catzc-base-files/Rename-CodeName.ps1.md)"
     cites:
       - PDR-ONELIVE
 ---

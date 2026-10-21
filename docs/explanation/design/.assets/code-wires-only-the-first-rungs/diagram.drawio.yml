@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: eb1ae97c8019
+#     with_body_sha: "0653f2d9e208"
 # ---
 
 description:
@@ -149,10 +149,6 @@ content:
         by:
           - .claude/CLAUDE.md
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: docs/-/.
         by:
           - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
@@ -171,11 +167,11 @@ content:
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
@@ -193,10 +189,6 @@ content:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: docs/markdown
         by:

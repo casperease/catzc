@@ -229,9 +229,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   anyone changing the code find the reason for it in one step.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## ADR code language
+## DRS code language
 
-`ADR code language — a path of named segments, every string a fact`
+`DRS code language — a path of named segments, every string a fact`
 
 [ADR-REPO-DRSCODE](drs-code-language.md)
 

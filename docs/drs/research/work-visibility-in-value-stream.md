@@ -1,4 +1,4 @@
-# ADR: DORA — Visibility of work in the value stream
+# RDR: DORA — Visibility of work in the value stream
 
 ## Rules: RDR-DORA-WORKVIS
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e33ec4d43c54
+#     with_body_sha: "26cbcb58401f"
 # ---
 
 description:
@@ -141,17 +141,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CLI-ASSERTAZ
-          - ADR-AZ-CLI-AZBYDEFAULT
-          - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
-          - DDR-THINPLAT-REPRESENTEDASCODE
-          - DDR-THINPLAT-SWAPPABLESUBSTRATE
-          - DDR-THINPLAT-THINPLATFORM
       - cell: docs/-/.
         by:
           - docs/drs/azure/dora-explains.md
@@ -187,7 +176,7 @@ content:
           - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
           - pwsh/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1
           - ADR-AZ-CLI-AZBYDEFAULT
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CLI-ASSERTAZ
@@ -216,7 +205,7 @@ content:
           - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
           - pwsh/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1
           - ADR-AZ-CLI-AZBYDEFAULT
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CLI-ASSERTAZ
@@ -233,17 +222,6 @@ content:
           - ADR-AZ-CLI-ASSERTAZ
           - ADR-AZ-CLI-AZBYDEFAULT
           - ADR-AZ-CLI-NOAZMODULEIMPORT
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CLI-ASSERTAZ
-          - ADR-AZ-CLI-AZBYDEFAULT
-          - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
-          - DDR-THINPLAT-REPRESENTEDASCODE
-          - DDR-THINPLAT-SWAPPABLESUBSTRATE
-          - DDR-THINPLAT-THINPLATFORM
     axis:
       - cell: DSGN/deploy
         by:

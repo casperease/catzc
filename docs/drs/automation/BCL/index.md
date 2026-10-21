@@ -9,5 +9,5 @@ each:
 - **The hosting:** [hosting-csharp-types](../pwsh/hosting-csharp-types.md), how pwsh carries them: its compiler, the reference set it
   guarantees, the accelerators, and stale types in a running session.
 
-Cross-cutting, language-agnostic platform rules live one level up, directly under `automation/`; the full code↔ADR registry is the ADR index
+Cross-cutting, language-agnostic platform rules live one level up, directly under `automation/`; the full code↔DRS registry is the DRS index
 at the root of `docs/drs/`.

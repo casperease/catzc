@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "71452f9551fe"
+#     with_body_sha: "51fcdb51bcd4"
 # ---
 
 description:
@@ -129,12 +129,9 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - FDR-CD-PREPRODRUNG
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
         by:
@@ -171,15 +168,18 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
           - FDR-CD-PREPRODRUNG
           - FDR-CD-TWORELEASEGATES
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
@@ -233,12 +233,9 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipeline-yaml
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - FDR-CD-PREPRODRUNG
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - FDR-CD-TWORELEASEGATES
       - cell: docs/markdown
         by:
@@ -296,8 +293,8 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM

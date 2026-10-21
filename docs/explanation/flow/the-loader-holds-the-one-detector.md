@@ -43,8 +43,8 @@ time-safeguard hook, repeats the test on its own.
 ## Why it holds
 
 - Never check the detection variables directly; call `Test-IsRunningInPipeline`, so the logic lives in one place and both platforms are
-  always covered (FDR-CD-DETECT-NODIRECTVARIABLECHECK). Placing that one function in the loader is what lets the bootstrap honour the
-  rule before any module exists.
+  always covered (FDR-CD-DETECT-NODIRECTVARIABLECHECK). Placing that one function in the loader is what lets the bootstrap honour the rule
+  before any module exists.
 - The function is the one seam between devbox and pipeline, so "where do the two diverge?" has a finite answer: the callers above the loader
   (ADR-AUTO-PARITY-ONESEAM).
 

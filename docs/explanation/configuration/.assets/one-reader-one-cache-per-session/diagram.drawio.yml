@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f65586f0e60b
+#     with_body_sha: "22f892df313f"
 # ---
 
 description:
@@ -79,11 +79,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-CONF-LOADING-CACHEBYPATH
-          - ADR-CONF-LOADING-ONEREADER
       - cell: docs/-/.
         by:
           - docs/drs/configuration/dora-explains.md
@@ -116,11 +111,6 @@ content:
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
           - ADR-CONF-LOADING-CACHEBYPATH
           - ADR-CONF-LOADING-ONEREADER
-      - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-CONF-LOADING-CACHEBYPATH
-          - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.Docs/private
         by:
           - pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
@@ -128,6 +118,11 @@ content:
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-CONF-LOADING-CACHEBYPATH
           - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.Git/types
@@ -161,9 +156,13 @@ content:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
           - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-CONF-LOADING-CACHEBYPATH
           - ADR-CONF-LOADING-ONEREADER
       - cell: subject/Catzc.Base.Git
@@ -184,11 +183,6 @@ content:
       - cell: subject/Catzc.Base.RootConfig
         by:
           - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
-          - ADR-CONF-LOADING-CACHEBYPATH
-          - ADR-CONF-LOADING-ONEREADER
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-CONF-LOADING-CACHEBYPATH
           - ADR-CONF-LOADING-ONEREADER
     axis:

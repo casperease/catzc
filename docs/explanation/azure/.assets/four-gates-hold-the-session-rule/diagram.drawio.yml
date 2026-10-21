@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "767528b00a6a"
+#     with_body_sha: "7e1309c1c7e7"
 # ---
 
 description:
@@ -138,14 +138,18 @@ content:
     code-locations:
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/cd-shared.yaml
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
-          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: ado-pipelines/pipelines/extends
+        by:
+          - .ado/pipelines/extends/cd-customer.yaml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
       - cell: docs/-/.
         by:
-          - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.verify.md
           - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.yml
           - docs/drs/azure/azure-data-model.md
           - docs/drs/azure/azure-naming-standard.md
@@ -188,12 +192,29 @@ content:
           - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: infrastructure/discovery/.
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: infrastructure/expedition/.
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: infrastructure/foundation/.
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
       - cell: pwsh/Catzc.Azure/.
         by:
           - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
@@ -262,7 +283,7 @@ content:
         by:
           - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
@@ -276,7 +297,6 @@ content:
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
@@ -329,7 +349,7 @@ content:
           - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
@@ -343,7 +363,6 @@ content:
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
@@ -351,13 +370,31 @@ content:
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
-      - cell: subject/pipelines
+      - cell: subject/discovery
         by:
-          - .ado/pipelines/ci-pwsh.yaml
+          - infrastructure/templates/discovery/options.yml
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
-          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/expedition
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: subject/foundation
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/extends/cd-customer.yaml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
     axis:
       - cell: CLOUD/deploy
         by:

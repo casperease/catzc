@@ -32,9 +32,9 @@ Scripts often assume they are run from a specific directory — typically the re
 manually but breaks the moment someone calls the function from a different working directory, a scheduled task, a CI pipeline, or a nested
 script that changed location earlier.
 
-Functions that use relative paths like `pwsh/Catzc.Azure/configs/azure.yml`, or shell out to tools sensitive to the current directory
-(git, dotnet, poetry), will silently operate on the wrong files or fail with confusing errors when the working directory is not what the
-author expected.
+Functions that use relative paths like `pwsh/Catzc.Azure/configs/azure.yml`, or shell out to tools sensitive to the current directory (git,
+dotnet, poetry), will silently operate on the wrong files or fail with confusing errors when the working directory is not what the author
+expected.
 
 ### Rejected alternatives
 

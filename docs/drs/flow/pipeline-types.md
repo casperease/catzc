@@ -1,4 +1,4 @@
-# ADR: Pipeline types — the six kinds of ADO artifact, named
+# Flow: Pipeline types — the six kinds of ADO artifact, named
 
 ## Rules: FDR-CD-TYPE
 
@@ -81,22 +81,22 @@ which is what makes a locked release commit certifiable. It never deploys from a
 
 DEPLOY exists to make an environment's governance a first-class pipeline construct — one place for access control, isolation, and audit
 history over an environment behind a manual gate. It **splits by target** on the one build-once artifact
-([FDR-CD-PREPRODRUNG](cd-discipline-and-promotion-flow.md#rule-fdr-cd-preprodrung)): **DEPLOY-Non-Prod** drives it into
-the non-prod AT environments (the on-demand environments, `main-uat`, `release-uat`), and **DEPLOY-Prod** drives the RBC-cleared artifact
-through **pre-prod** into **production**. The human certifications are the two hands-on release gates of
-[FDR-CD-TWORELEASEGATES](cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates): **RC** clears when `main-AT` —
-acceptance testing against `main-uat` — is verified, **RBC** when `release-AT` against `release-uat` is verified. Each is a gate
-(FDR-CD-GATEDEFINED) — the human certification that decides _whether_ to proceed; DEPLOY is only the **actuator** that drives the
-pinned artifact onward once that gate clears. DEPLOY never owns the decision.
+([FDR-CD-PREPRODRUNG](cd-discipline-and-promotion-flow.md#rule-fdr-cd-preprodrung)): **DEPLOY-Non-Prod** drives it into the non-prod AT
+environments (the on-demand environments, `main-uat`, `release-uat`), and **DEPLOY-Prod** drives the RBC-cleared artifact through
+**pre-prod** into **production**. The human certifications are the two hands-on release gates of
+[FDR-CD-TWORELEASEGATES](cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates): **RC** clears when `main-AT` — acceptance testing
+against `main-uat` — is verified, **RBC** when `release-AT` against `release-uat` is verified. Each is a gate (FDR-CD-GATEDEFINED) — the
+human certification that decides _whether_ to proceed; DEPLOY is only the **actuator** that drives the pinned artifact onward once that gate
+clears. DEPLOY never owns the decision.
 
 - [DEPLOY](#deploy)
 
 ### Rule FDR-CD-TYPE-CDEAUTOMATESPRODROLL
 
 CDe (Continuous Deployment) is a CD that **internalizes and automates the roll to production**. It runs the same CI engine and the same
-deploy-and-verify path as CD (FDR-CD-TYPE-ONECIENGINE, FDR-CD-TYPE-ONEDEPLOYPATH), builds nothing new, and drives the CI engine's
-tagged, commit-pinned artifact all the way to prod. Its defining trait: the promotion of a locked commit-and-build to production is an
-**automated activity of the pipeline**, not a separately-triggered DEPLOY.
+deploy-and-verify path as CD (FDR-CD-TYPE-ONECIENGINE, FDR-CD-TYPE-ONEDEPLOYPATH), builds nothing new, and drives the CI engine's tagged,
+commit-pinned artifact all the way to prod. Its defining trait: the promotion of a locked commit-and-build to production is an **automated
+activity of the pipeline**, not a separately-triggered DEPLOY.
 
 - [CDe](#cde)
 
@@ -126,10 +126,10 @@ really a release-candidate test run hung in the pre-commit stage (breaking the C
 continuous delivery's name (the anti-pattern [INPUT](#input) replaces).
 
 The repair is not a new mechanism. It is **precise naming**: call each artifact what it is, give each its own trigger model and contract,
-and make the differences visible. This ADR establishes a **closed set of six pipeline types**. Every ADO artifact in this platform is
+and make the differences visible. This FDR establishes a **closed set of six pipeline types**. Every ADO artifact in this platform is
 exactly one of them. Anything that does not fit is a design smell to resolve, not a seventh type to invent quietly.
 
-This ADR is taxonomy only. It fixes what the six types _are_ — their triggers, their components, and the contract each must honour. It does
+This FDR is taxonomy only. It fixes what the six types _are_ — their triggers, their components, and the contract each must honour. It does
 not specify the deploy orchestration, the INPUT translator internals, or the YAML shapes.
 
 ### The CI engine — shared by three of the six types
@@ -224,14 +224,13 @@ _then_, once that is green, it orchestrates **deployment** of the deployable uni
 A DEPLOY pipeline is **CD's deploy-and-verify tail lifted out into its own pipeline**. Where a CD pipeline chains its deploy automatically
 after the post-commit build, a DEPLOY pipeline is triggered on its own — usually by a human — and drives an already-built, already-verified
 artifact into an environment whose gate is **manual and organizational**: a standard operating procedure, an ITSM change-management
-approval, a human sign-off. It runs the same deploy orchestration and system tests as CD (FDR-CD-TYPE-ONEDEPLOYPATH) — it simply owns
-them as a separate construct — and it **builds nothing** (FDR-CD-TYPE-DEPLOYISCDTAIL): the artifact it deploys was built once by a CI
-engine and is pinned to an explicit commit.
+approval, a human sign-off. It runs the same deploy orchestration and system tests as CD (FDR-CD-TYPE-ONEDEPLOYPATH) — it simply owns them
+as a separate construct — and it **builds nothing** (FDR-CD-TYPE-DEPLOYISCDTAIL): the artifact it deploys was built once by a CI engine and
+is pinned to an explicit commit.
 
 The reason to extract it is that the environment's governance is itself the thing being modelled. Folding a production or certification
 deploy behind a manual gate into a continuous CD pipeline buries the gate inside a pipeline whose whole point is to run automatically;
-pulling it out makes the governance a first-class pipeline construct (FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE), which buys four concrete
-things:
+pulling it out makes the governance a first-class pipeline construct (FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE), which buys four concrete things:
 
 - **Access control.** Who may deploy to the governed environment is a permission on one pipeline, not a stage condition tangled into the CD
   definition.
@@ -239,8 +238,8 @@ things:
   they choose, not on every merge.
 - **History.** Every deployment to the governed environment is one auditable pipeline's run history: which commit, who ran it, when, which
   approval cleared it — the record an SOP/ITSM regime requires.
-- **Determinism.** It deploys the artifact of one chosen commit (FDR-CD-TYPE-DEPLOYISPINNED), so a locked release commit deploys the
-  same bytes every time — the precondition for certifying it.
+- **Determinism.** It deploys the artifact of one chosen commit (FDR-CD-TYPE-DEPLOYISPINNED), so a locked release commit deploys the same
+  bytes every time — the precondition for certifying it.
 
 Concretely:
 
@@ -254,16 +253,16 @@ Concretely:
 
 **Two canonical targets:**
 
-1. **The certification environments — the RC and RBC gates** (main-UAT and release-uat, FDR-CD-TWORELEASEGATES). **DEPLOY-Non-Prod**
-   rolls the pinned artifact onto an always-on certification environment, locked to a specific commit so the environment holds **stable**
-   while it is certified against exactly that commit. At **main-UAT** the occupant is a `main` commit, `main-AT` runs against it, and **RC**
-   is the human certification there; at **release-uat** the occupant is a release-branch head or a `main` commit, `release-AT` runs against
-   it, and **RBC** is the human certification there — the deploy half of release-branch stabilization. Because DEPLOY is deterministic
-   (FDR-CD-TYPE-DEPLOYISPINNED), re-running it re-materialises the same artifact, which is what "certified at commit X" means. Each
-   gate decides; DEPLOY is the actuator once it clears.
-2. **Pre-prod rollover, then a manual production gate** (past RBC, FDR-CD-PREPRODRUNG). **DEPLOY-Prod** **automatically** rolls
-   pre-prod over to the RBC-cleared artifact and runs its L3 / end-to-end system tests there, then **chains to a manual approval gate**
-   before deploy-to-prod. The green pre-prod run is the evidence the production approval reviews, and the production cutover itself is
+1. **The certification environments — the RC and RBC gates** (main-UAT and release-uat, FDR-CD-TWORELEASEGATES). **DEPLOY-Non-Prod** rolls
+   the pinned artifact onto an always-on certification environment, locked to a specific commit so the environment holds **stable** while it
+   is certified against exactly that commit. At **main-UAT** the occupant is a `main` commit, `main-AT` runs against it, and **RC** is the
+   human certification there; at **release-uat** the occupant is a release-branch head or a `main` commit, `release-AT` runs against it, and
+   **RBC** is the human certification there — the deploy half of release-branch stabilization. Because DEPLOY is deterministic
+   (FDR-CD-TYPE-DEPLOYISPINNED), re-running it re-materialises the same artifact, which is what "certified at commit X" means. Each gate
+   decides; DEPLOY is the actuator once it clears.
+2. **Pre-prod rollover, then a manual production gate** (past RBC, FDR-CD-PREPRODRUNG). **DEPLOY-Prod** **automatically** rolls pre-prod
+   over to the RBC-cleared artifact and runs its L3 / end-to-end system tests there, then **chains to a manual approval gate** before
+   deploy-to-prod. The green pre-prod run is the evidence the production approval reviews, and the production cutover itself is
    human-approved. One pipeline construct carries the prod tail — automated where it can be, human where the organization requires it.
 
 ### CDe
@@ -273,15 +272,15 @@ Concretely:
 A CDe pipeline is a **CD pipeline that internalizes and automates the roll to production**. Where a CD pipeline stops at non-prod and hands
 the production cutover to a separately-triggered, human-governed DEPLOY — Continuous _Delivery_ — a CDe pipeline continues past non-prod and
 drives the same tagged artifact into production **automatically** — Continuous _Deployment_. It runs the same CI engine
-(FDR-CD-TYPE-ONECIENGINE) and the same deploy-and-verify path (FDR-CD-TYPE-ONEDEPLOYPATH, FDR-CD-TYPE-CDESHARESDEPLOYPATH) as
-CD and DEPLOY — it forks neither — and it **builds nothing** new: the artifact it rolls to prod is the CI engine's build-once output, pinned
-to the locked commit.
+(FDR-CD-TYPE-ONECIENGINE) and the same deploy-and-verify path (FDR-CD-TYPE-ONEDEPLOYPATH, FDR-CD-TYPE-CDESHARESDEPLOYPATH) as CD and DEPLOY
+— it forks neither — and it **builds nothing** new: the artifact it rolls to prod is the CI engine's build-once output, pinned to the locked
+commit.
 
 What makes it CDe rather than CD → DEPLOY is **where the promotion decision lives**. In CD → DEPLOY the decision to go to prod is external —
-a human starts, or approves the cutover inside, a DEPLOY pipeline (FDR-CD-TYPE-DEPLOYISCDTAIL). In CDe the decision is internalized:
-for a locked commit and its verified build, the pipeline advances to prod **automatically**. A CDe may still pause at an **internal**
-approval gate before its production stage, but that gate is a checkpoint _inside_ an automated promotion, not a separate construct someone
-must trigger; the activity — "roll this locked artifact to prod" — is determined by the pipeline.
+a human starts, or approves the cutover inside, a DEPLOY pipeline (FDR-CD-TYPE-DEPLOYISCDTAIL). In CDe the decision is internalized: for a
+locked commit and its verified build, the pipeline advances to prod **automatically**. A CDe may still pause at an **internal** approval
+gate before its production stage, but that gate is a checkpoint _inside_ an automated promotion, not a separate construct someone must
+trigger; the activity — "roll this locked artifact to prod" — is determined by the pipeline.
 
 This is the sharp line against DEPLOY's second canonical target (the automated pre-prod rollover chained to a manual production gate):
 there, the production cutover is **required** to be human-approved — that gate is the pipeline's _primary_ governance, and it is Delivery.

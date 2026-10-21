@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9e9624cc78cc"
+#     with_body_sha: "7c9faf28d4b5"
 # ---
 
 description:
@@ -112,7 +112,11 @@ content:
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: ado-pipelines/pipelines/.
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-DURABLESHAIDENTITY
@@ -176,6 +180,13 @@ content:
           - FDR-CD-GLOBS-DURABLESHAIDENTITY
           - FDR-CD-GLOBS-NAMEDGLOBSETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
+      - cell: github-workflows/workflows/.
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -206,14 +217,14 @@ content:
           - FDR-CD-GLOBS-DURABLESHAIDENTITY
           - FDR-CD-GLOBS-NAMEDGLOBSETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-DURABLESHAIDENTITY
           - FDR-CD-GLOBS-NAMEDGLOBSETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
@@ -329,7 +340,7 @@ content:
           - FDR-CD-GLOBS-DURABLESHAIDENTITY
           - FDR-CD-GLOBS-NAMEDGLOBSETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
@@ -391,9 +402,20 @@ content:
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/pipelines
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - .ado/pipelines/extends/cd-customer.yaml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+      - cell: subject/workflows
+        by:
+          - .github/workflows/ci-pwsh.yml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
           - FDR-CD-GLOBS-DURABLESHAIDENTITY
           - FDR-CD-GLOBS-NAMEDGLOBSETS

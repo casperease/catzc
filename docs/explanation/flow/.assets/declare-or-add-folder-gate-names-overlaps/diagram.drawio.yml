@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c19c38aecbc8
+#     with_body_sha: "1ab0870feb8e"
 # ---
 
 description:
@@ -96,6 +96,11 @@ content:
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: ado-pipelines/pipelines/.
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
@@ -140,6 +145,11 @@ content:
           - docs/references/pwsh/catzc-base-quality-gates/private/Resolve-TestSuite.ps1.md
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: github-workflows/workflows/.
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -162,12 +172,12 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-GLOBS-EVERYSETHASLAYER
@@ -250,7 +260,7 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
@@ -288,7 +298,17 @@ content:
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/pipelines
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: subject/workflows
+        by:
+          - .github/workflows/ci-pwsh.yml
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
     axis:

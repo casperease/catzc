@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d65fdbc9e07b
+#     with_body_sha: "6f4ceb413afc"
 # ---
 
 description:
@@ -140,10 +140,7 @@ content:
           - FDR-CD-TWOENVIRONMENTACTIVATION
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-CDCONTAINSCI
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-SEPARATEPIPELINEKINDS
+          - .ado/pipelines/deploy-apex.yaml
           - FDR-CD-TWOENVIRONMENTACTIVATION
       - cell: docs/-/.
         by:
@@ -168,14 +165,14 @@ content:
           - FDR-CD-CDSTAYSINNONPROD
           - FDR-CD-SEPARATEPIPELINEKINDS
           - FDR-CD-TWOENVIRONMENTACTIVATION
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-CDCONTAINSCI
           - FDR-CD-CDSTAYSINNONPROD
           - FDR-CD-SEPARATEPIPELINEKINDS
           - FDR-CD-TWOENVIRONMENTACTIVATION
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-CDCONTAINSCI
@@ -218,7 +215,7 @@ content:
           - FDR-CD-CDSTAYSINNONPROD
           - FDR-CD-SEPARATEPIPELINEKINDS
           - FDR-CD-TWOENVIRONMENTACTIVATION
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
@@ -243,10 +240,7 @@ content:
           - FDR-CD-TWOENVIRONMENTACTIVATION
       - cell: subject/pipelines
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-CDCONTAINSCI
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-SEPARATEPIPELINEKINDS
+          - .ado/pipelines/deploy-apex.yaml
           - FDR-CD-TWOENVIRONMENTACTIVATION
     axis:
       - cell: DSGN/build

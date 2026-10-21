@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: dcc9b6c459b6
+#     with_body_sha: "071cc0037111"
 # ---
 
 description:
@@ -120,10 +120,14 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - FDR-CD-TWORELEASEGATES
+      - cell: ado-pipelines/pipelines/steps
+        by:
+          - .ado/pipelines/steps/download-artifact.yaml
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
       - cell: docs/-/.
         by:
           - docs/drs/flow/cd-discipline-and-promotion-flow.md
@@ -148,13 +152,13 @@ content:
           - FDR-CD-CDSTAYSINNONPROD
           - FDR-CD-PRODPROGRESSIONISDEPLOY
           - FDR-CD-TWORELEASEGATES
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-CDSTAYSINNONPROD
           - FDR-CD-PRODPROGRESSIONISDEPLOY
           - FDR-CD-TWORELEASEGATES
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-CDSTAYSINNONPROD
@@ -192,7 +196,7 @@ content:
           - FDR-CD-CDSTAYSINNONPROD
           - FDR-CD-PRODPROGRESSIONISDEPLOY
           - FDR-CD-TWORELEASEGATES
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
@@ -215,8 +219,10 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: subject/pipelines
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-CDSTAYSINNONPROD
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
+          - .ado/pipelines/steps/download-artifact.yaml
           - FDR-CD-PRODPROGRESSIONISDEPLOY
           - FDR-CD-TWORELEASEGATES
     axis:

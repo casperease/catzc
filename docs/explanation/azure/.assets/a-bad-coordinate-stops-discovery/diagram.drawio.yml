@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: dfc5d2f44691
+#     with_body_sha: "2d9e7a45e080"
 # ---
 
 description:
@@ -98,8 +98,12 @@ content:
     code-locations:
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+          - .ado/pipelines/cd-shared.yaml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: ado-pipelines/pipelines/extends
+        by:
+          - .ado/pipelines/extends/cd-customer.yaml
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: docs/-/.
@@ -144,9 +148,23 @@ content:
           - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: infrastructure/discovery/.
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: infrastructure/expedition/.
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: infrastructure/foundation/.
+        by:
+          - infrastructure/templates/foundation/options.yml
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: pwsh/Catzc.Azure/.
@@ -213,7 +231,7 @@ content:
         by:
           - pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
@@ -222,7 +240,6 @@ content:
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: pwsh/Catzc.Base.Variants/configs
@@ -271,7 +288,7 @@ content:
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
@@ -280,17 +297,31 @@ content:
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: subject/Catzc.Base.Variants
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+      - cell: subject/discovery
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: subject/expedition
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: subject/foundation
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: subject/pipelines
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/extends/cd-customer.yaml
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
     axis:

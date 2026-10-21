@@ -14,10 +14,10 @@ A pull request run skips every Deploy_* stage; only the run on main deploys, so 
 Supports FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND (implementation lens).
 ```
 
-Every `Deploy_*` stage in cats runs only from main. FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic
-commit without integrating it, but in the code nothing does. The CD pipelines run on a pull request into main, yet a PR run executes only
-the `CI` stage: every `Deploy_*` stage carries a condition that the source branch is `refs/heads/main`. Only the merge to main starts a run
-that deploys.
+Every `Deploy_*` stage in cats runs only from main. FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit
+without integrating it, but in the code nothing does. The CD pipelines run on a pull request into main, yet a PR run executes only the `CI`
+stage: every `Deploy_*` stage carries a condition that the source branch is `refs/heads/main`. Only the merge to main starts a run that
+deploys.
 
 ![Every Deploy stage is main-only](.assets/every-deploy-stage-is-main-only/diagram.drawio.png)
 
@@ -29,9 +29,9 @@ that deploys.
    expedition, and publishes each as a pipeline artifact.
 3. **Main only.** Each `Deploy_*` stage carries `condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))`. A PR
    run's source branch is a pull-request ref, so the condition is false and every deploy stage is skipped.
-4. **Out-of-band deploy.** The deploy that FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows has no pipeline or workflow. The GitHub `CI`
-   workflow only runs tests, and the `Release` workflow builds and may publish the package from any ref, which is a release, not a deploy to
-   an environment.
+4. **Out-of-band deploy.** The deploy that FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows has no pipeline or workflow. The GitHub `CI` workflow
+   only runs tests, and the `Release` workflow builds and may publish the package from any ref, which is a release, not a deploy to an
+   environment.
 5. **Main.** Completing the pull request lands the commit on main, and the push trigger `trigger: branches: include: [main]` starts the CD
    run.
 6. **Stage `CI`.** The CD run executes the same `CI` stage, and the main-only condition now holds.

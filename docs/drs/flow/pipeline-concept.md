@@ -1,4 +1,4 @@
-# ADR: Pipelines — the vendor-neutral CI/CD pipeline concept
+# Flow: Pipelines — the vendor-neutral CI/CD pipeline concept
 
 ## Rules: FDR-CD-PIPELINE
 
@@ -49,7 +49,7 @@ The flow domain already decides most of what a pipeline is:
 - **What stops it.** A gate is a check whose verdict decides whether work may proceed
   ([FDR-CD-GATEDEFINED](cd-discipline-and-promotion-flow.md#rule-fdr-cd-gatedefined)).
 
-This ADR holds the remaining rules that hold for any vendor: how a pipeline file is named, what its extension says, how its YAML reads, and
+This FDR holds the remaining rules that hold for any vendor: how a pipeline file is named, what its extension says, how its YAML reads, and
 how long a credential lives inside it. The ado domain binds them for the azure devops pipelines and the github domain for the GitHub
 workflows.
 

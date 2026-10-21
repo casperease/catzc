@@ -19,8 +19,8 @@ It rewrites:
 
 - rule codes, which are named (`ADR-<DOMAIN>-<ADR>-<NAME>`, `TDR-<ADR>-<NAME>`), through the rule map first (a rule that moves or collapses)
   and the code map otherwise;
-- every other code of a registered kind (the kinds of drs.yml), through the code map; a new code may be a bare kind, as the code of a
-  domain that owns its record kind becomes that kind;
+- every other code of a registered kind (the kinds of drs.yml), through the code map; a new code may be a bare kind, as the code of a domain
+  that owns its record kind becomes that kind;
 - rule anchors `rule-<code>`, standalone and inside links;
 - link destinations into docs/drs/: one with a rule anchor follows the rule, possibly to another file, and any other follows the file. A
   relative link is resolved at the file's folder and written back relative to it; a repository-rooted code link stays rooted

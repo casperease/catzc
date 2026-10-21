@@ -171,11 +171,11 @@ where they exist, keeps them under version control with an author and a review d
 
 Routine operations are automation, not documents: building, deploying, and validating a template are the `Build-Bicep`, `Deploy-Bicep`, and
 `Assert-BicepTemplate` functions, run the same way on a devbox and in a pipeline. A scheduled routine is a CRON pipeline invoking an
-idempotent function ([FDR-CD-TYPE-CRONISSCHEDULER](../../flow/pipeline-types.md#rule-fdr-cd-type-cronisscheduler)). Operational
-state and runbooks never live outside version control
-([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)), and
-the task guides under `docs/how-to/` — adding a deployable-unit, adding an infrastructure template — are the written procedures for the
-changes that recur.
+idempotent function ([FDR-CD-TYPE-CRONISSCHEDULER](../../flow/pipeline-types.md#rule-fdr-cd-type-cronisscheduler)). Operational state and
+runbooks never live outside version control
+([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)), and the task
+guides under `docs/how-to/` — adding a deployable-unit, adding an infrastructure template — are the written procedures for the changes that
+recur.
 
 Two operations stay manual and have no written procedure: putting the break-glass SQL password into `foundation`'s vault before the first
 `expedition` deploy, and the three-step rollout of a new spoke (hub, spoke, hub again —
@@ -220,8 +220,8 @@ request is the authenticated ingress to the server remote
 ([DDR-REMOTE-PULLREQUESTISINGRESS](../../design/server-remote-integration.md#rule-ddr-remote-pullrequestisingress)), and the
 build-validation policies in `build-validation.yml` bind each deployable-unit's and each track's globset to its pipeline as a blocking check
 on `main`. The CI engine builds and verifies inside the integration budget
-([FDR-CD-SHORTINTEGRATIONCYCLE](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle)), and static
-analysis is a set of quality gates (`Test-ScriptAnalyzer`, `Test-Markdownlint`, `Test-Spelling`, `Test-Formatting`).
+([FDR-CD-SHORTINTEGRATIONCYCLE](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle)), and static analysis is a
+set of quality gates (`Test-ScriptAnalyzer`, `Test-Markdownlint`, `Test-Spelling`, `Test-Formatting`).
 
 Traceability is built into the deploy: after a successful deploy, `Deploy-Bicep` runs `Set-BicepTrackingTagSet`, which tags the target
 resource group or subscription with the commit, the build id, and the branch. Two practices are missing: a secret scan of every change, and
@@ -299,10 +299,10 @@ change; the code is scanned for misconfiguration and secrets; and manual steps a
 #### What OE:05 means here
 
 Everything the infrastructure needs lives in version control
-([PDR-EAC-EVERYTHINGINVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-everythinginversioncontrol)):
-declarative Bicep under `infrastructure/`, shared modules under `infrastructure/modules/`, and one config per slot under each template's
-`configuration/` ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). One template
-serves every environment; only its config varies, and a value that another config owns is read by config address, never copied
+([PDR-EAC-EVERYTHINGINVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-everythinginversioncontrol)): declarative Bicep
+under `infrastructure/`, shared modules under `infrastructure/modules/`, and one config per slot under each template's `configuration/`
+([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). One template serves every
+environment; only its config varies, and a value that another config owns is read by config address, never copied
 ([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-az-datamod-valuebyaddress)). The three templates are the split by rate of
 change: `foundation` changes least, `discovery` rarely, `expedition` with its workload. Every rendered parameters file is checked against
 the compiled template's parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)),
@@ -346,21 +346,20 @@ split by what they deploy (landing zone, core infrastructure, workload).
 
 This is the repository's delivery flow. Each deployable-unit — the shared platform and each customer — has a globset in `globs.yml` that
 triggers its CD pipeline through the globset's native path filter
-([FDR-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-nativepathfilter)). The CD pipeline runs the
-same CI engine as `ci-infrastructure.yaml` ([FDR-CD-TYPE-ONECIENGINE](../../flow/pipeline-types.md#rule-fdr-cd-type-oneciengine)),
-publishes one artifact per template, and its deploy stages consume those artifacts unchanged — build once, deploy many
+([FDR-CD-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-fdr-cd-globs-nativepathfilter)). The CD pipeline runs the same CI
+engine as `ci-infrastructure.yaml` ([FDR-CD-TYPE-ONECIENGINE](../../flow/pipeline-types.md#rule-fdr-cd-type-oneciengine)), publishes one
+artifact per template, and its deploy stages consume those artifacts unchanged — build once, deploy many
 ([FDR-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-separatepipelinekinds)). The stages run
 `foundation`, then `discovery`, then `expedition`, the split by what they deploy, and each deploy asserts the subscription its service
 connection logs into (`-SubscriptionIdAssertIs`, [ADR-AZ-DATAMOD](../azure-data-model.md)). Configuration that reaches the cloud enters only
-through version control
-([FDR-CD-TYPE-CONFIGENTERSTHROUGHINPUT](../../flow/pipeline-types.md#rule-fdr-cd-type-configentersthroughinput)).
+through version control ([FDR-CD-TYPE-CONFIGENTERSTHROUGHINPUT](../../flow/pipeline-types.md#rule-fdr-cd-type-configentersthroughinput)).
 
 The shipped CD pipelines deploy non-production and production in the same stage: `cd-shared.yaml` deploys `nsub` and `psub` side by side,
 and `extends/cd-customer.yaml` deploys each customer's `dev` and `prod` side by side. The flow model keeps CD within non-production and
 reaches production through a DEPLOY pipeline behind a manual gate
 ([FDR-CD-CDSTAYSINNONPROD](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdstaysinnonprod),
-[FDR-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodprogressionisdeploy)), and
-`.ado/pipelines/` holds no DEPLOY pipeline. Read-only standing access to the subscriptions is a tenant setting, outside the repository.
+[FDR-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodprogressionisdeploy)), and `.ado/pipelines/`
+holds no DEPLOY pipeline. Read-only standing access to the subscriptions is a tenant setting, outside the repository.
 
 ##### OE:06 in `foundation`
 
@@ -529,8 +528,8 @@ The automation is the catzc module system itself: every operation is a function 
 previewable with `-DryRun` ([ADR-AUTO-DRYRUN](../../automation/dry-run.md)), and bounded in time
 ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). Pipelines call it
 through one runner and keep their YAML declarative
-([FDR-CD-TYPE-ALLTHROUGHRUNNER](../../flow/pipeline-types.md#rule-fdr-cd-type-allthroughrunner)), so the same function runs on a
-devbox and in a pipeline ([ADR-AUTO-PARITY](../../automation/devbox-pipeline-parity.md)). It drives Azure through the az CLI
+([FDR-CD-TYPE-ALLTHROUGHRUNNER](../../flow/pipeline-types.md#rule-fdr-cd-type-allthroughrunner)), so the same function runs on a devbox and
+in a pipeline ([ADR-AUTO-PARITY](../../automation/devbox-pipeline-parity.md)). It drives Azure through the az CLI
 ([ADR-AZ-CLI](../prefer-az-cli.md)).
 
 Desired state in Azure is held by the landing zone's policy assignments, which deny a resource that breaks them in production and audit it
@@ -568,12 +567,12 @@ still controlled protocols for emergencies.
 #### What OE:11 means here
 
 The flow model defines safe deployment: one tagged artifact, built once and never rebuilt
-([FDR-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-separatepipelinekinds)), promoted
-through non-production behind the RC and RBC gates
-([FDR-CD-TWORELEASEGATES](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)), then staged inactive in
-pre-prod and activated to production
-([FDR-CD-TWOENVIRONMENTACTIVATION](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-twoenvironmentactivation)). A gate
-that fails stops the line, and a DEPLOY pipeline deploys one pinned commit's artifact, so rolling back is deploying the commit before it
+([FDR-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-separatepipelinekinds)), promoted through
+non-production behind the RC and RBC gates
+([FDR-CD-TWORELEASEGATES](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)), then staged inactive in pre-prod and
+activated to production
+([FDR-CD-TWOENVIRONMENTACTIVATION](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-twoenvironmentactivation)). A gate that fails
+stops the line, and a DEPLOY pipeline deploys one pinned commit's artifact, so rolling back is deploying the commit before it
 ([FDR-CD-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-fdr-cd-type-deployispinned)).
 
 The shipped pipelines realise part of this: they deploy only on `main`, after the CI stage, in dependency order, each into an asserted

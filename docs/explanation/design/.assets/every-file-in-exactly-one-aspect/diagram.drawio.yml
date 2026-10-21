@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "04039c068b5b"
+#     with_body_sha: "091ef9d4f5fd"
 # ---
 
 description:
@@ -79,13 +79,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-ASPECT-ASPECTISAGLOBSET
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
-          - DDR-ASPECT-PARTITIONISCHECKED
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -104,7 +97,7 @@ content:
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
           - DDR-ASPECT-PARTITIONISCHECKED
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT-ASPECTISAGLOBSET
@@ -176,13 +169,6 @@ content:
           - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
           - DDR-ASPECT-PARTITIONISCHECKED
     grid:
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-ASPECT-ASPECTISAGLOBSET
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
-          - DDR-ASPECT-PARTITIONISCHECKED
       - cell: docs/markdown
         by:
           - docs/drs/design/dora-explains.md

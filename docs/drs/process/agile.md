@@ -72,9 +72,8 @@ When a process decision is in question, do not ask "does the framework say to do
 change, and which value or principle does it serve?" If a practice serves none of them, it is ceremony and can be dropped
 ([PDR-NOWASTE](../principles/reduce-waste.md)). If a practice contradicts a value, change the practice, not the value.
 
-Treat the values ([WDR-VALUES](agile-values.md)) and principles ([WDR-AGILEPRINCIPLES](agile-principles.md)) as the two companion
-articles that carry the detail; this article fixes only what agile _is_ and how the word is used across the rest of the repository's process
-rules.
+Treat the values ([WDR-VALUES](agile-values.md)) and principles ([WDR-AGILEPRINCIPLES](agile-principles.md)) as the two companion articles
+that carry the detail; this article fixes only what agile _is_ and how the word is used across the rest of the repository's process rules.
 
 ## References
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "75c594d28b4d"
+#     with_body_sha: d7b069bd9163
 # ---
 
 description:
@@ -167,17 +167,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-REPO-ROOTCFG-COMMITTEDFLAG
-          - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
-          - ADR-REPO-ROOTCFG-HEADEDCOPY
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-          - ADR-REPO-ROOTCFG-REGISTRY
-          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
-          - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
       - cell: docs/-/.
         by:
           - docs/drs/index.md
@@ -224,7 +213,7 @@ content:
           - ADR-REPO-ROOTCFG-REGISTRY
           - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
           - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-COMMITTEDFLAG
@@ -400,7 +389,7 @@ content:
           - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
           - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
     module-neighbourhood:
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-COMMITTEDFLAG
@@ -477,17 +466,6 @@ content:
           - pwsh/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
           - pwsh/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
           - pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs
-          - ADR-REPO-ROOTCFG-COMMITTEDFLAG
-          - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
-          - ADR-REPO-ROOTCFG-HEADEDCOPY
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-          - ADR-REPO-ROOTCFG-REGISTRY
-          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
-          - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-REPO-ROOTCFG-COMMITTEDFLAG
           - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
           - ADR-REPO-ROOTCFG-FULLYMANAGED

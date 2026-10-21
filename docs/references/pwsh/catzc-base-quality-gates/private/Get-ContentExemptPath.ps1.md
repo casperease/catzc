@@ -17,8 +17,8 @@ linguist-generated (files the automation writes, aligned at their authored input
 purpose), catzc-contract (contract assets under `contracts/<unit>/<version>/`, whose bytes are what a contract check compares —
 [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)), and catzc-unordered
 (imports under the unordered track, not yet sorted —
-[DDR-TRACK-UNORDEREDTRACK](../../../../drs/design/tracks.md#rule-ddr-track-unorderedtrack)). The classes are declared in the
-authored .gitattributes that Build-RootConfig renders to the root
+[DDR-TRACK-UNORDEREDTRACK](../../../../drs/design/tracks.md#rule-ddr-track-unorderedtrack)). The classes are declared in the authored
+.gitattributes that Build-RootConfig renders to the root
 ([ADR-REPO-ROOTCFG-FULLYMANAGED](../../../../drs/repository/generated-root-configs.md#rule-adr-repo-rootcfg-fullymanaged)), never in a list
 of a tool's own; this function only names which classes mean "leave as written".
 

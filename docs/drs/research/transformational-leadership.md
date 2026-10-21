@@ -1,4 +1,4 @@
-# ADR: DORA — Transformational leadership
+# RDR: DORA — Transformational leadership
 
 ## Rules: RDR-DORA-LEADERSHIP
 

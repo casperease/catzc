@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e054be545f05
+#     with_body_sha: "6f246055f7e5"
 # ---
 
 description:
@@ -123,10 +123,12 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: ado-pipelines/pipelines/.
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: ado-pipelines/pipelines/extends
         by:
@@ -159,8 +161,8 @@ content:
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
           - docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
@@ -177,6 +179,10 @@ content:
           - docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationVerdict.ps1.md
           - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+      - cell: github-workflows/workflows/.
+        by:
+          - .github/workflows/ci-pwsh.yml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Azure.Cli/.
         by:
@@ -209,21 +215,21 @@ content:
         by:
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
           - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Docs/tests
+        by:
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-      - cell: pwsh/Catzc.Base.Docs/private
+      - cell: pwsh/Catzc.Base.Drs/private
         by:
           - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
-      - cell: pwsh/Catzc.Base.Docs/tests
-        by:
-          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-          - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
@@ -306,9 +312,12 @@ content:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
+      - cell: subject/Catzc.Base.Drs
+        by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
@@ -345,11 +354,17 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/pipelines
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+      - cell: subject/workflows
+        by:
+          - .github/workflows/ci-pwsh.yml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
     axis:
       - cell: DSGN/*

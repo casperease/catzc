@@ -30,8 +30,8 @@ It also runs two checks whose mode is configured in drs-checks.yml (Catzc.Base.D
 A check in gate mode adds its findings to this gate's issues. A check in report mode writes its own report (`out/test-adr-<check>/`,
 Write-QualityGateReport), prints its findings and their count, and never fails the run.
 
-The registry's own invariants (unique external codes, domain links that are declared and acyclic) are DrsConfig construction rules, not
-this gate's.
+The registry's own invariants (unique external codes, domain links that are declared and acyclic) are DrsConfig construction rules, not this
+gate's.
 
 ### parameter `OutputFolder`
 

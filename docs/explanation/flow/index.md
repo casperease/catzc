@@ -9,8 +9,9 @@ Globset layers        peers in a layer never share a file, except loose-filesets
 Globset roles         one ordered program; its three views are derived live
 ```
 
-These articles explain decisions from the [flow ADR domain](../../drs/index.md#flow): promotion, the pipeline runner, and the globsets that
-decide which pipelines a change triggers. Each article narrates one diagram; the [explanation index](../index.md) says how to read them.
+These articles explain decisions from the [flow decision-record domain](../../drs/index.md#flow): promotion, the pipeline runner, and the
+globsets that decide which pipelines a change triggers. Each article narrates one diagram; the [explanation index](../index.md) says how to
+read them.
 
 ## The promotion flow
 

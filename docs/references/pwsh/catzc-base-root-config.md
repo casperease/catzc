@@ -58,8 +58,8 @@ instead of prose — so each managed root file is one registry entry, never a be
 Two design points carry the weight. First, **opt-out is the default**: a root file with no entry (or an entry with `optIn: false`) is simply
 not touched, so takeover is always an explicit, reviewable registry change, and the rollout can proceed file by file. Second, **`committed`
 is one boolean, not two systems**: `importer.ps1` cannot be a gitignored copy-in (it is the load entry point itself), but it is still fully
-managed — its `generator` is `New-Importer` ([Catzc.Base.ModuleSystem](catzc-base-module-system.md)), and the same materialisation reports it
-drift-free instead of silently rewriting a tracked file. The importer tail runs `Build-RootConfig` as a janitor on every load, so a clean
+managed — its `generator` is `New-Importer` ([Catzc.Base.ModuleSystem](catzc-base-module-system.md)), and the same materialisation reports
+it drift-free instead of silently rewriting a tracked file. The importer tail runs `Build-RootConfig` as a janitor on every load, so a clean
 tree costs a few file reads and writes nothing. Because the janitor runs on every load, a bad root config breaks every session's next
 import, not just the session that wrote it.
 

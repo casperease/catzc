@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4c30e944c758"
+#     with_body_sha: b61387db7316
 # ---
 
 description:
@@ -170,14 +170,9 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - FDR-CD-PREPRODRUNG
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
         by:
@@ -218,8 +213,11 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-CDSTAYSINNONPROD
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-DISCARDISTERMINAL
@@ -228,7 +226,7 @@ content:
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
           - FDR-CD-PREPRODRUNG
           - FDR-CD-TWORELEASEGATES
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-CDSTAYSINNONPROD
@@ -291,14 +289,9 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipeline-yaml
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - FDR-CD-PREPRODRUNG
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - FDR-CD-TWORELEASEGATES
       - cell: docs/markdown
         by:
@@ -363,8 +356,8 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
           - FDR-CD-CDSTAYSINNONPROD
           - FDR-CD-LIFE-DIRTYHEADUNSAFE

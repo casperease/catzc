@@ -281,7 +281,7 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 
 - [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — consistent conventions enable faster code review.
 - [Documentation quality](../../../references/dora/capabilities.md#documentation-quality) — clear structure serves as living documentation.
-- [Test automation](../../../references/dora/capabilities.md#test-automation) — every analyzer rule names the ADR rule it enforces, so rule
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — every analyzer rule names the DRS rule it enforces, so rule
   coverage counts it.
 - [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 

@@ -1,4 +1,4 @@
-# ADR: ADR code language — a path of named segments, every string a fact
+# ADR: DRS code language — a path of named segments, every string a fact
 
 ## Rules: ADR-REPO-DRSCODE
 
@@ -6,8 +6,8 @@
 
 The **decision records system** (DRS) is the one system that holds every **decision record**: the domains of every record kind, their
 records and rules, the index and the registry, under its one root, `docs/drs/`. Every record is of exactly one **record kind** registered in
-`drs.yml` (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`), and the kinds together are called "XDR". "ADR" names the `ADR` kind only,
-never the system or a record of another kind.
+`drs.yml` (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`), and the kinds together are called "XDR". "ADR" names the `ADR` kind only, never
+the system or a record of another kind.
 
 - [One system holds every record](drs-code-language.md#one-system-holds-every-record)
 
@@ -31,7 +31,7 @@ its kind, then its code where it has one.
 
 ### Rule ADR-REPO-DRSCODE-ADRSEGMENT
 
-The segment after the domain names the ADR, unique within its parent. A vendor reference adds one group level before it, so the ADRs that
+The segment after the domain names the ADR, unique within its parent. A vendor reference adds one group level before it, so the decision records that
 answer one vendor framework are `ADR-<DOMAIN>-<FRAMEWORK>-<NAME>`, the framework's short name as the group segment.
 
 - [Vendor references are a level](drs-code-language.md#vendor-references-are-a-level)
@@ -72,7 +72,7 @@ never reused; a rule whose meaning changes takes a new name.
 
 A citation names a set only by a prefix. There is no group, list, or range syntax inside a code: several facts are several codes. A list
 that a tool derives (a file head's `adrs:`) writes a code that covers every rule of an ADR as the ADR's code; hand-written prose never
-collapses. In a diagram subtitle an ADR code names the ADR a slide supports, not every rule of it: the article's Supports line names the
+collapses. In a diagram subtitle a record code names the ADR a slide supports, not every rule of it: the article's Supports line names the
 rules.
 
 - [No subset spelling](drs-code-language.md#no-subset-spelling)
@@ -104,7 +104,7 @@ its own name, the DRS, and a record of any kind is a decision record. "XDR" is t
 
 ### One path for every level
 
-The repository's decisions form a tree: domains hold ADRs, and ADRs hold rules. One grammar with one separator spells every level of that
+The repository's decisions form a tree: domains hold decision records, and decision records hold rules. One grammar with one separator spells every level of that
 tree, so a domain, an ADR, and a rule are read, searched, and parsed the same way. A second spelling for one level, such as a number after
 `#` or `:`, is a second small language with its own parser and its own way to go wrong.
 
@@ -141,7 +141,7 @@ word list `.cspell/drs-codes.txt`, which the root `cspell.yml` loads beside the 
 ### Every string is a selector
 
 Because a prefix of a code is itself a code, a search, a filter, or a test-tag match needs no wildcard syntax: the shorter code is the wider
-selection. Matching by whole segments keeps two ADRs whose names merely start alike apart.
+selection. Matching by whole segments keeps two decision records whose names merely start alike apart.
 
 ### One string, one fact
 

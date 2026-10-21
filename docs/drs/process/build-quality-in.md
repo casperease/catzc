@@ -34,9 +34,9 @@ production is an incident.
 ## Context
 
 Traditional quality assurance is an inspection step: build the thing, then hand it to a separate stage that looks for defects and sends the
-bad ones back. W. Edwards Deming's objection, adopted by the Toyota Production System ([WDR-LEAN](lean.md)), is that inspection at the
-end is both too late and too weak — it finds defects after the cost of making them is already sunk, and it cannot find them all. Toyota's
-answer is jidoka: build quality into each step so the output is correct by construction, and stop the line when it is not [^2].
+bad ones back. W. Edwards Deming's objection, adopted by the Toyota Production System ([WDR-LEAN](lean.md)), is that inspection at the end
+is both too late and too weak — it finds defects after the cost of making them is already sunk, and it cannot find them all. Toyota's answer
+is jidoka: build quality into each step so the output is correct by construction, and stop the line when it is not [^2].
 
 The Poppendiecks carry this into software as "build integrity in" [^1]. It is the natural partner of poka-yoke
 ([PDR-POKAYOKE](../principles/poka-yoke.md)): where poka-yoke is the mechanism (prevent, else detect early), building quality in is the
@@ -49,9 +49,8 @@ Quality is a property of how the work is produced, not a gate at the end of it. 
 - **No inspection stage.** There is no step whose job is to find defects in finished work. The gates run _as_ the work is produced, and a
   change is not "done pending QA" — it is done when its quality gates are green.
 - **Prevent, then detect.** The first choice is to make the defect impossible to express — derive behaviour from convention so there is
-  nothing to get wrong ([PDR-POKAYOKE](../principles/poka-yoke.md), [PDR-REDUCEVAR](../principles/reduce-variability.md)). Where
-  that is impossible, catch it at the earliest moment: an editor rule, a static-analysis quality gate, an assertion at the first line of
-  execution.
+  nothing to get wrong ([PDR-POKAYOKE](../principles/poka-yoke.md), [PDR-REDUCEVAR](../principles/reduce-variability.md)). Where that is
+  impossible, catch it at the earliest moment: an editor rule, a static-analysis quality gate, an assertion at the first line of execution.
 - **Same gates everywhere.** The quality checks are the same on the devbox and in the pipeline and must agree, so "it passed on my machine"
   and "it passed in CI" are the same statement.
 
@@ -65,16 +64,15 @@ at its origin.
 to be a little careless. Removing the net is what forces each step to be correct by construction — the same reason the line stops rather
 than routing defects to a rework area ([WDR-ANDON](holding-the-line.md)).
 
-**Distance is cost.** The defects waste ([PDR-NOWASTE](../principles/reduce-waste.md)) is explicit: a fault's price is proportional to
-how far it travels before detection. Concentrating quality at the furthest-left point is the cheapest possible policy.
+**Distance is cost.** The defects waste ([PDR-NOWASTE](../principles/reduce-waste.md)) is explicit: a fault's price is proportional to how
+far it travels before detection. Concentrating quality at the furthest-left point is the cheapest possible policy.
 
 ## How to apply
 
 When adding a capability, ask first whether the defect it could introduce can be made impossible — a convention, a type, a constrained input
-([PDR-POKAYOKE](../principles/poka-yoke.md)). If not, add the check that catches it earliest and wire it into the quality gates that
-run on both the devbox and the pipeline. Never propose a "review will catch it" or "QA will find it" step as the quality mechanism — those
-are inspection, and inspection is what this rule replaces. A change is finished when its gates are green, not when a later stage approves
-it.
+([PDR-POKAYOKE](../principles/poka-yoke.md)). If not, add the check that catches it earliest and wire it into the quality gates that run on
+both the devbox and the pipeline. Never propose a "review will catch it" or "QA will find it" step as the quality mechanism — those are
+inspection, and inspection is what this rule replaces. A change is finished when its gates are green, not when a later stage approves it.
 
 ## References
 

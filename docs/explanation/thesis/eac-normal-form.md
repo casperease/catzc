@@ -48,8 +48,8 @@ each file into the form before it leaves the track for its home.
   (TDR-NORMALFORM-UNCONTESTED).
 - Fragment migration brings an unordered fragment into the form through the one change process, and until then it decides nothing about the
   delivered system (TDR-NORMALFORM-MIGRATIONREACHESTHEFORM).
-- An import lands in the unordered track, and nothing reads or defaults to the track (DDR-TRACK-UNORDEREDTRACK); sorting moves one file
-  per commit (DDR-TRACK-MIGRATEONEFILEPERCOMMIT).
+- An import lands in the unordered track, and nothing reads or defaults to the track (DDR-TRACK-UNORDEREDTRACK); sorting moves one file per
+  commit (DDR-TRACK-MIGRATEONEFILEPERCOMMIT).
 
 ## See also
 

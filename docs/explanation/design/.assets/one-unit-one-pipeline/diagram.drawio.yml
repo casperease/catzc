@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6d4daaf88d50"
+#     with_body_sha: "2d9414087efb"
 # ---
 
 description: "A track composes into a deployable-unit, and a deployable-unit binds one pipeline: the delivery side of cats in a line."
@@ -64,9 +64,6 @@ content:
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-ONETRACKTYPE
-          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
           - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: docs/-/.
         by:
@@ -97,7 +94,7 @@ content:
           - DDR-TRACK-ONETRACKTYPE
           - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
           - DDR-TRACK-TRACKISPLACEDCLUSTER
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-DEPLOYABLEUNIT
@@ -173,9 +170,6 @@ content:
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-ONETRACKTYPE
-          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
           - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: docs/markdown
         by:

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c17507fc4fad
+#     with_body_sha: d05d4a44cad8
 # ---
 
 description:
@@ -101,13 +101,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -151,7 +144,7 @@ content:
         by:
           - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
@@ -192,7 +185,7 @@ content:
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
@@ -213,13 +206,6 @@ content:
       - cell: subject/Catzc.Tooling.Environment
         by:
           - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
-          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST

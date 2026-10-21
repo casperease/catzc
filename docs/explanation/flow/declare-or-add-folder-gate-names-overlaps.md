@@ -39,8 +39,7 @@ either passes or names every same-layer pair that shares a file.
 
 ## Why it holds
 
-- Units and loose-filesets are declared, the `module` layer is derived-only, and declaring it is rejected
-  (FDR-CD-GLOBS-EVERYSETHASLAYER).
+- Units and loose-filesets are declared, the `module` layer is derived-only, and declaring it is rejected (FDR-CD-GLOBS-EVERYSETHASLAYER).
 - Within a layer, no two globsets select a common file on their own contribution, and a violation names both sets and a shared file; the
   `loose-fileset` layer is exempt (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
 

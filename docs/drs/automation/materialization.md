@@ -22,16 +22,16 @@ displayed; a display shows an explicitly declared value only.
 ### Rule ADR-AUTO-MATERIAL-SCOPEDSHACOMMITKEY
 
 The commit key of a resource is the scoped sha of its own globset, the patterns of `globs.yml` that select its inputs
-([DDR-TRACK-DEPLOYABLEUNIT](../design/tracks.md#rule-ddr-track-deployableunit)), never the sha of the whole repository. A config
-variant of the globset is a different resource with its own key.
+([DDR-TRACK-DEPLOYABLEUNIT](../design/tracks.md#rule-ddr-track-deployableunit)), never the sha of the whole repository. A config variant of
+the globset is a different resource with its own key.
 
 - [The commit key](#the-commit-key)
 
 ### Rule ADR-AUTO-MATERIAL-DECLAREDPERKIND
 
 Materialization is declared per resource kind, in a config entry with one default declared once on its config type
-([PDR-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-pdr-config-defaultdeclaredonce)). An instance of the
-kind changes it only by an explicit value of its own, and a resource that costs milliseconds to compute declares on-demand and never earns a
+([PDR-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-pdr-config-defaultdeclaredonce)). An instance of the kind
+changes it only by an explicit value of its own, and a resource that costs milliseconds to compute declares on-demand and never earns a
 commit copy.
 
 - [Declared per kind](#declared-per-kind)

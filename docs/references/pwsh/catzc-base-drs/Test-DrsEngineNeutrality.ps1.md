@@ -18,8 +18,8 @@ engine_neutrality.domains in drs-checks.yml. The engine-agnostic rules hold for 
 rule, never one engine's syntax: each token under engine_neutrality.tokens is a regular expression for such syntax, and every match is a
 finding, reported with its file and line. Naming a catzc command is allowed, so the tokens list engine built-ins only.
 
-A domain in that list that drs.yml does not declare is a finding too. A rule set with no file, or several, is Test-DrsRegistry's finding
-and is skipped.
+A domain in that list that drs.yml does not declare is a finding too. A rule set with no file, or several, is Test-DrsRegistry's finding and
+is skipped.
 
 The check's mode is engine_neutrality.mode (Catzc.Base.Drs.DrsChecksConfig): in gate mode the gate throws once listing every finding; in
 report mode it prints the findings and their count, writes the same report, and never throws.

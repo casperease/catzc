@@ -19,8 +19,8 @@ scope (Get-CommentScope). A file keeps no long comment and the prose lives once,
 - a page section whose code line the file no longer has, so its prose belongs to nothing.
 
 What the configured thresholds are is comments.yml's
-([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
-A source-tree tool: it throws in build mode (Assert-SourceTree).
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)). A
+source-tree tool: it throws in build mode (Assert-SourceTree).
 
 ### parameter `Path`
 

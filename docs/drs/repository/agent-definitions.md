@@ -70,8 +70,8 @@ skill file leave free, at the key path the carrier registry declares
 ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), and holds only the authored `config` part, with the floor
 as the author's line in it, so no imprint touches it. The roof counts each top-level front-matter key (`name`, `description`,
 `user-invocable`, `allowed-tools`, and the `metadata` key that holds the catzc block, though not the block itself) as well as each body
-line, so five of the ten are spent before the body begins; a wrapped
-continuation neither costs nor saves a line, so a new item fits only by merging it into an existing line.
+line, so five of the ten are spent before the body begins; a wrapped continuation neither costs nor saves a line, so a new item fits only by
+merging it into an existing line.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
@@ -128,8 +128,8 @@ is the standard, so an agent missing from it is never picked, and a stale entry 
 
 Most delegated work is the same shape: one task from a coordinator's brief, a named set of files, each file verified before the next, and a
 fixed report. One standard agent carries that shape, so each delegation does not invent its own. A specialised agent pays for itself only
-where the job needs knowledge the standard agent lacks, such as the diagram grammar of [DDR-VISUAL](../design/visual-design.md), and
-that need is exactly what a supporting rule states.
+where the job needs knowledge the standard agent lacks, such as the diagram grammar of [DDR-VISUAL](../design/visual-design.md), and that
+need is exactly what a supporting rule states.
 
 ### Robots and capabilities
 
@@ -137,8 +137,8 @@ Every spawn of a sub-agent reads its whole definition cold, so a long definition
 one agent is written again into the next. A robot keeps its own file to the job and its steps, and loads the know-how it shares with other
 robots from capabilities: one skill file each, injected whole by the harness at spawn through the `skills` list, so a load costs no turn. A
 capability is written once and read by every robot that lists it ([PDR-CONFIG](../principles/configure-not-program.md),
-[PDR-REDUCEVAR](../principles/reduce-variability.md)). The roofs keep both small enough to be read whole on every spawn, and live in
-the registry as settings, never as literals in the gate.
+[PDR-REDUCEVAR](../principles/reduce-variability.md)). The roofs keep both small enough to be read whole on every spawn, and live in the
+registry as settings, never as literals in the gate.
 
 A skill's own `model` key is a selection the harness honours only when the skill is invoked or forked, never when it is preloaded, so it
 cannot restrict the robot that loads it. The restriction is catzc data instead: the model floor in the `config` part of the capability's

@@ -164,9 +164,9 @@ where every config file is already `.yml`.
   ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)) that checks the `.ado/pipelines/` tree
   against this ADR: the type prefix (FDR-CD-PIPELINE-TYPEPREFIX), flat placement and the closed set of per-kind template folders with
   matching fragment kinds (ADR-ADO-NAME-FLATPIPELINESFOLDER, ADR-ADO-NAME-TEMPLATEKINDFOLDER), the `.yaml` extension
-  (FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION), and absolute `/.ado/pipelines/...` template references
-  (ADR-ADO-NAME-ABSOLUTETEMPLATEPATH). It collects one issue per violation, each naming its rule code, and throws once listing them all; its
-  L1 integrity test requires zero issues over the real tree, so a mis-named or misplaced pipeline fails CI, not just review.
+  (FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION), and absolute `/.ado/pipelines/...` template references (ADR-ADO-NAME-ABSOLUTETEMPLATEPATH). It
+  collects one issue per violation, each naming its rule code, and throws once listing them all; its L1 integrity test requires zero issues
+  over the real tree, so a mis-named or misplaced pipeline fails CI, not just review.
 
 ## Consequences
 

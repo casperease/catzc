@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "131ad74f9b85"
+#     with_body_sha: "05ed976afd34"
 # ---
 
 description:
@@ -96,12 +96,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-DEPM-CODEBUILTFROM
-          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-          - ADR-AUTO-DEPM-TWOSECTIONS
       - cell: docs/-/.
         by:
           - docs/drs/automation/controlling-module-dependencies.md
@@ -114,7 +108,7 @@ content:
           - ADR-AUTO-DEPM-CODEBUILTFROM
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
           - ADR-AUTO-DEPM-TWOSECTIONS
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DEPM-CODEBUILTFROM
@@ -135,12 +129,6 @@ content:
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
           - ADR-AUTO-DEPM-TWOSECTIONS
     grid:
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-DEPM-CODEBUILTFROM
-          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-          - ADR-AUTO-DEPM-TWOSECTIONS
       - cell: docs/markdown
         by:
           - docs/drs/automation/controlling-module-dependencies.md

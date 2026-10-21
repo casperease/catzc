@@ -47,10 +47,10 @@ coverage check red, so the omission cannot merge.
 
 ## Context
 
-The toolset runs in two modes ([run-modes](../design/run-modes.md), `DDR-RUNMODE`): source mode, loading each module from
-`pwsh/<Module>/`, and build mode, loading the same modules from a built package. In source mode a module's code sits next to its assets, so
-a lookup anchored on the wrong root often finds the file anyway. The same lookup fails only when the module runs from somewhere else — the
-build — which is the mode least exercised while writing the code.
+The toolset runs in two modes ([run-modes](../design/run-modes.md), `DDR-RUNMODE`): source mode, loading each module from `pwsh/<Module>/`,
+and build mode, loading the same modules from a built package. In source mode a module's code sits next to its assets, so a lookup anchored
+on the wrong root often finds the file anyway. The same lookup fails only when the module runs from somewhere else — the build — which is
+the mode least exercised while writing the code.
 
 Three anchors give a wrong answer outside the source tree, each in its own way:
 

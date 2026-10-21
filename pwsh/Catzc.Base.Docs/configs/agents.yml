@@ -137,12 +137,7 @@ agents:
   - name: 2020-hindsight
     persona: Jack
     supported_by:
-      [
-        WDR-KAIZEN-ADAPTFROMEVIDENCE,
-        PDR-NOWASTE-SEVENWASTES,
-        ADR-REPO-AI-TRUSTTHETREE,
-        PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS,
-      ]
+      [WDR-KAIZEN-ADAPTFROMEVIDENCE, PDR-NOWASTE-SEVENWASTES, ADR-REPO-AI-TRUSTTHETREE, PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS]
     checks: []
     model_reason:
       judges whether a learning is already automated, declared once as a default, or a gap, across the module articles, configs,

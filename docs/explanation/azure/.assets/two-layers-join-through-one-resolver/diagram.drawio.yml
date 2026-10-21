@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0487fe922ffa"
+#     with_body_sha: "7c6cd3b46241"
 # ---
 
 description:
@@ -103,8 +103,13 @@ content:
     code-locations:
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CUSTOMER-TWOBINDINGS
+          - .ado/pipelines/cd-shared.yaml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+          - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+      - cell: ado-pipelines/pipelines/extends
+        by:
+          - .ado/pipelines/extends/cd-customer.yaml
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
@@ -150,9 +155,26 @@ content:
           - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - ADR-AZ-CUSTOMER-TWOBINDINGS
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+          - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+      - cell: infrastructure/discovery/.
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+          - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+      - cell: infrastructure/expedition/.
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+          - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+      - cell: infrastructure/foundation/.
+        by:
+          - infrastructure/templates/foundation/options.yml
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
@@ -228,7 +250,7 @@ content:
         by:
           - pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs
           - ADR-AZ-CUSTOMER-TWOBINDINGS
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER-TWOBINDINGS
@@ -238,7 +260,6 @@ content:
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
@@ -292,7 +313,7 @@ content:
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER-TWOBINDINGS
@@ -302,7 +323,6 @@ content:
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
@@ -310,10 +330,28 @@ content:
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - ADR-AZ-CUSTOMER-TWOBINDINGS
+      - cell: subject/discovery
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+          - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+      - cell: subject/expedition
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+          - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+      - cell: subject/foundation
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+          - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
       - cell: subject/pipelines
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CUSTOMER-TWOBINDINGS
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/extends/cd-customer.yaml
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS

@@ -14,7 +14,7 @@ The thin platform           consumers bind to one CLI; the rest is delegated to 
 Server remote integration   one door in, one stable point out
 ```
 
-These articles explain decisions from the [design ADR domain](../../drs/index.md#design). Each article narrates one diagram; the
+These articles explain decisions from the [design decision-record domain](../../drs/index.md#design). Each article narrates one diagram; the
 [explanation index](../index.md) says how to read them.
 
 ## Commit lifecycle states

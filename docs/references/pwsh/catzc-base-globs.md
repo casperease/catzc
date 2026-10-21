@@ -32,8 +32,8 @@ but `loose-fileset` no two sets may overlap on their OWN contribution — a boun
 Resolving a globset to its actual members — the tracked-file universe (`git ls-files`) intersected with the set's membership, ordinally
 sorted — and computing the durable SHA over them: per file, SHA-256 of the CR-stripped bytes; folded as `<path>|<digest>` lines; one
 combined SHA-256. The identity is EOL-insensitive and rename-sensitive, computed live and never committed: it is the cross-machine identity
-the session-memory protection map keys on (responsibility:4), not a trigger and not a committed artifact. Membership also answers what a file
-is: its kind (its role, and a subkind where it has one) is the first entry of the file-kinds registry whose globs it matches.
+the session-memory protection map keys on (responsibility:4), not a trigger and not a committed artifact. Membership also answers what a
+file is: its kind (its role, and a subkind where it has one) is the first entry of the file-kinds registry whose globs it matches.
 
 ### responsibility:3 — Native triggers and git reflection
 

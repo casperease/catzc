@@ -1,4 +1,4 @@
-# ADR: DORA — Empowering teams to choose tools
+# RDR: DORA — Empowering teams to choose tools
 
 ## Rules: RDR-DORA-TOOLCHOICE
 

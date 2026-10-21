@@ -1,4 +1,4 @@
-# ADR: Pipeline runner pattern — how pipelines invoke automation
+# Flow: Pipeline runner pattern — how pipelines invoke automation
 
 ## Rules: FDR-CD-RUNNER
 

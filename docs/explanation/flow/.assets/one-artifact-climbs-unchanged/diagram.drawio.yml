@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f3fb04175b6c
+#     with_body_sha: "5a10cf04a92d"
 # ---
 
 description:
@@ -110,13 +110,14 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-GATEDEFINED
-          - FDR-CD-PRODPROGRESSIONISDEPLOY
-          - FDR-CD-SEPARATEPIPELINEKINDS
-          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - FDR-CD-TWORELEASEGATES
+      - cell: ado-pipelines/pipelines/steps
+        by:
+          - .ado/pipelines/steps/download-artifact.yaml
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
       - cell: docs/-/.
         by:
           - docs/drs/flow/cd-discipline-and-promotion-flow.md
@@ -129,8 +130,8 @@ content:
           - docs/references/ado/pipelines/deploy-shared.yaml.md
           - docs/references/ado/pipelines/steps/download-artifact.yaml.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
@@ -149,7 +150,11 @@ content:
           - FDR-CD-SEPARATEPIPELINEKINDS
           - FDR-CD-SHORTINTEGRATIONCYCLE
           - FDR-CD-TWORELEASEGATES
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-CDSTAYSINNONPROD
@@ -158,10 +163,9 @@ content:
           - FDR-CD-SEPARATEPIPELINEKINDS
           - FDR-CD-SHORTINTEGRATIONCYCLE
           - FDR-CD-TWORELEASEGATES
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
           - FDR-CD-CDSTAYSINNONPROD
           - FDR-CD-GATEDEFINED
           - FDR-CD-PRODPROGRESSIONISDEPLOY
@@ -209,12 +213,11 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipeline-yaml
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-GATEDEFINED
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
+          - .ado/pipelines/steps/download-artifact.yaml
           - FDR-CD-PRODPROGRESSIONISDEPLOY
-          - FDR-CD-SEPARATEPIPELINEKINDS
-          - FDR-CD-SHORTINTEGRATIONCYCLE
           - FDR-CD-TWORELEASEGATES
       - cell: docs/markdown
         by:
@@ -228,8 +231,8 @@ content:
           - docs/references/ado/pipelines/deploy-shared.yaml.md
           - docs/references/ado/pipelines/steps/download-artifact.yaml.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
@@ -241,8 +244,8 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: pwsh/bcl
         by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
           - FDR-CD-CDSTAYSINNONPROD
           - FDR-CD-GATEDEFINED

@@ -1,4 +1,4 @@
-# ADR: Module types — what a module is placed as
+# Design: Module types — what a module is placed as
 
 ## Rules: DDR-MODTYPE
 
@@ -22,8 +22,8 @@ place's root). `module` and `moduletype` are read from the registry and never gu
 ### Rule DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES
 
 Each track type **admits** a set of module types, declared on the track type
-([DDR-TRACKTYPE-DECLAREDONCE](track-types.md#rule-ddr-tracktype-declaredonce)), and a module's type must be admitted by the type
-of the track that holds it: `modules` admits `pwsh-folder`, `pwsh-psm1`, `python`, `go` and `bash`, one module type per language track,
+([DDR-TRACKTYPE-DECLAREDONCE](track-types.md#rule-ddr-tracktype-declaredonce)), and a module's type must be admitted by the type of the
+track that holds it: `modules` admits `pwsh-folder`, `pwsh-psm1`, `python`, `go` and `bash`, one module type per language track,
 `infrastructure` admits `bicep`, `pipelines` admits `pipeline` (the track's vendor says which platform), `vendor-settings` admits
 `settings`, and `vendored-code` admits the module types of the track it is nested in. A module of a type its track does not admit is a load
 failure, so a second stack inside a track shows as a violation without reading the file
@@ -46,7 +46,7 @@ for a module of a deployable track and is left out for a holder's, so a head nev
 
 The word module is used for a PowerShell folder, a Bicep template, a tool's dot-folder and a Python project. They share one fact: each is a
 unit with a name and a place. The module-types registry states that fact once per sort. The generic module model (members, languages,
-engines, order) is a separate concern; this ADR fixes only a module's placement and type.
+engines, order) is a separate concern; this DDR fixes only a module's placement and type.
 
 ### Module types
 
@@ -76,7 +76,7 @@ A module is a unit placed in a track; its type comes from the registry
 
 ## Consequences
 
-- One registry says what a module is; the file-meta ADR only says the head carries it.
+- One registry says what a module is; the file-meta decision record only says the head carries it.
 - `pipeline` stays one module type: the platform is the track's vendor, so ADO and GitHub pipelines differ by a declared fact, not by a
   second type.
 - The cost is one more declaration (the `admits` list on each track type), done by regeneration of the heads.

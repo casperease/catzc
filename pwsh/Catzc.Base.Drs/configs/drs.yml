@@ -254,9 +254,9 @@ domains:
     role: optimisable
     description: >-
       How the team works: the Agile Manifesto's values and principles, lean flow as the Toyota Production System maps to software, and one
-      shared vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`WDR-KAIZEN`); the
-      design, flow, and implementation domains put its practices into effect — stopping the line, building quality in, pulling work, and
-      draining queues.
+      shared vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`WDR-KAIZEN`); the design,
+      flow, and implementation domains put its practices into effect — stopping the line, building quality in, pulling work, and draining
+      queues.
     depends_on: [research, principles]
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # how the team works, along the whole chain

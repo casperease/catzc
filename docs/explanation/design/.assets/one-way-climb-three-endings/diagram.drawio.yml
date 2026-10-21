@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "02f8d8f97356"
+#     with_body_sha: "2b7bb2d6c112"
 # ---
 
 description:
@@ -163,14 +163,6 @@ content:
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
           - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
           - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
-          - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
       - cell: docs/-/.
         by:
           - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
@@ -197,7 +189,7 @@ content:
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
           - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
           - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-LIFE-DISCARDISTERMINAL
@@ -205,7 +197,7 @@ content:
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
           - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
           - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-LIFE-DISCARDISTERMINAL
@@ -235,14 +227,6 @@ content:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
-          - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - FDR-CD-LIFE-DISCARDISTERMINAL
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG

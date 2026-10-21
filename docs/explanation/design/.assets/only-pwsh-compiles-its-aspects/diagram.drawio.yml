@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d3ee429f0639
+#     with_body_sha: e0c14c479a85
 # ---
 
 description:
@@ -98,12 +98,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-ASPECT-ASPECTISAGLOBSET
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -121,7 +115,7 @@ content:
           - DDR-ASPECT-ASPECTISAGLOBSET
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-TRACKPICKSCATCHALL
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT-ASPECTISAGLOBSET
@@ -183,7 +177,7 @@ content:
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-TRACKPICKSCATCHALL
     module-neighbourhood:
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT-ASPECTISAGLOBSET
@@ -216,12 +210,6 @@ content:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - DDR-ASPECT-ASPECTISAGLOBSET
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-TRACKPICKSCATCHALL
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - DDR-ASPECT-ASPECTISAGLOBSET
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-TRACKPICKSCATCHALL

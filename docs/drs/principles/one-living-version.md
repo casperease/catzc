@@ -46,9 +46,9 @@ file, a `# previously …` comment, an in-code changelog, or a commented-out alt
 
 ### Rule PDR-ONELIVE-PRESENTTENSEDOCS
 
-Docs read present-tense, like the code. An ADR, README, or help block describes the current design as if it had always been so — no
+Docs read present-tense, like the code. A decision record, README, or help block describes the current design as if it had always been so — no
 "deprecated", "legacy", "as of vX", "we used to", "this replaces". That history is in git. This is the [authoring convention](../index.md)
-("Present tense, not a changelog") applied to the whole tree, not only to ADRs.
+("Present tense, not a changelog") applied to the whole tree, not only to decision records.
 
 - [History lives in git](#history-lives-in-git)
 
@@ -56,9 +56,9 @@ Docs read present-tense, like the code. An ADR, README, or help block describes 
 
 Version as a first-class contract is not legacy. Pinning an external tool, vendored module, or API version — or an explicit `schema_version`
 you own and validate — is a deliberate contract value, and versioned coexistence is legitimate there. The line from forbidden back-compat
-(PDR-ONELIVE-NOCOMPATIBILITYSHIMS): every supported version is **equally live and intended**, owned and tested — not a deprecated
-shadow kept only to defer changing callers. Versioned contracts have a structural home: `contracts/<unit>/<version>/<module>/`, versioned
-with the deployable-unit that carries them, never with the repository as a whole.
+(PDR-ONELIVE-NOCOMPATIBILITYSHIMS): every supported version is **equally live and intended**, owned and tested — not a deprecated shadow
+kept only to defer changing callers. Versioned contracts have a structural home: `contracts/<unit>/<version>/<module>/`, versioned with the
+deployable-unit that carries them, never with the repository as a whole.
 
 - [Versioned contracts](#versioned-contracts)
 
@@ -124,8 +124,8 @@ Trunk-based development is the workflow that makes "one version" hold over time.
 a branch name: it carries an alternate version of the code that drifts from trunk and eventually demands a back-merge or a compatibility
 shim. Short-lived branches that merge back keep the trunk as the single, living version at all times.
 
-This principle is [TDR-ONETRUTH-PRODUCTMONOREPOSITORY](../thesis/one-source-of-truth.md#rule-tdr-onetruth-productmonorepository)
-seen from inside the trunk: everything there is at HEAD, and synchronisation happens only at the repository boundary, as a pin.
+This principle is [TDR-ONETRUTH-PRODUCTMONOREPOSITORY](../thesis/one-source-of-truth.md#rule-tdr-onetruth-productmonorepository) seen from
+inside the trunk: everything there is at HEAD, and synchronisation happens only at the repository boundary, as a pin.
 
 ### Versioned contracts
 
@@ -172,9 +172,9 @@ branch would. Use it to _get to_ one version; the failure mode is letting the se
 1. **Deprecation cycles in internal code** (mark an internal shape old, keep it for N releases) — rejected: a deprecation window serves
    external consumers who migrate on their own schedule, and internal code has none — all callers are in-tree and move with the change. At
    the published API boundary it is different: retiring a released `contracts/<unit>/<version>/` folder is a deliberate, contract-tested
-   deprecation, because external consumers genuinely pin it (PDR-ONELIVE-PINNEDVERSIONNOTLEGACY). What is rejected is deprecation as a
-   hedge in internal code, not the versioned external contracts. (A bounded branch-by-abstraction swap is also not this: it has a deadline
-   and a deletion plan, and serves the migration itself.)
+   deprecation, because external consumers genuinely pin it (PDR-ONELIVE-PINNEDVERSIONNOTLEGACY). What is rejected is deprecation as a hedge
+   in internal code, not the versioned external contracts. (A bounded branch-by-abstraction swap is also not this: it has a deadline and a
+   deletion plan, and serves the migration itself.)
 
 ### Rejected alternatives
 
@@ -190,16 +190,16 @@ what the code used to be lives in git and nowhere else — not in retained files
 ### How this is enforced
 
 - **Code review**, at the PR gate, is the primary enforcement: a reviewer rejects an unplanned `V2`-beside current-`V1`, a deprecated alias,
-  a commented-out block, a "legacy" note, or a long-lived version branch, against this ADR. A bounded branch-by-abstraction seam with a
-  stated deletion plan (PDR-ONELIVE-BRANCHBYABSTRACTION) is the exception — the reviewer checks that the scaffold is temporary and
-  tracked, not that it merely exists.
+  a commented-out block, a "legacy" note, or a long-lived version branch, against this PDR. A bounded branch-by-abstraction seam with a
+  stated deletion plan (PDR-ONELIVE-BRANCHBYABSTRACTION) is the exception — the reviewer checks that the scaffold is temporary and tracked,
+  not that it merely exists.
 
 - **Strict config validation** keeps the principle structural where it can: every shipped config's C# config type rejects unknown /
   deprecated keys at load, so a compatibility field cannot quietly linger in a config — removing the property from the type forces the key
   out of every file in the same change.
 
-- **The present-tense ADR/doc convention** (`docs/drs/index.md`, "Present tense, not a changelog") enforces
-  PDR-ONELIVE-PRESENTTENSEDOCS in review for all documentation.
+- **The present-tense decision-record/doc convention** (`docs/drs/index.md`, "Present tense, not a changelog") enforces PDR-ONELIVE-PRESENTTENSEDOCS in
+  review for all documentation.
 
 ## Consequences
 

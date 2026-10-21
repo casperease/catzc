@@ -1,8 +1,8 @@
 # DORA explanations — thesis
 
-The `Dora explains` rationale for the ADRs in the `thesis/` folder, consolidated in one place. Each entry names its ADR and rule code, then
-reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the relevant capability links. The decisions live in the
-ADRs themselves; this file carries only their DORA rationale.
+The `Dora explains` rationale for the decision records in the `thesis/` folder, consolidated in one place. Each entry names its TDR and rule
+code, then reproduces that TDR's tie to [DORA](../../references/dora/index.md) research and the relevant capability links. The decisions
+live in the decision records themselves; this file carries only their DORA rationale.
 
 ## One source of truth
 

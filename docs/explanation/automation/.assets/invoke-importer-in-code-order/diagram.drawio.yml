@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "185b922d3554"
+#     with_body_sha: "27df4faf19b5"
 # ---
 
 description:
@@ -114,12 +114,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
-          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
-          - ADR-AUTO-BUNDLE-TWOROOTS
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -135,7 +129,7 @@ content:
           - ADR-AUTO-BUNDLE-BUNDLEISSESSION
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-BUNDLE-BUNDLEISSESSION
@@ -167,12 +161,6 @@ content:
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
     grid:
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
-          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
-          - ADR-AUTO-BUNDLE-TWOROOTS
       - cell: docs/markdown
         by:
           - docs/drs/automation/dora-explains.md

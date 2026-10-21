@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5dd9b0098e74"
+#     with_body_sha: "296194ef4295"
 # ---
 
 description:
@@ -114,12 +114,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
-          - ADR-AUTO-OVERLAY
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: docs/-/.
         by:
           - docs/drs/automation/consumer-overlay.md
@@ -142,11 +136,11 @@ content:
           - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
           - docs/references/pwsh/catzc-base-config/tests/Get-Config.Tests.ps1.md
           - docs/references/pwsh/catzc-base-config/types/ConfigsConfig.cs.md
-          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
           - docs/references/pwsh/catzc-base-docs/Get-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
+          - docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-execution/Find-Executable.ps1.md
           - docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md
           - docs/references/pwsh/catzc-base-globs/Protect-GlobSet.ps1.md
@@ -211,20 +205,26 @@ content:
           - ADR-AUTO-OVERLAY
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
-          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Docs/private
+        by:
+          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Drs/.
+        by:
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
           - ADR-AUTO-OVERLAY
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
-      - cell: pwsh/Catzc.Base.Docs/private
+      - cell: pwsh/Catzc.Base.Drs/private
         by:
           - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
-          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: pwsh/Catzc.Base.Execution/.
         by:
@@ -323,12 +323,15 @@ content:
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
-          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
-          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
           - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
           - ADR-AUTO-OVERLAY
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
@@ -396,12 +399,6 @@ content:
         by:
           - pwsh/Catzc.Tooling.Toolchain/Install-Dotnet.ps1
           - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
-          - ADR-AUTO-OVERLAY
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
     axis:
       - cell: AUTO/build
         by:

@@ -176,7 +176,7 @@ rules are on or off — and why (for example, line length is enforced by `.edito
 
 `Which ADR rule each analyzer rule enforces`
 
-A PSScriptAnalyzer rule that fails the build enforces an ADR rule on every run, so the rule-coverage report of
+A PSScriptAnalyzer rule that fails the build enforces a DRS rule on every run, so the rule-coverage report of
 [test-automation](../test-automation.md#provenance-and-rule-coverage) counts it as an enforcer beside the tagged tests. The map from
 analyzer rule to citation sits with the analyzer quality gate (`Test-ScriptAnalyzer`) that runs those rules, not with the test runner: a
 custom rule is added here, in `pwsh/.scriptanalyzer/`, and its entry in `analyzer-drs-map.yml` is part of the same change.
@@ -204,7 +204,7 @@ named intermediate would explain.
 ## Decision
 
 PowerShell files follow the repo-wide baseline plus the PowerShell-specific rules above, all mechanically enforced. No per-file overrides.
-Every custom analyzer rule names the ADR rule it enforces in the analyzer map.
+Every custom analyzer rule names the DRS rule it enforces in the analyzer map.
 
 ### How this is enforced
 
@@ -233,4 +233,4 @@ Every custom analyzer rule names the ADR rule it enforces in the analyzer map.
   catch the rest before merge.
 - The cross-language baseline is single-sourced in the repository's uniform formatting; this ADR holds only the PowerShell rules, so the two
   never duplicate or drift.
-- A new custom analyzer rule cannot ship without naming the ADR rule it enforces, so the coverage report credits it from its first run.
+- A new custom analyzer rule cannot ship without naming the DRS rule it enforces, so the coverage report credits it from its first run.

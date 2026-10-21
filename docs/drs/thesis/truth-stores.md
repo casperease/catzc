@@ -14,8 +14,8 @@ treats it.
 
 A **version-controlled repository** is the high-level kind of truth store whose content is a versioned history of reviewed changes; a git
 repository is one subgroup of it. Inside a responsibility domain, the version-controlled repository is the source of truth
-([TDR-ONETRUTH-ONESTOREDECIDES](one-source-of-truth.md#rule-tdr-onetruth-onestoredecides)), read as a whole at one commit and
-changed only through the one change process.
+([TDR-ONETRUTH-ONESTOREDECIDES](one-source-of-truth.md#rule-tdr-onetruth-onestoredecides)), read as a whole at one commit and changed only
+through the one change process.
 
 - [Version-controlled repositories](#version-controlled-repositories)
 
@@ -59,11 +59,11 @@ into another to keep them in parity; a disagreement is acted on through the one 
 
 ## Context
 
-The one-source-of-truth thesis ([TDR-ONETRUTH](one-source-of-truth.md)) collapses delivery's truth into one repository inside the
-boundary it can own. That boundary is never the whole world. Even when a responsibility domain runs everything as code, it exists in a
-larger totality of stores it does not own: the platform that runs its pipelines records environments, approvals, and runs; an organisation
-keeps its infrastructure in an ITSM or CMDB and its quality evidence in a QA or QC system. Each holds part of reality about the same
-delivered system.
+The one-source-of-truth thesis ([TDR-ONETRUTH](one-source-of-truth.md)) collapses delivery's truth into one repository inside the boundary
+it can own. That boundary is never the whole world. Even when a responsibility domain runs everything as code, it exists in a larger
+totality of stores it does not own: the platform that runs its pipelines records environments, approvals, and runs; an organisation keeps
+its infrastructure in an ITSM or CMDB and its quality evidence in a QA or QC system. Each holds part of reality about the same delivered
+system.
 
 Without names for these stores, every integration is designed afresh: one is written to, one is copied, one is polled, and each becomes a
 second record that drifts. Naming the kinds decides once how catzc treats each, and names the problem catzc solves among them.

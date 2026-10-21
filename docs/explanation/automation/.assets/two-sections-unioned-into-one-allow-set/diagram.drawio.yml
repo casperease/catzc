@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d0cb2abfc1e6
+#     with_body_sha: "06b3d34398c9"
 # ---
 
 description:
@@ -120,12 +120,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-          - ADR-AUTO-DEPM-TWOSECTIONS
-          - ADR-AUTO-DEPM-UNIFIEDGRAPH
       - cell: docs/-/.
         by:
           - docs/drs/automation/controlling-module-dependencies.md
@@ -138,7 +132,7 @@ content:
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
           - ADR-AUTO-DEPM-TWOSECTIONS
           - ADR-AUTO-DEPM-UNIFIEDGRAPH
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
@@ -159,12 +153,6 @@ content:
           - ADR-AUTO-DEPM-TWOSECTIONS
           - ADR-AUTO-DEPM-UNIFIEDGRAPH
     grid:
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-          - ADR-AUTO-DEPM-TWOSECTIONS
-          - ADR-AUTO-DEPM-UNIFIEDGRAPH
       - cell: docs/markdown
         by:
           - docs/drs/automation/controlling-module-dependencies.md

@@ -15,8 +15,8 @@ Supports FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND (operations lens).
 
 Merging to main is the act that deploys, and an engineer who wants a topic commit in an environment has nothing else to run for it. A pull
 request starts a build that skips every deploy stage, and the `Release` workflow builds a package but deploys nothing. Only completing the
-pull request into main starts a run that deploys. The out-of-band topic deploy that FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows has no
-pipeline behind it.
+pull request into main starts a run that deploys. The out-of-band topic deploy that FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows has no pipeline
+behind it.
 
 ![Merging to main is what deploys](.assets/merging-to-main-is-what-deploys/diagram.drawio.png)
 
@@ -42,8 +42,7 @@ pipeline behind it.
 
 ## Where the code and the decision record differ
 
-FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND describes an out-of-band topic deploy that no pipeline offers, so an operator has nothing to run for
-it.
+FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND describes an out-of-band topic deploy that no pipeline offers, so an operator has nothing to run for it.
 
 ## See also
 

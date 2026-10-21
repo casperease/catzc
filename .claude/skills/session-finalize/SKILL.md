@@ -1,8 +1,8 @@
 ---
 name: session-finalize
 description:
-  Checkpoint this main session, any time before the user clears it, so what it owes lives in the tree; the user invokes it, no robot;
-  input is the session's own context.
+  Checkpoint this main session, any time before the user clears it, so what it owes lives in the tree; the user invokes it, no robot; input
+  is the session's own context.
 user-invocable: true
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 metadata:

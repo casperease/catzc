@@ -35,8 +35,7 @@ one reader outside PowerShell, rest on the ADR alone.
 
 ## Why it holds
 
-- Never check the detection variables directly; one analyzer rule checks it on every PowerShell file
-  (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
+- Never check the detection variables directly; one analyzer rule checks it on every PowerShell file (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
 - Context-dependent behavior must be intentional and visible, through the detector or a parameter; the ADR alone states it
   (FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR).
 - Prefer a parameter over detection; detection is the fallback; the ADR alone states it (FDR-CD-DETECT-PARAMETERSOVERDETECTION).

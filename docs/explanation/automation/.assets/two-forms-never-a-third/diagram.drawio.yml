@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e148fb50d886
+#     with_body_sha: "9fa96ba2ce5c"
 # ---
 
 description:
@@ -87,14 +87,6 @@ content:
           - .claude/skills/catzc-module/SKILL.md
           - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
           - ADR-AUTO-PATH-TWOFORMS
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
-          - ADR-AUTO-PATH-CENTRALNORMALIZATION
-          - ADR-AUTO-PATH-COMMUNICATIONFORM
-          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
-          - ADR-AUTO-PATH-TWOFORMS
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -148,7 +140,6 @@ content:
           - ADR-AUTO-PATH-TWOFORMS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/readme.yml
           - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
           - ADR-AUTO-PATH-CENTRALNORMALIZATION
@@ -159,6 +150,14 @@ content:
         by:
           - pwsh/Catzc.Base.Docs/types/DocMapping.cs
           - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
           - ADR-AUTO-PATH-CENTRALNORMALIZATION
           - ADR-AUTO-PATH-COMMUNICATIONFORM
@@ -244,10 +243,17 @@ content:
           - ADR-AUTO-PATH-TWOFORMS
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/readme.yml
           - pwsh/Catzc.Base.Docs/types/DocMapping.cs
           - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
           - ADR-AUTO-PATH-CENTRALNORMALIZATION
           - ADR-AUTO-PATH-COMMUNICATIONFORM
@@ -299,14 +305,6 @@ content:
           - pwsh/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
           - pwsh/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
           - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
-          - ADR-AUTO-PATH-CENTRALNORMALIZATION
-          - ADR-AUTO-PATH-COMMUNICATIONFORM
-          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
-          - ADR-AUTO-PATH-TWOFORMS
     axis:
       - cell: AUTO/*
         by:

@@ -1,4 +1,4 @@
-# ADR: DORA — Visual management
+# RDR: DORA — Visual management
 
 ## Rules: RDR-DORA-VISUAL
 

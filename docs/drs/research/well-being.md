@@ -1,4 +1,4 @@
-# ADR: DORA — Well-being
+# RDR: DORA — Well-being
 
 ## Rules: RDR-DORA-WELLBEING
 

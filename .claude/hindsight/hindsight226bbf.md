@@ -123,8 +123,8 @@ Started 2026-10-21T05:07:31.0383252+02:00.
 - 2026-10-21 Jack: If only the session had read the glossary avoid table: docs/drs/glossary.md:60 already tells the eac normal form from the
   sibling eac repository (ADR-REPO-INSPIRE), and :1432 names the sibling an inspiration, so the double meaning was settled before it was
   learned.
-- 2026-10-21 Jack: If only the session had read either entry: docs/drs/glossary.md:46 (eac normal form, TDR-NORMALFORM) and :951
-  (repository normal form, ADR-AUTO-IDIOM-NORMALFORM) already contrast each other in the very words of the learning.
+- 2026-10-21 Jack: If only the session had read either entry: docs/drs/glossary.md:46 (eac normal form, TDR-NORMALFORM) and :951 (repository
+  normal form, ADR-AUTO-IDIOM-NORMALFORM) already contrast each other in the very words of the learning.
 - 2026-10-21 Jack: If only Add-SessionLearning had looked before it wrote: pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1 appends every line
   it is given and checks no existing line, its only Contains at :113 guarding the list of files written, so a relayed lesson is logged twice
   and nothing in the tree notices.

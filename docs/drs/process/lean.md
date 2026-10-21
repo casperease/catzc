@@ -36,8 +36,8 @@ of a person blocked ([WDR-QUEUECOST](queues-cost-money.md)).
 
 ### Rule WDR-LEAN-LEANANDAGILE
 
-Lean and agile ([WDR-AGILE](agile.md)) describe the same responsiveness from two directions — flow of value and response to change —
-and reinforce rather than compete; where a lean rule and an agile principle meet, they say the same thing in different words.
+Lean and agile ([WDR-AGILE](agile.md)) describe the same responsiveness from two directions — flow of value and response to change — and
+reinforce rather than compete; where a lean rule and an agile principle meet, they say the same thing in different words.
 
 - [Why](#why)
 
@@ -65,8 +65,8 @@ Adopt lean as defined by the Toyota Production System's two pillars and the Popp
 
 These two pillars specialise, for CI/CD, into the six companion articles below. Everything lean-flavoured in this repository is one of them,
 and each is anchored to concrete rules — the seven wastes ([PDR-NOWASTE](../principles/reduce-waste.md)), fail-fast jidoka
-([PDR-POKAYOKE](../principles/poka-yoke.md)), and the promotion flow that carries one release candidate from integration to production
-— so lean here is enacted, not merely admired.
+([PDR-POKAYOKE](../principles/poka-yoke.md)), and the promotion flow that carries one release candidate from integration to production — so
+lean here is enacted, not merely admired.
 
 ## The seven principles
 
@@ -89,8 +89,7 @@ this repository's rules:
 
 ## The two laws
 
-Lean's flow claims are not metaphors; two laws make them quantitative, and both are used directly in
-[WDR-QUEUECOST](queues-cost-money.md):
+Lean's flow claims are not metaphors; two laws make them quantitative, and both are used directly in [WDR-QUEUECOST](queues-cost-money.md):
 
 - **Little's Law** [^3]. For any stable system, average flow time equals average work-in-progress divided by average throughput
   (`flow time = WIP ÷ throughput`). Throughput is near-fixed in the short run, so the practical lever on lead time is work-in-progress: cut
@@ -103,8 +102,8 @@ Lean's flow claims are not metaphors; two laws make them quantitative, and both 
 
 ## Why
 
-**Agile says why; lean says how work flows.** "Respond to change cheaply" ([WDR-AGILE](agile.md)) is the goal; lean's flow, waste, and
-queue discipline is the mechanism that makes change cheap. Holding both keeps the repository's process rules anchored to a purpose _and_ a
+**Agile says why; lean says how work flows.** "Respond to change cheaply" ([WDR-AGILE](agile.md)) is the goal; lean's flow, waste, and queue
+discipline is the mechanism that makes change cheap. Holding both keeps the repository's process rules anchored to a purpose _and_ a
 mechanism.
 
 **A mechanical model beats intuition.** Little's Law and cost of delay turn "we feel slow" into "our work-in-progress is too high and our
@@ -118,11 +117,10 @@ or shortening flow, it is ceremony ([PDR-NOWASTE](../principles/reduce-waste.md)
 ## How to apply
 
 Treat this article as the umbrella and the six companions as the detail. When a flow or process decision is in question, name which lean
-principle it serves and which companion article governs it: is this holding the line ([WDR-ANDON](holding-the-line.md)), building
-quality in ([WDR-BUILTIN](build-quality-in.md)), observing the work ([WDR-OBSERVEWIP](observe-work.md)), pulling work
-([WDR-PULLWORK](pull-work.md)), draining a queue ([WDR-QUEUECOST](queues-cost-money.md)), or inspecting and adapting
-([WDR-KAIZEN](inspect-and-adapt.md))? A change that serves none of the seven principles is waste. When a repository rule specialises a
-lean principle, cite it so the lineage stays visible.
+principle it serves and which companion article governs it: is this holding the line ([WDR-ANDON](holding-the-line.md)), building quality in
+([WDR-BUILTIN](build-quality-in.md)), observing the work ([WDR-OBSERVEWIP](observe-work.md)), pulling work ([WDR-PULLWORK](pull-work.md)),
+draining a queue ([WDR-QUEUECOST](queues-cost-money.md)), or inspecting and adapting ([WDR-KAIZEN](inspect-and-adapt.md))? A change that
+serves none of the seven principles is waste. When a repository rule specialises a lean principle, cite it so the lineage stays visible.
 
 ## References
 

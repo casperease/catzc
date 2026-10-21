@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: dc206baaa749
+#     with_body_sha: d1c3a80468ab
 # ---
 
 description:
@@ -143,15 +143,6 @@ content:
         by:
           - .claude/skills/test-speed/SKILL.md
           - ADR-AUTO-TEST-QUALITYGATE
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-DEPM-CODEBUILTFROM
-          - ADR-AUTO-DEPM-EXTENDBYDECLARING
-          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-          - ADR-AUTO-DEPM-TWOSECTIONS
-          - ADR-AUTO-DEPM-UNIFIEDGRAPH
-          - ADR-AUTO-TEST-QUALITYGATE
       - cell: docs/-/.
         by:
           - docs/drs/automation/controlling-module-dependencies.md
@@ -169,16 +160,15 @@ content:
           - docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md
           - docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs.md
-          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
           - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
           - docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSet.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
-          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
           - docs/references/pwsh/catzc-base-globs.md
           - docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
@@ -255,6 +245,7 @@ content:
           - docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md
           - docs/references/pwsh/catzc-base-reports/configs/reports.yml.md
           - docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
           - docs/references/pwsh/catzc-base-reports/types/ReportsConfig.cs.md
           - docs/references/pwsh/catzc-base-root-config.md
           - docs/references/pwsh/catzc-base-root-config/Test-RootAnalyzerSettings.ps1.md
@@ -299,38 +290,46 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
           - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Docs/tests
+        by:
+          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Drs/.
+        by:
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DEPM-CODEBUILTFROM
           - ADR-AUTO-DEPM-EXTENDBYDECLARING
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
           - ADR-AUTO-DEPM-TWOSECTIONS
           - ADR-AUTO-DEPM-UNIFIEDGRAPH
           - ADR-AUTO-TEST-QUALITYGATE
-      - cell: pwsh/Catzc.Base.Docs/tests
+      - cell: pwsh/Catzc.Base.Drs/tests
         by:
           - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Execution/.
         by:
@@ -481,6 +480,7 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Reports/types
         by:
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.RootConfig/.
@@ -511,15 +511,6 @@ content:
           - .claude/agents/test-optimization.md
           - .claude/skills/test-speed/SKILL.md
           - ADR-AUTO-TEST-QUALITYGATE
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-DEPM-CODEBUILTFROM
-          - ADR-AUTO-DEPM-EXTENDBYDECLARING
-          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-          - ADR-AUTO-DEPM-TWOSECTIONS
-          - ADR-AUTO-DEPM-UNIFIEDGRAPH
-          - ADR-AUTO-TEST-QUALITYGATE
       - cell: docs/markdown
         by:
           - docs/drs/automation/controlling-module-dependencies.md
@@ -534,16 +525,15 @@ content:
           - docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md
           - docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs.md
-          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
           - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
           - docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSet.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
-          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
           - docs/references/pwsh/catzc-base-globs.md
           - docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
@@ -620,6 +610,7 @@ content:
           - docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md
           - docs/references/pwsh/catzc-base-reports/configs/reports.yml.md
           - docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
           - docs/references/pwsh/catzc-base-reports/types/ReportsConfig.cs.md
           - docs/references/pwsh/catzc-base-root-config.md
           - docs/references/pwsh/catzc-base-root-config/Test-RootAnalyzerSettings.ps1.md
@@ -643,10 +634,10 @@ content:
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
           - pwsh/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
           - pwsh/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
           - ADR-AUTO-DEPM-CODEBUILTFROM
           - ADR-AUTO-DEPM-EXTENDBYDECLARING
@@ -664,18 +655,18 @@ content:
           - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
           - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
           - pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
           - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
           - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
           - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
@@ -765,10 +756,10 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
           - pwsh/Catzc.Base.QualityGates/configs/generated-files.yml
           - pwsh/Catzc.Base.QualityGates/configs/glossary.yml

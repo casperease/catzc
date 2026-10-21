@@ -52,8 +52,8 @@ Started 2026-10-21T02:21:00.2535622+02:00.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: using absolute paths in Bash, since a cd persists and later relative cat calls
   fail.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: an ADR in one domain may cite only the domains in its adrs.yml depends_on, and
-  Get-AdrCitationGraphViolations counts bare codes too, so design and repository ADRs name the thesis by its glossary term, never an
-  TDR code.
+  Get-AdrCitationGraphViolations counts bare codes too, so design and repository ADRs name the thesis by its glossary term, never an TDR
+  code.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: an unquoted YAML flow-map value with a comma (glossary.yml avoid: { say: a, b })
   parses as an extra key, and the importer's Build-Glossary janitor then fails every session's import.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: Invoke-TestFile reports a failing test without throwing, so a runner sees the

@@ -1,4 +1,4 @@
-# ADR: DORA — Working in small batches
+# RDR: DORA — Working in small batches
 
 ## Rules: RDR-DORA-SMALLBATCH
 

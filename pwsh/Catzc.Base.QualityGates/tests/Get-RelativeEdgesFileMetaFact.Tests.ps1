@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "959bf740474d"
+    with_body_sha: "935b2ba8bf42"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-RelativeEdgesFileMetaFact.ps1
     cites:
@@ -22,7 +22,7 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
 
         $script:relations = @(
-            @{ name = 'docs'; link = '[{leaf}]({path})'; rules = @(@{ paths = @('{page}') }) }
+            @{ name = 'docs'; link = '[{leaf}]({relpath})'; rules = @(@{ paths = @('{page}') }) }
             @{ name = 'test'; rules = @(@{ classes = @('widget-function'); paths = @('widgets/{module}/tests/{stem}.Tests.ps1') }) }
             @{ name = 'source'; rules = @(@{ classes = @('widget-test'); paths = @('widgets/{module}/{stem}.ps1', 'widgets/{module}/private/{stem}.ps1') }) }
         )
@@ -63,14 +63,27 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
         }
     }
 
-    It 'names the comment page as a repository-relative link and the test of a function file, in the order declared, when both exist' {
+    It 'names the comment page as a link from the file''s own folder and the test of a function file, in the order declared, when both exist' {
         New-File 'widgets/Catzc.Gadget/Get-Cog.ps1'
         New-File 'widgets/Catzc.Gadget/tests/Get-Cog.Tests.ps1'
         New-File 'docs/catzc-gadget/Get-Cog.ps1.md'
         $relatives = Get-Relatives 'widgets/Catzc.Gadget/Get-Cog.ps1'
         @($relatives.Keys) | Should -Be @('docs', 'test')
-        $relatives['docs'] | Should -BeExactly '[Get-Cog.ps1.md](docs/catzc-gadget/Get-Cog.ps1.md)'
+        $relatives['docs'] | Should -BeExactly '[Get-Cog.ps1.md](../../docs/catzc-gadget/Get-Cog.ps1.md)'
         $relatives['test'] | Should -BeExactly 'widgets/Catzc.Gadget/tests/Get-Cog.Tests.ps1'
+    }
+
+    It 'links the page from a file one folder below its module' {
+        New-File 'widgets/Catzc.Gadget/private/Get-Bolt.ps1'
+        New-File 'docs/catzc-gadget/private/Get-Bolt.ps1.md'
+        (Get-Relatives 'widgets/Catzc.Gadget/private/Get-Bolt.ps1')['docs'] | Should -BeExactly '[Get-Bolt.ps1.md](../../../docs/catzc-gadget/private/Get-Bolt.ps1.md)'
+    }
+
+    It 'keeps {path} for a link that wants the repository-relative path' {
+        New-File 'widgets/Catzc.Gadget/Get-Nut.ps1'
+        New-File 'docs/catzc-gadget/Get-Nut.ps1.md'
+        $rooted = Get-Kind @(@{ name = 'docs'; link = '[{leaf}]({path})'; rules = @(@{ paths = @('{page}') }) })
+        (Get-Relatives 'widgets/Catzc.Gadget/Get-Nut.ps1' $rooted)['docs'] | Should -BeExactly '[Get-Nut.ps1.md](docs/catzc-gadget/Get-Nut.ps1.md)'
     }
 
     It 'names the first source candidate that exists for a test file' {

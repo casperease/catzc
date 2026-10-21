@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: ded81bd4c0a2
+#     with_body_sha: "6dc021fd331d"
 # ---
 
 description:
@@ -113,10 +113,6 @@ content:
         by:
           - .claude/CLAUDE.md
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: docs/-/.
         by:
           - docs/drs/flow/dora-explains.md
@@ -141,11 +137,11 @@ content:
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
@@ -175,10 +171,6 @@ content:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: docs/markdown
         by:

@@ -4,16 +4,17 @@
 #     with_body_sha: "4004f3d17e02"
 # ---
 
-description: 'Ten commits climb the promotion ladder at once: each stage gate passes some on and discards others, every environment
-  holds one occupant, and git keeps the whole history, with the dirty heads called out.'
+description:
+  "Ten commits climb the promotion ladder at once: each stage gate passes some on and discards others, every environment holds one occupant,
+  and git keeps the whole history, with the dirty heads called out."
 about:
   adrs:
-  - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-  - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-  - FDR-CD-LIFE-DISCARDISTERMINAL
-  - FDR-CD-LIFE-DIRTYHEADUNSAFE
-  - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-  - FDR-CD-TWORELEASEGATES
+    - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-CD-LIFE-DISCARDISTERMINAL
+    - FDR-CD-LIFE-DIRTYHEADUNSAFE
+    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-CD-TWORELEASEGATES
   lens: architecture
 content:
   title: Ten commits climb at once; each gate passes some on and discards others, and git keeps every one
@@ -21,549 +22,549 @@ content:
   flow: top-to-bottom
   relation: advances to
   bands:
-  - id: band-pipeline
-    label: PIPELINE GATES
-  - id: band-candidates
-    label: CANDIDATES
-  - id: band-discarded
-    label: DISCARDED
-  - id: band-envs
-    label: ENVIRONMENTS
-  - id: band-git
-    label: GIT
+    - id: band-pipeline
+      label: PIPELINE GATES
+    - id: band-candidates
+      label: CANDIDATES
+    - id: band-discarded
+      label: DISCARDED
+    - id: band-envs
+      label: ENVIRONMENTS
+    - id: band-git
+      label: GIT
   spans:
-  - id: span-ci
-    label: CI
-    over:
-    - gate-precommit
-    - gate-commit
-  - id: span-deploy-nonprod
-    label: DEPLOY-Non Prod
-    over:
-    - gate-l3
-    - gate-main-at
-    - gate-release-at
-  - id: span-cd-rbc
-    label: CD+RBC
-    over:
-    - gate-precommit
-    - gate-commit
-    - gate-l3
-    - gate-main-at
-    - gate-release-at
-  - id: span-cde
-    label: CDe
-    over:
-    - gate-precommit
-    - gate-commit
-    - gate-l3
-    - gate-main-at
-    - gate-release-at
-    - gate-pre-prod
-    - gate-production
-  - id: span-cd
-    label: CD
-    over:
-    - gate-precommit
-    - gate-commit
-    - gate-l3
-    - gate-main-at
-  - id: span-authoring
-    label: Authoring
-    over:
-    - gate-precommit
-  - id: span-pr-bvt
-    label: PR+BVT
-    over:
-    - gate-commit
-  - id: span-ci-plus
-    label: CI+
-    over:
-    - gate-l3
-  - id: span-rc
-    label: RC
-    over:
-    - gate-main-at
-  - id: span-rbc
-    label: RBC
-    over:
-    - gate-release-at
-  - id: span-deploy-prod
-    label: DEPLOY-Prod
-    over:
-    - gate-pre-prod
-    - gate-production
+    - id: span-ci
+      label: CI
+      over:
+        - gate-precommit
+        - gate-commit
+    - id: span-deploy-nonprod
+      label: DEPLOY-Non Prod
+      over:
+        - gate-l3
+        - gate-main-at
+        - gate-release-at
+    - id: span-cd-rbc
+      label: CD+RBC
+      over:
+        - gate-precommit
+        - gate-commit
+        - gate-l3
+        - gate-main-at
+        - gate-release-at
+    - id: span-cde
+      label: CDe
+      over:
+        - gate-precommit
+        - gate-commit
+        - gate-l3
+        - gate-main-at
+        - gate-release-at
+        - gate-pre-prod
+        - gate-production
+    - id: span-cd
+      label: CD
+      over:
+        - gate-precommit
+        - gate-commit
+        - gate-l3
+        - gate-main-at
+    - id: span-authoring
+      label: Authoring
+      over:
+        - gate-precommit
+    - id: span-pr-bvt
+      label: PR+BVT
+      over:
+        - gate-commit
+    - id: span-ci-plus
+      label: CI+
+      over:
+        - gate-l3
+    - id: span-rc
+      label: RC
+      over:
+        - gate-main-at
+    - id: span-rbc
+      label: RBC
+      over:
+        - gate-release-at
+    - id: span-deploy-prod
+      label: DEPLOY-Prod
+      over:
+        - gate-pre-prod
+        - gate-production
   lanes:
-  - band: band-pipeline
-    steps: 7
-    glyphs:
-    - id: gate-precommit
-      step: 1
-      kind: gate
-      label: Pre-Commit
-    - id: gate-commit
-      step: 2
-      kind: gate
-      label: Commit
-    - id: gate-l3
-      step: 3
-      kind: gate
-      label: L3-AT
-    - id: gate-main-at
-      step: 4
-      kind: gate
-      label: main-AT
-    - id: gate-release-at
-      step: 5
-      kind: gate
-      label: release-AT
-    - id: gate-pre-prod
-      step: 6
-      kind: gate
-      label: pre-prod
-    - id: gate-production
-      step: 7
-      kind: gate
-      label: production
-  - band: band-candidates
-    steps: 7
-    commits:
-    - id: cand-8
-      step: 1
-      row: 1
-      label: '8'
-      state: topic
-    - id: cand-9
-      step: 1
-      row: -1
-      label: '9'
-      state: topic
-    - id: cand-5a
-      step: 1
-      label: '5'
-      state: topic
-    - id: cand-6a
-      step: 2
-      row: 1
-      label: '6'
-      state: landed
-    - id: cand-7
-      step: 2
-      label: '7'
-      state: landed
-    - id: cand-3a
-      step: 2
-      row: -1
-      label: '3'
-      state: landed
-    - id: cand-10
-      step: 3
-      row: -1
-      label: '10'
-    - id: cand-4a
-      step: 3
-      row: 1
-      label: '4'
-    - id: cand-2
-      step: 3
-      label: '2'
-    - id: cand-6b
-      step: 4
-      row: 1
-      label: '6'
-      state: l3
-    - id: cand-0
-      step: 4
-      row: -1
-      label: '0'
-      state: l3
-    - id: cand-5b
-      step: 5
-      row: 1
-      label: '5'
-      state: main-uat
-    - id: cand-3b
-      step: 5
-      row: -1
-      label: '3'
-      state: main-uat
-    - id: cand-4b
-      step: 6
-      row: 1
-      label: '4'
-      state: release-uat
-    - id: cand-1
-      step: 6
-      row: -1
-      label: '1'
-      state: release-uat
-    - id: cand-4c
-      step: 7
-      label: '4'
-      state: prod
-  - band: band-discarded
-    steps: 7
-    commits:
-    - id: gone-9
-      step: 1
-      label: '9'
-      state: discarded
-    - id: gone-10
-      step: 3
-      row: 1
-      label: '10'
-      state: discarded
-    - id: gone-2
-      step: 3
-      row: -1
-      label: '2'
-      state: discarded
-    - id: gone-0
-      step: 4
-      label: '0'
-      state: discarded
-    - id: gone-3
-      step: 5
-      label: '3'
-      state: discarded
-    - id: gone-1
-      step: 6
-      label: '1'
-      state: discarded
-  - band: band-envs
-    steps: 7
-    glyphs:
-    - id: env-on-demand-l3a
-      step: 1
-      kind: env
-      label: L3 slot
-    - id: env-on-demand-bvt
-      step: 2
-      kind: env
-      label: BVT slot
-    - id: env-on-demand-l3b
-      step: 3
-      kind: env
-      label: L3 slot
-    - id: env-main-uat
-      step: 4
-      kind: env
-      label: main-uat
-    - id: env-release-uat
-      step: 5
-      kind: env
-      label: release
-    - id: env-pre-prod
-      step: 6
-      kind: env
-      label: pre-prod
-    - id: env-production
-      step: 7
-      kind: env
-      label: prod
-  - band: band-git
-    steps: 11
-    trunk: main / master
-    commits:
-    - id: git-0
-      step: 1
-      label: '0'
-      state: discarded
-    - id: git-1
-      step: 2
-      row: 1
-      label: '1'
-      state: topic
-      from: git-0
-    - id: git-2
-      step: 3
-      label: '2'
-      state: landed
-      from: git-1
-    - id: git-3
-      step: 4
-      row: -1
-      label: '3'
-      state: topic
-      from: git-2
-    - id: git-4
-      step: 5
-      label: '4'
-      state: landed
-      from: git-3
-    - id: git-5
-      step: 6
-      row: 1
-      label: '5'
-      from: git-4
-    - id: git-6
-      step: 7
-      label: '6'
-      from: git-5
-    - id: git-7
-      step: 8
-      label: '7'
-      from: git-6
-    - id: git-8
-      step: 9
-      row: -1
-      label: '8'
-      state: topic
-      from: git-7
-    - id: git-9
-      step: 10
-      row: -1
-      label: '9'
-      state: discarded
-      from: git-8
-    - id: git-10
-      step: 11
-      label: '10'
-      state: discarded
-      from: git-7
-    marks:
-    - at: git-7
-      text: REAL DIRTY HEAD, still unverified
-    - at: git-10
-      text: SYNC-HEAD DIRTY, verified dirty
+    - band: band-pipeline
+      steps: 7
+      glyphs:
+        - id: gate-precommit
+          step: 1
+          kind: gate
+          label: Pre-Commit
+        - id: gate-commit
+          step: 2
+          kind: gate
+          label: Commit
+        - id: gate-l3
+          step: 3
+          kind: gate
+          label: L3-AT
+        - id: gate-main-at
+          step: 4
+          kind: gate
+          label: main-AT
+        - id: gate-release-at
+          step: 5
+          kind: gate
+          label: release-AT
+        - id: gate-pre-prod
+          step: 6
+          kind: gate
+          label: pre-prod
+        - id: gate-production
+          step: 7
+          kind: gate
+          label: production
+    - band: band-candidates
+      steps: 7
+      commits:
+        - id: cand-8
+          step: 1
+          row: 1
+          label: "8"
+          state: topic
+        - id: cand-9
+          step: 1
+          row: -1
+          label: "9"
+          state: topic
+        - id: cand-5a
+          step: 1
+          label: "5"
+          state: topic
+        - id: cand-6a
+          step: 2
+          row: 1
+          label: "6"
+          state: landed
+        - id: cand-7
+          step: 2
+          label: "7"
+          state: landed
+        - id: cand-3a
+          step: 2
+          row: -1
+          label: "3"
+          state: landed
+        - id: cand-10
+          step: 3
+          row: -1
+          label: "10"
+        - id: cand-4a
+          step: 3
+          row: 1
+          label: "4"
+        - id: cand-2
+          step: 3
+          label: "2"
+        - id: cand-6b
+          step: 4
+          row: 1
+          label: "6"
+          state: l3
+        - id: cand-0
+          step: 4
+          row: -1
+          label: "0"
+          state: l3
+        - id: cand-5b
+          step: 5
+          row: 1
+          label: "5"
+          state: main-uat
+        - id: cand-3b
+          step: 5
+          row: -1
+          label: "3"
+          state: main-uat
+        - id: cand-4b
+          step: 6
+          row: 1
+          label: "4"
+          state: release-uat
+        - id: cand-1
+          step: 6
+          row: -1
+          label: "1"
+          state: release-uat
+        - id: cand-4c
+          step: 7
+          label: "4"
+          state: prod
+    - band: band-discarded
+      steps: 7
+      commits:
+        - id: gone-9
+          step: 1
+          label: "9"
+          state: discarded
+        - id: gone-10
+          step: 3
+          row: 1
+          label: "10"
+          state: discarded
+        - id: gone-2
+          step: 3
+          row: -1
+          label: "2"
+          state: discarded
+        - id: gone-0
+          step: 4
+          label: "0"
+          state: discarded
+        - id: gone-3
+          step: 5
+          label: "3"
+          state: discarded
+        - id: gone-1
+          step: 6
+          label: "1"
+          state: discarded
+    - band: band-envs
+      steps: 7
+      glyphs:
+        - id: env-on-demand-l3a
+          step: 1
+          kind: env
+          label: L3 slot
+        - id: env-on-demand-bvt
+          step: 2
+          kind: env
+          label: BVT slot
+        - id: env-on-demand-l3b
+          step: 3
+          kind: env
+          label: L3 slot
+        - id: env-main-uat
+          step: 4
+          kind: env
+          label: main-uat
+        - id: env-release-uat
+          step: 5
+          kind: env
+          label: release
+        - id: env-pre-prod
+          step: 6
+          kind: env
+          label: pre-prod
+        - id: env-production
+          step: 7
+          kind: env
+          label: prod
+    - band: band-git
+      steps: 11
+      trunk: main / master
+      commits:
+        - id: git-0
+          step: 1
+          label: "0"
+          state: discarded
+        - id: git-1
+          step: 2
+          row: 1
+          label: "1"
+          state: topic
+          from: git-0
+        - id: git-2
+          step: 3
+          label: "2"
+          state: landed
+          from: git-1
+        - id: git-3
+          step: 4
+          row: -1
+          label: "3"
+          state: topic
+          from: git-2
+        - id: git-4
+          step: 5
+          label: "4"
+          state: landed
+          from: git-3
+        - id: git-5
+          step: 6
+          row: 1
+          label: "5"
+          from: git-4
+        - id: git-6
+          step: 7
+          label: "6"
+          from: git-5
+        - id: git-7
+          step: 8
+          label: "7"
+          from: git-6
+        - id: git-8
+          step: 9
+          row: -1
+          label: "8"
+          state: topic
+          from: git-7
+        - id: git-9
+          step: 10
+          row: -1
+          label: "9"
+          state: discarded
+          from: git-8
+        - id: git-10
+          step: 11
+          label: "10"
+          state: discarded
+          from: git-7
+      marks:
+        - at: git-7
+          text: REAL DIRTY HEAD, still unverified
+        - at: git-10
+          text: SYNC-HEAD DIRTY, verified dirty
   rules:
-  - after: 1
-    kind: manual
-  - after: 2
-    kind: automated
-  - after: 3
-    kind: automated
-  - after: 4
-    kind: manual
-  - after: 5
-    kind: manual
+    - after: 1
+      kind: manual
+    - after: 2
+      kind: automated
+    - after: 3
+      kind: automated
+    - after: 4
+      kind: manual
+    - after: 5
+      kind: manual
   glyphs:
-  - id: occ-9
-    kind: commit
-    label: '9'
-    in: env-on-demand-l3a
-    state: topic
-  - id: occ-8
-    kind: commit
-    label: '8'
-    in: env-on-demand-bvt
-    state: landed
-  - id: occ-10
-    kind: commit
-    label: '10'
-    in: env-on-demand-l3b
-  - id: occ-6
-    kind: commit
-    label: '6'
-    in: env-main-uat
-    state: l3
-  - id: occ-5
-    kind: commit
-    label: '5'
-    in: env-release-uat
-    state: main-uat
-  - id: occ-4a
-    kind: commit
-    label: '4'
-    in: env-pre-prod
-    state: prod
-  - id: occ-4b
-    kind: commit
-    label: '4'
-    in: env-production
-    state: prod
+    - id: occ-9
+      kind: commit
+      label: "9"
+      in: env-on-demand-l3a
+      state: topic
+    - id: occ-8
+      kind: commit
+      label: "8"
+      in: env-on-demand-bvt
+      state: landed
+    - id: occ-10
+      kind: commit
+      label: "10"
+      in: env-on-demand-l3b
+    - id: occ-6
+      kind: commit
+      label: "6"
+      in: env-main-uat
+      state: l3
+    - id: occ-5
+      kind: commit
+      label: "5"
+      in: env-release-uat
+      state: main-uat
+    - id: occ-4a
+      kind: commit
+      label: "4"
+      in: env-pre-prod
+      state: prod
+    - id: occ-4b
+      kind: commit
+      label: "4"
+      in: env-production
+      state: prod
   edges:
-  - from: cand-9
-    to: gone-9
-    kind: fail
-  - from: cand-10
-    to: gone-10
-    kind: fail
-  - from: cand-2
-    to: gone-2
-    kind: fail
-  - from: cand-0
-    to: gone-0
-    kind: fail
-  - from: cand-3b
-    to: gone-3
-    kind: fail
-  - from: cand-1
-    to: gone-1
-    kind: fail
+    - from: cand-9
+      to: gone-9
+      kind: fail
+    - from: cand-10
+      to: gone-10
+      kind: fail
+    - from: cand-2
+      to: gone-2
+      kind: fail
+    - from: cand-0
+      to: gone-0
+      kind: fail
+    - from: cand-3b
+      to: gone-3
+      kind: fail
+    - from: cand-1
+      to: gone-1
+      kind: fail
   legend: auto
   minimaps:
     axis:
-    - cell: DSGN/build
-      by:
-      - FDR-CD-TWORELEASEGATES
-    - cell: DSGN/quality-control
-      by:
-      - FDR-CD-LIFE-DIRTYHEADUNSAFE
-      - FDR-CD-LIFE-DISCARDISTERMINAL
-      - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-      - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - FDR-CD-TWORELEASEGATES
-    - cell: DSGN/release
-      by:
-      - FDR-CD-LIFE-DIRTYHEADUNSAFE
-      - FDR-CD-LIFE-DISCARDISTERMINAL
-      - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-      - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - FDR-CD-TWORELEASEGATES
-    - cell: DSGN/deploy
-      by:
-      - FDR-CD-LIFE-DIRTYHEADUNSAFE
-      - FDR-CD-LIFE-DISCARDISTERMINAL
-      - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-      - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - FDR-CD-TWORELEASEGATES
+      - cell: DSGN/build
+        by:
+          - FDR-CD-TWORELEASEGATES
+      - cell: DSGN/quality-control
+        by:
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-TWORELEASEGATES
+      - cell: DSGN/release
+        by:
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-TWORELEASEGATES
+      - cell: DSGN/deploy
+        by:
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-TWORELEASEGATES
     lifecycle-position:
-    - cell: main-uat
-      by:
-      - .ado/pipelines/ci-pwsh.yaml
-      - .claude/CLAUDE.md
-      - docs/drs/flow/dora-explains.md
-      - docs/drs/index.md
-      - docs/how-to/automation/apply-environment-approvals.md
-      - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-      - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
-      - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
-      - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-      - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-      - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-      - pwsh/Catzc.Base.Drs/configs/drs.yml
-      - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-      - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-      - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
-      - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
-      - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-      - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-      - FDR-CD-LIFE-DIRTYHEADUNSAFE
-      - FDR-CD-LIFE-DISCARDISTERMINAL
-      - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-      - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - FDR-CD-TWORELEASEGATES
-    - cell: release-uat
-      by:
-      - .ado/pipelines/ci-pwsh.yaml
-      - .claude/CLAUDE.md
-      - docs/drs/flow/dora-explains.md
-      - docs/drs/index.md
-      - docs/how-to/automation/apply-environment-approvals.md
-      - docs/references/ado/pipelines/deploy-apex.yaml.md
-      - docs/references/ado/pipelines/deploy-nova.yaml.md
-      - docs/references/ado/pipelines/deploy-shared.yaml.md
-      - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-      - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
-      - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
-      - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-      - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-      - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-      - pwsh/Catzc.Base.Drs/configs/drs.yml
-      - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-      - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-      - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
-      - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
-      - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-      - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-      - FDR-CD-LIFE-DIRTYHEADUNSAFE
-      - FDR-CD-LIFE-DISCARDISTERMINAL
-      - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-      - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - FDR-CD-TWORELEASEGATES
-    - cell: pre-prod
-      by:
-      - .ado/pipelines/ci-pwsh.yaml
-      - .claude/CLAUDE.md
-      - docs/drs/flow/dora-explains.md
-      - docs/drs/index.md
-      - docs/how-to/automation/apply-environment-approvals.md
-      - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-      - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
-      - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
-      - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-      - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-      - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-      - pwsh/Catzc.Base.Drs/configs/drs.yml
-      - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-      - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-      - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
-      - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
-      - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-      - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-      - FDR-CD-LIFE-DIRTYHEADUNSAFE
-      - FDR-CD-LIFE-DISCARDISTERMINAL
-      - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-      - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - FDR-CD-TWORELEASEGATES
-    - cell: prod
-      by:
-      - .ado/pipelines/ci-pwsh.yaml
-      - .claude/CLAUDE.md
-      - docs/drs/flow/dora-explains.md
-      - docs/drs/index.md
-      - docs/how-to/automation/apply-environment-approvals.md
-      - docs/references/ado/pipelines/deploy-apex.yaml.md
-      - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-      - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
-      - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
-      - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-      - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-      - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-      - pwsh/Catzc.Base.Drs/configs/drs.yml
-      - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-      - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-      - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
-      - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
-      - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-      - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-      - FDR-CD-LIFE-DIRTYHEADUNSAFE
-      - FDR-CD-LIFE-DISCARDISTERMINAL
-      - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-      - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - FDR-CD-TWORELEASEGATES
+      - cell: main-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-TWORELEASEGATES
+      - cell: release-uat
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/ado/pipelines/deploy-nova.yaml.md
+          - docs/references/ado/pipelines/deploy-shared.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-TWORELEASEGATES
+      - cell: pre-prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-TWORELEASEGATES
+      - cell: prod
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-TWORELEASEGATES
     layer-stack:
-    - cell: automation
-      by:
-      - .ado/pipelines/ci-pwsh.yaml
-      - .claude/CLAUDE.md
-      - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-      - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
-      - docs/drs/flow/cd-discipline-and-promotion-flow.md
-      - docs/drs/flow/commit-lifecycle.md
-      - docs/drs/flow/dora-explains.md
-      - docs/drs/glossary.md
-      - docs/drs/index.md
-      - docs/how-to/automation/apply-environment-approvals.md
-      - docs/references/ado/pipelines/deploy-apex.yaml.md
-      - docs/references/ado/pipelines/deploy-nova.yaml.md
-      - docs/references/ado/pipelines/deploy-shared.yaml.md
-      - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-      - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
-      - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
-      - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
-      - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-      - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-      - pwsh/Catzc.Base.Drs/configs/drs.yml
-      - pwsh/Catzc.Base.Docs/configs/glossary.yml
-      - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-      - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-      - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
-      - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
-      - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-      - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-      - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-      - FDR-CD-LIFE-DIRTYHEADUNSAFE
-      - FDR-CD-LIFE-DISCARDISTERMINAL
-      - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-      - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - FDR-CD-TWORELEASEGATES
+      - cell: automation
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - .claude/CLAUDE.md
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/ado/pipelines/deploy-nova.yaml.md
+          - docs/references/ado/pipelines/deploy-shared.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-TWORELEASEGATES

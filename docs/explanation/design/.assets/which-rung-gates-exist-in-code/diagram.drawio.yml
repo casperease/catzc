@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c5b3c430d420
+#     with_body_sha: "28e37b6a69a4"
 # ---
 
 description:
@@ -266,18 +266,10 @@ content:
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
-          - DDR-VISUAL-FIXEDCOMMITPALETTE
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-INNERANDOUTERLOOP
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
-          - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
           - FDR-CD-TWOENVIRONMENTACTIVATION
           - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
@@ -343,10 +335,14 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
           - DDR-VISUAL-FIXEDCOMMITPALETTE
           - FDR-CD-CDSTAYSINNONPROD
@@ -361,7 +357,7 @@ content:
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
           - FDR-CD-TWOENVIRONMENTACTIVATION
           - FDR-CD-TWORELEASEGATES
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-CDSTAYSINNONPROD
@@ -472,18 +468,10 @@ content:
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
-          - DDR-VISUAL-FIXEDCOMMITPALETTE
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-INNERANDOUTERLOOP
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
-          - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
           - FDR-CD-TWOENVIRONMENTACTIVATION
           - FDR-CD-TWORELEASEGATES
       - cell: docs/markdown
@@ -587,10 +575,10 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
           - pwsh/Catzc.Base.QualityGates/configs/glossary.yml

@@ -1,4 +1,4 @@
-# ADR: Thin platforms — an API/CLI abstraction over a vendor layer
+# Design: Thin platforms — an API/CLI abstraction over a vendor layer
 
 ## Rules: DDR-THINPLAT
 
@@ -31,9 +31,9 @@ vendor wiring. The CLI is the boundary that lets the platform team change the su
 ### Rule DDR-THINPLAT-REPRESENTEDASCODE
 
 Everything the platform covers is **represented as code** — the automation itself, the configs, the tooling versions, and the vendor
-bindings (Bicep modules and az invocations) — in exactly one living version (`PDR-EAC`, `PDR-ONELIVE`). There is no
-console-clicked state, no out-of-band tooling, and no drift between "what the docs say" and "what runs": the platform _is_ its repository.
-Full EaC representation is what makes the thin abstraction reproducible and reviewable.
+bindings (Bicep modules and az invocations) — in exactly one living version (`PDR-EAC`, `PDR-ONELIVE`). There is no console-clicked state,
+no out-of-band tooling, and no drift between "what the docs say" and "what runs": the platform _is_ its repository. Full EaC representation
+is what makes the thin abstraction reproducible and reviewable.
 
 - [Everything is code](#everything-is-code)
 
@@ -115,11 +115,11 @@ configuration, where they belong.
 
 ## Decision
 
-Build catzc as a **thin platform**: an API/CLI abstraction over a vendor layer (DDR-THINPLAT-THINPLATFORM), kept thin by delegating to
-the vendor's own primitives rather than reimplementing them (DDR-THINPLAT-DELEGATENOTREIMPLEMENT), consumed through a single CLI
-surface (DDR-THINPLAT-PLATFORMASCLI), fully represented as one living version of code (DDR-THINPLAT-REPRESENTEDASCODE), and owned
-as a reusable product over a substrate that stays swappable behind the CLI (DDR-THINPLAT-SWAPPABLESUBSTRATE). This is our
-implementation of the EaC and CD principles as a Team-Topologies platform, covering Azure and Azure RM via Bicep plus a curated az CLI.
+Build catzc as a **thin platform**: an API/CLI abstraction over a vendor layer (DDR-THINPLAT-THINPLATFORM), kept thin by delegating to the
+vendor's own primitives rather than reimplementing them (DDR-THINPLAT-DELEGATENOTREIMPLEMENT), consumed through a single CLI surface
+(DDR-THINPLAT-PLATFORMASCLI), fully represented as one living version of code (DDR-THINPLAT-REPRESENTEDASCODE), and owned as a reusable
+product over a substrate that stays swappable behind the CLI (DDR-THINPLAT-SWAPPABLESUBSTRATE). This is our implementation of the EaC and CD
+principles as a Team-Topologies platform, covering Azure and Azure RM via Bicep plus a curated az CLI.
 
 ### How this holds together
 
@@ -127,8 +127,8 @@ implementation of the EaC and CD principles as a Team-Topologies platform, cover
   model (a platform team develops and manages it as X-as-a-Service).
 - **Hohpe's _Platform Strategy_** supplies the discipline (harmonize, don't reimplement; build abstractions, not illusions) and the
   guardrail (surface the decisions that scale-time cost punishes).
-- **`PDR-EAC` / `PDR-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind a layer
-  that is thin.
+- **`PDR-EAC` / `PDR-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind a layer that is
+  thin.
 - **The Azure CLI binding and the Bicep infrastructure track** are the concrete substrate bindings the CLI delegates to.
 - **Devbox/pipeline parity** keeps the one CLI surface identical on a developer box and in the pipeline, which is what makes it a real
   service boundary.

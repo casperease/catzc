@@ -4,8 +4,8 @@ The pure core of the code meta head: the leading comment of a C# type file, a Po
 is a comment head, holding the file's derived facts as the same front matter a Markdown file carries
 ([code-file-meta](../../drs/repository/code-file-meta.md)). The module reads no config and no file: every text, and the comment syntax of
 the head, reaches it as a parameter, so it sits below [Catzc.Base.Config](catzc-base-config.md) on top of
-[Catzc.Base.MarkdownMeta](catzc-base-markdown-meta.md), whose block reader and writer it reuses. The registry of meta kinds, the file-carrier
-registry that names each file class's comment syntax, and the commands that read them live above `Catzc.Base.Config`.
+[Catzc.Base.MarkdownMeta](catzc-base-markdown-meta.md), whose block reader and writer it reuses. The registry of meta kinds, the
+file-carrier registry that names each file class's comment syntax, and the commands that read them live above `Catzc.Base.Config`.
 
 ## Responsibilities
 

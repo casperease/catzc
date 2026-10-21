@@ -1,11 +1,11 @@
-# ADR: The git topic flow — the sync point, one squashed commit, and the user at the keyboard
+# Flow: The git topic flow — the sync point, one squashed commit, and the user at the keyboard
 
 A change travels between two places: the server's main, where the mainline lives
-([DDR-REMOTE-SERVERREMOTEISTRUTH](../design/server-remote-integration.md#rule-ddr-remote-serverremoteistruth)), and a local topic
-branch, where one author builds one change. This ADR fixes the git paths between them: which server commit a topic takes upstream changes
-from, what a topic looks like when it lands, and how it is brought into that shape. The lifecycle states a commit climbs after it lands
-belong to [commit-lifecycle](commit-lifecycle.md) (`FDR-CD-LIFE`); the remote topology and the pull request as ingress belong to
-[server-remote-integration](../design/server-remote-integration.md) (`DDR-REMOTE`). This ADR owns the git mechanics of the topic.
+([DDR-REMOTE-SERVERREMOTEISTRUTH](../design/server-remote-integration.md#rule-ddr-remote-serverremoteistruth)), and a local topic branch,
+where one author builds one change. This FDR fixes the git paths between them: which server commit a topic takes upstream changes from, what
+a topic looks like when it lands, and how it is brought into that shape. The lifecycle states a commit climbs after it lands belong to
+[commit-lifecycle](commit-lifecycle.md) (`FDR-CD-LIFE`); the remote topology and the pull request as ingress belong to
+[server-remote-integration](../design/server-remote-integration.md) (`DDR-REMOTE`). This FDR owns the git mechanics of the topic.
 
 ## Rules: FDR-GIT
 
@@ -23,9 +23,9 @@ sync point, counts a topic's commits, compares a topic with the server's main, a
 
 **A topic takes upstream changes from the sync point: the BVT-verified server head when the server marks one, and the current server HEAD
 when it marks none.** The BVT-verified server head is the stable integration point
-([FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD](commit-lifecycle.md#rule-fdr-cd-life-syncfromverifiedhead)). While the server carries no mark
-of what the BVT has verified, no commit can be told apart as verified, failed or merely landed, so the sensible default is the current
-server HEAD: the newest commit the server accepted through its own gates.
+([FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD](commit-lifecycle.md#rule-fdr-cd-life-syncfromverifiedhead)). While the server carries no mark of what
+the BVT has verified, no commit can be told apart as verified, failed or merely landed, so the sensible default is the current server HEAD:
+the newest commit the server accepted through its own gates.
 
 - [The sync point](#the-sync-point)
 - [Without a BVT mark](#without-a-bvt-mark)
@@ -49,8 +49,8 @@ people's changes, and the topic no longer squashes to a commit that holds only i
 ### Rule FDR-GIT-ONESQUASHEDCOMMIT
 
 **A change enters the server's main as exactly one commit.** In `main-via-pr` the pull request lands it as a squash merge; in `main-direct`
-the client pushes the one squashed commit ([FDR-CD-LIFE-FASTPUSHLANDS](commit-lifecycle.md#rule-fdr-cd-life-fastpushlands)). The
-server's main is then one commit per change, each with the prior mainline as its only parent.
+the client pushes the one squashed commit ([FDR-CD-LIFE-FASTPUSHLANDS](commit-lifecycle.md#rule-fdr-cd-life-fastpushlands)). The server's
+main is then one commit per change, each with the prior mainline as its only parent.
 
 - [One change, one commit](#one-change-one-commit)
 
@@ -91,8 +91,8 @@ damage a repository.
 
 A topic is built on top of one server commit, and that commit decides what the topic inherits. The best choice is the BVT-verified server
 head: recent, and proven by the BVT, so a topic built on it does not inherit what the BVT catches
-([DDR-REMOTE-INTEGRATEFROMVERIFIED](../design/server-remote-integration.md#rule-ddr-remote-integratefromverified)). Choosing one
-named commit, rather than "whatever main is when I look", also lets two people compare what they built on.
+([DDR-REMOTE-INTEGRATEFROMVERIFIED](../design/server-remote-integration.md#rule-ddr-remote-integratefromverified)). Choosing one named
+commit, rather than "whatever main is when I look", also lets two people compare what they built on.
 
 ## Without a BVT mark
 
@@ -121,8 +121,8 @@ own change. A rebase surfaces each conflict against the commit the topic is movi
 When every change lands as one commit, the server's main reads as a list of changes, one line each. A commit's parent is the prior mainline,
 so the change a commit carries is its diff against that parent and nothing else; a change is reverted by reverting one commit; and the
 commit lifecycle can judge, number and promote a change as one unit
-([FDR-CD-LIFE-NUMBERISIDENTITY](commit-lifecycle.md#rule-fdr-cd-life-numberisidentity)). Work-in-progress commits, fix-ups and
-review rounds stay on the topic, where they help the author, and never reach the shared record.
+([FDR-CD-LIFE-NUMBERISIDENTITY](commit-lifecycle.md#rule-fdr-cd-life-numberisidentity)). Work-in-progress commits, fix-ups and review rounds
+stay on the topic, where they help the author, and never reach the shared record.
 
 ## Squash, rebase, squash
 

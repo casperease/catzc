@@ -6,9 +6,9 @@
 
 Everything inside a responsibility domain is code, managed through the one change process
 ([TDR-STORES-RESPONSIBILITYDOMAIN](truth-stores.md#rule-tdr-stores-responsibilitydomain),
-[TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)). So any
-code can be brought into an **eac normal form**: the shape in which the repository's automation can verify it. That holds for code written
-in the trunk and for an **unordered code fragment**, code that comes from outside the trunk in whatever shape its origin left it.
+[TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)). So any code can
+be brought into an **eac normal form**: the shape in which the repository's automation can verify it. That holds for code written in the
+trunk and for an **unordered code fragment**, code that comes from outside the trunk in whatever shape its origin left it.
 
 - [Any code has a normal form](#any-code-has-a-normal-form)
 
@@ -35,11 +35,11 @@ the form decides nothing about the delivered system; the mechanics of moving it 
 
 ## Context
 
-The one-source-of-truth thesis ([TDR-ONETRUTH](one-source-of-truth.md)) makes the repository the configuration record, and the truth
-stores thesis ([TDR-STORES](truth-stores.md)) makes everything inside a responsibility domain code. Neither says when a piece of code
-is good enough to be part of that record. Code arrives from many places: written in the trunk, imported with its history from another
-repository, copied from a vendor sample, exported from a UI. Without a definition of the form the record accepts, every arrival is judged
-afresh, and the record holds code that only its author can read or check.
+The one-source-of-truth thesis ([TDR-ONETRUTH](one-source-of-truth.md)) makes the repository the configuration record, and the truth stores
+thesis ([TDR-STORES](truth-stores.md)) makes everything inside a responsibility domain code. Neither says when a piece of code is good
+enough to be part of that record. Code arrives from many places: written in the trunk, imported with its history from another repository,
+copied from a vendor sample, exported from a UI. Without a definition of the form the record accepts, every arrival is judged afresh, and
+the record holds code that only its author can read or check.
 
 ## Decision
 

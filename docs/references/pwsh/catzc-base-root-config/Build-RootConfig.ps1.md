@@ -24,9 +24,9 @@ Idempotent and fast by construction, so the importer runs it on every load (see 
 (canonical UTF-8/LF output, EOL-insensitive compare, write-on-change), so a clean tree is a true no-op. See
 [ADR-REPO-ROOTCFG](../../../drs/repository/generated-root-configs.md).
 
-The managed root files are materialised from the source tree, so in build mode ([DDR-RUNMODE](../../../drs/design/run-modes.md)) this
-is a no-op that reports why and returns nothing — a skip, not a throw, because the importer's janitor tail calls it on every load and a
-janitor never breaks the load.
+The managed root files are materialised from the source tree, so in build mode ([DDR-RUNMODE](../../../drs/design/run-modes.md)) this is a
+no-op that reports why and returns nothing — a skip, not a throw, because the importer's janitor tail calls it on every load and a janitor
+never breaks the load.
 
 ### parameter `Target`
 

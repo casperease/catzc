@@ -1,4 +1,4 @@
-# ADR: DORA — Team experimentation
+# RDR: DORA — Team experimentation
 
 ## Rules: RDR-DORA-EXPERIMENT
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "54bfca40e025"
+#     with_body_sha: "3243ec6c6766"
 # ---
 
 description:
@@ -134,9 +134,13 @@ content:
     code-locations:
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
-          - ADR-AZ-CUSTOMER-TWOBINDINGS
+          - .ado/pipelines/cd-shared.yaml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: ado-pipelines/pipelines/extends
+        by:
+          - .ado/pipelines/extends/cd-customer.yaml
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
@@ -185,10 +189,27 @@ content:
           - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
           - ADR-AZ-CUSTOMER-TWOBINDINGS
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: infrastructure/discovery/.
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: infrastructure/expedition/.
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: infrastructure/foundation/.
+        by:
+          - infrastructure/templates/foundation/options.yml
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
@@ -277,7 +298,7 @@ content:
           - pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
           - ADR-AZ-CUSTOMER-TWOBINDINGS
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -289,7 +310,6 @@ content:
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
@@ -349,7 +369,7 @@ content:
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -361,7 +381,6 @@ content:
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
@@ -370,11 +389,28 @@ content:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
           - ADR-AZ-CUSTOMER-TWOBINDINGS
+      - cell: subject/discovery
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: subject/expedition
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+      - cell: subject/foundation
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: subject/pipelines
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
-          - ADR-AZ-CUSTOMER-TWOBINDINGS
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/extends/cd-customer.yaml
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY

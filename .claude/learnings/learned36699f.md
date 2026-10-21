@@ -22,7 +22,7 @@ Started 2026-10-21T20:42:19.8972026+02:00.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: the full-repository case of Test-Spelling.Tests is skipped while the repository
   globset is protected, so touching any spelled file re-runs it and surfaces every old unapproved word.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: the reserved category's scope globs in terminology.yml match case-sensitively;
-  *accosted* does not cover a ConvertTo-AccostedCallText page.
+  _accosted_ does not cover a ConvertTo-AccostedCallText page.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: 'comman' in GitFlowConfig.cs is a deliberate prefix of pwsh's -Command switch,
   approved as a powershell term, not a typo.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: probing a file's class and derived facts with file-kinds Resolve and

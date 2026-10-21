@@ -81,10 +81,10 @@ built into the process.
 
 ## Context
 
-Behind the four values ([WDR-VALUES](agile-values.md)) the Agile Manifesto ([WDR-AGILE](agile.md)) sets out twelve principles that
-make the values operational [^1]. Where a value is a preference, a principle is a working instruction — it says what an agile process
-actually does. The twelve are the bridge between the manifesto's short comparative statements and the concrete process rules elsewhere in
-this repository (flow, promotion, small batches, fast feedback), which are specialisations of these principles for this platform.
+Behind the four values ([WDR-VALUES](agile-values.md)) the Agile Manifesto ([WDR-AGILE](agile.md)) sets out twelve principles that make the
+values operational [^1]. Where a value is a preference, a principle is a working instruction — it says what an agile process actually does.
+The twelve are the bridge between the manifesto's short comparative statements and the concrete process rules elsewhere in this repository
+(flow, promotion, small batches, fast feedback), which are specialisations of these principles for this platform.
 
 ## The twelve principles
 
@@ -120,8 +120,8 @@ them.
 
 When shaping or judging a process, check it against the twelve: does it deliver working software frequently, welcome late change, keep the
 team sustainable, and reflect to improve? A practice that serves one of the principles has a place; a practice that serves none is ceremony
-and can be dropped ([PDR-NOWASTE](../principles/reduce-waste.md)). Where a repository process rule elaborates a principle for this
-platform, cite the principle it specialises so the lineage stays visible.
+and can be dropped ([PDR-NOWASTE](../principles/reduce-waste.md)). Where a repository process rule elaborates a principle for this platform,
+cite the principle it specialises so the lineage stays visible.
 
 ## References
 

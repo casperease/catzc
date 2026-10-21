@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: a01693333183
+#     with_body_sha: "54b5c756437f"
 # ---
 
 description:
@@ -116,9 +116,9 @@ content:
           - FDR-CD-RUNNER-IMPORTONCE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
           - FDR-CD-RUNNER-THINSTEPTEMPLATES
-      - cell: ado-pipelines/pipelines/.
+      - cell: ado-pipelines/pipelines/steps
         by:
-          - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/steps/invoke-automation.yaml
           - FDR-CD-RUNNER-IMPORTONCE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
           - FDR-CD-RUNNER-THINSTEPTEMPLATES
@@ -143,13 +143,13 @@ content:
           - FDR-CD-RUNNER-IMPORTONCE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
           - FDR-CD-RUNNER-THINSTEPTEMPLATES
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-RUNNER-IMPORTONCE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
           - FDR-CD-RUNNER-THINSTEPTEMPLATES
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-RUNNER-IMPORTONCE
@@ -178,7 +178,7 @@ content:
           - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: ado-pipelines/pipeline-yaml
         by:
-          - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/steps/invoke-automation.yaml
           - FDR-CD-RUNNER-IMPORTONCE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
           - FDR-CD-RUNNER-THINSTEPTEMPLATES

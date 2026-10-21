@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "983e0df02acc"
+#     with_body_sha: "3f6452d27828"
 # ---
 
 description:
@@ -114,14 +114,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-          - ADR-CONF-LOADING-CACHEBYPATH
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
-          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
-          - ADR-CONF-LOADING-ONEREADER
       - cell: docs/-/.
         by:
           - docs/drs/configuration/config-value-addressing.md
@@ -137,10 +129,10 @@ content:
           - docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md
           - docs/references/pwsh/catzc-base-docs/private/Get-GlossarySources.ps1.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md
           - docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md
           - docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md
@@ -180,26 +172,12 @@ content:
           - ADR-CONF-LOADING-CSHARPCONFIGTYPE
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
-      - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-          - ADR-CONF-LOADING-CACHEBYPATH
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
-          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
-          - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.Docs/private
         by:
           - pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
           - ADR-CONF-LOADING-ONEREADER
-      - cell: pwsh/Catzc.Base.Docs/tests
-        by:
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
           - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
           - pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs
@@ -208,6 +186,23 @@ content:
           - ADR-CONF-LOADING-CSHARPCONFIGTYPE
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.Drs/tests
+        by:
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - cell: pwsh/Catzc.Base.Drs/types
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
       - cell: pwsh/Catzc.Base.Git/types
         by:
           - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
@@ -276,15 +271,21 @@ content:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
-          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
           - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
           - pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs
           - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-LOADING-CACHEBYPATH
           - ADR-CONF-LOADING-CSHARPCONFIGTYPE
@@ -334,14 +335,6 @@ content:
         by:
           - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-          - ADR-CONF-LOADING-CACHEBYPATH
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
-          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
-          - ADR-CONF-LOADING-ONEREADER
     axis:
       - cell: AUTO/*
         by:

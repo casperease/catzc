@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4c15ee642d3e"
+#     with_body_sha: fbe3c2c50749
 # ---
 
 description:
@@ -136,15 +136,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
-          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
-          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -195,7 +186,7 @@ content:
           - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
@@ -244,7 +235,7 @@ content:
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
@@ -269,15 +260,6 @@ content:
       - cell: subject/Catzc.Tooling.Environment
         by:
           - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
-          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
-          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
-          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
           - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM

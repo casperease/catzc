@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "68cf6e9063bc"
+#     with_body_sha: "6fd8a3b9e22f"
 # ---
 
 description:
@@ -123,21 +123,10 @@ content:
           - .claude/hooks/Assert-BashTimeout/Program.cs
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-      - cell: .claude/.claude/plans
-        by:
-          - .claude/plans/plan-agent-friction.md
-          - .claude/plans/plan-xdr-codes.md
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: .claude/.claude/skills/catzc-module
         by:
           - .claude/skills/catzc-module/SKILL.md
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -154,13 +143,11 @@ content:
           - docs/references/pwsh/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md
           - docs/references/pwsh/catzc-base-contracts/types/ContractsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
+          - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
           - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
-          - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
           - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
-          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
-          - docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md
           - docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
           - docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
           - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
@@ -204,6 +191,8 @@ content:
           - docs/references/pwsh/catzc-base-quality-gates/types/SourceCheck.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/types/SourceConventionsConfig.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/types/TestPolicyConfig.cs.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md
           - docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md
           - docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md
           - docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md
@@ -273,15 +262,9 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-      - cell: pwsh/Catzc.Base.Docs/private
-        by:
-          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
@@ -289,16 +272,26 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Docs/tests/types
         by:
-          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
-          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/LearningsConfig.Tests.ps1
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - cell: pwsh/Catzc.Base.Drs/private
+        by:
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - cell: pwsh/Catzc.Base.Drs/tests/types
+        by:
+          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
+          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
-          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.Engines/types
         by:
@@ -427,6 +420,7 @@ content:
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.Reports/tests/types
         by:
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Reports/tests/types/IsolationRunResult.Tests.ps1
           - pwsh/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
           - pwsh/Catzc.Base.Reports/tests/types/QualityGateResult.Tests.ps1
@@ -434,6 +428,8 @@ content:
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.Reports/types
         by:
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
+          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - pwsh/Catzc.Base.Reports/types/IsolationRunResult.cs
           - pwsh/Catzc.Base.Reports/types/QualityGateResult.cs
           - pwsh/Catzc.Base.Reports/types/TestRunResult.cs
@@ -524,8 +520,6 @@ content:
         by:
           - .claude/CLAUDE.md
           - .claude/hooks/Assert-BashTimeout/Program.cs
-          - .claude/plans/plan-agent-friction.md
-          - .claude/plans/plan-xdr-codes.md
           - .claude/skills/catzc-module/SKILL.md
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
@@ -561,19 +555,20 @@ content:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
-          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/LearningsConfig.Tests.ps1
+          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
           - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
-          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Base.Engines
@@ -668,10 +663,13 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Base.Reports
         by:
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Reports/tests/types/IsolationRunResult.Tests.ps1
           - pwsh/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
           - pwsh/Catzc.Base.Reports/tests/types/QualityGateResult.Tests.ps1
           - pwsh/Catzc.Base.Reports/tests/types/TestRunResult.Tests.ps1
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
+          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - pwsh/Catzc.Base.Reports/types/IsolationRunResult.cs
           - pwsh/Catzc.Base.Reports/types/QualityGateResult.cs
           - pwsh/Catzc.Base.Reports/types/TestRunResult.cs
@@ -725,11 +723,6 @@ content:
           - pwsh/Catzc.Tooling.Listen/tests/Wait-DocChange.Tests.ps1
           - pwsh/Catzc.Tooling.Listen/tests/Wait-DocNote.Tests.ps1
           - pwsh/Catzc.Tooling.Listen/tests/types/ListenConfig.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
     axis:

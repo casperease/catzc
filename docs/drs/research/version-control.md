@@ -1,4 +1,4 @@
-# ADR: DORA — Version control
+# RDR: DORA — Version control
 
 ## Rules: RDR-DORA-VCS
 

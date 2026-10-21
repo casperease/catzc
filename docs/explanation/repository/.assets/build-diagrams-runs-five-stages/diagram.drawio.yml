@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5994477d7614"
+#     with_body_sha: "5cf56e30d7aa"
 # ---
 
 description:
@@ -70,8 +70,6 @@ content:
     layer-stack:
       - cell: automation
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - .claude/plans/plan-minimap-reasons-gate.md
           - docs/drs/index.md
           - docs/drs/repository/dora-explains.md
           - docs/drs/repository/slides-as-markdown.md
@@ -81,16 +79,9 @@ content:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
           - pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
+          - pwsh/Catzc.Base.Slides/tests/Write-DiagramMinimapData.Tests.ps1
           - ADR-REPO-SLIDES-MINIMAPSFROMDATA
     grid:
-      - cell: .claude/markdown
-        by:
-          - .claude/plans/plan-minimap-reasons-gate.md
-          - ADR-REPO-SLIDES-MINIMAPSFROMDATA
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-REPO-SLIDES-MINIMAPSFROMDATA
       - cell: docs/markdown
         by:
           - docs/drs/index.md
@@ -104,6 +95,7 @@ content:
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
           - pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
+          - pwsh/Catzc.Base.Slides/tests/Write-DiagramMinimapData.Tests.ps1
           - ADR-REPO-SLIDES-MINIMAPSFROMDATA
       - cell: pwsh/yaml
         by:

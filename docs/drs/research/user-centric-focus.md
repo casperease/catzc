@@ -1,4 +1,4 @@
-# ADR: DORA — User-centric focus
+# RDR: DORA — User-centric focus
 
 ## Rules: RDR-DORA-USERFOCUS
 

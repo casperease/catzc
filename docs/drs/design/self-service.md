@@ -1,4 +1,4 @@
-# ADR: Self-service — safe by construction in controlled settings
+# Design: Self-service — safe by construction in controlled settings
 
 ## Rules: DDR-SELFSERV
 
@@ -35,9 +35,9 @@ the Reproducible Builds project on the source-to-binary verification path, and S
 
 Changes reach production through **trunk-based development with automated guardrails**. Work lands on trunk in small batches behind
 short-lived branches that must pass the CI gate and are deleted after merge; there are no long-lived divergent branches and no legacy
-variants of our own code (`PDR-ONELIVE`). The guardrails — asserts, the quality gates, the generated-file drift checks, and code review
-— are **automated and mandatory**, so self-service cannot merge a change that skips them. Speed and control are the same mechanism here, not
-a trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
+variants of our own code (`PDR-ONELIVE`). The guardrails — asserts, the quality gates, the generated-file drift checks, and code review —
+are **automated and mandatory**, so self-service cannot merge a change that skips them. Speed and control are the same mechanism here, not a
+trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
 
 - [Trunk-based development](#trunk-based-development)
 
@@ -60,9 +60,9 @@ is simply not allowed.
 
 The resolution is to make self-service _safe by construction_. catzc rests on four properties that, together, make "anyone can change it
 themselves" and "every change is controlled, reproducible, and auditable" the same statement rather than opposing ones: a **single source of
-truth** (`PDR-EAC`), **immutable and reproducibly-built artifacts** with provenance, **trunk-based development** with automated
-guardrails (`PDR-ONELIVE`), and the **thin CLI** as the only way to act (`DDR-THINPLAT`). Each one is load-bearing; remove any and
-self-service stops being safe.
+truth** (`PDR-EAC`), **immutable and reproducibly-built artifacts** with provenance, **trunk-based development** with automated guardrails
+(`PDR-ONELIVE`), and the **thin CLI** as the only way to act (`DDR-THINPLAT`). Each one is load-bearing; remove any and self-service stops
+being safe.
 
 ### Self-service, not free-for-all
 
@@ -115,11 +115,10 @@ path.
 ## Decision
 
 Make self-service the platform's mode of use, and make it safe by construction: every self-service action is a change to the **single source
-of truth** (DDR-SELFSERV-REPOSITORYISSOURCEOFTRUTH), applied only through the **thin CLI**
-(DDR-SELFSERV-CONSUMERSPROVISIONTHEMSELVES), shipped as an **immutable, reproducibly-built artifact with provenance**
-(DDR-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT), landed via **trunk-based development behind automated, mandatory guardrails**
-(DDR-SELFSERV-TRUNKWITHGUARDRAILS). In controlled settings this makes self-service and auditability the same mechanism rather than
-competing ones (DDR-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY).
+of truth** (DDR-SELFSERV-REPOSITORYISSOURCEOFTRUTH), applied only through the **thin CLI** (DDR-SELFSERV-CONSUMERSPROVISIONTHEMSELVES),
+shipped as an **immutable, reproducibly-built artifact with provenance** (DDR-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT), landed via
+**trunk-based development behind automated, mandatory guardrails** (DDR-SELFSERV-TRUNKWITHGUARDRAILS). In controlled settings this makes
+self-service and auditability the same mechanism rather than competing ones (DDR-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY).
 
 ### How this is enforced
 

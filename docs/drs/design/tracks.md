@@ -1,31 +1,29 @@
-# ADR: Tracks — the repository's root concerns
+# Design: Tracks — the repository's root concerns
 
 ## Rules: DDR-TRACK
 
 ### Rule DDR-TRACK-TRACKISPLACEDCLUSTER
 
 A **track** is a named, on-disk cluster of module contents: the tracked files of one concern, selected by the **place** or places the track
-declares ([DDR-TRACKTYPE-DECLAREDONCE](track-types.md#rule-ddr-tracktype-declaredonce)). A place is a root folder (`pwsh`), a path
-inside one (`.github/workflows`, `pwsh/.vendor`), or a root folder of a tool (`.claude`). Every tracked file lies in exactly one track,
-found by the longest place that contains it
-([DDR-TRACKTYPE-LONGESTPLACEWINS](track-types.md#rule-ddr-tracktype-longestplacewins)), or is a root file
+declares ([DDR-TRACKTYPE-DECLAREDONCE](track-types.md#rule-ddr-tracktype-declaredonce)). A place is a root folder (`pwsh`), a path inside
+one (`.github/workflows`, `pwsh/.vendor`), or a root folder of a tool (`.claude`). Every tracked file lies in exactly one track, found by
+the longest place that contains it ([DDR-TRACKTYPE-LONGESTPLACEWINS](track-types.md#rule-ddr-tracktype-longestplacewins)), or is a root file
 (DDR-TRACK-ROOTFILE); `out/` holds gitignored output and is in none. Tracks are what this mono repository is composed of.
 
 - [What a track is](#what-a-track-is)
 
 ### Rule DDR-TRACK-ONETRACKTYPE
 
-Every track has exactly one **track type** ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](track-types.md#rule-ddr-tracktype-closedsetoftypes)),
-stated once and carrying no second classification beside it: `modules` (`pwsh`, the core the other tracks rest on, and the other language
-tracks, `python`, `go` and `bash`, which hold their modules the same way), `infrastructure`, `pipelines`, `vendor-settings`,
-`vendored-code`, `contracts`, `documentation`, or `unordered` (`.unordered`, DDR-TRACK-UNORDEREDTRACK). The type's role is deployable
-or holder ([DDR-TRACKTYPE-ONEROLE](track-types.md#rule-ddr-tracktype-onerole)). Each language track keeps a test holder,
-`<root>/tests/`, of black-box tests that verify the core from outside; a test file is never live and never ships, and a module of the track
-ships only what `files.yml` packages. `go` holds the Go black-box tests; a repository without a `go/` root keeps the same tests in the
-dot-prefixed `.go`, which is of the same class. `python` holds the Python ones, by the same convention: `.python` when the repository has no
-`python/` root. `bash` holds the Bash ones: `.bash` when the repository has no `bash/` root. Cross-cutting slices (e.g. the cats configs —
-every yml/config file across the modules track) are **scopes over tracks**, not tracks: they select through the roots rather than owning
-one.
+Every track has exactly one **track type** ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](track-types.md#rule-ddr-tracktype-closedsetoftypes)), stated
+once and carrying no second classification beside it: `modules` (`pwsh`, the core the other tracks rest on, and the other language tracks,
+`python`, `go` and `bash`, which hold their modules the same way), `infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`,
+`contracts`, `documentation`, or `unordered` (`.unordered`, DDR-TRACK-UNORDEREDTRACK). The type's role is deployable or holder
+([DDR-TRACKTYPE-ONEROLE](track-types.md#rule-ddr-tracktype-onerole)). Each language track keeps a test holder, `<root>/tests/`, of black-box
+tests that verify the core from outside; a test file is never live and never ships, and a module of the track ships only what `files.yml`
+packages. `go` holds the Go black-box tests; a repository without a `go/` root keeps the same tests in the dot-prefixed `.go`, which is of
+the same class. `python` holds the Python ones, by the same convention: `.python` when the repository has no `python/` root. `bash` holds
+the Bash ones: `.bash` when the repository has no `bash/` root. Cross-cutting slices (e.g. the cats configs — every yml/config file across
+the modules track) are **scopes over tracks**, not tracks: they select through the roots rather than owning one.
 
 - [The taxonomy](#the-taxonomy)
 
@@ -82,19 +80,18 @@ file sits in its own column of the track-by-file-language map, never in a file l
 
 ### Rule DDR-TRACK-WORLDMAP
 
-A **world map** is the repository drawn as its tracks crossed with its file languages: one row per track
-(DDR-TRACK-TRACKISPLACEDCLUSTER) and one for the root files (DDR-TRACK-ROOTFILE), one column per file language
-(DDR-TRACK-FILELANGUAGE) and one for the unlisted files (DDR-TRACK-UNLISTEDFILE), and every tracked file counted in exactly one
-cell. It is computed from the track and file-language registries and the git index, never drawn by hand, so it is the same picture on every
-run of the same commit.
+A **world map** is the repository drawn as its tracks crossed with its file languages: one row per track (DDR-TRACK-TRACKISPLACEDCLUSTER)
+and one for the root files (DDR-TRACK-ROOTFILE), one column per file language (DDR-TRACK-FILELANGUAGE) and one for the unlisted files
+(DDR-TRACK-UNLISTEDFILE), and every tracked file counted in exactly one cell. It is computed from the track and file-language registries and
+the git index, never drawn by hand, so it is the same picture on every run of the same commit.
 
 - [The world map](#the-world-map)
 
 ### Rule DDR-TRACK-CELL
 
-A **cell** is one row crossed with one column of a map, the world map (DDR-TRACK-WORLDMAP) or the value-chain map
-(DDR-TRACK-VALUECHAINMAP). A world-map cell holds the tracked files whose track names its row and whose extension names its column, and
-its file count is how many there are; a value-chain map cell holds the ADRs whose ADR domain declares its row and whose value-chain concerns
+A **cell** is one row crossed with one column of a map, the world map (DDR-TRACK-WORLDMAP) or the value-chain map (DDR-TRACK-VALUECHAINMAP).
+A world-map cell holds the tracked files whose track names its row and whose extension names its column, and its file count is how many
+there are; a value-chain map cell holds the decision records whose decision-record domain declares its row and whose value-chain concerns
 include its column. Every row meets every column, so an empty cell is still a cell of the map.
 
 - [The world map](#the-world-map)
@@ -102,16 +99,16 @@ include its column. Every row meets every column, so an empty cell is still a ce
 ### Rule DDR-TRACK-STACKVIOLATION
 
 A **stack violation** is a cell that holds a live file whose file language its track does not declare: the second tech-stack
-DDR-TRACK-ONETECHSTACK forbids, made visible. Test files and vendored files are never live, so they never make one, and the root files'
-row has no track, so none of its cells is one.
+DDR-TRACK-ONETECHSTACK forbids, made visible. Test files and vendored files are never live, so they never make one, and the root files' row
+has no track, so none of its cells is one.
 
 - [The world map](#the-world-map)
 
 ### Rule DDR-TRACK-LITCELL
 
-A **lit cell** is a cell a highlight selects. On the world map, an ADR code, or a set of files, names the files it concerns, and every cell
-holding one of them is lit; on the value-chain map, an ADR code, or one of its rules, lights every cell its ADR sits in. A lit cell answers
-"where does this decision, or this change, sit"; lighting a cell never changes what the cell holds.
+A **lit cell** is a cell a highlight selects. On the world map, a rule code, or a set of files, names the files it concerns, and every cell
+holding one of them is lit; on the value-chain map, a record code, or one of its rules, lights every cell its decision record sits in. A lit
+cell answers "where does this decision, or this change, sit"; lighting a cell never changes what the cell holds.
 
 - [The world map](#the-world-map)
 
@@ -128,31 +125,32 @@ gets its defining rule and its glossary entry before the map prints it, and a la
 
 The **value-chain stack** is the ordered set of rows a decision sits on, from the axioms down to the vendor: `PRIN` (what catzc is for, its
 principles, its process, and the research they rest on), `DSGN` (how the platform and its delivery flow are shaped), `AUTO` (the tooling
-that enacts them), `PIPE` (the pipelines that run the tooling), and `CLOUD` (the substrate it deploys onto). Every ADR domain declares
-exactly one row (`stack:` in `drs.yml`), and every ADR it holds sits on that row. The value-chain stack orders decisions; it is not a
-track's tech-stack (DDR-TRACK-ONETECHSTACK), which is a set of file languages.
+that enacts them), `PIPE` (the pipelines that run the tooling), and `CLOUD` (the substrate it deploys onto). Every decision-record domain
+declares exactly one row (`stack:` in `drs.yml`), and every decision record it holds sits on that row. The value-chain stack orders
+decisions; it is not a track's tech-stack (DDR-TRACK-ONETECHSTACK), which is a set of file languages.
 
 - [The value-chain map](#the-value-chain-map)
 
 ### Rule DDR-TRACK-VALUECHAINCONCERN
 
-A **value-chain concern** is one of the six columns that say where along delivery an ADR acts, in value-chain order: `automation` (loading
-the modules, reading their configuration, and selecting files through globsets), `build` (turning the tracked files into an artifact),
-`quality-control` (verifying a change — tests, checks, and quality gates), `release` (making a build a versioned, promotable release
-candidate), `deploy` (putting a release onto its target), and `access` (reaching and operating what runs — identities, credentials, and
-monitoring). Every ADR domain declares a default (`concern:` in `drs.yml`), and an ADR declares its own only when it differs, so every ADR
-resolves to one or more value-chain concerns, never to none and never to an unknown one. A value-chain concern is not a track's root concern
-(DDR-TRACK-TRACKISPLACEDCLUSTER): a track is where files live, and a value-chain concern is where a decision acts.
+A **value-chain concern** is one of the six columns that say where along delivery a decision record acts, in value-chain order: `automation`
+(loading the modules, reading their configuration, and selecting files through globsets), `build` (turning the tracked files into an
+artifact), `quality-control` (verifying a change — tests, checks, and quality gates), `release` (making a build a versioned, promotable
+release candidate), `deploy` (putting a release onto its target), and `access` (reaching and operating what runs — identities, credentials,
+and monitoring). Every decision-record domain declares a default (`concern:` in `drs.yml`), and a decision record declares its own only when
+it differs, so every decision record resolves to one or more value-chain concerns, never to none and never to an unknown one. A value-chain
+concern is not a track's root concern (DDR-TRACK-TRACKISPLACEDCLUSTER): a track is where files live, and a value-chain concern is where a
+decision acts.
 
 - [The value-chain map](#the-value-chain-map)
 
 ### Rule DDR-TRACK-VALUECHAINMAP
 
-The **value-chain map** is the ADRs drawn as the value-chain stack crossed with the value-chain concerns: one row per row of the stack
-(DDR-TRACK-VALUECHAINSTACK) and one column per value-chain concern (DDR-TRACK-VALUECHAINCONCERN), and an ADR lights the places
-where the row of the ADR domain that holds it meets each of its value-chain concerns. It is computed from `drs.yml`, never drawn by hand,
-and every label it prints names a defined term in its head, as the world map's labels do (DDR-TRACK-LABELSNAMEDEFINEDTERMS); its row
-names are the rows of the value-chain stack, and its column names are the value-chain concerns.
+The **value-chain map** is the decision records drawn as the value-chain stack crossed with the value-chain concerns: one row per row of the
+stack (DDR-TRACK-VALUECHAINSTACK) and one column per value-chain concern (DDR-TRACK-VALUECHAINCONCERN), and a decision record lights the
+places where the row of the decision-record domain that holds it meets each of its value-chain concerns. It is computed from `drs.yml`,
+never drawn by hand, and every label it prints names a defined term in its head, as the world map's labels do
+(DDR-TRACK-LABELSNAMEDEFINEDTERMS); its row names are the rows of the value-chain stack, and its column names are the value-chain concerns.
 
 - [The value-chain map](#the-value-chain-map)
 
@@ -176,9 +174,9 @@ each file to move; migration adds no reader of the track.
 
 ### Rule DDR-TRACK-PRIMARYLANGUAGE
 
-A track has one **primary language** by default: the first file language its tech-stack (DDR-TRACK-ONETECHSTACK) declares, the one a
-track with a single language is written in (DDR-TRACK-FILELANGUAGE). A second file language enters a track by being declared there,
-never by being tolerated, so a track's declared languages read as one primary language and the few others it admits on purpose.
+A track has one **primary language** by default: the first file language its tech-stack (DDR-TRACK-ONETECHSTACK) declares, the one a track
+with a single language is written in (DDR-TRACK-FILELANGUAGE). A second file language enters a track by being declared there, never by being
+tolerated, so a track's declared languages read as one primary language and the few others it admits on purpose.
 
 - [What a track is](#what-a-track-is)
 
@@ -205,15 +203,15 @@ consumer below builds on.
 
 Tracks are not peers in role, only in shape, and the track type says which shape ([track-types](track-types.md)). The `modules` track
 defines the internal ports — `pwsh` is the core track, and every other track rests on it. The holders hold the repository's side of an
-outside contract: `contracts/` for consumers of this repo and the platforms that read it, `docs/` for its human readers (the ADRs, reference
-articles, and guides, partly generated by the core), and a `vendor-settings` track per tool (`.github/`, `.cspell/`, `.claude/`) for the
-tools that read them. `infrastructure/` adapts the core to Azure through Bicep modules and named templates, and the `pipelines` tracks adapt
-it to Azure DevOps and GitHub: each pipeline is a deployable-unit's delivery machine, and it runs the core through one runner script. The
-other **language** tracks hold their own modules and a test holder that tests the core from outside and delivers nothing: `go/tests/` holds
-black-box tests that start the engine as a process and assert on what it prints, so its files are never part of a deployable-unit's output,
-and no bundle can hold them. The three language tracks, Go, Python and Bash, each have their own ADR in the automation domain. The taxonomy
-earns its keep in review: a proposed root that is none of these is probably a subfolder of an existing track, and a cross-cutting need (all
-config files, all markdown) is a **scope** — a globset selecting through tracks — not a new root.
+outside contract: `contracts/` for consumers of this repo and the platforms that read it, `docs/` for its human readers (the decision
+records, reference articles, and guides, partly generated by the core), and a `vendor-settings` track per tool (`.github/`, `.cspell/`,
+`.claude/`) for the tools that read them. `infrastructure/` adapts the core to Azure through Bicep modules and named templates, and the
+`pipelines` tracks adapt it to Azure DevOps and GitHub: each pipeline is a deployable-unit's delivery machine, and it runs the core through
+one runner script. The other **language** tracks hold their own modules and a test holder that tests the core from outside and delivers
+nothing: `go/tests/` holds black-box tests that start the engine as a process and assert on what it prints, so its files are never part of a
+deployable-unit's output, and no bundle can hold them. The three language tracks, Go, Python and Bash, each have their own ADR in the
+automation domain. The taxonomy earns its keep in review: a proposed root that is none of these is probably a subfolder of an existing
+track, and a cross-cutting need (all config files, all markdown) is a **scope** — a globset selecting through tracks — not a new root.
 
 ### A track has a tech-stack
 
@@ -268,8 +266,8 @@ second tech-stack (DDR-TRACK-ONETECHSTACK) when it has an extension: an extensio
 The rules above make the repository countable, and the world map is the count drawn. Its rows are the tracks and its columns the file
 languages, so a reader sees at a glance which track holds which kinds of text and how much of each. A cell is where one track meets one file
 language, and its shade says how many files sit there. A stack violation is marked on its cell, because the place is the finding: it says
-which track holds the second stack and in which language. A highlight lights the cells an ADR governs or a change touches, so the same
-picture answers "where does this decision apply" and "where does my change sit". The map prints only defined terms, those the glossary
+which track holds the second stack and in which language. A highlight lights the cells a decision record governs or a change touches, so the
+same picture answers "where does this decision apply" and "where does my change sit". The map prints only defined terms, those the glossary
 lists: a label that names an undefined concept would teach its reader a word the repository never fixed, so every printed concept carries a
 rule here and a glossary entry, and the quality gate fails a label that names none.
 
@@ -278,8 +276,8 @@ rule here and a glossary entry, and the quality gate fails a label that names no
 An outside repository brought into this one arrives with a history worth keeping and a layout that matches none of this repository's
 modules. Importing it straight into a module would mix its files with code the gates hold to the domain rules before anyone has judged them;
 leaving the history behind would lose the record of why each file is the way it is. The unordered track is the place between: a root folder
-that git tracks and the world map counts, so the place rule (DDR-TRACK-TRACKISPLACEDCLUSTER) holds, and each import lands whole at its
-own landing address. Sorting then moves the files one at a time into the modules and tracks where they belong, with `git mv` so
+that git tracks and the world map counts, so the place rule (DDR-TRACK-TRACKISPLACEDCLUSTER) holds, and each import lands whole at its own
+landing address. Sorting then moves the files one at a time into the modules and tracks where they belong, with `git mv` so
 `git log --follow` keeps every file's history, and the gates hold each file once it arrives. A landing name never carries a suffix: a name
 that is taken fails the import, so a second import of the same source is a decision, never an accident.
 
@@ -305,30 +303,29 @@ travels — the tooling it runs on, its build, its verification, its release, it
 read left to right like the value-chain diagrams ([visual-design](visual-design.md)). The two maps sit side by side because each answers
 what the other cannot.
 
-The place is declared, never guessed. Every ADR domain names its row and a default set of value-chain concerns in `drs.yml`, and an ADR
-that acts elsewhere declares its own, so the declaration is made once per ADR domain and repeated only where an ADR differs, the same
-resolution every setting follows: a declared default, overridden only where it differs. Both words are qualified on purpose: "concern"
-already names a track, the repository's root concern, and "stack" already names a track's tech-stack, so the value-chain forms keep each
-word to one meaning.
+The place is declared, never guessed. Every decision-record domain names its row and a default set of value-chain concerns in `drs.yml`, and
+a decision record that acts elsewhere declares its own, so the declaration is made once per decision-record domain and repeated only where a
+decision record differs, the same resolution every setting follows: a declared default, overridden only where it differs. Both words are
+qualified on purpose: "concern" already names a track, the repository's root concern, and "stack" already names a track's tech-stack, so the
+value-chain forms keep each word to one meaning.
 
 ## Decision
 
-Name the concept: repository concerns are **tracks** — place-declared clusters of module contents (DDR-TRACK-TRACKISPLACEDCLUSTER),
-each of one track type (DDR-TRACK-ONETRACKTYPE), including the unordered track that nothing defaults to (DDR-TRACK-UNORDEREDTRACK)
-and that a file leaves one per commit, in the eac normal form (DDR-TRACK-MIGRATEONEFILEPERCOMMIT), one tech-stack each
-(DDR-TRACK-ONETECHSTACK) that defaults to one primary language (DDR-TRACK-PRIMARYLANGUAGE), subscribable only via depms and
-globset projections (DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED), and shipped through deployable-units that bind pipelines 1-1
-(DDR-TRACK-DEPLOYABLEUNIT). A tech-stack is a set of file languages, each named by its extension (DDR-TRACK-FILELANGUAGE). The
-world map crosses the tracks with the file languages (DDR-TRACK-WORLDMAP), with a row for the root files and a column for the unlisted
-files (DDR-TRACK-ROOTFILE, DDR-TRACK-UNLISTEDFILE); its cells (DDR-TRACK-CELL) mark the stack violations
-(DDR-TRACK-STACKVIOLATION) and light for a highlight (DDR-TRACK-LITCELL), and every label it prints names a defined term
-(DDR-TRACK-LABELSNAMEDEFINEDTERMS). Beside it, the value-chain map (DDR-TRACK-VALUECHAINMAP) crosses the value-chain stack
-(DDR-TRACK-VALUECHAINSTACK) with the value-chain concerns (DDR-TRACK-VALUECHAINCONCERN), both declared per ADR domain in
-`drs.yml`, with a per-ADR override of the concerns.
+Name the concept: repository concerns are **tracks** — place-declared clusters of module contents (DDR-TRACK-TRACKISPLACEDCLUSTER), each of
+one track type (DDR-TRACK-ONETRACKTYPE), including the unordered track that nothing defaults to (DDR-TRACK-UNORDEREDTRACK) and that a file
+leaves one per commit, in the eac normal form (DDR-TRACK-MIGRATEONEFILEPERCOMMIT), one tech-stack each (DDR-TRACK-ONETECHSTACK) that
+defaults to one primary language (DDR-TRACK-PRIMARYLANGUAGE), subscribable only via depms and globset projections
+(DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED), and shipped through deployable-units that bind pipelines 1-1 (DDR-TRACK-DEPLOYABLEUNIT). A
+tech-stack is a set of file languages, each named by its extension (DDR-TRACK-FILELANGUAGE). The world map crosses the tracks with the file
+languages (DDR-TRACK-WORLDMAP), with a row for the root files and a column for the unlisted files (DDR-TRACK-ROOTFILE,
+DDR-TRACK-UNLISTEDFILE); its cells (DDR-TRACK-CELL) mark the stack violations (DDR-TRACK-STACKVIOLATION) and light for a highlight
+(DDR-TRACK-LITCELL), and every label it prints names a defined term (DDR-TRACK-LABELSNAMEDEFINEDTERMS). Beside it, the value-chain map
+(DDR-TRACK-VALUECHAINMAP) crosses the value-chain stack (DDR-TRACK-VALUECHAINSTACK) with the value-chain concerns
+(DDR-TRACK-VALUECHAINCONCERN), both declared per decision-record domain in `drs.yml`, with a per-ADR override of the concerns.
 
 ### How this is enforced
 
-- **The conventional root folders** keep the root inventory deliberate — a new root folder is a reviewed decision, and under this ADR it is
+- **The conventional root folders** keep the root inventory deliberate — a new root folder is a reviewed decision, and under this DDR it is
   the decision to open a track.
 - **[track-types](track-types.md)** declares each track's type, places and vendor once, and the config types fail the load on a track that
   breaks them.
@@ -336,12 +333,12 @@ files (DDR-TRACK-ROOTFILE, DDR-TRACK-UNLISTEDFILE); its cells (DDR-TRACK-CELL) m
   quality gate fails a trigger that no longer matches, while the git-reflected report answers what a change touches.
 - **depms and the dependency-graph quality gates** enforce the declared subscription edges, including the one-directional core ←
   adapter/port dependency.
-- **The `Test-WorldMap` quality gate** reads the world map and fails on a stack violation (DDR-TRACK-STACKVIOLATION), a root folder
-  with tracked files that no track names (DDR-TRACK-TRACKISPLACEDCLUSTER), and a printed label that names no defined term
+- **The `Test-WorldMap` quality gate** reads the world map and fails on a stack violation (DDR-TRACK-STACKVIOLATION), a root folder with
+  tracked files that no track names (DDR-TRACK-TRACKISPLACEDCLUSTER), and a printed label that names no defined term
   (DDR-TRACK-LABELSNAMEDEFINEDTERMS).
 - **`Catzc.Base.Drs.DrsConfig`**, the type of `drs.yml`, declares the rows of the value-chain stack and the value-chain concerns once, in
-  order, and fails the load on an ADR domain without a row or a default, on a row or a value-chain concern outside them, and on an unknown
-  key, so every ADR resolves to its row and one or more value-chain concerns (DDR-TRACK-VALUECHAINSTACK,
+  order, and fails the load on a decision-record domain without a row or a default, on a row or a value-chain concern outside them, and on
+  an unknown key, so every decision record resolves to its row and one or more value-chain concerns (DDR-TRACK-VALUECHAINSTACK,
   DDR-TRACK-VALUECHAINCONCERN).
 - **Code review** applies the taxonomy: a new track must name its type, its places and its tech-stack; a cross-cutting need becomes a scope
   globset, not a root.
@@ -349,8 +346,8 @@ files (DDR-TRACK-ROOTFILE, DDR-TRACK-UNLISTEDFILE); its cells (DDR-TRACK-CELL) m
 ## Consequences
 
 - "Which track does this change touch?" has one answer, computed (git-reflected against the globsets), not argued.
-- "Where along delivery does this decision act?" has a declared answer too: the value-chain map reads it from `drs.yml`, and a new ADR
-  inherits its ADR domain's default until it declares otherwise.
+- "Where along delivery does this decision act?" has a declared answer too: the value-chain map reads it from `drs.yml`, and a new decision
+  record inherits its decision-record domain's default until it declares otherwise.
 - Pipelines, tests, and reviewers all read the same coordination surface, so a change's blast radius is the same fact everywhere.
 - Opening a concern is cheap and bounded: one track entry with its type and places, one globset entry — and the rest of the repository is
   untouched by construction.

@@ -33,8 +33,8 @@ Check only these file languages (default: every one).
 
 Check only these files or folders (default: every tracked file). A file it passes is in the eac normal form as far as the formatters go:
 uncontested, left unchanged by every formatter
-([TDR-NORMALFORM-UNCONTESTED](../../../drs/thesis/eac-normal-form.md#rule-tdr-normalform-uncontested)), which is the check a file
-passes before it leaves the unordered track
+([TDR-NORMALFORM-UNCONTESTED](../../../drs/thesis/eac-normal-form.md#rule-tdr-normalform-uncontested)), which is the check a file passes
+before it leaves the unordered track
 ([DDR-TRACK-MIGRATEONEFILEPERCOMMIT](../../../drs/design/tracks.md#rule-ddr-track-migrateonefilepercommit)).
 
 ### parameter `OutputFolder`

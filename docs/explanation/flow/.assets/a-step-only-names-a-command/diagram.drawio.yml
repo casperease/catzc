@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "66aea47e9e52"
+#     with_body_sha: "550b650411b7"
 # ---
 
 description:
@@ -80,9 +80,9 @@ content:
           - .claude/CLAUDE.md
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
-      - cell: ado-pipelines/pipelines/.
+      - cell: ado-pipelines/pipelines/steps
         by:
-          - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/steps/invoke-automation.yaml
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: docs/-/.
@@ -104,12 +104,12 @@ content:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
@@ -134,7 +134,7 @@ content:
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: ado-pipelines/pipeline-yaml
         by:
-          - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/steps/invoke-automation.yaml
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: docs/markdown

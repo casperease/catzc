@@ -12,10 +12,10 @@ Returns the tracked files a globset matches — the deployable unit's actual mem
 ### description
 
 Intersects the matching universe (`git ls-files`,
-[FDR-CD-GLOBS-TRACKEDFILESONLY](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)) with the named
-globset's membership (include minus exclude), ordinally sorted — the exact file list the durable SHA is computed over
-([FDR-CD-GLOBS-DURABLESHAIDENTITY](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)). A member may be
-missing on disk (an unstaged deletion); it is still a member here.
+[FDR-CD-GLOBS-TRACKEDFILESONLY](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)) with the named globset's
+membership (include minus exclude), ordinally sorted — the exact file list the durable SHA is computed over
+([FDR-CD-GLOBS-DURABLESHAIDENTITY](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)). A member may be missing on
+disk (an unstaged deletion); it is still a member here.
 
 ### parameter `Name`
 

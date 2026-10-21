@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e83bb98a1e54
+#     with_body_sha: bf0eef59a7ce
 # ---
 
 description:
@@ -139,13 +139,13 @@ content:
           - FDR-CD-GLOBS
       - cell: ado-pipelines/pipelines/.
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
-          - DDR-ASPECT
-          - FDR-CD-DETECT
           - FDR-CD-GLOBS
-          - ADR-PWSH-CACHE
-          - ADR-REPO-PROTGLOB
       - cell: ado-pipelines/pipelines/extends
         by:
           - .ado/pipelines/extends/cd-customer.yaml
@@ -188,11 +188,11 @@ content:
           - docs/references/pwsh/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
           - docs/references/pwsh/catzc-base-config/private/Get-ConfigRegistry.ps1.md
           - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
           - docs/references/pwsh/catzc-base-docs/Get-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
+          - docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-execution/Find-Executable.ps1.md
           - docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md
@@ -268,11 +268,15 @@ content:
           - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
           - docs/references/pwsh/catzc-tooling-core/private/Assert-ToolVersion.ps1.md
+          - ADR-PWSH-CACHE
+          - ADR-REPO-PROTGLOB
           - DDR-ASPECT
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
-          - ADR-PWSH-CACHE
-          - ADR-REPO-PROTGLOB
+      - cell: github-workflows/workflows/.
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS
       - cell: pwsh/-/.
         by:
           - pwsh/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1
@@ -300,8 +304,8 @@ content:
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
           - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
-          - FDR-CD-DETECT
           - ADR-PWSH-CACHE
+          - FDR-CD-DETECT
       - cell: pwsh/Catzc.Base.Config/.
         by:
           - pwsh/Catzc.Base.Config/Get-Config.ps1
@@ -314,24 +318,30 @@ content:
           - ADR-PWSH-CACHE
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
-          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
           - ADR-PWSH-CACHE
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Docs/private
+        by:
+          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+          - ADR-PWSH-CACHE
+      - cell: pwsh/Catzc.Base.Drs/.
+        by:
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
+          - ADR-PWSH-CACHE
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-PWSH-CACHE
+          - ADR-REPO-PROTGLOB
           - DDR-ASPECT
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
-          - ADR-PWSH-CACHE
-          - ADR-REPO-PROTGLOB
-      - cell: pwsh/Catzc.Base.Docs/private
+      - cell: pwsh/Catzc.Base.Drs/private
         by:
           - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
-          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
           - ADR-PWSH-CACHE
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-DETECT
@@ -367,16 +377,16 @@ content:
           - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+          - ADR-PWSH-CACHE
+          - ADR-REPO-PROTGLOB
           - DDR-ASPECT
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
-          - ADR-PWSH-CACHE
-          - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.Globs/configs
         by:
           - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - FDR-CD-GLOBS
           - ADR-REPO-PROTGLOB
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Base.Globs/private
         by:
           - pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
@@ -402,10 +412,10 @@ content:
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
+          - ADR-REPO-PROTGLOB
           - DDR-ASPECT
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
-          - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.Globs/tests/types
         by:
           - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
@@ -421,18 +431,18 @@ content:
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+          - ADR-REPO-PROTGLOB
           - DDR-ASPECT
           - FDR-CD-GLOBS
-          - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - ADR-PWSH-CACHE
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
-          - ADR-PWSH-CACHE
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
@@ -454,16 +464,16 @@ content:
         by:
           - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
           - pwsh/Catzc.Base.QualityGates/Test-ManagedGuids.ps1
-          - FDR-CD-GLOBS
           - ADR-REPO-PROTGLOB
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - FDR-CD-DETECT
-          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
           - ADR-REPO-PROTGLOB
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
@@ -473,9 +483,9 @@ content:
           - pwsh/Catzc.Base.QualityGates/private/Protect-TestedModule.ps1
           - pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
           - pwsh/Catzc.Base.QualityGates/private/Select-ProtectedTestFile.ps1
+          - ADR-REPO-PROTGLOB
           - DDR-ASPECT
           - FDR-CD-GLOBS
-          - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.QualityGates/tests
         by:
           - pwsh/Catzc.Base.QualityGates/tests/Get-ModuleProtectionIdentity.Tests.ps1
@@ -523,8 +533,8 @@ content:
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
           - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
-          - FDR-CD-DETECT
           - ADR-PWSH-CACHE
+          - FDR-CD-DETECT
       - cell: subject/Catzc.Base.Config
         by:
           - pwsh/Catzc.Base.Config/Get-Config.ps1
@@ -534,18 +544,21 @@ content:
           - ADR-PWSH-CACHE
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
-          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+          - ADR-PWSH-CACHE
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
-          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-PWSH-CACHE
+          - ADR-REPO-PROTGLOB
           - DDR-ASPECT
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
-          - ADR-PWSH-CACHE
-          - ADR-REPO-PROTGLOB
       - cell: subject/Catzc.Base.Execution
         by:
           - pwsh/Catzc.Base.Execution/Find-Executable.ps1
@@ -607,11 +620,11 @@ content:
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+          - ADR-PWSH-CACHE
+          - ADR-REPO-PROTGLOB
           - DDR-ASPECT
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
-          - ADR-PWSH-CACHE
-          - ADR-REPO-PROTGLOB
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
@@ -619,9 +632,9 @@ content:
           - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - ADR-PWSH-CACHE
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
-          - ADR-PWSH-CACHE
       - cell: subject/Catzc.Base.ModuleSystem
         by:
           - pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
@@ -648,11 +661,11 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
+          - ADR-PWSH-CACHE
+          - ADR-REPO-PROTGLOB
           - DDR-ASPECT
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
-          - ADR-PWSH-CACHE
-          - ADR-REPO-PROTGLOB
       - cell: subject/Catzc.Base.Variants
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
@@ -669,14 +682,18 @@ content:
           - ADR-PWSH-CACHE
       - cell: subject/pipelines
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
           - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - .ado/pipelines/extends/cd-customer.yaml
-          - DDR-ASPECT
-          - FDR-CD-DETECT
           - FDR-CD-GLOBS
-          - ADR-PWSH-CACHE
-          - ADR-REPO-PROTGLOB
+      - cell: subject/workflows
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS
     axis:
       - cell: DSGN/build
         by:

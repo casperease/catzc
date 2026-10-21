@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4d34164e9d3d"
+#     with_body_sha: "3967fa9c457e"
 # ---
 
 description:
@@ -135,14 +135,15 @@ content:
           - FDR-CD-GLOBS-EVERYSETHASLAYER
       - cell: ado-pipelines/pipelines/.
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-ONETRACKTYPE
           - DDR-TRACK-TRACKISPLACEDCLUSTER
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-REPO-FOLDERS-CLOSEDROOTSET
-          - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -202,13 +203,18 @@ content:
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - ADR-REPO-FOLDERS-CLOSEDROOTSET
+          - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-ONETRACKTYPE
           - DDR-TRACK-TRACKISPLACEDCLUSTER
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-REPO-FOLDERS-CLOSEDROOTSET
-          - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
+      - cell: github-workflows/workflows/.
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -231,17 +237,17 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-REPO-FOLDERS-CLOSEDROOTSET
+          - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-ONETRACKTYPE
           - DDR-TRACK-TRACKISPLACEDCLUSTER
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-REPO-FOLDERS-CLOSEDROOTSET
-          - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-GLOBS-COMPOSESETS
@@ -373,17 +379,17 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-REPO-FOLDERS-CLOSEDROOTSET
+          - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-ONETRACKTYPE
           - DDR-TRACK-TRACKISPLACEDCLUSTER
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-REPO-FOLDERS-CLOSEDROOTSET
-          - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
@@ -426,10 +432,10 @@ content:
         by:
           - pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
           - ADR-REPO-FOLDERS-CLOSEDROOTSET
           - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
@@ -451,14 +457,20 @@ content:
           - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: subject/pipelines
         by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - .ado/pipelines/ci-pwsh.yaml
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-ONETRACKTYPE
           - DDR-TRACK-TRACKISPLACEDCLUSTER
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-REPO-FOLDERS-CLOSEDROOTSET
-          - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
+      - cell: subject/workflows
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
     axis:
       - cell: DSGN/*
         by:

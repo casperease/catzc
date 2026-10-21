@@ -198,8 +198,7 @@ hardcodes `'.internal'` and `'.vendor'`.
 
 A literal folder name is for a module-internal contract folder like these, never for a track's place: where a track's files live varies by
 repository kind ([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)), so code finds a place, or a named
-kind inside one, through the track
-([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)).
+kind inside one, through the track ([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)).
 
 ### A test-language root as a setting
 

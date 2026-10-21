@@ -40,8 +40,8 @@ A design question about one instance is answered by the default. Raise a questio
 
 ## Context
 
-Catzc does everything as code (PDR-EAC), and most of that code is not programming: it is configuring. The modules are mechanisms — read
-a registry, resolve a setting, run an engine over a set of files, render a root file — and the repository's behaviour is what their
+Catzc does everything as code (PDR-EAC), and most of that code is not programming: it is configuring. The modules are mechanisms — read a
+registry, resolve a setting, run an engine over a set of files, render a root file — and the repository's behaviour is what their
 `configs/*.yml` registries say. A new language, tool, timeout, root file or pipeline is meant to arrive as a few lines of YAML, checked by
 the config type that loads it, with the sensible default covering everything the lines leave out.
 
@@ -110,7 +110,7 @@ the default, not decided case by case.
   mechanism supports, and an exception is a typed key with a required reason.
 - **Integrity tests** check that the consumers read the registry instead of keeping their own list: for example, that every formatter a
   language names is one the formatting mechanism provides.
-- **Code review** rejects a new per-instance function, a hard-coded instance list, or a branch for one instance, against this ADR, and asks
+- **Code review** rejects a new per-instance function, a hard-coded instance list, or a branch for one instance, against this PDR, and asks
   for the mechanism or the config entry instead.
 
 ## Consequences

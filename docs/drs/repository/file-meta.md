@@ -132,13 +132,13 @@ without one is a visible finding, or an `exclude` entry of its carrier with the 
 The head is a map of facts about its own file, so it holds as few links to other files as possible, and only those that cost to derive and
 truly define a relationship. The edges of a code file point at its **relatives**, at most three edges with fixed names: `docs` (its comment
 page, [ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight), written as a link whose target is
-the page's repository-relative path and whose text is the page's file name), `test` (the test file that tests it) and, on a test, `code`
-(the file it tests), so `source` keeps its one meaning, the authored input of a generated file. A relative stays inside the file's own
-module or its docs section, never in another module, so modules relate to each other by name and never through a file path (encapsulation),
-and a page knows its code by its name, so it records no edge back. The edges and the rules that fill them are the `relative-edges` kind's
-settings in `file-meta.yml`, so a new edge is a registry entry, never a new mechanism. An edge holds a repository-relative path that exists
-on disk, and an edge with no file is left out. No file carries a pointer of its own in its code: the head is the one place a code file names
-its relatives.
+the page's path from the file's own folder and whose text is the page's file name), `test` (the test file that tests it) and, on a test,
+`code` (the file it tests), so `source` keeps its one meaning, the authored input of a generated file. A relative stays inside the file's
+own module or its docs section, never in another module, so modules relate to each other by name and never through a file path
+(encapsulation), and a page knows its code by its name, so it records no edge back. The edges and the rules that fill them are the
+`relative-edges` kind's settings in `file-meta.yml`, so a new edge is a registry entry, never a new mechanism. An edge points at a file that
+exists on disk, and an edge with no file is left out. No file carries a pointer of its own in its code: the head is the one place a code
+file names its relatives.
 
 - [Relatives](#relatives)
 
@@ -311,8 +311,9 @@ that proves it; a test has one, the code it tests. Writing each as a link in the
 in step with the companion. The head already holds derived facts, so the companions are edges, one fixed name per kind of companion, and no
 more than the ones that truly define a relationship, so the head stays a map of facts about its own file. The registry holds the list of
 edges and the path rule of each, and an edge whose file does not exist is not written, so an entry in the head is always a working pointer.
-The page is the companion a reader opens from the code, so its edge is written as a link, which an editor follows in one click, and its
-target is the repository-relative path every edge holds; an edge a tool follows stays a bare path.
+The page is the companion a reader opens from the code, so its edge is written as a link, which an editor and GitHub follow in one click
+because its target is the page's path from the file's own folder, the way both resolve a link; an edge a tool follows stays a bare
+repository-relative path.
 
 ### File kinds
 

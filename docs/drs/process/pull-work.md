@@ -26,8 +26,8 @@ them is low — but decide before the lack of a decision starts to cost more tha
 ### Rule WDR-PULLWORK-LIMITWORKINPROGRESS
 
 Limit work in progress. Finishing beats starting: a cap on concurrent work forces the queue down, exposes the real constraint, and reduces
-the task-switching waste ([PDR-NOWASTE](../principles/reduce-waste.md)) — by Little's Law, less work-in-progress is directly less lead
-time ([WDR-QUEUECOST](queues-cost-money.md)).
+the task-switching waste ([PDR-NOWASTE](../principles/reduce-waste.md)) — by Little's Law, less work-in-progress is directly less lead time
+([WDR-QUEUECOST](queues-cost-money.md)).
 
 - [How to apply](#how-to-apply)
 
@@ -39,8 +39,8 @@ tying up capital, decaying, and hiding problems. Its replacement is the pull sys
 when it has finished the last, so the amount of work in flight is capped and demand, not a forecast, sets the pace [^1].
 
 In software the "inventory" is partially-done work — unmerged branches, half-built features, tickets in flight
-([PDR-NOWASTE](../principles/reduce-waste.md)) — and the cost is the same: capital tied up, merge risk accumulating, and the real
-bottleneck hidden behind a full queue. This article states the pull discipline; its cost side — why the queues are where the money goes — is
+([PDR-NOWASTE](../principles/reduce-waste.md)) — and the cost is the same: capital tied up, merge risk accumulating, and the real bottleneck
+hidden behind a full queue. This article states the pull discipline; its cost side — why the queues are where the money goes — is
 [WDR-QUEUECOST](queues-cost-money.md).
 
 ## Decision
@@ -52,9 +52,9 @@ capped:
   needs somewhere to put its output.
 - **Small batches.** Break work down to the smallest increment that can be integrated and delivered on its own. This is the same move agile
   makes for responsiveness ([WDR-VALUES](agile-values.md)) and lean makes for flow — one lever, two payoffs.
-- **Defer commitment.** Make irreversible decisions at the last responsible moment, when knowledge is greatest ([WDR-LEAN](lean.md)).
-  This is not procrastination: it is refusing to spend certainty you do not yet have, while still deciding before indecision itself becomes
-  the cost.
+- **Defer commitment.** Make irreversible decisions at the last responsible moment, when knowledge is greatest ([WDR-LEAN](lean.md)). This
+  is not procrastination: it is refusing to spend certainty you do not yet have, while still deciding before indecision itself becomes the
+  cost.
 - **Limit work in progress.** Cap the number of items in flight. The cap is what actually forces small batches and exposes the constraint,
   rather than merely encouraging them.
 
@@ -77,9 +77,9 @@ limit is what turns pull from a slogan into a mechanism, and by Little's Law it 
 ## How to apply
 
 Start fewer things and finish them. Before pulling in new work, ask whether there is capacity to complete it or whether it will simply join
-a queue as partially-done work ([PDR-NOWASTE](../principles/reduce-waste.md)). Break a change into the smallest slice that can
-integrate and deliver on its own, rather than batching several concerns into one large push. Hold irreversible decisions until the last
-responsible moment, and keep the number of changes in flight small enough that the flow, not the plan, sets the pace.
+a queue as partially-done work ([PDR-NOWASTE](../principles/reduce-waste.md)). Break a change into the smallest slice that can integrate and
+deliver on its own, rather than batching several concerns into one large push. Hold irreversible decisions until the last responsible
+moment, and keep the number of changes in flight small enough that the flow, not the plan, sets the pace.
 
 ## References
 

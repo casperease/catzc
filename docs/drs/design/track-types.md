@@ -1,4 +1,4 @@
-# ADR: Track types — what a track owns, and where tracks are declared
+# Design: Track types — what a track owns, and where tracks are declared
 
 ## Rules: DDR-TRACKTYPE
 
@@ -8,8 +8,8 @@ A **track type** is the sort of cluster a track is, and it is one of a closed se
 `infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`, `contracts`, `documentation` and `unordered`. Configuration is no track
 type: it is a file role (the `config` kind), static files kept in the repository inside a module or inside a vendor-settings track, and it
 follows its owner. A track has exactly one type. A new tech-stack that ships (a `services` or `frontend` track,
-[DDR-TRACK-ONETECHSTACK](tracks.md#rule-ddr-track-onetechstack)) adds its type to the set in the same change that opens the track,
-never before it.
+[DDR-TRACK-ONETECHSTACK](tracks.md#rule-ddr-track-onetechstack)) adds its type to the set in the same change that opens the track, never
+before it.
 
 - [Track types](#track-types)
 
@@ -17,9 +17,9 @@ never before it.
 
 A track type has one **role**. A **deployable track** (`modules`, `infrastructure`, and the future `services` and `frontend`) _owns_
 deployable-units: collections of the track's modules that the repository delivers through CI/CD
-([DDR-TRACK-DEPLOYABLEUNIT](tracks.md#rule-ddr-track-deployableunit)). A **holder track** (every other type) _is_ a module more
-than it owns modules: it holds one vendor's or one tool's files for this repository, or one purpose's, and it ships nothing of its own. The
-role is declared on the track type, never on the track.
+([DDR-TRACK-DEPLOYABLEUNIT](tracks.md#rule-ddr-track-deployableunit)). A **holder track** (every other type) _is_ a module more than it owns
+modules: it holds one vendor's or one tool's files for this repository, or one purpose's, and it ships nothing of its own. The role is
+declared on the track type, never on the track.
 
 - [Deployable and holder tracks](#deployable-and-holder-tracks)
 
@@ -39,12 +39,11 @@ never the third party that wrote it.
 ### Rule DDR-TRACKTYPE-DECLAREDONCE
 
 A track is **declared once**, in the `tracks` map of `variants.yml` (`Catzc.Base.Variants`, the repo-wide variants), as its name, its type,
-its places (the paths it covers), its vendor when it has one ([DDR-TRACKTYPE-OPTIONALVENDOR](#rule-ddr-tracktype-optionalvendor))
-and its file languages ([DDR-TRACK-FILELANGUAGE](tracks.md#rule-ddr-track-filelanguage)). The track types are declared once, in
-`track-types.yml` of the same module, each with its definition, its role ([DDR-TRACKTYPE-ONEROLE](#rule-ddr-tracktype-onerole))
-and the module types it admits
-([DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES](module-types.md#rule-ddr-modtype-tracktypeadmitsmoduletypes)). No other file lists a
-track, a track type or a place: a command, a gate and a globset read them through `Get-Track`.
+its places (the paths it covers), its vendor when it has one ([DDR-TRACKTYPE-OPTIONALVENDOR](#rule-ddr-tracktype-optionalvendor)) and its
+file languages ([DDR-TRACK-FILELANGUAGE](tracks.md#rule-ddr-track-filelanguage)). The track types are declared once, in `track-types.yml` of
+the same module, each with its definition, its role ([DDR-TRACKTYPE-ONEROLE](#rule-ddr-tracktype-onerole)) and the module types it admits
+([DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES](module-types.md#rule-ddr-modtype-tracktypeadmitsmoduletypes)). No other file lists a track, a
+track type or a place: a command, a gate and a globset read them through `Get-Track`.
 
 - [Where the declarations live](#where-the-declarations-live)
 
@@ -69,8 +68,8 @@ head shows `tracktype`, `vendor` or the track's role, places or languages: a rea
 
 A track of **vendored code** holds code written by a third party that the repository does not author, such as `pwsh/.vendor` and
 `bash/.vendor`. It is nested under another track's root and gets its files by the longest place
-([DDR-TRACKTYPE-LONGESTPLACEWINS](#rule-ddr-tracktype-longestplacewins)), so the track beside it never holds them. Its files are
-never live ([DDR-TRACK-STACKVIOLATION](tracks.md#rule-ddr-track-stackviolation)).
+([DDR-TRACKTYPE-LONGESTPLACEWINS](#rule-ddr-tracktype-longestplacewins)), so the track beside it never holds them. Its files are never live
+([DDR-TRACK-STACKVIOLATION](tracks.md#rule-ddr-track-stackviolation)).
 
 - [Vendored code](#vendored-code)
 
@@ -88,16 +87,16 @@ name for the type of track, declared once, makes that difference a fact a gate c
 holder of black-box tests, and what ships of it is what `files.yml` packages; `infrastructure` holds Bicep templates and reusable Bicep
 modules; `pipelines` holds pipeline definitions, Azure DevOps or GitHub Actions by vendor; `vendor-settings` holds the settings of one tool
 the repository configures; `vendored-code` holds code written by a third party; `contracts` holds the repository's boundary contracts, in
-both directions; `documentation` holds the ADRs, references and guides; `unordered` is where imports land
-([DDR-TRACK-UNORDEREDTRACK](tracks.md#rule-ddr-track-unorderedtrack)). Configuration is a file role, not a type: `configs/*.yml`
-belongs to its module's track and `settings.json` to its vendor-settings track.
+both directions; `documentation` holds the decision records, references and guides; `unordered` is where imports land
+([DDR-TRACK-UNORDEREDTRACK](tracks.md#rule-ddr-track-unorderedtrack)). Configuration is a file role, not a type: `configs/*.yml` belongs to
+its module's track and `settings.json` to its vendor-settings track.
 
 ### Deployable and holder tracks
 
 The line between deployable and holder follows the delivery model, not the folder. A deployable track has modules that are built, verified
-and promoted as units, so it carries aspects ([DDR-ASPECT](module-aspects.md)), globsets and a pipeline per deployable-unit. A holder
-track carries none of that: its files are read by a platform or a tool, and its only checks are that they are well-formed and in the right
-place. A holder is therefore small, and a vendor change touches only its holder.
+and promoted as units, so it carries aspects ([DDR-ASPECT](module-aspects.md)), globsets and a pipeline per deployable-unit. A holder track
+carries none of that: its files are read by a platform or a tool, and its only checks are that they are well-formed and in the right place.
+A holder is therefore small, and a vendor change touches only its holder.
 
 ### Vendors
 
@@ -109,9 +108,9 @@ is not its vendor.
 
 ### Where the declarations live
 
-A track and a track type are data, not code ([PDR-CONFIG](../principles/configure-not-program.md)): a new track is an entry, a new type
-is an entry plus the handler its role needs, and neither is a branch in a command. The declaration sits with the variants because a track is
-a repository-wide variant, and the types sit beside it so the closed set and the tracks are validated together at load by the config types.
+A track and a track type are data, not code ([PDR-CONFIG](../principles/configure-not-program.md)): a new track is an entry, a new type is
+an entry plus the handler its role needs, and neither is a branch in a command. The declaration sits with the variants because a track is a
+repository-wide variant, and the types sit beside it so the closed set and the tracks are validated together at load by the config types.
 
 ### Vendored code
 
@@ -124,11 +123,11 @@ gives it its files without a list of exclusions.
 Name the type of a track and declare it once. A track is a cluster of module contents
 ([DDR-TRACK-TRACKISPLACEDCLUSTER](tracks.md#rule-ddr-track-trackisplacedcluster)) with one of a closed set of types
 ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](#rule-ddr-tracktype-closedsetoftypes)), and a vendor when one platform reads it
-([DDR-TRACKTYPE-OPTIONALVENDOR](#rule-ddr-tracktype-optionalvendor)). A deployable track owns deployable-units and a holder track
-is a module of one vendor, one tool or one purpose ([DDR-TRACKTYPE-ONEROLE](#rule-ddr-tracktype-onerole)). The `tracks` map and
-`track-types.yml` are the only declarations ([DDR-TRACKTYPE-DECLAREDONCE](#rule-ddr-tracktype-declaredonce)); the longest place
-resolves each file ([DDR-TRACKTYPE-LONGESTPLACEWINS](#rule-ddr-tracktype-longestplacewins)); the head says `track`, `tracktype`
-and `vendor` ([DDR-TRACKTYPE-FACTSFROMDECLARATION](#rule-ddr-tracktype-factsfromdeclaration)).
+([DDR-TRACKTYPE-OPTIONALVENDOR](#rule-ddr-tracktype-optionalvendor)). A deployable track owns deployable-units and a holder track is a
+module of one vendor, one tool or one purpose ([DDR-TRACKTYPE-ONEROLE](#rule-ddr-tracktype-onerole)). The `tracks` map and `track-types.yml`
+are the only declarations ([DDR-TRACKTYPE-DECLAREDONCE](#rule-ddr-tracktype-declaredonce)); the longest place resolves each file
+([DDR-TRACKTYPE-LONGESTPLACEWINS](#rule-ddr-tracktype-longestplacewins)); the head says `track`, `tracktype` and `vendor`
+([DDR-TRACKTYPE-FACTSFROMDECLARATION](#rule-ddr-tracktype-factsfromdeclaration)).
 
 ### How this is enforced
 

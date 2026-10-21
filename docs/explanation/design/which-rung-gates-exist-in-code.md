@@ -15,10 +15,10 @@ Three rung checks run in code: PR build validation, the BVT and the failure stop
 Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-RETIREMENTISNOTDISCARD, FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, FDR-CD-INNERANDOUTERLOOP, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES, FDR-CD-TWOENVIRONMENTACTIVATION, ADR-AUTO-TEST-BUILDVERIFICATIONTEST and DDR-VISUAL-FIXEDCOMMITPALETTE (governance lens).
 ```
 
-Every rung of the commit ladder has an ADR rule and a gate that decides whether a commit climbs it. Lined up in ladder order, with the
-commit state each one grants beside it, the gates split cleanly into those a pipeline in cats actually runs and those that exist only in the
-ADRs. Three checks exist in code: PR build validation, the BVT, and the stop that keeps a failed stage from reaching the next one. Every
-gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
+Every rung of the commit ladder has a DRS rule and a gate that decides whether a commit climbs it. Lined up in ladder order, with the commit
+state each one grants beside it, the gates split cleanly into those a pipeline in cats actually runs and those that exist only in the
+decision records. Three checks exist in code: PR build validation, the BVT, and the stop that keeps a failed stage from reaching the next
+one. Every gate from L3 up to production is stated by the decision records and enforced by nothing yet.
 
 ![Only PR build validation, the BVT and the failure stop are checked in code](.assets/which-rung-gates-exist-in-code/diagram.drawio.png)
 
@@ -45,8 +45,7 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
 ## Why it holds
 
 - A commit holds one state at a time and only climbs; a new attempt is a new commit (FDR-CD-LIFE-ONESTATEADVANCESONERUNG).
-- Discard is rejection at a named stage: BVT and L3 discard automatically, `release-uat` by hand at RBC
-  (FDR-CD-LIFE-DISCARDISTERMINAL).
+- Discard is rejection at a named stage: BVT and L3 discard automatically, `release-uat` by hand at RBC (FDR-CD-LIFE-DISCARDISTERMINAL).
 - Retirement is a successful end of life, never a discard (FDR-CD-LIFE-RETIREMENTISNOTDISCARD).
 - Supersession abandons a still-valid commit without rejecting it, so no gate decides it (FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
 - Each always-on environment holds one occupant, and no gate checks it (FDR-CD-LIFE-ONECOMMITPERENVIRONMENT).
@@ -54,8 +53,8 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
   (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD).
 - A commit that fails a stage cannot go downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
 - An out-of-band deploy of a topic commit is not an integration (FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
-- PR build validation is the inner CI gate (FDR-CD-INNERANDOUTERLOOP); L3 runs in CD (FDR-CD-CDSTAYSINNONPROD); RC and RBC are the
-  manual gates (FDR-CD-TWORELEASEGATES); deploy-to-prod is a two-environment activation (FDR-CD-TWOENVIRONMENTACTIVATION).
+- PR build validation is the inner CI gate (FDR-CD-INNERANDOUTERLOOP); L3 runs in CD (FDR-CD-CDSTAYSINNONPROD); RC and RBC are the manual
+  gates (FDR-CD-TWORELEASEGATES); deploy-to-prod is a two-environment activation (FDR-CD-TWOENVIRONMENTACTIVATION).
 - The BVT includes the built-artifact checks of `Test-BuildArtifact` (ADR-AUTO-TEST-BUILDVERIFICATIONTEST).
 - The commit colours are the locked palette (DDR-VISUAL-FIXEDCOMMITPALETTE).
 

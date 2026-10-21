@@ -789,8 +789,8 @@ yields the same result on a devbox and in CI.
 
 Each check the BVT includes is a quality gate (ADR-AUTO-TEST-QUALITYGATE): a gate in the delivery flow's sense that a machine decides.
 
-In trunk-based development ([one-living-version](../principles/one-living-version.md#rule-pdr-onelive-trunkbased)) the commit gate runs
-the BVT on both sides of master — a change integrates only when its BVT is green, and master stays green because nothing merges that has not
+In trunk-based development ([one-living-version](../principles/one-living-version.md#rule-pdr-onelive-trunkbased)) the commit gate runs the
+BVT on both sides of master — a change integrates only when its BVT is green, and master stays green because nothing merges that has not
 passed it. Its gold output is the canonical module-manifest artifact a passing build produces — the reproducible encapsulation of what the
 commit built, byte-identical for a given commit.
 

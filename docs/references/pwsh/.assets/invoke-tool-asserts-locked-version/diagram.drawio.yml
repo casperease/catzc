@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "81d5055f9b6a"
+#     with_body_sha: "68702b705004"
 # ---
 
 description:
@@ -116,12 +116,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
-          - ADR-CONF-LOADING-READINGISGLOBAL
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -147,17 +141,17 @@ content:
           - docs/references/pwsh/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
           - docs/references/pwsh/catzc-base-config/private/Get-ConfigRegistry.ps1.md
           - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Build-DrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-docs/Build-GitKeep.ps1.md
           - docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
           - docs/references/pwsh/catzc-base-docs/Get-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Update-DrsCitation.ps1.md
-          - docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Build-DrsIndex.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Update-DrsCitation.ps1.md
+          - docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-execution/Find-Executable.ps1.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
           - docs/references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md
@@ -218,37 +212,44 @@ content:
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
-          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
           - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
-          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
-          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
-          - pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
-          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
-          - ADR-CONF-LOADING-READINGISGLOBAL
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
-      - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
           - ADR-CONF-LOADING-READINGISGLOBAL
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: pwsh/Catzc.Base.Docs/private
         by:
-          - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
           - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
           - ADR-CONF-LOADING-READINGISGLOBAL
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
-      - cell: pwsh/Catzc.Base.Docs/tests
-        by:
-          - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
-          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
           - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Drs/.
+        by:
+          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
+          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
+          - pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Drs/private
+        by:
+          - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Drs/tests
+        by:
+          - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
       - cell: pwsh/Catzc.Base.Execution/.
         by:
           - pwsh/Catzc.Base.Execution/Find-Executable.ps1
@@ -366,19 +367,24 @@ content:
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
-          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
           - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
-          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
-          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+          - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
+          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
           - pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
-          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
           - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
-          - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
           - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
           - ADR-CONF-LOADING-READINGISGLOBAL
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
@@ -462,12 +468,6 @@ content:
           - pwsh/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
           - pwsh/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
           - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
-          - ADR-CONF-LOADING-READINGISGLOBAL
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
     axis:
       - cell: AUTO/*
         by:

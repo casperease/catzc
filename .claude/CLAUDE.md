@@ -143,13 +143,12 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/drs/repository/ai-agent
   Use placeholders and describe patterns, not instances.
 - **No mutating git operations**: Never run git add, commit, push, reset, checkout, rebase, merge, or other state-changing git commands
   unless the user explicitly asks. Read-only commands (status, log, diff, blame) are fine.
-- **One living version — never back-compat or legacy** (`PDR-ONELIVE`,
-  [one-living-version](../docs/drs/principles/one-living-version.md)): the repo carries exactly one version of every behaviour. Never add
-  backwards-compatibility shims, deprecated-alias fields, or migration fallbacks (e.g. when changing `azure.yml`, the data model,
-  `options.yml`, or the `Get-Azure*`/`Get-Bicep*` resolvers); change the contract and every in-tree caller in the same change, and delete
-  the old shape. No legacy/dead code parked in the tree, no versioned variants (`*V2`, `*_old`, `legacy/`), no long-lived version branches —
-  trunk-based, one source of truth. All history lives in `git log`/`git blame`, never in retained files, commented-out blocks, or "we used
-  to" notes (docs read present-tense too).
+- **One living version — never back-compat or legacy** (`PDR-ONELIVE`, [one-living-version](../docs/drs/principles/one-living-version.md)):
+  the repo carries exactly one version of every behaviour. Never add backwards-compatibility shims, deprecated-alias fields, or migration
+  fallbacks (e.g. when changing `azure.yml`, the data model, `options.yml`, or the `Get-Azure*`/`Get-Bicep*` resolvers); change the contract
+  and every in-tree caller in the same change, and delete the old shape. No legacy/dead code parked in the tree, no versioned variants
+  (`*V2`, `*_old`, `legacy/`), no long-lived version branches — trunk-based, one source of truth. All history lives in
+  `git log`/`git blame`, never in retained files, commented-out blocks, or "we used to" notes (docs read present-tense too).
 - **Plans are authored in `.claude/plans/plan-<topic>.md`** (`ADR-REPO-PLANS`, [plans](../docs/drs/repository/plans.md)): when asked to
   "make a plan", write that file — do not use plan mode or show a selection menu; the user wants a file to review. A plan holds the delta
   only, `plan-master.md` and the `task-<topic>.md` files are derived from the plans (the master's list carries the order, never a name), and

@@ -14,8 +14,8 @@ Only ingress is checked by gates; the source-of-truth and integration rules rest
 Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-NORECONCILINGTIPS and DDR-REMOTE-PULLREQUESTISINGRESS, ADR-REPO-VARIANT-GITWORKSPACE and FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD (governance lens).
 ```
 
-DDR-REMOTE makes four rules about the server remote, but only one of them is checked by something that runs. The way in has two gates:
-a local guard in cats and a branch policy on the server. The rule that the server is the single truth, and the rules about where consumers
+DDR-REMOTE makes four rules about the server remote, but only one of them is checked by something that runs. The way in has two gates: a
+local guard in cats and a branch policy on the server. The rule that the server is the single truth, and the rules about where consumers
 integrate from, are checked by code review alone. Following a commit from a local clone to a consumer, each step carries a rule chip for the
 rule that governs it: R is DDR-REMOTE, V is ADR-REPO-VARIANT and L is FDR-CD-LIFE.
 

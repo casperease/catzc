@@ -32,8 +32,8 @@ quality gates, eager caches, ephemeral environments, rebuild-don't-wait. A minut
 
 ### Rule WDR-QUEUECOST-BATCHSIZEDRIVESQUEUES
 
-Batch size drives queue size. Large batches inflate queues and their variability; small batches ([WDR-PULLWORK](pull-work.md)) keep
-both the queue and its cost of delay low. Reduce batch size before adding capacity.
+Batch size drives queue size. Large batches inflate queues and their variability; small batches ([WDR-PULLWORK](pull-work.md)) keep both the
+queue and its cost of delay low. Reduce batch size before adding capacity.
 
 - [How to apply](#how-to-apply)
 
@@ -46,8 +46,8 @@ economic cost of this waiting dwarfs the cost of the work itself, and that most 
 in the queues.
 
 Lean has said this since Ohno: the visible waste is the waiting between steps, not the steps. This article makes the claim quantitative for
-CI/CD, using the two laws from [WDR-LEAN](lean.md) — Little's Law for how queues set lead time, and Moore's Law for why the cheapest
-way to drain a queue is usually to spend machine time.
+CI/CD, using the two laws from [WDR-LEAN](lean.md) — Little's Law for how queues set lead time, and Moore's Law for why the cheapest way to
+drain a queue is usually to spend machine time.
 
 ## Decision
 

@@ -89,8 +89,8 @@ is stated, and an idea that is taken is rebuilt to catzc's rules.
 - **`.claude/CLAUDE.md`** carries this policy in its `## Inspiration` section, so every session reads it before it reads a sibling.
 - **`build-inspiration-module`**, the sub-agent that builds the inspiration module, rests on these rules in the agent registry
   ([agent-definitions](agent-definitions.md)), and `Test-AgentDefinitions` resolves its citations.
-- Copying is caught where any second version is caught: by review against [PDR-ONELIVE](../principles/one-living-version.md). No gate
-  can tell an idea from a copy.
+- Copying is caught where any second version is caught: by review against [PDR-ONELIVE](../principles/one-living-version.md). No gate can
+  tell an idea from a copy.
 - **`InspirationConfig`** validates `inspiration.yml` on load, and **`Get-Inspiration`** reports each inspiration's availability.
 
 ## Consequences

@@ -1,4 +1,4 @@
-# ADR: DORA — Work in process limits
+# RDR: DORA — Work in process limits
 
 ## Rules: RDR-DORA-WIP
 

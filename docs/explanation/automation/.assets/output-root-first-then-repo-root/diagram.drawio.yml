@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f29d55d32b18
+#     with_body_sha: fcf3124f2dc9
 # ---
 
 description:
@@ -127,13 +127,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-PATH-CENTRALNORMALIZATION
-          - ADR-AUTO-PATH-FOREIGNPATHS
-          - ADR-AUTO-PATH-OUTANCHOR
-          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -157,7 +150,6 @@ content:
           - ADR-AUTO-PATH-PUBLISHEDARTIFACT
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/readme.yml
           - ADR-AUTO-PATH-CENTRALNORMALIZATION
           - ADR-AUTO-PATH-FOREIGNPATHS
@@ -167,6 +159,13 @@ content:
         by:
           - pwsh/Catzc.Base.Docs/types/DocMapping.cs
           - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-PATH-CENTRALNORMALIZATION
           - ADR-AUTO-PATH-FOREIGNPATHS
           - ADR-AUTO-PATH-OUTANCHOR
@@ -223,10 +222,16 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/readme.yml
           - pwsh/Catzc.Base.Docs/types/DocMapping.cs
           - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-PATH-CENTRALNORMALIZATION
           - ADR-AUTO-PATH-FOREIGNPATHS
           - ADR-AUTO-PATH-OUTANCHOR
@@ -268,13 +273,6 @@ content:
         by:
           - pwsh/Catzc.Tooling.Inspiration/types/Inspiration.cs
           - ADR-AUTO-PATH-FOREIGNPATHS
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-PATH-CENTRALNORMALIZATION
-          - ADR-AUTO-PATH-FOREIGNPATHS
-          - ADR-AUTO-PATH-OUTANCHOR
-          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
     axis:
       - cell: AUTO/*
         by:

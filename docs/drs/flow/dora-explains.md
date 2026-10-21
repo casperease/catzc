@@ -1,8 +1,8 @@
 # DORA explanations — flow
 
-The `Dora explains` rationale for the ADRs in the `flow/` domain, consolidated in one place. Each entry names its ADR and rule code, then
-reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
-the ADRs themselves; this file carries only their DORA rationale.
+The `Dora explains` rationale for the decision records in the `flow/` domain, consolidated in one place. Each entry names its decision
+record and rule code, then reproduces that record's tie to [DORA](../../references/dora/index.md) research and the domain-relevant
+capability links. The decisions live in the decision records themselves; this file carries only their DORA rationale.
 
 ## CI discipline and promotion
 
@@ -30,7 +30,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 [FDR-CD-RUNNER](pipeline-runner-pattern.md)
 
-> DORA's research links local reproducibility and test automation to faster problem diagnosis and reduced mean time to recovery. This ADR's
+> DORA's research links local reproducibility and test automation to faster problem diagnosis and reduced mean time to recovery. This FDR's
 > runner pattern keeps pipeline steps locally reproducible and testable, centralizes bootstrap logic in one place, and separates
 > orchestration (YAML) from automation (PowerShell), enabling consistent debugging and modification across contexts without scatter.
 
@@ -67,7 +67,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 [FDR-CD-TYPE](pipeline-types.md)
 
 > DORA's research distinguishes Continuous Delivery (production changes behind a manual gate) from Continuous Deployment (automated prod
-> roll), and links explicit deployment governance to faster cycle times and lower failure rates. This ADR's taxonomy makes these
+> roll), and links explicit deployment governance to faster cycle times and lower failure rates. This FDR's taxonomy makes these
 > distinctions explicit and nameable, preventing anti-patterns from hiding behind overloaded terminology and enabling each pipeline type to
 > carry its proper governance contract and trigger model.
 

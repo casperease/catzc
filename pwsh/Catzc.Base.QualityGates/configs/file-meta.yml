@@ -1,9 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5a2577448640"
+#     with_body_sha: "18756951de84"
 #   edges:
-#     docs: "[file-meta.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/file-meta.yml.md)"
+#     docs: "[file-meta.yml.md](../../../docs/references/pwsh/catzc-base-quality-gates/configs/file-meta.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-REPO-FILEMETA-METAKIND
@@ -23,14 +23,14 @@ kinds:
   body-sha:
     keys: [with_body_sha]
 
-  # The few files a code file points at, one edge per fixed name; each only when it exists, docs as a link to the comment page by its repository-relative path, code from a test to the file it tests.
+  # The few files a code file points at, one edge per fixed name; each only when it exists, docs as a link to the comment page relative to the file's own folder, so it opens in GitHub and an editor, code from a test to the file it tests.
   relative-edges:
     section: edges
     keys: [test, docs, code]
     settings:
       relations:
         - name: docs
-          link: "[{leaf}]({path})"
+          link: "[{leaf}]({relpath})"
           rules:
             - { paths: ["{page}"] }
         - name: test

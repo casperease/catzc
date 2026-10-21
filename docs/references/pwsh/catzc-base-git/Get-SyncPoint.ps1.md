@@ -12,11 +12,11 @@ HEAD, announced.
 
 ### description
 
-The commit a topic takes upstream changes from ([FDR-GIT-SYNCPOINT](../../../drs/flow/git-topic-flow.md#rule-fdr-git-syncpoint)).
-It asks the server with `git ls-remote`, so it changes no ref and runs anywhere
-([FDR-GIT-USERRUNSGIT](../../../drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)). With a `bvt_mark` ref in git.yml and that
-ref on the server, the sync point is the commit the ref names. Otherwise it is the current head of the first main branch the server has, and
-a warning names that commit and the missing mark every time
+The commit a topic takes upstream changes from ([FDR-GIT-SYNCPOINT](../../../drs/flow/git-topic-flow.md#rule-fdr-git-syncpoint)). It asks
+the server with `git ls-remote`, so it changes no ref and runs anywhere
+([FDR-GIT-USERRUNSGIT](../../../drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)). With a `bvt_mark` ref in git.yml and that ref on the
+server, the sync point is the commit the ref names. Otherwise it is the current head of the first main branch the server has, and a warning
+names that commit and the missing mark every time
 ([FDR-GIT-FALLBACKISANNOUNCED](../../../drs/flow/git-topic-flow.md#rule-fdr-git-fallbackisannounced)).
 
 ### parameter `Config`

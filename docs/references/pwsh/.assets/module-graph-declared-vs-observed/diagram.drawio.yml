@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4936e9c819c7"
+#     with_body_sha: c42a5f984553
 # ---
 
 description:
@@ -150,18 +150,6 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-CACHE-FILESYSTEMDERIVED
-          - ADR-AUTO-CACHE-IMPORTERINVALIDATES
-          - ADR-AUTO-CACHE-KEYEDBYINPUTS
-          - ADR-AUTO-CACHE-READONLYVALUES
-          - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - DDR-RUNMODE
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
-          - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: docs/-/.
         by:
           - docs/drs/automation/caching.md
@@ -216,24 +204,23 @@ content:
           - docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs.md
           - docs/references/pwsh/catzc-base-docs/Build-GitKeep.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
           - docs/references/pwsh/catzc-base-docs/Get-Glossary.ps1.md
           - docs/references/pwsh/catzc-base-docs/Show-Cats.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
-          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
-          - docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md
           - docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
           - docs/references/pwsh/catzc-base-docs/private/Get-ReadmeMappings.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
+          - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
+          - docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSet.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
-          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
           - docs/references/pwsh/catzc-base-execution/Find-Executable.ps1.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
           - docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md
@@ -328,6 +315,7 @@ content:
           - docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md
           - docs/references/pwsh/catzc-base-reports/configs/reports.yml.md
           - docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
           - docs/references/pwsh/catzc-base-reports/types/ReportsConfig.cs.md
           - docs/references/pwsh/catzc-base-repository/Assert-SourceTree.ps1.md
           - docs/references/pwsh/catzc-base-repository/Get-CatzcModuleRoot.ps1.md
@@ -360,9 +348,9 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
       - cell: pwsh/-/.
         by:
           - pwsh/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1
@@ -449,12 +437,8 @@ content:
       - cell: pwsh/Catzc.Base.Docs/.
         by:
           - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
-          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
-          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
           - pwsh/Catzc.Base.Docs/Show-Cats.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
           - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
@@ -467,48 +451,70 @@ content:
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
-          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
+      - cell: pwsh/Catzc.Base.Docs/private
+        by:
+          - pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+          - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
+      - cell: pwsh/Catzc.Base.Docs/tests
+        by:
+          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Drs/.
+        by:
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
+          - ADR-AUTO-CACHE-FILESYSTEMDERIVED
+          - ADR-AUTO-CACHE-IMPORTERINVALIDATES
+          - ADR-AUTO-CACHE-KEYEDBYINPUTS
+          - ADR-AUTO-CACHE-READONLYVALUES
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-CACHE-FILESYSTEMDERIVED
           - ADR-AUTO-CACHE-IMPORTERINVALIDATES
           - ADR-AUTO-CACHE-KEYEDBYINPUTS
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
-      - cell: pwsh/Catzc.Base.Docs/private
+          - DDR-RUNMODE
+      - cell: pwsh/Catzc.Base.Drs/private
         by:
           - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
-          - pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
-          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
-          - pwsh/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
           - ADR-AUTO-CACHE-FILESYSTEMDERIVED
           - ADR-AUTO-CACHE-IMPORTERINVALIDATES
           - ADR-AUTO-CACHE-KEYEDBYINPUTS
           - ADR-AUTO-CACHE-READONLYVALUES
-          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
-          - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
-      - cell: pwsh/Catzc.Base.Docs/tests
+      - cell: pwsh/Catzc.Base.Drs/tests
         by:
           - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Execution/.
         by:
@@ -536,8 +542,8 @@ content:
           - pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
+          - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
@@ -585,9 +591,9 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
         by:
           - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
@@ -641,8 +647,8 @@ content:
           - ADR-AUTO-CACHE-KEYEDBYINPUTS
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
-          - DDR-RUNMODE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
@@ -711,6 +717,7 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Reports/types
         by:
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Repository/.
@@ -738,8 +745,8 @@ content:
           - pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
           - pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - DDR-RUNMODE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.TypesSystem/tests
         by:
           - pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
@@ -767,9 +774,9 @@ content:
           - pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
           - pwsh/.internal/tests/Write-LoadTime.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
       - cell: pwsh/Catzc.Tooling.Core/private
         by:
           - pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
@@ -855,43 +862,52 @@ content:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
-          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
-          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
           - pwsh/Catzc.Base.Docs/Show-Cats.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
           - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
-          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
-          - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
           - pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
           - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
           - pwsh/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-CACHE-FILESYSTEMDERIVED
+          - ADR-AUTO-CACHE-IMPORTERINVALIDATES
+          - ADR-AUTO-CACHE-KEYEDBYINPUTS
+          - ADR-AUTO-CACHE-READONLYVALUES
+          - ADR-AUTO-TEST-QUALITYGATE
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+          - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
           - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - ADR-AUTO-CACHE-FILESYSTEMDERIVED
           - ADR-AUTO-CACHE-IMPORTERINVALIDATES
           - ADR-AUTO-CACHE-KEYEDBYINPUTS
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
       - cell: subject/Catzc.Base.Execution
         by:
           - pwsh/Catzc.Base.Execution/Find-Executable.ps1
@@ -922,8 +938,8 @@ content:
           - pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
+          - DDR-RUNMODE
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
@@ -961,9 +977,9 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
       - cell: subject/Catzc.Base.Modules
         by:
           - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
@@ -1043,15 +1059,16 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
       - cell: subject/Catzc.Base.Reports
         by:
           - pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
           - pwsh/Catzc.Base.Reports/configs/reports.yml
           - pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
           - pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: subject/Catzc.Base.Repository
@@ -1077,8 +1094,8 @@ content:
           - pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
           - pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - DDR-RUNMODE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
       - cell: subject/Catzc.Base.Variants
         by:
           - pwsh/Catzc.Base.Variants/private/Get-Variant.ps1
@@ -1102,9 +1119,9 @@ content:
           - pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
           - pwsh/.internal/tests/Write-LoadTime.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+          - DDR-RUNMODE
       - cell: subject/Catzc.Tooling.Core
         by:
           - pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
@@ -1115,18 +1132,6 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-CACHE-FILESYSTEMDERIVED
-          - ADR-AUTO-CACHE-IMPORTERINVALIDATES
-          - ADR-AUTO-CACHE-KEYEDBYINPUTS
-          - ADR-AUTO-CACHE-READONLYVALUES
-          - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - DDR-RUNMODE
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
-          - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
     axis:
       - cell: DSGN/build
         by:

@@ -23,11 +23,11 @@ Answers "before versus now: which two commits?" for the in-pipeline "is this uni
 - Local / solo dev (not in a pipeline): 'HEAD' — the working tree against the last commit.
 
 Returns $null when a pipeline PR context names no resolvable target — the fail-open signal
-([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit)): a caller
-treats an unknown range as "affected" and proceeds, never wrongly skipping. The range assumes the base commit is present in the clone; a
-pipeline must checkout with fetchDepth: 0, because a shallow (depth 1) clone cannot reach HEAD^1 or the merge-base. The post-commit range
-needs only depth >= 2 and no named-ref fetch, so the deploy-skip that matters most is the most robust; a PR range that cannot resolve its
-target simply fails open (the fast CI engine runs anyway, never wrongly skipped).
+([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit)): a caller treats an
+unknown range as "affected" and proceeds, never wrongly skipping. The range assumes the base commit is present in the clone; a pipeline must
+checkout with fetchDepth: 0, because a shallow (depth 1) clone cannot reach HEAD^1 or the merge-base. The post-commit range needs only
+depth >= 2 and no named-ref fetch, so the deploy-skip that matters most is the most robust; a PR range that cannot resolve its target simply
+fails open (the fast CI engine runs anyway, never wrongly skipped).
 
 ### outputs
 

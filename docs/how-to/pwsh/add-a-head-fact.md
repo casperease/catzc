@@ -22,8 +22,8 @@ in the file.
 
 ![One file, one outcome, and the keys each head holds](.assets/head-outcomes/diagram.drawio.png)
 
-The sidebar lights one cell. Which layer: automation, because ADR-REPO-FILEMETA and ADR-REPO-CODEMETA name no layer in `drs.yml` and so
-take the declared default. The code-locations and track-placement maps light nothing.
+The sidebar lights one cell. Which layer: automation, because ADR-REPO-FILEMETA and ADR-REPO-CODEMETA name no layer in `drs.yml` and so take
+the declared default. The code-locations and track-placement maps light nothing.
 
 ## Add the kind
 

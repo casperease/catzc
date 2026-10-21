@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: ead29e1702d6
+#     with_body_sha: "6fcdfa6cf9c0"
 # ---
 
 description:
@@ -125,10 +125,6 @@ content:
         by:
           - .claude/CLAUDE.md
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/-/.
         by:
           - docs/drs/flow/commit-lifecycle.md
@@ -145,11 +141,11 @@ content:
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
@@ -167,10 +163,6 @@ content:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/markdown
         by:

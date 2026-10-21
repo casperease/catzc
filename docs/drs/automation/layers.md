@@ -4,9 +4,9 @@
 
 ### Rule ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT
 
-**automation** is the abstract: the commands and behaviours the repository offers and the doctrine that governs them, the ADR domain
-`automation` (code `AUTO`), the value-chain row `AUTO` and the concern `automation`. The word names no language, no shell and no folder; a
-sentence that means the PowerShell code names its track, a sentence that means a loaded module names the module.
+**automation** is the abstract: the commands and behaviours the repository offers and the doctrine that governs them, the decision-record
+domain `automation` (code `AUTO`), the value-chain row `AUTO` and the concern `automation`. The word names no language, no shell and no
+folder; a sentence that means the PowerShell code names its track, a sentence that means a loaded module names the module.
 
 - [Five layers, one word each](#five-layers-one-word-each)
 - [What the word covers](#what-the-word-covers)
@@ -77,15 +77,15 @@ nothing to it, the stance the PowerShell rules already take toward the automatio
 
 ### What the word covers
 
-The ADR domain, the value-chain row and the concern keep the word, because each names the abstract: the rules that govern every
+The decision-record domain, the value-chain row and the concern keep the word, because each names the abstract: the rules that govern every
 implementation, the row of the stack every concern crosses, and the first stage of the chain, loading the modules and reading the
 configuration. About ten thousand citations of `ADR-AUTO-*` codes stay as they are; a code is a stable locator
 ([one-living-version](../principles/one-living-version.md)), and the layer an ADR belongs to is recorded beside it, never by renaming it.
 
 ### Named by the stack
 
-A track owns one coherent stack and is named by it ([tracks](../design/tracks.md#rule-ddr-track-onetechstack)): `go`, `python` and
-`bash` are the test-artifact tracks, and the PowerShell track is `pwsh`, the name of the engine that runs it and of nothing else. The word
+A track owns one coherent stack and is named by it ([tracks](../design/tracks.md#rule-ddr-track-onetechstack)): `go`, `python` and `bash`
+are the test-artifact tracks, and the PowerShell track is `pwsh`, the name of the engine that runs it and of nothing else. The word
 automation then means the abstract wherever it appears, and a path that names a track names its stack. The code track's folder is the one
 place that still carries the old name; moving it is a single change, made in one quiet window, and every reader of the root reads it from
 the track registry ([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](module-model.md#rule-adr-auto-module-deployabletrackmodule)), so the move

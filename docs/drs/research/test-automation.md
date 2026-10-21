@@ -1,4 +1,4 @@
-# ADR: DORA — Test automation
+# RDR: DORA — Test automation
 
 ## Rules: RDR-DORA-TESTAUTO
 

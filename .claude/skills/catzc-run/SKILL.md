@@ -23,6 +23,5 @@ metadata:
 4. A private function runs inside its module, `& (Get-Module <Module>) { <Function> … }`, never by dot-sourcing its file; a background run
    is waited on by a second background call, never by polling its output; a tree sweep is answered by the Grep and Glob tools, never a shell
    loop or recursive grep. Editing a code line whose long comment moved to a `docs/references/` comment page edits that page's "Above `…`"
-   line too. A
-   shared config (`file-meta.yml`, `generated-head.yml`, `glossary.yml`) is live for every session's next import, so its edit lands with its
-   code in one pass and is parked in `out/` during a peer's burst.
+   line too. A shared config (`file-meta.yml`, `generated-head.yml`, `glossary.yml`) is live for every session's next import, so its edit
+   lands with its code in one pass and is parked in `out/` during a peer's burst.

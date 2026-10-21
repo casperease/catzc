@@ -1,4 +1,4 @@
-# ADR: DORA — Trunk-based development
+# RDR: DORA — Trunk-based development
 
 ## Rules: RDR-DORA-TRUNK
 

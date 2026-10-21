@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d164a58c482b
+#     with_body_sha: "14c8ac743a0d"
 # ---
 
 description:
@@ -84,14 +84,6 @@ content:
         by:
           - .claude/hooks/Assert-BashTimeout/Program.cs
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-      - cell: .claude/.claude/plans
-        by:
-          - .claude/plans/plan-agent-friction.md
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -101,8 +93,8 @@ content:
           - docs/references/pwsh/.assets/listen-mode-flow/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
           - docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
           - docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Test-TestRunOverBudget.ps1.md
@@ -123,17 +115,20 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-      - cell: pwsh/Catzc.Base.Docs/private
-        by:
-          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - cell: pwsh/Catzc.Base.Drs/private
+        by:
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Engines/types
         by:
@@ -188,7 +183,6 @@ content:
         by:
           - .claude/CLAUDE.md
           - .claude/hooks/Assert-BashTimeout/Program.cs
-          - .claude/plans/plan-agent-friction.md
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Azure.Cli
         by:
@@ -197,11 +191,14 @@ content:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Base.Engines
         by:
@@ -241,10 +238,6 @@ content:
           - pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1
           - pwsh/Catzc.Tooling.Listen/tests/Wait-DocChange.Tests.ps1
           - pwsh/Catzc.Tooling.Listen/tests/Wait-DocNote.Tests.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
     axis:
       - cell: AUTO/*

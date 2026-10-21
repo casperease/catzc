@@ -13,15 +13,15 @@ Moves every long comment of the repository's code and config files into the file
 
 A long comment leaves the file with nothing behind: its prose moves verbatim into the file's comment page under docs/references as a section
 `## comment:N`, which names the code line the comment sat above, so each comment has exactly one living copy
-([PDR-ONELIVE-ONEVERSION](../../../drs/principles/one-living-version.md#rule-pdr-onelive-oneversion)). Nothing is dropped:
-Build-CommentView puts every section back above its code line, and the engine's round-trip test proves the view equals the original. The
-file's head lists the page as its `relatives.page`.
+([PDR-ONELIVE-ONEVERSION](../../../drs/principles/one-living-version.md#rule-pdr-onelive-oneversion)). Nothing is dropped: Build-CommentView
+puts every section back above its code line, and the engine's round-trip test proves the view equals the original. The file's head lists the
+page as its `relatives.page`.
 
 What moves is configured in comments.yml
-([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)):
-the file languages in scope, the minimum prose lines, the comment heads each language keeps (`.SYNOPSIS`, `.EXAMPLE`, `#Requires`, …), and
-where each folder's pages live. The scope is Get-CommentScope's: tracked files of those languages outside tests/, minus vendored, generated,
-fixture and contract files.
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)): the file
+languages in scope, the minimum prose lines, the comment heads each language keeps (`.SYNOPSIS`, `.EXAMPLE`, `#Requires`, …), and where each
+folder's pages live. The scope is Get-CommentScope's: tracked files of those languages outside tests/, minus vendored, generated, fixture
+and contract files.
 
 A page that exists already keeps its sections as written; new comments are appended after its highest number, and a number is never reused.
 A second run over an exported file changes nothing. Source files keep their own line endings; pages are written canonical. A source-tree

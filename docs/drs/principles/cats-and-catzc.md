@@ -76,7 +76,7 @@ to a person, it may use the same word.
 ### Across the boundary
 
 A consumer who writes a module against the toolset is outside the inner namespace; the cats form marks that. A reader who sees a `Catzc.*`
-name knows the module is shipped by this repository and ruled by its ADRs; a reader who sees the cats form knows it came from somewhere else
+name knows the module is shipped by this repository and ruled by its decision records; a reader who sees the cats form knows it came from somewhere else
 and is ruled by the contracts at the boundary.
 
 ### Used across each other on purpose
@@ -100,7 +100,7 @@ source-level name only. The glossary carries both terms, defined by the rules ab
 
 - The CLAUDE.md terminology section cites PDR-CATS-CATZCISSOURCENAME and PDR-CATS-CATSISPERSONNAME for its two entries.
 - The config-defaults work takes `.catzc/` as the one fragment and overlay root, with no alias to read or test.
-- The layers vocabulary leaves cats and catzc to this ADR; pwsh and automation are ruled there.
+- The layers vocabulary leaves cats and catzc to this PDR; pwsh and automation are ruled there.
 
 ## How this is enforced
 

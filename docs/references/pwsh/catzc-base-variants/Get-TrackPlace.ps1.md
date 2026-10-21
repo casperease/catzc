@@ -11,9 +11,9 @@ Returns the place pattern of one kind of a track, as the variants config declare
 
 ### description
 
-A track names its kinds under `kinds:` in the `tracks` repo-wide variant (configs/variants.yml,
-[DDR-TRACK](../../../drs/design/tracks.md)); each kind maps to a place pattern, a wildcard segment kept as written. A kind the track
-does not name throws, listing the kinds it does name and the config to declare it in; an unknown track throws as Get-Track does.
+A track names its kinds under `kinds:` in the `tracks` repo-wide variant (configs/variants.yml, [DDR-TRACK](../../../drs/design/tracks.md));
+each kind maps to a place pattern, a wildcard segment kept as written. A kind the track does not name throws, listing the kinds it does name
+and the config to declare it in; an unknown track throws as Get-Track does.
 
 ### parameter `Track`
 

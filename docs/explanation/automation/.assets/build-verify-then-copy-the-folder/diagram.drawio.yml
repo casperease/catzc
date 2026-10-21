@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9f1d48909e26"
+#     with_body_sha: f6818e48ea1e
 # ---
 
 description:
@@ -107,13 +107,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-BUNDLE-AUTOVERSION
-          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
-          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
-          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -138,14 +131,21 @@ content:
           - ADR-AUTO-BUNDLE-BUNDLEISBUILD
           - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
           - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: github-workflows/workflows/.
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
       - cell: pwsh/Catzc.Base.Contracts/.
         by:
           - pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1
           - ADR-AUTO-BUNDLE-AUTOVERSION
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-BUNDLE-AUTOVERSION
           - ADR-AUTO-BUNDLE-BUNDLEISBUILD
           - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
@@ -198,8 +198,11 @@ content:
           - ADR-AUTO-BUNDLE-AUTOVERSION
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-BUNDLE-AUTOVERSION
           - ADR-AUTO-BUNDLE-BUNDLEISBUILD
           - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
@@ -227,13 +230,10 @@ content:
           - ADR-AUTO-BUNDLE-BUNDLEISBUILD
           - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
           - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
-      - cell: subject/pipelines
+      - cell: subject/workflows
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-BUNDLE-AUTOVERSION
-          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - .github/workflows/ci-pwsh.yml
           - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
-          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
     axis:
       - cell: AUTO/build
         by:

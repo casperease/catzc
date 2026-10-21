@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c4dd4776416f
+#     with_body_sha: "2b5d277d59d8"
 # ---
 
 description:
@@ -112,29 +112,24 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: .claude/.claude/plans
-        by:
-          - .claude/plans/plan-bcl-language.md
-          - .claude/plans/task-user-runs-and-commits.md
-          - ADR-BCL-TYPES
       - cell: .claude/.claude/skills/catzc-module
         by:
           - .claude/skills/catzc-module/SKILL.md
           - ADR-BCL-TYPES
       - cell: ado-pipelines/pipelines/.
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CUSTOMER
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
           - ADR-AZ-DATAMOD
-          - ADR-AZ-NAMING
-          - ADR-BCL-TYPES
-          - ADR-CONF-ADDRESSING
+      - cell: ado-pipelines/pipelines/extends
+        by:
+          - .ado/pipelines/extends/cd-customer.yaml
+          - ADR-AZ-DATAMOD
       - cell: docs/-/.
         by:
           - docs/drs/automation/BCL/.assets/bcl-language/diagram.drawio.yml
           - docs/drs/automation/BCL/dora-explains.md
           - docs/drs/automation/BCL/native-csharp-types.md
-          - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.verify.md
           - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.yml
           - docs/drs/azure/azure-customer-model.md
           - docs/drs/azure/azure-data-model.md
@@ -216,19 +211,6 @@ content:
           - docs/references/pwsh/catzc-base-contracts/types/ContractCheckResult.cs.md
           - docs/references/pwsh/catzc-base-contracts/types/ContractManifest.cs.md
           - docs/references/pwsh/catzc-base-contracts/types/ContractsConfig.cs.md
-          - docs/references/pwsh/catzc-base-drs/tests/types/DrsDomainEdge.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsCheck.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsCitationChange.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsCitationChangeKind.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsCitationRewrite.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsDomain.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsDomainEdge.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsDoraCheck.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsNeutralityCheck.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsNeutralityToken.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsRuleSet.cs.md
-          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/AgentEntry.cs.md
           - docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryAvoid.cs.md
@@ -237,6 +219,19 @@ content:
           - docs/references/pwsh/catzc-base-docs/types/GlossaryEntry.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryOptions.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryRealization.cs.md
+          - docs/references/pwsh/catzc-base-drs/tests/types/DrsDomainEdge.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsCheck.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsCitationChange.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsCitationChangeKind.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsCitationRewrite.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsDomain.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsDomainEdge.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsDoraCheck.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsNeutralityCheck.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsNeutralityToken.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsRuleSet.cs.md
           - docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
           - docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
           - docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
@@ -286,7 +281,6 @@ content:
           - docs/references/pwsh/catzc-base-objects/types/TypeShape.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-drs-map.yml.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerDrsMapConfig.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/types/CommentFileResult.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/types/CommentsConfig.cs.md
@@ -330,6 +324,18 @@ content:
           - ADR-AZ-NAMING
           - ADR-BCL-TYPES
           - ADR-CONF-ADDRESSING
+      - cell: infrastructure/discovery/.
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: infrastructure/expedition/.
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: infrastructure/foundation/.
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Azure/.
         by:
           - pwsh/Catzc.Azure/Get-AzureCustomers.ps1
@@ -482,35 +488,10 @@ content:
           - ADR-BCL-TYPES
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - ADR-AZ-CUSTOMER
-          - ADR-AZ-DATAMOD
-          - ADR-AZ-NAMING
-          - ADR-BCL-TYPES
-          - ADR-CONF-ADDRESSING
-      - cell: pwsh/Catzc.Base.Docs/tests/types
-        by:
-          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/types/DrsCodeForm.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/types/DrsConfig.Tests.ps1
           - ADR-BCL-TYPES
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Drs/types/DrsCheck.cs
-          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Drs/types/DrsCitationChange.cs
-          - pwsh/Catzc.Base.Drs/types/DrsCitationChangeKind.cs
-          - pwsh/Catzc.Base.Drs/types/DrsCitationRewrite.cs
-          - pwsh/Catzc.Base.Drs/types/DrsDomain.cs
-          - pwsh/Catzc.Base.Drs/types/DrsDomainEdge.cs
-          - pwsh/Catzc.Base.Drs/types/DrsDoraCheck.cs
-          - pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs
-          - pwsh/Catzc.Base.Drs/types/DrsNeutralityToken.cs
-          - pwsh/Catzc.Base.Drs/types/DrsRuleSet.cs
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/AgentEntry.cs
           - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
           - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
@@ -521,6 +502,38 @@ content:
           - pwsh/Catzc.Base.Docs/types/GlossaryEntry.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryOptions.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryRealization.cs
+          - ADR-AZ-CUSTOMER
+          - ADR-BCL-TYPES
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AZ-CUSTOMER
+          - ADR-AZ-DATAMOD
+          - ADR-AZ-NAMING
+          - ADR-BCL-TYPES
+          - ADR-CONF-ADDRESSING
+      - cell: pwsh/Catzc.Base.Drs/tests/types
+        by:
+          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsCodeForm.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
+          - ADR-BCL-TYPES
+      - cell: pwsh/Catzc.Base.Drs/types
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationChange.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationChangeKind.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationRewrite.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDomain.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDomainEdge.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDoraCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsNeutralityToken.cs
+          - pwsh/Catzc.Base.Drs/types/DrsRuleSet.cs
           - ADR-AZ-CUSTOMER
           - ADR-BCL-TYPES
       - cell: pwsh/Catzc.Base.Engines/types
@@ -629,7 +642,6 @@ content:
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Base.QualityGates/types
         by:
@@ -738,8 +750,6 @@ content:
     module-neighbourhood:
       - cell: subject/.claude
         by:
-          - .claude/plans/plan-bcl-language.md
-          - .claude/plans/task-user-runs-and-commits.md
           - .claude/skills/catzc-module/SKILL.md
           - ADR-BCL-TYPES
       - cell: subject/Catzc.Azure
@@ -847,25 +857,7 @@ content:
           - ADR-BCL-TYPES
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/types/DrsCodeForm.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
-          - pwsh/Catzc.Base.Drs/tests/types/DrsConfig.Tests.ps1
-          - pwsh/Catzc.Base.Drs/types/DrsCheck.cs
-          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Drs/types/DrsCitationChange.cs
-          - pwsh/Catzc.Base.Drs/types/DrsCitationChangeKind.cs
-          - pwsh/Catzc.Base.Drs/types/DrsCitationRewrite.cs
-          - pwsh/Catzc.Base.Drs/types/DrsDomain.cs
-          - pwsh/Catzc.Base.Drs/types/DrsDomainEdge.cs
-          - pwsh/Catzc.Base.Drs/types/DrsDoraCheck.cs
-          - pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs
-          - pwsh/Catzc.Base.Drs/types/DrsNeutralityToken.cs
-          - pwsh/Catzc.Base.Drs/types/DrsRuleSet.cs
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/AgentEntry.cs
           - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
           - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
@@ -876,6 +868,28 @@ content:
           - pwsh/Catzc.Base.Docs/types/GlossaryEntry.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryOptions.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryRealization.cs
+          - ADR-AZ-CUSTOMER
+          - ADR-BCL-TYPES
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsCodeForm.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
+          - pwsh/Catzc.Base.Drs/types/DrsCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationChange.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationChangeKind.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationRewrite.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDomain.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDomainEdge.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDoraCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsNeutralityToken.cs
+          - pwsh/Catzc.Base.Drs/types/DrsRuleSet.cs
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
           - ADR-AZ-NAMING
@@ -965,7 +979,6 @@ content:
         by:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentBlock.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentFileResult.cs
@@ -1058,14 +1071,24 @@ content:
           - pwsh/Catzc.Tooling.KeyHandler/types/KeyHandlerBinding.cs
           - pwsh/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
           - ADR-BCL-TYPES
+      - cell: subject/discovery
+        by:
+          - infrastructure/templates/discovery/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: subject/expedition
+        by:
+          - infrastructure/templates/expedition/options.yml
+          - ADR-AZ-DATAMOD
+      - cell: subject/foundation
+        by:
+          - infrastructure/templates/foundation/options.yml
+          - ADR-AZ-DATAMOD
       - cell: subject/pipelines
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-CUSTOMER
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - .ado/pipelines/extends/cd-customer.yaml
           - ADR-AZ-DATAMOD
-          - ADR-AZ-NAMING
-          - ADR-BCL-TYPES
-          - ADR-CONF-ADDRESSING
     axis:
       - cell: AUTO/build
         by:

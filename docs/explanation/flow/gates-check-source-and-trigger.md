@@ -17,7 +17,7 @@ Supports FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS, FD
 
 The globset rules in cats are checked by four quality gates plus the config load, and those checks reach the registry, the program and the
 trigger. Every globset flows from one registry through a validated load into a flattened scan program, and from there into three roles, and
-the ADR rules constrain each stage. The git reflection and the live identity are held by ADR rules alone: no gate checks them, which is
+the DRS rules constrain each stage. The git reflection and the live identity are held by DRS rules alone: no gate checks them, which is
 worth knowing before relying on either.
 
 ![Gates check the source of each globset and the trigger only](.assets/gates-check-source-and-trigger/diagram.drawio.png)
@@ -45,17 +45,17 @@ worth knowing before relying on either.
 ## Why it holds
 
 - One registry in `globs.yml` maps every area-of-control, and its three roles are derived (FDR-CD-GLOBS-NAMEDGLOBSETS).
-- A pattern is repo-relative and `/`-separated, with `**` as the only cross-segment operator (FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS),
-  and malformed patterns are rejected at config load (FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED).
-- Membership is an ordered scan program over tracked files, evaluated last-match-wins (FDR-CD-GLOBS-TRACKEDFILESONLY), and compose puts
-  the base first and the set's own rules last (FDR-CD-GLOBS-COMPOSESETS).
+- A pattern is repo-relative and `/`-separated, with `**` as the only cross-segment operator (FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS), and
+  malformed patterns are rejected at config load (FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED).
+- Membership is an ordered scan program over tracked files, evaluated last-match-wins (FDR-CD-GLOBS-TRACKEDFILESONLY), and compose puts the
+  base first and the set's own rules last (FDR-CD-GLOBS-COMPOSESETS).
 - The identity is live and never committed (FDR-CD-GLOBS-DURABLESHAIDENTITY); triggers are the native projection
   (FDR-CD-GLOBS-NATIVEPATHFILTER); the change check reflects git (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
 - Every set carries a layer (FDR-CD-GLOBS-EVERYSETHASLAYER), and sets in one layer never overlap on their own contribution
   (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
 - A quality gate checks one property of the whole repository, collects every issue and throws once (ADR-AUTO-TEST-QUALITYGATE).
-- The projected filters are generated from `globs.yml`, never hand-authored (FDR-CD-GLOBS-NATIVEPATHFILTER); this part is held by the
-  ADR alone, since the gates check equality with the projection but nothing writes the YAML.
+- The projected filters are generated from `globs.yml`, never hand-authored (FDR-CD-GLOBS-NATIVEPATHFILTER); this part is held by the ADR
+  alone, since the gates check equality with the projection but nothing writes the YAML.
 
 ## Where the code and the decision record differ
 

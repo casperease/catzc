@@ -74,8 +74,8 @@ guessing.
 Two rules from [tracks](../../drs/design/tracks.md) shape the checking half. A track owns one tech-stack
 ([DDR-TRACK-ONETECHSTACK](../../drs/design/tracks.md#rule-ddr-track-onetechstack)), so the map marks the cell that breaks it and
 responsibility 3 turns that mark into an issue. And every label the map prints names a defined term
-([DDR-TRACK-LABELSNAMEDEFINEDTERMS](../../drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms)), so responsibility 3 also
-holds the configured labels to the glossary: the renderer of responsibility 5 prints nothing the vocabulary does not define.
+([DDR-TRACK-LABELSNAMEDEFINEDTERMS](../../drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms)), so responsibility 3 also holds the
+configured labels to the glossary: the renderer of responsibility 5 prints nothing the vocabulary does not define.
 
 Responsibility 2 joins the map to the ADRs. It reads citations from the files' own text, so a file lights for an ADR when it cites it, and
 the configuration records the reviewed cases where a citation is a passing mention or a drawing needs a cell its files do not cite. The
@@ -86,9 +86,9 @@ them with its own BCL-only PDF writer.
 
 Responsibility 4 answers the question the world map cannot: where along delivery a decision acts. It reads nothing but the ADR registry,
 where each ADR domain declares its row and a default set of value-chain concerns and an ADR declares its own only when it differs
-([DDR-TRACK-VALUECHAINCONCERN](../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)), so its picture is declared, never
-guessed. Its quality gate is a sibling of the world map's rather than a part of it, because the two read different registries and check
-different properties; the labels of both maps share one configuration section and one glossary check.
+([DDR-TRACK-VALUECHAINCONCERN](../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)), so its picture is declared, never guessed. Its
+quality gate is a sibling of the world map's rather than a part of it, because the two read different registries and check different
+properties; the labels of both maps share one configuration section and one glossary check.
 
 ## Division
 

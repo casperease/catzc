@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4b92b54e3895"
+#     with_body_sha: e0b4ac406d2e
 # ---
 
 description:
@@ -102,13 +102,6 @@ content:
           - .claude/CLAUDE.md
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-VISUAL-ENVIRONMENTISCONTAINER
-          - DDR-VISUAL-FIXEDCOMMITPALETTE
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -134,14 +127,17 @@ content:
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-VISUAL-ENVIRONMENTISCONTAINER
           - DDR-VISUAL-FIXEDCOMMITPALETTE
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
@@ -162,13 +158,6 @@ content:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-VISUAL-ENVIRONMENTISCONTAINER
-          - DDR-VISUAL-FIXEDCOMMITPALETTE
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/markdown
@@ -208,9 +197,9 @@ content:
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-VISUAL-ENVIRONMENTISCONTAINER
           - DDR-VISUAL-FIXEDCOMMITPALETTE
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG

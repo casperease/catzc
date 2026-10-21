@@ -82,9 +82,9 @@ root"); in other files its built-in link detection recognises only `http`, `http
 
 The kind of a link follows from where it lives, never from the author's choice:
 
-| Kind              | Lives in                                                                                   | Canonical form                                                                                         |
-| ----------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| **Markdown link** | a tracked `*.md` file                                                                      | relative to the file: `[reduce-variability](../principles/reduce-variability.md)`                      |
+| Kind              | Lives in                                                                                   | Canonical form                                                                                    |
+| ----------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| **Markdown link** | a tracked `*.md` file                                                                      | relative to the file: `[reduce-variability](../principles/reduce-variability.md)`                 |
 | **Code link**     | a comment in `*.ps1`, `*.psm1`, `*.psd1`, `*.cs`, `*.bicep`, `*.yml`, `*.yaml`, `*.csproj` | repository-rooted, text = citation: `[PDR-REDUCEVAR](/docs/drs/principles/reduce-variability.md)` |
 
 A comment is found per language family — the PowerShell tokenizer's comments, C-style `//` and `/* */` outside string literals, YAML `#`

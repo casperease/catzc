@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "820cdd8c583b"
+#     with_body_sha: ecaf116061c3
 # ---
 
 description:
@@ -90,12 +90,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
-          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-          - ADR-ADO-AUTH-PROVETARGET
       - cell: docs/-/.
         by:
           - docs/drs/ado/dora-explains.md
@@ -111,7 +105,7 @@ content:
           - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
           - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
           - ADR-ADO-AUTH-PROVETARGET
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
@@ -124,15 +118,9 @@ content:
           - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
           - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
           - ADR-ADO-AUTH-PROVETARGET
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
-          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-          - ADR-ADO-AUTH-PROVETARGET
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
           - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
           - ADR-ADO-AUTH-PROVETARGET

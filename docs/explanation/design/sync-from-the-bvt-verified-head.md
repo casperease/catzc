@@ -31,8 +31,7 @@ the newest commit fails, it becomes the dirty HEAD, and nothing follows it.
 - The stable integration point is the BVT-verified server head, and the same commit goes into `main-UAT` first, so the commit synced from
   and the commit `main-UAT` takes are one (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD).
 - The dirty HEAD is the newest commit and still not safe to sync or promote from (FDR-CD-LIFE-DIRTYHEADUNSAFE).
-- Downstream flow proceeds only from the last successful state; a failure is a hard stop, not a warning
-  (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
+- Downstream flow proceeds only from the last successful state; a failure is a hard stop, not a warning (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
 
 ## Where the code and the decision record differ
 

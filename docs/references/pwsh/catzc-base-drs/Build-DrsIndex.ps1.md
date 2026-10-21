@@ -12,15 +12,14 @@ domain structure.
 
 ### description
 
-index.md is a derived projection of pwsh/Catzc.Base.Drs/configs/drs.yml: authored preamble and authoring-convention prose wrapped around
-one code-registry table per domain (in declared order). Every ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format
-Get-CatsDrsIndex parses and the citation grammar Show-Cats presents. Each link path is resolved to the real `docs/drs/<domain>/**/<slug>.md`
-file.
+index.md is a derived projection of pwsh/Catzc.Base.Drs/configs/drs.yml: authored preamble and authoring-convention prose wrapped around one
+code-registry table per domain (in declared order). Every ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format Get-CatsDrsIndex
+parses and the citation grammar Show-Cats presents. Each link path is resolved to the real `docs/drs/<domain>/**/<slug>.md` file.
 
 The index is committed — so GitHub has it, and every ADR citation's link resolves there — marked linguist-generated so its diff collapses,
-and reproduced on every import (before Build-Readme, which generates the docs/drs README from it), so drs.yml is the ONLY place the
-registry is edited — a hand-edit to index.md is overwritten on the next load. See
-[ADR-REPO-README](../../../drs/repository/generated-readmes.md) for the generated-file pattern.
+and reproduced on every import (before Build-Readme, which generates the docs/drs README from it), so drs.yml is the ONLY place the registry
+is edited — a hand-edit to index.md is overwritten on the next load. See [ADR-REPO-README](../../../drs/repository/generated-readmes.md) for
+the generated-file pattern.
 
 Idempotent and fast: the write goes through Write-FileIfChanged (canonical output, EOL-insensitive compare, write only on drift), so a clean
 tree costs one file read.

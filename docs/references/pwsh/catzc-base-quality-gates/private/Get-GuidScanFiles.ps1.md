@@ -13,12 +13,11 @@ Returns the repo-relative tracked files the managed-GUID scan reads — the scan
 
 Tracked files (Get-GitTrackedPath,
 [ADR-AUTO-TRACKED-ONESEAM](../../../../drs/automation/tracked-files-from-the-index.md#rule-adr-auto-tracked-oneseam) — the same matching
-universe as the globsets,
-[FDR-CD-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)), minus what the
-scan must not read: vendored third-party code (pwsh/.vendor/), the committed compiled assembly (pwsh/.compiled/), known binary extensions,
-and the registry file itself — configs/guids.yml is the definition of the managed set, not a reference to it, and excluding it is what keeps
-the liveness check honest. The one place this scan reads the tracked set; a logic test mocks this seam (returning absolute fixture paths,
-which Resolve-RepoPath passes through unchanged). Throws in build mode (Assert-SourceTree).
+universe as the globsets, [FDR-CD-GLOBS-TRACKEDFILESONLY](../../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)),
+minus what the scan must not read: vendored third-party code (pwsh/.vendor/), the committed compiled assembly (pwsh/.compiled/), known
+binary extensions, and the registry file itself — configs/guids.yml is the definition of the managed set, not a reference to it, and
+excluding it is what keeps the liveness check honest. The one place this scan reads the tracked set; a logic test mocks this seam (returning
+absolute fixture paths, which Resolve-RepoPath passes through unchanged). Throws in build mode (Assert-SourceTree).
 
 ## comment:1
 

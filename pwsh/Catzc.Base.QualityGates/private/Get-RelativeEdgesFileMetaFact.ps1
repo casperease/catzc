@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4a512d1ed455"
+    with_body_sha: "5d8dd1f20bb9"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-RelativeEdgesFileMetaFact.Tests.ps1
-    docs: "[Get-RelativeEdgesFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-RelativeEdgesFileMetaFact.ps1.md)"
+    docs: "[Get-RelativeEdgesFileMetaFact.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-RelativeEdgesFileMetaFact.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-FEWLINKS
       - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
@@ -45,9 +45,11 @@ function Get-RelativeEdgesFileMetaFact {
         if ($found) {
             Assert-True $relatives.Contains("$($relation['name'])") `
                 -ErrorText "file-meta config: kind '$($Kind.id)' relation '$($relation['name'])' is not one of its keys [$($Kind.keys -join ', ')]."
-            # A relation with a link template shows its file as a link whose target is the same repository-relative path.
+            # A relation with a link template shows its file as a link: {path} is its repository-relative path, {relpath} its path from the head's own folder.
             if ($relation.Contains('link')) {
-                $found = "$($relation['link'])".Replace('{leaf}', [System.IO.Path]::GetFileName($found)).Replace('{path}', $found)
+                $from = [System.IO.Path]::GetDirectoryName((Join-Path $root $Path))
+                $relativePath = [System.IO.Path]::GetRelativePath($from, (Join-Path $root $found)).Replace('\', '/')
+                $found = "$($relation['link'])".Replace('{leaf}', [System.IO.Path]::GetFileName($found)).Replace('{relpath}', $relativePath).Replace('{path}', $found)
             }
             $relatives["$($relation['name'])"] = $found
         }

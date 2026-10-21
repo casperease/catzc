@@ -50,10 +50,8 @@ the lookup; az and Bicep do the work, which is what keeps the platform thin.
 
 ## Why it holds
 
-- Thin comes from delegation: Bicep templates, compiled by az, and az for every control-plane step
-  (DDR-THINPLAT-DELEGATENOTREIMPLEMENT).
-- `Deploy-Bicep` and its configuration are the API a consumer binds to; nothing behind it is called directly
-  (DDR-THINPLAT-PLATFORMASCLI).
+- Thin comes from delegation: Bicep templates, compiled by az, and az for every control-plane step (DDR-THINPLAT-DELEGATENOTREIMPLEMENT).
+- `Deploy-Bicep` and its configuration are the API a consumer binds to; nothing behind it is called directly (DDR-THINPLAT-PLATFORMASCLI).
 
 ## Where the code and the decision record differ
 

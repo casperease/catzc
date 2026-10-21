@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "25f3ff8d4896"
+#     with_body_sha: "4865aac853c1"
 # ---
 
 description:
@@ -76,13 +76,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-NORECONCILINGTIPS
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -93,7 +86,7 @@ content:
           - DDR-REMOTE-NORECONCILINGTIPS
           - DDR-REMOTE-PULLREQUESTISINGRESS
           - DDR-REMOTE-SERVERREMOTEISTRUTH
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
@@ -101,13 +94,6 @@ content:
           - DDR-REMOTE-PULLREQUESTISINGRESS
           - DDR-REMOTE-SERVERREMOTEISTRUTH
     grid:
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-NORECONCILINGTIPS
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: docs/markdown
         by:
           - docs/drs/design/dora-explains.md

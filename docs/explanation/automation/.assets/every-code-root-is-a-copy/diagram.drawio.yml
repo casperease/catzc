@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: fb29e329a9b3
+#     with_body_sha: e703f491cf8e
 # ---
 
 description:
@@ -107,13 +107,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
-          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
-          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
-          - ADR-AUTO-BUNDLE-TWOROOTS
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -137,8 +130,11 @@ content:
           - ADR-AUTO-BUNDLE-TWOROOTS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-BUNDLE-BUNDLEISBUILD
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
@@ -183,8 +179,11 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-BUNDLE-BUNDLEISBUILD
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
@@ -206,13 +205,6 @@ content:
       - cell: subject/Catzc.Internal.Assets
         by:
           - pwsh/.internal/assets/Import-Catzc.ps1
-          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
-          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
-          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
-          - ADR-AUTO-BUNDLE-TWOROOTS
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-AUTO-BUNDLE-BUNDLEISBUILD
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL

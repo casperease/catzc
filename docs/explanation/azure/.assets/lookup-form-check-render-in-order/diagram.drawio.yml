@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "72a46f27da44"
+#     with_body_sha: c09dd04e2d7e
 # ---
 
 description:
@@ -131,16 +131,8 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
-          - ADR-AZ-NAMING-NEVERTRUNCATE
-          - ADR-AZ-NAMING-ORDERISVARIANT
-          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
       - cell: docs/-/.
         by:
-          - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.verify.md
           - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.yml
           - docs/drs/azure/azure-naming-standard.md
           - docs/drs/azure/dora-explains.md
@@ -190,7 +182,7 @@ content:
           - ADR-AZ-NAMING-NEVERTRUNCATE
           - ADR-AZ-NAMING-ORDERISVARIANT
           - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -232,7 +224,7 @@ content:
           - ADR-AZ-NAMING-NEVERTRUNCATE
           - ADR-AZ-NAMING-ORDERISVARIANT
           - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -250,13 +242,6 @@ content:
       - cell: subject/Catzc.Base.Variants
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
-          - ADR-AZ-NAMING-NEVERTRUNCATE
-          - ADR-AZ-NAMING-ORDERISVARIANT
-          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-AZ-NAMING-LOWERCASECOMPONENTS
           - ADR-AZ-NAMING-NEVERTRUNCATE
           - ADR-AZ-NAMING-ORDERISVARIANT

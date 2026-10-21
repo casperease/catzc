@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1d3f27c472b5"
+#     with_body_sha: ff411b056dcf
 # ---
 
 description:
@@ -69,11 +69,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-REPO-VARIANT-NODIRECTREADS
-          - ADR-REPO-VARIANT-SESSIONVARIANT
       - cell: docs/-/.
         by:
           - docs/drs/index.md
@@ -85,7 +80,7 @@ content:
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
           - ADR-REPO-VARIANT-NODIRECTREADS
           - ADR-REPO-VARIANT-SESSIONVARIANT
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-VARIANT-NODIRECTREADS
@@ -107,11 +102,6 @@ content:
           - ADR-REPO-VARIANT-NODIRECTREADS
           - ADR-REPO-VARIANT-SESSIONVARIANT
     grid:
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-REPO-VARIANT-NODIRECTREADS
-          - ADR-REPO-VARIANT-SESSIONVARIANT
       - cell: docs/markdown
         by:
           - docs/drs/index.md

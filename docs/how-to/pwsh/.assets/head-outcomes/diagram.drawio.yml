@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b8ea179ec9dd
+#     with_body_sha: bc4bb0bc95ed
 # ---
 
 description:
@@ -93,7 +93,6 @@ content:
     layer-stack:
       - cell: automation
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/glossary.md
           - docs/drs/index.md
           - docs/drs/repository/code-file-meta.md
@@ -113,9 +112,9 @@ content:
           - docs/references/pwsh/catzc-base-quality-gates/Test-GeneratedFiles.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedStampDrift.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/types/FileHeadPolicy.cs.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - pwsh/Catzc.Base.Docs/tests/Get-GlossaryFormViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
           - pwsh/Catzc.Base.Languages/configs/file-carriers.yml
           - pwsh/Catzc.Base.Languages/private/Get-GeneratorPath.ps1
@@ -147,12 +146,6 @@ content:
           - ADR-REPO-FILEMETA-COMPOSEDFILES
           - ADR-REPO-FILEMETA-HEADPOLICY
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
-          - ADR-REPO-FILEMETA-COMPOSEDFILES
-          - ADR-REPO-FILEMETA-HEADPOLICY
       - cell: docs/-/.
         by:
           - docs/drs/glossary.md
@@ -179,14 +172,17 @@ content:
           - ADR-REPO-FILEMETA-HEADPOLICY
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
-          - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
-          - ADR-REPO-FILEMETA-COMPOSEDFILES
           - ADR-REPO-FILEMETA-HEADPOLICY
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
           - pwsh/Catzc.Base.Docs/tests/Get-GlossaryFormViolations.Tests.ps1
+          - ADR-REPO-FILEMETA-HEADPOLICY
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
+          - ADR-REPO-FILEMETA-COMPOSEDFILES
           - ADR-REPO-FILEMETA-HEADPOLICY
       - cell: pwsh/Catzc.Base.Languages/.
         by:
@@ -266,9 +262,9 @@ content:
     track-placement:
       - cell: modules/pwsh
         by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - pwsh/Catzc.Base.Docs/tests/Get-GlossaryFormViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
           - pwsh/Catzc.Base.Languages/configs/file-carriers.yml
           - pwsh/Catzc.Base.Languages/private/Get-GeneratorPath.ps1
@@ -296,12 +292,6 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/types/FileHeadPolicy.cs
-          - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
-          - ADR-REPO-FILEMETA-COMPOSEDFILES
-          - ADR-REPO-FILEMETA-HEADPOLICY
-      - cell: pipelines/ado-pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
           - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
           - ADR-REPO-FILEMETA-COMPOSEDFILES
           - ADR-REPO-FILEMETA-HEADPOLICY

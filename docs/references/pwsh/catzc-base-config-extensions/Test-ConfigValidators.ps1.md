@@ -17,8 +17,8 @@ validator convention of Invoke-ConfigValidator: a validator is found by name —
 
 It walks the module folders of the loaded code root (Get-CatzcModulesRoot), so it checks the shipped configs of whichever tree the modules
 were loaded from — the source tree or a built package
-([DDR-RUNMODE-SAMEMODULEINBOTH](../../../drs/design/run-modes.md#rule-ddr-runmode-samemoduleinboth)) — and reads each loaded
-module's own validators from its scope (private functions are scope-isolated, so a module lists only its own).
+([DDR-RUNMODE-SAMEMODULEINBOTH](../../../drs/design/run-modes.md#rule-ddr-runmode-samemoduleinboth)) — and reads each loaded module's own
+validators from its scope (private functions are scope-isolated, so a module lists only its own).
 
 ### parameter `OutputFolder`
 

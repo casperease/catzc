@@ -11,9 +11,9 @@ Returns the rungs of the promotion ladder, in climbing order.
 
 ### description
 
-Reads the rungs registry
-([FDR-CD-RUNGSREGISTRY](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)): each rung with the gate
-a commit clears to enter it and the configuration environment it deploys. A unit's ADO environment for a rung is `<unit>-<rung>`.
+Reads the rungs registry ([FDR-CD-RUNGSREGISTRY](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)): each
+rung with the gate a commit clears to enter it and the configuration environment it deploys. A unit's ADO environment for a rung is
+`<unit>-<rung>`.
 
 ### parameter `Name`
 

@@ -16,8 +16,8 @@ by `Test-AgentDefinitions`.
 
 ADR-REPO-AGENTS-ROBOTBODYLIMIT makes a robot's front matter a closed key set (`name`, `description`, `tools`, `disallowedTools`, `model`,
 `effort`, `maxTurns`, `skills`, then the catzc head); the harness ignores any other key, and the gate rejects it. A value that is identical
-on every file is a constant, not per-file data, so declaring it once is the rule (PDR-CONFIG, PDR-REDUCEVAR).
-ADR-REPO-AGENTS-ROBOTBODYLIMIT holds the decision: ADR-REPO-AI is named once, and no file carries the per-file key.
+on every file is a constant, not per-file data, so declaring it once is the rule (PDR-CONFIG, PDR-REDUCEVAR). ADR-REPO-AGENTS-ROBOTBODYLIMIT
+holds the decision: ADR-REPO-AI is named once, and no file carries the per-file key.
 
 ## Where it lives now
 

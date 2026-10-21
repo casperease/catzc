@@ -19,8 +19,8 @@ one adapter (Invoke-FormatterEngine).
 The files are every file git tracks, fixtures included, or the given -Path; vendored third-party code and contract assets (`catzc-contract`,
 byte-frozen) are never formatted (Get-FormatScope). Each file belongs to the language its extension names (Get-FileLanguage); a language
 without a formatter (`no_formatter:`) is left as it is. A run also imprints (Invoke-ImprintStep) the file-meta heads of every file in its
-scope, so a folder run can write heads into files nobody named. Each engine reads the repository's layout settings — .editorconfig, .prettierrc.yml,
-the analyzer settings, the pinned ruff configuration
+scope, so a folder run can write heads into files nobody named. Each engine reads the repository's layout settings — .editorconfig,
+.prettierrc.yml, the analyzer settings, the pinned ruff configuration
 ([ADR-REPO-FORMAT-BASELINEISFLOOR](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-baselineisfloor)).
 
 Each engine runs once over the files of every selected language it formats, so a tool that starts slowly starts once. A result cache under

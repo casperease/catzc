@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "215ab647cb46"
+#     with_body_sha: "238f3b6df48f"
 # ---
 
 description:
@@ -154,13 +154,6 @@ content:
         by:
           - .claude/CLAUDE.md
           - ADR-AUTO-PKGMGR
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
-          - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
-          - ADR-AUTO-ENGINE
-          - ADR-AUTO-PKGMGR
       - cell: docs/-/.
         by:
           - docs/drs/automation/bash/bash-test-artifacts.md
@@ -219,22 +212,22 @@ content:
           - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
           - ADR-AUTO-ENGINE
           - ADR-AUTO-PKGMGR
-      - cell: pwsh/Catzc.Base.Docs/.
+      - cell: pwsh/Catzc.Base.Drs/.
         by:
           - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
           - ADR-AUTO-ENGINE
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
           - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
           - ADR-AUTO-ENGINE
           - ADR-AUTO-PKGMGR
-      - cell: pwsh/Catzc.Base.Docs/tests
+      - cell: pwsh/Catzc.Base.Drs/tests
         by:
           - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
           - ADR-AUTO-ENGINE
-      - cell: pwsh/Catzc.Base.Docs/types
+      - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs
           - ADR-AUTO-ENGINE
@@ -372,7 +365,7 @@ content:
         by:
           - .claude/CLAUDE.md
           - ADR-AUTO-PKGMGR
-      - cell: subject/Catzc.Base.Docs
+      - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -464,13 +457,6 @@ content:
           - pwsh/Catzc.Tooling.Toolchain/private/Install-BicepStandalone.ps1
           - pwsh/Catzc.Tooling.Toolchain/private/Install-UvStandalone.ps1
           - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
-          - ADR-AUTO-ENGINE
-          - ADR-AUTO-PKGMGR
-      - cell: subject/pipelines
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
-          - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
           - ADR-AUTO-ENGINE
           - ADR-AUTO-PKGMGR
     axis:

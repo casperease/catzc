@@ -47,8 +47,7 @@ occupant. Reading the occupants tells you what lives where right now, and which 
   synced from and the commit `main-uat` takes are one (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD).
 - The tip of main is only the newest commit; when it has failed a downstream stage it is the dirty HEAD, and nobody syncs or promotes from
   it (FDR-CD-LIFE-DIRTYHEADUNSAFE).
-- A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it
-  (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
+- A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
 - A CD pipeline always contains the CI component, and the pipeline kinds share one key, the immutable tagged artifact
   (FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI).
 

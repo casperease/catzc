@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "24b65d02d696"
+#     with_body_sha: "29e8d83456f3"
 # ---
 
 description:
@@ -71,13 +71,6 @@ content:
   legend: auto
   minimaps:
     code-locations:
-      - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
-          - DDR-THINPLAT-SWAPPABLESUBSTRATE
-          - DDR-THINPLAT-THINPLATFORM
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -87,7 +80,7 @@ content:
           - DDR-THINPLAT-PLATFORMASCLI
           - DDR-THINPLAT-SWAPPABLESUBSTRATE
           - DDR-THINPLAT-THINPLATFORM
-      - cell: pwsh/Catzc.Base.Docs/configs
+      - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
@@ -95,13 +88,6 @@ content:
           - DDR-THINPLAT-SWAPPABLESUBSTRATE
           - DDR-THINPLAT-THINPLATFORM
     grid:
-      - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
-          - DDR-THINPLAT-SWAPPABLESUBSTRATE
-          - DDR-THINPLAT-THINPLATFORM
       - cell: docs/markdown
         by:
           - docs/drs/design/dora-explains.md
