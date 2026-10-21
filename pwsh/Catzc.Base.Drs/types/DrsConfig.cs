@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "31830ea773d1"
+    with_body_sha: b45e9dde9313
   edges:
     test: pwsh/Catzc.Base.Drs/tests/types/DrsConfig.Tests.ps1
-    docs: "[DrsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/DrsConfig.cs.md)"
+    docs: "[DrsConfig.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE

@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d971606a51e6
+    with_body_sha: "88c3cdfedb80"
   edges:
-    docs: "[CheckMode.cs.md](docs/references/pwsh/catzc-base-docs/types/CheckMode.cs.md)"
+    docs: "[CheckMode.cs.md](docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-TEST-QUALITYGATE

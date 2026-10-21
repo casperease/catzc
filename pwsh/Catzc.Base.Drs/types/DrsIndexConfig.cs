@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "44e6667c6823"
+    with_body_sha: b046c0f73b11
   edges:
     test: pwsh/Catzc.Base.Drs/tests/types/DrsIndexConfig.Tests.ps1
     cites:

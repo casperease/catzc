@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5ebe258831ca"
+    with_body_sha: f11e773c0fa9
   edges:
-    docs: "[DrsRuleSet.cs.md](docs/references/pwsh/catzc-base-docs/types/DrsRuleSet.cs.md)"
+    docs: "[DrsRuleSet.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsRuleSet.cs.md)"
     cites:
       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
       - ADR-BCL-TYPES

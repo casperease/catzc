@@ -51,12 +51,12 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
                 kinds       = [ordered]@{
                     'body-sha'  = @{ keys = @('with_body_sha') }
                     'widget-role' = @{ keys = @('role') }
-                    'adr-codes' = @{ keys = @('cites'); section = 'edges' }
+                    'drs-codes' = @{ keys = @('cites'); section = 'edges' }
                 }
             })
         # Not named $config: that is Get-Config's own -Config parameter inside the mock.
         Mock Get-Config { $script:registry } -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'file-meta' }
-        # The one code the fixtures cite, registered with ten rules, so the adr-codes kind keeps it.
+        # The one code the fixtures cite, registered with ten rules, so the drs-codes kind keeps it.
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Drs.DrsCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-TURN', 'ADR-GADGET-SPIN', 'ADR-GADGET-FOLD', 'ADR-GADGET-LIFT') } }, @())
         }

@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e737128954f7
+    with_body_sha: "03967a0daae9"
   edges:
-    docs: "[Get-DrsDomainEdges.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-DrsDomainEdges.Tests.ps1.md)"
+    docs: "[Get-DrsDomainEdges.Tests.ps1.md](docs/references/pwsh/catzc-base-drs/tests/Get-DrsDomainEdges.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Drs/Get-DrsDomainEdges.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

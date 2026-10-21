@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0d901856f615"
+    with_body_sha: "689765684278"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/types/DrsCitationMap.Tests.ps1
-    docs: "[DrsCitationMap.cs.md](docs/references/pwsh/catzc-base-docs/types/DrsCitationMap.cs.md)"
+    docs: "[DrsCitationMap.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsCitationMap.cs.md)"
     cites:
       - ADR-AUTO
       - ADR-PWSH-ERROR

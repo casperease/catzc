@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c8242256a7b2
+    with_body_sha: ac8135d10ee4
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
-    docs: "[Test-DrsEngineNeutrality.ps1.md](docs/references/pwsh/catzc-base-docs/Test-DrsEngineNeutrality.ps1.md)"
+    docs: "[Test-DrsEngineNeutrality.ps1.md](docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-AUTO-TEST-QUALITYGATE

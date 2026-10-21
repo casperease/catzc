@@ -14,7 +14,7 @@ Describe 'Get-FileMetaInputStamp' -Tag 'L0', 'logic' {
         $script:widget = Join-Path $script:root 'widgets/Get-Widget.wdg'
         $script:note = Join-Path $script:root 'notes/widget.md'
         $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{ 'adr-codes' = @{ section = 'edges'; keys = @('cites'); select = @(@{ classes = @('function') }) } }
+                kinds = [ordered]@{ 'drs-codes' = @{ section = 'edges'; keys = @('cites'); select = @(@{ classes = @('function') }) } }
             })
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
                 languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } }
@@ -38,7 +38,7 @@ Describe 'Get-FileMetaInputStamp' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'changes the stamp of a file the adr-codes kind selects when a code is registered, and of no other file' {
+    It 'changes the stamp of a file the drs-codes kind selects when a code is registered, and of no other file' {
         $before = & $script:stamp
         $script:codes = @('ADR-WIDGET', 'ADR-WIDGET-SPINS', 'ADR-WIDGET-TURNS')
         $after = & $script:stamp

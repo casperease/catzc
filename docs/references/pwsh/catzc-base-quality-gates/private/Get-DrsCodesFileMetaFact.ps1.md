@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The adr-codes meta kind's fact: the ADR citations the file and its comment page make, sorted and without duplicates.
+The drs-codes meta kind's fact: the ADR citations the file and its comment page make, sorted and without duplicates.
 
 ### description
 

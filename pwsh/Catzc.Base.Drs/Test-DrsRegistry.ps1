@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "539bcf4a6f5a"
+    with_body_sha: b430b3993548
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
-    docs: "[Test-DrsRegistry.ps1.md](docs/references/pwsh/catzc-base-docs/Test-DrsRegistry.ps1.md)"
+    docs: "[Test-DrsRegistry.ps1.md](docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG

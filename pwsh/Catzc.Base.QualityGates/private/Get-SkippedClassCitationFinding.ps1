@@ -18,7 +18,7 @@ function Get-SkippedClassCitationFinding {
         [string[]] $Path
     )
 
-    $kind = @((Get-Config -Config file-meta).kinds | Where-Object { $_.id -ceq 'adr-codes' }) | Select-Object -First 1
+    $kind = @((Get-Config -Config file-meta).kinds | Where-Object { $_.id -ceq 'drs-codes' }) | Select-Object -First 1
     if (-not $kind) {
         return
     }
@@ -43,7 +43,7 @@ function Get-SkippedClassCitationFinding {
         # The page alone: the one parser of the codes, given no body, reads what the comment page cites.
         $codes = @((Get-DrsCodesFileMetaFact -State ([pscustomobject]@{ Body = '' }) -Path $source -Kind $kind)[$kind.keys[0]])
         if ($codes.Count -gt 0) {
-            "${page}:1 [SkippedClassCitation] cites $($codes -join ', ') for $source, whose class '$class' the adr-codes select in " +
+            "${page}:1 [SkippedClassCitation] cites $($codes -join ', ') for $source, whose class '$class' the drs-codes select in " +
             'file-meta.yml skips, so its head never cites them — add the class to the select, or cite the rules where a selected file carries them'
         }
     }

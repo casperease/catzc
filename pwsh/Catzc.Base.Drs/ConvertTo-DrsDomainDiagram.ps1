@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6c0753bf46f5"
+    with_body_sha: b602c371fec0
   edges:
     test: pwsh/Catzc.Base.Drs/tests/ConvertTo-DrsDomainDiagram.Tests.ps1
-    docs: "[ConvertTo-DrsDomainDiagram.ps1.md](docs/references/pwsh/catzc-base-docs/ConvertTo-DrsDomainDiagram.ps1.md)"
+    docs: "[ConvertTo-DrsDomainDiagram.ps1.md](docs/references/pwsh/catzc-base-drs/ConvertTo-DrsDomainDiagram.ps1.md)"
 ---
 #>
 

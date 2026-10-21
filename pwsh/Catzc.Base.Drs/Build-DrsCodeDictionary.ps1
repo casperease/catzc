@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c2bd4f73e540
+    with_body_sha: "3c01cff6ebe2"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Build-DrsCodeDictionary.Tests.ps1
-    docs: "[Build-DrsCodeDictionary.ps1.md](docs/references/pwsh/catzc-base-docs/Build-DrsCodeDictionary.ps1.md)"
+    docs: "[Build-DrsCodeDictionary.ps1.md](docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-REPO-DRSCODE-SEGMENTSAREWORDS
@@ -27,7 +27,7 @@ function Build-DrsCodeDictionary {
     $adrRoot = Resolve-RepoPath $adrs.Root
     $index = Get-DrsFileIndex @($adrs.RuleSets) -DrsRoot $adrRoot
     $files = [string[]] @($index.Relative | ForEach-Object { [System.IO.Path]::Combine($index.Root, $_) })
-    $relative = '.cspell/adr-codes.txt'
+    $relative = '.cspell/drs-codes.txt'
     $path = Join-Path (Get-RepositoryRoot) $relative
 
     $codes = [System.Collections.Generic.List[string]]::new()

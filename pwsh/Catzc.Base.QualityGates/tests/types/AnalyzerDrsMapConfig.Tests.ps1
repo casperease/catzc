@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d735c96966a0
+    with_body_sha: "47f262ddc985"
   edges:
     code: pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
     cites:

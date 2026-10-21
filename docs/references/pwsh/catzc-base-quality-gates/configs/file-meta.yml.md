@@ -15,7 +15,7 @@ The meta-kind registry: each entry is one kind of derived fact imprinted into a 
 
 ## comment:3
 
-Above `adr-codes:`, written with `#`.
+Above `drs-codes:`, written with `#`.
 
 ```text
 The ADR codes the file cites, its comment page's too, sorted and without duplicates, less the rules it defines; a long key, so late.

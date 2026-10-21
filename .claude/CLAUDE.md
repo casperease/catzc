@@ -95,7 +95,7 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/drs/repository/ai-agent
   first, every answer recorded with its projected outcome, then folded into the plans.
 - **`gate-runner`** — runs one gate or test file in the background and brings its verdict back verbatim.
 - **`link-fixer`** — repairs the links of a named set of markdown files, one file and one target at a time.
-- **`adr-reviewer`** — read-only review of a file set against the rules that govern it, each finding with its rule code.
+- **`drs-reviewer`** — read-only review of a file set against the rules that govern it, each finding with its rule code.
 - **`fact-checker`** — checks one statement against the tree and its words against the glossary, then asks "is it though?" with a DevOps
   counter; answers in two lines, read-only.
 - **`listen-very-carefully-to-doc-changes`** — the listen mode's processor, run as the main session while `Start-DocListener` notes the

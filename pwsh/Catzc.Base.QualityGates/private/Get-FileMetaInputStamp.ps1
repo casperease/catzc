@@ -28,7 +28,7 @@ function Get-FileMetaInputStamp {
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $commentPages = Get-Config -Config comment-pages
     $edgeKinds = @($Config.Imprint() | Where-Object { $_.settings.ContainsKey('relations') })
-    $codeKind = @($Config.Imprint() | Where-Object { $_.id -ceq 'adr-codes' })
+    $codeKind = @($Config.Imprint() | Where-Object { $_.id -ceq 'drs-codes' })
     $languages = Get-Config -Config languages
     $codesHash = $null
     $parts = [ordered]@{}
@@ -48,7 +48,7 @@ function Get-FileMetaInputStamp {
             }
             $fileParts.Add("page:${page}:$pageHash")
         }
-        # A file whose cites the adr-codes kind writes reads the registered codes, so a new or removed code rechecks it, and nothing else does.
+        # A file whose cites the drs-codes kind writes reads the registered codes, so a new or removed code rechecks it, and nothing else does.
         if ($codeKind.Count -eq 1) {
             $language = $languages.ForPath($relative)
             if ($Config.Selects($codeKind[0], (Get-FileKind $relative).Class, ($language ? $language.name : $null))) {
@@ -56,7 +56,7 @@ function Get-FileMetaInputStamp {
                     $codes = @((Get-DrsCitationMap -RepositoryRoot $root).Codes | Sort-Object -CaseSensitive) -join "`n"
                     $codesHash = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($codes)))
                 }
-                $fileParts.Add("adr-codes:$codesHash")
+                $fileParts.Add("drs-codes:$codesHash")
             }
         }
         $parts[$relative] = @($full, $fileParts)

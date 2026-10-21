@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "21278ddef024"
+    with_body_sha: "4c4e9a60f28e"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Get-CatsDrsRules.Tests.ps1
-    docs: "[Get-CatsDrsRules.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-CatsDrsRules.ps1.md)"
+    docs: "[Get-CatsDrsRules.ps1.md](docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsRules.ps1.md)"
     cites:
       - ADR-REPO-VOCAB-DEFINEDTERM
 ---

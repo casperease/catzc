@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "22a9731ab025"
 #   edges:
-#     docs: "[drs.yml.md](docs/references/pwsh/catzc-base-docs/configs/drs.yml.md)"
+#     docs: "[drs.yml.md](docs/references/pwsh/catzc-base-drs/configs/drs.yml.md)"
 #     cites:
 #       - ADR-ADO-AUTH
 #       - ADR-ADO-NAME

@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "64a0e6e32389"
+    with_body_sha: "4854003ba641"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Get-DrsFileIndex.Tests.ps1
-    docs: "[Get-DrsFileIndex.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-DrsFileIndex.ps1.md)"
+    docs: "[Get-DrsFileIndex.ps1.md](docs/references/pwsh/catzc-base-drs/private/Get-DrsFileIndex.ps1.md)"
 ---
 #>
 

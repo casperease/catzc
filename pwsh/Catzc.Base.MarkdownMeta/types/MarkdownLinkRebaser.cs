@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4c3d03c2b1f2"
+    with_body_sha: "0540f05aeaae"
   edges:
     test: pwsh/Catzc.Base.MarkdownMeta/tests/types/MarkdownLinkRebaser.Tests.ps1
-    docs: "[MarkdownLinkRebaser.cs.md](docs/references/pwsh/catzc-base-docs/types/MarkdownLinkRebaser.cs.md)"
+    docs: "[MarkdownLinkRebaser.cs.md](docs/references/pwsh/catzc-base-markdown-meta/types/MarkdownLinkRebaser.cs.md)"
     cites:
       - ADR-REPO-README-WORKINGLINKS
 ---

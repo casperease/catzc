@@ -24,7 +24,7 @@ Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCR
         # The gate sees every processor function of the module, so each fixture registry also names the shipped ones.
         function script:Invoke-Gate {
             param($Kinds, [switch] $PassThru)
-            $all = [ordered]@{ 'body-sha' = @{ keys = @('with_body_sha') }; 'adr-codes' = @{ keys = @('cites'); section = 'edges' }; 'relative-edges' = @{ keys = @('test', 'docs', 'code'); section = 'edges' } }
+            $all = [ordered]@{ 'body-sha' = @{ keys = @('with_body_sha') }; 'drs-codes' = @{ keys = @('cites'); section = 'edges' }; 'relative-edges' = @{ keys = @('test', 'docs', 'code'); section = 'edges' } }
             foreach ($id in $Kinds.Keys) {
                 $all[$id] = $Kinds[$id]
             }

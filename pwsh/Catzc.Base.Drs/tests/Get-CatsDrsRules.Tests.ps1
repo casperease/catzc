@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3ae4d074270d"
+    with_body_sha: dce9299da80a
   edges:
     code: pwsh/Catzc.Base.Drs/private/Get-CatsDrsRules.ps1
     cites:

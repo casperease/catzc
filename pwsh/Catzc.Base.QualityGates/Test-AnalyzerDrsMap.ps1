@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "03c4b41236df"
+    with_body_sha: "48999b6c6030"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-AnalyzerDrsMap.Tests.ps1
     docs: "[Test-AnalyzerDrsMap.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-AnalyzerDrsMap.ps1.md)"

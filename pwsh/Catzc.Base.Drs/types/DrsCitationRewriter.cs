@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3e18e2fad394"
+    with_body_sha: "1b5848e24b27"
   edges:
-    docs: "[DrsCitationRewriter.cs.md](docs/references/pwsh/catzc-base-docs/types/DrsCitationRewriter.cs.md)"
+    docs: "[DrsCitationRewriter.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsCitationRewriter.cs.md)"
     cites:
       - ADR-REPO-DRSCODE-PATHOFSEGMENTS
       - ADR-REPO-DRSCODE-DOMAINSEGMENT

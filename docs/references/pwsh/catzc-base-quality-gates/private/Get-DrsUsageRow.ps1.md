@@ -11,7 +11,7 @@ The ADR citations and links one file makes, as rows of code and rule.
 
 ### description
 
-The rows come from the file's text and its comment page through the processors the imprint uses (the `adr-codes` and `links` meta kinds),
+The rows come from the file's text and its comment page through the processors the imprint uses (the `drs-codes` and `links` meta kinds),
 never from its head ([ADR-REPO-FILEMETA-NOREADBACK](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)). The cited
 codes give one row per citation: a rule code gives its ADR as Code and itself as Rule, and an ADR code is the whole ADR (Rule is null). A
 Markdown file's links give a row for every link into a registered ADR, with the rule its anchor names (Rule is null for a link to the ADR

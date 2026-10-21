@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ce9383a561c2
+    with_body_sha: baf777d6d57d
   edges:
     code: pwsh/Catzc.Base.Drs/types/DrsCodeForm.cs
     cites:

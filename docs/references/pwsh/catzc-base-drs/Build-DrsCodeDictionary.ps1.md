@@ -12,8 +12,8 @@ Generates the spell-checker word list of ADR code segments from the ADR registry
 ### description
 
 Reads the ADR registry (configs/drs.yml, via Get-Config -Config drs) and the rule headings of every ADR file under docs/drs/, and writes
-every segment of every ADR code and rule heading, lower-cased, de-duplicated and ordinal-sorted, to `.cspell/adr-codes.txt` at the
-repository root, the word list cspell.yml loads as `catzc-adr-codes`. A rule is named by a segment of spelled-out words joined, so the spell
+every segment of every ADR code and rule heading, lower-cased, de-duplicated and ordinal-sorted, to `.cspell/drs-codes.txt` at the
+repository root, the word list cspell.yml loads as `catzc-drs-codes`. A rule is named by a segment of spelled-out words joined, so the spell
 checker takes the names from the registry rather than from one hand-written terminology entry per rule
 ([ADR-REPO-DRSCODE-SEGMENTSAREWORDS](../../../drs/repository/drs-code-language.md#rule-adr-repo-drscode-segmentsarewords)). The list carries
 the generated-file head, is gitignored like the terminology lists, and is regenerated at the importer tail; Test-GeneratedFiles fails when

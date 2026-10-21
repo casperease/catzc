@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4db5498e8872"
+    with_body_sha: "84c2b4b005b1"
   edges:
     docs: "[Get-DrsCitationPath.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-DrsCitationPath.ps1.md)"
 ---

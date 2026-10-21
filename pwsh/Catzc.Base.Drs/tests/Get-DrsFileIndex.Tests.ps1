@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "969a7446ac90"
+    with_body_sha: "78e5fca3f172"
   edges:
-    docs: "[Get-DrsFileIndex.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-DrsFileIndex.Tests.ps1.md)"
+    docs: "[Get-DrsFileIndex.Tests.ps1.md](docs/references/pwsh/catzc-base-drs/tests/Get-DrsFileIndex.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Drs/private/Get-DrsFileIndex.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

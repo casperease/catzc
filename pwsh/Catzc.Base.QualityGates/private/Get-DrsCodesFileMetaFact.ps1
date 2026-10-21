@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3d7b5efea99e"
+    with_body_sha: ec9203403b0c
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-DrsCodesFileMetaFact.Tests.ps1
     docs: "[Get-DrsCodesFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-DrsCodesFileMetaFact.ps1.md)"

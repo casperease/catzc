@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8de26c31a534"
+    with_body_sha: "3db644faa95c"
   edges:
-    docs: "[Get-DrsRuleSummaryLines.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-DrsRuleSummaryLines.Tests.ps1.md)"
+    docs: "[Get-DrsRuleSummaryLines.Tests.ps1.md](docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSummaryLines.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Drs/private/Get-DrsRuleSummaryLines.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

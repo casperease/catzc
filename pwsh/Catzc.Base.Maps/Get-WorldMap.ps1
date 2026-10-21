@@ -76,7 +76,9 @@ function Get-WorldMap {
         if (-not $script:worldMapTextCache.ContainsKey($path)) {
             $full = Join-Path $root $path
             $text = [System.IO.File]::Exists($full) ? [System.IO.File]::ReadAllText($full) : $null
-            # A file's catzc head is derived from its citations, never read back as them (ADR-REPO-FILEMETA-NOREADBACK): the file cites from
+            # A file's catzc head is derived from its citations, never read back as them
+            # ([ADR-REPO-FILEMETA-NOREADBACK](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)): the
+            # file cites from
             # its body and its comment page, the same source the head is built from.
             $carrier = $resolver.For($path)
             $form = if ($null -ne $text -and $carrier -and -not $resolver.IsExcluded($carrier, $path)) {

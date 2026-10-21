@@ -136,7 +136,7 @@ that rule leaves as the vendor writes it.
 A named segment is a run of joined words (`BOUNDEVERYWAIT`) that no dictionary holds, and there are more than sixteen hundred of them. A
 hand-written terminology entry per code body would copy a fact the registry already holds, once per rule, and drift from it on every rename.
 The registry is the one source, so the spell checker reads it: `Build-DrsCodeDictionary` writes every segment, lower-cased, to the generated
-word list `.cspell/adr-codes.txt`, which the root `cspell.yml` loads beside the terminology dictionaries.
+word list `.cspell/drs-codes.txt`, which the root `cspell.yml` loads beside the terminology dictionaries.
 
 ### Every string is a selector
 
@@ -180,7 +180,7 @@ where there is one), and the rule. Every code is a fact and a selector of everyt
   never fail the run.
 - **`Test-Links`** (in `Catzc.Base.QualityGates`) reports a numbered citation in a markdown file or a code string as a finding; the test
   files whose fixtures carry one on purpose are named, each with its reason, in `links.yml` `string_citations.exempt`.
-- **`Test-GeneratedFiles`** fails when `.cspell/adr-codes.txt` is stale against the registry.
+- **`Test-GeneratedFiles`** fails when `.cspell/drs-codes.txt` is stale against the registry.
 
 ## Consequences
 

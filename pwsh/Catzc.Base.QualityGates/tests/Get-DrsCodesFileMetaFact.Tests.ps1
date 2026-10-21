@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dc9395f16f7e
+    with_body_sha: "4062200c8b6a"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-DrsCodesFileMetaFact.ps1
     cites:
@@ -30,7 +30,7 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
                 }, @())
         }
 
-        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites') } } }).kinds[0]
+        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites') } } }).kinds[0]
 
         function script:Get-Codes {
             param([string] $Body)
@@ -94,7 +94,7 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
     Context 'a code file, whose class the kind names under domain_classes' {
         BeforeAll {
             $script:codeKind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites'); settings = @{ domain_classes = @('widget-*') } } }
+                    kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites'); settings = @{ domain_classes = @('widget-*') } } }
                 }).kinds[0]
 
             function script:Get-CodeCodes {
@@ -140,7 +140,7 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
     Context 'a code file' {
         BeforeAll {
             $script:codeKind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites'); select = @(@{ classes = @('widget-type') }) } }
+                    kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites'); select = @(@{ classes = @('widget-type') }) } }
                 }).kinds[0]
 
             function script:Get-CodeCodes {
@@ -173,7 +173,7 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
 
     It 'takes domain_classes from the classes the kind selects when it is not set' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY' {
         $kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{ 'adr-codes' = @{ keys = @('cites'); select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type') }) } }
+                kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites'); select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type') }) } }
             }).kinds[0]
         $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-HEAD-ONE-TWO`n---`n*/`n`n// ADR-WIDGET and ADR-GADGET-DROP`nclass Widget {}`n"
         $state = Get-CodeMetaState -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/'))

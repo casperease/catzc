@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bdd6681bd742
+    with_body_sha: "2b7b0aa1f494"
   edges:
-    docs: "[DrsCitationRewrite.cs.md](docs/references/pwsh/catzc-base-docs/types/DrsCitationRewrite.cs.md)"
+    docs: "[DrsCitationRewrite.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsCitationRewrite.cs.md)"
     cites:
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---

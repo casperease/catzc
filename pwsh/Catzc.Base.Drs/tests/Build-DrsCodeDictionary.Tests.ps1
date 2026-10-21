@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3eb0054e0c18"
+    with_body_sha: ec14c99b560a
   edges:
     code: pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
     cites:
@@ -44,7 +44,7 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
     It 'writes every segment of every code and rule heading, lower-cased, unique and sorted' {
         $result = Build-DrsCodeDictionary -PassThru
         $result.Changed | Should -BeTrue
-        $text = [System.IO.File]::ReadAllText((Join-Path $script:root '.cspell/adr-codes.txt'))
+        $text = [System.IO.File]::ReadAllText((Join-Path $script:root '.cspell/drs-codes.txt'))
         $words = @($text -split "`n" | Where-Object { $_ -match '^[a-z0-9]+$' })
         $words | Should -Be @('adr', 'gadget', 'hidden', 'spinner', 'spins', 'wi')
         $result.WordCount | Should -Be 6
@@ -65,7 +65,7 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
             [void][System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs/drs/gizmo'))
             [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/drs/gizmo/gizmo-lever.md'), "# Lever`n`n## Rules: GDR-LEVER`n`n### Rule GDR-LEVER-TILTS`n")
             Build-DrsCodeDictionary -Silent | Out-Null
-            $text = [System.IO.File]::ReadAllText((Join-Path $script:root '.cspell/adr-codes.txt'))
+            $text = [System.IO.File]::ReadAllText((Join-Path $script:root '.cspell/drs-codes.txt'))
             $words = @($text -split "`n" | Where-Object { $_ -match '^[a-z0-9]+$' })
             foreach ($word in 'gdr', 'lever', 'tilts') {
                 $words | Should -Contain $word
@@ -79,9 +79,9 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
     It 'leaves the file alone on a second run, and writes nothing under -DryRun' {
         Build-DrsCodeDictionary -Silent | Out-Null
         (Build-DrsCodeDictionary -PassThru -Silent).Changed | Should -BeFalse
-        Remove-Item -LiteralPath (Join-Path $script:root '.cspell/adr-codes.txt')
+        Remove-Item -LiteralPath (Join-Path $script:root '.cspell/drs-codes.txt')
         (Build-DrsCodeDictionary -DryRun -PassThru -Silent).Changed | Should -BeTrue
-        Join-Path $script:root '.cspell/adr-codes.txt' | Should -Not -Exist
+        Join-Path $script:root '.cspell/drs-codes.txt' | Should -Not -Exist
     }
 }
 

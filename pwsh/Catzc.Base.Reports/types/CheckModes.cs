@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3320ddc202d6"
+    with_body_sha: a71cabc0828b
   edges:
     test: pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
-    docs: "[CheckModes.cs.md](docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md)"
+    docs: "[CheckModes.cs.md](docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - PDR-ONELIVE-ONEVERSION

@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ec8fc6deaaff
+    with_body_sha: "136341470dd3"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
-    docs: "[Update-DrsCitation.ps1.md](docs/references/pwsh/catzc-base-docs/Update-DrsCitation.ps1.md)"
+    docs: "[Update-DrsCitation.ps1.md](docs/references/pwsh/catzc-base-drs/Update-DrsCitation.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-IDEM

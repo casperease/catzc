@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8f3f14d96be5"
+    with_body_sha: bf4c4c419d88
   edges:
-    docs: "[DrsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/DrsConfig.Tests.ps1.md)"
+    docs: "[DrsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-drs/tests/types/DrsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Drs/types/DrsConfig.cs
     cites:
       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE

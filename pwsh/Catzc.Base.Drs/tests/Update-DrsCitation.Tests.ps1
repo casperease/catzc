@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "444e863a3ccd"
+    with_body_sha: "5e889b8dc0de"
   edges:
-    docs: "[Update-DrsCitation.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Update-DrsCitation.Tests.ps1.md)"
+    docs: "[Update-DrsCitation.Tests.ps1.md](docs/references/pwsh/catzc-base-drs/tests/Update-DrsCitation.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
     cites:
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT

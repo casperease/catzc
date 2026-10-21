@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7929e2929f94"
+    with_body_sha: "06221b3fe740"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-DrsUsageRow.Tests.ps1
     docs: "[Get-DrsUsageRow.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-DrsUsageRow.ps1.md)"
@@ -30,7 +30,7 @@ function Get-DrsUsageRow {
 
     # The rows come from the file's text through the processors the imprint uses, never from its head.
     $kinds = (Get-Config -Config file-meta).kinds
-    $citesKind = $kinds | Where-Object { $_.id -eq 'adr-codes' }
+    $citesKind = $kinds | Where-Object { $_.id -eq 'drs-codes' }
     $isCode = $PSBoundParameters.ContainsKey('Form')
     $state = if ($isCode) {
         Get-CodeMetaState -Text $Text -Form $Form

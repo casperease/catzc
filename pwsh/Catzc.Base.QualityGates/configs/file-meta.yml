@@ -42,7 +42,7 @@ kinds:
             - { classes: [test], paths: ["pwsh/{module}/types/{stem}.cs", "pwsh/{module}/{stem}.ps1", "pwsh/{module}/private/{stem}.ps1"] }
 
   # The ADR codes a file and its comment page cite, never read back from its head; a code class also lists bare domain codes (domain_classes default). A page that renders a registry carries none.
-  adr-codes:
+  drs-codes:
     section: edges
     keys: [cites]
     select:
