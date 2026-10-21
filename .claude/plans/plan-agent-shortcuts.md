@@ -52,10 +52,10 @@ Both recur in every session that runs a gate or starts a plan.
 8. [ ] One line each, within their roofs: the glossary-keeper capability says to quote a YAML flow value that holds a comma (one such value
        broke every import on 2026-10-21), and the ADR-citing capability says a domain cites only the domains in its `depends_on`. Check:
        `Test-AgentDefinitions`.
-9. [ ] Hindsight 226bbf "If only the session had read git-readonly": `.claude/skills/git-readonly/SKILL.md` item 3 gains the clause "and
-       re-read before relying on it", merged into the line, no new line. Cost today: peers trusted from stale memory, a few bytes per spawn.
-       Check: `Test-AgentDefinitions`.
-10. [ ] Hindsight d7c207 "If only the ceiling were written" and "If only the brief file were a capability": the item of
+9. [ ] Susan from HR: Hindsight 226bbf "If only the session had read git-readonly": `.claude/skills/git-readonly/SKILL.md` item 3 gains the
+       clause "and re-read before relying on it", merged into the line, no new line. Cost today: peers trusted from stale memory, a few
+       bytes per spawn. Check: `Test-AgentDefinitions`.
+10. [ ] Susan from HR: Hindsight d7c207 "If only the ceiling were written" and "If only the brief file were a capability": the item of
         `.claude/skills/drawio-waves/SKILL.md` that bounds its waves (line 18) states the 20-subagent limit and that a fan-out writes its
         brief once in a file and sends each agent one line naming it, merged into that item and kept within the roof, never a new
         capability. Cost today: a 41-agent fan-out found the limit at agent 21 and wrote the brief per agent. Check:

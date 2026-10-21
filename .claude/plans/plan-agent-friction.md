@@ -70,8 +70,8 @@ then 6.
        `out/diagrams/dark-sample/` only. Check: the user approves the sample.
 7. [ ] After plan-agent-shortcuts' step 3: `.claude/CLAUDE.md`, section Time safeguard, trimmed as decided, when no peer has the file dirty.
        Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
-8. [ ] In step 7's trim, `.claude/CLAUDE.md` (hindsight 226bbf, "which grep"): the probe line names the Grep tool for a recursive search and
-       bash `grep` only for one file, since a recursive bash grep cannot finish inside the 3 s roof; the multi-step "script under `out/`"
-       clause is cut for `Invoke-CatzcCommand.ps1` (the tree contradicts itself today); the same section says in one clause that Bash calls
-       use absolute paths (hindsight 226bbf, "the second half"; no line says it, a drifting folder is learned by failure), paid for by the
-       cut. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
+8. [ ] Susan from HR: In step 7's trim, `.claude/CLAUDE.md` (hindsight 226bbf, "which grep"): the probe line names the Grep tool for a
+       recursive search and bash `grep` only for one file, since a recursive bash grep cannot finish inside the 3 s roof; the multi-step
+       "script under `out/`" clause is cut for `Invoke-CatzcCommand.ps1` (the tree contradicts itself today); the same section says in one
+       clause that Bash calls use absolute paths (hindsight 226bbf, "the second half"; no line says it, a drifting folder is learned by
+       failure), paid for by the cut. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.

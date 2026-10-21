@@ -22,7 +22,8 @@ metadata:
 3. Report three sections: **What the repository learned**, the changes made, at most 5 lines, condensed and factual; **What I learned**, at
    most 10 lines, each completing "In hindsight I wish I knew this fact: …", a fact true of the repository now, never the session's story;
    **Token tips**, 1 to 3 lines, each completing "Next time, save tokens by: …"; append both learned and tips (as `Token tip: <line>`) to
-   the log with one `Add-SessionLearning '<line>', …` in the background.
+   the log with one `Add-SessionLearning -Author Cats '<line>', …` in the background (Cats signs for a main session, as a robot's persona
+   does for a robot).
 4. Simplify: for each learning, propose where it shrinks what the next session reads (a `.claude` instruction cut or merged, a doc made
    plainer, a diagram); apply none unasked, and record an unanswered proposal as an open question in a plan; then end with "ready to clear"
    and the plans touched, nothing after it.
