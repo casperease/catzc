@@ -57,14 +57,13 @@ plan-decide round, and only truth-stores and test-signal-proposals are blocked b
 - agent-friction -> plan-agent-friction.md: the head how-to and its drawing sample (free now that minimal-heads has landed); the CLAUDE.md
   trim (the user's).
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
-- diagram-build-learnings -> plan-diagram-build-learnings.md: fix the Build-Diagrams help (the sample sequence included), one merged
-  catzc-run item, quiet the legend's warning by role, measure then memo the minimap stage, one pipeline drawing for an explanation page.
-- accosted-language -> plan-accosted-language.md: the ADR and the reserved word first, then the terminology gate, glossary, language row and
-  resolver, the config and typed record, the reader, the run limit and runner, their contracts, the first accosted file.
+- accosted-language -> plan-accosted-language.md: one check left, the accosted run under zsh once zsh is installed.
 - session-learnings -> plan-session-learnings.md: one learning reworded and catzc-49's lines appended; eight open questions wait on a
   plan-decide round.
 - test-signal-proposals -> plan-test-signal-proposals.md: blocked_on its three questions for the user (the bridge's setup error, one
   spelled-types list, the RungsConfig case); a plan-decide round answers them.
+- debt-diagram-render -> plan-debt-diagram-render.md: The png renderer silently drops unresolved style tokens, and the glyph library renders
+  only through a throwaway script; fail loud and render it through the one build.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

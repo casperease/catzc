@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8f2dade3d15d"
+    with_body_sha: "000afb187df0"
     warning: "Do Not Edit, this file is generated"
     role: index
     track: docs
@@ -449,7 +449,7 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   rationale, never the path that led to it.
 
 - **Blank-line padding.** Pad every section: a blank line immediately after each `##`/`###` heading, and a blank line before the next
-  heading. This applies to the `## Rules: <code>` registries and the `### Rule <code>:<n>` entries as well.
+  heading. This applies to the `## Rules: <code>` registries and the `### Rule <code>-<NAME>` entries as well.
 
 - **Cite DORA through the local reference.** DORA is the repository's core theoretical construct, and `docs/references/dora/` is its citable
   map: the Core Model (`core-model.md`), the delivery metrics (`metrics.md`), the capability catalogue grouped by the site's own categories

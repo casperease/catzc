@@ -349,9 +349,10 @@ otherwise.>
 
 One or two sentences of what is drawn, never what it means, in this kit's vocabulary: **band, span bar, glyph** (by its legend phrase: code
 unit, named set, file, store, runner, gate, environment, external tool, actor, result, failure, ADR-only, commit), **edge** (flow, thick,
-ADR-only, failure path, bypass, reads, junction), **gate rule, lane, marker, chip, legend**. Write it after looking at the built png. It carries no counts,
-reading path, legend table or minimap facts: `content:` already declares every glyph and edge, put draws the legend and the sidebar from it,
-and `Test-Diagrams` fails a png that states other content than its yml, so a hand-written count would be a second copy that drifts.
+ADR-only, failure path, bypass, reads, junction), **gate rule, lane, marker, chip, legend**. Write it after looking at the built png. It
+carries no counts, reading path, legend table or minimap facts: `content:` already declares every glyph and edge, put draws the legend and
+the sidebar from it, and `Test-Diagrams` fails a png that states other content than its yml, so a hand-written count would be a second copy
+that drifts.
 
 ```yaml
 description: >-
@@ -411,9 +412,10 @@ dropped: every word a drawing carried appears in the article or is replaced by a
 **Every slide has a proper legend**, a full-width outer panel at the bottom of the drawing area. It has one swatch per glyph, edge kind,
 chip and marker on the slide, each with its glyph-library phrase (≤ 8 entries, in columns, kinds before lines before marks). A slide that
 needs a phrase the library lacks adds it to `glyphs.xml` and this kit first. A flow edge's legend phrase is
-`flow: <its one meaning on this slide>` (e.g. `flow: runs before`, `flow: feeds`); the part after the colon is slide-specific wording,
-and so is a thick edge's phrase, `content.thick` (e.g. `to a truth store`), which replaces `to a named set` when given. One arrow never carries two meanings (not "calls; up from a gate: checks"): a second meaning goes to the article, or
-the slide is two slides. The minimaps get their own **map key** in the sidebar.
+`flow: <its one meaning on this slide>` (e.g. `flow: runs before`, `flow: feeds`); the part after the colon is slide-specific wording, and
+so is a thick edge's phrase, `content.thick` (e.g. `to a truth store`), which replaces `to a named set` when given. One arrow never carries
+two meanings (not "calls; up from a gate: checks"): a second meaning goes to the article, or the slide is two slides. The minimaps get their
+own **map key** in the sidebar.
 
 ### Landing in `docs/explanation/`
 

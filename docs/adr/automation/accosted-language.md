@@ -81,8 +81,8 @@ report under `out/` changes nothing the repository holds, so it stays on the lis
 
 ### A reserved word
 
-A word that names one thing is only useful while it names nothing else. Reserving it, and checking the reservation in a quality gate, keeps the language's name
-searchable.
+A word that names one thing is only useful while it names nothing else. Reserving it, and checking the reservation in a quality gate, keeps
+the language's name searchable.
 
 ### One reader
 

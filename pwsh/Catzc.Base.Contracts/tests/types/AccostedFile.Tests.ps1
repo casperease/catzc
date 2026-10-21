@@ -2,14 +2,16 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7191c3e17365"
+    with_body_sha: "03ee1941b2c4"
   edges:
     code: pwsh/Catzc.Base.Contracts/types/AccostedFile.cs
+    cites:
+      - ADR-AUTO-ACCOSTED-FILEFORM
 ---
 #>
 
 Describe 'AccostedFile' -Tag 'L0', 'logic' {
-    It 'reads runs of commands, each a normal-form name and its literal arguments, in the order written' {
+    It 'reads runs of commands, each a normal-form name and its literal arguments, in the order written' -Tag 'ADR-AUTO-ACCOSTED-FILEFORM' {
         $file = [Catzc.Base.Contracts.AccostedFile]::new([ordered]@{
                 runs = @(
                     , @([ordered]@{ get_widget = [ordered]@{ path = 'widgets/a.wdg'; depth = 2 } }, [ordered]@{ test_gadget = $null })

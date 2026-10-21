@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "68b618590d84"
+    with_body_sha: ddc93995d79b
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/New-Plan.Tests.ps1
+    docs: "[New-Plan.ps1.md](docs/references/pwsh/catzc-base-qualitygates/New-Plan.ps1.md)"
     cites:
       - ADR-REPO-PLANS-ONETOPICONEFILE
       - ADR-REPO-PLANS-THREEPARTS

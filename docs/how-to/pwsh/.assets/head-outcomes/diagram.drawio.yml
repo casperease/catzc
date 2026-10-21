@@ -1,0 +1,53 @@
+description: >-
+  What decides a file's head and what fills it, in the minimal model: a generated file carries the warning head its writer composes, an
+  authored code or config file carries the navigation head when the file_heads variant says so, and every other file carries none.
+about:
+  adrs:
+    - ADR-REPO-FILEMETA-HEADPOLICY
+    - ADR-REPO-FILEMETA-COMPOSEDFILES
+    - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
+  lens: meta
+content:
+  title: One file, one outcome, and the keys each head holds
+  kind: explanation
+  flow: left-to-right
+  relation: decides
+  bands:
+    - { id: band-generated, label: GENERATED }
+    - { id: band-authored, label: AUTHORED CODE OR CONFIG }
+    - { id: band-other, label: EVERYTHING ELSE }
+  glyphs:
+    - { id: g-gen-file, kind: file, label: generated file, in: band-generated }
+    - { id: g-gen-gate, kind: gate, label: writer registry entry, in: band-generated }
+    - { id: g-gen-head, kind: result, label: "sha, warning, provenance", in: band-generated }
+    - { id: g-auth-file, kind: file, label: authored code or config, in: band-authored }
+    - { id: g-auth-gate, kind: gate, label: "file_heads.code: minimal", in: band-authored }
+    - { id: g-auth-head, kind: result, label: "sha, cites, docs, test", in: band-authored }
+    - { id: g-other-file, kind: file, label: "Markdown, pages, assets", in: band-other }
+    - { id: g-other-gate, kind: gate, label: "head policy: forbidden", in: band-other }
+    - { id: g-other-head, kind: result, label: no head, in: band-other }
+  edges:
+    - { from: g-gen-file, to: g-gen-gate, kind: flow }
+    - { from: g-gen-gate, to: g-gen-head, kind: flow }
+    - { from: g-auth-file, to: g-auth-gate, kind: flow }
+    - { from: g-auth-gate, to: g-auth-head, kind: flow }
+    - { from: g-other-file, to: g-other-gate, kind: flow }
+    - { from: g-other-gate, to: g-other-head, kind: flow }
+  minimaps:
+    - layer-stack
+    - code-locations
+    - track-placement
+  legend: auto
+layout:
+  band-generated: { x: 20, y: 84, w: 1260, h: 150 }
+  band-authored: { x: 20, y: 254, w: 1260, h: 150 }
+  band-other: { x: 20, y: 424, w: 1260, h: 150 }
+  g-gen-file: { x: 80, y: 134, w: 240, h: 60 }
+  g-gen-gate: { x: 500, y: 124, w: 280, h: 80 }
+  g-gen-head: { x: 960, y: 134, w: 260, h: 60 }
+  g-auth-file: { x: 80, y: 304, w: 240, h: 60 }
+  g-auth-gate: { x: 500, y: 294, w: 280, h: 80 }
+  g-auth-head: { x: 960, y: 304, w: 260, h: 60 }
+  g-other-file: { x: 80, y: 474, w: 240, h: 60 }
+  g-other-gate: { x: 500, y: 464, w: 280, h: 80 }
+  g-other-head: { x: 960, y: 474, w: 260, h: 60 }

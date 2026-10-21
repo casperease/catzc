@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0c819846975e"
+    with_body_sha: "193c2bdb6b4d"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Repair-IdiomaticNames.Tests.ps1
+    docs: "[Repair-IdiomaticNames.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Repair-IdiomaticNames.ps1.md)"
     cites:
       - ADR-AUTO-IDIOM-HELDBYGATE
       - ADR-PWSH-DRYRUN
@@ -12,27 +13,6 @@ catzc:
 #>
 
 function Repair-IdiomaticNames {
-    <#
-    .SYNOPSIS
-        Moves each misnamed folder and file on disk to the name its language's idiom gives it, and lists every tracked file that names the
-        old path.
-
-    .DESCRIPTION
-        The repair half of the quality gate Test-IdiomaticNames (ADR-AUTO-IDIOM-HELDBYGATE): the gate reports a folder or a file whose
-        name breaks its language's case, and this moves it to the rendering the languages config gives (LanguagesConfig.MisnamedPathRenames). Files
-        move first and folders deepest first, so no move invalidates another; each move goes through a temporary name, so a case-only
-        rename lands on a case-insensitive file system. It edits no file's text: each result lists the tracked files whose text names the
-        old path, for one-file-at-a-time edits, and git records the moves when the user commits them.
-
-    .PARAMETER DryRun
-        Return the planned moves and the files that name each old path, and move nothing (ADR-PWSH-DRYRUN).
-
-    .OUTPUTS
-        [pscustomobject] { Kind, Path, Target, Language, NamedBy, Moved }, one per move, in the order they run.
-
-    .EXAMPLE
-        Repair-IdiomaticNames -DryRun
-    #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

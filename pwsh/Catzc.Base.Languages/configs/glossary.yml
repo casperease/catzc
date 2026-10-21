@@ -1,10 +1,11 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c6b7f7bb433a
+#     with_body_sha: a2e0fc88acb5
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-languages/configs/glossary.yml.md)"
 #     cites:
+#       - ADR-AUTO-ACCOSTED-FILEFORM
 #       - ADR-AUTO-BASH-ONEBASHROOT
 #       - ADR-AUTO-GO-ONEGOROOT
 #       - ADR-AUTO-IDIOM-NORMALFORM

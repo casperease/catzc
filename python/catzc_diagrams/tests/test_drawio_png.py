@@ -170,3 +170,28 @@ def test_draws_a_flex_arrow_as_a_filled_block_with_a_head():
     assert not near(at(img, 120, 112), GREEN)  # the body is width 10
     assert near(at(img, 267, 106), GREEN)  # the head is wider than the body
     assert any(near(at(img, 120, y), BLUE, 90) for y in (94, 95, 96))  # its outline, a hairline the downsample blends
+
+
+def test_an_unpainted_token_fails_naming_the_cell_and_the_key():
+    import pytest
+    with pytest.raises(SystemExit, match=r"widget fillColor=@slate"):
+        rendered(
+            '<mxCell id="widget" value="widget" style="rounded=1;fillColor=@slate;strokeColor=#FF0000;" vertex="1" parent="1">'
+            '<mxGeometry x="20" y="20" width="120" height="40" as="geometry"/></mxCell>'
+        )
+
+
+def test_the_draw_io_colour_keywords_still_render():
+    img = rendered(
+        '<mxCell id="gadget" value="" style="rounded=1;fillColor=none;strokeColor=#FF0000;fontColor=default;" vertex="1" parent="1">'
+        '<mxGeometry x="20" y="20" width="120" height="40" as="geometry"/></mxCell>'
+    )
+    assert img is not None
+
+
+def test_a_legend_folder_renders_the_glyph_library_painted_in_the_default_theme(tmp_path):
+    import drawio_forward
+    target = drawio_forward.put_legend(tmp_path)
+    model = drawio_png.decode(drawio_png.mxfile_chunk(Image.open(target)))
+    assert "@" not in model and 'id="e-read"' in model and 'id="g-set"' in model
+    assert drawio_png.tokens()["mauve"] in model  # the named set's fill, painted

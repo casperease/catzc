@@ -27,7 +27,8 @@ root itself when it is one): each declared folder is put in the theme, its minim
 (ADR-REPO-SLIDES-MINIMAPSFROMDATA); a folder without a declaration is left as it is, its model extracted to
 out/drawio/bulk/<root>/models/ only to check its article's Supports line against its subtitle, and reported, because its
 minimaps can be rebuilt only once it has a declaration. A theme other than the default puts the declared folders to
-out/drawio/themes/<theme>/ and leaves the committed rasters and the folders without a declaration alone. Same exit codes;
+out/drawio/themes/<theme>/ and leaves the committed rasters and the folders without a declaration alone. A legend folder (its
+drawio.yml role) is rendered from the kit's glyphs.xml, painted in the default theme. Same exit codes;
 the report is out/drawio/bulk/<root>/bulk.md.
 """
 
@@ -39,7 +40,7 @@ import xml.etree.ElementTree as ET
 import zlib
 from pathlib import Path
 
-from drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, plain, render
+from drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, paint, plain, render
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
@@ -129,6 +130,19 @@ def folder_role(folder):
     if role not in ROLES:
         raise ValueError(f"drawio.yml gives {path} the role '{role}', not one of {', '.join(ROLES)}")
     return role
+
+
+def put_legend(folder):
+    """Render a legend folder's png from the kit's glyph library, its tokens painted in the default theme first, as every put paints
+    them; the png carries the painted model, so draw.io opens what the raster shows."""
+    lines = (KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8").splitlines()
+    model = paint("\n".join(line for line in lines if not line.lstrip().startswith("<!--")).strip())
+    img = render(ET.fromstring(model)).convert("RGB")
+    info = PngInfo()
+    info.add_text("mxfile", encode(model, "Page-1"))
+    target = Path(folder) / SLIDE
+    img.save(target, "PNG", pnginfo=info)
+    return target
 
 
 def undeclared_warnings(folder, source):
@@ -234,7 +248,16 @@ def bulk(root, theme=None):
         except (declaration.DeclarationError, OSError) as e:
             warnings.append(f"W_PUT {rel(f)}: {e}")
     counts.update(put=put)
-    model_of = lambda f: models / (rel(f).replace("/", "--") + ".model.xml")
+    # A legend folder is drawn from the glyph library, in the default theme only, so it renders and is never left to be checked.
+    legends = [f for f in folders if folder_role(f) == "legend"]
+    folders = [f for f in folders if f not in legends]
+    for f in legends:
+        try:
+            print(f"put {rel(put_legend(f))}")
+        except FORWARD as e:
+            warnings.append(f"W_PUT {rel(f)}: {e}")
+    counts.update(legends=len(legends))
+    model_of =lambda f: models / (rel(f).replace("/", "--") + ".model.xml")
     models.mkdir(parents=True, exist_ok=True)
     done = 0
     for f in folders:

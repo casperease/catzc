@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "220623c55a55"
+#     with_body_sha: bc809695ee1c
 # ---
 
 # cspell:ignore minimaps mxfile pnginfo adronly mapkey
@@ -87,8 +87,12 @@ SIDEBAR_X, SIDEBAR_W = 1316, 240
 SIDEBAR = (("minimap-1", 16, 150), ("minimap-2", 182, 180), ("minimap-3", 378, 150))
 MAPKEY_Y = 544  # the map key's panel, under the three minimaps
 MAPKEY_BOTTOM = MAPKEY_Y + 82 + 16  # its bottom, and the sidebar's pad under it
-# The style keys that identify a glyph kind: the shape and the two colours, with the marks that set a variant apart.
-SIGNATURE_KEYS = ("shape", "ellipse", "rhombus", "rounded", "curved", "arcSize", "fillColor", "strokeColor", "dashed", "strokeWidth", "fontColor", "fontSize", "fontStyle", "align")
+# The style keys that identify a glyph or edge kind: the shape and the two colours, with the marks that set a variant apart (a read edge's
+# dots and open arrow, a junction's oval start).
+SIGNATURE_KEYS = (
+    "shape", "ellipse", "rhombus", "rounded", "curved", "arcSize", "fillColor", "strokeColor", "dashed", "dashPattern", "strokeWidth",
+    "startArrow", "endArrow", "fontColor", "fontSize", "fontStyle", "align",
+)
 TEXT = "text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;"
 KEY = "text;html=1;align=left;verticalAlign=middle;fontSize=10;fontStyle=1;fontColor=@band-label;"
 # The locked commit palette from drawio.yml: state -> (fill, stroke, digit ink); the first state is a commit's default.

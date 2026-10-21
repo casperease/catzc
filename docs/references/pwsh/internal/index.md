@@ -16,8 +16,8 @@ name in [use-ps1-not-psm1 rule ADR-PWSH-USEPS-MODULEFILESRESERVED](../../../adr/
 The generated `importer.ps1` shim sets `$env:RepositoryRoot`, imports the **Loader** unconditionally, and delegates the entire load body to
 `Invoke-Importer` in the **Importer** overlay. That body loads the remaining shared modules (**Bootstrap**, **Types**, **Vendor**), then the
 vendored dependencies, then every `pwsh/*` module — compiling the combined C# type assembly once before any module's functions — and
-finishes with the post-import janitors. A janitor reads its source on every load, so a broken glossary source or root config breaks
-every session's next import, not just the session that wrote it. Two lifetimes fall out of this:
+finishes with the post-import janitors. A janitor reads its source on every load, so a broken glossary source or root config breaks every
+session's next import, not just the session that wrote it. Two lifetimes fall out of this:
 
 - **Transient** — removed once import finishes: the **Importer** overlay (the shim removes it after `Invoke-Importer` returns) and
   **Bootstrap** (removed at the tail of `Invoke-Importer`). Their functions are import-time orchestration and must not linger in the

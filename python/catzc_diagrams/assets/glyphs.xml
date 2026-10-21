@@ -114,8 +114,8 @@
     <mxCell id="e-bypass" value="" style="curved=1;rounded=1;html=1;endArrow=block;strokeColor=@line;dashed=1;shadow=0;" edge="1" parent="1" source="p-bypass-a" target="p-bypass-b">
       <mxGeometry relative="1" as="geometry" />
     </mxCell>
-    <mxCell id="e-bypass-text" value="bypass (a stage the shape may skip)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1">
-      <mxGeometry x="1160" y="312" width="110" height="20" as="geometry" />
+    <mxCell id="e-bypass-text" value="bypass (a stage the shape may skip)" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1">
+      <mxGeometry x="1160" y="304" width="110" height="36" as="geometry" />
     </mxCell>
     <mxCell id="m-marker" value="1" style="ellipse;html=1;fillColor=@mark;strokeColor=@mark-ink;strokeWidth=2;fontColor=@mark-ink;fontStyle=1;fontSize=11;" vertex="1" parent="1">
       <mxGeometry x="40" y="368" width="22" height="22" as="geometry" />

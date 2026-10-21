@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c86286497f35
+#     with_body_sha: a1670032df15
 # ---
 
 # cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo prel segoeui segoeuib textbbox textlength dout
@@ -293,11 +293,28 @@ def mxfile_chunk(img):
     return img.text["mxfile"]
 
 
+COLOUR_KEYS = ("fillColor", "strokeColor", "fontColor", "gradientColor", "labelBackgroundColor", "labelBorderColor")
+COLOUR_WORDS = ("none", "default", "inherit")  # the draw.io keywords a colour key may hold instead of a hex value
+
+
+def unpainted(root, cells):
+    """Fails on a colour that is neither hex nor a draw.io keyword, such as an `@token` left unpainted, naming the cell and the key:
+    the raster would otherwise draw the default in its place without a word."""
+    found = [("background", "mxGraphModel", root.get("background"))] if root.get("background") else []
+    for cid, c in cells.items():
+        s = style_map(c.get("style"))
+        found += [(key, cid, s[key]) for key in COLOUR_KEYS if s.get(key)]
+    bad = [f"{cid} {key}={value}" for key, cid, value in found if not value.startswith("#") and value not in COLOUR_WORDS]
+    if bad:
+        raise SystemExit(f"colours that are neither hex nor {', '.join(COLOUR_WORDS)} (an unpainted @token? paint the model first): {'; '.join(bad)}")
+
+
 def render(root, page=None):
     page = page or DEFAULTS["renderer"]["page"]
     if page not in ("dark", "model"):
         raise SystemExit(f"page must be dark or model, got {page}")
     cells = {c.get("id"): c for c in root.iter("mxCell")}
+    unpainted(root, cells)
 
     def own(c):  # a vertex's geometry relative to its parent, or None for edges and the two root cells
         g = c.find("mxGeometry")
