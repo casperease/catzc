@@ -28,3 +28,32 @@ Started 2026-10-22T01:08:38.5211231+02:00.
   pwsh/Catzc.Base.Objects/tests mention DevOps or dev-ops, so how a kebab rendering splits an acronym is learned from the renamed files.
 - 2026-10-22 Jack: If only the session had loaded git-readonly: .claude/skills/git-readonly/SKILL.md:17-18 already says a Python script
   reading git show output decodes with utf-8, never the Windows code page, so the false differences were a capability skipped.
+- 2026-10-22 Jack: If only the rewrite command said how it scales: docs/references/pwsh/catzc-base-drs/Update-DrsCitation.ps1.md:62 offers
+  -DryRun and its example at :73 names one path, but no line says a tree-wide dry run builds one rewriter, so the module-scope trick stays a
+  token tip.
+- 2026-10-22 Jack: If only the tool author had read the kit: python/catzc_diagrams/declaration.py:76 and :434 already say dump writes the
+  shorthand keys back, never the cells they expand to, so writing the raw yml back was the declared contract, not a workaround.
+- 2026-10-22 Jack: If only the session had read the skip reason: pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1:159 skips the
+  full-repository case with protected_globset_unchanged_since_green_run, so touching any spelled file re-runs it by declaration and every
+  old word comes due.
+- 2026-10-22 Jack: If only someone had written the case down: docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md never
+  mentions case, and nothing else in the tree says the scope globs of a category match case-sensitively, so a ConvertTo-AccostedCallText
+  page teaches it.
+- 2026-10-22 Jack: If only the quote limit lived where the gate is read:
+  docs/references/pwsh/catzc-base-slides/private/Get-SlideFinding.ps1.md:16 declares that a quoted rule carries the registry text verbatim,
+  but no config or type under pwsh/ spells a 70-word limit, so the spaced dash that counts as a word is found by failing.
+- 2026-10-22 Jack: If only the earlier line of this log had waited: pwsh/Catzc.Base.QualityGates/Test-Spelling.ps1:19 and
+  private/Get-TerminologyCorpus.ps1:24 now both read LanguagesConfig.ExtensionsCheckedBy(Test-Spelling), so the two lists kept in step by
+  hand are one list.
+- 2026-10-22 Jack: If only the session had grepped the registry before the typo hunt:
+  pwsh/Catzc.Base.QualityGates/configs/terminology.yml:1168 approves comman as a term and .cspell/powershell.txt:16 carries it, so the
+  prefix was on record as deliberate.
+- 2026-10-22 Jack: If only the session had read the meta config: pwsh/Catzc.Base.QualityGates/configs/file-meta.yml:47-51 selects the
+  classes the cites kind derives for, type, function, config, hook, module/internal and the pipelines, plus test, fixture, asset and
+  analyzer-rule in powershell, so a page for any other class lights nothing by declaration.
+- 2026-10-22 Jack: If only the session had grepped the exemption first: pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml:32
+  declares each gate exemption with its reason in config, so the gap in the gate is a config key away and the tip is the declared way to
+  read it.
+- 2026-10-22 Jack: If only the session had probed before it wrote: docs/references/pwsh/catzc-base-quality-gates/Get-FileMetaFact.ps1.md:10
+  returns the place facts and edges a file derives, read from the registries and never a head, so the class and the cites were one read-only
+  call away.
