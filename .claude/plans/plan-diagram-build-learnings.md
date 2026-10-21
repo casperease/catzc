@@ -91,5 +91,9 @@ blocks a feature.
       (check: `Test-Diagrams -Path` on the sample folder, then the user's approval).
 - [ ] On approval: the folder lands in the `.assets` of the explanation page that embeds it (the user names the page), put with
       `Build-Diagrams -Path` (check: `Test-Diagrams` on the folder, `Test-Links` on the article).
+- [ ] `Build-Diagrams` and `Test-Diagrams`: `-Path` accepts `out/diagrams/dark-sample/`, so a sample is gated and needs no hand put (found
+      by catzc-56's two samples, 2026-10-21) (check: `Test-Diagrams -Path out/diagrams/dark-sample/.assets/truth-stores`).
+- [ ] The diagram kit: `read` and `junction` edge kinds, and the thick edge's legend phrase set per diagram rather than fixed to "to a named
+      set" (check: the renderer's tests under `Invoke-PythonTest`, then one sample re-rendered).
 
 ## Refs

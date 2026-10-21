@@ -16,6 +16,8 @@ public sealed class LanguageNaming
     private static readonly Dictionary<string, Regex> Patterns = new Dictionary<string, Regex>(StringComparer.Ordinal)
     {
         { "pascal", new Regex("^[A-Z][A-Za-z0-9]*$") },
+        // A lowercase first word, then capitalised words: Go's unexported names, getCommandContract.
+        { "camel", new Regex("^[a-z][a-z0-9]*([A-Z][a-z0-9]*)*$") },
         { "pascal-dotted", new Regex("^[A-Z][A-Za-z0-9]*(\\.[A-Z][A-Za-z0-9]*)*$") },
         { "verb-noun", new Regex("^[A-Z][A-Za-z0-9]*-[A-Z][A-Za-z0-9]*$") },
         { "kebab", new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$") },
@@ -104,6 +106,7 @@ public sealed class LanguageNaming
             case "kebab": return string.Join("-", words);
             case "snake": return string.Join("_", words);
             case "flat": return string.Concat(words);
+            case "camel": return string.Concat(words.Take(1).Concat(words.Skip(1).Select(Capitalize)));
             default: return string.Concat(words.Select(Capitalize));
         }
     }

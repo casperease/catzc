@@ -145,7 +145,7 @@ languages:
   go:
     extensions: [.go]
     executable: true
-    naming: { folder: flat, file: snake, function: pascal, type: pascal }
+    naming: { folder: flat, file: snake, function: [pascal, camel], type: [pascal, camel] }
     formatter: gofmt
     adr_folder: automation/go
     checks: [Test-Formatting, Test-Spelling]

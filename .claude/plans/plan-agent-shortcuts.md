@@ -47,5 +47,8 @@ Both recur in every session that runs a gate or starts a plan.
        `Test-Plans`.
 7. [ ] After plan-agent-friction's hook: trim the format-plans-after-edit memory to what `New-Plan` and plan-agent-friction's hook do not
        carry. Check: a file read.
+8. [ ] One line each, within their roofs: the glossary-keeper capability says to quote a YAML flow value that holds a comma (one such value
+       broke every import on 2026-10-21), and the ADR-citing capability says a domain cites only the domains in its `depends_on`. Check:
+       `Test-AgentDefinitions`.
 
 The capability roof's counting (how `Get-RobotLineCount` counts front matter and body) is plan-session-finalize's step 1.

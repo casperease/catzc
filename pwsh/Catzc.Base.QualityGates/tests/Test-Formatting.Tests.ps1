@@ -2,25 +2,16 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
-    folder: tests
-    name: test-formatting-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8abe2d6730fa"
   edges:
     docs: "[Test-Formatting.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-Formatting.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - ADR-THES-NORMALFORM-UNCONTESTED
 ---
 #>
 
@@ -72,6 +63,18 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
             "$(Get-CatzcModulesFolder)/Widget/types/Gadget.cs: not formatted — run Format-Code -Language gadget"
             "$(Get-CatzcModulesFolder)/Widget/types/Gizmo.cs: block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'"
         )
+    }
+
+    It 'proves named files are in the form: it checks only those paths and fails on a file the formatting would change' -Tag 'ADR-THES-NORMALFORM-UNCONTESTED' {
+        Mock Format-Code -ModuleName Catzc.Base.QualityGates -ParameterFilter { @($Path) -contains 'docs/widget.wdg' } {
+            [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @($script:widgetFile), [string[]] @($script:widgetFile), $true)
+        }
+        $result = Test-Formatting -Path 'docs/widget.wdg' -PassThru -OutputFolder $script:reportFolder
+        Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            ($Path -join ',') -eq 'docs/widget.wdg' -and $DryRun -and $PassThru
+        }
+        $result.Facts['Paths'] | Should -Be 1
+        $result.Issues | Should -Be @('docs/widget.wdg: not formatted — run Format-Code -Language widget')
     }
 
     It 'checks only the selected languages, and skips Format-Code when none of them has a formatter' {

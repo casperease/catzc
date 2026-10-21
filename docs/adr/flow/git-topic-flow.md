@@ -1,0 +1,155 @@
+# ADR: The git topic flow — the sync point, one squashed commit, and the user at the keyboard
+
+A change travels between two places: the server's main, where the mainline lives
+([ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH](../design/server-remote-integration.md#rule-adr-dsgn-remote-serverremoteistruth)), and a local topic
+branch, where one author builds one change. This ADR fixes the git paths between them: which server commit a topic takes upstream changes
+from, what a topic looks like when it lands, and how it is brought into that shape. The lifecycle states a commit climbs after it lands
+belong to [commit-lifecycle](commit-lifecycle.md) (`ADR-FLOW-CD-LIFE`); the remote topology and the pull request as ingress belong to
+[server-remote-integration](../design/server-remote-integration.md) (`ADR-DSGN-REMOTE`). This ADR owns the git mechanics of the topic.
+
+## Rules: ADR-FLOW-GIT
+
+### Rule ADR-FLOW-GIT-USERRUNSGIT
+
+**Every git command that changes a repository runs at the user's hand.** Fetching, rebasing, squashing, committing, pushing and merging are
+the user's acts, on the user's clone and the user's credentials: the user types the git command, or invokes the catzc command that runs it
+(the sync, commit and push commands of this flow). No agent, pipeline, gate or other command invokes those commands; their own tests run
+them, mocked at L0 and against a scratch repository and its scratch server at L1. Every other piece of tooling only reads: it resolves the
+sync point, counts a topic's commits, compares a topic with the server's main, and tells the user what to run next.
+
+- [The user at the keyboard](#the-user-at-the-keyboard)
+
+### Rule ADR-FLOW-GIT-SYNCPOINT
+
+**A topic takes upstream changes from the sync point: the BVT-verified server head when the server marks one, and the current server HEAD
+when it marks none.** The BVT-verified server head is the stable integration point
+([ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD](commit-lifecycle.md#rule-adr-flow-cd-life-syncfromverifiedhead)). While the server carries no mark
+of what the BVT has verified, no commit can be told apart as verified, failed or merely landed, so the sensible default is the current
+server HEAD: the newest commit the server accepted through its own gates.
+
+- [The sync point](#the-sync-point)
+- [Without a BVT mark](#without-a-bvt-mark)
+
+### Rule ADR-FLOW-GIT-FALLBACKISANNOUNCED
+
+**Falling back to the current server HEAD is never silent.** Whatever resolves the sync point says which commit it chose and why, naming the
+commit and that no BVT-verified server head is marked, every time it falls back. The user always knows whether the topic stands on a proven
+commit or on the newest one.
+
+- [Without a BVT mark](#without-a-bvt-mark)
+
+### Rule ADR-FLOW-GIT-SYNCBYREBASE
+
+**Upstream changes enter a topic by rebasing the topic onto the sync point, never by merging main into the topic.** A rebase keeps the topic
+a straight line of its own commits on top of one server commit. A merge of main into the topic adds a merge commit that carries other
+people's changes, and the topic no longer squashes to a commit that holds only its own change.
+
+- [Sync by rebase](#sync-by-rebase)
+
+### Rule ADR-FLOW-GIT-ONESQUASHEDCOMMIT
+
+**A change enters the server's main as exactly one commit.** In `main-via-pr` the pull request lands it as a squash merge; in `main-direct`
+the client pushes the one squashed commit ([ADR-FLOW-CD-LIFE-FASTPUSHLANDS](commit-lifecycle.md#rule-adr-flow-cd-life-fastpushlands)). The
+server's main is then one commit per change, each with the prior mainline as its only parent.
+
+- [One change, one commit](#one-change-one-commit)
+
+### Rule ADR-FLOW-GIT-SQUASHREBASESQUASH
+
+**A topic is made ready to land by three steps: squash it, rebase it onto the current server HEAD, then squash it again.** The first squash
+turns the topic into one commit, so the rebase replays one commit and the user resolves each conflict once. The rebase puts that commit on
+the commit it will land on. The last squash guarantees the result: the topic is exactly one commit ahead of the current server HEAD, and
+that commit's diff is exactly the change that lands.
+
+- [Squash, rebase, squash](#squash-rebase-squash)
+- [Landing on the current HEAD](#landing-on-the-current-head)
+
+### Rule ADR-FLOW-GIT-TOPICHISTORYISTHEAUTHORS
+
+**A topic's history is its author's to rewrite until it lands; the server's main is never rewritten.** Squashing and rebasing change a
+topic's commits, and a topic already pushed for a pull request is pushed again over its own earlier state. That is the author working on
+their own branch. Main is different: what it holds is the shared record, and no step of this flow changes it
+([ADR-FLOW-CD-LIFE-DISCARDISTERMINAL](commit-lifecycle.md#rule-adr-flow-cd-life-discardisterminal)).
+
+- [Rewriting a topic, never main](#rewriting-a-topic-never-main)
+
+## The user at the keyboard
+
+`Tooling advises; the user acts`
+
+A git command that changes a repository acts with the user's identity, on the user's clone, against a server that audits who did what. Its
+effects are hard to undo: a rebase moves commits, a push publishes them, a squash merge writes the shared record. Keeping every one of those
+acts with the user keeps the audit trail honest, because the author of a change is the person who moved it. The sync, commit and push
+commands exist because the steps are easy to get wrong by hand: picking the sync point, keeping the topic one commit, never forcing main.
+They encode the flow, and the user still decides when each one runs. An agent working in the repository never invokes them, so no change
+reaches the server without the user starting it, and every other tool stays safe to run at any time, because a tool that only reads cannot
+damage a repository.
+
+## The sync point
+
+`One commit to build on`
+
+A topic is built on top of one server commit, and that commit decides what the topic inherits. The best choice is the BVT-verified server
+head: recent, and proven by the BVT, so a topic built on it does not inherit what the BVT catches
+([ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED](../design/server-remote-integration.md#rule-adr-dsgn-remote-integratefromverified)). Choosing one
+named commit, rather than "whatever main is when I look", also lets two people compare what they built on.
+
+## Without a BVT mark
+
+`The newest accepted commit, said out loud`
+
+The BVT-verified server head exists only when the server records which commits the BVT verified. A repository that records no such mark
+still needs a sync point, and the candidates are older commits picked by guesswork or the current server HEAD. The current server HEAD wins:
+it passed the server's own gates (the pull request's checks, the branch protection), it is what every other author sees, and it is the
+commit a landing topic must apply onto anyway. Its weakness is that nobody has proven it, so the fallback is announced each time it is used.
+The announcement keeps the difference between "proven" and "newest" visible, and it turns into a plain statement of the sync point the day
+the server starts marking verified heads.
+
+## Sync by rebase
+
+`A straight line on one commit`
+
+Rebasing replays the topic's own commits on the new sync point, so the topic stays a short, straight line that holds only its author's work.
+Merging main into the topic instead adds a merge commit whose content is everyone else's changes; the topic's history then mixes two
+sources, conflicts are resolved inside a merge commit that the squash later hides, and the topic's diff against main stops being just its
+own change. A rebase surfaces each conflict against the commit the topic is moving onto, where the author can test the result.
+
+## One change, one commit
+
+`The mainline reads as a list of changes`
+
+When every change lands as one commit, the server's main reads as a list of changes, one line each. A commit's parent is the prior mainline,
+so the change a commit carries is its diff against that parent and nothing else; a change is reverted by reverting one commit; and the
+commit lifecycle can judge, number and promote a change as one unit
+([ADR-FLOW-CD-LIFE-NUMBERISIDENTITY](commit-lifecycle.md#rule-adr-flow-cd-life-numberisidentity)). Work-in-progress commits, fix-ups and
+review rounds stay on the topic, where they help the author, and never reach the shared record.
+
+## Squash, rebase, squash
+
+`Resolve once, land exactly`
+
+Each step has one job. Squashing first leaves one commit to replay, so a conflict that several topic commits would each hit is resolved
+once. Rebasing onto the current server HEAD puts that commit where it will land and surfaces every conflict with what landed meanwhile,
+locally, while the author can still build and test. Squashing again is the guarantee: a rebase that stopped, or a conflict fix committed on
+its own, can leave more than one commit, and the final squash returns the topic to exactly one commit whose diff against the current server
+HEAD is the change that lands. A reading tool confirms the shape before the user pushes: one commit ahead of the current server HEAD, and no
+commit behind it.
+
+## Landing on the current HEAD
+
+`Sync from the proven point, land on the newest`
+
+The topic syncs from the sync point but is rebased onto the current server HEAD before it lands, and the two serve different questions.
+Syncing asks what to build on, and the answer is the most trustworthy commit. Landing asks where the change goes, and the answer is the tip,
+because a squash merge or a fast push always applies onto the tip. Rebasing onto the tip before landing moves the conflict resolution to the
+author's machine, where it can be tested, instead of leaving it to a server merge that cannot ask anyone. Without a BVT mark the two answers
+are the same commit.
+
+## Rewriting a topic, never main
+
+`The author's branch, the shared record`
+
+Squashing and rebasing rewrite commits, and a rewrite of shared history breaks everyone who built on it. A topic is not shared history: it
+has one author, and nobody builds on it until it lands, so its author rewrites it freely, including pushing it again over its earlier state
+for a pull request. Once a change lands, its commit is the shared record, and the record only grows: a fault is repaired by a successor
+commit that fixes forward ([ADR-FLOW-CD-LIFE-LANDEDUNTILFAILED](commit-lifecycle.md#rule-adr-flow-cd-life-landeduntilfailed)).

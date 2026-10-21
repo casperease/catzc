@@ -52,10 +52,8 @@ then 6.
 2. [ ] `pwsh/Catzc.Base.QualityGates/Test-Plans.ps1`: `-Path` takes files as well as the folder (`[string[]]`), so a session checks its own
        plan and is not failed by a peer's (catzc-e8, ADR-PWSH-PARAM); the step-1 cross-file checks still read the whole folder. Check: the
        same test file, with a file-path case, and `Test-ParameterConsistency` passes.
-3. [ ] `pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1`: add `[string[]] $Path`, passed to the formatter check the way `Test-Links` and
-       `Test-Comments` pass theirs, so every gate scopes the same way (ADR-PWSH-PARAM). Check:
-       `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1` passes with a new `-Path` case, and
-       `Test-ParameterConsistency` passes.
+3. [ ] `pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1`: its `-Path` landed with plan-eac-normal-form; confirm it scopes like the other
+       gates (ADR-PWSH-PARAM). Check: `Test-ParameterConsistency` passes.
 4. [ ] The plan-edit hook as decided: a new `.claude/hooks/<name>/` program, its path-pattern map as config, and its registration in
        `.claude/settings.json`. Check: `Invoke-TestFile` on the hook's test file, and an edit of a plan in a fresh session prints the
        reminder.

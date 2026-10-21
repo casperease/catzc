@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "6e47eaa16238"
+---
+#>
+
 Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'

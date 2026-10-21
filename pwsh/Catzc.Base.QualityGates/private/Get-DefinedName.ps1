@@ -28,7 +28,8 @@ function Get-DefinedName {
         if ($language.name -ceq 'powershell') {
             $ast = [System.Management.Automation.Language.Parser]::ParseFile($full, [ref] $null, [ref] $null)
             foreach ($definition in $ast.FindAll({ param($node) $node -is [System.Management.Automation.Language.FunctionDefinitionAst] }, $true)) {
-                [pscustomobject]@{ Path = $relative; Kind = 'function'; Name = $definition.Name }
+                # A scope qualifier sits outside the case, as a hidden folder's dot does: script:New-Widget is a verb-noun name.
+                [pscustomobject]@{ Path = $relative; Kind = 'function'; Name = $definition.Name -creplace '^(?:script|global|local|private):', '' }
             }
             foreach ($definition in $ast.FindAll({ param($node) $node -is [System.Management.Automation.Language.TypeDefinitionAst] }, $true)) {
                 [pscustomobject]@{ Path = $relative; Kind = 'type'; Name = $definition.Name }

@@ -91,13 +91,12 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
         $result.Files[1].Fixed | Should -BeLike "*    visibility: private`n---`n#>`n`nfunction Get-Sprocket { }`n"
     }
 
-    It 'reports a key under edges that no kind owns, and a key a kind writes under the other part' {
+    It 'drops a key under edges that no kind owns, and writes the fact in the part its kind names' -Tag 'ADR-REPO-FILEMETA-KINDSCOPE' {
         $text = "<#`n---`ncatzc:`n  edges:`n    path: widgets/Catzc.Widget/Get-Gadget.ps1`n---`n#>`n`nfunction Get-Gadget { }`n"
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)
         $result = & $script:run $script:entries[0]
-        $result.Files[0].Findings.Kind | Should -Be @('UnownedHead')
-        $result.Files[0].Findings[0].Actual | Should -Be 'catzc.edges.path'
-        $result.Files[0].Fixed | Should -BeExactly $text
+        $result.Files[0].Findings.Kind | Should -Be @('Drift')
+        $result.Files[0].Fixed | Should -BeExactly "<#`n---`ncatzc:`n  immutable:`n    path: widgets/Catzc.Widget/Get-Gadget.ps1`n    module: Catzc.Widget`n    visibility: public`n---`n#>`n`nfunction Get-Gadget { }`n"
     }
 
     It 'skips an entry whose file the working tree no longer has, and still counts it in the scope' {
@@ -118,12 +117,19 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
         $second.Files.Count | Should -Be 0
     }
 
-    It 'reports a head key no kind owns, and leaves that file''s text as written' {
+    It 'drops an imprinted key no kind owns, since the imprinted parts are wholly the engine''s' -Tag 'ADR-REPO-FILEMETA-KINDSCOPE' {
         $text = "<#`n---`ncatzc:`n  immutable:`n    colour: red`n---`n#>`n`nfunction Get-Gadget { }`n"
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)
         $result = & $script:run $script:entries[0]
+        $result.Files[0].Findings.Kind | Should -Be @('Drift')
+        $result.Files[0].Fixed | Should -Not -BeLike '*colour*'
+    }
+
+    It 'still reports a section that is neither imprinted nor config, and leaves the file as written' -Tag 'ADR-REPO-FILEMETA-KINDSCOPE' {
+        $text = "<#`n---`ncatzc:`n  colour: red`n---`n#>`n`nfunction Get-Gadget { }`n"
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)
+        $result = & $script:run $script:entries[0]
         $result.Files[0].Findings.Kind | Should -Be @('UnownedHead')
-        $result.Files[0].Findings[0].Actual | Should -Be 'catzc.immutable.colour'
         $result.Files[0].Fixed | Should -BeExactly $text
     }
 
@@ -270,6 +276,13 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
             [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "---`ncatzc:`n  immutable:`n    path: docs/widget.md`n---`n`n# Widget`n")
             $result = & $script:run @([pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $keep
             $result.Files[0].Fixed | Should -BeExactly "# Widget`n"
+        }
+
+        It 'keeps the head of a generated page when the file-heads variant is none, since its class entry decides first' -Tag 'ADR-REPO-VARIANT-FILEHEADS' {
+            Mock Test-FileHeadVariant -ModuleName Catzc.Base.QualityGates { $false }
+            $generated = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ classes = @{ 'widget-function' = 'required' } }; kinds = $script:widgetKinds })
+            $result = & $script:run $script:entries[0] $generated
+            $result.Files[0].Fixed | Should -BeLike "<#`n---`ncatzc:`n  immutable:`n    path: widgets/Catzc.Widget/Get-Gadget.ps1*function Get-Gadget { }`n"
         }
 
         It 'reports a forbidden block that holds an authored config part, and changes nothing' {

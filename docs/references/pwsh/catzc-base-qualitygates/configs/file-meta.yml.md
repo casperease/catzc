@@ -36,7 +36,7 @@ select it applies to every file that carries a head.
 Above `relative-edges:`, written with `#`.
 
 ```text
-The two files a code file is bound to by a relation that costs to derive and defines it: the page its comments live on, and the test
-that proves it. Each path stays in the file's own module or its docs section, never in another module, and only the code side points: a
-test or a page knows its code by its name, so no pair is recorded twice. One is written only when its file exists.
+The files a code file is bound to by a relation that costs to derive and defines it: the page its comments live on and the test that
+proves it, and from a test the code it proves. Each path stays in the file's own module or its docs section, never in another module, and
+a page knows its code by its name, so it records no edge back. One is written only when its file exists.
 ```

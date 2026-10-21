@@ -48,3 +48,51 @@ Started 2026-10-21T02:21:00.2535622+02:00.
 - 2026-10-21: Token tip: Next time, save tokens by: putting a fan-out brief in one file and giving each agent a one-line prompt that names
   it.
 - 2026-10-21: Token tip: Next time, save tokens by: using absolute paths in Bash, since a cd persists and later relative cat calls fail.
+- 2026-10-21: In hindsight I wish I knew this fact: an ADR in one domain may cite only the domains in its adrs.yml depends_on, and
+  Get-AdrCitationGraphViolations counts bare codes too, so design and repository ADRs name the thesis by its glossary term, never an
+  ADR-THES code.
+- 2026-10-21: In hindsight I wish I knew this fact: an unquoted YAML flow-map value with a comma (glossary.yml avoid: { say: a, b }) parses
+  as an extra key, and the importer's Build-Glossary janitor then fails every session's import.
+- 2026-10-21: In hindsight I wish I knew this fact: Invoke-TestFile reports a failing test without throwing, so a runner sees the failure
+  only through -PassThru and its Result.
+- 2026-10-21: In hindsight I wish I knew this fact: the contract schema checker accepts only type, required, properties,
+  additionalProperties, enum, items and const; minLength, format and minItems are refused.
+- 2026-10-21: In hindsight I wish I knew this fact: Pester -BeLike treats [..] as a wildcard class, so a YAML flow list like [widgets] in an
+  expected string needs an ordinal StartsWith instead.
+- 2026-10-21: In hindsight I wish I knew this fact: Build-Diagrams and Test-Diagrams accept only folders under docs/, so a sample in
+  out/diagrams/dark-sample/ is put by declaration.py and stays ungated until it moves.
+- 2026-10-21: In hindsight I wish I knew this fact: the diagram kit has no read or junction edge kinds and its thick-edge legend is fixed to
+  "to a named set", so thesis drawings borrow flow edges.
+- 2026-10-21: In hindsight I wish I knew this fact: Format-Code on a whole module folder also writes missing heads into tracked files beside
+  the ones you changed.
+- 2026-10-21: Token tip: run every gate through pwsh/.internal/assets/Invoke-CatzcCommand.ps1 with several quoted commands in one background
+  call instead of one out/*.ps1 per gate.
+- 2026-10-21: Token tip: before citing a rule code in an ADR, check the citing domain's depends_on in adrs.yml, which costs one grep and
+  saves a failed gate and a round trip.
+- 2026-10-21: In hindsight I wish I knew this fact: the importer runs Build-RootConfig, which runs New-PythonProject and New-GoWorkspace, so
+  changing a test-folder validator breaks every session's import unless the folder rename lands in the same pass.
+- 2026-10-21: In hindsight I wish I knew this fact: Invoke-TestFile calls Get-LanguageTestFolders on every run, so a test-folder rename must
+  land together with the folder-to-module mapping.
+- 2026-10-21: In hindsight I wish I knew this fact: a module's test folder name is rendered in one place, LanguagesConfig.TestFolderOf (the
+  module's words in the language's first folder case); Get-LanguageTestFolders, Invoke-PythonTest/GoTest/BashTest and Get-ModuleGlobSet call
+  it.
+- 2026-10-21: In hindsight I wish I knew this fact: python/uv.lock is gitignored and pins workspace member paths, so after a member folder
+  moves it must be deleted before uv sync passes.
+- 2026-10-21: In hindsight I wish I knew this fact: Test-IdiomaticNames and Test-Links read the git index, so a moved path is judged under
+  its new name only after the user stages the move.
+- 2026-10-21: In hindsight I wish I knew this fact: the comment-page and readme {kebab} mapping is ToLowerInvariant().Replace('.', '-'), so
+  a snake module folder such as catzc_diagrams gets docs/references/python/catzc_diagrams pages.
+- 2026-10-21: In hindsight I wish I knew this fact: Pester's Should -Throw takes a -like pattern, so [ ] in an expected message is a
+  character class; match brackets with ?.
+- 2026-10-21: In hindsight I wish I knew this fact: the PowerShell parser keeps a scope qualifier in FunctionDefinitionAst.Name
+  (script:New-Widget), so a name check strips it first.
+- 2026-10-21: In hindsight I wish I knew this fact: pwsh -File passes a comma list as one string, so a script taking several paths splits
+  its argument itself.
+- 2026-10-21: Token tip: Next time, save tokens by: grepping every caller of a naming convention (e.g. ToLowerInvariant().Replace('.', '-'))
+  before planning a rename, instead of finding them through red runs.
+- 2026-10-21: Token tip: Next time, save tokens by: preparing a multi-file rename as copies under out/ with apply and rollback scripts from
+  the start, applied in one burst.
+- 2026-10-21: In hindsight I wish I knew this fact: a meta kind with no select runs on every carrier's state, and only the Markdown state
+  carried BodyHash, so a select-less body-sha threw in every session's Format-Code.
+- 2026-10-21: In hindsight I wish I knew this fact: Get-Config caches a config for the importer session, so a config edit reaches another
+  session only on its next fresh import, together with any code on disk.

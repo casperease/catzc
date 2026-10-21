@@ -1,20 +1,46 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.Docs/configs/glossary.yml
-#     folder: configs
-#     name: glossary
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.Docs
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "7a02941cda31"
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md)"
+#     cites:
+#       - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+#       - ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT
+#       - ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION
+#       - ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE
+#       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
+#       - ADR-AUTO-MATERIAL-MATERIALIZATION
+#       - ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION
+#       - ADR-DSGN-MODTYPE-MODULETYPEISSORT
+#       - ADR-DSGN-RUNMODE-TWORUNMODES
+#       - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+#       - ADR-PRIN-CATS-CATZCISSOURCENAME
+#       - ADR-PRIN-CATS-CATSISPERSONNAME
+#       - ADR-REPO-AGENTS-ROBOTBODYLIMIT
+#       - ADR-REPO-AGENTS-NAMEDMODEL
+#       - ADR-REPO-AGENTS-CAPABILITYFILE
+#       - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+#       - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
+#       - ADR-REPO-CODEMETA-CODEFILEHEAD
+#       - ADR-REPO-CONTRACT-BINDINGINTERFACE
+#       - ADR-REPO-CONTRACT-CONTRACTASSET
+#       - ADR-REPO-FILEMETA-HEADPOLICY
+#       - ADR-REPO-FILEMETA-METAKIND
+#       - ADR-REPO-FILEMETA-ROLE
+#       - ADR-REPO-FILEMETA-FILEISNODE
+#       - ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
+#       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+#       - ADR-REPO-INSPIRE
+#       - ADR-REPO-LANG-THREEREGISTERS
+#       - ADR-REPO-OUTDIR-PLANNOTES
+#       - ADR-REPO-VOCAB
+#       - ADR-THES-NORMALFORM
+#       - ADR-THES-ONETRUTH-ONESTOREDECIDES
+#       - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+#       - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+#       - ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
+#       - ADR-THES-STORES
 # ---
 
 concepts:
@@ -419,6 +445,8 @@ concepts:
       repository normal form:
         The repository normal form is the one language-neutral spelling of a name; the eac normal form is the verifiable shape of a whole
         piece of code.
+    avoid:
+      - { phrase: "eac's normal form", say: "eac normal form (catzc's own term, not the sibling eac repository's form; ADR-REPO-INSPIRE)" }
   unordered code fragment:
     key: unordered_code_fragment
     domain: thesis
@@ -437,8 +465,8 @@ concepts:
     defined_by: ADR-THES-NORMALFORM-UNCONTESTED
     short: Of code, left unchanged by every formatter and failed by no test or assert of the repository; the fixed point of its checks.
     realized_by: { kind: prose-only }
-  migration:
-    key: migration
+  fragment migration:
+    key: fragment_migration
     domain: thesis
     defined_by: ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
     short: Bringing an unordered code fragment into eac normal form through the one change process.

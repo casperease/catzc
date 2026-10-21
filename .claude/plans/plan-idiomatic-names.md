@@ -59,14 +59,23 @@ the moves (task-user-runs-and-commits):
 
 The word model, in `Catzc.Base.Languages` (ADR-AUTO-IDIOM-CLOSEDCASES, -ROUNDTRIP, -ACRONYMISWORD):
 
-- [ ] `pwsh/Catzc.Base.Languages/ConvertTo-NormalName.ps1` and `ConvertFrom-NormalName.ps1`: a name and its language to the normal form, and
-      back (check: `Invoke-TestFile` on their tests, the round trip over every tracked function name).
+- [ ] `docs/adr/automation/idiomatic-names.md`: confirm the landed `camel` rule (CLOSEDCASES) is in the registry (check: `Test-AdrRegistry`
+      on the page).
+- [ ] The helpers, each renamed to a verb-noun name with its callers, one file per step: `StripAnsi` (in five test files:
+      Write-TestAutomationVerdict, Write-CmdletParameterSet, Write-Footer, Write-Header, Write-Object), `RunReset`, `RunPublish`,
+      `RunAssert`, `Rec` (`Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1`), `Walk` (`Catzc.Base.Asserts/Assert-YmlNaming.ps1`), `Clone`
+      (`Catzc.Base.Objects/Copy-Object.ps1`) (check: `Invoke-TestFile` on each one's test file).
+- [ ] The 13 acronym commands, renamed to their round-trip spelling (`Set-LocalPsModulePath`, `Invoke-PsScriptAnalyzerFormat`,
+      `Import-/Save-PsReadLineKeyHandlerSet`, `Invoke-BuildForVsCode`, `Build-/Install-VsCodeExtension`, `New-VsCodeExtensionFolder`,
+      `New-VsCodeExtensions`, `New-VsCodeLaunch`, `New-VsCodePipelineSchema`, `New-VsCodeSettings`, `New-VsCodeTasks`), each with its file,
+      callers, tests, contract and docs page, no alias kept, one command per step and a fresh import after each
+      (ADR-AUTO-IDIOM-ACRONYMISWORD; the user, 2026-10-21). (check: `Invoke-TestFile` on its tests; after the last, the L1 round trip in
+      `ConvertTo-NormalName.Tests.ps1` passes.)
+- [ ] `docs/adr/repository/repository-conventions.md`, the manual test plan: a row each for `ConvertTo-NormalName.Tests.ps1`,
+      `Get-DefinedName.Tests.ps1`, `Get-GridMinimapData.Tests.ps1` and `Listen.Shipped.Tests.ps1` (check: `Test-ManualTestPlan` lists none).
 
 The gate and the repair (ADR-AUTO-IDIOM-HELDBYGATE):
 
-- [ ] `pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs` and `pwsh/Catzc.Base.QualityGates/Test-IdiomaticNames.ps1`: judge function and
-      type names too (PowerShell from the parsed file, Python `def`/`class`, Go `func`/`type`) and the round trip (check: `Invoke-TestFile`
-      on both test files).
 - [ ] `pwsh/Catzc.Base.QualityGates/Repair-IdiomaticNames.ps1`: moves each misnamed folder or file on disk to its idiomatic name and lists
       every tracked file that names the old path, for one-file-at-a-time edits; `-DryRun` (ADR-PWSH-DRYRUN) (check: `Invoke-TestFile` on its
       tests).
@@ -85,6 +94,16 @@ The contracts in the normal form, `contracts/catzc/0.0.0`:
       tests, `Test-GeneratedFiles`).
 - [ ] The `cats` entry of each engine: take the command and its parameters in kebab case and map them through the lookup's normal form
       (check: the bash and pwsh tests of `cats`, `Invoke-BashTest`).
+
+From the session's finalizer (catzc-73, 2026-10-21):
+
+- [ ] `.claude/skills/catzc-verify/SKILL.md`: one line, within its roof, that a rename of a folder the tooling names lands its import-path
+      readers (Build-RootConfig's project writers, `Get-LanguageTestFolders`) in the same pass (check: `Test-AgentDefinitions`).
+- [ ] `docs/how-to/automation/rename-a-tooling-folder.md` (new): the prepared, applied-in-one-burst, rolled-back-whole pattern of the two
+      renames (check: `Test-Links` on the page).
+- [ ] `CommentPageMap.cs`, `Get-ReadmeMappings.ps1`, `Get-ModuleGlobSet.ps1` and `Get-ModuleProtectionIdentity.ps1` render `{kebab}` by
+      `ToLowerInvariant().Replace('.', '-')`; moving them to `LanguageNaming` renames the `catzc-base-*` reference pages, so it waits on the
+      user's yes (check: the user answers; then `Invoke-TestFile` on each one's tests and `Test-GeneratedFiles`).
 
 ## Refs
 

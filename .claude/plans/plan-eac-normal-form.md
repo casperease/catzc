@@ -28,14 +28,5 @@ domain, and no ADR holds them yet.
 
 ## Open steps
 
-1. [ ] `docs/adr/design/tracks.md`: the migration rules (a fragment lands unordered, is migrated one file per commit, and leaves the
-       unordered track only when it is in the form), citing ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM. Check: `Test-AdrRegistry`,
-       `Test-Links` on the ADR.
-2. [ ] A check that proves a file is in the form, which re-runs Format-Code on it and fails on any change, so that "uncontested" is a gate,
-       not prose (ADR-THES-NORMALFORM-UNCONTESTED). Check: its L0 Pester file.
-3. [ ] `pwsh/Catzc.Base.Docs/configs/glossary.yml`: the `eac normal form` entry gains an avoid note naming the sibling repository, then
-       `Build-Glossary`. Check: `Test-Glossary`.
-4. [ ] `docs/adr/thesis/eac-normal-form.md` and `pwsh/Catzc.Base.Docs/configs/glossary.yml`: `migration` becomes `fragment migration` (key
-       `fragment_migration`), then `Build-Glossary`. Check: `Test-Glossary`.
-5. [ ] The sample drawing through `drawio-diagram-waves` or `edit-diagram-yml`, one `diagram.drawio.yml` in `out/diagrams/dark-sample/`.
-       Check: the user approves the sample; only then a step places it beside the ADR's explanation.
+5. [ ] The sample `out/diagrams/dark-sample/.assets/eac-normal-form/` is rendered and waits on the user's approval; only then a step places
+       it beside the ADR's explanation. Check: the user approves the sample.

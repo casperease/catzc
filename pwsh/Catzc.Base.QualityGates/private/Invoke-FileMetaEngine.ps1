@@ -44,8 +44,7 @@ function Invoke-FileMetaEngine {
         else {
             Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $Config
         })
-    $ownedImmutable = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.KeysOf('immutable')))
-    $ownedEdges = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.KeysOf('edges')))
+    # The imprinted parts are wholly the engine's: a key no kind owns there is dropped on imprint, and only the config part is the author's.
     $parts = 'immutable', 'edges', 'config'
     $codeHeads = Test-FileHeadVariant -Minimal
 
@@ -105,24 +104,12 @@ function Invoke-FileMetaEngine {
             foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'immutable, edges or config' })
             }
-            foreach ($key in $state.ImmutableKeys | Where-Object { -not $ownedImmutable.Contains($_) }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.immutable.$key"; Expected = 'a key a meta kind owns' })
-            }
-            foreach ($key in $state.EdgeKeys | Where-Object { -not $ownedEdges.Contains($_) }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.edges.$key"; Expected = 'an edge a meta kind owns' })
-            }
         }
         elseif ($isHead) {
             $form = $entry.Carrier.Form()
             $state = Get-CodeMetaState -Text $text -Form $form
             foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'immutable, edges or config' })
-            }
-            foreach ($key in $state.ImmutableKeys | Where-Object { -not $ownedImmutable.Contains($_) }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.immutable.$key"; Expected = 'a key a meta kind owns' })
-            }
-            foreach ($key in $state.EdgeKeys | Where-Object { -not $ownedEdges.Contains($_) }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.edges.$key"; Expected = 'an edge a meta kind owns' })
             }
         }
         else {
@@ -133,12 +120,6 @@ function Invoke-FileMetaEngine {
             }
             foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.$section"; Expected = 'immutable, edges or config' })
-            }
-            foreach ($key in $state.ImmutableKeys | Where-Object { -not $ownedImmutable.Contains($_) }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.immutable.$key"; Expected = 'a key a meta kind owns' })
-            }
-            foreach ($key in $state.EdgeKeys | Where-Object { -not $ownedEdges.Contains($_) }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.edges.$key"; Expected = 'an edge a meta kind owns' })
             }
         }
 

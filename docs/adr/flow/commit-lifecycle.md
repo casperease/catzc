@@ -67,7 +67,8 @@ of that environment right now.
 BVT-verified server head is the newest commit on the server's main that the BVT has verified and no later stage has failed. It is also the
 commit that goes into `main-UAT` first, so once it is deployed it is the `main-UAT` occupant too: the commit synced from and the commit
 `main-UAT` takes are one. Nobody syncs from a landed head the BVT has not judged yet (ADR-FLOW-CD-LIFE-LANDEDUNTILFAILED) or from a dirty
-HEAD (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE).
+HEAD (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE). While the server marks no BVT-verified head, a topic syncs from the current server HEAD and says so
+(ADR-FLOW-GIT-SYNCPOINT, ADR-FLOW-GIT-FALLBACKISANNOUNCED).
 
 - [Sync from the verified head](#sync-from-the-verified-head)
 

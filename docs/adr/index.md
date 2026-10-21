@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1b42f9947464"
+    with_body_sha: "28bc13636202"
     warning: "Do Not Edit, this file is generated"
     role: index
     track: docs
@@ -118,7 +118,8 @@ build). It builds on research, principles, and process; the flow and implementat
 The vendor-neutral delivery-flow model: what a CI/CD pipeline is, continuous integration as a discipline with a 5–10 minute integration
 budget, the closed set of pipeline types (CRON, CI, CD, CDe, DEPLOY, INPUT) keyed together by one immutable tagged artifact, how pipelines
 invoke automation and detect their context, how globsets project into native trigger filters, and the commit lifecycle a promoted commit
-climbs, with its stable sync point. The ado (Azure DevOps) and github domains implement it.
+climbs, with its stable sync point, and the git paths a topic takes to and from the server's main. The ado (Azure DevOps) and github domains
+implement it.
 
 **Role:** `architecture` — **depends on:** `research`, `principles`, `process`, `design`.
 
@@ -131,6 +132,7 @@ climbs, with its stable sync point. The ado (Azure DevOps) and github domains im
 | `ADR-FLOW-CD-GLOBS`    | [durable-sha-globs](flow/durable-sha-globs.md)                               |
 | `ADR-FLOW-CD-PIPELINE` | [pipeline-concept](flow/pipeline-concept.md)                                 |
 | `ADR-FLOW-CD-LIFE`     | [commit-lifecycle](flow/commit-lifecycle.md)                                 |
+| `ADR-FLOW-GIT`         | [git-topic-flow](flow/git-topic-flow.md)                                     |
 
 ### automation/
 

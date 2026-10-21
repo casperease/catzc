@@ -70,8 +70,10 @@ never an edit to the engine ([ADR-AUTO-EXTEND-ADDNOTEDIT](../automation/open-clo
 The scope of a kind is the files it selects, less the files `.gitattributes` marks `linguist-vendored`, `linguist-generated`,
 `catzc-fixture` or `catzc-contract`, and those it marks `-catzc-meta`. For Markdown the globs match the file class of the Markdown title
 ([ADR-REPO-FORMAT-MARKDOWNTITLE](uniform-formatting.md#rule-adr-repo-format-markdowntitle)). A new exception is declared in the
-`.gitattributes` source, never in a list of the gate's own. A key an author wrote under `immutable` or `edges` is a finding the author
-fixes, never overwritten silently, and a `config` part is validated against its kind and kept as written.
+`.gitattributes` source, never in a list of the gate's own. The imprinted parts, `immutable` and `edges`, are wholly the engine's: a key no
+kind owns there is dropped on imprint, and a key a kind owns is rewritten from its fact. Only the authored `config` part keeps keys no kind
+owns, as the author's, validated against its kind and kept as written, and a section that is neither an imprinted part nor `config` is a
+finding the author fixes.
 
 - [Scope](#scope)
 

@@ -2,7 +2,7 @@ Describe 'Get-DefinedName' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
         $files = [ordered]@{
-            'widgets/Get-Widget.ps1'  = "function Get-Widget {`n    function Inner-Helper { }`n}`nclass WidgetPart { }`n"
+            'widgets/Get-Widget.ps1'  = "function Get-Widget {`n    function Inner-Helper { }`n}`nfunction script:New-WidgetFixture { }`nclass WidgetPart { }`n"
             'widgets/gadget.py'       = "class GadgetPart:`n    def __init__(self):`n        pass`n`nasync def fetch_gadget():`n    pass`n"
             'widgets/gadget.go'       = "package gadget`n`ntype GadgetPart struct{}`n`nfunc (g GadgetPart) Size() int { return 0 }`n`nfunc requireGadget() {}`n"
             'widgets/notes.md'        = "def not_code():`n"
@@ -26,7 +26,7 @@ Describe 'Get-DefinedName' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:fixture }
     }
 
-    It 'reads the functions and types each language defines: PowerShell by its parser, Python and Go by their keywords' -Tag 'ADR-AUTO-IDIOM-HELDBYGATE' {
+    It 'reads the functions and types each language defines: PowerShell by its parser, past a scope qualifier, Python and Go by their keywords' -Tag 'ADR-AUTO-IDIOM-HELDBYGATE' {
         $paths = @('widgets/Get-Widget.ps1', 'widgets/gadget.py', 'widgets/gadget.go', 'widgets/notes.md', 'widgets/Plain.pln', 'widgets/Missing.ps1')
         $found = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Paths = $paths; Root = $script:root } {
                 param($Paths, $Root)
@@ -35,6 +35,7 @@ Describe 'Get-DefinedName' -Tag 'L0', 'logic' {
         @($found.ForEach({ "$($_.Path) $($_.Kind) $($_.Name)" })) | Should -Be @(
             'widgets/Get-Widget.ps1 function Get-Widget'
             'widgets/Get-Widget.ps1 function Inner-Helper'
+            'widgets/Get-Widget.ps1 function New-WidgetFixture'
             'widgets/Get-Widget.ps1 type WidgetPart'
             'widgets/gadget.py function __init__'
             'widgets/gadget.py function fetch_gadget'

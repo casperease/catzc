@@ -2,25 +2,15 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1
-    name: test-formatting
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: e63642c3e5a0
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
     docs: "[Test-Formatting.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Formatting.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - ADR-THES-NORMALFORM-UNCONTESTED
 ---
 #>
 
@@ -30,6 +20,8 @@ function Test-Formatting {
     param(
         [ArgumentCompleter({ Get-FileLanguage | ForEach-Object name })]
         [string[]] $Language,
+
+        [string[]] $Path,
 
         [string] $OutputFolder,
 
@@ -58,7 +50,11 @@ function Test-Formatting {
 
     $formatted = @($selected | Where-Object { $_.formatter } | ForEach-Object name)
     if ($formatted.Count -gt 0) {
-        foreach ($result in @(Format-Code -Language $formatted -DryRun -PassThru)) {
+        $scope = @{ Language = $formatted }
+        if ($Path) {
+            $scope['Path'] = $Path
+        }
+        foreach ($result in @(Format-Code @scope -DryRun -PassThru)) {
             foreach ($file in $result.ChangedFiles) {
                 & $addIssue $file "not formatted — run Format-Code -Language $($result.Language)"
             }
@@ -70,5 +66,5 @@ function Test-Formatting {
     }
 
     Write-QualityGateReport -Subject formatting -Title Test-Formatting -Issues $issues.ToArray() `
-        -Facts ([ordered]@{ Languages = $selected.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
+        -Facts ([ordered]@{ Languages = $selected.Count; Paths = @($Path).Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

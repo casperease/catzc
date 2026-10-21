@@ -142,3 +142,21 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Version control](../../references/dora/capabilities.md#version-control) — "history is never rewritten; a discarded commit stays on the
   record" is a version-control discipline.
 - [DORA research reference](../../references/dora/index.md).
+
+## Git topic flow
+
+`The git topic flow — the sync point, one squashed commit, and the user at the keyboard`
+
+[ADR-FLOW-GIT](git-topic-flow.md)
+
+> Trunk-based development lives or dies on how a short-lived branch meets the trunk. Syncing a topic from one named commit, landing it as a
+> single squashed commit rebased onto the tip, and leaving every repository-changing act with its author keep the trunk a readable list of
+> small changes that integrate cleanly and revert as units.
+
+- [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — a topic that syncs by rebase and lands as one
+  commit is the short-lived branch this capability describes.
+- [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — one change, one commit makes the batch the
+  unit the mainline records, judges and reverts.
+- [Version control](../../references/dora/capabilities.md#version-control) — the topic is rewritten freely and the mainline never, so the
+  shared record only grows.
+- [DORA research reference](../../references/dora/index.md).

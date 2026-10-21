@@ -14,10 +14,10 @@ config carries a `naming:` map that gives the naming case of its folders, its fi
 ### Rule ADR-AUTO-IDIOM-CLOSEDCASES
 
 A naming case is one of a closed set, and each case states how a name splits into words and how words join into a name: `pascal`
-(`GetCommandContract`), `pascal-dotted` (`Catzc.Base.Contracts`), `verb-noun` (`Get-CommandContract`), `kebab` (`get-command-contract`),
-`snake` (`get_command_contract`), and `flat` (`getcommandcontract`). A configuration names cases from the set and never a pattern of its
-own; a new case is new mechanism, and its split, its join and its name land together. A hidden folder's leading dot sits outside the case,
-so `.internal` is a `kebab` folder.
+(`GetCommandContract`), `camel` (`getCommandContract`), `pascal-dotted` (`Catzc.Base.Contracts`), `verb-noun` (`Get-CommandContract`),
+`kebab` (`get-command-contract`), `snake` (`get_command_contract`), and `flat` (`getcommandcontract`). A configuration names cases from
+the set and never a pattern of its own; a new case is new mechanism, and its split, its join and its name land together. A hidden folder's
+leading dot sits outside the case, so `.internal` is a `kebab` folder.
 
 - [A closed set of cases](#a-closed-set-of-cases)
 
@@ -94,9 +94,11 @@ language by language.
 ### A closed set of cases
 
 A case is mechanism: it must split a name into words and join words into a name, exactly, or the round trip fails. A configuration that
-named a free pattern could match names but never render one, so the set is closed and each case carries both directions. The six cases cover
-the languages in the tree; `pascal`, `pascal-dotted` and `verb-noun` are distinct because each joins words differently, and a case that
-matched all three could not render any of them.
+named a free pattern could match names but never render one, so the set is closed and each case carries both directions. The seven
+cases cover the languages in the tree; `pascal`, `pascal-dotted` and `verb-noun` are distinct because each joins words differently, and a
+case that matched all three could not render any of them. `camel` is distinct from `pascal` because a language can give the first letter
+meaning: in Go it is a name's visibility, so an unexported function is `camel` and an exported one `pascal`, and both are the language's
+idiom.
 
 ### Names owned by a source
 

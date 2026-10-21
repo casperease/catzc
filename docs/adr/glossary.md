@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fb6be9a7becf
+    with_body_sha: "3ea8b1d9c769"
     warning: "Do Not Edit, this file is generated"
     role: glossary
     track: docs
@@ -55,6 +55,10 @@ and asserts.
   - [repository normal form](#repository-normal-form): The repository normal form is the one language-neutral spelling of a name; the eac
     normal form is the verifiable shape of a whole piece of code.
 
+| Avoid               | Say instead                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------- |
+| `eac's normal form` | eac normal form (catzc's own term, not the sibling eac repository's form; ADR-REPO-INSPIRE) |
+
 ### enabling constraints
 
 What a repository declares about itself — the sensible defaults, the catzc bundle, and the local configs — and nothing else.
@@ -77,7 +81,7 @@ state — whose state catzc reads only.
   - [state machine](#state-machine): A state machine is the application that owns and changes a fact source; a fact source is the store
     catzc reads.
 
-### migration
+### fragment migration
 
 Bringing an unordered code fragment into eac normal form through the one change process.
 

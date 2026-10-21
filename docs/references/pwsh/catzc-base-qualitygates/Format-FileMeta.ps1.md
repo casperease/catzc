@@ -7,12 +7,14 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Imprints the place facts and the edges into the meta block of every in-scope Markdown file.
+Brings the head of every in-scope file to its head policy: the body hash and the edges of a navigation head, the authored config part alone,
+or no head.
 
 ### description
 
-The output is byte-identical on every run, so a second run changes no file. The authored `config` part is kept as written, and a file whose
-block holds a key no meta kind owns is reported and left unchanged.
+The output is byte-identical on every run, so a second run changes no file. The imprinted parts are wholly the engine's, so a key no meta
+kind owns there is dropped; the authored `config` part is kept as written, and a file whose block holds a section that is neither is
+reported and left unchanged.
 
 It announces how many files it checks before it checks them. It shares Format-Code's result cache for the file-meta imprint step, keyed on
 each file's SHA-256 and a stamp of the step's settings files, so a file either command last found clean is not checked again

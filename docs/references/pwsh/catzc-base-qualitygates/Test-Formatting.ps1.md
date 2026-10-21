@@ -29,6 +29,14 @@ source tree, so the gate needs the source mode (Assert-SourceTree).
 
 Check only these file languages (default: every one).
 
+### parameter `Path`
+
+Check only these files or folders (default: every tracked file). A file it passes is in the eac normal form as far as the formatters go:
+uncontested, left unchanged by every formatter
+([ADR-THES-NORMALFORM-UNCONTESTED](../../../adr/thesis/eac-normal-form.md#rule-adr-thes-normalform-uncontested)), which is the check a file
+passes before it leaves the unordered track
+([ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT](../../../adr/design/tracks.md#rule-adr-dsgn-track-migrateonefilepercommit)).
+
 ### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-formatting).

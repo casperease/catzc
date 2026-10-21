@@ -1,20 +1,200 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.Docs/configs/adrs.yml
-#     folder: configs
-#     name: adrs
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.Docs
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: e4c9906722bc
 #   edges:
 #     docs: "[adrs.yml.md](docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md)"
+#     cites:
+#       - ADR-ADO-AUTH
+#       - ADR-ADO-NAME
+#       - ADR-ADO-TEMPLATE
+#       - ADR-ADO-VAR
+#       - ADR-AUTO-ASSETDEP
+#       - ADR-AUTO-BASH
+#       - ADR-AUTO-BUNDLE
+#       - ADR-AUTO-CACHE
+#       - ADR-AUTO-CONSOLE
+#       - ADR-AUTO-DEFAULT
+#       - ADR-AUTO-DEPM
+#       - ADR-AUTO-DEPS
+#       - ADR-AUTO-DRYRUN
+#       - ADR-AUTO-ENGINE
+#       - ADR-AUTO-ENTERP
+#       - ADR-AUTO-ENVVAR
+#       - ADR-AUTO-EXTEND
+#       - ADR-AUTO-FAILFAST
+#       - ADR-AUTO-GO
+#       - ADR-AUTO-GUIDS
+#       - ADR-AUTO-IDEM
+#       - ADR-AUTO-IDIOM
+#       - ADR-AUTO-IMPORTER
+#       - ADR-AUTO-LAYERS
+#       - ADR-AUTO-MATERIAL
+#       - ADR-AUTO-MODULE
+#       - ADR-AUTO-NONEST
+#       - ADR-AUTO-NOPWD
+#       - ADR-AUTO-ONEJOB
+#       - ADR-AUTO-OVERLAY
+#       - ADR-AUTO-PARITY
+#       - ADR-AUTO-PATH
+#       - ADR-AUTO-PKGMGR
+#       - ADR-AUTO-PRELOG
+#       - ADR-AUTO-PY
+#       - ADR-AUTO-REMOVE
+#       - ADR-AUTO-RETRY
+#       - ADR-AUTO-SPELL
+#       - ADR-AUTO-TEST
+#       - ADR-AUTO-TRACKED
+#       - ADR-AUTO-TYPES
+#       - ADR-AUTO-UVPY
+#       - ADR-AUTO-XPLAT
+#       - ADR-AUTO-ZERO
+#       - ADR-AZ-CAF-BILL
+#       - ADR-AZ-CAF-DEVOPS
+#       - ADR-AZ-CAF-GOV
+#       - ADR-AZ-CAF-IAM
+#       - ADR-AZ-CAF-MGMT
+#       - ADR-AZ-CAF-NAME
+#       - ADR-AZ-CAF-NETCON
+#       - ADR-AZ-CAF-NETPRV
+#       - ADR-AZ-CAF-NETTOP
+#       - ADR-AZ-CAF-PRIN
+#       - ADR-AZ-CAF-RESORG
+#       - ADR-AZ-CAF-SEC
+#       - ADR-AZ-CLI
+#       - ADR-AZ-CUSTOMER
+#       - ADR-AZ-DATAMOD
+#       - ADR-AZ-IACKIND
+#       - ADR-AZ-LZ
+#       - ADR-AZ-NAMING
+#       - ADR-AZ-NETWORK
+#       - ADR-AZ-SESSION
+#       - ADR-AZ-WAF-CO
+#       - ADR-AZ-WAF-OE
+#       - ADR-AZ-WAF-PE
+#       - ADR-AZ-WAF-RE
+#       - ADR-AZ-WAF-SE
+#       - ADR-CONF-ADDRESSING
+#       - ADR-CONF-LOADING
+#       - ADR-CONF-MDCONTRIB
+#       - ADR-DORA-AIDATA
+#       - ADR-DORA-AISTANCE
+#       - ADR-DORA-APPROVAL
+#       - ADR-DORA-CD
+#       - ADR-DORA-CI
+#       - ADR-DORA-CULTURE
+#       - ADR-DORA-DATAECO
+#       - ADR-DORA-DBCHANGE
+#       - ADR-DORA-DEPLOY
+#       - ADR-DORA-DOCS
+#       - ADR-DORA-EXPERIMENT
+#       - ADR-DORA-FAILALERT
+#       - ADR-DORA-FEEDBACK
+#       - ADR-DORA-FLEXINFRA
+#       - ADR-DORA-JOBSAT
+#       - ADR-DORA-LEADERSHIP
+#       - ADR-DORA-LEARNING
+#       - ADR-DORA-LOOSETEAMS
+#       - ADR-DORA-MAINTAIN
+#       - ADR-DORA-MONITOR
+#       - ADR-DORA-OBSERV
+#       - ADR-DORA-PLATFORM
+#       - ADR-DORA-SECURITY
+#       - ADR-DORA-SMALLBATCH
+#       - ADR-DORA-TESTAUTO
+#       - ADR-DORA-TESTDATA
+#       - ADR-DORA-TOOLCHOICE
+#       - ADR-DORA-TRUNK
+#       - ADR-DORA-USERFOCUS
+#       - ADR-DORA-VCS
+#       - ADR-DORA-VISUAL
+#       - ADR-DORA-WELLBEING
+#       - ADR-DORA-WIP
+#       - ADR-DORA-WORKVIS
+#       - ADR-DSGN-ASPECT
+#       - ADR-DSGN-MODTYPE
+#       - ADR-DSGN-REMOTE
+#       - ADR-DSGN-RUNMODE
+#       - ADR-DSGN-SELFSERV
+#       - ADR-DSGN-THINPLAT
+#       - ADR-DSGN-TRACK
+#       - ADR-DSGN-TRACKTYPE
+#       - ADR-DSGN-VISUAL
+#       - ADR-FLOW-CD
+#       - ADR-FLOW-GIT
+#       - ADR-GH-RELEASE
+#       - ADR-PRIN-CATS
+#       - ADR-PRIN-CONFIG
+#       - ADR-PRIN-EAC
+#       - ADR-PRIN-NOWASTE
+#       - ADR-PRIN-ONELIVE
+#       - ADR-PRIN-POKAYOKE
+#       - ADR-PRIN-REDUCEVAR
+#       - ADR-PROC-AGILE
+#       - ADR-PROC-AGILEPRINCIPLES
+#       - ADR-PROC-ANDON
+#       - ADR-PROC-BUILTIN
+#       - ADR-PROC-KAIZEN
+#       - ADR-PROC-LEAN
+#       - ADR-PROC-LEANTERMS
+#       - ADR-PROC-OBSERVEWIP
+#       - ADR-PROC-PULLWORK
+#       - ADR-PROC-QUEUECOST
+#       - ADR-PROC-VALUES
+#       - ADR-PWSH-ANNOUNCE
+#       - ADR-PWSH-ASSERT
+#       - ADR-PWSH-AUTOVAR
+#       - ADR-PWSH-CACHE
+#       - ADR-PWSH-DRYRUN
+#       - ADR-PWSH-ENGINE
+#       - ADR-PWSH-ENUM
+#       - ADR-PWSH-ENV
+#       - ADR-PWSH-ERROR
+#       - ADR-PWSH-FOREACH
+#       - ADR-PWSH-FORMAT
+#       - ADR-PWSH-IDEM
+#       - ADR-PWSH-MANIFEST
+#       - ADR-PWSH-MODPATH
+#       - ADR-PWSH-NAMES
+#       - ADR-PWSH-NOSEMI
+#       - ADR-PWSH-ONEFUNC
+#       - ADR-PWSH-PARAM
+#       - ADR-PWSH-PESTER
+#       - ADR-PWSH-PREPOST
+#       - ADR-PWSH-PWD
+#       - ADR-PWSH-TYPES
+#       - ADR-PWSH-USEPS
+#       - ADR-PWSH-VENDOR
+#       - ADR-PWSH-VERBS
+#       - ADR-PWSH-XPLAT
+#       - ADR-REPO-ADRCODE
+#       - ADR-REPO-AGENTS
+#       - ADR-REPO-AI
+#       - ADR-REPO-CMDCONTRACT
+#       - ADR-REPO-CODEMETA
+#       - ADR-REPO-COMMENTS
+#       - ADR-REPO-CONTRACT
+#       - ADR-REPO-EXAMPLE
+#       - ADR-REPO-FILEMETA
+#       - ADR-REPO-FOLDERS
+#       - ADR-REPO-FORMAT
+#       - ADR-REPO-HELP
+#       - ADR-REPO-INSPIRE
+#       - ADR-REPO-LANG
+#       - ADR-REPO-LINK
+#       - ADR-REPO-OUTDIR
+#       - ADR-REPO-OUTFMT
+#       - ADR-REPO-PLANS
+#       - ADR-REPO-PROTGLOB
+#       - ADR-REPO-README
+#       - ADR-REPO-REPOKIND
+#       - ADR-REPO-ROOTCFG
+#       - ADR-REPO-SLIDES
+#       - ADR-REPO-VARIANT
+#       - ADR-REPO-VOCAB
+#       - ADR-THES-NORMALFORM
+#       - ADR-THES-ONETRUTH
+#       - ADR-THES-STORES
 # ---
 
 domains:
@@ -111,7 +291,8 @@ domains:
       The vendor-neutral delivery-flow model: what a CI/CD pipeline is, continuous integration as a discipline with a 5–10 minute
       integration budget, the closed set of pipeline types (CRON, CI, CD, CDe, DEPLOY, INPUT) keyed together by one immutable tagged
       artifact, how pipelines invoke automation and detect their context, how globsets project into native trigger filters, and the commit
-      lifecycle a promoted commit climbs, with its stable sync point. The ado (Azure DevOps) and github domains implement it.
+      lifecycle a promoted commit climbs, with its stable sync point, and the git paths a topic takes to and from the server's main. The ado
+      (Azure DevOps) and github domains implement it.
     depends_on: [research, principles, process, design]
     stack: DSGN
     concern: [build, quality-control, release, deploy] # the delivery flow from integration to production
@@ -123,6 +304,7 @@ domains:
       durable-sha-globs: { external: ADR-FLOW-CD-GLOBS, concern: [automation] }
       pipeline-concept: { external: ADR-FLOW-CD-PIPELINE }
       commit-lifecycle: { external: ADR-FLOW-CD-LIFE, concern: [quality-control, release, deploy] }
+      git-topic-flow: { external: ADR-FLOW-GIT, concern: [build] }
 
   automation:
     code: AUTO

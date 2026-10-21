@@ -166,6 +166,14 @@ generator, or agent reads, writes, or falls back to it unless a person names it,
 
 - [The unordered track](#the-unordered-track)
 
+### Rule ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
+
+A file leaves the unordered track one file per commit: the commit that sorts it to its module or track also brings it into the eac normal
+form, so it leaves its landing address only when it is in the form, and a file not yet in the form stays where it landed. A person names
+each file to move; migration adds no reader of the track.
+
+- [Leaving the unordered track](#leaving-the-unordered-track)
+
 ### Rule ADR-DSGN-TRACK-PRIMARYLANGUAGE
 
 A track has one **primary language** by default: the first file language its tech-stack (ADR-DSGN-TRACK-ONETECHSTACK) declares, the one a
@@ -279,6 +287,14 @@ The track is where imports land, not a source: it has no tech-stack beyond what 
 quietly read from it would make the system depend on files nobody has sorted yet, so the rule is stated as a prohibition, and every other
 track keeps its own reason to exist. What stays under `.unordered/` is exactly the work still to sort.
 
+### Leaving the unordered track
+
+Landing, sorting and leaving are one lifecycle. A file lands with its import, unordered; it is sorted when a person names it; and it leaves
+in the same commit that brings it into the eac normal form, where the repository's formatters, tests and asserts leave it unchanged and do
+not fail. One file per commit keeps each move reviewable and its history whole, and a file that is not yet in the form never sits in a
+module where the gates would hold it to rules it does not meet. So the unordered part of the repository shrinks only by files that are
+finished, and the in-the-form check proves each one before it moves.
+
 ### The value-chain map
 
 The world map says where a decision's files sit; it cannot say where along delivery the decision acts. A rule about formatting and a rule
@@ -298,16 +314,17 @@ word to one meaning.
 ## Decision
 
 Name the concept: repository concerns are **tracks** — place-declared clusters of module contents (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER),
-each of one track type (ADR-DSGN-TRACK-ONETRACKTYPE), including the unordered track that nothing defaults to
-(ADR-DSGN-TRACK-UNORDEREDTRACK), one tech-stack each (ADR-DSGN-TRACK-ONETECHSTACK) that defaults to one primary language
-(ADR-DSGN-TRACK-PRIMARYLANGUAGE), subscribable only via depms and globset projections (ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED), and
-shipped through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK-DEPLOYABLEUNIT). A tech-stack is a set of file languages, each
-named by its extension (ADR-DSGN-TRACK-FILELANGUAGE). The world map crosses the tracks with the file languages (ADR-DSGN-TRACK-WORLDMAP),
-with a row for the root files and a column for the unlisted files (ADR-DSGN-TRACK-ROOTFILE, ADR-DSGN-TRACK-UNLISTEDFILE); its cells
-(ADR-DSGN-TRACK-CELL) mark the stack violations (ADR-DSGN-TRACK-STACKVIOLATION) and light for a highlight (ADR-DSGN-TRACK-LITCELL), and
-every label it prints names a defined term (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS). Beside it, the value-chain map
-(ADR-DSGN-TRACK-VALUECHAINMAP) crosses the value-chain stack (ADR-DSGN-TRACK-VALUECHAINSTACK) with the value-chain concerns
-(ADR-DSGN-TRACK-VALUECHAINCONCERN), both declared per ADR domain in `adrs.yml`, with a per-ADR override of the concerns.
+each of one track type (ADR-DSGN-TRACK-ONETRACKTYPE), including the unordered track that nothing defaults to (ADR-DSGN-TRACK-UNORDEREDTRACK)
+and that a file leaves one per commit, in the eac normal form (ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT), one tech-stack each
+(ADR-DSGN-TRACK-ONETECHSTACK) that defaults to one primary language (ADR-DSGN-TRACK-PRIMARYLANGUAGE), subscribable only via depms and
+globset projections (ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED), and shipped through deployable-units that bind pipelines 1-1
+(ADR-DSGN-TRACK-DEPLOYABLEUNIT). A tech-stack is a set of file languages, each named by its extension (ADR-DSGN-TRACK-FILELANGUAGE). The
+world map crosses the tracks with the file languages (ADR-DSGN-TRACK-WORLDMAP), with a row for the root files and a column for the unlisted
+files (ADR-DSGN-TRACK-ROOTFILE, ADR-DSGN-TRACK-UNLISTEDFILE); its cells (ADR-DSGN-TRACK-CELL) mark the stack violations
+(ADR-DSGN-TRACK-STACKVIOLATION) and light for a highlight (ADR-DSGN-TRACK-LITCELL), and every label it prints names a defined term
+(ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS). Beside it, the value-chain map (ADR-DSGN-TRACK-VALUECHAINMAP) crosses the value-chain stack
+(ADR-DSGN-TRACK-VALUECHAINSTACK) with the value-chain concerns (ADR-DSGN-TRACK-VALUECHAINCONCERN), both declared per ADR domain in
+`adrs.yml`, with a per-ADR override of the concerns.
 
 ### How this is enforced
 

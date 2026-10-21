@@ -85,8 +85,8 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         [System.IO.File]::ReadAllText($path) | Should -BeLike '*- ADR-GADGET-SPIN*- ADR-GADGET-FOLD*'
     }
 
-    It 'never records a file the dry run would change, or one with a key no kind owns, as clean' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "---`ncatzc:`n  immutable:`n    surprise: 1`n---`n# docs/gadget.md`n")
+    It 'never records a file the dry run would change, or one with a section no part owns, as clean' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "---`ncatzc:`n  surprise: 1`n---`n# docs/gadget.md`n")
         Format-FileMeta -RepositoryRoot $script:widgetRoot -DryRun | Out-Null
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
         Format-FileMeta -RepositoryRoot $script:widgetRoot -DryRun | Out-Null
@@ -131,14 +131,14 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/widget.md')) | Should -BeLike '# docs/widget.md*'
     }
 
-    It 'leaves a file with a key no kind owns unchanged and reports it' {
+    It 'leaves a file with a section no part owns unchanged and reports it' {
         $path = Join-Path $script:widgetRoot 'docs/widget.md'
-        $text = "---`ncatzc:`n  immutable:`n    surprise: 1`n---`n# docs/widget.md`n"
+        $text = "---`ncatzc:`n  surprise: 1`n---`n# docs/widget.md`n"
         [System.IO.File]::WriteAllText($path, $text)
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Should -Not -Contain 'docs/widget.md'
         [System.IO.File]::ReadAllText($path) | Should -BeExactly $text
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter {
-            $Message -like "docs/widget.md needs a decision by hand: 'catzc.immutable.surprise'*" -and $Warning
+            $Message -like "docs/widget.md needs a decision by hand: 'catzc.surprise'*" -and $Warning
         }
     }
 

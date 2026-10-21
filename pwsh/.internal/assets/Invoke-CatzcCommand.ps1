@@ -1,4 +1,12 @@
 <#
+---
+catzc:
+  immutable:
+    with_body_sha: "6ca10c92a2d2"
+---
+#>
+
+<#
 .SYNOPSIS
     Runs each named cats command in one imported session, prints each verdict, and goes on past a failure.
 

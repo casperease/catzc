@@ -405,7 +405,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config = & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ folder = 'flat'; file = 'snake' } })
             $config.MisnamedPaths([string[]] @('widgets/catzc-widget/widget_test.wdg', 'widgets/catzcwidget/widget_test.wdg')) |
                 Should -Be @('widgets/catzc-widget/: the folder is not flat (widget)')
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ file = 'camel' } }) } | Should -Throw "*unknown case 'camel'*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ file = 'title' } }) } | Should -Throw "*unknown case 'title'*"
             { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ file = 'snake'; style = 'x' } }) } | Should -Throw "*unknown key 'style'*"
             { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ exempt = @('a.wdg') } }) } | Should -Throw '*names the cases of its folders, its files, its functions or its types*'
             { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ file = 'snake'; exempt = @('a.md') } }) } | Should -Throw "*invalid exempt file 'a.md'*"
@@ -417,7 +417,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $naming.function | Should -Be @('snake')
             $naming.type | Should -Be @('pascal', 'pascal-dotted')
             $naming.folder | Should -BeNullOrEmpty
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ function = 'camel' } }) } | Should -Throw "*naming.function: unknown case 'camel'*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ function = 'title' } }) } | Should -Throw "*naming.function: unknown case 'title'*"
         }
 
         It 'reads the normal form, snake when the file names none, and throws on a case that cannot render every other' -Tag 'ADR-AUTO-IDIOM-NORMALFORM' {
@@ -430,6 +430,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
     Context 'LanguageNaming cases' {
         It 'splits a name in its case into namespace segments of lowercase words, and joins them back' -Tag 'ADR-AUTO-IDIOM-CLOSEDCASES' -ForEach @(
             @{ Case = 'pascal'; Name = 'GadgetMetrics'; Words = 'gadget metrics' }
+            @{ Case = 'camel'; Name = 'requireGadgetPart'; Words = 'require gadget part' }
             @{ Case = 'pascal-dotted'; Name = 'Widget.Base.GadgetParts'; Words = 'widget|base|gadget parts' }
             @{ Case = 'verb-noun'; Name = 'Get-GadgetPart'; Words = 'get gadget part' }
             @{ Case = 'verb-noun'; Name = 'ConvertTo-GadgetName'; Words = 'convert to gadget name' }
@@ -447,6 +448,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             @{ Case = 'kebab'; Expected = 'widget-base-gadget-parts' }
             @{ Case = 'flat'; Expected = 'widgetbasegadgetparts' }
             @{ Case = 'pascal'; Expected = 'WidgetBaseGadgetParts' }
+            @{ Case = 'camel'; Expected = 'widgetBaseGadgetParts' }
             @{ Case = 'pascal-dotted'; Expected = 'Widget.Base.GadgetParts' }
         ) {
             $segments = [Catzc.Base.Languages.LanguageNaming]::Split('pascal-dotted', 'Widget.Base.GadgetParts')
@@ -473,7 +475,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         It 'splits nothing for a name outside the case, and throws on an unknown case or a word that is not lowercase' -Tag 'ADR-AUTO-IDIOM-CLOSEDCASES' {
             [Catzc.Base.Languages.LanguageNaming]::Split('kebab', 'Gadget-Part') | Should -BeNullOrEmpty
             [Catzc.Base.Languages.LanguageNaming]::Split('pascal', 'Widget.Gadget') | Should -BeNullOrEmpty
-            { [Catzc.Base.Languages.LanguageNaming]::Split('camel', 'gadgetPart') } | Should -Throw "*unknown case 'camel'*"
+            { [Catzc.Base.Languages.LanguageNaming]::Split('title', 'Gadget Part') } | Should -Throw "*unknown case 'title'*"
             { [Catzc.Base.Languages.LanguageNaming]::Join('kebab', [string[][]] @(, [string[]] @('Gadget'))) } | Should -Throw "*'Gadget' is not a lowercase word*"
         }
 

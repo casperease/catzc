@@ -66,22 +66,15 @@ Every code file in the tree carries a head no reader needs, and the next `Format
 
 ## Open steps
 
-- [ ] `pwsh/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1`: hash the body below a comment head or JSON property the way
-      `Format-GeneratedFileHead` does, then `body-sha` in `file-meta.yml` drops its `select: [{ classes: [index, glossary] }]`, so every
-      head carries `with_body_sha` (found by the file-meta.yml step's outage, 2026-10-21). (check: `Invoke-TestFile` on its tests with a
-      comment head and a property case, then `Format-FileMeta` on one code file and one json file.)
-- [ ] `pwsh/Catzc.Base.QualityGates/private/`: delete the `Get-<Kind>FileMetaFact.ps1` files, their tests and their comment pages, for
-      `RepoStatus`, `FilePath`, `FileName`, `FileType`, `FileRole`, `FileLanguage`, `Track`, `TrackType`, `Vendor`, `ModuleName`,
-      `ModuleType`, `CatzcBundle`, `Visibility`, `AdrDefines`, `Links`, one file at a time (ADR-PRIN-ONELIVE). (check:
-      `Test-FileMetaProcessors` passes.)
-- [ ] `pwsh/Catzc.Base.Languages/types/GeneratedHeadConfig.cs` and its caller `Format-GeneratedFileHead.ps1`, in one pass: `order` becomes
-      `with_body_sha`, `warning`, `role`, `track`, `generator`, `source`, then the relative edges; the writer always writes it, tracked or
-      not, then a fresh full import. (check: `Invoke-TestFile` on both test files; the import succeeds in a new `pwsh`.)
-- [ ] `contracts/catzc/0.0.0/Catzc.Base.QualityGates/head.sample.yml`: the two head shapes, generated and authored code (ADR-REPO-CONTRACT).
-      (check: the contract tests of `Catzc.Base.QualityGates` pass.)
-- [ ] `pwsh/Catzc.Base.QualityGates/tests/`: `Invoke-FileMetaEngine.Tests.ps1`, `Format-FileMeta.Tests.ps1`, `Sync-FileMeta.Tests.ps1`
-      expect the minimal shapes, `none` strips every authored head, and a generated head survives `none`; then `Format-FileMeta.ps1.md` and
-      the other comment pages that name a removed key. (check: `Invoke-TestFile` on each.)
+- [ ] The generated head's `docs` edge: the docs-edge derivation moves down to a module both `Catzc.Base.Languages` and
+      `Catzc.Base.QualityGates` load, so `Format-GeneratedFileHead` derives the edge itself and the relative-edges processor calls the same
+      derivation; one mechanism, no upward dependency (the user, 2026-10-21). How (delegated to the orchestrator, 2026-10-21): the `pages`
+      map leaves `comments.yml` for a `comment-pages` config of its own, with its type holding `CommentPageMap` and one public
+      `Get-CommentPage -Path`, in a module both load; the ten `PageFor` callers in `Catzc.Base.QualityGates` move to it in the same change
+      (ADR-PRIN-ONELIVE). (check: `Invoke-TestFile` on `Format-GeneratedFileHead.Tests.ps1`, the relative-edges processor's tests and each
+      moved caller's tests; a fresh import.)
+- [ ] `pwsh/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1`: a case that an unowned key in the authored `config` part is kept
+      as the author's (KINDSCOPE landed without it, 2026-10-21) (check: `Invoke-TestFile` on the file).
 - [ ] Whole tree: `Format-FileMeta`, then every generator through `Sync-GeneratedFile`, then `Format-FileMeta` again. (check: the second run
       formats 0 files; `Test-FileMeta` and `Test-GeneratedFiles` pass; a sampled function, test, config and bicep file holds only the keys
       above; no authored Markdown file has a `catzc:` head.)

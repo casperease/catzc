@@ -28,8 +28,8 @@ none fails. The form is the fixed point of the repository's own checks, so it is
 
 ### Rule ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
 
-**Migration** brings an unordered code fragment into eac normal form through the one change process. A fragment that is not yet in the form
-decides nothing about the delivered system; the mechanics of moving it into the form belong to the implementation domains.
+**Fragment migration** brings an unordered code fragment into eac normal form through the one change process. A fragment that is not yet in
+the form decides nothing about the delivered system; the mechanics of moving it into the form belong to the implementation domains.
 
 - [Migration reaches the form](#migration-reaches-the-form)
 

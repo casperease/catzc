@@ -17,8 +17,8 @@ the file. `edited`: the working tree differs from the index. `staged`: the index
 `committed`: tracked, unchanged, and a commit that touched it is not on the upstream branch. `pushed`: tracked, unchanged and every commit
 that touched it is on the upstream. `ready`: tracked and unchanged on a branch with no upstream, so nothing says whether the server has it.
 
-The answer is git's alone. The file's own stored `repo_status` (`locked` or `clean`) is in its head, which a module above this one reads, so
-a caller that wants both reads the head too; the two never share a value.
+The answer is git's alone, and no head stores a status: whether a file is generated, so its source is edited instead, is told by the writer
+registry and the file's `linguist-generated` attribute.
 
 Read-only: one `git status`, and for an unchanged tracked file one `git branch --show-current`, one `git for-each-ref` and one `git log`,
 each from the repository root.

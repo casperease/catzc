@@ -33,6 +33,10 @@ reach.
 
 ## Open questions
 
+- From catzc-c3's learnings (2026-10-21): should the `catzc-run` capability say that a shared config (`file-meta.yml`, `generated-head.yml`,
+  `glossary.yml`) is live for every session's next import, so an edit to one lands with its code in one pass and is parked in `out/` during
+  a peer's burst? Recommendation: yes, one line in the capability, which shrinks what a worker must learn by outage.
+
 - Each session now appends its own lines, so the lines catzc-5b logged on seven peers' behalf (catzc-e8, -e2, -33, -03, -80, -59, -91) can
   double. Remove a peer's relayed lines when it appends its own (as done for catzc-4f), or remove all relayed lines now? Recommendation:
   when it appends its own.

@@ -42,7 +42,6 @@ with no check behind it, and the ADO writers below contradict it.
 
 ## Open steps
 
-7. [ ] After steps 1-2: the truth-stores diagram as one sample in `out/diagrams/dark-sample/` (`drawio-diagram-waves`, a wave of one).
-       Check: the user approves the sample.
-8. [ ] On approval: a slide file under `docs/explanation/thesis/product-thesis/`, its caption carrying the rule codes, and its line in
-       `deck.md`. Check: the rendered png read, then `Test-Links` on `deck.md`.
+8. [ ] The user approved the sample `out/diagrams/dark-sample/.assets/truth-stores/` (2026-10-21): a slide file under
+       `docs/explanation/thesis/product-thesis/`, its caption carrying the rule codes, and its line in `deck.md`. Check: the rendered png
+       read, then `Test-Links` on `deck.md`.
