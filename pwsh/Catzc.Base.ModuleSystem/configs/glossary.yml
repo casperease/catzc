@@ -265,7 +265,7 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       value-chain concern:
-        A value-chain concern is a column, where along delivery an ADR acts; the value-chain stack is the rows, how general the decision is.
+        A value-chain concern is a column, where along delivery a decision record acts; the value-chain stack is the rows, how general the decision is.
       stack violation:
         A stack violation is a world-map cell outside its track's tech-stack, a set of file languages; the value-chain stack orders
         decisions, not files.
@@ -274,8 +274,8 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-VALUECHAINCONCERN
     short:
-      Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per decision-record domain, an
-      override per ADR.
+      Where along delivery a decision record acts — automation, build, quality-control, release, deploy, or access — a default per
+      decision-record domain, an override per decision record.
     realized_by: { kind: prose-only }
   value-chain map:
     key: value_chain_map
@@ -303,7 +303,7 @@ concepts:
     defined_by: DDR-TRACK-LITCELL
     short:
       A cell a highlight selects — on the world map the cells of the files a rule code or a file set names, on the value-chain map the cells
-      an ADR sits in.
+      a decision record sits in.
     realized_by: { kind: prose-only }
   importer:
     key: importer

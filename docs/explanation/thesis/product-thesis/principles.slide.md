@@ -19,4 +19,4 @@ overrides them.
 
 ## Notes
 
-One slide per principle follows, each rule on one line with its code. The full text of every rule is in its ADR.
+One slide per principle follows, each rule on one line with its code. The full text of every rule is in its PDR.

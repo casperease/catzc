@@ -15,7 +15,7 @@ Principle 6 of 6 · PDR-ONELIVE
 ## Body
 
 No legacy, no back-compat, history in git: the thesis's only-HEAD rule seen from inside the trunk. Eight rules, one per tile, numbered as
-the ADR numbers them.
+the PDR numbers them.
 
 ## Tiles
 

@@ -11,17 +11,17 @@ Parses the ADR index ([index](../../../drs/index.md)) into the code -> ADR entri
 
 ### description
 
-Reads the rule-citation registry tables in [index](../../../drs/index.md) and returns one entry per ADR: its citation code, its title
-slug, and its index-relative path. A pure function of the file on disk, memoized per resolved index path for the session (re-run the
-importer to refresh — see [ADR-AUTO-CACHE](../../../drs/automation/caching.md)). Inline code-span mentions of a code (in prose) are not
-table rows and are ignored.
+Reads the rule-citation registry tables in [index](../../../drs/index.md) and returns one entry per ADR: its citation code, its title slug,
+and its index-relative path. A pure function of the file on disk, memoized per resolved index path for the session (re-run the importer to
+refresh — see [ADR-AUTO-CACHE](../../../drs/automation/caching.md)). Inline code-span mentions of a code (in prose) are not table rows and
+are ignored.
 
 Private helper for Show-Cats; not exported.
 
 ### parameter `IndexPath`
 
-Absolute path to the ADR index. Defaults to [index](../../../drs/index.md) under the repository root. A test points this at a fixture
-index; the cache keys on the path, so a fixture path and the real path never collide.
+Absolute path to the ADR index. Defaults to [index](../../../drs/index.md) under the repository root. A test points this at a fixture index;
+the cache keys on the path, so a fixture path and the real path never collide.
 
 ### outputs
 

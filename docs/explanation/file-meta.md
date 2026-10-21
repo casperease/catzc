@@ -85,14 +85,14 @@ These keys are never written into a head; each still has its meaning and its one
 | `moduletype`   | the type of that module (pwsh-folder, settings, pipeline, …)                             | `module-types.yml`, through `Get-PathModule`                                          |
 | `catzc_bundle` | the smallest bundle of the catzc exporter that holds the module                          | `exporter.yml` and the module's profile, through `Get-ModuleProfile`                  |
 | `visibility`   | whether a PowerShell function file is public or private                                  | the module's `private/` folder                                                        |
-| `defines`      | the rules an ADR defines in its own rule headings                                        | the ADR's `### Rule` headings, read by `Get-DrsDefinedRule`                           |
+| `defines`      | the rules a decision record defines in its own rule headings                             | the record's `### Rule` headings, read by `Get-DrsDefinedRule`                        |
 | `links`        | every link a Markdown file points out of itself                                          | the Markdown body, read by `Test-Links`                                               |
 
 The module facts, `module`, `moduletype`, `catzc_bundle`, `tracktype` and `vendor`, are each one question to the registry that places the
 module ([module-types](../drs/design/module-types.md)) or declares its track, so a head that showed them would be a second list of what the
-registries say and would change on every move of a module. A Markdown file's `defines` and `links` are its text: the rules an ADR declares
-are its rule headings and the rules it cites are read from its text, never counting its own rules or a placeholder named in prose, and the
-links that leave a file are its body. A generated page carries only its relative edges, never a list of either.
+registries say and would change on every move of a module. A Markdown file's `defines` and `links` are its text: the rules a decision record
+declares are its rule headings and the rules it cites are read from its text, never counting its own rules or a placeholder named in prose,
+and the links that leave a file are its body. A generated page carries only its relative edges, never a list of either.
 
 ## The head policy
 

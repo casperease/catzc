@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "615d732c3370"
+    with_body_sha: "3920ad473de6"
     warning: "Do Not Edit, this file is generated"
     role: glossary
     track: docs
@@ -541,8 +541,8 @@ override per ADR.
 - **Contrasts:**
   - [track](#track): A value-chain concern is where along delivery a decision acts; a track is a concern of the repository, the cluster
     where files live.
-  - [value-chain stack](#value-chain-stack): A value-chain concern is a column, where along delivery an ADR acts; the value-chain stack is
-    the rows, how general the decision is.
+  - [value-chain stack](#value-chain-stack): A value-chain concern is a column, where along delivery a decision record acts; the value-chain
+    stack is the rows, how general the decision is.
 
 ### value-chain map
 
@@ -569,8 +569,8 @@ declares one.
 - **Contrasts:**
   - [stack violation](#stack-violation): A stack violation is a world-map cell outside its track's tech-stack, a set of file languages; the
     value-chain stack orders decisions, not files.
-  - [value-chain concern](#value-chain-concern): A value-chain concern is a column, where along delivery an ADR acts; the value-chain stack
-    is the rows, how general the decision is.
+  - [value-chain concern](#value-chain-concern): A value-chain concern is a column, where along delivery a decision record acts; the
+    value-chain stack is the rows, how general the decision is.
 
 ### vendor
 
