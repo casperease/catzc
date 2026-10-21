@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8c8f38b835f4"
+#     with_body_sha: "96f31bd70b1e"
 #   edges:
 #     docs: "[glossary.yml.md](../../../docs/references/pwsh/catzc-base-module-system/configs/glossary.yml.md)"
 #     cites:
@@ -252,7 +252,8 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       value-chain map:
-        The value-chain map is a whole grid; a cell is one intersection of it, holding the decision records of one row in one value-chain concern.
+        The value-chain map is a whole grid; a cell is one intersection of it, holding the decision records of one row in one value-chain
+        concern.
       stack violation:
         A stack violation is a cell holding a live file outside its track's file languages; a cell is any intersection, allowed or not.
       lit cell: A lit cell is a cell a highlight selects; a cell is any intersection, lit or not.
@@ -261,11 +262,13 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-VALUECHAINSTACK
     short:
-      The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each decision-record domain declares one.
+      The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each decision-record domain
+      declares one.
     realized_by: { kind: prose-only }
     contrasts:
       value-chain concern:
-        A value-chain concern is a column, where along delivery a decision record acts; the value-chain stack is the rows, how general the decision is.
+        A value-chain concern is a column, where along delivery a decision record acts; the value-chain stack is the rows, how general the
+        decision is.
       stack violation:
         A stack violation is a world-map cell outside its track's tech-stack, a set of file languages; the value-chain stack orders
         decisions, not files.
@@ -282,8 +285,8 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-VALUECHAINMAP
     short:
-      The decision records drawn as the value-chain stack crossed with the value-chain concerns, computed from drs.yml — where a decision sits in the
-      value chain.
+      The decision records drawn as the value-chain stack crossed with the value-chain concerns, computed from drs.yml — where a decision
+      sits in the value chain.
     realized_by: { kind: prose-only }
   stack violation:
     key: stack_violation

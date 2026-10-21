@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3920ad473de6"
+    with_body_sha: c32aa50ec9b3
     warning: "Do Not Edit, this file is generated"
     role: glossary
     track: docs
@@ -347,8 +347,8 @@ The folder `.unordered/<name>` an import lands at, named by a short kebab word u
 
 ### lit cell
 
-A cell a highlight selects — on the world map the cells of the files a rule code or a file set names, on the value-chain map the cells an
-ADR sits in.
+A cell a highlight selects — on the world map the cells of the files a rule code or a file set names, on the value-chain map the cells a
+decision record sits in.
 
 - **Defined by:** [DDR-TRACK-LITCELL](design/tracks.md#rule-ddr-track-litcell)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -532,8 +532,8 @@ or falls back to it.
 
 ### value-chain concern
 
-Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per decision-record domain, an
-override per ADR.
+Where along delivery a decision record acts — automation, build, quality-control, release, deploy, or access — a default per decision-record
+domain, an override per decision record.
 
 - **Defined by:** [DDR-TRACK-VALUECHAINCONCERN](design/tracks.md#rule-ddr-track-valuechainconcern)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
