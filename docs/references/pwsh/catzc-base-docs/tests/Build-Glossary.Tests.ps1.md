@@ -9,8 +9,8 @@ Above `Describe 'Build-Glossary' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Build-Glossary renders the merged glossary into one markdown page. The logic tests mock the three inputs — the
-glossary (real GlossaryEntry/GlossaryConcept/GlossaryOptions types), the ADR citation map (a real AdrCitationMap
-over a fixture ADR), and the adrs.yml domains — and write into $TestDrive. Fixture terms and codes are neutral
+glossary (real GlossaryEntry/GlossaryConcept/GlossaryOptions types), the ADR citation map (a real DrsCitationMap
+over a fixture ADR), and the drs.yml domains — and write into $TestDrive. Fixture terms and codes are neutral
 (widget/gadget, tst — [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 

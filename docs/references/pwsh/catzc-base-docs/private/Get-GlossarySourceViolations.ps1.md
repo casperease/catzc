@@ -20,7 +20,7 @@ The GlossaryConfig type checks each source on its own when it loads; this checks
 ([ADR-REPO-VOCAB-DEFINEDTERM](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm));
 ```
 
-- a domain that adrs.yml does not declare
+- a domain that drs.yml does not declare
 
 ```text
 ([ADR-REPO-VOCAB-DEFINEDTERM](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm));

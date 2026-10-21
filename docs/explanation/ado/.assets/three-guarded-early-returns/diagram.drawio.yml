@@ -148,7 +148,7 @@ content:
           - ADR-ADO-AUTH-PROVETARGET
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
           - ADR-ADO-AUTH-EXPLICITDETECTION
           - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
@@ -163,7 +163,7 @@ content:
           - ADR-ADO-AUTH-PROVETARGET
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
           - ADR-ADO-AUTH-EXPLICITDETECTION
           - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE

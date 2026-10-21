@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/private/Get-AnalyzerAdrCoverage.ps1
+# pwsh/Catzc.Base.QualityGates/private/Get-AnalyzerDrsCoverage.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The (ADR rule id -> enforcing analyzer) rows from configs/analyzer-adr-map.yml — the 'pssa-rule' enforcer kind for the rule-coverage report.
+The (ADR rule id -> enforcing analyzer) rows from configs/analyzer-drs-map.yml — the 'pssa-rule' enforcer kind for the rule-coverage report.
 
 ### description
 

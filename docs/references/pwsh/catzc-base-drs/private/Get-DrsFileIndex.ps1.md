@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/private/Get-AdrFileIndex.ps1
+# pwsh/Catzc.Base.Drs/private/Get-DrsFileIndex.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -14,16 +14,16 @@ Indexes the markdown files under docs/drs/ by "`<domain folder>/<slug>`", and ma
 Enumerates every `docs/drs/**/*.md` once and keys it by its first folder under docs/drs/ (the domain folder; empty for a file at the root)
 and its file name without extension, so a slug shared across domains (one in automation/, one in research/) stays distinct and a slug
 repeated within one domain's subfolders shows as two files under one key. FileOf maps a rule set's External code to its file when exactly
-one file has its key; a rule set with none or several is a finding of the registry quality gate (Test-AdrRegistry), so the checks that read
+one file has its key; a rule set with none or several is a finding of the registry quality gate (Test-DrsRegistry), so the checks that read
 rule files skip it.
 
-Private helper for Test-AdrRegistry and Test-AdrEngineNeutrality; not exported.
+Private helper for Test-DrsRegistry and Test-DrsEngineNeutrality; not exported.
 
 ### parameter `RuleSets`
 
-The rule sets of the ADR registry (AdrsConfig.RuleSets).
+The rule sets of the ADR registry (DrsConfig.RuleSets).
 
-### parameter `AdrRoot`
+### parameter `DrsRoot`
 
 The absolute docs/drs/ folder.
 

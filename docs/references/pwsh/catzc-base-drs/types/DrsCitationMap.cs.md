@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/types/AdrCitationMap.cs
+# pwsh/Catzc.Base.Drs/types/DrsCitationMap.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 The ADR citation registry as one immutable lookup: each citation code (ADR-<CODE>) to its ADR's
 repository-relative path and declared rule numbers, plus the reverse path -> code map and a unique-slug
--> path map. Built from the ADR index (Get-AdrCitationMap) and read by the link engine, which derives every
+-> path map. Built from the ADR index (Get-DrsCitationMap) and read by the link engine, which derives every
 code link's destination from the citation code
 ([ADR-REPO-LINK-CODELINKS](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)): the code is the source of truth, so a
 moved ADR re-points every link to it.
@@ -18,7 +18,7 @@ moved ADR re-points every link to it.
 
 ## comment:2
 
-Above `public AdrCitationMap(IDictionary entries, IEnumerable documents)`, written with `//`.
+Above `public DrsCitationMap(IDictionary entries, IEnumerable documents)`, written with `//`.
 
 ```text
 entries: code -> { path = '<repo-relative, /-separated .md path>'; rules = <int[]> }.

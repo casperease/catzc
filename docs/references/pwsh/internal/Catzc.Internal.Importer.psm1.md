@@ -344,10 +344,10 @@ rematerialise what it removed in the same run. Guarded: absent in the bootstrap 
 
 ## comment:30
 
-Above `if (Get-Command Build-AdrIndex -ErrorAction Ignore) {`, written with `#`.
+Above `if (Get-Command Build-DrsIndex -ErrorAction Ignore) {`, written with `#`.
 
 ```text
-Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/drs/index.md) from adrs.yml and
+Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/drs/index.md) from drs.yml and
 [glossary](/docs/drs/glossary.md) from the glossary sources — committed so GitHub has them, rebuilt BEFORE
 Build-Readme (the docs/drs README is generated from the index). See [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
 ```

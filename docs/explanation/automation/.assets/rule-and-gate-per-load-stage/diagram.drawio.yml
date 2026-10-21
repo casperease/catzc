@@ -155,11 +155,11 @@ content:
           - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md
-          - docs/references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md
-          - docs/references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrCitationMap.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrRuleSet.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md
+          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
+          - docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsCitationMap.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsRuleSet.cs.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md
           - docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md
           - docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
           - docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
@@ -184,7 +184,7 @@ content:
           - docs/references/pwsh/catzc-base-module-system/Test-FunctionDependency.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Build-CommentView.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Export-Comments.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/Get-AdrUsage.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Get-DrsUsage.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/configs/comments.yml.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-ContentExemptPath.ps1.md
@@ -245,12 +245,12 @@ content:
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Docs/Get-AdrCitationMap.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
           - ADR-PWSH-ERROR-STOPONERROR
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - ADR-AUTO-BUNDLE-BUNDLEISSESSION
@@ -265,13 +265,13 @@ content:
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
       - cell: pwsh/Catzc.Base.Docs/tests/types
         by:
-          - pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrCitationMap.cs
-          - pwsh/Catzc.Base.Docs/types/AdrRuleSet.cs
-          - pwsh/Catzc.Base.Docs/types/CheckModes.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationMap.cs
+          - pwsh/Catzc.Base.Drs/types/DrsRuleSet.cs
+          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
@@ -349,7 +349,7 @@ content:
         by:
           - pwsh/Catzc.Base.QualityGates/Build-CommentView.ps1
           - pwsh/Catzc.Base.QualityGates/Export-Comments.ps1
-          - pwsh/Catzc.Base.QualityGates/Get-AdrUsage.ps1
+          - pwsh/Catzc.Base.QualityGates/Get-DrsUsage.ps1
           - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
           - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
@@ -508,11 +508,11 @@ content:
           - docs/references/agent-contracts.md
           - docs/references/note-file-kind.md
           - docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md
-          - docs/references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md
-          - docs/references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrCitationMap.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrRuleSet.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md
+          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
+          - docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsCitationMap.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsRuleSet.cs.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md
           - docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md
           - docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
           - docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
@@ -537,7 +537,7 @@ content:
           - docs/references/pwsh/catzc-base-module-system/Test-FunctionDependency.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Build-CommentView.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Export-Comments.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/Get-AdrUsage.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Get-DrsUsage.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/configs/comments.yml.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-ContentExemptPath.ps1.md
@@ -601,9 +601,9 @@ content:
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
-          - pwsh/Catzc.Base.Docs/types/AdrCitationMap.cs
-          - pwsh/Catzc.Base.Docs/types/AdrRuleSet.cs
-          - pwsh/Catzc.Base.Docs/types/CheckModes.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationMap.cs
+          - pwsh/Catzc.Base.Drs/types/DrsRuleSet.cs
+          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
           - pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
           - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
@@ -629,8 +629,8 @@ content:
       - cell: pwsh/powershell
         by:
           - pwsh/.internal/assets/Import-Catzc.ps1
-          - pwsh/Catzc.Base.Docs/Get-AdrCitationMap.ps1
-          - pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
           - pwsh/Catzc.Base.Files/Get-CodeCaller.ps1
           - pwsh/Catzc.Base.Files/Get-InputStamp.ps1
@@ -648,7 +648,7 @@ content:
           - pwsh/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/Build-CommentView.ps1
           - pwsh/Catzc.Base.QualityGates/Export-Comments.ps1
-          - pwsh/Catzc.Base.QualityGates/Get-AdrUsage.ps1
+          - pwsh/Catzc.Base.QualityGates/Get-DrsUsage.ps1
           - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
@@ -688,8 +688,8 @@ content:
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.Exporter/configs/exporter.yml

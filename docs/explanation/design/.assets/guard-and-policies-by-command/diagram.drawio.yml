@@ -106,13 +106,13 @@ content:
           - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-PULLREQUESTISINGRESS
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: subject/pipelines

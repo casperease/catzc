@@ -118,7 +118,7 @@ content:
           - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-CONF-LOADING-CACHEBYPATH
           - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.Docs/private
@@ -161,7 +161,7 @@ content:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
           - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
           - ADR-CONF-LOADING-CACHEBYPATH

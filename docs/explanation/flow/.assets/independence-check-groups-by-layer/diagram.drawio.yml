@@ -130,7 +130,7 @@ content:
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/configs/build-validation.yml.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/private/Get-BuildValidationPathFilter.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-globs.md
           - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
           - docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md
@@ -174,12 +174,12 @@ content:
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Globs/.
@@ -262,8 +262,8 @@ content:
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/Catzc.Base.Globs

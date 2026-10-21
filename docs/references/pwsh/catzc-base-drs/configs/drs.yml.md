@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/configs/adrs.yml
+# pwsh/Catzc.Base.Drs/configs/drs.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -8,14 +8,14 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `domains:`, written with `#`.
 
 ```text
-adrs.yml — the AUTHORED source of the ADR domain structure (RULES ↔ domains wiring).
+drs.yml — the AUTHORED source of the ADR domain structure (RULES ↔ domains wiring).
 
 Single source of truth for how the decision space is organised and cited. It declares:
   domains:  one per docs/drs/<area>/ folder — the unit the dependency graph connects. Each carries a
             `code` (2-4 letter DEFAULT domain code that composes the citation ADR-<code>-<NAME>), a `role`
             (its function in the system), a `description` (the reader-facing paragraph rendered under the
             domain's heading in index.md), and `depends_on` (the acyclic domain DAG, rendered via
-            Get-AdrDomainEdges | ConvertTo-AdrDomainDiagram, mirroring the module dependency graph). Each also
+            Get-DrsDomainEdges | ConvertTo-DrsDomainDiagram, mirroring the module dependency graph). Each also
             declares its row of the value-chain stack (`stack`: PRIN, DSGN, AUTO, PIPE, or CLOUD) and its default
             value-chain concerns (`concern`: a list of automation, build, quality-control, release, deploy, access),
             [DDR-TRACK-VALUECHAINSTACK](/docs/drs/design/tracks.md#rule-ddr-track-valuechainstack) and
@@ -28,8 +28,8 @@ Single source of truth for how the decision space is organised and cited. It dec
             and a one-segment external has no DC-segment to match. `concern` may be set on a LEAF to OVERRIDE
             the domain default, only when the ADR's place in the value chain differs from its domain's.
 
-Loaded via Get-Config -Config adrs; validated by its config type, AdrsConfig. index.md is a generated projection of
-this file (Build-AdrIndex) — see [ADR-REPO-README](/docs/drs/repository/generated-readmes.md) pattern.
+Loaded via Get-Config -Config drs; validated by its config type, DrsConfig. index.md is a generated projection of
+this file (Build-DrsIndex) — see [ADR-REPO-README](/docs/drs/repository/generated-readmes.md) pattern.
 ```
 
 ## comment:2

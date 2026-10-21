@@ -188,12 +188,12 @@ content:
           - docs/references/pwsh/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
           - docs/references/pwsh/catzc-base-config/private/Get-ConfigRegistry.ps1.md
           - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
-          - docs/references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md
-          - docs/references/pwsh/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
           - docs/references/pwsh/catzc-base-docs/Get-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-docs/private/Get-CatsAdrIndex.ps1.md
+          - docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-execution/Find-Executable.ps1.md
           - docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md
           - docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md
@@ -314,13 +314,13 @@ content:
           - ADR-PWSH-CACHE
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Docs/Get-AdrCitationMap.ps1
-          - pwsh/Catzc.Base.Docs/Get-CatsAdrRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
           - ADR-PWSH-CACHE
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
@@ -328,12 +328,12 @@ content:
           - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.Docs/private
         by:
-          - pwsh/Catzc.Base.Docs/private/Get-CatsAdrIndex.ps1
+          - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
           - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
           - ADR-PWSH-CACHE
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Base.Execution/.
@@ -458,7 +458,7 @@ content:
           - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
@@ -534,13 +534,13 @@ content:
           - ADR-PWSH-CACHE
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/Get-AdrCitationMap.ps1
-          - pwsh/Catzc.Base.Docs/Get-CatsAdrRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/private/Get-CatsAdrIndex.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
           - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - DDR-ASPECT
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
@@ -635,7 +635,7 @@ content:
         by:
           - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
           - pwsh/Catzc.Base.QualityGates/Test-ManagedGuids.ps1
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1

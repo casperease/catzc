@@ -242,8 +242,8 @@ content:
           - ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-NAMING-DETERMINISTICNAMES
           - ADR-AZ-NAMING-ENVIRONMENTFIRST
           - ADR-AZ-NAMING-LOWERCASECOMPONENTS
@@ -312,8 +312,8 @@ content:
           - ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-NAMING-DETERMINISTICNAMES
           - ADR-AZ-NAMING-ENVIRONMENTFIRST
           - ADR-AZ-NAMING-LOWERCASECOMPONENTS

@@ -180,7 +180,7 @@ with their replacements. A source's options default sensibly, and a source overr
 
 - **`Get-GlossarySourceViolations`** (`Catzc.Base.Docs`) checks the facts that span more than one source, over every source
   `Get-GlossarySources` discovers (`Get-Config -Config glossary -ListOwners`): a term or machine key declared by two sources and a domain
-  that `adrs.yml` does not declare (ADR-REPO-VOCAB-DEFINEDTERM), a contrast or relation target that no source defines and a source that git
+  that `drs.yml` does not declare (ADR-REPO-VOCAB-DEFINEDTERM), a contrast or relation target that no source defines and a source that git
   does not track (ADR-REPO-VOCAB-SOURCESINREPOSITORY), a contrast declared on both terms (ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED), and an
   avoided phrase that is another source's term (ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED). It names the source path and the term in one
   message per violation.

@@ -25,7 +25,7 @@ It reads files and never writes them: the result carries each changed file's new
 
 ## comment:2
 
-Above `public LinkEngine(string repositoryRoot, AdrCitationMap map, AdrsConfig adrs,...`, written with `//`.
+Above `public LinkEngine(string repositoryRoot, DrsCitationMap map, DrsConfig adrs,...`, written with `//`.
 
 ```text
 adrs: the registry; its code grammar (CodeForm) is what the citation checks match, its root where the record paths live.

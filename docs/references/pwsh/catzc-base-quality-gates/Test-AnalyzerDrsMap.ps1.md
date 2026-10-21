@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
+# pwsh/Catzc.Base.QualityGates/Test-AnalyzerDrsMap.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -7,16 +7,16 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: analyzer-adr-map.yml cites only real ADR rules and maps every custom analyzer rule.
+Quality gate: analyzer-drs-map.yml cites only real ADR rules and maps every custom analyzer rule.
 
 ### description
 
 A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the shipped
-analyzer map (configs/analyzer-adr-map.yml), the source of the 'pssa-rule' enforcer kind in the rule-coverage report
+analyzer map (configs/analyzer-drs-map.yml), the source of the 'pssa-rule' enforcer kind in the rule-coverage report
 ([ADR-PWSH-FORMAT-ANALYZERADRMAPPING](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-analyzeradrmapping)). The
 config load checks only its shape, so it stays hermetic; this gate cross-checks it against the repository and collects an issue for:
 
-- every rule id an analyzer cites that is not a real ADR rule (Get-CatsAdrRuleIds, in '#' citation form);
+- every rule id an analyzer cites that is not a real ADR rule (Get-CatsDrsRuleIds, in '#' citation form);
 - every custom analyzer check — a `Measure-*` function in `pwsh/.scriptanalyzer/*.psm1`, except the entry rule CatzcRules.psm1, which only
   dispatches — the map does not list, so a new custom rule cannot ship unmapped.
 
@@ -37,12 +37,12 @@ Return the result ({ Subject; IssueCount; Issues; ReportPath; Analyzers; CustomR
 ### example 1
 
 ```powershell
-Test-AnalyzerAdrMap
+Test-AnalyzerDrsMap
 ```
 
 ## comment:1
 
-Above `[string[]] $ruleIds = Get-CatsAdrRuleIds`, written with `#`.
+Above `[string[]] $ruleIds = Get-CatsDrsRuleIds`, written with `#`.
 
 ```text
 The rule ids are the codes the map cites, so they compare as they are. Typed assignment receives the comma-wrapped

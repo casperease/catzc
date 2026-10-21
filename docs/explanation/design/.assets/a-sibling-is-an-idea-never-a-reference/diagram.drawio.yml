@@ -138,8 +138,8 @@ content:
           - docs/references/agent-contracts.md
           - docs/references/note-file-kind.md
           - docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md
-          - docs/references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md
+          - docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md
           - docs/references/pwsh/catzc-base-files/Get-CodeCaller.ps1.md
           - docs/references/pwsh/catzc-base-files/Get-InputStamp.ps1.md
           - docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md
@@ -194,7 +194,7 @@ content:
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
@@ -209,11 +209,11 @@ content:
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Docs/tests/types
         by:
-          - pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/CheckModes.cs
+          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Files/.
         by:
@@ -400,8 +400,8 @@ content:
           - docs/references/agent-contracts.md
           - docs/references/note-file-kind.md
           - docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md
-          - docs/references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md
+          - docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md
           - docs/references/pwsh/catzc-base-files/Get-CodeCaller.ps1.md
           - docs/references/pwsh/catzc-base-files/Get-InputStamp.ps1.md
           - docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md
@@ -453,7 +453,7 @@ content:
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
-          - pwsh/Catzc.Base.Docs/types/CheckModes.cs
+          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - pwsh/Catzc.Base.Maps/types/MapCell.cs
           - pwsh/Catzc.Base.Maps/types/WorldMap.cs
           - pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
@@ -475,7 +475,7 @@ content:
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/powershell
         by:
-          - pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Files/Get-CodeCaller.ps1
           - pwsh/Catzc.Base.Files/Get-InputStamp.ps1
           - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
@@ -515,7 +515,7 @@ content:
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml

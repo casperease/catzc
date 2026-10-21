@@ -108,7 +108,7 @@ content:
           - ADR-AUTO-DEPM-TWOSECTIONS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DEPM-EXTENDBYDECLARING
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
           - ADR-AUTO-DEPM-TWOSECTIONS
@@ -161,7 +161,7 @@ content:
           - ADR-AUTO-DEPM-TWOSECTIONS
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DEPM-EXTENDBYDECLARING
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
           - ADR-AUTO-DEPM-TWOSECTIONS

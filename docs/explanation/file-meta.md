@@ -62,7 +62,7 @@ outside the head:
 | `page`, `test`                              | the `relative-edges` path rules and the disk                                                                                                                |
 | comments (a long comment lives on its page) | `comments.yml`, the code and its page ([ADR-REPO-COMMENTS-ONELINEOFINSIGHT](../drs/repository/comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)) |
 
-`Get-AdrUsage` counts the ADR citations and links of the tree through the same processors, so its rows are the same with or without heads.
+`Get-DrsUsage` counts the ADR citations and links of the tree through the same processors, so its rows are the same with or without heads.
 
 ## Keys a head does not carry
 
@@ -85,7 +85,7 @@ These keys are never written into a head; each still has its meaning and its one
 | `moduletype`   | the type of that module (pwsh-folder, settings, pipeline, …)                             | `module-types.yml`, through `Get-PathModule`                                          |
 | `catzc_bundle` | the smallest bundle of the catzc exporter that holds the module                          | `exporter.yml` and the module's profile, through `Get-ModuleProfile`                  |
 | `visibility`   | whether a PowerShell function file is public or private                                  | the module's `private/` folder                                                        |
-| `defines`      | the rules an ADR defines in its own rule headings                                        | the ADR's `### Rule` headings, read by `Get-AdrDefinedRule`                           |
+| `defines`      | the rules an ADR defines in its own rule headings                                        | the ADR's `### Rule` headings, read by `Get-DrsDefinedRule`                           |
 | `links`        | every link a Markdown file points out of itself                                          | the Markdown body, read by `Test-Links`                                               |
 
 The module facts, `module`, `moduletype`, `catzc_bundle`, `tracktype` and `vendor`, are each one question to the registry that places the

@@ -218,7 +218,7 @@ content:
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
@@ -268,7 +268,7 @@ content:
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL

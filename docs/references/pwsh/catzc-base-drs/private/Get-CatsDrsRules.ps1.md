@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/private/Get-CatsAdrRules.ps1
+# pwsh/Catzc.Base.Drs/private/Get-CatsDrsRules.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -19,7 +19,7 @@ the rule ([ADR-REPO-VOCAB-DEFINEDTERM](../../../../drs/repository/controlled-voc
 
 Private helper for Show-Cats and the glossary checks; not exported.
 
-### parameter `AdrPath`
+### parameter `DrsPath`
 
 Absolute path to the ADR markdown file.
 

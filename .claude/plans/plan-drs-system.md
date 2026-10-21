@@ -34,11 +34,6 @@ The prose still says "ADR" where it means any decision record: a reader who meet
 
 ## Open steps
 
-- [ ] `docs/drs/repository/drs-code-language.md`: a rule naming the DRS, `docs/drs/` its one root, every record of one registered kind, the
-      kinds together "XDR" (check: `Test-DrsRegistry`, `Test-Links` on the file).
-- [ ] `pwsh/Catzc.Base.Docs/configs/glossary.yml`: entries for **DRS**, **decision record** and **record kind**, each defined by the new
-      rule; `domain rules` reads "its decision records and the rules they state", avoid `house rules` say `domain rules / DRS rules` (check:
-      `Test-Glossary`, `Build-Glossary`).
 - [ ] `.claude/CLAUDE.md`, the user's edit: the structure line and the `## ADRs` section become `docs/drs/` and `## DRS`, "read
       `docs/drs/index.md`", "domain rules / DRS rules" (check: `Test-Links` on the file).
 - [ ] The prose sweep's clear patterns (the user, 2026-10-21; counts in `out/drs/prep/renames-and-prose.md`): the section heading

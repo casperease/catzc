@@ -45,7 +45,7 @@ Every lit cell comes from the files and codes tied to ADR-REPO-SLIDES-MINIMAPSFR
   ADR index, the domain's `dora-explains.md`, the `Catzc.Base.Slides` and `catzc_diagrams` references, and the `Build-Diagrams` help page.
 - **`pwsh` × powershell.** `pwsh/Catzc.Base.Slides/Build-Diagrams.ps1` and the grid minimap's test,
   `pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1`, cite the rule.
-- **`pwsh` × yaml.** `pwsh/Catzc.Base.Docs/configs/adrs.yml` registers the ruleset.
+- **`pwsh` × yaml.** `pwsh/Catzc.Base.Drs/configs/drs.yml` registers the ruleset.
 
 ## Why it holds
 

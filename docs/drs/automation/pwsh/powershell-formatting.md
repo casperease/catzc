@@ -49,9 +49,9 @@ version indents it identically.
 
 ### Rule ADR-PWSH-FORMAT-ANALYZERADRMAPPING
 
-The analyzer→ADR mapping — the source for the `pssa-rule` enforcer kind — lives in `Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`,
+The analyzer→ADR mapping — the source for the `pssa-rule` enforcer kind — lives in `Catzc.Base.QualityGates/configs/analyzer-drs-map.yml`,
 each enabled analyzer rule (a custom `Measure-*` rule or an enabled built-in) mapped to the citation(s) it enforces. Its shape is validated
-at load (its config type, `AnalyzerAdrMapConfig`); the `Test-AnalyzerAdrMap` quality gate checks that every mapped id resolves to a real
+at load (its config type, `AnalyzerDrsMapConfig`); the `Test-AnalyzerDrsMap` quality gate checks that every mapped id resolves to a real
 rule and that **every custom analyzer rule is mapped**, and an **integrity test** runs it, so a new custom rule cannot ship unmapped and a
 renumber breaks the build. Id existence is checked by that gate, not at load, keeping config load hermetic.
 
@@ -179,8 +179,8 @@ rules are on or off — and why (for example, line length is enforced by `.edito
 A PSScriptAnalyzer rule that fails the build enforces an ADR rule on every run, so the rule-coverage report of
 [test-automation](../test-automation.md#provenance-and-rule-coverage) counts it as an enforcer beside the tagged tests. The map from
 analyzer rule to citation sits with the analyzer quality gate (`Test-ScriptAnalyzer`) that runs those rules, not with the test runner: a
-custom rule is added here, in `pwsh/.scriptanalyzer/`, and its entry in `analyzer-adr-map.yml` is part of the same change.
-`Test-AnalyzerAdrMap` keeps the two in step — an unmapped custom rule, or a mapped id that no ADR declares, fails it. Checking id existence
+custom rule is added here, in `pwsh/.scriptanalyzer/`, and its entry in `analyzer-drs-map.yml` is part of the same change.
+`Test-AnalyzerDrsMap` keeps the two in step — an unmapped custom rule, or a mapped id that no ADR declares, fails it. Checking id existence
 in the gate rather than at config load is the same split the Azure customer catalogue uses: the load stays hermetic, and the cross-reference
 is a quality gate.
 
@@ -224,7 +224,7 @@ Every custom analyzer rule names the ADR rule it enforces in the analyzer map.
   `.compiled` (build output) folders, `assets/`, and generated module manifests are excluded as vendored or generated rather than authored
   source. A custom rule's `*.Tests.ps1` embeds the very anti-patterns the rule forbids as fixtures, so it carries a file-scoped
   `SuppressMessageAttribute` for its own rule. Formatting violations fail the build.
-- **`Test-AnalyzerAdrMap`** — the quality gate over `analyzer-adr-map.yml` (ADR-PWSH-FORMAT-ANALYZERADRMAPPING), run by its integrity test.
+- **`Test-AnalyzerDrsMap`** — the quality gate over `analyzer-drs-map.yml` (ADR-PWSH-FORMAT-ANALYZERADRMAPPING), run by its integrity test.
 
 ## Consequences
 

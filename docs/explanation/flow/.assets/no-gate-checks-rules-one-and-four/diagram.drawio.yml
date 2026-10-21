@@ -133,7 +133,7 @@ content:
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops/Test-Pipelines.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops/private/Get-PipelineTemplateReference.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
@@ -161,7 +161,7 @@ content:
           - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-IMPORTONCE
@@ -169,7 +169,7 @@ content:
           - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-IMPORTONCE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
@@ -211,8 +211,8 @@ content:
           - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-IMPORTONCE

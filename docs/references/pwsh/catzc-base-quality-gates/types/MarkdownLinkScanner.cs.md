@@ -21,7 +21,7 @@ have it. Code links are not checked this way — no hosted renderer follows a co
 
 ## comment:2
 
-Above `public MarkdownLinkScanner(string repositoryRoot, Catzc.Base.Docs.AdrCodeForm...`, written with `//`.
+Above `public MarkdownLinkScanner(string repositoryRoot, Catzc.Base.Drs.DrsCodeForm...`, written with `//`.
 
 ```text
 codeForm: the code grammar over the registered kinds, which the numbered-citation check matches.

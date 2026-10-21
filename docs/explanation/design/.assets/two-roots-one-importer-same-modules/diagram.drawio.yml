@@ -154,7 +154,7 @@ content:
           - DDR-RUNMODE-SAMEMODULEINBOTH
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - DDR-RUNMODE-OWNSCRIPTSCOPE
           - DDR-RUNMODE-SAMEMODULEINBOTH
@@ -241,7 +241,7 @@ content:
           - DDR-RUNMODE-SAMEMODULEINBOTH
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
           - DDR-RUNMODE-OWNSCRIPTSCOPE

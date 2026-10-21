@@ -154,13 +154,13 @@ content:
           - docs/references/pwsh/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md
           - docs/references/pwsh/catzc-base-contracts/types/ContractsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-docs/configs/adr-checks.yml.md
-          - docs/references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md
+          - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
+          - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/CheckMode.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md
           - docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
           - docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md
           - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
@@ -273,15 +273,15 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-checks.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Docs/private
         by:
-          - pwsh/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
@@ -289,16 +289,16 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Docs/tests/types
         by:
-          - pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/LearningsConfig.Tests.ps1
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrChecksConfig.cs
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - pwsh/Catzc.Base.Docs/types/CheckMode.cs
-          - pwsh/Catzc.Base.Docs/types/CheckModes.cs
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
+          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.Engines/types
         by:
@@ -381,7 +381,7 @@ content:
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/comments.yml
           - pwsh/Catzc.Base.QualityGates/configs/file-meta.yml
           - pwsh/Catzc.Base.QualityGates/configs/links.yml
@@ -398,7 +398,7 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.QualityGates/tests
         by:
-          - pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-DrsCodesFileMetaFact.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-ShippedConfigs.Tests.ps1
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.QualityGates/tests/types
@@ -561,19 +561,19 @@ content:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - pwsh/Catzc.Base.Docs/configs/adr-checks.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - pwsh/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
+          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/LearningsConfig.Tests.ps1
-          - pwsh/Catzc.Base.Docs/types/AdrChecksConfig.cs
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - pwsh/Catzc.Base.Docs/types/CheckMode.cs
-          - pwsh/Catzc.Base.Docs/types/CheckModes.cs
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
+          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Base.Engines
@@ -634,7 +634,7 @@ content:
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/comments.yml
           - pwsh/Catzc.Base.QualityGates/configs/file-meta.yml
           - pwsh/Catzc.Base.QualityGates/configs/links.yml
@@ -644,7 +644,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/private/Get-LinkLineLimit.ps1
           - pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
           - pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
-          - pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-DrsCodesFileMetaFact.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-ShippedConfigs.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1

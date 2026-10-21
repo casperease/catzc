@@ -65,14 +65,14 @@ An explanation article narrates one diagram: how one part of cats works and why 
 ADRs capture a decision so it can be cited and enforced. They follow a fixed shape — read [`docs/drs/index.md`](../../../drs/index.md)
 ("Authoring conventions") in full before writing, and copy the structure of an existing ADR. The essentials:
 
-1. **Pick the domain and a code.** ADRs are grouped into the domains `pwsh/Catzc.Base.Docs/configs/adrs.yml` lists, each in its own folder
+1. **Pick the domain and a code.** ADRs are grouped into the domains `pwsh/Catzc.Base.Drs/configs/drs.yml` lists, each in its own folder
    under `docs/drs/`. The code is the domain's prefix plus a segment that names the decision (e.g. `TDR-NORMALFORM`), as
    [adr-code-language](../../../drs/repository/drs-code-language.md) sets out.
 2. **Create `docs/drs/<domain-folder>/<kebab-title>.md`.** Start with the rule registry: a `## Rules: <code>` section followed by one
    `### Rule <code>-<RULENAME>` entry per rule, each a one-paragraph normative summary that links to the prose section justifying it. Other
    code and docs cite a rule by that full code (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`); a rule has a name, never a number.
 3. **Then the prose**: `## Context`, `## Decision`, optionally `## How this is enforced`, `## Consequences`.
-4. **Register it.** Add the ruleset to its domain in `adrs.yml` (the next import regenerates the code → ADR table in `docs/drs/index.md`),
+4. **Register it.** Add the ruleset to its domain in `drs.yml` (the next import regenerates the code → ADR table in `docs/drs/index.md`),
    add its entry to the domain's `dora-explains.md`, and add a bullet under the right section of [`docs/index.md`](../../../index.md). The
    whole sequence, with its builds and checks, is [Add an ADR](add-an-adr.md).
 

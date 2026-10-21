@@ -20,7 +20,7 @@ AgentsConfig; Get-Config -Config capabilities, a CapabilitiesConfig), and the `#
 - a file's front matter does not parse, its `name` differs from the file name, or it lacks a `description`, a `Do NOT` clause in that
   description, or `tools`
   ([ADR-REPO-AGENTS-ONEFILEPERAGENT](../../../drs/repository/agent-definitions.md#rule-adr-repo-agents-onefileperagent));
-- a `supported_by` citation names no rule (Get-CatsAdrRuleIds), or a `checks` entry names no command
+- a `supported_by` citation names no rule (Get-CatsDrsRuleIds), or a `checks` entry names no command
   ([ADR-REPO-AGENTS-BACKEDBYRULE](../../../drs/repository/agent-definitions.md#rule-adr-repo-agents-backedbyrule));
 - a registered agent is not listed in the CLAUDE.md section, or a listed agent is not registered
   ([ADR-REPO-AGENTS-LISTEDINCLAUDEFILE](../../../drs/repository/agent-definitions.md#rule-adr-repo-agents-listedinclaudefile));

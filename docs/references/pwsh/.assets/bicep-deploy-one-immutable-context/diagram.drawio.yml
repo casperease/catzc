@@ -202,11 +202,11 @@ content:
           - docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
-          - docs/references/pwsh/catzc-base-docs/Build-AdrCodeDictionary.ps1.md
-          - docs/references/pwsh/catzc-base-docs/Build-AdrIndex.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Build-DrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-docs/Build-GitKeep.ps1.md
           - docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md
-          - docs/references/pwsh/catzc-base-docs/Update-AdrCitation.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Update-DrsCitation.ps1.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
           - docs/references/pwsh/catzc-base-exporter/Build-Modules.ps1.md
           - docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md
@@ -299,15 +299,15 @@ content:
           - ADR-AZ-DATAMOD-VALUEBYADDRESS
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Docs/Build-AdrCodeDictionary.ps1
-          - pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
+          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
+          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
           - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
-          - pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
+          - pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
           - ADR-AUTO-DRYRUN
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DRYRUN
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-VALUEBYADDRESS
@@ -316,7 +316,7 @@ content:
           - ADR-PWSH-PREPOST
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
-          - pwsh/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
           - ADR-AUTO-DRYRUN
       - cell: pwsh/Catzc.Base.Environment/.
         by:
@@ -437,13 +437,13 @@ content:
           - ADR-PWSH-PREPOST
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/Build-AdrCodeDictionary.ps1
-          - pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
+          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
+          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
           - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
-          - pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
+          - pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
           - ADR-AUTO-DRYRUN
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-VALUEBYADDRESS

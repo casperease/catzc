@@ -14,7 +14,7 @@ Rewrites the ADR references in one comment into canonical code links
   `[ADR-<CODE>-<NAME>](/docs/drs/<path>.md#rule-adr-<code>-<name>)`  one rule
 Every other spelling is recognised — a bare, ./, ../ or rooted docs/drs path, an ADR file name alone, a bare
 citation, a path followed by its own citation, and a markdown link in another shape — and a numbered citation is
-reported, since it names no rule. The citation code is the source of truth: the destination is derived from it (AdrCitationMap), so a stale
+reported, since it names no rule. The citation code is the source of truth: the destination is derived from it (DrsCitationMap), so a stale
 path is re-pointed and a text/destination mismatch resolves in favour of the code.
 Inline code spans and a PowerShell help block's .EXAMPLE sections are literal and never touched. Pure: it returns
 the new comment text and reports what it found at comment-relative offsets; the engine owns files and positions.
@@ -78,7 +78,7 @@ A meta head is derived front matter: its adrs list holds the file's codes as pla
 
 ## comment:8
 
-Above `public CodeLinkRewriter(AdrCitationMap map, AdrsConfig adrs, Func<string,...`, written with `//`.
+Above `public CodeLinkRewriter(DrsCitationMap map, DrsConfig adrs, Func<string,...`, written with `//`.
 
 ```text
 adrs: the registry, for its code grammar over the registered kinds and its root; anchorsOf: repository-relative .md path -> its GitHub anchors (null when the

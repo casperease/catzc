@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/types/AdrCitationRewriter.cs
+# pwsh/Catzc.Base.Drs/types/DrsCitationRewriter.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -22,11 +22,11 @@ repository-relative and '/'-separated, so the result depends only on the text, t
 
 ## comment:2
 
-Above `public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows,...`, written with `//`.
+Above `public DrsCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows,...`, written with `//`.
 
 ```text
 codeRows: one dictionary per code-map row (old_code, new_code, old_path, new_path, kind; '-' for none), paths
-relative to the root (a root row's two paths repository-relative). ruleRows: one dictionary per rule-map row (old_rule, new_rule, kind), each a rule's code. citations: the ADR index (Get-AdrCitationMap), which supplies the path of a rule's new code when
+relative to the root (a root row's two paths repository-relative). ruleRows: one dictionary per rule-map row (old_rule, new_rule, kind), each a rule's code. citations: the ADR index (Get-DrsCitationMap), which supplies the path of a rule's new code when
 the code map does not name it; null when the code map names every path.
 ```
 
@@ -51,11 +51,11 @@ An in-file anchor of a page that is not the rule's ADR (a generated list with it
 
 ## comment:5
 
-Above `public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows,...`, written with `//`.
+Above `public DrsCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows,...`, written with `//`.
 
 ```text
 treeFiles are the repository-relative paths of the files under docs/drs in the tree, before or after a folder moves;
-kinds are the record kinds the registry declares (AdrsConfig.Kinds), old and new codes alike.
+kinds are the record kinds the registry declares (DrsConfig.Kinds), old and new codes alike.
 ```
 
 ## comment:6

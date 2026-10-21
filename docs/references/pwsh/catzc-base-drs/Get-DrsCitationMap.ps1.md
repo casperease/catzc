@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/Get-AdrCitationMap.ps1
+# pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -11,8 +11,8 @@ Builds the ADR citation map: every citation code to its ADR's path and declared 
 
 ### description
 
-Reads the rule-citation registry in `<root>/docs/drs/index.md` (Get-CatsAdrIndex) and each listed ADR's `### Rule <CODE>:<n>` headings
-(Get-CatsAdrRules), and returns one immutable `[Catzc.Base.Docs.AdrCitationMap]`: code -> repository-relative ADR path and rule numbers, the
+Reads the rule-citation registry in `<root>/docs/drs/index.md` (Get-CatsDrsIndex) and each listed ADR's `### Rule <CODE>:<n>` headings
+(Get-CatsDrsRules), and returns one immutable `[Catzc.Base.Drs.DrsCitationMap]`: code -> repository-relative ADR path and rule numbers, the
 reverse path -> code map, and a unique-slug -> path map over every markdown file under docs/drs/ (so a stale path to a moved ADR resolves by
 its file name). The link engine derives every code link's destination from it
 ([ADR-REPO-LINK-CODELINKS](../../../drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)).
@@ -26,12 +26,12 @@ The repository root whose [index](../../../drs/index.md) is read. Defaults to th
 
 ### outputs
 
-`[Catzc.Base.Docs.AdrCitationMap]`
+`[Catzc.Base.Drs.DrsCitationMap]`
 
 ### example 1
 
 ```powershell
-(Get-AdrCitationMap).Destination('ADR-PWSH-ERROR', 3)   # /docs/drs/automation/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror
+(Get-DrsCitationMap).Destination('ADR-PWSH-ERROR', 3)   # /docs/drs/automation/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror
 ```
 
 ## comment:1

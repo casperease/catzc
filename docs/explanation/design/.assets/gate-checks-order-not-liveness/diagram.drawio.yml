@@ -130,7 +130,7 @@ content:
           - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-PARTITIONISCHECKED
           - DDR-ASPECT-TRACKPICKSCATCHALL
@@ -239,7 +239,7 @@ content:
           - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-PARTITIONISCHECKED

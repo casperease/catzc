@@ -95,7 +95,7 @@ content:
           - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-NORECONCILINGTIPS
           - DDR-REMOTE-PULLREQUESTISINGRESS
@@ -123,7 +123,7 @@ content:
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-NORECONCILINGTIPS
           - DDR-REMOTE-PULLREQUESTISINGRESS

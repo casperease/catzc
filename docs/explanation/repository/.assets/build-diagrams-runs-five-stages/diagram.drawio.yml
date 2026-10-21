@@ -78,7 +78,7 @@ content:
           - docs/references/pwsh/catzc-base-slides.md
           - docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md
           - docs/references/python/catzc_diagrams.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
           - pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
           - ADR-REPO-SLIDES-MINIMAPSFROMDATA
@@ -107,7 +107,7 @@ content:
           - ADR-REPO-SLIDES-MINIMAPSFROMDATA
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-SLIDES-MINIMAPSFROMDATA
 layout:
   band-pipeline:

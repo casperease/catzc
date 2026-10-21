@@ -66,8 +66,8 @@ double-report the source. See
 Above `'!docs/drs/index.md'`, written with `#`.
 
 ```text
-[index](/docs/drs/index.md) is generated from adrs.yml (Build-AdrIndex) — a derived artifact whose source
-(adrs.yml + the generator's prose) is what is linted, not the projection.
+[index](/docs/drs/index.md) is generated from drs.yml (Build-DrsIndex) — a derived artifact whose source
+(drs.yml + the generator's prose) is what is linted, not the projection.
 ```
 
 ## comment:3

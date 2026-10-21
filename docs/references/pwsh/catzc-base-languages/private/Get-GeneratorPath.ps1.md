@@ -18,7 +18,7 @@ It rests on [ADR-REPO-FILEMETA-COMPOSEDFILES](../../../../drs/repository/file-me
 
 ### parameter `Name`
 
-The generator command, such as Build-AdrIndex.
+The generator command, such as Build-DrsIndex.
 
 ### outputs
 
@@ -27,5 +27,5 @@ The generator command, such as Build-AdrIndex.
 ### example 1
 
 ```powershell
-Get-GeneratorPath Build-AdrIndex
+Get-GeneratorPath Build-DrsIndex
 ```

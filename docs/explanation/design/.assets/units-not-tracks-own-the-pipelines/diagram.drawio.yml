@@ -143,7 +143,7 @@ content:
           - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-ONETECHSTACK
           - DDR-TRACK-ONETRACKTYPE
@@ -231,7 +231,7 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-ONETECHSTACK
           - DDR-TRACK-ONETRACKTYPE

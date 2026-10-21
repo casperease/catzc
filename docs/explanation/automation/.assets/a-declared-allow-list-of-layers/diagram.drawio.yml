@@ -123,7 +123,7 @@ content:
           - ADR-AUTO-DEPM-TWOSECTIONS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DEPM-CODEBUILTFROM
           - ADR-AUTO-DEPM-EXTENDBYDECLARING
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
@@ -147,7 +147,7 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DEPM-CODEBUILTFROM
           - ADR-AUTO-DEPM-EXTENDBYDECLARING
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY

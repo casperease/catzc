@@ -11,7 +11,7 @@ Maps every indexed ADR rule id to the text of its normative summary that can def
 
 ### description
 
-Walks the ADRs the index lists (Get-CatsAdrIndex) and reads each one's rules (Get-CatsAdrRules), keeping each rule's Statement — its whole
+Walks the ADRs the index lists (Get-CatsDrsIndex) and reads each one's rules (Get-CatsDrsRules), keeping each rule's Statement — its whole
 normative summary on one line — with inline code spans removed. A code span is a mention, never a definition
 ([ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)),
 so `A **<term>** is …` written in backticks neither anchors nor defines a term. This is the one text the anchoring (G2) and

@@ -95,7 +95,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             $message | Should -Match 'ADR-WI-ONE: no ADR file docs/drs/widget/\*\*/widget-one\.md'
             $message | Should -Match 'ADR-GA-ONE: 2 ADR files named gadget-one\.md under docs/drs/gadget/'
             $message | Should -Match "docs/drs/gadget/widget-one\.md: must head its rule registry '## Rules: ADR-GA-WIDGET'"
-            $message | Should -Match "docs/drs/gadget/gizmo\.md: declares '## Rules: ADR-GA-GIZMO' but no adrs\.yml rule set registers it"
+            $message | Should -Match "docs/drs/gadget/gizmo\.md: declares '## Rules: ADR-GA-GIZMO' but no drs\.yml rule set registers it"
         }
 
         It 'returns the issues under -PassThru instead of throwing' {

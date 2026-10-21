@@ -135,7 +135,7 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
           - DDR-TRACK-UNORDEREDTRACK
           - TDR-NORMALFORM-ANYCODEHASNORMALFORM
@@ -147,7 +147,7 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
           - DDR-TRACK-UNORDEREDTRACK
           - TDR-NORMALFORM-ANYCODEHASNORMALFORM
@@ -159,7 +159,7 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
           - DDR-TRACK-UNORDEREDTRACK
           - TDR-NORMALFORM-ANYCODEHASNORMALFORM
@@ -171,7 +171,7 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
           - DDR-TRACK-UNORDEREDTRACK
           - TDR-NORMALFORM-ANYCODEHASNORMALFORM
@@ -208,7 +208,7 @@ content:
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
           - pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1

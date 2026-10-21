@@ -32,7 +32,7 @@ The test file's syntax tree (parsed once by the caller).
 
 ### parameter `Code`
 
-The real ADR codes, from the ADR registry (Get-AdrCitationMap).
+The real ADR codes, from the ADR registry (Get-DrsCitationMap).
 
 ### outputs
 

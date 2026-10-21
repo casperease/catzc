@@ -39,7 +39,7 @@ list (Write-ReportModeFinding) and never fail the run.
   (Get-EngineSetFinding), with the engine names read from `[Catzc.Base.Engines.ExecutionEngines]`;
 - neutral_codes: an L0 test's fixture data names no real ADR code
   ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) — in
-  every test file, a code the ADR registry declares (Get-AdrCitationMap) in a string literal of an L0 block, outside -Tag
+  every test file, a code the ADR registry declares (Get-DrsCitationMap) in a string literal of an L0 block, outside -Tag
   (Get-NeutralCodeFinding).
 
 Both leave out the files the content tools leave as written (Get-ContentExemptPath: vendored, generated, fixture, contract).

@@ -126,7 +126,7 @@ content:
           - ADR-AUTO-PATH-OUTANCHOR
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/readme.yml
           - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
           - ADR-AUTO-PATH-OUTANCHOR
@@ -177,7 +177,7 @@ content:
           - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/readme.yml
           - pwsh/Catzc.Base.Docs/types/DocMapping.cs
           - pwsh/Catzc.Base.Docs/types/DocPattern.cs

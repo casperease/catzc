@@ -109,7 +109,7 @@ content:
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/configs/build-validation.yml.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/private/Get-BuildValidationPathFilter.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
           - docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
           - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
@@ -142,11 +142,11 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.Globs/.
         by:
@@ -201,8 +201,8 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/Catzc.Base.Globs
         by:

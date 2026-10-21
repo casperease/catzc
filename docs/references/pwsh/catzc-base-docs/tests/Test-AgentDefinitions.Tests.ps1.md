@@ -9,7 +9,7 @@ Above `Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-AgentDefinitions over a fixture .claude/ tree in $TestDrive and a fixture AgentsConfig (Get-Config,
-Resolve-RepoPath, and Get-CatsAdrRuleIds mocked), so each test pins one rule. Neutral fixture names
+Resolve-RepoPath, and Get-CatsDrsRuleIds mocked), so each test pins one rule. Neutral fixture names
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the real-tree run is the
 integrity block at the end of this file.
 ```

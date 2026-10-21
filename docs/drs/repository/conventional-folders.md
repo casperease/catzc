@@ -43,7 +43,7 @@ pages that embed its diagrams and holds one folder per diagram, `<page-folder>/.
 folder holds everything the diagram owns under role names: its one source `diagram.drawio.yml`, the render `diagram.drawio.png` put from it,
 and a `diagram.drawio.verify.md` record where the diagram has one (each drawn claim, the `file:line` that backs it, and its status); its
 minimaps are embedded in the render, drawn from computed data, never kept as files of their own. Each subfolder of `docs/drs/` is an ADR
-**domain**: a group of ADRs that `adrs.yml` declares with its role and the domains it depends on.
+**domain**: a group of ADRs that `drs.yml` declares with its role and the domains it depends on.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -245,7 +245,7 @@ a reader infers it (_semantic_).
 | Directory         | Kind     | Meaning                                                                                                                                                                | Programmed against by                                               |
 | ----------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `pwsh/`           | contract | Module system root — all PowerShell modules and infrastructure (Levels 2–3)                                                                                            | `importer.ps1`, `Test-Automation`, `Install-VendorModule`           |
-| `docs/`           | mixed    | Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `explanation/` articles, `.assets/` diagrams                              | `Build-AdrIndex`, `Build-Readme`; human consumption                 |
+| `docs/`           | mixed    | Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `explanation/` articles, `.assets/` diagrams                              | `Build-DrsIndex`, `Build-Readme`; human consumption                 |
 | `infrastructure/` | mixed    | Bicep IaC — reusable `modules/` and deployable `templates/<name>/`                                                                                                     | Bicep build/deploy tooling, `Get-BicepTemplates`                    |
 | `contracts/`      | contract | Binding contracts at the repository boundary, both directions — `<unit>/<version>/<module>/<path>`; see [api-contracts](api-contracts.md)                              | The owning modules' contract tests; outside consumers and platforms |
 | `go/`             | contract | The Go root: black-box Go tests, `tests/<module>/`; see [go-test-artifacts](../automation/go/go-test-artifacts.md)                                                     | `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`                      |
@@ -266,7 +266,7 @@ a reader infers it (_semantic_).
 and each has its own conventional sub-layout:
 
 **`docs/`** holds five folders. `adr/` is the Architecture Decision Records, one subfolder per domain declared in
-`pwsh/Catzc.Base.Docs/configs/adrs.yml`: `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`, `configuration/`,
+`pwsh/Catzc.Base.Drs/configs/drs.yml`: `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`, `configuration/`,
 `ado/`, `github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that registry and describes each
 domain, so the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles,
 including the sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference

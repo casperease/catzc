@@ -122,7 +122,7 @@ content:
           - DDR-RUNMODE-SAMEMODULEINBOTH
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - DDR-RUNMODE-MODEISDERIVED
           - DDR-RUNMODE-NEVERCOEXIST
@@ -287,7 +287,7 @@ content:
           - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - DDR-RUNMODE-MODEISDERIVED
           - DDR-RUNMODE-NEVERCOEXIST

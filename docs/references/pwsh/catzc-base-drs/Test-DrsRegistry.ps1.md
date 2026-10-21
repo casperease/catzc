@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/Test-AdrRegistry.ps1
+# pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -7,30 +7,30 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Quality gate: the ADR registry (adrs.yml) and the ADR rule files under docs/drs/ agree.
+Quality gate: the ADR registry (drs.yml) and the ADR rule files under docs/drs/ agree.
 
 ### description
 
 A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the ADR
-registry (Get-Config -Config adrs, an AdrsConfig) and the ADR files it registers. An ADR rule file is a `docs/drs/**/*.md` that declares a
+registry (Get-Config -Config drs, an DrsConfig) and the ADR files it registers. An ADR rule file is a `docs/drs/**/*.md` that declares a
 `## Rules: <code>` registry; the other files there (the generated index and glossary, each domain's dora-explains.md, a folder's index.md or
 README.md) carry none and are out of scope. It collects an issue when:
 
 - a rule set has no file `docs/drs/<domain>/**/<slug>.md`, or more than one;
 - a rule set's file does not head its registry `## Rules: <External>` with the registered external code;
-- a rule file is registered by no rule set (its `<domain folder>/<slug>` is not in adrs.yml).
+- a rule file is registered by no rule set (its `<domain folder>/<slug>` is not in drs.yml).
 
-It also runs two checks whose mode is configured in adr-checks.yml (Catzc.Base.Docs.AdrChecksConfig):
+It also runs two checks whose mode is configured in drs-checks.yml (Catzc.Base.Drs.DrsChecksConfig):
 
 - citation graph (citation_graph): an ADR page cites only its own domain or a domain in its domain's depends_on
-  (Get-AdrCitationGraphViolations);
+  (Get-DrsCitationGraphViolations);
 - DORA coverage (dora_coverage): every rule set whose domain is not exempt has exactly one section linking its ADR in its domain's DORA file
-  (Get-AdrDoraCoverageViolations).
+  (Get-DrsDoraCoverageViolations).
 
 A check in gate mode adds its findings to this gate's issues. A check in report mode writes its own report (`out/test-adr-<check>/`,
 Write-QualityGateReport), prints its findings and their count, and never fails the run.
 
-The registry's own invariants (unique external codes, domain links that are declared and acyclic) are AdrsConfig construction rules, not
+The registry's own invariants (unique external codes, domain links that are declared and acyclic) are DrsConfig construction rules, not
 this gate's.
 
 ### parameter `OutputFolder`
@@ -51,7 +51,7 @@ check's findings in either mode.
 ### example 1
 
 ```powershell
-Test-AdrRegistry
+Test-DrsRegistry
 ```
 
 ## comment:1

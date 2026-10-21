@@ -20,6 +20,6 @@ on a highlight, the requested ADRs that light it. A result type, so the properti
 Above `public IReadOnlyList<string> Adrs { get; }`, written with `//`.
 
 ```text
-The ADR codes (ADR-<CODE>) in the cell: on the map in adrs.yml order, on a highlight in request order. Empty for an
+The ADR codes (ADR-<CODE>) in the cell: on the map in drs.yml order, on a highlight in request order. Empty for an
 empty cell of the grid.
 ```

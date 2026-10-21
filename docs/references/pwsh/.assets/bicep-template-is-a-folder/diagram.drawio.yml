@@ -216,19 +216,19 @@ content:
           - docs/references/pwsh/catzc-base-contracts/types/ContractCheckResult.cs.md
           - docs/references/pwsh/catzc-base-contracts/types/ContractManifest.cs.md
           - docs/references/pwsh/catzc-base-contracts/types/ContractsConfig.cs.md
-          - docs/references/pwsh/catzc-base-docs/tests/types/AdrDomainEdge.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrCheck.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrCitationChange.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrCitationChangeKind.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrCitationRewrite.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrDomain.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrDomainEdge.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrDoraCheck.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrNeutralityCheck.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrNeutralityToken.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrRuleSet.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/tests/types/DrsDomainEdge.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsCheck.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsCitationChange.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsCitationChangeKind.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsCitationRewrite.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsDomain.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsDomainEdge.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsDoraCheck.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsNeutralityCheck.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsNeutralityToken.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsRuleSet.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/AgentEntry.cs.md
           - docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryAvoid.cs.md
@@ -284,10 +284,10 @@ content:
           - docs/references/pwsh/catzc-base-module-system/types/ProfilesConfig.cs.md
           - docs/references/pwsh/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md
           - docs/references/pwsh/catzc-base-objects/types/TypeShape.cs.md
-          - docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-adr-map.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-drs-map.yml.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerAdrMapConfig.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerDrsMapConfig.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/types/CommentFileResult.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/types/CommentsConfig.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/types/EngineSetCheck.cs.md
@@ -482,8 +482,8 @@ content:
           - ADR-BCL-TYPES
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
@@ -492,25 +492,25 @@ content:
           - ADR-CONF-ADDRESSING
       - cell: pwsh/Catzc.Base.Docs/tests/types
         by:
-          - pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/types/AdrDomainEdge.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsCodeForm.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsConfig.Tests.ps1
           - ADR-BCL-TYPES
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrCheck.cs
-          - pwsh/Catzc.Base.Docs/types/AdrChecksConfig.cs
-          - pwsh/Catzc.Base.Docs/types/AdrCitationChange.cs
-          - pwsh/Catzc.Base.Docs/types/AdrCitationChangeKind.cs
-          - pwsh/Catzc.Base.Docs/types/AdrCitationRewrite.cs
-          - pwsh/Catzc.Base.Docs/types/AdrDomain.cs
-          - pwsh/Catzc.Base.Docs/types/AdrDomainEdge.cs
-          - pwsh/Catzc.Base.Docs/types/AdrDoraCheck.cs
-          - pwsh/Catzc.Base.Docs/types/AdrNeutralityCheck.cs
-          - pwsh/Catzc.Base.Docs/types/AdrNeutralityToken.cs
-          - pwsh/Catzc.Base.Docs/types/AdrRuleSet.cs
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationChange.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationChangeKind.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationRewrite.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDomain.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDomainEdge.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDoraCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsNeutralityToken.cs
+          - pwsh/Catzc.Base.Drs/types/DrsRuleSet.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/AgentEntry.cs
           - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
           - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
@@ -624,7 +624,7 @@ content:
           - ADR-BCL-TYPES
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - ADR-AZ-CUSTOMER
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
@@ -633,7 +633,7 @@ content:
           - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Base.QualityGates/types
         by:
-          - pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+          - pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentBlock.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentFileResult.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
@@ -847,25 +847,25 @@ content:
           - ADR-BCL-TYPES
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/types/AdrDomainEdge.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
-          - pwsh/Catzc.Base.Docs/types/AdrCheck.cs
-          - pwsh/Catzc.Base.Docs/types/AdrChecksConfig.cs
-          - pwsh/Catzc.Base.Docs/types/AdrCitationChange.cs
-          - pwsh/Catzc.Base.Docs/types/AdrCitationChangeKind.cs
-          - pwsh/Catzc.Base.Docs/types/AdrCitationRewrite.cs
-          - pwsh/Catzc.Base.Docs/types/AdrDomain.cs
-          - pwsh/Catzc.Base.Docs/types/AdrDomainEdge.cs
-          - pwsh/Catzc.Base.Docs/types/AdrDoraCheck.cs
-          - pwsh/Catzc.Base.Docs/types/AdrNeutralityCheck.cs
-          - pwsh/Catzc.Base.Docs/types/AdrNeutralityToken.cs
-          - pwsh/Catzc.Base.Docs/types/AdrRuleSet.cs
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsCodeForm.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/types/DrsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Drs/types/DrsCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationChange.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationChangeKind.cs
+          - pwsh/Catzc.Base.Drs/types/DrsCitationRewrite.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDomain.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDomainEdge.cs
+          - pwsh/Catzc.Base.Drs/types/DrsDoraCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsNeutralityToken.cs
+          - pwsh/Catzc.Base.Drs/types/DrsRuleSet.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/AgentEntry.cs
           - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
           - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
@@ -963,10 +963,10 @@ content:
           - ADR-BCL-TYPES
       - cell: subject/Catzc.Base.QualityGates
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
-          - pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+          - pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentBlock.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentFileResult.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs

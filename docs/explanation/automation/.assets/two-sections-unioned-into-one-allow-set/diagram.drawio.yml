@@ -140,7 +140,7 @@ content:
           - ADR-AUTO-DEPM-UNIFIEDGRAPH
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
           - ADR-AUTO-DEPM-TWOSECTIONS
           - ADR-AUTO-DEPM-UNIFIEDGRAPH
@@ -193,7 +193,7 @@ content:
           - ADR-AUTO-DEPM-UNIFIEDGRAPH
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
           - ADR-AUTO-DEPM-TWOSECTIONS
           - ADR-AUTO-DEPM-UNIFIEDGRAPH

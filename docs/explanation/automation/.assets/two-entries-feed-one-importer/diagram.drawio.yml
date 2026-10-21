@@ -130,7 +130,7 @@ content:
           - ADR-AUTO-BUNDLE-TWOROOTS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
       - cell: pwsh/Catzc.Base.Exporter/configs
@@ -188,7 +188,7 @@ content:
           - ADR-AUTO-BUNDLE-TWOROOTS
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Exporter/configs/exporter.yml
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS

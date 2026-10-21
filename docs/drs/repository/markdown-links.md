@@ -192,7 +192,7 @@ mechanically and `Test-Links` checks them.
   citation code or rule, numbered citation, link that climbs above the root, self-URL outside `.github/`, or missing docs path in a
   PowerShell string.
 - **One engine** — both commands drive the compiled `Catzc.Base.QualityGates.LinkEngine` over the files in parallel, with the citation map
-  from `Get-AdrCitationMap` (in `Catzc.Base.Docs`), so the aligner and the gate cannot disagree.
+  from `Get-DrsCitationMap` (in `Catzc.Base.Docs`), so the aligner and the gate cannot disagree.
 - **The VS Code registries** — `vscode-extensions.yml` recommends Regex Robin and `vscode-settings.yml` carries the `regexrobin.rules`
   code-link rule, and `vscode-settings.yml` enables markdown link validation and link updates on file moves; `Build-RootConfig` renders both
   into `.vscode/`, so every clone gets the same Ctrl+clickable code links and in-editor link warnings.

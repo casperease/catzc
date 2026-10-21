@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/types/AdrRuleSet.cs
+# pwsh/Catzc.Base.Drs/types/DrsRuleSet.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -8,11 +8,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System.Collections.Generic;`, written with `//`.
 
 ```text
-One ADR rule-set (an ADR) as declared in adrs.yml: its internal kebab Slug, full External citation code
+One ADR rule-set (an ADR) as declared in drs.yml: its internal kebab Slug, full External citation code
 (ADR-<DC>-<NAME>), the effective domain Code (a leaf override, else the domain default DomainCode), the
 folder-owning Domain and its Role, the optional Terminology token, the domain's row of the value-chain stack
 (Stack), and the effective value-chain Concerns (a ruleset override, else the domain default DomainConcerns).
-A processed record built and validated by AdrsConfig — not a raw YAML mirror, so PascalCase
+A processed record built and validated by DrsConfig — not a raw YAML mirror, so PascalCase
 ([ADR-BCL-TYPES](/docs/drs/automation/BCL/native-csharp-types.md),
 [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel),
 [DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern)).

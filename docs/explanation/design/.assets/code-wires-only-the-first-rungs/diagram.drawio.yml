@@ -162,7 +162,7 @@ content:
           - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
@@ -173,11 +173,11 @@ content:
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/Catzc.Base.Maps/.
         by:
@@ -205,7 +205,7 @@ content:
           - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
@@ -217,7 +217,7 @@ content:
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/bcl
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/powershell
         by:
@@ -229,7 +229,7 @@ content:
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
     axis:
       - cell: DSGN/quality-control

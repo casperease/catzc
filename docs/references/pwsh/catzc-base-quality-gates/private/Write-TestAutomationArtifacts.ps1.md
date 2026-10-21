@@ -84,6 +84,6 @@ Above `try {` (occurrence 3), written with `#`.
 
 ```text
 ADR rule-enforcement coverage — report-only, same best-effort discipline. Unions the tagged-test
-enforcers (each row's Rules column) with the analyzer-rule enforcers (Get-AnalyzerAdrCoverage) over the
+enforcers (each row's Rules column) with the analyzer-rule enforcers (Get-AnalyzerDrsCoverage) over the
 full rule universe. Plain assignment receives the comma-wrapped getter intact; ':'->'#' matches the tags.
 ```

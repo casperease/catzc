@@ -148,7 +148,7 @@ content:
           - ADR-REPO-ROOTCFG-REGISTRY
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-HEADEDCOPY
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
           - ADR-REPO-ROOTCFG-REGISTRY
@@ -250,7 +250,7 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-HEADEDCOPY
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
           - ADR-REPO-ROOTCFG-REGISTRY

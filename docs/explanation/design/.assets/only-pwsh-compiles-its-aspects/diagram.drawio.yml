@@ -123,7 +123,7 @@ content:
           - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT-ASPECTISAGLOBSET
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-TRACKPICKSCATCHALL
@@ -185,7 +185,7 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT-ASPECTISAGLOBSET
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-TRACKPICKSCATCHALL

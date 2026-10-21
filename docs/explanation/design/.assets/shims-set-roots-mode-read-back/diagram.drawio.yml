@@ -168,7 +168,7 @@ content:
           - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - DDR-RUNMODE-MODEISDERIVED
           - DDR-RUNMODE-NEVERCOEXIST
@@ -242,7 +242,7 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - DDR-RUNMODE-MODEISDERIVED
           - DDR-RUNMODE-NEVERCOEXIST

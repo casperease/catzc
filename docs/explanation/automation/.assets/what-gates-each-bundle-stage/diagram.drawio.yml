@@ -183,7 +183,7 @@ content:
           - ADR-AUTO-BUNDLE-AUTOVERSION
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - ADR-AUTO-BUNDLE-AUTOVERSION
           - ADR-AUTO-BUNDLE-BUNDLEISBUILD
@@ -306,7 +306,7 @@ content:
           - ADR-AUTO-BUNDLE-AUTOVERSION
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - pwsh/Catzc.Base.Docs/tests/assets/glossary/widget/glossary.yml
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs

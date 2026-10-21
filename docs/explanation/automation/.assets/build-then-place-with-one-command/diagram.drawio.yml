@@ -139,7 +139,7 @@ content:
           - ADR-AUTO-BUNDLE-AUTOVERSION
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-BUNDLE-AUTOVERSION
           - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
           - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
@@ -185,7 +185,7 @@ content:
           - ADR-AUTO-BUNDLE-AUTOVERSION
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-BUNDLE-AUTOVERSION
           - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
           - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL

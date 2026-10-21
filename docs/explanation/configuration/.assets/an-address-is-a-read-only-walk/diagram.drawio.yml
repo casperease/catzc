@@ -122,7 +122,7 @@ content:
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
@@ -159,7 +159,7 @@ content:
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD

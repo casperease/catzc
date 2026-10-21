@@ -176,7 +176,7 @@ content:
           - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
           - ADR-REPO-ROOTCFG-HEADEDCOPY
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
@@ -306,7 +306,7 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
           - ADR-REPO-ROOTCFG-HEADEDCOPY
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION

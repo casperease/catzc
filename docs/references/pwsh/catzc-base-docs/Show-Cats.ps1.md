@@ -56,7 +56,7 @@ Lists the public functions of every module whose name contains 'azure'.
 
 ## comment:1
 
-Above `$entries = Get-CatsAdrIndex`, written with `#`.
+Above `$entries = Get-CatsDrsIndex`, written with `#`.
 
 ```text
 Plain assignment (not @(...)): the getter returns a comma-wrapped array

@@ -1,14 +1,14 @@
-# pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
+# pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {`, written with `#`.
+Above `Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {`, written with `#`.
 
 ```text
-Test-AdrRegistry over a fixture docs/drs tree in $TestDrive, a fixture AdrsConfig, and a fixture AdrChecksConfig (Get-Config and
+Test-DrsRegistry over a fixture docs/drs tree in $TestDrive, a fixture DrsConfig, and a fixture DrsChecksConfig (Get-Config and
 Resolve-RepoPath mocked), so each test pins one rule. Neutral fixture names
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

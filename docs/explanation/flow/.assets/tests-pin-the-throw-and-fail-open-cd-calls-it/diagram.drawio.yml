@@ -159,9 +159,9 @@ content:
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md
+          - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
           - docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
           - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
@@ -211,13 +211,13 @@ content:
           - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.Docs/private
         by:
-          - pwsh/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
@@ -225,7 +225,7 @@ content:
           - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.Globs/.
@@ -268,7 +268,7 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
@@ -306,10 +306,10 @@ content:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
@@ -337,7 +337,7 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/Catzc.Base.QualityGates
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
           - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY

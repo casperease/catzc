@@ -137,11 +137,11 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-SourceConventions`      |
 |                                                 | `Test-TestTitles`             |
 |                                                 | `Test-ManualTestPlan`         |
-|                                                 | `Test-AnalyzerAdrMap`         |
+|                                                 | `Test-AnalyzerDrsMap`         |
 |                                                 | `Test-ScriptAnalyzer`         |
 |                                                 | `Test-LogicTestIdentity`      |
 |                                                 | `Test-ConfigIdentityHygiene`  |
-| config                                          | `analyzer-adr-map.yml`        |
+| config                                          | `analyzer-drs-map.yml`        |
 | responsibility:3 — Document and code formatting | `Test-Spelling`               |
 |                                                 | `Export-SpellingTriage`       |
 |                                                 | `Test-Markdownlint`           |

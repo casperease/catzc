@@ -133,7 +133,7 @@ content:
           - ADR-REPO-ROOTCFG-REGISTRY
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-COMMITTEDFLAG
           - ADR-REPO-ROOTCFG-FULLYMANAGED
           - ADR-REPO-ROOTCFG-HEADEDCOPY
@@ -267,7 +267,7 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-REPO-ROOTCFG-COMMITTEDFLAG
           - ADR-REPO-ROOTCFG-FULLYMANAGED
           - ADR-REPO-ROOTCFG-HEADEDCOPY

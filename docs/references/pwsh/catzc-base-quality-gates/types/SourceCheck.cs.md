@@ -12,8 +12,8 @@ The settings every source check shares, read from its key in a QualityGates conf
 source-conventions.yml's engine_set and neutral_codes), and the single declaration of their sensible defaults
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)):
   mode   — gate (every finding fails the run; the default) or report (findings are printed and counted, and never
-           fail it). A check is in report mode only while its work list is drained (Catzc.Base.Docs.CheckMode,
-           whose zero value, Gate, is the one declared default, parsed by the one Catzc.Base.Docs.CheckModes parser).
+           fail it). A check is in report mode only while its work list is drained (Catzc.Base.Reports.CheckMode,
+           whose zero value, Gate, is the one declared default, parsed by the one Catzc.Base.Reports.CheckModes parser).
   exempt — repository-relative glob (the durable-sha-globs dialect) -> why the files it matches are left out of the
            check. Omitted: no file is exempt. Every reason is non-empty: an exception is a declared entry with
            its reason, never a list in code

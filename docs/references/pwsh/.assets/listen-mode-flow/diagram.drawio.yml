@@ -110,9 +110,9 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/index.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
           - ADR-REPO-AI-EDITORISFACT
       - cell: release-uat
@@ -120,9 +120,9 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/index.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
           - ADR-REPO-AI-EDITORISFACT
       - cell: pre-prod
@@ -130,9 +130,9 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/index.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
           - ADR-REPO-AI-EDITORISFACT
       - cell: prod
@@ -140,9 +140,9 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/index.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
           - ADR-REPO-AI-EDITORISFACT
     layer-stack:
@@ -168,10 +168,10 @@ content:
           - docs/references/pwsh/.assets/listen-mode-flow/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md
-          - docs/references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md
+          - docs/references/pwsh/catzc-base-drs/configs/drs.yml.md
+          - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md
           - docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
           - docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
@@ -186,13 +186,13 @@ content:
           - pwsh/.internal/assets/Invoke-CatzcCommand.ps1
           - pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - pwsh/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
           - pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
           - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1

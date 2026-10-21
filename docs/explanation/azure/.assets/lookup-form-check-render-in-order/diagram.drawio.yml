@@ -192,8 +192,8 @@ content:
           - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-NAMING-LOWERCASECOMPONENTS
           - ADR-AZ-NAMING-NEVERTRUNCATE
           - ADR-AZ-NAMING-ORDERISVARIANT
@@ -234,8 +234,8 @@ content:
           - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-NAMING-LOWERCASECOMPONENTS
           - ADR-AZ-NAMING-NEVERTRUNCATE
           - ADR-AZ-NAMING-ORDERISVARIANT

@@ -169,16 +169,16 @@ content:
           - docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md
           - docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs.md
-          - docs/references/pwsh/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md
-          - docs/references/pwsh/catzc-base-docs/Test-AdrRegistry.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-docs/configs/adr-checks.yml.md
-          - docs/references/pwsh/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/CheckMode.cs.md
+          - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
+          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSet.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
           - docs/references/pwsh/catzc-base-globs.md
           - docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
@@ -210,7 +210,7 @@ content:
           - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
           - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md
           - docs/references/pwsh/catzc-base-module-system/types/ModuleGroup.cs.md
-          - docs/references/pwsh/catzc-base-quality-gates/Test-AnalyzerAdrMap.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-AnalyzerDrsMap.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Test-BuildArtifact.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Test-Change.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md
@@ -237,7 +237,7 @@ content:
           - docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedFileGenerator.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/tests/Format-Types.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-AnalyzerAdrCoverage.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-AnalyzerDrsCoverage.Tests.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/tests/Get-RepositoryGuids.Tests.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestTagViolations.Tests.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/tests/ManualTestPlan-Coverage.Tests.ps1.md
@@ -299,16 +299,16 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Docs/Test-AdrRegistry.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
           - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-checks.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - ADR-AUTO-DEPM-CODEBUILTFROM
@@ -319,18 +319,18 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
-          - pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrChecksConfig.cs
-          - pwsh/Catzc.Base.Docs/types/CheckMode.cs
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Execution/.
         by:
@@ -403,7 +403,7 @@ content:
           - ADR-AUTO-DEPM-UNIFIEDGRAPH
       - cell: pwsh/Catzc.Base.QualityGates/.
         by:
-          - pwsh/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-AnalyzerDrsMap.ps1
           - pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
           - pwsh/Catzc.Base.QualityGates/Test-Change.ps1
           - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
@@ -442,7 +442,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
-          - pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerDrsCoverage.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1
@@ -534,16 +534,16 @@ content:
           - docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md
           - docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
           - docs/references/pwsh/catzc-base-docs.md
-          - docs/references/pwsh/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md
-          - docs/references/pwsh/catzc-base-docs/Test-AdrRegistry.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-docs/configs/adr-checks.yml.md
-          - docs/references/pwsh/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/CheckMode.cs.md
+          - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
+          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSet.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
           - docs/references/pwsh/catzc-base-globs.md
           - docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
@@ -575,7 +575,7 @@ content:
           - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
           - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md
           - docs/references/pwsh/catzc-base-module-system/types/ModuleGroup.cs.md
-          - docs/references/pwsh/catzc-base-quality-gates/Test-AnalyzerAdrMap.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-AnalyzerDrsMap.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Test-BuildArtifact.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Test-Change.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md
@@ -602,7 +602,7 @@ content:
           - docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedFileGenerator.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/tests/Format-Types.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-AnalyzerAdrCoverage.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-AnalyzerDrsCoverage.Tests.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/tests/Get-RepositoryGuids.Tests.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestTagViolations.Tests.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/tests/ManualTestPlan-Coverage.Tests.ps1.md
@@ -642,8 +642,8 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/bcl
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrChecksConfig.cs
-          - pwsh/Catzc.Base.Docs/types/CheckMode.cs
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
           - pwsh/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
           - pwsh/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
           - pwsh/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
@@ -664,16 +664,16 @@ content:
           - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
           - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
           - pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-          - pwsh/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Docs/Test-AdrRegistry.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
           - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
-          - pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
@@ -702,7 +702,7 @@ content:
           - pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
           - pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
           - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-          - pwsh/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-AnalyzerDrsMap.ps1
           - pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
           - pwsh/Catzc.Base.QualityGates/Test-Change.ps1
           - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
@@ -729,7 +729,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
-          - pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerDrsCoverage.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1
@@ -765,8 +765,8 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-checks.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml

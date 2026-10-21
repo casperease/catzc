@@ -89,7 +89,7 @@ content:
           - DDR-THINPLAT-THINPLATFORM
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
           - DDR-THINPLAT-PLATFORMASCLI
           - DDR-THINPLAT-SWAPPABLESUBSTRATE
@@ -113,7 +113,7 @@ content:
           - DDR-THINPLAT-THINPLATFORM
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
           - DDR-THINPLAT-PLATFORMASCLI
           - DDR-THINPLAT-SWAPPABLESUBSTRATE

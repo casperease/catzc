@@ -13,7 +13,7 @@ catzc:
 
 It was an inputs stamp: one SHA-256 over the generator's input files (`Get-InputStamp`), written by `Format-GeneratedFileHead -InputsSha`.
 On the next run, `Test-GeneratedFileCurrent` read the stamp back and returned early when it still matched, so the generator did not render
-at all. Five generators wrote it: `Build-Glossary`, `Build-AdrIndex`, `Build-AdrCodeDictionary`, `Build-TerminologyDictionary` and
+at all. Five generators wrote it: `Build-Glossary`, `Build-DrsIndex`, `Build-DrsCodeDictionary`, `Build-TerminologyDictionary` and
 `Build-ContractReference`. Its place in the head's key order came from `generated-head.yml` (`keys:`), and
 `contracts/catzc/0.0.0/catzc.base.quality_gates/head.schema.json` admitted it.
 

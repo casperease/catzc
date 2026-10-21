@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+# pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -8,12 +8,12 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-The analyzer -> ADR rule map of configs/analyzer-adr-map.yml: each ENABLED PSScriptAnalyzer rule that enforces an
+The analyzer -> ADR rule map of configs/analyzer-drs-map.yml: each ENABLED PSScriptAnalyzer rule that enforces an
 ADR rule, mapped to the rule id(s) it enforces in the index's '#' citation form (ADR-<CODE>#<n>) — the source of
-the 'pssa-rule' enforcer kind in the rule-coverage report (Get-AnalyzerAdrCoverage, Get-CatsRuleEnforcers).
+the 'pssa-rule' enforcer kind in the rule-coverage report (Get-AnalyzerDrsCoverage, Get-CatsRuleEnforcers).
 Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one throw.
-Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.QualityGates.AnalyzerAdrMapConfig), so
-Get-Config -Config analyzer-adr-map returns this typed model. Mirrors the YAML mapping (snake_case keys,
+Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.QualityGates.AnalyzerDrsMapConfig), so
+Get-Config -Config analyzer-drs-map returns this typed model. Mirrors the YAML mapping (snake_case keys,
 [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Load-time rules are SHAPE and citation GRAMMAR only:

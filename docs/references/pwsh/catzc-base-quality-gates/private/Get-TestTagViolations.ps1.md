@@ -17,7 +17,7 @@ an axis resolves to zero tags (missing) or to more than one on its nearest contr
 
 It also validates the optional provenance axis — the '`ADR-<CODE>#<n>`' rule citations a test may carry to say which ADR rule(s) it
 enforces. Absence is never a violation (the axis is optional), but a PRESENT citation must be well-formed and resolve to a real rule: any
-tag carrying the reserved 'ADR-' marker that is not a well-formed '`ADR-<CODE>#<n>`', or that names a rule absent from Get-CatsAdrRuleIds,
+tag carrying the reserved 'ADR-' marker that is not a well-formed '`ADR-<CODE>#<n>`', or that names a rule absent from Get-CatsDrsRuleIds,
 is a violation. The rule-id set is resolved lazily (only when a well-formed citation is present), so tests with no citation stay hermetic —
 they never read the shipped ADR tree.
 
@@ -34,7 +34,7 @@ Above `$validRuleIds = $null`, written with `#`.
 
 ```text
 The authoritative rule-id set, resolved once on the first well-formed citation and reused across tests
-(Get-CatsAdrRuleIds is itself session-cached). Left $null until then so a run whose tests carry no
+(Get-CatsDrsRuleIds is itself session-cached). Left $null until then so a run whose tests carry no
 citation never reads the shipped ADR tree — keeping these logic tests hermetic. Registry (':') form.
 ```
 

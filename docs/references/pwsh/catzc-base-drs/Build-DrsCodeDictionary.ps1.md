@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/Build-AdrCodeDictionary.ps1
+# pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -11,7 +11,7 @@ Generates the spell-checker word list of ADR code segments from the ADR registry
 
 ### description
 
-Reads the ADR registry (configs/adrs.yml, via Get-Config -Config adrs) and the rule headings of every ADR file under docs/drs/, and writes
+Reads the ADR registry (configs/drs.yml, via Get-Config -Config drs) and the rule headings of every ADR file under docs/drs/, and writes
 every segment of every ADR code and rule heading, lower-cased, de-duplicated and ordinal-sorted, to `.cspell/adr-codes.txt` at the
 repository root, the word list cspell.yml loads as `catzc-adr-codes`. A rule is named by a segment of spelled-out words joined, so the spell
 checker takes the names from the registry rather than from one hand-written terminology entry per rule
@@ -38,5 +38,5 @@ Return one result object ({ Path, WordCount, Changed, DryRun }) instead of the p
 ### example 1
 
 ```powershell
-Build-AdrCodeDictionary -DryRun -PassThru
+Build-DrsCodeDictionary -DryRun -PassThru
 ```

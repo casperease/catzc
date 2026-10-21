@@ -12,7 +12,7 @@ Maps each ADR rule citation to what mechanically enforces it — analyzer rules 
 ### description
 
 Returns a hashtable keyed by rule citation in the '#' form (e.g. 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS'), each value an object with two
-sorted sets: Analyzers (the PSScriptAnalyzer rules mapped to it in analyzer-adr-map.yml) and Tests (the repo-relative test files that cite
+sorted sets: Analyzers (the PSScriptAnalyzer rules mapped to it in analyzer-drs-map.yml) and Tests (the repo-relative test files that cite
 it). Both sources run inside Test-Automation, so together they are what the rule-coverage report counts — this is the interactive, offline
 view of the same fact.
 

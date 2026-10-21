@@ -80,28 +80,28 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-IACKIND-THREEKINDS
       - cell: release-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-IACKIND-THREEKINDS
       - cell: pre-prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-IACKIND-THREEKINDS
       - cell: prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-IACKIND-THREEKINDS
     layer-stack:
@@ -164,8 +164,8 @@ content:
           - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
           - pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs
           - pwsh/Catzc.Azure/types/AzureTenantRecord.cs
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION

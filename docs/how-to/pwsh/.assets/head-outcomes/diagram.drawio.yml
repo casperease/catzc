@@ -113,7 +113,7 @@ content:
           - docs/references/pwsh/catzc-base-quality-gates/Test-GeneratedFiles.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedStampDrift.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/types/FileHeadPolicy.cs.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - pwsh/Catzc.Base.Docs/tests/Get-GlossaryFormViolations.Tests.ps1
           - pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
@@ -135,7 +135,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-GeneratedStampDrift.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
-          - pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-DrsCodesFileMetaFact.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaScope.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-GeneratedStampDrift.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
@@ -179,7 +179,7 @@ content:
           - ADR-REPO-FILEMETA-HEADPOLICY
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
           - ADR-REPO-FILEMETA-COMPOSEDFILES
@@ -246,7 +246,7 @@ content:
       - cell: pwsh/Catzc.Base.QualityGates/tests
         by:
           - pwsh/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
-          - pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-DrsCodesFileMetaFact.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaScope.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-GeneratedStampDrift.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
@@ -266,7 +266,7 @@ content:
     track-placement:
       - cell: modules/pwsh
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - pwsh/Catzc.Base.Docs/tests/Get-GlossaryFormViolations.Tests.ps1
           - pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
@@ -288,7 +288,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-GeneratedStampDrift.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
-          - pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-DrsCodesFileMetaFact.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaScope.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-GeneratedStampDrift.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1

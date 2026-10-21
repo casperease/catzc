@@ -172,8 +172,8 @@ content:
           - docs/drs/index.md
           - docs/how-to/pwsh/manual-test-plan/static-analysis.md
           - docs/references/pwsh/.assets/tools-yml-install-dispatch/diagram.drawio.yml
-          - docs/references/pwsh/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrNeutralityCheck.cs.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsNeutralityCheck.cs.md
           - docs/references/pwsh/catzc-base-engines.md
           - docs/references/pwsh/catzc-base-engines/Get-ExecutionEngine.ps1.md
           - docs/references/pwsh/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md
@@ -221,22 +221,22 @@ content:
           - ADR-AUTO-PKGMGR
       - cell: pwsh/Catzc.Base.Docs/.
         by:
-          - pwsh/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
           - ADR-AUTO-ENGINE
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
           - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
           - ADR-AUTO-ENGINE
           - ADR-AUTO-PKGMGR
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
-          - pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
           - ADR-AUTO-ENGINE
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrNeutralityCheck.cs
+          - pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs
           - ADR-AUTO-ENGINE
       - cell: pwsh/Catzc.Base.Engines/.
         by:
@@ -374,10 +374,10 @@ content:
           - ADR-AUTO-PKGMGR
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
-          - pwsh/Catzc.Base.Docs/types/AdrNeutralityCheck.cs
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
+          - pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs
           - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
           - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
           - ADR-AUTO-ENGINE

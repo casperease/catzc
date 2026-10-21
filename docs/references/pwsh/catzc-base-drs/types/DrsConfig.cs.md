@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+# pwsh/Catzc.Base.Drs/types/DrsConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -8,15 +8,15 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-adrs.yml — the ADR domain-structure registry (RULES ↔ domains wiring). Constructing an instance MAPS and
+drs.yml — the ADR domain-structure registry (RULES ↔ domains wiring). Constructing an instance MAPS and
 VALIDATES the parsed YAML (throwing with every violation collected) and exposes the typed Domains, the
-flattened RuleSets, and the domain dependency Edges (AdrDomainEdge, one per depends_on link). Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AdrsConfig)
-so Get-Config -Config adrs returns this typed model rather than a slippery ordered dictionary
+flattened RuleSets, and the domain dependency Edges (DrsDomainEdge, one per depends_on link). Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Drs.DrsConfig)
+so Get-Config -Config drs returns this typed model rather than a slippery ordered dictionary
 ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype),
 [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
 
 Load-time rules (self-contained — no filesystem or other-config reads; folder↔domain and terminology-token
-cross-checks are the quality gate Test-AdrRegistry and shipped-asset integrity tests, mirroring the one-directional coupling of the customer
+cross-checks are the quality gate Test-DrsRegistry and shipped-asset integrity tests, mirroring the one-directional coupling of the customer
 model, [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)):
   - domains is a non-empty map; each domain has code (^[A-Z]{2,4}$, optionally a compound of two segments
     like FLOW-CD), a non-empty role, a non-empty description, a depends_on list, and a non-empty rulesets map;
@@ -65,13 +65,13 @@ by this prefix rule without splitting on a specific dash. A one-segment external
 Above `public const string DefaultKind = "ADR";`, written with `//`.
 
 ```text
-The record kinds when adrs.yml declares none: the one shared kind ADR
+The record kinds when drs.yml declares none: the one shared kind ADR
 ([ADR-REPO-DRSCODE-PATHOFSEGMENTS](/docs/drs/repository/drs-code-language.md#rule-adr-repo-drscode-pathofsegments)).
 ```
 
 ## comment:5
 
-Above `public AdrCodeForm CodeForm { get; }`, written with `//`.
+Above `public DrsCodeForm CodeForm { get; }`, written with `//`.
 
 ```text
 The code grammar over these kinds, which every parser of a code reads

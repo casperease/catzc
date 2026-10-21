@@ -19,7 +19,7 @@ source takes part in the `anchored` check, this reports:
 - a defining rule whose normative summary does not contain `**<term>**` (case-insensitive, whitespace collapsed, so a term bolded across a
   wrapped line still counts).
 
-Only the normative summary counts (Get-CatsAdrRules' Statement): bold text in the ADR body or in the rule's linked bullets never anchors a
+Only the normative summary counts (Get-CatsDrsRules' Statement): bold text in the ADR body or in the rule's linked bullets never anchors a
 term, and neither does a mention inside an inline code span.
 
 Private helper for the glossary checks; not exported.

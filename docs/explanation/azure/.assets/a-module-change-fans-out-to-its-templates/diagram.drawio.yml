@@ -83,25 +83,25 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
       - cell: release-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
       - cell: pre-prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
       - cell: prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
     layer-stack:
       - cell: automation
@@ -110,7 +110,7 @@ content:
           - docs/drs/azure/dora-explains.md
           - docs/drs/azure/infrastructure-kinds.md
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
 layout:
   s-templates:

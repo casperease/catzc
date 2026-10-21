@@ -13,7 +13,7 @@ Renders the ADR-rule enforcement coverage report (rule-coverage.md + rule-covera
 
 Builds the (ADR rule -> enforcers) map and writes it as a report artifact. An enforcer is one of two kinds, both run in the same
 Test-Automation invocation: a 'pester-test' (a test tagged with the rule's citation, read from each row's Rules column) or a 'pssa-rule' (a
-PSScriptAnalyzer rule mapped to the rule, from Get-AnalyzerAdrCoverage). Counting the analyzer rules is what makes the "uncovered" list
+PSScriptAnalyzer rule mapped to the rule, from Get-AnalyzerDrsCoverage). Counting the analyzer rules is what makes the "uncovered" list
 honest — a rule like [ADR-AUTO-NOPWD](../../../../drs/automation/never-depend-on-pwd.md) reads as covered because its custom analyzer fails
 the build on every run.
 
@@ -27,11 +27,11 @@ The aggregated per-test rows (ConvertTo-TestAutomationRowSet), each carrying Exp
 
 ### parameter `AnalyzerCoverage`
 
-The (AdrId, Enforcer, Kind='pssa-rule') rows from Get-AnalyzerAdrCoverage. AdrId is '#' citation form.
+The (AdrId, Enforcer, Kind='pssa-rule') rows from Get-AnalyzerDrsCoverage. AdrId is '#' citation form.
 
 ### parameter `AllRuleIds`
 
-Every declared ADR rule id in '#' citation form (Get-CatsAdrRuleIds, ':'->'#') — the coverage universe.
+Every declared ADR rule id in '#' citation form (Get-CatsDrsRuleIds, ':'->'#') — the coverage universe.
 
 ### parameter `OutputFolder`
 

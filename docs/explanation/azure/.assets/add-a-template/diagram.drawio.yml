@@ -98,28 +98,28 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
       - cell: release-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
       - cell: pre-prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
       - cell: prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
     layer-stack:
@@ -129,7 +129,7 @@ content:
           - docs/drs/azure/dora-explains.md
           - docs/drs/azure/infrastructure-kinds.md
           - docs/drs/index.md
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
 layout:

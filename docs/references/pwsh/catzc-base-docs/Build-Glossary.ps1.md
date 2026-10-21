@@ -12,7 +12,7 @@ Generates the [glossary](../../../drs/glossary.md) — the controlled vocabulary
 ### description
 
 Projects Get-Glossary (every concept of every configs/glossary.yml source,
-[ADR-REPO-VOCAB](../../../drs/repository/controlled-vocabulary.md)) into one markdown page: a section per ADR domain, in adrs.yml order, and
+[ADR-REPO-VOCAB](../../../drs/repository/controlled-vocabulary.md)) into one markdown page: a section per ADR domain, in drs.yml order, and
 per term its one-line definition, a link to the rule that defines it, how it is realized, its source, its relations, its allowed forms, its
 contrasts (linked to the related terms), and its avoided phrasings with what to say instead. Terms sort by term within a domain, so the
 output is deterministic.

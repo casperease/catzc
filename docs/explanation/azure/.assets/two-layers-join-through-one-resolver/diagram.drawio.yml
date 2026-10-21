@@ -230,7 +230,7 @@ content:
           - ADR-AZ-CUSTOMER-TWOBINDINGS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER-TWOBINDINGS
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
@@ -294,7 +294,7 @@ content:
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER-TWOBINDINGS
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY

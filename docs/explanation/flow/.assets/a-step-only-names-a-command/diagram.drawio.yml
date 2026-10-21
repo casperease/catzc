@@ -93,7 +93,7 @@ content:
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/steps/invoke-automation.yaml.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
@@ -106,12 +106,12 @@ content:
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/Catzc.Base.Maps/.
@@ -145,7 +145,7 @@ content:
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/steps/invoke-automation.yaml.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
@@ -153,7 +153,7 @@ content:
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/bcl
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/powershell
@@ -167,7 +167,7 @@ content:
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
           - FDR-CD-RUNNER-NOINLINEPOWERSHELL
     axis:

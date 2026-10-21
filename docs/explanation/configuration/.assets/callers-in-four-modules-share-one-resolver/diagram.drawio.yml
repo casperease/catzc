@@ -134,7 +134,7 @@ content:
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
@@ -170,7 +170,7 @@ content:
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
           - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY

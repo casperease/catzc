@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/private/Get-AdrCodeLanguageViolations.ps1
+# pwsh/Catzc.Base.Drs/private/Get-DrsCodeLanguageViolations.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -16,17 +16,17 @@ segment below its ADR, never numbered ([adr-code-language](../../../../drs/repos
 domain code of more than one segment, a code outside the segment grammar, a code that does not start with its domain's segment, a rule
 heading that is not its ADR's code plus one segment, and a rule named like an ADR. The numbered rule headings of one ADR file are one
 finding with their count. Rule headings inside a code fence are skipped, and a rule set with no file, or several, is a finding of
-Test-AdrRegistry and is skipped here.
+Test-DrsRegistry and is skipped here.
 
-Private helper for Test-AdrRegistry; not exported.
+Private helper for Test-DrsRegistry; not exported.
 
 ### parameter `Adrs`
 
-The ADR registry (Get-Config -Config adrs).
+The ADR registry (Get-Config -Config drs).
 
 ### parameter `Index`
 
-The docs/drs/ file index (Get-AdrFileIndex).
+The docs/drs/ file index (Get-DrsFileIndex).
 
 ### outputs
 

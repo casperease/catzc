@@ -302,8 +302,8 @@ content:
           - ADR-AZ-CUSTOMER-TWOBINDINGS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
           - ADR-AZ-CUSTOMER-TWOBINDINGS
           - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
@@ -384,8 +384,8 @@ content:
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
           - ADR-AZ-CUSTOMER-TWOBINDINGS
           - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME

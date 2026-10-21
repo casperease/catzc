@@ -140,7 +140,7 @@ content:
           - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.Globs/.
@@ -192,7 +192,7 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: subject/Catzc.Base.Globs

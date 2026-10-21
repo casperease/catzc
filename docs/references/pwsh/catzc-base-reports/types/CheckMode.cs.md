@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/types/CheckMode.cs
+# pwsh/Catzc.Base.Reports/types/CheckMode.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `namespace Catzc.Base.Docs;`, written with `//`.
 
 ```text
-How a repository check treats what it finds, set per check in its config (adr-checks.yml in Catzc.Base.Docs; links.yml and
+How a repository check treats what it finds, set per check in its config (drs-checks.yml in Catzc.Base.Docs; links.yml and
 source-conventions.yml in Catzc.Base.QualityGates), never per check in code
 ([PDR-CONFIG-EXCEPTIONISCONFIGENTRY](/docs/drs/principles/configure-not-program.md#rule-pdr-config-exceptionisconfigentry)):
   Gate   — every finding is an issue, so the run fails until the count is 0, like any quality gate

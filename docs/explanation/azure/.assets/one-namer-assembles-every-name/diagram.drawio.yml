@@ -181,7 +181,7 @@ content:
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-NAMING-DETERMINISTICNAMES
           - ADR-AZ-NAMING-ORDERISVARIANT
           - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
@@ -226,7 +226,7 @@ content:
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-NAMING-DETERMINISTICNAMES
           - ADR-AZ-NAMING-ORDERISVARIANT
           - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE

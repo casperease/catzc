@@ -115,13 +115,13 @@ content:
           - DDR-THINPLAT-PLATFORMASCLI
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
           - DDR-THINPLAT-PLATFORMASCLI
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
           - DDR-THINPLAT-PLATFORMASCLI
       - cell: subject/pipelines

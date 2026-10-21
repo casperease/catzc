@@ -1,11 +1,11 @@
-# pwsh/Catzc.Base.Docs/types/AdrCodeForm.cs
+# pwsh/Catzc.Base.Drs/types/DrsCodeForm.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `public sealed class AdrCodeForm`, written with `//`.
+Above `public sealed class DrsCodeForm`, written with `//`.
 
 ```text
 The code grammar over the registered record kinds (ADR-REPO-DRSCODE), and the shortest form of a derived list of codes.
@@ -17,13 +17,13 @@ The code grammar over the registered record kinds (ADR-REPO-DRSCODE), and the sh
   TDR-<ADR>                   the whole ADR
 
 A code is a kind and a path of upper-case segments, and a prefix selects everything below it. There is no number, group or range. The
-kinds come from adrs.yml (AdrsConfig.CodeForm); AnyKind reads any kind of the shape AnyKindShape, for a config read without the registry,
+kinds come from drs.yml (DrsConfig.CodeForm); AnyKind reads any kind of the shape AnyKindShape, for a config read without the registry,
 whose codes the registry gates check.
 ```
 
 ## comment:2
 
-Above `public IReadOnlyList<string> Minimize(string[] codes, AdrCitationMap registry...`, written with `//`.
+Above `public IReadOnlyList<string> Minimize(string[] codes, DrsCitationMap registry...`, written with `//`.
 
 ```text
 A derived list at its shortest: a code another listed code covers goes, and a set of rules that is every rule of its ADR, as the registry

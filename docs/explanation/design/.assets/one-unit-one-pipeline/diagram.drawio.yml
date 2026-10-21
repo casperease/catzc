@@ -99,7 +99,7 @@ content:
           - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-ONETRACKTYPE
           - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
@@ -236,7 +236,7 @@ content:
           - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: pwsh/yaml
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Globs/configs/globs.yml
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
           - pwsh/Catzc.Base.Variants/configs/variants.yml

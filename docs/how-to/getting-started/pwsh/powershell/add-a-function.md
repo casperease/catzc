@@ -121,7 +121,7 @@ ADR uses `:` (`### Rule ADR-PWSH-ERROR-THROWNOTWRITEERROR`). Each run then write
 uncovered), and `tests.csv` gains a `Rules` column you can filter by a citation to find every test that enforces it.
 
 Citing is one of **two** ways a rule gets mechanical coverage; the other is a PSScriptAnalyzer rule. So when you add a **custom analyzer
-rule** (`pwsh/.scriptanalyzer/*.psm1`), map it to the rule id(s) it enforces in `pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`
+rule** (`pwsh/.scriptanalyzer/*.psm1`), map it to the rule id(s) it enforces in `pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml`
 — an integrity test fails if a custom rule is left unmapped.
 
 Then:

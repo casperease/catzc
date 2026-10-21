@@ -7,7 +7,7 @@ The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no g
 2  Assert-BashTimeout                  the C# hook: rule 1 unchecked there (dashed D1)
 3  consumers                           24 call sites: rule 1 checked (D1); rules 2, 3 and P3 unchecked
 4  Test-IsRunningInPipeline.Tests.ps1  the L0 test that proves the boolean's three cases
-5  Measure-NoRawPipelineDetection      the analyzer rule, mapped to rule 1 in analyzer-adr-map.yml
+5  Measure-NoRawPipelineDetection      the analyzer rule, mapped to rule 1 in analyzer-drs-map.yml
 
 Supports FDR-CD-DETECT-NODIRECTVARIABLECHECK, FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR, FDR-CD-DETECT-PARAMETERSOVERDETECTION, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-FASTDETECTION and ADR-AUTO-PARITY-ONESEAM (governance lens).
 ```
@@ -29,8 +29,8 @@ one reader outside PowerShell, rest on the ADR alone.
    the environments genuinely differ, have no gate: dashed chips.
 4. **Test-IsRunningInPipeline.Tests.ps1.** An L0 logic test. It sets `TF_BUILD`, then `GITHUB_ACTIONS`, then neither, and asserts true, true
    and false.
-5. **Measure-NoRawPipelineDetection.** The analyzer rule. `analyzer-adr-map.yml` maps it to FDR-CD-DETECT-NODIRECTVARIABLECHECK, and
-   `Test-AnalyzerAdrMap` fails when a custom rule is unmapped or cites a rule that does not exist, so the credit the rule-coverage report
+5. **Measure-NoRawPipelineDetection.** The analyzer rule. `analyzer-drs-map.yml` maps it to FDR-CD-DETECT-NODIRECTVARIABLECHECK, and
+   `Test-AnalyzerDrsMap` fails when a custom rule is unmapped or cites a rule that does not exist, so the credit the rule-coverage report
    gives to this rule is itself checked.
 
 ## Why it holds

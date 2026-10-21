@@ -155,7 +155,7 @@ module keeps its name, its functions, and its `$script:` scope.
 ### Rule ADR-PWSH-PESTER-ENFORCERKINDS
 
 The two enforcer kinds of ADR-AUTO-TEST-COVERAGEREPORTEDONLY are a `pester-test`, an `It` tagged with the rule's citation, and a
-`pssa-rule`, a PSScriptAnalyzer rule mapped to the rule in `analyzer-adr-map.yml` (ADR-PWSH-FORMAT-ANALYZERADRMAPPING), which the
+`pssa-rule`, a PSScriptAnalyzer rule mapped to the rule in `analyzer-drs-map.yml` (ADR-PWSH-FORMAT-ANALYZERADRMAPPING), which the
 `Test-ScriptAnalyzer` quality gate runs.
 
 - [The harness in Pester](#the-harness-in-pester)

@@ -47,7 +47,7 @@ it; the command itself is the implementation of that contract in one language un
 
 Each layer realises the one above it and never redefines it: automation, contract, language, engine, importer, read top down as what, its
 interface, how it is written, how it runs, how it is assembled. Every ADR of the automation domain records the layer it belongs to as data,
-the `layer` key of its entry in `adrs.yml`, which defaults to `automation`; the codes never change for it.
+the `layer` key of its entry in `drs.yml`, which defaults to `automation`; the codes never change for it.
 
 - [Layer membership is data](#layer-membership-is-data)
 
@@ -106,7 +106,7 @@ importer how a session is assembled. The track is named by its stack. Layer memb
 
 - The glossary carries automation, command, implementation language and pwsh as defined terms, each by its rule here; the layer family gains
   contract, engine and importer as its forms.
-- `adrs.yml` carries a `layer` per automation ADR, validated by `AdrsConfig`; the index and the codes are unchanged.
+- `drs.yml` carries a `layer` per automation ADR, validated by `DrsConfig`; the index and the codes are unchanged.
 - The code track's folder is renamed to `pwsh` in one quiet window; every root is read through the track registry, so the rename is the only
   change.
 - `languages.yml` names its formatter tools `formatters`, so engine means an execution engine and nothing else.

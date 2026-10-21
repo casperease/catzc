@@ -28,7 +28,7 @@ Describe 'DrsIndexConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-VARYINGBEHAVIOURISCONF
 
     It 'loads the shipped drs-index.yml' -Tag 'L1' {
         $config = Get-Config -Config drs-index
-        $config.preamble | Should -BeLike '# ADR index and rule-citation registry*'
+        $config.preamble | Should -BeLike '# DRS index and rule-citation registry*'
         $config.conventions | Should -BeLike '## Authoring conventions*'
     }
 }

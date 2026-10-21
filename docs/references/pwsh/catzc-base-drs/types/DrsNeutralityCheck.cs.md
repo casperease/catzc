@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/types/AdrNeutralityCheck.cs
+# pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -8,12 +8,12 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-The engine-neutrality check's settings (configs/adr-checks.yml, engine_neutrality), read by Test-AdrEngineNeutrality: the rule
-summaries of the listed adrs.yml domains carry no engine-specific syntax
+The engine-neutrality check's settings (configs/drs-checks.yml, engine_neutrality), read by Test-DrsEngineNeutrality: the rule
+summaries of the listed drs.yml domains carry no engine-specific syntax
 ([ADR-AUTO-ENGINE-THREEENGINES](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). Mirrors the YAML mapping (snake_case,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); built and validated by AdrChecksConfig.
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); built and validated by DrsChecksConfig.
   mode    — report | gate; default CheckMode's default, gate
-  domains — the adrs.yml domains whose rule summaries are checked; default none
+  domains — the drs.yml domains whose rule summaries are checked; default none
   tokens  — a map of token name (kebab-case) to a case-sensitive .NET regular expression; default none
-Whether each domain is declared in adrs.yml is the check's own finding, not a load-time rule: this type reads no other config.
+Whether each domain is declared in drs.yml is the check's own finding, not a load-time rule: this type reads no other config.
 ```

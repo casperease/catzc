@@ -15,7 +15,7 @@ labels that name no glossary term ([DDR-TRACK-VALUECHAINMAP](/docs/drs/design/tr
 Write-QualityGateReport ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The logic
 tests mock the map, the glossary and the labels with widget/gadget fixtures
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the clean map's axes are the closed
-sets AdrsConfig declares, read from the type.
+sets DrsConfig declares, read from the type.
 ```
 
 ## comment:2
@@ -23,6 +23,6 @@ sets AdrsConfig declares, read from the type.
 Above `Describe 'Test-ValueChainMap on the repository' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
-The registry's own value-chain map, through the quality gate. It reads only adrs.yml and maps.yml, so its answer
+The registry's own value-chain map, through the quality gate. It reads only drs.yml and maps.yml, so its answer
 cannot differ between the run modes (source-only).
 ```

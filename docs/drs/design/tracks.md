@@ -129,7 +129,7 @@ gets its defining rule and its glossary entry before the map prints it, and a la
 The **value-chain stack** is the ordered set of rows a decision sits on, from the axioms down to the vendor: `PRIN` (what catzc is for, its
 principles, its process, and the research they rest on), `DSGN` (how the platform and its delivery flow are shaped), `AUTO` (the tooling
 that enacts them), `PIPE` (the pipelines that run the tooling), and `CLOUD` (the substrate it deploys onto). Every ADR domain declares
-exactly one row (`stack:` in `adrs.yml`), and every ADR it holds sits on that row. The value-chain stack orders decisions; it is not a
+exactly one row (`stack:` in `drs.yml`), and every ADR it holds sits on that row. The value-chain stack orders decisions; it is not a
 track's tech-stack (DDR-TRACK-ONETECHSTACK), which is a set of file languages.
 
 - [The value-chain map](#the-value-chain-map)
@@ -140,7 +140,7 @@ A **value-chain concern** is one of the six columns that say where along deliver
 the modules, reading their configuration, and selecting files through globsets), `build` (turning the tracked files into an artifact),
 `quality-control` (verifying a change — tests, checks, and quality gates), `release` (making a build a versioned, promotable release
 candidate), `deploy` (putting a release onto its target), and `access` (reaching and operating what runs — identities, credentials, and
-monitoring). Every ADR domain declares a default (`concern:` in `adrs.yml`), and an ADR declares its own only when it differs, so every ADR
+monitoring). Every ADR domain declares a default (`concern:` in `drs.yml`), and an ADR declares its own only when it differs, so every ADR
 resolves to one or more value-chain concerns, never to none and never to an unknown one. A value-chain concern is not a track's root concern
 (DDR-TRACK-TRACKISPLACEDCLUSTER): a track is where files live, and a value-chain concern is where a decision acts.
 
@@ -150,7 +150,7 @@ resolves to one or more value-chain concerns, never to none and never to an unkn
 
 The **value-chain map** is the ADRs drawn as the value-chain stack crossed with the value-chain concerns: one row per row of the stack
 (DDR-TRACK-VALUECHAINSTACK) and one column per value-chain concern (DDR-TRACK-VALUECHAINCONCERN), and an ADR lights the places
-where the row of the ADR domain that holds it meets each of its value-chain concerns. It is computed from `adrs.yml`, never drawn by hand,
+where the row of the ADR domain that holds it meets each of its value-chain concerns. It is computed from `drs.yml`, never drawn by hand,
 and every label it prints names a defined term in its head, as the world map's labels do (DDR-TRACK-LABELSNAMEDEFINEDTERMS); its row
 names are the rows of the value-chain stack, and its column names are the value-chain concerns.
 
@@ -305,7 +305,7 @@ travels — the tooling it runs on, its build, its verification, its release, it
 read left to right like the value-chain diagrams ([visual-design](visual-design.md)). The two maps sit side by side because each answers
 what the other cannot.
 
-The place is declared, never guessed. Every ADR domain names its row and a default set of value-chain concerns in `adrs.yml`, and an ADR
+The place is declared, never guessed. Every ADR domain names its row and a default set of value-chain concerns in `drs.yml`, and an ADR
 that acts elsewhere declares its own, so the declaration is made once per ADR domain and repeated only where an ADR differs, the same
 resolution every setting follows: a declared default, overridden only where it differs. Both words are qualified on purpose: "concern"
 already names a track, the repository's root concern, and "stack" already names a track's tech-stack, so the value-chain forms keep each
@@ -324,7 +324,7 @@ files (DDR-TRACK-ROOTFILE, DDR-TRACK-UNLISTEDFILE); its cells (DDR-TRACK-CELL) m
 (DDR-TRACK-STACKVIOLATION) and light for a highlight (DDR-TRACK-LITCELL), and every label it prints names a defined term
 (DDR-TRACK-LABELSNAMEDEFINEDTERMS). Beside it, the value-chain map (DDR-TRACK-VALUECHAINMAP) crosses the value-chain stack
 (DDR-TRACK-VALUECHAINSTACK) with the value-chain concerns (DDR-TRACK-VALUECHAINCONCERN), both declared per ADR domain in
-`adrs.yml`, with a per-ADR override of the concerns.
+`drs.yml`, with a per-ADR override of the concerns.
 
 ### How this is enforced
 
@@ -339,7 +339,7 @@ files (DDR-TRACK-ROOTFILE, DDR-TRACK-UNLISTEDFILE); its cells (DDR-TRACK-CELL) m
 - **The `Test-WorldMap` quality gate** reads the world map and fails on a stack violation (DDR-TRACK-STACKVIOLATION), a root folder
   with tracked files that no track names (DDR-TRACK-TRACKISPLACEDCLUSTER), and a printed label that names no defined term
   (DDR-TRACK-LABELSNAMEDEFINEDTERMS).
-- **`Catzc.Base.Docs.AdrsConfig`**, the type of `adrs.yml`, declares the rows of the value-chain stack and the value-chain concerns once, in
+- **`Catzc.Base.Drs.DrsConfig`**, the type of `drs.yml`, declares the rows of the value-chain stack and the value-chain concerns once, in
   order, and fails the load on an ADR domain without a row or a default, on a row or a value-chain concern outside them, and on an unknown
   key, so every ADR resolves to its row and one or more value-chain concerns (DDR-TRACK-VALUECHAINSTACK,
   DDR-TRACK-VALUECHAINCONCERN).
@@ -349,7 +349,7 @@ files (DDR-TRACK-ROOTFILE, DDR-TRACK-UNLISTEDFILE); its cells (DDR-TRACK-CELL) m
 ## Consequences
 
 - "Which track does this change touch?" has one answer, computed (git-reflected against the globsets), not argued.
-- "Where along delivery does this decision act?" has a declared answer too: the value-chain map reads it from `adrs.yml`, and a new ADR
+- "Where along delivery does this decision act?" has a declared answer too: the value-chain map reads it from `drs.yml`, and a new ADR
   inherits its ADR domain's default until it declares otherwise.
 - Pipelines, tests, and reviewers all read the same coordination surface, so a change's blast radius is the same fact everywhere.
 - Opening a concern is cheap and bounded: one track entry with its type and places, one globset entry — and the rest of the repository is

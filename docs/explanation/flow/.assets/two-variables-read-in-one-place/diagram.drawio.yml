@@ -143,7 +143,7 @@ content:
           - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
           - docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
@@ -164,13 +164,13 @@ content:
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - FDR-CD-DETECT-BOOLEANNOTMODAL
           - FDR-CD-DETECT-FASTDETECTION
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-DETECT-BOOLEANNOTMODAL
           - FDR-CD-DETECT-FASTDETECTION
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
@@ -202,7 +202,7 @@ content:
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
     module-neighbourhood:
       - cell: subject/.claude
@@ -223,8 +223,8 @@ content:
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - FDR-CD-DETECT-BOOLEANNOTMODAL
           - FDR-CD-DETECT-FASTDETECTION
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
@@ -246,7 +246,7 @@ content:
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: subject/Catzc.Base.QualityGates
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: subject/pipelines
         by:

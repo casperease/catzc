@@ -212,13 +212,13 @@ content:
           - docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryConfig.cs.md
-          - docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-adr-map.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-drs-map.yml.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerAdrMapConfig.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerDrsMapConfig.cs.md
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
@@ -318,20 +318,20 @@ content:
           - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
           - ADR-AZ-SESSION
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
           - ADR-AZ-CUSTOMER
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - ADR-AZ-CUSTOMER
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
@@ -340,7 +340,7 @@ content:
           - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Base.QualityGates/types
         by:
-          - pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+          - pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
           - ADR-AZ-CUSTOMER
       - cell: pwsh/Catzc.Base.RootConfig/assets/root
         by:
@@ -414,9 +414,9 @@ content:
           - ADR-AZ-DATAMOD
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
           - ADR-AZ-CUSTOMER
@@ -424,10 +424,10 @@ content:
           - ADR-AZ-SESSION
       - cell: subject/Catzc.Base.QualityGates
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
-          - pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+          - pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
       - cell: subject/Catzc.Base.RootConfig

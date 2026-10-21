@@ -93,7 +93,7 @@ Describe 'DrsChecksConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' 
             $thrown = { [Catzc.Base.Drs.DrsChecksConfig]::new($raw) } | Should -Throw -PassThru
             $message = $thrown.Exception.Message
             $message | Should -BeLike '*drs-checks.yml is invalid*'
-            $message | Should -BeLike "*adr-checks: unknown key 'widget'*"
+            $message | Should -BeLike "*drs-checks: unknown key 'widget'*"
             $message | Should -BeLike "*engine_neutrality: unknown key 'colour'*"
             $message | Should -BeLike "*engine_neutrality: mode 'loud' is not one of: gate, report*"
             $message | Should -BeLike "*engine_neutrality: domain 'widget' is listed twice*"

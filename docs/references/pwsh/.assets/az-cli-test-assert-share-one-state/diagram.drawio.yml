@@ -240,21 +240,21 @@ content:
           - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
-          - docs/references/pwsh/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md
+          - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
-          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryConfig.cs.md
           - docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
           - docs/references/pwsh/catzc-base-files/Invoke-GitCommit.ps1.md
           - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
           - docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-adr-map.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-drs-map.yml.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Test-TestRunOverBudget.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationVerdict.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerAdrMapConfig.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerDrsMapConfig.cs.md
           - docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md
           - docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md
           - docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md
@@ -381,8 +381,8 @@ content:
           - ADR-AUTO-FAILFAST
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - ADR-AUTO-ENTERP
@@ -393,7 +393,7 @@ content:
           - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Base.Docs/private
         by:
-          - pwsh/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - ADR-AUTO-FAILFAST
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
@@ -401,7 +401,7 @@ content:
           - ADR-AUTO-FAILFAST
       - cell: pwsh/Catzc.Base.Docs/types
         by:
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
           - ADR-AZ-CUSTOMER
@@ -435,7 +435,7 @@ content:
           - ADR-AUTO-FAILFAST
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - ADR-AZ-CLI
           - ADR-AZ-CUSTOMER
@@ -449,7 +449,7 @@ content:
           - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Base.QualityGates/types
         by:
-          - pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+          - pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
           - ADR-AZ-CUSTOMER
       - cell: pwsh/Catzc.Base.RootConfig/assets/root
         by:
@@ -585,13 +585,13 @@ content:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - pwsh/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
           - ADR-AUTO-ENTERP
@@ -627,13 +627,13 @@ content:
           - ADR-AUTO-FAILFAST
       - cell: subject/Catzc.Base.QualityGates
         by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
           - pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
-          - pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+          - pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
           - ADR-AUTO-FAILFAST
           - ADR-AZ-CLI
           - ADR-AZ-CUSTOMER

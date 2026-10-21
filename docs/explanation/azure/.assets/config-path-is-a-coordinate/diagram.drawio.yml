@@ -210,8 +210,8 @@ content:
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
@@ -275,8 +275,8 @@ content:
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adr-index.yml
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION

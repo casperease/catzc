@@ -15,7 +15,7 @@ Gathers the repository's own registries and builds the map with Catzc.Base.Maps.
 [DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), the file languages
 (Get-FileLanguage, [DDR-TRACK-FILELANGUAGE](../../../drs/design/tracks.md#rule-ddr-track-filelanguage)), the tracked files from
 the git index (Get-GitTrackedPath, [ADR-AUTO-TRACKED](../../../drs/automation/tracked-files-from-the-index.md)), each configured track's
-aspects (Get-Aspect), the adrs index (Get-AdrRuleSet: ADR code to domain), each ADR code's own file (Get-AdrCitationMap, the map the link
+aspects (Get-Aspect), the adrs index (Get-DrsRuleSet: ADR code to domain), each ADR code's own file (Get-DrsCitationMap, the map the link
 engine uses; an ADR lights its own file, never its domain's), the owners of the repository-root files (files.yml, read through Get-Config),
 the globsets (Get-GlobSet), and the globs of the files whose citations light nothing (maps.yml highlight.citation_exclude; by default the
 generated slide descriptions under docs/.assets/, the explanation articles under docs/explanation/ and the drawing tooling under

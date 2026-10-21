@@ -68,7 +68,7 @@ no module.
 ## Context
 
 Several configs are lists of things that have a Markdown file of their own. An agent definition is a file, and the agent registry lists the
-same agent a second time. An ADR is a file, and a few of its settings sit in `adrs.yml`. Two files that state one fact drift: the registry
+same agent a second time. An ADR is a file, and a few of its settings sit in `drs.yml`. Two files that state one fact drift: the registry
 gains an entry the file does not have, or the file changes and the registry keeps the old line. A gate can report the drift, but the cheaper
 fix is one statement, made where the thing is.
 

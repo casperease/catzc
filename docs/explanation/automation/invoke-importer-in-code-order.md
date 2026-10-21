@@ -43,7 +43,7 @@ Bootstrap. Both entry scripts end in this one function, so this order is the loa
 6. **Assert-CatzcRunModeExclusive.** It asks `Get-ForeignCatzcModule -IncludeInternal` for any catzc module loaded from another root, and
    throws naming every one it finds.
 7. **Janitors.** Eleven calls run in this order, each guarded by `-not $SkipJanitors`: `Reset-GitCleanFxd` (only with `-CleanClone`),
-   `Invoke-TypeCacheJanitor`, `Build-AdrIndex` and `Build-Glossary`, `Build-Readme`, `Build-GitKeep`, `Build-TerminologyDictionary`,
+   `Invoke-TypeCacheJanitor`, `Build-DrsIndex` and `Build-Glossary`, `Build-Readme`, `Build-GitKeep`, `Build-TerminologyDictionary`,
    `Build-RootConfig`, `Sync-SessionTools`, `Invoke-AgentHookJanitor`, and `Sync-GeneratedFile` (not for a `Pipeline` actor). Then, on
    Windows only, the importer warns when `PSModulePath` holds a network share.
 8. **Remove-Module.** It removes `Catzc.Internal.Bootstrap`, and a console session then prints its load line. The entry script's `finally`

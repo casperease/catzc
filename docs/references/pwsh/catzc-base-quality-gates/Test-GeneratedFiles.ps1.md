@@ -17,7 +17,7 @@ report-only mode — -DryRun -PassThru, which composes the content and writes no
 naming the file, the generator, and the command that regenerates it:
 
 ```text
-Build-AdrIndex               [index](/docs/drs/index.md) from adrs.yml
+Build-DrsIndex               [index](/docs/drs/index.md) from drs.yml
 Build-Glossary               [glossary](/docs/drs/glossary.md) from the configs/glossary.yml sources
 Build-Readme                 the READMEs generated from their docs/references articles (readme.yml)
 Build-ContractReference      the per-unit contract pages docs/references/contracts/<unit>.md from the contract assets
@@ -68,5 +68,5 @@ Test-GeneratedFiles
 ### example 2
 
 ```powershell
-(Test-GeneratedFiles -Generator Build-AdrIndex, New-Importer -PassThru).Issues
+(Test-GeneratedFiles -Generator Build-DrsIndex, New-Importer -PassThru).Issues
 ```

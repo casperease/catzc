@@ -126,7 +126,7 @@ content:
           - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
       - cell: pwsh/Catzc.Base.Globs/configs
@@ -166,7 +166,7 @@ content:
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - DDR-TRACK-DEPLOYABLEUNIT
           - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
       - cell: subject/Catzc.Base.Globs

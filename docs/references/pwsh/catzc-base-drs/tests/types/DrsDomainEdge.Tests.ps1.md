@@ -1,13 +1,13 @@
-# pwsh/Catzc.Base.Docs/tests/types/AdrDomainEdge.Tests.ps1
+# pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'AdrDomainEdge' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {`, written with `#`.
+Above `Describe 'DrsDomainEdge' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {`, written with `#`.
 
 ```text
-AdrDomainEdge — one From/To edge of the ADR domain graph; the constructor holds both ends non-empty and distinct.
+DrsDomainEdge — one From/To edge of the ADR domain graph; the constructor holds both ends non-empty and distinct.
 Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

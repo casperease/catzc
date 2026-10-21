@@ -5,7 +5,7 @@ source, never a hand-kept one (see [generated-readmes](../../drs/repository/gene
 to the README's folder, so every link works where the README is opened, and a line under the title names the source as the one place to
 edit. What it deliberately does **not** own is the prose itself — that lives in the authored sources under `docs/` — nor the write
 primitive, which is `Write-FileIfChanged` ([Catzc.Base.Files](catzc-base-files.md)); the importer keeps every README current on every load.
-The module also generates the other derived documentation pages from their authored sources — the ADR index from `adrs.yml` and the glossary
+The module also generates the other derived documentation pages from their authored sources — the ADR index from `drs.yml` and the glossary
 from the modules' glossary sources — and answers "ask cats", the offline browser over the ADRs, modules, and verbs.
 
 ## Responsibilities
@@ -60,7 +60,7 @@ readme-mapped target (responsibility:2), so dropping a `.gitkeep` anywhere deman
 
 ### responsibility:4 — ADR registry
 
-The ADR domain structure as data: `adrs.yml` declares each domain, its role and dependencies, and each ADR's citation code. This
+The ADR domain structure as data: `drs.yml` declares each domain, its role and dependencies, and each ADR's citation code. This
 responsibility generates the committed ADR index from it on every import, reads the declared rule-sets, the flat set of rule ids, and the
 citation map every rule reference resolves through, and renders the domain dependency graph as typed edges or a diagram. A quality gate
 keeps the registry and the ADR files in step: one rule file per declared rule-set, headed by its citation code, and no rule file left
@@ -113,7 +113,7 @@ stale one is rewritten through the shared `Write-FileIfChanged` primitive. The m
 `DocPattern`) are validated at load, then the glob patterns are expanded against the filesystem to the concrete folder-to-source list, so a
 bad entry fails fast rather than producing a broken README.
 
-The ADR index and the glossary follow the same pattern: an authored source (`adrs.yml` and the index's own text in `adr-index.yml`, the
+The ADR index and the glossary follow the same pattern: an authored source (`drs.yml` and the index's own text in `drs-index.yml`, the
 glossary sources) and a generated page reproduced from it, which `Test-GeneratedFiles`
 ([Catzc.Base.QualityGates](catzc-base-quality-gates.md)) checks for drift.
 
@@ -127,17 +127,17 @@ The module's public surface, sorted into the responsibilities above.
 |                                           | `Test-GeneratedReadmes`      |
 | responsibility:2 — README map             | `readme.yml`                 |
 | responsibility:3 — Managed .gitkeep files | `Build-GitKeep`              |
-| responsibility:4 — ADR registry           | `Build-AdrIndex`             |
-|                                           | `Get-AdrRuleSet`             |
-|                                           | `Get-CatsAdrRuleIds`         |
-|                                           | `Get-AdrCitationMap`         |
-|                                           | `Get-AdrDomainEdges`         |
-|                                           | `ConvertTo-AdrDomainDiagram` |
-|                                           | `Test-AdrRegistry`           |
-|                                           | `Test-AdrEngineNeutrality`   |
-| config                                    | `adrs.yml`                   |
-|                                           | `adr-checks.yml`             |
-|                                           | `adr-index.yml`              |
+| responsibility:4 — ADR registry           | `Build-DrsIndex`             |
+|                                           | `Get-DrsRuleSet`             |
+|                                           | `Get-CatsDrsRuleIds`         |
+|                                           | `Get-DrsCitationMap`         |
+|                                           | `Get-DrsDomainEdges`         |
+|                                           | `ConvertTo-DrsDomainDiagram` |
+|                                           | `Test-DrsRegistry`           |
+|                                           | `Test-DrsEngineNeutrality`   |
+| config                                    | `drs.yml`                   |
+|                                           | `drs-checks.yml`             |
+|                                           | `drs-index.yml`              |
 | responsibility:5 — Controlled vocabulary  | `Get-Glossary`               |
 |                                           | `Build-Glossary`             |
 |                                           | `Test-Glossary`              |

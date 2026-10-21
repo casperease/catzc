@@ -6,7 +6,7 @@
 
 The **decision records system** (DRS) is the one system that holds every **decision record**: the domains of every record kind, their
 records and rules, the index and the registry, under its one root, `docs/drs/`. Every record is of exactly one **record kind** registered in
-`adrs.yml` (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`), and the kinds together are called "XDR". "ADR" names the `ADR` kind only,
+`drs.yml` (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`), and the kinds together are called "XDR". "ADR" names the `ADR` kind only,
 never the system or a record of another kind.
 
 - [One system holds every record](drs-code-language.md#one-system-holds-every-record)
@@ -15,14 +15,14 @@ never the system or a record of another kind.
 
 A decision record code is a record kind followed by zero or more segments, each `-` plus an upper-case letter and then upper-case letters or
 digits. It reads from the most general part to the most specific: the kind, then the domain where the kind is shared, then the record, then
-the rule. The kind is always the first part and is one of the closed set of kinds registered in `adrs.yml` (`ADR`, `TDR`, `PDR`, `WDR`,
+the rule. The kind is always the first part and is one of the closed set of kinds registered in `drs.yml` (`ADR`, `TDR`, `PDR`, `WDR`,
 `DDR`, `FDR`, `RDR`), so the registered kinds are the searchable markers for a decision record reference anywhere in the repository.
 
 - [One path for every level](drs-code-language.md#one-path-for-every-level)
 
 ### Rule ADR-REPO-DRSCODE-DOMAINSEGMENT
 
-Every domain has a `kind` in `adrs.yml`. A kind one domain owns stands for that domain, and its codes carry no domain segment
+Every domain has a `kind` in `drs.yml`. A kind one domain owns stands for that domain, and its codes carry no domain segment
 (`DDR-TRACK-UNORDEREDTRACK`). The shared kind `ADR` holds the implementation domains, and each of them adds its `code` as the second segment
 (`ADR-AUTO-FAILFAST`), a closed set with one code per `docs/drs/<domain>/` folder. Every code in a domain starts with that domain's prefix:
 its kind, then its code where it has one.
@@ -48,7 +48,7 @@ upper-cased and joined, with English stop words dropped.
 ### Rule ADR-REPO-DRSCODE-SEGMENTSAREWORDS
 
 Every segment of every registered code and rule heading is a known word to the spell checker, read from the registry and the ADR files by
-`Build-AdrCodeDictionary`. No code body is registered by hand as a term.
+`Build-DrsCodeDictionary`. No code body is registered by hand as a term.
 
 - [Segments are known words](drs-code-language.md#segments-are-known-words)
 
@@ -135,7 +135,7 @@ that rule leaves as the vendor writes it.
 
 A named segment is a run of joined words (`BOUNDEVERYWAIT`) that no dictionary holds, and there are more than sixteen hundred of them. A
 hand-written terminology entry per code body would copy a fact the registry already holds, once per rule, and drift from it on every rename.
-The registry is the one source, so the spell checker reads it: `Build-AdrCodeDictionary` writes every segment, lower-cased, to the generated
+The registry is the one source, so the spell checker reads it: `Build-DrsCodeDictionary` writes every segment, lower-cased, to the generated
 word list `.cspell/adr-codes.txt`, which the root `cspell.yml` loads beside the terminology dictionaries.
 
 ### Every string is a selector
@@ -174,9 +174,9 @@ where there is one), and the rule. Every code is a fact and a selector of everyt
 
 ### How this is enforced
 
-- **`Test-AdrRegistry`** (in `Catzc.Base.Docs`) runs the `code_language` check: a code outside the segment grammar, a code that does not
+- **`Test-DrsRegistry`** (in `Catzc.Base.Docs`) runs the `code_language` check: a code outside the segment grammar, a code that does not
   start with its domain's prefix, a kind that is not registered, a numbered rule heading, and a rule that shares a segment with a sibling
-  ADR are findings. The check's mode is configured in `adr-checks.yml`; in `report` mode its findings are printed in their own report and
+  ADR are findings. The check's mode is configured in `drs-checks.yml`; in `report` mode its findings are printed in their own report and
   never fail the run.
 - **`Test-Links`** (in `Catzc.Base.QualityGates`) reports a numbered citation in a markdown file or a code string as a finding; the test
   files whose fixtures carry one on purpose are named, each with its reason, in `links.yml` `string_citations.exempt`.
@@ -186,6 +186,6 @@ where there is one), and the rule. Every code is a fact and a selector of everyt
 
 - A citation reads as the fact it cites, and `git grep ADR-AUTO-FAILFAST` finds an ADR and every rule in it.
 - Codes are longer than a code with a number, so more comment lines wrap.
-- Renaming a rule is a citation change across every file that cites it, made by `Update-AdrCitation` with a rule map, never by hand.
+- Renaming a rule is a citation change across every file that cites it, made by `Update-DrsCitation` with a rule map, never by hand.
 - A rule added to an ADR widens what every derived `ADR-<DOMAIN>-<NAME>` entry covers; the derived lists regenerate, so the change is
   visible in review.

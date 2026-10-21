@@ -231,7 +231,7 @@ content:
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
@@ -293,7 +293,7 @@ content:
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
       - cell: subject/Catzc.Base.Docs
         by:
-          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT

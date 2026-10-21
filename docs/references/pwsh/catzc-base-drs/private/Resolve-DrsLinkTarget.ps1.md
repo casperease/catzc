@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.Docs/private/Resolve-AdrLinkTarget.ps1
+# pwsh/Catzc.Base.Drs/private/Resolve-DrsLinkTarget.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -17,9 +17,9 @@ target's #fragment, resolves the rest against the linking file's folder, and ret
 returns nothing for a link that names no file under docs/drs/: an in-page anchor, an absolute URL, a repository-rooted path, or a relative
 path that leaves docs/drs/.
 
-Private helper for the citation-graph and DORA-coverage checks of Test-AdrRegistry; not exported.
+Private helper for the citation-graph and DORA-coverage checks of Test-DrsRegistry; not exported.
 
-### parameter `AdrRoot`
+### parameter `DrsRoot`
 
 The absolute docs/drs/ folder.
 
