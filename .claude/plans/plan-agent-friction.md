@@ -20,23 +20,21 @@ plan:
 The docs-link head session and catzc-e8 spent effort on things the repository already knew but held where a session does not look: the
 plan-edit checks (held only in memory), a new plan's three parts (plan file, value row, master line), gates that scope by folder or not at
 all, the file-meta engine's call path (traced by hand). Each step below moves one of those to the one place that serves it. The tracked
-importer runner (catzc-e8's item 5) is plan-agent-shortcuts' gate runner (its Q1 and step 2) and is not restated here. The CLAUDE.md
-time-safeguard trim had no owner (plan-diagram-build-learnings, named as its owner here, holds no step for it); it is this plan's Q3.
+importer runner (catzc-e8's item 5) is plan-agent-shortcuts' gate runner (its step 1) and is not restated here. The CLAUDE.md
+time-safeguard trim is this plan's step 7.
 Recommended order: steps 1, 2 and 3 first (gates, cheapest and they replace instructions), then 4, then 5, then 6.
 
-## Open questions
+## Decided (the user, 2026-10-21, decision round)
 
-- **Q1: How is "Format-Code + Test-Plans after a plan edit" enforced?** Recommendation (catzc-e8 agrees): a PostToolUse hook on Edit and
-  Write under `.claude/plans/` that prints the reminder and the exact two commands into the session; it runs no pwsh, so it costs
-  milliseconds, and it is a C# hook beside `Assert-BashTimeout`, published by `Build-AgentHook` (ADR-PRIN-POKAYOKE). The alternatives are a
-  hook that runs the two commands (an importer run of seconds per edit, over the foreground limit) or one more line in `.claude/CLAUDE.md`
-  (the memory rule already failed twice).
-- **Q2: Is the drawing wanted after the sample?** Recommendation: yes, one sample first in `out/diagrams/dark-sample/` (nothing rendered
-  into `docs/` unasked), then placed beside the how-to of step 5 once approved.
-- **Q3: Is the `.claude/CLAUDE.md` time-safeguard section trimmed, and by whom?** It restates detail the `catzc-run` capability holds.
-  Recommendation: this plan owns it, as one step after plan-agent-shortcuts' step 3 points `catzc-run` at the gate runner: the section keeps
-  the rule and its code (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT), the hook and the denial rule, and points at `catzc-run` for the call shapes.
-  Alternative: no trim; the section stays as it is.
+- **The plan-edit checks are a reminder hook**: a PostToolUse hook on Edit and Write that prints the reminder and the exact commands into
+  the session; it runs no pwsh, so it costs milliseconds, and it is a C# hook beside `Assert-BashTimeout`, published by `Build-AgentHook`
+  (ADR-PRIN-POKAYOKE, ADR-REPO-AI-TESTSATTHEEND). Its matcher is a configured path-pattern to reminder map, one mechanism with config
+  entries (ADR-PRIN-CONFIG): `.claude/plans/` is this plan's entry, and plan-adr-authoring adds `adrs.yml` and `*/configs/glossary.yml`.
+  The existing `Record-AgentWrite` hook sees every path but prints nothing and stays a ledger writer.
+- **The head drawing is wanted, as one sample** in `out/diagrams/dark-sample/`, then placed beside the how-to of step 5 once approved.
+- **This plan owns the `.claude/CLAUDE.md` time-safeguard trim**: the section keeps the rule and its code (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT),
+  the hook, its log `out/time-safeguard.log`, `timeouts.yml`, the denial rule and the fastest-runner rule, and points at `catzc-run` for
+  the call shapes.
 
 ## Open steps
 
@@ -51,15 +49,16 @@ Recommended order: steps 1, 2 and 3 first (gates, cheapest and they replace inst
        `Test-Comments` pass theirs, so every gate scopes the same way (ADR-PWSH-PARAM). Check:
        `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1` passes with a new `-Path` case, and
        `Test-ParameterConsistency` passes.
-4. [ ] The plan-edit hook as Q1 settles: a new `.claude/hooks/<name>/` program and its registration in `.claude/settings.json`. Check:
+4. [ ] The plan-edit hook as decided: a new `.claude/hooks/<name>/` program, its path-pattern map as config, and its registration in
+       `.claude/settings.json`. Check:
        `Invoke-TestFile` on the hook's test file, and an edit of a plan in a fresh session prints the reminder.
 5. [ ] After plan-minimal-heads lands: `docs/how-to/pwsh/add-a-head-fact.md` (new), the steps from a wanted fact to an imprinted head in the
        minimal model that plan sets (the warning head of a generated file, the navigation head of authored code under `file_heads.code`, the
        kind in `file-meta.yml` and its processor found by name, its test, `Format-FileMeta` on one module, the gates). It links
        ADR-REPO-FILEMETA and ADR-REPO-CODEMETA, never restates their rules. Check: `Test-Links -Path docs/how-to/pwsh/add-a-head-fact.md`
        and `Format-Code -Language markdown` on it.
-6. [ ] The drawing as Q2 settles, after step 5: one diagram, "what decides a head and what fills it", the minimal model's three outcomes (a
+6. [ ] After step 5, the drawing: one diagram, "what decides a head and what fills it", the minimal model's three outcomes (a
        generated file's warning head, authored code's navigation head by its variant, no head) and the keys each holds. Sample in
        `out/diagrams/dark-sample/` only. Check: the user approves the sample.
-7. [ ] After Q3 and plan-agent-shortcuts' step 3: `.claude/CLAUDE.md`, section Time safeguard, trimmed as Q3 settles, when no peer has the
-       file dirty. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
+7. [ ] After plan-agent-shortcuts' step 3: `.claude/CLAUDE.md`, section Time safeguard, trimmed as decided, when no peer has the file
+       dirty. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.

@@ -42,35 +42,35 @@ plans stay the durable record; task files and this master are derived from them 
 
 ## Chunks
 
-Open, in execution order. Nothing is held. A chunk without a task file is executed from its plan's open steps directly.
+Open, in execution order. Nothing is held. A chunk without a task file is executed from its plan's open steps directly. Every plan
+question was decided in the round of 2026-10-21; no chunk waits on a question.
 
-- minimal-heads -> plan-minimal-heads.md: the dropped-keys page and the no-read-back probe (free); answer Q1-Q7, then the variant, the
-  policy, the trimmed kinds, the generated head and one whole-tree re-format.
+- minimal-heads -> plan-minimal-heads.md: the dropped-keys page and the no-read-back probe, the variant ADR and file-meta restatements (agent
+  heads forbidden), the variant, the policy, the trimmed kinds, the generated head and one whole-tree re-format; the ADR fold last.
 - idiomatic-names -> plan-idiomatic-names.md: wire the naming gate in (rule, test-folder mapping, three renames, gate on), then the
   repository normal form for function and type names and the `0.0.0` command contracts.
 - listen-agent -> plan-listen-agent.md: process the three carried editor notes, narrow `Get-DocChange`'s `Rules`, fit the fact-checker to
-  the mode; five questions stay open.
-- agent-shortcuts -> plan-agent-shortcuts.md: the citation fixes (free); answer Q1-Q2, then the gate runner and New-Plan; its catzc-run step
-  follows agent-friction's hook.
-- truth-stores -> plan-truth-stores.md: answer Q1-Q3, align ADR-THES-STORES with the ADO writers, then the truth-store config, the
-  actionable-fact contract and the junction contracts.
-- eac-normal-form -> plan-eac-normal-form.md: answer Q1-Q4, then the technical migration ADR under ADR-THES-NORMALFORM, the check that
-  proves a file uncontested, the term renames and one sample drawing.
+  the mode, the two AI-contract restatements, and land the two samples.
+- agent-shortcuts -> plan-agent-shortcuts.md: the citation fixes; the gate runner as a repo asset with catzc-run, gate-runner and CLAUDE.md
+  following it; `New-Plan` for the plan file, its value row and master line after agent-friction's step 1.
+- truth-stores -> plan-truth-stores.md: restate FACTSOURCEREADONLY and one-source-of-truth.md:105 for the ADO split, tag the five
+  writers, then the truth-store config, the actionable-fact and junction contracts, and the diagram sample.
+- eac-normal-form -> plan-eac-normal-form.md: the migration rules in ADR-DSGN-TRACK, the uncontested check, the avoid note, `fragment
+  migration`, and one sample drawing.
 - bcl-language -> plan-bcl-language.md: move the BCL reference and how-to pages out of `pwsh/` and re-point their links; the reference-set
-  rule, the host-binding config and gate, the one BCL definition page, the CLAUDE.md line, the `bcl` domain, the language-row rename and the
-  diagram sample wait on its Q1-Q4.
-- bicepparam -> plan-bicepparam.md: the Bicep CLI spike (free); answer Q1-Q5, then the rules, the language entry, the renderer, discovery,
-  the build and the migration command.
+  rule, `bcl.yml` and its gate, the five unwraps, the one BCL definition page, the CLAUDE.md line, the `bcl` domain and re-cite, and the
+  diagram sample; the language-row rename after plan-minimal-heads.
+- bicepparam -> plan-bicepparam.md: the Bicep CLI spike, then the rules, the language entry, the renderer, discovery, the build, and the
+  one-shot migration of the six literal slots.
 - agent-friction -> plan-agent-friction.md: the three gate steps first (Test-Plans' three-part plan rule and file paths, Test-Formatting
-  `-Path`); answer Q1-Q3, then the plan-edit hook and the CLAUDE.md trim; the head how-to and its drawing after plan-minimal-heads.
-- adr-authoring -> plan-adr-authoring.md: the glossary contrast declared once and the domain-deps memory deleted (free), the add-an-adr
-  how-to after plan-agent-shortcuts' gate runner; answer Q1-Q2, then the pending link finding and the ADR-edit reminder after
-  plan-agent-friction's hook.
-- diagram-build-learnings -> plan-diagram-build-learnings.md: fix the Build-Diagrams help, add two patterns to catzc-run, quiet the legend's
-  warning by role, measure then memo the minimap stage; the catzc-run probe line, `-Sample` and the pipeline drawing wait on Q1-Q3.
-- file-meta-cache -> plan-file-meta-cache.md: the help-page reword and the strict-mode fix (free); answer Q1-Q2, then the stamp input and
-  the caching sentence.
-- session-finalize -> plan-session-finalize.md: the roof-count sentence and the gate message (free); answer Q1-Q2, then the user-skill line.
+  `-Path`), then the plan-edit hook with its path-pattern map and the CLAUDE.md trim; the head how-to and its drawing after
+  plan-minimal-heads.
+- adr-authoring -> plan-adr-authoring.md: the glossary contrast declared once and the domain-deps memory deleted, the add-an-adr how-to
+  after plan-agent-shortcuts' gate runner, the ADR-edit entry in plan-agent-friction's hook map.
+- diagram-build-learnings -> plan-diagram-build-learnings.md: fix the Build-Diagrams help (the sample sequence included), one merged
+  catzc-run item, quiet the legend's warning by role, measure then memo the minimap stage, one pipeline drawing for an explanation page.
+- file-meta-cache -> plan-file-meta-cache.md: the help-page reword, the ADR-code stamp, the caching sentence and the strict-mode fix.
+- session-finalize -> plan-session-finalize.md: the roof-count sentence and the gate message.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

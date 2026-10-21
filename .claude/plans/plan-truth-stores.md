@@ -26,31 +26,33 @@ problem catzc solves. ADR-THES-ONETRUTH-ONESTOREDECIDES is scoped to the respons
 The thesis states what catzc is for. Until the tooling classifies the stores it touches and emits facts with their origin, the ADR is prose
 with no check behind it, and the ADO writers below contradict it.
 
-## Open questions
+## Decided (the user, 2026-10-21, decision round)
 
-- Q1: ADO is both a fact source and a store catzc writes to (`Sync-AdoEnvironmentApprovals`, `Sync-AdoBuildValidations`,
-  `Register-AdoBuildValidation`, `Register-AdoPipeline`, `New-AdoPullRequest`, `Set-AdoPipelineVariable`), which breaks
-  ADR-THES-STORES-FACTSOURCEREADONLY as written. Recommendation: split one platform into two roles. Its configuration (approvals, build
-  validations, pipeline definitions, variables) is an adjacent store driven one way from the trunk, and its runtime state (runs, environment
-  deployments, pull-request history) is a fact source that catzc only reads. The rule then says "a fact source's state", and a read of the
-  configured controls verifies the projection. Alternatives: an explicit exception list in the rule, or moving the writers behind a
-  junction.
-- Q2: Where the truth stores of a responsibility domain are declared. Recommendation: one config entry per store (kind, URL, owning state
-  machine), with defaults declared once on the config type. Configure, don't program. Alternative: prose only, with no registry.
-- Q3: A truth-stores diagram. Recommendation: one diagram, made after Q1 because its answer decides whether ADO is drawn as one store or
-  two: the responsibility domain as a box holding the repository; fact sources outside it, reached by read arrows; state machines beside
-  their fact sources, reached by the two junction arrows, inbound and outbound. It goes in the product-thesis deck as one symbol-only slide,
-  its words in the ADR, and replaces most of the ADR's Context for a first reader. Alternative: no diagram.
+- **ADO is two roles.** Its configuration (approvals, build validations with their branch policies, pipeline definitions, variables) is an
+  adjacent store driven one way from the trunk; its runtime state (runs, environment deployments, pull-request history) is a fact source
+  catzc only reads. ADR-THES-STORES-FACTSOURCEREADONLY says "a fact source's state", the ADR's branch-policy example moves to the adjacent
+  store, and `docs/adr/thesis/one-source-of-truth.md:105` ("Catzc has no adjacent store"; an adjacent store keeps its own history) is
+  restated. The writers: `Sync-AdoEnvironmentApprovals`, `Sync-AdoBuildValidations`, `Register-AdoBuildValidation`,
+  `Register-AdoPipeline`, `New-AdoPullRequest`; `Set-AdoPipelineVariable` only emits `##vso` logging and is no writer.
+- **One config entry per truth store** (kind, URL, owning state machine), defaults declared once on the config type.
+- **One truth-stores diagram, a sample first**: the responsibility domain as a box holding the repository; fact sources outside it, reached
+  by read arrows; state machines beside them, reached by the inbound and outbound junction arrows; ADO drawn as two stores. On approval it is
+  one slide in the product-thesis deck whose caption carries the rule codes (the deck's About rule), and the ADR's Context keeps its text.
 
 ## Open steps
 
-1. [ ] After Q1: reword ADR-THES-STORES-FACTSOURCEREADONLY and its Fact sources section in `docs/adr/thesis/truth-stores.md`, and the
-       `fact source` entry in `pwsh/Catzc.Base.Docs/configs/glossary.yml`. Check: `Test-Glossary`, then `Test-Links` on the ADR.
-2. [ ] After Q1: name the ADR rule in the help of each ADO writer, one file at a time. Check: that file's test under `Invoke-TestFile`.
-3. [ ] After Q2: the truth-store config and its type, with one `Get-*` reader that emits the stores as data
+1. [ ] Reword ADR-THES-STORES-FACTSOURCEREADONLY and its Fact sources section in `docs/adr/thesis/truth-stores.md` as decided, and the
+       `fact source` and `adjacent store` entries in `pwsh/Catzc.Base.Docs/configs/glossary.yml`. Check: `Test-Glossary`, then
+       `Test-Links` on the ADR.
+2. [ ] `docs/adr/thesis/one-source-of-truth.md`: restate line 105 so ADO configuration is an adjacent store whose history is the trunk that
+       drives it. Check: `Test-AdrCodes`, `Test-Links` on the page.
+3. [ ] Name the adjacent-store rule in the help of each of the five ADO writers, one file at a time. Check: that file's test under
+       `Invoke-TestFile`.
+4. [ ] The truth-store config and its type, with one `Get-*` reader that emits the stores as data
        (ADR-THES-ONETRUTH-TRUTHISQUERYABLE). Check: its L0 Pester file.
-4. [ ] The actionable-fact shape as a contract under `contracts/` (origin: store, address, read time; calls for: a change or a report), then
+5. [ ] The actionable-fact shape as a contract under `contracts/` (origin: store, address, read time; calls for: a change or a report), then
        one junction contract per direction, inbound and outbound. Check: `Test-Contracts`.
-5. [ ] After Q1 and Q3: the truth-stores diagram as one new diagram for the user to approve (`drawio-diagram-waves`, a wave of one), then a
-       slide file under `docs/explanation/thesis/product-thesis/` and its line in `deck.md`. Check: the rendered png read, then `Test-Links`
-       on `deck.md`.
+6. [ ] After steps 1-2: the truth-stores diagram as one sample in `out/diagrams/dark-sample/` (`drawio-diagram-waves`, a wave of one).
+       Check: the user approves the sample.
+7. [ ] On approval: a slide file under `docs/explanation/thesis/product-thesis/`, its caption carrying the rule codes, and its line in
+       `deck.md`. Check: the rendered png read, then `Test-Links` on `deck.md`.

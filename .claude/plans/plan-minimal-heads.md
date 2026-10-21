@@ -37,8 +37,8 @@ Every code file in the tree carries a head no reader needs, and the next `Format
 ## Decided (the user, 2026-10-21)
 
 - **Generated content always carries a head**, tracked or not: the warning ("Do Not Edit, this file is generated",
-  `GeneratedHeadConfig.DefaultWarning`), `with_body_sha`, the kind, `track`, `generator`, and the edges: links and ADR codes. Nothing else.
-  It is no setting: a generated file without its head is a finding.
+  `GeneratedHeadConfig.DefaultWarning`), `with_body_sha`, `role`, `track`, `generator`, `source` as a plain path value, and the edges.
+  Nothing else. It is no setting: a generated file without its head is a finding.
 - **Authored source code and configs carry a navigation head** set by a repo-wide variant (ADR-REPO-VARIANT-SESSIONVARIANT), on or off, with
   its default declared once on `VariantsConfig`. The head holds only `with_body_sha` and the edges: the ADR codes (`cites`) and the links
   (`docs` to the comment page, `test` to the test). It exists so a reader on GitHub, or in an editor, steps straight to the rules and the
@@ -48,26 +48,21 @@ Every code file in the tree carries a head no reader needs, and the next `Format
 - **An authored code head carries `with_body_sha`**, accepted with its cost: the line changes on every edit of the body, so two concurrent
   edits of one file also meet on that line. ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY is restated to say so, not reopened.
 
-## Open questions
+### From the decision round (the user, 2026-10-21)
 
-- **Q1: Does the generated head keep `source`?** Recommendation: yes, as an edge. The warning says "do not edit"; `source` is the one
-  pointer that says what to edit instead (ADR-REPO-FILEMETA-PROVENANCEINHEAD), and it is a link. Otherwise: `generator` alone.
-- **Q2: What are "links" on a generated Markdown page?** Recommendation: the few relatives (`source`, `docs`), never the `links` list of
-  every outgoing link, and no `cites` on a page that renders a registry: the ADR index would carry every code and every ADR link, hundreds
-  of lines. `cites` stays on a generated code file, where it is a handful. Otherwise: the full `links` and `cites` lists.
-- **Q3: Which key spells "kind"?** Recommendation: `role`, the term ADR-REPO-FILEMETA-ROLE defines; `kind` would be a second name for it.
-- **Q4: What happens to the agent, capability and slide entries of `head_policy.classes`?** Recommendation: their front matter belongs to
-  the tool that reads it and stays untouched, and their authored `config` part (ADR-CONF-MDCONTRIB) stays; the imprinted `immutable` and
-  `edges` parts go, as on every other authored Markdown file.
-- **Q5: What is the shipped default of the code variant?** Recommendation: `minimal` (heads on), since navigation is the head's whole
-  purpose; `none` is the one-line switch for a repository that wants clean files.
-- **Q6: What is the test-to-code edge called?** Recommendation: `code`, so `source` keeps its one meaning, the authored input of a generated
-  file.
-
-- **Q7: Should the next session read less about heads?** Recommendation: yes, in two cuts. First, merge the `docs-link-head` memory into
-  `minimal-heads-direction`, since the new direction supersedes it. Second, once this plan lands, fold ADR-REPO-FILEMETA-MODULEFACTS and
-  ADR-REPO-FILEMETA-MARKDOWNEDGES into the dropped-keys page, so `file-meta.md` holds one rule per head shape. Otherwise: keep both as they
-  are.
+- **`source` stays a plain path value** in the generated head, never an edge: an edge would break ADR-REPO-FILEMETA-FEWLINKS, since a source
+  crosses modules (`importer.ps1` from `Catzc.Internal.Importer.psm1`); ADR-REPO-FILEMETA-PROVENANCEINHEAD stays as it is.
+- **A generated page carries the relatives only** (`docs` where one exists), never the `links` list of every outgoing link, and no `cites`
+  on a page that renders a registry; `cites` stays on a generated code file. This narrows the earlier "the edges: links and ADR codes", and
+  ADR-REPO-FILEMETA-MARKDOWNEDGES retires.
+- **The kind key is `role`** (ADR-REPO-FILEMETA-ROLE); `kind` would be a second name.
+- **Agent heads are forbidden**: an agent's head holds only imprinted facts, so it goes, and `docs/adr/repository/agent-definitions.md:47`
+  and `file-meta.md:10` are restated. A capability keeps its authored `config` part (`model_floor`, ADR-REPO-AGENTS-NAMEDMODEL) and loses
+  its imprinted parts; a slide's front matter belongs to its tool and stays.
+- **The code variant ships `minimal`** (heads on); `none` is the one-line switch.
+- **The test-to-code edge is `code`**, so `source` keeps its one meaning; FEWLINKS' "at most two edges" is restated.
+- **Fewer head notes**: the `docs-link-head` memory is folded into `minimal-heads-direction` now (done in the round); MODULEFACTS and
+  MARKDOWNEDGES move to the dropped-keys page only after this plan lands.
 
 ## Open steps
 
@@ -84,32 +79,34 @@ Every code file in the tree carries a head no reader needs, and the next `Format
       `Build-AdrIndex` pass; the code is in the index.)
 - [ ] `docs/adr/repository/file-meta.md`: restate HEADPOLICY (generated: required, tracked or not; authored code: the variant; everything
       else: forbidden; no `pages` setting), IMPRINTEDPARTS and FILEISNODE (no `repo_status`, `immutable` holds `with_body_sha` alone on an
-      authored head), COMPOSEDFILES and PROVENANCEINHEAD (the generated head's keys, per Q1–Q3), FEWLINKS (the `code` edge from a test, per
-      Q6), MODULEFACTS and MARKDOWNEDGES (retired: the facts are derived, never shown). (check: `Test-AdrCodes` passes; `Test-Links` on the
-      page passes.)
+      authored head), COMPOSEDFILES and PROVENANCEINHEAD (the generated head's keys, `source` a value), FEWLINKS (the `code` edge from a
+      test; three edges), MODULEFACTS and MARKDOWNEDGES (retired: the facts are derived, never shown), and line 10 (agent heads forbidden,
+      capability heads keep their `config` part). (check: `Test-AdrCodes` passes; `Test-Links` on the page passes.)
+- [ ] `docs/adr/repository/agent-definitions.md`: restate line 47 so a robot carries no imprinted catzc head; a capability keeps
+      `metadata.catzc.config` only. (check: `Test-AdrCodes`, `Test-Links` on the page, `Test-AgentDefinitions`.)
 - [ ] `docs/adr/repository/code-file-meta.md`: restate COMPUTABLEFACTSONLY (the head is `with_body_sha`, `cites`, `docs`, `test`, `code`;
       the hash's cost on concurrent edits stated), SAMEENGINE (scope is the variant, not every tracked file), and the samples and the "What
       the head holds" and "Scope" sections. (check: `Test-AdrCodes` passes.)
 - [ ] `docs/adr/repository/comments-in-docs.md`: restate ADR-REPO-COMMENTS-ONELINEOFINSIGHT so the code-to-page link is the navigation
       head's `docs` edge when the variant is `minimal`, and nothing in the code when it is `none`. (check: `Test-AdrCodes` passes.)
 - [ ] `pwsh/Catzc.Base.Variants/types/VariantsConfig.cs` and `configs/variants.yml`: add `file_heads` with `code`, its
-      `DefaultFileHeadsCode` constant (per Q5) shown in the shipped file, plus `Get-FileHeadVariant` and
+      `DefaultFileHeadsCode` constant (`minimal`) shown in the shipped file, plus `Get-FileHeadVariant` and
       `Test-FileHeadVariant -Minimal|-None` (ADR-REPO-VARIANT-NODIRECTREADS). (check: `Invoke-TestFile` on
       `tests/types/VariantsConfig.Tests.ps1` and the new function tests.)
 - [ ] `pwsh/Catzc.Base.QualityGates/types/FileHeadPolicy.cs`: drop `pages` and `DefaultPagesPolicy`; a generated file is `required`, an
       authored file in a code carrier (comment head or JSON property) takes the variant, and everything else is `forbidden`; `classes` keeps
-      only what Q4 leaves. (check: `Invoke-TestFile` on `tests/types/FileHeadPolicy.Tests.ps1`.)
+      only the capability entry, `required` for its `config` part, with the agent entry `forbidden`. (check: `Invoke-TestFile` on
+      `tests/types/FileHeadPolicy.Tests.ps1`.)
 - [ ] `pwsh/Catzc.Base.QualityGates/configs/file-meta.yml`: keep the kinds `body-sha`, `relative-edges` (with the `code` relation for tests)
       and `adr-codes`, none of them with a `select`, so they apply to every file the policy gives a head; remove `head_policy.pages` and the
-      class entries Q4 retires; delete the other kinds. (check: `Test-FileMetaProcessors` reports each removed kind's function as an
-      orphan.)
+      agent class entry; delete the other kinds. (check: `Test-FileMetaProcessors` reports each removed kind's function as an orphan.)
 - [ ] `pwsh/Catzc.Base.QualityGates/private/`: delete the `Get-<Kind>FileMetaFact.ps1` files, their tests and their comment pages, for
       `RepoStatus`, `FilePath`, `FileName`, `FileType`, `FileRole`, `FileLanguage`, `Track`, `TrackType`, `Vendor`, `ModuleName`,
       `ModuleType`, `CatzcBundle`, `Visibility`, `AdrDefines`, `Links`, one file at a time (ADR-PRIN-ONELIVE). (check:
       `Test-FileMetaProcessors` passes.)
 - [ ] `pwsh/Catzc.Base.Languages/types/GeneratedHeadConfig.cs` and its caller `Format-GeneratedFileHead.ps1`, in one pass: `order` becomes
-      `with_body_sha`, `warning`, `role`, `track`, `generator`, then the edges per Q1–Q2; the writer always writes it, tracked or not, then
-      a fresh full import. (check: `Invoke-TestFile` on both test files; the import succeeds in a new `pwsh`.)
+      `with_body_sha`, `warning`, `role`, `track`, `generator`, `source`, then the relative edges; the writer always writes it, tracked or
+      not, then a fresh full import. (check: `Invoke-TestFile` on both test files; the import succeeds in a new `pwsh`.)
 - [ ] `contracts/catzc/0.0.0/Catzc.Base.QualityGates/head.sample.yml`: the two head shapes, generated and authored code (ADR-REPO-CONTRACT).
       (check: the contract tests of `Catzc.Base.QualityGates` pass.)
 - [ ] `pwsh/Catzc.Base.QualityGates/tests/`: `Invoke-FileMetaEngine.Tests.ps1`, `Format-FileMeta.Tests.ps1`, `Sync-FileMeta.Tests.ps1`
@@ -118,6 +115,9 @@ Every code file in the tree carries a head no reader needs, and the next `Format
 - [ ] Whole tree: `Format-FileMeta`, then every generator through `Sync-GeneratedFile`, then `Format-FileMeta` again. (check: the second run
       formats 0 files; `Test-FileMeta` and `Test-GeneratedFiles` pass; a sampled function, test, config and bicep file holds only the keys
       above; no authored Markdown file has a `catzc:` head.)
+- [ ] After every step above: `docs/explanation/file-meta.md`'s dropped-keys section absorbs ADR-REPO-FILEMETA-MODULEFACTS and
+      -MARKDOWNEDGES, and `docs/adr/repository/file-meta.md` keeps one rule per head shape; the codes are retired, never reused. (check:
+      `Build-AdrIndex`, `Test-AdrCodes`, `Test-AdrCitations` on the two pages.)
 
 ## Refs
 

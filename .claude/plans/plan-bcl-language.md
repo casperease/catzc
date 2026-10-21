@@ -33,7 +33,7 @@ moves BCL out of pwsh in the docs, the language registry and the reference set.
 
 ## Why its value is medium
 
-A reader looking for the type rules lands under pwsh and reads them as PowerShell rules, and 14 of 309 types bind to the pwsh host without
+A reader looking for the type rules lands under pwsh and reads them as PowerShell rules, and 12 of 309 types bind to the pwsh host without
 anything saying which or why. The language, its reference set and its host become three named things, each with one owner, which a second
 host (or a reader of a bundle) needs before the types can be reasoned about apart from pwsh. Nothing breaks today, so medium.
 
@@ -41,38 +41,24 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
 
 - BCL is a language of its own: a subset of .NET, C# against the Base Class Library. pwsh is its host, not its owner.
 
-## Open questions (recommendation first)
+## Decided (the user, 2026-10-21, decision round)
 
-1. **What becomes of the 14 types that reference `System.Management.Automation`?** They fall into three kinds: `PSObject` unwrapping
-   (`ContractValue`, `ValueChainHighlight`, `ValueChainMap`, `WorldMapBuilder`, `WorldMapHighlight`), `WildcardPattern` (`GlobPattern`), and
-   the PowerShell parser and runspace (`GlossaryProse`, `FunctionCallCollector`, `CommentLexer`, `ParsedScripts`, `SyntaxSearch`,
-   `PipelineWatchdog`, `ContractParameter`, `TypeShape`).
-   - **Recommended:** each host binding is a config entry (`ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY`), one row per file with its reason, in a
-     `bcl.yml` beside `languages.yml`; a gate fails a `using System.Management.Automation*` in any file without a row. The `PSObject`
-     unwrapping moves to the pwsh caller and those five rows never exist; the parser and runspace rows stay, since parsing PowerShell is the
-     job.
-   - Alternative: a second layout folder (`host-types/`) for host-bound C#; costs a second namespace source for `Format-Types` and the
-     loader.
-   - Alternative: rewrite all 14 to the BCL only; the parser types cannot be.
-2. **Does BCL get its own ADR domain and prefix, like pwsh did?**
-   - **Recommended:** yes. A `bcl` domain in `adrs.yml` (folder `automation/BCL`, depends on `automation`), `ADR-AUTO-TYPES` re-cited to
-     `ADR-BCL-TYPES` with `Update-AdrCitation` (dry run first, no `folder` rows on one-segment folders), and `ADR-PWSH-TYPES` depends on
-     `bcl`.
-   - Alternative: keep `ADR-AUTO-TYPES` and move only the docs and the reference set.
-3. **Is the language row renamed from `csharp` to `bcl`?** 41 uses in 19 files (configs, `LanguagesConfig`, `CommentsConfig`, imprint and
-   formatter tests).
-   - **Recommended:** yes, `bcl`, with `.cs` as its extension; the row names the language, `.cs` names its syntax. One change with every
-     caller (`ADR-PRIN-ONELIVE`).
-   - Alternative: keep `csharp`, and say in the row's comment that it means BCL.
-4. **Is the BCL diagram wanted?** One drawing: BCL inside .NET, pwsh hosting the combined assembly, and the host bindings as a small listed
-   exception box with the kinds Q1 keeps.
-   - **Recommended:** yes, after Q1 is answered (a drawing before it shows an undecided state), as one sample in `out/diagrams/dark-sample/`
-     only; it goes to `docs/adr/automation/BCL/.assets/` once the user approves it.
-   - Alternative: no drawing; the reference index's text carries it.
+- **Host bindings are config entries** (ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY): one row per host-bound file with its reason in a `bcl.yml`
+  beside `languages.yml`, and a gate fails a `using System.Management.Automation*` in a file without a row. Twelve types carry the
+  `using` (`ContractParameter.cs` and `TypeShape.cs` name SMA only in string literals). The five `PSObject`-unwrapping types
+  (`ContractValue`, `ValueChainHighlight`, `ValueChainMap`, `WorldMapBuilder`, `WorldMapHighlight`) unwrap in their pwsh callers instead,
+  so `ContractValue.Unwrap`'s signature changes; the parser and runspace types keep their rows.
+- **BCL is its own ADR domain**, `bcl` (folder `automation/BCL`, depends on `automation`): `ADR-AUTO-TYPES` is re-cited to `ADR-BCL-TYPES`
+  with `Update-AdrCitation`, dry run first, and `ADR-PWSH-TYPES` depends on `bcl`.
+- **The language row is renamed `csharp` to `bcl` after plan-minimal-heads lands**, since that plan drops `language` from code heads and
+  the rename shrinks from about 290 files to the configs and tests; the `csharp-namespace` imprint step becomes `bcl-namespace` in the same
+  change.
+- **The BCL drawing is wanted**, after the host bindings land, as one sample folder `out/diagrams/dark-sample/.assets/bcl-language/`; on
+  approval it goes to `docs/adr/automation/BCL/.assets/bcl-language/`, kept in step with the one definition page.
 
 ## Open steps
 
-The doc moves have no open question and go first; each later step waits on the answer it names.
+The doc moves go first.
 
 - [ ] `docs/references/pwsh/BCL/` → `docs/references/BCL/` (both pages, moved on disk): reword "the host-guaranteed assemblies" to the BCL
       language with pwsh as its host, and re-point each relative link one level up (check: `Test-Links` on both pages).
@@ -87,31 +73,35 @@ The doc moves have no open question and go first; each later step waits on the a
 - [ ] `docs/adr/automation/BCL/index.md`: say BCL is a language, a subset of .NET, hosted by pwsh, and name the two ADRs (language, hosting)
       (check: `Test-Links`, `Test-Markdownlint`).
 - [ ] `docs/adr/automation/BCL/native-csharp-types.md`: a rule stating the BCL reference set — the BCL only, a host binding only as its
-      configured exception (waits on Q1); the host-binding section names the language and its host apart (check: `Test-AdrIndex`,
+      configured exception; the host-binding section names the language and its host apart (check: `Test-AdrIndex`,
       `Test-Links`).
 - [ ] `docs/adr/automation/pwsh/hosting-csharp-types.md`: narrow `ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES` and
-      `ADR-PWSH-TYPES-POWERSHELLPRIMITIVES` to "the BCL language, plus SMA for a configured host binding" (waits on Q1) (check:
+      `ADR-PWSH-TYPES-POWERSHELLPRIMITIVES` to "the BCL language, plus SMA for a configured host binding" (check:
       `Test-AdrIndex`).
 - [ ] `pwsh/Catzc.Base.Languages/configs/bcl.yml` and its config type: one row per host-bound file with its reason; register in
-      `configs.yml` (waits on Q1) (check: the config type's L0 tests).
-- [ ] The gate over `types/*.cs` that fails an unlisted `System.Management.Automation` reference (waits on Q1), with its L0 tests on
+      `configs.yml` (check: the config type's L0 tests).
+- [ ] The gate over `types/*.cs` that fails an unlisted `System.Management.Automation` reference, with its L0 tests on
       widget/gadget fixtures (check: its Pester file).
-- [ ] The five `PSObject`-unwrapping types: unwrap in the pwsh caller and drop the `using`, one file at a time (waits on Q1) (check: each
+- [ ] The five `PSObject`-unwrapping types: unwrap in the pwsh caller and drop the `using`, one file at a time (check: each
       module's Pester files, then a fresh full import).
 - [ ] `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `docs/adr/index.md`: the `bcl` domain and its table; `automation/`'s description stops
-      listing `BCL/` as a language layer (waits on Q2) (check: `Test-AdrIndex`).
-- [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first (waits on Q2) (check: `Test-AdrCitations` over
+      listing `BCL/` as a language layer (check: `Test-AdrIndex`).
+- [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first (check: `Test-AdrCitations` over
       the tree).
-- [ ] `pwsh/Catzc.Base.Languages/configs/languages.yml`: rename the `csharp` row to `bcl`, then every caller in the same change (waits on
-      Q3) (check: `Catzc.Base.Languages` and `Catzc.Base.QualityGates` Pester, then `Test-Formatting -Language bcl`).
+- [ ] After plan-minimal-heads lands: `pwsh/Catzc.Base.Languages/configs/languages.yml`: rename the `csharp` row to `bcl` and the
+      `csharp-namespace` step to `bcl-namespace`, then every caller in the same change, one file at a time (check: `Catzc.Base.Languages`
+      and `Catzc.Base.QualityGates` Pester, then `Test-Formatting -Language bcl`).
 - [ ] `docs/references/BCL/index.md` (after the move): the one page that defines the BCL language, its host and its reference set; the
       reference-set wording leaves `docs/references/pwsh/index.md` and links here instead, so the definition has one living version
-      (`ADR-PRIN-ONELIVE`) (waits on Q1) (check: `Test-Links` on both pages, `grep -c "System.Management.Automation"` on the pwsh index is
+      (`ADR-PRIN-ONELIVE`) (check: `Test-Links` on both pages, `grep -c "System.Management.Automation"` on the pwsh index is
       0).
 - [ ] `.claude/CLAUDE.md`, section Project structure: one line, "`types/*.cs` are written in BCL, a subset of .NET; pwsh hosts them",
       linking the BCL reference index, after the doc moves land (check: `Test-AgentDefinitions`, `Test-Links -Path .claude/CLAUDE.md`).
-- [ ] The BCL diagram as Q4 settles: one sample `out/diagrams/dark-sample/bcl-language.drawio.png` from its `diagram.drawio.yml`, nothing in
-      `docs/` until approved (waits on Q1 and Q4) (check: the user approves the sample).
+- [ ] After the `bcl.yml` step: the BCL diagram as one sample folder `out/diagrams/dark-sample/.assets/bcl-language/` (its
+      `diagram.drawio.yml` and png), the host box showing the kinds `bcl.yml` keeps; nothing in `docs/` until approved (check: the user
+      approves the sample).
+- [ ] On approval: the folder moves to `docs/adr/automation/BCL/.assets/bcl-language/` and `docs/references/BCL/index.md` embeds it
+      (check: `Test-Diagrams` on the folder, `Test-Links` on the page).
 
 ## Refs
 

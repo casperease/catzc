@@ -40,6 +40,16 @@ blocks a feature.
   cached across runs). A compiled type only if the measurement says PowerShell is the cost.
 - The drawing is one sample for approval, never a batch, and lands only with the article that embeds it.
 
+## Decided (the user, 2026-10-21, decision round)
+
+- **The pipeline drawing lives on an explanation page** on how a diagram is built, in that page's own `.assets/<slug>/`, so the reference
+  page stays text; the user names the page when the sample is approved.
+- **catzc-run takes both patterns as one merged item**: a private function runs as `& (Get-Module <Module>) { … }`, never by dot-sourcing
+  its file; a background run is waited on by a second background call, never by polling; the tree is searched with the Grep tool. The file
+  ends at its 10-line roof.
+- **No `-Sample` path**: a build reading the gitignored `out/` would break ADR-REPO-SLIDES-ONEBUILDCOMMAND and keep state outside version
+  control; the two manual calls (`Write-DiagramMinimapData` inside its module, then `put`) stay, and the help names them.
+
 ## Open steps
 
 ### Docs
@@ -49,14 +59,13 @@ blocks a feature.
       and the total at the end; that a full run takes minutes and `-Stale` or `-Path` is the everyday journey. Replace the locality
       paragraph with what the code does: every page anywhere that embeds a folder's png is its article, a folder no page embeds is an orphan
       (reported, still rendered), and each page's Supports line is held against the yml (reported as drift). Then rebuild the comment view
-      with `Build-CommentView` on `Build-Diagrams.ps1` (check: `Test-Links` on the page, `Test-GeneratedFiles` on its head).
+      with `Build-CommentView` on `Build-Diagrams.ps1`. The page also names the sample sequence: `Write-DiagramMinimapData`
+      inside its module, then `put` (check: `Test-Links` on the page, `Test-GeneratedFiles` on its head).
 
 ### Instructions
 
-- [ ] `.claude/skills/catzc-run/SKILL.md`: add line 4, a private function runs inside its module, `& (Get-Module <Module>) { … }`, never by
-      dot-sourcing its file; add line 5, wait on a background run with a second background call,
-      `timeout <s> bash -c 'until grep -q <line> <output>; do sleep 2; done'`, never by polling, and search the tree with the Grep tool,
-      never a recursive `grep` (it passes 3 s). The file stays at most 10 lines (check: `Test-AgentDefinitions`).
+- [ ] `.claude/skills/catzc-run/SKILL.md`: one new numbered item carrying both patterns as decided, after plan-agent-shortcuts' step 3 has
+      changed step 2; merge wording until the file stays at most 10 counted lines (check: `Test-AgentDefinitions`).
 
 ### Renderer
 
@@ -80,20 +89,8 @@ blocks a feature.
       articles, minimap data, render or sync, report), the minimap stage marked as the cost, `about.adrs`
       `ADR-REPO-SLIDES-MINIMAPSFROMDATA`. Words go in an article, not on the slide. The user approves before anything lands in `docs/`
       (check: `Test-Diagrams -Path` on the sample folder, then the user's approval).
-- [ ] On approval: the folder lands under the article that embeds it (the Build-Diagrams reference or an explanation page, the user's pick),
+- [ ] On approval: the folder lands in the `.assets` of the explanation page that embeds it (the user names the page),
       put with `Build-Diagrams -Path` (check: `Test-Diagrams` on the folder, `Test-Links` on the article).
-
-## Open questions
-
-1. **Where does the pipeline drawing live?** (a, recommended) an explanation page on how a diagram is built, embedding it, so the reference
-   page stays generated; (b) embedded in the Build-Diagrams comment page.
-2. **Does `catzc-run` gain line 4, the private-function probe `& (Get-Module <Module>) { … }`?** This plan's Instructions step adds it; the
-   file-meta-cache session recommended against it (one failed probe rediscovers it, a caller's script-scope variable is not visible inside,
-   and the capability roof is tight). (a, recommended) add it, merged with line 5 if the roof needs it, since two sessions tripped on it;
-   (b) leave it out and keep line 5 only.
-3. **Does `Build-Diagrams` render a sample folder in `out/` itself?** (from plan-listen-agent) A sample needs the private
-   `Write-DiagramMinimapData` called by hand before `put`. (a, recommended) a `-Sample` path, so a sample is one call; (b) the manual two
-   calls stay.
 
 ## Refs
 

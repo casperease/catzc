@@ -30,7 +30,7 @@ Bicep extension, which moves part of the parameter contract (ADR-AZ-DATAMOD-PARA
 the Bicep format has no form for: the config address (ADR-AZ-DATAMOD-VALUEBYADDRESS) and the PrePost hook's input. Nothing deployed changes:
 the deploy still reads the compiled ARM parameters JSON.
 
-## Proposed (waits on the open questions)
+## Decided (the user, 2026-10-21, decision round)
 
 - **One language, two extensions.** `.bicepparam` joins the existing `bicep` entry in `languages.yml` (`extensions: [.bicep, .bicepparam]`),
   so it takes the `bicep` formatter, the `//` comment head from `file-carriers.yml`, and the same checks
@@ -51,22 +51,16 @@ the deploy still reads the compiled ARM parameters JSON.
 - `Set-BicepTemplateConfiguration` edits only a yml slot; for a `.bicepparam` slot it throws, naming the file, since a hand-authored source
   is edited by hand.
 
-## Open questions
-
-1. **Where does the render land?** (a, recommended) the build output only, `out/…/<config>.bicepparam`, never tracked: the yml stays the one
-   source and nothing in the tree needs a generated head; (b) a tracked generated file beside the yml, with a generated head and body sha:
-   two files per coordinate, which the one-config rule then has to except.
-2. **Two living source formats, or a migration?** (a, recommended, as asked) both stay: yml for slots that need an address or the PrePost
-   hook, `.bicepparam` for the rest, plus `New-BicepParamSource`, which writes a slot's `.bicepparam` from its yml and deletes the yml, so a
-   slot moves over in one step; (b) every slot migrates and the yml format is deleted (ADR-PRIN-ONELIVE), which first needs answers for
-   addresses and PrePost in `.bicepparam`. Option (a) is a second format for one concern, which ADR-PRIN-REDUCEVAR weighs against.
-3. **A config address in a `.bicepparam` source?** (a, recommended) none: a `.bicepparam` slot holds literals and `az.getSecret` only, and a
-   slot that needs an address stays yml; (b) a convention the build resolves (for example `readEnvironmentVariable('CATZC_<address>')`
-   injected at build), which hides a catzc mechanism inside a vendor format.
-4. **A PrePost template with a `.bicepparam` slot?** (a, recommended) discovery refuses the pair, naming the template and the file; (b) the
-   hook receives the compiled parameters JSON instead of the yml descriptor, which changes the hook's input for every template.
-5. **Language entry.** The request says "new language Bicep"; `bicep` is already a language in `languages.yml` (formatter `bicep`, `.bicep`
-   only). (a, recommended) add the extension to it; (b) a separate `bicepparam` language with its own checks.
+- **The render lands in the build output only** (`out/template/<name>/<config>.bicepparam`, gitignored): the yml stays the one source and
+  nothing in the tree needs a generated head.
+- **Two source formats, by capability**: yml for a slot that needs an address (15 of the 21 shipped slots), `.bicepparam` for a
+  literal-only slot (the 6 foundation slots). `New-BicepParamSource` is a one-shot command: it moves those six and is then deleted, so no
+  standing second path stays (ADR-PRIN-ONELIVE).
+- **No config address in a `.bicepparam` slot**: literals and `az.getSecret` only; ADR-AZ-DATAMOD-VALUEBYADDRESS is narrowed from "for any
+  template" to a yml slot, so shared config reaches a slot only through yml.
+- **A PrePost template takes no `.bicepparam` slot**: discovery refuses the pair, naming the template and the file;
+  ADR-AZ-DATAMOD-PARAMETERCONTRACT gains that clause. No shipped template uses PrePost today.
+- **`.bicepparam` joins the `bicep` language entry**, not a language of its own.
 
 ## Open steps
 
@@ -81,7 +75,8 @@ the deploy still reads the compiled ARM parameters JSON.
 
 - [ ] `docs/adr/azure/azure-data-model.md`: extend ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION to `.yml` or `.bicepparam`; add a rule for the
       `.bicepparam` slot source (its `using` path, literals and `az.getSecret` only, no PrePost) and one for the render (one path to the
-      compiled JSON, the mapping above); the Layer 2 prose and the mermaid `SLOT_CONFIG` follow (check: `Test-AdrIndex`, `Test-Links` on the
+      compiled JSON, the mapping above); narrow ADR-AZ-DATAMOD-VALUEBYADDRESS to a yml slot and add the PrePost
+      clause to ADR-AZ-DATAMOD-PARAMETERCONTRACT; the Layer 2 prose and the mermaid `SLOT_CONFIG` follow (check: `Test-AdrIndex`, `Test-Links` on the
       page).
 - [ ] `pwsh/Catzc.Azure.Templates/configs/glossary.yml`: the defined terms the new rules bold (check: `Test-Glossary`, `Build-Glossary`; via
       `glossary-keeper`).
@@ -111,7 +106,7 @@ the deploy still reads the compiled ARM parameters JSON.
 - [ ] `pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1`: enumerate `*.yml` and `*.bicepparam`; both for one coordinate throws; each slot
       carries its source format (check: `Invoke-TestFile` on `tests/Get-BicepTemplates.Tests.ps1`).
 - [ ] `pwsh/Catzc.Azure.Templates/types/BicepSlot.cs`: the slot's config file and format (check: its type tests).
-- [ ] `pwsh/Catzc.Azure.Templates/Assert-BicepTemplate.ps1`: the same enumeration, the `using` assert, the PrePost refusal (question 4), and
+- [ ] `pwsh/Catzc.Azure.Templates/Assert-BicepTemplate.ps1`: the same enumeration, the `using` assert, the PrePost refusal, and
       the contract check over a `.bicepparam` slot's compiled parameters (check: `Invoke-TestFile` on
       `tests/Assert-BicepTemplate.Tests.ps1`).
 - [ ] `pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1`: return the yml descriptor for a yml slot and the source path for a
@@ -130,10 +125,14 @@ the deploy still reads the compiled ARM parameters JSON.
 - [ ] `pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1`: every shipped template builds through the new path (check:
       `Invoke-TestFile` on it).
 
-### 7. The migration command (when question 2 is a)
+### 7. The one-shot migration command
 
 - [ ] `pwsh/Catzc.Azure.Templates/New-BicepParamSource.ps1`: write a yml slot's `.bicepparam` source beside it and delete the yml; refuses a
       slot with an address or a PrePost template; `-DryRun` (ADR-PWSH-DRYRUN) (check: `Invoke-TestFile` on its tests).
+- [ ] Run `New-BicepParamSource` on the six literal-only foundation slots under `infrastructure/templates/foundation/configuration/`, one
+      slot at a time (check: `Invoke-TestFile` on `tests/Build-Bicep.Integrity.Tests.ps1` after each).
+- [ ] Delete `New-BicepParamSource.ps1`, its tests and its comment page, one-shot as decided (ADR-PRIN-ONELIVE) (check: `Test-Links` on
+      the module's reference index, `grep -r New-BicepParamSource pwsh docs` finds nothing).
 
 ## Refs
 

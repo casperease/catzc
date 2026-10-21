@@ -4,7 +4,16 @@ plan:
   value: high
   reviewed: 2026-10-21
   class: feature
-  targets: [.claude/agents/fact-checker.md, pwsh/Catzc.Tooling.Listen/Get-DocChange.ps1, .claude/plans]
+  targets:
+    [
+      .claude/agents/fact-checker.md,
+      pwsh/Catzc.Tooling.Listen/Get-DocChange.ps1,
+      .claude/plans,
+      pwsh/Catzc.Base.Docs/configs/agents.yml,
+      docs/adr/repository/ai-agent-contract.md,
+      docs/explanation/thesis/index.md,
+      docs/references/pwsh/catzc-tooling-listen.md,
+    ]
 ---
 
 # The listen mode: register the processor, process the first notes, settle the seed
@@ -12,7 +21,7 @@ plan:
 The listen mode is in the tree: the listener (`Start-DocListener`, `Catzc.Tooling.Listen`) that notes each change with its source (editor,
 agent or unknown, from the `Record-AgentWrite` hook and the `catzc-save-ledger` extension), the processor robot
 (`listen-very-carefully-to-doc-changes`), its scout (`doc-pattern-scout`) and their three capabilities. Left: the fact-checker's fit for the
-mode, the first editor notes to process, one refinement of the notes, and the seed's open questions.
+mode, the first editor notes to process, one refinement of the notes, and the seed's decisions.
 
 ## Why its value is high
 
@@ -28,6 +37,14 @@ in the Carried section below.
 - A fact-check verdict never stands alone: `Complete-DocNote` requires its reason, with the path:line it rests on.
 - A stamped folder in `out/` is fine as input; it can be missing at start or vanish mid-run, and the tooling waits through both.
 - The term stays **responsibility domain** (ADR-THES-STORES-RESPONSIBILITYDOMAIN).
+- (decision round, 2026-10-21) The fact-checker already runs on haiku; its stale `model_reason` in `agents.yml` goes, since that key is
+  only for a robot above the default.
+- (decision round) The mode stays a rule of the AI agent contract, ADR-REPO-AI-EDITORISFACT, specialising the thesis; it cites
+  ADR-THES-ONETRUTH-ONESTOREDECIDES in place of ADR-PRIN-ONELIVE, which governs versions, not truth.
+- (decision round) The working tree is the proposal for the next commit and the committed tree at one commit is the truth;
+  `ai-agent-contract.md:14` ("The tree is the truth") says so, and a local gate's verdict is a verdict on the proposal.
+- (decision round) Both samples land: `where-truth-comes-from` beside the thesis explanation, `listen-mode-flow` beside the
+  `Catzc.Tooling.Listen` reference, each moved from `out/` into its article's `.assets` folder.
 
 ## Open steps
 
@@ -38,17 +55,17 @@ in the Carried section below.
 - [ ] `pwsh/Catzc.Tooling.Listen/Get-DocChange.ps1`: `Rules` lists only the ADR codes cited in the changed lines, not every code in the file
       (a whole-file list ran to 40 codes on `dora-explains.md`) (check: `Invoke-TestFile` on `Get-DocChange.Tests.ps1`).
 
+- [ ] `pwsh/Catzc.Base.Docs/configs/agents.yml`: drop the fact-checker's `model_reason` (check: `Test-AgentDefinitions`).
+- [ ] `docs/adr/repository/ai-agent-contract.md`: ADR-REPO-AI-EDITORISFACT cites ADR-THES-ONETRUTH-ONESTOREDECIDES in place of
+      ADR-PRIN-ONELIVE (check: `Test-AdrCitations`, `Test-Links` on the page).
+- [ ] `docs/adr/repository/ai-agent-contract.md`: ADR-REPO-AI-TRUSTTHETREE (line 14) says the committed tree at one commit is the truth and
+      the working tree is the proposal for the next commit, in step with line 76 (check: `Test-AdrCodes`, `Test-Links` on the page).
+- [ ] `out/diagrams/dark-sample/.assets/where-truth-comes-from/` to `docs/explanation/thesis/.assets/where-truth-comes-from/`, embedded in
+      `docs/explanation/thesis/index.md`, put with `Build-Diagrams -Path` (check: `Test-Diagrams` on the folder, `Test-Links` on the page).
+- [ ] `out/diagrams/dark-sample/.assets/listen-mode-flow/` to the `.assets` folder beside `docs/references/pwsh/catzc-tooling-listen.md`,
+      embedded there (check: `Test-Diagrams` on the folder, `Test-Links` on the page).
+
 The `Measure-NoCollapsingAssignment` finding in `Get-RelativeEdgesFileMetaFact.ps1` is plan-file-meta-cache's step 4.
-
-## Open questions
-
-- Does the `fact-checker` drop from sonnet to haiku, as asked for the listen mode, or keep its `model_reason`?
-- From the seed below: is the mode a thesis rule or a principles rule that specialises the thesis?
-- From the seed below: the gates and agents work on the working tree; is the working tree the proposal for the next commit, with the last
-  commit the truth?
-- Do the two diagram samples (`where-truth-comes-from`, `listen-mode-flow` in `out/diagrams/dark-sample/.assets/`) land, and beside which
-  articles: the thesis explanation and the `Catzc.Tooling.Listen` reference? Recommendation: yes, there.
-- The `Build-Diagrams -Sample` question is plan-diagram-build-learnings' Q3.
 
 ## Carried
 

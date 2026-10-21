@@ -2,8 +2,6 @@
 
 Started 2026-10-21T02:21:00.2535622+02:00.
 
-- 2026-10-21: One background script in a fresh pwsh both recompiles a C# config type and runs its tests in one bounded call.
-- 2026-10-21: A background Format-Code rewrites the files it formats; edit them only after it finishes.
 - 2026-10-21: The markdown formatter rewraps any list line past 140 columns, so code that reads its own markdown back treats indented
   continuation lines as part of the item.
 - 2026-10-21: Format-MarkdownParagraph returns its lines as one array object; pipe it through ForEach-Object before joining.
@@ -30,3 +28,7 @@ Started 2026-10-21T02:21:00.2535622+02:00.
 - 2026-10-21: Token tip: run every check of a round in one out/ script with one fresh import, not one background call per gate or test file.
 - 2026-10-21: Token tip: read a failed test's cause straight from its results XML (grep the \<failure> message), not by listing artifacts
   first.
+- 2026-10-21: Each session appends its own learnings and token tips with Add-SessionLearning; lines relayed through another session get
+  logged twice.
+- 2026-10-21: Token tip: start every out/ script with Set-Location (Get-RepositoryRoot) after the import, since the shell's working folder
+  drifts between calls and a relative path then fails.
