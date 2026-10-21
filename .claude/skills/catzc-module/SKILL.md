@@ -45,4 +45,4 @@ metadata:
    file system, every config rejection and every parameter covered; L1 proves the shipped config loads (`Test-ShippedConfigs`); the file's
    head and page follow from `Format-FileMeta`, never by hand.
 3. Edit one file, run its test file through catzc-check, then the next; never a sweep; strict-mode clean; an ADR the code cites is read in
-   full first and cited as `ADR-X#n`.
+   full first and cited by its full rule code, `ADR-<DOMAIN>-<ADR>-<RULE>`.

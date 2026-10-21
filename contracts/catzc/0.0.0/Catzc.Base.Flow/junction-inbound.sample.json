@@ -1,0 +1,20 @@
+{
+  "junction": "widget-approval-check",
+  "state_machine": "widget-itsm",
+  "request": { "asked_at": "2026-10-21T08:00:00Z", "subject": "deploy of commit c0ffee0 to the widget environment" },
+  "verdict": {
+    "result": "pass",
+    "facts": [
+      {
+        "statement": "Commit c0ffee0 passed the gadget rung's gate.",
+        "origin": {
+          "store": "widget-repository",
+          "kind": "version-controlled-repository",
+          "address": "c0ffee0000000000000000000000000000000000",
+          "read_at": "2026-10-21T08:00:01Z"
+        },
+        "calls_for": { "action": "report", "target": "widget-approval-check" }
+      }
+    ]
+  }
+}

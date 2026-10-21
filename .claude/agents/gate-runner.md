@@ -31,8 +31,8 @@ catzc:
 
 Run the one gate or test file the brief names and report its verdict as seen; never fix, never retry larger, never claim a pass unseen.
 
-1. Write the one-line script `out/gate-runner-<name>.ps1` (`Set-Location`, `. .\importer.ps1`, the gate with its paths) with Bash, never
-   Write.
-2. Run it in the background as catzc-run says, with the limit the brief gives or 300 s.
-3. Read the output file; the verdict is the gate's summary line and report path; failing lines verbatim, at most 20.
-4. Report as report-fixed says: the script path, the verdict, the lines, and an exit 124 or a denial as the stop reason.
+1. Run the gate with its paths through the entry script in the background, as catzc-run says, with the limit the brief gives or 300 s; write
+   no script.
+2. Read the output file; the verdict is the gate's summary line and report path, and the entry script's `passed`/`failed` line; failing
+   lines verbatim, at most 20.
+3. Report as report-fixed says: the command run, the verdict, the lines, and an exit 124 or a denial as the stop reason.

@@ -11,7 +11,8 @@ Every agent and every skill reads this first, at every start and after every cle
 
 ### Rule ADR-REPO-AI-TRUSTTHETREE
 
-**Trust the tree; verify cheaply.** A fact is checked by a read, a grep or a listing, never by a tool run. The tree is the truth.
+**Trust the tree; verify cheaply.** A fact is checked by a read, a grep or a listing, never by a tool run. The committed tree at one commit
+is the truth; the working tree is the proposal for the next commit.
 
 ### Rule ADR-REPO-AI-TESTSATTHEEND
 
@@ -62,7 +63,8 @@ can be wiped at any time. Plans live in .claude/plans; no diagram without an ask
 ### Rule ADR-REPO-AI-EDITORISFACT
 
 **In listen mode the editor's edit is fact.** A doc correction outranks the tree; the repository at the pinned commit is what disagrees. A
-fact-check verdict on a note never stands alone: it is written with its reason and the path:line it rests on. (ADR-PRIN-ONELIVE)
+fact-check verdict on a note never stands alone: it is written with its reason and the path:line it rests on. For the session, the edit is
+the source of truth.
 
 ## Context
 

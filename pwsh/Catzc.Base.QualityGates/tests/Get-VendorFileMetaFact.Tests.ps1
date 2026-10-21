@@ -1,4 +1,4 @@
-Describe 'Get-VendorFileMetaFact' -Tag 'L0', 'logic', 'ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION' {
+Describe 'Get-VendorFileMetaFact' -Tag 'L0', 'logic', 'ADR-DSGN-TRACKTYPE-FACTSFROMDECLARATION' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                 tracks = [ordered]@{

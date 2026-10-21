@@ -44,15 +44,14 @@ function Invoke-PythonTest {
     )
 
     $root = Get-RepositoryRoot
-    $folderName = $Module.ToLowerInvariant().Replace('.', '-')
     $pythonRelative = (Get-Config -Config python).ResolveRoot($root)
     $pythonRoot = Join-Path $root $pythonRelative
-    # The test folder: the one named, a module's own tests/ or the holder's, else the holder's tests/<kebab> of the module.
+    # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's tests/ in python's folder case.
     $relative = if ($Folder) {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\', '/').TrimEnd('/')
     }
     else {
-        "$pythonRelative/tests/$folderName"
+        "$pythonRelative/tests/$((Get-Config -Config languages).TestFolderOf('python', $Module))"
     }
     $folder = Join-Path $root $relative
     if (-not (Test-Path -LiteralPath $folder -PathType Container)) {

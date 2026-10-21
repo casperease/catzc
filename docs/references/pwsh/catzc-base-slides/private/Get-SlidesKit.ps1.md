@@ -16,7 +16,7 @@ once (ADR-REPO-SLIDES-PATTERN). A kit folder, a defaults file or a patterns fold
 
 ### parameter `Kit`
 
-The kit folder, repository-relative, such as python/Catzc.Diagrams/assets/slides.
+The kit folder, repository-relative, such as python/catzc_diagrams/assets/slides.
 
 ### parameter `RepositoryRoot`
 

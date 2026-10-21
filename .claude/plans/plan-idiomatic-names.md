@@ -49,37 +49,13 @@ Every decision is a rule of [idiomatic-names](../../docs/adr/automation/idiomati
 
 ### 1. Wire it in
 
-The citations:
+The module rename and its references land as one atomic pass, like the test-folder pass (delegated to the orchestrator, 2026-10-21):
+prepared and checked first, applied in one burst while the orchestrator holds the other sessions, then a fresh full import and each touched
+test, rolled back whole on any red. A rename without its references, or the references first, breaks the importer for every session.
 
-- [ ] `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1`: re-tag the two naming tests `ADR-AUTO-IDIOM-LANGUAGEIDIOM` (check:
-      `Invoke-TestFile` on it).
-- [ ] `pwsh/Catzc.Base.QualityGates/tests/Test-IdiomaticNames.Tests.ps1`: re-tag `ADR-AUTO-IDIOM-HELDBYGATE` (check: `Invoke-TestFile`).
-- [ ] `pwsh/Catzc.Base.QualityGates/tests/Assert-IdiomaticNames.Tests.ps1`: re-tag `ADR-AUTO-IDIOM-HELDBYGATE` (check: `Invoke-TestFile`).
-
-The test folders map by their language's folder case (ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM):
-
-- [ ] `pwsh/Catzc.Base.Languages/configs/languages.yml`: give `bash` its entry, `naming: { folder: kebab, file: kebab }` (check:
-      `Test-IdiomaticNames -PassThru` lists no bash finding).
-- [ ] `pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1`: map each test folder to its module by rendering the module's
-      normal form in the folder's language case, not by `ToLowerInvariant().Replace('.', '-')`; the throw names the expected case (check:
-      `Invoke-TestFile` on its tests). Waits on the word model in part 2.
-- [ ] `pwsh/Catzc.Base.Languages/New-PythonProject.ps1`: validate a test folder against python's `naming.folder`; the throw names snake case
-      (check: `Invoke-TestFile` on `tests/New-PythonProject.Tests.ps1`, its kebab test re-worded).
-- [ ] `pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1`: validate against go's `naming.folder`; the throw names flat case (check:
-      `Invoke-TestFile` on `tests/New-GoWorkspace.Tests.ps1`).
-- [ ] `pwsh/Catzc.Base.Languages/Invoke-PythonTest.ps1` and `Invoke-BashTest.ps1`: the `tests/<kebab>` comment and lookup follow the
-      language case (check: `Invoke-TestFile` on each one's tests).
-
-The three renames, each a plain move on disk with the edits around it in the same step (git stays the user's):
-
-- [ ] `python/tests/catzc-base-repository/` → `python/tests/catzc_base_repository/`, with `python/pyproject.toml` (its member) and
-      `pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1` (check: `Invoke-TestFile` on `Get-PathModule.Tests.ps1`, `Invoke-PythonTest`
-      on the folder).
-- [ ] `go/tests/catzc-base-repository/` → `go/tests/catzcbaserepository/`, with its `go.mod` module path and the Go workspace file (check:
-      `Invoke-GoTest` on the folder).
 - [ ] `python/Catzc.Diagrams/` → `python/catzc_diagrams/`, with its `pyproject.toml` head (`path`, `module`) (check: `Invoke-PythonTest` on
       its tests).
-- [ ] The references to `python/Catzc.Diagrams`, one file per step, each checked by `Invoke-TestFile` on its own tests or `Test-Links`:
+- [ ] The references to `python/Catzc.Diagrams`, in the same pass, each checked by `Invoke-TestFile` on its own tests or `Test-Links`:
       `pwsh/Catzc.Base.Globs/configs/file-kinds.yml` with `tests/Get-FileKind.Tests.ps1`; `pwsh/Catzc.Base.Maps/types/MapsHighlight.cs` with
       `tests/types/MapsConfig.Tests.ps1`; `pwsh/Catzc.Base.Slides/types/SlidesConfig.cs`, `configs/slides.yml` with
       `tests/types/SlidesConfig.Tests.ps1`; `pwsh/Catzc.Base.Reports/configs/output-formats.yml`;
@@ -89,7 +65,8 @@ The three renames, each a plain move on disk with the edits around it in the sam
       `Test-AgentDefinitions`).
 - [ ] `docs/references/`: regenerate the reference pages that name the old folders, never by hand (check: `Test-GeneratedFiles`).
 
-Turn the gate on, last, when it is green:
+Turn the gate on, last, when it is green; `Test-IdiomaticNames` reads the git index (ADR-AUTO-TRACKED), so this waits on the user staging
+the moves (task-user-runs-and-commits):
 
 - [ ] `pwsh/Catzc.Base.Languages/configs/languages.yml`: add `Test-IdiomaticNames` to the `checks` of `powershell`, `python`, `go` and
       `bash` (check: `Test-IdiomaticNames` reports no issue; `Invoke-TestFile` on `tests/types/LanguagesConfig.Tests.ps1`).
@@ -98,15 +75,6 @@ Turn the gate on, last, when it is green:
 
 The word model, in `Catzc.Base.Languages` (ADR-AUTO-IDIOM-CLOSEDCASES, -ROUNDTRIP, -ACRONYMISWORD):
 
-- [ ] `pwsh/Catzc.Base.Languages/types/LanguageNaming.cs`: give each case a split (name → words) and a join (words → name), and split the
-      present `pascal` into the ADR's exact cases: `pascal` (`GetCommandContract`), `pascal-dotted` (`Catzc.Base.Contracts`), `verb-noun`
-      (`Get-CommandContract`), beside `kebab`, `snake`, `flat`; a PowerShell test file's `.Tests` is a role suffix outside the case; the
-      existing `PathParts.Kebab` is folded in, one living version (check: `Invoke-TestFile` on `tests/types/LanguagesConfig.Tests.ps1` and
-      `tests/types/PathParts.Tests.ps1`).
-- [ ] `pwsh/Catzc.Base.Languages/configs/languages.yml`: `naming.normal_form: snake`; powershell `folder: [pascal-dotted, kebab]`,
-      `file: [verb-noun, pascal-dotted, pascal]`; and per language `function` and `type` cases (powershell `verb-noun` and `pascal-dotted`;
-      python `snake` and `pascal`; go `pascal` and `pascal`) (check: `Test-ShippedConfigs`, `Test-IdiomaticNames` still green for
-      PowerShell).
 - [ ] `pwsh/Catzc.Base.Languages/ConvertTo-NormalName.ps1` and `ConvertFrom-NormalName.ps1`: a name and its language to the normal form, and
       back (check: `Invoke-TestFile` on their tests, the round trip over every tracked function name).
 

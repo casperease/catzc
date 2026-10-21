@@ -47,7 +47,7 @@ function Invoke-FileMetaEngine {
     $ownedImmutable = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.KeysOf('immutable')))
     $ownedEdges = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.KeysOf('edges')))
     $parts = 'immutable', 'edges', 'config'
-    $comments = Get-Config -Config comments
+    $codeHeads = Test-FileHeadVariant -Minimal
 
     $entries = foreach ($entry in $files) {
         $file = $entry.Path
@@ -143,9 +143,7 @@ function Invoke-FileMetaEngine {
         }
 
         $fixed = $text
-        $page = $comments.PageFor($file)
-        $hasPage = [bool] $page -and [System.IO.File]::Exists((Join-Path $RepositoryRoot $page))
-        $policy = $Config.PolicyFor((Get-FileKind $file).Class, $hasPage)
+        $policy = $Config.PolicyFor((Get-FileKind $file).Class, ($isHead -or $isProperty), $codeHeads)
         $hasBlock = if ($isProperty -or $isHead) {
             $state.HasHead
         }
@@ -158,7 +156,7 @@ function Invoke-FileMetaEngine {
         }
         $skip = $policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Optional -and -not $hasBlock
         if ($findings.Count -eq 0 -and -not $skip) {
-            $facts = if ($policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden) {
+            $facts = if ($policy -in [Catzc.Base.QualityGates.HeadPolicy]::Forbidden, [Catzc.Base.QualityGates.HeadPolicy]::Config) {
                 [pscustomobject]@{ Immutable = [ordered]@{}; Edges = [ordered]@{} }
             }
             else {
@@ -176,6 +174,9 @@ function Invoke-FileMetaEngine {
             if ($fixed -cne $text) {
                 $expected = if ($policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden) {
                     'no meta block, as the head policy forbids one'
+                }
+                elseif ($policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Config) {
+                    'the authored config part alone, as the head policy keeps nothing else'
                 }
                 else {
                     'the imprinted meta block'

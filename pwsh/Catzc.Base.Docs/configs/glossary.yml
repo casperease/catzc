@@ -335,8 +335,8 @@ concepts:
     domain: thesis
     defined_by: ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
     short:
-      The one legitimate second store — a repository or service, such as a GitOps repository, with its own history, driven one way from the
-      trunk's pipelines and never edited beside it.
+      The one legitimate second store — a repository or service, such as a GitOps repository or the Azure DevOps configuration, with its own
+      history, driven one way from the trunk's pipelines and never edited beside it.
     realized_by: { kind: prose-only }
     contrasts:
       source of truth:
@@ -373,11 +373,14 @@ concepts:
     key: fact_source
     domain: thesis
     defined_by: ADR-THES-STORES-FACTSOURCEREADONLY
-    short: A state store — a database with a reachable live URL holding state about delivery outside the repository — that catzc reads only.
+    short:
+      A state store — a database with a reachable live URL holding state about delivery outside the repository, such as the Azure DevOps
+      runtime state — whose state catzc reads only.
     realized_by: { kind: prose-only }
     contrasts:
       adjacent store:
-        An adjacent store is driven one way from the trunk's pipelines; a fact source is owned by a state machine and only read.
+        An adjacent store is driven one way from the trunk's pipelines, such as the Azure DevOps configuration; a fact source is owned by a
+        state machine and only read, such as the Azure DevOps runtime state.
       state machine: A state machine is the application that owns and changes a fact source; a fact source is the store catzc reads.
   state machine:
     key: state_machine

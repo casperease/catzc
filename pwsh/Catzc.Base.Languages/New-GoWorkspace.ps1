@@ -40,6 +40,8 @@ function New-GoWorkspace {
     $goRelative = $config.ResolveRoot($repositoryRoot)
     $testsRelative = "$goRelative/tests"
     $testsRoot = Join-Path $repositoryRoot $testsRelative
+    $go = @((Get-Config -Config languages).languages.Where({ $_.name -ceq 'go' }, 'First'))
+    $naming = $go.Count ? $go[0].naming : $null
 
     # One Go module per folder that holds Go code; a folder left with only generated files is not a module.
     $folders = [System.Collections.Generic.List[string]]::new()
@@ -53,8 +55,8 @@ function New-GoWorkspace {
             if (-not @(Get-ChildPath $folderPath -File -Filter '*.go' -Depth 3).Count) {
                 continue
             }
-            if ($folderName -cnotmatch '^[a-z0-9]+(-[a-z0-9]+)*$') {
-                throw "$testsRelative/$folderName/: a Go test folder is named for its catzc module in kebab case (lowercase, dots as hyphens, e.g. catzc-base-repository)."
+            if ($null -ne $naming -and -not $naming.IsFolderIdiomatic($folderName)) {
+                throw "$testsRelative/$folderName/: a Go test folder is named for its catzc module in go's folder case, $($naming.folder -join ' or ') case."
             }
             $folders.Add($folderName)
         }

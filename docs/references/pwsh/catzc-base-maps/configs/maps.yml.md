@@ -59,6 +59,6 @@ it. Loaded via Get-Config -Config maps.
     citation_exclude:             #   globs of files whose citations light nothing; each still sits in its cell
       - docs/.assets/**           #   the generated slide descriptions, so a minimap never lights its own description
       - docs/explanation/**       #   the explanation articles the slides illustrate
-      - python/Catzc.Diagrams/**  #   the drawing tooling
+      - python/catzc_diagrams/**  #   the drawing tooling
   output_folder: world-map        # one folder name under the output root
 ```

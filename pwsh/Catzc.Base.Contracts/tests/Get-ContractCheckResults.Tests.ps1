@@ -228,6 +228,14 @@ widget: cog
             (Get-CheckResult 'rest/gadget.sample.json').Passed | Should -BeTrue
         }
 
+        It 'keeps an ISO 8601 time in a JSON sample a string, so it validates as one' {
+            Add-Asset 'rest/gadget.schema.json' '{"type":"object","required":["read_at"],"properties":{"read_at":{"type":"string"}}}'
+            Add-Asset 'rest/gadget.sample.json' '{"read_at":"2026-10-21T08:00:00Z"}'
+            $result = Get-CheckResult 'rest/gadget.sample.json'
+            $result.Findings | Should -BeNullOrEmpty
+            $result.Passed | Should -BeTrue
+        }
+
         It 'fails a sample that does not validate against the schema beside it, with one finding on the sample only' {
             Add-Asset 'rest/gadget.schema.json' '{"$schema":"https://json-schema.org/draft/2020-12/schema","title":"Gadget","type":"object","required":["widget"]}'
             Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'

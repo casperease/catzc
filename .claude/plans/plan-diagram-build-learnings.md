@@ -8,8 +8,8 @@ plan:
     [
       docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md,
       .claude/skills/catzc-run/SKILL.md,
-      python/Catzc.Diagrams/drawio_forward.py,
-      python/Catzc.Diagrams/configs/drawio.yml,
+      python/catzc_diagrams/drawio_forward.py,
+      python/catzc_diagrams/configs/drawio.yml,
       pwsh/Catzc.Base.Slides/private/Write-DiagramMinimapData.ps1,
     ]
 ---
@@ -69,9 +69,9 @@ blocks a feature.
 
 ### Renderer
 
-- [ ] `python/Catzc.Diagrams/drawio_forward.py`: skip `W_UNDECLARED` for a folder whose role in `drawio.yml` `roles:` is `legend`, since a
+- [ ] `python/catzc_diagrams/drawio_forward.py`: skip `W_UNDECLARED` for a folder whose role in `drawio.yml` `roles:` is `legend`, since a
       legend draws no minimaps; a slide folder with no declaration still warns. Add the case to the renderer's tests, one for each role
-      (check: `Invoke-PythonTest` on the Catzc.Diagrams tests, then `Build-Diagrams -Path docs/explanation/.assets/glyphs` prints `clean`).
+      (check: `Invoke-PythonTest` on the catzc_diagrams tests, then `Build-Diagrams -Path docs/explanation/.assets/glyphs` prints `clean`).
 
 ### Speed
 
@@ -94,5 +94,3 @@ blocks a feature.
 
 ## Refs
 
-- Context: plan-idiomatic-names renames `python/Catzc.Diagrams/` to `python/catzc_diagrams/`; the renderer step names whichever path the
-  tree holds when it runs.

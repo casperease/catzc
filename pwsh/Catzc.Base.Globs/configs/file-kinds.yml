@@ -114,10 +114,10 @@ kinds:
     files: ["pwsh/**/assets/**"]
   slides-kit:
     definition: The kit a deck is rendered from, its defaults, its style guide and its patterns.
-    files: ["python/Catzc.Diagrams/assets/slides/**"]
+    files: ["python/catzc_diagrams/assets/slides/**"]
   drawio-kit:
     definition: The tooling that draws and renders the diagrams, its scripts included.
-    files: ["python/Catzc.Diagrams/**"]
+    files: ["python/catzc_diagrams/**"]
   script:
     definition: A standalone script that is no function of a module.
     files: ["**/*.py", "**/*.sh", "**/*.ps1"]

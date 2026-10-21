@@ -378,7 +378,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                     naming    = [ordered]@{ exempt_folders = @('assets') }
                     languages = [ordered]@{
                         widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; naming = [ordered]@{ folder = @('snake'); file = 'snake'; exempt = @('Fixed.wdg') } }
-                        gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'never'; naming = [ordered]@{ folder = @('pascal', 'kebab'); file = 'pascal' } }
+                        gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'never'; naming = [ordered]@{ folder = @('pascal-dotted', 'kebab'); file = @('verb-noun', 'pascal') } }
                         other  = [ordered]@{ extensions = @('.oth'); no_formatter = 'never' }
                     }
                 })
@@ -395,7 +395,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                     'Any_Folder/Any-Name.oth'
                     'notes.md'
                 )) | Should -Be @(
-                'Catzc.Gadget/lower_case.gdg: the file name is not pascal (gadget)'
+                'Catzc.Gadget/lower_case.gdg: the file name is not verb-noun or pascal (gadget)'
                 'widget_root/Bad-Folder/: the folder is not snake (widget)'
                 'widget_root/Bad-Folder/BadName.wdg: the file name is not snake (widget)'
             )
@@ -407,9 +407,110 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                 Should -Be @('widgets/catzc-widget/: the folder is not flat (widget)')
             { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ file = 'camel' } }) } | Should -Throw "*unknown case 'camel'*"
             { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ file = 'snake'; style = 'x' } }) } | Should -Throw "*unknown key 'style'*"
-            { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ exempt = @('a.wdg') } }) } | Should -Throw '*names the cases of its folders, its files, or both*'
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ exempt = @('a.wdg') } }) } | Should -Throw '*names the cases of its folders, its files, its functions or its types*'
             { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ file = 'snake'; exempt = @('a.md') } }) } | Should -Throw "*invalid exempt file 'a.md'*"
             { & $script:make ([ordered]@{ naming = [ordered]@{ exempt_folders = @('a/b') } }) } | Should -Throw "*invalid exempt folder 'a/b'*"
+        }
+
+        It 'reads a language''s function and type cases, and a naming that names only them' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
+            $naming = (& $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ function = 'snake'; type = @('pascal', 'pascal-dotted') } })).languages[0].naming
+            $naming.function | Should -Be @('snake')
+            $naming.type | Should -Be @('pascal', 'pascal-dotted')
+            $naming.folder | Should -BeNullOrEmpty
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ function = 'camel' } }) } | Should -Throw "*naming.function: unknown case 'camel'*"
+        }
+
+        It 'reads the normal form, snake when the file names none, and throws on a case that cannot render every other' -Tag 'ADR-AUTO-IDIOM-NORMALFORM' {
+            (& $script:make ([ordered]@{ naming = [ordered]@{ normal_form = 'kebab' } })).naming_normal_form | Should -BeExactly 'kebab'
+            (& $script:make ([ordered]@{})).naming_normal_form | Should -BeExactly 'snake'
+            { & $script:make ([ordered]@{ naming = [ordered]@{ normal_form = 'verb-noun' } }) } | Should -Throw "*normal_form 'verb-noun' is not a case every name renders from*"
+        }
+    }
+
+    Context 'LanguageNaming cases' {
+        It 'splits a name in its case into namespace segments of lowercase words, and joins them back' -Tag 'ADR-AUTO-IDIOM-CLOSEDCASES' -ForEach @(
+            @{ Case = 'pascal'; Name = 'GadgetMetrics'; Words = 'gadget metrics' }
+            @{ Case = 'pascal-dotted'; Name = 'Widget.Base.GadgetParts'; Words = 'widget|base|gadget parts' }
+            @{ Case = 'verb-noun'; Name = 'Get-GadgetPart'; Words = 'get gadget part' }
+            @{ Case = 'verb-noun'; Name = 'ConvertTo-GadgetName'; Words = 'convert to gadget name' }
+            @{ Case = 'kebab'; Name = 'widget-gadget-part'; Words = 'widget gadget part' }
+            @{ Case = 'snake'; Name = 'widget_gadget_part'; Words = 'widget gadget part' }
+            @{ Case = 'flat'; Name = 'widgetgadget'; Words = 'widgetgadget' }
+        ) {
+            $segments = [Catzc.Base.Languages.LanguageNaming]::Split($Case, $Name)
+            ($segments.ForEach({ $_ -join ' ' }) -join '|') | Should -BeExactly $Words
+            [Catzc.Base.Languages.LanguageNaming]::Join($Case, $segments) | Should -BeExactly $Name
+        }
+
+        It 'renders one name in every case, the namespaces joined as one run where a case has none' -Tag 'ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM' -ForEach @(
+            @{ Case = 'snake'; Expected = 'widget_base_gadget_parts' }
+            @{ Case = 'kebab'; Expected = 'widget-base-gadget-parts' }
+            @{ Case = 'flat'; Expected = 'widgetbasegadgetparts' }
+            @{ Case = 'pascal'; Expected = 'WidgetBaseGadgetParts' }
+            @{ Case = 'pascal-dotted'; Expected = 'Widget.Base.GadgetParts' }
+        ) {
+            $segments = [Catzc.Base.Languages.LanguageNaming]::Split('pascal-dotted', 'Widget.Base.GadgetParts')
+            [Catzc.Base.Languages.LanguageNaming]::Join($Case, $segments) | Should -BeExactly $Expected
+        }
+
+        It 'reads an acronym as one ordinary word, so a capitalised run does not round-trip' -Tag 'ADR-AUTO-IDIOM-ACRONYMISWORD' {
+            $segments = [Catzc.Base.Languages.LanguageNaming]::Split('pascal', 'HTTPGadget')
+            $segments[0] | Should -Be @('http', 'gadget')
+            [Catzc.Base.Languages.LanguageNaming]::Join('pascal', $segments) | Should -BeExactly 'HttpGadget'
+        }
+
+        It 'takes the longest leading approved verb, and throws when the words start with none' -Tag 'ADR-AUTO-IDIOM-ROUNDTRIP' {
+            [Catzc.Base.Languages.LanguageNaming]::Join('verb-noun', [string[][]] @(, [string[]] @('convert', 'from', 'gadget'))) | Should -BeExactly 'ConvertFrom-Gadget'
+            { [Catzc.Base.Languages.LanguageNaming]::Join('verb-noun', [string[][]] @(, [string[]] @('gadget', 'part'))) } | Should -Throw '*no approved verb*'
+            { [Catzc.Base.Languages.LanguageNaming]::Join('verb-noun', [string[][]] @(, [string[]] @('get'))) } | Should -Throw '*no approved verb*'
+        }
+
+        It 'keeps snake''s leading and trailing underscores outside the case' -Tag 'ADR-AUTO-IDIOM-CLOSEDCASES' {
+            [Catzc.Base.Languages.LanguageNaming]::Split('snake', '__init__')[0] | Should -Be @('init')
+            [Catzc.Base.Languages.LanguageNaming]::Split('snake', '_private_part')[0] | Should -Be @('private', 'part')
+        }
+
+        It 'splits nothing for a name outside the case, and throws on an unknown case or a word that is not lowercase' -Tag 'ADR-AUTO-IDIOM-CLOSEDCASES' {
+            [Catzc.Base.Languages.LanguageNaming]::Split('kebab', 'Gadget-Part') | Should -BeNullOrEmpty
+            [Catzc.Base.Languages.LanguageNaming]::Split('pascal', 'Widget.Gadget') | Should -BeNullOrEmpty
+            { [Catzc.Base.Languages.LanguageNaming]::Split('camel', 'gadgetPart') } | Should -Throw "*unknown case 'camel'*"
+            { [Catzc.Base.Languages.LanguageNaming]::Join('kebab', [string[][]] @(, [string[]] @('Gadget'))) } | Should -Throw "*'Gadget' is not a lowercase word*"
+        }
+
+        It 'renders any text by its words, a case boundary and any non-letter starting a word' -Tag 'ADR-AUTO-IDIOM-CLOSEDCASES' -ForEach @(
+            @{ Text = 'HelveticaMetrics'; Expected = 'helvetica-metrics' }
+            @{ Text = 'Get-FooBar'; Expected = 'get-foo-bar' }
+            @{ Text = 'Catzc.Internal.Types'; Expected = 'catzc-internal-types' }
+            @{ Text = 'already-kebab'; Expected = 'already-kebab' }
+            @{ Text = '..'; Expected = '' }
+        ) {
+            [Catzc.Base.Languages.LanguageNaming]::Render($Text, 'kebab') | Should -BeExactly $Expected
+        }
+
+        It 'names a module''s test folder in each language''s first folder case, and throws for a language without one or a name not dotted pascal' -Tag 'ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM' {
+            $config = & $script:make ([ordered]@{ languages = [ordered]@{
+                        widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; naming = [ordered]@{ folder = @('snake', 'kebab') } }
+                        gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'never'; naming = [ordered]@{ folder = 'flat' } }
+                        plain  = [ordered]@{ extensions = @('.pln'); no_formatter = 'never'; naming = [ordered]@{ file = 'kebab' } }
+                        bare   = [ordered]@{ extensions = @('.bre'); no_formatter = 'never' }
+                    }
+                })
+            $config.TestFolderOf('widget', 'Widget.Base.GadgetParts') | Should -BeExactly 'widget_base_gadget_parts'
+            $config.TestFolderOf('gadget', 'Widget.Base.GadgetParts') | Should -BeExactly 'widgetbasegadgetparts'
+            { $config.TestFolderOf('plain', 'Widget.Base') } | Should -Throw '*names no folder case*'
+            { $config.TestFolderOf('bare', 'Widget.Base') } | Should -Throw "*languages?'bare'?: no naming entry*"
+            { $config.TestFolderOf('widget', '.internal') } | Should -Throw "*module '.internal' is not a pascal-dotted name*"
+        }
+
+        It 'judges a file name past its role suffix and the one qualifier before it' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
+            $naming = [Catzc.Base.Languages.LanguageNaming]::new(@(), @('verb-noun', 'pascal'), @())
+            $naming.IsFileIdiomatic('Get-Gadget.Tests') | Should -BeTrue
+            $naming.IsFileIdiomatic('GadgetConfig.Tests') | Should -BeTrue
+            $naming.IsFileIdiomatic('Get-Gadget.L2.Tests') | Should -BeTrue
+            $naming.IsFileIdiomatic('Build-Gadget.SampleWidget.Tests') | Should -BeTrue
+            $naming.IsFileIdiomatic('Get-Gadget.L2.Extra.Tests') | Should -BeFalse
+            $naming.IsFileIdiomatic('Get-Gadget.l2.Tests') | Should -BeFalse
+            $naming.IsFileIdiomatic('Get-Gadget.Spec') | Should -BeFalse
         }
     }
 

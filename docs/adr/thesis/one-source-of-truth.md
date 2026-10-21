@@ -102,8 +102,10 @@ lives in version control, what can be diffed belongs there, and no configuration
 ### Adjacent stores
 
 An adjacent store keeps its own history, but nobody edits it beside the trunk: the trunk's pipelines drive it, one way. It is a projection
-of the truth, never a second record of it, so it adds no synchronisation path back. Catzc has no adjacent store, and the rule allows one
-where a consumer such as a GitOps controller needs its own repository.
+of the truth, never a second record of it, so it adds no synchronisation path back. Catzc's adjacent store is the Azure DevOps
+configuration: its approvals, build validations, pipeline definitions, and variables are declared in the repository and driven from the
+trunk, so its history is the trunk that drives it. The rule allows another where a consumer such as a GitOps controller needs its own
+repository.
 
 ### The truth is queryable
 

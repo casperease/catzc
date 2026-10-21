@@ -12,7 +12,10 @@ Creates an Azure DevOps pipeline pointing to a YAML file.
 ### description
 
 Uses the ADO Pipelines REST API to register a pipeline definition backed by a YAML file. Supports both Azure Repos Git and GitHub
-repositories. Throws if a pipeline with the same name already exists.
+repositories. Throws if a pipeline with the same name already exists. The pipeline definition is Azure DevOps configuration, an adjacent
+store
+([ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)),
+driven one way from the YAML the repository holds and never edited beside the trunk.
 
 Requires authentication via Get-AdoAuthorizationHeader (pipeline token, PAT or az login, in that order).
 

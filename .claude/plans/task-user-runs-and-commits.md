@@ -19,7 +19,15 @@ final full run last.
 
 1. Commit `pwsh/Catzc.Base.Slides/Build-Diagrams.ps1`: one `Write-Message` line per folder for the minimap, render and sync stages, and the
    total time on the closing line. Check: `Invoke-TestFile pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1` passes.
-2. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+2. Edit `.claude/CLAUDE.md:26` to read "nothing internal reads or defaults to the track" (plan-listen-internal-readers.md). Check:
+   `Test-AgentDefinitions` passes.
+3. Edit `.claude/CLAUDE.md`, the "Run PowerShell yourself" rule, to name
+   `timeout <s> pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "<cmd>"` in place of
+   `pwsh -NoProfile -Command ". ./importer.ps1; <cmd>"` (plan-agent-shortcuts.md step 5). Check: `Test-AgentDefinitions` passes.
+4. Stage the idiomatic-names moves (`python/tests/catzc_base_repository/`, `go/tests/catzcbaserepository/`, and later
+   `python/catzc_diagrams/`): `Test-IdiomaticNames` reads the git index, so plan-idiomatic-names' gate-on step waits on it. Check:
+   `Test-IdiomaticNames` no longer lists the old folders.
+5. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
    every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

@@ -16,6 +16,8 @@ catzc:
     visibility: public
   edges:
     docs: "[Register-AdoPipeline.ps1.md](docs/references/pwsh/catzc-azure-devops/Register-AdoPipeline.ps1.md)"
+    cites:
+      - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 ---
 #>
 

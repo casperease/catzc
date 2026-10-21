@@ -24,10 +24,10 @@ catzc:
 Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
-        $script:folder = Join-Path $script:root 'go/tests/catzc-widget'
+        $script:folder = Join-Path $script:root 'go/tests/catzcwidget'
         $null = New-Item -ItemType Directory -Path $script:folder -Force
         Set-Content -LiteralPath (Join-Path $script:folder 'go.mod') -Value 'module catzc/go/tests/catzc-widget'
-        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'go/tests/catzc-gadget') -Force
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'go/tests/catzcgadget') -Force
         # A module of the go track with its own tests/ folder; its generated go.mod sits at the module root.
         $script:ownFolder = Join-Path $script:root 'go/Widget.Kit/tests'
         $null = New-Item -ItemType Directory -Path $script:ownFolder -Force
@@ -42,6 +42,12 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         $script:go = "`"$($script:goPath)`""
 
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:root }
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'languages' } {
+            [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
+                        go = [ordered]@{ extensions = @('.go'); no_formatter = 'never'; naming = [ordered]@{ folder = 'flat' } }
+                    }
+                })
+        }
     }
 
     BeforeEach {
@@ -80,7 +86,7 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
     }
 
     Context 'the go commands' {
-        It 'runs go mod download, go vet, then go test -json -count=1 in the module''s kebab folder' {
+        It 'runs go mod download, go vet, then go test -json -count=1 in the module''s folder, named in go''s folder case' {
             $null = Invoke-GoTest Catzc.Widget
             $script:seen.Command | Should -Be @("$go mod download", "$go vet ./...", "$go test -json -count=1 ./...")
             $script:seen.Directory | Sort-Object -Unique | Should -Be $script:folder
@@ -123,17 +129,17 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
 
         It 'runs in the module''s folder under .go/tests/ when the repository has no go/ folder' {
             $dotRoot = Join-Path $TestDrive 'dot-repo'
-            $dotFolder = Join-Path $dotRoot '.go/tests/catzc-widget'
+            $dotFolder = Join-Path $dotRoot '.go/tests/catzcwidget'
             $null = New-Item -ItemType Directory -Path $dotFolder -Force
             Set-Content -LiteralPath (Join-Path $dotFolder 'go.mod') -Value 'module catzc/go/tests/catzc-widget'
             Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'dot-repo' }
             $null = Invoke-GoTest Catzc.Widget
             $script:seen.Directory | Sort-Object -Unique | Should -Be $dotFolder
-            { Invoke-GoTest Catzc.Nothing } | Should -Throw '*has no Go tests: .go/tests/catzc-nothing/ does not exist*'
+            { Invoke-GoTest Catzc.Nothing } | Should -Throw '*has no Go tests: .go/tests/catzcnothing/ does not exist*'
         }
 
         It 'throws when the module has no Go test folder' {
-            { Invoke-GoTest Catzc.Nothing } | Should -Throw "*Module 'Catzc.Nothing' has no Go tests: go/tests/catzc-nothing/ does not exist*"
+            { Invoke-GoTest Catzc.Nothing } | Should -Throw "*Module 'Catzc.Nothing' has no Go tests: go/tests/catzcnothing/ does not exist*"
         }
 
         It 'runs in the named folder, a module''s own tests/ under the go track, with the go.mod at the module root' {
@@ -143,7 +149,7 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         }
 
         It 'throws with the remediation when the generated go.mod is missing' {
-            { Invoke-GoTest Catzc.Gadget } | Should -Throw '*go/tests/catzc-gadget/go.mod is missing*Build-RootConfig*'
+            { Invoke-GoTest Catzc.Gadget } | Should -Throw '*go/tests/catzcgadget/go.mod is missing*Build-RootConfig*'
         }
     }
 
@@ -227,7 +233,7 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
     Context 'failures outside the tests' {
         It 'throws with the go output when go vet fails' {
             $script:vetExit = 1
-            { Invoke-GoTest Catzc.Widget } | Should -Throw '*go vet failed in go/tests/catzc-widget/*undefined: gadget*'
+            { Invoke-GoTest Catzc.Widget } | Should -Throw '*go vet failed in go/tests/catzcwidget/*undefined: gadget*'
             $script:seen.Command | Should -Not -Contain "$go test -json -count=1 ./..."
         }
 

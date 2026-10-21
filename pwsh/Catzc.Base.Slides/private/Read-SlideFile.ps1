@@ -35,7 +35,6 @@ function Read-SlideFile {
     $state = Get-MarkdownMetaState -Text $text
 
     $config = [ordered]@{}
-    $cites = @()
     if ($state.HasFrontMatter) {
         $match = [regex]::Match($text, '\A---\n(.*?)\n---(?:\n|\z)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
         if ($match.Success) {
@@ -45,11 +44,13 @@ function Read-SlideFile {
                 if ($catzc.Contains('config') -and $catzc['config'] -is [System.Collections.IDictionary]) {
                     $config = $catzc['config']
                 }
-                if ($catzc.Contains('edges') -and $catzc['edges'] -is [System.Collections.IDictionary] -and $catzc['edges'].Contains('cites') -and $null -ne $catzc['edges']['cites']) {
-                    $cites = @($catzc['edges']['cites'])
-                }
             }
         }
+    }
+    # The cites come from the slide's text, the way the adr-codes processor finds them; the head is never read back.
+    $cites = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
+    foreach ($found in [regex]::Matches($state.Body, '(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?![\w#-]|:\d)')) {
+        [void] $cites.Add($found.Value)
     }
 
     $value = {
@@ -71,7 +72,7 @@ function Read-SlideFile {
         Deck    = [string] (& $value 'deck')
         Order   = & $value 'order'
         Quotes  = [string] (& $value 'quotes')
-        Cites   = [string[]] @($cites | ForEach-Object { "$_" })
+        Cites   = [string[]] @($cites)
         Source  = [Catzc.Base.Slides.SlideSource]::Parse($state.Body)
     }
 }

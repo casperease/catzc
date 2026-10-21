@@ -54,6 +54,14 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         Mock Get-Config {
             [Catzc.Base.Languages.BashConfig]::new(@{ root = 'bash'; bats_version = '1.2.3'; bats_sha256 = ('a' * 64) })
         } -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'bash' }
+        Mock Get-Config {
+            [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
+                        python = [ordered]@{ extensions = @('.py'); no_formatter = 'never'; naming = [ordered]@{ folder = 'snake' } }
+                        go     = [ordered]@{ extensions = @('.go'); no_formatter = 'never'; naming = [ordered]@{ folder = 'flat' } }
+                        bash   = [ordered]@{ extensions = @('.sh'); no_formatter = 'never'; naming = [ordered]@{ folder = 'kebab' } }
+                    }
+                })
+        } -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'languages' }
         # The fake root is not the loaded code root, so the run mode reads 'build'; the guard is the seam.
         Mock Assert-SourceTree -ModuleName Catzc.Base.Globs { }
     }
@@ -70,17 +78,18 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         $live.Matches((Get-CatzcModulesFolder) + '/Catzc.Fake.Beta/Get-Beta.ps1') | Should -BeFalse
     }
 
-    It 'puts the module''s Go, Python and Bash test folders in its tests aspect, never in live (ADR-AUTO-GO-ONEGOROOT, ADR-AUTO-PY-ONEPYTHONROOT, ADR-AUTO-BASH-ONEBASHROOT)' {
+    It 'puts the module''s Go, Python and Bash test folders in its tests aspect, each in its language''s folder case, never in live (ADR-AUTO-GO-ONEGOROOT, ADR-AUTO-PY-ONEPYTHONROOT, ADR-AUTO-BASH-ONEBASHROOT)' {
         $aspects = @(Get-ModuleGlobSet -Name Catzc.Base.Alpha)
         $live = $aspects | Where-Object Name -eq 'catzc-base-alpha-live'
         $tests = $aspects | Where-Object Name -eq 'catzc-base-alpha-tests'
-        $tests.Matches('go/tests/catzc-base-alpha/alpha_test.go') | Should -BeTrue
-        $live.Matches('go/tests/catzc-base-alpha/alpha_test.go') | Should -BeFalse
-        $tests.Matches('python/tests/catzc-base-alpha/test_alpha.py') | Should -BeTrue
-        $live.Matches('python/tests/catzc-base-alpha/test_alpha.py') | Should -BeFalse
+        $tests.Matches('go/tests/catzcbasealpha/alpha_test.go') | Should -BeTrue
+        $live.Matches('go/tests/catzcbasealpha/alpha_test.go') | Should -BeFalse
+        $tests.Matches('python/tests/catzc_base_alpha/test_alpha.py') | Should -BeTrue
+        $live.Matches('python/tests/catzc_base_alpha/test_alpha.py') | Should -BeFalse
         $tests.Matches('bash/tests/catzc-base-alpha/alpha.bats') | Should -BeTrue
         $live.Matches('bash/tests/catzc-base-alpha/alpha.bats') | Should -BeFalse
-        $tests.Matches('go/tests/catzc-fake-beta/beta_test.go') | Should -BeFalse
+        $tests.Matches('go/tests/catzcfakebeta/beta_test.go') | Should -BeFalse
+        $tests.Matches('python/tests/catzc-base-alpha/test_alpha.py') | Should -BeFalse
     }
 
     It 'resolves a set by folder name and by kebab name to the same instance' {

@@ -38,6 +38,7 @@ function Export-SpellingTriage {
             '**/*.yaml'
             '**/*.json'
             '**/*.cs'
+            '**/*.csproj'
             '**/*.bicep'
             '**/*.go'
             '**/*.py'

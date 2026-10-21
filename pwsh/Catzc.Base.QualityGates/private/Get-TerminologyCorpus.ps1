@@ -34,7 +34,7 @@ function Get-TerminologyCorpus {
     )
 
     $exts = [System.Collections.Generic.HashSet[string]]::new(
-        [string[]] @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.bicep', '.py'),
+        [string[]] @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.csproj', '.bicep', '.py'),
         [System.StringComparer]::OrdinalIgnoreCase)
 
     $names = [System.Collections.Generic.HashSet[string]]::new(

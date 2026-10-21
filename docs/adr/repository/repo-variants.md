@@ -60,6 +60,14 @@ stop condition** is a direct commit made while standing on main/master locally. 
 
 - [The variants](#the-variants)
 
+### Rule ADR-REPO-VARIANT-FILEHEADS
+
+`file_heads.code` (`minimal` | `none`, default `minimal`, declared once on `VariantsConfig`) decides whether an authored code or config file
+carries the navigation head: `minimal` writes it, `none` writes none and strips one a file holds. Generated files are outside the variant:
+their head is never a setting. Read it through `Get-FileHeadVariant` / `Test-FileHeadVariant -Minimal|-None`.
+
+- [The variants](#the-variants)
+
 ## Context
 
 Some settings are properties of the **whole repository**, fixed for a run: which Azure naming convention every resource name uses, whether
@@ -120,6 +128,10 @@ variant that needed to cross-check another asset would belong to that asset's la
   `Get-Aspect` and compiled per unit by `AspectPartition` ([module-aspects](../design/module-aspects.md)).
 - **`tracks`** — the repository's root concerns, one entry per root folder with its class and the file languages of its tech-stack; read by
   `Get-Track` ([tracks](../design/tracks.md)).
+- **`file_heads`** — whether a file carries a head, by the kind of file (`ADR-REPO-VARIANT-FILEHEADS`). Its one key, `code`, is `minimal` or
+  `none`: with `minimal` an authored code or config file carries the navigation head (its body hash and its edges to the rules it cites, its
+  comment page and its test, or from a test to the code it tests), so a reader on GitHub or in an editor steps straight to them; with `none`
+  it carries nothing. A generated file's head is outside the variant ([file-meta](file-meta.md)).
 
 ## Decision
 
@@ -131,8 +143,8 @@ config type is self-contained, and the primitives are therefore callable from an
 
 - **`VariantsConfig`** (the C# config type registered for `variants` in `configs.yml`) validates `variants.yml` when `Get-Config` loads it:
   known keys only, `ado_naming ∈ {standard, classic}`, `git_workspace ∈ {main-direct, main-via-pr}`, `have_customers` is
-  `false`/`true`/`all`/a valid name list, and each `aspects` track is a well-formed ordered classification ending in the `**` catch-all. A
-  typo fails fast at load, with every violation in one error.
+  `false`/`true`/`all`/a valid name list, `file_heads.code ∈ {minimal, none}`, and each `aspects` track is a well-formed ordered
+  classification ending in the `**` catch-all. A typo fails fast at load, with every violation in one error.
 - **The dependency graph** (`dependencies.yml`, the `Test-ModuleDependency` quality gate) declares
   `Catzc.Base.Variants: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Asserts]` in the `Base` group; `DependenciesConfig` rejects a
   cyclic declaration at load, and the gate's L1 integrity test fails on any actual edge outside it.

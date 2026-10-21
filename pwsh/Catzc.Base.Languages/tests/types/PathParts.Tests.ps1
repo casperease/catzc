@@ -29,17 +29,6 @@ Describe 'Catzc.Base.Languages.PathParts' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA
         }
     }
 
-    Context 'Kebab' {
-        It 'joins the words of a name by a dash, lower case' -ForEach @(
-            @{ Text = 'HelveticaMetrics'; Expected = 'helvetica-metrics' }
-            @{ Text = 'Get-FooBar'; Expected = 'get-foo-bar' }
-            @{ Text = 'Catzc.Internal.Types'; Expected = 'catzc-internal-types' }
-            @{ Text = 'already-kebab'; Expected = 'already-kebab' }
-        ) {
-            [Catzc.Base.Languages.PathParts]::Kebab($Text) | Should -BeExactly $Expected
-        }
-    }
-
     Context 'FileTypeOf' {
         It 'is the last extension in lower case, and nothing for a dotfile or a trailing dot' -ForEach @(
             @{ Path = 'a/b/Get-Foo.Tests.PS1'; Expected = 'ps1' }

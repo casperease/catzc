@@ -17,4 +17,4 @@
 #     docs: "[slides.yml.md](docs/references/pwsh/catzc-base-slides/configs/slides.yml.md)"
 # ---
 
-kit: python/Catzc.Diagrams/assets/slides
+kit: python/catzc_diagrams/assets/slides

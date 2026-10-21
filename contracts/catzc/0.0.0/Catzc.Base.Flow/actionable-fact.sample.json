@@ -1,0 +1,10 @@
+{
+  "statement": "The widget environment runs a commit the gadget rung has not certified.",
+  "origin": {
+    "store": "widget-runtime",
+    "kind": "fact-source",
+    "address": "https://widget.example/environments/widget",
+    "read_at": "2026-10-21T08:00:00Z"
+  },
+  "calls_for": { "action": "report", "target": "widget-itsm" }
+}

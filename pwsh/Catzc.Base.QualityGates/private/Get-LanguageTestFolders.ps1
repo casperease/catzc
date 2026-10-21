@@ -32,22 +32,30 @@ function Get-LanguageTestFolders {
     param()
 
     $repositoryRoot = Get-RepositoryRoot
-    # Each language with a test runner: its root from its own config, named for the language, and its test-file pattern from the registry.
-    $languages = @(foreach ($entry in (Get-Config -Config languages).languages) {
+    # Each language with a test runner: its root from its own config, named for the language, its test-file pattern from the registry,
+    # and every catzc module by the test folder that names it in the language's folder case.
+    $languagesConfig = Get-Config -Config languages
+    $moduleNames = @((Get-CatzcModule -EngineTrack).name.Where({ [Catzc.Base.Languages.LanguageNaming]::IsInCase('pascal-dotted', $_) }))
+    $languages = @(foreach ($entry in $languagesConfig.languages) {
             if ($entry.tests) {
-                [pscustomobject]@{ Language = $entry.name; Root = (Get-Config -Config $entry.name).ResolveRoot($repositoryRoot); Pattern = $entry.tests.pattern }
+                $modulesByFolder = @{}
+                foreach ($module in $moduleNames) {
+                    $modulesByFolder[$languagesConfig.TestFolderOf($entry.name, $module)] = $module
+                }
+                [pscustomobject]@{
+                    Language = $entry.name
+                    Root     = (Get-Config -Config $entry.name).ResolveRoot($repositoryRoot)
+                    Pattern  = $entry.tests.pattern
+                    Case     = $entry.naming.folder[0]
+                    Modules  = $modulesByFolder
+                }
             }
         })
-
-    $modulesByKebab = @{}
-    foreach ($module in (Get-CatzcModule -EngineTrack).name) {
-        $modulesByKebab[$module.ToLowerInvariant().Replace('.', '-')] = $module
-    }
 
     $unmatched = [System.Collections.Generic.List[string]]::new()
     $records = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($language in $languages) {
-        # The track's own test holder: one folder per catzc module, named for it in kebab case, testing it from outside.
+        # The track's own test holder: one folder per catzc module, named for it in the language's folder case, testing it from outside.
         $testsRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $language.Root, 'tests'))
         if ([System.IO.Directory]::Exists($testsRoot)) {
             $folders = @([System.IO.Directory]::GetDirectories($testsRoot))
@@ -61,13 +69,13 @@ function Get-LanguageTestFolders {
                 if (-not @(Get-ChildPath $folder -File -Filter $language.Pattern -Depth 3).Count) {
                     continue
                 }
-                if (-not $modulesByKebab.ContainsKey($name)) {
-                    $unmatched.Add("$($language.Root)/tests/$name/")
+                if (-not $language.Modules.ContainsKey($name)) {
+                    $unmatched.Add("$($language.Root)/tests/$name/ ($($language.Case) case)")
                     continue
                 }
                 $records.Add([pscustomobject]@{
                         Language = $language.Language
-                        Module   = $modulesByKebab[$name]
+                        Module   = $language.Modules[$name]
                         Folder   = $folder
                         Name     = $name
                     })
@@ -97,7 +105,7 @@ function Get-LanguageTestFolders {
     }
 
     if ($unmatched.Count -gt 0) {
-        throw "Test folder(s) matching no catzc module: $($unmatched -join ', '). A test folder is named for its catzc module in kebab case (lowercase, dots as hyphens, e.g. catzc-base-repository for Catzc.Base.Repository)."
+        throw "Test folder(s) matching no catzc module: $($unmatched -join ', '). A test folder is named for its catzc module in its language's folder case (Catzc.Base.Repository is catzc_base_repository in snake, catzcbaserepository in flat, catzc-base-repository in kebab)."
     }
     $records
 }

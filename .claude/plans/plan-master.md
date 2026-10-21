@@ -49,12 +49,13 @@ was decided in the round of 2026-10-21; no chunk waits on a question.
   (agent heads forbidden), the variant, the policy, the trimmed kinds, the generated head and one whole-tree re-format; the ADR fold last.
 - idiomatic-names -> plan-idiomatic-names.md: wire the naming gate in (rule, test-folder mapping, three renames, gate on), then the
   repository normal form for function and type names and the `0.0.0` command contracts.
-- listen-agent -> plan-listen-agent.md: process the three carried editor notes, narrow `Get-DocChange`'s `Rules`, fit the fact-checker to
-  the mode, the two AI-contract restatements, and land the two samples.
+- listen-internal-readers -> plan-listen-internal-readers.md: editor note 0001's four steps; its `.claude/CLAUDE.md` step is the user's (a
+  shared file).
 - agent-shortcuts -> plan-agent-shortcuts.md: the citation fixes; the gate runner as a repo asset with catzc-run, gate-runner and CLAUDE.md
   following it; `New-Plan` for the plan file, its value row and master line after agent-friction's step 1.
 - truth-stores -> plan-truth-stores.md: restate FACTSOURCEREADONLY and one-source-of-truth.md:105 for the ADO split, tag the five writers,
   then the truth-store config, the actionable-fact and junction contracts, and the diagram sample.
+- listen-repository-record -> plan-listen-repository-record.md: editor notes 0002 and 0003's steps, the typo fix included.
 - eac-normal-form -> plan-eac-normal-form.md: the migration rules in ADR-DSGN-TRACK, the uncontested check, the avoid note,
   `fragment migration`, and one sample drawing.
 - bcl-language -> plan-bcl-language.md: move the BCL reference and how-to pages out of `pwsh/` and re-point their links; the reference-set

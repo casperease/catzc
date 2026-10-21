@@ -5,7 +5,8 @@
 ### Rule ADR-REPO-PLANS-ONETOPICONEFILE
 
 A **plan** is one topic in one file, `.claude/plans/plan-<topic>.md`, authored directly there, and it holds the delta only: what is still
-open, what was decided and why, and what landed and why. The tree, the ADRs and git hold everything else.
+open, what was decided and why, and what landed and why. The tree, the ADRs and git hold everything else. A plan starts with `New-Plan`,
+which writes its head and its open steps section and refuses a topic that has a plan.
 
 - [The delta, not the record](#the-delta-not-the-record)
 

@@ -35,16 +35,15 @@ function Invoke-BashTest {
     )
 
     $root = Get-RepositoryRoot
-    $folderName = $Module.ToLowerInvariant().Replace('.', '-')
     # The Bash root from bash.yml (BashConfig.ResolveRoot: the declared root, else bash/ when present, else .bash/).
     $bashRelative = (Get-Config -Config bash).ResolveRoot($root)
     $bashRoot = Join-Path $root $bashRelative
-    # The test folder: the one named, a module's own tests/ or the holder's, else the holder's tests/<kebab> of the module.
+    # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's tests/ in bash's folder case.
     $relative = if ($Folder) {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\', '/').TrimEnd('/')
     }
     else {
-        "$bashRelative/tests/$folderName"
+        "$bashRelative/tests/$((Get-Config -Config languages).TestFolderOf('bash', $Module))"
     }
     if (-not (Test-Path -LiteralPath (Join-Path $root $relative) -PathType Container)) {
         throw "Module '$Module' has no Bash tests: $relative/ does not exist."

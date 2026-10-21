@@ -40,24 +40,12 @@ Both recur in every session that runs a gate or starts a plan.
 
 ## Open steps
 
-1. [ ] The entry script, with an L0 test that a passing and a failing command both report and the run continues. Check: its Pester file
-       under `Invoke-TestFile`.
-2. [ ] After step 1: confirm `.claude/hooks/Assert-BashTimeout` allows `timeout <s> pwsh -NoProfile -File <script> <args>`. Check: the
-       hook's tests, or no denied-call line in `out/time-safeguard.log` for one real run.
-3. [ ] After step 2: point step 2 of `.claude/skills/catzc-run/SKILL.md` at the entry script, so no agent writes an `out/*.ps1` to run a
-       gate. Check: `Test-AgentDefinitions`.
-4. [ ] After step 2: `.claude/agents/gate-runner.md` runs its gate through the entry script, not an `out/gate-runner-<name>.ps1`. Check:
-       `Test-AgentDefinitions`.
-5. [ ] After step 2, when no peer has the file dirty: `.claude/CLAUDE.md`, the "Run PowerShell yourself" rule names the entry script in
-       place of `pwsh -NoProfile -Command ". ./importer.ps1; <cmd>"`. Check: `Test-AgentDefinitions`, `Test-Links -Path .claude/CLAUDE.md`.
-6. [ ] `New-Plan` as decided, and `docs/adr/repository/plans.md` naming it as the way a plan starts. Check: its Pester file, then
+5. [ ] `.claude/CLAUDE.md`, the "Run PowerShell yourself" rule names `pwsh/.internal/assets/Invoke-CatzcCommand.ps1` in place of
+       `pwsh -NoProfile -Command ". ./importer.ps1; <cmd>"`; a shared file, the user's step in task-user-runs-and-commits.md. Check:
+       `Test-AgentDefinitions`, `Test-Links -Path .claude/CLAUDE.md`.
+6. [ ] After plan-agent-friction's step 1: `New-Plan` also writes the value row and the master line. Check: its Pester file, then
        `Test-Plans`.
-7. [ ] After plan-agent-friction's step 1: `New-Plan` also writes the value row and the master line. Check: its Pester file, then
-       `Test-Plans`.
-8. [ ] After step 6: trim the format-plans-after-edit memory to what `New-Plan` and plan-agent-friction's hook do not carry. Check: a file
-       read.
-9. [ ] Replace the retired numbered citation form (`ADR-X#n`, `### Rule ADR-X:n`) with the full rule code
-       (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED) in `.claude/skills/catzc-module/SKILL.md`, then in `.claude/agents/adr-reviewer.md`, one file at
-       a time, within their roofs. Check: `Test-AgentDefinitions` after each.
+7. [ ] After plan-agent-friction's hook: trim the format-plans-after-edit memory to what `New-Plan` and plan-agent-friction's hook do not
+       carry. Check: a file read.
 
 The capability roof's counting (how `Get-RobotLineCount` counts front matter and body) is plan-session-finalize's step 1.

@@ -73,6 +73,7 @@ function Get-ModuleGlobSet {
     $goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))
     $pythonRoot = (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))
     $bashRoot = (Get-Config -Config bash).ResolveRoot((Get-RepositoryRoot))
+    $languages = Get-Config -Config languages
 
     # The per-folder module globs, collected so 'module-leftovers' below can exclude every one of them.
     $moduleFolderGlobs = [System.Collections.Generic.List[string]]::new()
@@ -92,10 +93,11 @@ function Get-ModuleGlobSet {
                 throw "Declared globset '$aspectKebab' in globs.yml shadows the derived aspect of module '$moduleName' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
             }
             $include = [string[]]$compiled.Include
+            # Each language's test folder for the module, named in that language's folder case.
             if ($compiled.Name -eq 'tests') {
-                $include += "$goRoot/tests/$kebab/**"
-                $include += "$pythonRoot/tests/$kebab/**"
-                $include += "$bashRoot/tests/$kebab/**"
+                $include += "$goRoot/tests/$($languages.TestFolderOf('go', $moduleName))/**"
+                $include += "$pythonRoot/tests/$($languages.TestFolderOf('python', $moduleName))/**"
+                $include += "$bashRoot/tests/$($languages.TestFolderOf('bash', $moduleName))/**"
             }
             $set = [Catzc.Base.Globs.GlobSet]::new(
                 $aspectKebab, "Derived module aspect - $($module.root) [$($compiled.Name)]", 'module',

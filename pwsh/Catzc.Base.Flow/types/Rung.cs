@@ -1,3 +1,25 @@
+/*
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Flow/types/Rung.cs
+    folder: types
+    name: rung
+    filetype: cs
+    role: type
+    language: csharp
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Flow
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-FLOW-CD-RUNGSREGISTRY
+---
+*/
+
 using System;
 using System.Collections.Generic;
 

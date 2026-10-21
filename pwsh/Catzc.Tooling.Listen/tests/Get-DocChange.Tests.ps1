@@ -33,6 +33,12 @@ Describe 'Get-DocChange' -Tag 'L0', 'logic' {
         $change[0].Diff | Should -BeLike '*+The widget rule, ADR-WIDGET-PARTS-SINGLE and ADR-WIDGET-PARTS-DOUBLE.*'
     }
 
+    It 'lists only the rules cited in the changed lines, not the ones the unchanged lines cite' {
+        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nThe widget rule, ADR-WIDGET-PARTS-SINGLE.`n`nThe gadget rule, ADR-GADGET-TURNS-ONCE.`n"
+        $change = @(Get-DocChange -Session $script:session)
+        $change[0].Rules | Should -Be @('ADR-GADGET-TURNS-ONCE')
+    }
+
     It 'says who wrote each change: the editor''s exact save, an agent''s exact write, or nobody the ledgers know' {
         Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nSaved by the editor.`n"
         Write-ListenFixtureFile 'docs/explanation/gadget.md' "# Gadget`n`nWritten by an agent.`n"

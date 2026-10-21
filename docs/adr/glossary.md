@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1fdefde2c1fa"
+    with_body_sha: "04360edd6c7b"
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -35,8 +35,8 @@ or report it calls for.
 
 ### adjacent store
 
-The one legitimate second store — a repository or service, such as a GitOps repository, with its own history, driven one way from the
-trunk's pipelines and never edited beside it.
+The one legitimate second store — a repository or service, such as a GitOps repository or the Azure DevOps configuration, with its own
+history, driven one way from the trunk's pipelines and never edited beside it.
 
 - **Defined by:**
   [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)
@@ -70,14 +70,15 @@ What a repository declares about itself — the sensible defaults, the catzc bun
 
 ### fact source
 
-A state store — a database with a reachable live URL holding state about delivery outside the repository — that catzc reads only.
+A state store — a database with a reachable live URL holding state about delivery outside the repository, such as the Azure DevOps runtime
+state — whose state catzc reads only.
 
 - **Defined by:** [ADR-THES-STORES-FACTSOURCEREADONLY](thesis/truth-stores.md#rule-adr-thes-stores-factsourcereadonly)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [adjacent store](#adjacent-store): An adjacent store is driven one way from the trunk's pipelines; a fact source is owned by a state
-    machine and only read.
+  - [adjacent store](#adjacent-store): An adjacent store is driven one way from the trunk's pipelines, such as the Azure DevOps
+    configuration; a fact source is owned by a state machine and only read, such as the Azure DevOps runtime state.
   - [state machine](#state-machine): A state machine is the application that owns and changes a fact source; a fact source is the store
     catzc reads.
 
@@ -514,8 +515,8 @@ A tracked file no file language names — no extension, or one no entry lists �
 
 ### unordered track
 
-The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing reads or falls
-back to it.
+The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing internal reads
+or falls back to it.
 
 - **Defined by:** [ADR-DSGN-TRACK-UNORDEREDTRACK](design/tracks.md#rule-adr-dsgn-track-unorderedtrack)
 - **Realized by:** config-key `pwsh/Catzc.Base.Variants/configs/variants.yml`

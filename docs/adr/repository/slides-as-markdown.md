@@ -14,7 +14,7 @@ deck's orders is a render failure.
 
 ### Rule ADR-REPO-SLIDES-PATTERN
 
-A **pattern** is one file, `patterns/<name>.html` in the slides kit, the `assets/slides` folder of the `Catzc.Diagrams` module of the python
+A **pattern** is one file, `patterns/<name>.html` in the slides kit, the `assets/slides` folder of the `catzc_diagrams` module of the python
 track: one section in the slide format whose placeholders name its fields and say which are required. A slide names its pattern in its head.
 Adding a layout is a new pattern file and one line in the kit's `STYLE.md`, never a change to the renderer
 ([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig),
@@ -56,7 +56,7 @@ verify record of its own, because rule 4 derives what such a record would hold.
 ### Rule ADR-REPO-SLIDES-SLIDEFILEKIND
 
 `file-kinds.yml` places a slide file in the kind `slide` (`docs/**/*.slide.md`), ahead of the two documentation trees as the diagram kinds
-are, and the kit in `slides-kit` (`python/Catzc.Diagrams/assets/slides/**`). The renderer, the gate and their types live in
+are, and the kit in `slides-kit` (`python/catzc_diagrams/assets/slides/**`). The renderer, the gate and their types live in
 `Catzc.Base.Slides`, and their tests run on neutral fixture decks, never on a real one
 ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
@@ -170,7 +170,7 @@ such frame painted. The raster paints the model in the order draw.io paints it, 
 
 A deck is prose with a layout. Written straight into a presentation tool, the prose is reachable only through that tool, its claims are
 checked by nobody, and a change to a rule it quotes never reaches it. The repository already carries one answer to that problem for
-diagrams: a `.drawio.png` is drawn from a kit, the `Catzc.Diagrams` module of the python track, with a style guide and a template, rendered
+diagrams: a `.drawio.png` is drawn from a kit, the `catzc_diagrams` module of the python track, with a style guide and a template, rendered
 forward into `out/`, described beside the article it illustrates, and never landed without a person asking. A deck is the same kind of thing
 with words instead of glyphs, so it gets the same shape: files in the tree as the truth, patterns as the vocabulary, a renderer that fails
 forward, and checks that tie every claim to the rule it states.

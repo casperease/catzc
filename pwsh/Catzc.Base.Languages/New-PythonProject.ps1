@@ -39,6 +39,8 @@ function New-PythonProject {
     $repositoryRoot = Get-RepositoryRoot
     $pythonRoot = $config.ResolveRoot($repositoryRoot)
     $testsRoot = Join-Path $repositoryRoot "$pythonRoot/tests"
+    $python = @((Get-Config -Config languages).languages.Where({ $_.name -ceq 'python' }, 'First'))
+    $naming = $python.Count ? $python[0].naming : $null
 
     # One member per folder that holds a test file; a folder left with only generated files is not a member.
     $folders = [System.Collections.Generic.List[string]]::new()
@@ -52,8 +54,8 @@ function New-PythonProject {
             if (-not @(Get-ChildPath $folderPath -File -Filter 'test_*.py' -Depth 3).Count) {
                 continue
             }
-            if ($folderName -cnotmatch '^[a-z0-9]+(-[a-z0-9]+)*$') {
-                throw "$pythonRoot/tests/$folderName/: a Python test folder is named for its catzc module in kebab case (lowercase, dots as hyphens, e.g. catzc-base-repository)."
+            if ($null -ne $naming -and -not $naming.IsFolderIdiomatic($folderName)) {
+                throw "$pythonRoot/tests/$folderName/: a Python test folder is named for its catzc module in python's folder case, $($naming.folder -join ' or ') case."
             }
             $folders.Add($folderName)
         }

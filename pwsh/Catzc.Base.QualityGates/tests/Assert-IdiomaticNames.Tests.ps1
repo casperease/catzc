@@ -9,13 +9,13 @@ Describe 'Assert-IdiomaticNames' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'throws with every misnamed folder and file when a tracked name breaks its language''s naming' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
+    It 'throws with every misnamed folder and file when a tracked name breaks its language''s naming' -Tag 'ADR-AUTO-IDIOM-HELDBYGATE' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'widget_root/Bad-Folder/BadName.wdg' }
 
         { Assert-IdiomaticNames } | Should -Throw '*2 file and folder name(s)*widget_root/Bad-Folder/: the folder is not snake (widget)*widget_root/Bad-Folder/BadName.wdg: the file name is not snake (widget)*'
     }
 
-    It 'passes silently when every tracked name is idiomatic' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
+    It 'passes silently when every tracked name is idiomatic' -Tag 'ADR-AUTO-IDIOM-HELDBYGATE' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'widget_root/fine/fine_name.wdg'; 'notes.md' }
 
         { Assert-IdiomaticNames } | Should -Not -Throw

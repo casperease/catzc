@@ -40,7 +40,7 @@ function Read-ContractData {
     $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $Path))
     try {
         if ($format -ceq 'Json') {
-            $data = $text | ConvertFrom-Json -AsHashtable -NoEnumerate -Depth 100
+            $data = $text | ConvertFrom-Json -AsHashtable -NoEnumerate -Depth 100 -DateKind String
         }
         else {
             $data = $text | ConvertFrom-Yaml -Ordered

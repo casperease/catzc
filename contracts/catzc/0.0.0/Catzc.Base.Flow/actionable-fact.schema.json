@@ -1,0 +1,29 @@
+{
+  "$comment": "Provided schema of one actionable fact, validated against the sample beside it (ADR-THES-STORES-RECONCILEFACTS, ADR-REPO-CONTRACT-CONTRACTASSET): verifiable, because its origin names the truth store, the address read and the moment of reading, so anyone can read it again; actionable, because it names the one change or the one report it calls for.",
+  "type": "object",
+  "required": ["statement", "origin", "calls_for"],
+  "additionalProperties": false,
+  "properties": {
+    "statement": { "type": "string", "description": "What the fact says, in one sentence." },
+    "origin": {
+      "type": "object",
+      "required": ["store", "kind", "address", "read_at"],
+      "additionalProperties": false,
+      "properties": {
+        "store": { "type": "string", "description": "The truth store's name in truth-stores.yml." },
+        "kind": { "type": "string", "enum": ["version-controlled-repository", "fact-source", "state-machine"] },
+        "address": { "type": "string", "description": "A commit for a repository, a URL for a fact source or a state machine." },
+        "read_at": { "type": "string", "description": "The moment of reading, as an ISO 8601 date and time." }
+      }
+    },
+    "calls_for": {
+      "type": "object",
+      "required": ["action", "target"],
+      "additionalProperties": false,
+      "properties": {
+        "action": { "type": "string", "enum": ["change", "report"] },
+        "target": { "type": "string", "description": "The file a change touches, or the junction a report crosses." }
+      }
+    }
+  }
+}

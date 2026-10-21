@@ -35,8 +35,6 @@ public sealed class PathParts
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     static readonly Regex KebabPattern = new Regex("^[a-z0-9]+(-[a-z0-9]+)*$", RegexOptions.Compiled);
-    static readonly Regex Boundary = new Regex("(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", RegexOptions.Compiled);
-    static readonly Regex NotWord = new Regex("[^a-z0-9]+", RegexOptions.Compiled);
 
     // The folders between the module and the file, '/'-separated; empty for a file directly in the module.
     public string folder { get; }
@@ -62,10 +60,6 @@ public sealed class PathParts
         return dot > 0 && dot < file.Length - 1 ? file.Substring(dot + 1).ToLowerInvariant() : "";
     }
 
-    // The words of a name joined by '-', lower case: a case boundary, '.', '_' and any other non-letter start a new word.
-    public static string Kebab(string text) =>
-        NotWord.Replace(Boundary.Replace(text ?? "", "-").ToLowerInvariant(), "-").Trim('-');
-
     public static PathParts Of(string tail)
     {
         if (string.IsNullOrWhiteSpace(tail)) { throw new ArgumentException("path parts: the path is empty"); }
@@ -75,7 +69,7 @@ public sealed class PathParts
         string file = normalized.Substring(slash + 1);
         string filetype = FileTypeOf(file);
         string stem = filetype.Length == 0 ? file : file.Substring(0, file.Length - filetype.Length - 1);
-        string name = Kebab(stem);
+        string name = LanguageNaming.Render(stem, "kebab");
         if (!KebabPattern.IsMatch(name))
         {
             throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
@@ -89,8 +83,8 @@ public sealed class PathParts
         if (folder.Length > 0) { built.Append(folder).Append('/'); }
         built.Append(name);
         if (filetype.Length > 0) { built.Append('.').Append(filetype); }
-        string expected = string.Join("/", normalized.Split('/').Select(Kebab));
-        string actual = string.Join("/", built.ToString().Split('/').Select(Kebab));
+        string expected = string.Join("/", normalized.Split('/').Select(s => LanguageNaming.Render(s, "kebab")));
+        string actual = string.Join("/", built.ToString().Split('/').Select(s => LanguageNaming.Render(s, "kebab")));
         if (!string.Equals(expected, actual, StringComparison.Ordinal))
         {
             throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,

@@ -73,13 +73,17 @@ steps:
 naming:
   # Assets and vendored modules are named by their source, never by the language's idiom.
   exempt_folders: [assets, .vendor]
+  # The one case every name has under the idioms, for contracts, lookups and cross-language tests.
+  normal_form: snake
 languages:
   powershell:
     extensions: [.ps1, .psm1, .psd1]
     executable: true
     naming:
-      folder: [pascal, kebab]
-      file: pascal
+      folder: [pascal-dotted, kebab]
+      file: [verb-noun, pascal-dotted, pascal]
+      function: verb-noun
+      type: pascal-dotted
       exempt: [importer.ps1]
     formatter: psscriptanalyzer
     adr_folder: automation/pwsh
@@ -124,7 +128,7 @@ languages:
   python:
     extensions: [.py]
     executable: true
-    naming: { folder: snake, file: snake }
+    naming: { folder: snake, file: snake, function: snake, type: pascal }
     formatter: ruff
     adr_folder: automation/python
     checks: [Test-PythonLint, Test-PythonTypes, Test-Formatting, Test-Spelling]
@@ -141,7 +145,7 @@ languages:
   go:
     extensions: [.go]
     executable: true
-    naming: { folder: flat, file: snake }
+    naming: { folder: flat, file: snake, function: pascal, type: pascal }
     formatter: gofmt
     adr_folder: automation/go
     checks: [Test-Formatting, Test-Spelling]
@@ -151,6 +155,7 @@ languages:
   bash:
     extensions: [.sh, .bats]
     executable: true
+    naming: { folder: kebab, file: kebab }
     no_formatter: no engine is configured for Bash yet
     adr_folder: automation/bash
     checks: [Test-ShellScripts]

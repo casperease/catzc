@@ -32,3 +32,5 @@ It cuts a rediscovery, not a defect: the gate already catches an over-roof file.
 2. [ ] `pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1`: the over-roof message names both counts ("4 front-matter keys and 7 body lines"),
        from `Get-RobotLineCount`. Check: `Invoke-TestFile pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1` passes with the
        message updated.
+3. [ ] `.claude/skills/session-finalize/SKILL.md:4`: "finalization phase" reworded to the glossary's term, within the capability roof.
+       Check: `Test-Glossary` lists nothing on the file, `Test-AgentDefinitions` passes.

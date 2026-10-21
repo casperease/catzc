@@ -1,0 +1,35 @@
+{
+  "$comment": "Provided schema of one inbound junction call, validated against the sample beside it (ADR-THES-STORES-STATEMACHINE, ADR-REPO-CONTRACT-CONTRACTASSET): a state machine calls catzc's outer boundary at a point it defines, such as an approval check, and catzc answers with a verdict and the actionable facts it rests on.",
+  "type": "object",
+  "required": ["junction", "state_machine", "request", "verdict"],
+  "additionalProperties": false,
+  "properties": {
+    "junction": { "type": "string", "description": "The junction's name: the point the state machine calls." },
+    "state_machine": { "type": "string", "description": "The calling state machine's name in truth-stores.yml." },
+    "request": {
+      "type": "object",
+      "required": ["asked_at", "subject"],
+      "additionalProperties": false,
+      "properties": {
+        "asked_at": { "type": "string", "description": "The moment of the call, as an ISO 8601 date and time." },
+        "subject": { "type": "string", "description": "What the state machine asks a verdict on." }
+      }
+    },
+    "verdict": {
+      "type": "object",
+      "required": ["result", "facts"],
+      "additionalProperties": false,
+      "properties": {
+        "result": { "type": "string", "enum": ["pass", "fail"] },
+        "facts": {
+          "type": "array",
+          "description": "The actionable facts the verdict rests on, each of the actionable-fact shape.",
+          "items": {
+            "type": "object",
+            "required": ["statement", "origin", "calls_for"]
+          }
+        }
+      }
+    }
+  }
+}

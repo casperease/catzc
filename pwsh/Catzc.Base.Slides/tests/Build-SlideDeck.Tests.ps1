@@ -36,8 +36,6 @@ render:
             @"
 ---
 catzc:
-  edges:
-    cites: [ADR-WIDGET-GADGET-SPIN]
   config:
     pattern: widget
     deck: gadget-deck
@@ -127,16 +125,22 @@ Notes for $Id.
 
     It 'reports a quoted rule that differs from the registry, a cite the index does not know, and a section starting on no slide' -Tag 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
         & $write 'decks/drift-deck/deck.md' "# Drift`n`n## Sections`n`n- nowhere: Starts on no slide.`n"
-        & $write 'decks/drift-deck/d.slide.md' ((& $slide 'd' 1 'D' 'A widget spins when it feels like it.' '    quotes: ADR-WIDGET-GADGET-SPIN').Replace('cites: [ADR-WIDGET-GADGET-SPIN]', 'cites: [ADR-WIDGET-GADGET-SPIN, ADR-WIDGET-GADGET-GHOST, ADR-WIDGET-GADGET, "ADR-WIDGET-GADGET#{1-2}", gadget]'))
+        & $write 'decks/drift-deck/d.slide.md' ((& $slide 'd' 1 'D' 'A widget spins when it feels like it.' '    quotes: ADR-WIDGET-GADGET-SPIN').Replace('ADR-WIDGET-GADGET-SPIN · Widgets', 'ADR-WIDGET-GADGET-SPIN, ADR-WIDGET-GADGET-GHOST, ADR-WIDGET-GADGET and ADR-WIDGET-GADGET#{1-2} · Widgets'))
         $faults = @((Build-SlideDeck -Deck 'decks/drift-deck' -Kit 'kit' -RepositoryRoot $root -PassThru).Faults | ForEach-Object ToString)
-        # An ADR code is a cite like a rule code; a group of numbers is no code any more.
+        # An ADR code in the text is a cite like a rule code; a group of numbers is no code, so it is no cite.
         ($faults -join "`n") | Should -Not -Match "'ADR-WIDGET-GADGET'"
-        $faults | Should -Contain "decks/drift-deck/d.slide.md: field 'cites': 'ADR-WIDGET-GADGET#{1-2}' is not an ADR code: 'ADR' and upper-case segments joined by '-'"
-        $faults | Should -Contain "decks/drift-deck/d.slide.md: field 'cites': 'gadget' is not an ADR code: 'ADR' and upper-case segments joined by '-'"
+        ($faults -join "`n") | Should -Not -Match '#\{1-2\}'
         ($faults -join "`n") | Should -Match "d\.slide\.md: field 'body': quotes ADR-WIDGET-GADGET-SPIN but differs from the registry\."
         ($faults -join "`n") | Should -Match 'registry: A widget spins when wound\.'
         $faults | Should -Contain "decks/drift-deck/d.slide.md: field 'cites': the ADR index knows no ADR or rule 'ADR-WIDGET-GADGET-GHOST'"
         $faults | Should -Contain "decks/drift-deck/deck.md: field 'sections': the section 'Starts on no slide.' starts on 'nowhere', and no slide has that id"
+    }
+
+    It 'never reads a cite back from the head' -Tag 'ADR-REPO-FILEMETA-NOREADBACK' {
+        & $write 'decks/head-deck/deck.md' "# Head`n"
+        & $write 'decks/head-deck/h.slide.md' ((& $slide 'h' 1 'H' 'h.') -replace 'catzc:\r?\n', "catzc:`n  edges:`n    cites: [ADR-WIDGET-GADGET-GHOST]`n")
+        $faults = @((Build-SlideDeck -Deck 'decks/head-deck' -Kit 'kit' -RepositoryRoot $root -PassThru).Faults | ForEach-Object ToString)
+        ($faults -join "`n") | Should -Not -Match 'GHOST'
     }
 
     It 'reports a slide whose head names no pattern, or a pattern the kit does not hold, and a non-numeric order' -Tag 'ADR-REPO-SLIDES-PATTERN' {

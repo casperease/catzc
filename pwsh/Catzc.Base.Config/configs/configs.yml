@@ -92,6 +92,8 @@ configs:
     type: Catzc.Base.ModuleSystem.ImporterConfig
   rungs:
     type: Catzc.Base.Flow.RungsConfig
+  truth-stores:
+    type: Catzc.Base.Flow.TruthStoresConfig
   analyzer-adr-map:
     type: Catzc.Base.QualityGates.AnalyzerAdrMapConfig
   vendor:

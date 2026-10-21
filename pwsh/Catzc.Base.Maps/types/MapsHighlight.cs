@@ -30,7 +30,7 @@ namespace Catzc.Base.Maps;
 public sealed class MapsHighlight
 {
     public static readonly IReadOnlyList<string> DefaultCitationExclude =
-        Array.AsReadOnly(new[] { "docs/.assets/**", "docs/explanation/**", "python/Catzc.Diagrams/**" });
+        Array.AsReadOnly(new[] { "docs/.assets/**", "docs/explanation/**", "python/catzc_diagrams/**" });
 
     // The cells an ADR always lights, in declared order. Empty by default.
     public IReadOnlyList<MapsPin> pins { get; }

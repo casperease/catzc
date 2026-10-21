@@ -20,7 +20,7 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TrackTypeFileMetaFact.Tests.ps1
     docs: "[Get-TrackTypeFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TrackTypeFileMetaFact.ps1.md)"
     cites:
-      - ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION
+      - ADR-DSGN-TRACKTYPE-FACTSFROMDECLARATION
 ---
 #>
 

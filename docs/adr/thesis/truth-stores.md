@@ -31,8 +31,11 @@ code.
 ### Rule ADR-THES-STORES-FACTSOURCEREADONLY
 
 A **fact source** is a state store: a database with a reachable live URL that holds state about delivery outside the repository, such as
-Azure DevOps environment state, security controls, pipeline runs, and the outer state of git (refs, branch policies, and pull-request
-history). Catzc reads a fact source only and never writes to it.
+Azure DevOps runtime state: environment deployments, pipeline runs, security controls, and the outer state of git (refs and pull-request
+history). Catzc reads a fact source's state only and never writes to it. A platform's configuration is not a fact source: Azure DevOps
+approvals, build validations with their branch policies, pipeline definitions, and variables are an adjacent store, driven one way from the
+trunk's pipelines
+([ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)).
 
 - [Fact sources](#fact-sources)
 
@@ -67,8 +70,8 @@ second record that drifts. Naming the kinds decides once how catzc treats each, 
 
 ## Decision
 
-Classify every truth store as a version-controlled repository, a fact source, or a state machine; write only to the repository, read fact
-sources, meet state machines at junctions, and synchronise by finding actionable facts.
+Classify every truth store as a version-controlled repository, a fact source, or a state machine; write only to the repository and, from the
+trunk's pipelines, to its adjacent stores; read fact sources, meet state machines at junctions, and synchronise by finding actionable facts.
 
 ### Three kinds of truth store
 
@@ -97,11 +100,12 @@ accountable for.
 
 ### Fact sources
 
-A fact source answers a question at a URL now, and its answer can differ a minute later. Azure DevOps is one store that holds many: the
-state of each environment, the security controls on projects and branches, the history of pipeline runs, and the outer state of git that the
-repository's own history does not carry, such as refs, branch policies, and pull requests with their reviews. Catzc reads these, because
+A fact source answers a question at a URL now, and its answer can differ a minute later. Azure DevOps plays two roles. Its runtime state
+holds many fact sources: the deployments to each environment, the security controls on projects, the history of pipeline runs, and the outer
+state of git that the repository's own history does not carry, such as refs and pull requests with their reviews. Catzc reads these, because
 they are facts about delivery that no commit records. It never writes to them: a write would make catzc a second author of state that a
-state machine owns.
+state machine owns. Its configuration, the approvals, the build validations with their branch policies, the pipeline definitions, and the
+variables, is an adjacent store: the repository declares it, the trunk's pipelines drive it one way, and nobody edits it beside the trunk.
 
 ### State machines
 
@@ -130,7 +134,8 @@ second record the one-source-of-truth thesis removes, and it drifts the moment e
 ## Consequences
 
 - Every store catzc reads or reports to is classified as one of the three kinds before catzc touches it.
-- Catzc writes only to the repository of its own responsibility domain; a write to a fact source is a defect.
+- Catzc writes only to the repository of its own responsibility domain and, from the trunk's pipelines, to its adjacent stores; a write to a
+  fact source is a defect.
 - A state machine is reached only through a junction, and each junction is a contract at the repository boundary.
 - Every fact catzc emits carries its origin, so it can be verified by reading again, and names the change or the report it calls for.
 - No store is kept in parity with another; a disagreement becomes an actionable fact.

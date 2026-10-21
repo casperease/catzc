@@ -42,18 +42,12 @@ with no check behind it, and the ADO writers below contradict it.
 
 ## Open steps
 
-1. [ ] Reword ADR-THES-STORES-FACTSOURCEREADONLY and its Fact sources section in `docs/adr/thesis/truth-stores.md` as decided, and the
-       `fact source` and `adjacent store` entries in `pwsh/Catzc.Base.Docs/configs/glossary.yml`. Check: `Test-Glossary`, then `Test-Links`
-       on the ADR.
-2. [ ] `docs/adr/thesis/one-source-of-truth.md`: restate line 105 so ADO configuration is an adjacent store whose history is the trunk that
-       drives it. Check: `Test-AdrCodes`, `Test-Links` on the page.
-3. [ ] Name the adjacent-store rule in the help of each of the five ADO writers, one file at a time. Check: that file's test under
-       `Invoke-TestFile`.
-4. [ ] The truth-store config and its type, with one `Get-*` reader that emits the stores as data (ADR-THES-ONETRUTH-TRUTHISQUERYABLE).
-       Check: its L0 Pester file.
-5. [ ] The actionable-fact shape as a contract under `contracts/` (origin: store, address, read time; calls for: a change or a report), then
+5. [ ] `pwsh/Catzc.Base.Contracts/private/Read-ContractData.ps1:43`: `ConvertFrom-Json` gains `-DateKind String`, so an ISO 8601 string in a
+       sample stays a string, never a `DateTime` (found by step 5's samples, 2026-10-21). Check: `Invoke-TestFile` on
+       `Get-ContractCheckResults.Tests.ps1` with an ISO time case.
+6. [ ] The actionable-fact shape as a contract under `contracts/` (origin: store, address, read time; calls for: a change or a report), then
        one junction contract per direction, inbound and outbound. Check: `Test-Contracts`.
-6. [ ] After steps 1-2: the truth-stores diagram as one sample in `out/diagrams/dark-sample/` (`drawio-diagram-waves`, a wave of one).
+7. [ ] After steps 1-2: the truth-stores diagram as one sample in `out/diagrams/dark-sample/` (`drawio-diagram-waves`, a wave of one).
        Check: the user approves the sample.
-7. [ ] On approval: a slide file under `docs/explanation/thesis/product-thesis/`, its caption carrying the rule codes, and its line in
+8. [ ] On approval: a slide file under `docs/explanation/thesis/product-thesis/`, its caption carrying the rule codes, and its line in
        `deck.md`. Check: the rendered png read, then `Test-Links` on `deck.md`.

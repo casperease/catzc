@@ -110,7 +110,6 @@ agents:
   - name: fact-checker
     supported_by: [ADR-REPO-AI-TRUSTTHETREE, ADR-REPO-VOCAB-DEFINEDTERM, ADR-REPO-AI-NEVERDECIDEFORUSER]
     checks: []
-    model_reason: weighs a claim against the tree and against DevOps practice the repository does not hold
 
   # Makes the test suite faster under the timeouts.yml roofs without losing any test or assertion, one measured file at a time.
   - name: test-optimization

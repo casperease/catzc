@@ -15,7 +15,7 @@ The track is the one Get-Track names for the path, and its vendor is the one the
 ([ADR-DSGN-TRACKTYPE-OPTIONALVENDOR](../../../../adr/design/track-types.md#rule-adr-dsgn-tracktype-optionalvendor)). A root file, and a file
 of a track with no vendor, gets an empty value, so the key is left out of its head.
 
-It rests on [ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION](../../../../adr/design/track-types.md#rule-adr-dsgn-tracktype-headreadsdeclaration).
+It rests on [ADR-DSGN-TRACKTYPE-FACTSFROMDECLARATION](../../../../adr/design/track-types.md#rule-adr-dsgn-tracktype-factsfromdeclaration).
 
 ### parameter `State`
 

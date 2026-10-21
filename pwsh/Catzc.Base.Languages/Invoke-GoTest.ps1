@@ -44,12 +44,12 @@ function Invoke-GoTest {
     )
 
     $root = Get-RepositoryRoot
-    $folderName = $Module.ToLowerInvariant().Replace('.', '-')
+    # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's tests/ in go's folder case.
     $relative = if ($Folder) {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\', '/').TrimEnd('/')
     }
     else {
-        "$((Get-Config -Config go).ResolveRoot($root))/tests/$folderName"
+        "$((Get-Config -Config go).ResolveRoot($root))/tests/$((Get-Config -Config languages).TestFolderOf('go', $Module))"
     }
     $folder = Join-Path $root $relative
     if (-not (Test-Path -LiteralPath $folder -PathType Container)) {

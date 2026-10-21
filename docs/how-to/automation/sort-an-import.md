@@ -36,5 +36,5 @@ Move one file or one folder per step, then run the gates that hold the place it 
 
 ## What stays
 
-Whatever is still under `.unordered/` is the work left to sort. Nothing reads from it or depends on it, so a half-sorted import never breaks
-the system. When a landing address is empty, remove its folder.
+Whatever is still under `.unordered/` is the work left to sort. Nothing in the repository reads from it or depends on it, so a half-sorted
+import never breaks the system. When a landing address is empty, remove its folder.

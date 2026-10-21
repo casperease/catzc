@@ -33,6 +33,12 @@ Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
         $script:widgetReport = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/bats-widget.xml')
 
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:root }
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'languages' } {
+            [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
+                        bash = [ordered]@{ extensions = @('.sh'); no_formatter = 'never'; naming = [ordered]@{ folder = 'kebab' } }
+                    }
+                })
+        }
     }
 
     BeforeEach {

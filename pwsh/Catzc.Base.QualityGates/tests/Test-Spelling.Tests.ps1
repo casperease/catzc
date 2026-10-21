@@ -154,7 +154,7 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
 
 Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'the repository globset covers every tracked file the spelling scan reads' -Tag 'ADR-REPO-PROTGLOB-INCLUDESOWNCONFIG' {
-        $spelledExtensions = @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.bicep', '.go', '.py')
+        $spelledExtensions = @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.csproj', '.bicep', '.go', '.py')
         $spelled = foreach ($file in (Get-GitTrackedPath '.')) {
             if ($file.StartsWith("$(Get-CatzcModulesFolder)/.vendor/")) {
                 continue

@@ -62,6 +62,10 @@ guids:
     guid: a55e0700-ba50-710e-0070-000000000000
     sentence: assert bash timeout hook project
     description: the Assert-BashTimeout.csproj project id in catzc.sln (the time-safeguard hook)
+  record_agent_write_project:
+    guid: 0ec00d00-a6e0-7000-0017-e00000000000
+    sentence: record agent write hook project
+    description: the Record-AgentWrite.csproj project id in catzc.sln (the listen mode's agent-write hook)
   catzc_module:
     guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56
     sentence: catzc module

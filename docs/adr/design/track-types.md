@@ -57,11 +57,11 @@ a root file are load failures. The answer to "which track holds this file" is th
 
 - [Where the declarations live](#where-the-declarations-live)
 
-### Rule ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION
+### Rule ADR-DSGN-TRACKTYPE-FACTSFROMDECLARATION
 
-A file's head carries `track`, `tracktype` and, when the track has one, `vendor`, all read from the declaration and never guessed from a
-folder name, and each left out for a root file. `tracktype` and `vendor` are head keys that the provided head schema and its sample list. A
-file head never carries the track's role, places or languages: a reader looks those up by the track's name.
+A file's `track`, `tracktype` and, when the track has one, `vendor` are read from the declaration on demand, through `Get-Track`, never
+guessed from a folder name and never read from a file's head, and a root file has none. A generated file's head shows its `track`, and no
+head shows `tracktype`, `vendor` or the track's role, places or languages: a reader looks those up by the track's name.
 
 - [Where the declarations live](#where-the-declarations-live)
 
@@ -128,7 +128,7 @@ Name the type of a track and declare it once. A track is a cluster of module con
 is a module of one vendor, one tool or one purpose ([ADR-DSGN-TRACKTYPE-ONEROLE](#rule-adr-dsgn-tracktype-onerole)). The `tracks` map and
 `track-types.yml` are the only declarations ([ADR-DSGN-TRACKTYPE-DECLAREDONCE](#rule-adr-dsgn-tracktype-declaredonce)); the longest place
 resolves each file ([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](#rule-adr-dsgn-tracktype-longestplacewins)); the head says `track`, `tracktype`
-and `vendor` ([ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION](#rule-adr-dsgn-tracktype-headreadsdeclaration)).
+and `vendor` ([ADR-DSGN-TRACKTYPE-FACTSFROMDECLARATION](#rule-adr-dsgn-tracktype-factsfromdeclaration)).
 
 ### How this is enforced
 

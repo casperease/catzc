@@ -33,11 +33,9 @@ function Get-RelativeEdgeCandidate {
     )
 
     $maxRelations = 8
-    $relations = if ($Kind.settings.ContainsKey('relations')) {
-        @($Kind.settings['relations'])
-    }
-    else {
-        @()
+    [object[]] $relations = @()
+    if ($Kind.settings.ContainsKey('relations')) {
+        $relations = @($Kind.settings['relations'])
     }
     Assert-True ($relations.Count -le $maxRelations) `
         -ErrorText "file-meta config: kind '$($Kind.id)' lists $($relations.Count) relations, at most $maxRelations are allowed."

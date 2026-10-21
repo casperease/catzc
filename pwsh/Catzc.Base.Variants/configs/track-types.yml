@@ -29,7 +29,7 @@ track_types:
     role: holder
     admits: []
   unordered:
-    definition: Where imports land with their history, one landing address each, until sorted; nothing reads or depends on it.
+    definition: Where imports land with their history, one landing address each, until sorted; nothing internal reads or depends on it.
     role: holder
     admits: []
     git:

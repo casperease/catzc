@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    repo_status: clean
+    path: pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
+    folder: tests/types
+    name: rungs-config-tests
+    filetype: ps1
+    role: test
+    language: powershell
+    track: pwsh
+    tracktype: modules
+    module: Catzc.Base.Flow
+    moduletype: pwsh-folder
+    catzc_bundle: azure
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-FLOW-CD-PREPRODRUNG
+      - ADR-FLOW-CD-RUNGSREGISTRY
+      - ADR-FLOW-CD-CERTIFYINGRECORD
+---
+#>
+
 Describe 'RungsConfig' -Tag 'L0', 'logic' {
     It 'takes the declared ladder for an omitted key, in climbing order' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.Flow.RungsConfig]::new(@{})

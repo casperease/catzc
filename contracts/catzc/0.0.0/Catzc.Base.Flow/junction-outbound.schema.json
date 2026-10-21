@@ -1,0 +1,19 @@
+{
+  "$comment": "Provided schema of one outbound junction message, validated against the sample beside it (ADR-THES-STORES-STATEMACHINE, ADR-REPO-CONTRACT-CONTRACTASSET): catzc messages a state machine to report facts proactively, such as a deployment it has made or evidence a gate has produced; every fact carries its origin.",
+  "type": "object",
+  "required": ["junction", "state_machine", "sent_at", "facts"],
+  "additionalProperties": false,
+  "properties": {
+    "junction": { "type": "string", "description": "The junction's name: the report catzc sends." },
+    "state_machine": { "type": "string", "description": "The receiving state machine's name in truth-stores.yml." },
+    "sent_at": { "type": "string", "description": "The moment of sending, as an ISO 8601 date and time." },
+    "facts": {
+      "type": "array",
+      "description": "At least one actionable fact, each of the actionable-fact shape.",
+      "items": {
+        "type": "object",
+        "required": ["statement", "origin", "calls_for"]
+      }
+    }
+  }
+}

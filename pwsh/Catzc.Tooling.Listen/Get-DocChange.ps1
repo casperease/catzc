@@ -11,7 +11,8 @@ function Get-DocChange {
         Each change is one record: Path (repository-relative), Change (added, modified, deleted, or renamed when a deleted and an added
         file share a hash), From (the old path of a rename), Kind (the file kind, Get-FileKind), Tier (listen.yml's tier of that kind),
         Source (who made the file's current bytes: agent, editor or unknown, from the write ledgers) and Agent (the agent's session id),
-        Rules (the ADR codes the file cites, after the change, or before it for a deletion) and Diff (the unified diff against the copy).
+        Rules (the ADR codes cited in the diff's added and removed lines, not the whole file's) and Diff (the unified diff against the
+        copy).
 
     .PARAMETER Session
         The session folder. Default: the newest session.
@@ -95,11 +96,11 @@ function Get-DocChange {
     $newChange = {
         param($relative, $change, $from, $before, $after)
         $tier = Get-ListenTier $relative
-        $cited = if ($after -and [System.IO.File]::Exists($after)) {
-            [System.IO.File]::ReadAllText($after)
-        }
-        else {
-            [System.IO.File]::ReadAllText($before)
+        $diff = Get-ListenDiff -Before $before -After $after
+        $changedLines = foreach ($line in $diff -split "`n") {
+            if ($line.StartsWith('+') -or $line.StartsWith('-')) {
+                $line
+            }
         }
         $writer = if ($after -and [System.IO.File]::Exists($after)) {
             $info = [System.IO.FileInfo]::new($after)
@@ -116,8 +117,8 @@ function Get-DocChange {
             Tier   = $tier.Tier
             Source = $writer.source
             Agent  = $writer.agent
-            Rules  = Get-ListenCitedRule $cited
-            Diff   = Get-ListenDiff -Before $before -After $after
+            Rules  = Get-ListenCitedRule (@($changedLines) -join "`n")
+            Diff   = $diff
         }
     }
 

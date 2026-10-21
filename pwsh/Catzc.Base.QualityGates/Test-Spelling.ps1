@@ -38,6 +38,7 @@ function Test-Spelling {
             '**/*.yaml'
             '**/*.json'
             '**/*.cs'
+            '**/*.csproj'
             '**/*.bicep'
             '**/*.go'
             '**/*.py'

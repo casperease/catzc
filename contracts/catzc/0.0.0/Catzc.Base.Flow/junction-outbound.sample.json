@@ -1,0 +1,17 @@
+{
+  "junction": "widget-deployment-report",
+  "state_machine": "widget-itsm",
+  "sent_at": "2026-10-21T08:05:00Z",
+  "facts": [
+    {
+      "statement": "Commit c0ffee0 is deployed to the widget environment.",
+      "origin": {
+        "store": "widget-runtime",
+        "kind": "fact-source",
+        "address": "https://widget.example/environments/widget",
+        "read_at": "2026-10-21T08:04:59Z"
+      },
+      "calls_for": { "action": "report", "target": "widget-itsm" }
+    }
+  ]
+}

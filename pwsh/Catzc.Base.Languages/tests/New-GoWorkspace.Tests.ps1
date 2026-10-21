@@ -24,14 +24,14 @@ catzc:
 Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
-        foreach ($file in 'go/tests/catzc-widget/widget_test.go', 'go/tests/catzc-gadget/inner/gadget_test.go', 'go/tests/.hidden/hidden_test.go') {
+        foreach ($file in 'go/tests/catzcwidget/widget_test.go', 'go/tests/catzcgadget/inner/gadget_test.go', 'go/tests/.hidden/hidden_test.go') {
             $path = Join-Path $script:root $file
             $null = New-Item -ItemType Directory -Path (Split-Path $path -Parent) -Force
             Set-Content -LiteralPath $path -Value 'package widget'
         }
         # A folder holding only generated files is not a Go module.
-        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'go/tests/catzc-leftover') -Force
-        Set-Content -LiteralPath (Join-Path $script:root 'go/tests/catzc-leftover/go.mod') -Value 'module stale'
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'go/tests/catzcleftover') -Force
+        Set-Content -LiteralPath (Join-Path $script:root 'go/tests/catzcleftover/go.mod') -Value 'module stale'
         # A module of the go track is a member too; a module folder without Go code is not.
         foreach ($file in 'go/Widget.Kit/kit.go', 'go/Widget.Empty/notes.md') {
             $path = Join-Path $script:root $file
@@ -47,11 +47,17 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
                     dependencies = [ordered]@{ 'example.com/widget' = 'v1.2.3'; 'example.com/assert' = 'v0.4.0' }
                 })
         }
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'languages' } {
+            [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
+                        go = [ordered]@{ extensions = @('.go'); no_formatter = 'never'; naming = [ordered]@{ folder = 'flat' } }
+                    }
+                })
+        }
         Mock Invoke-Executable -ModuleName Catzc.Base.Languages { throw 'rendering must not run a process' }
     }
 
     It 'renders go.work first, then one go.mod per Go test folder and per module, test folders then modules in ordinal order' {
-        @(New-GoWorkspace).Target | Should -Be @('go.work', 'go/tests/catzc-gadget/go.mod', 'go/tests/catzc-widget/go.mod', 'go/Widget.Kit/go.mod')
+        @(New-GoWorkspace).Target | Should -Be @('go.work', 'go/tests/catzcgadget/go.mod', 'go/tests/catzcwidget/go.mod', 'go/Widget.Kit/go.mod')
     }
 
     It 'renders a module member''s go.mod with its module path under the module root' {
@@ -63,8 +69,8 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
             'go 1.23'
             ''
             'use ('
-            "`t./go/tests/catzc-gadget"
-            "`t./go/tests/catzc-widget"
+            "`t./go/tests/catzcgadget"
+            "`t./go/tests/catzcwidget"
             "`t./go/Widget.Kit"
             ')'
         ) -join "`n"
@@ -74,7 +80,7 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
 
     It 'renders each go.mod with its module path, the go directive, and the sorted requires' {
         $expected = @(
-            'module acme/go/tests/catzc-widget'
+            'module acme/go/tests/catzcwidget'
             ''
             'go 1.23'
             ''
@@ -83,11 +89,11 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
             "`t" + 'example.com/widget v1.2.3'
             ')'
         ) -join "`n"
-        (New-GoWorkspace -Target 'go/tests/catzc-widget/go.mod').Content | Should -BeExactly ($expected + "`n")
+        (New-GoWorkspace -Target 'go/tests/catzcwidget/go.mod').Content | Should -BeExactly ($expected + "`n")
     }
 
     It 'selects files with a wildcard -Target' {
-        @(New-GoWorkspace -Target 'go/tests/*/go.mod').Target | Should -Be @('go/tests/catzc-gadget/go.mod', 'go/tests/catzc-widget/go.mod')
+        @(New-GoWorkspace -Target 'go/tests/*/go.mod').Target | Should -Be @('go/tests/catzcgadget/go.mod', 'go/tests/catzcwidget/go.mod')
         @(New-GoWorkspace -Target 'nothing').Count | Should -Be 0
     }
 
@@ -108,8 +114,8 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
 
     It 'omits the require block when no dependency is declared' {
         Mock Get-Config -ModuleName Catzc.Base.Languages { [Catzc.Base.Languages.GoConfig]::new([ordered]@{}) }
-        $content = (New-GoWorkspace -Target 'go/tests/catzc-gadget/go.mod').Content
-        $content | Should -Match ('^module catzc/go/tests/catzc-gadget' + "`n`n" + 'go 1\.23' + "`n$")
+        $content = (New-GoWorkspace -Target 'go/tests/catzcgadget/go.mod').Content
+        $content | Should -Match ('^module catzc/go/tests/catzcgadget' + "`n`n" + 'go 1\.23' + "`n$")
         $content | Should -Not -Match 'require'
     }
 
@@ -133,6 +139,12 @@ Describe 'New-GoWorkspace — a go/tests/widget/ fixture tree' -Tag 'L0', 'logic
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:widgetRoot }
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.go.version' } { '1.27' }
         Mock Get-Config -ModuleName Catzc.Base.Languages { [Catzc.Base.Languages.GoConfig]::new([ordered]@{}) }
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'languages' } {
+            [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
+                        go = [ordered]@{ extensions = @('.go'); no_formatter = 'never'; naming = [ordered]@{ folder = 'flat' } }
+                    }
+                })
+        }
     }
 
     It 'renders the exact bytes of go.work and go/tests/widget/go.mod, with the pin as the go directive' {
@@ -155,6 +167,12 @@ Describe 'New-GoWorkspace — the Go root' -Tag 'L0', 'logic' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:layoutRoot }
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.go.version' } { '1.27' }
         Mock Get-Config -ModuleName Catzc.Base.Languages { [Catzc.Base.Languages.GoConfig]::new([ordered]@{}) }
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'languages' } {
+            [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
+                        go = [ordered]@{ extensions = @('.go'); no_formatter = 'never'; naming = [ordered]@{ folder = 'flat' } }
+                    }
+                })
+        }
         $script:addWidget = {
             param([string] $TestsFolder)
             $path = Join-Path $script:layoutRoot "$TestsFolder/widget/widget_test.go"
@@ -203,6 +221,12 @@ Describe 'New-GoWorkspace — no Go test folders' -Tag 'L0', 'logic' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:emptyRoot }
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.go.version' } { '1.27' }
         Mock Get-Config -ModuleName Catzc.Base.Languages { [Catzc.Base.Languages.GoConfig]::new([ordered]@{}) }
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'languages' } {
+            [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
+                        go = [ordered]@{ extensions = @('.go'); no_formatter = 'never'; naming = [ordered]@{ folder = 'flat' } }
+                    }
+                })
+        }
     }
 
     It 'renders only go.work, with no use block' {
@@ -216,15 +240,21 @@ Describe 'New-GoWorkspace — no Go test folders' -Tag 'L0', 'logic' {
 Describe 'New-GoWorkspace — folder naming' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:badRoot = Join-Path $TestDrive 'bad'
-        $null = New-Item -ItemType Directory -Path (Join-Path $script:badRoot 'go/tests/Catzc.Widget') -Force
-        Set-Content -LiteralPath (Join-Path $script:badRoot 'go/tests/Catzc.Widget/widget_test.go') -Value 'package widget'
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:badRoot 'go/tests/catzc-widget') -Force
+        Set-Content -LiteralPath (Join-Path $script:badRoot 'go/tests/catzc-widget/widget_test.go') -Value 'package widget'
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:badRoot }
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.go.version' } { '1.27' }
         Mock Get-Config -ModuleName Catzc.Base.Languages { [Catzc.Base.Languages.GoConfig]::new([ordered]@{}) }
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'languages' } {
+            [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
+                        go = [ordered]@{ extensions = @('.go'); no_formatter = 'never'; naming = [ordered]@{ folder = 'flat' } }
+                    }
+                })
+        }
     }
 
-    It 'throws on a folder not named in kebab case' {
-        { New-GoWorkspace } | Should -Throw '*go/tests/Catzc.Widget/*kebab case*'
+    It 'throws on a folder not named in go''s folder case' -Tag 'ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM' {
+        { New-GoWorkspace } | Should -Throw '*go/tests/catzc-widget/*flat case*'
     }
 }
 

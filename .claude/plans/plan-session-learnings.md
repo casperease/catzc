@@ -26,6 +26,8 @@ reach.
 
 ## Open steps
 
+- [ ] `.claude/learnings/learned80b500.md:19`: "catzc gates" reworded to the glossary's term, the fact kept (check: `Test-Glossary` lists
+      nothing on the file).
 - [ ] `.claude/learnings`: append catzc-49's "What I learned" lines, asked for on 2026-10-21, each rewritten to a current fact first (check:
       `Test-Markdownlint -Path '.claude/**/*.md'`).
 

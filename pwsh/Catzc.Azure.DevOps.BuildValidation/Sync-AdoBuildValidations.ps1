@@ -17,6 +17,8 @@ catzc:
   edges:
     test: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
     docs: "[Sync-AdoBuildValidations.ps1.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/Sync-AdoBuildValidations.ps1.md)"
+    cites:
+      - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 ---
 #>
 

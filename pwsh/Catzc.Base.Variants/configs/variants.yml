@@ -23,6 +23,9 @@ git_workspace: main-direct
 
 have_customers: all
 
+file_heads:
+  code: minimal
+
 # A code track's aspects are derived from the layout in languages.yml (Get-Aspect), so only the other deployable tracks declare theirs.
 aspects:
   infrastructure:

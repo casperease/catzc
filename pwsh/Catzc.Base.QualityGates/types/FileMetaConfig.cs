@@ -99,7 +99,7 @@ public sealed class FileMetaConfig
         foreach (FileMetaKind kind in list) { kind.registry = this; }
     }
 
-    public HeadPolicy PolicyFor(string fileClass, bool hasPage = false) => head_policy.For(fileClass, hasPage);
+    public HeadPolicy PolicyFor(string fileClass, bool codeCarrier = false, bool codeHeads = false) => head_policy.For(fileClass, codeCarrier, codeHeads);
 
     public bool Selects(FileMetaKind kind, string fileClass, string language) => kind != null && kind.Selects(fileClass, language);
 

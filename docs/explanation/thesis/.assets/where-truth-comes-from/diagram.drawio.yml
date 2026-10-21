@@ -1,0 +1,78 @@
+description:
+  "Where truth comes from: in every mode the repository at one commit decides; in the listen mode the editor's edit is fact, and the plans it
+  starts flow from the rule to the docs to the code."
+about:
+  adrs:
+    - ADR-THES-ONETRUTH
+    - ADR-REPO-AI-EDITORISFACT
+    - ADR-REPO-PLANS-DECISIONSBECOMERULES
+  lens: meta
+content:
+  title: Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code
+  kind: explanation
+  flow: left-to-right
+  relation: what decides
+  theme: dark
+  bands:
+    - id: band-default
+      label: EVERY MODE
+    - id: band-listen
+      label: LISTEN MODE
+    - id: band-plan
+      label: PLAN ORDER
+  glyphs:
+    - id: s-repo
+      kind: store
+      label: the repository at one commit, committed files only
+      in: band-default
+    - id: a-editor
+      kind: actor
+      label: the editor
+      in: band-listen
+    - id: r-fact
+      kind: result
+      label: the edit is fact
+      in: band-listen
+    - id: f-note
+      kind: file
+      label: a note
+      in: band-listen
+    - id: s-rule
+      kind: adronly
+      label: rule (ADR)
+      in: band-plan
+    - id: f-docs
+      kind: file
+      label: docs
+      in: band-plan
+    - id: k-code
+      kind: code
+      label: code and configs
+      in: band-plan
+  edges:
+    - from: a-editor
+      to: r-fact
+      kind: flow
+      label: corrects
+    - from: r-fact
+      to: f-note
+      kind: flow
+      label: ""
+    - from: f-note
+      to: s-rule
+      kind: thick
+      label: plans
+    - from: s-rule
+      to: f-docs
+      kind: flow
+      label: ""
+    - from: f-docs
+      to: k-code
+      kind: flow
+      label: ""
+layout:
+  s-repo:
+    x: 60
+    y: 150
+    w: 320
+    h: 90

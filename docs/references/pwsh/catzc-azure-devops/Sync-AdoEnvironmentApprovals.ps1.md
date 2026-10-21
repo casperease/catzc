@@ -19,6 +19,10 @@ configured timeout, created, updated or left alone. An empty member list is refu
 member throws, naming it. The group name and the timeout default on the config type (`Prod Approvers`, 24 hours). The procedure is
 [Apply the prod-tier approvals](../../../how-to/automation/apply-environment-approvals.md).
 
+The approvals are Azure DevOps configuration, an adjacent store
+([ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)):
+this apply drives them one way from the repository, and nobody edits them beside the trunk.
+
 ### parameter `Project`
 
 Azure DevOps project name. Defaults to the value in ado.yml.

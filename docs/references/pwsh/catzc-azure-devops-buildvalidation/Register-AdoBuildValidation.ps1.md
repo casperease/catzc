@@ -16,7 +16,9 @@ filter of an ADO build-validation policy that queues the resolved pipeline on th
 unit's CI binding ([ADR-FLOW-CD-TYPE-PRECOMMITBUDGET](../../../adr/flow/pipeline-types.md#rule-adr-flow-cd-type-precommitbudget)).
 Everything defaults from local config: the pipeline resolves -Pipeline, then the globset's build-validation.yml entry, then the globset's
 own 'pipeline:' annotation in globs.yml; the branch resolves -Branch, then build-validation.yml 'branch'; blocking and the display name come
-from the entry (defaults: blocking, 'Build validation - `<globset>`').
+from the entry (defaults: blocking, 'Build validation - `<globset>`'). The policy is Azure DevOps configuration, an adjacent store
+([ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)),
+driven one way from the repository and never edited beside the trunk.
 
 Idempotent ([ADR-AUTO-IDEM](../../../adr/automation/idempotent-state-functions.md)): an existing policy for the same pipeline on the same
 branch is updated when it differs and left alone when current; the resulting policy configuration is returned either way. The matching

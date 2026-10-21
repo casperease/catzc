@@ -35,14 +35,9 @@ public sealed class FileHeadPolicy
 
     public const HeadPolicy DefaultPolicy = HeadPolicy.Forbidden;
 
-    // A file with a comment page carries the head that links it, whatever the default says of its class.
-    public const HeadPolicy DefaultPagesPolicy = HeadPolicy.Required;
-
-    static readonly string[] Allowed = { "default", "pages", "classes" };
+    static readonly string[] Allowed = { "default", "classes" };
 
     public HeadPolicy @default { get; }
-
-    public HeadPolicy pages { get; }
 
     // Class patterns in registry order, each with its policy; the first pattern that matches a file's class decides.
     public IReadOnlyList<KeyValuePair<string, HeadPolicy>> classes { get; }
@@ -50,7 +45,6 @@ public sealed class FileHeadPolicy
     public FileHeadPolicy(IDictionary raw)
     {
         @default = DefaultPolicy;
-        pages = DefaultPagesPolicy;
         var list = new List<KeyValuePair<string, HeadPolicy>>();
         if (raw != null)
         {
@@ -66,10 +60,6 @@ public sealed class FileHeadPolicy
             if (raw.Contains("default") && raw["default"] != null)
             {
                 @default = Parse("head_policy.default", raw["default"]);
-            }
-            if (raw.Contains("pages") && raw["pages"] != null)
-            {
-                pages = Parse("head_policy.pages", raw["pages"]);
             }
             if (raw.Contains("classes") && raw["classes"] != null)
             {
@@ -87,14 +77,15 @@ public sealed class FileHeadPolicy
         classes = list;
     }
 
-    // A class entry decides first; a file no entry names takes the pages policy when it has a comment page, else the default.
-    public HeadPolicy For(string fileClass, bool hasPage = false)
+    // A class entry decides first; an authored file in a code carrier takes the file-heads variant (ADR-REPO-VARIANT-FILEHEADS), else the default.
+    public HeadPolicy For(string fileClass, bool codeCarrier = false, bool codeHeads = false)
     {
         foreach (KeyValuePair<string, HeadPolicy> entry in classes)
         {
             if (FileSelector.ClassMatches(entry.Key, fileClass)) { return entry.Value; }
         }
-        return hasPage ? pages : @default;
+        if (codeCarrier) { return codeHeads ? HeadPolicy.Required : HeadPolicy.Forbidden; }
+        return @default;
     }
 
     static HeadPolicy Parse(string where, object value)
@@ -105,9 +96,10 @@ public sealed class FileHeadPolicy
             case "required": return HeadPolicy.Required;
             case "optional": return HeadPolicy.Optional;
             case "forbidden": return HeadPolicy.Forbidden;
+            case "config": return HeadPolicy.Config;
             default:
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                    "file-meta config: {0} is '{1}' (allowed: required, optional, forbidden)", where, text));
+                    "file-meta config: {0} is '{1}' (allowed: required, optional, forbidden, config)", where, text));
         }
     }
 }

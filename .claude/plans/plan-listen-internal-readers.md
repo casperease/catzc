@@ -1,0 +1,44 @@
+---
+plan:
+  status: active
+  value: high
+  reviewed: 2026-10-21
+  class: meta
+  targets:
+    [
+      pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml,
+      pwsh/Catzc.Base.Variants/configs/track-types.yml,
+      docs/how-to/automation/sort-an-import.md,
+      .claude/CLAUDE.md,
+    ]
+---
+
+# The listen mode: nothing internal reads the unordered part as truth
+
+The editor's note 0001 (session `out/listen/20261021-005743`, reference pinned at `ed41b3e`, tier `rule`) sharpens
+ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM in `docs/adr/thesis/eac-normal-form.md:79`: "nothing **internally** reads it as truth until it
+is in the form". The prohibition scopes to the repository's own readers (its commands, defaults, globs, gates, generators and agents), the
+list ADR-DSGN-TRACK-UNORDEREDTRACK names at `docs/adr/design/tracks.md:165`; a reader outside the repository is not one the repository
+governs. The sentences that state the same prohibition bare follow it.
+
+## Why its value is high
+
+The correction sits in the thesis; three sources of the glossary and the track registry restate its prohibition without the scope, so a
+reader takes the stronger bare form for the rule.
+
+## Decided
+
+- The editor's edit is fact (ADR-REPO-AI-EDITORISFACT): the note is a correction, never a question.
+- `docs/adr/design/tracks.md:165` already lists the internal readers, so it needs no edit; `eac-normal-form.md:87` ("decides nothing about
+  the delivered system") states the outcome, not the readers, so it stays.
+
+## Open steps
+
+- [ ] `.claude/CLAUDE.md:26`: "nothing internal reads or defaults to the track"; a coordinator-owned shared file, the user's step in
+      task-user-runs-and-commits.md (the user, 2026-10-21) (check: `Test-AgentDefinitions`).
+
+## Refs
+
+- Fact-check of note 0001: holds; the added word is the only difference from the reference (`eac-normal-form.md:79`), and no pwsh code reads
+  `.unordered/` as truth, only exclusion lists and the track's path. Counter: "internally" is not a glossary term, and the track rule's only
+  sanctioned reader is a person naming the track; the steps above keep that list as the meaning of "internal".

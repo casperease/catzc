@@ -80,8 +80,8 @@ concepts:
     domain: design
     defined_by: ADR-DSGN-TRACK-UNORDEREDTRACK
     short:
-      The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing reads or
-      falls back to it.
+      The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing internal
+      reads or falls back to it.
     realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Variants/configs/variants.yml" }
   import:
     key: import

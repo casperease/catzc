@@ -36,7 +36,9 @@ namespace Catzc.Base.Variants;
 
 public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects", "tracks" };
+    private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "file_heads", "aspects", "tracks" };
+    private static readonly string[] AllowedFileHeadsKeys = { "code" };
+    private static readonly string[] FileHeadsModes = { "minimal", "none" };
     private static readonly string[] AllowedTrackKeys = { "places", "type", "vendor", "languages", "execution_engines", "module_execution_engines", "kinds" };
     private static readonly Regex CustomerName = new Regex("^[a-z][a-z0-9]+$");
     private static readonly Regex AspectName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
@@ -47,6 +49,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     public const string DefaultAdoNaming = "standard";
     public const string DefaultGitWorkspace = "main-direct";
     public const bool DefaultHaveCustomers = false;
+    public const string DefaultFileHeadsCode = "minimal";
 
     // The built-in aspect convention of a track that declares none of its own: a deployment ships everything but an explicit tests/ folder.
     public static IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> DefaultAspects =>
@@ -59,6 +62,9 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     public string git_workspace { get; }
 
     public object have_customers { get; }
+
+    // Which files carry a head: `code` decides the navigation head of an authored code or config file.
+    public VariantFileHeads file_heads { get; }
 
     // Per-track ordered aspect classifications: the declared ones over the built-in ones, a declared track replacing its built-in.
     public IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> aspects { get; }
@@ -100,6 +106,8 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
         }
 
         if (Present(d, "have_customers")) { have_customers = ReadCustomers(d["have_customers"], errors); }
+
+        file_heads = ReadFileHeads(Present(d, "file_heads") ? d["file_heads"] : null, errors);
 
         Dictionary<string, IReadOnlyList<VariantAspect>> mergedAspects = new Dictionary<string, IReadOnlyList<VariantAspect>>(StringComparer.Ordinal);
         foreach (KeyValuePair<string, IReadOnlyList<VariantAspect>> builtIn in DefaultAspects) { mergedAspects[builtIn.Key] = builtIn.Value; }
@@ -171,6 +179,34 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
             else { names.Add(name); }
         }
         return names.ToArray();
+    }
+
+    // An omitted file_heads, or an omitted or null code inside it, takes DefaultFileHeadsCode.
+    private static VariantFileHeads ReadFileHeads(object value, List<string> errors)
+    {
+        if (value == null) { return new VariantFileHeads(DefaultFileHeadsCode); }
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add(string.Format("invalid file_heads '{0}' (must be a map {{ code: minimal | none }})", Text(value)));
+            return new VariantFileHeads(DefaultFileHeadsCode);
+        }
+        foreach (object k in map.Keys)
+        {
+            string key = Text(k);
+            if (Array.IndexOf(AllowedFileHeadsKeys, key) < 0)
+            {
+                errors.Add(string.Format("file_heads: unknown key '{0}' (allowed: {1})", key, string.Join(", ", AllowedFileHeadsKeys)));
+            }
+        }
+        if (!Present(map, "code")) { return new VariantFileHeads(DefaultFileHeadsCode); }
+        string code = Text(map["code"]);
+        if (Array.IndexOf(FileHeadsModes, code) < 0)
+        {
+            errors.Add(string.Format("invalid file_heads.code '{0}' (valid: {1})", code, string.Join(", ", FileHeadsModes)));
+            return new VariantFileHeads(DefaultFileHeadsCode);
+        }
+        return new VariantFileHeads(code);
     }
 
     private static IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> ReadAspects(object value, List<string> errors)

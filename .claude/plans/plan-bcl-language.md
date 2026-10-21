@@ -84,7 +84,8 @@ The doc moves go first.
       files, then a fresh full import).
 - [ ] `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `docs/adr/index.md`: the `bcl` domain and its table; `automation/`'s description stops
       listing `BCL/` as a language layer (check: `Test-AdrIndex`).
-- [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first (check: `Test-AdrCitations` over the tree).
+- [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first (check: `Test-AdrRegistry`, which runs the
+      citation graph).
 - [ ] After plan-minimal-heads lands: `pwsh/Catzc.Base.Languages/configs/languages.yml`: rename the `csharp` row to `bcl` and the
       `csharp-namespace` step to `bcl-namespace`, then every caller in the same change, one file at a time (check: `Catzc.Base.Languages`
       and `Catzc.Base.QualityGates` Pester, then `Test-Formatting -Language bcl`).

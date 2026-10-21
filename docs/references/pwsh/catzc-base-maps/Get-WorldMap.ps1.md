@@ -19,7 +19,7 @@ aspects (Get-Aspect), the adrs index (Get-AdrRuleSet: ADR code to domain), each 
 engine uses; an ADR lights its own file, never its domain's), the owners of the repository-root files (files.yml, read through Get-Config),
 the globsets (Get-GlobSet), and the globs of the files whose citations light nothing (maps.yml highlight.citation_exclude; by default the
 generated slide descriptions under docs/.assets/, the explanation articles under docs/explanation/ and the drawing tooling under
-python/Catzc.Diagrams/, so a slide's minimap lights the repository's citations of its ADRs, never the slide's own words).
+python/catzc_diagrams/, so a slide's minimap lights the repository's citations of its ADRs, never the slide's own words).
 
 The root folder gives a file's track and its extension gives its file language; a file under no track or in no file language lands in a
 bucket row or column, so every file has exactly one cell. A live file whose file language its track does not declare is a stack violation

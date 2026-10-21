@@ -222,7 +222,8 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
     }
 
     Context 'the head policy' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
-        It 'strips the block of a file whose class the policy forbids one, and leaves the code as it was' {
+        It 'strips the head of an authored code file when the file-heads variant is none, and leaves the code as it was' -Tag 'ADR-REPO-VARIANT-FILEHEADS' {
+            Mock Test-FileHeadVariant -ModuleName Catzc.Base.QualityGates { $false }
             $text = "<#`n---`ncatzc:`n  immutable:`n    path: widgets/Catzc.Widget/Get-Gadget.ps1`n---`n#>`n`nfunction Get-Gadget { }`n"
             [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)
             $forbidden = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'forbidden' }; kinds = $script:widgetKinds })
@@ -239,7 +240,19 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
             $result.Files[0].Fixed | Should -BeExactly "# Widget`n"
         }
 
+        It 'keeps only the authored config part of a class whose policy is config, and drops a block that has none' {
+            $keep = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ classes = @{ '*' = 'config' } }; kinds = $script:widgetKinds })
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "---`ncatzc:`n  immutable:`n    path: docs/widget.md`n  config:`n    spin: fast`n---`n`n# Widget`n")
+            $result = & $script:run @([pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $keep
+            $result.Files[0].Findings[0].Expected | Should -BeLike 'the authored config part alone*'
+            $result.Files[0].Fixed | Should -BeExactly "---`ncatzc:`n  config:`n    spin: fast`n---`n`n# Widget`n"
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "---`ncatzc:`n  immutable:`n    path: docs/widget.md`n---`n`n# Widget`n")
+            $result = & $script:run @([pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }) $keep
+            $result.Files[0].Fixed | Should -BeExactly "# Widget`n"
+        }
+
         It 'reports a forbidden block that holds an authored config part, and changes nothing' {
+            Mock Test-FileHeadVariant -ModuleName Catzc.Base.QualityGates { $false }
             $text = "<#`n---`ncatzc:`n  config:`n    synopsis: Gets a gadget.`n---`n#>`n`nfunction Get-Gadget { }`n"
             [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)
             $forbidden = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'forbidden' }; kinds = $script:widgetKinds })
@@ -249,7 +262,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
         }
 
         It 'writes no block for an optional file that has none, and keeps one up to date that has one' {
-            $optional = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'optional' }; kinds = $script:widgetKinds })
+            $optional = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ classes = @{ 'widget-*' = 'optional' } }; kinds = $script:widgetKinds })
             [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/private/Get-Sprocket.ps1'), "<#`n---`ncatzc:`n  immutable:`n    path: stale.ps1`n---`n#>`n`nfunction Get-Sprocket { }`n")
             $result = & $script:run $script:entries $optional
             $result.Files.Path | Should -Be @('widgets/Catzc.Widget/private/Get-Sprocket.ps1')
@@ -262,15 +275,11 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
             $result.Files[0].Fixed | Should -BeLike "<#`n---`ncatzc:`n*function Get-Gadget { }`n"
         }
 
-        It 'requires a block of a file with a comment page where the default forbids one, and only of that file' {
+        It 'requires the head of an authored code file when the file-heads variant is minimal, where the default forbids one' -Tag 'ADR-REPO-VARIANT-FILEHEADS' {
+            Mock Test-FileHeadVariant -ModuleName Catzc.Base.QualityGates { $true }
             $forbidden = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'forbidden' }; kinds = $script:widgetKinds })
-            [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs/catzc-widget')) | Out-Null
-            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/catzc-widget/Get-Gadget.ps1.md'), "# Get-Gadget.ps1`n")
-            Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'comments' } {
-                [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) })
-            }
             $result = & $script:run $script:entries[0..1] $forbidden
-            $result.Files.Path | Should -Be @('widgets/Catzc.Widget/Get-Gadget.ps1')
+            @($result.Files).Count | Should -Be 2
             $result.Files[0].Fixed | Should -BeLike "<#`n---`ncatzc:`n*function Get-Gadget { }`n"
         }
     }

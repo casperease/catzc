@@ -21,7 +21,7 @@ catzc:
     docs: "[Get-VendorFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-VendorFileMetaFact.ps1.md)"
     cites:
       - ADR-DSGN-TRACKTYPE-OPTIONALVENDOR
-      - ADR-DSGN-TRACKTYPE-HEADREADSDECLARATION
+      - ADR-DSGN-TRACKTYPE-FACTSFROMDECLARATION
 ---
 #>
 

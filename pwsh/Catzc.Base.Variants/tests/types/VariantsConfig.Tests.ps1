@@ -34,13 +34,17 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config.ado_naming | Should -Be 'standard'
             $config.git_workspace | Should -Be 'main-direct'
             $config.have_customers | Should -BeFalse
+            $config.file_heads.code | Should -Be ([Catzc.Base.Variants.VariantsConfig]::DefaultFileHeadsCode)
+            $config.file_heads.code | Should -Be 'minimal'
             $config.aspects.Keys | Should -Be @('infrastructure')
             $config.aspects['infrastructure'].Name | Should -Be @('tests', 'live')
         }
 
         It 'reads a null key as an omitted one: both take the default' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-            $nulls = & $script:make ([ordered]@{ ado_naming = $null; git_workspace = $null; have_customers = $null; aspects = $null })
+            $nulls = & $script:make ([ordered]@{ ado_naming = $null; git_workspace = $null; have_customers = $null; file_heads = $null; aspects = $null })
             $omitted = & $script:make ([ordered]@{})
+            $nulls.file_heads.code | Should -Be $omitted.file_heads.code
+            (& $script:make ([ordered]@{ file_heads = [ordered]@{ code = $null } })).file_heads.code | Should -Be $omitted.file_heads.code
             $nulls.ado_naming | Should -Be $omitted.ado_naming
             $nulls.git_workspace | Should -Be $omitted.git_workspace
             $nulls.have_customers | Should -Be $omitted.have_customers
@@ -83,6 +87,15 @@ Describe 'VariantsConfig' -Tag 'L0' {
                 (& $script:make ([ordered]@{ git_workspace = $mode })).git_workspace | Should -Be $mode
             }
             { & $script:make ([ordered]@{ git_workspace = 'anarchy' }) } | Should -Throw '*invalid git_workspace*'
+        }
+
+        It 'accepts both file_heads.code modes and throws on any other value, a non-map or an unknown key' -Tag 'ADR-REPO-VARIANT-FILEHEADS' {
+            foreach ($mode in 'minimal', 'none') {
+                (& $script:make ([ordered]@{ file_heads = [ordered]@{ code = $mode } })).file_heads.code | Should -Be $mode
+            }
+            { & $script:make ([ordered]@{ file_heads = [ordered]@{ code = 'full' } }) } | Should -Throw '*invalid file_heads.code*'
+            { & $script:make ([ordered]@{ file_heads = 'minimal' }) } | Should -Throw '*invalid file_heads*'
+            { & $script:make ([ordered]@{ file_heads = [ordered]@{ pages = 'minimal' } }) } | Should -Throw "*file_heads: unknown key 'pages'*"
         }
 
         It 'throws when have_customers is a non-all string' {

@@ -35,7 +35,7 @@ white text) or state and outcome (light). Every diagram also carries its own leg
 ![The glyph library: one kind, one shape, one colour, one legend phrase](.assets/glyphs/diagram.drawio.png)
 
 The glyph library is described element by element in the kit's
-[style guide](../../python/Catzc.Diagrams/assets/STYLE.md#glyphs-one-kind-one-shape-one-colour-one-legend-phrase).
+[style guide](../../python/catzc_diagrams/assets/STYLE.md#glyphs-one-kind-one-shape-one-colour-one-legend-phrase).
 
 The sidebar of every diagram places it on three maps, each drawn small as a minimap:
 

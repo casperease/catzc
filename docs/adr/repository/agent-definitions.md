@@ -44,9 +44,10 @@ step, and it resolves every `supported_by` citation to a real rule and every `ch
 A sub-agent is a **robot**: its file's body, everything after the front matter, has at most `roofs.agent_body_lines` lines (20, declared
 once on `AgentsConfig` and set in `agents.yml`), a line being one that starts something of its own, so a wrapped continuation counts with
 the line it continues and a blank or comment line counts as nothing; its front matter carries only the robot keys in their fixed order
-(`name`, `description`, `tools`, `disallowedTools`, `model`, `effort`, `maxTurns`, `skills`, then the catzc head); and its body is one job
-line, numbered steps of one action each, and the report line. The contracts every robot reads first (`agents.yml` `contracts`, today
-`ADR-REPO-AI`) are named once, there and in `.claude/CLAUDE.md`, never in a file's front matter.
+(`name`, `description`, `tools`, `disallowedTools`, `model`, `effort`, `maxTurns`, `skills`) and no catzc block, since every fact one would
+show is derived ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)); and its body is one job line, numbered
+steps of one action each, and the report line. The contracts every robot reads first (`agents.yml` `contracts`, today `ADR-REPO-AI`) are
+named once, there and in `.claude/CLAUDE.md`, never in a file's front matter.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
@@ -62,12 +63,12 @@ steps reliably.
 
 A **capability** is one file `.claude/skills/<domain>-<job>/SKILL.md` (lowercase letters, digits and hyphens, the only characters the
 harness accepts in a skill name) that a robot preloads through its `skills` list: at most `roofs.capability_lines` lines outside its catzc
-head (10, the `---` delimiters excluded, lines counted as rule 6 counts them), with `name` equal to its folder, `user-invocable: false`
+block (10, the `---` delimiters excluded, lines counted as rule 6 counts them), with `name` equal to its folder, `user-invocable: false`
 (`true` for a user skill, rule 11), `allowed-tools`, and a `metadata.catzc.config.model_floor` of `haiku`, `sonnet` or `opus`, declared
-there once and nowhere else. The catzc head of a capability nests under `metadata`, the one front-matter key the editors that validate a
+there once and nowhere else. The catzc block of a capability nests under `metadata`, the one front-matter key the editors that validate a
 skill file leave free, at the key path the carrier registry declares
-([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), and the floor is the author's line in that head's `config`
-part, so every imprint keeps it.
+([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), and holds only the authored `config` part, with the floor
+as the author's line in it, so no imprint touches it.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
@@ -138,17 +139,17 @@ the registry as settings, never as literals in the gate.
 
 A skill's own `model` key is a selection the harness honours only when the skill is invoked or forked, never when it is preloaded, so it
 cannot restrict the robot that loads it. The restriction is catzc data instead: the model floor in the `config` part of the capability's
-catzc head, under `metadata`, which the harness ignores and the gate enforces against the robot's `model`. The cheapest model that does the
+catzc block, under `metadata`, which the harness ignores and the gate enforces against the robot's `model`. The cheapest model that does the
 job is the default; a dearer one needs its reason written down where the registry can show it, so a model choice is a decision and never a
 habit.
 
 ### User skills
 
-Some procedures belong to the session that did the work, such as bringing a session to its finalization phase before the user clears it.
-Only that session holds what it touched and learned, so a robot spawned cold cannot do the job. A session can also end without warning (a
-closed window, a restart), and what it owed lives only in its context until it is written down, so such a procedure is a checkpoint that
-runs at any time and only adds what is new on a repeat run. A user skill keeps the capability shape, a short file under the same roof and
-registered with the rules behind it, and differs in one fact recorded in the registry: the user invokes it, so no robot preloads it.
+Some procedures belong to the session that did the work, such as finalizing a session before the user clears it. Only that session holds
+what it touched and learned, so a robot spawned cold cannot do the job. A session can also end without warning (a closed window, a restart),
+and what it owed lives only in its context until it is written down, so such a procedure is a checkpoint that runs at any time and only adds
+what is new on a repeat run. A user skill keeps the capability shape, a short file under the same roof and registered with the rules behind
+it, and differs in one fact recorded in the registry: the user invokes it, so no robot preloads it.
 
 ## Decision
 
