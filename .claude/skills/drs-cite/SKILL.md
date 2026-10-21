@@ -21,4 +21,4 @@ metadata:
    records in full, their `## Rules` section first.
 3. Cite a rule by the full code of a `### Rule` heading actually read; a finding without a rule it rests on is not a finding, and a "never"
    or "only" rule is searched against the commands that do the thing before it is reported clean; a domain cites only the domains its
-   `adrs.yml` entry lists in `depends_on`, and any other citation fails `Test-AdrRegistry`.
+   `drs.yml` entry lists in `depends_on`, and any other citation fails `Test-DrsRegistry`.

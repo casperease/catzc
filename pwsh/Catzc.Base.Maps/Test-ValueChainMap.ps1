@@ -29,8 +29,8 @@ function Test-ValueChainMap {
 
     # The rows and the columns: the closed sets of the registry type, in order.
     $axes = @(
-        @{ Name = 'rows'; Printed = @($map.Stacks); Declared = @([Catzc.Base.Docs.AdrsConfig]::Stacks); What = 'the rows of the value-chain stack'; Rule = 'DDR-TRACK-VALUECHAINSTACK' }
-        @{ Name = 'columns'; Printed = @($map.Concerns); Declared = @([Catzc.Base.Docs.AdrsConfig]::Concerns); What = 'the value-chain concerns'; Rule = 'DDR-TRACK-VALUECHAINCONCERN' }
+        @{ Name = 'rows'; Printed = @($map.Stacks); Declared = @([Catzc.Base.Drs.DrsConfig]::Stacks); What = 'the rows of the value-chain stack'; Rule = 'DDR-TRACK-VALUECHAINSTACK' }
+        @{ Name = 'columns'; Printed = @($map.Concerns); Declared = @([Catzc.Base.Drs.DrsConfig]::Concerns); What = 'the value-chain concerns'; Rule = 'DDR-TRACK-VALUECHAINCONCERN' }
     )
     foreach ($axis in $axes) {
         if (($axis.Printed -join ', ') -cne ($axis.Declared -join ', ')) {

@@ -22,7 +22,7 @@ function Export-WorldMapPdf {
         [string[]] $View = @('Grid', 'Tree'),
 
         [Parameter(Mandatory, ParameterSetName = 'Adr')]
-        [ArgumentCompleter({ (Get-Config -Config adrs).RuleSets.External })]
+        [ArgumentCompleter({ (Get-Config -Config drs).RuleSets.External })]
         [string[]] $Adr,
 
         [Parameter(Mandatory, ParameterSetName = 'Path')]

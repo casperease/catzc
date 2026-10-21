@@ -187,7 +187,7 @@ function Test-SourceConventions {
         $engineSet.AddRange([string[]] @($found))
     }
 
-    $realCodes = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-AdrCitationMap -RepositoryRoot $repositoryRoot).Codes))
+    $realCodes = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-DrsCitationMap -RepositoryRoot $repositoryRoot).Codes))
     $neutralCodes = [System.Collections.Generic.List[string]]::new()
     foreach ($file in $checked) {
         if ($file -notlike '*.Tests.ps1' -or $settings.neutral_codes.IsExempt($file)) {

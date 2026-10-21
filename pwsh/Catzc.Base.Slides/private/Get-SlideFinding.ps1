@@ -62,7 +62,7 @@ function Get-SlideFinding {
         $faults.Add($fault)
     }
 
-    $citations = Get-AdrCitationMap -RepositoryRoot $RepositoryRoot
+    $citations = Get-DrsCitationMap -RepositoryRoot $RepositoryRoot
     foreach ($cite in $Slide.Cites) {
         if (-not $citations.HasCode($cite)) {
             $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'cites', "the ADR index knows no ADR or rule '$cite'"))

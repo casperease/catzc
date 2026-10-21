@@ -18,7 +18,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Catzc.Base.Docs;
+using Catzc.Base.Reports;
 using Catzc.Base.Globs;
 
 namespace Catzc.Base.QualityGates;

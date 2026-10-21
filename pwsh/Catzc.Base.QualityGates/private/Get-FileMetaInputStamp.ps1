@@ -53,7 +53,7 @@ function Get-FileMetaInputStamp {
             $language = $languages.ForPath($relative)
             if ($Config.Selects($codeKind[0], (Get-FileKind $relative).Class, ($language ? $language.name : $null))) {
                 if ($null -eq $codesHash) {
-                    $codes = @((Get-AdrCitationMap -RepositoryRoot $root).Codes | Sort-Object -CaseSensitive) -join "`n"
+                    $codes = @((Get-DrsCitationMap -RepositoryRoot $root).Codes | Sort-Object -CaseSensitive) -join "`n"
                     $codesHash = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($codes)))
                 }
                 $fileParts.Add("adr-codes:$codesHash")

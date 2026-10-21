@@ -22,6 +22,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Catzc.Base.Docs;
+using Catzc.Base.Drs;
 
 namespace Catzc.Base.QualityGates;
 
@@ -40,7 +41,7 @@ public sealed class LinkEngine
     readonly Regex StringNumberedCitation;
 
     readonly string root;
-    readonly AdrCitationMap map;
+    readonly DrsCitationMap map;
     readonly SourceCheck stringCitations;
     readonly LinkWrap wrap;
     readonly IReadOnlyDictionary<string, int> lineLimits;
@@ -50,13 +51,13 @@ public sealed class LinkEngine
     readonly CodeLinkRewriter rewriter;
     readonly MarkdownLinkScanner scanner;
 
-    public LinkEngine(string repositoryRoot, AdrCitationMap map, AdrsConfig adrs, LinkWrap wrap, IDictionary<string, int> lineLimits,
+    public LinkEngine(string repositoryRoot, DrsCitationMap map, DrsConfig adrs, LinkWrap wrap, IDictionary<string, int> lineLimits,
         int defaultLineLimit, string selfUrlPrefix, IEnumerable<string> trackedFiles, SourceCheck stringCitations)
     {
         root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));
         this.map = map ?? throw new ArgumentNullException(nameof(map));
         if (adrs == null) { throw new ArgumentNullException(nameof(adrs)); }
-        AdrCodeForm codeForm = adrs.CodeForm;
+        DrsCodeForm codeForm = adrs.CodeForm;
         string records = Regex.Escape(adrs.Root + "/");
         StringNumberedCitation = new Regex(@"(?<![\w\-])" + codeForm.Cited + @"[:#](?:\d+|\$|\{(?:\d+\}|[A-Za-z_]))", RegexOptions.Compiled);
         StringDocPath = new Regex(@"(?<![\w/.\-])" + records + @"[A-Za-z0-9_\-./]+?\.md(?![\w/])", RegexOptions.Compiled);

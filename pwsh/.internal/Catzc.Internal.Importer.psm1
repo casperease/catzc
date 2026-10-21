@@ -378,8 +378,8 @@ function Invoke-ImporterJanitors {
     # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
     Invoke-TypeCacheJanitor -ShowReport:$ShowStateChanges
 
-    if (Get-Command Build-AdrIndex -ErrorAction Ignore) {
-        Build-AdrIndex -Silent | Out-Null
+    if (Get-Command Build-DrsIndex -ErrorAction Ignore) {
+        Build-DrsIndex -Silent | Out-Null
         Build-Glossary -Silent | Out-Null
     }
 
@@ -399,8 +399,8 @@ function Invoke-ImporterJanitors {
         Build-TerminologyDictionary -Silent | Out-Null
     }
 
-    if (Get-Command Build-AdrCodeDictionary -ErrorAction Ignore) {
-        Build-AdrCodeDictionary -Silent | Out-Null
+    if (Get-Command Build-DrsCodeDictionary -ErrorAction Ignore) {
+        Build-DrsCodeDictionary -Silent | Out-Null
     }
 
     if (Get-Command Build-RootConfig -ErrorAction Ignore) {

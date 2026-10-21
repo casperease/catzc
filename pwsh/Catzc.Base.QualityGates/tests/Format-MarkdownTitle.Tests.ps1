@@ -24,7 +24,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
         $script:reportBase = Join-Path $script:widgetRoot 'reports'
-        Mock Get-AdrCitationPath { @{ 'ADR-TST-WIDGET' = 'docs/widget.md' } } -ModuleName Catzc.Base.QualityGates
+        Mock Get-DrsCitationPath { @{ 'ADR-TST-WIDGET' = 'docs/widget.md' } } -ModuleName Catzc.Base.QualityGates
     }
 
     It 'retitles the path-titled file only, keeping its line endings and writing no BOM' {
@@ -88,7 +88,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
         $script:reportBase = Join-Path $script:widgetRoot 'reports'
-        Mock Get-AdrCitationPath { @{} } -ModuleName Catzc.Base.QualityGates
+        Mock Get-DrsCitationPath { @{} } -ModuleName Catzc.Base.QualityGates
     }
 
     It 'moves the trailing group out and re-points the link to the renamed anchor' {
@@ -132,7 +132,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — contract assets' -Tag 
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
         $script:reportBase = Join-Path $script:widgetRoot 'reports'
-        Mock Get-AdrCitationPath { @{} } -ModuleName Catzc.Base.QualityGates
+        Mock Get-DrsCitationPath { @{} } -ModuleName Catzc.Base.QualityGates
     }
 
     It 'titles the authored file and leaves the contract asset untouched' {

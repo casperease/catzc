@@ -26,10 +26,10 @@ public static class CitationScanner
 
     // Any kind's shape: a citation counts only when the index, read from the registry, lists its code.
     private static readonly Regex Citation = new Regex(
-        @"(?<![A-Za-z0-9_\-])(?<code>" + Catzc.Base.Docs.AdrCodeForm.AnyKind.Cited + @")(?![A-Za-z0-9_\-])",
+        @"(?<![A-Za-z0-9_\-])(?<code>" + Catzc.Base.Drs.DrsCodeForm.AnyKind.Cited + @")(?![A-Za-z0-9_\-])",
         RegexOptions.CultureInvariant);
 
-    private static readonly Regex Reference = new Regex("^" + Catzc.Base.Docs.AdrCodeForm.AnyKind.Cited + "$", RegexOptions.CultureInvariant);
+    private static readonly Regex Reference = new Regex("^" + Catzc.Base.Drs.DrsCodeForm.AnyKind.Cited + "$", RegexOptions.CultureInvariant);
 
     // True when the file's kind cites ADRs (its extension is one of CitingExtensions, in any case).
     public static bool Cites(string path)
@@ -163,6 +163,6 @@ public static class CitationScanner
     public static bool Covers(string requested, string cited)
     {
         if (requested == null || cited == null) { return false; }
-        return Catzc.Base.Docs.AdrCodeForm.Covers(requested, cited) || Catzc.Base.Docs.AdrCodeForm.Covers(cited, requested);
+        return Catzc.Base.Drs.DrsCodeForm.Covers(requested, cited) || Catzc.Base.Drs.DrsCodeForm.Covers(cited, requested);
     }
 }

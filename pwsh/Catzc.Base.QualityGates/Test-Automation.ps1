@@ -54,7 +54,7 @@ function Test-Automation {
 
         [switch] $EnforceTimings,
 
-        [ValidateScript({ (Get-Config -Config adrs).CodeForm.IsRule($_) }, ErrorMessage = "'{0}' is not a rule's code of a registered kind")]
+        [ValidateScript({ (Get-Config -Config drs).CodeForm.IsRule($_) }, ErrorMessage = "'{0}' is not a rule's code of a registered kind")]
         [string[]] $Rule = @(),
 
         [ArgumentCompleter({ (Get-Config -Config globs).Names })]

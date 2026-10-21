@@ -38,7 +38,7 @@ function Get-CatsRuleEnforcers {
     }
 
     # Analyzer enforcers — the analyzer-adr-map (a global Get-Config read; it needs no dependency edge).
-    $map = Get-Config -Config analyzer-adr-map
+    $map = Get-Config -Config analyzer-drs-map
     foreach ($analyzer in $map.analyzers.Keys) {
         foreach ($id in $map.analyzers[$analyzer]) {
             & $ensure $id
@@ -46,7 +46,7 @@ function Get-CatsRuleEnforcers {
         }
     }
 
-    $form = (Get-Config -Config adrs).CodeForm
+    $form = (Get-Config -Config drs).CodeForm
     $isCommand = { param($node) $node -is [System.Management.Automation.Language.CommandAst] }
     $isString = { param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }
     $modulesRoot = Get-CatzcModulesRoot

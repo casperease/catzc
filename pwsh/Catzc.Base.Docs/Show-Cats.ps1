@@ -37,7 +37,7 @@ function Show-Cats {
             break
         }
         'adr' {
-            $entries = Get-CatsAdrIndex
+            $entries = Get-CatsDrsIndex
             if ($Query) {
                 $matched = @($entries | Where-Object { $_.Code -like "*$Query*" -or $_.Title -like "*$Query*" })
                 if ($matched.Count -eq 0) {
@@ -45,11 +45,11 @@ function Show-Cats {
                     break
                 }
                 $enforcers = Get-CatsRuleEnforcers
-                $root = (Get-Config -Config adrs).Root
+                $root = (Get-Config -Config drs).Root
                 foreach ($entry in $matched) {
                     Write-Message "$($entry.Code)  $($entry.Title)" -NoHeader -ForegroundColor Cyan
                     Write-Message "  $root/$($entry.Path)" -NoHeader
-                    $rules = @(Get-CatsAdrRules -AdrPath (Resolve-RepoPath "$root/$($entry.Path)"))
+                    $rules = @(Get-CatsDrsRules -DrsPath (Resolve-RepoPath "$root/$($entry.Path)"))
                     foreach ($rule in $rules) {
                         $summary = if ($rule.Summary.Length -gt 100) {
                             $rule.Summary.Substring(0, 97) + '...'

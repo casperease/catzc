@@ -282,7 +282,7 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-VALUECHAINMAP
     short:
-      The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from adrs.yml — where a decision sits in the
+      The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from drs.yml — where a decision sits in the
       value chain.
     realized_by: { kind: prose-only }
   stack violation:

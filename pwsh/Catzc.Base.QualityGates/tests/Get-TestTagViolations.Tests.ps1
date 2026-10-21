@@ -112,7 +112,7 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
 
     Context 'the optional ADR provenance axis' -Tag 'ADR-AUTO-TEST-PROVENANCETAGS' {
         BeforeAll {
-            Mock Get-CatsAdrRuleIds { @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-SPROCKET-COG') } -ModuleName Catzc.Base.QualityGates
+            Mock Get-CatsDrsRuleIds { @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-SPROCKET-COG') } -ModuleName Catzc.Base.QualityGates
 
             function New-Discovery {
                 param([string] $Name, [string[]] $Tags)
@@ -140,7 +140,7 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
             $v = & $script:violate (New-Discovery 'bad' @('L1', 'logic', 'ADR-WIDGET-GADGET#3'))
             @($v) | Should -HaveCount 1
             $v.Reason | Should -BeLike "*malformed ADR citation 'ADR-WIDGET-GADGET#3'*"
-            Should -Invoke Get-CatsAdrRuleIds -ModuleName Catzc.Base.QualityGates -Times 0
+            Should -Invoke Get-CatsDrsRuleIds -ModuleName Catzc.Base.QualityGates -Times 0
         }
 
         It 'flags a well-formed citation that names no real rule' {
@@ -152,7 +152,7 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
         It 'does not consult the rule-id set when no test carries a citation (stays hermetic)' {
             $v = & $script:violate (New-Discovery 'plain' @('L1', 'logic'))
             @($v) | Should -HaveCount 0
-            Should -Invoke Get-CatsAdrRuleIds -ModuleName Catzc.Base.QualityGates -Times 0
+            Should -Invoke Get-CatsDrsRuleIds -ModuleName Catzc.Base.QualityGates -Times 0
         }
     }
 }

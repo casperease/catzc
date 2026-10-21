@@ -62,7 +62,7 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq '.claude/agents' } { Join-Path $TestDrive 'claude/agents' }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq '.claude/skills' } { Join-Path $TestDrive 'claude/skills' }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq '.claude/CLAUDE.md' } { Join-Path $TestDrive 'claude/CLAUDE.md' }
-        Mock Get-CatsAdrRuleIds -ModuleName Catzc.Base.Docs { , @('ADR-WI-ONE-TURN', 'ADR-WI-ONE-SPIN') }
+        Mock Get-CatsDrsRuleIds -ModuleName Catzc.Base.Docs { , @('ADR-WI-ONE-TURN', 'ADR-WI-ONE-SPIN') }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 

@@ -1,0 +1,60 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e737128954f7
+  edges:
+    docs: "[Get-DrsDomainEdges.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-DrsDomainEdges.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Drs/Get-DrsDomainEdges.ps1
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+---
+#>
+
+Describe 'Get-DrsDomainEdges' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:fixture = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
+                domains = [ordered]@{
+                    widget = [ordered]@{
+                        code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                        stack = 'PRIN'; concern = @('build')
+                        rulesets = [ordered]@{ 'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' } }
+                    }
+                    gadget = [ordered]@{
+                        code = 'GA'; role = 'implementation'; description = 'The gadget implementation.'; depends_on = @('widget')
+                        stack = 'AUTO'; concern = @('automation')
+                        rulesets = [ordered]@{ 'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' } }
+                    }
+                    gizmo  = [ordered]@{
+                        code = 'GI'; role = 'reference'; description = 'The gizmo reference.'; depends_on = @('widget', 'gadget')
+                        stack = 'CLOUD'; concern = @('deploy')
+                        rulesets = [ordered]@{ 'gizmo-one' = [ordered]@{ external = 'ADR-GI-ONE' } }
+                    }
+                }
+            })
+    }
+
+    BeforeEach {
+        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'adrs' } { $script:fixture }
+    }
+
+    It 'returns one typed edge per depends_on link, in declaration order' {
+        $edges = Get-DrsDomainEdges
+        $edges | Should -HaveCount 3
+        $edges[0] | Should -BeOfType 'Catzc.Base.Drs.DrsDomainEdge'
+        @($edges | ForEach-Object { "$($_.From)->$($_.To)" }) | Should -Be @('gadget->widget', 'gizmo->widget', 'gizmo->gadget')
+    }
+
+    It 'returns no edges for a registry with no dependency links' {
+        $script:fixture = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
+                domains = [ordered]@{
+                    widget = [ordered]@{
+                        code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
+                        stack = 'PRIN'; concern = @('build')
+                        rulesets = [ordered]@{ 'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' } }
+                    }
+                }
+            })
+        @(Get-DrsDomainEdges) | Should -HaveCount 0
+    }
+}

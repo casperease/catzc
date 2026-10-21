@@ -91,9 +91,9 @@ Describe 'Get-WorldMapHighlight — the real repository' -Tag 'L1', 'integrity',
     }
 
     It 'lights, as an ADR file, only the requested ADR''s own file' -Tag 'DDR-TRACK-LITCELL' {
-        $citations = Get-AdrCitationMap
+        $citations = Get-DrsCitationMap
         # Codes taken from the registry, not spelled here, so this test cites no ADR and lights no minimap itself.
-        $ruleSets = @(Get-AdrRuleSet | Where-Object { $citations.PathOf($_.External) -and $citations.RulesOf($_.External).Count -gt 0 })
+        $ruleSets = @(Get-DrsRuleSet | Where-Object { $citations.PathOf($_.External) -and $citations.RulesOf($_.External).Count -gt 0 })
         $codes = @($ruleSets[0].External, $citations.RulesOf($ruleSets[1].External)[0], $ruleSets[-1].External)
         $reasons = @((Get-WorldMapHighlight -Adr $codes).Cells.Reasons | Where-Object Basis -EQ 'adr-file')
         @($reasons).Count | Should -Be $codes.Count

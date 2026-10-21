@@ -29,7 +29,7 @@ function Build-ContractReference {
     )
 
     $pageFolder = 'docs/references/contracts'
-    $records = (Get-Config -Config adrs).Root
+    $records = (Get-Config -Config drs).Root
     $adr = [System.IO.Path]::GetRelativePath($pageFolder, "$records/repository/api-contracts.md").Replace('\', '/')
     $commandAdr = [System.IO.Path]::GetRelativePath($pageFolder, "$records/repository/command-contracts.md").Replace('\', '/')
     $kindText = @{ Presence = 'presence'; Fragment = 'fragment'; Schema = 'schema'; Sample = 'sample payload'; Command = 'command contract' }

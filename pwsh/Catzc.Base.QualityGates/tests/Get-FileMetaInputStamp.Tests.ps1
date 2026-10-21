@@ -29,7 +29,7 @@ Describe 'Get-FileMetaInputStamp' -Tag 'L0', 'logic' {
         Mock Get-FileKind -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Class = ($Path -like '*.wdg') ? 'function' : 'doc' }
         }
-        Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Codes = $script:codes } }
+        Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Codes = $script:codes } }
         $script:stamp = {
             InModuleScope Catzc.Base.QualityGates -Parameters @{ F = @($script:widget, $script:note); R = $script:root; C = $script:config } {
                 param($F, $R, $C)
@@ -54,6 +54,6 @@ Describe 'Get-FileMetaInputStamp' -Tag 'L0', 'logic' {
 
     It 'reads the code map once per call, however many files it selects' {
         $null = & $script:stamp
-        Should -Invoke Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+        Should -Invoke Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
     }
 }

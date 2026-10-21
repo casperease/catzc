@@ -16,7 +16,7 @@ function Build-Glossary {
     [CmdletBinding()]
     [OutputType([string], [pscustomobject])]
     param(
-        [string] $Path = (Resolve-RepoPath "$((Get-Config -Config adrs).Root)/glossary.md"),
+        [string] $Path = (Resolve-RepoPath "$((Get-Config -Config drs).Root)/glossary.md"),
 
         [switch] $DryRun,
 
@@ -26,7 +26,7 @@ function Build-Glossary {
     )
 
     $entries = Get-Glossary
-    $citations = Get-AdrCitationMap
+    $citations = Get-DrsCitationMap
     $relationLabels = [ordered]@{ kind_of = 'Kind of'; part_of = 'Part of'; selected_by = 'Selected by' }
 
     # A contrast is declared once, on either term, and shows on both entries; a term's own declaration wins over the mirrored one.
@@ -47,7 +47,7 @@ function Build-Glossary {
         }
     }
 
-    $root = (Get-Config -Config adrs).Root
+    $root = (Get-Config -Config drs).Root
     $lines = [System.Collections.Generic.List[string]]::new()
     $lines.Add("# $root/glossary.md")
     $lines.Add('')
@@ -61,7 +61,7 @@ function Build-Glossary {
         $lines.Add($line)
     }
 
-    foreach ($domain in (Get-Config -Config adrs).Domains) {
+    foreach ($domain in (Get-Config -Config drs).Domains) {
         $domainEntries = @($entries | Where-Object { $_.Concept.domain -ceq $domain.Name })
         if ($domainEntries.Count -eq 0) {
             continue

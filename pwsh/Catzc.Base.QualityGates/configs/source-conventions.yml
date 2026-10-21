@@ -41,7 +41,7 @@ neutral_codes:
     pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
     pwsh/Catzc.Base.Docs/tests/Get-Glossary*Violations.Tests.ps1:
       they assert the glossary checks' exact messages, which cite their real rules
-    pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
+    pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
     pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1: it asserts the config's exact errors, which cite their real rule
     pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
     pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1: it asserts the gate's exact messages, which cite their real rules

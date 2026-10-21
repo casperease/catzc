@@ -13,8 +13,8 @@ catzc:
 Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION' {
     BeforeAll {
         # The one code the fixture cites, registered with ten rules, so the adr-codes kind keeps it.
-        Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates {
-            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-TURN', 'ADR-GADGET-SPIN', 'ADR-GADGET-FOLD', 'ADR-GADGET-LIFT') } }, @())
+        Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.Drs.DrsCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-TURN', 'ADR-GADGET-SPIN', 'ADR-GADGET-FOLD', 'ADR-GADGET-LIFT') } }, @())
         }
         $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nSee ADR-GADGET-TURN.`n"
 

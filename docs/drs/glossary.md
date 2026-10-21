@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "27d7f0a585fa"
+    with_body_sha: "21bb34f11f48"
     warning: "Do Not Edit, this file is generated"
     role: glossary
     track: docs
@@ -546,7 +546,7 @@ per ADR.
 
 ### value-chain map
 
-The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from adrs.yml — where a decision sits in the value
+The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from drs.yml — where a decision sits in the value
 chain.
 
 - **Defined by:** [DDR-TRACK-VALUECHAINMAP](design/tracks.md#rule-ddr-track-valuechainmap)
@@ -1374,7 +1374,7 @@ vocabulary, and where a moved cell sits; put renders it into the drawing and get
 
 ### domain
 
-A group of ADRs — one docs/drs/ subfolder — that adrs.yml declares with its role and the domains it depends on.
+A group of ADRs — one docs/drs/ subfolder — that drs.yml declares with its role and the domains it depends on.
 
 - **Defined by:**
   [ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY](repository/conventional-folders.md#rule-adr-repo-folders-documentationmarkdownonly)
@@ -1600,7 +1600,7 @@ A contract an outside consumer may rely on — the repository's only public API,
 
 ### record kind
 
-The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or RDR), registered in adrs.yml; together the XDR kinds.
+The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or RDR), registered in drs.yml; together the XDR kinds.
 
 - **Defined by:** [ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM](repository/drs-code-language.md#rule-adr-repo-drscode-decisionrecordssystem)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce

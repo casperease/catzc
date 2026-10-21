@@ -1,0 +1,49 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "44e6667c6823"
+  edges:
+    test: pwsh/Catzc.Base.Drs/tests/types/DrsIndexConfig.Tests.ps1
+    cites:
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
+---
+*/
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace Catzc.Base.Drs;
+
+// The authored text of the ADR index: the preamble above the generated code tables and the authoring conventions below them, both Markdown that Build-DrsIndex reflows ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
+public sealed class DrsIndexConfig
+{
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
+    private static readonly string[] AllowedKeys = { "preamble", "conventions" };
+
+    public string preamble { get; }
+    public string conventions { get; }
+
+    public DrsIndexConfig(IDictionary raw)
+    {
+        List<string> errors = new List<string>();
+        if (raw == null) { throw new ArgumentException("drs-index.yml is invalid:\n  - the configuration must be a mapping with preamble and conventions"); }
+        DrsChecksConfig.CheckKeys(raw, AllowedKeys, "adr-index", errors);
+        preamble = Text(raw, "preamble", errors);
+        conventions = Text(raw, "conventions", errors);
+        if (errors.Count > 0)
+        {
+            throw new ArgumentException("drs-index.yml is invalid:\n  - " + string.Join("\n  - ", errors));
+        }
+    }
+
+    // Both texts are required: the index has no sensible text of its own to fall back to.
+    private static string Text(IDictionary raw, string key, List<string> errors)
+    {
+        string text = raw.Contains(key) && raw[key] != null ? raw[key].ToString() : null;
+        if (string.IsNullOrWhiteSpace(text)) { errors.Add(string.Format("adr-index: {0} is required, the Markdown text of that part of the index", key)); }
+        return text;
+    }
+}

@@ -19,10 +19,10 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
-            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
         }
-        $stacks = @([Catzc.Base.Docs.AdrsConfig]::Stacks)
-        $concerns = @([Catzc.Base.Docs.AdrsConfig]::Concerns)
+        $stacks = @([Catzc.Base.Drs.DrsConfig]::Stacks)
+        $concerns = @([Catzc.Base.Drs.DrsConfig]::Concerns)
         $script:cleanMap = [Catzc.Base.Maps.ValueChainMap]::Build($stacks, $concerns, @(
                 & $adr 'ADR-WIDGET-GADGET' $stacks[0] @($concerns[0], $concerns[1])
                 & $adr 'ADR-WIDGET-COG' $stacks[1] @($concerns[1])
@@ -57,8 +57,8 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
         $result.Subject | Should -Be 'value-chain-map'
         $result.IssueCount | Should -Be 0
         $result.Facts['Adrs'] | Should -Be 2
-        $result.Facts['Rows'] | Should -Be ([Catzc.Base.Docs.AdrsConfig]::Stacks.Count)
-        $result.Facts['Columns'] | Should -Be ([Catzc.Base.Docs.AdrsConfig]::Concerns.Count)
+        $result.Facts['Rows'] | Should -Be ([Catzc.Base.Drs.DrsConfig]::Stacks.Count)
+        $result.Facts['Columns'] | Should -Be ([Catzc.Base.Drs.DrsConfig]::Concerns.Count)
         $result.Facts['NonEmptyCells'] | Should -Be 3
         $result.Facts['Labels'] | Should -Be 3
     }
@@ -67,8 +67,8 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
         $script:map = $script:brokenMap
         $issues = @((Test-ValueChainMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
-            "axis: the map prints the rows TOP, BOTTOM, but the rows of the value-chain stack are $([Catzc.Base.Docs.AdrsConfig]::Stacks -join ', '), in that order (DDR-TRACK-VALUECHAINSTACK)"
-            "axis: the map prints the columns alpha, but the value-chain concerns are $([Catzc.Base.Docs.AdrsConfig]::Concerns -join ', '), in that order (DDR-TRACK-VALUECHAINCONCERN)"
+            "axis: the map prints the rows TOP, BOTTOM, but the rows of the value-chain stack are $([Catzc.Base.Drs.DrsConfig]::Stacks -join ', '), in that order (DDR-TRACK-VALUECHAINSTACK)"
+            "axis: the map prints the columns alpha, but the value-chain concerns are $([Catzc.Base.Drs.DrsConfig]::Concerns -join ', '), in that order (DDR-TRACK-VALUECHAINCONCERN)"
             "stray value: ADR-WIDGET-COG: 'MIDDLE' is not a row of the value-chain stack (TOP, BOTTOM) (DDR-TRACK-VALUECHAINCONCERN)"
             'unplaced ADR: ADR-WIDGET-COG sits in no cell of the value-chain map (DDR-TRACK-VALUECHAINCONCERN)'
         )

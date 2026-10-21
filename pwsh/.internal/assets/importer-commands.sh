@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "52fc87b49424"
+#     with_body_sha: "4a0d264930a0"
 #     warning: "Do Not Edit, this file is generated"
 #     role: asset
 #     track: pwsh
@@ -138,14 +138,10 @@ remove_token_from_history	dry_run	switch	0	0	0	contracts/catzc/0.0.0/catzc.tooli
 test_ado_pipeline_trigger_glob	name	string	1	0	0	contracts/catzc/0.0.0/catzc.base.globs/test_ado_pipeline_trigger_glob.command.yml			test-ado-pipeline-trigger-glob	name	Test-AdoPipelineTriggerGlob	Name
 test_ado_pipeline_trigger_glob	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.globs/test_ado_pipeline_trigger_glob.command.yml			test-ado-pipeline-trigger-glob	output-folder	Test-AdoPipelineTriggerGlob	OutputFolder
 test_ado_pipeline_trigger_glob	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.globs/test_ado_pipeline_trigger_glob.command.yml			test-ado-pipeline-trigger-glob	pass-thru	Test-AdoPipelineTriggerGlob	PassThru
-test_adr_engine_neutrality	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.docs/test_adr_engine_neutrality.command.yml			test-adr-engine-neutrality	output-folder	Test-AdrEngineNeutrality	OutputFolder
-test_adr_engine_neutrality	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.docs/test_adr_engine_neutrality.command.yml			test-adr-engine-neutrality	pass-thru	Test-AdrEngineNeutrality	PassThru
-test_adr_registry	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.docs/test_adr_registry.command.yml			test-adr-registry	output-folder	Test-AdrRegistry	OutputFolder
-test_adr_registry	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.docs/test_adr_registry.command.yml			test-adr-registry	pass-thru	Test-AdrRegistry	PassThru
 test_agent_definitions	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.docs/test_agent_definitions.command.yml			test-agent-definitions	output-folder	Test-AgentDefinitions	OutputFolder
 test_agent_definitions	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.docs/test_agent_definitions.command.yml			test-agent-definitions	pass-thru	Test-AgentDefinitions	PassThru
-test_analyzer_adr_map	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_analyzer_adr_map.command.yml			test-analyzer-adr-map	output-folder	Test-AnalyzerAdrMap	OutputFolder
-test_analyzer_adr_map	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_analyzer_adr_map.command.yml			test-analyzer-adr-map	pass-thru	Test-AnalyzerAdrMap	PassThru
+test_analyzer_drs_map	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_analyzer_drs_map.command.yml			test-analyzer-drs-map	output-folder	Test-AnalyzerDrsMap	OutputFolder
+test_analyzer_drs_map	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_analyzer_drs_map.command.yml			test-analyzer-drs-map	pass-thru	Test-AnalyzerDrsMap	PassThru
 test_automation	min_level	int	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_automation.command.yml			test-automation	min-level	Test-Automation	MinLevel
 test_automation	max_level	int	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_automation.command.yml			test-automation	max-level	Test-Automation	MaxLevel
 test_automation	modules	string	1	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_automation.command.yml			test-automation	modules	Test-Automation	Modules
@@ -192,6 +188,10 @@ test_contracts	version	string	0	0	0	contracts/catzc/0.0.0/catzc.base.contracts/t
 test_contracts	repository_root	string	0	0	0	contracts/catzc/0.0.0/catzc.base.contracts/test_contracts.command.yml			test-contracts	repository-root	Test-Contracts	RepositoryRoot
 test_contracts	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.contracts/test_contracts.command.yml			test-contracts	output-folder	Test-Contracts	OutputFolder
 test_contracts	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.contracts/test_contracts.command.yml			test-contracts	pass-thru	Test-Contracts	PassThru
+test_drs_engine_neutrality	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.drs/test_drs_engine_neutrality.command.yml			test-drs-engine-neutrality	output-folder	Test-DrsEngineNeutrality	OutputFolder
+test_drs_engine_neutrality	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.drs/test_drs_engine_neutrality.command.yml			test-drs-engine-neutrality	pass-thru	Test-DrsEngineNeutrality	PassThru
+test_drs_registry	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.drs/test_drs_registry.command.yml			test-drs-registry	output-folder	Test-DrsRegistry	OutputFolder
+test_drs_registry	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.drs/test_drs_registry.command.yml			test-drs-registry	pass-thru	Test-DrsRegistry	PassThru
 test_file_meta_processors	config	catzc.base.quality_gates.file_meta_config	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_file_meta_processors.command.yml			test-file-meta-processors	config	Test-FileMetaProcessors	Config
 test_file_meta_processors	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_file_meta_processors.command.yml			test-file-meta-processors	output-folder	Test-FileMetaProcessors	OutputFolder
 test_file_meta_processors	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_file_meta_processors.command.yml			test-file-meta-processors	pass-thru	Test-FileMetaProcessors	PassThru

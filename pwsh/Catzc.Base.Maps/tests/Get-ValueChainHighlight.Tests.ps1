@@ -18,7 +18,7 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
-            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
         }
         $script:map = [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'BOTTOM'), @('alpha', 'beta'), @(
                 & $adr 'ADR-WIDGET-GADGET' 'TOP' @('alpha', 'beta')
@@ -55,9 +55,9 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-ValueChainHighlight — the real registry' -Tag 'L1', 'integrity', 'source-only' {
-    It 'lights the cells of each ADR''s row and value-chain concerns, for every ADR of adrs.yml' -Tag 'DDR-TRACK-VALUECHAINMAP' {
-        $citations = Get-AdrCitationMap
-        foreach ($ruleSet in @(Get-AdrRuleSet)) {
+    It 'lights the cells of each ADR''s row and value-chain concerns, for every ADR of drs.yml' -Tag 'DDR-TRACK-VALUECHAINMAP' {
+        $citations = Get-DrsCitationMap
+        foreach ($ruleSet in @(Get-DrsRuleSet)) {
             # A rule lights its ADR's cells; an ADR with no rules of its own stands for itself.
             $rule = @($citations.RulesOf($ruleSet.External)) + $ruleSet.External | Select-Object -First 1
             $cells = @((Get-ValueChainHighlight -Adr $rule).Cells)

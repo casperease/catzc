@@ -427,7 +427,7 @@ An approved slide lands as its folder and its article; the `.verify.md` stays in
 | `docs/explanation/<adr-domain>/.assets/<name>/diagram.drawio.yml` | the staged declaration          | copied, never over an existing folder                                                                      |
 | `docs/explanation/<adr-domain>/.assets/<name>/diagram.drawio.png` | `Build-Diagrams -Path <folder>` | built in its folder, never copied, so its minimaps are computed for its address                            |
 
-- `<adr-domain>` is the adrs.yml domain of the slide's first ADR code; `<explanation>` is the finding as a kebab slug.
+- `<adr-domain>` is the drs.yml domain of the slide's first ADR code; `<explanation>` is the finding as a kebab slug.
 - **The `text` overview** of an article: the finding in one line; a blank line; one line per marker, `<n>  <name>  <what it is>`, names
   padded to one column; a blank line; `Supports <ADR-CODE>#a, #b and #c (<lens> lens).` Plain ASCII inside the block (`->`, not `→`).
 - **Words by audience:** the article uses the ADR's and glossary's terms (group, module, gate as the ADR names it); the declaration's

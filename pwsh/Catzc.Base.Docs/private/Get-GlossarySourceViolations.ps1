@@ -20,7 +20,7 @@ function Get-GlossarySourceViolations {
     )
 
     $violations = [System.Collections.Generic.List[string]]::new()
-    $domains = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-Config -Config adrs).Domains.Name), [System.StringComparer]::Ordinal)
+    $domains = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-Config -Config drs).Domains.Name), [System.StringComparer]::Ordinal)
 
     # First pass: who owns each term and key (the first source in order keeps it), plus the per-source facts.
     $termSource = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::Ordinal)
@@ -46,7 +46,7 @@ function Get-GlossarySourceViolations {
                 $keyOwner[$concept.key] = "'$term' in $($item.Path)"
             }
             if (-not $domains.Contains($concept.domain)) {
-                $violations.Add("$($item.Path): concept '$term': domain '$($concept.domain)' is not an adrs.yml domain (ADR-REPO-VOCAB-DEFINEDTERM)")
+                $violations.Add("$($item.Path): concept '$term': domain '$($concept.domain)' is not an drs.yml domain (ADR-REPO-VOCAB-DEFINEDTERM)")
             }
         }
     }

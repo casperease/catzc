@@ -78,7 +78,7 @@ public sealed class ValueChainHighlight
             }
             if (requested.Contains(canonical)) { continue; }
             requested.Add(canonical);
-            Catzc.Base.Docs.AdrRuleSet ruleSet = map.RuleSetOf(adr);
+            Catzc.Base.Drs.DrsRuleSet ruleSet = map.RuleSetOf(adr);
             foreach (ValueChainCell cell in cells)
             {
                 if (!lit.ContainsKey(cell))

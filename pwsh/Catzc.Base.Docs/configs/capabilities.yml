@@ -86,7 +86,7 @@ capabilities:
         Test-Glossary,
         Build-Readme,
         Build-Glossary,
-        Build-AdrIndex,
+        Build-DrsIndex,
         Test-GeneratedFiles,
       ]
 

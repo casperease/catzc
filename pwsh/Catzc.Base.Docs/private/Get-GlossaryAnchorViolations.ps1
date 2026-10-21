@@ -18,7 +18,7 @@ function Get-GlossaryAnchorViolations {
         [AllowEmptyCollection()]
         [Catzc.Base.Docs.GlossaryEntry[]] $Entry = (Get-Glossary),
 
-        [string] $IndexPath = (Resolve-RepoPath "$((Get-Config -Config adrs).Root)/index.md")
+        [string] $IndexPath = (Resolve-RepoPath "$((Get-Config -Config drs).Root)/index.md")
     )
 
     $statements = Get-GlossaryRuleStatements -IndexPath $IndexPath

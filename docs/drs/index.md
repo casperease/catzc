@@ -1,22 +1,22 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dd93c044e141
+    with_body_sha: f872b25f06ee
     warning: "Do Not Edit, this file is generated"
     role: index
     track: docs
-    generator: pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
+    generator: pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
     source:
-      - pwsh/Catzc.Base.Docs/configs/adrs.yml
-      - pwsh/Catzc.Base.Docs/configs/adr-index.yml
+      - pwsh/Catzc.Base.Drs/configs/drs.yml
+      - pwsh/Catzc.Base.Drs/configs/drs-index.yml
 ---
 
 # DRS index and rule-citation registry
 
 The Decision Records System (DRS) holds every decision record under `docs/drs/`, each of one registered record kind, grouped by domain — the
-sections below mirror the domains declared in `pwsh/Catzc.Base.Docs/configs/adrs.yml`, from which this file is generated. The ADRs define
-the design principles this codebase must follow. **Read this index at the start of every session**, then read in full the ADRs that govern
-the files a task touches, and cite their rules by code.
+sections below mirror the domains declared in `pwsh/Catzc.Base.Drs/configs/drs.yml`, from which this file is generated. The ADRs define the
+design principles this codebase must follow. **Read this index at the start of every session**, then read in full the ADRs that govern the
+files a task touches, and cite their rules by code.
 
 ## Citing a rule
 
@@ -419,8 +419,8 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   rationale is not.
 
 - **`automation/` is engine-neutral; a language's ADRs sit in `automation/<language>/`.** An ADR in `automation/` states its rules for any
-  engine, and the language's spellings and samples live in the twin under `automation/<language>/` (`Test-AdrEngineNeutrality` judges the
-  rules). A language with its own code prefix is its own domain, and its `folder` in `adrs.yml` points into `automation/`, so `ADR-PWSH-*`
+  engine, and the language's spellings and samples live in the twin under `automation/<language>/` (`Test-DrsEngineNeutrality` judges the
+  rules). A language with its own code prefix is its own domain, and its `folder` in `drs.yml` points into `automation/`, so `ADR-PWSH-*`
   keeps its codes while its pages sit in `automation/pwsh/`; a code names the rule, never the path.
 
 - **References point one way: code to ADR.** Code, function help, sample headers, and READMEs cite the relevant ADR; an ADR never links back
@@ -468,7 +468,7 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   `[Capability](<relative>/capabilities.md#<dora-slug>) — why it is relevant`, plus a link to the reference's `index.md`). Link only the
   capabilities that genuinely bear on an ADR's domain, never the whole catalogue. DORA grounds the repository's own decisions; an ADR that
   answers a vendor's checklist item by item (`azure/caf/`, `azure/waf/`) is grounded in that vendor's reference (`docs/references/caf/`,
-  `docs/references/waf/`) and takes no entry (`adr-checks.yml` `exempt_folders`).
+  `docs/references/waf/`) and takes no entry (`drs-checks.yml` `exempt_folders`).
 
 - **The research ADRs carry their own `## Dora explains`.** Each `research/<slug>.md` is the record of one DORA capability, so it is the one
   place an ADR ends with a `## Dora explains` section: the capability's site category and Core Model position, the publications its evidence

@@ -19,7 +19,7 @@ Describe 'Get-GeneratorPath' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOSEDFILE
 
     It 'names a function from another module by its own file' {
         InModuleScope Catzc.Base.Languages {
-            Get-GeneratorPath Build-AdrIndex | Should -BeExactly "$(Get-CatzcModulesFolder)/Catzc.Base.Docs/Build-AdrIndex.ps1"
+            Get-GeneratorPath Build-DrsIndex | Should -BeExactly "$(Get-CatzcModulesFolder)/Catzc.Base.Drs/Build-DrsIndex.ps1"
         }
     }
 

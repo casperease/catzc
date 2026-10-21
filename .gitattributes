@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c60cc1fb1ae1
+#     with_body_sha: af0fb1003037
 #     warning: "Do Not Edit, this file is generated"
 #     role: other
 #     generator: pwsh/Catzc.Base.RootConfig/New-GitAttributes.ps1
@@ -71,8 +71,8 @@ pwsh/.vendor/** linguist-vendored
 # GitHub (linguist): committed files the automation writes are generated — out of the statistics, and collapsed
 # in pull-request diffs so review lands on their sources (the New-Importer shim, the managed root-config copies,
 # and the generated ADR pages; see docs/drs/repository/generated-root-configs.md). The ADR index and glossary are
-# committed so GitHub has them — every ADR citation links the index — and Build-AdrIndex / Build-Glossary rewrite
-# them on import from adrs.yml and the glossary sources; Build-ContractReference rewrites the per-unit contract
+# committed so GitHub has them — every ADR citation links the index — and Build-DrsIndex / Build-Glossary rewrite
+# them on import from drs.yml and the glossary sources; Build-ContractReference rewrites the per-unit contract
 # pages from the contract assets; Build-GitKeep rewrites every .gitkeep from its one source.
 pwsh/.compiled/** linguist-generated
 **/.gitkeep     linguist-generated

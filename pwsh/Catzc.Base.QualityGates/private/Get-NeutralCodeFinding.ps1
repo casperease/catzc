@@ -27,7 +27,7 @@ function Get-NeutralCodeFinding {
     )
 
     $tiers = [Catzc.Base.Timeouts.TestTiers]::Names
-    $form = (Get-Config -Config adrs).CodeForm
+    $form = (Get-Config -Config drs).CodeForm
     $codePattern = [regex]::new("(?<![\w-])$($form.Cited)")
     $kindMarker = [regex]::new("$($form.Kind)-")
     $isBlockCommand = {

@@ -48,7 +48,7 @@ public sealed class RungsConfig
 
     private static readonly string[] AllowedKeys = { "rungs" };
     private static readonly string[] AllowedRungKeys = { "environment", "gate", "rules" };
-    private static readonly Regex RuleCode = new Regex("^" + Catzc.Base.Docs.AdrCodeForm.AnyKind.Cited + "$");
+    private static readonly Regex RuleCode = new Regex("^" + Catzc.Base.Drs.DrsCodeForm.AnyKind.Cited + "$");
     private static readonly Regex KebabCase = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
     // The rungs in climbing order.

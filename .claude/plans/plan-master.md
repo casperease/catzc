@@ -60,6 +60,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   `content.minimaps`, then the gate in Write-DiagramMinimapData drops an undeclared lit cell.
 - drs-system -> plan-drs-system.md: the Decision Records System (DRS): docs/drs moves to docs/drs, the holder of the XDR record-kind
   domains; its root declared once, then the move after the user's go, the citations, and the Adr* names.
+- diagram-flat-files -> plan-diagram-flat-files.md: Every diagram is two files beside its pages, <name>.drawio.png and <name>.drawio.yml, never a folder of its own.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

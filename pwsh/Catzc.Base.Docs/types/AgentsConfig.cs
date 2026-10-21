@@ -20,6 +20,7 @@ catzc:
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Catzc.Base.Drs;
 
 namespace Catzc.Base.Docs;
 
@@ -29,7 +30,7 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] RequiredKeys = { "standard", "agents" };
     private static readonly string[] RoofKeys = { "agent_body_lines", "capability_lines" };
     private static readonly System.Text.RegularExpressions.Regex ContractRe =
-        new System.Text.RegularExpressions.Regex("^" + AdrCodeForm.AnyKind.Cited + "$", System.Text.RegularExpressions.RegexOptions.Compiled);
+        new System.Text.RegularExpressions.Regex("^" + DrsCodeForm.AnyKind.Cited + "$", System.Text.RegularExpressions.RegexOptions.Compiled);
 
     public IReadOnlyList<string> contracts { get; } = new[] { "ADR-REPO-AI" };
 

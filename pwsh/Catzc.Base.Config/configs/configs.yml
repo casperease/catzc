@@ -56,12 +56,12 @@ configs:
     type: Catzc.Base.Variants.ModuleTypesConfig
   track-types:
     type: Catzc.Base.Variants.TrackTypesConfig
-  adrs:
-    type: Catzc.Base.Docs.AdrsConfig
-  adr-checks:
-    type: Catzc.Base.Docs.AdrChecksConfig
-  adr-index:
-    type: Catzc.Base.Docs.AdrIndexConfig
+  drs:
+    type: Catzc.Base.Drs.DrsConfig
+  drs-checks:
+    type: Catzc.Base.Drs.DrsChecksConfig
+  drs-index:
+    type: Catzc.Base.Drs.DrsIndexConfig
   source-conventions:
     type: Catzc.Base.QualityGates.SourceConventionsConfig
   agents:
@@ -91,8 +91,8 @@ configs:
     type: Catzc.Base.Flow.RungsConfig
   truth-stores:
     type: Catzc.Base.Flow.TruthStoresConfig
-  analyzer-adr-map:
-    type: Catzc.Base.QualityGates.AnalyzerAdrMapConfig
+  analyzer-drs-map:
+    type: Catzc.Base.QualityGates.AnalyzerDrsMapConfig
   vendor:
     type: Catzc.Base.Vendor.VendorConfig
   timeouts:

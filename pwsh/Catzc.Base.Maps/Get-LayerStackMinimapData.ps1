@@ -27,8 +27,8 @@ function Get-LayerStackMinimapData {
     )
 
     # The layers in stack order; each subject file lights the layer of the ADR its requested code belongs to.
-    $layers = [string[]] @([Catzc.Base.Docs.AdrsConfig]::Layers)
-    $ruleSets = @(Get-AdrRuleSet | Sort-Object { $_.External.Length } -Descending)
+    $layers = [string[]] @([Catzc.Base.Drs.DrsConfig]::Layers)
+    $ruleSets = @(Get-DrsRuleSet | Sort-Object { $_.External.Length } -Descending)
     $count = @{}
     $reasons = @{}
     foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {

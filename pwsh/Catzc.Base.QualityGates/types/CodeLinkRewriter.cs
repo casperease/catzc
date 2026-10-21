@@ -16,7 +16,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using Catzc.Base.Docs;
+using Catzc.Base.Drs;
 
 namespace Catzc.Base.QualityGates;
 
@@ -32,13 +32,13 @@ public sealed class CodeLinkRewriter
     readonly Regex CitationOnly;
     readonly Regex AdjacentCitation;
 
-    readonly AdrCitationMap map;
+    readonly DrsCitationMap map;
     readonly Func<string, IReadOnlyCollection<string>> anchorsOf;
 
-    // The decision records' folder with its trailing '/', e.g. docs/drs/ (AdrsConfig.Root).
+    // The decision records' folder with its trailing '/', e.g. docs/drs/ (DrsConfig.Root).
     readonly string recordRoot;
 
-    public CodeLinkRewriter(AdrCitationMap map, AdrsConfig adrs, Func<string, IReadOnlyCollection<string>> anchorsOf)
+    public CodeLinkRewriter(DrsCitationMap map, DrsConfig adrs, Func<string, IReadOnlyCollection<string>> anchorsOf)
     {
         this.map = map ?? throw new ArgumentNullException(nameof(map));
         if (adrs == null) { throw new ArgumentNullException(nameof(adrs)); }

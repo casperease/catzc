@@ -62,7 +62,7 @@ agents:
       - Test-Glossary
       - Build-Readme
       - Build-Glossary
-      - Build-AdrIndex
+      - Build-DrsIndex
       - Test-GeneratedFiles
 
   # Authors new diagrams in the visual grammar and lands the approved ones under docs/.assets/, embedded in their ADRs.

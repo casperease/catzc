@@ -68,7 +68,7 @@ function Move-Diagram {
         else {
             ''
         }
-        $rebased = [Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase($text, $page, $folder, $from, $to)
+        $rebased = [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase($text, $page, $folder, $from, $to)
         if ($rebased -cne $text) {
             $edits.Add([pscustomobject]@{ Page = $target; Text = $rebased })
         }

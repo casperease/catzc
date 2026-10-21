@@ -29,7 +29,7 @@ public sealed class ValueChainMap
 {
     private readonly Dictionary<string, ValueChainCell> cellByKey = new Dictionary<string, ValueChainCell>(StringComparer.Ordinal);
     private readonly Dictionary<string, ValueChainCell[]> cellsByAdr = new Dictionary<string, ValueChainCell[]>(StringComparer.Ordinal);
-    private readonly Dictionary<string, Catzc.Base.Docs.AdrRuleSet> ruleSetByAdr;
+    private readonly Dictionary<string, Catzc.Base.Drs.DrsRuleSet> ruleSetByAdr;
 
     // The rows: the rows of the value-chain stack, top to bottom.
     public IReadOnlyList<string> Stacks { get; }
@@ -55,7 +55,7 @@ public sealed class ValueChainMap
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     private ValueChainMap(string[] stacks, string[] concerns, ValueChainCell[] cells, string[] adrs, string[] unplaced, string[] strays,
-        Dictionary<string, List<string>> keysByAdr, Dictionary<string, Catzc.Base.Docs.AdrRuleSet> ruleSets)
+        Dictionary<string, List<string>> keysByAdr, Dictionary<string, Catzc.Base.Drs.DrsRuleSet> ruleSets)
     {
         ruleSetByAdr = ruleSets;
         Stacks = stacks;
@@ -88,14 +88,14 @@ public sealed class ValueChainMap
         List<string> strays = new List<string>();
         Dictionary<string, List<string>> keysByAdr = new Dictionary<string, List<string>>(StringComparer.Ordinal);
         Dictionary<string, List<string>> adrsByKey = new Dictionary<string, List<string>>(StringComparer.Ordinal);
-        Dictionary<string, Catzc.Base.Docs.AdrRuleSet> ruleSetByAdr = new Dictionary<string, Catzc.Base.Docs.AdrRuleSet>(StringComparer.Ordinal);
+        Dictionary<string, Catzc.Base.Drs.DrsRuleSet> ruleSetByAdr = new Dictionary<string, Catzc.Base.Drs.DrsRuleSet>(StringComparer.Ordinal);
         foreach (object item in ruleSets ?? Array.Empty<object>())
         {
-            Catzc.Base.Docs.AdrRuleSet ruleSet = item as Catzc.Base.Docs.AdrRuleSet;
+            Catzc.Base.Drs.DrsRuleSet ruleSet = item as Catzc.Base.Drs.DrsRuleSet;
             if (ruleSet == null)
             {
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "value-chain map: an ADR is not a {0}",
-                    typeof(Catzc.Base.Docs.AdrRuleSet).FullName));
+                    typeof(Catzc.Base.Drs.DrsRuleSet).FullName));
             }
             string adr = ruleSet.External;
             if (string.IsNullOrEmpty(adr) || keysByAdr.ContainsKey(adr))
@@ -143,9 +143,9 @@ public sealed class ValueChainMap
     }
 
     // The registry entry an ADR code was placed from (its ADR domain, row and value-chain concerns), or null.
-    public Catzc.Base.Docs.AdrRuleSet RuleSetOf(string adr)
+    public Catzc.Base.Drs.DrsRuleSet RuleSetOf(string adr)
     {
-        Catzc.Base.Docs.AdrRuleSet ruleSet;
+        Catzc.Base.Drs.DrsRuleSet ruleSet;
         return adr != null && ruleSetByAdr.TryGetValue(adr, out ruleSet) ? ruleSet : null;
     }
 

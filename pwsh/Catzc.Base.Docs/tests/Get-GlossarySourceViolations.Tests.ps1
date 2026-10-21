@@ -80,11 +80,11 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
         $found[0] | Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': key 'widget_suite' is already used by 'gadget run' in widgets/Catzc.Gadget/*"
     }
 
-    It 'reports a domain that adrs.yml does not declare' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
+    It 'reports a domain that drs.yml does not declare' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $widget = & $script:source 'Widget' ([ordered]@{ 'widget suite' = (& $script:concept 'widget_suite' @{ domain = 'gadgetry' }) })
         $found = & $script:violations @($widget)
         $found.Count | Should -Be 1
-        $found[0] | Should -BeLike "*concept 'widget suite': domain 'gadgetry' is not an adrs.yml domain*"
+        $found[0] | Should -BeLike "*concept 'widget suite': domain 'gadgetry' is not an drs.yml domain*"
     }
 
     It 'reports an avoided phrase that is another source''s term' -Tag 'ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED' {

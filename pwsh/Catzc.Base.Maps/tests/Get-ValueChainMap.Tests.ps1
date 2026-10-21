@@ -17,18 +17,18 @@ catzc:
 
 Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:stacks = @([Catzc.Base.Docs.AdrsConfig]::Stacks)
-        $script:concerns = @([Catzc.Base.Docs.AdrsConfig]::Concerns)
+        $script:stacks = @([Catzc.Base.Drs.DrsConfig]::Stacks)
+        $script:concerns = @([Catzc.Base.Drs.DrsConfig]::Concerns)
         $script:ruleSets = @(
-            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget-gadget', 'ADR-WIDGET-GADGET', 'WIDGET', 'WIDGET',
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget-gadget', 'ADR-WIDGET-GADGET', 'WIDGET', 'WIDGET',
                 $script:stacks[0], [string[]] @($script:concerns[0], $script:concerns[2]), [string[]] @($script:concerns[0]))
-            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget-cog', 'ADR-WIDGET-COG', 'WIDGET', 'WIDGET',
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget-cog', 'ADR-WIDGET-COG', 'WIDGET', 'WIDGET',
                 $script:stacks[0], [string[]] @($script:concerns[0]), [string[]] @($script:concerns[0]))
         )
     }
 
     BeforeEach {
-        Mock Get-AdrRuleSet -ModuleName Catzc.Base.Maps { $script:ruleSets }
+        Mock Get-DrsRuleSet -ModuleName Catzc.Base.Maps { $script:ruleSets }
     }
 
     It 'crosses the value-chain stack with the value-chain concerns, every cell included' -Tag 'DDR-TRACK-VALUECHAINMAP' {
@@ -50,9 +50,9 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-ValueChainMap — the real registry' -Tag 'L1', 'integrity', 'source-only' {
-    It 'places every ADR of adrs.yml in at least one cell of its ADR domain''s row' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {
+    It 'places every ADR of drs.yml in at least one cell of its ADR domain''s row' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {
         $map = Get-ValueChainMap
-        $ruleSets = @(Get-AdrRuleSet)
+        $ruleSets = @(Get-DrsRuleSet)
         $map.AdrCount | Should -Be $ruleSets.Count
         $map.Unplaced | Should -BeNullOrEmpty
         $map.Strays | Should -BeNullOrEmpty

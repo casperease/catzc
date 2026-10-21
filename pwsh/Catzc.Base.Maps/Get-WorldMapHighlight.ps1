@@ -19,7 +19,7 @@ function Get-WorldMapHighlight {
     [OutputType([Catzc.Base.Maps.WorldMapHighlight], [string])]
     param(
         [Parameter(Mandatory, Position = 0, ParameterSetName = 'Adr')]
-        [ArgumentCompleter({ (Get-Config -Config adrs).RuleSets.External })]
+        [ArgumentCompleter({ (Get-Config -Config drs).RuleSets.External })]
         [string[]] $Adr,
 
         [Parameter(Mandatory, ParameterSetName = 'Path')]

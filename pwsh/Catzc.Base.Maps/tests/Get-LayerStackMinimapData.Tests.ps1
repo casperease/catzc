@@ -11,10 +11,10 @@ catzc:
 Describe 'Get-LayerStackMinimapData' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.maps/minimap.schema.json'))
-        Mock Get-AdrRuleSet -ModuleName Catzc.Base.Maps {
+        Mock Get-DrsRuleSet -ModuleName Catzc.Base.Maps {
             $concerns = [string[]] @('alpha')
-            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', 'ADR-WIDGET-GADGET', 'WIDGET', 'WIDGET', 'TOP', $concerns, $concerns, 'engine', $null)
-            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', 'ADR-WIDGET-GADGET-LONG', 'WIDGET', 'WIDGET', 'TOP', $concerns, $concerns, 'importer', $null)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', 'ADR-WIDGET-GADGET', 'WIDGET', 'WIDGET', 'TOP', $concerns, $concerns, 'engine', $null)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', 'ADR-WIDGET-GADGET-LONG', 'WIDGET', 'WIDGET', 'TOP', $concerns, $concerns, 'importer', $null)
         }
         Mock Get-MinimapSubject -ModuleName Catzc.Base.Maps {
             [pscustomobject]@{ Path = 'widgets/Get-Widget.ps1'; Requested = 'ADR-WIDGET-GADGET-SPIN'; Citations = @(); Facts = $null }
@@ -25,7 +25,7 @@ Describe 'Get-LayerStackMinimapData' -Tag 'L0', 'logic' {
 
     It 'lights the layer of the ADR each requested code belongs to, the longest code winning' {
         $data = Get-LayerStackMinimapData -Adr 'ADR-WIDGET'
-        $data.Axes[0].Values | Should -Be @([Catzc.Base.Docs.AdrsConfig]::Layers)
+        $data.Axes[0].Values | Should -Be @([Catzc.Base.Drs.DrsConfig]::Layers)
         @($data.Lit | ForEach-Object { $_.At[0] }) | Should -Be @('engine', 'importer')
         $data.Lit[1].Reasons[0].Note | Should -Be 'ADR-WIDGET-GADGET-LONG'
         Test-Json -Json $data.ToJson() -Schema $script:schema | Should -BeTrue

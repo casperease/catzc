@@ -37,7 +37,7 @@ Describe 'Get-SkippedClassCitationFinding' -Tag 'L0', 'logic' {
 
         Mock Get-Config -ModuleName Catzc.Base.QualityGates { $script:configs[$Config] }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('src/widget.sh', 'src/gadget.ps1', 'src/gizmo.sh', 'src/orphan.sh', 'src/bare.sh') }
-        Mock Get-AdrCodesFileMetaFact -ModuleName Catzc.Base.QualityGates {
+        Mock Get-DrsCodesFileMetaFact -ModuleName Catzc.Base.QualityGates {
             @{ cites = [string[]] @(if ($Path -ne 'src/gizmo.sh') {
                         'ADR-WIDGET-GADGET-TURN'
                     })

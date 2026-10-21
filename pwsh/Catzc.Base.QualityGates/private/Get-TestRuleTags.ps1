@@ -27,7 +27,7 @@ function Get-TestRuleTags {
         $block = $block.Parent
     }
 
-    $form = (Get-Config -Config adrs).CodeForm
+    $form = (Get-Config -Config drs).CodeForm
     $ids = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($levelTags in $levels) {
         foreach ($tag in $levelTags) {

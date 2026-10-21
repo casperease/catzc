@@ -21,7 +21,7 @@ function Get-ValueChainHighlight {
     [OutputType([Catzc.Base.Maps.ValueChainHighlight], [string])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [ArgumentCompleter({ (Get-Config -Config adrs).RuleSets.External })]
+        [ArgumentCompleter({ (Get-Config -Config drs).RuleSets.External })]
         [string[]] $Adr,
 
         [switch] $AsJson

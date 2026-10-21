@@ -20,7 +20,7 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
-            [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
+            [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)
         }
         $script:map = [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'BOTTOM'), @('alpha', 'beta', 'gamma'), @(
                 & $adr 'ADR-WIDGET-GADGET' 'TOP' @('alpha', 'gamma')
@@ -61,7 +61,7 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
     }
 
     It 'gives every lit cell a reason per ADR: its ADR domain''s row, the concern, and default or override' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {
-        $own = [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'gizmo', 'ADR-WIDGET-GIZMO', 'WIDGET', 'WIDGET', 'TOP',
+        $own = [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'gizmo', 'ADR-WIDGET-GIZMO', 'WIDGET', 'WIDGET', 'TOP',
             [string[]] @('beta'), [string[]] @('alpha', 'gamma'))
         $map = [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'BOTTOM'), @('alpha', 'beta', 'gamma'), @($own))
         $reason = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($map, 'ADR-WIDGET-GIZMO-SPIN').Reasons

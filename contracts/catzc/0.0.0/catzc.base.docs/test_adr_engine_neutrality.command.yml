@@ -1,6 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-AdrEngineNeutrality, the quality gate that checks the
-# configured ADR domains' rule summaries carry no engine-specific syntax and returns its result under -PassThru.
-parameters:
-  output_folder: string
-  pass_thru: switch
-output: catzc.base.reports.quality_gate_result

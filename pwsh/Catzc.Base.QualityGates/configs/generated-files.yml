@@ -9,14 +9,14 @@
 # ---
 
 writers:
-  Build-AdrIndex:
+  Build-DrsIndex:
   Build-Glossary:
   Build-Readme:
     result_path: Readme
   Build-ContractReference:
   Build-GitKeep:
   Build-TerminologyDictionary:
-  Build-AdrCodeDictionary:
+  Build-DrsCodeDictionary:
   Build-EnglishDictionary:
     check: english-dictionary
   Build-RootConfig:

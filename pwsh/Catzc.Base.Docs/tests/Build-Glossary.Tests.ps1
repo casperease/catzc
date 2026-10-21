@@ -46,7 +46,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
             })
             (& $entry 'gadget shelf' 'repository' @{ defined_by = $script:longRule })
         )
-        $citations = [Catzc.Base.Docs.AdrCitationMap]::new(
+        $citations = [Catzc.Base.Drs.DrsCitationMap]::new(
             @{ 'ADR-TST-WIDGET' = @{ path = 'docs/drs/repository/widget-thing.md'; rules = [string[]] @('ADR-TST-WIDGET-REST', $script:longRule) } },
             @('docs/drs/repository/widget-thing.md'))
         $domains = [pscustomobject]@{
@@ -54,13 +54,13 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
             Domains = @([pscustomobject]@{ Name = 'repository' }, [pscustomobject]@{ Name = 'automation' }, [pscustomobject]@{ Name = 'flow' })
         }
         Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()
-        Mock Get-AdrCitationMap -ModuleName Catzc.Base.Docs -MockWith { $citations }.GetNewClosure()
+        Mock Get-DrsCitationMap -ModuleName Catzc.Base.Docs -MockWith { $citations }.GetNewClosure()
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } -MockWith { $domains }.GetNewClosure()
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         $script:page = Join-Path $TestDrive 'glossary.md'
     }
 
-    It 'renders a section per domain in adrs.yml order, each term with its rule link, realization, relations, contrasts, and avoids' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
+    It 'renders a section per domain in drs.yml order, each term with its rule link, realization, relations, contrasts, and avoids' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         Build-Glossary -Path $script:page -Silent | Out-Null
         $text = [System.IO.File]::ReadAllText($script:page)
 
@@ -133,9 +133,9 @@ Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 's
     }
 }
 
-Describe 'Build-Glossary — shipped configs/adrs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+Describe 'Build-Glossary — shipped configs/drs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'finds the domain registry and the type sources in the loaded module' {
-        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/adrs.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
+        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/drs.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
         @($registry['domains'].Keys).Count | Should -BeGreaterThan 0
         [System.IO.Directory]::EnumerateFiles((Get-CatzcModuleRoot 'types' -Module Catzc.Base.Docs), '*.cs') | Should -Not -BeNullOrEmpty
     }

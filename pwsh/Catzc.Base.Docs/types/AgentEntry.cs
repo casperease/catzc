@@ -18,6 +18,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Catzc.Base.Drs;
 
 namespace Catzc.Base.Docs;
 
@@ -26,7 +27,7 @@ public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] AllowedKeys = { "name", "supported_by", "checks", "model_reason", "persona" };
     private static readonly Regex NameRe = new Regex("^[a-z0-9]+(-[a-z0-9]+)*$", RegexOptions.Compiled);
     private static readonly Regex PersonaRe = new Regex("^[A-Z][a-z]+( [A-Za-z]+){0,3}$", RegexOptions.Compiled);
-    private static readonly Regex CitationRe = new Regex("^" + AdrCodeForm.AnyKind.Rule + "$", RegexOptions.Compiled);
+    private static readonly Regex CitationRe = new Regex("^" + DrsCodeForm.AnyKind.Rule + "$", RegexOptions.Compiled);
     private static readonly Regex CommandRe = new Regex("^[A-Z][a-z]+-[A-Za-z0-9]+$", RegexOptions.Compiled);
 
     // The agent's name: the file .claude/agents/<name>.md and its front-matter name.

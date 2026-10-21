@@ -37,8 +37,8 @@ function Invoke-LinkEngine {
     }
     $engine = [Catzc.Base.QualityGates.LinkEngine]::new(
         $RepositoryRoot,
-        (Get-AdrCitationMap -RepositoryRoot $RepositoryRoot),
-        (Get-Config -Config adrs),
+        (Get-DrsCitationMap -RepositoryRoot $RepositoryRoot),
+        (Get-Config -Config drs),
         $Wrap,
         $limits,
         $settings.default_line_limit,

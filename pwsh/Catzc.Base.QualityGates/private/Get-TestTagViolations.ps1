@@ -20,7 +20,7 @@ function Get-TestTagViolations {
     )
 
     $validRuleIds = $null
-    $form = (Get-Config -Config adrs).CodeForm
+    $form = (Get-Config -Config drs).CodeForm
     $citationTag = "^$($form.Kind)-"
 
     $violations = foreach ($test in $Discovery.Tests) {
@@ -70,10 +70,10 @@ function Get-TestTagViolations {
             }
             if ($null -eq $validRuleIds) {
                 $validRuleIds = [System.Collections.Generic.HashSet[string]]::new(
-                    [string[]] (Get-CatsAdrRuleIds), [System.StringComparer]::Ordinal)
+                    [string[]] (Get-CatsDrsRuleIds), [System.StringComparer]::Ordinal)
             }
             if (-not $validRuleIds.Contains($tag)) {
-                $reasons += "unknown ADR rule '$tag' — no such rule in $((Get-Config -Config adrs).Root)"
+                $reasons += "unknown ADR rule '$tag' — no such rule in $((Get-Config -Config drs).Root)"
             }
         }
 

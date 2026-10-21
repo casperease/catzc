@@ -39,8 +39,8 @@ function Get-WorldMap {
 
     $adrIndex = [ordered]@{}
     $adrFiles = [ordered]@{}
-    $citationMap = Get-AdrCitationMap
-    foreach ($ruleSet in Get-AdrRuleSet) {
+    $citationMap = Get-DrsCitationMap
+    foreach ($ruleSet in Get-DrsRuleSet) {
         $adrIndex[$ruleSet.External] = $ruleSet.Domain
         $adrFile = $citationMap.PathOf($ruleSet.External)
         if ($adrFile) {

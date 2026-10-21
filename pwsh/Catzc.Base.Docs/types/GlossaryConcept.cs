@@ -21,6 +21,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Catzc.Base.Drs;
 
 namespace Catzc.Base.Docs;
 
@@ -40,12 +41,12 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // A machine key: snake_case ('test_suite', 'all_tests').
     public static readonly Regex KeyRe = new Regex("^[a-z][a-z0-9]*(_[a-z0-9]+)*$", RegexOptions.Compiled);
 
-    public static readonly Regex CitationRe = new Regex("^" + AdrCodeForm.AnyKind.Rule + "$", RegexOptions.Compiled);
+    public static readonly Regex CitationRe = new Regex("^" + DrsCodeForm.AnyKind.Rule + "$", RegexOptions.Compiled);
 
     // One qualifier word in a concept's forms ('quality', 'CI').
     public static readonly Regex FormRe = new Regex("^[A-Za-z0-9]+$", RegexOptions.Compiled);
 
-    // An ADR domain key, as adrs.yml spells it ('automation', 'repository').
+    // An ADR domain key, as drs.yml spells it ('automation', 'repository').
     private static readonly Regex DomainRe = new Regex("^[a-z]+(-[a-z]+)*$", RegexOptions.Compiled);
 
     // The canonical term (the concepts: map key). Required.
@@ -54,7 +55,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // The snake_case machine key. Required.
     public string key { get; }
 
-    // The adrs.yml domain the term belongs to. Required.
+    // The drs.yml domain the term belongs to. Required.
     public string domain { get; }
 
     // The citation of the one rule that defines the term. Required.
@@ -105,7 +106,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
         @short = Capture(() => Req(d, "short").Trim(), errors);
 
         if (key != null && !KeyRe.IsMatch(key)) { errors.Add(string.Format("key '{0}' must be snake_case", key)); }
-        if (domain != null && !DomainRe.IsMatch(domain)) { errors.Add(string.Format("domain '{0}' must be an adrs.yml domain key", domain)); }
+        if (domain != null && !DomainRe.IsMatch(domain)) { errors.Add(string.Format("domain '{0}' must be an drs.yml domain key", domain)); }
         if (defined_by != null && !CitationRe.IsMatch(defined_by))
         {
             errors.Add(string.Format("defined_by '{0}' must be a rule's code, upper-case segments joined by '-'", defined_by));

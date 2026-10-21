@@ -22,7 +22,7 @@ function Get-AdrRuleText {
         [string] $RepositoryRoot
     )
 
-    $map = Get-AdrCitationMap -RepositoryRoot $RepositoryRoot
+    $map = Get-DrsCitationMap -RepositoryRoot $RepositoryRoot
     if (-not $map.IsRule($Code)) {
         return $null
     }

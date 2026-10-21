@@ -24,7 +24,7 @@ metadata:
 2. At the end on the owned files, each at 0: `Test-ScriptAnalyzer -Path <ps1> -PassThru`, `Test-Spelling -Path <files> -PassThru`,
    `Format-Types -Path <module>/types -DryRun -PassThru` for C#, `Format-Code -Path <files>` (before any fresh import: formatting a C# type
    changes the types hash) then `Test-Links -Path <md> -PassThru`, `Test-Glossary -PassThru` (issues naming an owned file), and after a
-   generated file's source changed its generator (`Build-Readme`, `Build-Glossary`, `Build-AdrIndex`) then `Test-GeneratedFiles -PassThru`;
+   generated file's source changed its generator (`Build-Readme`, `Build-Glossary`, `Build-DrsIndex`) then `Test-GeneratedFiles -PassThru`;
    never the full `Test-Automation`; a new command's task closes only on one live run of it, its output reported verbatim, never on green
    tests alone.
 3. Shared files are the coordinator's unless the brief names them owned: `dependencies.yml`, `configs.yml`, `rootconfig.yml`,

@@ -19,7 +19,7 @@ function Invoke-MarkdownTitleEngine {
     )
 
     $files = Get-MarkdownScope -RepositoryRoot $RepositoryRoot -Path $Path
-    $citation = Get-AdrCitationPath -RepositoryRoot $RepositoryRoot
+    $citation = Get-DrsCitationPath -RepositoryRoot $RepositoryRoot
 
     $entries = [ordered]@{}
     $rename = @{}

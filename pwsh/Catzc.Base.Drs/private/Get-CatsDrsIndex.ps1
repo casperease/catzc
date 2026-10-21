@@ -1,0 +1,47 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "132df9dd97e2"
+  edges:
+    test: pwsh/Catzc.Base.Drs/tests/Get-CatsDrsIndex.Tests.ps1
+    docs: "[Get-CatsDrsIndex.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-CatsDrsIndex.ps1.md)"
+    cites:
+      - ADR-AUTO-CACHE
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+---
+#>
+
+function Get-CatsDrsIndex {
+    [OutputType([object[]])]
+    [CmdletBinding()]
+    param(
+        [string] $IndexPath = (Resolve-RepoPath "$((Get-Config -Config drs).Root)/index.md")
+    )
+
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrIndexCache')) {
+        $script:catsAdrIndexCache = @{}
+    }
+    if ($script:catsAdrIndexCache.ContainsKey($IndexPath)) {
+        return , $script:catsAdrIndexCache[$IndexPath]
+    }
+
+    Assert-PathExist $IndexPath
+
+    $row = "^\|\s*``(?<code>$((Get-Config -Config drs).CodeForm.Cited))``\s*\|\s*\[(?<title>[^\]]+)\]\((?<path>[^)]+)\)"
+    $lines = [System.IO.File]::ReadAllLines($IndexPath)
+    $ret = foreach ($line in $lines) {
+        if ($line -notmatch $row) {
+            continue
+        }
+        [pscustomobject]@{
+            Code  = $Matches['code']
+            Title = $Matches['title']
+            Path  = $Matches['path']
+        }
+    }
+
+    $ret = @($ret)
+    $script:catsAdrIndexCache[$IndexPath] = $ret
+    , $ret
+}

@@ -42,7 +42,7 @@ function Get-DiagramSupportsDrift {
     else {
         'meta'
     }
-    $cited = (Get-Config -Config adrs).CodeForm.Cited
+    $cited = (Get-Config -Config drs).CodeForm.Cited
     foreach ($pagePath in $Page) {
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $pagePath))
         $lines = @([regex]::Matches($text, '(?m)^Supports (.+?) \((\w+) lens\)\.?\s*$'))

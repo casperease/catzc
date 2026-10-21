@@ -23,7 +23,7 @@ function Get-ReadmeContent {
     # The copy carries the article, not the source's meta block, so it opens with its title as a reader expects.
     $text = Remove-MarkdownFrontMatter -Text ([System.IO.File]::ReadAllText($sourcePath) -replace "`r", '')
     # The rebased links are longer than the source's, so a line the source wrapped at the width can pass it here; wrap those blocks again.
-    $body = Format-LongMarkdownLines -Text ([Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase($text, $Mapping.source, $Mapping.folder))
+    $body = Format-LongMarkdownLines -Text ([Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase($text, $Mapping.source, $Mapping.folder))
 
     # The head names the source to edit and says not to edit the copy, so the body is the article alone.
     $readme = "$($Mapping.folder)/README.md"

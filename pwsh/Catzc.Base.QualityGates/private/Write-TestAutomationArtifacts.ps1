@@ -60,8 +60,8 @@ function Write-TestAutomationArtifacts {
     }
 
     try {
-        $ruleIds = Get-CatsAdrRuleIds
-        Write-TestAutomationRuleCoverage -Rows $Rows -AnalyzerCoverage @(Get-AnalyzerAdrCoverage) `
+        $ruleIds = Get-CatsDrsRuleIds
+        Write-TestAutomationRuleCoverage -Rows $Rows -AnalyzerCoverage @(Get-AnalyzerDrsCoverage) `
             -AllRuleIds @($ruleIds) -OutputFolder $RunDirectory
     }
     catch {

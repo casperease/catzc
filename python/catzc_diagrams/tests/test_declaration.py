@@ -242,7 +242,7 @@ def claimed():
 def test_the_subject_is_its_adr_codes_checked_against_the_registry():
     raw = claimed()
     raw["about"]["adrs"] = ["ADR-WIDGET-NOWHERE"]
-    with pytest.raises(declaration.DeclarationError, match="is not a rule of an ADR in adrs.yml"):
+    with pytest.raises(declaration.DeclarationError, match="is not a rule of an ADR in drs.yml"):
         declaration.normalise(raw)
 
 

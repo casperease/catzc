@@ -18,10 +18,10 @@ groups:
     Catzc.Base.CodeMeta: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.MarkdownMeta]
     Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Folders: [Catzc.Base.Config, Catzc.Base.Objects]
-    Catzc.Base.Flow: [Catzc.Base.Docs, Catzc.Base.Config, Catzc.Base.Objects]
+    Catzc.Base.Flow: [Catzc.Base.Drs, Catzc.Base.Config, Catzc.Base.Objects]
     Catzc.Base.Slides:
       [
-        Catzc.Base.Docs,
+        Catzc.Base.Drs,
         Catzc.Base.Execution,
         Catzc.Base.Files,
         Catzc.Base.MarkdownMeta,
@@ -39,8 +39,23 @@ groups:
       [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.Folders]
     Catzc.Base.ConfigExtensions: [Catzc.Base.Reports, Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Asserts]
     Catzc.Base.Variants: [Catzc.Base.Engines, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Asserts]
+    Catzc.Base.Drs:
+      [
+        Catzc.Base.Asserts,
+        Catzc.Base.Config,
+        Catzc.Base.Files,
+        Catzc.Base.Folders,
+        Catzc.Base.Globs,
+        Catzc.Base.Languages,
+        Catzc.Base.MarkdownMeta,
+        Catzc.Base.Objects,
+        Catzc.Base.Reports,
+        Catzc.Base.Repository,
+        Catzc.Base.Writers,
+      ]
     Catzc.Base.Docs:
       [
+        Catzc.Base.Drs,
         Catzc.Base.Config,
         Catzc.Base.Repository,
         Catzc.Base.Files,
@@ -174,6 +189,7 @@ groups:
       ]
     Catzc.Base.QualityGates:
       [
+        Catzc.Base.Drs,
         Catzc.Base.Contracts,
         Catzc.Base.Engines,
         Catzc.Base.Timeouts,
@@ -214,6 +230,7 @@ groups:
       ]
     Catzc.Base.Maps:
       [
+        Catzc.Base.Drs,
         Catzc.Base.Docs,
         Catzc.Base.Engines,
         Catzc.Base.Flow,

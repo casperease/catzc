@@ -53,8 +53,8 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
                 [pscustomobject]@{ Name = $name }
             }
         }
-        Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates {
-            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-WIDGET-GADGET' = @{ path = 'docs/drs/widget/gadget.md'; rules = [string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN') } }, @())
+        Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.Drs.DrsCitationMap]::new(@{ 'ADR-WIDGET-GADGET' = @{ path = 'docs/drs/widget/gadget.md'; rules = [string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN') } }, @())
         }
         & $script:useMode 'gate'
         New-FixtureFile 'Widget/Get-Widget.ps1' 'function Get-Widget { }'

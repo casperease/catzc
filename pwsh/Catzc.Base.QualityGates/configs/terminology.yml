@@ -63,7 +63,7 @@ categories:
       - "docs/drs/glossary.md"
       - "docs/references/**/*accosted*"
       - "docs/references/pwsh/catzc-base-contracts.md"
-      - "pwsh/Catzc.Base.Docs/configs/adrs.yml"
+      - "pwsh/Catzc.Base.Drs/configs/drs.yml"
       - "pwsh/Catzc.Base.Languages/configs/languages.yml"
       - "pwsh/Catzc.Base.Languages/configs/file-carriers.yml"
       - "pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1"
@@ -172,7 +172,7 @@ terms:
     - term: worldmap
       meaning: "a world-map image the draw.io atlas helper (python/catzc_diagrams/atlas.py) draws on"
     - term: adrs
-      meaning: "ADRs — plural of ADR; the adrs.yml registry of ADR domain structure and citation codes"
+      meaning: "ADRs — plural of ADR; the drs.yml registry of ADR domain structure and citation codes"
     - term: ast
       meaning: "abstract syntax tree (AST) — the PowerShell parser's AST"
     - term: trie
@@ -371,7 +371,7 @@ terms:
         "DevOps Research and Assessment (DORA) — the research program and its DevOps capability model, cited as a cross-cutting source"
       expands_to: "DevOps Research and Assessment"
     - term: dsgn
-      meaning: "DSGN — the design stack row of the value chain (AdrsConfig.Stacks)"
+      meaning: "DSGN — the design stack row of the value chain (DrsConfig.Stacks)"
       expands_to: "design"
     - term: devops
       meaning: "development and operations (DevOps)"

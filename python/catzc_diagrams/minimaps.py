@@ -63,15 +63,15 @@ def tracks():
 
 @cache
 def kinds():
-    """The record kinds as one regex group, e.g. (?:ADR|TDR), from adrs.yml's kinds; with none declared, the one shared kind ADR."""
-    declared = registry("pwsh/Catzc.Base.Docs/configs/adrs.yml").get("kinds") or {"ADR": {}}
+    """The record kinds as one regex group, e.g. (?:ADR|TDR), from drs.yml's kinds; with none declared, the one shared kind ADR."""
+    declared = registry("pwsh/Catzc.Base.Drs/configs/drs.yml").get("kinds") or {"ADR": {}}
     return "(?:" + "|".join(declared) + ")"
 
 
 @cache
 def records_root():
-    """The repository-relative folder of every decision record: adrs.yml's root, else the default AdrsConfig.DefaultRoot declares, docs/drs."""
-    return registry("pwsh/Catzc.Base.Docs/configs/adrs.yml").get("root") or "docs/drs"
+    """The repository-relative folder of every decision record: drs.yml's root, else the default DrsConfig.DefaultRoot declares, docs/drs."""
+    return registry("pwsh/Catzc.Base.Drs/configs/drs.yml").get("root") or "docs/drs"
 
 
 @cache
@@ -91,13 +91,13 @@ def adrs():
             if key != "rulesets":
                 walk(value, stack, concern)
 
-    walk(registry("pwsh/Catzc.Base.Docs/configs/adrs.yml"))
+    walk(registry("pwsh/Catzc.Base.Drs/configs/drs.yml"))
     return found
 
 
 @cache
 def rules():
-    """Every rule code the ADRs define: the `### Rule <code>` headings under the records' root, of every record kind adrs.yml declares."""
+    """Every rule code the ADRs define: the `### Rule <code>` headings under the records' root, of every record kind drs.yml declares."""
     heading = re.compile(r"### Rule " + kinds() + r"-")
     found = set()
     for page in (REPO / records_root()).rglob("*.md"):
@@ -119,7 +119,7 @@ def problems(about):
     for code in about["adrs"]:
         adr = adr_of(code)
         if adr is None:
-            out.append(f"about.adrs '{code}' is not a rule of an ADR in adrs.yml")
+            out.append(f"about.adrs '{code}' is not a rule of an ADR in drs.yml")
         elif code not in adrs() and code not in rules():
             siblings = sorted(r for r in rules() if r.startswith(adr + "-"))
             out.append(f"about.adrs '{code}' is not a rule of {adr}; its rules are: {', '.join(siblings)}")

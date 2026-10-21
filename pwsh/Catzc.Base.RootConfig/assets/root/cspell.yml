@@ -72,7 +72,7 @@ dictionaryDefinitions:
     path: ./.cspell/adr-example.txt
   - name: catzc-terms-adr
     path: ./.cspell/adr.txt
-  # Every segment of every ADR code and rule heading, generated from the ADR registry by Build-AdrCodeDictionary.
+  # Every segment of every ADR code and rule heading, generated from the ADR registry by Build-DrsCodeDictionary.
   - name: catzc-adr-codes
     path: ./.cspell/adr-codes.txt
   - name: catzc-terms-ado

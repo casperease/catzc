@@ -85,8 +85,8 @@ Notes for $Id.
             }
         }
         # The index the slides' cites are checked against: one ADR and its two rules.
-        Mock Get-AdrCitationMap -ModuleName Catzc.Base.Slides {
-            [Catzc.Base.Docs.AdrCitationMap]::new(
+        Mock Get-DrsCitationMap -ModuleName Catzc.Base.Slides {
+            [Catzc.Base.Drs.DrsCitationMap]::new(
                 @{ 'ADR-WIDGET-GADGET' = @{ path = 'docs/drs/widget/gadget.md'; rules = [string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN') } }, $null)
         }
         Mock Write-Message -ModuleName Catzc.Base.Slides {}

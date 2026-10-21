@@ -37,7 +37,7 @@ public sealed class MarkdownLinkScanner
     readonly string selfUrlPrefix;
     readonly HashSet<string> tracked;
 
-    public MarkdownLinkScanner(string repositoryRoot, Catzc.Base.Docs.AdrCodeForm codeForm, Func<string, IReadOnlyCollection<string>> anchorsOf,
+    public MarkdownLinkScanner(string repositoryRoot, Catzc.Base.Drs.DrsCodeForm codeForm, Func<string, IReadOnlyCollection<string>> anchorsOf,
         string selfUrlPrefix, IEnumerable<string> trackedFiles)
     {
         root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));

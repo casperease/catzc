@@ -15,7 +15,7 @@ catzc:
 Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
-        Mock Build-AdrIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/index.md'; Changed = $false; DryRun = $true } }
+        Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/index.md'; Changed = $false; DryRun = $true } }
         Mock Build-Glossary -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/glossary.md'; Changed = $false; DryRun = $true; ConceptCount = 2 } }
         Mock Build-Readme -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Folder = 'widget'; Source = 'docs/widget.md'; Readme = 'widget/README.md'; Changed = $false; DryRun = $true } }
         Mock Build-ContractReference -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/contracts/widget.md'; Changed = $false; DryRun = $true } }
@@ -33,7 +33,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
 
     It 'passes a tree where no generator would change a file' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-GeneratedFiles -OutputFolder $script:reportFolder } | Should -Not -Throw
-        Should -Invoke Build-AdrIndex -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
+        Should -Invoke Build-DrsIndex -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
         Should -Invoke Build-RootConfig -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
     }
 
@@ -42,11 +42,11 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Path = 'widget/.gitkeep'; Changed = $true; DryRun = $true }
             [pscustomobject]@{ Path = 'gadget/.gitkeep'; Changed = $true; DryRun = $true }
         }
-        Mock Build-AdrIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/index.md'; Changed = $true; DryRun = $true } }
+        Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/index.md'; Changed = $true; DryRun = $true } }
 
         $thrown = { Test-GeneratedFiles -OutputFolder $script:reportFolder } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-GeneratedFiles failed: 3 issue(s)*'
-        $thrown.Exception.Message | Should -BeLike '*docs/widget/index.md: stale — Build-AdrIndex would change it; regenerate with: Build-AdrIndex*'
+        $thrown.Exception.Message | Should -BeLike '*docs/widget/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex*'
         $thrown.Exception.Message | Should -BeLike '*widget/.gitkeep: stale — Build-GitKeep*'
         $thrown.Exception.Message | Should -BeLike '*gadget/.gitkeep: stale — Build-GitKeep*'
     }
@@ -77,7 +77,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
 
     It 'lists the writers of generated-files.yml and the generators of rootconfig.yml, so no generator is left out' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $known = InModuleScope Catzc.Base.QualityGates { Get-GeneratedFileGenerator }
-        $known | Should -Contain 'Build-AdrIndex'
+        $known | Should -Contain 'Build-DrsIndex'
         $known | Should -Contain 'Build-RootConfig'
         $known | Should -Contain 'New-PythonProject'
         @($known | Select-Object -Unique).Count | Should -Be $known.Count
@@ -90,7 +90,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
 
     It 'throws naming the known generators when a generator is unknown' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $thrown = { Test-GeneratedFiles -Generator Build-Widget -OutputFolder $script:reportFolder } | Should -Throw -PassThru
-        $thrown.Exception.Message | Should -BeLike "Unknown generator 'Build-Widget'. The generators are: Build-AdrIndex*"
+        $thrown.Exception.Message | Should -BeLike "Unknown generator 'Build-Widget'. The generators are: Build-DrsIndex*"
     }
 
     It 'attributes a rendered root file to its generator and a copied one to Build-RootConfig' {
@@ -113,7 +113,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $result = Test-GeneratedFiles -Generator New-VsCodeSettings -PassThru -OutputFolder $script:reportFolder
         $result.Issues | Should -Be @("widget.json: stale — New-VsCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'")
         $result.Facts['Generators'] | Should -Be 1
-        Should -Invoke Build-AdrIndex -ModuleName Catzc.Base.QualityGates -Times 0
+        Should -Invoke Build-DrsIndex -ModuleName Catzc.Base.QualityGates -Times 0
         Should -Invoke Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
