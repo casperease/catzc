@@ -426,13 +426,15 @@ def render(root, page=None):
         width = int(float(s.get("strokeWidth", 1))) + 1
         line = rounded(pts) if s.get("rounded") == "1" and len(pts) > 2 else pts
         if s.get("dashed") == "1":
-            dashed_line(d, line, ink, width)
+            # A dashPattern is in stroke widths, as draw.io scales it; without one, the kit's dash.
+            pattern = [float(n) * width for n in s["dashPattern"].split()] if s.get("dashPattern") else (6, 4)
+            dashed_line(d, line, ink, width, *pattern[:2])
         else:
             d.line(line, fill=ink, width=width, joint="curve")
         if s.get("endArrow", "classic") != "none":
-            arrow(d, pts[-2], pts[-1], ink)
+            arrow(d, pts[-2], pts[-1], ink, s.get("endArrow", "classic"))
         if s.get("startArrow", "none") != "none":
-            arrow(d, pts[1], pts[0], ink)
+            arrow(d, pts[1], pts[0], ink, s.get("startArrow"))
         label = plain(c.get("value"))
         if label:
             # Centred on the line's halfway point and just above it, as draw.io lays an edge label out.
@@ -549,10 +551,16 @@ def flex_arrow(d, a, b, s):
     d.polygon(outline, fill=faded(color(s.get("fillColor"), LINE), s), outline=color(s.get("strokeColor"), LINE))
 
 
-def arrow(d, a, b, ink):
+def arrow(d, a, b, ink, kind="block"):
     import math
+    if kind == "oval":
+        d.ellipse([b[0] - 4, b[1] - 4, b[0] + 4, b[1] + 4], fill=ink)
+        return
     ang = math.atan2(b[1] - a[1], b[0] - a[0])
     pts = [b, (b[0] - 10 * math.cos(ang - .4), b[1] - 10 * math.sin(ang - .4)), (b[0] - 10 * math.cos(ang + .4), b[1] - 10 * math.sin(ang + .4))]
+    if kind == "open":
+        d.line([pts[1], b, pts[2]], fill=ink, width=2, joint="curve")
+        return
     d.polygon(pts, fill=ink)
 
 

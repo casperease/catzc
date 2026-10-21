@@ -13,42 +13,6 @@ catzc:
 #>
 
 function New-Plan {
-    <#
-    .SYNOPSIS
-        Starts a plan: writes plan-<topic>.md in the plans folder with its head and its open steps section, its value row and its master line.
-
-    .DESCRIPTION
-        The way a plan starts (ADR-REPO-PLANS-ONETOPICONEFILE): the file it writes carries the plan head (status active, the value, today's
-        date as reviewed, the targets) and the sections ADR-REPO-PLANS-ONESHAPE requires, so Test-Plans passes it before a step is written.
-        A plan is three parts (ADR-REPO-PLANS-THREEPARTS), so it also adds the plan's row to the value overlay's table under the
-        "<Class> plans" heading, and its chunk line to the master's Chunks list, ahead of the pointer lines to task files, which the master
-        keeps last; the planner moves the line to its place. It refuses a topic whose file exists, a name the plans folder does not accept,
-        a value outside the ranks, a target that does not exist, and an overlay without the section the plan goes in.
-
-    .PARAMETER Topic
-        The plan's topic in kebab case; the file is plan-<topic>.md.
-
-    .PARAMETER Value
-        The plan's rank, one of the plans config's ranks.
-
-    .PARAMETER Class
-        The plan's class, such as feature or meta.
-
-    .PARAMETER Target
-        The repository-relative paths the plan changes, each one existing.
-
-    .PARAMETER Summary
-        One line on what the plan delivers: the text of its master line, and the Why of its value row where the table has that column.
-
-    .PARAMETER Config
-        The plans config. Default: Get-Config -Config plans.
-
-    .PARAMETER RepositoryRoot
-        The repository the plans folder and the targets are relative to. Default: the loaded repository root.
-
-    .OUTPUTS
-        [string] The full path of the plan file written.
-    #>
     [CmdletBinding()]
     [OutputType([string])]
     param(

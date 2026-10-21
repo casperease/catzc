@@ -18,8 +18,8 @@ function Repair-IdiomaticNames {
         old path.
 
     .DESCRIPTION
-        The repair half of the naming gate (ADR-AUTO-IDIOM-HELDBYGATE): Test-IdiomaticNames reports a folder or a file whose name breaks
-        its language's case, and this moves it to the rendering the languages config gives (LanguagesConfig.MisnamedPathRenames). Files
+        The repair half of the quality gate Test-IdiomaticNames (ADR-AUTO-IDIOM-HELDBYGATE): the gate reports a folder or a file whose
+        name breaks its language's case, and this moves it to the rendering the languages config gives (LanguagesConfig.MisnamedPathRenames). Files
         move first and folders deepest first, so no move invalidates another; each move goes through a temporary name, so a case-only
         rename lands on a case-insensitive file system. It edits no file's text: each result lists the tracked files whose text names the
         old path, for one-file-at-a-time edits, and git records the moves when the user commits them.

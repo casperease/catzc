@@ -56,11 +56,7 @@ plan-decide round, and only truth-stores and test-signal-proposals are blocked b
 - bcl-language -> plan-bcl-language.md: one step left, the CLAUDE.md line (the user's, task-user-runs-and-commits).
 - agent-friction -> plan-agent-friction.md: the head how-to and its drawing sample (free now that minimal-heads has landed); the CLAUDE.md
   trim (the user's).
-- git-topic-commands -> plan-git-topic-commands.md: one check left, `Test-Formatting` on the module after plan-minimal-heads' whole-tree
-  re-format.
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
-- adr-authoring -> plan-adr-authoring.md: the glossary contrast declared once and the domain-deps memory deleted, the add-an-adr how-to
-  after plan-agent-shortcuts' gate runner, the ADR-edit entry in plan-agent-friction's hook map.
 - diagram-build-learnings -> plan-diagram-build-learnings.md: fix the Build-Diagrams help (the sample sequence included), one merged
   catzc-run item, quiet the legend's warning by role, measure then memo the minimap stage, one pipeline drawing for an explanation page.
 - accosted-language -> plan-accosted-language.md: the ADR and the reserved word first, then the terminology gate, glossary, language row and

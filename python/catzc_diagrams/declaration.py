@@ -60,7 +60,7 @@ KINDS = tuple(DEFAULTS["kinds"])
 DERIVED = ("sidebar-bg", "legend", "lens-badge", "mapkey")
 DERIVED_PREFIXES = ("lg-", "mk-", "minimap-", "lane-")  # lane- is a lane's trunk, its marks and the gate rules: the yml's alone
 CONTENT_KEYS = (
-    "title", "kind", "flow", "relation", "theme", "bands", "spans", "templates", "rows", "lanes", "rules", "groups", "glyphs", "edges", "markers",
+    "title", "kind", "flow", "relation", "thick", "theme", "bands", "spans", "templates", "rows", "lanes", "rules", "groups", "glyphs", "edges", "markers",
     "chips", "notes", "legend", "minimaps",
 )
 # A note: a free text block drawn on the panel; `noteBlock=1` lets get tell it from every glyph.
@@ -240,7 +240,7 @@ def save(folder, declaration):
 TOP_KEYS = ("description", "about", "content", "layout")
 # Content the drawing cannot carry exactly: the kind is never drawn, a layout can place the bands against the flow, and the legend
 # prints the relation without its parenthesis or not at all. get guesses each for a drawing without a source; a source keeps its own.
-SOURCE_ONLY = ("kind", "flow", "relation")
+SOURCE_ONLY = ("kind", "flow", "relation", "thick")
 
 
 def undrawn(content, declared):
@@ -554,6 +554,8 @@ def normalise(raw, where="the declaration"):
     out["legend"] = legend
     # The one relationship the flow edges mean on this diagram, named in the legend as `flow: <relation>`.
     out["relation"] = str(content.get("relation", "") or "").strip()
+    # What the thick edges reach on this diagram, the legend's phrase for them; empty keeps the library's `to a named set`.
+    out["thick"] = str(content.get("thick", "") or "").strip()
     # The three minimaps: the ones the declaration names, or, when it names none, the kind's defaults maps.yml declares, which reach
     # the kit as the folder's minimap data (with_data).
     allowed = tuple(str(DEFAULTS["minimaps"]["ids"]).replace(",", " ").split())
@@ -1072,7 +1074,8 @@ def legend_entries(content):
             swatch = lambda eid, x, y, style=style: [cell(f"lg-{eid}", "", style, x + 8, y - 2, 22, 22)]
             entries.append(("commit-ghost", swatch, "commit: ghost"))
     for kind in dict.fromkeys(e["kind"] for e in content["edges"]):
-        phrase = f"flow: {content['relation']}" if kind == "flow" and content["relation"] else LIB["edges"][kind]["phrase"]
+        phrase = (f"flow: {content['relation']}" if kind == "flow" and content["relation"]
+                  else content["thick"] if kind == "thick" and content.get("thick") else LIB["edges"][kind]["phrase"])
         entries.append((f"edge-{kind}", edge_swatch(kind), phrase))
     for kind in dict.fromkeys(r["kind"] for r in content.get("rules") or []):  # a gate rule's line, solid or dashed
         swatch = lambda eid, x, y, style=RULE_STYLES[kind]: [
@@ -1201,6 +1204,8 @@ def get(model, kind=None):
     content["minimaps"] = [plain(cells[cid].get("value")) for cid, _, _ in SIDEBAR if cid in cells]
     flow_phrase = plain(cells["lg-edge-flow-t"].get("value")) if "lg-edge-flow-t" in cells else ""
     content["relation"] = flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") else ""
+    thick_phrase = plain(cells["lg-edge-thick-t"].get("value")) if "lg-edge-thick-t" in cells else ""
+    content["thick"] = thick_phrase if thick_phrase and thick_phrase != brief(LIB["edges"]["thick"]["phrase"]) else ""
     layout = {}
     unnamed = []
     bands, groups, glyphs, bars, labels, markers, chips, notes = [], [], [], [], [], [], [], []

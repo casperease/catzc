@@ -13,6 +13,14 @@
 # ---
 
 concepts:
+  accosted:
+    key: accosted
+    domain: automation
+    defined_by: ADR-AUTO-ACCOSTED-FILEFORM
+    short:
+      "The cats language of `<name>.accosted.yml` files, a flat list of runs, each a list of harmless contracted commands in the contract
+      form with literal arguments, run under every engine; the word is reserved for it."
+    realized_by: { kind: type, pattern: "Catzc.Base.Contracts.AccostedFile" }
   go test module:
     key: go_test_module
     domain: automation

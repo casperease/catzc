@@ -10,7 +10,7 @@ the rename is prepared first, applied in one burst, and rolled back whole when t
 ## Prepare
 
 1. List every tracked file that names the old spelling: `git grep -l '<old name>'`, leaving out the logs under `.claude/learnings/` and
-   `.claude/hindsight/`, which record history. For a folder or file the naming gate reports, `Repair-IdiomaticNames -DryRun` gives the
+   `.claude/hindsight/`, which record history. For a folder or file the quality gate `Test-IdiomaticNames` reports, `Repair-IdiomaticNames -DryRun` gives the
    target and the files that name the old path.
 2. Mark which of those files the import reads: `rootconfig.yml`, the generator switch in `Invoke-RootConfigGenerator`, the `.internal`
    modules, any `configs/*.yml` a janitor loads. They decide the burst; the rest can follow it.

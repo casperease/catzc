@@ -52,6 +52,6 @@ Describe 'ConvertTo-BicepParam — every shipped yml slot renders as bicep forma
         $rendered.Count | Should -BeGreaterThan 0
         Invoke-Executable "`"$($bicep.Path)`" format --pattern `"$(($folder -replace '\\', '/'))/*.bicepparam`"" -Silent
         $changed = @($rendered.Keys | Where-Object { [System.IO.File]::ReadAllText($_) -cne $rendered[$_] })
-        $changed | Should -BeNullOrEmpty -Because 'bicep format must leave every rendered slot unchanged'
+        $changed | Should -BeNullOrEmpty -Because 'bicep format must leave the rendering of every slot unchanged'
     }
 }

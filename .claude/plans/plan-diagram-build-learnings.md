@@ -35,7 +35,8 @@ None of it blocks a feature.
 - **The pipeline drawing lives on an explanation page** on how a diagram is built, in that page's own `.assets/<slug>/`, so the reference
   page stays text; the user names the page when the sample is approved.
 - **No `-Sample` path**: a build reading the gitignored `out/` would break ADR-REPO-SLIDES-ONEBUILDCOMMAND and keep state outside version
-  control; the two manual calls (`Write-DiagramMinimapData` inside its module, then `put`) stay, and the help names them.
+  control; the two manual calls (`Write-DiagramMinimapData` inside its module, then `put`) stay, and the help names them. The same reason
+  dropped a `-Path` that accepts `out/diagrams/dark-sample/` (catzc-9c, delegated, 2026-10-21).
 
 ## Open steps
 
@@ -46,9 +47,6 @@ None of it blocks a feature.
       `ADR-REPO-SLIDES-MINIMAPSFROMDATA`; words go in the article (check: the user's approval).
 - [ ] On approval: the folder lands in the `.assets` of the explanation page that embeds it (the user names the page), put with
       `Build-Diagrams -Path` (check: `Test-Diagrams` on the folder, `Test-Links` on the article).
-- [ ] `Build-Diagrams` and `Test-Diagrams`: `-Path` accepts `out/diagrams/dark-sample/`, so a sample is gated and needs no hand put; today
-      `Test-Diagrams -Path` refuses a folder outside `docs/**/.assets/` (check:
-      `Test-Diagrams -Path out/diagrams/dark-sample/build-diagrams-pipeline`).
 - [ ] `python/catzc_diagrams/declaration.py`, with `assets/glyphs.xml` and `assets/STYLE.md` following: `read` and `junction` edge kinds,
       and the thick edge's legend phrase set per diagram rather than fixed to "to a named set", with cases in `tests/test_declaration.py`
       (check: `Invoke-PythonTest Catzc.Base.Slides -Folder python/catzc_diagrams/tests`, then one sample re-rendered).

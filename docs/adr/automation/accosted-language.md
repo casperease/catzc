@@ -33,7 +33,7 @@ and any other argument that names a write target is rejected. An accosted file h
 
 ### Rule ADR-AUTO-ACCOSTED-RESERVEDNAME
 
-The word **accosted** is reserved, as the catzc token is
+The word accosted is reserved, as the catzc token is
 ([ADR-PRIN-CATS-CATZCISSOURCENAME](../principles/cats-and-catzc.md#rule-adr-prin-cats-catzcissourcename)): it names this language and
 nothing else, so it appears only in the language's row, its extension, this ADR, its glossary entry, its module types and their tests, and
 the plans and session logs that name it. The places are the scope of the `reserved` terminology category, and a gate fails the word anywhere
@@ -81,7 +81,7 @@ report under `out/` changes nothing the repository holds, so it stays on the lis
 
 ### A reserved word
 
-A word that names one thing is only useful while it names nothing else. Reserving it, and gating the reservation, keeps the language's name
+A word that names one thing is only useful while it names nothing else. Reserving it, and checking the reservation in a quality gate, keeps the language's name
 searchable.
 
 ### One reader

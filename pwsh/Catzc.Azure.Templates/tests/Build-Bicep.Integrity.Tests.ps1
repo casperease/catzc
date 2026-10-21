@@ -74,7 +74,7 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     }
 }
 
-Describe 'Shipped slots compile through the .bicepparam path to the same parameters' -Tag 'L2', 'integrity' {
+Describe 'Every slot compiles through the .bicepparam path to the same parameters' -Tag 'L2', 'integrity' {
     It 'renders every shipped yml slot both ways, and the compiled .bicepparam holds the values the ConvertTo-Json file holds' {
         $bicep = Resolve-ToolExecutable -Tool bicep
         if (-not ($bicep.Found -and $bicep.VersionOk)) {

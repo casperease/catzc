@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "01611768b723"
+    with_body_sha: e99a38f58094
     warning: "Do Not Edit, this file is generated"
     role: glossary
     track: docs
@@ -636,6 +636,15 @@ The immutable, tagged artifact a CI component builds from one commit — version
 | `release-candidate suite` | release-candidate test run |
 
 ## automation
+
+### accosted
+
+The cats language of `<name>.accosted.yml` files, a flat list of runs, each a list of harmless contracted commands in the contract form with
+literal arguments, run under every engine; the word is reserved for it.
+
+- **Defined by:** [ADR-AUTO-ACCOSTED-FILEFORM](automation/accosted-language.md#rule-adr-auto-accosted-fileform)
+- **Realized by:** type `Catzc.Base.Contracts.AccostedFile`
+- **Source:** `pwsh/Catzc.Base.Languages/configs/glossary.yml`
 
 ### all tests
 

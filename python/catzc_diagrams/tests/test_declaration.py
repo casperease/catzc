@@ -77,6 +77,38 @@ def test_the_relation_names_the_flow_legend_and_comes_back():
     assert declaration.get(model, kind="explanation")["content"]["relation"] == "feeds"
 
 
+def test_read_and_junction_edges_draw_their_own_line_and_legend_and_come_back():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["edges"] += [
+        {"from": "gadget-gate", "to": "widget-a", "kind": "read"},
+        {"from": "widget-b", "to": "gadget-gate", "kind": "junction"},
+    ]
+    first = declaration.normalise(raw)
+    model = declaration.put(first)
+    assert "dashPattern=1 3" in model and "endArrow=open" in model and "startArrow=oval" in model
+    assert 'value="reads"' in model and 'value="junction"' in model
+    assert declaration.dump(declaration.get(model, kind="explanation")) == declaration.dump(first)
+
+
+def test_the_thick_phrase_names_the_thick_legend_and_comes_back():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["thick"] = "to a truth store"
+    raw["content"]["edges"].append({"from": "widget-b", "to": "gadget-store", "kind": "thick"})
+    first = declaration.normalise(raw)
+    model = declaration.put(first)
+    assert 'value="to a truth store"' in model and 'value="to a named set"' not in model
+    assert declaration.get(model, kind="explanation")["content"]["thick"] == "to a truth store"
+    assert declaration.dump(declaration.get(model, kind="explanation")) == declaration.dump(first)
+
+
+def test_a_thick_edge_without_a_phrase_keeps_the_library_phrase():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["edges"].append({"from": "widget-b", "to": "gadget-store", "kind": "thick"})
+    model = declaration.put(declaration.normalise(raw))
+    assert 'value="to a named set"' in model
+    assert declaration.get(model, kind="explanation")["content"]["thick"] == ""
+
+
 def test_a_span_label_outside_the_vocabularies_fails_with_the_allowed_words():
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"]["spans"][0]["label"] = "sideways"
