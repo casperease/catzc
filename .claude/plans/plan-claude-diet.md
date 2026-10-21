@@ -32,6 +32,8 @@ It cuts a cost paid by every session and every spawn that loads the project inst
   `Test-Automation -Modules`? Recommended: yes, one clause.
 - Should `drawio-declaration` say a sample under `out/` renders by `Write-DiagramMinimapData` plus declaration.py put, since
   `Build-Diagrams -Path` refuses folders outside `docs/`? Recommended: yes, one clause.
+- Should the plan-edit reminder in `edit-reminders.yml` (the Show-EditReminder hook) also say "every open step names its check", the one
+  Test-Plans failure a new plan hit on 2026-10-21? Recommended: yes, merged into the existing reminder.
 
 ## Open steps
 

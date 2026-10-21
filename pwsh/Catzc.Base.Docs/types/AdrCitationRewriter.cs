@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "608969cd35cb"
+    with_body_sha: "64645598ef01"
   edges:
     docs: "[AdrCitationRewriter.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationRewriter.cs.md)"
     cites:
@@ -108,6 +108,11 @@ public sealed class AdrCitationRewriter
             @"(?<![\w./-])(?<repo>/?" + Regex.Escape(adrRoot) + path + ")(?:#(?<repoAnchor>" + anchorPattern + "))?",
             @"(?<![\w./-])(?<relative>(?:\.\.?/)+" + path + ")(?:#(?<relativeAnchor>" + anchorPattern + "))?",
         };
+        // A moved root is also named bare, as a folder or a setting's value; a path under it is the repo form above.
+        if (newRoot != adrRoot)
+        {
+            alternatives.Add(@"(?<![\w./-])(?<rootBare>/?" + Regex.Escape(adrRoot.TrimEnd('/')) + @")(?![\w-]|\.\w|/[\w<>*.-])");
+        }
         var bare = new List<string>();
         if (literals.Count > 0) { bare.Add("(?:" + string.Join("|", literals.ConvertAll(Regex.Escape)) + ")(?:/" + Segment + ")*/?"); }
         if (folders.Count > 0) { bare.Add("(?:" + string.Join("|", folders.ConvertAll(Regex.Escape)) + ")/(?:" + path + ")?"); }
@@ -189,6 +194,11 @@ public sealed class AdrCitationRewriter
                 Form form = written.StartsWith("/", StringComparison.Ordinal) ? Form.Rooted : Form.Repository;
                 kind = AdrCitationChangeKind.Path;
                 replacement = RewriteReference(written, Fragment(match.Groups["repoAnchor"]), form, self);
+            }
+            else if (match.Groups["rootBare"].Success)
+            {
+                kind = AdrCitationChangeKind.Path;
+                replacement = (match.Value.StartsWith("/", StringComparison.Ordinal) ? "/" : string.Empty) + newRoot.TrimEnd('/');
             }
             else if (match.Groups["relative"].Success)
             {

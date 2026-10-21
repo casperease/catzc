@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d4684ab9d167
+    with_body_sha: b07376de727b
   edges:
     docs: "[Update-AdrCitation.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
@@ -222,8 +222,16 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             @{ Name = 'plain path mention'; Relative = 'notes/widget.md'; Text = "Read docs/adr/gizmo/lever-rules.md first.`n"
                 Expected = "Read docs/gadgets/gizmo/lever-rules.md first.`n"
             }
+            @{ Name = 'bare mention of the root itself'; Relative = 'notes/widget.md'; Text = "Records live in docs/adr/, see /docs/adr. Root: 'docs/adr'`n"
+                Expected = "Records live in docs/gadgets/, see /docs/gadgets. Root: 'docs/gadgets'`n"
+            }
         ) {
             & $script:moveRoot $Relative $Text | Should -BeExactly $Expected
+        }
+
+        It 'leaves a longer path that only contains the root alone' {
+            $text = "See site/docs/adr and docs/adrs and docs/adr-notes.`n"
+            & $script:moveRoot 'notes/longer.md' $text | Should -BeExactly $text
         }
 
         It 'leaves a link between two records, and a link out of the root at the same depth, as written' {

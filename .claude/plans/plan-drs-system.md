@@ -40,6 +40,10 @@ is declared once, not a sweep.
 - In prose, "decision record" names one record, "the DRS" the system, and "ADR" only the `ADR` kind; the sanctioned pair is "domain rules /
   DRS rules".
 
+- `Catzc.Base.Drs` depends on nothing above it (delegated, 2026-10-21): `Format-MarkdownParagraph` moves down to `MarkdownMeta`; the usage
+  report and the analyzer map stay in `QualityGates`, renamed in place, since they call `Get-FileMetaScope` there and `CodeMeta` reads no
+  config and no file; the glossary and `Show-Cats` stay in `Docs`.
+
 ## Order
 
 The record-kind rewrite has landed, so the steps run in order; the move is one burst after the user's go.
@@ -72,17 +76,31 @@ The record-kind rewrite has landed, so the steps run in order; the move is one b
       `capabilities.yml`, and every `diagram.drawio.yml` naming `docs/adr`, re-rendered (check: `git grep -n "docs/adr"` finds nothing).
 - [ ] `.claude/CLAUDE.md`, the user's edit: the structure line and the `## ADRs` section become `docs/drs/` and `## DRS`, "read
       `docs/drs/index.md`", "domain rules / DRS rules" (check: `Test-Links` on the file).
-- [ ] `pwsh/Catzc.Base.Drs/`: the new module; every DRS command, private function, type, config and test moves out of `Catzc.Base.Docs`
-      (about 50 files) and `Catzc.Base.QualityGates` (`Get-AdrUsage`, `Test-AnalyzerAdrMap` and their helpers) on disk, renamed `Drs` as it
-      moves, its callers in the same pass, staged copies swapped in by one script with a fresh full import and a restore on failure (check:
-      the module's Pester, `Test-ParameterConsistency`, a fresh `. ./importer.ps1`).
-- [ ] `contracts/catzc/0.0.0/`: the three command contracts (`test_adr_registry`, `test_adr_engine_neutrality`, `test_analyzer_adr_map`)
-      renamed with their commands under `catzc.base.drs` (check: `Test-Contracts`).
+- [ ] `pwsh/Catzc.Base.MarkdownMeta/`: `Format-MarkdownParagraph` moves down from `Catzc.Base.Docs` with its test and page, its callers
+      unchanged, so `Catzc.Base.Drs` never depends on `Docs` (check: its Pester, a fresh `. ./importer.ps1`).
+- [ ] `pwsh/Catzc.Base.Drs/`: the new module; the 63 `Adr*` files of `Catzc.Base.Docs` (commands, privates, types, configs, tests, assets)
+      move on disk, renamed `Drs` as they move, namespace `Catzc.Base.Drs`, with their code callers, `configs.yml`'s 3 type rows and the
+      `dependencies.yml` edges in the same pass; staged copies swapped in by one script with a fresh full import and a restore on failure.
+      Re-run `out/drs/prep/inventory.sh` and `callers.ps1` first; `out/drs/prep/module-move.md` holds the list and the edges (check: the
+      module's Pester, `Test-ParameterConsistency`, a fresh `. ./importer.ps1`).
+- [ ] `pwsh/Catzc.Base.QualityGates/`: the usage report and the analyzer map (`Get-AdrUsage`, `Get-AdrUsageRow`, `Group-AdrUsage`,
+      `Get-AdrCitationPath`, `Get-AdrDefinedRule`, `Get-AdrCodesFileMetaFact`, `Test-AnalyzerAdrMap`, `Get-AnalyzerAdrCoverage`,
+      `AnalyzerAdrMapConfig`, `analyzer-adr-map.yml`, their tests) renamed `Drs` in place (check: their Pester,
+      `Test-ParameterConsistency`).
+- [ ] `contracts/catzc/0.0.0/`: `test_adr_registry` and `test_adr_engine_neutrality` renamed with their commands under `catzc.base.drs`,
+      `test_analyzer_adr_map` renamed in place under `catzc.base.quality_gates` (check: `Test-Contracts`).
 - [ ] `.claude/agents/adr-reviewer.md` -> `drs-reviewer.md` and `.claude/skills/adr-cite/` -> `drs-cite/`, their rows in `agents.yml` and
       `capabilities.yml` and every agent that loads them (check: `Test-AgentDefinitions`).
-- [ ] The prose sweep, one domain per burst: "ADR" as the umbrella becomes "decision record" or "the DRS", kept only where it names the
-      `ADR` kind, in `docs/drs/`, `docs/explanation/`, `docs/how-to/` and the glossary sources (check: `Test-Terminology`, `Test-Glossary`,
-      `Test-Links`).
+- [ ] The prose sweep's clear patterns, after the move (the user, 2026-10-21; counts in `out/drs/prep/renames-and-prose.md`): first the
+      section heading `## Where the code and the ADR differ` in 93 explanation pages becomes
+      `## Where the code and the decision record     differ`, with its anchors re-pointed; then the 143 system words ("ADR index / registry
+      / rules / domain" -> "DRS …"), the 129 uses in framing-domain records (-> the record's kind or "decision record") and the 116 plurals
+      meaning the corpus (-> "decision records"); the generated `index.md` and `glossary.md` through `adr-index.yml` and the `glossary.yml`
+      sources; the 319 implementation-domain self-references stay, as they name the `ADR` kind (check: `Test-Links` after the heading pass,
+      then `Test-Terminology`, `Test-Glossary`, `Test-Links`).
+- [ ] The 381 singular uses of "ADR" outside the records (explanation, how-to, the glossary sources), one domain per step, each sentence
+      read by a worker: "decision record" where it means the umbrella, "ADR" kept where it names an `ADR`-kind record (check: per domain,
+      `Test-Terminology` and `Test-Links`).
 
 ## Refs
 
