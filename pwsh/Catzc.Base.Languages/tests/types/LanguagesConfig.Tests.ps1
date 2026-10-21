@@ -373,7 +373,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                 Should -Throw '*live must be true or false*'
         }
 
-        It 'judges each file name and each folder on its path by its language''s cases, a folder once, a hidden folder past its dot' -Tag 'ADR-PRIN-CONFIG' {
+        It 'judges each file name and each folder on its path by its language''s cases, a folder once, a hidden folder past its dot' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
             $config = & $script:make ([ordered]@{
                     naming    = [ordered]@{ exempt_folders = @('assets') }
                     languages = [ordered]@{
@@ -401,7 +401,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             )
         }
 
-        It 'reads go''s flat folders and snake files, and rejects an unknown case, an unknown key, and a naming without cases' -Tag 'ADR-PRIN-CONFIG' {
+        It 'reads go''s flat folders and snake files, and rejects an unknown case, an unknown key, and a naming without cases' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
             $config = & $script:one ([ordered]@{ extensions = @('.wdg'); naming = [ordered]@{ folder = 'flat'; file = 'snake' } })
             $config.MisnamedPaths([string[]] @('widgets/catzc-widget/widget_test.wdg', 'widgets/catzcwidget/widget_test.wdg')) |
                 Should -Be @('widgets/catzc-widget/: the folder is not flat (widget)')

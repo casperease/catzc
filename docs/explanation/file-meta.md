@@ -64,6 +64,30 @@ outside the head:
 
 `Get-AdrUsage` counts the ADR citations and links of the tree through the same processors, so its rows are the same with or without heads.
 
+## Keys a head does not carry
+
+A head shows only what a reader needs to step on from the file: a generated file's warning, its writer and its source, and the edges of a
+code file. Every other fact about a file is derived on demand, so a head that showed it would be a second statement of it that can drift.
+These keys are never written into a head; each still has its meaning and its one source:
+
+| Key            | Meaning                                                                                  | Derived on demand by                                                                  |
+| -------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `repo_status`  | whether the file is generated (`locked`, edit its source) or authored, and its git state | `Get-RepoStatus`; the generated class from `generated-files.yml` and `file-kinds.yml` |
+| `path`         | the repository-relative path of the file                                                 | the path itself                                                                       |
+| `folder`       | the folder of the file under its module                                                  | the path                                                                              |
+| `name`         | the file's name in kebab case                                                            | the path                                                                              |
+| `filetype`     | the extension, which tells the sorts of file inside one language apart (ps1, psm1, psd1) | the path                                                                              |
+| `subkind`      | the finer role inside a file kind                                                        | `file-kinds.yml` by glob, through `Get-FileKind`                                      |
+| `language`     | the file language                                                                        | `languages.yml` by extension, through `Get-FileLanguage`                              |
+| `tracktype`    | the type of the file's track (modules, pipelines, vendor-settings, …)                    | the tracks variant, through `Get-Track`                                               |
+| `vendor`       | the vendor that reads the track's files                                                  | the tracks variant, through `Get-Track`                                               |
+| `module`       | the module the file is placed in                                                         | `module-types.yml`, through `Get-PathModule`                                          |
+| `moduletype`   | the type of that module (pwsh-folder, settings, pipeline, …)                             | `module-types.yml`, through `Get-PathModule`                                          |
+| `catzc_bundle` | the smallest bundle of the catzc exporter that holds the module                          | `exporter.yml` and the module's profile, through `Get-ModuleProfile`                  |
+| `visibility`   | whether a PowerShell function file is public or private                                  | the module's `private/` folder                                                        |
+| `defines`      | the rules an ADR defines in its own rule headings                                        | the ADR's `### Rule` headings, read by `Get-AdrDefinedRule`                           |
+| `links`        | every link a Markdown file points out of itself                                          | the Markdown body, read by `Test-Links`                                               |
+
 ## The head policy
 
 Whether a file carries a head is the `head_policy` of `file-meta.yml`: a class pattern names `required`, `optional` or `forbidden`, the

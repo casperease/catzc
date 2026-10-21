@@ -66,11 +66,6 @@ Every code file in the tree carries a head no reader needs, and the next `Format
 
 ## Open steps
 
-- [ ] `docs/explanation/file-meta.md`: add a section naming every key a head does not carry (`repo_status`, `path`, `folder`, `name`,
-      `filetype`, `subkind`, `language`, `tracktype`, `vendor`, `module`, `moduletype`, `catzc_bundle`, `visibility`, `defines`, `links`),
-      each with its meaning and the registry or command that derives it on demand (`file-kinds.yml`, the tracks variant, `module-types.yml`,
-      `Get-RepoStatus`, …), before any key is removed (never drop a key silently). (check: `Test-Links` on the page passes; every key above
-      has a line.)
 - [ ] `pwsh/Catzc.Base.QualityGates`, before deleting anything: confirm nothing reads a head back (ADR-REPO-FILEMETA-NOREADBACK), the listen
       search and the minimap data included. (check: a grep for `immutable` and `edges.` outside the imprint engine and its tests finds no
       reader.)

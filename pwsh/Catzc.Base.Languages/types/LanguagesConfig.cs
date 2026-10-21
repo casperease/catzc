@@ -90,7 +90,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // Folders whose files no language's naming judges, at any depth (e.g. assets, named by their source); empty when the file lists none.
     public IReadOnlyList<string> naming_exempt_folders { get; }
 
-    // One finding per file name and per folder that breaks its language's naming, each folder once per language, in path order.
+    // One finding per file name and per folder that breaks its language's naming, each folder once per language, in path order; rests on [ADR-AUTO-IDIOM-LANGUAGEIDIOM](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom).
     public IReadOnlyList<string> MisnamedPaths(IEnumerable<string> paths)
     {
         List<string> findings = new List<string>();

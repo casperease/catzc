@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
 
-// A language's idiomatic names for its files and the folders that hold them; rests on [ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md).
+// A language's idiomatic names for its files and the folders that hold them; rests on [ADR-AUTO-IDIOM-CLOSEDCASES](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-closedcases).
 public sealed class LanguageNaming
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

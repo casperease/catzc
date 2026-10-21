@@ -48,8 +48,6 @@ in the Carried section below.
 
 ## Open steps
 
-- [ ] `.claude/agents/fact-checker.md`: read the listen session's `reference/` when the brief names one, and search it through
-      `Find-DocPattern` (check: `Test-AgentDefinitions`).
 - [ ] `.claude/plans/plan-listen-<pattern>.md`: the processor processes the three editor notes carried below (session
       `out/listen/20261021-005743`, reference pinned at `ed41b3e`), or the carried text when the session is gone (check: `Test-Plans`).
 - [ ] `pwsh/Catzc.Tooling.Listen/Get-DocChange.ps1`: `Rules` lists only the ADR codes cited in the changed lines, not every code in the file

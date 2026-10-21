@@ -11,13 +11,13 @@ Describe 'Test-IdiomaticNames' -Tag 'L0', 'logic' {
         $script:reportFolder = Join-Path $TestDrive 'idiomatic-names'
     }
 
-    It 'reports each folder and file name that breaks its language''s naming, over the tracked files' -Tag 'ADR-PRIN-CONFIG' {
+    It 'reports each folder and file name that breaks its language''s naming, over the tracked files' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
         $result = Test-IdiomaticNames -PassThru -OutputFolder $script:reportFolder
 
         $result.Issues | Should -Be @('widget_root/Bad-Folder/: the folder is not snake (widget)')
     }
 
-    It 'passes when every tracked name is idiomatic' -Tag 'ADR-PRIN-CONFIG' {
+    It 'passes when every tracked name is idiomatic' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'widget_root/fine/fine_name.wdg' }
 
         $result = Test-IdiomaticNames -PassThru -OutputFolder $script:reportFolder

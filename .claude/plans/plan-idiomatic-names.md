@@ -51,9 +51,6 @@ Every decision is a rule of [idiomatic-names](../../docs/adr/automation/idiomati
 
 The citations:
 
-- [ ] `pwsh/Catzc.Base.Languages/types/LanguageNaming.cs`: cite `ADR-AUTO-IDIOM-CLOSEDCASES` in place of `ADR-PRIN-CONFIG`; the
-      `MisnamedPaths` comment in `types/LanguagesConfig.cs` cites `ADR-AUTO-IDIOM-LANGUAGEIDIOM` (check: `Invoke-TestFile` on
-      `tests/types/LanguagesConfig.Tests.ps1`).
 - [ ] `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1`: re-tag the two naming tests `ADR-AUTO-IDIOM-LANGUAGEIDIOM` (check:
       `Invoke-TestFile` on it).
 - [ ] `pwsh/Catzc.Base.QualityGates/tests/Test-IdiomaticNames.Tests.ps1`: re-tag `ADR-AUTO-IDIOM-HELDBYGATE` (check: `Invoke-TestFile`).
