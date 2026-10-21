@@ -48,7 +48,3 @@ stale or superseded item is recorded as such, with the reason.
 A done plan, task file or landed prompt is deleted from disk directly (the user, 2026-10-19: "just delete done plans"); the user commits the
 deletion. A plan holds only planned work that is not yet implemented (the user, 2026-10-20): no Done section, no proof of built work, no
 explanation of how the tool behaves when a team uses it; that belongs in the docs.
-
-- plan-docs-edge-relative-link: deleted 2026-10-21; every step landed (the `{relpath}` token, the decision-record wording, the tree-wide
-  re-imprint, the Test-Links head-edge check); its question is answered by the recommendation it gave: `test` and `code` stay
-  repository-relative paths.

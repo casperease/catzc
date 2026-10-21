@@ -21,8 +21,6 @@ Every diagram becomes two files beside its page's `.assets/`: `<name>.drawio.png
 
 ## Open steps
 
-1. [ ] The rules: ADR-REPO-SLIDES and the conventional-folders rule say a diagram is the pair `<name>.drawio.png` + `<name>.drawio.yml` in
-       `.assets/`, named by the diagram; the how-to and `add-a-doc-chapter.md` follow (check: `Test-DrsRegistry`, `Test-Links`).
 2. [ ] The tools read and write the pair, one mechanism, staged and swapped as one burst: `declaration.py` (put/get/save/check/minimaps,
        legend), `drawio_forward.py`, `Build-Diagrams` (`-Path` takes a `.drawio.yml`, `-Stale` finds pairs), `Test-Diagrams`,
        `Write-DiagramMinimapData` (its `out/minimaps/<name>/` key), `Move-Diagram`, the `file-kinds.yml` / globs / `drawio.yml` entries that
