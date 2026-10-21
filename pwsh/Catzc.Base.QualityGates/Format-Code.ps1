@@ -21,6 +21,7 @@ function Format-Code {
         [ArgumentCompleter({ Get-FileLanguage | Where-Object formatter | ForEach-Object name })]
         [string[]] $Language,
 
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [switch] $DryRun,

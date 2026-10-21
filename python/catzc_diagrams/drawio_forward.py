@@ -15,19 +15,18 @@ into <out_dir>: <name>.src.drawio.png (a byte copy of the source), <name>.out.dr
 the embedded model on the chosen page, or the source copy again when no model can be read), <name>.model.xml (the
 decoded model, when one exists) and <name>.render.md (the report). With --xml the given model must match the embedded
 one 100 percent after canonicalisation. With --assert every non-empty, non-heading line of the text file (a page, 66
-lines) must appear in some cell label, whitespace-folded and case-folded. A slide named diagram.drawio.png is named <name>
-by its folder. Exit 0: clean. Exit 2: transport or assertion warnings, every artifact still delivered. Exit 3: no source
+lines) must appear in some cell label, whitespace-folded and case-folded. Exit 0: clean. Exit 2: transport or assertion warnings, every artifact still delivered. Exit 3: no source
 file, nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`), one per warning (`warn`),
 then `status`.
 
 bulk:  uv run --with pillow python drawio_forward.py --all <root> [--theme <theme>]
 
-Rebuilds every diagram folder under <root> in place (`<article-folder>/.assets/<name>/` holding diagram.drawio.png; the
-root itself when it is one): each declared folder is put in the theme, its minimaps drawn from their computed data with it
-(ADR-REPO-SLIDES-MINIMAPSFROMDATA); a folder without a declaration is left as it is, its model extracted to
+Rebuilds every diagram under <root> in place (the pair `<article-folder>/.assets/<name>.drawio.png` and `<name>.drawio.yml`;
+the root itself when it names one): each declared diagram is put in the theme, its minimaps drawn from their computed data with
+it (ADR-REPO-SLIDES-MINIMAPSFROMDATA); a diagram without a declaration is left as it is, its model extracted to
 out/drawio/bulk/<root>/models/ only to check its article's Supports line against its subtitle, and reported, because its
-minimaps can be rebuilt only once it has a declaration. A theme other than the default puts the declared folders to
-out/drawio/themes/<theme>/ and leaves the committed rasters and the folders without a declaration alone. A legend folder (its
+minimaps can be rebuilt only once it has a declaration. A theme other than the default puts the declared diagrams to
+out/drawio/themes/<theme>/ and leaves the committed rasters and the diagrams without a declaration alone. A legend diagram (its
 drawio.yml role) is rendered from the kit's glyphs.xml, painted in the default theme. Same exit codes;
 the report is out/drawio/bulk/<root>/bulk.md.
 """
@@ -61,8 +60,15 @@ KIT = Path(__file__).resolve().parent
 REPO = KIT.parents[1]
 ADR_CODE = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
 NUMBERED = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?:[#:]\d|#\{)")
-SLIDE = "diagram.drawio.png"  # a diagram folder's render, put from the diagram.drawio.yml beside it
-ROLES = ("slide", "legend")  # the closed set of diagram-folder roles drawio.yml may name
+SLIDE = ".drawio.png"  # a diagram's render, `<name>.drawio.png`, put from the `<name>.drawio.yml` beside it
+SOURCE = ".drawio.yml"
+ROLES = ("slide", "legend")  # the closed set of diagram roles drawio.yml may name
+
+
+def slide_of(stem):
+    """The render of the diagram whose stem is `.assets/<name>`."""
+    stem = Path(stem)
+    return stem.with_name(stem.name + SLIDE)
 
 
 def normalise(text):
@@ -124,8 +130,8 @@ def slide_facts(model):
     return adrs_of(subtitle), lens, problems
 
 
-def folder_role(folder):
-    """A diagram folder's role: its entry under drawio.yml roles:, keyed by repository path, else renderer.role."""
+def diagram_role(folder):
+    """A diagram's role: its entry under drawio.yml roles:, keyed by its stem's repository path, else renderer.role."""
     path = str(Path(folder).resolve().relative_to(REPO)).replace("\\", "/")
     role = DEFAULTS.get("roles", {}).get(path, DEFAULTS["renderer"]["role"])
     if role not in ROLES:
@@ -134,32 +140,32 @@ def folder_role(folder):
 
 
 def legend_model():
-    """The kit's glyph library as a legend folder's png carries it: glyphs.xml without its comments, its tokens painted in the
+    """The kit's glyph library as a legend diagram's png carries it: glyphs.xml without its comments, its tokens painted in the
     default theme."""
     lines = (KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8").splitlines()
     return paint("\n".join(line for line in lines if not line.lstrip().startswith("<!--")).strip())
 
 
 def legend_stale(folder):
-    """Whether a legend folder's png carries another model than the painted glyph library: a kit change left it stale."""
-    return decode(mxfile_chunk(Image.open(Path(folder) / SLIDE))).strip() != legend_model().strip()
+    """Whether a legend diagram's png carries another model than the painted glyph library: a kit change left it stale."""
+    return decode(mxfile_chunk(Image.open(slide_of(folder)))).strip() != legend_model().strip()
 
 
 def put_legend(folder):
-    """Render a legend folder's png from the kit's glyph library, its tokens painted in the default theme first, as every put paints
+    """Render a legend diagram's png from the kit's glyph library, its tokens painted in the default theme first, as every put paints
     them; the png carries the painted model, so draw.io opens what the raster shows."""
     model = legend_model()
     img = render(ET.fromstring(model)).convert("RGB")
     info = PngInfo()
     info.add_text("mxfile", encode(model, "Page-1"))
-    target = Path(folder) / SLIDE
+    target = slide_of(folder)
     img.save(target, "PNG", pnginfo=info)
     return target
 
 
 def undeclared_warnings(folder, source):
     """A W_UNDECLARED warning for a slide with no declaration; a legend draws no minimaps, so it needs none and has none."""
-    if folder_role(folder) == "legend":
+    if diagram_role(folder) == "legend":
         return []
     path = str(Path(folder).resolve().relative_to(REPO)).replace("\\", "/")
     return [f"W_UNDECLARED {path}: no {source}, so its minimaps are not rebuilt; declare it to put it"]
@@ -167,7 +173,7 @@ def undeclared_warnings(folder, source):
 
 def subtitle_facts(folder, model):
     """slide_facts for a slide, with each problem as a W_SUBTITLE warning; a legend names no ADR and carries no subtitle, so it has none."""
-    if folder_role(folder) == "legend":
+    if diagram_role(folder) == "legend":
         return [], None, []
     adrs, lens, problems = slide_facts(model)
     path = str(Path(folder).resolve().relative_to(REPO)).replace("\\", "/")
@@ -197,9 +203,9 @@ def adrs_of(text, known=None):
 
 
 def supports_drift(folder, adrs, lens):
-    """The article's `Supports … (<lens> lens)` line against the subtitle: the article is the one page beside the folder's
+    """The article's `Supports … (<lens> lens)` line against the subtitle: the article is the one page beside the diagram's
     `.assets` that embeds the slide. Returns the warning, or None when they agree or no article line exists."""
-    slide = (folder / SLIDE).resolve()
+    slide = slide_of(folder).resolve()
     for page in sorted(folder.parent.parent.glob("*.md")):
         text = page.read_text(encoding="utf-8")
         targets = re.findall(r"!\[[^\]]*\]\(([^)\s]+\.drawio\.png)\)", text)
@@ -215,37 +221,43 @@ def supports_drift(folder, adrs, lens):
     return None
 
 
-def diagram_folders(root):
-    """The diagram folders under a root, or the root itself when it is one: each `<article-folder>/.assets/<name>/` that
-    holds a diagram.drawio.png, or a diagram.drawio.yml whose first put has not been run yet."""
+def diagrams(root):
+    """The diagrams under a root, by stem, or the root itself when it names one: each `<article-folder>/.assets/<name>` with a
+    `<name>.drawio.png`, or a `<name>.drawio.yml` whose first put has not been run yet. The root may be a stem or a file of a pair."""
+    root = Path(root)
+    for suffix in (SLIDE, SOURCE):
+        if root.name.endswith(suffix):
+            root = root.with_name(root.name[: -len(suffix)])
     root = root.resolve()
-    if (root / SLIDE).is_file() or (root / "diagram.drawio.yml").is_file():
+    if any(root.with_name(root.name + suffix).is_file() for suffix in (SLIDE, SOURCE)):
         return [root]
-    found = {p.parent for name in (SLIDE, "diagram.drawio.yml") for p in root.rglob(name) if p.parent.parent.name == ".assets"}
+    if not root.is_dir():
+        return []
+    found = {p.with_name(p.name[: -len(suffix)]) for suffix in (SLIDE, SOURCE) for p in root.rglob(f"*{suffix}") if p.parent.name == ".assets"}
     return sorted(found)
 
 
 def bulk(root, theme=None):
-    """Rebuild every diagram folder under a root in place; returns the exit code after printing the lines and the report."""
+    """Rebuild every diagram under a root in place; returns the exit code after printing the lines and the report."""
     root = root.resolve()
     rel = lambda p: str(Path(p).resolve().relative_to(REPO)).replace("\\", "/")
     work = REPO / DEFAULTS["renderer"]["out"] / "bulk" / rel(root).replace("/", "--")
     models = work / "models"
-    folders = diagram_folders(root)
+    folders = diagrams(root)
     warnings, counts = [], {}
     if not folders:
-        print(f"warn E_SOURCE no diagram folder (.assets/<name>/{SLIDE}) under {root}")
+        print(f"warn E_SOURCE no diagram (.assets/<name>{SLIDE}) under {root}")
         print("status error")
         return 3
-    # A folder with a declaration is put from it, minimaps included; a folder without one is only checked and reported.
+    # A diagram with a declaration is put from it, minimaps included; a diagram without one is only checked and reported.
     import declaration
 
-    declared = [f for f in folders if (f / declaration.SOURCE).is_file()]
+    declared = [f for f in folders if declaration.source_of(f).is_file()]
     folders = [f for f in folders if f not in declared]
-    # Only the default theme is committed; another theme renders the declared folders on demand to out/, and nothing else.
+    # Only the default theme is committed; another theme renders the declared diagrams on demand to out/, and nothing else.
     themed = theme is not None and theme != THEMES[0]
     if themed:
-        warnings += [f"W_THEME {rel(f)}: no {declaration.SOURCE}, so it renders in the default theme only" for f in folders]
+        warnings += [f"W_THEME {rel(f)}: no {declaration.source_of(f).name}, so it renders in the default theme only" for f in folders]
         folders = []
     put = 0
     for f in declared:
@@ -260,8 +272,8 @@ def bulk(root, theme=None):
         except (declaration.DeclarationError, OSError) as e:
             warnings.append(f"W_PUT {rel(f)}: {e}")
     counts.update(put=put)
-    # A legend folder is drawn from the glyph library, in the default theme only, so it renders and is never left to be checked.
-    legends = [f for f in folders if folder_role(f) == "legend"]
+    # A legend diagram is drawn from the glyph library, in the default theme only, so it renders and is never left to be checked.
+    legends = [f for f in folders if diagram_role(f) == "legend"]
     folders = [f for f in folders if f not in legends]
     for f in legends:
         try:
@@ -274,7 +286,7 @@ def bulk(root, theme=None):
     done = 0
     for f in folders:
         try:
-            model_of(f).write_text(decode(mxfile_chunk(Image.open(f / SLIDE))).strip(), encoding="utf-8")
+            model_of(f).write_text(decode(mxfile_chunk(Image.open(slide_of(f)))).strip(), encoding="utf-8")
             done += 1
         except FORWARD as e:
             warnings.append(f"W_PREPARE {rel(f)}: {e}")
@@ -287,7 +299,7 @@ def bulk(root, theme=None):
             drift = supports_drift(f, adrs, lens)
             if drift:
                 warnings.append(f"W_SUPPORTS {drift}")
-        warnings += undeclared_warnings(f, declaration.SOURCE)
+        warnings += undeclared_warnings(f, declaration.source_of(f).name)
     counts.update(prepared=done, undeclared=len(folders))
     for w in warnings:
         print(f"warn {w}")
@@ -298,7 +310,7 @@ def bulk(root, theme=None):
         f"# {rel(root)}: bulk rebuild",
         "",
         f"- root: `{root}`",
-        f"- diagram folders: {len(folders)}",
+        f"- diagrams: {len(folders)}",
         f"- status: {status}",
     ]
     lines += [f"- {k}: {v}" for k, v in counts.items()] + [
@@ -345,8 +357,7 @@ def main():
         print("status error")
         raise SystemExit(3)
     out_dir.mkdir(parents=True, exist_ok=True)
-    # A diagram folder's slide is named by its folder; any other .drawio.png by its own stem.
-    name = src.parent.name if src.name == SLIDE else src.name.replace(".drawio.png", "")
+    name = src.name.replace(SLIDE, "")
     src_copy = out_dir / f"{name}.src.drawio.png"
     result = out_dir / f"{name}.out.drawio.png"
     model_file = out_dir / f"{name}.model.xml"

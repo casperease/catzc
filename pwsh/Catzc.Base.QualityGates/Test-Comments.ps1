@@ -17,6 +17,7 @@ function Test-Comments {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),

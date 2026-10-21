@@ -1,12 +1,17 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2a50a32baf54"
+#     with_body_sha: "125533ce5125"
 #   edges:
 #     docs: "[bcl.yml.md](../../../docs/references/pwsh/catzc-base-languages/configs/bcl.yml.md)"
 # ---
 
 host_bindings:
+  - file: Catzc.Base.Asserts/types/ValidatePathGivenAttribute.cs
+    host: pwsh
+    reason:
+      Refuses an empty -Path as a PowerShell parameter attribute (ValidateArgumentsAttribute), so the refusal runs at binding, before any
+      command body.
   - file: Catzc.Base.Docs/types/GlossaryProse.cs
     host: pwsh
     reason: Walks the PowerShell syntax tree (CommandAst, ExpandableStringExpressionAst) to find the prose a glossary term appears in.

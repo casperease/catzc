@@ -18,6 +18,7 @@ function Invoke-GitCommit {
     [OutputType([string])]
     param(
         [Parameter(Mandatory, Position = 0)]
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [Parameter(Mandatory)]

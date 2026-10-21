@@ -18,6 +18,7 @@ function Test-ScriptAnalyzer {
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     [Alias('Test-Pssa')]
     param(
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [string] $OutputFolder,

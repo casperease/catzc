@@ -16,6 +16,7 @@ function Test-ConfigIdentityHygiene {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [string] $OutputFolder,

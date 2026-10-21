@@ -21,6 +21,7 @@ function Test-Formatting {
         [ArgumentCompleter({ Get-FileLanguage | ForEach-Object name })]
         [string[]] $Language,
 
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [string] $OutputFolder,

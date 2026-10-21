@@ -7,7 +7,8 @@
 # cspell:ignore minimaps mxfile pnginfo adronly mapkey
 """The declaration of a diagram: its source beside its .drawio.png, and the two directions between them.
 
-A diagram folder holds two files: `diagram.drawio.yml`, the diagram's one source, and `diagram.drawio.png`, the drawing put from it.
+A diagram is two flat files in an `.assets/` folder, named by the diagram: `<name>.drawio.yml`, its one source, and `<name>.drawio.png`,
+the drawing put from it. The kit names a diagram by its stem, `<page-folder>/.assets/<name>`, and takes either file of the pair for it.
 The source has three keys: `description:` says in a sentence or two what the diagram shows; `content:` says it in the closed
 vocabulary of the kit (bands, spans, groups, glyphs, edges, markers, chips, the legend, the flow and its relation, the theme, the
 three minimaps); `layout:` says where a named cell sits (x, y, w, h). A cell without a layout entry is placed by the grid; a cell
@@ -20,12 +21,13 @@ get:  the XML embedded in the .drawio.png becomes the declaration again, written
       same declaration, get then put the same XML.
 
 usage (repo root, background):
-  uv run --project python python python/catzc_diagrams/declaration.py put <diagram folder> [--xml <out.xml>]
-  uv run --project python python python/catzc_diagrams/declaration.py get <diagram folder>
-  uv run --project python python python/catzc_diagrams/declaration.py check <diagram folder>...
-  uv run --project python python python/catzc_diagrams/declaration.py sync <diagram folder>
-  uv run --project python python python/catzc_diagrams/declaration.py tidy <diagram folder>
-  uv run --project python python python/catzc_diagrams/declaration.py minimaps <diagram folder>
+  uv run --project python python python/catzc_diagrams/declaration.py put <diagram> [--xml <out.xml>]
+  uv run --project python python python/catzc_diagrams/declaration.py get <diagram>
+  uv run --project python python python/catzc_diagrams/declaration.py check <diagram>...
+  uv run --project python python python/catzc_diagrams/declaration.py sync <diagram>
+  uv run --project python python python/catzc_diagrams/declaration.py tidy <diagram>
+  uv run --project python python python/catzc_diagrams/declaration.py minimaps <diagram>
+(<diagram> is the stem `.assets/<name>` or either file of its pair)
 
 A pair whose yml and png both moved from the pair committed at git HEAD, and now disagree, is a conflict: check names its cells, the bulk
 put skips it, and only put or get by name, the author's pick of the side that wins, clears it. Nothing merges.
@@ -54,8 +56,8 @@ from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
 KIT = Path(__file__).resolve().parent
-SLIDE = "diagram.drawio.png"
-SOURCE = "diagram.drawio.yml"  # the diagram's one source: its description, its content and the layout of the cells off the grid
+SLIDE = ".drawio.png"
+SOURCE = ".drawio.yml"  # the diagram's one source: its description, its content and the layout of the cells off the grid
 FLOWS = ("left-to-right", "top-to-bottom")
 KINDS = tuple(DEFAULTS["kinds"])
 # The cells put derives from the kit and the registries, never from the author: get skips them, and a change to them is stale.
@@ -211,18 +213,39 @@ def span_vocabulary():
 # ---- the declaration: read, validate, normalise -------------------------------------------------------------------
 
 
+def diagram_of(path):
+    """A diagram's stem, `<page-folder>/.assets/<name>`, from the stem itself or either file of its pair."""
+    path = Path(path)
+    for suffix in (SOURCE, SLIDE):
+        if path.name.endswith(suffix):
+            return path.with_name(path.name[: -len(suffix)])
+    return path
+
+
+def source_of(diagram):
+    """The diagram's one source, `<name>.drawio.yml`."""
+    stem = diagram_of(diagram)
+    return stem.with_name(stem.name + SOURCE)
+
+
+def slide_of(diagram):
+    """The diagram's drawing, `<name>.drawio.png`, put from its source."""
+    stem = diagram_of(diagram)
+    return stem.with_name(stem.name + SLIDE)
+
+
 def load(folder):
-    """The declaration of a diagram folder, from its one source file."""
-    source = Path(folder) / SOURCE
+    """The declaration of a diagram, from its one source file."""
+    source = source_of(folder)
     if not source.is_file():
-        raise DeclarationError(f"{folder}: no {SOURCE}, the diagram's one source")
+        raise DeclarationError(f"{folder}: no {source.name}, the diagram's one source")
     return normalise(yaml.safe_load(source.read_text(encoding="utf-8")) or {}, where=str(source))
 
 
 def save(folder, declaration):
-    """Write a declaration into its folder's source file. The drawing carries no description, so a declaration read back by get
+    """Write a declaration into the diagram's source file. The drawing carries no description, so a declaration read back by get
     keeps the description the file already has."""
-    source = Path(folder) / SOURCE
+    source = source_of(folder)
     if source.is_file():
         held = normalise(yaml.safe_load(source.read_text(encoding="utf-8")) or {}, where=str(source))
         if not declaration.get("description"):
@@ -1159,14 +1182,14 @@ def put(declaration, theme=None):
 
 
 def put_png(folder, declaration, theme=None):
-    """put, then the raster: the folder's diagram.drawio.png with the model embedded, drawn by drawio_png. The default theme's
-    render is the folder's own png; any other theme renders on demand to out/drawio/themes/<theme>/<folder name>/."""
+    """put, then the raster: the diagram's <name>.drawio.png with the model embedded, drawn by drawio_png. The default theme's
+    render is the diagram's own png; any other theme renders on demand to out/drawio/themes/<theme>/<name>.drawio.png."""
     theme = theme or declaration["content"]["theme"]
     model = put(with_data(folder, declaration), theme).strip()
     img = render(ET.fromstring(model), page="model").convert("RGB")  # the model's own page: its theme's
     info = PngInfo()
     info.add_text("mxfile", encode(model, declaration["content"]["lens"]))
-    dst = Path(folder) / SLIDE if theme == THEMES[0] else KIT.parents[1] / "out" / "drawio" / "themes" / theme / Path(folder).name / SLIDE
+    dst = slide_of(folder) if theme == THEMES[0] else KIT.parents[1] / "out" / "drawio" / "themes" / theme / slide_of(folder).name
     dst.parent.mkdir(parents=True, exist_ok=True)
     img.save(dst, "PNG", pnginfo=info)
     return dst
@@ -1186,8 +1209,8 @@ def matches(sig, style):
 
 
 def model_of(folder):
-    """The model embedded in the folder's diagram.drawio.png."""
-    return decode(mxfile_chunk(Image.open(Path(folder) / SLIDE))).strip()
+    """The model embedded in the diagram's <name>.drawio.png."""
+    return decode(mxfile_chunk(Image.open(slide_of(folder)))).strip()
 
 
 def shift_of(title_style):
@@ -1436,10 +1459,10 @@ def get(model, kind=None):
 
 
 def minimap_data(folder, computed=False):
-    """A folder's three minimaps as Catzc.Base.Maps computed them, in order: out/minimaps/<folder>/minimaps.json names the ids and
+    """A diagram's three minimaps as Catzc.Base.Maps computed them, in order: out/minimaps/<stem>/minimaps.json names the ids and
     <id>.json holds each, lit only where the declaration lists a cell, checked against the minimap contract; computed reads the whole
     data from computed/<id>.json instead. Missing data fails, naming the commands that write it."""
-    folder = Path(folder).resolve()
+    folder = diagram_of(folder).resolve()
     repo = KIT.parents[1]
     rel = folder.relative_to(repo).as_posix() if folder.is_relative_to(repo) else folder.name
     root = repo / "out" / "minimaps" / rel
@@ -1465,14 +1488,46 @@ def placement(data):
     return out
 
 
+def minimaps_block(placed):
+    """content.minimaps as the source's text writes it, two spaces in under content: and each list indented under its key."""
+    scalar = lambda value: yaml.safe_dump(value, allow_unicode=True, width=10**9).split("\n")[0]
+    lines = ["  minimaps:"]
+    for view, cells in placed.items():
+        if not cells:
+            lines.append(f"    {scalar(view)}: []")
+            continue
+        lines.append(f"    {scalar(view)}:")
+        for entry in cells:
+            lines.append(f"      - cell: {scalar(entry['cell'])}")
+            lines.append("        by:")
+            lines += [f"          - {scalar(item)}" for item in entry["by"]]
+    return lines
+
+
 def declare_minimaps(folder):
-    """Write a folder's computed minimap placement into its source: content.minimaps lists each shown minimap's lit cells. Only that
-    key changes: the source is written back as it was read, never through dump, which leaves out what a row or lane expands to."""
-    source = Path(folder) / SOURCE
-    raw = yaml.safe_load(source.read_text(encoding="utf-8")) or {}
-    raw.setdefault("content", {})["minimaps"] = placement(minimap_data(folder, computed=True))
+    """Write a diagram's computed minimap placement into its source: content.minimaps lists each shown minimap's lit cells. Only that
+    key's lines change: the rest of the text, its generated head and its formatting included, is kept as it was read, never re-dumped,
+    which would drop the head and what a row or lane expands to."""
+    source = source_of(folder)
+    text = source.read_text(encoding="utf-8")
+    raw = yaml.safe_load(text) or {}
+    placed = placement(minimap_data(folder, computed=True))
+    raw.setdefault("content", {})["minimaps"] = placed
     normalise(raw, where=str(source))
-    source.write_text(yaml.safe_dump(raw, sort_keys=False, allow_unicode=True, width=120), encoding="utf-8")
+    lines = text.split("\n")
+    content = next((i for i, line in enumerate(lines) if line.rstrip() == "content:"), None)
+    if content is None:
+        raise DeclarationError(f"{source}: no top-level content: block to write the minimaps into")
+    # The content block runs to the next top-level line; its minimaps key, when it has one, runs to the next key of the same depth.
+    end = next((i for i in range(content + 1, len(lines)) if lines[i] and not lines[i].startswith((" ", "#"))), len(lines))
+    while end > content + 1 and not lines[end - 1].strip():
+        end -= 1
+    start = next((i for i in range(content + 1, end) if lines[i].startswith("  minimaps:")), None)
+    if start is None:
+        start = stop = end
+    else:
+        stop = next((i for i in range(start + 1, end) if lines[i].strip() and len(lines[i]) - len(lines[i].lstrip()) <= 2), end)
+    source.write_text("\n".join(lines[:start] + minimaps_block(placed) + lines[stop:]), encoding="utf-8")
     return source
 
 
@@ -1501,21 +1556,21 @@ def changed_cells(one, other):
 
 def committed(folder):
     """The pair as committed at git HEAD: the source's text and the model embedded in the png, read with `git show`. None when the
-    folder is outside a repository or either file is not committed: an untracked pair has no base."""
-    folder = Path(folder).resolve()
-    run = lambda *args: subprocess.run(["git", "-C", str(folder), *args], capture_output=True)
+    diagram is outside a repository or either file is not committed: an untracked pair has no base."""
+    stem = diagram_of(folder).resolve()
+    run = lambda *args: subprocess.run(["git", "-C", str(stem.parent), *args], capture_output=True)
     top = run("rev-parse", "--show-toplevel")
     if top.returncode != 0:
         return None
-    rel = folder.relative_to(Path(top.stdout.decode("utf-8").strip()).resolve()).as_posix()
-    source, png = run("show", f"HEAD:{rel}/{SOURCE}"), run("show", f"HEAD:{rel}/{SLIDE}")
+    rel = stem.relative_to(Path(top.stdout.decode("utf-8").strip()).resolve()).as_posix()
+    source, png = run("show", f"HEAD:{rel}{SOURCE}"), run("show", f"HEAD:{rel}{SLIDE}")
     if source.returncode != 0 or png.returncode != 0:
         return None
     return source.stdout.decode("utf-8"), decode(mxfile_chunk(Image.open(io.BytesIO(png.stdout)))).strip()
 
 
 def kind_of(folder):
-    """The diagram kind its folder's path names (explanation or reference), or None."""
+    """The diagram kind its path names (explanation or reference), or None."""
     return next((k for k in KINDS if f"/{k}/" in Path(folder).resolve().as_posix()), None)
 
 
@@ -1528,7 +1583,7 @@ def conflict(folder, base):
         return []
     # The base is compared as data, never validated: it was valid against the registries of its own commit, not today's.
     source, model = load(folder), model_of(folder)
-    unmoved = yaml.safe_load((Path(folder) / SOURCE).read_text(encoding="utf-8")) == yaml.safe_load(base[0])
+    unmoved = yaml.safe_load(source_of(folder).read_text(encoding="utf-8")) == yaml.safe_load(base[0])
     if unmoved or model == base[1]:
         return []
     back = undrawn(get(model, kind_of(folder))["content"], source)
@@ -1555,39 +1610,41 @@ def sync(folder, base):
 
 def main():
     args = sys.argv[1:]
-    if len(args) >= 2 and args[0] == "check":  # one JSON line per folder: conflicted or drifted cells, stale minimaps, or the error
+    if len(args) >= 2 and args[0] == "check":  # one JSON line per diagram: conflicted or drifted cells, stale minimaps, or the error
         import drawio_forward
 
-        for folder in args[1:]:
+        for name in args[1:]:
+            folder = diagram_of(name)
             try:
-                # A legend folder has no source: its png is checked against the painted glyph library, stale when a kit change moved it.
-                if drawio_forward.folder_role(folder) == "legend":
+                # A legend diagram has no source: its png is checked against the painted glyph library, stale when a kit change moved it.
+                if drawio_forward.diagram_role(folder) == "legend":
                     stale = ["legend"] if drawio_forward.legend_stale(folder) else []
-                    print(json.dumps({"folder": folder, "conflict": [], "drift": [], "stale": stale}))
+                    print(json.dumps({"diagram": name, "conflict": [], "drift": [], "stale": stale}))
                     continue
                 both = conflict(folder, committed(folder))
                 cells, stale = ([], []) if both else drift(folder)
-                print(json.dumps({"folder": folder, "conflict": both, "drift": cells, "stale": stale}))
+                print(json.dumps({"diagram": name, "conflict": both, "drift": cells, "stale": stale}))
             except (DeclarationError, OSError, ValueError) as error:
-                print(json.dumps({"folder": folder, "error": str(error)}))
+                print(json.dumps({"diagram": name, "error": str(error)}))
         return
     if len(args) == 2 and args[0] == "tidy":  # the source re-saved through the kit: normalised, the retired about keys dropped
-        folder = Path(args[1])
+        folder = diagram_of(args[1])
         save(folder, load(folder))
-        print(f"tidy {folder / SOURCE}")
+        print(f"tidy {source_of(folder)}")
         return
-    if len(args) == 2 and args[0] == "minimaps":  # the folder's computed minimap cells written into its source
-        print(f"minimaps {declare_minimaps(Path(args[1]))}")
+    if len(args) == 2 and args[0] == "minimaps":  # the diagram's computed minimap cells written into its source
+        print(f"minimaps {declare_minimaps(diagram_of(args[1]))}")
         return
     if len(args) == 2 and args[0] == "sync":  # one JSON line: the directions run, or the conflict that stopped them
+        folder = diagram_of(args[1])
         try:
-            print(json.dumps({"folder": args[1], "ran": sync(args[1], committed(args[1]))}))
+            print(json.dumps({"diagram": args[1], "ran": sync(folder, committed(folder))}))
         except DeclarationError as error:
-            print(json.dumps({"folder": args[1], "error": str(error)}))
+            print(json.dumps({"diagram": args[1], "error": str(error)}))
         return
     if len(args) < 2 or args[0] not in ("put", "get"):
         raise SystemExit(__doc__)
-    direction, folder = args[0], Path(args[1])
+    direction, folder = args[0], diagram_of(args[1])
     if direction == "put":
         declaration = load(folder)
         if "--xml" in args:
@@ -1596,7 +1653,7 @@ def main():
         print(f"put {dst}")
     else:
         save(folder, get(model_of(folder), kind_of(folder)))
-        print(f"get {folder / SOURCE}")
+        print(f"get {source_of(folder)}")
 
 
 if __name__ == "__main__":

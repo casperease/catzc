@@ -12,13 +12,13 @@ usage: uv run -q --with pillow python python/catzc_diagrams/gallery_pdf.py [<sli
 
 Assets mode writes out/diagrams/assets-gallery.pdf: every PNG under <assets-dir> (default docs/.assets) in path order, captioned
 with its folder, each followed by its description as a text page: for a declared diagram the `description:` of the
-diagram.drawio.yml beside it, for any other PNG the page the sidecar carrier of file-carriers.yml names (the registry is the one
+<name>.drawio.yml beside it, for any other PNG the page the sidecar carrier of file-carriers.yml names (the registry is the one
 lookup); --no-text leaves the text pages out (the full PDF with them is large).
 
 With no argument it reads out/diagrams/fan-out and writes out/diagrams/gallery.pdf. With a slides dir (e.g. out/diagrams/wave-5) it
 writes <slides-dir>/gallery.pdf.
 
-Page order: world maps, then every slide, each followed by the `description:` of its diagram.drawio.yml when it has one, as a
+Page order: world maps, then every slide, each followed by the `description:` of its <name>.drawio.yml when it has one, as a
 text page. Each page is the image scaled to 1600 px wide under a caption bar with its file name. Pillow writes the PDF directly, so
 no Markdown or HTML step is needed.
 """
@@ -237,8 +237,8 @@ def assets_items(assets_dir, with_text):
         if not with_text:
             continue
         # A declared diagram describes itself in its yml's description:; any other PNG through its companion page.
-        declared = p.parent / "diagram.drawio.yml"
-        if p.name == "diagram.drawio.png" and declared.is_file():
+        declared = p.with_name(p.name.replace(".drawio.png", ".drawio.yml"))
+        if p.name.endswith(".drawio.png") and declared.is_file():
             items.append((declared, "Description", description_page))
             continue
         description = companion(p)
@@ -258,7 +258,7 @@ else:
     items = [(p, "World map", page) for p in sorted(slides_dir.glob("world-map.*.png"))]
     for p in sorted(slides_dir.rglob("*.drawio.png"), key=lambda q: q.as_posix()):
         items.append((p, "Slide", page))
-        declared = p.parent / "diagram.drawio.yml"
+        declared = p.with_name(p.name.replace(".drawio.png", ".drawio.yml"))
         if declared.is_file():
             items.append((declared, "Description", description_page))
 if not items:

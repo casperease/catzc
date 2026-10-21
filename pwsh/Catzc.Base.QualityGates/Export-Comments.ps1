@@ -16,6 +16,7 @@ function Export-Comments {
     [CmdletBinding()]
     [OutputType([string[]], [Catzc.Base.QualityGates.CommentFileResult])]
     param(
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),

@@ -29,7 +29,7 @@ def model(subtitle):
 @pytest.fixture
 def repo(tmp_path, monkeypatch):
     """A repository whose ADR index knows ADR-WIDGET and ADR-GADGET, standing in for the real one."""
-    index = tmp_path / "docs" / "adr" / "index.md"
+    index = tmp_path / "docs" / "drs" / "index.md"
     index.parent.mkdir(parents=True)
     index.write_text("| `ADR-WIDGET` | widget |\n| `ADR-GADGET` | gadget |\n", encoding="utf-8")
     monkeypatch.setattr(drawio_forward, "REPO", tmp_path)
@@ -87,14 +87,14 @@ def test_a_model_without_a_subtitle_cell_is_reported(repo):
 
 @pytest.fixture
 def article(repo):
-    """An article folder whose one page embeds the slide of its diagram folder `.assets/gadget/`."""
+    """An article folder whose one page embeds the slide of its diagram `.assets/gadget`."""
     folder = repo / "docs" / "explanation" / "widget" / ".assets" / "gadget"
-    folder.mkdir(parents=True)
-    (folder / drawio_forward.SLIDE).write_bytes(b"")
+    folder.parent.mkdir(parents=True)
+    drawio_forward.slide_of(folder).write_bytes(b"")
     page = folder.parent.parent / "widget-page.md"
 
     def write(supports):
-        lines = ["# Widget", "", "![Gadget](.assets/gadget/diagram.drawio.png)", ""]
+        lines = ["# Widget", "", "![Gadget](.assets/gadget.drawio.png)", ""]
         page.write_text("\n".join(lines + ([supports] if supports else [])) + "\n", encoding="utf-8")
         return folder
 
@@ -140,11 +140,10 @@ def test_a_page_that_does_not_embed_the_slide_is_not_its_article(article, repo):
 
 @pytest.fixture
 def roles(repo, monkeypatch):
-    """drawio.yml's roles: in the fixture repository, naming one widget folder a legend; every other folder takes renderer.role."""
+    """drawio.yml's roles: in the fixture repository, naming one widget diagram a legend; every other diagram takes renderer.role."""
     legend = repo / "docs" / "explanation" / ".assets" / "widget-legend"
     slide = repo / "docs" / "explanation" / ".assets" / "gadget-slide"
-    legend.mkdir(parents=True)
-    slide.mkdir(parents=True)
+    legend.parent.mkdir(parents=True)
     monkeypatch.setitem(DEFAULTS, "roles", {"docs/explanation/.assets/widget-legend": "legend"})
     return legend, slide
 
@@ -152,14 +151,14 @@ def roles(repo, monkeypatch):
 def test_a_legend_without_a_subtitle_has_no_warning(roles):
     legend, _ = roles
     no_subtitle = '<mxGraphModel><root><mxCell id="0"/></root></mxGraphModel>'
-    assert drawio_forward.folder_role(legend) == "legend"
+    assert drawio_forward.diagram_role(legend) == "legend"
     assert drawio_forward.subtitle_facts(legend, no_subtitle) == ([], None, [])
 
 
 def test_a_slide_without_a_subtitle_is_warned(roles):
     _, slide = roles
     no_subtitle = '<mxGraphModel><root><mxCell id="0"/></root></mxGraphModel>'
-    assert drawio_forward.folder_role(slide) == DEFAULTS["renderer"]["role"] == "slide"
+    assert drawio_forward.diagram_role(slide) == DEFAULTS["renderer"]["role"] == "slide"
     assert drawio_forward.subtitle_facts(slide, no_subtitle) == (
         [],
         None,
@@ -177,13 +176,13 @@ def test_a_legend_png_is_stale_only_when_the_glyph_library_moved_from_it(roles, 
 
 def test_a_legend_without_a_declaration_is_not_warned(roles):
     legend, _ = roles
-    assert drawio_forward.undeclared_warnings(legend, "diagram.drawio.yml") == []
+    assert drawio_forward.undeclared_warnings(legend, "widget-legend.drawio.yml") == []
 
 
 def test_a_slide_without_a_declaration_is_warned(roles):
     _, slide = roles
-    assert drawio_forward.undeclared_warnings(slide, "diagram.drawio.yml") == [
-        "W_UNDECLARED docs/explanation/.assets/gadget-slide: no diagram.drawio.yml, so its minimaps are not rebuilt; declare it to put it"
+    assert drawio_forward.undeclared_warnings(slide, "gadget-slide.drawio.yml") == [
+        "W_UNDECLARED docs/explanation/.assets/gadget-slide: no gadget-slide.drawio.yml, so its minimaps are not rebuilt; declare it to put it"
     ]
 
 
@@ -191,4 +190,4 @@ def test_a_role_outside_the_closed_set_is_refused(roles, monkeypatch):
     legend, _ = roles
     monkeypatch.setitem(DEFAULTS, "roles", {"docs/explanation/.assets/widget-legend": "poster"})
     with pytest.raises(ValueError, match="not one of slide, legend"):
-        drawio_forward.folder_role(legend)
+        drawio_forward.diagram_role(legend)

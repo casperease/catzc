@@ -16,9 +16,9 @@ Where each file class keeps its meta block, or the reason it has none; a class w
 
 ## comment:2
 
-Above `diagram-folder:`, written with `#`.
+Above `diagram-render:`, written with `#`.
 
 ```text
 Classes of files that belong to no language.
-A diagram folder's render carries no block: the diagram.drawio.yml beside it is the diagram's one source.
+A diagram's render carries no block: the <name>.drawio.yml beside it is the diagram's one source.
 ```

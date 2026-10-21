@@ -25,7 +25,7 @@ function Get-DiagramSupportsDrift {
         [string] $RepositoryRoot
     )
 
-    $source = Join-Path $RepositoryRoot "$Folder/diagram.drawio.yml"
+    $source = Join-Path $RepositoryRoot "$Folder.drawio.yml"
     if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
         return
     }

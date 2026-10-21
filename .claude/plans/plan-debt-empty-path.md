@@ -4,7 +4,7 @@ plan:
   value: high
   reviewed: 2026-10-21
   class: meta
-  targets: [pwsh/Catzc.Base.QualityGates/Format-Code.ps1]
+  targets: [pwsh/Catzc.Base.Slides/Build-Diagrams.ps1, pwsh/Catzc.Base.Asserts/tests/types/ValidatePathGivenAttribute.Tests.ps1]
 ---
 
 # Debt empty path
@@ -15,11 +15,7 @@ script), and an empty `-Path` reached `Format-Code`, which then formatted the wh
 
 ## Open steps
 
-1. [ ] `pwsh/Catzc.Base.QualityGates/Format-Code.ps1`: `-Path` given but empty, or holding only empty strings, is an error naming the cause,
-       never a whole-tree run; omitting `-Path` keeps today's default (check: `Invoke-TestFile` on `Format-Code.Tests.ps1` with a case for
-       `-Path ''` and `-Path @()`).
-2. [ ] The other commands whose `-Path` default is the whole tree (`Format-FileMeta`, `Test-Links`, `Test-FileMeta`, `Rename-CodeName`,
-       `Sync-FileMeta`, the gates): the same refusal, through one shared assert rather than a copy per command (check: each command's test
-       file with an empty-path case; `Test-ParameterConsistency`).
-3. [ ] `.claude/skills/catzc-run/SKILL.md`: one clause merged into an existing item, that a path list is passed to `pwsh -File` as one
-       argument per path or through `-Command`, never comma-joined (check: `Test-AgentDefinitions`).
+1. [ ] `pwsh/Catzc.Base.Slides/`: after catzc-1c's diagram hold, `[Catzc.Base.Asserts.ValidatePathGiven()]` on the `-Path` of
+       `Build-Diagrams`, `Test-Diagrams` and `Test-Slides`, their names added to the L1 list in `ValidatePathGivenAttribute.Tests.ps1`, and
+       `Move-Diagram` (`$pages`) and `Build-Diagrams` (`$folders`) call `Format-Code`/`Test-Diagrams` only when the list holds a path
+       (check: that test file, the Slides tests, a fresh import).

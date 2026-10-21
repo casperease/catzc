@@ -16,6 +16,7 @@ function Build-CommentView {
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),

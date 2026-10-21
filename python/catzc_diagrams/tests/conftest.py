@@ -5,8 +5,9 @@
 # ---
 
 # cspell:ignore minimaps
-"""The kit's tests run on fixture folders outside the repository, where no minimap data has been computed: each folder gets its
-declared minimaps (or three fixed ones) as empty contract data, so put draws the sidebar without Catzc.Base.Maps."""
+"""The kit's tests run on fixture diagrams outside the repository, where no minimap data has been computed: each diagram gets its
+declared minimaps (or three fixed ones) as empty contract data, so put draws the sidebar without Catzc.Base.Maps. A test names its
+diagram by its tmp_path as the stem, so the pair is `<tmp_path>.drawio.yml` and `<tmp_path>.drawio.png`."""
 
 import sys
 from pathlib import Path
@@ -21,7 +22,7 @@ FIXTURE_MINIMAPS = ["grid", "axis", "layer-stack"]
 
 
 def empty_minimaps(folder, computed=False):
-    has_source = (Path(folder) / declaration.SOURCE).is_file()
+    has_source = declaration.source_of(folder).is_file()
     views = (declaration.load(folder)["content"]["minimaps"] if has_source else None) or FIXTURE_MINIMAPS
     return {view: {"id": view, "axes": [], "cells": [], "lit": []} for view in views}
 

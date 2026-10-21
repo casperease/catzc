@@ -15,12 +15,12 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive "widget-repository-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
         $files = [ordered]@{
-            'docs/widgets/index.md'                         = "# Widgets`n`n![Widget](assets/widget/diagram.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
-            'docs/widgets/plain.md'                         = "# Plain`n`n[up](index.md)`n"
-            'docs/widgets/assets/widget/diagram.drawio.png' = 'png'
-            'docs/widgets/assets/widget/diagram.drawio.yml' = "description: A widget.`n"
-            'docs/drs/index.md'                             = "# Widget decisions`n"
-            'docs/gadgets/index.md'                         = "# Gadgets`n`n![the widget slide](../widgets/assets/widget/diagram.drawio.png)`n"
+            'docs/widgets/index.md'                = "# Widgets`n`n![Widget](assets/widget.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
+            'docs/widgets/plain.md'                = "# Plain`n`n[up](index.md)`n"
+            'docs/widgets/assets/widget.drawio.png' = 'png'
+            'docs/widgets/assets/widget.drawio.yml' = "description: A widget.`n"
+            'docs/drs/index.md'                    = "# Widget decisions`n"
+            'docs/gadgets/index.md'                = "# Gadgets`n`n![the widget slide](../widgets/assets/widget.drawio.png)`n"
         }
         foreach ($file in $files.Keys) {
             $full = Join-Path $script:widgetRoot $file
@@ -35,16 +35,17 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         $script:read = { param([string] $File) [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $File)) }
     }
 
-    It 'moves a diagram folder with git mv and re-points every page that embeds it' {
+    It 'moves a diagram pair, named by its stem, with git mv and re-points every page that embeds it' {
         $result = Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -PassThru
 
         $result.Moves.Count | Should -Be 2
-        Test-Path (Join-Path $script:widgetRoot 'docs/widgets/assets/widget') | Should -BeFalse
+        Test-Path (Join-Path $script:widgetRoot 'docs/widgets/assets/widget.drawio.png') | Should -BeFalse
         $index = @((Invoke-Executable 'git ls-files' -WorkingDirectory $script:widgetRoot -PassThru -Silent).Output -split "`r?`n")
-        $index | Should -Contain 'docs/widgets/.assets/widget/diagram.drawio.yml'
-        $index | Should -Not -Contain 'docs/widgets/assets/widget/diagram.drawio.yml'
-        & $script:read 'docs/widgets/index.md' | Should -BeExactly "# Widgets`n`n![Widget](.assets/widget/diagram.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
-        & $script:read 'docs/gadgets/index.md' | Should -BeExactly "# Gadgets`n`n![the widget slide](../widgets/.assets/widget/diagram.drawio.png)`n"
+        $index | Should -Contain 'docs/widgets/.assets/widget.drawio.yml'
+        $index | Should -Contain 'docs/widgets/.assets/widget.drawio.png'
+        $index | Should -Not -Contain 'docs/widgets/assets/widget.drawio.yml'
+        & $script:read 'docs/widgets/index.md' | Should -BeExactly "# Widgets`n`n![Widget](.assets/widget.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
+        & $script:read 'docs/gadgets/index.md' | Should -BeExactly "# Gadgets`n`n![the widget slide](../widgets/.assets/widget.drawio.png)`n"
         @($result.Pages | Sort-Object) | Should -Be @('docs/gadgets/index.md', 'docs/widgets/index.md')
         @((Test-Links -Path (Join-Path $script:widgetRoot docs) -RepositoryRoot $script:widgetRoot -PassThru 6> $null).Issues) | Should -BeNullOrEmpty
     }
@@ -53,16 +54,16 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         Move-Diagram docs/widgets/plain.md docs/gadgets/simple.md -RepositoryRoot $script:widgetRoot
 
         & $script:read 'docs/gadgets/simple.md' | Should -BeExactly "# Plain`n`n[up](../widgets/index.md)`n"
-        & $script:read 'docs/widgets/index.md' | Should -BeExactly "# Widgets`n`n![Widget](assets/widget/diagram.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](../gadgets/simple.md)`n"
+        & $script:read 'docs/widgets/index.md' | Should -BeExactly "# Widgets`n`n![Widget](assets/widget.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](../gadgets/simple.md)`n"
     }
 
     It 'lists the moves and the pages under -DryRun and changes nothing' {
         $result = Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -DryRun -PassThru
 
         $result.DryRun | Should -BeTrue
-        $result.Moves.To | Should -Contain 'docs/widgets/.assets/widget/diagram.drawio.yml'
-        Test-Path (Join-Path $script:widgetRoot 'docs/widgets/assets/widget/diagram.drawio.yml') | Should -BeTrue
-        & $script:read 'docs/widgets/index.md' | Should -Match '\(assets/widget/diagram\.drawio\.png\)'
+        $result.Moves.To | Should -Contain 'docs/widgets/.assets/widget.drawio.yml'
+        Test-Path (Join-Path $script:widgetRoot 'docs/widgets/assets/widget.drawio.yml') | Should -BeTrue
+        & $script:read 'docs/widgets/index.md' | Should -Match '\(assets/widget\.drawio\.png\)'
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Message -like 'Would move: *' } -Times 2 -Exactly
     }
 
@@ -85,7 +86,8 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     }
 
     It 'refuses a destination that exists, one inside the source, a path outside the repository, and an untracked source' {
-        { Move-Diagram docs/widgets/assets/widget docs/gadgets -RepositoryRoot $script:widgetRoot } | Should -Throw '*already exists*'
+        { Move-Diagram docs/widgets/assets docs/gadgets -RepositoryRoot $script:widgetRoot } | Should -Throw '*already exists*'
+        { Move-Diagram docs/widgets/assets/widget.drawio.png docs/widgets/assets/widget -RepositoryRoot $script:widgetRoot } | Should -Throw '*lies inside it*'
         { Move-Diagram docs/widgets/assets docs/widgets/assets/inner -RepositoryRoot $script:widgetRoot } | Should -Throw '*lies inside it*'
         { Move-Diagram docs/widgets/assets ../elsewhere -RepositoryRoot $script:widgetRoot } | Should -Throw '*inside the repository*'
         { Move-Diagram docs/nothing docs/somewhere -RepositoryRoot $script:widgetRoot } | Should -Throw '*holds no tracked file*'

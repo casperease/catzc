@@ -36,10 +36,31 @@ function Move-Diagram {
     $from = & $relative $Path
     $to = & $relative $Destination
     Assert-False ($from -eq '.' -or $from.StartsWith('../') -or $to -eq '.' -or $to.StartsWith('../')) -ErrorText "Move-Diagram: '$Path' and '$Destination' must both lie inside the repository '$root'."
+    # A diagram is the pair <stem>.drawio.png and <stem>.drawio.yml, named by either file or by its stem, and it moves whole; any other
+    # path, a file or a folder, moves as it is.
+    $pair = $from -cmatch '\.drawio\.(png|yml)$' -or -not (Test-Path -LiteralPath (Join-Path $root $from))
+    if ($pair) {
+        $from = $from -creplace '\.drawio\.(png|yml)$', ''
+        $to = $to -creplace '\.drawio\.(png|yml)$', ''
+    }
+    $sources = @(if ($pair) {
+            "$from.drawio.png", "$from.drawio.yml"
+        }
+        else {
+            $from
+        })
     Assert-False ($to -ceq $from -or $to.StartsWith("$from/")) -ErrorText "Move-Diagram: '$Destination' is '$Path' or lies inside it."
-    Assert-False (Test-Path -LiteralPath (Join-Path $root $to)) -ErrorText "Move-Diagram: '$to' already exists; a move never merges into an existing path."
+    foreach ($target in @(if ($pair) {
+                "$to.drawio.png", "$to.drawio.yml"
+            }
+            else {
+                $to
+            })) {
+        Assert-False (Test-Path -LiteralPath (Join-Path $root $target)) -ErrorText "Move-Diagram: '$target' already exists; a move never merges into an existing path."
+    }
 
-    $listed = Invoke-Executable "git ls-files -z -- `"$from`"" -WorkingDirectory $root -PassThru -Silent
+    $quoted = ($sources | ForEach-Object { '"' + $_ + '"' }) -join ' '
+    $listed = Invoke-Executable "git ls-files -z -- $quoted" -WorkingDirectory $root -PassThru -Silent
     $tracked = @($listed.Output -split "`0" | Where-Object { $_ })
     Assert-True ($tracked.Count -gt 0) -ErrorText "Move-Diagram: '$from' holds no tracked file."
     $moves = @(foreach ($file in $tracked) {
@@ -68,7 +89,10 @@ function Move-Diagram {
         else {
             ''
         }
-        $rebased = [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase($text, $page, $folder, $from, $to)
+        $rebased = $text
+        foreach ($source in $sources) {
+            $rebased = [Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase($rebased, $page, $folder, $source, $to + $source.Substring($from.Length))
+        }
         if ($rebased -cne $text) {
             $edits.Add([pscustomobject]@{ Page = $target; Text = $rebased })
         }
@@ -85,7 +109,11 @@ function Move-Diagram {
     else {
         $parent = Split-Path (Join-Path $root $to) -Parent
         [System.IO.Directory]::CreateDirectory($parent) | Out-Null
-        Invoke-Executable "git mv -- `"$from`" `"$to`"" -WorkingDirectory $root -Silent | Out-Null
+        foreach ($source in $sources) {
+            if (Test-Path -LiteralPath (Join-Path $root $source)) {
+                Invoke-Executable "git mv -- `"$source`" `"$to$($source.Substring($from.Length))`"" -WorkingDirectory $root -Silent | Out-Null
+            }
+        }
         foreach ($edit in $edits) {
             Write-FileIfChanged -Path (Join-Path $root $edit.Page) -Content $edit.Text | Out-Null
         }

@@ -38,8 +38,8 @@ function Build-Diagrams {
     Assert-True (-not ($FromDrawing -and $Stale)) -ErrorText 'Build-Diagrams: -FromDrawing and -Stale are two journeys; pass one.'
     # -Stale rebuilds only the diagrams whose minimaps a tree change left stale: the set Test-Diagrams reports.
     if ($Stale) {
-        Assert-True (-not $Path) -ErrorText 'Build-Diagrams: -Stale finds its folders itself; pass no -Path.'
-        $Path = @((Test-Diagrams -Kit $Kit -RepositoryRoot $root -PassThru).Facts['StaleFolders'])
+        Assert-True (-not $Path) -ErrorText 'Build-Diagrams: -Stale finds its diagrams itself; pass no -Path.'
+        $Path = @((Test-Diagrams -Kit $Kit -RepositoryRoot $root -PassThru).Facts['StaleDiagrams'])
         if ($Path.Count -eq 0) {
             Write-Message 'Build-Diagrams: no diagram carries a stale minimap.'
             return
@@ -48,13 +48,14 @@ function Build-Diagrams {
 
     $tracked = @(Get-GitTrackedPath '.')
     $candidates = @($tracked) + @(Get-GitChangedPath 'docs')
-    $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+/diagram\.drawio\.(png|yml)$' } |
+    # A diagram is the pair <article-folder>/.assets/<name>.drawio.png and .yml, named by its stem <article-folder>/.assets/<name>.
+    $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } |
             Where-Object { $_.EndsWith('.png') -or (Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf) } |
-            ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) } | Select-Object -Unique)
+            ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } | Select-Object -Unique)
     $folders = @(if ($Path) {
             @(foreach ($folderPath in $Path) {
-                    $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/').TrimEnd('/')
-                    Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram folder (<article-folder>/.assets/<name>/ holding a tracked diagram.drawio.png or a diagram.drawio.yml)."
+                    $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/') -creplace '\.drawio\.(png|yml)$', ''
+                    Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram (<article-folder>/.assets/<name>.drawio.yml, or a tracked <name>.drawio.png)."
                     $relative
                 })
         }
@@ -62,7 +63,7 @@ function Build-Diagrams {
             $found
         })
 
-    # Every article and slide that embeds a folder's png, wherever it sits; each one's Supports line is held against the yml.
+    # Every article and slide that embeds a diagram's png, wherever it sits; each one's Supports line is held against the yml.
     $embedders = Get-DiagramEmbedder -Tracked $tracked -RepositoryRoot $root
     $articles = @{}
     foreach ($folderPath in $folders) {
@@ -70,7 +71,7 @@ function Build-Diagrams {
                 $embedders[$folderPath]
             })
         if ($articles[$folderPath].Count -eq 0) {
-            Write-Message "Build-Diagrams: $folderPath is an orphan; no page embeds its diagram.drawio.png." -Warning
+            Write-Message "Build-Diagrams: $folderPath is an orphan; no page embeds its .drawio.png." -Warning
         }
         foreach ($drift in @(Get-DiagramSupportsDrift -Folder $folderPath -Page $articles[$folderPath] -RepositoryRoot $root)) {
             Write-Message "Build-Diagrams: $drift" -Warning
@@ -87,10 +88,10 @@ function Build-Diagrams {
     $render = $true
     $runs = [System.Collections.Generic.List[pscustomobject]]::new()
     $total = [System.Diagnostics.Stopwatch]::StartNew()
-    $declared = @($folders | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_/diagram.drawio.yml") -PathType Leaf })
+    $declared = @($folders | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_.drawio.yml") -PathType Leaf })
     if (-not $DryRun -and $declared.Count -gt 0) {
-        Write-Message "Build-Diagrams: writing the minimap data of $($declared.Count) declared folder(s), then $(if ($FromDrawing) { 'syncing' } else { 'rendering' }) $($folders.Count)."
-        # One call builds the world map once for every folder; each folder's target streams back as its data is written.
+        Write-Message "Build-Diagrams: writing the minimap data of $($declared.Count) declared diagram(s), then $(if ($FromDrawing) { 'syncing' } else { 'rendering' }) $($folders.Count)."
+        # One call builds the world map once for every diagram; each diagram's target streams back as its data is written.
         $index = 0
         $step = [System.Diagnostics.Stopwatch]::StartNew()
         Write-DiagramMinimapData -Folder $declared -RepositoryRoot $root | ForEach-Object {
@@ -100,10 +101,10 @@ function Build-Diagrams {
         }
     }
     if ($FromDrawing) {
-        Assert-True ([bool] $Path) -ErrorText 'Build-Diagrams: -FromDrawing syncs the folders it is given; pass -Path.'
+        Assert-True ([bool] $Path) -ErrorText 'Build-Diagrams: -FromDrawing syncs the diagrams it is given; pass -Path.'
         $declaration = Join-Path $root "$Kit/declaration.py"
         foreach ($folderPath in $folders) {
-            Assert-PathExist (Join-Path $root "$folderPath/diagram.drawio.yml") -PathType Leaf -ErrorText "Build-Diagrams: $folderPath has no diagram.drawio.yml to sync."
+            Assert-PathExist (Join-Path $root "$folderPath.drawio.yml") -PathType Leaf -ErrorText "Build-Diagrams: $folderPath has no .drawio.yml to sync."
             $arguments = "run --project `"$(Join-Path $root $Kit)`" python `"$declaration`" sync `"$folderPath`""
             $run = [pscustomobject]@{ Folder = $folderPath; Articles = $articles[$folderPath]; Stage = 'sync'; ExitCode = $null; Status = 'dry-run' }
             $runs.Add($run)
@@ -160,7 +161,7 @@ function Build-Diagrams {
         }
         Assert-True ($run.Status -ne 'failed') -ErrorText "Build-Diagrams: the renderer failed on $folderPath (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
     }
-    Write-Message "Build-Diagrams: $($folders.Count) diagram folder(s) $(if ($FromDrawing) { 'synced from the drawing' } else { 'rendered' })$(if ($DryRun) { ', dry run' }) in $([Math]::Round($total.Elapsed.TotalSeconds, 1)) s."
+    Write-Message "Build-Diagrams: $($folders.Count) diagram(s) $(if ($FromDrawing) { 'synced from the drawing' } else { 'rendered' })$(if ($DryRun) { ', dry run' }) in $([Math]::Round($total.Elapsed.TotalSeconds, 1)) s."
 
     if ($PassThru) {
         return $runs.ToArray()

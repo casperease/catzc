@@ -1,5 +1,5 @@
 {
-  "hash": "546218c8",
+  "hash": "91a4f629",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -193,6 +193,11 @@
     },
     {
       "name": "Catzc.Azure.Tenant",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Asserts.ValidatePathGivenAttribute",
       "aliases": [],
       "display": []
     },

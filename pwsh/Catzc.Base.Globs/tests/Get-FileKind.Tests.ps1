@@ -30,12 +30,12 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Path = 'python/catzc_diagrams/assets/slides/patterns/rule.html'; Class = 'slides-kit' }
         @{ Path = 'python/catzc_diagrams/assets/slides/slides.yml'; Class = 'slides-kit' }
         @{ Path = 'tools/export.py'; Class = 'script' }
-        @{ Path = 'docs/explanation/design/.assets/gadget-spins/diagram.drawio.png'; Class = 'diagram' }
-        @{ Path = 'docs/explanation/design/.assets/gadget-spins/diagram.drawio.verify.md'; Class = 'asset-description' }
+        @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.png'; Class = 'diagram' }
+        @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.verify.md'; Class = 'asset-description' }
         @{ Path = 'docs/explanation/design/gadget-spins.md'; Class = 'explanation' }
         @{ Path = 'docs/explanation/design/widget-deck/gadget-spins.slide.md'; Class = 'slide' }
-        @{ Path = 'docs/references/pwsh/.assets/catzc-widget/diagram.drawio.png'; Class = 'diagram' }
-        @{ Path = 'docs/references/pwsh/.assets/catzc-widget/diagram.drawio.verify.md'; Class = 'asset-description' }
+        @{ Path = 'docs/references/pwsh/.assets/catzc-widget.drawio.png'; Class = 'diagram' }
+        @{ Path = 'docs/references/pwsh/.assets/catzc-widget.drawio.verify.md'; Class = 'asset-description' }
         @{ Path = 'docs/references/pwsh/catzc-widget.md'; Class = 'reference' }
         @{ Path = 'docs/drs/index.md'; Class = 'index' }
         @{ Path = 'docs/drs/glossary.md'; Class = 'glossary' }

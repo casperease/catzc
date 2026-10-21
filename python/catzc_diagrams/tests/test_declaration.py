@@ -199,7 +199,7 @@ def test_each_minimap_lists_its_lit_cells_with_what_lit_them_and_a_bad_entry_fai
 def test_the_lit_cells_survive_a_put_then_a_get_through_save(tmp_path):
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"]["minimaps"] = WIDGET_CELLS
-    (tmp_path / declaration.SOURCE).write_text(declaration.dump(declaration.normalise(raw)), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(declaration.dump(declaration.normalise(raw)), encoding="utf-8")
     first = declaration.load(tmp_path)
     declaration.put_png(tmp_path, first)
     back = declaration.get(declaration.model_of(tmp_path), kind="explanation")
@@ -211,7 +211,7 @@ def test_the_lit_cells_survive_a_put_then_a_get_through_save(tmp_path):
 def test_declare_minimaps_writes_the_computed_cells_files_first_then_rules(tmp_path, monkeypatch):
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"]["minimaps"] = {view: [] for view in WIDGET_CELLS}
-    (tmp_path / declaration.SOURCE).write_text(declaration.dump(declaration.normalise(raw)), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(declaration.dump(declaration.normalise(raw)), encoding="utf-8")
     reason = lambda subject, rule: {"subject": subject, "basis": "citation", "requested": rule, "note": ""}
     data = {
         "grid": {"lit": [{"at": ["widgets", "widget-script"], "reasons": [reason("widgets/Get-Widget.ps1", "ADR-WIDGET-SPIN")] * 2}]},
@@ -222,6 +222,24 @@ def test_declare_minimaps_writes_the_computed_cells_files_first_then_rules(tmp_p
     monkeypatch.setattr(declaration, "minimap_data", lambda folder, computed=False: data if computed else {})
     declaration.declare_minimaps(tmp_path)
     assert declaration.load(tmp_path)["content"]["minimaps"] == WIDGET_CELLS
+
+
+def test_declare_minimaps_keeps_the_head_and_every_other_line_as_written(tmp_path, monkeypatch):
+    # A generated head and a list indented under its key, as the formatter writes them; only the minimaps lines may change.
+    head = '# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "0123456789ab"\n# ---\n\n'
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["minimaps"] = {"grid": [], "axis": [], "layer-stack": []}
+    text = head + declaration.dump(declaration.normalise(raw))
+    assert "  minimaps:\n    grid: []\n" in text
+    declaration.source_of(tmp_path).write_text(text, encoding="utf-8")
+    data = {"grid": {"lit": [{"at": ["widgets", "widget-script"], "reasons": [{"subject": "widgets/Get-Widget.ps1", "requested": "ADR-WIDGET-SPIN"}]}]},
+            "axis": {"lit": []}, "layer-stack": {"lit": []}}
+    monkeypatch.setattr(declaration, "minimap_data", lambda folder, computed=False: data if computed else {})
+    declaration.declare_minimaps(tmp_path)
+    again = declaration.source_of(tmp_path).read_text(encoding="utf-8")
+    assert again.startswith(head)
+    block = "    grid:\n      - cell: widgets/widget-script\n        by:\n          - widgets/Get-Widget.ps1\n          - ADR-WIDGET-SPIN\n"
+    assert again == text.replace("    grid: []\n", block, 1)
 
 
 def claimed():
@@ -258,7 +276,7 @@ def test_the_retired_subject_lists_are_read_ignored_and_never_written_back():
 
 def test_put_embeds_each_minimap_as_a_picture_and_get_keeps_the_subject_through_save(tmp_path):
     raw = claimed()
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
     first = declaration.load(tmp_path)
     model = declaration.put(first)
     assert model.count("image=data:image/png,") == 3
@@ -270,7 +288,7 @@ def test_put_embeds_each_minimap_as_a_picture_and_get_keeps_the_subject_through_
 def test_put_png_embeds_the_model_and_get_reads_it_back(tmp_path):
     first = widgets()
     dst = declaration.put_png(tmp_path, first)
-    assert dst.name == "diagram.drawio.png"
+    assert dst == tmp_path.with_name(tmp_path.name + ".drawio.png")
     with Image.open(dst) as img:
         assert img.size[0] > 1500
     back = declaration.get(declaration.model_of(tmp_path), kind="explanation")
@@ -282,7 +300,7 @@ def test_put_png_embeds_the_model_and_get_reads_it_back(tmp_path):
 def test_the_source_file_round_trips_through_load_and_save(tmp_path):
     source = __import__("yaml").safe_load(WIDGETS)
     source["description"] = "Widgets pass a gate on their way to the gadget store."
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
     loaded = declaration.load(tmp_path)
     assert loaded["description"] == "Widgets pass a gate on their way to the gadget store."
     declaration.save(tmp_path, loaded)
@@ -292,7 +310,7 @@ def test_the_source_file_round_trips_through_load_and_save(tmp_path):
 def test_get_into_the_folder_keeps_the_description_the_drawing_cannot_carry(tmp_path):
     source = __import__("yaml").safe_load(WIDGETS)
     source["description"] = "Widgets pass a gate on their way to the gadget store."
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
     declaration.put_png(tmp_path, declaration.load(tmp_path))
     back = declaration.get(declaration.model_of(tmp_path), kind="explanation")
     assert back["description"] == ""
@@ -300,8 +318,8 @@ def test_get_into_the_folder_keeps_the_description_the_drawing_cannot_carry(tmp_
     assert declaration.load(tmp_path)["description"] == "Widgets pass a gate on their way to the gadget store."
 
 
-def test_a_folder_without_its_source_fails_naming_the_file(tmp_path):
-    with pytest.raises(declaration.DeclarationError, match="no diagram.drawio.yml"):
+def test_a_diagram_without_its_source_fails_naming_the_file(tmp_path):
+    with pytest.raises(declaration.DeclarationError, match=rf"no {tmp_path.name}\.drawio\.yml"):
         declaration.load(tmp_path)
 
 
@@ -457,11 +475,11 @@ def test_a_span_may_name_a_track_of_the_registry_and_nothing_else():
 
 def test_drift_is_empty_after_put_and_names_the_cell_a_yml_edit_left_unwritten(tmp_path):
     source = __import__("yaml").safe_load(WIDGETS)
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
     declaration.put_png(tmp_path, declaration.load(tmp_path))
     assert declaration.drift(tmp_path) == ([], [])
     source["content"]["glyphs"][2]["label"] = "Gadget vault"
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
     cells, stale = declaration.drift(tmp_path)
     assert "gadget-store" in cells and stale == []
 
@@ -478,7 +496,7 @@ def test_labels_keep_quotes_unescaped_in_the_drawing():
 def committed_pair(folder, source):
     """Write a pair the way a commit holds it: the yml, and the png put from it; the pair's text and model are the base."""
     text = __import__("yaml").safe_dump(source, sort_keys=False)
-    (folder / declaration.SOURCE).write_text(text, encoding="utf-8")
+    declaration.source_of(folder).write_text(text, encoding="utf-8")
     declaration.put_png(folder, declaration.load(folder))
     return text, declaration.model_of(folder)
 
@@ -491,7 +509,7 @@ def edited_both_sides(folder):
     drawn["content"]["glyphs"][0]["label"] = "Widget Z"
     declaration.put_png(folder, declaration.normalise(drawn))
     source["content"]["glyphs"][2]["label"] = "Gadget vault"
-    (folder / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    declaration.source_of(folder).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
     return base
 
 
@@ -544,7 +562,7 @@ def test_sync_after_a_yml_edit_only_puts(tmp_path):
     source = __import__("yaml").safe_load(WIDGETS)
     base = committed_pair(tmp_path, source)
     source["content"]["glyphs"][2]["label"] = "Gadget vault"
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(source, sort_keys=False), encoding="utf-8")
     assert declaration.sync(tmp_path, base) == ["put"]
     assert declaration.drift(tmp_path) == ([], [])
 
@@ -632,10 +650,10 @@ def test_one_declaration_renders_in_every_theme_from_its_token_sets():
 
 def test_a_theme_other_than_the_default_renders_to_out_and_leaves_the_committed_png(tmp_path):
     committed_pair(tmp_path, __import__("yaml").safe_load(WIDGETS))
-    before = (tmp_path / declaration.SLIDE).read_bytes()
+    before = declaration.slide_of(tmp_path).read_bytes()
     dst = declaration.put_png(tmp_path, declaration.load(tmp_path), "light")
-    assert dst.parts[-5:-2] == ("drawio", "themes", "light") and dst.is_file()
-    assert (tmp_path / declaration.SLIDE).read_bytes() == before
+    assert dst.parts[-4:-1] == ("drawio", "themes", "light") and dst.name == declaration.slide_of(tmp_path).name and dst.is_file()
+    assert declaration.slide_of(tmp_path).read_bytes() == before
 
 
 def test_a_style_token_no_theme_defines_fails_naming_the_tokens():
@@ -650,10 +668,10 @@ def test_the_glyph_library_names_colours_only_as_tokens():
 
 def test_tidy_re_saves_a_source_without_its_retired_keys_and_changes_nothing_else(tmp_path):
     raw = claimed()
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
     before = declaration.load(tmp_path)
     declaration.save(tmp_path, declaration.load(tmp_path))
-    text = (tmp_path / declaration.SOURCE).read_text(encoding="utf-8")
+    text = declaration.source_of(tmp_path).read_text(encoding="utf-8")
     assert all(key not in text for key in ("tracks:", "languages:", "modules:", "files:"))
     assert declaration.dump(declaration.load(tmp_path)) == declaration.dump(before)
 
@@ -721,10 +739,10 @@ def test_declare_minimaps_keeps_the_rows_and_an_edge_between_their_cells(tmp_pat
     raw["content"].update(ROWS)
     raw["content"]["edges"].append({"from": "row-full-0", "to": "row-short-0", "kind": "adr"})  # both ends are cells the rows write out
     raw["content"]["minimaps"] = {view: [] for view in WIDGET_CELLS}
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
     monkeypatch.setattr(declaration, "minimap_data", lambda folder, computed=False: {view: {"lit": []} for view in WIDGET_CELLS})
     declaration.declare_minimaps(tmp_path)
-    written = __import__("yaml").safe_load((tmp_path / declaration.SOURCE).read_text(encoding="utf-8"))
+    written = __import__("yaml").safe_load(declaration.source_of(tmp_path).read_text(encoding="utf-8"))
     assert written["content"]["rows"] == ROWS["rows"]
     assert {"from": "row-full-0", "to": "row-short-0", "kind": "adr"} in written["content"]["edges"]
     assert {k: v for k, v in written["content"].items() if k != "minimaps"} == {k: v for k, v in raw["content"].items() if k != "minimaps"}
@@ -733,13 +751,13 @@ def test_declare_minimaps_keeps_the_rows_and_an_edge_between_their_cells(tmp_pat
 def test_a_row_is_written_back_as_a_row_and_a_get_of_its_drawing_keeps_it(tmp_path):
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"].update(ROWS)
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
     first = declaration.load(tmp_path)
     text = declaration.dump(first)
     assert "rows:" in text and "row-full-0" not in text
     declaration.put_png(tmp_path, first)
     declaration.save(tmp_path, declaration.get(declaration.model_of(tmp_path), kind="explanation"))
-    again = (tmp_path / declaration.SOURCE).read_text(encoding="utf-8")
+    again = declaration.source_of(tmp_path).read_text(encoding="utf-8")
     assert "rows:" in again and "row-full-0:" not in again.split("layout:")[0]
 
 
@@ -760,10 +778,10 @@ def test_a_skipped_step_draws_a_bypass_under_the_dot_it_skips_and_the_row_keeps_
     box = {c["id"]: c for c in declaration.place(first)[0]}
     low = {y for _, y in box["e-row-full-1-row-full-3"]["via"]}
     assert low == {box["row-full-1"]["y"] + box["row-full-1"]["h"] + declaration.BYPASS_DIP}
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
     declaration.put_png(tmp_path, declaration.load(tmp_path))
     declaration.save(tmp_path, declaration.get(declaration.model_of(tmp_path), kind="explanation"))
-    again = (tmp_path / declaration.SOURCE).read_text(encoding="utf-8")
+    again = declaration.source_of(tmp_path).read_text(encoding="utf-8")
     assert "skip:\n    - BVT" in again and "row-full-0:" not in again.split("layout:")[0]
 
 
@@ -813,12 +831,12 @@ def test_a_lane_places_its_commits_by_step_and_row_and_draws_its_trunk_marks_and
 
 
 def test_a_lane_is_written_back_as_a_lane_and_a_get_of_its_drawing_keeps_it(tmp_path):
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(lane_widgets(), sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(lane_widgets(), sort_keys=False), encoding="utf-8")
     first = declaration.load(tmp_path)
     assert "lanes:" in declaration.dump(first) and "id: g1\n    kind" not in declaration.dump(first)
     declaration.put_png(tmp_path, first)
     declaration.save(tmp_path, declaration.get(declaration.model_of(tmp_path), kind="explanation"))
-    again = (tmp_path / declaration.SOURCE).read_text(encoding="utf-8")
+    again = declaration.source_of(tmp_path).read_text(encoding="utf-8")
     assert "lanes:" in again and "rules:" in again
 
 
@@ -896,7 +914,7 @@ def test_a_pair_whose_sides_both_moved_but_draw_the_same_is_no_conflict_whatever
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"].update({"kind": "reference", "relation": "feeds (data moves)"})
     raw["layout"] = {"band-widgets": {"x": 20, "y": 108, "w": 1260, "h": 200}, "band-gadgets": {"x": 20, "y": 330, "w": 1260, "h": 200}}
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
     declaration.put_png(tmp_path, declaration.load(tmp_path))
     base = ("content: {}\n", "<mxGraphModel />")  # both sides moved from it
     # kind is never drawn, the stacked bands read as top-to-bottom, and the legend drops the relation's parenthesis
@@ -906,10 +924,10 @@ def test_a_pair_whose_sides_both_moved_but_draw_the_same_is_no_conflict_whatever
 
 def test_a_conflict_names_the_drawn_cells_and_never_a_derived_one(tmp_path):
     raw = __import__("yaml").safe_load(WIDGETS)
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
     declaration.put_png(tmp_path, declaration.load(tmp_path))
     raw["content"]["glyphs"][2]["kind"] = "file"  # the yml moves on: a new kind for gadget-store, and with it a new legend row
-    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
     cells = declaration.conflict(tmp_path, ("content: {}\n", "<mxGraphModel />"))
     assert "gadget-store" in cells and not [c for c in cells if c.startswith(declaration.DERIVED_PREFIXES) or c in declaration.DERIVED]
 
@@ -957,7 +975,7 @@ def test_span_room_moves_the_drawing_but_a_put_then_a_get_returns_the_declared_g
     raw["content"]["minimaps"] = {"grid": [], "axis": [], "layer-stack": []}  # the three the fixture data draws, so get reads back what is declared
     raw["layout"] = {"band-widgets": {"x": 20, "y": 60, "w": 620, "h": 300}, "band-gadgets": {"x": 660, "y": 60, "w": 620, "h": 300}}
     text = declaration.dump(declaration.normalise(raw))
-    (tmp_path / declaration.SOURCE).write_text(text, encoding="utf-8")
+    declaration.source_of(tmp_path).write_text(text, encoding="utf-8")
     declaration.put_png(tmp_path, declaration.load(tmp_path))
     model = declaration.model_of(tmp_path)
     title = ET.fromstring(model).find(".//mxCell[@id='title']")
@@ -965,7 +983,7 @@ def test_span_room_moves_the_drawing_but_a_put_then_a_get_returns_the_declared_g
     shift = declaration.shift_of(title.get("style"))
     assert shift > 0  # the span over the high bands reached into the title, so the drawing area moved down
     declaration.save(tmp_path, declaration.get(model, kind="explanation"))
-    assert (tmp_path / declaration.SOURCE).read_text(encoding="utf-8") == text
+    assert declaration.source_of(tmp_path).read_text(encoding="utf-8") == text
 
 
 def test_a_rule_and_a_lane_commit_outside_their_vocabularies_fail_with_the_allowed_values():

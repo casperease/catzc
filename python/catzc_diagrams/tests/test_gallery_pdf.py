@@ -59,10 +59,10 @@ def test_a_declared_diagram_is_described_by_its_yml_description(tmp_path):
     (tmp_path / CARRIERS).parent.mkdir(parents=True)
     shutil.copy2(REPO / CARRIERS, tmp_path / CARRIERS)
 
-    folder = tmp_path / "assets" / "widget-flow"
-    folder.mkdir(parents=True)
-    Image.new("RGB", (64, 48), (40, 60, 90)).save(folder / "diagram.drawio.png")
-    (folder / "diagram.drawio.yml").write_text("description: >-\n  Widgets flow into gadgets.\ncontent:\n  title: Widgets\n", encoding="utf-8")
+    assets = tmp_path / "assets"
+    assets.mkdir(parents=True)
+    Image.new("RGB", (64, 48), (40, 60, 90)).save(assets / "widget-flow.drawio.png")
+    (assets / "widget-flow.drawio.yml").write_text("description: >-\n  Widgets flow into gadgets.\ncontent:\n  title: Widgets\n", encoding="utf-8")
 
     done = subprocess.run(
         [sys.executable, str(mirror_kit / "gallery_pdf.py"), "--assets", "assets"],

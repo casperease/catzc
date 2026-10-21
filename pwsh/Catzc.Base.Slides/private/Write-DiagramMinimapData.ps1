@@ -24,7 +24,7 @@ function Write-DiagramMinimapData {
     # The world map is built once for every folder of the call; a minimap that draws on it is handed it rather than building its own.
     $worldMap = Get-WorldMap
     $declared = foreach ($folderPath in $Folder) {
-        $source = Join-Path $RepositoryRoot "$folderPath/diagram.drawio.yml"
+        $source = Join-Path $RepositoryRoot "$folderPath.drawio.yml"
         $declaration = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($source)) -Ordered
         $about = if ($declaration -and $declaration.Contains('about')) {
             $declaration['about']
@@ -100,7 +100,7 @@ function Write-DiagramMinimapData {
             $kept = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { $placed.Contains($_.At -join '/') })
             if ($kept.Count -lt $data.Lit.Count) {
                 $dropped = @($data.Lit | Where-Object { -not $placed.Contains($_.At -join '/') } | ForEach-Object { $_.At -join '/' })
-                Write-Warning "Write-DiagramMinimapData: $folderPath minimap '$id' drops $($dropped.Count) lit cell(s) its diagram.drawio.yml does not list under content.minimaps: $($dropped -join ', ')"
+                Write-Warning "Write-DiagramMinimapData: $folderPath minimap '$id' drops $($dropped.Count) lit cell(s) its .drawio.yml does not list under content.minimaps: $($dropped -join ', ')"
                 $data = [Catzc.Base.Maps.MinimapData]::new($data.Id, [Catzc.Base.Maps.MinimapAxis[]] @($data.Axes), [Catzc.Base.Maps.MinimapCell[]] @($data.Cells), $kept)
             }
             [System.IO.File]::WriteAllText((Join-Path $target "$id.json"), "$($data.ToJson())`n", $utf8)

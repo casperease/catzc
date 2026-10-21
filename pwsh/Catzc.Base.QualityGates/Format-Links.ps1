@@ -15,6 +15,7 @@ function Format-Links {
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [Catzc.Base.QualityGates.LinkKind] $Kind = [Catzc.Base.QualityGates.LinkKind]::Both,

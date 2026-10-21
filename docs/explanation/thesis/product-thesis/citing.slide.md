@@ -14,7 +14,7 @@ How the rules are cited
 
 ## Body
 
-Every decision record opens with a numbered rule registry, and a rule is cited as its rule code, a literal record-kind prefix plus uppercase
+Every decision record opens with a rule registry, and a rule is cited as its rule code, a literal record-kind prefix plus uppercase
 segments, then a hash and the rule's number. The prefix is the single searchable marker for a rule reference anywhere in the repository.
 
 A rule's number is stable. A retired rule's number is never reused, so a citation never changes its meaning when a neighbouring rule goes.

@@ -51,10 +51,10 @@ carriers:
   stamp: { carrier: none, reason: "a stamp is written whole by the generator that records it, and its value is the file" }
   asset: { carrier: none, reason: "a binary file, so the description beside it carries what a reader needs" }
 
-  diagram-folder:
-    files: ["docs/**/.assets/*/diagram.drawio.png"]
+  diagram-render:
+    files: ["docs/**/.assets/*.drawio.png"]
     carrier: none
-    reason: "the diagram.drawio.yml beside it is the diagram's one source"
+    reason: "the <name>.drawio.yml beside it is the diagram's one source"
   dotfile:
     {
       files: ["**/.editorconfig", "**/.gitignore", "**/.gitattributes", "**/.prettierignore", "**/.markdownlintignore"],

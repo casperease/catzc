@@ -17,6 +17,7 @@ function Test-Plans {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [Catzc.Base.QualityGates.PlansConfig] $Config = (Get-Config -Config plans),

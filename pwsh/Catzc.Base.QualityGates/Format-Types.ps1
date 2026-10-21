@@ -15,6 +15,7 @@ function Format-Types {
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [switch] $DryRun,

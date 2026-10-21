@@ -18,11 +18,11 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         $script:widgetRoot = Join-Path $TestDrive 'diagram-repository'
         $pages = [ordered]@{
             'kit/drawio_forward.py'  = "# renderer stand-in`n"
-            'docs/widgets/index.md'  = "# Widgets`n`n![Widget A](.assets/widget-a/diagram.drawio.png)`n`n![Widget B](./.assets/widget-b/diagram.drawio.png)`n"
-            'docs/widgets/plain.md'  = "# Plain`n`n[a link](.assets/widget-a/diagram.drawio.yml)`n"
-            'docs/gadgets/index.md'  = "# Gadgets`n`n![Gadget](.assets/gadget/diagram.drawio.png)`n"
-            'docs/gadgets/second.md' = "# Second`n`n![Gadget again](.assets/gadget/diagram.drawio.png)`n"
-            'docs/gizmos/index.md'   = "# Gizmos`n`n![Elsewhere](../widgets/.assets/gizmo/diagram.drawio.png)`n"
+            'docs/widgets/index.md'  = "# Widgets`n`n![Widget A](.assets/widget-a.drawio.png)`n`n![Widget B](./.assets/widget-b.drawio.png)`n"
+            'docs/widgets/plain.md'  = "# Plain`n`n[a link](.assets/widget-a.drawio.yml)`n"
+            'docs/gadgets/index.md'  = "# Gadgets`n`n![Gadget](.assets/gadget.drawio.png)`n"
+            'docs/gadgets/second.md' = "# Second`n`n![Gadget again](.assets/gadget.drawio.png)`n"
+            'docs/gizmos/index.md'   = "# Gizmos`n`n![Elsewhere](../widgets/.assets/gizmo.drawio.png)`n"
         }
         foreach ($file in $pages.Keys) {
             $full = Join-Path $script:widgetRoot $file
@@ -30,9 +30,9 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
             [System.IO.File]::WriteAllText($full, $pages[$file])
         }
         $script:tracked = @($pages.Keys | Where-Object { $_ -like 'docs/*' }) + @(
-            'docs/widgets/.assets/widget-a/diagram.drawio.png', 'docs/widgets/.assets/widget-a/diagram.drawio.yml',
-            'docs/widgets/.assets/widget-b/diagram.drawio.png', 'docs/gadgets/.assets/gadget/diagram.drawio.png',
-            'docs/gizmos/.assets/gizmo/diagram.drawio.png', 'docs/widgets/.assets/loose.drawio.png')
+            'docs/widgets/.assets/widget-a.drawio.png', 'docs/widgets/.assets/widget-a.drawio.yml',
+            'docs/widgets/.assets/widget-b.drawio.png', 'docs/gadgets/.assets/gadget.drawio.png',
+            'docs/gizmos/.assets/gizmo.drawio.png', 'docs/widgets/loose.drawio.png', 'docs/widgets/.assets/nested/deep.drawio.png')
     }
 
     BeforeEach {
@@ -56,7 +56,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
     }
 
     It 'writes the minimap data of every declared folder in one call, one progress line per folder' {
-        $declarations = @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' | ForEach-Object { Join-Path $script:widgetRoot "$_/diagram.drawio.yml" })
+        $declarations = @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' | ForEach-Object { Join-Path $script:widgetRoot "$_.drawio.yml" })
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Folder) {
                 "out/minimaps/$item"
             } }
@@ -75,7 +75,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Message -like 'minimaps 2/2 docs/widgets/.assets/widget-b (*' }
     }
 
-    It 'with no path, rebuilds every diagram folder under docs/**/.assets/**, and nothing that is not one' {
+    It 'with no path, rebuilds every diagram pair in a docs/**/.assets/ folder, and nothing outside one or nested below it' {
         $folders = @(& $script:build).Folder
         $folders | Should -Be @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b', 'docs/gizmos/.assets/gizmo')
     }
@@ -102,13 +102,13 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
     }
 
     It 'holds each embedding page''s Supports line against the yml, warning for the one that disagrees' -Tag 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
-        $folder = Join-Path $script:widgetRoot 'docs/gadgets/.assets/gadget'
+        $folder = Join-Path $script:widgetRoot 'docs/gadgets/.assets'
         [System.IO.Directory]::CreateDirectory($folder) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $folder 'diagram.drawio.yml'), "about:`n  lens: architecture`n  adrs: [ADR-WIDGET-GADGET]`ncontent: {}`n")
+        [System.IO.File]::WriteAllText((Join-Path $folder 'gadget.drawio.yml'), "about:`n  lens: architecture`n  adrs: [ADR-WIDGET-GADGET]`ncontent: {}`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/index.md'),
-            "# Gadgets`n`nSupports ADR-WIDGET-GADGET (architecture lens).`n`n![Gadget](.assets/gadget/diagram.drawio.png)`n")
+            "# Gadgets`n`nSupports ADR-WIDGET-GADGET (architecture lens).`n`n![Gadget](.assets/gadget.drawio.png)`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/second.md'),
-            "# Second`n`nSupports ADR-WIDGET-COG (architecture lens).`n`n![Gadget again](.assets/gadget/diagram.drawio.png)`n")
+            "# Second`n`nSupports ADR-WIDGET-COG (architecture lens).`n`n![Gadget again](.assets/gadget.drawio.png)`n")
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked }
         $null = & $script:build @{ Path = 'docs/gadgets/.assets/gadget' }
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
@@ -117,18 +117,18 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 0 -ParameterFilter { $Warning -and $Message -like '*docs/gadgets/index.md says*' }
     }
 
-    It 'gives an untracked folder holding only its declaration its first put' {
-        $source = Join-Path $script:widgetRoot 'docs/widgets/.assets/sprocket/diagram.drawio.yml'
+    It 'gives an untracked declaration its first put, named by the yml itself' {
+        $source = Join-Path $script:widgetRoot 'docs/widgets/.assets/sprocket.drawio.yml'
         [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
         [System.IO.File]::WriteAllText($source, "content: {}`n")
-        Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { 'docs/widgets/.assets/sprocket/diagram.drawio.yml' }
-        $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/sprocket' })
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { 'docs/widgets/.assets/sprocket.drawio.yml' }
+        $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/sprocket.drawio.yml' })
         $runs.Folder | Should -Be @('docs/widgets/.assets/sprocket')
         $runs.Status | Should -Be @('clean')
     }
 
-    It 'refuses a path that is not a diagram folder' {
-        { & $script:build @{ Path = 'docs/widgets/.assets' } } | Should -Throw '*is not a diagram folder*'
+    It 'refuses a path that is not a diagram' {
+        { & $script:build @{ Path = 'docs/widgets/.assets' } } | Should -Throw '*is not a diagram (*'
     }
 
     It 'lists the calls per folder under -DryRun and runs none' -Tag 'ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT' {
@@ -156,7 +156,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     Context '-FromDrawing' -Tag 'ADR-REPO-SLIDES-CONFLICTNEEDSAPICK' {
         BeforeAll {
-            $source = Join-Path $script:widgetRoot 'docs/widgets/.assets/widget-b/diagram.drawio.yml'
+            $source = Join-Path $script:widgetRoot 'docs/widgets/.assets/widget-b.drawio.yml'
             [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
             [System.IO.File]::WriteAllText($source, "content: {}`n")
         }
@@ -167,7 +167,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
         It 'syncs a folder after a draw.io edit through the kit''s sync, then runs the drift gate on it' {
             Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
-                [pscustomobject]@{ ExitCode = 0; Output = '{"folder": "docs/widgets/.assets/widget-b", "ran": ["get", "put"]}' }
+                [pscustomobject]@{ ExitCode = 0; Output = '{"diagram": "docs/widgets/.assets/widget-b", "ran": ["get", "put"]}' }
             }
             $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/widget-b'; FromDrawing = $true })
             $runs.Stage | Should -Be @('sync (get, put)')
@@ -179,36 +179,36 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
         It 'stops on a conflict before put, naming the cells, and runs no drift gate' {
             Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
-                [pscustomobject]@{ ExitCode = 0; Output = '{"folder": "docs/widgets/.assets/widget-b", "error": "the yml and the png both moved from HEAD and disagree in widget-a"}' }
+                [pscustomobject]@{ ExitCode = 0; Output = '{"diagram": "docs/widgets/.assets/widget-b", "error": "the yml and the png both moved from HEAD and disagree in widget-a"}' }
             }
             { & $script:build @{ Path = 'docs/widgets/.assets/widget-b'; FromDrawing = $true } } | Should -Throw '*sync of docs/widgets/.assets/widget-b stopped*disagree in widget-a*'
             Should -Invoke Test-Diagrams -ModuleName Catzc.Base.Slides -Times 0 -Exactly
         }
 
-        It 'syncs only the folders it is given' {
-            { & $script:build @{ FromDrawing = $true } } | Should -Throw '*-FromDrawing syncs the folders it is given*'
+        It 'syncs only the diagrams it is given' {
+            { & $script:build @{ FromDrawing = $true } } | Should -Throw '*-FromDrawing syncs the diagrams it is given*'
         }
 
-        It 'refuses a folder without a declaration' {
-            { & $script:build @{ Path = 'docs/widgets/.assets/widget-a'; FromDrawing = $true } } | Should -Throw '*widget-a has no diagram.drawio.yml to sync*'
+        It 'refuses a diagram without a declaration' {
+            { & $script:build @{ Path = 'docs/widgets/.assets/widget-a'; FromDrawing = $true } } | Should -Throw '*widget-a has no .drawio.yml to sync*'
         }
     }
 
     Context '-Stale' -Tag 'ADR-REPO-SLIDES-TWODIRECTIONS' {
         It 'rebuilds only the diagrams Test-Diagrams reports stale' {
-            Mock Test-Diagrams -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Facts = @{ StaleFolders = @('docs/widgets/.assets/widget-b') } } }
+            Mock Test-Diagrams -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Facts = @{ StaleDiagrams = @('docs/widgets/.assets/widget-b') } } }
             $runs = @(& $script:build @{ Stale = $true })
             $runs.Folder | Should -Be @('docs/widgets/.assets/widget-b')
         }
 
         It 'rebuilds nothing when no minimap is stale' {
-            Mock Test-Diagrams -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Facts = @{ StaleFolders = @() } } }
+            Mock Test-Diagrams -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Facts = @{ StaleDiagrams = @() } } }
             @(& $script:build @{ Stale = $true }) | Should -BeNullOrEmpty
             Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 0 -Exactly
         }
 
-        It 'finds its folders itself' {
-            { & $script:build @{ Stale = $true; Path = 'docs/widgets/.assets/widget-b' } } | Should -Throw '*-Stale finds its folders itself*'
+        It 'finds its diagrams itself' {
+            { & $script:build @{ Stale = $true; Path = 'docs/widgets/.assets/widget-b' } } | Should -Throw '*-Stale finds its diagrams itself*'
         }
     }
 }

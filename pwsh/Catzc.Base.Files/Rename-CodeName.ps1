@@ -18,6 +18,7 @@ function Rename-CodeName {
         [Parameter(Mandatory, Position = 0)]
         [System.Collections.IDictionary] $Map,
 
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path = @('.'),
 
         [string[]] $Exclude = @('.claude/learnings/', '.claude/hindsight/'),

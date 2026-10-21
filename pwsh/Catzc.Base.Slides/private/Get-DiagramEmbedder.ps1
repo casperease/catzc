@@ -29,11 +29,11 @@ function Get-DiagramEmbedder {
             continue
         }
         $text = [System.IO.File]::ReadAllText($full)
-        if (-not $text.Contains('diagram.drawio.png')) {
+        if (-not $text.Contains('.drawio.png')) {
             continue
         }
         $pageFolder = $page.Substring(0, [Math]::Max(0, $page.LastIndexOf('/')))
-        foreach ($match in [regex]::Matches($text, '!\[[^\]]*\]\(([^)\s#]*diagram\.drawio\.png)')) {
+        foreach ($match in [regex]::Matches($text, '!\[[^\]]*\]\(([^)\s#]*\.drawio\.png)')) {
             $target = $match.Groups[1].Value
             $joined = if ($target.StartsWith('/')) {
                 $target.TrimStart('/')
@@ -43,7 +43,8 @@ function Get-DiagramEmbedder {
             }
             $full = [System.IO.Path]::GetFullPath((Join-Path $RepositoryRoot $joined))
             $relative = [System.IO.Path]::GetRelativePath($RepositoryRoot, $full) -replace '\\', '/'
-            $folder = $relative.Substring(0, [Math]::Max(0, $relative.LastIndexOf('/')))
+            # The diagram is named by its stem, .assets/<name>, the key every diagram command uses.
+            $folder = $relative -creplace '\.drawio\.png$', ''
             if (-not $embedders.ContainsKey($folder)) {
                 $embedders[$folder] = [System.Collections.Generic.List[string]]::new()
             }

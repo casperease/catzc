@@ -15,7 +15,7 @@ Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAP
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         $script:folder = 'docs/explanation/widget/.assets/widget-flow'
         $source = Join-Path $script:root $script:folder
-        [System.IO.Directory]::CreateDirectory($source) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
         # The widget's declaration lists one of the two lit cells and omits the other.
         $yml = @'
 about:
@@ -28,7 +28,7 @@ content:
         by:
           - ADR-WIDGET
 '@
-        [System.IO.File]::WriteAllText((Join-Path $source 'diagram.drawio.yml'), $yml)
+        [System.IO.File]::WriteAllText("$source.drawio.yml", $yml)
         Mock Get-Config -ModuleName Catzc.Base.Slides -ParameterFilter { $Config -eq 'maps' } { [Catzc.Base.Maps.MapsConfig]::new([ordered]@{}) }
         Mock Get-WorldMap -ModuleName Catzc.Base.Slides { }
         Mock Get-WorldMapHighlight -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Cells = @() } }
