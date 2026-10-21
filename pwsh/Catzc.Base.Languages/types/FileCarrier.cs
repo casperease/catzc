@@ -18,7 +18,7 @@ catzc:
     docs: "[FileCarrier.cs.md](docs/references/pwsh/catzc-base-languages/types/FileCarrier.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

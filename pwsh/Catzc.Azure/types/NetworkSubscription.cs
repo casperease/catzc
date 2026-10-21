@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[NetworkSubscription.cs.md](docs/references/pwsh/catzc-azure/types/NetworkSubscription.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-NETWORK
 ---
 */

@@ -30,12 +30,24 @@ final full run last.
 5. Cut `.claude/CLAUDE.md`, section Sub-agents, to the agent names and one clause each (plan-claude-diet.md step 1). Check:
    `Test-AgentDefinitions` passes and `wc -c .claude/CLAUDE.md` is at most 11900.
 6. Commit the two BCL folder moves (plan-bcl-language.md): `docs/references/BCL/` and `docs/how-to/getting-started/BCL/` added, the old
-   `docs/references/pwsh/BCL/` and `docs/how-to/getting-started/pwsh/BCL/` deleted. Check: `Test-Links` on both folders reports no
-   `[Untracked]` issue.
-7. Edit `.claude/CLAUDE.md`, section Project structure: one line saying the `types/*.cs` files are written in BCL, a subset of .NET, hosted
+   `docs/references/pwsh/BCL/` and `docs/how-to/getting-started/pwsh/BCL/` deleted; with them the sample folder
+   `docs/adr/automation/BCL/.assets/bcl-language/`, the new `docs/adr/automation/BCL/dora-explains.md`, and the `ADR-BCL-TYPES` re-cite
+   across 299 files. Check: `Test-Links` on both folders reports no `[Untracked]` issue.
+7. Commit the bicepparam change (plan-bicepparam, done and deleted): the six foundation slots `nsub`, `psub`, `apex/nsub`, `apex/psub`,
+   `flux/nsub`, `nova/nsub` under `infrastructure/templates/foundation/configuration/` replaced `.yml` by `.bicepparam` at the same path,
+   with the renderer, discovery, build and their tests. Check: `Invoke-TestFile` on `Build-Bicep.Integrity.Tests.ps1` passes.
+8. Commit the idiomatic-names acronym renames (plan-idiomatic-names): they are case-only and `core.ignorecase` is true, so each file (the
+   `.ps1`, its `.Tests.ps1`, its `docs/references` page) lands by `git mv` from the old spelling. The old spellings, each with its
+   `tests/<name>.Tests.ps1` and `docs/references/pwsh/<module-page>/[tests/]<name>...md`: `Catzc.Base.TypesSystem/Invoke-BuildForVSCode`,
+   `Catzc.Base.Environment/assets/Set-LocalPSModulePath`, `Catzc.Base.QualityGates/private/Invoke-PSScriptAnalyzerFormat`,
+   `Catzc.Tooling.KeyHandler/{Import,Save}-PSReadLineKeyHandlerSet`, `Catzc.Base.VSCode/{Build,Install}-VSCodeExtension`,
+   `Catzc.Base.VSCode/private/New-VSCodeExtensionFolder`, `Catzc.Base.VSCode/New-VSCode{Tasks,Settings,Launch,Extensions,PipelineSchema}`,
+   `Catzc.Base.Asserts/Assert-IsRunningInVSCode`, and `pwsh/.internal/tests/Test-IsRunningInVSCode.Tests.ps1`. Check: `git ls-files` lists
+   no old spelling, and the L1 round trip in `ConvertTo-NormalName.Tests.ps1` passes.
+9. Edit `.claude/CLAUDE.md`, section Project structure: one line saying the `types/*.cs` files are written in BCL, a subset of .NET, hosted
    by pwsh (plan-bcl-language.md, the CLAUDE.md step). Check: `Test-AgentDefinitions` passes.
-8. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
-   every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
+10. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+    every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report
 

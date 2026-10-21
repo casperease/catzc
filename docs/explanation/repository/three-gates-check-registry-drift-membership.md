@@ -25,7 +25,7 @@ nowhere else.
 ## Walkthrough
 
 1. **rootconfig.yml.** Each entry names one source of truth (#1), and the registry is the one place that pairs a target with its source,
-   with opt-out as the default (#2). The pairing's uniqueness has no gate: `New-GitIgnore` and `New-VSCodeSettings` are fed the targets from
+   with opt-out as the default (#2). The pairing's uniqueness has no gate: `New-GitIgnore` and `New-VsCodeSettings` are fed the targets from
    the registry rather than a second list, but nothing asserts that no second list exists.
 2. **RootConfigFiles.** Loading the `rootconfig` config constructs the type, which rejects an entry with both or neither of `source` and
    `generator` (#1), a wildcard target without a `generator` (#8), `sources` without a `generator`, and a duplicate target. It throws once,

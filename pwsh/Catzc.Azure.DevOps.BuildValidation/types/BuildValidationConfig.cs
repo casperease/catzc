@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
     docs: "[BuildValidationConfig.cs.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
 ---
 */

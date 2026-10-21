@@ -116,10 +116,9 @@ a name that cannot go to the normal form and come back unchanged has two identit
 ### Why snake
 
 The normal form is configured, so the choice is the best case for the job, not the most neutral-looking one. `snake` wins on every count
-that matters here. It is the case of the repository's YAML keys (`Assert-YmlNaming`), and the native config types mirror those keys
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)), so a contract's parameter
-names are ordinary keys. It splits into words with no loss, so every other case renders from it. And it is a real language's own idiom,
-Python's, which costs nothing: a normal form that happens to be idiomatic somewhere is still one form.
+that matters here. It is the case of the repository's YAML keys (`Assert-YmlNaming`), and the native config types mirror those keys, so a
+contract's parameter names are ordinary keys. It splits into words with no loss, so every other case renders from it. And it is a real
+language's own idiom, Python's, which costs nothing: a normal form that happens to be idiomatic somewhere is still one form.
 
 ### Acronyms are words
 

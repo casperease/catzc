@@ -70,7 +70,7 @@ tasks offer, and the reading command makes the sync point and its fallback visib
 - [ ] `pwsh/Catzc.Base.Git/Push-Dirty.ps1`: delete it with `tests/Push-Dirty.Tests.ps1` and
       `docs/references/pwsh/catzc-base-git/Push-Dirty.ps1.md`. (check: `Grep Push-Dirty` outside `out/` and `.unordered/` finds nothing)
 - [ ] `pwsh/Catzc.Base.VSCode/configs/vscode-tasks.yml`: replace the `Push dirty` task with `Sync`, `Save` and `Push` tasks that invoke the
-      three commands, the save and push tasks prompting for the message. (check: `Build-VSCodeConfig` renders `.vscode/tasks.json` with the
+      three commands, the save and push tasks prompting for the message. (check: `New-VsCodeTasks` renders `.vscode/tasks.json` with the
       three tasks, and the VS Code config tests pass)
 - [ ] `.claude/hooks/Assert-BashTimeout/Program.cs`: deny an agent's Bash call that invokes `Sync-Topic`, `Save-Topic` or `Push-Topic`,
       naming ADR-FLOW-GIT-USERRUNSGIT, with the command list read from `git.yml` rather than written in the hook. (check: the hook's tests

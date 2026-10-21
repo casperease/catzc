@@ -2,27 +2,17 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
-    folder: tests
-    name: assert-git-hub-purge-ready-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Github
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: "81e400e371cb"
   edges:
     docs: "[Assert-GitHubPurgeReady.Tests.ps1.md](docs/references/pwsh/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Github/Assert-GitHubPurgeReady.ps1
 ---
 #>
 
 Describe 'Assert-GitHubPurgeReady' -Tag 'L1', 'logic' {
     BeforeAll {
         # Calls the function under test with the standard-good arguments, plus any override.
-        function script:RunAssert {
+        function script:Invoke-PurgeReadyAssert {
             param([hashtable] $Extra = @{})
             Assert-GitHubPurgeReady -Repo 'me/project' -BackupBundle 'TestDrive:/backup.bundle' -RepositoryPath 'TestDrive:/' @Extra
         }
@@ -44,46 +34,46 @@ Describe 'Assert-GitHubPurgeReady' -Tag 'L1', 'logic' {
     }
 
     It 'passes when every precondition is met' {
-        { RunAssert } | Should -Not -Throw
+        { Invoke-PurgeReadyAssert } | Should -Not -Throw
     }
 
     It 'throws when gh is not authenticated' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 1; Output = ''; Errors = '' } } -ParameterFilter { $Command -eq 'gh auth status' }
-        { RunAssert } | Should -Throw '*not authenticated*'
+        { Invoke-PurgeReadyAssert } | Should -Throw '*not authenticated*'
     }
 
     It 'throws when the token lacks the delete_repo scope' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = "status: 200`n scopes: repo, workflow"; Errors = '' } } -ParameterFilter { $Command -eq 'gh api -i user' }
-        { RunAssert } | Should -Throw '*delete_repo scope*'
+        { Invoke-PurgeReadyAssert } | Should -Throw '*delete_repo scope*'
     }
 
     It 'throws when the caller does not own the repo' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = '{"owner":{"login":"someone-else"},"isFork":false,"forkCount":0,"visibility":"private"}'; Errors = '' } } -ParameterFilter { $Command -like 'gh repo view*' }
-        { RunAssert } | Should -Throw '*not the owner*'
+        { Invoke-PurgeReadyAssert } | Should -Throw '*not the owner*'
     }
 
     It 'throws when the repo has forks' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = '{"owner":{"login":"me"},"isFork":false,"forkCount":3,"visibility":"private"}'; Errors = '' } } -ParameterFilter { $Command -like 'gh repo view*' }
-        { RunAssert } | Should -Throw '*fork*'
+        { Invoke-PurgeReadyAssert } | Should -Throw '*fork*'
     }
 
     It 'passes with forks when -AllowForks is set' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = '{"owner":{"login":"me"},"isFork":false,"forkCount":3,"visibility":"private"}'; Errors = '' } } -ParameterFilter { $Command -like 'gh repo view*' }
-        { RunAssert @{ AllowForks = $true } } | Should -Not -Throw
+        { Invoke-PurgeReadyAssert @{ AllowForks = $true } } | Should -Not -Throw
     }
 
     It 'throws when local origin does not match the repo' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = 'https://github.com/me/other.git'; Errors = '' } } -ParameterFilter { $Command -eq 'git config --get remote.origin.url' }
-        { RunAssert } | Should -Throw '*expected*'
+        { Invoke-PurgeReadyAssert } | Should -Throw '*expected*'
     }
 
     It 'throws when the backup bundle fails verification' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 1; Output = ''; Errors = 'error: not a valid bundle' } } -ParameterFilter { $Command -like 'git bundle verify*' }
-        { RunAssert } | Should -Throw '*failed verification*'
+        { Invoke-PurgeReadyAssert } | Should -Throw '*failed verification*'
     }
 
     It 'throws when the backup bundle is missing' {
         Mock -ModuleName Catzc.Tooling.Github Test-Path { $false }
-        { RunAssert } | Should -Throw '*not found*'
+        { Invoke-PurgeReadyAssert } | Should -Throw '*not found*'
     }
 }

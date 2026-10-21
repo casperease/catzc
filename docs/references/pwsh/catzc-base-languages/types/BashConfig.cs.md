@@ -12,7 +12,7 @@ The Bash test settings (configs/bash.yml), and the single declaration of their s
 the .bats tests in <root>/tests/<folder>/ with the bats-core runner vendored at <root>/.vendor/bats-core/, and
 Update-BatsVendor refreshes that copy from the pinned release. Registered in Catzc.Base.Config/configs/configs.yml
 (type: Catzc.Base.Languages.BashConfig), so Get-Config -Config bash returns this typed record. Property names mirror
-the YAML keys (snake_case, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+the YAML keys (snake_case, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   - only the known keys ('root', 'bats_version', 'bats_sha256') — an unknown key (a typo) fails at load;

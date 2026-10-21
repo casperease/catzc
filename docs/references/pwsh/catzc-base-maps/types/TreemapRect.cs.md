@@ -10,5 +10,5 @@ Above `namespace Catzc.Base.Maps;`, written with `//`.
 ```text
 One rectangle of a SquarifiedTreemap layout: the item it stands for (its key and weight) and where it sits, in PDF
 user space (x and y are the bottom-left corner, in points). A result type, so the properties are PascalCase
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

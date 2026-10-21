@@ -52,9 +52,6 @@ one notation the contracts already use. Nothing breaks without it, so medium.
 
 The ADR and the reserved word go first, so every later file has a rule to cite.
 
-- [ ] `.claude/plans/plan-master.md`: the planner adds this plan's chunk line once no peer has the file dirty (it was dirty on 2026-10-21)
-      (check: `Test-Plans`).
-
 - [ ] `docs/adr/automation/accosted-language.md` (new, `New-Adr`): the ADR `ADR-AUTO-ACCOSTED` with rules for the file form (a `runs:` list
       of command lists), the command form (contract-form name, literal arguments of the contract's closed types), harmless (contracted and
       on the configured verb list), the reserved name, one reader, and the runner (cats, every engine, bounded) (check: `Test-AdrIndex`,

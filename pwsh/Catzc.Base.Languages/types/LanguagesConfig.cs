@@ -2,25 +2,16 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs
-    folder: types
-    name: languages-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e91d848b582c
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
     docs: "[LanguagesConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/LanguagesConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-IDIOM-LANGUAGEIDIOM
+      - ADR-AUTO-IDIOM-NORMALFORM
       - ADR-AUTO-MODULE-EXISTSBYLAYOUT
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-DSGN-TRACK-FILELANGUAGE
       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
       - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
@@ -98,32 +89,48 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     public string naming_normal_form { get; }
 
     // One finding per file name and per folder that breaks its language's naming, each folder once per language, in path order; rests on [ADR-AUTO-IDIOM-LANGUAGEIDIOM](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom).
-    public IReadOnlyList<string> MisnamedPaths(IEnumerable<string> paths)
+    public IReadOnlyList<string> MisnamedPaths(IEnumerable<string> paths) => MisnamedPathRenames(paths).Select(r => r.Finding()).ToArray();
+
+    // Each misnamed folder and file with the idiomatic name its language gives it, in the order MisnamedPaths reports them.
+    public IReadOnlyList<PathRename> MisnamedPathRenames(IEnumerable<string> paths)
     {
-        List<string> findings = new List<string>();
+        List<PathRename> renames = new List<PathRename>();
         HashSet<string> judgedFolders = new HashSet<string>(StringComparer.Ordinal);
-        if (paths == null) { return findings; }
+        if (paths == null) { return renames; }
         foreach (string raw in paths.Where(p => !string.IsNullOrEmpty(p)).Select(p => p.Replace('\\', '/')).OrderBy(p => p, StringComparer.Ordinal))
         {
             FileLanguage language = JudgedLanguageOf(raw);
             if (language == null) { continue; }
             string[] segments = raw.Split('/');
+            string parent = "";
             for (int i = 0; i < segments.Length - 1; i++)
             {
                 string folderPath = string.Join("/", segments.Take(i + 1));
                 if (!language.naming.IsFolderIdiomatic(segments[i]) && judgedFolders.Add(language.name + "|" + folderPath))
                 {
-                    findings.Add(string.Format(CultureInfo.InvariantCulture, "{0}/: the folder is not {1} ({2})", folderPath, string.Join(" or ", language.naming.folder), language.name));
+                    string folderName = segments[i];
+                    renames.Add(new PathRename(folderPath, "folder", language.name, string.Join(" or ", language.naming.folder),
+                        Rendered(parent, () => language.naming.IdiomaticFolder(folderName))));
                 }
+                parent = folderPath + "/";
             }
             string fileName = segments[segments.Length - 1];
-            string stem = fileName.Substring(0, fileName.Length - ExtensionOf(fileName).Length);
+            string extension = ExtensionOf(fileName);
+            string stem = fileName.Substring(0, fileName.Length - extension.Length);
             if (!language.naming.IsFileIdiomatic(stem))
             {
-                findings.Add(string.Format(CultureInfo.InvariantCulture, "{0}: the file name is not {1} ({2})", raw, string.Join(" or ", language.naming.file), language.name));
+                renames.Add(new PathRename(raw, "file", language.name, string.Join(" or ", language.naming.file),
+                    Rendered(parent, () => language.naming.IdiomaticFileStem(stem) + extension)));
             }
         }
-        return findings;
+        return renames;
+    }
+
+    // The renamed path, or null when the case has no rendering for the name (a verb-noun stem whose first word is no approved verb).
+    private static string Rendered(string parent, Func<string> render)
+    {
+        try { return parent + render(); }
+        catch (ArgumentException) { return null; }
     }
 
     // The finding for one function or type a file defines, or null when its name is idiomatic and round-trips through the normal form.

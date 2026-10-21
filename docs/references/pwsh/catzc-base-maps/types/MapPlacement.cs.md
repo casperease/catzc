@@ -12,7 +12,7 @@ Where one tracked file sits on the world map, and what lights it. The cell is ex
 and the extension gives the file language. The highlight relation follows the fixed order per artifact kind that
 WorldMapBuilder applies: an ADR file carries its own ADR code; every other file carries ADR citations, and Basis names the
 step that produced them. A result type, so the properties are PascalCase
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```
 
 ## comment:2

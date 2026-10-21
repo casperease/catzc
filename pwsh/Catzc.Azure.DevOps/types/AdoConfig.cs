@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Azure.DevOps/tests/types/AdoConfig.Tests.ps1
     docs: "[AdoConfig.cs.md](docs/references/pwsh/catzc-azure-devops/types/AdoConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

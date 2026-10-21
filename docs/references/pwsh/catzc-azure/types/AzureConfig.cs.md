@@ -12,7 +12,7 @@ The Azure identity layer (configs/azure.yml, [ADR-AZ-DATAMOD](/docs/adr/azure/az
 minimum Bicep CLI version, and the tenants, environments and subscriptions — every named entity a map keyed by
 name, so duplicate names are structurally impossible. Registered in Catzc.Base.Config/configs/configs.yml
 (type: Catzc.Azure.AzureConfig), so Get-Config -Config azure returns this typed record. Mirrors the YAML mapping
-(snake_case keys, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); the
+(snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); the
 maps keep file order (a Dictionary enumerates in insertion order when nothing is removed, and these are never
 mutated after construction).
 

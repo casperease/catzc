@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[InspirationEntry.cs.md](docs/references/pwsh/catzc-tooling-inspiration/types/InspirationEntry.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

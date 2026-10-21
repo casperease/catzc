@@ -13,7 +13,7 @@ VALIDATES the parsed YAML (throwing with every violation collected) and exposes 
 flattened RuleSets, and the domain dependency Edges (AdrDomainEdge, one per depends_on link). Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AdrsConfig)
 so Get-Config -Config adrs returns this typed model rather than a slippery ordered dictionary
 ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype),
-[ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel)).
+[ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
 
 Load-time rules (self-contained — no filesystem or other-config reads; folder↔domain and terminology-token
 cross-checks are the quality gate Test-AdrRegistry and shipped-asset integrity tests, mirroring the one-directional coupling of the customer

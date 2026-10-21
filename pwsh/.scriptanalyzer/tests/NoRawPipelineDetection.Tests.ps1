@@ -58,18 +58,18 @@ function Test-IsRunningInPipeline {
     It 'flags a direct read of $env:TERM_PROGRAM outside the VS Code detector, naming that detector' {
         $finding = Test-RawDetection "if (`$env:TERM_PROGRAM -eq 'vscode') { 'editor' }"
         $finding | Should -Not -BeNullOrEmpty
-        $finding.Message | Should -BeLike '*Call Test-IsRunningInVSCode*'
+        $finding.Message | Should -BeLike '*Call Test-IsRunningInVsCode*'
     }
 
-    It 'exempts the canonical Test-IsRunningInVSCode function, and only for its own variable' {
+    It 'exempts the canonical Test-IsRunningInVsCode function, and only for its own variable' {
         $code = @'
-function Test-IsRunningInVSCode {
+function Test-IsRunningInVsCode {
     $env:TERM_PROGRAM -eq 'vscode'
 }
 '@
         Test-RawDetection $code | Should -BeNullOrEmpty
         $crossed = @'
-function Test-IsRunningInVSCode {
+function Test-IsRunningInVsCode {
     [bool]$env:TF_BUILD
 }
 '@

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
-    folder: tests
-    name: build-bicep-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: ae00f1b5f427
   edges:
     docs: "[Build-Bicep.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS
       - ADR-AUTO-TEST-SETUPONCE
@@ -26,12 +16,16 @@ catzc:
 # cspell:ignore alweutstsmplst
 Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     BeforeAll {
+        . (Join-Path $PSScriptRoot 'BicepParams.Fixture.ps1')
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep/template/sample'
         Mock Get-BicepTemplatesOutputRoot {
             Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep'
         } -ModuleName Catzc.Azure.Templates
 
         Mock Invoke-AzCli {
+            if (& $script:compileBicepParams $Arguments) {
+                return
+            }
             if ($Arguments -match 'bicep version') {
                 return [pscustomobject]@{ Output = 'Bicep CLI version 999.999.999'; ExitCode = 0 }
             }
@@ -132,6 +126,9 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     It 'throws when az bicep build exits 0 but produces no main.json' {
         # Bicep available, but the build emits nothing -> the post-build assert fires at the source.
         Mock Invoke-AzCli {
+            if (& $script:compileBicepParams $Arguments) {
+                return
+            }
             if ($Arguments -match 'bicep version') {
                 return [pscustomobject]@{ Output = 'Bicep CLI version 999.999.999'; ExitCode = 0 }
             }

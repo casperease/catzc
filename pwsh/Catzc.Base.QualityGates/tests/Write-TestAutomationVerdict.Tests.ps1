@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationVerdict.Tests.ps1
-    folder: tests
-    name: write-test-automation-verdict-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a8ab6f2cb461
   edges:
     docs: "[Write-TestAutomationVerdict.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Write-TestAutomationVerdict.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
     cites:
       - ADR-AUTO-CONSOLE-SPARINGCOLOUR
       - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE
@@ -29,7 +19,7 @@ Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-AUTO-CONSOLE-SPA
     BeforeAll {
         $global:__PesterRunning = $false
 
-        function StripAnsi {
+        function Remove-AnsiEscape {
             param([string] $Text)
             $Text -replace "`e\[[0-9;]*m", ''
         }
@@ -49,7 +39,7 @@ Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-AUTO-CONSOLE-SPA
 
     It 'closes a passing run with a green-rainbow banner and the summary' {
         $raw = Get-VerdictRaw -Result 'Passed' -Summary '812 passed, 14 skipped in 42.3s' -PassedCount 812 -SkippedCount 14 -DurationSeconds 42.3
-        $plain = StripAnsi $raw
+        $plain = Remove-AnsiEscape $raw
         $plain | Should -Match 'Test Automation PASSED — 812 passed, 14 skipped in 42\.3s'
         $plain | Should -Match '812 passed · 14 skipped · 0 failed'
 
@@ -62,7 +52,7 @@ Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-AUTO-CONSOLE-SPA
 
     It 'closes a failing run with a red-rainbow banner anchored on red' {
         $raw = Get-VerdictRaw -Result 'Failed' -Summary '3 test(s) failed' -PassedCount 809 -FailedCount 3 -SkippedCount 14 -DurationSeconds 42.3
-        $plain = StripAnsi $raw
+        $plain = Remove-AnsiEscape $raw
         $plain | Should -Match 'Test Automation FAILED — 3 test\(s\) failed'
         $plain | Should -Match '809 passed · 14 skipped · 3 failed'
         $raw | Should -Match '\e\[91m│ Test Automation FAILED'   # red base title
@@ -70,19 +60,19 @@ Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-AUTO-CONSOLE-SPA
 
     It 'ends on a closing footer rule, not the counts line (the bracket is closed)' {
         $raw = Get-VerdictRaw -Result 'Passed' -Summary 'x' -PassedCount 1
-        $lines = (StripAnsi $raw) -split "`n" | Where-Object { $_ -ne '' }
+        $lines = (Remove-AnsiEscape $raw) -split "`n" | Where-Object { $_ -ne '' }
         $lines[-1] | Should -Match '^╰─+╯$'
     }
 
     It 'carries the report location inside the bracket, above the closing rule' {
         $raw = Get-VerdictRaw -Result 'Passed' -Summary 'x' -PassedCount 1 -ReportPath 'C:\out\test-automation\20260708-101112'
-        $lines = (StripAnsi $raw) -split "`n" | Where-Object { $_ -ne '' }
+        $lines = (Remove-AnsiEscape $raw) -split "`n" | Where-Object { $_ -ne '' }
         $lines[-2] | Should -Match 'Report: C:\\out\\test-automation\\20260708-101112'
         $lines[-1] | Should -Match '^╰─+╯$'   # the report line sits before the closing footer, still inside the bracket
     }
 
     It 'omits the report line when no location is given' {
-        $plain = StripAnsi (Get-VerdictRaw -Result 'Passed' -Summary 'x' -PassedCount 1)
+        $plain = Remove-AnsiEscape (Get-VerdictRaw -Result 'Passed' -Summary 'x' -PassedCount 1)
         $plain | Should -Not -Match 'Report:'
     }
 

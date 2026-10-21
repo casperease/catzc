@@ -90,8 +90,7 @@ The repository is a mono-repo of modules that use one another: a function in one
 module references a type in another. Left implicit, those uses form an unmanaged graph — and an unmanaged graph drifts into cycles and layer
 inversions, where a foundation module quietly comes to depend on a leaf. Neither medium the edges travel through stops this on its own:
 PowerShell imports every module into one global function namespace, so any module can call any other's function; and the C# types compile
-into a **single combined assembly** (see [native-csharp-types](BCL/native-csharp-types.md)), so the compiler does not forbid a cross-module
-type reference that inverts a layer.
+into a **single combined assembly**, so the compiler does not forbid a cross-module type reference that inverts a layer.
 
 So the layering is made explicit and enforced: the allowed edges are declared once, in one file, and the actual edges are extracted from the
 code and checked against that declaration. This is the [poka-yoke](../principles/poka-yoke.md) move — an undeclared dependency is caught
@@ -116,10 +115,9 @@ There is no second place a dependency can be expressed — no per-module manifes
 A module's content is of two kinds — `pwsh` functions and C# types — but a dependency between modules is one relationship regardless of
 which kind carries it. A cross-module function call and a cross-module type reference both mean "module A needs module B," so they are
 unified in one graph rather than split across two declarations. `Get-ModuleDependency` extracts the function-call edges and
-`Get-CSharpTypeDependency` the type-reference edges (the combined assembly means the C# compiler will not — see
-[native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types-referencesfollowdependencies)); `Test-ModuleDependency` unions the two
-sets and checks them against the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync. How the PowerShell
-function-call edges are extracted is the pwsh twin's to say.
+`Get-CSharpTypeDependency` the type-reference edges (the combined assembly means the C# compiler will not); `Test-ModuleDependency` unions
+the two sets and checks them against the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync. How the
+PowerShell function-call edges are extracted is the pwsh twin's to say.
 
 ### Groups and modules
 

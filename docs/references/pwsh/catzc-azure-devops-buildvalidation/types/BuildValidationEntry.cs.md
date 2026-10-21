@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 One entry of configs/build-validation.yml's `validations` list: an ADO build-validation branch policy tied to a
 DECLARED globset ([ADR-FLOW-CD-TYPE-PRECOMMITBUDGET](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type-precommitbudget)). Mirrors the
-YAML mapping (snake_case keys, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+YAML mapping (snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 BuildValidationConfig builds one per entry and prefixes every violation with the entry's index.
 
 Constructing an instance validates the entry, collecting every violation into one ArgumentException: only the

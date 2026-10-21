@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
+# pwsh/Catzc.Base.VSCode/New-VsCodeLaunch.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -26,5 +26,5 @@ This is a pure renderer: it returns the content and writes nothing — it is the
 ### example 1
 
 ```powershell
-New-VSCodeLaunch
+New-VsCodeLaunch
 ```

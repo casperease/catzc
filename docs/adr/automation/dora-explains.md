@@ -554,24 +554,6 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   implicit magic.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Native C# types
-
-`Native C# types — one combined assembly, namespace per module`
-
-[ADR-AUTO-TYPES](BCL/native-csharp-types.md)
-
-> DORA research links code maintainability and loosely coupled architecture to faster delivery and fewer defects. This ADR encodes the
-> platform's models as native types with fixed shapes, versioned assemblies, and dependency-governed layering, reducing the cognitive load
-> of loose dictionaries.
-
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — fixed, discoverable type shapes and standardized
-  namespace patterns.
-- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — dependency graph governs cross-module type
-  references and enforces layering.
-- [Version control](../../references/dora/capabilities.md#version-control) — committed prebuilt assembly; everything-as-code principle
-  enables reproducible builds.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
 ## Go test artifacts
 
 `Go test artifacts — black-box tests of the engine, never shipped`

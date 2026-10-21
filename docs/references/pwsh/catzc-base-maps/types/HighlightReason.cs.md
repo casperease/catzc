@@ -13,5 +13,5 @@ MapPlacement basis, "path" for a requested file, "pin" for a reviewed pin of con
 that covers it, and the citation sites the request covers (where the file, or its owner's or globset's files, cite
 it). An adr-file reason names the requested ADR's own file and has no site. A file lit only by comment sites is a
 passing mention (Mention), so a reader can tell a lit file's subject from a mention. A result type, so the properties are PascalCase
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

@@ -19,7 +19,7 @@ catzc:
     docs: "[VariantsConfig.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-DSGN-ASPECT
       - ADR-DSGN-TRACK
       - ADR-REPO-VARIANT

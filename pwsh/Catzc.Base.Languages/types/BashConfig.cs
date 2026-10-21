@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.Languages/tests/types/BashConfig.Tests.ps1
     docs: "[BashConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/BashConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-FOLDERS-LITERALNAMES
 ---
 */

@@ -15,7 +15,8 @@ customer's; the subscription is always RESOLVED from that coordinate, never spel
 ### Rule ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
 
 One config file ⟷ one (customer?, env, **slot**) ⟷ one subscription ⟷ one Azure resource group; every config lives at
-`configuration/[<customer>/]<env>[-<slot>].yml`, and listing that tree is the resource-group inventory.
+`configuration/[<customer>/]<env>[-<slot>].yml` or `configuration/[<customer>/]<env>[-<slot>].bicepparam`, never both for one coordinate
+(discovery fails on both, naming the coordinate), and listing that tree is the resource-group inventory.
 
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 
@@ -75,18 +76,39 @@ coordinate resolves to exactly one subscription) is enforced at discovery by `Ge
 Every parameters file a template build renders satisfies the parameter contract of the template's compiled `main.json`: each value has the
 declared type, lies within its `@allowed` values and its value and length bounds, and names a declared parameter; every parameter without a
 default is supplied, by the config or by the template's PrePost hook; and a `secureString`/`secureObject` parameter carries a well-formed
-Key Vault reference, never a literal value.
+Key Vault reference, never a literal value. A template with a PrePost hook takes no `.bicepparam` slot, since the hook's input is the yml
+descriptor; discovery refuses the pair, naming the template and the file.
 
 - [Validation](#validation)
 
 ### Rule ADR-AZ-DATAMOD-VALUEBYADDRESS
 
 A template config parameter may name its value by config address, `{ address: global.<config>.<key>… }`, instead of a literal `value` or a
-Key Vault `reference`. The build resolves it through `Get-ConfigValue` into `{ value: <resolved> }`, for any template. An address reaches
-only version-controlled config, so it never carries a secret; an address set together with `value` or `reference`, or one that does not
-resolve, fails the build, naming the config file and the parameter.
+Key Vault `reference`. The build resolves it through `Get-ConfigValue` into `{ value: <resolved> }`, in any template's yml slot; a
+`.bicepparam` slot names no address, so shared config reaches a slot only through yml. An address reaches only version-controlled config, so
+it never carries a secret; an address set together with `value` or `reference`, or one that does not resolve, fails the build, naming the
+config file and the parameter.
 
 - [Config-addressed parameters](#config-addressed-parameters)
+
+### Rule ADR-AZ-DATAMOD-BICEPPARAMSLOT
+
+A **bicepparam slot** is a slot config written in Bicep's own parameters format, `<env>[-<slot>].bicepparam`, in the `bicep` language beside
+`main.bicep`. Its `using` names the template's `main.bicep` by relative path, asserted at discovery; it holds literals and
+`az.getSecret(...)` only, never a config address; and its template has no PrePost hook. It is edited by hand:
+`Set-BicepTemplateConfiguration` edits a yml slot only and throws on a bicepparam slot, naming the file.
+
+- [Slot configs in two formats](#slot-configs-in-two-formats)
+
+### Rule ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS
+
+Every slot reaches the deploy through one path. The build writes each slot as a `.bicepparam` in its output folder — a yml slot rendered by
+`ConvertTo-BicepParam` after its addresses resolve and its PrePost hook runs, a bicepparam slot copied with its `using` pointed at the
+template's `main.bicep` in the tree — and compiles it with `bicep build-params` to the `parameters.[<customer>.]<config>.json` the parameter
+contract and `Deploy-Bicep` read. The render maps a `value` to a Bicep literal, a Key Vault `reference` to `az.getSecret(...)` parsed from
+the vault id, and a resolved address to its literal.
+
+- [Slot configs in two formats](#slot-configs-in-two-formats)
 
 ### Rule ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE
 
@@ -242,9 +264,10 @@ sibling `infrastructure/modules/` — referenced by templates via a relative `mo
 **One config file ⟷ one (customer?, env, slot) ⟷ one subscription ⟷ one Azure resource group.** A config lives at the configuration ROOT —
 `infrastructure/templates/<name>/configuration/<env>[-<slot>].yml`, the shared-platform deployment — or under a customer subfolder,
 `configuration/<customer>/<env>[-<slot>].yml`, where the folder is always a customer KEY. The filename is `<env-name>[-<slot>]` —
-`develop.yml` (the base / index-0 slot) or `develop-blue.yml` (a special slot). Discovery parses the filename by splitting on the first `-`:
-the `name` part must be a defined environment, the remainder is the optional `slot` (≤3 alnum). The subscription is resolved per config from
-the coordinate and asserted unique (ADR-AZ-DATAMOD-NAMEKEYEDMAPS).
+`develop.yml` (the base / index-0 slot) or `develop-blue.yml` (a special slot), or the same name with `.bicepparam` for a bicepparam slot
+(ADR-AZ-DATAMOD-BICEPPARAMSLOT). Discovery parses the filename by splitting on the first `-`: the `name` part must be a defined environment,
+the remainder is the optional `slot` (≤3 alnum). The subscription is resolved per config from the coordinate and asserted unique
+(ADR-AZ-DATAMOD-NAMEKEYEDMAPS).
 
 **Customer is the one path dimension.** A config's customer is its subfolder ('' for a root config) — "is this a customer config?" is
 answered by the path alone. Deploy/build name the env and slot as **distinct args** (`-Environment develop [-Slot blue]`); at deploy time
@@ -260,7 +283,7 @@ erDiagram
     SLOT     }o--|| SUBSCRIPTION     : "RESOLVED: the coordinate's one serving subscription"
     SLOT     }o--|| ENVIRONMENT     : "env = filename name-part"
     DEPLOY_CONTEXT }o--|| SLOT       : "for (addressed by the session subscription)"
-    SLOT     ||--|| SLOT_CONFIG      : "configuration/[<customer>/]<config>.yml"
+    SLOT     ||--|| SLOT_CONFIG      : "configuration/[<customer>/]<config>.yml or .bicepparam"
 
     TEMPLATE {
         string name       PK "folder under infrastructure/templates/"
@@ -286,7 +309,9 @@ erDiagram
         string subscription "RESOLVED = the coordinate's one serving subscription (asserted unique)"
     }
     SLOT_CONFIG {
-        object ParametersFile "the template's parameters; resource names written statically"
+        string format         "yml or bicepparam, from the extension"
+        object ParametersFile "yml: the template's parameters; resource names written statically"
+        string using          "bicepparam: the relative path to main.bicep"
     }
     DEPLOY_CONTEXT {
         object deployment  "PLAN: template, name, mode, target, resource_group (DERIVED)"
@@ -354,6 +379,20 @@ An address reaches only committed config, so nothing it names is a secret; a sec
 parameter contract rejects any literal for it, addressed or not. The build fails fast, with every violation of a config file in one error
 that names the file and each parameter: an `address` set together with `value`, `reference`, or any other key, an address that is not a
 string, and an address that does not resolve — an unknown config, a missing key, or a malformed address.
+
+### Slot configs in two formats
+
+`A slot config is yml or bicepparam, and both reach the deploy one way`
+
+A slot config is written in one of two formats, chosen by what it needs. yml is the format for a slot that needs a config address or a
+template's PrePost hook, since Bicep's parameters format has no form for either. A `.bicepparam` slot suits a slot of literals and secrets
+only: the Bicep compiler checks it against `main.bicep` while it is written, in the editor through the Bicep extension, so a wrong name,
+type or `@allowed` value shows up before the build.
+
+The build keeps one path to the deploy for both formats. Every slot becomes a `.bicepparam` in the build output, and `bicep build-params`
+compiles it to the ARM parameters JSON the parameter contract and `Deploy-Bicep` read, so nothing downstream of the build depends on the
+source format. A Key Vault `reference` and `az.getSecret(...)` compile to the same ARM reference, so the contract's secure-parameter check
+holds for both.
 
 ### Runtime resolution (the joins)
 

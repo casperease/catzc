@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3ea8b1d9c769"
+    with_body_sha: ba909b1696ca
     warning: "Do Not Edit, this file is generated"
     role: glossary
     track: docs
@@ -1181,7 +1181,8 @@ A Bicep configuration slot — one config file of a template (`<env>[-<slot>].ym
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 - **Forms:** `Bicep slot`, `base slot`, `configuration slot`, `root slot`, `template slot`, `indexed slot`, `special slot`, `optional slot`,
-  `customer slot`, `platform slot`, `env slot`, `core slot`, `subfolder slot`, `target slot`, `region slot`, and the bare `slot`
+  `customer slot`, `platform slot`, `env slot`, `core slot`, `subfolder slot`, `target slot`, `region slot`, `yml slot`, `bicepparam slot`,
+  and the bare `slot`
 
 ### spoke
 
@@ -1344,8 +1345,9 @@ A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its 
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `ADR domain`, `thesis domain`, `principles domain`, `process domain`, `design domain`, `flow domain`, `automation domain`,
-  `pwsh domain`, `configuration domain`, `ado domain`, `github domain`, `azure domain`, `repository domain`, `research domain`,
-  `axioms domain`, `architecture domain`, `implementation domain`, `optimisable domain`, `owning domain`, and the bare `domain`
+  `bcl domain`, `pwsh domain`, `configuration domain`, `ado domain`, `github domain`, `azure domain`, `repository domain`,
+  `research domain`, `axioms domain`, `architecture domain`, `implementation domain`, `optimisable domain`, `owning domain`, and the bare
+  `domain`
 - **Contrasts:**
   - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; an ADR domain groups
     ADRs.

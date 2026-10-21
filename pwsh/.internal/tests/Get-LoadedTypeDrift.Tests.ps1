@@ -16,8 +16,8 @@ catzc:
   edges:
     docs: "[Get-LoadedTypeDrift.Tests.ps1.md](docs/references/pwsh/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md)"
     cites:
-      - ADR-AUTO-TYPES-STALETYPESGUARD
-      - ADR-AUTO-TYPES-ONEDRIFTMEASURE
+      - ADR-BCL-TYPES-STALETYPESGUARD
+      - ADR-BCL-TYPES-ONEDRIFTMEASURE
 ---
 #>
 
@@ -25,7 +25,7 @@ BeforeAll {
     Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Types.psm1') -Force
 }
 
-Describe 'Get-LoadedTypeDrift' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-ONEDRIFTMEASURE' {
+Describe 'Get-LoadedTypeDrift' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-ONEDRIFTMEASURE' {
     BeforeAll {
         function New-FixtureRoot {
             param([string[]] $Source)

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
-    name: get-bicep-template-configuration
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "7595b3ec8f4d"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
     docs: "[Get-BicepTemplateConfiguration.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md)"
@@ -68,7 +57,12 @@ function Get-BicepTemplateConfiguration {
     else {
         "under configuration/$Customer/"
     }
-    Assert-PathExist $environmentFile -PathType Leaf -ErrorText "Template '$Template' has no config '$configName.yml' $where ($environmentFile)"
+    # A bicepparam slot is read by the Bicep compiler, not here: its descriptor carries its source path (ADR-AZ-DATAMOD-BICEPPARAMSLOT).
+    $bicepParamFile = Join-Path $folder "$configName.bicepparam"
+    if ([System.IO.File]::Exists($bicepParamFile)) {
+        return [ordered]@{ BicepParamFile = $bicepParamFile }
+    }
+    Assert-PathExist $environmentFile -PathType Leaf -ErrorText "Template '$Template' has no config '$configName.yml' or '$configName.bicepparam' $where ($environmentFile)"
 
     Get-Content $environmentFile -Raw | ConvertFrom-Yaml -Ordered
 }

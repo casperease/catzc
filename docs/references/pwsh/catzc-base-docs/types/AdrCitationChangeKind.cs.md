@@ -10,5 +10,5 @@ Above `namespace Catzc.Base.Docs;`, written with `//`.
 ```text
 What one AdrCitationChange rewrote: the closed set of ADR reference forms Update-AdrCitation recognises, plus the
 one form it found and could not rewrite mechanically
-([ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel)).
+([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
 ```

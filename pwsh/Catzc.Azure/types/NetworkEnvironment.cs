@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[NetworkEnvironment.cs.md](docs/references/pwsh/catzc-azure/types/NetworkEnvironment.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-NETWORK
 ---
 */

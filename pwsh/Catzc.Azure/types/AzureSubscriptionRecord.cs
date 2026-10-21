@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[AzureSubscriptionRecord.cs.md](docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-AZ-DATAMOD
 ---

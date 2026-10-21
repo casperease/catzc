@@ -1,5 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "28136106047e"
+  edges:
+    code: pwsh/Catzc.Base.VSCode/Build-VsCodeExtension.ps1
+    cites:
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+---
+#>
+
 # Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
-Describe 'Build-VSCodeExtension' -Tag 'L0', 'logic' {
+Describe 'Build-VsCodeExtension' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:folder = Join-Path $TestDrive 'widget-ext'
         $null = New-Item -ItemType Directory -Path (Join-Path $script:folder 'lib') -Force
@@ -7,7 +19,7 @@ Describe 'Build-VSCodeExtension' -Tag 'L0', 'logic' {
         Set-Content -LiteralPath (Join-Path $script:folder 'extension.js') -Value 'module.exports = {};'
         Set-Content -LiteralPath (Join-Path $script:folder 'lib/gadget.js') -Value 'module.exports = 1;'
         $script:out = Join-Path $TestDrive 'vsix'
-        $script:packagePath = Build-VSCodeExtension -Path $script:folder -OutputDirectory $script:out
+        $script:packagePath = Build-VsCodeExtension -Path $script:folder -OutputDirectory $script:out
     }
 
     It 'names the package for the extension and its version' {
@@ -45,7 +57,7 @@ Describe 'Build-VSCodeExtension' -Tag 'L0', 'logic' {
     }
 
     It 'replaces a package of the same name' {
-        $again = Build-VSCodeExtension -Path $script:folder -OutputDirectory $script:out
+        $again = Build-VsCodeExtension -Path $script:folder -OutputDirectory $script:out
         $again | Should -Be $script:packagePath
         @(Get-ChildPath $script:out -Depth 1 -File -Filter '*.vsix').Count | Should -Be 1
     }
@@ -54,6 +66,6 @@ Describe 'Build-VSCodeExtension' -Tag 'L0', 'logic' {
         $broken = Join-Path $TestDrive 'gadget-ext'
         $null = New-Item -ItemType Directory -Path $broken -Force
         Set-Content -LiteralPath (Join-Path $broken 'package.json') -Value '{ "name": "gadget-ext", "version": "1.0.0" }'
-        { Build-VSCodeExtension -Path $broken -OutputDirectory $script:out } | Should -Throw "*no 'publisher'*"
+        { Build-VsCodeExtension -Path $broken -OutputDirectory $script:out } | Should -Throw "*no 'publisher'*"
     }
 }

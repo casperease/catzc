@@ -18,7 +18,7 @@ catzc:
     docs: "[TypeShape.cs.md](docs/references/pwsh/catzc-base-objects/types/TypeShape.cs.md)"
     cites:
       - ADR-AUTO-CACHE
-      - ADR-AUTO-TYPES-CHANGEDAFTERLOAD
+      - ADR-BCL-TYPES-CHANGEDAFTERLOAD
 ---
 */
 

@@ -10,7 +10,7 @@ Every load stage but the unload has an ADR rule and a gate.
 5  Janitors                idempotent, actor-aware; gate Invoke-TypeCacheJanitor.Tests
 6  Unload                  the import-time helpers removed; no rule and no gate
 
-Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-PWSH-ERROR-STOPONERROR, ADR-PRIN-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-DSGN-RUNMODE-NEVERCOEXIST and ADR-AUTO-TYPES-JANITORSBYCALLER (governance lens).
+Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-PWSH-ERROR-STOPONERROR, ADR-PRIN-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-DSGN-RUNMODE-NEVERCOEXIST and ADR-BCL-TYPES-JANITORSBYCALLER (governance lens).
 ```
 
 The cats load sequence runs in six stages, from the generated shim to the final unload of the import-time helpers. Each stage but the last
@@ -39,7 +39,7 @@ Each stage has its own band, and a stage's gate sits in its band beside the rule
    `Assert-CatzcRunModeExclusive.Tests` checks it, and the eviction block of `Import-AllModules.Tests` checks the removal that comes before
    it.
 5. **Janitors.** Generation is idempotent and runs on every import (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION), and who runs the importer
-   decides what the janitors may change, read from `Get-SessionActor` (ADR-AUTO-TYPES-JANITORSBYCALLER). `Invoke-TypeCacheJanitor.Tests`
+   decides what the janitors may change, read from `Get-SessionActor` (ADR-BCL-TYPES-JANITORSBYCALLER). `Invoke-TypeCacheJanitor.Tests`
    checks that holders are never stopped in a `Pipeline` or `Agent` session.
 6. **Unload.** `Invoke-Importer` removes `Catzc.Internal.Bootstrap`, and the entry script's `finally` removes `Catzc.Internal.Importer`. No
    ADR rule states this, and no test checks it; only the code comments and the project instructions describe it. That is why its band holds
@@ -58,7 +58,7 @@ build, and code review rejects a bundle loader that forks the importer.
   ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE).
 - The two run modes never coexist in one session (ADR-DSGN-RUNMODE-NEVERCOEXIST).
 - Root-config generation is idempotent and runs on every import (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION), and the session actor decides what
-  the janitors may change (ADR-AUTO-TYPES-JANITORSBYCALLER).
+  the janitors may change (ADR-BCL-TYPES-JANITORSBYCALLER).
 - The run modes have two entry points (ADR-DSGN-RUNMODE-TWORUNMODES).
 
 ## Where the code and the ADR differ

@@ -11,7 +11,7 @@ Above `using System;`, written with `//`.
 The time safeguards (configs/timeouts.yml) — how long a call may run before it is stopped. Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Timeouts.TimeoutsConfig), so Get-Config -Config timeouts
 returns this typed record; Get-TimeoutSeconds resolves a limit from it. Mirrors the YAML keys verbatim
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)). The Claude Code Bash
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). The Claude Code Bash
 hook (.claude/hooks/Assert-BashTimeout/) compiles this same file, so the hook and the pwsh side share one parser
 and one set of defaults.
 

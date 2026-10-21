@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
+# pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVsCode.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -21,13 +21,13 @@ bare type accelerator cannot give — and verifies the IDE project matches the r
 
 dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper (with its locked-SDK assertion) lives in the Tooling layer,
 which this Base module must not depend on. So there is no locked-version check here; dotnet must be on PATH. See
-[ADR-AUTO-TYPES](../../../adr/automation/BCL/native-csharp-types.md).
+[ADR-BCL-TYPES](../../../adr/automation/BCL/native-csharp-types.md).
 
 The project builds the source tree's `types/*.cs`, so it stops with a named error in build mode (Assert-SourceTree,
 [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
 It builds the one configuration of `bcl.yml`, Debug by default
-([ADR-AUTO-TYPES-DEBUGANYCPU](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-debuganycpu)).
+([ADR-BCL-TYPES-DEBUGANYCPU](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-debuganycpu)).
 
 ### parameter `PassThru`
 
@@ -40,14 +40,14 @@ Return the executable result ({ Output, Errors, Full, ExitCode }) instead of the
 ### example 1
 
 ```powershell
-Invoke-BuildForVSCode
+Invoke-BuildForVsCode
 Builds Catzc.Types.csproj so the editor's C# analysis matches the runtime.
 ```
 
 ### example 2
 
 ```powershell
-Invoke-BuildForVSCode -PassThru
+Invoke-BuildForVsCode -PassThru
 Builds the project and returns the result object for inspection.
 ```
 

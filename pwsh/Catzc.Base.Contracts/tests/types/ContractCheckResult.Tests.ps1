@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[ContractCheckResult.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractCheckResult.Tests.ps1.md)"
     cites:
-      - ADR-AUTO-TYPES-CONSOLEREADYTOSTRING
+      - ADR-BCL-TYPES-CONSOLEREADYTOSTRING
       - ADR-REPO-CONTRACT-PROVENBYTESTS
 ---
 #>
@@ -41,7 +41,7 @@ Describe 'ContractCheckResult' -Tag 'L0', 'logic' {
         { [Catzc.Base.Contracts.ContractCheckResult]::new($script:asset, [string[]] @(' ')) } | Should -Throw '*a finding is an empty message*'
     }
 
-    It 'renders console-ready' -Tag 'ADR-AUTO-TYPES-CONSOLEREADYTOSTRING' {
+    It 'renders console-ready' -Tag 'ADR-BCL-TYPES-CONSOLEREADYTOSTRING' {
         "$([Catzc.Base.Contracts.ContractCheckResult]::new($script:asset, [string[]] @()))" | Should -BeLike 'ContractCheckResult { Passed = True, Asset = *'
     }
 }

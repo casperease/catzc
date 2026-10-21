@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[AzureEnvironmentRecord.cs.md](docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-DATAMOD
       - ADR-AZ-NAMING
 ---

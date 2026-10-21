@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[OutputFormat.cs.md](docs/references/pwsh/catzc-base-reports/types/OutputFormat.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-OUTFMT-OUTPUTFORMAT
       - ADR-REPO-OUTFMT-VALIDATORISCODE
       - ADR-REPO-OUTFMT-LIMITSINCATALOGUE

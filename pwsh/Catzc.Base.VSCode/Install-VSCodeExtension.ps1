@@ -2,25 +2,14 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/Install-VSCodeExtension.ps1
-    name: install-vs-code-extension
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: d8b500ff3b17
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/Install-VSCodeExtension.Tests.ps1
-    docs: "[Install-VSCodeExtension.ps1.md](docs/references/pwsh/catzc-base-vscode/Install-VSCodeExtension.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/Install-VsCodeExtension.Tests.ps1
+    docs: "[Install-VsCodeExtension.ps1.md](docs/references/pwsh/catzc-base-vscode/Install-VsCodeExtension.ps1.md)"
 ---
 #>
 
-function Install-VSCodeExtension {
+function Install-VsCodeExtension {
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
@@ -34,20 +23,20 @@ function Install-VSCodeExtension {
     )
 
     if (-not (Test-Command 'code')) {
-        throw "Install-VSCodeExtension: the editor's CLI 'code' is not on PATH. Add it (VS Code: Shell Command: Install 'code' command in PATH), then re-run."
+        throw "Install-VsCodeExtension: the editor's CLI 'code' is not on PATH. Add it (VS Code: Shell Command: Install 'code' command in PATH), then re-run."
     }
 
     $entries = @((Get-Config -Config vscode-extensions).extensions)
     if ($Name) {
         $known = @($entries | ForEach-Object name)
         foreach ($wanted in $Name | Where-Object { $_ -notin $known }) {
-            throw "Install-VSCodeExtension: '$wanted' is not an entry under extensions in vscode-extensions.yml."
+            throw "Install-VsCodeExtension: '$wanted' is not an entry under extensions in vscode-extensions.yml."
         }
         $entries = @($entries | Where-Object { $_.name -in $Name })
     }
 
     foreach ($entry in $entries) {
-        $folder = New-VSCodeExtensionFolder -Extension $entry -OutputDirectory $Root
+        $folder = New-VsCodeExtensionFolder -Extension $entry -OutputDirectory $Root
         if (-not $Force) {
             $manifest = Get-Content -LiteralPath (Join-Path $folder 'package.json') -Raw | ConvertFrom-Json
             $installed = Join-Path $ExtensionsDirectory "$($manifest.publisher).$($manifest.name)-$($manifest.version)".ToLowerInvariant()
@@ -71,7 +60,7 @@ function Install-VSCodeExtension {
                 continue
             }
         }
-        $packagePath = Build-VSCodeExtension -Path $folder
+        $packagePath = Build-VsCodeExtension -Path $folder
         Invoke-Executable "code --install-extension `"$packagePath`" --force"
         $packagePath
     }

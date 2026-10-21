@@ -6,7 +6,7 @@ catzc:
   edges:
     docs: "[BclHostBinding.cs.md](docs/references/pwsh/catzc-base-languages/types/BclHostBinding.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-BCLREFERENCESET
+      - ADR-BCL-TYPES-BCLREFERENCESET
 ---
 */
 

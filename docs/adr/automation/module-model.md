@@ -9,11 +9,10 @@ the track that holds it, by one resolver, `Get-CatzcModule`. The track is the on
 ([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](../design/track-types.md#rule-adr-dsgn-tracktype-longestplacewins)); the module's root is a place of
 that track plus the module's name; its module type is one the track type admits
 ([ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES](../design/module-types.md#rule-adr-dsgn-modtype-tracktypeadmitsmoduletypes)). The resolver
-returns, for each module, its name, track, root, shape (a folder or one file), files, languages and engines, as one native type
-([ADR-AUTO-TYPES-NATIVETYPEDMODEL](BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel)). No other command derives a module's
-name, root, languages or engines from a path or a folder listing, and no command spells a track's root: it reads the track. A place whose
-modules are internal declares `internal: true` in `module-types.yml` (public is the default on the type); the resolver returns those modules
-only when asked to include internal ones, and never infers internal from where a place sits.
+returns, for each module, its name, track, root, shape (a folder or one file), files, languages and engines, as one native type. No other
+command derives a module's name, root, languages or engines from a path or a folder listing, and no command spells a track's root: it reads
+the track. A place whose modules are internal declares `internal: true` in `module-types.yml` (public is the default on the type); the
+resolver returns those modules only when asked to include internal ones, and never infers internal from where a place sits.
 
 - [One resolver through the track](#one-resolver-through-the-track)
 
@@ -77,8 +76,7 @@ and this rule does not cover it.
 
 A module's namespace is the name of the track that holds it, derived from placement like the track itself, and never written into the
 module's name. The modules of the `pwsh` track keep their `Catzc.Base.*`, `Catzc.Azure.*` and `Catzc.Tooling.*` names, and their namespace
-is `pwsh`. This is the namespace of the module as an object; the C# namespace of its types is the module's name
-([ADR-AUTO-TYPES-NAMESPACEISMODULE](BCL/native-csharp-types.md#rule-adr-auto-types-namespaceismodule)).
+is `pwsh`. This is the namespace of the module as an object; the C# namespace of its types is the module's name.
 
 - [Namespace](#namespace)
 

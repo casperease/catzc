@@ -1,3 +1,17 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "911c6623c350"
+  edges:
+    docs: "[LanguageNaming.cs.md](docs/references/pwsh/catzc-base-languages/types/LanguageNaming.cs.md)"
+    cites:
+      - ADR-AUTO-IDIOM-CLOSEDCASES
+      - ADR-AUTO-IDIOM-ROUNDTRIP
+      - ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -73,6 +87,22 @@ public sealed class LanguageNaming
 
     public bool IsFileIdiomatic(string stem) => file.Count == 0 || Matches(file, WithoutRoleSuffix(stem));
 
+    // A folder name rendered in the language's first folder case, its leading dot kept outside the case.
+    public string IdiomaticFolder(string name)
+    {
+        if (folder.Count == 0 || IsFolderIdiomatic(name)) { return name; }
+        bool hidden = name.StartsWith(".", StringComparison.Ordinal);
+        return (hidden ? "." : "") + Render(hidden ? name.Substring(1) : name, folder[0]);
+    }
+
+    // A file stem rendered in the language's first file case, its role suffix (.Tests) kept as written.
+    public string IdiomaticFileStem(string stem)
+    {
+        if (file.Count == 0 || IsFileIdiomatic(stem)) { return stem; }
+        string body = WithoutRoleSuffix(stem);
+        return Render(body, file[0]) + stem.Substring(body.Length);
+    }
+
     // A name in a case as its namespace segments, each a list of lowercase words; null when the name is not in the case.
     public static string[][] Split(string caseName, string name)
     {
@@ -143,8 +173,6 @@ public sealed class LanguageNaming
         return back == name ? null : "does not round-trip through the normal form (it renders back as " + back + ")";
     }
 
-    // A name in a case as its normal form: each namespace segment joined in the normal form's case, the segments by '.'; snake's
-    // leading and trailing underscores stay outside the case, around the normal form.
     public static string ToNormal(string caseName, string name, string normalForm)
     {
         string[][] segments = Split(caseName, name);

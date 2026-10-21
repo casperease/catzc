@@ -19,7 +19,7 @@ catzc:
     docs: "[DependenciesConfig.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/DependenciesConfig.cs.md)"
     cites:
       - ADR-AUTO-DEPM
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

@@ -19,7 +19,7 @@ catzc:
     docs: "[LinksConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinksConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-PWSH-PARAM-RESOLUTIONORDER
       - ADR-REPO-LINK-ONECITATIONSPELLING
       - ADR-REPO-LINK-ALIGNEDBYTOOL

@@ -11,7 +11,7 @@ Above `using System;`, written with `//`.
 One `subscriptions` entry of configs/azure.yml ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)): an Azure
 subscription keyed by name, the tenant that owns it, the environments it serves, and — for a customer
 subscription — the raw customer token. The config mirror (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); the resolved identity
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); the resolved identity
 node is AzureSubscription (with the customer normalized to its canonical key). AzureConfig builds one per entry
 and collects its violations with the file's (the tenant/environment references and the cross-record rules are
 AzureConfig's).

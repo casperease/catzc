@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[AdrCitationRewrite.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationRewrite.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---
 */
 

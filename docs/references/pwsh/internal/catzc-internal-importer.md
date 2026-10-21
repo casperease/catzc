@@ -32,7 +32,7 @@ diverge. The switches are the toolset's load surface: `-ExportPrivates` (export 
 `-AllowWarnings`, `-DiagnoseLoadTime` (per-stage timings and an end-of-load summary), `-ClearCompiledTypes` (rebuild every C# type from
 source), and `-SkipJanitors` (a lean load for a copied subset, e.g. `Test-InIsolation`). `-Verbose` shows the importer's state-change record
 and the type-cache janitor's report. Nothing about committing is a switch: who is running decides (`Get-SessionActor`,
-ADR-AUTO-TYPES-JANITORSBYCALLER) — a person's import commits the generated `pwsh/.compiled`, an agent's announces it, and a pipeline's or a
+ADR-BCL-TYPES-JANITORSBYCALLER) — a person's import commits the generated `pwsh/.compiled`, an agent's announces it, and a pipeline's or a
 test-run snapshot's never commits.
 
 ## Functions

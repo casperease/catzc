@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.SampleCustomer.Tests.ps1
-    folder: tests
-    name: build-bicep-sample-customer-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: cf68948e3dc9
   edges:
     docs: "[Build-Bicep.SampleCustomer.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleCustomer.Tests.ps1.md)"
     cites:
@@ -30,7 +19,11 @@ Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
         $script:outputRoot = Join-Path $TestDrive 'out/template/sample-customer'
 
+        . (Join-Path $PSScriptRoot 'BicepParams.Fixture.ps1')
         Mock Invoke-AzCli {
+            if (& $script:compileBicepParams $Arguments) {
+                return
+            }
             if ($Arguments -match 'bicep version') {
                 return [pscustomobject]@{ Output = 'Bicep CLI version 999.999.999'; ExitCode = 0 }
             }

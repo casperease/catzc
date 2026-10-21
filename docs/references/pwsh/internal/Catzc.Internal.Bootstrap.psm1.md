@@ -235,7 +235,7 @@ loaded cross-root) is a hard failure — the code that uses it is certain to fai
 here. A changed or removed type degrades gracefully — keep the already-loaded types this session,
 warn (orange), and return WITHOUT recording the new hash, so the warning repeats on every re-import
 until you restart. Every devbox session, a person's included, takes this path
-([ADR-AUTO-TYPES-ONEDRIFTMEASURE](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-onedriftmeasure)): one
+([ADR-BCL-TYPES-ONEDRIFTMEASURE](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-onedriftmeasure)): one
 yellow line naming the changed types by simple name, and the import goes on.
 ```
 
@@ -302,7 +302,7 @@ Above `foreach ($result in @(Initialize-Types)) {`, written with `#`.
 ```text
 Publish [PSTypeAlias("Name")] accelerators from the freshly loaded types, so `[Name]` resolves to the
 decorated type (e.g. [Catzc.Module.Depm]::Puml). This is registration only — Add-Type above stays the
-sole compiler; the editor-facing MSBuild pathway is Invoke-BuildForVSCode. The alias literal lives in
+sole compiler; the editor-facing MSBuild pathway is Invoke-BuildForVsCode. The alias literal lives in
 the decorated types/*.cs, so a workspace search for it lands on the source. Idempotent
 (Remove-then-Add) so a re-import never throws on a duplicate key; the Catzc.-namespaced names mean this
 only ever reclaims our own accelerator, never another module's.

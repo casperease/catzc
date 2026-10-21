@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
     docs: "[KeyHandlerSupportedConfig.cs.md](docs/references/pwsh/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

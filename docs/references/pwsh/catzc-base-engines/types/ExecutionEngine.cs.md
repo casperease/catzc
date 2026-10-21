@@ -16,7 +16,7 @@ command, its strict mode, its time safeguard, the line endings and executable bi
 entry. The three instances live in ExecutionEngines; this type has no public constructor, so no caller invents a fourth.
 
 A model type, so its properties are PascalCase
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```
 
 ## comment:2

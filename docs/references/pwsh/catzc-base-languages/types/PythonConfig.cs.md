@@ -13,7 +13,7 @@ New-PythonProject renders the generated uv workspace from it — the workspace r
 <root>/tests/<folder>/pyproject.toml per Python test folder — and Invoke-PythonTest runs the tests in
 <root>/tests/<folder>/ inside the workspace's one environment. Registered in Catzc.Base.Config/configs/configs.yml
 (type: Catzc.Base.Languages.PythonConfig), so Get-Config -Config python returns this typed record. Property names
-mirror the YAML keys (snake_case, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+mirror the YAML keys (snake_case, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 The Python version is not a setting here: it is the python tool's pin in tools.yml, the one Python version.
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:

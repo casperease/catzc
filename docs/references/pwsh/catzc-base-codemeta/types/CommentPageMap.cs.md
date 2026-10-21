@@ -22,5 +22,5 @@ The page of a file is `<docs>/<path relative to the matched folder>.md`, so
 pwsh/Catzc.Base.QualityGates/private/Get-FormatScope.ps1 ->
 docs/references/pwsh/catzc-base-qualitygates/private/Get-FormatScope.ps1.md: the extension stays in the name,
 so a page maps back to exactly one file. Property names mirror the YAML keys
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

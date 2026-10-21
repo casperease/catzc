@@ -1,20 +1,12 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.Globs/configs/file-kinds.yml
-#     folder: configs
-#     name: file-kinds
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.Globs
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "656b3bda12e8"
 #   edges:
 #     docs: "[file-kinds.yml.md](docs/references/pwsh/catzc-base-globs/configs/file-kinds.yml.md)"
+#     cites:
+#       - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
+#       - ADR-REPO-CONTRACT-CONTRACTASSET
 # ---
 
 kinds:
@@ -92,7 +84,12 @@ kinds:
     subkinds:
       config:
         definition: The settings of a template for one deployment target.
-        files: ["infrastructure/templates/**/configuration/**/*.yml", "infrastructure/templates/*/options.yml"]
+        files:
+          [
+            "infrastructure/templates/**/configuration/**/*.yml",
+            "infrastructure/templates/**/configuration/**/*.bicepparam",
+            "infrastructure/templates/*/options.yml",
+          ]
       module:
         definition: A reusable Bicep module that templates compose.
         files: ["infrastructure/modules/*.bicep"]

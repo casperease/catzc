@@ -18,7 +18,7 @@ catzc:
     docs: "[MapsLabels.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsLabels.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-DSGN-TRACK-ROOTFILE
       - ADR-DSGN-TRACK-UNLISTEDFILE
       - ADR-DSGN-TRACK-VALUECHAINMAP

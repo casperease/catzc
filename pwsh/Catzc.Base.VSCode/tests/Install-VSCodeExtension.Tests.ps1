@@ -1,5 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "6cd427f319c6"
+  edges:
+    code: pwsh/Catzc.Base.VSCode/Install-VsCodeExtension.ps1
+    cites:
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+---
+#>
+
 # Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
-Describe 'Install-VSCodeExtension' -Tag 'L0', 'logic' {
+Describe 'Install-VsCodeExtension' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'extensions'
         $script:installs = Join-Path $TestDrive 'installed'
@@ -12,7 +24,7 @@ Describe 'Install-VSCodeExtension' -Tag 'L0', 'logic' {
             })
         $script:install = @{ Root = $script:root; ExtensionsDirectory = $script:installs }
         Mock Get-Config -ModuleName Catzc.Base.VSCode { $script:config } -ParameterFilter { $Config -eq 'vscode-extensions' }
-        Mock New-VSCodeExtensionFolder -ModuleName Catzc.Base.VSCode {
+        Mock New-VsCodeExtensionFolder -ModuleName Catzc.Base.VSCode {
             $folder = Join-Path $OutputDirectory $Extension.name
             $null = New-Item -ItemType Directory -Path $folder -Force
             Set-Content -LiteralPath (Join-Path $folder 'package.json') -Value "{ `"name`": `"$($Extension.name)`", `"version`": `"1.0.0`", `"publisher`": `"acme`" }"
@@ -20,7 +32,7 @@ Describe 'Install-VSCodeExtension' -Tag 'L0', 'logic' {
             $folder
         }
         Mock Test-Command -ModuleName Catzc.Base.VSCode { $true }
-        Mock Build-VSCodeExtension -ModuleName Catzc.Base.VSCode { "$Path.vsix" }
+        Mock Build-VsCodeExtension -ModuleName Catzc.Base.VSCode { "$Path.vsix" }
         Mock Invoke-Executable -ModuleName Catzc.Base.VSCode { }
     }
 
@@ -29,13 +41,13 @@ Describe 'Install-VSCodeExtension' -Tag 'L0', 'logic' {
     }
 
     It 'renders and installs every registry entry' {
-        $installed = @(Install-VSCodeExtension @script:install)
+        $installed = @(Install-VsCodeExtension @script:install)
         $installed.Count | Should -Be 2
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.VSCode -Times 2 -ParameterFilter { $Command -like 'code --install-extension "*" --force' }
     }
 
     It 'installs only the named extension' {
-        $installed = @(Install-VSCodeExtension @script:install -Name widget-ext)
+        $installed = @(Install-VsCodeExtension @script:install -Name widget-ext)
         $installed.Count | Should -Be 1
         $installed[0] | Should -BeLike '*widget-ext.vsix'
     }
@@ -45,10 +57,10 @@ Describe 'Install-VSCodeExtension' -Tag 'L0', 'logic' {
         $null = New-Item -ItemType Directory -Path $copy -Force
         Set-Content -LiteralPath (Join-Path $copy 'extension.js') -Value 'module.exports = {};'
         Set-Content -LiteralPath (Join-Path $copy 'package.json') -Value '{ "name": "widget-ext", "version": "1.0.0", "publisher": "acme", "__metadata": { "size": 1 } }'
-        $installed = @(Install-VSCodeExtension @script:install)
+        $installed = @(Install-VsCodeExtension @script:install)
         $installed.Count | Should -Be 1
         $installed[0] | Should -BeLike '*gadget-ext.vsix'
-        @(Install-VSCodeExtension @script:install -Force).Count | Should -Be 2
+        @(Install-VsCodeExtension @script:install -Force).Count | Should -Be 2
     }
 
     It 'reinstalls an extension whose installed copy differs from the rendered folder' {
@@ -56,15 +68,15 @@ Describe 'Install-VSCodeExtension' -Tag 'L0', 'logic' {
         $null = New-Item -ItemType Directory -Path $copy -Force
         Set-Content -LiteralPath (Join-Path $copy 'extension.js') -Value 'module.exports = { old: true };'
         Set-Content -LiteralPath (Join-Path $copy 'package.json') -Value '{ "name": "widget-ext", "version": "1.0.0", "publisher": "acme" }'
-        @(Install-VSCodeExtension @script:install -Name widget-ext).Count | Should -Be 1
+        @(Install-VsCodeExtension @script:install -Name widget-ext).Count | Should -Be 1
     }
 
     It 'refuses a name that is not a registry entry' {
-        { Install-VSCodeExtension @script:install -Name plain } | Should -Throw "*'plain' is not an entry under extensions*"
+        { Install-VsCodeExtension @script:install -Name plain } | Should -Throw "*'plain' is not an entry under extensions*"
     }
 
     It 'says so when the editor CLI is not on PATH' {
         Mock Test-Command -ModuleName Catzc.Base.VSCode { $false }
-        { Install-VSCodeExtension @script:install } | Should -Throw "*'code' is not on PATH*"
+        { Install-VsCodeExtension @script:install } | Should -Throw "*'code' is not on PATH*"
     }
 }

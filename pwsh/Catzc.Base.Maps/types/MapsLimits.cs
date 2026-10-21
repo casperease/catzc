@@ -18,7 +18,7 @@ catzc:
     docs: "[MapsLimits.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsLimits.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

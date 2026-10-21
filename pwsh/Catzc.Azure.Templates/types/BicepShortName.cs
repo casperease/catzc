@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
     docs: "[BicepShortName.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
       - ADR-AZ-NAMING
 ---
 */

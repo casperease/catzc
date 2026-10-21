@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractManifest.Tests.ps1
     docs: "[ContractManifest.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractManifest.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION
 ---
 */

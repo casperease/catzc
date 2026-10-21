@@ -9,5 +9,5 @@ Above `[Catzc.Base.Objects.ConsoleDisplay("file", "host")]`, written with `//`.
 
 ```text
 One host binding of bcl.yml: a type source outside the BCL language's reference set, named with its host and its reason
-(ADR-AUTO-TYPES-BCLREFERENCESET).
+(ADR-BCL-TYPES-BCLREFERENCESET).
 ```

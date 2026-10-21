@@ -6,12 +6,12 @@ catzc:
 ---
 #>
 
-Describe 'Test-IsRunningInVSCode' -Tag 'L0', 'logic' {
+Describe 'Test-IsRunningInVsCode' -Tag 'L0', 'logic' {
     It 'detects a terminal VS Code opened via TERM_PROGRAM' {
         $original = $env:TERM_PROGRAM
         try {
             $env:TERM_PROGRAM = 'vscode'
-            Test-IsRunningInVSCode | Should -BeTrue
+            Test-IsRunningInVsCode | Should -BeTrue
         }
         finally {
             $env:TERM_PROGRAM = $original
@@ -22,7 +22,7 @@ Describe 'Test-IsRunningInVSCode' -Tag 'L0', 'logic' {
         $original = $env:TERM_PROGRAM
         try {
             $env:TERM_PROGRAM = 'WindowsTerminal'
-            Test-IsRunningInVSCode | Should -BeFalse
+            Test-IsRunningInVsCode | Should -BeFalse
         }
         finally {
             $env:TERM_PROGRAM = $original
@@ -33,7 +33,7 @@ Describe 'Test-IsRunningInVSCode' -Tag 'L0', 'logic' {
         $original = $env:TERM_PROGRAM
         try {
             $env:TERM_PROGRAM = $null
-            Test-IsRunningInVSCode | Should -BeFalse
+            Test-IsRunningInVsCode | Should -BeFalse
         }
         finally {
             $env:TERM_PROGRAM = $original

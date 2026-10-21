@@ -1,5 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "07cd7c39961b"
+  edges:
+    code: pwsh/Catzc.Base.VSCode/private/New-VsCodeExtensionFolder.ps1
+    cites:
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+      - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+---
+#>
+
 # Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
-Describe 'New-VSCodeExtensionFolder' -Tag 'L0', 'logic' {
+Describe 'New-VsCodeExtensionFolder' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:assets = Join-Path $TestDrive 'assets'
         $null = New-Item -ItemType Directory -Path $script:assets -Force
@@ -12,7 +25,7 @@ Describe 'New-VSCodeExtensionFolder' -Tag 'L0', 'logic' {
             })
         InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $script:entry; Out = (Join-Path $TestDrive 'out'); Assets = $script:assets } {
             param($Entry, $Out, $Assets)
-            $script:folder = New-VSCodeExtensionFolder -Extension $Entry -OutputDirectory $Out -AssetDirectory $Assets
+            $script:folder = New-VsCodeExtensionFolder -Extension $Entry -OutputDirectory $Out -AssetDirectory $Assets
         }
         $script:folder = InModuleScope Catzc.Base.VSCode { $script:folder }
         $script:manifest = Get-Content -LiteralPath (Join-Path $script:folder 'package.json') -Raw | ConvertFrom-Json
@@ -41,7 +54,7 @@ Describe 'New-VSCodeExtensionFolder' -Tag 'L0', 'logic' {
         Set-Content -LiteralPath (Join-Path $script:folder 'stale.js') -Value ''
         InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $script:entry; Out = (Join-Path $TestDrive 'out'); Assets = $script:assets } {
             param($Entry, $Out, $Assets)
-            $null = New-VSCodeExtensionFolder -Extension $Entry -OutputDirectory $Out -AssetDirectory $Assets
+            $null = New-VsCodeExtensionFolder -Extension $Entry -OutputDirectory $Out -AssetDirectory $Assets
         }
         Test-Path -LiteralPath (Join-Path $script:folder 'stale.js') | Should -BeFalse
     }
@@ -51,25 +64,25 @@ Describe 'New-VSCodeExtensionFolder' -Tag 'L0', 'logic' {
         {
             InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $missing; Out = (Join-Path $TestDrive 'out'); Assets = $script:assets } {
                 param($Entry, $Out, $Assets)
-                New-VSCodeExtensionFolder -Extension $Entry -OutputDirectory $Out -AssetDirectory $Assets
+                New-VsCodeExtensionFolder -Extension $Entry -OutputDirectory $Out -AssetDirectory $Assets
             }
         } | Should -Throw "*'gadget-ext' has no script*"
     }
 }
 
-Describe 'New-VSCodeExtensionFolder — real vscode-extensions.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+Describe 'New-VsCodeExtensionFolder — real vscode-extensions.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'renders every registry entry from its shipped script to a manifest the packer accepts' {
         $entries = @((Get-Config -Config vscode-extensions).extensions)
         $entries.Count | Should -BeGreaterThan 0
         foreach ($entry in $entries) {
             $folder = InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $entry; Out = (Join-Path $TestDrive 'shipped') } {
                 param($Entry, $Out)
-                New-VSCodeExtensionFolder -Extension $Entry -OutputDirectory $Out
+                New-VsCodeExtensionFolder -Extension $Entry -OutputDirectory $Out
             }
             $manifest = Get-Content -LiteralPath (Join-Path $folder 'package.json') -Raw | ConvertFrom-Json
             $manifest.name | Should -Be $entry.name
             (Get-Item -LiteralPath (Join-Path $folder 'extension.js')).Length | Should -BeGreaterThan 0
-            Build-VSCodeExtension -Path $folder -OutputDirectory (Join-Path $TestDrive 'vsix') | Should -Exist
+            Build-VsCodeExtension -Path $folder -OutputDirectory (Join-Path $TestDrive 'vsix') | Should -Exist
         }
     }
 }

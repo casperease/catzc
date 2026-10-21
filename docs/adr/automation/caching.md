@@ -196,8 +196,7 @@ Where a cache lives, the keyed-hashtable code shape, and how tests interact with
 module-scoped state of pwsh, never the environment or the global scope, with `Get-Config` and `Get-BicepTemplates` as the exemplars. Its
 rules map onto the ones here: the importer as the only invalidation (ADR-AUTO-CACHE-IMPORTERINVALIDATES) is module state discarded on
 re-import, and the compiled-type prebuild (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD) is loaded by the bootstrap functions. How the prebuild is
-compiled and when a session must restart because a source changed live with the type system,
-[native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`).
+compiled and when a session must restart because a source changed live with the type system, in the BCL domain.
 
 ### How this is enforced
 

@@ -3,7 +3,7 @@
 catzc:
   immutable:
     repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/New-VSCodeExtensions.ps1
+    path: pwsh/Catzc.Base.VSCode/New-VsCodeExtensions.ps1
     name: new-vs-code-extensions
     filetype: ps1
     role: function
@@ -16,15 +16,15 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeExtensions.Tests.ps1
-    docs: "[New-VSCodeExtensions.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VSCodeExtensions.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/New-VsCodeExtensions.Tests.ps1
+    docs: "[New-VsCodeExtensions.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VsCodeExtensions.ps1.md)"
     cites:
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
       - ADR-REPO-ROOTCFG
 ---
 #>
 
-function New-VSCodeExtensions {
+function New-VsCodeExtensions {
     [CmdletBinding()]
     [OutputType([string])]
     param(

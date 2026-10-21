@@ -12,7 +12,7 @@ Above `recommendations:`, written with `#`.
 
 ```text
 VS Code extension-recommendation registry — the single authored source for .vscode/extensions.json. The
-file the editor reads is a managed, gitignored copy rendered from this registry by New-VSCodeExtensions
+file the editor reads is a managed, gitignored copy rendered from this registry by New-VsCodeExtensions
 (wired through Build-RootConfig; see rootconfig.yml and [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)) —
 edit THIS file, never extensions.json. Explanations live here as comments; the rendered JSON carries only a
 generated-file header (VS Code reads JSONC, so the header is legal).

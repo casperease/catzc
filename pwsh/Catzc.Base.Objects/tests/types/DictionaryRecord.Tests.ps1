@@ -18,11 +18,11 @@ catzc:
     docs: "[DictionaryRecord.Tests.ps1.md](docs/references/pwsh/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---
 #>
 
-Describe 'DictionaryRecord' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
+Describe 'DictionaryRecord' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         if (-not ([System.Management.Automation.PSTypeName]'DictionaryRecordWidgetProbe').Type) {
             $assembly = [Catzc.Base.Objects.DictionaryRecord].Assembly.Location

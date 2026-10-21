@@ -2,25 +2,14 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.KeyHandler/Import-PSReadLineKeyHandlerSet.ps1
-    name: import-ps-read-line-key-handler-set
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
+    with_body_sha: cc09f1ef49b8
   edges:
-    test: pwsh/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
-    docs: "[Import-PSReadLineKeyHandlerSet.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/Import-PSReadLineKeyHandlerSet.ps1.md)"
+    test: pwsh/Catzc.Tooling.KeyHandler/tests/Import-PsReadLineKeyHandlerSet.Tests.ps1
+    docs: "[Import-PsReadLineKeyHandlerSet.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/Import-PsReadLineKeyHandlerSet.ps1.md)"
 ---
 #>
 
-function Import-PSReadLineKeyHandlerSet {
+function Import-PsReadLineKeyHandlerSet {
     [CmdletBinding()]
     param(
         [switch] $DryRun
@@ -35,7 +24,7 @@ function Import-PSReadLineKeyHandlerSet {
     }
 
     if (-not $IsLinux) {
-        throw 'Import-PSReadLineKeyHandlerSet applies the Windows bindings on Linux only, where PSReadLine otherwise defaults to bash-style editing — running it on Windows would clobber the native handlers. Use -DryRun to preview the plan here.'
+        throw 'Import-PsReadLineKeyHandlerSet applies the Windows bindings on Linux only, where PSReadLine otherwise defaults to bash-style editing — running it on Windows would clobber the native handlers. Use -DryRun to preview the plan here.'
     }
     Assert-PsModule 'PSReadLine'
 

@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Languages/tests/types/BclConfig.Tests.ps1
     docs: "[BclConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/BclConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-DEBUGANYCPU
+      - ADR-BCL-TYPES-DEBUGANYCPU
 ---
 */
 

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
-    folder: tests
-    name: set-bicep-template-configuration-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: bb77900f5fe0
   edges:
     docs: "[Set-BicepTemplateConfiguration.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
     cites:
       - ADR-AUTO-CACHE-IMPORTERINVALIDATES
       - ADR-AUTO-TEST-SETUPONCE
@@ -95,6 +85,15 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
             $result.Path | Should -Match 'configuration[\\/]gamma\.yml'
             $configuration = Get-Content $result.Path -Raw | ConvertFrom-Yaml -Ordered
             $configuration.ParametersFile.parameters.storageAccountName.value | Should -Be 'gmweutstsmplst'
+        }
+
+        It 'throws on a bicepparam slot, naming its file, and writes nothing' {
+            $file = Join-Path $script:templatesRoot 'sample-bicepparam/configuration/alpha.bicepparam'
+            $before = [System.IO.File]::ReadAllText($file)
+            { Set-BicepTemplateConfiguration sample-bicepparam alpha -Parameters @{ storageAccountName = 'widget' } } |
+                Should -Throw "*slot 'alpha' is a bicepparam slot*alpha.bicepparam*edited by hand*"
+            [System.IO.File]::ReadAllText($file) | Should -BeExactly $before
+            Join-Path $script:templatesRoot 'sample-bicepparam/configuration/alpha.yml' | Should -Not -Exist
         }
 
         It 'merges into an existing config, preserving other parameters' {

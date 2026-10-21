@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[CitationSite.cs.md](docs/references/pwsh/catzc-base-maps/types/CitationSite.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

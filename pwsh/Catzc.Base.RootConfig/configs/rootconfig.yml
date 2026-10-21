@@ -38,7 +38,7 @@ files:
     committed: true
     optIn: true
   - target: .vscode/settings.json
-    generator: New-VSCodeSettings
+    generator: New-VsCodeSettings
     sources:
       - pwsh/Catzc.Base.VSCode/configs/vscode-settings.yml
       - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
@@ -46,26 +46,26 @@ files:
     carrier: jsonc
     optIn: true
   - target: .vscode/extensions.json
-    generator: New-VSCodeExtensions
+    generator: New-VsCodeExtensions
     sources:
       - pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml
       - pwsh/Catzc.Base.Languages/configs/languages.yml
     carrier: jsonc
     optIn: true
   - target: .vscode/launch.json
-    generator: New-VSCodeLaunch
+    generator: New-VsCodeLaunch
     sources:
       - pwsh/Catzc.Base.VSCode/configs/vscode-launch.yml
     carrier: jsonc
     optIn: true
   - target: .vscode/tasks.json
-    generator: New-VSCodeTasks
+    generator: New-VsCodeTasks
     sources:
       - pwsh/Catzc.Base.VSCode/configs/vscode-tasks.yml
     carrier: jsonc
     optIn: true
   - target: .vscode/azure-pipelines-schema.json
-    generator: New-VSCodePipelineSchema
+    generator: New-VsCodePipelineSchema
     sources:
       - pwsh/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
     carrier: json-schema

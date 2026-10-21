@@ -2,28 +2,16 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/private/New-VSCodeExtensionFolder.ps1
-    folder: private
-    name: new-vs-code-extension-folder
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "87c97f955050"
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeExtensionFolder.Tests.ps1
-    docs: "[New-VSCodeExtensionFolder.ps1.md](docs/references/pwsh/catzc-base-vscode/private/New-VSCodeExtensionFolder.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/New-VsCodeExtensionFolder.Tests.ps1
+    docs: "[New-VsCodeExtensionFolder.ps1.md](docs/references/pwsh/catzc-base-vscode/private/New-VsCodeExtensionFolder.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
 ---
 #>
 
-function New-VSCodeExtensionFolder {
+function New-VsCodeExtensionFolder {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes generated output under the output root; the folder is replaced on every render')]
     [CmdletBinding()]
     [OutputType([string])]
@@ -38,7 +26,7 @@ function New-VSCodeExtensionFolder {
     )
 
     $script = Join-Path $AssetDirectory "$($Extension.name).js"
-    Assert-PathExist $script -ErrorText "New-VSCodeExtensionFolder: extension '$($Extension.name)' has no script at '$script'."
+    Assert-PathExist $script -ErrorText "New-VsCodeExtensionFolder: extension '$($Extension.name)' has no script at '$script'."
 
     $manifest = [ordered]@{
         name             = $Extension.name

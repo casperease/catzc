@@ -10,7 +10,7 @@ Above `using System.Collections;`, written with `//`.
 ```text
 The DORA-coverage check's settings (configs/adr-checks.yml, dora_coverage), read by Test-AdrRegistry: every rule set of a
 domain has exactly one section linking its ADR in the domain's DORA file (the authoring conventions of the ADR index). Mirrors
-the YAML mapping (snake_case, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); built
+the YAML mapping (snake_case, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); built
 and validated by AdrChecksConfig.
   mode   — report | gate; default CheckMode's default, gate
   file   — the DORA file's name inside each domain folder; default DefaultFile

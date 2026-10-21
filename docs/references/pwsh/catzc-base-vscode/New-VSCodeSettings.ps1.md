@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.VSCode/New-VSCodeSettings.ps1
+# pwsh/Catzc.Base.VSCode/New-VsCodeSettings.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -51,7 +51,7 @@ authored `[<id>]` block keeps its own settings, and an authored defaultFormatter
 ### example 1
 
 ```powershell
-New-VSCodeSettings -ManagedTarget '/PSScriptAnalyzerSettings.psd1', 'importer.ps1'
+New-VsCodeSettings -ManagedTarget '/PSScriptAnalyzerSettings.psd1', 'importer.ps1'
 ```
 
 ## comment:1

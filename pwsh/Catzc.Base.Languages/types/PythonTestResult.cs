@@ -19,7 +19,7 @@ catzc:
     docs: "[PythonTestResult.cs.md](docs/references/pwsh/catzc-base-languages/types/PythonTestResult.cs.md)"
     cites:
       - ADR-AUTO-TEST-ONECATEGORY
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

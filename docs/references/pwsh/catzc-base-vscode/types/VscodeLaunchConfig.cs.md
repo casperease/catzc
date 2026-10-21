@@ -8,12 +8,12 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-The VS Code launch-profile registry, configs/vscode-launch.yml — the single authored source that New-VSCodeLaunch
+The VS Code launch-profile registry, configs/vscode-launch.yml — the single authored source that New-VsCodeLaunch
 renders to the managed .vscode/launch.json ([ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)).
 Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one throw.
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.VSCode.VscodeLaunchConfig), so
 Get-Config -Config vscode-launch returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Load-time rules:
   - only the top-level keys 'version' and 'configurations';

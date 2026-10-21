@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[AzureCustomer.cs.md](docs/references/pwsh/catzc-azure/types/AzureCustomer.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-CUSTOMER
 ---
 */

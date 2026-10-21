@@ -67,10 +67,10 @@ The module's public surface, sorted into the responsibilities above.
 
 | Responsibility                           | Function                     |
 | ---------------------------------------- | ---------------------------- |
-| responsibility:1 — Editor-file rendering | `New-VSCodeSettings`         |
-|                                          | `New-VSCodeExtensions`       |
-|                                          | `New-VSCodeLaunch`           |
-|                                          | `New-VSCodePipelineSchema`   |
+| responsibility:1 — Editor-file rendering | `New-VsCodeSettings`         |
+|                                          | `New-VsCodeExtensions`       |
+|                                          | `New-VsCodeLaunch`           |
+|                                          | `New-VsCodePipelineSchema`   |
 | responsibility:2 — The editor registries | `vscode-settings.yml`        |
 |                                          | `vscode-extensions.yml`      |
 |                                          | `vscode-launch.yml`          |

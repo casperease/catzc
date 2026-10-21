@@ -14,7 +14,8 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         }
         $script:goodHead = @('---', 'plan:', '  status: active', '  value: medium', '  reviewed: 2026-10-17', '  targets: [widgets]', '---', '')
         $script:goodBody = @('# Widget', '', '## Open steps', '', '- [ ] Spin the widget (check: the widget spins).', '- [ ] Oil the gadget,', '      one drop (check: no squeak).')
-        $script:master = @('---', 'plan:', '  status: active', '  value: highest', '  reviewed: 2026-10-17', '  role: master', '  targets: [plans]', '---', '', '# Master', '', '## Process', '', 'rules', '', '## Chunks', '', '- spin the widget -> task-spin-widget.md (open): widgets.')
+        $script:master = @('---', 'plan:', '  status: active', '  value: highest', '  reviewed: 2026-10-17', '  role: master', '  targets: [plans]', '---', '', '# Master', '', '## Process', '', 'rules', '', '## Chunks', '', '- spin the widget -> task-spin-widget.md (open): widgets.', '- widget -> plan-widget.md: spin it.', '- gadget -> plan-gadget.md: oil it.', '- sprocket -> plan-sprocket.md: turn it.')
+        $script:value = @('# Value', '', '| Value | Plan |', '| --- | --- |', '| medium | plan-widget |', '| low | plan-gadget |', '| low | plan-sprocket |')
         $script:task = @('---', 'task:', '  status: open', '  plans: [plan-widget]', '  value: medium', '  blocked_on: nothing', '  targets: [plans]', '---', '', '# Spin the widget', '', '## Steps', '', '1. Spin.')
     }
 
@@ -29,7 +30,7 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         Write-Plan 'plan-master.md' $script:master
         Write-Plan 'task-spin-widget.md' $script:task
         Write-Plan 'prompt-widget-continue.md' @('Paste this.')
-        Write-Plan 'value-of-plan.md' @('# Value', '', '| Value | Plan |', '| --- | --- |')
+        Write-Plan 'value-of-plan.md' $script:value
     }
 
     It 'passes a folder whose files keep every rule, and counts the files, plans and tasks' {
@@ -75,6 +76,31 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '', '- [ ] Spin the gadget.', '- [ ] Oil it', '      (check: no squeak).', '- [x] Done already.'))
         $result = Invoke-Gate
         $result.Issues | Should -Be @('plans/plan-gadget.md:13 [ADR-REPO-PLANS-OPENSTEP] the open step names no check: "- [ ] Spin the gadget."')
+    }
+
+    It 'reads a numbered open step like a bulleted one, and reports a numbered step without a checkbox' -Tag 'ADR-REPO-PLANS-OPENSTEP' {
+        Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '', '1. [ ] Spin the gadget.', '2. Oil it (check: no squeak).', '3. [ ] Turn it,', '       slowly (check: it turns).', '', '## Refs', '', '1. A numbered ref.'))
+        $result = Invoke-Gate
+        $result.Issues | Should -Be @(
+            'plans/plan-gadget.md:14 [ADR-REPO-PLANS-OPENSTEP] the open step has no checkbox: "2. Oil it (check: no squeak)."',
+            'plans/plan-gadget.md:13 [ADR-REPO-PLANS-OPENSTEP] the open step names no check: "1. [ ] Spin the gadget."'
+        )
+    }
+
+    It 'requires a plan to have its chunk line in the master and its row in the value overlay' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
+        Write-Plan 'plan-gizmo.md' ($script:goodHead + $script:goodBody)
+        $result = Invoke-Gate
+        $result.Issues | Should -Be @(
+            "plans/plan-gizmo.md:1 [ADR-REPO-PLANS-THREEPARTS] the plan has no chunk line in plan-master.md ('- <chunk> -> plan-gizmo.md: ...')",
+            "plans/plan-gizmo.md:1 [ADR-REPO-PLANS-THREEPARTS] the plan has no row in value-of-plan.md ('| <value> | plan-gizmo | ...')"
+        )
+    }
+
+    It 'finds both overlays missing when the folder has neither file' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
+        Remove-Item -LiteralPath (Join-Path $script:folder 'plan-master.md'), (Join-Path $script:folder 'value-of-plan.md')
+        $result = Invoke-Gate
+        $result.Issues | Should -HaveCount 2
+        $result.Issues | Should -BeLike 'plans/plan-widget.md:1 `[ADR-REPO-PLANS-THREEPARTS`]*'
     }
 
     It 'holds a task file to its head and its steps, and the master plan to its sections' -Tag 'ADR-REPO-PLANS-MASTERANDTASKS' {

@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[WorldMapGridLayout.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapGridLayout.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-DSGN-TRACK-ROOTFILE
       - ADR-DSGN-TRACK-UNLISTEDFILE
 ---

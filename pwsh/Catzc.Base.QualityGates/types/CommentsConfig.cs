@@ -19,7 +19,7 @@ catzc:
     docs: "[CommentsConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/CommentsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
       - ADR-PRIN-ONELIVE-ONEVERSION
       - ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION

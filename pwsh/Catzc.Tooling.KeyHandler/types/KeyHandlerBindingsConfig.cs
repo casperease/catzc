@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs
-    folder: types
-    name: key-handler-bindings-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: c20fcd679467
   edges:
     test: pwsh/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerBindingsConfig.Tests.ps1
     docs: "[KeyHandlerBindingsConfig.cs.md](docs/references/pwsh/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md)"
@@ -52,7 +41,7 @@ public sealed class KeyHandlerBindingsConfig : Catzc.Base.Objects.DictionaryReco
         }
         if (index == 0)
         {
-            throw new ArgumentException("key-handler-bindings.yml is empty — capture bindings with Save-PSReadLineKeyHandlerSet.");
+            throw new ArgumentException("key-handler-bindings.yml is empty — capture bindings with Save-PsReadLineKeyHandlerSet.");
         }
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n  - ", errors)); }

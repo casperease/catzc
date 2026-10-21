@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.VSCode/tests/types/VscodeLaunchConfig.Tests.ps1
     docs: "[VscodeLaunchConfig.cs.md](docs/references/pwsh/catzc-base-vscode/types/VscodeLaunchConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-ROOTCFG
 ---
 */

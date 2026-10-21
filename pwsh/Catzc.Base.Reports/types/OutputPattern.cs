@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[OutputPattern.cs.md](docs/references/pwsh/catzc-base-reports/types/OutputPattern.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-CONSOLEREADYTOSTRING
+      - ADR-BCL-TYPES-CONSOLEREADYTOSTRING
       - ADR-REPO-OUTFMT-OUTPUTFORMAT
 ---
 */
@@ -73,7 +73,7 @@ public sealed class OutputPattern
         return new OutputPattern(text, parsed);
     }
 
-    // Console-ready text ([ADR-AUTO-TYPES-CONSOLEREADYTOSTRING](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-consolereadytostring)).
+    // Console-ready text ([ADR-BCL-TYPES-CONSOLEREADYTOSTRING](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-consolereadytostring)).
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // True when the output-root-relative path (with '/' or '\' separators) matches this pattern.

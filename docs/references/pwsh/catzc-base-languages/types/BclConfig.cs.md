@@ -9,5 +9,5 @@ Above `public sealed class BclConfig : Catzc.Base.Objects.DictionaryRecord`, wri
 
 ```text
 The BCL language's own config: the one build configuration and platform every non-vendored .sln and .csproj declares, and every
-dotnet call builds (ADR-AUTO-TYPES-DEBUGANYCPU).
+dotnet call builds (ADR-BCL-TYPES-DEBUGANYCPU).
 ```

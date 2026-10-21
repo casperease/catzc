@@ -19,7 +19,7 @@ catzc:
     docs: "[ReportsConfig.cs.md](docs/references/pwsh/catzc-base-reports/types/ReportsConfig.cs.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

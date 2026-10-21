@@ -14,7 +14,7 @@ key is optional, and an omitted key behaves exactly like its default, so no func
 the repository-root go.work and each <root>/tests/<folder>/go.mod from it, and Invoke-GoTest runs the tests in
 <root>/tests/<folder>/. Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Languages.GoConfig),
 so Get-Config -Config go returns this typed record. Property names mirror the YAML keys (snake_case,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)). The go directive is not
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). The go directive is not
 a setting here: it is the go tool's pin in tools.yml, the one Go version.
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:

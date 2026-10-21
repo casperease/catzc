@@ -11,5 +11,5 @@ Above `using System;`, written with `//`.
 One lit cell of a world-map highlight: the cell (a track and a file language), the files in it that the request
 lit, the steps that lit it (a MapPlacement basis, "path" for a requested file, "pin" for a reviewed pin of
 configs/maps.yml), and why each lights it (Reasons; Touched when all are passing mentions). A result type, so the
-properties are PascalCase ([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+properties are PascalCase ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

@@ -11,7 +11,7 @@ Above `using System;`, written with `//`.
 The engine-neutrality check's settings (configs/adr-checks.yml, engine_neutrality), read by Test-AdrEngineNeutrality: the rule
 summaries of the listed adrs.yml domains carry no engine-specific syntax
 ([ADR-AUTO-ENGINE-THREEENGINES](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). Mirrors the YAML mapping (snake_case,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); built and validated by AdrChecksConfig.
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); built and validated by AdrChecksConfig.
   mode    — report | gate; default CheckMode's default, gate
   domains — the adrs.yml domains whose rule summaries are checked; default none
   tokens  — a map of token name (kebab-case) to a case-sensitive .NET regular expression; default none

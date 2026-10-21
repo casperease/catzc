@@ -19,7 +19,7 @@ catzc:
     docs: "[ContractCommand.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractCommand.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
       - ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS
       - ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE
@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
-// Rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder), [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml) and [ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage).
+// Rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder), [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml) and [ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Name), nameof(Signature))]
 public sealed class ContractCommand
 {

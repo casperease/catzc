@@ -18,14 +18,14 @@ catzc:
     docs: "[AdrsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md)"
     cites:
       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
       - ADR-DSGN-TRACK-VALUECHAINSTACK
       - ADR-DSGN-TRACK-VALUECHAINCONCERN
       - ADR-REPO-LANG
 ---
 #>
 
-Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
+Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         function New-ValidRaw {
             [ordered]@{

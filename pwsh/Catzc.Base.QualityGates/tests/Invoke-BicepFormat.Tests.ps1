@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Invoke-BicepFormat.Tests.ps1
-    folder: tests
-    name: invoke-bicep-format-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: d30f63192bb3
   edges:
     docs: "[Invoke-BicepFormat.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-BicepFormat.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Invoke-BicepFormat.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-NOOVERMOCKING
@@ -34,7 +24,7 @@ Describe 'Invoke-BicepFormat' -Tag 'L0', 'logic' {
         }
         Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates {
             if ($Command -match 'format --pattern "([^"]+)"') {
-                foreach ($copy in [System.IO.Directory]::GetFiles([System.IO.Path]::GetDirectoryName($Matches[1]), '*.bicep')) {
+                foreach ($copy in [System.IO.Directory]::GetFiles([System.IO.Path]::GetDirectoryName($Matches[1]), [System.IO.Path]::GetFileName($Matches[1]))) {
                     [System.IO.File]::WriteAllText($copy, ([System.IO.File]::ReadAllText($copy) -replace ' {2,}', ' '))
                 }
             }
@@ -58,6 +48,19 @@ Describe 'Invoke-BicepFormat' -Tag 'L0', 'logic' {
         $changed | Should -Be @($script:gadget)
         [System.IO.File]::ReadAllText($script:gadget) | Should -BeExactly "param gadget string`n"
         [System.IO.File]::ReadAllText($script:widget) | Should -BeExactly "param widget string`n"
+    }
+
+    It 'formats a .bicepparam beside a .bicep, one process per extension, each copy keeping its own extension' {
+        $params = Join-Path $TestDrive 'widget.bicepparam'
+        [System.IO.File]::WriteAllText($params, "using  'widget.bicep'`n")
+        $changed = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widget, $params) } {
+            param($Files)
+            Invoke-BicepFormat -File $Files
+        }
+        $changed | Should -Be @($params)
+        [System.IO.File]::ReadAllText($params) | Should -BeExactly "using 'widget.bicep'`n"
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Command -like '*format --pattern *`*.bicep"' }
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Command -like '*format --pattern *`*.bicepparam"' }
     }
 
     It 'leaves every file untouched under -DryRun' {

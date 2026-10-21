@@ -8,6 +8,8 @@ the authoritative definitions.
 
 In catzc, BCL is two things, and this page is the one place that defines both.
 
+![BCL is a language; pwsh hosts it, and binds only by row](../../adr/automation/BCL/.assets/bcl-language/diagram.drawio.png)
+
 ## The BCL language
 
 BCL is a .NET language of catzc's own: C# written against the Base Class Library, a subset of .NET. A language here carries more than its

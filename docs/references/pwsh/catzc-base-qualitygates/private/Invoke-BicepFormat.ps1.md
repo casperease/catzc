@@ -32,3 +32,12 @@ List the files the Bicep CLI would change without writing them.
 ### outputs
 
 `[string[]]` Absolute paths of the files changed (or, under -DryRun, that would change).
+
+## comment:1
+
+Above `$copies = [string[]]::new($File.Count)`, written with `#`.
+
+```text
+Numbered copies keep their extension: two files of one name in different folders never collide, and a .bicepparam formats
+without its using target.
+```

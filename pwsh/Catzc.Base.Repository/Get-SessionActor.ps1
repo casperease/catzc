@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.Repository/tests/Get-SessionActor.Tests.ps1
     docs: "[Get-SessionActor.ps1.md](docs/references/pwsh/catzc-base-repository/Get-SessionActor.ps1.md)"
     cites:
-      - ADR-AUTO-TYPES-JANITORSBYCALLER
+      - ADR-BCL-TYPES-JANITORSBYCALLER
 ---
 #>
 

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
-    folder: tests
-    name: build-bicep-integrity-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: fb18e954b287
   edges:
     docs: "[Build-Bicep.Integrity.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md)"
     cites:
@@ -82,5 +71,42 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
 
     It 'every shipped template is structurally valid WITHOUT building it (Assert-BicepTemplate, no -Build)' {
         $validationError | Should -BeNullOrEmpty -Because "shipped templates must satisfy Assert-BicepTemplate (no build):`n$validationError"
+    }
+}
+
+Describe 'Shipped slots compile through the .bicepparam path to the same parameters' -Tag 'L2', 'integrity' {
+    It 'renders every shipped yml slot both ways, and the compiled .bicepparam holds the values the ConvertTo-Json file holds' {
+        $bicep = Resolve-ToolExecutable -Tool bicep
+        if (-not ($bicep.Found -and $bicep.VersionOk)) {
+            Set-ItResult -Skipped -Because 'the Bicep CLI at the tools.yml pin is not installed'
+            return
+        }
+        $folder = Join-Path $TestDrive 'both-ways'
+        $null = New-Item -ItemType Directory -Path $folder -Force
+        $templates = Get-BicepTemplates
+        $differ = [System.Collections.Generic.List[string]]::new()
+        $count = 0
+        foreach ($template in $templates) {
+            foreach ($slot in @($template.slots | Where-Object { $_.format -eq 'yml' })) {
+                $descriptor = Get-BicepTemplateConfiguration $template.name $slot.environment -Slot $slot.slot -Customer $slot.customer
+                $descriptor.ParametersFile.parameters = InModuleScope Catzc.Azure.Templates -Parameters @{ Parameters = $descriptor.ParametersFile.parameters } {
+                    param($Parameters)
+                    Resolve-BicepParameterAddresses -Parameters $Parameters -ConfigFile 'shipped.yml'
+                }
+                $before = $descriptor.ParametersFile | ConvertTo-Json -Depth 10 | ConvertFrom-Json -AsHashtable -DateKind String
+                $using = [System.IO.Path]::GetRelativePath($folder, $template.main).Replace('\', '/')
+                $source = Join-Path $folder "$count.bicepparam"
+                $compiled = Join-Path $folder "$count.json"
+                [System.IO.File]::WriteAllText($source, (ConvertTo-BicepParam -Descriptor $descriptor -Using $using))
+                Invoke-Executable "`"$($bicep.Path)`" build-params `"$source`" --outfile `"$compiled`"" -Silent
+                $after = Get-Content $compiled -Raw | ConvertFrom-Json -AsHashtable -DateKind String
+                if (($before.parameters | ConvertTo-Json -Depth 20 -Compress) -cne ($after.parameters | ConvertTo-Json -Depth 20 -Compress)) {
+                    $differ.Add("$($template.name)/$($slot.customer)/$($slot.name)")
+                }
+                $count++
+            }
+        }
+        $count | Should -BeGreaterThan 0
+        $differ | Should -BeNullOrEmpty -Because 'the compiled .bicepparam must hold exactly the values of the ConvertTo-Json parameters file'
     }
 }

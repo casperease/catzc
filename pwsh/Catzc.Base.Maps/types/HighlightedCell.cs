@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[HighlightedCell.cs.md](docs/references/pwsh/catzc-base-maps/types/HighlightedCell.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

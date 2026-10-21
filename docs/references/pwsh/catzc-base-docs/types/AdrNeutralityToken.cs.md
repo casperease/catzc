@@ -10,6 +10,6 @@ Above `using System.Collections.Generic;`, written with `//`.
 ```text
 One forbidden token of the engine-neutrality check (configs/adr-checks.yml, engine_neutrality.tokens): a kebab-case name and a
 case-sensitive .NET regular expression that matches engine-specific syntax in a rule summary. Mirrors the YAML entry (snake_case,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); built and validated by
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); built and validated by
 AdrNeutralityCheck, which rejects a name that is not kebab-case and a pattern that does not compile.
 ```

@@ -19,7 +19,7 @@ catzc:
     docs: "[InspirationConfig.cs.md](docs/references/pwsh/catzc-tooling-inspiration/types/InspirationConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-INSPIRE
 ---
 */

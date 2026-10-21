@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.VSCode/New-VSCodeExtensions.ps1
+# pwsh/Catzc.Base.VSCode/New-VsCodeExtensions.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -34,5 +34,5 @@ it ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../adr/repository/uniform-forma
 ### example 1
 
 ```powershell
-New-VSCodeExtensions
+New-VsCodeExtensions
 ```

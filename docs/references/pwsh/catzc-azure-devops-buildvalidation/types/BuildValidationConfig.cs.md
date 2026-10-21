@@ -13,7 +13,7 @@ build-validation policies on one branch to globsets — the server-side pre-comm
 ([ADR-FLOW-CD-TYPE-PRECOMMITBUDGET](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type-precommitbudget)). Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Azure.DevOps.BuildValidation.BuildValidationConfig), so
 Get-Config -Config build-validation returns this typed record. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); globset names live in
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); globset names live in
 VALUES because they are kebab-case.
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:

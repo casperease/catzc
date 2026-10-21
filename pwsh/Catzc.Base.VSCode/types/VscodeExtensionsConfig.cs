@@ -2,23 +2,12 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/types/VscodeExtensionsConfig.cs
-    folder: types
-    name: vscode-extensions-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "46e91ef43728"
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/types/VscodeExtensionsConfig.Tests.ps1
     docs: "[VscodeExtensionsConfig.cs.md](docs/references/pwsh/catzc-base-vscode/types/VscodeExtensionsConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-ROOTCFG
 ---
 */
@@ -38,7 +27,7 @@ public sealed class VscodeExtensionsConfig : Catzc.Base.Objects.DictionaryRecord
     // The recommended extension ids, in registry order.
     public string[] recommendations { get; }
 
-    // The repository's own extensions, in registry order; New-VSCodeExtensionFolder renders each one.
+    // The repository's own extensions, in registry order; New-VsCodeExtensionFolder renders each one.
     public IReadOnlyList<VscodeOwnExtension> extensions { get; }
 
     public VscodeExtensionsConfig(IDictionary raw)

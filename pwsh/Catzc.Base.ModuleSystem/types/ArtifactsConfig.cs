@@ -19,7 +19,7 @@ catzc:
     docs: "[ArtifactsConfig.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ArtifactsConfig.cs.md)"
     cites:
       - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

@@ -18,11 +18,11 @@ catzc:
     docs: "[AdrDomainEdge.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrDomainEdge.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---
 #>
 
-Describe 'AdrDomainEdge' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
+Describe 'AdrDomainEdge' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'carries its From and To domains' {
         $edge = [Catzc.Base.Docs.AdrDomainEdge]::new('widget', 'gadget')
         $edge.From | Should -Be 'widget'

@@ -3,7 +3,7 @@
 catzc:
   immutable:
     repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/tests/New-VSCodePipelineSchema.Tests.ps1
+    path: pwsh/Catzc.Base.VSCode/tests/New-VsCodePipelineSchema.Tests.ps1
     folder: tests
     name: new-vs-code-pipeline-schema-tests
     filetype: ps1
@@ -15,13 +15,13 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[New-VSCodePipelineSchema.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VSCodePipelineSchema.Tests.ps1.md)"
+    docs: "[New-VsCodePipelineSchema.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VsCodePipelineSchema.Tests.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
 ---
 #>
 
-Describe 'New-VSCodePipelineSchema' -Tag 'L0', 'logic' {
+Describe 'New-VsCodePipelineSchema' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodePipelineSchemaConfig]::new([ordered]@{
@@ -34,28 +34,28 @@ Describe 'New-VSCodePipelineSchema' -Tag 'L0', 'logic' {
     }
 
     It 'renders strict JSON (no // header) that parses' {
-        $text = New-VSCodePipelineSchema
+        $text = New-VsCodePipelineSchema
         # Strict JSON — unlike settings/extensions/launch.json there is no leading // comment block.
         $text | Should -Not -Match '(?m)^//'
         { $text | ConvertFrom-Json } | Should -Not -Throw
     }
 
     It 'fronts the meta-schema and leaves the $comment key to the generated-file head' {
-        $json = New-VSCodePipelineSchema | ConvertFrom-Json
+        $json = New-VsCodePipelineSchema | ConvertFrom-Json
         $json.'$schema' | Should -Be 'http://example.test/schema#'
         $json.PSObject.Properties.Name | Should -Not -Contain '$comment'
     }
 
     It 'carries the authored schema body verbatim' {
-        $json = New-VSCodePipelineSchema | ConvertFrom-Json
+        $json = New-VsCodePipelineSchema | ConvertFrom-Json
         $json.type | Should -Be 'object'
         $json.properties.widget.type | Should -Be 'string'
     }
 }
 
-Describe 'New-VSCodePipelineSchema — real vscode-pipeline-schema.yml' -Tag 'L1', 'integrity' {
+Describe 'New-VsCodePipelineSchema — real vscode-pipeline-schema.yml' -Tag 'L1', 'integrity' {
     BeforeAll {
-        $script:schema = New-VSCodePipelineSchema
+        $script:schema = New-VsCodePipelineSchema
     }
 
     It 'renders the shipped registry to parseable JSON' {

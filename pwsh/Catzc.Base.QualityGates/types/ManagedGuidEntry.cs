@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[ManagedGuidEntry.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/ManagedGuidEntry.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

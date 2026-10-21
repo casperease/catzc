@@ -2,24 +2,13 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/Build-Bicep.ps1
-    name: build-bicep
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "03e12a5b9895"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
     docs: "[Build-Bicep.ps1.md](docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD-VALUEBYADDRESS
+      - ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS
       - ADR-PWSH-ERROR-STRICTCLEAN
       - ADR-PWSH-PREPOST
 ---
@@ -79,8 +68,18 @@ function Build-Bicep {
         }
     }
 
+    $using = [System.IO.Path]::GetRelativePath($outputFolder, $templateDescriptor.main).Replace('\', '/')
+    $usingLine = [regex]::new("(?m)^(\s*using\s+)'[^']*'")
     foreach ($slot in $targetSlots) {
         $environment = $slot.environment
+        $paramsPath = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $environment -Slot $slot.slot -Customer $slot.customer)
+        $bicepParamPath = [System.IO.Path]::ChangeExtension($paramsPath, '.bicepparam')
+        if ($slot.format -eq [Catzc.Azure.Templates.BicepSlot]::BicepparamFormat) {
+            $source = [System.IO.File]::ReadAllText($slot.file)
+            [System.IO.File]::WriteAllText($bicepParamPath, $usingLine.Replace($source, "`$1'$using'", 1))
+            Invoke-BicepParamsBuild -BicepParamPath $bicepParamPath -ParametersPath $paramsPath
+            continue
+        }
         $configurationDescriptor = Get-BicepTemplateConfiguration $Template $environment -Slot $slot.slot -Customer $slot.customer
 
         $flat = $configurationDescriptor | ConvertTo-FlatSettingSet
@@ -120,9 +119,8 @@ function Build-Bicep {
             throw "Prepared configuration for $Template / $($slot.name) is missing 'ParametersFile' (check the template's PrePost.psm1)"
         }
 
-        $paramsPath = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $environment -Slot $slot.slot -Customer $slot.customer)
-        $preparedDescriptor.ParametersFile | ConvertTo-Json -Depth 10 | Set-Content $paramsPath -Encoding utf8 -NoNewline
-        Write-Message "Wrote $paramsPath"
+        [System.IO.File]::WriteAllText($bicepParamPath, (ConvertTo-BicepParam -Descriptor $preparedDescriptor -Using $using))
+        Invoke-BicepParamsBuild -BicepParamPath $bicepParamPath -ParametersPath $paramsPath
     }
 
     Write-Message "Building $($templateDescriptor.main) to $outputFolder"

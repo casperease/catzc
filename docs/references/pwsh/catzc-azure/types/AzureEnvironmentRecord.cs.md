@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 One `environments` entry of configs/azure.yml ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
 [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)): a deployment environment keyed by its readable name.
-The config mirror (snake_case keys, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml));
+The config mirror (snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml));
 the resolved identity node is AzureEnvironment. AzureConfig builds one per entry and collects its violations
 with the file's (shortcode uniqueness is AzureConfig's).
 

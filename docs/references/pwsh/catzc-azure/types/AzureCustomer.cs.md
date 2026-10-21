@@ -12,7 +12,7 @@ One customer of the catalogue (configs/customer.yml, [ADR-AZ-CUSTOMER](/docs/adr
 a readable key (the customers-map key — the customer-segment of relaxed resource names and the configuration
 subfolder name), a 2-char shortcode (the customer-segment of the restricted kv/storage/vm patterns), and optional
 free-text details. Mirrors a `customers` entry (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); `key` is the map key.
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); `key` is the map key.
 
 Constructing an instance validates the entry, collecting every violation into one ArgumentException: the key is
 2+ lowercase alphanumeric with a leading letter, the shortcode is exactly 2 lowercase letters, and the entry

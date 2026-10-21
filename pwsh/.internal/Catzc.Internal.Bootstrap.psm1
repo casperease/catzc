@@ -317,7 +317,7 @@ function Import-CSharpTypes {
             throw "$changeSummary Restart PowerShell to pick up the change."
         }
         # A throw cannot restart VS Code's terminal or host, so the session keeps the loaded assembly, whatever drifted, and names it.
-        if (Test-IsRunningInVSCode) {
+        if (Test-IsRunningInVsCode) {
             $loadedDll = if ($typeState.LoadedHash) {
                 $typeState.LoadedHash
             }

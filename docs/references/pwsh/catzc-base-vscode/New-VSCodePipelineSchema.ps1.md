@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
+# pwsh/Catzc.Base.VSCode/New-VsCodePipelineSchema.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -31,7 +31,7 @@ keeping remain. The authored yml carries the full rationale; this is a pure rend
 ### example 1
 
 ```powershell
-New-VSCodePipelineSchema
+New-VsCodePipelineSchema
 ```
 
 ## comment:1

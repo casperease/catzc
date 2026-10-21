@@ -11,7 +11,7 @@ Classifies captured key bindings by whether their function is supported on the t
 
 ### description
 
-The pure decision core of Import-PSReadLineKeyHandlerSet, separated so it is deterministic and testable without a real PSReadLine session
+The pure decision core of Import-PsReadLineKeyHandlerSet, separated so it is deterministic and testable without a real PSReadLine session
 (see [ADR-AUTO-TEST](../../../../adr/automation/test-automation.md) push-left). Given the captured bindings and the allow-list of supported
 function names, returns one record per binding carrying its Key, Function, and a Supported flag — the caller applies the supported ones and
 logs the rest. Reads the inputs only; never mutates the cached config objects

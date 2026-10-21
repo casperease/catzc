@@ -19,7 +19,7 @@ catzc:
     docs: "[ContractsConfig.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-PWSH-PARAM-RESOLUTIONORDER
       - ADR-REPO-CONTRACT-LAYOUT
       - ADR-REPO-CONTRACT-CONFIGUREDADDRESSING

@@ -22,5 +22,5 @@ VALIDATES the entry, collecting every violation into one throw:
   - `limits` holds only known limit names, each a positive whole number
     ([ADR-REPO-OUTFMT-LIMITSINCATALOGUE](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt-limitsincatalogue)).
 That no two formats' patterns overlap spans entries, so OutputFormatsConfig checks it. Mirrors the YAML mapping
-(snake_case keys, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+(snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

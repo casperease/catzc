@@ -13,7 +13,7 @@ extension that runs the same engine in the editor, so Format Document and Format
 ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)), and the repository files whose
 content decides what the engine writes, so Format-Code's result cache is invalidated when one of them changes. The
 fields mirror the YAML keys, so the properties are snake_case
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); `name` is the entry's key.
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); `name` is the entry's key.
 ```
 
 ## comment:2

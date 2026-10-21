@@ -18,11 +18,13 @@ Land one pasted continuation prompt in the plans; nothing in the paste is discar
 
 1. Say "ready to parse the continuation prompt", then Read `value-of-plan.md` and the plans the paste names or implies.
 2. For each claim of done, check the tree (Glob, Grep, `ls`; foreground Bash at most 3 s) before writing it as done.
-3. For each item, pick the one owning plan; an item no plan covers gets a new `plan-<topic>.md` at the value plan-value gives it.
-4. Edit the owning plan: done items under "Done, and why" with the reason; open items as checkbox steps naming their check; a contradiction
-   between the paste and the tree is recorded as a correction, with both sides.
+3. For each item, pick the one owning plan; an item no plan covers gets a new plan started with `New-Plan` at the value plan-value gives
+   it, plus its row in `value-of-plan.md` and its chunk line in `plan-master.md`.
+4. Edit the owning plan: a verified done item deletes the open step it closes and is written nowhere; open items become checkbox steps
+   naming their check; a contradiction between the paste and the tree is recorded as a correction, with both sides.
 5. A pasted prompt meant for a fresh session becomes `prompt-<topic>-continue.md` beside its plan, verbatim, with a header that maps any
    path it names that no longer exists.
-6. Add one line under "Pastes processed" in `value-of-plan.md`; update the plan's row there if its state changed.
+6. Update a plan's row in `value-of-plan.md` if its state changed.
 7. Never ask or plan about locked, untracked or peer-dirty files; one context line at most. Never answer an open question.
-8. Report as report-fixed says: plans touched, items landed per plan, corrections made, what was left undone and why.
+8. Run `Format-Code -Language markdown` and `Test-Plans` on the files it edited, in the background under the time safeguard.
+9. Report as report-fixed says: plans touched, items landed per plan, corrections made, what was left undone and why.

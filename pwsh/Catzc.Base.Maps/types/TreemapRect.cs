@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[TreemapRect.cs.md](docs/references/pwsh/catzc-base-maps/types/TreemapRect.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

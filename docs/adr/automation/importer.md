@@ -69,9 +69,8 @@ entry, never a branch
 ### Rule ADR-AUTO-IMPORTER-MODEANDHOSTORTHOGONAL
 
 The run mode, source or build, and the host, console or headless, are orthogonal to the mix: they choose where the modules are read from and
-how the native types load ([ADR-DSGN-RUNMODE-MODEISDERIVED](../design/run-modes.md#rule-adr-dsgn-runmode-modeisderived),
-[ADR-AUTO-TYPES-CHANGEDAFTERLOAD](BCL/native-csharp-types.md#rule-adr-auto-types-changedafterload)), the mix chooses which modules,
-languages and engines.
+how the native types load ([ADR-DSGN-RUNMODE-MODEISDERIVED](../design/run-modes.md#rule-adr-dsgn-runmode-modeisderived)), the mix chooses
+which modules, languages and engines.
 
 - [The mix](#the-mix)
 

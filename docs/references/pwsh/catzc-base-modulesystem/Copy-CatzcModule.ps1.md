@@ -38,7 +38,7 @@ The copy is of the source tree (per-function files, tests/, root packages), so i
 [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
 See [ADR-CONF-LOADING](../../../adr/configuration/module-config-loading.md) (files.yml),
-[ADR-AUTO-TYPES-NATIVETYPEDMODEL](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel), and
+[ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel), and
 [ADR-AUTO-PATH](../../../adr/automation/path-representation.md).
 
 ### parameter `Destination`

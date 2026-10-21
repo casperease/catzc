@@ -18,7 +18,7 @@ with an explicit `short_name` in its optional options.yml
 (Read-BicepTemplateOptions). This type makes the two identifiers, the derivation, and the format validation
 ONE construction-time invariant, so no caller re-implements the rule and a malformed name cannot exist.
 
-A plain model type ([ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel)) — Get-BicepTemplates
+A plain model type ([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)) — Get-BicepTemplates
 constructs one per template and pins its .value as the short_name; it does not mirror a YAML file, so it
 keeps default validation and derivation logic here rather than a loose dictionary.
 ```

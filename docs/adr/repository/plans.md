@@ -5,7 +5,7 @@
 ### Rule ADR-REPO-PLANS-ONETOPICONEFILE
 
 A **plan** is one topic in one file, `.claude/plans/plan-<topic>.md`, authored directly there, and it holds the delta only: what is still
-open, what was decided and why, and what landed and why. The tree, the ADRs and git hold everything else. A plan starts with `New-Plan`,
+open, and what was decided and why. The tree, the ADRs and git hold everything else, what landed included. A plan starts with `New-Plan`,
 which writes its head and its open steps section and refuses a topic that has a plan.
 
 - [The delta, not the record](#the-delta-not-the-record)
@@ -18,9 +18,16 @@ one of the ranks `value-of-plan.md` orders by, and that file is the one sorting 
 
 - [One head, one overlay](#one-head-one-overlay)
 
+### Rule ADR-REPO-PLANS-THREEPARTS
+
+A plan is three parts: its file, its row in `value-of-plan.md` and its chunk line in `plan-master.md`, the line that points at the file
+(`- <chunk> -> plan-<topic>.md: ...`). A plan missing either line is a finding, so no instruction has to say that a new plan needs them.
+
+- [One head, one overlay](#one-head-one-overlay)
+
 ### Rule ADR-REPO-PLANS-ONESHAPE
 
-A plan has one shape: the head, why its value, what is decided, what is done and why, the open steps, the refs; text carried verbatim from
+A plan has one shape: the head, why its value, what is decided, the open steps, the refs; it has no section for what is done; text carried verbatim from
 elsewhere sits below a "Carried" heading, after the shape. The open steps section is always present; the others are present when they have
 content. There is no line roof: the cleaner shortens a plan only after its data is in the tree, never by dropping a signal.
 
@@ -29,7 +36,7 @@ content. There is no line roof: the cleaner shortens a plan only after its data 
 ### Rule ADR-REPO-PLANS-OPENSTEP
 
 An **open step** is a checkbox line that names one file, the edit, and the check that proves it, `(check: ...)` on the same item, in present
-tense. A step done is ticked with its check's verdict line, and only when the tree holds the work.
+tense. A step that lands is deleted once the tree holds the work, never ticked and kept; its record is the tree and `git log`.
 
 - [The shape](#the-shape)
 
@@ -81,7 +88,7 @@ folder to the shape this ADR states.
 ### The delta, not the record
 
 A plan that narrates what happened grows without bound and is wrong a week later. A plan that holds the delta is short by construction: when
-a step lands, it is ticked with its verdict and the plan loses nothing; when the last step lands, the plan goes. The record of what happened
+a step lands, it is deleted and the plan keeps only what is still open; when the last step lands, the plan goes. The record of what happened
 is `git log` on the plan and on the files it changed
 ([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-historyingit)).
 
@@ -89,12 +96,14 @@ is `git log` on the plan and on the files it changed
 
 The head is what a tool reads without reading the plan: whether it is active or blocked, how much it is worth, when it was last judged, and
 which paths it touches. `value-of-plan.md` orders the plans by value and by the doctrine and proof each needs before it counts as landed,
-never by job size; each head's `value` carries the same rank, so a plan sorts the same from its head and from the overlay.
+never by job size; each head's `value` carries the same rank, so a plan sorts the same from its head and from the overlay. A plan the
+overlay or the master does not list is invisible to whoever reads them to pick the next job, so the gate holds a plan to all three parts.
 
 ### The shape
 
-The sections answer the reader's questions in the order a reader asks them: why does this matter, what is settled, what is already there,
-what is left, where do I look. A reader who finds the open steps finds the whole remaining job, each step naming its file and its proof, so
+The sections answer the reader's questions in the order a reader asks them: why does this matter, what is settled, what is left, where do I
+look. What is already there is the tree's to say, so a "done" section would be a second record that drifts (the user, 2026-10-20: a plan
+holds only planned work). A reader who finds the open steps finds the whole remaining job, each step naming its file and its proof, so
 a sub-agent can take one step cold. Carried text, a draft or a paste kept verbatim, sits last, so the shape is read before the material.
 
 ### Done is deleted

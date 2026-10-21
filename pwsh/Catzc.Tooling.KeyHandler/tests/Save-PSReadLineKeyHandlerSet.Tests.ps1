@@ -1,4 +1,14 @@
-Describe 'Save-PSReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: af4b73211805
+  edges:
+    code: pwsh/Catzc.Tooling.KeyHandler/Save-PsReadLineKeyHandlerSet.ps1
+---
+#>
+
+Describe 'Save-PsReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-PsModule { } -ModuleName Catzc.Tooling.KeyHandler
         Mock Get-PSReadLineKeyHandler {
@@ -14,7 +24,7 @@ Describe 'Save-PSReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
         Mock Assert-SourceTree { throw 'widget operates on the catzc source tree' } -ModuleName Catzc.Tooling.KeyHandler
         $target = Join-Path $TestDrive 'widget-bindings.yml'
 
-        Save-PSReadLineKeyHandlerSet -Path $target
+        Save-PsReadLineKeyHandlerSet -Path $target
 
         Should -Invoke Assert-SourceTree -ModuleName Catzc.Tooling.KeyHandler -Times 0
         Should -Invoke Write-FileIfChanged -ModuleName Catzc.Tooling.KeyHandler -Times 1 -Exactly -ParameterFilter {
@@ -27,16 +37,16 @@ Describe 'Save-PSReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
         Mock Get-CatzcModulesRoot { Join-Path $TestDrive 'acme-repository/widget-modules' } -ModuleName Catzc.Tooling.KeyHandler
         $expected = Join-Path (Join-Path $TestDrive 'acme-repository/widget-modules') 'Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml'
 
-        Save-PSReadLineKeyHandlerSet
+        Save-PsReadLineKeyHandlerSet
 
         Should -Invoke Assert-SourceTree -ModuleName Catzc.Tooling.KeyHandler -Times 1 -Exactly
         Should -Invoke Write-FileIfChanged -ModuleName Catzc.Tooling.KeyHandler -Times 1 -Exactly -ParameterFilter { $Path -eq $expected }
     }
 
     It 'refuses the default target when the session runs a built package, writing nothing' {
-        Mock Assert-SourceTree { throw 'Save-PSReadLineKeyHandlerSet operates on the catzc source tree' } -ModuleName Catzc.Tooling.KeyHandler
+        Mock Assert-SourceTree { throw 'Save-PsReadLineKeyHandlerSet operates on the catzc source tree' } -ModuleName Catzc.Tooling.KeyHandler
 
-        { Save-PSReadLineKeyHandlerSet } | Should -Throw '*source tree*'
+        { Save-PsReadLineKeyHandlerSet } | Should -Throw '*source tree*'
 
         Should -Invoke Write-FileIfChanged -ModuleName Catzc.Tooling.KeyHandler -Times 0
     }

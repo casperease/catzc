@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[BuildValidationEntry.cs.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
 ---

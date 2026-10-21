@@ -16,6 +16,7 @@ check.
 | 7   | L0   | pwsh/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1       | Resolve-ToolExecutable on the shipped bash entry      | The shipped tools.yml bash entry resolves through the executable probe and never accepts the WSL launcher (System32 or WindowsApps bash.exe).    |
 | 8   | L1   | pwsh/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1            | Get-EngineCaseTable — every shipped engine case table | Every `tests/assets/engine-cases/*.yml` table fills every engine column (ExecutionEngines) for every case, or names why not (`n/a: <reason>`).   |
 | 9   | L1   | pwsh/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Shipped.Tests.ps1 | Get-Inspiration over the shipped inspiration.yml      | The shipped `inspiration.yml` loads as `InspirationConfig`, and eac's availability matches whether its workspace root exists.                    |
+| 10  | L1   | pwsh/Catzc.Tooling.Listen/tests/Listen.Shipped.Tests.ps1               | Catzc.Tooling.Listen over the shipped configs         | The shipped `listen.yml` loads as its typed model, names only declared file kinds, and watches a folder that exists.                             |
 
 ## Checks
 

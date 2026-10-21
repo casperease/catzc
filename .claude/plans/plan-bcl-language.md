@@ -62,29 +62,15 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
 
 ## Open steps
 
-The doc moves landed (2026-10-21; `docs/how-to/pwsh/manual-test-plan/csharp-types.md` stays, since it tests the pwsh hosting). Their commits
-are the user's, in task-user-runs-and-commits. The ADR rule `ADR-AUTO-TYPES-BCLREFERENCESET` landed with the two narrowed `ADR-PWSH-TYPES`
-rules. The host bindings landed too: seven `bcl.yml` rows, `Test-BclReferences` as a `csharp` check, and `ConvertTo-BclValue` unwrapping for
-the five former `PSObject` types.
+Everything else landed on 2026-10-21 and waits for the user's commit: the doc moves, the host bindings, the `bcl` domain with the re-cite to
+`ADR-BCL-TYPES`, the definition page and the approved diagram.
 
-The `bcl` domain and the re-cite land as one change, after the session holding the comment-page files is clear of the five it shares with
-the re-cite.
-
-- [ ] `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `docs/adr/index.md`: the `bcl` domain and its table; `automation/`'s description stops
-      listing `BCL/` as a language layer (check: `Test-AdrRegistry`).
-- [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first; the dry run lists
-      `ADR-AUTO-TYPES-DEBUGANYCPU` too, cited in the head of `BclConfig.cs`, the three `.csproj` comments and the
-      `Invoke-BuildForVSCode.ps1.md` page (check: `Test-AdrRegistry`, which runs the citation graph).
 - [ ] After plan-minimal-heads lands: `pwsh/Catzc.Base.Languages/configs/languages.yml`: rename the `csharp` row to `bcl` and the
       `csharp-namespace` step to `bcl-namespace`, then every caller in the same change, one file at a time (check: `Catzc.Base.Languages`
       and `Catzc.Base.QualityGates` Pester, then `Test-Formatting -Language bcl`).
 - [ ] `.claude/CLAUDE.md`, section Project structure: one line saying that the `types/*.cs` files are written in BCL, a subset of .NET, and
       pwsh hosts them, linking the BCL reference index, after the doc moves land (check: `Test-AgentDefinitions`,
       `Test-Links -Path .claude/CLAUDE.md`).
-- [ ] The user approves the BCL diagram sample `out/diagrams/dark-sample/.assets/bcl-language/` (rendered 2026-10-21, its verify table
-      beside it) (check: the user's verdict).
-- [ ] On approval: the folder moves to `docs/adr/automation/BCL/.assets/bcl-language/` and `docs/references/BCL/index.md` embeds it (check:
-      `Test-Diagrams` on the folder, `Test-Links` on the page).
 
 ## Open questions
 

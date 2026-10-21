@@ -22,7 +22,7 @@ the guard clauses at the top of almost every function.
 ### responsibility:2 — Resource and environment preconditions
 
 Validating the world outside the value: that a filesystem path exists, that an external command is on `PATH`, that a PowerShell module is
-available, that the session is elevated, that it runs in a terminal VS Code opened (the query form, `Test-IsRunningInVSCode`, lives in the
+available, that the session is elevated, that it runs in a terminal VS Code opened (the query form, `Test-IsRunningInVsCode`, lives in the
 loader beside the pipeline reader, since the importer asks it before any module loads), and that the last external process exited cleanly.
 These assert that the function's _environment_ is fit before it does work.
 
@@ -77,7 +77,7 @@ The module's public functions, sorted into the responsibilities above.
 |                                                           | `Assert-PsModule`            |
 |                                                           | `Assert-IsAdministrator`     |
 |                                                           | `Test-IsAdministrator`       |
-|                                                           | `Assert-IsRunningInVSCode`   |
+|                                                           | `Assert-IsRunningInVsCode`   |
 |                                                           | `Assert-LastExitCodeWasZero` |
 | responsibility:3 — Pipeline-shape checks                  | `Assert-PipelineCount`       |
 | responsibility:4 — Configuration-shape checks             | `Assert-YmlNaming`           |

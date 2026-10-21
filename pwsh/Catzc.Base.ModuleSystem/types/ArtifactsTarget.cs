@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[ArtifactsTarget.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ArtifactsTarget.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

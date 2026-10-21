@@ -19,7 +19,7 @@ catzc:
     docs: "[ExporterConfig.cs.md](docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md)"
     cites:
       - ADR-AUTO-BUNDLE
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

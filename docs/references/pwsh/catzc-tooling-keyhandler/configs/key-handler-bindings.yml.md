@@ -8,6 +8,6 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `- key: Enter`, written with `#`.
 
 ```text
-Windows PSReadLine key bindings captured by Save-PSReadLineKeyHandlerSet, replicated on Linux by
-Import-PSReadLineKeyHandlerSet (filtered to key-handler-supported). Only key + function are consumed.
+Windows PSReadLine key bindings captured by Save-PsReadLineKeyHandlerSet, replicated on Linux by
+Import-PsReadLineKeyHandlerSet (filtered to key-handler-supported). Only key + function are consumed.
 ```

@@ -35,7 +35,7 @@ The highlight relation follows a fixed order per artifact kind:
 A file a citation_exclude glob matches cites nothing at any step (maps.yml highlight.citation_exclude): it sits in its
 cell, and its citations light nothing.
 The registry types are named in full, so the module dependency gate sees each cross-module edge
-([ADR-AUTO-TYPES-REFERENCESFOLLOWDEPENDENCIES](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-referencesfollowdependencies)).
+([ADR-BCL-TYPES-REFERENCESFOLLOWDEPENDENCIES](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-referencesfollowdependencies)).
 ```
 
 ## comment:2

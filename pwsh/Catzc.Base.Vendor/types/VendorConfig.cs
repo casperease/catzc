@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.Vendor/tests/types/VendorConfig.Tests.ps1
     docs: "[VendorConfig.cs.md](docs/references/pwsh/catzc-base-vendor/types/VendorConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-PWSH-VENDOR
 ---
 */

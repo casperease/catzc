@@ -115,6 +115,7 @@ and `network.yml` (owned by [Catzc.Azure](catzc-azure.md)).
 |                                                                   | `Get-AzureBicepDeploymentTargets` |
 |                                                                   | `Get-BicepDeploymentName`         |
 | responsibility:4 — Build                                          | `Build-Bicep`                     |
+|                                                                   | `ConvertTo-BicepParam`            |
 | responsibility:5 — Deploy and resource-group provisioning         | `Deploy-Bicep`                    |
 |                                                                   | `Get-BicepDeploymentContext`      |
 |                                                                   | `Deploy-AzureResourceGroup`       |

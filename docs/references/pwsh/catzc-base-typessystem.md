@@ -5,7 +5,7 @@ cross-module C# type-reference edges that [Catzc.Base.ModuleSystem](catzc-base-m
 It deliberately does **not** own the _runtime_ type compilation or loading — that is the importer's `Import-CSharpTypes` (in
 `pwsh/.internal/Catzc.Internal.Bootstrap.psm1`), and the namespace formatter `Format-Types` and the `Test-Formatting` gate that checks it
 live in [Catzc.Base.QualityGates](catzc-base-qualitygates.md). The one build it does drive is the editor-facing MSBuild of those same
-sources (`Invoke-BuildForVSCode`), which never feeds the runtime — it exists so VS Code's C# analysis matches the `Add-Type` compile. The
+sources (`Invoke-BuildForVsCode`), which never feeds the runtime — it exists so VS Code's C# analysis matches the `Add-Type` compile. The
 full type-system contract is [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
 
 ## Responsibilities
@@ -30,7 +30,7 @@ never plan the live build for deletion.
 
 The other half of the cache is the copy in the running process, which cannot be swapped once loaded. A test/assert pair asks whether the
 types this process loaded are still those its sources declare, from the one measurement the loader and the importer use
-([ADR-AUTO-TYPES-ONEDRIFTMEASURE](../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-onedriftmeasure)); the assert names
+([ADR-BCL-TYPES-ONEDRIFTMEASURE](../../adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-onedriftmeasure)); the assert names
 every drifted type and the one remedy, a new PowerShell.
 
 ### responsibility:2 — Cross-module type dependency analysis
@@ -44,7 +44,7 @@ reference, stripping comments, string literals, and each file's own namespace so
 
 ### responsibility:3 — Editor type-project build
 
-The editor-facing build of the native type sources, kept separate from the runtime's `Add-Type` compile. `Invoke-BuildForVSCode` drives
+The editor-facing build of the native type sources, kept separate from the runtime's `Add-Type` compile. `Invoke-BuildForVsCode` drives
 `dotnet build` over the committed IDE-only `Catzc.Types.csproj` (under `pwsh/.internal/assets/`, auto-loaded in the editor via the root
 `catzc.sln`), so VS Code's C# Dev Kit sees the `types/*.cs` exactly as the runtime does — Go-to-Symbol and F12 resolve to source, the
 backtrack a bare type accelerator cannot give. The same build runs the Roslyn analyzers `Add-Type` never does and the project's stamp task,
@@ -92,6 +92,6 @@ The module's public functions, sorted into the responsibilities above.
 |                                                          | `Assert-LoadedTypesCurrent` |
 |                                                          | `Test-LoadedTypesCurrent`   |
 | responsibility:2 — Cross-module type dependency analysis | `Get-CSharpTypeDependency`  |
-| responsibility:3 — Editor type-project build             | `Invoke-BuildForVSCode`     |
+| responsibility:3 — Editor type-project build             | `Invoke-BuildForVsCode`     |
 | responsibility:4 — Shipped-type coverage                 | `Test-ShippedTypes`         |
 | responsibility:5 — Agent hook build                      | `Build-AgentHook`           |

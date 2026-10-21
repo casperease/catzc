@@ -3,7 +3,7 @@
 catzc:
   immutable:
     repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/New-VSCodeTasks.ps1
+    path: pwsh/Catzc.Base.VSCode/New-VsCodeTasks.ps1
     name: new-vs-code-tasks
     filetype: ps1
     role: function
@@ -16,14 +16,14 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeTasks.Tests.ps1
-    docs: "[New-VSCodeTasks.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VSCodeTasks.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/New-VsCodeTasks.Tests.ps1
+    docs: "[New-VsCodeTasks.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VsCodeTasks.ps1.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---
 #>
 
-function New-VSCodeTasks {
+function New-VsCodeTasks {
     [CmdletBinding()]
     [OutputType([string])]
     param()

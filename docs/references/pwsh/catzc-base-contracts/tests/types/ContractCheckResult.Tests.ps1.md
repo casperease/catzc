@@ -10,5 +10,5 @@ Above `Describe 'ContractCheckResult' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 ContractCheckResult is the result of checking one contract asset
 ([ADR-REPO-CONTRACT-PROVENBYTESTS](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-provenbytests)): Passed is derived from the findings,
-and it renders console-ready ([ADR-AUTO-TYPES-CONSOLEREADYTOSTRING](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-consolereadytostring)).
+and it renders console-ready ([ADR-BCL-TYPES-CONSOLEREADYTOSTRING](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-consolereadytostring)).
 ```

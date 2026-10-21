@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[CommentPageMap.cs.md](docs/references/pwsh/catzc-base-codemeta/types/CommentPageMap.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-PRIN-ONELIVE-ONEVERSION
       - ADR-REPO-README-AUTHOREDSOURCES
 ---

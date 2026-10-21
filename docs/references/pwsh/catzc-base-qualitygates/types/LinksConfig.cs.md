@@ -23,5 +23,5 @@ resolved value per call ([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/automation/p
                        ([ADR-REPO-LINK-ONECITATIONSPELLING](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling)): its mode
                        and exempt globs (a SourceCheck; default gate, nothing exempt)
 Property names mirror the YAML keys (snake_case,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

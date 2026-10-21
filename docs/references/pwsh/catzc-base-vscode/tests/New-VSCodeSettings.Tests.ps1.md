@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
+# pwsh/Catzc.Base.VSCode/tests/New-VsCodeSettings.Tests.ps1
 
 <!-- cspell:ignore gopls -->
 
@@ -18,7 +18,7 @@ search.exclude carrying an explicit un-exclude (false) that injection must not o
 
 ## comment:2
 
-Above `$text = New-VSCodeSettings -ManagedTarget 'go.work', '*/tests/*/go.mod'`, written with `#`.
+Above `$text = New-VsCodeSettings -ManagedTarget 'go.work', '*/tests/*/go.mod'`, written with `#`.
 
 ```text
 The managed Go targets (go.work and the generated go.mod files) are injected like every managed target;

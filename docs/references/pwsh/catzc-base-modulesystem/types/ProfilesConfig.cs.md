@@ -14,7 +14,7 @@ closure plus the fixed infrastructure; an EMPTY seed means the full repository. 
 and VALIDATES the parsed YAML, collecting every violation into one throw. Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.ModuleSystem.ProfilesConfig), so
 Get-Config -Config profiles returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Load-time rules:
   - only the top-level key 'profiles', a required, non-empty map;

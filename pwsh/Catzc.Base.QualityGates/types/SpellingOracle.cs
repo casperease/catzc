@@ -19,7 +19,7 @@ catzc:
     docs: "[SpellingOracle.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/SpellingOracle.cs.md)"
     cites:
       - ADR-AUTO-SPELL
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---
 */
 

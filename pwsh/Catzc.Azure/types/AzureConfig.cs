@@ -19,7 +19,7 @@ catzc:
     docs: "[AzureConfig.cs.md](docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-AZ-DATAMOD
       - ADR-AZ-NAMING-LOWERCASECOMPONENTS

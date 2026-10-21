@@ -21,7 +21,7 @@ stack and the value-chain concerns) and the legend's entries
 labels and Test-ValueChainMap the value-chain map's.
 
 The properties mirror the YAML keys, so they are snake_case
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)). The defaults are declared
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). The defaults are declared
 here, once ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). MapsConfig
 validates the section (every label one non-empty line of WinAnsi text, each world-map row or column header within
 its limit) and builds one.

@@ -12,7 +12,7 @@ The customer catalogue (configs/customer.yml, [ADR-AZ-CUSTOMER](/docs/adr/azure/
 customers this repo can deploy for; WHICH of them are enabled is the have_customers variant, not this file.
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Azure.CustomerConfig), so
 Get-Config -Config customer returns this typed record. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   - the top-level key 'customers' is required (an empty map is allowed) and is the only key;

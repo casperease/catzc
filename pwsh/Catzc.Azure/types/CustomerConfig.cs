@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
     docs: "[CustomerConfig.cs.md](docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-CUSTOMER
 ---
 */

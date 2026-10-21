@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/Catzc.Internal.Importer.psm1
-    name: catzc-internal-importer
-    filetype: psm1
-    role: module
-    subkind: internal
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Importer
-    moduletype: pwsh-psm1
-    catzc_bundle: minimal
+    with_body_sha: "129ebd41b071"
   edges:
     docs: "[Catzc.Internal.Importer.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md)"
 ---
@@ -217,7 +206,7 @@ function Invoke-Importer {
             $hasUncModulePath = ($env:PSModulePath -split [IO.Path]::PathSeparator) -match '^\\\\' | Select-Object -First 1
 
             if ($hasUncModulePath) {
-                $fixScript = Join-Path $modulesRoot 'Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1'
+                $fixScript = Join-Path $modulesRoot 'Catzc.Base.Environment/assets/Set-LocalPsModulePath.ps1'
                 Write-ImporterMessage ''
                 Write-ImporterMessage 'WARNING: PSModulePath contains a network share.' -ForegroundColor Yellow
                 Write-ImporterMessage 'PowerShell will be slow — module lookups scan the network.' -ForegroundColor Yellow
@@ -348,12 +337,12 @@ function Invoke-EditorExtensionJanitor {
     [CmdletBinding()]
     param()
 
-    if (-not (Get-Command Install-VSCodeExtension -ErrorAction Ignore) -or (Get-SessionActor) -eq 'Pipeline' -or
+    if (-not (Get-Command Install-VsCodeExtension -ErrorAction Ignore) -or (Get-SessionActor) -eq 'Pipeline' -or
         -not (Get-Command code -ErrorAction Ignore)) {
         return
     }
     try {
-        foreach ($packagePath in @(Install-VSCodeExtension)) {
+        foreach ($packagePath in @(Install-VsCodeExtension)) {
             Write-ImporterMessage "Editor extension installed: $(Split-Path $packagePath -Leaf) — reload the VS Code window to load it." -ForegroundColor Yellow
         }
     }

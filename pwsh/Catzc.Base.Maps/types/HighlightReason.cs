@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[HighlightReason.cs.md](docs/references/pwsh/catzc-base-maps/types/HighlightReason.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

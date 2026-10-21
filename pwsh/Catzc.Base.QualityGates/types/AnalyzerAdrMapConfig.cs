@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1
     docs: "[AnalyzerAdrMapConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/AnalyzerAdrMapConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-PWSH-ERROR-THROWNOTWRITEERROR
 ---

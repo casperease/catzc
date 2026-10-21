@@ -13,5 +13,5 @@ domain's row of the value-chain stack ([ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/ad
 value-chain concern of the lit cell, and the ADR's value-chain concerns with the ADR domain's default
 ([ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)): Override is true when the ADR declares its
 own concerns instead of the default. A result type, so the properties are PascalCase
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

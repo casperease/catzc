@@ -1,4 +1,4 @@
-Describe 'Catzc.Base.Reports.TestRunResult' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
+Describe 'Catzc.Base.Reports.TestRunResult' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'holds the counts, the rows, the shards and the run directory, and counts the rows as the total' {
         $rows = @([pscustomobject]@{ Name = 'widget spins'; Result = 'Passed' }, [pscustomobject]@{ Name = 'gadget turns'; Result = 'Failed' })
         $shards = @([pscustomobject]@{ Index = 0 })
@@ -39,7 +39,7 @@ Describe 'Catzc.Base.Reports.TestRunResult' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-
         { [Catzc.Base.Reports.TestRunResult]::new('Passed', -1, 0, 0, 0, 0.0, '') } | Should -Throw '*never negative*'
     }
 
-    It 'renders console-ready text' -Tag 'ADR-AUTO-TYPES-CONSOLEREADYTOSTRING' {
+    It 'renders console-ready text' -Tag 'ADR-BCL-TYPES-CONSOLEREADYTOSTRING' {
         [Catzc.Base.Reports.TestRunResult]::new('Passed', 3, 0, 0, 0, 2.5, '').ToString() | Should -Match 'Passed'
     }
 }

@@ -131,6 +131,7 @@ The module's public functions and configuration files, sorted into the responsib
 | config                                          | `test-policy.yml`             |
 | responsibility:2 — Repository quality gates     | `Test-GeneratedFiles`         |
 |                                                 | `Test-Formatting`             |
+|                                                 | `Test-BclReferences`          |
 |                                                 | `Test-BuildArtifact`          |
 |                                                 | `Test-ShippedConfigs`         |
 |                                                 | `Test-SourceConventions`      |
@@ -158,6 +159,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-ShellScripts`           |
 |                                                 | `Test-IdiomaticNames`         |
 |                                                 | `Assert-IdiomaticNames`       |
+|                                                 | `Repair-IdiomaticNames`       |
 |                                                 | `Format-Links`                |
 |                                                 | `Test-Links`                  |
 |                                                 | `Export-Comments`             |

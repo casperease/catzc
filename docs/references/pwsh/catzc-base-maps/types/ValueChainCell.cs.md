@@ -12,7 +12,7 @@ One cell of the value-chain map: a row of the value-chain stack crossed with a v
 that sit in it ([ADR-DSGN-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap),
 [ADR-DSGN-TRACK-CELL](/docs/adr/design/tracks.md#rule-adr-dsgn-track-cell)). On the map, Adrs holds every ADR of the cell;
 on a highlight, the requested ADRs that light it. A result type, so the properties are PascalCase
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```
 
 ## comment:2

@@ -19,7 +19,7 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    with_body_sha: "9fe9a182875e"
+    with_body_sha: "9b322183af10"
     warning: "Do Not Edit, this file is generated"
     role: asset
     track: pwsh
@@ -30,7 +30,7 @@
   <PropertyGroup>
     <!-- The runtime host (PowerShell 7.6) runs on .NET 10, the framework Add-Type compiles these against. -->
     <TargetFramework>net10.0</TargetFramework>
-    <!-- The one configuration and platform of bcl.yml (ADR-AUTO-TYPES-DEBUGANYCPU). -->
+    <!-- The one configuration and platform of bcl.yml (ADR-BCL-TYPES-DEBUGANYCPU). -->
     <Configurations>Debug</Configurations>
     <Platforms>AnyCPU</Platforms>
     <!-- Mirror Add-Type: it compiles with neither a nullable context nor implicit usings, so neither here —

@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[AdrDoraCheck.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrDoraCheck.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 */

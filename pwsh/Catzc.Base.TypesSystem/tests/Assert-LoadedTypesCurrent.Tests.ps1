@@ -19,11 +19,11 @@ catzc:
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-NOOVERMOCKING
-      - ADR-AUTO-TYPES-ONEDRIFTMEASURE
+      - ADR-BCL-TYPES-ONEDRIFTMEASURE
 ---
 #>
 
-Describe 'Assert-LoadedTypesCurrent' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-ONEDRIFTMEASURE' {
+Describe 'Assert-LoadedTypesCurrent' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-ONEDRIFTMEASURE' {
     BeforeEach {
         Mock Import-InternalModule -ModuleName Catzc.Base.TypesSystem { }
         Mock Get-LoadedTypeDrift -ModuleName Catzc.Base.TypesSystem { $script:state }

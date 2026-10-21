@@ -9,8 +9,8 @@ Above `using System;`, written with `//`.
 
 ```text
 The captured Windows PSReadLine key bindings, configs/key-handler-bindings.yml: a top-level SEQUENCE of
-{ key, function } entries (KeyHandlerBinding), written by Save-PSReadLineKeyHandlerSet and replayed on Linux by
-Import-PSReadLineKeyHandlerSet. The YAML has no top-level key, so the sequence is exposed as `bindings`.
+{ key, function } entries (KeyHandlerBinding), written by Save-PsReadLineKeyHandlerSet and replayed on Linux by
+Import-PsReadLineKeyHandlerSet. The YAML has no top-level key, so the sequence is exposed as `bindings`.
 Constructing an instance MAPS and VALIDATES the parsed YAML — a non-empty sequence of well-formed entries —
 collecting every violation into one throw, so a malformed capture fails at read time rather than mid-import.
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig), so

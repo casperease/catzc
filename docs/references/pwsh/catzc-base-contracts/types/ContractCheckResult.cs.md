@@ -12,7 +12,7 @@ The result of checking one contract asset against the repository
 ([ADR-REPO-CONTRACT-PROVENBYTESTS](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-provenbytests),
 [ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)), as Get-ContractCheckResults returns it.
 A result type, not a config mirror, so the properties are PascalCase
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
   Asset     the ContractAsset checked
   Passed    true when the check found nothing; derived from Findings, never set apart from them
   Findings  one precise, human-readable message per way the repository breaks the asset, in the order found; empty

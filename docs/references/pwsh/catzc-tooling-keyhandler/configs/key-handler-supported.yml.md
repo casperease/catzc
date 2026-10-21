@@ -10,6 +10,6 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `functions:`, written with `#`.
 
 ```text
-PSReadLine functions supported on Linux — the allow-list Import-PSReadLineKeyHandlerSet filters
+PSReadLine functions supported on Linux — the allow-list Import-PsReadLineKeyHandlerSet filters
 key-handler-bindings against, so a Windows-only function is skipped rather than throwing.
 ```

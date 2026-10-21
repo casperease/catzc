@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[GlossaryRealization.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryRealization.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-VOCAB-SOURCESINREPOSITORY
       - ADR-REPO-VOCAB-REALIZEDBY
 ---

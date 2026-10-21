@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
-    folder: tests
-    name: get-bicep-template-configuration-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "55d623ceb7d1"
   edges:
     docs: "[Get-BicepTemplateConfiguration.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateConfiguration.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS
       - ADR-AUTO-TEST-SETUPONCE
@@ -45,6 +35,13 @@ Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     It 'loads beta configuration' {
         $configuration = Get-BicepTemplateConfiguration sample beta
         $configuration.ParametersFile.Contains('parameters') | Should -BeTrue
+    }
+
+    It 'returns a bicepparam slot''s source path, and a yml slot''s descriptor beside it' {
+        $bicepparam = Get-BicepTemplateConfiguration sample-bicepparam alpha
+        $bicepparam.BicepParamFile | Should -BeLike '*sample-bicepparam*configuration*alpha.bicepparam'
+        $bicepparam.Contains('ParametersFile') | Should -BeFalse
+        (Get-BicepTemplateConfiguration sample-bicepparam beta).ParametersFile.parameters.storageAccountName.value | Should -BeExactly 'btweutstsbppst'
     }
 
     It 'throws on an environment not in the template list' {

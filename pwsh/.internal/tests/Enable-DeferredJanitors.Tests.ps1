@@ -1,4 +1,4 @@
-Describe 'Enable-DeferredJanitors' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-CONSOLEVERIFIESONLY' {
+Describe 'Enable-DeferredJanitors' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-CONSOLEVERIFIESONLY' {
     BeforeEach {
         $script:savedPrompt = (Get-Command prompt -CommandType Function -ErrorAction Ignore).ScriptBlock
         Set-Item -Path function:global:prompt -Value { 'widget> ' }

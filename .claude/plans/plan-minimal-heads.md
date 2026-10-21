@@ -66,8 +66,6 @@ Every code file in the tree carries a head no reader needs, and the next `Format
 
 ## Open steps
 
-- [ ] `pwsh/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1`: a case that an unowned key in the authored `config` part is kept
-      as the author's (KINDSCOPE landed without it, 2026-10-21) (check: `Invoke-TestFile` on the file).
 - [ ] Whole tree: `Format-FileMeta`, then every generator through `Sync-GeneratedFile`, then `Format-FileMeta` again. (check: the second run
       formats 0 files; `Test-FileMeta` and `Test-GeneratedFiles` pass; a sampled function, test, config and bicep file holds only the keys
       above; no authored Markdown file has a `catzc:` head.)

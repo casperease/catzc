@@ -12,7 +12,7 @@ about:
     - ADR-REPO-ROOTCFG-FULLYMANAGED
     - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
     - ADR-DSGN-RUNMODE-NEVERCOEXIST
-    - ADR-AUTO-TYPES-JANITORSBYCALLER
+    - ADR-BCL-TYPES-JANITORSBYCALLER
   lens: governance
 content:
   title: Every load stage but the unload has an ADR rule and a gate
@@ -97,7 +97,7 @@ content:
       rule: ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
     - at: g-janitors
       kind: rule
-      rule: ADR-AUTO-TYPES-JANITORSBYCALLER
+      rule: ADR-BCL-TYPES-JANITORSBYCALLER
   legend: auto
   minimaps:
     - code-locations

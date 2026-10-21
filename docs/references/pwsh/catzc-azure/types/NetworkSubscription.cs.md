@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 One subscription's network in configs/network.yml ([ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md)): a hub
 or a spoke VNet, keyed by the azure.yml subscription name. Mirrors a `subscriptions` entry (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)). NetworkConfig builds one
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). NetworkConfig builds one
 per entry and collects its violations with the file's.
 
 Shape: the name is a lower-snake_case identifier; `kind` is `hub` or `spoke`; `vnet_address_space` is an aligned

@@ -4,7 +4,7 @@
 
 ### Rule ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
 
-Host-guaranteed assemblies only — a type references the BCL language's reference set, the BCL (ADR-AUTO-TYPES-BCLREFERENCESET), plus
+Host-guaranteed assemblies only — a type references the BCL language's reference set, the BCL (ADR-BCL-TYPES-BCLREFERENCESET), plus
 `System.Management.Automation` for a type that is a configured host binding, one with its row in `bcl.yml`, and nothing else. Both are in
 `Add-Type`'s default reference set, and both are loaded in every process that can load the compiled assembly, so a `using` namespace is the
 whole binding. No external packages, no NuGet.
@@ -17,13 +17,13 @@ A type publishes a PowerShell type-accelerator by carrying `[Catzc.Base.Objects.
 after loading the assembly, so `[Name]` resolves to that type (`[Catzc.Module.Depm]::Puml`). Names carry a `Catzc.` prefix — a registration
 reclaims only our own accelerator — and the alias literal is authored in the source of the type it decorates, so a search for it lands on
 the type. This is registration, not compilation: `Add-Type` stays the sole compiler, and the decoration's cross-module edge is governed by
-the dependency graph (ADR-AUTO-TYPES-REFERENCESFOLLOWDEPENDENCIES) like any other.
+the dependency graph (ADR-BCL-TYPES-REFERENCESFOLLOWDEPENDENCIES) like any other.
 
 - [Type-accelerator aliases](#type-accelerator-aliases)
 
 ### Rule ADR-PWSH-TYPES-ADDTYPECOMPILES
 
-`Add-Type` is the one runtime compiler of the combined assembly (ADR-AUTO-TYPES-ONEASSEMBLY): `Import-CSharpTypes` compiles the sources **as
+`Add-Type` is the one runtime compiler of the combined assembly (ADR-BCL-TYPES-ONEASSEMBLY): `Import-CSharpTypes` compiles the sources **as
 authored** with `Add-Type -Path`, one compilation unit per file, because a file-scoped namespace is illegal once several files are
 concatenated into one unit, and it writes a missing committed build with `-OutputAssembly`, which compiles without loading. pwsh resolves
 `[Namespace.Type]` by its fully-qualified name, so the random assembly name `Add-Type` assigns is never consulted. No `dotnet` or `csc` step
@@ -37,23 +37,23 @@ A type that needs a PowerShell primitive — `WildcardPattern`, `TypeAccelerator
 `bcl.yml` and takes the primitive from `System.Management.Automation` through a `using` namespace (ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES),
 never through a copy of its own. A value that only crosses from pwsh, such as a `PSObject` to unwrap, is unwrapped by its pwsh caller, so
 the type stays in the BCL language. The IDE project references `System.Management.Automation` **compile-time-only**, never copied to output,
-so the editor analyzes the same reference set `Add-Type` compiles against (ADR-AUTO-TYPES-NAMESPACEISMODULE).
+so the editor analyzes the same reference set `Add-Type` compiles against (ADR-BCL-TYPES-NAMESPACEISMODULE).
 
 - [The reference set](#the-reference-set)
 
 ### Rule ADR-PWSH-TYPES-RESTARTTORELOAD
 
-A loaded assembly cannot be unloaded from the pwsh process (ADR-AUTO-TYPES-CHANGEDAFTERLOAD), so the only remedy for stale types is a new
+A loaded assembly cannot be unloaded from the pwsh process (ADR-BCL-TYPES-CHANGEDAFTERLOAD), so the only remedy for stale types is a new
 pwsh process. The loader's devbox warning names that remedy (yellow, the changed types by simple name, "restart PowerShell") and the import
 goes on, its pipeline check calls `Test-IsRunningInPipeline` like every other caller, and the importer never starts a nested shell itself
-(ADR-AUTO-TYPES-ONEDRIFTMEASURE).
+(ADR-BCL-TYPES-ONEDRIFTMEASURE).
 
 - [Stale types in a pwsh process](#stale-types-in-a-pwsh-process)
 
 ### Rule ADR-PWSH-TYPES-NOLOOSESHAPES
 
 In pwsh, the loose shapes the internal model is never written as are `[pscustomobject]` and `[ordered]@{}`
-(ADR-AUTO-TYPES-NATIVETYPEDMODEL): a model concept is a `[Catzc.…]` type that a function takes as a typed parameter and declares as its
+(ADR-BCL-TYPES-NATIVETYPEDMODEL): a model concept is a `[Catzc.…]` type that a function takes as a typed parameter and declares as its
 `[OutputType()]`, while a parsed `.yml`, an `az` JSON result, or a splat stays a dictionary or `[pscustomobject]` up to the boundary that
 validates it.
 
@@ -61,7 +61,7 @@ validates it.
 
 ### Rule ADR-PWSH-TYPES-TOSTRINGOVERRIDE
 
-The console-ready text of a type (ADR-AUTO-TYPES-CONSOLEREADYTOSTRING) is its C# `ToString()` override, because pwsh's string interpolation
+The console-ready text of a type (ADR-BCL-TYPES-CONSOLEREADYTOSTRING) is its C# `ToString()` override, because pwsh's string interpolation
 (`"$x"`) and `[string]` cast call the .NET `ToString()` and ignore a `ToString` registered through the extended type system.
 `Import-CSharpTypes` registers each `[Catzc.Base.Objects.ConsoleDisplay(...)]` property list as the type's `DefaultDisplayPropertySet`,
 which the formatter honours, so typing `$x` at the prompt shows those properties.
@@ -70,7 +70,7 @@ which the formatter honours, so typing `$x` at the prompt shows those properties
 
 ## Context
 
-[native-csharp-types](../BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`) decides what the C# types are: one type per file, a namespace per
+[native-csharp-types](../BCL/native-csharp-types.md) (`ADR-BCL-TYPES`) decides what the C# types are: one type per file, a namespace per
 module, one combined assembly committed under a hash name, a fixed internal model, console-ready text. Every one of those types runs inside
 a pwsh process, which compiles the assembly, loads it, and hands its objects to PowerShell code. This ADR is how that host binds the types:
 which compiler, which references, which names pwsh callers type, and what a running pwsh can and cannot do with a changed type.
@@ -83,7 +83,7 @@ which compiler, which references, which names pwsh callers type, and what a runn
 on a fresh edit with nothing installed beyond pwsh. Its limit is the assembly name: `Add-Type` assigns a **random** one (verified —
 `Add-Type -OutputAssembly` produces e.g. `khuvslfy.cez`, and a rebuild of a source that is unchanged produces a _different_ random name),
 and has no knob for a stable one. One assembly per module would bake a dependency's random name into each dependent and dangle on the next
-rebuild, which is why the types compile into one combined assembly (ADR-AUTO-TYPES-ONEASSEMBLY). That assembly is a leaf of the reference
+rebuild, which is why the types compile into one combined assembly (ADR-BCL-TYPES-ONEASSEMBLY). That assembly is a leaf of the reference
 graph, and pwsh resolves `[Namespace.Type]` by fully-qualified name, so its random name is harmless: no `dotnet`/`csc` build step, no
 topological compile order, no transitive references.
 

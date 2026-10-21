@@ -12,7 +12,7 @@ One contract asset under contracts/<unit>/<version>/<module>/<path>
 ([ADR-REPO-CONTRACT-LAYOUT](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-layout)), with every fact Get-Contract
 derives from its name alone ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset),
 [ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)). A result type, not a config mirror,
-so the properties are PascalCase ([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+so the properties are PascalCase ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Every path is in communication form ([ADR-AUTO-PATH-TWOFORMS](/docs/adr/automation/path-representation.md#rule-adr-auto-path-twoforms),
 [ADR-AUTO-PATH-COMMUNICATIONFORM](/docs/adr/automation/path-representation.md#rule-adr-auto-path-communicationform)): relative, '/'-separated, with no

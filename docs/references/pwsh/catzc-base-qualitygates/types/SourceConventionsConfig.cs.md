@@ -17,7 +17,7 @@ The source checks Test-SourceConventions runs beside its naming and one-function
   neutral_codes — a logic (L0) test's fixture data uses neutral ADR codes, never a code the ADR index declares
                   ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); a SourceCheck
 An omitted check takes every default of its type: gate mode, nothing exempt, no phrases. Property names mirror the
-YAML keys (snake_case, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+YAML keys (snake_case, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```
 
 ## comment:2

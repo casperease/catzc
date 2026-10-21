@@ -19,7 +19,7 @@ catzc:
     docs: "[Module.cs.md](docs/references/pwsh/catzc-base-modules/types/Module.cs.md)"
     cites:
       - ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---
 */
 
@@ -28,7 +28,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Modules;
 
-// Rests on [ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](/docs/adr/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule) and [ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel).
+// Rests on [ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](/docs/adr/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule) and [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel).
 public sealed class Module
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

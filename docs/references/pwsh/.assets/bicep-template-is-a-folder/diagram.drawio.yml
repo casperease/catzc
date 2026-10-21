@@ -7,7 +7,7 @@ about:
     - ADR-AZ-NAMING
     - ADR-AZ-CUSTOMER
     - ADR-CONF-ADDRESSING
-    - ADR-AUTO-TYPES
+    - ADR-BCL-TYPES
   lens: source
 content:
   title: A template is a folder; options.yml overrides five defaults

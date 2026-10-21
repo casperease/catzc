@@ -1,5 +1,5 @@
 {
-  "hash": "b23d39f1",
+  "hash": "51849339",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -158,6 +158,11 @@
     },
     {
       "name": "Catzc.Azure.Templates.BicepDeploymentPlan",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepParamWriter",
       "aliases": [],
       "display": []
     },
@@ -791,6 +796,14 @@
       "name": "Catzc.Base.Languages.PathParts",
       "aliases": [],
       "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.PathRename",
+      "aliases": [],
+      "display": [
+        "path",
+        "target"
+      ]
     },
     {
       "name": "Catzc.Base.Languages.PythonConfig",

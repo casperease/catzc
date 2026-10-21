@@ -2,23 +2,14 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
-    folder: tests
-    name: get-bicep-templates-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: debc06e0854f
   edges:
     docs: "[Get-BicepTemplates.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS
       - ADR-AUTO-TEST-SETUPONCE
+      - ADR-AZ-DATAMOD-BICEPPARAMSLOT
 ---
 #>
 
@@ -175,6 +166,50 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
             $se = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample-subenv' } | Select-Object -First 1
             $se.environment_kind | Should -Be 'subscription'
             @($se.slots | ForEach-Object { $_.environment } | Sort-Object -Unique) | Should -Be @('nsub', 'psub')
+        }
+    }
+
+    Context 'bicepparam slots (ADR-AZ-DATAMOD-BICEPPARAMSLOT)' {
+        BeforeAll {
+            $script:fixtures = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Templates/tests/assets/templates'
+            # A throwaway templates root holding one copy of sample-bicepparam, changed per case.
+            $script:discoverCopy = {
+                param([scriptblock] $Change)
+                $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+                Copy-Item (Join-Path $script:fixtures 'sample-bicepparam') (Join-Path $root 'sample-bicepparam') -Recurse
+                & $Change (Join-Path $root 'sample-bicepparam')
+                Mock Get-BicepTemplatesRoot -ModuleName Catzc.Azure.Templates { $root }.GetNewClosure()
+                InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
+                try {
+                    Get-BicepTemplates
+                }
+                finally {
+                    InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
+                }
+            }
+        }
+
+        It 'discovers a bicepparam slot beside a yml slot, each with its file and format' {
+            $template = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample-bicepparam' } | Select-Object -First 1
+            $alpha = $template.slots | Where-Object { $_.name -eq 'alpha' }
+            $alpha.format | Should -BeExactly 'bicepparam'
+            $alpha.file | Should -BeLike '*configuration*alpha.bicepparam'
+            ($template.slots | Where-Object { $_.name -eq 'beta' }).format | Should -BeExactly 'yml'
+        }
+
+        It 'throws on a yml and a bicepparam for one coordinate, naming both' {
+            { & $script:discoverCopy { param($t) Copy-Item (Join-Path $t 'configuration/beta.yml') (Join-Path $t 'configuration/alpha.yml') } } |
+                Should -Throw '*has both configuration/alpha.yml and configuration/alpha.bicepparam for one coordinate*'
+        }
+
+        It 'throws on a using line that is not the template''s main.bicep, naming the file' {
+            { & $script:discoverCopy { param($t) Set-Content (Join-Path $t 'configuration/alpha.bicepparam') "using '../widget.bicep'`n" } } |
+                Should -Throw "*alpha.bicepparam uses '../widget.bicep', which is not the template's main.bicep*"
+        }
+
+        It 'refuses a bicepparam slot in a template with a PrePost hook, naming the template and the file' {
+            { & $script:discoverCopy { param($t) Set-Content (Join-Path $t 'PrePost.psm1') '' } } |
+                Should -Throw "*Template 'sample-bicepparam' has a PrePost hook, so it takes no bicepparam slot: write alpha.bicepparam as a yml slot*"
         }
     }
 

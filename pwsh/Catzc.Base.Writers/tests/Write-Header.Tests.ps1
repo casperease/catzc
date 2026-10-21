@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f840ecaeaed0
+  edges:
+    code: pwsh/Catzc.Base.Writers/Write-Header.ps1
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to verify writer output; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 
@@ -5,7 +15,7 @@ Describe 'Write-Header' -Tag 'L0', 'logic' {
     # The chokepoint guard returns early during a run ($global:__PesterRunning); lift it so output can be asserted.
     BeforeAll {
         $global:__PesterRunning = $false
-        function script:StripAnsi {
+        function script:Remove-AnsiEscape {
             param([string]$Text)
             $Text -replace '\e\[[0-9;]*m', ''
         }
@@ -16,7 +26,7 @@ Describe 'Write-Header' -Tag 'L0', 'logic' {
     Context 'Curved (default)' {
         It 'renders box with message' {
             Write-Header 'test' -Width 20 -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
-            $text = ($iv | ForEach-Object { StripAnsi $_.MessageData }) -join "`n"
+            $text = ($iv | ForEach-Object { Remove-AnsiEscape $_.MessageData }) -join "`n"
             $text | Should -Match '╭──'
             $text | Should -Match '│ test'
             $text | Should -Match '╰──'
@@ -24,7 +34,7 @@ Describe 'Write-Header' -Tag 'L0', 'logic' {
 
         It 'renders single top line without message' {
             Write-Header -Width 20 -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
-            $text = ($iv | ForEach-Object { StripAnsi $_.MessageData }) -join "`n"
+            $text = ($iv | ForEach-Object { Remove-AnsiEscape $_.MessageData }) -join "`n"
             $text | Should -Match '╭──'
             $text | Should -Not -Match '│'
         }
@@ -33,14 +43,14 @@ Describe 'Write-Header' -Tag 'L0', 'logic' {
     Context 'Stars' {
         It 'renders stars with message' {
             Write-Header 'test' -Style Stars -Width 20 -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
-            $text = ($iv | ForEach-Object { StripAnsi $_.MessageData }) -join "`n"
+            $text = ($iv | ForEach-Object { Remove-AnsiEscape $_.MessageData }) -join "`n"
             $text | Should -Match '^\*{20}'
             $text | Should -Match '\* test'
         }
 
         It 'renders single star line without message' {
             Write-Header -Style Stars -Width 20 -InformationVariable iv -InformationAction SilentlyContinue 6>&1 | Out-Null
-            $text = ($iv | ForEach-Object { StripAnsi $_.MessageData }) -join "`n"
+            $text = ($iv | ForEach-Object { Remove-AnsiEscape $_.MessageData }) -join "`n"
             $text | Should -Match '^\*{20}$'
         }
     }
@@ -63,7 +73,7 @@ Describe 'Write-Header' -Tag 'L0', 'logic' {
             @($codes).Count | Should -BeGreaterThan 3
 
             # The rule characters survive intact under the per-character colouring.
-            $plain = StripAnsi $raw
+            $plain = Remove-AnsiEscape $raw
             $plain | Should -Match '╭─'
             $plain | Should -Match '╰─'
             $plain | Should -Match '│ PASSED'

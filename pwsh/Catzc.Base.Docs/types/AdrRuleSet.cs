@@ -18,7 +18,7 @@ catzc:
     docs: "[AdrRuleSet.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrRuleSet.cs.md)"
     cites:
       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
-      - ADR-AUTO-TYPES
+      - ADR-BCL-TYPES
       - ADR-DSGN-TRACK-VALUECHAINCONCERN
 ---
 */

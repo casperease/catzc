@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
-    name: set-bicep-template-configuration
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "88897277e7dc"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
     docs: "[Set-BicepTemplateConfiguration.ps1.md](docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md)"
@@ -84,6 +73,10 @@ function Set-BicepTemplateConfiguration {
         Join-Path $templateDescriptor.configuration_folder $Customer
     }
     $configFile = Join-Path $folder "$configName.yml"
+    $bicepParamFile = Join-Path $folder "$configName.bicepparam"
+    if ([System.IO.File]::Exists($bicepParamFile)) {
+        throw "Template '$Template' slot '$configName' is a bicepparam slot ($bicepParamFile): it is edited by hand, not by Set-BicepTemplateConfiguration (ADR-AZ-DATAMOD-BICEPPARAMSLOT)."
+    }
 
     # Load the existing config (preserve unrelated keys) or start a fresh ordered structure.
     $config = if (Test-Path $configFile -PathType Leaf) {

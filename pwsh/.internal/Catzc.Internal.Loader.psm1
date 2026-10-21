@@ -38,7 +38,7 @@ function Test-IsRunningInPipeline {
 }
 
 # VS Code marks every terminal it opens, the PowerShell extension's own host included; this is the one reader of that mark.
-function Test-IsRunningInVSCode {
+function Test-IsRunningInVsCode {
     [CmdletBinding()]
     [OutputType([bool])]
     param()
@@ -145,4 +145,4 @@ function Invoke-DeferredJanitorsPrompt {
     }
 }
 
-Export-ModuleMember -Function Import-InternalModule, Test-IsRunningInPipeline, Test-IsRunningInVSCode, Test-IsInteractiveHost, Enable-DeferredJanitors, Invoke-DeferredJanitorsPrompt
+Export-ModuleMember -Function Import-InternalModule, Test-IsRunningInPipeline, Test-IsRunningInVsCode, Test-IsInteractiveHost, Enable-DeferredJanitors, Invoke-DeferredJanitorsPrompt

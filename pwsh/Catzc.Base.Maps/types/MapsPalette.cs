@@ -18,7 +18,7 @@ catzc:
     docs: "[MapsPalette.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsPalette.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

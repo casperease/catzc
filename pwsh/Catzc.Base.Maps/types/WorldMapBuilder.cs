@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1
     docs: "[WorldMapBuilder.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-REFERENCESFOLLOWDEPENDENCIES
+      - ADR-BCL-TYPES-REFERENCESFOLLOWDEPENDENCIES
       - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
       - ADR-DSGN-TRACK-ONETECHSTACK
       - ADR-DSGN-TRACK-FILELANGUAGE

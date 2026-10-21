@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/types/GuidsConfig.Tests.ps1
     docs: "[GuidsConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/GuidsConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

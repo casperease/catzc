@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
     docs: "[AgentEntry.cs.md](docs/references/pwsh/catzc-base-docs/types/AgentEntry.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-PWSH-ERROR-THROWNOTWRITEERROR
       - ADR-REPO-AGENTS-BACKEDBYRULE
       - ADR-REPO-AGENTS-NAMEDMODEL

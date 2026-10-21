@@ -151,3 +151,12 @@ failure names the real culprit here, not later as a generic missing-file in
 Get-BicepDeploymentContext. Assert-AzCliBicep already proved the Bicep CLI is available above, so a
 missing main.json now is an unexpected build failure, not a not-installed one — say exactly that.
 ```
+
+## comment:9
+
+Above `$using = [System.IO.Path]::GetRelativePath($outputFolder,...`, written with `#`.
+
+```text
+Every slot reaches the deploy one way (ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS): a .bicepparam in the output folder, compiled by
+bicep build-params, whose using names the template's main.bicep in the tree so its module tree resolves.
+```

@@ -19,7 +19,7 @@ catzc:
     docs: "[MapsConfig.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER
 ---
 */

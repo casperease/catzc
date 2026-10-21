@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
-    name: assert-bicep-template
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "7c1f1c8e1f21"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
     docs: "[Assert-BicepTemplate.ps1.md](docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md)"
@@ -125,13 +113,32 @@ function Assert-BicepTemplate {
         }
 
         # Gather configs: root files are shared-platform configs; a subfolder is always a customer key.
+        $hasPrePost = Test-Path (Join-Path $templateFolderPath 'PrePost.psm1') -PathType Leaf
         $configEntries = [System.Collections.Generic.List[object]]::new()
-        foreach ($file in @([System.IO.Directory]::EnumerateFiles($configFolder, '*.yml') | Sort-Object)) {
-            $configEntries.Add([pscustomobject]@{ file = $file; customer = '' })
-        }
-        foreach ($customerDirectoryPath in ([System.IO.Directory]::EnumerateDirectories($configFolder) | Sort-Object)) {
-            foreach ($file in @([System.IO.Directory]::EnumerateFiles($customerDirectoryPath, '*.yml') | Sort-Object)) {
-                $configEntries.Add([pscustomobject]@{ file = $file; customer = [System.IO.Path]::GetFileName($customerDirectoryPath) })
+        $configFolders = @([pscustomobject]@{ path = $configFolder; customer = '' }) + @(
+            [System.IO.Directory]::EnumerateDirectories($configFolder) | Sort-Object |
+                ForEach-Object { [pscustomobject]@{ path = $_; customer = [System.IO.Path]::GetFileName($_) } })
+        foreach ($folder in $configFolders) {
+            $files = @(@([System.IO.Directory]::EnumerateFiles($folder.path, '*.yml')) + @([System.IO.Directory]::EnumerateFiles($folder.path, '*.bicepparam')) | Sort-Object)
+            $relativeFolder = if ($folder.customer) {
+                "configuration/$($folder.customer)"
+            }
+            else {
+                'configuration'
+            }
+            foreach ($pair in @($files | Group-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) } | Where-Object Count -GT 1)) {
+                $errors.Add("[$name] has both $relativeFolder/$($pair.Name).yml and $relativeFolder/$($pair.Name).bicepparam for one coordinate; keep one")
+            }
+            foreach ($file in $files) {
+                if ([System.IO.Path]::GetExtension($file) -eq '.bicepparam') {
+                    try {
+                        Assert-BicepParamSlot -File $file -Main $main -Template $name -HasPrePost $hasPrePost
+                    }
+                    catch {
+                        $errors.Add("[$name] $($_.Exception.Message)")
+                    }
+                }
+                $configEntries.Add([pscustomobject]@{ file = $file; customer = $folder.customer })
             }
         }
 
@@ -142,11 +149,12 @@ function Assert-BicepTemplate {
 
         foreach ($entry in $nonDefault) {
             $configName = [IO.Path]::GetFileNameWithoutExtension($entry.file)
+            $extension = [IO.Path]::GetExtension($entry.file)
             $location = if ([string]::IsNullOrEmpty($entry.customer)) {
-                "configuration/$configName.yml"
+                "configuration/$configName$extension"
             }
             else {
-                "configuration/$($entry.customer)/$configName.yml"
+                "configuration/$($entry.customer)/$configName$extension"
             }
 
             $resolved = $null
@@ -169,7 +177,15 @@ function Assert-BicepTemplate {
             }
 
             # Parameter alignment.
-            if ($declaredParameters.Count -gt 0) {
+            if ($declaredParameters.Count -gt 0 -and $extension -eq '.bicepparam') {
+                $text = [System.IO.File]::ReadAllText($entry.file)
+                foreach ($parameterName in @([regex]::Matches($text, '(?m)^\s*param\s+([A-Za-z_][A-Za-z0-9_]*)\s*=') | ForEach-Object { $_.Groups[1].Value })) {
+                    if ($parameterName -notin $declaredParameters) {
+                        $errors.Add("[$name] $location sets parameter '$parameterName', which main.bicep does not declare")
+                    }
+                }
+            }
+            elseif ($declaredParameters.Count -gt 0) {
                 $configuration = $null
                 try {
                     $configuration = Get-Content $entry.file -Raw | ConvertFrom-Yaml -Ordered

@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/ProfilesConfig.Tests.ps1
     docs: "[ProfilesConfig.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ProfilesConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[AzureTenantRecord.cs.md](docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-DATAMOD
 ---
 */

@@ -19,12 +19,12 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 #>
 
-Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
+Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     Context 'defaults' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         It 'gives every check the gate mode and empty lists when the file states nothing' {
             foreach ($raw in @($null, [ordered]@{})) {

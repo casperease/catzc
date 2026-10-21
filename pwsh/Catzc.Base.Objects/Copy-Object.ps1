@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Objects/Copy-Object.ps1
-    name: copy-object
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: b28d7bff0db9
   edges:
     test: pwsh/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
     docs: "[Copy-Object.ps1.md](docs/references/pwsh/catzc-base-objects/Copy-Object.ps1.md)"
@@ -21,7 +10,7 @@ catzc:
 #>
 
 function Copy-Object {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = '$AcceptWarnings is consumed inside the nested Clone function (it gates the note-properties verbose message), which this rule does not trace across the nested-function boundary')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = '$AcceptWarnings is consumed inside the nested Copy-Node function (it gates the note-properties verbose message), which this rule does not trace across the nested-function boundary')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
@@ -34,7 +23,7 @@ function Copy-Object {
     begin {
         $warned = $false
 
-        function Clone {
+        function Copy-Node {
             param($Object)
             # Null
             if ($null -eq $Object) {
@@ -55,7 +44,7 @@ function Copy-Object {
             if ($Object -is [System.Collections.Specialized.OrderedDictionary]) {
                 $c = [ordered]@{}
                 foreach ($key in $Object.Keys) {
-                    $c[$key] = Clone $Object[$key]
+                    $c[$key] = Copy-Node $Object[$key]
                 }
                 return $c
             }
@@ -64,7 +53,7 @@ function Copy-Object {
             if ($Object -is [System.Collections.IDictionary]) {
                 $c = @{}
                 foreach ($key in $Object.Keys) {
-                    $c[$key] = Clone $Object[$key]
+                    $c[$key] = Copy-Node $Object[$key]
                 }
                 return $c
             }
@@ -78,7 +67,7 @@ function Copy-Object {
                 }
                 $c = [PSCustomObject]@{}
                 foreach ($property in $Object.PSObject.Properties) {
-                    $c | Add-Member -NotePropertyName $property.Name -NotePropertyValue (Clone $property.Value)
+                    $c | Add-Member -NotePropertyName $property.Name -NotePropertyValue (Copy-Node $property.Value)
                 }
                 return $c
             }
@@ -87,7 +76,7 @@ function Copy-Object {
             if ($Object -is [System.Collections.IList]) {
                 $c = [System.Collections.Generic.List[object]]::new($Object.Count)
                 foreach ($item in $Object) {
-                    $c.Add((Clone $item))
+                    $c.Add((Copy-Node $item))
                 }
                 if ($Object -is [array]) {
                     return @(, $c.ToArray())
@@ -101,6 +90,6 @@ function Copy-Object {
     }
 
     process {
-        Clone $InputObject
+        Copy-Node $InputObject
     }
 }

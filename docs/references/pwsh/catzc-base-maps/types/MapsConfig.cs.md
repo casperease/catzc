@@ -13,7 +13,7 @@ map, the reviewed highlight pins and exceptions, and the output folder the PDFs 
 ([ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)). Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Maps.MapsConfig), so Get-Config -Config maps returns this
 typed record. Property names mirror the YAML keys (snake_case,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Every key has a sensible default, declared once on the type that holds it
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): MapsPalette, MapsLimits,

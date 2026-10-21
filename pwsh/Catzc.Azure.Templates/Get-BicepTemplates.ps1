@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
-    name: get-bicep-templates
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: d07020cab984
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
     docs: "[Get-BicepTemplates.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md)"
@@ -89,14 +78,28 @@ function Get-BicepTemplates {
         }
         $shortName = [Catzc.Azure.Templates.BicepShortName]::Resolve($name, $shortNameOverride)
 
+        $hasPrePost = Test-Path (Join-Path $folderPath 'PrePost.psm1') -PathType Leaf
         $configEntries = [System.Collections.Generic.List[object]]::new()
-        foreach ($file in @([System.IO.Directory]::EnumerateFiles($configurationFolder, '*.yml') | Sort-Object)) {
-            $configEntries.Add([pscustomobject]@{ file = $file; customer = '' })
-        }
-        foreach ($customerDirectoryPath in ([System.IO.Directory]::EnumerateDirectories($configurationFolder) | Sort-Object)) {
-            $customer = [System.IO.Path]::GetFileName($customerDirectoryPath)
-            foreach ($file in @([System.IO.Directory]::EnumerateFiles($customerDirectoryPath, '*.yml') | Sort-Object)) {
-                $configEntries.Add([pscustomobject]@{ file = $file; customer = $customer })
+        $configFolders = @([pscustomobject]@{ path = $configurationFolder; customer = '' }) + @(
+            [System.IO.Directory]::EnumerateDirectories($configurationFolder) | Sort-Object |
+                ForEach-Object { [pscustomobject]@{ path = $_; customer = [System.IO.Path]::GetFileName($_) } })
+        foreach ($configFolder in $configFolders) {
+            $files = @(@([System.IO.Directory]::EnumerateFiles($configFolder.path, '*.yml')) + @([System.IO.Directory]::EnumerateFiles($configFolder.path, '*.bicepparam')) | Sort-Object)
+            $relativeFolder = if ($configFolder.customer) {
+                "configuration/$($configFolder.customer)"
+            }
+            else {
+                'configuration'
+            }
+            # One config per coordinate (ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION): never a yml and a bicepparam of one name.
+            foreach ($pair in @($files | Group-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) } | Where-Object Count -GT 1)) {
+                throw "Template '$name' has both $relativeFolder/$($pair.Name).yml and $relativeFolder/$($pair.Name).bicepparam for one coordinate; keep one."
+            }
+            foreach ($file in $files) {
+                if ([System.IO.Path]::GetExtension($file) -eq '.bicepparam') {
+                    Assert-BicepParamSlot -File $file -Main $main -Template $name -HasPrePost $hasPrePost
+                }
+                $configEntries.Add([pscustomobject]@{ file = $file; customer = $configFolder.customer })
             }
         }
 
@@ -108,11 +111,12 @@ function Get-BicepTemplates {
                 continue
             }
             $configurationFiles.Add($entry.file)
+            $extension = [System.IO.Path]::GetExtension($entry.file)
             $location = if ([string]::IsNullOrEmpty($entry.customer)) {
-                "configuration/$configName.yml"
+                "configuration/$configName$extension"
             }
             else {
-                "configuration/$($entry.customer)/$configName.yml"
+                "configuration/$($entry.customer)/$configName$extension"
             }
             try {
                 $resolved = Resolve-BicepConfigName $configName
@@ -135,7 +139,7 @@ function Get-BicepTemplates {
 
             $subscription = Get-BicepConfigSubscriptionCandidates -Customer $entry.customer -Environment $resolved.environment -AzureConfig $azure |
                 Select-Object -First 1
-            $slots.Add([Catzc.Azure.Templates.BicepSlot]::new($configName, $resolved.environment, $resolved.slot, $subscription, $entry.customer))
+            $slots.Add([Catzc.Azure.Templates.BicepSlot]::new($configName, $resolved.environment, $resolved.slot, $subscription, $entry.customer, $entry.file))
         }
         $environments = @($slots | ForEach-Object { $_.environment } | Select-Object -Unique)
         $subscriptions = @($slots | ForEach-Object { $_.subscription } | Select-Object -Unique)

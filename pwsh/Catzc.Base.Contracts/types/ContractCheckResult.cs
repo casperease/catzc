@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractCheckResult.Tests.ps1
     docs: "[ContractCheckResult.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractCheckResult.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-CONTRACT-PROVENBYTESTS
       - ADR-REPO-CONTRACT-CONTRACTASSET
 ---

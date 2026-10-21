@@ -17,8 +17,8 @@ catzc:
   edges:
     docs: "[BicepParameter.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepParameter.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---
 */
 

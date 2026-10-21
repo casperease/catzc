@@ -27,7 +27,7 @@ parameter overrides the resolved value per call
                 dot-prefixed root, since contracts/ holds no dot-prefixed folder
                 ([ADR-REPO-CONTRACT-NODOTFOLDERS](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-nodotfolders)).
 Property names mirror the YAML keys (snake_case,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```
 
 ## comment:2

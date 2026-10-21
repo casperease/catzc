@@ -1,4 +1,4 @@
-Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
+Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         $script:form = [Catzc.Base.Docs.AdrCodeForm]
         $entry = { param($rules) @{ path = 'docs/adr/widget/x.md'; rules = [string[]] $rules } }

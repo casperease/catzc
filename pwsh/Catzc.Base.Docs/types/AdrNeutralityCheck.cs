@@ -18,7 +18,7 @@ catzc:
     docs: "[AdrNeutralityCheck.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrNeutralityCheck.cs.md)"
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

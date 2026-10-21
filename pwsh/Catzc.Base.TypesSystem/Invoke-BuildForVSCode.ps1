@@ -2,28 +2,17 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
-    name: invoke-build-for-vs-code
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "197ca274180d"
   edges:
-    test: pwsh/Catzc.Base.TypesSystem/tests/Invoke-BuildForVSCode.Tests.ps1
-    docs: "[Invoke-BuildForVSCode.ps1.md](docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md)"
+    test: pwsh/Catzc.Base.TypesSystem/tests/Invoke-BuildForVsCode.Tests.ps1
+    docs: "[Invoke-BuildForVsCode.ps1.md](docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVsCode.ps1.md)"
     cites:
-      - ADR-AUTO-TYPES
+      - ADR-BCL-TYPES
       - ADR-DSGN-RUNMODE
 ---
 #>
 
-function Invoke-BuildForVSCode {
+function Invoke-BuildForVsCode {
     [CmdletBinding()]
     [OutputType([string])]
     param(
@@ -33,7 +22,7 @@ function Invoke-BuildForVSCode {
     Assert-SourceTree
 
     if (-not (Test-Command 'dotnet')) {
-        throw 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Invoke-BuildForVSCode.'
+        throw 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Invoke-BuildForVsCode.'
     }
 
     $project = Join-Path (Get-CatzcModulesRoot) '.internal/assets/Catzc.Types.csproj'

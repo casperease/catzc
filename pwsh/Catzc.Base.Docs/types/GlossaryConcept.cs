@@ -18,7 +18,7 @@ catzc:
     docs: "[GlossaryConcept.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md)"
     cites:
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
       - ADR-REPO-VOCAB-DEFINEDTERM

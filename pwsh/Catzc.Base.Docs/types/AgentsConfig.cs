@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
     docs: "[AgentsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-CONF-LOADING-CSHARPCONFIGTYPE
       - ADR-REPO-AGENTS-BACKEDBYRULE
       - ADR-REPO-AGENTS-STANDARDWORKER

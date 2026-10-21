@@ -18,7 +18,7 @@ catzc:
     docs: "[Sync-GeneratedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Sync-GeneratedFile.Tests.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
-      - ADR-AUTO-TYPES-JANITORSBYCALLER
+      - ADR-BCL-TYPES-JANITORSBYCALLER
 ---
 #>
 
@@ -56,7 +56,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter { $Message -like '*pipeline*' }
     }
 
-    It 'never commits in an agent session, and announces what the person should commit' -Tag 'ADR-AUTO-TYPES-JANITORSBYCALLER' {
+    It 'never commits in an agent session, and announces what the person should commit' -Tag 'ADR-BCL-TYPES-JANITORSBYCALLER' {
         Mock Get-SessionActor { 'Agent' } -ModuleName Catzc.Base.ModuleSystem
         Sync-GeneratedFile | Should -BeNullOrEmpty
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0

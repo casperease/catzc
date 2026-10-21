@@ -2,20 +2,9 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1
-    folder: assets
-    name: set-local-ps-module-path
-    filetype: ps1
-    role: asset
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b57969e117f2
   edges:
-    docs: "[Set-LocalPSModulePath.ps1.md](docs/references/pwsh/catzc-base-environment/assets/Set-LocalPSModulePath.ps1.md)"
+    docs: "[Set-LocalPsModulePath.ps1.md](docs/references/pwsh/catzc-base-environment/assets/Set-LocalPsModulePath.ps1.md)"
 ---
 #>
 

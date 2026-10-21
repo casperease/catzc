@@ -2,26 +2,14 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/Build-VSCodeExtension.ps1
-    name: build-vs-code-extension
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: a2479b55a503
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/Build-VSCodeExtension.Tests.ps1
-    docs: "[Build-VSCodeExtension.ps1.md](docs/references/pwsh/catzc-base-vscode/Build-VSCodeExtension.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/Build-VsCodeExtension.Tests.ps1
+    docs: "[Build-VsCodeExtension.ps1.md](docs/references/pwsh/catzc-base-vscode/Build-VsCodeExtension.ps1.md)"
 ---
 #>
 
-function Build-VSCodeExtension {
+function Build-VsCodeExtension {
     [CmdletBinding()]
     [OutputType([string])]
     param(
@@ -40,7 +28,7 @@ function Build-VSCodeExtension {
             $Node.$Field
         } }
     foreach ($field in 'name', 'version', 'publisher') {
-        Assert-NotNull (& $read $manifest $field) -ErrorText "Build-VSCodeExtension: '$manifestPath' has no '$field'."
+        Assert-NotNull (& $read $manifest $field) -ErrorText "Build-VsCodeExtension: '$manifestPath' has no '$field'."
     }
     $engine = (& $read (& $read $manifest 'engines') 'vscode') ?? '*'
     $displayName = (& $read $manifest 'displayName') ?? $manifest.name

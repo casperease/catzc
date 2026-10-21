@@ -9,7 +9,7 @@ Above `settings:`, written with `#`.
 
 ```text
 VS Code workspace-settings registry — the single authored source for .vscode/settings.json. The settings
-file the editor reads is a managed, gitignored copy rendered from this registry by New-VSCodeSettings
+file the editor reads is a managed, gitignored copy rendered from this registry by New-VsCodeSettings
 (wired through Build-RootConfig; see rootconfig.yml and [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)) —
 edit THIS file, never settings.json. Explanations live here as comments; the rendered JSON carries only a
 generated-file header (VS Code reads JSONC, so the header is legal).
@@ -154,7 +154,7 @@ Azure Pipelines extension: validate .yaml against OUR generated schema, not the 
 The bundled schema models a step's `task` as a per-task anyOf; offline (never connected to an ADO org)
 it cannot resolve the real task set and reports every non-matching branch — the spurious "String does
 not match the pattern of ^PowerShell@2$" warnings. Our schema (source: Catzc.Base.VSCode
-configs/vscode-pipeline-schema.yml, rendered by New-VSCodePipelineSchema) drops that anyOf and keeps the
+configs/vscode-pipeline-schema.yml, rendered by New-VsCodePipelineSchema) drops that anyOf and keeps the
 structural checks worth having. The extension exposes no severity/ignore knob — only this override.
 ```
 

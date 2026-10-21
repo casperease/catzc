@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "7a02941cda31"
+#     with_body_sha: "597430dc87d0"
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md)"
 #     cites:
@@ -97,6 +97,7 @@ concepts:
         design,
         flow,
         automation,
+        bcl,
         pwsh,
         configuration,
         ado,

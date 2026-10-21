@@ -11,7 +11,7 @@ Above `$schema: http://json-schema.org/draft-07/schema#`, written with `#`.
 Azure Pipelines schema — the authored SOURCE OF TRUTH for .vscode/azure-pipelines-schema.json, the schema
 the ms-azure-devops.azure-pipelines extension validates our pipeline YAML against. It is wired in via
 `azure-pipelines.customSchemaFile` (vscode-settings.yml) and rendered to strict JSON by
-New-VSCodePipelineSchema (through Build-RootConfig; see rootconfig.yml and
+New-VsCodePipelineSchema (through Build-RootConfig; see rootconfig.yml and
 [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)). Edit THIS file, never the rendered .json.
 
 WHY a repo-controlled schema instead of the extension's bundled one — the false positives we are killing:

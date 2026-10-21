@@ -12,7 +12,7 @@ The time-safeguard exemptions (configs/timeout-exemptions.yml) — work, identif
 may run past its normal limit while it is being tuned. Registered in Catzc.Base.Config/configs/configs.yml (type:
 Catzc.Base.Timeouts.TimeoutExemptionsConfig), so Get-Config -Config timeout-exemptions returns this typed record;
 Get-TimeoutExemption resolves a budget against it. Mirrors the YAML keys verbatim
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 An exemption never removes the limit ("ceil all"): an exempt budget runs up to its scope's ceiling instead —
 ceiling.<devbox|pipeline>.<pwsh|bash|zsh>, whose sensible defaults are declared here, once

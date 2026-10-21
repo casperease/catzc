@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
     docs: "[NetworkConfig.cs.md](docs/references/pwsh/catzc-azure/types/NetworkConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-NETWORK
 ---
 */

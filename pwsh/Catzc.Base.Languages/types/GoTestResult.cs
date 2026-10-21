@@ -19,7 +19,7 @@ catzc:
     docs: "[GoTestResult.cs.md](docs/references/pwsh/catzc-base-languages/types/GoTestResult.cs.md)"
     cites:
       - ADR-AUTO-TEST-ONECATEGORY
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrDomainEdge.Tests.ps1
     docs: "[AdrDomainEdge.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrDomainEdge.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---
 */
 

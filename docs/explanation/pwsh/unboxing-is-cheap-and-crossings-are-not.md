@@ -78,7 +78,7 @@ making for. The numbers come from a benchmark that compiles the repository's own
   ([bounded-enumeration](../../adr/automation/pwsh/bounded-enumeration.md), ADR-PWSH-ENUM).
 - A type lives in a file under `types/` of its module and is compiled into one combined assembly that cannot change inside a running
   process, so a per-type table in a type is valid for the life of the process
-  ([native-csharp-types](../../adr/automation/BCL/native-csharp-types.md), ADR-AUTO-TYPES;
+  ([native-csharp-types](../../adr/automation/BCL/native-csharp-types.md), ADR-BCL-TYPES;
   [hosting-csharp-types](../../adr/automation/pwsh/hosting-csharp-types.md), ADR-PWSH-TYPES).
 - There is one living version of each behaviour, so a faster `Kind` replaces the slower one in place: no `Fast` variant beside it
   (ADR-PRIN-ONELIVE).

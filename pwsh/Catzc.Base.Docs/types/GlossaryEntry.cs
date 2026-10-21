@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.Docs/tests/types/GlossaryEntry.Tests.ps1
     docs: "[GlossaryEntry.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryEntry.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-VOCAB
 ---
 */

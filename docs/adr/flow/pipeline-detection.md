@@ -62,7 +62,7 @@ its value, some may forget GitHub Actions entirely, and the logic is never teste
 `The right approach: a single detection function`
 
 One function answers the question. All other functions call it. The detection logic is in one place, testable, and the environment variables
-it checks are an implementation detail. The same shape serves every host mark: `Test-IsRunningInVSCode` is the one reader of VS Code's
+it checks are an implementation detail. The same shape serves every host mark: `Test-IsRunningInVsCode` is the one reader of VS Code's
 terminal mark (`TERM_PROGRAM`), beside the pipeline reader in the loader, and the same analyzer rule flags a raw read of either.
 
 ## Decision

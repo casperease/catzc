@@ -13,7 +13,7 @@ single source of truth for vnet / subnet ranges: the per-environment ranges, key
 and the per-subscription hub or spoke networks, keyed by azure.yml subscription name. Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Azure.NetworkConfig), so Get-Config -Config network returns this
 typed record. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   - the top-level key 'environments' is required and is a non-empty map of well-formed NetworkEnvironment entries;

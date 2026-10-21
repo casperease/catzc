@@ -28,8 +28,8 @@ Build-EnglishDictionary      the committed english.txt.gz, checked from its stam
                              cheap equivalent: the pinned cspell version and the gz's word count
 Build-RootConfig             every opted-in managed root file (rootconfig.yml); a file rendered by a
                              generator is attributed to that generator — New-Importer, New-GitIgnore,
-                             New-VSCodeSettings, New-VSCodeExtensions, New-VSCodeLaunch,
-                             New-VSCodePipelineSchema, New-GoWorkspace (one issue per stale file of a
+                             New-VsCodeSettings, New-VsCodeExtensions, New-VsCodeLaunch,
+                             New-VsCodePipelineSchema, New-GoWorkspace (one issue per stale file of a
                              multi-file generator, e.g. each go/tests/<folder>/go.mod)
 ```
 

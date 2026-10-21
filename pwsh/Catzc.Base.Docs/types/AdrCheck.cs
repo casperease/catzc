@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[AdrCheck.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCheck.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

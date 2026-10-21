@@ -125,6 +125,15 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
         $result.Files[0].Fixed | Should -Not -BeLike '*colour*'
     }
 
+    It 'keeps a key no kind owns in the authored config part, since that part is the author''s' -Tag 'ADR-REPO-FILEMETA-KINDSCOPE' {
+        $text = "<#`n---`ncatzc:`n  config:`n    colour: red`n---`n#>`n`nfunction Get-Gadget { }`n"
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)
+        $result = & $script:run $script:entries[0]
+        $result.Files[0].Findings.Kind | Should -Not -Contain 'Unowned'
+        $result.Files[0].Findings.Kind | Should -Not -Contain 'UnownedHead'
+        $result.Files[0].Fixed | Should -BeLike "<#`n---`ncatzc:`n  immutable:`n    path: widgets/Catzc.Widget/Get-Gadget.ps1*  config:`n    colour: red`n---`n#>`n`nfunction Get-Gadget { }`n"
+    }
+
     It 'still reports a section that is neither imprinted nor config, and leaves the file as written' -Tag 'ADR-REPO-FILEMETA-KINDSCOPE' {
         $text = "<#`n---`ncatzc:`n  colour: red`n---`n#>`n`nfunction Get-Gadget { }`n"
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'widgets/Catzc.Widget/Get-Gadget.ps1'), $text)

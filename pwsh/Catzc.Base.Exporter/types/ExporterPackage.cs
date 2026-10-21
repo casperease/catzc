@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[ExporterPackage.cs.md](docs/references/pwsh/catzc-base-exporter/types/ExporterPackage.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

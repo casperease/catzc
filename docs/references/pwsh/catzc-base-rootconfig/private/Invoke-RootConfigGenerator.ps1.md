@@ -60,7 +60,7 @@ Above `$config = Get-Config -Config rootconfig` (occurrence 2), written with `#`
 The VS Code workspace settings, rendered from the vscode-settings registry (Catzc.Base.VSCode).
 Every opted-in managed target is injected into search.exclude HERE, from this module's own
 registry — find-all lands on sources of truth, never generated copies — and the dependency
-edge stays one-way (RootConfig -> VSCode; New-VSCodeSettings never reads rootconfig.yml).
+edge stays one-way (RootConfig -> VSCode; New-VsCodeSettings never reads rootconfig.yml).
 ```
 
 ## comment:4
@@ -105,7 +105,7 @@ registry.
 
 ## comment:8
 
-Above `New-VSCodePipelineSchema`, written with `#`.
+Above `New-VsCodePipelineSchema`, written with `#`.
 
 ```text
 The repo-controlled Azure Pipelines JSON Schema, rendered from the vscode-pipeline-schema

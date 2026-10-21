@@ -3,7 +3,7 @@
 catzc:
   immutable:
     repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
+    path: pwsh/Catzc.Base.VSCode/New-VsCodePipelineSchema.ps1
     name: new-vs-code-pipeline-schema
     filetype: ps1
     role: function
@@ -16,14 +16,14 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/New-VSCodePipelineSchema.Tests.ps1
-    docs: "[New-VSCodePipelineSchema.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/New-VsCodePipelineSchema.Tests.ps1
+    docs: "[New-VsCodePipelineSchema.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VsCodePipelineSchema.ps1.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---
 #>
 
-function New-VSCodePipelineSchema {
+function New-VsCodePipelineSchema {
     [CmdletBinding()]
     [OutputType([string])]
     param()

@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[PythonWorkspaceFile.cs.md](docs/references/pwsh/catzc-base-languages/types/PythonWorkspaceFile.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-ROOTCFG
 ---
 */

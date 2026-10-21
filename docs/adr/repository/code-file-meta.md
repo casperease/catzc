@@ -88,7 +88,7 @@ catzc:
     with_body_sha: 3fa91c0d2b7e
   edges:
     cites:
-      - ADR-AUTO-TYPES-ONETYPEPERFILE
+      - ADR-BCL-TYPES-ONETYPEPERFILE
     docs: "[FileLanguage.cs.md](docs/references/pwsh/catzc-base-languages/types/FileLanguage.cs.md)"
     test: pwsh/Catzc.Base.Languages/tests/types/FileLanguage.Tests.ps1
 ---

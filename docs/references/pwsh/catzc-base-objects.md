@@ -62,4 +62,5 @@ The module's public functions, sorted into the responsibilities above.
 | responsibility:1 — Object shaping and cloning | `ConvertTo-FlatSettingSet`   |
 |                                               | `ConvertTo-SortedDictionary` |
 |                                               | `Copy-Object`                |
+|                                               | `ConvertTo-BclValue`         |
 | responsibility:2 — YAML-safe serialization    | `ConvertTo-YamlSafe`         |

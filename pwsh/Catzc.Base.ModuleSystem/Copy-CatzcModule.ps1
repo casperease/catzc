@@ -19,7 +19,7 @@ catzc:
     docs: "[Copy-CatzcModule.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Copy-CatzcModule.ps1.md)"
     cites:
       - ADR-AUTO-PATH
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
       - ADR-CONF-LOADING
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-ENUM-RAWDOTNETENUMERATION

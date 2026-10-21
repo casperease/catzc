@@ -6,7 +6,7 @@ catzc:
   edges:
     code: pwsh/Catzc.Base.Languages/types/BclConfig.cs
     cites:
-      - ADR-AUTO-TYPES-DEBUGANYCPU
+      - ADR-BCL-TYPES-DEBUGANYCPU
 ---
 #>
 
@@ -37,7 +37,7 @@ Describe 'BclConfig' -Tag 'L0' {
             @($script:tracked | Where-Object { $_ -like '*.csproj' }).Count | Should -BeGreaterThan 0
         }
 
-        It 'declares only the configured pair in every solution (ADR-AUTO-TYPES-DEBUGANYCPU)' {
+        It 'declares only the configured pair in every solution (ADR-BCL-TYPES-DEBUGANYCPU)' {
             $pair = [regex]::Escape($script:config.SolutionPair())
             $offenders = foreach ($path in $script:tracked.Where({ $_ -like '*.sln' })) {
                 $text = [System.IO.File]::ReadAllText((Join-Path $script:root $path))
@@ -57,7 +57,7 @@ Describe 'BclConfig' -Tag 'L0' {
             $offenders | Should -BeNullOrEmpty
         }
 
-        It 'declares only the configured pair in every project (ADR-AUTO-TYPES-DEBUGANYCPU)' {
+        It 'declares only the configured pair in every project (ADR-BCL-TYPES-DEBUGANYCPU)' {
             $offenders = foreach ($path in $script:tracked.Where({ $_ -like '*.csproj' })) {
                 $xml = [xml][System.IO.File]::ReadAllText((Join-Path $script:root $path))
                 $configurations = @($xml.SelectNodes('//Configurations') | ForEach-Object InnerText)

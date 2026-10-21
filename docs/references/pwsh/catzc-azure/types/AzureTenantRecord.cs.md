@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 One `tenants` entry of configs/azure.yml ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)): an Entra tenant
 keyed by name. The config mirror (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); the resolved identity
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); the resolved identity
 node is Tenant. AzureConfig builds one per entry and collects its violations with the file's.
 
 Shape: the name is a lower-snake_case identifier, `id` is a GUID, and no other key.

@@ -3,7 +3,7 @@
 catzc:
   immutable:
     repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1
+    path: pwsh/Catzc.Base.VSCode/tests/New-VsCodeLaunch.Tests.ps1
     folder: tests
     name: new-vs-code-launch-tests
     filetype: ps1
@@ -15,13 +15,13 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[New-VSCodeLaunch.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VSCodeLaunch.Tests.ps1.md)"
+    docs: "[New-VsCodeLaunch.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VsCodeLaunch.Tests.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
 ---
 #>
 
-Describe 'New-VSCodeLaunch' -Tag 'L0', 'logic' {
+Describe 'New-VsCodeLaunch' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeLaunchConfig]::new([ordered]@{
@@ -34,7 +34,7 @@ Describe 'New-VSCodeLaunch' -Tag 'L0', 'logic' {
     }
 
     It 'renders valid JSON carrying version and configurations, with no head of its own' {
-        $text = New-VSCodeLaunch
+        $text = New-VsCodeLaunch
         $text | Should -Not -Match 'GENERATED'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.version | Should -Be '0.2.0'
@@ -43,10 +43,10 @@ Describe 'New-VSCodeLaunch' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'New-VSCodeLaunch — real vscode-launch.yml' -Tag 'L1', 'integrity' {
+Describe 'New-VsCodeLaunch — real vscode-launch.yml' -Tag 'L1', 'integrity' {
     It 'renders the shipped registry with the importer debug profile intact' {
         # Get-Config constructs the VscodeLaunchConfig type on load, so a render is also the shape proof.
-        $text = New-VSCodeLaunch
+        $text = New-VsCodeLaunch
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         @($json.configurations).Count | Should -BeGreaterThan 0
         # The workspace-variable placeholder must survive the yml -> JSON round trip verbatim.

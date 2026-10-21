@@ -51,7 +51,7 @@ function Invoke-RootConfigGenerator {
         'New-GitAttributes' {
             New-GitAttributes
         }
-        'New-VSCodeSettings' {
+        'New-VsCodeSettings' {
             $config = Get-Config -Config rootconfig
             $managedTargets = @(foreach ($entry in @(Get-RootConfigTargets -Config $config)) {
                     $entry.target
@@ -76,22 +76,22 @@ function Invoke-RootConfigGenerator {
             foreach ($id in $editorFormatters.Keys) {
                 $languageFormatter[$id] = $editorFormatters[$id]
             }
-            New-VSCodeSettings -ManagedTarget $managedTargets -MachineSetting $machineSetting -LanguageFormatter $languageFormatter
+            New-VsCodeSettings -ManagedTarget $managedTargets -MachineSetting $machineSetting -LanguageFormatter $languageFormatter
         }
-        'New-VSCodeExtensions' {
+        'New-VsCodeExtensions' {
             $engineExtension = @((Get-Config -Config languages).formatters.Values | Where-Object vscode_extension | ForEach-Object vscode_extension)
-            New-VSCodeExtensions -EngineExtension $engineExtension
+            New-VsCodeExtensions -EngineExtension $engineExtension
         }
-        'New-VSCodeLaunch' {
+        'New-VsCodeLaunch' {
             # The VS Code launch profiles, rendered from the vscode-launch registry (Catzc.Base.VSCode).
-            New-VSCodeLaunch
+            New-VsCodeLaunch
         }
-        'New-VSCodeTasks' {
+        'New-VsCodeTasks' {
             # The VS Code tasks, rendered from the vscode-tasks registry (Catzc.Base.VSCode).
-            New-VSCodeTasks
+            New-VsCodeTasks
         }
-        'New-VSCodePipelineSchema' {
-            New-VSCodePipelineSchema
+        'New-VsCodePipelineSchema' {
+            New-VsCodePipelineSchema
         }
         'New-GoWorkspace' {
             New-GoWorkspace -Target $Target

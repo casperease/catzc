@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[MapsPin.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsPin.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

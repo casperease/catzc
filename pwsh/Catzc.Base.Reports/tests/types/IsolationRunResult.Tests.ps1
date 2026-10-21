@@ -1,4 +1,4 @@
-Describe 'Catzc.Base.Reports.IsolationRunResult' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
+Describe 'Catzc.Base.Reports.IsolationRunResult' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'holds the isolation, the sandbox, the modules and the counts, and succeeds exactly when nothing failed' {
         $result = [Catzc.Base.Reports.IsolationRunResult]::new('InProcess', 'C:/tmp/widget', [string[]] @('Catzc.Widget', 'Catzc.Gadget'), 5, 0,
             'minimal', 'C:/tmp/widget/.isolation-results.xml')
@@ -31,7 +31,7 @@ Describe 'Catzc.Base.Reports.IsolationRunResult' -Tag 'L0', 'logic', 'ADR-AUTO-T
         [Catzc.Base.Reports.IsolationRunResult]::new('Process', 'C:/tmp/widget', $null, 0, -1).Success | Should -BeFalse
     }
 
-    It 'renders console-ready text' -Tag 'ADR-AUTO-TYPES-CONSOLEREADYTOSTRING' {
+    It 'renders console-ready text' -Tag 'ADR-BCL-TYPES-CONSOLEREADYTOSTRING' {
         [Catzc.Base.Reports.IsolationRunResult]::new('Process', 'C:/tmp/widget', $null, 3, 0).ToString() | Should -Match 'Process'
     }
 }

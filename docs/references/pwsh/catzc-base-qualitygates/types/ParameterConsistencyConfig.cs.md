@@ -14,5 +14,5 @@ its sensible default ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation
   exempt — parameter name (without the dash) -> why the same name means a different thing in different functions.
            Omitted: no parameter is exempt. A name is matched case-insensitively; every reason is non-empty.
 Property names mirror the YAML keys (snake_case,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

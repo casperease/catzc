@@ -13,7 +13,7 @@ settings fixed for the importer session. Registered in Catzc.Base.Config/configs
 (type: Catzc.Base.Variants.VariantsConfig), so Get-Config -Config variants returns this typed record; the
 private Get-Variant reads one key off it and the named primitives (Get-AdoNaming, Get-EnabledCustomers,
 Get-Aspect, …) default an absent key. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)); an absent key is null,
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)); an absent key is null,
 so the record's Contains(key) answers "is it set".
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException. Every key is

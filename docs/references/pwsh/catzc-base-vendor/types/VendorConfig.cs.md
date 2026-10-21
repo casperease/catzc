@@ -12,7 +12,7 @@ The vendor module source (configs/vendor.yml) — where Install-VendorModule dow
 Remove-VendorModules validates them against ([ADR-PWSH-VENDOR](/docs/adr/automation/pwsh/vendor-toolset-dependencies.md)).
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Vendor.VendorConfig), so
 Get-Config -Config vendor returns this typed record. Mirrors the YAML keys verbatim (the file's own `sourceUrl`
-spelling, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+spelling, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   - only the known keys ('source', 'sourceUrl') — an unknown key (a typo) fails fast at load;

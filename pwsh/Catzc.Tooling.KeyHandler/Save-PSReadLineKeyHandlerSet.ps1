@@ -2,25 +2,14 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.KeyHandler/Save-PSReadLineKeyHandlerSet.ps1
-    name: save-ps-read-line-key-handler-set
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
+    with_body_sha: "844022ea64a2"
   edges:
-    test: pwsh/Catzc.Tooling.KeyHandler/tests/Save-PSReadLineKeyHandlerSet.Tests.ps1
-    docs: "[Save-PSReadLineKeyHandlerSet.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/Save-PSReadLineKeyHandlerSet.ps1.md)"
+    test: pwsh/Catzc.Tooling.KeyHandler/tests/Save-PsReadLineKeyHandlerSet.Tests.ps1
+    docs: "[Save-PsReadLineKeyHandlerSet.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/Save-PsReadLineKeyHandlerSet.ps1.md)"
 ---
 #>
 
-function Save-PSReadLineKeyHandlerSet {
+function Save-PsReadLineKeyHandlerSet {
     [CmdletBinding()]
     param(
         [string] $Path
@@ -40,8 +29,8 @@ function Save-PSReadLineKeyHandlerSet {
     }
     Assert-True (@($bindings).Count -gt 0) -ErrorText 'Get-PSReadLineKeyHandler returned no bound handlers to capture.'
 
-    $header = "# Windows PSReadLine key bindings captured by Save-PSReadLineKeyHandlerSet, replicated on Linux by`n" +
-    "# Import-PSReadLineKeyHandlerSet (filtered to key-handler-supported). Only key + function are consumed.`n"
+    $header = "# Windows PSReadLine key bindings captured by Save-PsReadLineKeyHandlerSet, replicated on Linux by`n" +
+    "# Import-PsReadLineKeyHandlerSet (filtered to key-handler-supported). Only key + function are consumed.`n"
     $content = $header + (ConvertTo-YamlSafe $bindings | ConvertTo-Yaml)
 
     $changed = Write-FileIfChanged -Path $Path -Content $content

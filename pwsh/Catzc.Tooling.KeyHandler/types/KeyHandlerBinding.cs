@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[KeyHandlerBinding.cs.md](docs/references/pwsh/catzc-tooling-keyhandler/types/KeyHandlerBinding.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

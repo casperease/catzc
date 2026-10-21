@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Catzc.Base.QualityGates;
 
-// Rests on [ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel).
+// Rests on [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel).
 public sealed class CommentBlock
 {
     public CommentBlockKind Kind { get; }

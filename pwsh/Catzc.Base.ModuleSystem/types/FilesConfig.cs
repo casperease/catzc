@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/FilesConfig.Tests.ps1
     docs: "[FilesConfig.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/FilesConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

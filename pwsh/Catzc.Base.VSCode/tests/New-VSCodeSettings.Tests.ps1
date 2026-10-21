@@ -3,7 +3,7 @@
 catzc:
   immutable:
     repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
+    path: pwsh/Catzc.Base.VSCode/tests/New-VsCodeSettings.Tests.ps1
     folder: tests
     name: new-vs-code-settings-tests
     filetype: ps1
@@ -15,7 +15,7 @@ catzc:
     moduletype: pwsh-folder
     catzc_bundle: azure
   edges:
-    docs: "[New-VSCodeSettings.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VSCodeSettings.Tests.ps1.md)"
+    docs: "[New-VsCodeSettings.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VsCodeSettings.Tests.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
@@ -23,7 +23,7 @@ catzc:
 #>
 
 # cspell:ignore gopls  -- the Go language server and its VS Code settings key
-Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
+Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
@@ -39,14 +39,14 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
     }
 
     It 'renders valid JSON carrying the authored settings, with no head of its own' {
-        $text = New-VSCodeSettings
+        $text = New-VsCodeSettings
         $text | Should -Not -Match 'GENERATED'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.'editor.tabSize' | Should -Be 4
     }
 
     It 'completes search.exclude with every managed target' {
-        $text = New-VSCodeSettings -ManagedTarget 'importer.ps1', '.editorconfig'
+        $text = New-VsCodeSettings -ManagedTarget 'importer.ps1', '.editorconfig'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.'search.exclude'.'importer.ps1' | Should -BeTrue
         $json.'search.exclude'.'.editorconfig' | Should -BeTrue
@@ -62,7 +62,7 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
                     }
                 })
         }
-        $text = New-VSCodeSettings -LanguageFormatter ([ordered]@{ widget = 'widget.engine'; gadget = 'gadget.engine'; sprocket = 'sprocket.engine' })
+        $text = New-VsCodeSettings -LanguageFormatter ([ordered]@{ widget = 'widget.engine'; gadget = 'gadget.engine'; sprocket = 'sprocket.engine' })
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.'[widget]'.'editor.defaultFormatter' | Should -Be 'widget.engine'
         $json.'[widget]'.'editor.wordWrap' | Should -Be 'off'
@@ -71,7 +71,7 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
     }
 
     It 'lets an authored entry win over an injected key of the same name' {
-        $text = New-VSCodeSettings -ManagedTarget 'keep/searchable.psd1'
+        $text = New-VsCodeSettings -ManagedTarget 'keep/searchable.psd1'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.'search.exclude'.'keep/searchable.psd1' | Should -BeFalse -Because 'an explicit authored un-exclude must survive injection'
     }
@@ -80,13 +80,13 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{ settings = [ordered]@{ 'editor.tabSize' = 2 } })
         }
-        $text = New-VSCodeSettings -ManagedTarget 'importer.ps1'
+        $text = New-VsCodeSettings -ManagedTarget 'importer.ps1'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.'search.exclude'.'importer.ps1' | Should -BeTrue
     }
 
     It 'adds the machine-resolved settings after the authored ones, and the authored key wins' {
-        $text = New-VSCodeSettings -MachineSetting @{ 'widget.root' = 'C:\widget'; 'editor.tabSize' = 8 }
+        $text = New-VsCodeSettings -MachineSetting @{ 'widget.root' = 'C:\widget'; 'editor.tabSize' = 8 }
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.'widget.root' | Should -Be 'C:\widget'
         $json.'editor.tabSize' | Should -Be 4 -Because 'an authored setting wins over a machine-resolved one'
@@ -97,14 +97,14 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
                 settings = [ordered]@{ 'search.exclude' = [ordered]@{ 'widgets/.vendor' = $true } }
             })
         Mock Get-Config -ModuleName Catzc.Base.VSCode { $fixture }
-        $null = New-VSCodeSettings -ManagedTarget 'importer.ps1'
+        $null = New-VsCodeSettings -ManagedTarget 'importer.ps1'
         @($fixture.settings['search.exclude'].Keys) | Should -Be @('widgets/.vendor')
     }
 }
 
-Describe 'New-VSCodeSettings — real vscode-settings.yml' -Tag 'L1', 'integrity' {
+Describe 'New-VsCodeSettings — real vscode-settings.yml' -Tag 'L1', 'integrity' {
     It 'renders the shipped registry to valid settings JSON with the analyzer wiring intact' {
-        $text = New-VSCodeSettings -ManagedTarget 'importer.ps1'
+        $text = New-VsCodeSettings -ManagedTarget 'importer.ps1'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $settings = "$(Get-CatzcModulesFolder)/.internal/assets/PSScriptAnalyzerSettings.psd1"
         $json.'powershell.scriptAnalysis.settingsPath' | Should -Be "./$settings"
@@ -114,7 +114,7 @@ Describe 'New-VSCodeSettings — real vscode-settings.yml' -Tag 'L1', 'integrity
     }
 
     It 'hides no Go test source from the explorer, search, the watcher, or gopls, for the <_>/ root' -ForEach @('go', '.go') {
-        $text = New-VSCodeSettings -ManagedTarget 'go.work', '*/tests/*/go.mod'
+        $text = New-VsCodeSettings -ManagedTarget 'go.work', '*/tests/*/go.mod'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json -AsHashtable
         $source = "$_/tests/widget/widget_test.go"
         foreach ($key in 'files.exclude', 'search.exclude', 'files.watcherExclude') {

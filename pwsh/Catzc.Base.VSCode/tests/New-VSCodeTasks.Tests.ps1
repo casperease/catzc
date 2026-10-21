@@ -1,5 +1,5 @@
 # Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
-Describe 'New-VSCodeTasks' -Tag 'L0', 'logic' {
+Describe 'New-VsCodeTasks' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeTasksConfig]::new([ordered]@{
@@ -15,7 +15,7 @@ Describe 'New-VSCodeTasks' -Tag 'L0', 'logic' {
     }
 
     It 'renders valid JSON carrying version, tasks and inputs, with no head of its own' {
-        $text = New-VSCodeTasks
+        $text = New-VsCodeTasks
         $text | Should -Not -Match 'GENERATED'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.version | Should -Be '2.0.0'
@@ -24,10 +24,10 @@ Describe 'New-VSCodeTasks' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'New-VSCodeTasks — real vscode-tasks.yml' -Tag 'L1', 'integrity' {
+Describe 'New-VsCodeTasks — real vscode-tasks.yml' -Tag 'L1', 'integrity' {
     It 'renders the shipped registry with the fast-push task and its input resolved' {
         # Get-Config constructs the VscodeTasksConfig type on load, so a render is also the shape proof.
-        $text = New-VSCodeTasks
+        $text = New-VsCodeTasks
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $task = $json.tasks | Where-Object label -EQ 'Push dirty'
         $task | Should -Not -BeNullOrEmpty

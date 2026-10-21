@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[FormatterEngine.cs.md](docs/references/pwsh/catzc-base-languages/types/FormatterEngine.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
 ---
 */

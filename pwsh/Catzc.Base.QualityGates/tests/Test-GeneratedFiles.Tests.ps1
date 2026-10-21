@@ -35,7 +35,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         Mock Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates { }
         Mock Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Stamped = 2; Unstamped = [string[]] @('docs/widget/plain.md'); Issues = [string[]] @() } }
         Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $false; DryRun = $true }
+            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VsCodeSettings'; Changed = $false; DryRun = $true }
             [pscustomobject]@{ Target = 'gadget.json'; Source = 'assets/gadget.json'; Generator = $null; Changed = $false; DryRun = $true }
         }
         $script:reportFolder = Join-Path $TestDrive 'generated-files'
@@ -105,23 +105,23 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
 
     It 'attributes a rendered root file to its generator and a copied one to Build-RootConfig' {
         Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VsCodeSettings'; Changed = $true; DryRun = $true }
             [pscustomobject]@{ Target = 'gadget.json'; Source = 'assets/gadget.json'; Generator = $null; Changed = $true; DryRun = $true }
         }
 
         $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
-        $result.Issues | Should -Contain "widget.json: stale — New-VSCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'"
+        $result.Issues | Should -Contain "widget.json: stale — New-VsCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'"
         $result.Issues | Should -Contain "gadget.json: stale — Build-RootConfig would change it; regenerate with: Build-RootConfig 'gadget.json'"
     }
 
     It 'checks only the selected generators, and a rendered generator selects only its own root files' {
         Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VsCodeSettings'; Changed = $true; DryRun = $true }
             [pscustomobject]@{ Target = 'gadget.json'; Source = 'assets/gadget.json'; Generator = $null; Changed = $true; DryRun = $true }
         }
 
-        $result = Test-GeneratedFiles -Generator New-VSCodeSettings -PassThru -OutputFolder $script:reportFolder
-        $result.Issues | Should -Be @("widget.json: stale — New-VSCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'")
+        $result = Test-GeneratedFiles -Generator New-VsCodeSettings -PassThru -OutputFolder $script:reportFolder
+        $result.Issues | Should -Be @("widget.json: stale — New-VsCodeSettings would change it; regenerate with: Build-RootConfig 'widget.json'")
         $result.Facts['Generators'] | Should -Be 1
         Should -Invoke Build-AdrIndex -ModuleName Catzc.Base.QualityGates -Times 0
         Should -Invoke Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates -Times 0
@@ -132,7 +132,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Target = 'go.work'; Source = $null; Generator = 'New-GoWorkspace'; Changed = $false; DryRun = $true }
             [pscustomobject]@{ Target = 'go/tests/widget/go.mod'; Source = $null; Generator = 'New-GoWorkspace'; Changed = $true; DryRun = $true }
             [pscustomobject]@{ Target = 'go/tests/gadget/go.mod'; Source = $null; Generator = 'New-GoWorkspace'; Changed = $true; DryRun = $true }
-            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VSCodeSettings'; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VsCodeSettings'; Changed = $true; DryRun = $true }
         }
 
         $result = Test-GeneratedFiles -Generator New-GoWorkspace -PassThru -OutputFolder $script:reportFolder

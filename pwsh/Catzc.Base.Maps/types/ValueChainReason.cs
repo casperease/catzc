@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[ValueChainReason.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainReason.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-DSGN-TRACK-VALUECHAINSTACK
       - ADR-DSGN-TRACK-VALUECHAINCONCERN
 ---

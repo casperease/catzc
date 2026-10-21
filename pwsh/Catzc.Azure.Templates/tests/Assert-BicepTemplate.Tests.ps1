@@ -2,22 +2,13 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
-    folder: tests
-    name: assert-bicep-template-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "7685dc6afee8"
   edges:
     docs: "[Assert-BicepTemplate.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
     cites:
       - ADR-AUTO-TEST-SETUPONCE
+      - ADR-AZ-DATAMOD-BICEPPARAMSLOT
       - ADR-REPO-OUTDIR-TEMPFORSCRATCH
 ---
 #>
@@ -56,6 +47,39 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
 
         It 'throws for an unknown template' {
             { Assert-BicepTemplate does-not-exist } | Should -Throw '*not found*'
+        }
+
+        It 'passes for a template with a bicepparam slot beside a yml slot' {
+            { Assert-BicepTemplate sample-bicepparam } | Should -Not -Throw
+        }
+    }
+
+    Context 'bicepparam violations (ADR-AZ-DATAMOD-BICEPPARAMSLOT)' {
+        BeforeEach {
+            $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
+            Copy-Directory $script:fixtureTemplates $script:templatesRoot
+            $script:bpp = Join-Path $script:templatesRoot 'sample-bicepparam'
+            Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName Catzc.Azure.Templates
+        }
+
+        It 'reports a yml and a bicepparam for one coordinate' {
+            Copy-Item (Join-Path $script:bpp 'configuration/beta.yml') (Join-Path $script:bpp 'configuration/alpha.yml')
+            { Assert-BicepTemplate sample-bicepparam } | Should -Throw '*both configuration/alpha.yml and configuration/alpha.bicepparam*'
+        }
+
+        It 'reports a using line that is not the template''s main.bicep' {
+            [System.IO.File]::WriteAllText((Join-Path $script:bpp 'configuration/alpha.bicepparam'), "using '../widget.bicep'`n")
+            { Assert-BicepTemplate sample-bicepparam } | Should -Throw "*alpha.bicepparam uses '../widget.bicep'*"
+        }
+
+        It 'refuses a bicepparam slot in a template with a PrePost hook' {
+            [System.IO.File]::WriteAllText((Join-Path $script:bpp 'PrePost.psm1'), '')
+            { Assert-BicepTemplate sample-bicepparam } | Should -Throw '*has a PrePost hook, so it takes no bicepparam slot*'
+        }
+
+        It 'reports a bicepparam parameter the template does not declare' {
+            [System.IO.File]::WriteAllText((Join-Path $script:bpp 'configuration/alpha.bicepparam'), "using '../main.bicep'`n`nparam gadgetName = 'gadget'`n")
+            { Assert-BicepTemplate sample-bicepparam } | Should -Throw "*configuration/alpha.bicepparam sets parameter 'gadgetName'*"
         }
     }
 

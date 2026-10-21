@@ -38,7 +38,7 @@ A walk lists a link and never enters it.
 
 ### Rule ADR-PWSH-ENUM-HOTENUMERATIONCOMPILED
 
-Enumeration that is hot, repeated, or deep is a compiled C# type (ADR-AUTO-TYPES), measured against the PowerShell form. `FolderWalker` is
+Enumeration that is hot, repeated, or deep is a compiled C# type (ADR-BCL-TYPES), measured against the PowerShell form. `FolderWalker` is
 that type for folders. Code that needs a different walk extends the one type; it never carries a second copy of the stack walk
 (ADR-PRIN-ONELIVE).
 
@@ -110,7 +110,7 @@ entry and does not descend into it.
 
 Measured on twelve seeded random folders at depths 1 to 4, the type listed them in 4.3 ms, `Get-ChildItem` took 16.7 ms, and a
 PowerShell-only walk with the same pruning took 13.2 ms; on the largest sampled folder the PowerShell loop was slower than the cmdlet. The
-per-item PowerShell cost is the cost, and a compiled type removes it. This is the case ADR-AUTO-TYPES makes for a native type, and
+per-item PowerShell cost is the cost, and a compiled type removes it. This is the case ADR-BCL-TYPES makes for a native type, and
 ADR-PWSH-TYPES describes how the type is hosted.
 
 ### Callers below the walker

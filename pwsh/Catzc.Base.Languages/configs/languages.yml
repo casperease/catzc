@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9e67709c08fc"
+#     with_body_sha: de9a5ace60c4
 #   edges:
 #     docs: "[languages.yml.md](docs/references/pwsh/catzc-base-languages/configs/languages.yml.md)"
 #     cites:
@@ -117,7 +117,7 @@ languages:
     layout:
       - { folder: ".", role: readme, extensions: [.md], live: false, shipped: false }
   bicep:
-    extensions: [.bicep]
+    extensions: [.bicep, .bicepparam]
     formatter: bicep
     checks: [Test-Formatting, Test-Spelling, Test-Comments]
   python:

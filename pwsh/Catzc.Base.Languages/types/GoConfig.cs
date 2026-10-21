@@ -19,7 +19,7 @@ catzc:
     docs: "[GoConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/GoConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-FOLDERS-DOTMEANSTOOLING
 ---
 */

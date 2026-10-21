@@ -12,5 +12,5 @@ One concept of the merged controlled vocabulary ([ADR-REPO-VOCAB](/docs/adr/repo
 Get-Glossary returns it: the GlossaryConcept itself, the module whose configs/glossary.yml declares it (Owner), that
 source's repo-relative path (SourcePath), and the source's defaulted GlossaryOptions — so a gate or a reader knows
 where each term lives and which checks it takes part in without going back to the source. A result type, not a
-YAML mirror, so its properties are PascalCase ([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+YAML mirror, so its properties are PascalCase ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.SampleIndexed.Tests.ps1
-    folder: tests
-    name: build-bicep-sample-indexed-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b690d94ab923
   edges:
     docs: "[Build-Bicep.SampleIndexed.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleIndexed.Tests.ps1.md)"
     cites:
@@ -27,7 +16,11 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-indexed'
 
+        . (Join-Path $PSScriptRoot 'BicepParams.Fixture.ps1')
         Mock Invoke-AzCli {
+            if (& $script:compileBicepParams $Arguments) {
+                return
+            }
             if ($Arguments -match 'bicep version') {
                 return [pscustomobject]@{ Output = 'Bicep CLI version 999.999.999'; ExitCode = 0 }
             }

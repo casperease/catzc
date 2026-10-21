@@ -16,7 +16,7 @@ its contrasts with similar terms (each explained,
 [ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-similartermscontrasted)), and its avoided phrasings (GlossaryAvoid,
 [ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)), and the words allowed to qualify its
 head word (forms, [ADR-REPO-VOCAB-FAMILYFORMS](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)). Mirrors the YAML entry (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Only the entry's own shape is checked here. Whether `defined_by` names a real rule, `domain` a declared ADR
 domain, and the relation/contrast targets real concepts are cross-file facts, checked by the glossary checks

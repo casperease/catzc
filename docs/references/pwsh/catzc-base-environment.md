@@ -36,7 +36,7 @@ touch `$env:PATH`, which means they are safe to call in any context and their ef
 deliberate bridge: it exists precisely because the two layers are separate, and it must be called explicitly when a caller needs the change
 to take effect now.
 
-The module ships one asset alongside its public functions: `assets/Set-LocalPSModulePath.ps1`. This is a one-time helper that writes a local
+The module ships one asset alongside its public functions: `assets/Set-LocalPsModulePath.ps1`. This is a one-time helper that writes a local
 PSModulePath entry into the user-scope `powershell.config.json`, preventing PowerShell from scanning a slow network share on every import.
 It is not a public function — it is an advisory script a developer runs once when setting up a machine on a domain network. The governing
 rationale is in [module-path-hygiene](../../adr/automation/pwsh/module-path-hygiene.md) (over

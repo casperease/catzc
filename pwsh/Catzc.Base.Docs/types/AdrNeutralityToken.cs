@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[AdrNeutralityToken.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrNeutralityToken.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

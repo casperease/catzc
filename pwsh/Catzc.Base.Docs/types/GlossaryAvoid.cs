@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[GlossaryAvoid.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryAvoid.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED
 ---
 */

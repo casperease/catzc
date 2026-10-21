@@ -19,7 +19,7 @@ catzc:
     docs: "[ParameterConsistencyConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/ParameterConsistencyConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-PWSH-PARAM
 ---
 */

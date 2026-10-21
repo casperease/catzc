@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Invoke-BicepFormat.ps1
-    folder: private
-    name: invoke-bicep-format
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "9a56da6da3e5"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-BicepFormat.Tests.ps1
     docs: "[Invoke-BicepFormat.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-BicepFormat.ps1.md)"
@@ -46,18 +34,21 @@ function Invoke-BicepFormat {
     $folder = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-bicep-format-$([guid]::NewGuid().ToString('N'))"
     [System.IO.Directory]::CreateDirectory($folder) | Out-Null
     try {
-        # Numbered copies: two files of one name in different folders never collide.
+        $copies = [string[]]::new($File.Count)
         for ($index = 0; $index -lt $File.Count; $index++) {
-            [System.IO.File]::Copy($File[$index], (Join-Path $folder "$index.bicep"))
+            $copies[$index] = Join-Path $folder "$index$([System.IO.Path]::GetExtension($File[$index]))"
+            [System.IO.File]::Copy($File[$index], $copies[$index])
         }
-        $pattern = (Join-Path $folder '*.bicep') -replace '\\', '/'
-        $result = Invoke-Executable "`"$($bicep.Path)`" format --pattern `"$pattern`"" -PassThru -NoAssert -Silent
-        if ($result.ExitCode -ne 0) {
-            throw "bicep could not format the Bicep files (exit $($result.ExitCode)):`n$($result.Full)"
+        foreach ($extension in @($copies | ForEach-Object { [System.IO.Path]::GetExtension($_) } | Sort-Object -Unique)) {
+            $pattern = (Join-Path $folder "*$extension") -replace '\\', '/'
+            $result = Invoke-Executable "`"$($bicep.Path)`" format --pattern `"$pattern`"" -PassThru -NoAssert -Silent
+            if ($result.ExitCode -ne 0) {
+                throw "bicep could not format the Bicep files (exit $($result.ExitCode)):`n$($result.Full)"
+            }
         }
         for ($index = 0; $index -lt $File.Count; $index++) {
             $original = [System.IO.File]::ReadAllBytes($File[$index])
-            $formatted = [System.IO.File]::ReadAllBytes((Join-Path $folder "$index.bicep"))
+            $formatted = [System.IO.File]::ReadAllBytes($copies[$index])
             if (-not [System.Linq.Enumerable]::SequenceEqual($original, $formatted)) {
                 if (-not $DryRun) {
                     [System.IO.File]::WriteAllBytes($File[$index], $formatted)

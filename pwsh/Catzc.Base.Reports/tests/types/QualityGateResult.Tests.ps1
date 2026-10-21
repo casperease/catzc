@@ -1,4 +1,4 @@
-Describe 'Catzc.Base.Reports.QualityGateResult' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES-NATIVETYPEDMODEL' {
+Describe 'Catzc.Base.Reports.QualityGateResult' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'holds the subject, the issues, the report path and the facts in the gate''s order' {
         $facts = [ordered]@{ Widgets = 3; Gadgets = 'two' }
         $result = [Catzc.Base.Reports.QualityGateResult]::new('widget', [string[]] @('first', 'second'), 'out/test-widget/1', $facts)
@@ -29,7 +29,7 @@ Describe 'Catzc.Base.Reports.QualityGateResult' -Tag 'L0', 'logic', 'ADR-AUTO-TY
         { [Catzc.Base.Reports.QualityGateResult]::new('') } | Should -Throw '*the subject is required*'
     }
 
-    It 'renders console-ready text' -Tag 'ADR-AUTO-TYPES-CONSOLEREADYTOSTRING' {
+    It 'renders console-ready text' -Tag 'ADR-BCL-TYPES-CONSOLEREADYTOSTRING' {
         [Catzc.Base.Reports.QualityGateResult]::new('gadget').ToString() | Should -Match 'gadget'
     }
 }

@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[AdrCitationChange.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationChange.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---
 */
 

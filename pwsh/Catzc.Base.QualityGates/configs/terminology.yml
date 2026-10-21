@@ -1,20 +1,25 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-#     folder: configs
-#     name: terminology
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.QualityGates
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "0b88ec2b9f60"
 #   edges:
 #     docs: "[terminology.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/terminology.yml.md)"
+#     cites:
+#       - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
+#       - ADR-AUTO-IDIOM-CLOSEDCASES
+#       - ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM
+#       - ADR-AUTO-PY
+#       - ADR-AUTO-SPELL
+#       - ADR-AUTO-TEST
+#       - ADR-AZ-CLI
+#       - ADR-DSGN-MODTYPE
+#       - ADR-DSGN-TRACK-VALUECHAINCONCERN
+#       - ADR-FLOW-CD-GLOBS
+#       - ADR-PWSH-NAMES-THROWAWAYINTERMEDIATES
+#       - ADR-REPO-EXAMPLE
+#       - ADR-REPO-LANG
+#       - ADR-REPO-OUTDIR-PLANNOTES
+#       - ADR-REPO-PROTGLOB
 # ---
 
 categories:
@@ -752,7 +757,7 @@ terms:
     - term: msbuild
       meaning: "MSBuild, the .NET build engine whose project files the csproj carrier describes"
     - term: vsixmanifest
-      meaning: "the extension.vsixmanifest file inside a VS Code extension package (Build-VSCodeExtension)"
+      meaning: "the extension.vsixmanifest file inside a VS Code extension package (Build-VsCodeExtension)"
     - term: ildasm
       meaning: "ildasm, the .NET IL disassembler quoted in the unboxing reference"
     - term: editmsg
@@ -797,6 +802,8 @@ terms:
       meaning: "Azure PowerShell (Az / AzPS)"
     - term: bicep
       meaning: "Azure Bicep infrastructure-as-code language"
+    - term: bicepparam
+      meaning: "Bicep's parameters file format and its .bicepparam extension"
     - term: securestring
       meaning: "the ARM secureString parameter type, spelled lowercase in a compiled main.json"
     - term: choco

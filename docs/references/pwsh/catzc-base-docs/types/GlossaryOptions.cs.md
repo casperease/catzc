@@ -15,7 +15,7 @@ are read there. The default excludes (external language, generated output, vendo
 source's own, so no source can scan DORA's research text or out/. Scope and exclude globs are repo-relative
 ('/'-separated, no leading '/', no drive, no '..', never a URL —
 [ADR-REPO-VOCAB-SOURCESINREPOSITORY](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-sourcesinrepository)). Mirrors the YAML mapping
-(snake_case keys, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+(snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```
 
 ## comment:2

@@ -19,7 +19,7 @@ catzc:
     docs: "[Sync-GeneratedFile.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
-      - ADR-AUTO-TYPES-JANITORSBYCALLER
+      - ADR-BCL-TYPES-JANITORSBYCALLER
       - ADR-DSGN-RUNMODE
       - ADR-REPO-VARIANT-GITWORKSPACE
 ---

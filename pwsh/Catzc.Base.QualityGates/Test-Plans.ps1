@@ -57,6 +57,17 @@ function Test-Plans {
         $Config.folder
     }
 
+    # A plan is three parts: its file, its row in the value overlay and its chunk line in the master; the two overlays are read whole.
+    $readLines = {
+        param([string] $Name)
+        $file = Join-Path $folder $Name
+        if ([System.IO.File]::Exists($file)) {
+            [System.IO.File]::ReadAllText($file) -split "`r?`n"
+        }
+    }
+    $masterLines = @(& $readLines $Config.master_file)
+    $valueLines = @(& $readLines $Config.value_file)
+
     $issues = [System.Collections.Generic.List[string]]::new()
     $plans = 0
     $tasks = 0
@@ -188,13 +199,34 @@ function Test-Plans {
             }
         }
 
+        $topic = [System.IO.Path]::GetFileNameWithoutExtension($name)
+        $pointer = '^\s*-\s.*->\s*' + [regex]::Escape($name) + '\b'
+        if (-not ($masterLines | Where-Object { $_ -match $pointer })) {
+            & $add 1 'ADR-REPO-PLANS-THREEPARTS' "the plan has no chunk line in $($Config.master_file) ('- <chunk> -> ${name}: ...')"
+        }
+        $row = '^\|[^|]*\|\s*' + [regex]::Escape($topic) + '\s*\|'
+        if (-not ($valueLines | Where-Object { $_ -match $row })) {
+            & $add 1 'ADR-REPO-PLANS-THREEPARTS' "the plan has no row in $($Config.value_file) ('| <value> | $topic | ...')"
+        }
+
         foreach ($section in $Config.sections_required) {
             if (-not (& $hasHeading $section)) {
                 & $add 1 'ADR-REPO-PLANS-ONESHAPE'"the plan has no '## $section' section"
             }
         }
 
-        # An open step is the `- [ ]` line with its indented continuation lines; each names its check.
+        # A numbered line of the open steps section is a step, so it carries the checkbox the closing sweep counts.
+        $inOpen = $false
+        for ($i = 0; $i -lt $lines.Count; $i++) {
+            if ($lines[$i] -match '^##\s') {
+                $inOpen = $lines[$i] -match '^##\s+Open steps'
+            }
+            elseif ($inOpen -and $lines[$i] -match '^\d+\.\s' -and $lines[$i] -notmatch '^\d+\.\s+\[[ xX]\]') {
+                & $add ($i + 1) 'ADR-REPO-PLANS-OPENSTEP' "the open step has no checkbox: `"$($lines[$i].Trim())`""
+            }
+        }
+
+        # An open step is the `- [ ]` or `1. [ ]` line with its indented continuation lines; each names its check.
         $stepLine = 0
         $step = $null
         $flush = {
@@ -204,12 +236,12 @@ function Test-Plans {
         }
         for ($i = 0; $i -lt $lines.Count; $i++) {
             $line = $lines[$i]
-            if ($line -match '^\s*- \[ \]') {
+            if ($line -match '^\s*(-|\d+\.) \[ \]') {
                 & $flush
                 $stepLine = $i + 1
                 $step = $line
             }
-            elseif ($stepLine -gt 0 -and $line -match '^\s{2,}\S' -and $line -notmatch '^\s*- \[') {
+            elseif ($stepLine -gt 0 -and $line -match '^\s{2,}\S' -and $line -notmatch '^\s*(-|\d+\.) \[') {
                 $step += ' ' + $line.Trim()
             }
             elseif ($stepLine -gt 0) {

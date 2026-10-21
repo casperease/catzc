@@ -57,31 +57,11 @@ tracked (`python/catzc_diagrams/`, `python/tests/catzc_base_repository/`, `go/te
 
 ### 2. The repository normal form
 
-The word model, in `Catzc.Base.Languages` (ADR-AUTO-IDIOM-CLOSEDCASES, -ROUNDTRIP, -ACRONYMISWORD):
+The word model, the 15 acronym renames, the helper renames, the manual-test-plan rows and `Repair-IdiomaticNames` landed on 2026-10-21; the
+L1 round trip in `ConvertTo-NormalName.Tests.ps1` passes once the user commits the case-only renames with `git mv`.
 
-- [ ] `docs/adr/automation/idiomatic-names.md`: confirm the landed `camel` rule (CLOSEDCASES) is in the registry (check: `Test-AdrRegistry`
-      on the page).
-- [ ] The helpers, each renamed to a verb-noun name with its callers, one file per step: `StripAnsi` (in five test files:
-      Write-TestAutomationVerdict, Write-CmdletParameterSet, Write-Footer, Write-Header, Write-Object), `RunAssert`
-      (`Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1`), `Rec` (`Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1`), `Walk`
-      (`Catzc.Base.Asserts/Assert-YmlNaming.ps1`), `Clone` (`Catzc.Base.Objects/Copy-Object.ps1`) (check: `Invoke-TestFile` on each one's
-      test file).
-- [ ] The 13 acronym commands, renamed to their round-trip spelling (`Set-LocalPsModulePath`, `Invoke-PsScriptAnalyzerFormat`,
-      `Import-/Save-PsReadLineKeyHandlerSet`, `Invoke-BuildForVsCode`, `Build-/Install-VsCodeExtension`, `New-VsCodeExtensionFolder`,
-      `New-VsCodeExtensions`, `New-VsCodeLaunch`, `New-VsCodePipelineSchema`, `New-VsCodeSettings`, `New-VsCodeTasks`), each with its file,
-      callers, tests, contract and docs page, no alias kept, one command per step and a fresh import after each
-      (ADR-AUTO-IDIOM-ACRONYMISWORD; the user, 2026-10-21). (check: `Invoke-TestFile` on its tests; after the last, the L1 round trip in
-      `ConvertTo-NormalName.Tests.ps1` passes.)
-- [ ] `docs/how-to/pwsh/manual-test-plan/repository-conventions.md`, the manual test plan: a row each for `ConvertTo-NormalName.Tests.ps1`,
-      `Get-DefinedName.Tests.ps1`, `Get-GridMinimapData.Tests.ps1` and `Listen.Shipped.Tests.ps1` (check: `Test-ManualTestPlan` lists none).
-
-The gate and the repair (ADR-AUTO-IDIOM-HELDBYGATE):
-
-- [ ] `pwsh/Catzc.Base.QualityGates/Repair-IdiomaticNames.ps1`: moves each misnamed folder or file on disk to its idiomatic name and lists
-      every tracked file that names the old path, for one-file-at-a-time edits; `-DryRun` (ADR-PWSH-DRYRUN) (check: `Invoke-TestFile` on its
-      tests).
-
-The contracts in the normal form, `contracts/catzc/0.0.0`:
+The contracts in the normal form, `contracts/catzc/0.0.0`, wait on the user's choice of sequencing (a red gate across sessions, a
+transitional dual reader, a separate chunk, or a one-shot converter from the existing assets):
 
 - [ ] `pwsh/Catzc.Base.Contracts/types/ContractCommand.cs` and `ContractParameter.cs`: read names, sets and types in the normal form (check:
       `Invoke-TestFile` on their type tests).
@@ -96,12 +76,8 @@ The contracts in the normal form, `contracts/catzc/0.0.0`:
 - [ ] The `cats` entry of each engine: take the command and its parameters in kebab case and map them through the lookup's normal form
       (check: the bash and pwsh tests of `cats`, `Invoke-BashTest`).
 
-From the session's finalizer (catzc-73, 2026-10-21):
+From the session's finalizer (catzc-73, 2026-10-21); its `catzc-verify` line and the rename how-to landed:
 
-- [ ] `.claude/skills/catzc-verify/SKILL.md`: one line, within its roof, that a rename of a folder the tooling names lands its import-path
-      readers (Build-RootConfig's project writers, `Get-LanguageTestFolders`) in the same pass (check: `Test-AgentDefinitions`).
-- [ ] `docs/how-to/automation/rename-a-tooling-folder.md` (new): the prepared, applied-in-one-burst, rolled-back-whole pattern of the two
-      renames (check: `Test-Links` on the page).
 - [ ] `CommentPageMap.cs` (in `Catzc.Base.CodeMeta`), `Get-ReadmeMappings.ps1`, `Get-ModuleGlobSet.ps1` and
       `Get-ModuleProtectionIdentity.ps1` render `{kebab}` by `ToLowerInvariant().Replace('.', '-')`; moving them to `LanguageNaming` renames
       the `catzc-base-*` reference pages, so it waits on the user's yes (check: the user answers; then `Invoke-TestFile` on each one's tests

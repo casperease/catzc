@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[ModuleFiles.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ModuleFiles.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

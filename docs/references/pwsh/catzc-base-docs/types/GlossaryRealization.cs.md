@@ -15,5 +15,5 @@ an identifier, never a URL (every glossary source and reference stays in the rep
 prose-only concept is a pure vocabulary term with nothing in code to enforce
 ([ADR-REPO-VOCAB-REALIZEDBY](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-realizedby)), so it carries no
 pattern. Mirrors the YAML mapping (snake_case keys,
-[ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

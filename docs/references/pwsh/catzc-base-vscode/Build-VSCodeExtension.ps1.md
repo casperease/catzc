@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.VSCode/Build-VSCodeExtension.ps1
+# pwsh/Catzc.Base.VSCode/Build-VsCodeExtension.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -32,5 +32,5 @@ The folder the .vsix is written to. Default: the vsix folder under the output ro
 ### example 1
 
 ```powershell
-Build-VSCodeExtension out/vscode-extensions/catzc-git-changes
+Build-VsCodeExtension out/vscode-extensions/catzc-git-changes
 ```

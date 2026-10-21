@@ -11,5 +11,5 @@ Above `namespace Catzc.Base.Maps;`, written with `//`.
 One place a file cites an ADR: the file, the 1-based line, the canonical citation, and the kind of text it sits in, so
 a highlight can say where a lit file cites the request and whether that citation is the file's subject or a passing
 mention. CitationScanner.Sites finds them. A result type, so the properties are PascalCase
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

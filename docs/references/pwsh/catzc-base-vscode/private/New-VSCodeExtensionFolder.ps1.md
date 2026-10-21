@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.VSCode/private/New-VSCodeExtensionFolder.ps1
+# pwsh/Catzc.Base.VSCode/private/New-VsCodeExtensionFolder.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -37,5 +37,5 @@ The folder that holds the extension scripts. Default: the module's assets/extens
 ### example 1
 
 ```powershell
-New-VSCodeExtensionFolder -Extension $entry -OutputDirectory (Join-Path (Get-OutputRoot) 'vscode-extensions')
+New-VsCodeExtensionFolder -Extension $entry -OutputDirectory (Join-Path (Get-OutputRoot) 'vscode-extensions')
 ```

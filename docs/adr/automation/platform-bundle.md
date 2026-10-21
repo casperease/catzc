@@ -30,8 +30,7 @@ A bundle loads by running the **one living importer** in its bundle mode, never 
 ([one-living-version](../principles/one-living-version.md)). The bundle's entry sets the two roots and runs the same importer the mono
 repo's entry runs; the bundle mode honours the pre-set `CatzcModulesRoot`, forces the janitors off, reads each module's prebuilt manifest,
 and loads the prebuilt combined-types assembly without compiling. Reusing the importer reproduces the exact tested load sequence — the C#
-types register **before** any module loads ([native-csharp-types](BCL/native-csharp-types.md)) — which a single declarative package
-description cannot guarantee.
+types register **before** any module loads — which a single declarative package description cannot guarantee.
 
 - [Booting through the importer](#booting-through-the-importer)
 
@@ -270,5 +269,4 @@ effect of building or loading.
 - [self-service](../design/self-service.md) — the content-addressed artifact and build-once/deploy-many this specialises.
 - [internal-asset-dependencies](internal-asset-dependencies.md) — the asset inventory the build's presence check verifies.
 - [module-aspects](../design/module-aspects.md) — the live/tests aspect the runtime payload is deliberately broader than.
-- [native-csharp-types](BCL/native-csharp-types.md) — the combined assembly and the type load order the bundle mode preserves.
 - [environment-variables](environment-variables.md) — the well-known-anchor rule `CatzcModulesRoot` follows.

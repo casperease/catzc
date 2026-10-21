@@ -14,7 +14,7 @@ behaves exactly like its default, so the file states only what deviates
 ([ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-defaultdeclaredonce)). Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AdrChecksConfig), so Get-Config -Config adr-checks returns this typed
 record ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)). Mirrors the YAML mapping
-(snake_case, [ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+(snake_case, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
   engine_neutrality — AdrNeutralityCheck, read by Test-AdrEngineNeutrality
   citation_graph    — AdrCheck, read by Test-AdrRegistry
   dora_coverage     — AdrDoraCheck, read by Test-AdrRegistry

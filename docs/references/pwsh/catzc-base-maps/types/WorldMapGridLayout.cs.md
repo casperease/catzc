@@ -17,5 +17,5 @@ The column-header band holds the column axis on one line and the file-language n
 leaves every column the same height.
 Coordinates are PDF user space: the origin at the bottom-left, in points; row 0 is the top row. WorldMapPdf draws the
 grid page from one of these, and the tests check its positions. A result type, so the properties are PascalCase
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

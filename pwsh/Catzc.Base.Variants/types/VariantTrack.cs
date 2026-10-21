@@ -17,7 +17,7 @@ catzc:
   edges:
     docs: "[VariantTrack.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-DSGN-TRACK
       - ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES
 ---

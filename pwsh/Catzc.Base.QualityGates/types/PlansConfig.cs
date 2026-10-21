@@ -10,10 +10,11 @@ namespace Catzc.Base.QualityGates;
 public sealed class PlansConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "plans configuration validation failed:\n";
-    private static readonly string[] AllowedKeys = { "folder", "statuses", "ranks", "head", "sections", "master", "tasks", "names" };
+    private static readonly string[] AllowedKeys = { "folder", "statuses", "ranks", "head", "sections", "master", "value", "tasks", "names" };
     private static readonly string[] HeadKeys = { "required", "allowed" };
     private static readonly string[] SectionKeys = { "required", "carried" };
     private static readonly string[] MasterKeys = { "file", "sections" };
+    private static readonly string[] ValueKeys = { "file" };
     private static readonly string[] TaskKeys = { "max" };
 
     // The repository-relative folder the plans live in ([ADR-REPO-PLANS-ONETOPICONEFILE](/docs/adr/repository/plans.md#rule-adr-repo-plans-onetopiconefile)).
@@ -36,6 +37,9 @@ public sealed class PlansConfig : Catzc.Base.Objects.DictionaryRecord
     // The master plan and the sections it has instead of a plan's shape ([ADR-REPO-PLANS-MASTERANDTASKS](/docs/adr/repository/plans.md#rule-adr-repo-plans-masterandtasks)).
     public string master_file { get; } = "plan-master.md";
     public IReadOnlyList<string> master_sections { get; } = new[] { "Process", "Chunks" };
+
+    // The sorting overlay that holds one value row per plan ([ADR-REPO-PLANS-THREEPARTS](/docs/adr/repository/plans.md#rule-adr-repo-plans-threeparts)).
+    public string value_file { get; } = "value-of-plan.md";
 
     // The most task files the folder holds; a task is named by its topic, the master's list carries the order ([ADR-REPO-PLANS-MASTERANDTASKS](/docs/adr/repository/plans.md#rule-adr-repo-plans-masterandtasks)).
     public int tasks_max { get; } = 50;
@@ -84,6 +88,8 @@ public sealed class PlansConfig : Catzc.Base.Objects.DictionaryRecord
             if (master.Contains("file") && master["file"] != null) { master_file = master["file"].ToString(); }
             if (master.Contains("sections")) { master_sections = Words("master.sections", master["sections"], errors) ?? master_sections; }
         }
+        IDictionary value = Section(raw, "value", ValueKeys, errors);
+        if (value != null && value.Contains("file") && value["file"] != null) { value_file = value["file"].ToString(); }
         IDictionary tasks = Section(raw, "tasks", TaskKeys, errors);
         if (tasks != null && tasks.Contains("max"))
         {

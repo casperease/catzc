@@ -11,7 +11,7 @@ Above `namespace Catzc.Base.Maps;`, written with `//`.
 The world-map limits (the `limits` section of configs/maps.yml): the page size in PDF points, the smallest font size
 a label may shrink to, and the longest track and file-language name a row or column header prints before it is
 shortened. The properties mirror the YAML keys, so they are snake_case
-([ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-snakecasemirrorsyaml)). The defaults are declared
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). The defaults are declared
 here, once ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an A4 landscape
 page. MapsConfig validates the section (every value positive) and builds one.
 ```

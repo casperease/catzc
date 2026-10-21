@@ -1,4 +1,14 @@
-Describe 'Invoke-BuildForVSCode' -Tag 'L0', 'logic' {
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "5aca149f62c2"
+  edges:
+    code: pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVsCode.ps1
+---
+#>
+
+Describe 'Invoke-BuildForVsCode' -Tag 'L0', 'logic' {
     BeforeEach {
         # The guard is the boundary to the run mode; these cases exercise the build itself.
         Mock Assert-SourceTree -ModuleName Catzc.Base.TypesSystem { }
@@ -12,44 +22,44 @@ Describe 'Invoke-BuildForVSCode' -Tag 'L0', 'logic' {
 
     It 'runs dotnet build on Catzc.Types.csproj in the configuration of bcl.yml' {
         Mock Get-Config -ModuleName Catzc.Base.TypesSystem { [Catzc.Base.Languages.BclConfig]::new([ordered]@{ configuration = 'Widget' }) }
-        Invoke-BuildForVSCode | Out-Null
+        Invoke-BuildForVsCode | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 1 -ParameterFilter {
             $Command -match 'dotnet build' -and $Command -match 'Catzc\.Types\.csproj' -and $Command -match '--configuration Widget'
         }
     }
 
     It 'defaults to the Debug configuration' {
-        Invoke-BuildForVSCode | Out-Null
+        Invoke-BuildForVsCode | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -ParameterFilter {
             $Command -match '--configuration Debug'
         }
     }
 
     It 'returns the project path by default' {
-        Invoke-BuildForVSCode | Should -Match 'Catzc\.Types\.csproj$'
+        Invoke-BuildForVsCode | Should -Match 'Catzc\.Types\.csproj$'
     }
 
     It 'with -PassThru returns the executable result instead of the path' {
-        (Invoke-BuildForVSCode -PassThru).ExitCode | Should -Be 0
+        (Invoke-BuildForVsCode -PassThru).ExitCode | Should -Be 0
     }
 
     It 'throws an actionable error when dotnet is not on PATH' {
         Mock Test-Command -ModuleName Catzc.Base.TypesSystem { $false }
-        { Invoke-BuildForVSCode } | Should -Throw '*Install-Dotnet*'
+        { Invoke-BuildForVsCode } | Should -Throw '*Install-Dotnet*'
     }
 
     It 'does not launch dotnet when the tool is missing' {
         Mock Test-Command -ModuleName Catzc.Base.TypesSystem { $false }
-        { Invoke-BuildForVSCode } | Should -Throw
+        { Invoke-BuildForVsCode } | Should -Throw
         Should -Not -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem
     }
 }
 
-Describe 'Invoke-BuildForVSCode — build mode' -Tag 'L0', 'logic' {
+Describe 'Invoke-BuildForVsCode — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package, before launching dotnet' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem { }
-        { Invoke-BuildForVSCode } | Should -Throw '*Invoke-BuildForVSCode operates on the catzc source tree*'
+        { Invoke-BuildForVsCode } | Should -Throw '*Invoke-BuildForVsCode operates on the catzc source tree*'
         Should -Not -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem
     }
 }

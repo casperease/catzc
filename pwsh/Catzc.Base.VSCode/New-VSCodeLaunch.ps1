@@ -3,7 +3,7 @@
 catzc:
   immutable:
     repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
+    path: pwsh/Catzc.Base.VSCode/New-VsCodeLaunch.ps1
     name: new-vs-code-launch
     filetype: ps1
     role: function
@@ -16,14 +16,14 @@ catzc:
     catzc_bundle: azure
     visibility: public
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1
-    docs: "[New-VSCodeLaunch.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VSCodeLaunch.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/New-VsCodeLaunch.Tests.ps1
+    docs: "[New-VsCodeLaunch.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VsCodeLaunch.ps1.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---
 #>
 
-function New-VSCodeLaunch {
+function New-VsCodeLaunch {
     [CmdletBinding()]
     [OutputType([string])]
     param()

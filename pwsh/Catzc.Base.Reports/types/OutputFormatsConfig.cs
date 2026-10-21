@@ -18,7 +18,7 @@ catzc:
     test: pwsh/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
     docs: "[OutputFormatsConfig.cs.md](docs/references/pwsh/catzc-base-reports/types/OutputFormatsConfig.cs.md)"
     cites:
-      - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-OUTFMT-OUTPUTFORMAT
 ---
 */

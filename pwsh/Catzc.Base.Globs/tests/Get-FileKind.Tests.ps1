@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "67c2ee4ade22"
+  edges:
+    code: pwsh/Catzc.Base.Globs/Get-FileKind.ps1
+    cites:
+      - ADR-REPO-FILEMETA-METAKIND
+---
+#>
+
 Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
     It 'names the role of a file in the shipped registry' -ForEach @(
         @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Variants/Get-Track.ps1'; Class = 'function' }
@@ -31,6 +43,7 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Path = 'docs/references/pwsh/catzc-base-globs/Get-FileKind.ps1.md'; Class = 'comment-page' }
         @{ Path = 'infrastructure/templates/foundation/main.bicep'; Class = 'template' }
         @{ Path = 'infrastructure/templates/foundation/options.yml'; Class = 'template/config' }
+        @{ Path = 'infrastructure/templates/foundation/configuration/nsub.bicepparam'; Class = 'template/config' }
         @{ Path = 'infrastructure/modules/storage.bicep'; Class = 'template/module' }
     ) {
         (Get-FileKind $Path).Class | Should -BeExactly $Class

@@ -56,19 +56,20 @@ plan-decide round, and only truth-stores and test-signal-proposals are blocked b
 - truth-stores -> plan-truth-stores.md: the approved sample enters the product-thesis deck; blocked_on its Q1 (no slide pattern carries an
   image).
 - eac-normal-form -> plan-eac-normal-form.md: one step left, the explanation page that embeds the approved sample.
-- bcl-language -> plan-bcl-language.md: move the BCL reference and how-to pages out of `pwsh/` and re-point their links; the reference-set
-  rule, `bcl.yml` and its gate, the five unwraps, the one BCL definition page, the CLAUDE.md line, the `bcl` domain and re-cite, and the
-  diagram sample; the language-row rename after plan-minimal-heads.
-- bicepparam -> plan-bicepparam.md: the Bicep CLI spike, then the rules, the language entry, the renderer, discovery, the build, and the
-  one-shot migration of the six literal slots.
+- bcl-language -> plan-bcl-language.md: the language-row rename after plan-minimal-heads; the CLAUDE.md line is the user's
+  (task-user-runs-and-commits).
 - agent-friction -> plan-agent-friction.md: the three gate steps first (Test-Plans' three-part plan rule and file paths, Test-Formatting
   `-Path`), then the plan-edit hook with its path-pattern map and the CLAUDE.md trim; the plans ADR's no-Done restatement and the
   plan-intake agent and skill brought in step with it; the head how-to and its drawing after plan-minimal-heads.
+- git-topic-commands -> plan-git-topic-commands.md: the git flow config type and file, `Get-SyncPoint`, `Save-Topic`, `Sync-Topic`,
+  `Push-Topic`, their L1 flow test, `Push-Dirty` deleted, the VS Code tasks, the hook that denies an agent the three, the help.
 - claude-diet -> plan-claude-diet.md: the Sub-agents section of CLAUDE.md cut to names and one clause each, and the pwsh index named.
 - adr-authoring -> plan-adr-authoring.md: the glossary contrast declared once and the domain-deps memory deleted, the add-an-adr how-to
   after plan-agent-shortcuts' gate runner, the ADR-edit entry in plan-agent-friction's hook map.
 - diagram-build-learnings -> plan-diagram-build-learnings.md: fix the Build-Diagrams help (the sample sequence included), one merged
   catzc-run item, quiet the legend's warning by role, measure then memo the minimap stage, one pipeline drawing for an explanation page.
+- accosted-language -> plan-accosted-language.md: the ADR and the reserved word first, then the terminology gate, glossary, language row and
+  resolver, the config and typed record, the reader, the run limit and runner, their contracts, the first accosted file.
 - debt-signals -> plan-debt-signals.md: twenty page lines, messages and commands that carry a declared fact to the session (janitor outage,
   index-only gates, Format-Code kinds, grouped failures, a caller finder, the entry script's location, a once-only learning log, three ADR
   pitfalls, the rolling logs in the Docs article).

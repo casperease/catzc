@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "28bc13636202"
+    with_body_sha: "09e4c4b50266"
     warning: "Do Not Edit, this file is generated"
     role: index
     track: docs
@@ -139,9 +139,9 @@ implement it.
 The catzc CLI and module system and the rules for building it: devbox/pipeline parity, one function per file, open/closed growth, fail-fast
 assertions, idempotency, caching, path forms, system, module, and internal asset dependencies, the module model, test automation, the
 merged, installable build, the five layers of the automation and the importer that decides a session's mix, stated for any execution engine.
-Language layers live in `BCL/` (native C# types) and `go/`, `python/`, and `bash/` (black-box test artifacts). It turns the research,
-principles, process, and design domains into enforced code; the pwsh domain realises it in PowerShell, and the ado, github, and azure
-domains build on it.
+Language layers live in `go/`, `python/`, and `bash/` (black-box test artifacts); the BCL language of the native C# types is the bcl domain.
+It turns the research, principles, process, and design domains into enforced code; the pwsh domain realises it in PowerShell, and the ado,
+github, and azure domains build on it.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`.
 
@@ -179,7 +179,6 @@ domains build on it.
 | `ADR-AUTO-SPELL`    | [spell-out-names](automation/spell-out-names.md)                                 |
 | `ADR-AUTO-IDIOM`    | [idiomatic-names](automation/idiomatic-names.md)                                 |
 | `ADR-AUTO-DRYRUN`   | [dry-run](automation/dry-run.md)                                                 |
-| `ADR-AUTO-TYPES`    | [native-csharp-types](automation/BCL/native-csharp-types.md)                     |
 | `ADR-AUTO-GO`       | [go-test-artifacts](automation/go/go-test-artifacts.md)                          |
 | `ADR-AUTO-PY`       | [python-test-artifacts](automation/python/python-test-artifacts.md)              |
 | `ADR-AUTO-BASH`     | [bash-test-artifacts](automation/bash/bash-test-artifacts.md)                    |
@@ -188,13 +187,26 @@ domains build on it.
 | `ADR-AUTO-LAYERS`   | [layers](automation/layers.md)                                                   |
 | `ADR-AUTO-IMPORTER` | [importer](automation/importer.md)                                               |
 
+### automation/BCL/
+
+BCL as a language of catzc's own: C# against the .NET Base Class Library, a subset of .NET, written in the `types/*.cs` sources — one type
+per file, a namespace per module, one combined assembly, the Base Class Library as the whole reference set with each host binding a
+configured exception, and the one build pair of its solution and projects. pwsh is its host, not its owner: how pwsh compiles and carries
+the types is the pwsh domain's.
+
+**Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`.
+
+| Code            | ADR                                                          |
+| --------------- | ------------------------------------------------------------ |
+| `ADR-BCL-TYPES` | [native-csharp-types](automation/BCL/native-csharp-types.md) |
+
 ### automation/pwsh/
 
 PowerShell 7 as one of catzc's execution engines: how the automation rules are realised in pwsh — module files and manifests, parameter and
 error design, streams and console output, caching in script scope, working directory and environment mechanics, cross-platform pwsh, the
 analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines them.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`.
+**Role:** `implementation` — **depends on:** `research`, `principles`, `process`, `design`, `automation`, `bcl`.
 
 | Code                | ADR                                                                                         |
 | ------------------- | ------------------------------------------------------------------------------------------- |
@@ -232,7 +244,7 @@ its global name, caches it per file, and validates it in its owning module's sco
 committed config by reference, and config values a tracked Markdown file contributes to a config that opted in. It gives every
 implementation domain its single way to read configuration.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `automation`.
+**Role:** `implementation` — **depends on:** `research`, `principles`, `automation`, `bcl`.
 
 | Code                  | ADR                                                                             |
 | --------------------- | ------------------------------------------------------------------------------- |
@@ -315,7 +327,7 @@ vocabulary of defined terms, the reserved meta block in a Markdown file's front 
 the rules behind each, and sibling repositories read for ideas, never as a reference implementation, and the session-memory protection that
 skips a repeated scan over an unchanged globset.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`, `configuration`.
+**Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`, `configuration`, `bcl`.
 
 | Code                   | ADR                                                                    |
 | ---------------------- | ---------------------------------------------------------------------- |

@@ -20,7 +20,7 @@ from cspell's own dictionaries by Build-EnglishDictionary) plus every generated 
 and the per-fragment lookup are here in C# rather than PowerShell on purpose: a PowerShell method call
 costs ~10 microseconds, so tokenizing and looking up thousands of fragments per file in PowerShell would
 dominate the analyzer's runtime, whereas the same work in C# is microseconds
-([ADR-AUTO-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-nativetypedmodel) — a concept the
+([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel) — a concept the
 platform's own logic operates on becomes a native type).
 
 The rule decides WHICH identifiers to feed and applies AST-level exemptions (automatic variables, drive
