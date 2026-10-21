@@ -59,3 +59,81 @@ Started 2026-10-21T05:24:52.8629145+02:00.
   that carries a head, so a select-less body-sha was always going to meet every carrier, BodyHash or not.
 - 2026-10-21 Jack: If only the session had read the config ADR: docs/drs/configuration/module-config-loading.md:22 already says Get-Config
   caches by resolved file path and invalidates only by re-import, so a peer sees the edit at its next fresh import and not a moment sooner.
+- 2026-10-22 Jack: If only the session had read the gate article:
+  docs/references/pwsh/catzc-base-quality-gates/Test-ShippedConfigs.ps1.md:48 already says a shipped key may differ from its type default
+  only with its reason in configs.yml, and Test-ShippedConfigs fails every other difference.
+- 2026-10-22 Jack: If only the session had read the writer it was about to extend: pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1:28 already
+  says every log is one LearningsConfig instance registered in configs.yml under its own name, and
+  pwsh/Catzc.Base.Docs/configs/hindsight.yml sets only folder, prefix and title.
+- 2026-10-22 Jack: If only the session had read the counter article:
+  docs/references/pwsh/catzc-base-docs/private/Get-RobotLineCount.ps1.md:18-19 already says a line that starts with whitespace continues the
+  line before and counts with it, so a wrapped clause was always free and every robot and capability roof always logical.
+- 2026-10-22 Jack: If only the robot had been born knowing itself: .claude/agents/2020-hindsight.md:14 carries maxTurns 120 and :36-38
+  append after every ten verdicts at three probes each, so the turn roof and the batch append are both declared in the body, after the
+  90k-token dry run that taught them.
+- 2026-10-22 Jack: If only the session had read the head policy: pwsh/Catzc.Base.QualityGates/configs/file-meta.yml:13-17 declares agent
+  forbidden and capability and slide config-only, so Format-Code strips the derived head wherever that policy says, and
+  .claude/skills/catzc-run/SKILL.md:19 already keeps a robot to Format-Code -Path on its own files.
+- 2026-10-22 Jack: If only the session had loaded catzc-run before running Format-Code: .claude/skills/catzc-run/SKILL.md:19 already says
+  Format-Code with -Path on the files touched, never -Language markdown, so the 68 rewritten files were a capability skipped.
+- 2026-10-22 Jack: If only someone had told the parameters: no ADR, analyzer rule or capability in the tree says ValidatePattern ignores
+  case unless it carries Options = None, and the one precedent, pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1:57, is found only by tripping
+  over it.
+- 2026-10-22 Jack: If only the session had read the registry: pwsh/Catzc.Base.Docs/configs/agents.yml:138 and :148 bind the personas Jack
+  and Susan from HR, and Add-SessionLearning -Author writes them into each line, so the signature was a declared key, not a discovery.
+- 2026-10-22 Jack: If only a capability listed the three parts of an optional registry key: nothing in the tree, no how-to under
+  docs/how-to/ and no SKILL.md, says the key lands with its type test case and its registry doc page in one pass, so the second gate run
+  stays the reminder.
+- 2026-10-22 Jack: If only the loader article had said it: pwsh/.internal/Catzc.Internal.Loader.psm1:150 exports an explicit function list,
+  but neither docs/references/pwsh/internal/catzc-internal-loader.md nor any capability says a new loader function must join it, so the
+  first test run is the one that finds out.
+- 2026-10-22 Jack: If only the session had read the loader article: docs/references/pwsh/internal/catzc-internal-loader.md:19 already says
+  the host detectors sit in the loader because the bootstrap C# types pre-pass runs before any module loads.
+- 2026-10-22 Jack: If only the session had read the types ADR: docs/drs/automation/BCL/native-csharp-types.md:46-55 already orders the
+  stale-types branch, a pipeline throws, a VS Code terminal writes one line naming both hashes, another devbox throws on a missing type and
+  warns on a changed one.
+- 2026-10-22 Jack: If only the session had run the analyzer instead of reading it: Measure-NoRawPipelineDetection is mapped at
+  pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml:57 to FDR-CD-DETECT-NODIRECTVARIABLECHECK, so Test-ScriptAnalyzer already
+  enforces the one reader per host variable.
+- 2026-10-22 Jack: If only the session had loaded catzc-run: .claude/skills/catzc-run/SKILL.md:26 already says editing a code line whose
+  long comment moved to a comment page edits its Above line too, Format-Code moves every multi-line comment there, and Test-Comments fails a
+  page left pointing at the old line.
+- 2026-10-22 Jack: If only the session had read the Sync-FileMeta article:
+  docs/references/pwsh/catzc-base-quality-gates/Sync-FileMeta.ps1.md:15-17 already says it formats, then imprints the whole head its class
+  policy gives, from registries, git and disk, never from the head.
+- 2026-10-22 Jack: If only the session had read the test it was surprised by: pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1:53-54 clears
+  TERM_PROGRAM before each case and restores it after, so the VS Code guard was declared in the fixture all along.
+- 2026-10-22 Jack: If only the session had read the README writer: docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md:10 generates
+  each README from its authored docs source and :19 calls the READMEs gitignored derived artifacts, so the Division table of the module page
+  was always the one place to list a function.
+- 2026-10-22 Jack: If only the learning had waited for the gate: docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md:22-23 now
+  fails a plan with no row in the value overlay or no chunk line in the master plan (ADR-REPO-PLANS-THREEPARTS), so a plan omitted from
+  plan-master.md no longer passes.
+- 2026-10-22 Jack: If only Test-Plans compared what it counts: docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md:22 checks
+  only that a master chunk line and a value row exist, and nothing in the tree compares their step lists with the open steps, so drift is
+  still found by the diff the learning recommends.
+- 2026-10-22 Jack: If only the learning had read the ADR again: docs/drs/repository/plans.md:39 now says a landed step is deleted, never
+  ticked and kept, and :109 is the Done is deleted section, so the retired Done section no longer survives in ADR-REPO-PLANS.
+- 2026-10-22 Jack: If only the session had read the dependency graph: pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml:86-93 gives
+  Catzc.Base.Languages a CodeMeta edge and :190-214 gives Catzc.Base.QualityGates one, so the common home of a shared head derivation was a
+  declared edge, not a find.
+- 2026-10-22 Jack: If only the deck had been asked by a gate: no slide pattern under pwsh/Catzc.Base.Slides/configs names an image field,
+  and docs/references/pwsh/catzc-base-slides/private/Get-SlideFinding.ps1.md:15 checks only that an order is a whole number, never a gap, so
+  both facts are learned by counting slides.
+- 2026-10-22 Jack: If only the finalize capability had said how to tell: .claude/skills/session-finalize/SKILL.md:20 says a repeat run adds
+  only what is new, but names no git status probe of .claude/plans, so the clean tree that owes nothing is discovered by rereading.
+- 2026-10-22 Jack: If only the session had read the defaults ADR: docs/drs/automation/sensible-defaults.md:31-35 already says the default is
+  the Default constant on the config type, shown in the shipped file, and that an omitted key takes it, so an empty yml was always a valid
+  config.
+- 2026-10-22 Jack: If only the session had read the hook builder: pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1:32 already says dotnet
+  runs through Invoke-Executable rather than Invoke-Dotnet because that wrapper lives in the Tooling layer a Base module cannot depend on.
+- 2026-10-22 Jack: If only the session had read the plan it was about to restate: .claude/plans/plan-bcl-language.md:50 already re-cites
+  ADR-AUTO-TYPES to ADR-BCL-TYPES as a domain of its own, so a new rule rides that re-cite by construction.
+- 2026-10-22 Jack: If only CLAUDE.md had ranked its readers: .claude/CLAUDE.md:137 offers cat beside Read, Grep and Glob as equals, and
+  nothing in the tree says a large file is read with Read and an offset, so the persisted output read twice stays a token tip.
+- 2026-10-22 Jack: If only the learning had waited for the type: pwsh/Catzc.Base.Contracts/types/AccostedConfig.cs:25-33 now declares
+  harmless_verbs with the default get, test, find and measure, so the verb allow-list it called planned is a config key.
+- 2026-10-22 Jack: If only the learning had read the registry again: pwsh/Catzc.Base.QualityGates/configs/terminology.yml:55-59 now holds a
+  reserved category with its own scope, failed by Test-Terminology anywhere outside it (ADR-AUTO-ACCOSTED-RESERVEDNAME).
+- 2026-10-22 Jack: If only the robot had named a folder: .claude/agents/plan-decide.md:21-22 writes questionnaire and decisions files by
+  date with no folder at all, so where the record lands is still decided by whoever runs the round.

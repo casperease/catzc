@@ -81,7 +81,14 @@ final full run last.
     records, line 13's pair becomes "domain rules / DRS rules" (plan-drs-system; the move already rewrote its paths), and line 78's
     `edit-diagram-yml` entry names `<name>.drawio.yml` instead of `diagram.drawio.yml` (the flat files, step 14). Check: `Test-Links` and
     `Test-AgentDefinitions`.
-16. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+16. Susan from HR: edit `.claude/CLAUDE.md`, section Time safeguard, as plan-agent-friction.md steps 1 and 2 decide (hindsight 226bbf,
+    "which grep" and "the second half"; hindsight d7c207, "CLAUDE.md agreed"): the section keeps the rule, the hook, its log,
+    `timeouts.yml`, the denial rule and the fastest-runner rule and points at `catzc-run` for the call shapes; the probe line names the Grep
+    tool for a recursive search; the "script under `out/`" clause is cut for `Invoke-CatzcCommand.ps1`; one clause says Bash calls use
+    absolute paths and that the hook also denies the git topic commands. Cost today: the tree contradicts itself on `out/` scripts, and a
+    recursive bash grep cannot finish inside the 3 s roof. Check: `Test-AgentDefinitions`, `Test-Links -Path .claude/CLAUDE.md`, and
+    `wc -c .claude/CLAUDE.md` still at most 11900.
+17. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

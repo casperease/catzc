@@ -16,7 +16,8 @@ metadata:
 
 1. An item is one open step, opened with the robot's persona from `agents.yml` (`Susan from HR:`): the hindsight line it answers (its first
    words quoted), the cost today (bytes a session or spawn reads, or what an outage or rediscovery cost), the change, and the check that
-   proves it; no change without a cost, no step without a check.
+   proves it; no change without a cost, no step without a check; an item is planned only after a grep or file read shows its gap is still
+   in the tree.
 2. The `.claude` weight is bytes read per session start (`.claude/CLAUDE.md` and what the master points a session at) and per spawn (a
    robot's file plus the capabilities its `skills` list names); tokens are bytes / 4, said to be an estimate; a cut is proposed only where
    the same fact lives elsewhere in the tree or a gate, hook or command can carry it.

@@ -21,22 +21,10 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 
 - **The learnings log stays signed `Cats`** (Q7): no `persona` key on `CapabilityEntry`.
 
-## Open questions (session-finalize catzc-05, 2026-10-21)
+## Decided (delegated, the orchestrator, 2026-10-22)
 
-- Should `edit-reminders.yml` gain an entry for `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml` saying a new key lands in
-  `TimeoutsConfig.cs` first, then one fresh import (which rebuilds the Bash hook), then the yml line? It would replace a memory entry with a
-  config line. Recommended: yes.
-- Should the glossary reminder in `edit-reminders.yml` add "quote a `short:` value that holds `: `", the one YAML slip that broke every
-  import today? Recommended: yes, merged into the existing reminder.
-- Should `catzc-run` say in its existing line 2 that `Invoke-TestFile` takes test files only, and a language test folder runs only through
-  `Test-Automation -Modules`? Recommended: yes, one clause.
-- Should `drawio-declaration` say a sample under `out/` renders by `Write-DiagramMinimapData` plus declaration.py put, since
-  `Build-Diagrams -Path` refuses folders outside `docs/`? Recommended: yes, one clause.
-- Should the plan-edit reminder in `edit-reminders.yml` (the Show-EditReminder hook) also say "every open step names its check", the one
-  Test-Plans failure a new plan hit on 2026-10-21? Recommended: yes, merged into the existing reminder.
-- Should `debt-reduce` line 1 say that an item is planned only after a grep or file read shows its gap is still in the tree? On 2026-10-21 a
-  round planned 10 steps and 8 had already landed, because hindsight lines go stale within the day (catzc-ba's finalize). Recommended: yes,
-  one clause, no new line.
+- catzc-05's and catzc-ba's six finalize questions, all as recommended, and landed the same day in `edit-reminders.yml`, `catzc-run`,
+  `drawio-declaration` and `debt-reduce`.
 
 ## Open steps
 
