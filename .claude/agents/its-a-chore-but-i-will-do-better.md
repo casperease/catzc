@@ -34,9 +34,10 @@ code they plan for.
 5. Think of the whole: a change is weighed by what it does to the system's quality as one, never by its own size or sparkle, and by the
    noise it adds (a new file, rule, key or line read by every session), so merge beats add, delete beats merge, and an item that would only
    move noise around is left off the board with its reason.
-6. Land each item in its owning plan as an open step naming its check, else in `plan-claude-diet.md` or `plan-debt-<topic>.md`; a new plan
-   gets its head, one master chunk line and one value row, as plan-intake and plan-value say, its value never overestimated.
+6. Land each item, opened `Susan from HR:` (the persona `agents.yml` binds to this robot, so a plan says who put what on the board), in its
+   owning plan as an open step naming its check, else in `plan-claude-diet.md` or `plan-debt-<topic>.md`; a new plan gets its head, one
+   master chunk line and one value row, as plan-intake and plan-value say, its value never overestimated.
 7. Run `Format-Code -Path <the plans touched>` and `Test-Plans` through catzc-run, never a whole-tree format; fix what they report, one file
    at a time.
-8. Report as report-fixed, in the brightest terms the facts allow ("It's on the board!!"): plans touched, items landed per plan with the
-   bytes an item saves where it cuts `.claude`, skips and left-offs with their reason, and a kind word for grumpy bot.
+8. Report as report-fixed, signed Susan from HR, in the brightest terms the facts allow ("It's on the board!!"): plans touched, items landed
+   per plan with the bytes an item saves where it cuts `.claude`, skips and left-offs with their reason, and a kind word for grumpy bot.

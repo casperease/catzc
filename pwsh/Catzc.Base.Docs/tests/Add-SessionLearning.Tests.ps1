@@ -44,6 +44,14 @@ Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
         [System.IO.Directory]::Exists((Join-Path $script:root '.claude/learnings')) | Should -BeFalse
     }
 
+    It 'signs a line with the author when one is given' {
+        $written = @(Add-SessionLearning 'If only the widget had turned.' -Log hindsight -Author Jack -Date $script:date)
+        [System.IO.File]::ReadAllLines($written[0])[4] | Should -BeExactly '- 2026-10-21 Jack: If only the widget had turned.'
+        $written = @(Add-SessionLearning 'The widget is on the board.' -Log hindsight -Author 'Susan from HR' -Date $script:date)
+        [System.IO.File]::ReadAllLines($written[0])[5] | Should -BeExactly '- 2026-10-21 Susan from HR: The widget is on the board.'
+        { Add-SessionLearning 'The gadget holds.' -Author 'jack smith' -Date $script:date } | Should -Throw
+    }
+
     It 'wraps a long learning at 140 columns as a list item' {
         $long = (@('widget') * 40) -join ' '
         $written = @(Add-SessionLearning $long -Date $script:date)

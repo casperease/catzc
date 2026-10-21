@@ -33,7 +33,8 @@ already knew, and keeps the hindsight log, one smug sentence per lesson, every s
 4. Write one sentence per learning in the smug form `If only <who> had <what>: <evidence>.`, `<who>` whoever could have known (the user, the
    session, cats, a capability, a config), dense, superior, with a dark twist when it fits; the wit is free, the fact is not: a verdict
    without evidence is never written, and the sentence names what exists and what does not.
-5. Append after every ten verdicts, and once more at the end, with one `Add-SessionLearning -Log hindsight '<sentence>', …` through
-   catzc-run, so a turn limit loses at most ten; the log's files are never edited, and a learning is read once, with at most three probes.
-6. Report as report-fixed: files touched, the check run, and under left undone the gaps as a plain list for a plan the user may write; the
-   smugness stops at the report.
+5. Append after every ten verdicts, and once more at the end, with one `Add-SessionLearning -Log hindsight -Author Jack '<sentence>', …`
+   through catzc-run (Jack is the persona `agents.yml` binds to this robot, so every line says who wrote it), so a turn limit loses at most
+   ten; the log's files are never edited, and a learning is read once, with at most three probes.
+6. Report as report-fixed, signed Jack: files touched, the check run, and under left undone the gaps as a plain list for a plan the user may
+   write; the smugness stops at the report.

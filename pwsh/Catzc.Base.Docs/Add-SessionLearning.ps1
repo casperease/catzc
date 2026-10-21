@@ -45,6 +45,10 @@ function Add-SessionLearning {
     .PARAMETER Log
         The config name of the log to append to, a LearningsConfig in configs.yml. Default: learnings.
 
+    .PARAMETER Author
+        The person name of the robot writing the lines, its persona in agents.yml (Jack, Susan from HR); the line then reads
+        `- <yyyy-MM-dd> <Author>: <sentence>`, so a log says who wrote what. Default: none, the line carries the date only.
+
     .PARAMETER Date
         The date written on each line. Default: today.
 
@@ -60,12 +64,18 @@ function Add-SessionLearning {
         [ValidateSet('learnings', 'hindsight')]
         [string] $Log = 'learnings',
 
+        [ValidatePattern('^[A-Z][a-z]+( [A-Za-z]+){0,3}$', Options = 'None', ErrorMessage = "Author '{0}' must be a capitalised person name of at most four words, the robot's persona in agents.yml.")]
+        [string] $Author,
+
         [DateTime] $Date = [DateTime]::Today
     )
 
     $config = Get-Config -Config $Log
     $folder = Join-Path (Get-RepositoryRoot) $config.folder
     $day = $Date.ToString('yyyy-MM-dd', [cultureinfo]::InvariantCulture)
+    if ($Author) {
+        $day = "$day $Author"
+    }
     $encoding = [System.Text.UTF8Encoding]::new($false)
 
     $sentences = @(foreach ($sentence in $Learning) {

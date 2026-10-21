@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "7cfeabff48b9"
+#     with_body_sha: "7253d54307a6"
 #   edges:
 #     docs: "[agents.yml.md](docs/references/pwsh/catzc-base-docs/configs/agents.yml.md)"
 #     cites:
@@ -136,6 +136,7 @@ agents:
 
   # Reads what sessions learned the hard way, finds where the tree already knew or does not, and keeps the hindsight log: smug in form, checked in fact.
   - name: 2020-hindsight
+    persona: Jack
     supported_by:
       [
         ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE,
@@ -150,6 +151,7 @@ agents:
 
   # Turns the hindsight log's gaps into planned debt reductions, the .claude weight first; edits plans only, never the code they plan for.
   - name: its-a-chore-but-i-will-do-better
+    persona: Susan from HR
     supported_by: [ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-PRIN-NOWASTE-SEVENWASTES, ADR-REPO-PLANS-ONETOPICONEFILE, ADR-REPO-PLANS-OPENSTEP]
     checks: [Test-Plans, Format-Code, Test-Links]
     model_reason: groups hindsight lines into debt items across the plans and chooses each item's owning plan and cheapest change

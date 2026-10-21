@@ -34,8 +34,9 @@ namespace Catzc.Base.Docs;
 
 public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "name", "supported_by", "checks", "model_reason" };
+    private static readonly string[] AllowedKeys = { "name", "supported_by", "checks", "model_reason", "persona" };
     private static readonly Regex NameRe = new Regex("^[a-z0-9]+(-[a-z0-9]+)*$", RegexOptions.Compiled);
+    private static readonly Regex PersonaRe = new Regex("^[A-Z][a-z]+( [A-Za-z]+){0,3}$", RegexOptions.Compiled);
     private static readonly Regex CitationRe = new Regex("^ADR(-[A-Z][A-Z0-9]*){3,}$", RegexOptions.Compiled);
     private static readonly Regex CommandRe = new Regex("^[A-Z][a-z]+-[A-Za-z0-9]+$", RegexOptions.Compiled);
 
@@ -49,6 +50,9 @@ public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
     public IReadOnlyList<string> checks { get; }
 
     public string model_reason { get; }
+
+    // The person name a robot with a personality signs its log lines with (Add-SessionLearning -Author); null for a robot that keeps no log.
+    public string persona { get; }
 
     public AgentEntry(IDictionary d)
     {
@@ -80,6 +84,15 @@ public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
         {
             model_reason = OptStr(d, "model_reason");
             if (model_reason == null) { errors.Add("'model_reason' is empty; leave the key out when the agent runs on the default model"); }
+        }
+
+        if (d.Contains("persona"))
+        {
+            persona = OptStr(d, "persona");
+            if (persona == null || !PersonaRe.IsMatch(persona))
+            {
+                errors.Add(string.Format("persona '{0}' must be a capitalised person name of at most four words, e.g. Jack or Susan from HR; leave the key out for a robot that keeps no log", d["persona"]));
+            }
         }
 
         if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
