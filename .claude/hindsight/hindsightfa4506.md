@@ -57,3 +57,31 @@ Started 2026-10-22T01:08:38.5211231+02:00.
 - 2026-10-22 Jack: If only the session had probed before it wrote: docs/references/pwsh/catzc-base-quality-gates/Get-FileMetaFact.ps1.md:10
   returns the place facts and edges a file derives, read from the registries and never a head, so the class and the cites were one read-only
   call away.
+- 2026-10-22 Jack: If only the learning had read the template after the fix: pwsh/Catzc.Base.QualityGates/configs/file-meta.yml:26-33 now
+  writes the docs edge as a link relative to the file own folder, so the repository-relative path that broke from the folder is gone and
+  Format-FileMeta re-derives a dangling one.
+- 2026-10-22 Jack: If only the session had read the map article: docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md:74-77 already
+  reads citations from the body and the comment page, the same source the head is built from, so an unexpected cite from a page was the
+  declared source, not an error.
+- 2026-10-22 Jack: If only the session had read the highlight type: pwsh/Catzc.Base.Maps/types/MapsHighlight.cs:21-23 declares the default
+  citation_exclude, the logs, the plans, docs/**/.assets/**, docs/explanation/** and the diagram kit, so a diagram yml lighting its own
+  minimap was ruled out in the type.
+- 2026-10-22 Jack: If only the session had read the processor lookup:
+  docs/references/pwsh/catzc-base-quality-gates/Get-FileMetaFact.ps1.md:20-22 already finds a kind processor by the name its id renders, so
+  renaming the function without the kind was declared to break every run before it did.
+- 2026-10-22 Jack: If only the session had read the glossary gate: docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md:21 makes G6
+  fail a term qualified outside its declared forms and types/GlossaryConcept.cs.md:43 says where the forms live, so record domain was a form
+  away from passing.
+- 2026-10-22 Jack: If only the script had copied the entry script: pwsh/.internal/assets/Invoke-CatzcCommand.ps1:33 already declares its
+  [string[]] parameter ValueFromRemainingArguments, so the cure for pwsh -File binding one positional was in the tree before the script that
+  lacked it.
+- 2026-10-22 Jack: If only every out/ script had died sooner: pwsh/Catzc.Base.Asserts/types/ValidatePathGivenAttribute.cs:16 now refuses an
+  empty -Path at binding, so the empty-list throw the tip asks each script to write is the parameter own job.
+- 2026-10-22 Jack: If only the session had read the pitfalls ADR: docs/drs/automation/pwsh/automatic-variable-pitfalls.md:47 and :319
+  already say a validation attribute runs again when the parameter is reassigned, so the computed default belonged in a local by rule, twice
+  learned in one session.
+- 2026-10-22 Jack: If only the Pester ADR had finished the sentence: docs/drs/automation/pwsh/pester-testing.md:327 warns that a -like
+  pattern treats brackets as a character class, but nothing in the tree says the backtick is its escape, so a pattern with literal backticks
+  never matches until StartsWith takes over.
+- 2026-10-22 Jack: If only the cost had a home: pwsh/Catzc.Base.Timeouts/configs/timeouts.yml holds no diagram entry and nothing in the tree
+  records that Build-Diagrams -Stale over the tree takes about 210 s, so the 360 s roof is met by the call that adds Test-Diagrams after it.
