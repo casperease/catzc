@@ -85,3 +85,29 @@ Started 2026-10-22T01:08:38.5211231+02:00.
   never matches until StartsWith takes over.
 - 2026-10-22 Jack: If only the cost had a home: pwsh/Catzc.Base.Timeouts/configs/timeouts.yml holds no diagram entry and nothing in the tree
   records that Build-Diagrams -Stale over the tree takes about 210 s, so the 360 s roof is met by the call that adds Test-Diagrams after it.
+- 2026-10-22 Jack: If only Jack had grepped as well as he gloats: .claude/skills/plans-orchestrate/SKILL.md:26 appends every message and
+  reply to out/orchestrator-date.log with the session name, so the earlier line of this log saying no capability names that log is wrong,
+  and the missing plan is traced from a declared file.
+- 2026-10-22 Jack: If only the session had read the protocol: .claude/skills/plans-orchestrate/SKILL.md:20 already says an idle notice older
+  than the session last reply is stale and asks nothing, word for word the tip.
+- 2026-10-22 Jack: If only the session had read the check article:
+  docs/references/pwsh/catzc-base-quality-gates/private/Get-NeutralCodeFinding.ps1.md:21-23 never checks -Tag values or block titles and
+  checks every other L0 string, so a real code in a body stays a finding whatever the tag says.
+- 2026-10-22 Jack: If only the test author had copied the neighbour: python/catzc_diagrams/tests/test_minimap_drawing.py:136-142 already
+  clears the kinds, records_root and rules caches around a patched REPO, so the leak was fixed once in the tree before it was learned again.
+- 2026-10-22 Jack: If only a worker knew who is listening: .claude/skills/plans-orchestrate/SKILL.md:4-5 defines the protocol for
+  implementation-orchestrator over the ListAgents roster, but no line tells a worker that the live orchestrator is the session that sent its
+  work, so the background namesake is messaged first.
+- 2026-10-22 Jack: If only the worker had the intake rule: .claude/agents/plan-intake.md:20 checks every done claim against the tree before
+  recording it, but no capability tells a worker to check an open chunk the same way before claiming it, so a step landed hours ago is
+  started again.
+- 2026-10-22 Jack: If only the worker had read the contract: docs/drs/repository/ai-agent-contract.md:60 (ADR-REPO-AI-OUTISOUTPUT) makes a
+  run read back only its own stamped folder in out/, and .claude/skills/plans-orchestrate/SKILL.md:24-25 hold every other session during a
+  burst, so a peer scratch folder was never this worker to touch.
+- 2026-10-22 Jack: If only the session had read the overlay: .claude/plans/value-of-plan.md:44 holds the Pending deletion section and
+  docs/drs/repository/plans.md:43 is ADR-REPO-PLANS-DONEPLANDELETED, so the one line per deleted plan was declared where it is written.
+- 2026-10-22 Jack: If only the tip had read its own output: pwsh/.internal/assets/Invoke-CatzcCommand.ps1 prints one passed or failed line
+  per command and a closing N of M passed, so the verdict is one tail line and the grep for issues or FAIL is a second look at the same
+  answer.
+- 2026-10-22 Jack: If only the session had read its own CLAUDE.md: .claude/CLAUDE.md:117-119 already says a file in private/ is loaded but
+  not exported and reaches only the functions of its own module, so a function moved away from its callers is public there by rule.
