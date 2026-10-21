@@ -1,6 +1,8 @@
 <#
 ---
 catzc:
+  immutable:
+    with_body_sha: ebb554112b58
   edges:
     code: pwsh/Catzc.Base.Slides/private/Write-DiagramMinimapData.ps1
     cites:

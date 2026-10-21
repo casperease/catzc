@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b3a79af69366
+    with_body_sha: "39caae27ea6c"
   edges:
     docs: "[Build-ContractReference.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/Build-ContractReference.ps1
@@ -95,7 +95,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 
         @($lines | Where-Object { $_.StartsWith('- ') }).Count | Should -Be 1
         $first | Should -BeGreaterThan 0
-        $lines[$first + 1] | Should -BeExactly '  [ADR-TST-WIDGET-TURN](../../adr/repository/widget-thing.md#rule-adr-tst-widget-turn).'
+        $lines[$first + 1] | Should -BeExactly '  [ADR-TST-WIDGET-TURN](../../drs/repository/widget-thing.md#rule-adr-tst-widget-turn).'
         (Read-Page) | Should -Match "(?m)^\| ``catzc\.widget``.*\|\n\nNotes:\n\n- "
     }
 

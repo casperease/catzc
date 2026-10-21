@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b13f5f196610
+    with_body_sha: e733a0d98531
   edges:
     docs: "[Build-Bicep.Integrity.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md)"
     cites:

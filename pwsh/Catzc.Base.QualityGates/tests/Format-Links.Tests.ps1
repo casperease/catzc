@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9521b1d67e8a"
+    with_body_sha: "352ebdd92f06"
   edges:
     docs: "[Format-Links.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Format-Links.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Format-Links.ps1
@@ -72,7 +72,7 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
         }
 
         It 'turns a relative docs path into a repository-rooted code link' -Tag 'ADR-REPO-LINK-CODELINKS' {
-            & $alignFile $root 'src/widget.ps1' "# See ../../docs/adr/widget/widget-rules.md#rule-adr-tst-widget-nest.`n" |
+            & $alignFile $root 'src/widget.ps1' "# See ../../docs/drs/widget/widget-rules.md#rule-adr-tst-widget-nest.`n" |
                 Should -BeExactly "# See $widget2.`n"
         }
 
@@ -251,11 +251,11 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
 
         It 'rewrites a repository-rooted link relative to its file' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
             & $alignFile $root 'docs/guides/widget.md' "See [rules](/docs/drs/widget/widget-rules.md#widget-notes).`n" |
-                Should -BeExactly "See [rules](../adr/widget/widget-rules.md#widget-notes).`n"
+                Should -BeExactly "See [rules](../drs/widget/widget-rules.md#widget-notes).`n"
         }
 
         It 'reports a dangling target, a bad anchor, and a link above the root' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE', 'ADR-REPO-LINK-OFFREPOSITORYURLS' {
-            & $writeFile $root 'docs/widget.md' "[a](nowhere.md) [b](adr/widget/widget-rules.md#no-such-heading) [c](../../../gadget)`n"
+            & $writeFile $root 'docs/widget.md' "[a](nowhere.md) [b](drs/widget/widget-rules.md#no-such-heading) [c](../../../gadget)`n"
             $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'docs/widget.md') -PassThru
             @($result.Unfixable.Type) | Should -Be @('Dangling', 'BadAnchor', 'EscapesRoot')
         }
@@ -327,7 +327,7 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
             & $readFile $root 'docs/widget.md' | Should -BeExactly "See [rules](/docs/drs/widget/widget-rules.md#widget-notes).`n"
 
             Format-Links -RepositoryRoot $root -Path (Join-Path $root 'docs/widget.md') -Kind Markdown | Out-Null
-            & $readFile $root 'docs/widget.md' | Should -BeExactly "See [rules](adr/widget/widget-rules.md#widget-notes).`n"
+            & $readFile $root 'docs/widget.md' | Should -BeExactly "See [rules](drs/widget/widget-rules.md#widget-notes).`n"
         }
 
         It 'changes nothing on a second run' -Tag 'ADR-REPO-LINK-ALIGNEDBYTOOL' {

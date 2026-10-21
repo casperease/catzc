@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "06f351c94e4e"
+    with_body_sha: "9316f07652a1"
   edges:
     code: pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs
     cites:

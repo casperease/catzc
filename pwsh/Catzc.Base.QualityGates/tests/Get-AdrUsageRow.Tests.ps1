@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e0a424a54b77
+    with_body_sha: ad9245174208
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-AdrUsageRow.ps1
     cites:
@@ -50,7 +50,7 @@ Describe 'Get-AdrUsageRow' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
     }
 
     It 'reads a link to a rule and a link to the ADR, and skips a link no code owns' {
-        $text = "# Spec`n`nSee [the index](../adr/index.md), [the part](../adr/widget/part.md) and [a rule](../adr/widget/part.md#rule-adr-widget-part-spin).`n"
+        $text = "# Spec`n`nSee [the index](../drs/index.md), [the part](../drs/widget/part.md) and [a rule](../drs/widget/part.md#rule-adr-widget-part-spin).`n"
         $rows = @(Get-Rows $text)
         $rows.Count | Should -Be 2
         @($rows.Code | Sort-Object -Unique) | Should -Be @('ADR-WIDGET-PART')

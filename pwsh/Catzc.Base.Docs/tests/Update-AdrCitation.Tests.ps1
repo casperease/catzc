@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "78be45446f8c"
+    with_body_sha: "444e863a3ccd"
   edges:
     docs: "[Update-AdrCitation.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
@@ -65,10 +65,10 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
                 @($pair[0], $pair[1], '-', 'widget/cog-rules.md', 'move') -join "`t"
             }
             $codeMap = & $script:writeText 'maps/kind-code-map.tsv' ($header + "`n" + ($rows -join "`n") + "`n")
-            $full = & $script:writeText 'notes/kind.md' "See ADR-WIDGET-COG-SPINS in [cog](../docs/adr/widget/cog-rules.md#rule-adr-widget-cog-spins).`n"
+            $full = & $script:writeText 'notes/kind.md' "See ADR-WIDGET-COG-SPINS in [cog](../docs/drs/widget/cog-rules.md#rule-adr-widget-cog-spins).`n"
             Update-AdrCitation -Path $full -CodeMap $codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue | Out-Null
             [System.IO.File]::ReadAllText($full) |
-                Should -BeExactly "See DDR-COG-SPINS in [cog](../docs/adr/widget/cog-rules.md#rule-ddr-cog-spins).`n"
+                Should -BeExactly "See DDR-COG-SPINS in [cog](../docs/drs/widget/cog-rules.md#rule-ddr-cog-spins).`n"
         }
 
         It 'carries a rule and its heading with its ADR''s code through the code map' {
@@ -121,7 +121,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
         It 'resolves a relative link at the file''s own depth and writes it back relative' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' -ForEach @(
             @{ File = 'docs/drs/widget/near.md'; Link = 'sub/gadget-rules.md'; Expected = '../gizmo/gadget-rules.md' }
             @{ File = 'docs/drs/widget/sub/inside.md'; Link = 'gadget-rules.md'; Expected = '../../gizmo/gadget-rules.md' }
-            @{ File = 'docs/guide/deep/far.md'; Link = '../../adr/widget/sub/gadget-rules.md'; Expected = '../../adr/gizmo/gadget-rules.md' }
+            @{ File = 'docs/guide/deep/far.md'; Link = '../../drs/widget/sub/gadget-rules.md'; Expected = '../../drs/gizmo/gadget-rules.md' }
             @{ File = 'top.md'; Link = 'docs/drs/widget/sub/cog-rules.md'; Expected = 'docs/drs/widget/cog-rules.md' }
             @{ File = 'docs/drs/widget/folder.md'; Link = 'sub/'; Expected = '../gizmo/' }
         ) {
@@ -213,7 +213,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
         }
 
         It 'moves a <Name> under the new root' -ForEach @(
-            @{ Name = 'relative link from outside'; Relative = 'docs/how-to/widget.md'; Text = "See [cog](../adr/widget/cog-rules.md).`n"
+            @{ Name = 'relative link from outside'; Relative = 'docs/how-to/widget.md'; Text = "See [cog](../drs/widget/cog-rules.md).`n"
                 Expected = "See [cog](../gadgets/widget/cog-rules.md).`n"
             }
             @{ Name = 'repository-rooted code link'; Relative = 'docs/how-to/widget.md'; Text = "[cog](/docs/drs/widget/cog-rules.md#rule-adr-widget-cog-spins)`n"

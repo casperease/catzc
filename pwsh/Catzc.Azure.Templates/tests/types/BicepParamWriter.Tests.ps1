@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e8a2c57f0ab4
+    with_body_sha: "7fb3d6641588"
   edges:
     code: pwsh/Catzc.Azure.Templates/types/BicepParamWriter.cs
 ---
