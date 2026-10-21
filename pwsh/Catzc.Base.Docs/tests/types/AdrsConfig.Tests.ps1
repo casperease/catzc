@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "598d0c499892"
+    with_body_sha: "5a06b67b2ea3"
   edges:
     docs: "[AdrsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
@@ -47,6 +47,20 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
             $config.Domains[0].Kind | Should -Be 'ADR'
             $config.Domains[0].Prefix | Should -Be 'ADR-AL'
             ($config.RuleSets | Where-Object Slug -EQ 'thing-one').Prefix | Should -Be 'ADR-AL'
+        }
+
+        It 'takes a rule as one segment more than the shortest ADR code of its kind, so a group segment is an ADR''s' {
+            $raw = New-ValidRaw
+            $raw['kinds'] = [ordered]@{ ADR = [ordered]@{ name = 'Architecture Decision Record'; shared = $true }; GDR = [ordered]@{ name = 'Gadget Decision Record' } }
+            $raw.domains.alpha.Remove('code')
+            $raw.domains.alpha['kind'] = 'GDR'
+            $raw.domains.alpha.rulesets['thing-one'].external = 'GDR-WIDGET-ONE' # WIDGET is a group segment
+            $raw.domains.beta.rulesets.Remove('thing-three')
+            $form = [Catzc.Base.Docs.AdrsConfig]::new($raw).CodeForm
+            $form.IsRule('GDR-WIDGET-ONE') | Should -BeFalse
+            $form.IsRule('GDR-WIDGET-ONE-TURN') | Should -BeTrue
+            $form.IsRule('ADR-BE-TWO') | Should -BeFalse
+            $form.IsRule('ADR-BE-TWO-TURN') | Should -BeTrue
         }
 
         It 'gives a domain that owns its kind no code, so its prefix is the kind' {

@@ -28,7 +28,7 @@ so a slug or stale path can be resolved against the files that actually exist.
 
 ## comment:3
 
-Above `int dash = code.IndexOf('-', 4);`, written with `//`.
+Above `int dash = code.IndexOf('-', code.IndexOf('-') + 1);`, written with `//`.
 
 ```text
 Every hyphen-prefix of a code (ADR-AUTO for

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: faa3ce951dba
+    with_body_sha: "82307baa9e37"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
     docs: "[AdrCodeForm.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCodeForm.cs.md)"
@@ -44,7 +44,8 @@ public sealed class AdrCodeForm
     readonly Regex code;
     readonly Regex rule;
 
-    public AdrCodeForm(IEnumerable<string> kinds, IEnumerable<string> sharedKinds) : this(KindGroup(kinds), RuleGroup(kinds, sharedKinds)) { }
+    // ruleSegments: each kind, in order, to the segments a rule's code has at least after it (AdrsConfig derives them from the registry).
+    public AdrCodeForm(System.Collections.IDictionary ruleSegments) : this(KindGroup(Kinds(ruleSegments)), RuleGroup(ruleSegments)) { }
 
     AdrCodeForm(string kind, string ruleCode)
     {
@@ -67,16 +68,32 @@ public sealed class AdrCodeForm
         return all;
     }
 
+    static List<string> Kinds(System.Collections.IDictionary ruleSegments)
+    {
+        if (ruleSegments == null) { throw new ArgumentNullException(nameof(ruleSegments)); }
+        var kinds = new List<string>();
+        foreach (object key in ruleSegments.Keys) { kinds.Add(key as string); }
+        return kinds;
+    }
+
     static string KindGroup(IEnumerable<string> kinds) => "(?:" + string.Join("|", Checked(kinds)) + ")";
 
-    static string RuleGroup(IEnumerable<string> kinds, IEnumerable<string> sharedKinds)
+    // One alternative per segment count, its kinds in the given order.
+    static string RuleGroup(System.Collections.IDictionary ruleSegments)
     {
-        List<string> all = Checked(kinds);
-        var shared = new HashSet<string>(sharedKinds ?? Array.Empty<string>(), StringComparer.Ordinal);
-        List<string> sharedOnes = all.FindAll(k => shared.Contains(k)), owned = all.FindAll(k => !shared.Contains(k));
+        var kindsBySegments = new SortedDictionary<int, List<string>>();
+        foreach (string kind in Checked(Kinds(ruleSegments)))
+        {
+            int segments = Convert.ToInt32(ruleSegments[kind], System.Globalization.CultureInfo.InvariantCulture);
+            if (segments < 1) { throw new ArgumentException("kind '" + kind + "': a rule's code has one or more segments", nameof(ruleSegments)); }
+            if (!kindsBySegments.TryGetValue(segments, out List<string> kinds)) { kindsBySegments[segments] = kinds = new List<string>(); }
+            kinds.Add(kind);
+        }
         var rules = new List<string>();
-        if (sharedOnes.Count > 0) { rules.Add("(?:" + string.Join("|", sharedOnes) + ")(?:" + Segment + "){3,}"); }
-        if (owned.Count > 0) { rules.Add("(?:" + string.Join("|", owned) + ")(?:" + Segment + "){2,}"); }
+        foreach (KeyValuePair<int, List<string>> entry in kindsBySegments)
+        {
+            rules.Add("(?:" + string.Join("|", entry.Value) + ")(?:" + Segment + "){" + entry.Key + ",}");
+        }
         return string.Join("|", rules);
     }
 

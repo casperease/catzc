@@ -4,7 +4,7 @@
 
 ### Rule ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM
 
-The **Decision Records System (DRS)** is the one system that holds every **decision record**: the record-kind domains, their records and
+The **Decision Records System (DRS)** is the one system that holds every **decision record**: the domains of every record kind, their records and
 rules, the index and the registry, under its one root, `docs/drs/`. Every record is of exactly one **record kind** registered in `adrs.yml`
 (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`), and the kinds together are called "XDR". "ADR" names the `ADR` kind only, never the
 system or a record of another kind.
@@ -99,9 +99,8 @@ times. The code a reader sees is the only hint, before opening the ADR, of what 
 ### One system holds every record
 
 The repository's decisions are of seven kinds, from the thesis to the architecture of one implementation domain, and one index, one registry
-and one grammar serve them all. Naming that whole after one of its kinds would make "ADR" mean both a kind and everything, so the system
-has its own name, the DRS, and a record of any kind is a decision record. "XDR" is the family of kind codes, X standing for the kind's
-letter.
+and one grammar serve them all. Naming that whole after one of its kinds would make "ADR" mean both a kind and everything, so the system has
+its own name, the DRS, and a record of any kind is a decision record. "XDR" is the family of kind codes, X standing for the kind's letter.
 
 ### One path for every level
 

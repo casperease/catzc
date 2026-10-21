@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8157fb452ae5"
+    with_body_sha: "442ae2e252d7"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     docs: "[AdrsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md)"
@@ -24,6 +24,7 @@ catzc:
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Docs;
@@ -35,9 +36,11 @@ public sealed class AdrsConfig
     private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
     private static readonly Regex KindRe = new Regex("^[A-Z]{2,4}$", RegexOptions.Compiled);
 
-    // The record kinds when adrs.yml declares none: the one shared kind ADR
-    // ([ADR-REPO-ADRCODE-PATHOFSEGMENTS](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-pathofsegments)).
     public const string DefaultKind = "ADR";
+
+    // The segments a rule's code has after its kind when no ruleset of the kind is registered: ADR-<DOMAIN>-<ADR>-<NAME>, TDR-<ADR>-<NAME>.
+    public const int DefaultSharedRuleSegments = 3;
+    public const int DefaultOwnedRuleSegments = 2;
 
     // The rows of the value-chain stack, top to bottom ([DDR-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-ddr-track-valuechainstack)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
@@ -52,8 +55,6 @@ public sealed class AdrsConfig
     public IReadOnlyList<string> Kinds { get; }
     public IReadOnlyList<string> SharedKinds { get; }
 
-    // The code grammar over these kinds, which every parser of a code reads
-    // ([ADR-REPO-ADRCODE-PATHOFSEGMENTS](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-pathofsegments)).
     public AdrCodeForm CodeForm { get; }
     private readonly Dictionary<string, string> kindNames = new Dictionary<string, string>(StringComparer.Ordinal);
 
@@ -122,8 +123,10 @@ public sealed class AdrsConfig
         Kinds = kinds.AsReadOnly();
         SharedKinds = sharedKinds.AsReadOnly();
         if (kinds.Count == 0) { throw new ArgumentException("adrs.yml is invalid:\n  - " + string.Join("\n  - ", errors)); }
-        CodeForm = new AdrCodeForm(kinds, sharedKinds);
-        Regex externalRe = new Regex("^" + CodeForm.Cited + "$", RegexOptions.Compiled);
+        // Until the rulesets are read, a rule's code has three segments after a shared kind and two after a kind one domain owns.
+        OrderedDictionary defaultSegments = new OrderedDictionary();
+        foreach (string kind in kinds) { defaultSegments[kind] = sharedKinds.Contains(kind) ? DefaultSharedRuleSegments : DefaultOwnedRuleSegments; }
+        Regex externalRe = new Regex("^" + new AdrCodeForm(defaultSegments).Cited + "$", RegexOptions.Compiled);
         Dictionary<string, string> kindOwner = new Dictionary<string, string>(StringComparer.Ordinal);
 
         IDictionary domainsMap = (raw != null && raw.Contains("domains")) ? raw["domains"] as IDictionary : null;
@@ -153,8 +156,6 @@ public sealed class AdrsConfig
 
             CheckKeys(d, AllowedDomainKeys, string.Format("domain '{0}'", name), errors);
 
-            // A shared kind's domains each add a code; a kind one domain owns stands for it, with no code
-            // ([ADR-REPO-ADRCODE-DOMAINSEGMENT](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-domainsegment)).
             string domainKind = d.Contains("kind") && d["kind"] != null ? d["kind"].ToString() : DefaultKind;
             bool shared = sharedKinds.Contains(domainKind);
             if (!kinds.Contains(domainKind))
@@ -348,6 +349,19 @@ public sealed class AdrsConfig
         Domains = domains;
         RuleSets = allRuleSets;
         Edges = edges;
+
+        // A kind's rule has one segment more than its shortest registered ADR code, so a group segment (RDR-DORA-<NAME>) is an ADR's.
+        OrderedDictionary ruleSegments = new OrderedDictionary();
+        foreach (string kind in kinds)
+        {
+            int shortest = int.MaxValue;
+            foreach (AdrRuleSet ruleSet in allRuleSets)
+            {
+                if (ruleSet.Kind == kind) { shortest = Math.Min(shortest, ruleSet.External.Split('-').Length - 1); }
+            }
+            ruleSegments[kind] = shortest == int.MaxValue ? defaultSegments[kind] : shortest + 1;
+        }
+        CodeForm = new AdrCodeForm(ruleSegments);
     }
 
     private static void CheckKeys(IDictionary map, string[] allowed, string where, List<string> errors)

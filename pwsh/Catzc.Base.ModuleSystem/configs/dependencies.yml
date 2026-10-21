@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: eeaf88a39569
+#     with_body_sha: "6dba70fbd43c"
 #   edges:
 #     docs: "[dependencies.yml.md](docs/references/pwsh/catzc-base-module-system/configs/dependencies.yml.md)"
 # ---
@@ -18,7 +18,7 @@ groups:
     Catzc.Base.CodeMeta: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.MarkdownMeta]
     Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Folders: [Catzc.Base.Config, Catzc.Base.Objects]
-    Catzc.Base.Flow: [Catzc.Base.Config, Catzc.Base.Objects]
+    Catzc.Base.Flow: [Catzc.Base.Docs, Catzc.Base.Config, Catzc.Base.Objects]
     Catzc.Base.Slides:
       [
         Catzc.Base.Docs,

@@ -2,8 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "54a002ee9d4a"
+    with_body_sha: "0d901856f615"
   edges:
+    test: pwsh/Catzc.Base.Docs/tests/types/AdrCitationMap.Tests.ps1
     docs: "[AdrCitationMap.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationMap.cs.md)"
     cites:
       - ADR-AUTO
@@ -69,7 +70,7 @@ public sealed class AdrCitationMap
             }
             rulesByAdr[code] = rules;
 
-            int dash = code.IndexOf('-', 4);
+            int dash = code.IndexOf('-', code.IndexOf('-') + 1);
             while (dash > 0)
             {
                 domainCodes.Add(code.Substring(0, dash));

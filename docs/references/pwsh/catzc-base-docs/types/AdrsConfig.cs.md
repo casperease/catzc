@@ -59,3 +59,30 @@ domain code (e.g. FLOW-CD, whose ADRs cite [FDR-CD](/docs/adr/flow/cd-discipline
 by this prefix rule without splitting on a specific dash. A one-segment external
 ('ADR-<NAME>', no dash after the prefix) carries no domain segment and skips the match.
 ```
+
+## comment:4
+
+Above `public const string DefaultKind = "ADR";`, written with `//`.
+
+```text
+The record kinds when adrs.yml declares none: the one shared kind ADR
+([ADR-REPO-ADRCODE-PATHOFSEGMENTS](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-pathofsegments)).
+```
+
+## comment:5
+
+Above `public AdrCodeForm CodeForm { get; }`, written with `//`.
+
+```text
+The code grammar over these kinds, which every parser of a code reads
+([ADR-REPO-ADRCODE-PATHOFSEGMENTS](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-pathofsegments)).
+```
+
+## comment:6
+
+Above `string domainKind = d.Contains("kind") && d["kind"] != null ?...`, written with `//`.
+
+```text
+A shared kind's domains each add a code; a kind one domain owns stands for it, with no code
+([ADR-REPO-ADRCODE-DOMAINSEGMENT](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-domainsegment)).
+```

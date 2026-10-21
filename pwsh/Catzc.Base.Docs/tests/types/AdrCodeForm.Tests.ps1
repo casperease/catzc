@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "26496bb8cd39"
+    with_body_sha: "14e2a2c8f48d"
   edges:
     code: pwsh/Catzc.Base.Docs/types/AdrCodeForm.cs
     cites:
@@ -12,7 +12,8 @@ catzc:
 
 Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
-        $script:form = [Catzc.Base.Docs.AdrCodeForm]::new([string[]] @('ADR', 'GDR'), [string[]] @('ADR'))
+        # ADR is shared, GDR owned, and HDR owned with a group segment, as RDR-DORA-<NAME> is.
+        $script:form = [Catzc.Base.Docs.AdrCodeForm]::new([ordered]@{ ADR = 3; GDR = 2; HDR = 3 })
         $entry = { param($rules) @{ path = 'docs/adr/widget/x.md'; rules = [string[]] $rules } }
         $script:registry = [Catzc.Base.Docs.AdrCitationMap]::new([ordered]@{
                 'ADR-WIDGET-GADGET'   = (& $entry @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-FOLD'))
@@ -23,15 +24,19 @@ Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
 
     Context 'the grammar' {
         It 'rejects <Name>' -ForEach @(
-            @{ Name = 'no kinds'; Kinds = [string[]] @() }
-            @{ Name = 'a lower-case kind'; Kinds = [string[]] @('adr') }
-            @{ Name = 'a kind of five letters'; Kinds = [string[]] @('WIDGE') }
+            @{ Name = 'no kinds'; Kinds = [ordered]@{} }
+            @{ Name = 'a lower-case kind'; Kinds = [ordered]@{ adr = 3 } }
+            @{ Name = 'a kind of five letters'; Kinds = [ordered]@{ WIDGE = 2 } }
         ) {
-            { [Catzc.Base.Docs.AdrCodeForm]::new($Kinds, [string[]] @()) } | Should -Throw '*record kinds*'
+            { [Catzc.Base.Docs.AdrCodeForm]::new($Kinds) } | Should -Throw '*record kinds*'
         }
 
-        It 'joins the kinds into one group' {
-            $script:form.Kind | Should -Be '(?:ADR|GDR)'
+        It 'rejects a rule of no segments' {
+            { [Catzc.Base.Docs.AdrCodeForm]::new([ordered]@{ GDR = 0 }) } | Should -Throw '*one or more segments*'
+        }
+
+        It 'joins the kinds into one group, in their order' {
+            $script:form.Kind | Should -Be '(?:ADR|GDR|HDR)'
         }
 
         It 'finds a cited code of every kind in text' {
@@ -74,6 +79,7 @@ Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         It 'accepts <Name>' -ForEach @(
             @{ Name = 'three segments after a shared kind'; Text = 'ADR-WIDGET-GADGET-TURN' }
             @{ Name = 'two segments after an owned kind'; Text = 'GDR-SPROCKET-TURN' }
+            @{ Name = 'three segments after an owned kind with a group segment'; Text = 'HDR-WIDGET-GADGET-TURN' }
         ) {
             $script:form.IsRule($Text) | Should -BeTrue
         }
@@ -81,6 +87,7 @@ Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         It 'rejects <Name>' -ForEach @(
             @{ Name = 'an ADR code of a shared kind'; Text = 'ADR-WIDGET-GADGET' }
             @{ Name = 'an ADR code of an owned kind'; Text = 'GDR-SPROCKET' }
+            @{ Name = 'an ADR code under a group segment'; Text = 'HDR-WIDGET-GADGET' }
             @{ Name = 'an unregistered kind'; Text = 'CDR-WIDGET-GADGET-TURN' }
         ) {
             $script:form.IsRule($Text) | Should -BeFalse
