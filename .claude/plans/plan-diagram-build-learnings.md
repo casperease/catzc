@@ -87,3 +87,15 @@ blocks a feature.
 
 1. **Where does the pipeline drawing live?** (a, recommended) an explanation page on how a diagram is built, embedding it, so the reference
    page stays generated; (b) embedded in the Build-Diagrams comment page.
+2. **Does `catzc-run` gain line 4, the private-function probe `& (Get-Module <Module>) { … }`?** This plan's Instructions step adds it; the
+   file-meta-cache session recommended against it (one failed probe rediscovers it, a caller's script-scope variable is not visible inside,
+   and the capability roof is tight). (a, recommended) add it, merged with line 5 if the roof needs it, since two sessions tripped on it;
+   (b) leave it out and keep line 5 only.
+3. **Does `Build-Diagrams` render a sample folder in `out/` itself?** (from plan-listen-agent) A sample needs the private
+   `Write-DiagramMinimapData` called by hand before `put`. (a, recommended) a `-Sample` path, so a sample is one call; (b) the manual two
+   calls stay.
+
+## Refs
+
+- Context: plan-idiomatic-names renames `python/Catzc.Diagrams/` to `python/catzc_diagrams/`; the renderer step names whichever path the
+  tree holds when it runs.

@@ -142,4 +142,3 @@ the deploy still reads the compiled ARM parameters JSON.
 - `pwsh/Catzc.Azure.Templates/Build-Bicep.ps1`, `private/Get-BicepParametersFileName.ps1`, `private/Resolve-BicepParameterAddresses.ps1`,
   `private/Get-BicepParameterViolations.ps1`
 - `pwsh/Catzc.Base.Execution/configs/tools.yml#bicep` (the 0.48 pin)
-- `value-of-plan.md` is dirty in another session; this plan's row goes in once it is free.

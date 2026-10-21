@@ -19,10 +19,10 @@ plan:
 
 The docs-link head session and catzc-e8 spent effort on things the repository already knew but held where a session does not look: the
 plan-edit checks (held only in memory), a new plan's three parts (plan file, value row, master line), gates that scope by folder or not at
-all, the file-meta engine's call path (traced by hand). Each step below moves one of those to the one place that serves it. Two neighbouring
-items have their own owners and are not restated here: the CLAUDE.md time-safeguard trim is plan-diagram-build-learnings', and the tracked
-importer runner (catzc-e8's item 5) is plan-agent-shortcuts' gate runner (its Q1 and step 2). Recommended order: steps 1, 2 and 3 first
-(gates, cheapest and they replace instructions), then 4, then 5, then 6.
+all, the file-meta engine's call path (traced by hand). Each step below moves one of those to the one place that serves it. The tracked
+importer runner (catzc-e8's item 5) is plan-agent-shortcuts' gate runner (its Q1 and step 2) and is not restated here. The CLAUDE.md
+time-safeguard trim had no owner (plan-diagram-build-learnings, named as its owner here, holds no step for it); it is this plan's Q3.
+Recommended order: steps 1, 2 and 3 first (gates, cheapest and they replace instructions), then 4, then 5, then 6.
 
 ## Open questions
 
@@ -33,6 +33,10 @@ importer runner (catzc-e8's item 5) is plan-agent-shortcuts' gate runner (its Q1
   (the memory rule already failed twice).
 - **Q2: Is the drawing wanted after the sample?** Recommendation: yes, one sample first in `out/diagrams/dark-sample/` (nothing rendered
   into `docs/` unasked), then placed beside the how-to of step 5 once approved.
+- **Q3: Is the `.claude/CLAUDE.md` time-safeguard section trimmed, and by whom?** It restates detail the `catzc-run` capability holds.
+  Recommendation: this plan owns it, as one step after plan-agent-shortcuts' step 3 points `catzc-run` at the gate runner: the section keeps
+  the rule and its code (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT), the hook and the denial rule, and points at `catzc-run` for the call shapes.
+  Alternative: no trim; the section stays as it is.
 
 ## Open steps
 
@@ -57,3 +61,5 @@ importer runner (catzc-e8's item 5) is plan-agent-shortcuts' gate runner (its Q1
 6. [ ] The drawing as Q2 settles, after step 5: one diagram, "what decides a head and what fills it", the minimal model's three outcomes (a
        generated file's warning head, authored code's navigation head by its variant, no head) and the keys each holds. Sample in
        `out/diagrams/dark-sample/` only. Check: the user approves the sample.
+7. [ ] After Q3 and plan-agent-shortcuts' step 3: `.claude/CLAUDE.md`, section Time safeguard, trimmed as Q3 settles, when no peer has the
+       file dirty. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.

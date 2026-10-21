@@ -1,5 +1,5 @@
 {
-  "hash": "72abcf9b",
+  "hash": "6204f7fb",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -477,6 +477,11 @@
     },
     {
       "name": "Catzc.Base.Docs.GlossarySegment",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.LearningsConfig",
       "aliases": [],
       "display": []
     },

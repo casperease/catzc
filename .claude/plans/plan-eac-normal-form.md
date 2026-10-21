@@ -29,13 +29,13 @@ domain, and no ADR holds them yet.
 
 ## Open steps
 
-1. After Q1: write the migration rules (a fragment lands unordered, is migrated one file per commit, and leaves the unordered track only
-   when it is in the form), citing ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM. Check: `Test-AdrRegistry`, `Test-Links` on the ADR.
-2. After Q1: a check that proves a file is in the form, which re-runs Format-Code on it and fails on any change, so that "uncontested" is a
-   gate, not prose (ADR-THES-NORMALFORM-UNCONTESTED). Check: its L0 Pester file.
-3. After Q2: rename the term in `docs/adr/thesis/eac-normal-form.md` and in the glossary sources only if Q2 picks the long spelling. Check:
-   `Test-Glossary`.
-4. After Q3: the `migration` term narrowed (or its avoid entries added) in `docs/adr/thesis/eac-normal-form.md` and
-   `pwsh/Catzc.Base.Docs/configs/glossary.yml`, then `Build-Glossary`. Check: `Test-Glossary`.
-5. After Q4: the sample drawing through `drawio-diagram-waves` or `edit-diagram-yml`, one `diagram.drawio.yml` in
-   `out/diagrams/dark-sample/`. Check: the user approves the sample; only then a step places it beside the ADR's explanation.
+1. [ ] After Q1: write the migration rules (a fragment lands unordered, is migrated one file per commit, and leaves the unordered track only
+       when it is in the form), citing ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM. Check: `Test-AdrRegistry`, `Test-Links` on the ADR.
+2. [ ] After Q1: a check that proves a file is in the form, which re-runs Format-Code on it and fails on any change, so that "uncontested"
+       is a gate, not prose (ADR-THES-NORMALFORM-UNCONTESTED). Check: its L0 Pester file.
+3. [ ] After Q2: rename the term in `docs/adr/thesis/eac-normal-form.md` and in the glossary sources only if Q2 picks the long spelling.
+       Check: `Test-Glossary`.
+4. [ ] After Q3: the `migration` term narrowed (or its avoid entries added) in `docs/adr/thesis/eac-normal-form.md` and
+       `pwsh/Catzc.Base.Docs/configs/glossary.yml`, then `Build-Glossary`. Check: `Test-Glossary`.
+5. [ ] After Q4: the sample drawing through `drawio-diagram-waves` or `edit-diagram-yml`, one `diagram.drawio.yml` in
+       `out/diagrams/dark-sample/`. Check: the user approves the sample; only then a step places it beside the ADR's explanation.

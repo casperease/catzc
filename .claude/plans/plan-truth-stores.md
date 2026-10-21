@@ -44,13 +44,13 @@ with no check behind it, and the ADO writers below contradict it.
 
 ## Open steps
 
-1. After Q1: reword ADR-THES-STORES-FACTSOURCEREADONLY and its Fact sources section in `docs/adr/thesis/truth-stores.md`, and the
-   `fact source` entry in `pwsh/Catzc.Base.Docs/configs/glossary.yml`. Check: `Test-Glossary`, then `Test-Links` on the ADR.
-2. After Q1: name the ADR rule in the help of each ADO writer, one file at a time. Check: that file's test under `Invoke-TestFile`.
-3. After Q2: the truth-store config and its type, with one `Get-*` reader that emits the stores as data
-   (ADR-THES-ONETRUTH-TRUTHISQUERYABLE). Check: its L0 Pester file.
-4. The actionable-fact shape as a contract under `contracts/` (origin: store, address, read time; calls for: a change or a report), then one
-   junction contract per direction, inbound and outbound. Check: `Test-Contracts`.
-5. After Q1 and Q3: the truth-stores diagram as one new diagram for the user to approve (`drawio-diagram-waves`, a wave of one), then a
-   slide file under `docs/explanation/thesis/product-thesis/` and its line in `deck.md`. Check: the rendered png read, then `Test-Links` on
-   `deck.md`.
+1. [ ] After Q1: reword ADR-THES-STORES-FACTSOURCEREADONLY and its Fact sources section in `docs/adr/thesis/truth-stores.md`, and the
+       `fact source` entry in `pwsh/Catzc.Base.Docs/configs/glossary.yml`. Check: `Test-Glossary`, then `Test-Links` on the ADR.
+2. [ ] After Q1: name the ADR rule in the help of each ADO writer, one file at a time. Check: that file's test under `Invoke-TestFile`.
+3. [ ] After Q2: the truth-store config and its type, with one `Get-*` reader that emits the stores as data
+       (ADR-THES-ONETRUTH-TRUTHISQUERYABLE). Check: its L0 Pester file.
+4. [ ] The actionable-fact shape as a contract under `contracts/` (origin: store, address, read time; calls for: a change or a report), then
+       one junction contract per direction, inbound and outbound. Check: `Test-Contracts`.
+5. [ ] After Q1 and Q3: the truth-stores diagram as one new diagram for the user to approve (`drawio-diagram-waves`, a wave of one), then a
+       slide file under `docs/explanation/thesis/product-thesis/` and its line in `deck.md`. Check: the rendered png read, then `Test-Links`
+       on `deck.md`.

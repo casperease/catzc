@@ -123,6 +123,8 @@ configs:
     type: Catzc.Tooling.Inspiration.InspirationConfig
   listen:
     type: Catzc.Tooling.Listen.ListenConfig
+  learnings:
+    type: Catzc.Base.Docs.LearningsConfig
   variants:
     type: Catzc.Base.Variants.VariantsConfig
     differs:

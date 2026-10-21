@@ -29,7 +29,8 @@ Both items cut a rediscovery, not a defect: the gate already catches an over-roo
 
 1. [ ] `docs/adr/repository/agent-definitions.md`: rule ADR-REPO-AGENTS-CAPABILITYFILE says the roof counts each top-level front-matter key
        (`name`, `description`, `user-invocable`, `allowed-tools`) as well as each body line, so four of the ten are spent before the body.
-       Check: `Test-Links -Path docs/adr/repository/agent-definitions.md` and `Test-Spelling` on the file pass.
+       It also says wrapping never helps, so a new item needs an existing line merged (the same lesson plan-agent-shortcuts carried as its
+       Q3). Check: `Test-Links -Path docs/adr/repository/agent-definitions.md` and `Test-Spelling` on the file pass.
 2. [ ] `pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1`: the over-roof message names both counts ("4 front-matter keys and 7 body lines"),
        from `Get-RobotLineCount`. Check: `Invoke-TestFile pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1` passes with the
        message updated.

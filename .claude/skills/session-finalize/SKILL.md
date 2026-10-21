@@ -32,8 +32,9 @@ metadata:
 2. Plans: every plan in `.claude/plans/` this session touched or owes work to records that work as open steps (git and `Test-Automation`
    runs are the user's, never steps); a repeat run adds only what is new; a plan dirty in a peer's session gets a new plan instead; then
    `Format-Code -Language markdown` and `Test-Plans`.
-3. Report two sections: **What the repository learned**, the changes made, at most 5 lines, condensed and factual; **What I learned**, about
-   catzc, eac and operating here, at most 10 lines.
+3. Report two sections: **What the repository learned**, the changes made, at most 5 lines, condensed and factual; **What I learned**, at
+   most 10 lines, each completing "In hindsight I wish I knew this fact: …", a fact true of the repository now, never the session's story,
+   and each appended to the log with `Add-SessionLearning '<line>', …` in the background.
 4. Simplify: for each learning, propose where it shrinks what the next session reads (a `.claude` instruction cut or merged, a doc made
    plainer, a diagram); apply none unasked, and record an unanswered proposal as an open question in a plan; then end with "ready to clear"
    and the plans touched, nothing after it.

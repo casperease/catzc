@@ -8,6 +8,7 @@ plan:
     [
       docs/references/pwsh/catzc-base-qualitygates/private/Get-RelativeEdgesFileMetaFact.ps1.md,
       pwsh/Catzc.Base.QualityGates/private/Get-FileMetaInputStamp.ps1,
+      pwsh/Catzc.Base.QualityGates/private/Get-RelativeEdgesFileMetaFact.ps1,
       docs/adr/automation/caching.md,
     ]
 ---
@@ -31,9 +32,8 @@ Test-FileMeta keeps no cache, so it still catches a stale head; `-NoCache` repai
   function of the file's bytes, the tool version, and the tool's settings", but the file-meta step also reads files beside each file.
   Recommendation: yes, one sentence: a check whose verdict reads files beside the file stamps them into that file's key, with
   Get-FileMetaInputStamp as the exemplar.
-- **Q3: Does the `catzc-run` capability carry the probe pattern for a private function?** A probe script calls a module's private function
-  with `& (Get-Module <name>) { … }`, where a script-scope variable of the caller is not visible. Recommendation: no; it costs one failed
-  probe to rediscover, and the capability roof is tight.
+
+The `catzc-run` probe-pattern question is plan-diagram-build-learnings' Q2.
 
 ## Open steps
 
@@ -44,3 +44,7 @@ Test-FileMeta keeps no cache, so it still catches a stale head; `-NoCache` repai
        `steps.file-meta.settings`. Check: `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1` passes.
 3. [ ] `docs/adr/automation/caching.md`: once Q2 is answered yes, add the sentence to "Result caches for quality checks". Check:
        `Test-Links -Path docs/adr/automation/caching.md` and `Test-Spelling` pass.
+4. [ ] `pwsh/Catzc.Base.QualityGates/private/Get-RelativeEdgesFileMetaFact.ps1`: fix the strict-mode collapse the
+       `Measure-NoCollapsingAssignment` rule flags (reported at line 44; from plan-listen-agent, held while a peer had the file open).
+       Check: `Invoke-ScriptAnalyzer` on the file reports no `Measure-NoCollapsingAssignment` finding, and `Invoke-TestFile` on its test
+       passes.

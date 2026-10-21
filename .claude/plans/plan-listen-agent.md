@@ -38,9 +38,7 @@ in the Carried section below.
 - [ ] `pwsh/Catzc.Tooling.Listen/Get-DocChange.ps1`: `Rules` lists only the ADR codes cited in the changed lines, not every code in the file
       (a whole-file list ran to 40 codes on `dora-explains.md`) (check: `Invoke-TestFile` on `Get-DocChange.Tests.ps1`).
 
-Context: the new `Measure-NoCollapsingAssignment` rule flags one real strict-mode collapse,
-`pwsh/Catzc.Base.QualityGates/private/Get-RelativeEdgesFileMetaFact.ps1:44`, in a file another session has open; it is planned once that
-file is free.
+The `Measure-NoCollapsingAssignment` finding in `Get-RelativeEdgesFileMetaFact.ps1` is plan-file-meta-cache's step 4.
 
 ## Open questions
 
@@ -50,8 +48,7 @@ file is free.
   commit the truth?
 - Do the two diagram samples (`where-truth-comes-from`, `listen-mode-flow` in `out/diagrams/dark-sample/.assets/`) land, and beside which
   articles: the thesis explanation and the `Catzc.Tooling.Listen` reference? Recommendation: yes, there.
-- Should `Build-Diagrams` render a sample folder in `out/` itself? Today a sample needs the private `Write-DiagramMinimapData` called by
-  hand before `put`. Recommendation: a `-Sample` path, so a sample is one call.
+- The `Build-Diagrams -Sample` question is plan-diagram-build-learnings' Q3.
 
 ## Carried
 

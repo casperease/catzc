@@ -121,7 +121,6 @@ Every code file in the tree carries a head no reader needs, and the next `Format
 
 ## Refs
 
-- Context: `plan-master.md` and `value-of-plan.md` are dirty in a peer's session, so this plan is not yet listed in either.
 - `plan-docs-link-head.md` is retired into this plan (catzc-03, 2026-10-21); the trim of a paged file's head is this plan's.
 - `head_policy.pages` came from the user (2026-10-20): every code file with a comment page links it as
   `edges.docs: "[<page>.md](docs/references/...)"`, repository-relative and with no leading `/` (the user corrected the `/`-rooted form).
