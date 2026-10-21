@@ -167,3 +167,5 @@ configs:
     type: Catzc.Base.Maps.MapsConfig
   contracts:
     type: Catzc.Base.Contracts.ContractsConfig
+  accosted:
+    type: Catzc.Base.Contracts.AccostedConfig

@@ -69,7 +69,7 @@ categories:
       - "pwsh/Catzc.Base.QualityGates/configs/terminology.yml"
       - "pwsh/Catzc.Base.Timeouts/configs/timeouts.yml"
       - "pwsh/Catzc.Base.Contracts/configs/accosted.yml"
-      - "pwsh/Catzc.Base.Contracts/configs/configs.yml"
+      - "pwsh/Catzc.Base.Config/configs/configs.yml"
       - "pwsh/Catzc.Base.Contracts/**/*Accosted*"
       - "pwsh/Catzc.Base.Contracts/accosted/**"
       - "contracts/catzc/0.0.0/catzc.base.contracts/*accosted*"

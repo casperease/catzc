@@ -1,5 +1,5 @@
 {
-  "hash": "29a5c228",
+  "hash": "f1501b19",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -247,6 +247,11 @@
     },
     {
       "name": "Catzc.Base.Config.ConfigsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.AccostedConfig",
       "aliases": [],
       "display": []
     },
