@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: badd31f4b56f
+    with_body_sha: a63e94e0dd4b
   edges:
     code: pwsh/Catzc.Base.Maps/types/MapsConfig.cs
     cites:
@@ -59,7 +59,7 @@ Describe 'MapsConfig' -Tag 'L0' {
                 $config.highlight.pins.Count | Should -Be 0
                 $config.highlight.exceptions.Count | Should -Be 0
                 $config.highlight.citation_exclude | Should -Be @([Catzc.Base.Maps.MapsHighlight]::DefaultCitationExclude)
-                $config.highlight.citation_exclude | Should -Be @('docs/.assets/**', 'docs/explanation/**', 'python/catzc_diagrams/**')
+                $config.highlight.citation_exclude | Should -Be @('.claude/hindsight/**', '.claude/learnings/**', 'docs/.assets/**', 'docs/explanation/**', 'python/catzc_diagrams/**')
                 $config.output_folder | Should -Be ([Catzc.Base.Maps.MapsConfig]::DefaultOutputFolder)
             }
         }

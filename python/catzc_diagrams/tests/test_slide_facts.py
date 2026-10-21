@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b30a211a07cd
+#     with_body_sha: "6d12e32c8ada"
 # ---
 
 """The subtitle a slide says it supports (`<codes> · <lens>`) and the article's Supports line held against it.
@@ -165,6 +165,14 @@ def test_a_slide_without_a_subtitle_is_warned(roles):
         None,
         ["W_SUBTITLE docs/explanation/.assets/gadget-slide: the model has no subtitle cell"],
     )
+
+
+def test_a_legend_png_is_stale_only_when_the_glyph_library_moved_from_it(roles, monkeypatch):
+    legend, _ = roles
+    drawio_forward.put_legend(legend)
+    assert drawio_forward.legend_stale(legend) is False
+    monkeypatch.setattr(drawio_forward, "legend_model", lambda: '<mxGraphModel><root><mxCell id="widget"/></root></mxGraphModel>')
+    assert drawio_forward.legend_stale(legend) is True
 
 
 def test_a_legend_without_a_declaration_is_not_warned(roles):

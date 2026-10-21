@@ -60,12 +60,6 @@ tracked (`python/catzc_diagrams/`, `python/tests/catzc_base_repository/`, `go/te
 The word model, the 15 acronym renames, the helper renames, the manual-test-plan rows and `Repair-IdiomaticNames` landed on 2026-10-21; the
 L1 round trip in `ConvertTo-NormalName.Tests.ps1` passes once the user commits the case-only renames with `git mv`.
 
-From the session's finalizer (catzc-73, 2026-10-21); its `catzc-verify` line and the rename how-to landed:
-
-- [ ] `NameCase.IsInCase` takes a dotted name in one call, the way `FromNormal` already does, and its callers that split on `.` first change
-      in the same pass (delegated to the orchestrator, 2026-10-21; check: `Invoke-TestFile` on `LanguagesConfig.Tests.ps1`, which holds the
-      case tests).
-
 ## Open questions
 
 - From catzc-8b's finalize (2026-10-21): the kebab step stalled on a cycle (`Catzc.Base.Languages` depends on `Catzc.Base.CodeMeta`) found

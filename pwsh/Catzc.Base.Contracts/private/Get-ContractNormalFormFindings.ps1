@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d64c12efc4a8
+    with_body_sha: "91455c777776"
   edges:
     docs: "[Get-ContractNormalFormFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractNormalFormFindings.ps1.md)"
     cites:

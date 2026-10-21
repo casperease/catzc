@@ -2,13 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "32261ca742ac"
+    with_body_sha: "061617daa564"
   edges:
     code: pwsh/Catzc.Base.Docs/types/AdrCitationMap.cs
     cites:
       - ADR-REPO-LINK-ONECITATIONSPELLING
 ---
 #>
+
+# cspell:ignore WDGT  -- the four-letter fixture kind
 
 Describe 'AdrCitationMap' -Tag 'L0', 'logic', 'ADR-REPO-LINK-ONECITATIONSPELLING' {
     BeforeAll {

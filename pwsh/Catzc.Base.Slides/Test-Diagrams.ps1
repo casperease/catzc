@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0e601f94c7e6"
+    with_body_sha: "06cffe58781b"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Test-Diagrams.Tests.ps1
     docs: "[Test-Diagrams.ps1.md](docs/references/pwsh/catzc-base-slides/Test-Diagrams.ps1.md)"
@@ -32,10 +32,16 @@ function Test-Diagrams {
     $candidates = @(Get-GitTrackedPath '.') + @(Get-GitChangedPath 'docs')
     $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+/diagram\.drawio\.(png|yml)$' } | ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) } |
             Select-Object -Unique | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_/diagram.drawio.yml") -PathType Leaf })
+    # A legend folder has no yml: the kit's drawio.yml names it under roles, and its png is checked against the painted glyph library.
+    $kitConfig = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText((Join-Path $root "$Kit/configs/drawio.yml"))) -Ordered
+    $legends = @(if ($kitConfig.Contains('roles') -and $kitConfig['roles']) {
+            $kitConfig['roles'].Keys | Where-Object { $kitConfig['roles'][$_] -ceq 'legend' -and (Test-Path -LiteralPath (Join-Path $root "$_/diagram.drawio.png") -PathType Leaf) }
+        })
+    $found = @($found) + @($legends | Where-Object { $found -cnotcontains $_ })
     $folders = @(if ($Path) {
             foreach ($folderPath in $Path) {
                 $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/').TrimEnd('/')
-                Assert-True ($found -ccontains $relative) -ErrorText "Test-Diagrams: '$relative' is not a declared diagram folder (a folder under docs/**/.assets/ holding a diagram.drawio.yml)."
+                Assert-True ($found -ccontains $relative) -ErrorText "Test-Diagrams: '$relative' is not a declared diagram folder (a folder under docs/**/.assets/ holding a diagram.drawio.yml, or a legend the kit's drawio.yml names)."
                 $relative
             }
         }
@@ -48,7 +54,10 @@ function Test-Diagrams {
     if ($folders.Count -gt 0) {
         $tool = Resolve-ToolExecutable -Tool uv
         Assert-True $tool.Found -ErrorText 'Test-Diagrams: uv is not installed (no managed uv found). Run Install-Uv.'
-        $null = Write-DiagramMinimapData -Folder $folders -RepositoryRoot $root
+        $declared = @($folders | Where-Object { $legends -cnotcontains $_ })
+        if ($declared.Count -gt 0) {
+            $null = Write-DiagramMinimapData -Folder $declared -RepositoryRoot $root
+        }
         $quoted = ($folders | ForEach-Object { "`"$_`"" }) -join ' '
         $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$(Join-Path $root $Kit)`" python `"$declaration`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
         Assert-True ($result.ExitCode -eq 0) -ErrorText "Test-Diagrams: the drift check failed (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"

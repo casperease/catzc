@@ -45,8 +45,8 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
-- idiomatic-names -> plan-idiomatic-names.md: wire the naming gate in (the three folder renames are tracked), then the repository normal
-  form: helper and acronym renames, the repair command, and the `0.0.0` command contracts.
+- idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user stages the folder moves
+  (task-user-runs-and-commits).
 - listen-internal-readers -> plan-listen-internal-readers.md: one step left, the user's `.claude/CLAUDE.md` edit
   (task-user-runs-and-commits); the plan closes when it lands.
 - agent-shortcuts -> plan-agent-shortcuts.md: one step left, the gate runner's CLAUDE.md line (the user's, task-user-runs-and-commits).

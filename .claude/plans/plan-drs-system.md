@@ -51,6 +51,12 @@ The record-kind rewrite has landed, so the steps run in order; the move is one b
 - [ ] `pwsh/Catzc.Base.Docs/configs/glossary.yml`: entries for **DRS**, **decision record** and **record kind**, each defined by the new
       rule; `domain rules` reads "its decision records and the rules they state", avoid `house rules` say `domain rules / DRS rules` (check:
       `Test-Glossary`, `Build-Glossary`).
+- [ ] The root readers outside `Catzc.Base.Docs` read `AdrsConfig.Root` (Python: `adrs.yml`'s `root`, default `docs/adr`), staged, one
+      burst: `CodeLinkRewriter.cs` (its path pattern and `ToRepositoryPath`), `LinkEngine.cs` (`StringDocPath`, `InsertedLink`), the
+      `LanguagesConfig.cs` message, `Build-ContractReference.ps1`'s two relative links, the `Get-TestTagViolations` and
+      `Test-AnalyzerAdrMap` messages, and `minimaps.py` and `drawio_forward.py` (check: `Test-Links.Tests`, `Format-Links.Tests`,
+      `Build-ContractReference.Tests`, the `catzc_diagrams` pytest; `out/drs/residual.txt` rerun finds only comments, fixtures, pages and
+      config data).
 - [ ] The move, one burst after the user's go: the rewrite of `out/drs/dryrun.ps1` written (its code map `out/drs/root-code-map.tsv`, one
       row of kind `root`, `docs/adr` -> `docs/drs`) plus one ADR row `ADR-REPO-ADRCODE` -> `ADR-REPO-DRSCODE` with the file renamed
       `drs-code-language.md`, then `docs/adr/` moved to `docs/drs/` on disk (the user commits), the `root` default flipped to `docs/drs`,

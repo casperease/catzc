@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b48ce2d338df
+    with_body_sha: "5c4f320ec152"
   edges:
     code: pwsh/Catzc.Base.Docs/Build-AdrCodeDictionary.ps1
     cites:

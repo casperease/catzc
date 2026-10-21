@@ -38,11 +38,6 @@ yet, so every one goes dark when the gate turns on; that is why the declared cel
 
 ## Open questions
 
-- Should a session learning in `.claude/learnings/` be left out of a minimap's subject? `.claude/learnings/learned6e9249.md` cites ADR codes
-  and so lights code-locations cells such as `.claude/.claude/learnings` (track, module, folder), and every new or pruned learning then
-  makes the declared cells stale. Recommendation: yes, one exclusion beside the subject's other filters, declared once in `maps.yml`
-  (catzc-1c, 2026-10-21).
-
 - Should `Test-Diagrams -Path` accept a legend-role folder (`docs/explanation/.assets/glyphs`), checking that its png carries the painted
   `glyphs.xml` model, so the glyph library is gated like every other diagram rather than by a hand comparison? Recommendation: yes, one
   branch beside the role checks in `drawio_forward.py` (catzc-61, 2026-10-21).

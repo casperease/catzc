@@ -2,13 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "14e2a2c8f48d"
+    with_body_sha: "2775efee3e06"
   edges:
     code: pwsh/Catzc.Base.Docs/types/AdrCodeForm.cs
     cites:
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---
 #>
+
+# cspell:ignore WIDGE  -- the five-letter fixture kind the grammar refuses
 
 Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
