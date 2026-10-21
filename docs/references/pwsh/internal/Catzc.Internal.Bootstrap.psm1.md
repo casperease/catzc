@@ -224,12 +224,14 @@ strip CR).
 
 ## comment:18
 
-Above `if ((Test-IsRunningInPipeline) -or $typeState.MissingTypes.Count) {`, written with `#`.
+Above `if (Test-IsRunningInPipeline) {`, written with `#`.
 
 ```text
 A loaded assembly cannot be swapped in the AppDomain. In a pipeline a stale-types load is a HARD
-failure (CI must never run on old types). On a devbox, a type the AppDomain lacks (added, or not
-loaded cross-root) is a hard failure too — the code that uses it is certain to fail later, far from
+failure (CI must never run on old types). Inside a VS Code terminal nothing throws: the import cannot
+restart that host, so the session keeps the loaded assembly whatever drifted and one line names the
+loaded hash and the source hash. On any other devbox, a type the AppDomain lacks (added, or not
+loaded cross-root) is a hard failure — the code that uses it is certain to fail later, far from
 here. A changed or removed type degrades gracefully — keep the already-loaded types this session,
 warn (orange), and return WITHOUT recording the new hash, so the warning repeats on every re-import
 until you restart. Every devbox session, a person's included, takes this path

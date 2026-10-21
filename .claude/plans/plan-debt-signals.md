@@ -105,3 +105,7 @@ is already tested.
         `[System.IO.File]::ReadLines` cut short by `Select-Object -First` keeps its file open until disposed, so a reader takes
         `Get-Content -TotalCount` or `ReadAllLines`. Cost today: a write that fails on a held file. Check: `Test-AdrRegistry` and
         `Test-Links` on the page.
+20. [ ] `docs/references/pwsh/catzc-base-docs.md`: a responsibility for the rolling logs, with `Add-SessionLearning`, `learnings.yml` and
+        `hindsight.yml` in the Division, which today names none of them though the authoring guide says every exported function appears
+        exactly once. Cost today: the 2020-hindsight and its-a-chore-but-i-will-do-better robots find the logs only by grep. Check:
+        `Test-Links` and `Test-Markdownlint` on the article.

@@ -28,3 +28,13 @@ It cuts a cost paid by every session and every spawn that loads the project inst
        names `docs/references/pwsh/index.md` as where a design round starts (about 70 bytes added, paid for by step 1's cut; no new line, no
        new file). Cost today: no robot, capability or CLAUDE.md line names the index. Check: `Test-Links -Path .claude/CLAUDE.md`, and
        `wc -c .claude/CLAUDE.md` still at most 11900.
+
+## Open questions
+
+- From the session that built the hindsight robots (2026-10-21): three facts it learned by failure could each shrink what the next session
+  reads, as one clause merged into an existing capability line rather than a new line anywhere. Should `catzc-module` say that a shipped
+  config value away from its type's default carries a `differs` reason in configs.yml (`Test-ShippedConfigs` fails it otherwise)? Should
+  `catzc-run` say that `Format-Code` inside a robot takes `-Path` on the files touched, never `-Language markdown`, since the whole-tree run
+  rewrote 68 files a session then had to diff? Should the robot rule in `agents.yml` say that a robot reading a log of many lines caps its
+  probes per line and writes in batches, since a 40-turn roof ended the first hindsight run before its one write? Recommendation: yes to the
+  first two as merged clauses, no new line; the third only as a comment on the 2020-hindsight entry.

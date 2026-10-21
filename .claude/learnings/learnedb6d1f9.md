@@ -46,3 +46,20 @@ Started 2026-10-21T04:34:42.3401959+02:00.
   test file.
 - 2026-10-21: Token tip: search the tree with the Grep tool, not recursive grep in Bash, which overruns the 3 s foreground limit.
 - 2026-10-21: Token tip: write multi-step pwsh work to out/\<name>.ps1 with Write and run it as one timeout-prefixed background call.
+- 2026-10-21: In hindsight I wish I knew this fact: Test-ShippedConfigs fails every key a shipped config sets away from its type default
+  unless configs.yml carries a differs reason for that key.
+- 2026-10-21: In hindsight I wish I knew this fact: a second rolling log is one more LearningsConfig instance in configs.yml (hindsight.yml:
+  folder, prefix, title) written through Add-SessionLearning -Log hindsight, never hand-written files.
+- 2026-10-21: In hindsight I wish I knew this fact: the robot and capability roofs count logical lines, so a wrapped continuation counts
+  with the line it continues and an 8-step body of 24 physical lines passes the roof of 20.
+- 2026-10-21: In hindsight I wish I knew this fact: a robot that checks 26 learnings at three probes each spends over 80 tool calls, so a
+  40-turn roof ends before its first write; it appends in batches of ten and carries maxTurns 120.
+- 2026-10-21: In hindsight I wish I knew this fact: Format-Code now strips the derived catzc head from robots, capabilities, slide pages and
+  docs/index.md under the minimal-heads policy, so a whole-tree run rewrites every file still carrying one while a -Path run touches only
+  its files.
+- 2026-10-21: In hindsight I wish I knew this fact: the .claude/plans edits of a robot pass Test-Plans only when every open step names its
+  check, including a step that waits on a peer-dirty file.
+- 2026-10-21: Token tip: Next time, save tokens by: giving a log-reading robot its probe cap and batch append in its body before the first
+  run, not after a 90k-token dry run that wrote nothing.
+- 2026-10-21: Token tip: Next time, save tokens by: running Format-Code with -Path on the files touched inside a robot, never -Language
+  markdown, so a check never rewrites 68 files the session must then diff.
