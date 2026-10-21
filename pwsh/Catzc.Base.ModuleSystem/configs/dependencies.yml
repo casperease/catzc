@@ -1,9 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: a41839d6d9e9
+#     with_body_sha: f0b4ad00dfb1
 #   edges:
-#     docs: "[dependencies.yml.md](docs/references/pwsh/catzc-base-module-system/configs/dependencies.yml.md)"
+#     docs: "[dependencies.yml.md](../../../docs/references/pwsh/catzc-base-module-system/configs/dependencies.yml.md)"
 # ---
 
 groups:

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e7020dd4eacd
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Stop-DotnetInstallHolder.Tests.ps1
-    docs: "[Stop-DotnetInstallHolder.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Stop-DotnetInstallHolder.ps1.md)"
+    docs: "[Stop-DotnetInstallHolder.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/private/Stop-DotnetInstallHolder.ps1.md)"
     cites:
       - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
 ---

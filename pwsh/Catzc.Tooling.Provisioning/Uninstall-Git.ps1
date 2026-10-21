@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f68aaf290994
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-Git.Tests.ps1
-    docs: "[Uninstall-Git.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Git.ps1.md)"
+    docs: "[Uninstall-Git.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Git.ps1.md)"
 ---
 #>
 

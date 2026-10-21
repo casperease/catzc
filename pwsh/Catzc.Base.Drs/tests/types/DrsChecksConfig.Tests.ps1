@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2a53de350801"
   edges:
-    docs: "[DrsChecksConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-drs/tests/types/DrsChecksConfig.Tests.ps1.md)"
+    docs: "[DrsChecksConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-drs/tests/types/DrsChecksConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER

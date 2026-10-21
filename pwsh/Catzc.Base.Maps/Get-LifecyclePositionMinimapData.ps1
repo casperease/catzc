@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "52b72ea6aba9"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-LifecyclePositionMinimapData.Tests.ps1
-    docs: "[Get-LifecyclePositionMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md)"
+    docs: "[Get-LifecyclePositionMinimapData.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md)"
     cites:
       - FDR-CD
 ---

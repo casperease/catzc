@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b5e5e480f0a9
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
-    docs: "[Uninstall-Zsh.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md)"
+    docs: "[Uninstall-Zsh.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md)"
     cites:
       - ADR-AUTO-IDEM-ALREADYDONEISFINE
       - ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY

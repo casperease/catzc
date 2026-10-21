@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b6a5c535dda2
   edges:
-    docs: "[Remove-Java.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Remove-Java.ps1.md)"
+    docs: "[Remove-Java.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Remove-Java.ps1.md)"
     cites:
       - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
       - ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM

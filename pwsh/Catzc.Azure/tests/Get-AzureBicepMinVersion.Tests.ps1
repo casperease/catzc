@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c14ef35af881
   edges:
-    docs: "[Get-AzureBicepMinVersion.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md)"
+    docs: "[Get-AzureBicepMinVersion.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md)"
     code: pwsh/Catzc.Azure/Get-AzureBicepMinVersion.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS

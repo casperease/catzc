@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "596a33e3e38a"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1
-    docs: "[FileCarrierResolver.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/FileCarrierResolver.cs.md)"
+    docs: "[FileCarrierResolver.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/FileCarrierResolver.cs.md)"
     cites:
       - ADR-REPO-FILEMETA-KINDSCOPE
 ---

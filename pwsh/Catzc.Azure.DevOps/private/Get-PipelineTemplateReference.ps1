@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a0455ff6ad20
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
-    docs: "[Get-PipelineTemplateReference.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/private/Get-PipelineTemplateReference.ps1.md)"
+    docs: "[Get-PipelineTemplateReference.ps1.md](../../../docs/references/pwsh/catzc-azure-dev-ops/private/Get-PipelineTemplateReference.ps1.md)"
     cites:
       - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
 ---

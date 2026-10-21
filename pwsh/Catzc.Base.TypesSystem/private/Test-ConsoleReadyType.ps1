@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "358b7fc9ea5f"
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
-    docs: "[Test-ConsoleReadyType.ps1.md](docs/references/pwsh/catzc-base-types-system/private/Test-ConsoleReadyType.ps1.md)"
+    docs: "[Test-ConsoleReadyType.ps1.md](../../../docs/references/pwsh/catzc-base-types-system/private/Test-ConsoleReadyType.ps1.md)"
 ---
 #>
 

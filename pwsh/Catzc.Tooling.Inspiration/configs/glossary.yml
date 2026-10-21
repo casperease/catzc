@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: e23a26a1d017
 #   edges:
-#     docs: "[glossary.yml.md](docs/references/pwsh/catzc-tooling-inspiration/configs/glossary.yml.md)"
+#     docs: "[glossary.yml.md](../../../docs/references/pwsh/catzc-tooling-inspiration/configs/glossary.yml.md)"
 #     cites:
 #       - ADR-REPO-INSPIRE-DECLAREDINSPIRATION
 #       - ADR-REPO-VOCAB

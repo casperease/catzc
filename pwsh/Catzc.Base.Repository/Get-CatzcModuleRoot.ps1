@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c76ca4ca4e3e
   edges:
     test: pwsh/Catzc.Base.Repository/tests/Get-CatzcModuleRoot.Tests.ps1
-    docs: "[Get-CatzcModuleRoot.ps1.md](docs/references/pwsh/catzc-base-repository/Get-CatzcModuleRoot.ps1.md)"
+    docs: "[Get-CatzcModuleRoot.ps1.md](../../docs/references/pwsh/catzc-base-repository/Get-CatzcModuleRoot.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
       - ADR-AUTO-ASSETDEP-LITERALCHILDPATH

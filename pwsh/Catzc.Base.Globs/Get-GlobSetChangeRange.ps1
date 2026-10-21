@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d116c7e2e022
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
-    docs: "[Get-GlobSetChangeRange.ps1.md](docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md)"
+    docs: "[Get-GlobSetChangeRange.ps1.md](../../docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md)"
     cites:
       - FDR-CD-DETECT
       - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT

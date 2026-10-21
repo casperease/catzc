@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "95f8394c8dc0"
   edges:
-    docs: "[FileLanguage.cs.md](docs/references/pwsh/catzc-base-languages/types/FileLanguage.cs.md)"
+    docs: "[FileLanguage.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/FileLanguage.cs.md)"
     cites:
       - ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS
       - ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION

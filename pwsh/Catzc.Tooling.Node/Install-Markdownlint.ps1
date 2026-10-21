@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8c6741ad79bf"
   edges:
-    docs: "[Install-Markdownlint.ps1.md](docs/references/pwsh/catzc-tooling-node/Install-Markdownlint.ps1.md)"
+    docs: "[Install-Markdownlint.ps1.md](../../docs/references/pwsh/catzc-tooling-node/Install-Markdownlint.ps1.md)"
 ---
 #>
 

@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "0afa278ff829"
 //   edges:
-//     docs: "[main.bicep.md](docs/references/infrastructure/templates/foundation/main.bicep.md)"
+//     docs: "[main.bicep.md](../../../docs/references/infrastructure/templates/foundation/main.bicep.md)"
 // ---
 
 param location string = resourceGroup().location

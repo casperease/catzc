@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "968732cf459e"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/types/EngineCaseTable.Tests.ps1
-    docs: "[EngineCaseTable.cs.md](docs/references/pwsh/catzc-tooling-core/types/EngineCaseTable.cs.md)"
+    docs: "[EngineCaseTable.cs.md](../../../docs/references/pwsh/catzc-tooling-core/types/EngineCaseTable.cs.md)"
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
 ---

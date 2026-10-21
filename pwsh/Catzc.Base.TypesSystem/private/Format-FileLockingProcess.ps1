@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "704b7446adde"
   edges:
-    docs: "[Format-FileLockingProcess.ps1.md](docs/references/pwsh/catzc-base-types-system/private/Format-FileLockingProcess.ps1.md)"
+    docs: "[Format-FileLockingProcess.ps1.md](../../../docs/references/pwsh/catzc-base-types-system/private/Format-FileLockingProcess.ps1.md)"
 ---
 #>
 

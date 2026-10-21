@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "035bd000f45b"
   edges:
     test: pwsh/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
-    docs: "[Get-FirewallCsv.ps1.md](docs/references/pwsh/catzc-azure-firewall/Get-FirewallCsv.ps1.md)"
+    docs: "[Get-FirewallCsv.ps1.md](../../docs/references/pwsh/catzc-azure-firewall/Get-FirewallCsv.ps1.md)"
 ---
 #>
 

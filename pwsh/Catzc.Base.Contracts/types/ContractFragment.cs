@@ -5,7 +5,7 @@ catzc:
     with_body_sha: be1506e7714e
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractFragment.Tests.ps1
-    docs: "[ContractFragment.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractFragment.cs.md)"
+    docs: "[ContractFragment.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/ContractFragment.cs.md)"
     cites:
       - ADR-REPO-CONTRACT-CONTRACTASSET
 ---

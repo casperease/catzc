@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0cbe5abf6779"
   edges:
     test: pwsh/Catzc.Base.MarkdownMeta/tests/Remove-MarkdownFrontMatter.Tests.ps1
-    docs: "[Remove-MarkdownFrontMatter.ps1.md](docs/references/pwsh/catzc-base-markdown-meta/Remove-MarkdownFrontMatter.ps1.md)"
+    docs: "[Remove-MarkdownFrontMatter.ps1.md](../../docs/references/pwsh/catzc-base-markdown-meta/Remove-MarkdownFrontMatter.ps1.md)"
 ---
 #>
 

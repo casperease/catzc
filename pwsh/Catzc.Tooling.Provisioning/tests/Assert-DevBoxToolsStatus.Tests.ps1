@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d9bed51999a1
   edges:
-    docs: "[Assert-DevBoxToolsStatus.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1.md)"
+    docs: "[Assert-DevBoxToolsStatus.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
 ---
 #>

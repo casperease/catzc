@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e6b3192038f9
   edges:
     test: pwsh/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
-    docs: "[ExecutionEngine.cs.md](docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md)"
+    docs: "[ExecutionEngine.cs.md](../../../docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md)"
     cites:
       - ADR-AUTO-ENGINE
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT

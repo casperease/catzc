@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e11e7144cf08
   edges:
     test: pwsh/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
-    docs: "[Sync-SessionPath.ps1.md](docs/references/pwsh/catzc-base-environment/Sync-SessionPath.ps1.md)"
+    docs: "[Sync-SessionPath.ps1.md](../../docs/references/pwsh/catzc-base-environment/Sync-SessionPath.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
 ---

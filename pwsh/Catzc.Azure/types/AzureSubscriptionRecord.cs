@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e79d21a88a75
   edges:
-    docs: "[AzureSubscriptionRecord.cs.md](docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md)"
+    docs: "[AzureSubscriptionRecord.cs.md](../../../docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md)"
     cites:
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-AZ-DATAMOD

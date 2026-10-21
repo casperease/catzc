@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8d4643321dc2"
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
-    docs: "[Clear-ModuleTypeCache.ps1.md](docs/references/pwsh/catzc-base-types-system/Clear-ModuleTypeCache.ps1.md)"
+    docs: "[Clear-ModuleTypeCache.ps1.md](../../docs/references/pwsh/catzc-base-types-system/Clear-ModuleTypeCache.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
       - DDR-RUNMODE

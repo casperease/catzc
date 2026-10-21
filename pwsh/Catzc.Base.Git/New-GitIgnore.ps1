@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d759cc8e3fe9
   edges:
     test: pwsh/Catzc.Base.Git/tests/New-GitIgnore.Tests.ps1
-    docs: "[New-GitIgnore.ps1.md](docs/references/pwsh/catzc-base-git/New-GitIgnore.ps1.md)"
+    docs: "[New-GitIgnore.ps1.md](../../docs/references/pwsh/catzc-base-git/New-GitIgnore.ps1.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---

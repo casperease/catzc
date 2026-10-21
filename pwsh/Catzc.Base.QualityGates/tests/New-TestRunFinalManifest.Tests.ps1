@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1511ef5d8454"
   edges:
-    docs: "[New-TestRunFinalManifest.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/New-TestRunFinalManifest.Tests.ps1.md)"
+    docs: "[New-TestRunFinalManifest.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/New-TestRunFinalManifest.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/New-TestRunFinalManifest.ps1
     cites:
       - ADR-AUTO-TEST-RUNSNEVERWAIT

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: aaef48ebee91
   edges:
-    docs: "[BclHostBinding.cs.md](docs/references/pwsh/catzc-base-languages/types/BclHostBinding.cs.md)"
+    docs: "[BclHostBinding.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/BclHostBinding.cs.md)"
     cites:
       - ADR-BCL-TYPES-BCLREFERENCESET
 ---

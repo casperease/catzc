@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b4c6a16f330d
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSummaryLines.Tests.ps1
-    docs: "[Get-DrsRuleSummaryLines.ps1.md](docs/references/pwsh/catzc-base-drs/private/Get-DrsRuleSummaryLines.ps1.md)"
+    docs: "[Get-DrsRuleSummaryLines.ps1.md](../../../docs/references/pwsh/catzc-base-drs/private/Get-DrsRuleSummaryLines.ps1.md)"
     cites:
       - ADR-REPO-LINK-ONECITATIONSPELLING
 ---

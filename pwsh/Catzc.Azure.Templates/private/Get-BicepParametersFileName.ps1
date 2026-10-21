@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e5eb92e99495
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepParametersFileName.Tests.ps1
-    docs: "[Get-BicepParametersFileName.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md)"
+    docs: "[Get-BicepParametersFileName.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD
 ---

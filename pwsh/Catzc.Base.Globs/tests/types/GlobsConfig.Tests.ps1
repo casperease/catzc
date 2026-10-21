@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d1f1f41156c8
   edges:
-    docs: "[GlobsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md)"
+    docs: "[GlobsConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "07a038a640e5"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplateCustomers.Tests.ps1
-    docs: "[Get-BicepTemplateCustomers.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateCustomers.ps1.md)"
+    docs: "[Get-BicepTemplateCustomers.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateCustomers.ps1.md)"
 ---
 #>
 

@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "43481ff2cd69"
+    with_body_sha: "8cb3359675d3"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
-    docs: "[Get-TestTagViolations.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestTagViolations.ps1.md)"
+    docs: "[Get-TestTagViolations.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestTagViolations.ps1.md)"
     cites:
       - ADR-PWSH-ERROR-THROWNOTWRITEERROR
 ---

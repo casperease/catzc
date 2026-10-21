@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "11725a908889"
   edges:
-    docs: "[CliResult.cs.md](docs/references/pwsh/catzc-base-execution/types/CliResult.cs.md)"
+    docs: "[CliResult.cs.md](../../../docs/references/pwsh/catzc-base-execution/types/CliResult.cs.md)"
 ---
 */
 

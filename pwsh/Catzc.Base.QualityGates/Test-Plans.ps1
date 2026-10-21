@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "80946a82ff32"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
-    docs: "[Test-Plans.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md)"
+    docs: "[Test-Plans.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-FOLDERS-STABLEFILENAMES

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8c4d3a390c1e"
   edges:
-    docs: "[Uninstall-DevBoxTools.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-DevBoxTools.Tests.ps1.md)"
+    docs: "[Uninstall-DevBoxTools.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-DevBoxTools.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/Uninstall-DevBoxTools.ps1
 ---
 #>

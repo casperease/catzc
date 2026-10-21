@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0a1d42d07000"
   edges:
-    docs: "[Get-GlobSetHash.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md)"
+    docs: "[Get-GlobSetHash.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/Get-GlobSetHash.ps1
     cites:
       - FDR-CD-GLOBS-DURABLESHAIDENTITY

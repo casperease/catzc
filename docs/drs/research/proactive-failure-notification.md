@@ -1,4 +1,4 @@
-# ADR: DORA — Proactive failure notification
+# Research: DORA — Proactive failure notification
 
 ## Rules: RDR-DORA-FAILALERT
 

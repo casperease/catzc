@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: d106a862cd8d
 #   edges:
-#     docs: "[go.yml.md](docs/references/pwsh/catzc-base-languages/configs/go.yml.md)"
+#     docs: "[go.yml.md](../../../docs/references/pwsh/catzc-base-languages/configs/go.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 # ---

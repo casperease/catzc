@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b26a03c95010
   edges:
-    docs: "[Test-AdoPipelineTriggerGlob.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md)"
+    docs: "[Test-AdoPipelineTriggerGlob.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
     cites:
       - ADR-AUTO-TEST-QUALITYGATE

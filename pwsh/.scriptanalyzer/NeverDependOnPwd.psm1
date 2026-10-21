@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9c4b1dac1029"
   edges:
-    docs: "[NeverDependOnPwd.psm1.md](docs/references/pwsh/scriptanalyzer/NeverDependOnPwd.psm1.md)"
+    docs: "[NeverDependOnPwd.psm1.md](../../docs/references/pwsh/scriptanalyzer/NeverDependOnPwd.psm1.md)"
     cites:
       - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: cf570091b72a
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-TrackPlacementMinimapData.Tests.ps1
-    docs: "[Get-TrackPlacementMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md)"
+    docs: "[Get-TrackPlacementMinimapData.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md)"
     cites:
       - ADR-AZ-NAMING
       - DDR-TRACK

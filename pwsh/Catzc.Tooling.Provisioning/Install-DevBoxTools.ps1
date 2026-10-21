@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b2d9d01cb502
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Install-DevBoxTools.Tests.ps1
-    docs: "[Install-DevBoxTools.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md)"
+    docs: "[Install-DevBoxTools.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md)"
 ---
 #>
 

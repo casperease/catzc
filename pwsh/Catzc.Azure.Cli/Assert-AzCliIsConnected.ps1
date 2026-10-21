@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e46f91e9da1c
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Assert-AzCliIsConnected.Tests.ps1
-    docs: "[Assert-AzCliIsConnected.ps1.md](docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md)"
+    docs: "[Assert-AzCliIsConnected.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD
 ---

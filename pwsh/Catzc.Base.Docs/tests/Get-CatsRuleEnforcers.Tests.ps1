@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5f8a15ebff88"
+    with_body_sha: "24c27d0c2465"
   edges:
-    docs: "[Get-CatsRuleEnforcers.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-CatsRuleEnforcers.Tests.ps1.md)"
+    docs: "[Get-CatsRuleEnforcers.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Get-CatsRuleEnforcers.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

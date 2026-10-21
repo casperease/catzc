@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "81e400e371cb"
   edges:
-    docs: "[Assert-GitHubPurgeReady.Tests.ps1.md](docs/references/pwsh/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md)"
+    docs: "[Assert-GitHubPurgeReady.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Github/Assert-GitHubPurgeReady.ps1
 ---
 #>

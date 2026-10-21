@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6a079caed2c6"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
-    docs: "[Test-Slides.ps1.md](docs/references/pwsh/catzc-base-slides/Test-Slides.ps1.md)"
+    docs: "[Test-Slides.ps1.md](../../docs/references/pwsh/catzc-base-slides/Test-Slides.ps1.md)"
     cites:
       - ADR-REPO-SLIDES-CHECKABLECLAIMS
 ---

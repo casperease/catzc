@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "29b76508868f"
   edges:
-    docs: "[Resolve-ManagedGuid.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Resolve-ManagedGuid.ps1.md)"
+    docs: "[Resolve-ManagedGuid.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Resolve-ManagedGuid.ps1.md)"
 ---
 #>
 

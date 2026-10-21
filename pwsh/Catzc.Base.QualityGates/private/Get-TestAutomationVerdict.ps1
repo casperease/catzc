@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3eedf2ba7bd2"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestAutomationVerdict.Tests.ps1
-    docs: "[Get-TestAutomationVerdict.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestAutomationVerdict.ps1.md)"
+    docs: "[Get-TestAutomationVerdict.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestAutomationVerdict.ps1.md)"
     cites:
       - ADR-AUTO-XPLAT-INVARIANTCULTURE
 ---

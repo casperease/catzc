@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "77a67e6ec1b5"
   edges:
-    docs: "[Get-ContractUnitAsset.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractUnitAsset.ps1.md)"
+    docs: "[Get-ContractUnitAsset.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractUnitAsset.ps1.md)"
     cites:
       - ADR-REPO-CONTRACT-LAYOUT
       - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE

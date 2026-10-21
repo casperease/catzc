@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9f95334e8bc4"
   edges:
-    docs: "[Get-RegisteredInstallProduct.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1.md)"
+    docs: "[Get-RegisteredInstallProduct.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/private/Get-RegisteredInstallProduct.ps1
     cites:
       - ADR-AUTO-REMOVE-THREEPLATFORMCORES

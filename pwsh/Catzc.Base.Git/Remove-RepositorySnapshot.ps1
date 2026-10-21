@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7a7fa7e05255"
   edges:
     test: pwsh/Catzc.Base.Git/tests/Remove-RepositorySnapshot.Tests.ps1
-    docs: "[Remove-RepositorySnapshot.ps1.md](docs/references/pwsh/catzc-base-git/Remove-RepositorySnapshot.ps1.md)"
+    docs: "[Remove-RepositorySnapshot.ps1.md](../../docs/references/pwsh/catzc-base-git/Remove-RepositorySnapshot.ps1.md)"
     cites:
       - ADR-PWSH-ENUM-ALWAYSBOUNDED
 ---

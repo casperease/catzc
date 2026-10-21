@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9f6144fd830d"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
-    docs: "[Test-GlobSetIndependence.ps1.md](docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md)"
+    docs: "[Test-GlobSetIndependence.ps1.md](../../docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS

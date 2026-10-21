@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b00df8e3f62e
   edges:
-    docs: "[Get-FormatEngineStamp.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-FormatEngineStamp.Tests.ps1.md)"
+    docs: "[Get-FormatEngineStamp.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-FormatEngineStamp.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-FormatEngineStamp.ps1
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS

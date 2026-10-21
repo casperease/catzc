@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "47e6489883e3"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
-    docs: "[ToolsConfig.cs.md](docs/references/pwsh/catzc-base-execution/types/ToolsConfig.cs.md)"
+    docs: "[ToolsConfig.cs.md](../../../docs/references/pwsh/catzc-base-execution/types/ToolsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
 ---

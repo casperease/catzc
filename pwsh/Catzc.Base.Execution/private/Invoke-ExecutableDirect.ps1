@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "95671c604469"
   edges:
-    docs: "[Invoke-ExecutableDirect.ps1.md](docs/references/pwsh/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md)"
+    docs: "[Invoke-ExecutableDirect.ps1.md](../../../docs/references/pwsh/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md)"
 ---
 #>
 

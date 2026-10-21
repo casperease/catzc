@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5783d1634d31"
   edges:
-    docs: "[New-PythonProject.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/New-PythonProject.Tests.ps1.md)"
+    docs: "[New-PythonProject.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-languages/tests/New-PythonProject.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/New-PythonProject.ps1
     cites:
       - ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM

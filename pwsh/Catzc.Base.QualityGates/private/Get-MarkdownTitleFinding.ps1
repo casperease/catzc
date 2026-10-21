@@ -5,7 +5,7 @@ catzc:
     with_body_sha: cfcc28d95c6a
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-MarkdownTitleFinding.Tests.ps1
-    docs: "[Get-MarkdownTitleFinding.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownTitleFinding.ps1.md)"
+    docs: "[Get-MarkdownTitleFinding.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownTitleFinding.ps1.md)"
 ---
 #>
 

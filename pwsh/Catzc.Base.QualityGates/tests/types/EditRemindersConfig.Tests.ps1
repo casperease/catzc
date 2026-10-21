@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8e747314c430"
+    with_body_sha: a21e30be59a8
   edges:
     code: pwsh/Catzc.Base.QualityGates/types/EditRemindersConfig.cs
     cites:

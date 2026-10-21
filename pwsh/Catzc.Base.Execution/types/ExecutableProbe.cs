@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "177c3f4b32a2"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
-    docs: "[ExecutableProbe.cs.md](docs/references/pwsh/catzc-base-execution/types/ExecutableProbe.cs.md)"
+    docs: "[ExecutableProbe.cs.md](../../../docs/references/pwsh/catzc-base-execution/types/ExecutableProbe.cs.md)"
 ---
 */
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b28d7bff0db9
   edges:
     test: pwsh/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
-    docs: "[Copy-Object.ps1.md](docs/references/pwsh/catzc-base-objects/Copy-Object.ps1.md)"
+    docs: "[Copy-Object.ps1.md](../../docs/references/pwsh/catzc-base-objects/Copy-Object.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "589ca63fc7a8"
   edges:
-    docs: "[CheckModes.Tests.ps1.md](docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md)"
+    docs: "[CheckModes.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-reports/tests/types/CheckModes.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Reports/types/CheckModes.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER

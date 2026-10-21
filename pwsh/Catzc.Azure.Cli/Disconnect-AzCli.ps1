@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4813e0ee1564"
   edges:
-    docs: "[Disconnect-AzCli.ps1.md](docs/references/pwsh/catzc-azure-cli/Disconnect-AzCli.ps1.md)"
+    docs: "[Disconnect-AzCli.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Disconnect-AzCli.ps1.md)"
 ---
 #>
 

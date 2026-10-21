@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "82e4058f257e"
   edges:
-    docs: "[Watch-Blocking.Tests.ps1.md](docs/references/pwsh/catzc-base-timeouts/tests/Watch-Blocking.Tests.ps1.md)"
+    docs: "[Watch-Blocking.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-timeouts/tests/Watch-Blocking.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1
 ---
 #>

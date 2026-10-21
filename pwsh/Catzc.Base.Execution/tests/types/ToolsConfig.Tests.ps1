@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: fa6a5ec19fd4
   edges:
-    docs: "[ToolsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md)"
+    docs: "[ToolsConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Execution/types/ToolsConfig.cs
     cites:
       - ADR-AUTO-DEPS-INSTALLORDERINCONFIG

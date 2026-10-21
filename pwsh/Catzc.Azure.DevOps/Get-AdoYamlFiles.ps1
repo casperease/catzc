@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3db1b83688bb"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
-    docs: "[Get-AdoYamlFiles.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Get-AdoYamlFiles.ps1.md)"
+    docs: "[Get-AdoYamlFiles.ps1.md](../../docs/references/pwsh/catzc-azure-dev-ops/Get-AdoYamlFiles.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
 ---

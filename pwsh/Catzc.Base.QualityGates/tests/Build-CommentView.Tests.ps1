@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5038dd724df1"
   edges:
-    docs: "[Build-CommentView.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Build-CommentView.Tests.ps1.md)"
+    docs: "[Build-CommentView.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Build-CommentView.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Build-CommentView.ps1
     cites:
       - ADR-AUTO-IDEM-CHECKBEFOREACTING

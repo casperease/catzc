@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "548130b41004"
   edges:
-    docs: "[New-GitIgnore.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/New-GitIgnore.Tests.ps1.md)"
+    docs: "[New-GitIgnore.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-git/tests/New-GitIgnore.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Git/New-GitIgnore.ps1
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS

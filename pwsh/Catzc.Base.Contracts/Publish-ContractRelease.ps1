@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b65eacd011f4
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
-    docs: "[Publish-ContractRelease.ps1.md](docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md)"
+    docs: "[Publish-ContractRelease.ps1.md](../../docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md)"
     cites:
       - ADR-AUTO-BUNDLE-AUTOVERSION
       - ADR-AUTO-PATH-COMMUNICATIONFORM

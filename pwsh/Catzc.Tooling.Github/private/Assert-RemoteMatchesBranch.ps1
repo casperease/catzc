@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1fea09b053b2"
   edges:
-    docs: "[Assert-RemoteMatchesBranch.ps1.md](docs/references/pwsh/catzc-tooling-github/private/Assert-RemoteMatchesBranch.ps1.md)"
+    docs: "[Assert-RemoteMatchesBranch.ps1.md](../../../docs/references/pwsh/catzc-tooling-github/private/Assert-RemoteMatchesBranch.ps1.md)"
 ---
 #>
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "49735c26ad5d"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/PdfDocument.Tests.ps1
-    docs: "[PdfDocument.cs.md](docs/references/pwsh/catzc-base-maps/types/PdfDocument.cs.md)"
+    docs: "[PdfDocument.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/PdfDocument.cs.md)"
     cites:
       - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e75f582cac28
   edges:
     test: pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
-    docs: "[Get-EngineContract.ps1.md](docs/references/pwsh/catzc-base-languages/private/Get-EngineContract.ps1.md)"
+    docs: "[Get-EngineContract.ps1.md](../../../docs/references/pwsh/catzc-base-languages/private/Get-EngineContract.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE
       - ADR-AUTO-GO-BLACKBOXTESTS

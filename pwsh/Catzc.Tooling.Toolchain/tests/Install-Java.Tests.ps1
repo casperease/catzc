@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4eb7d873583d"
   edges:
-    docs: "[Install-Java.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md)"
+    docs: "[Install-Java.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/Install-Java.ps1
 ---
 #>

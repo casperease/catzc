@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: dad7d195567e
   edges:
-    docs: "[Uninstall-Markdownlint.ps1.md](docs/references/pwsh/catzc-tooling-node/Uninstall-Markdownlint.ps1.md)"
+    docs: "[Uninstall-Markdownlint.ps1.md](../../docs/references/pwsh/catzc-tooling-node/Uninstall-Markdownlint.ps1.md)"
 ---
 #>
 

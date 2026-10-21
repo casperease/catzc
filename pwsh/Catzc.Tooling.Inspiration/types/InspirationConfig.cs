@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "852c77bf5859"
   edges:
     test: pwsh/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
-    docs: "[InspirationConfig.cs.md](docs/references/pwsh/catzc-tooling-inspiration/types/InspirationConfig.cs.md)"
+    docs: "[InspirationConfig.cs.md](../../../docs/references/pwsh/catzc-tooling-inspiration/types/InspirationConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7a0963351fdd"
   edges:
-    docs: "[Get-InstallScope.ps1.md](docs/references/pwsh/catzc-tooling-core/Get-InstallScope.ps1.md)"
+    docs: "[Get-InstallScope.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Get-InstallScope.ps1.md)"
 ---
 #>
 

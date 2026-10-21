@@ -5,7 +5,7 @@ catzc:
     with_body_sha: bf3176bdd283
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Get-AzCliConnectionState.Tests.ps1
-    docs: "[Get-AzCliConnectionState.ps1.md](docs/references/pwsh/catzc-azure-cli/Get-AzCliConnectionState.ps1.md)"
+    docs: "[Get-AzCliConnectionState.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Get-AzCliConnectionState.ps1.md)"
 ---
 #>
 

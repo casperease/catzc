@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4313800179f1"
   edges:
-    docs: "[Get-RelativeEdgeCandidate.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-RelativeEdgeCandidate.ps1.md)"
+    docs: "[Get-RelativeEdgeCandidate.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-RelativeEdgeCandidate.ps1.md)"
 ---
 #>
 

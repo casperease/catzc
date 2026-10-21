@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c21f62ab8ffb
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1
-    docs: "[Get-GlossaryPhrasingViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md)"
+    docs: "[Get-GlossaryPhrasingViolations.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md)"
     cites:
       - ADR-REPO-VOCAB-GLOSSARYSOURCE
       - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED

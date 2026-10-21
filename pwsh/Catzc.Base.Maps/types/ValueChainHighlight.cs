@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "995c650d884f"
+    with_body_sha: "5cee573cfc31"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
-    docs: "[ValueChainHighlight.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainHighlight.cs.md)"
+    docs: "[ValueChainHighlight.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/ValueChainHighlight.cs.md)"
     cites:
       - DDR-TRACK-LITCELL
       - DDR-TRACK-VALUECHAINMAP

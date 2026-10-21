@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "14e615554adb"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Resolve-ImportMix.Tests.ps1
-    docs: "[Resolve-ImportMix.ps1.md](docs/references/pwsh/catzc-base-module-system/private/Resolve-ImportMix.ps1.md)"
+    docs: "[Resolve-ImportMix.ps1.md](../../../docs/references/pwsh/catzc-base-module-system/private/Resolve-ImportMix.ps1.md)"
     cites:
       - ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS
 ---

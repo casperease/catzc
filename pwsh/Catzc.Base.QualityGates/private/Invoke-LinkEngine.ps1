@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6af5e09571e6"
+    with_body_sha: b78989674a2a
   edges:
-    docs: "[Invoke-LinkEngine.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-LinkEngine.ps1.md)"
+    docs: "[Invoke-LinkEngine.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-LinkEngine.ps1.md)"
 ---
 #>
 

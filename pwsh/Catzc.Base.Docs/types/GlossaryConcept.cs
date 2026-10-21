@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cc6d1317ddb3
+    with_body_sha: "122a0a573459"
   edges:
-    docs: "[GlossaryConcept.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md)"
+    docs: "[GlossaryConcept.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md)"
     cites:
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD

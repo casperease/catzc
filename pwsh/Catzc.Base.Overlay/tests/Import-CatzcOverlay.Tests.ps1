@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5bcda5d72db9"
   edges:
-    docs: "[Import-CatzcOverlay.Tests.ps1.md](docs/references/pwsh/catzc-base-overlay/tests/Import-CatzcOverlay.Tests.ps1.md)"
+    docs: "[Import-CatzcOverlay.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-overlay/tests/Import-CatzcOverlay.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Overlay/Import-CatzcOverlay.ps1
 ---
 #>

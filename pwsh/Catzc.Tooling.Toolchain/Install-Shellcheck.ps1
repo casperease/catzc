@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0c939f74aed8"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Install-Shellcheck.Tests.ps1
-    docs: "[Install-Shellcheck.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Install-Shellcheck.ps1.md)"
+    docs: "[Install-Shellcheck.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Install-Shellcheck.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE
 ---

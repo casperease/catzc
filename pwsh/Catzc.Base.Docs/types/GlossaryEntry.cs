@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5b6e3869da0d"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/GlossaryEntry.Tests.ps1
-    docs: "[GlossaryEntry.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryEntry.cs.md)"
+    docs: "[GlossaryEntry.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/GlossaryEntry.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-VOCAB

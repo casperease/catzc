@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0f5b9899c9dc"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1
-    docs: "[Get-CatsModules.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md)"
+    docs: "[Get-CatsModules.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md)"
     cites:
       - ADR-REPO-FOLDERS-DOTMEANSTOOLING
       - DDR-RUNMODE-SAMEMODULEINBOTH

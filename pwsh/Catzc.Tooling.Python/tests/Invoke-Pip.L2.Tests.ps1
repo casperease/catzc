@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "39fca893dcb1"
   edges:
-    docs: "[Invoke-Pip.L2.Tests.ps1.md](docs/references/pwsh/catzc-tooling-python/tests/Invoke-Pip.L2.Tests.ps1.md)"
+    docs: "[Invoke-Pip.L2.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-python/tests/Invoke-Pip.L2.Tests.ps1.md)"
 ---
 #>
 

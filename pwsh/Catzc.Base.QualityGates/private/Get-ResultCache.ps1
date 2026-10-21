@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: df1e30df1531
   edges:
-    docs: "[Get-ResultCache.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ResultCache.ps1.md)"
+    docs: "[Get-ResultCache.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ResultCache.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 ---

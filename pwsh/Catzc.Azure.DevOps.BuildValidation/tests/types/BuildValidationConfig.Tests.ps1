@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4819451965a0"
   edges:
-    docs: "[BuildValidationConfig.Tests.ps1.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/types/BuildValidationConfig.Tests.ps1.md)"
+    docs: "[BuildValidationConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/types/BuildValidationConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

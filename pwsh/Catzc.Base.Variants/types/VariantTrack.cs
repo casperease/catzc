@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "51d85be0dd7c"
   edges:
-    docs: "[VariantTrack.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md)"
+    docs: "[VariantTrack.cs.md](../../../docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - DDR-TRACK

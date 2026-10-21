@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d307584eb705
   edges:
-    docs: "[Test-DrsRegistry.Tests.ps1.md](docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md)"
+    docs: "[Test-DrsRegistry.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
@@ -101,7 +101,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         It 'returns the issues under -PassThru instead of throwing' {
             Write-AdrFixture 'widget/widget-one.md' "# Widget one`n"
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
-            $result.Subject | Should -Be 'adr-registry'
+            $result.Subject | Should -Be 'drs-registry'
             $result.Issues | Should -HaveCount 1
             $result.Issues[0] | Should -Match "docs/drs/widget/widget-one\.md: must head its rule registry '## Rules: ADR-WI-ONE'"
         }
@@ -124,10 +124,10 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
                 'docs/drs/gadget/dora-explains.md: no section links ADR-GA-ONE (docs/drs/gadget/sub/gadget-one.md)'
                 'docs/drs/gadget/dora-explains.md: no section links ADR-GA-WIDGET (docs/drs/gadget/widget-one.md)'
             )
-            Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '1 adr-citation-graph issue(s).' }
-            Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '3 adr-dora-coverage issue(s).' }
+            Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '1 drs-citation-graph issue(s).' }
+            Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '3 drs-dora-coverage issue(s).' }
             # The report sits in a run folder below its subject folder; the deeper levels are headroom.
-            Get-ChildPath (Join-Path $out 'adr-citation-graph') -File -Filter 'adr-citation-graph.md' -Depth 3 -Exclude @() | Should -Not -BeNullOrEmpty
+            Get-ChildPath (Join-Path $out 'drs-citation-graph') -File -Filter 'drs-citation-graph.md' -Depth 3 -Exclude @() | Should -Not -BeNullOrEmpty
             { Test-DrsRegistry -OutputFolder $out } | Should -Not -Throw
         }
 

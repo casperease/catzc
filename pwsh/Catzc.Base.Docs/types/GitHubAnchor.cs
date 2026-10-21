@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "808c007be217"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1
-    docs: "[GitHubAnchor.cs.md](docs/references/pwsh/catzc-base-docs/types/GitHubAnchor.cs.md)"
+    docs: "[GitHubAnchor.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/GitHubAnchor.cs.md)"
     cites:
       - ADR-REPO-LINK-MARKDOWNRELATIVE
 ---

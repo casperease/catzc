@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c0bfe3746896
+    with_body_sha: a56f64416697
   edges:
-    docs: "[Test-GeneratedFiles.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-GeneratedFiles.Tests.ps1.md)"
+    docs: "[Test-GeneratedFiles.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-GeneratedFiles.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
     cites:
       - ADR-AUTO-TEST-QUALITYGATE

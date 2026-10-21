@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7d33575ea249"
   edges:
-    docs: "[Remove-UvPipOrStrayInstall.ps1.md](docs/references/pwsh/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md)"
+    docs: "[Remove-UvPipOrStrayInstall.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md)"
     cites:
       - ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM
 ---

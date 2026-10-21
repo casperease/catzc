@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3d6305fe937a"
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Invoke-AzCli.Tests.ps1
-    docs: "[Invoke-AzCli.ps1.md](docs/references/pwsh/catzc-azure-cli/Invoke-AzCli.ps1.md)"
+    docs: "[Invoke-AzCli.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Invoke-AzCli.ps1.md)"
 ---
 #>
 

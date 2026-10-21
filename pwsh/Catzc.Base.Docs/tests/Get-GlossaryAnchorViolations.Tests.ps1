@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: db36ebc428da
   edges:
-    docs: "[Get-GlossaryAnchorViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryAnchorViolations.Tests.ps1.md)"
+    docs: "[Get-GlossaryAnchorViolations.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryAnchorViolations.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-GlossaryAnchorViolations.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7d0c7f6d0bed"
   edges:
-    docs: "[Get-ToolsStatus.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md)"
+    docs: "[Get-ToolsStatus.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/Get-ToolsStatus.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

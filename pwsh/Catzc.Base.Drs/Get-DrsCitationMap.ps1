@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "67552d3e98fc"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Get-DrsCitationMap.Tests.ps1
-    docs: "[Get-DrsCitationMap.ps1.md](docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md)"
+    docs: "[Get-DrsCitationMap.ps1.md](../../docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md)"
     cites:
       - ADR-AUTO-CACHE
       - ADR-PWSH-CACHE-STRICTSAFEPROBE

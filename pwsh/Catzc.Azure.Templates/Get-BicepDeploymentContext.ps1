@@ -5,7 +5,7 @@ catzc:
     with_body_sha: dbc225946a97
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1
-    docs: "[Get-BicepDeploymentContext.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md)"
+    docs: "[Get-BicepDeploymentContext.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD
 ---

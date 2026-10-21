@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d45a4701d4cc
   edges:
-    docs: "[Import-DrsCitationMapFile.ps1.md](docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md)"
+    docs: "[Import-DrsCitationMapFile.ps1.md](../../../docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST
 ---

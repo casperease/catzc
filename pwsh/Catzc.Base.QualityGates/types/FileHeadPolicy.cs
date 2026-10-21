@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ca807f73a7f5
+    with_body_sha: d5bf14b208ba
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1
-    docs: "[FileHeadPolicy.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/FileHeadPolicy.cs.md)"
+    docs: "[FileHeadPolicy.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/FileHeadPolicy.cs.md)"
     cites:
       - ADR-REPO-FILEMETA-HEADPOLICY
       - ADR-REPO-VARIANT-FILEHEADS

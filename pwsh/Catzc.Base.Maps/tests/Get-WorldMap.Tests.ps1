@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "866da098919e"
+    with_body_sha: "7f500f505b2c"
   edges:
-    docs: "[Get-WorldMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md)"
+    docs: "[Get-WorldMap.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
     cites:
       - DDR-TRACK-ONETECHSTACK

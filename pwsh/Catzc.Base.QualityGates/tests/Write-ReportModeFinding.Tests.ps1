@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "238091d6c4a4"
   edges:
-    docs: "[Write-ReportModeFinding.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Write-ReportModeFinding.Tests.ps1.md)"
+    docs: "[Write-ReportModeFinding.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Write-ReportModeFinding.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Write-ReportModeFinding.ps1
     cites:
       - PDR-CONFIG-EXCEPTIONISCONFIGENTRY

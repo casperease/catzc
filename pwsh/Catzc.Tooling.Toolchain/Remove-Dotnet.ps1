@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a129adbe7dad
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Remove-Dotnet.Tests.ps1
-    docs: "[Remove-Dotnet.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Remove-Dotnet.ps1.md)"
+    docs: "[Remove-Dotnet.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Remove-Dotnet.ps1.md)"
     cites:
       - ADR-AUTO-REMOVE
 ---

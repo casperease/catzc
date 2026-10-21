@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "063d02079040"
   edges:
-    docs: "[Install-Cspell.ps1.md](docs/references/pwsh/catzc-tooling-node/Install-Cspell.ps1.md)"
+    docs: "[Install-Cspell.ps1.md](../../docs/references/pwsh/catzc-tooling-node/Install-Cspell.ps1.md)"
 ---
 #>
 

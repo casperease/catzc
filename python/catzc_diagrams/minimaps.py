@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "70455a91bd3d"
+#     with_body_sha: "8b965c47f5a0"
 # ---
 
 # cspell:ignore minimaps textlength LANCZOS

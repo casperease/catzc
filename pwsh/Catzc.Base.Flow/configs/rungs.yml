@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: ca3d163bab05
 #   edges:
-#     docs: "[rungs.yml.md](docs/references/pwsh/catzc-base-flow/configs/rungs.yml.md)"
+#     docs: "[rungs.yml.md](../../../docs/references/pwsh/catzc-base-flow/configs/rungs.yml.md)"
 # ---
 
 {}

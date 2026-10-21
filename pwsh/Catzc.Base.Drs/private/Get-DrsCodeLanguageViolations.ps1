@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "563891754cbd"
   edges:
-    docs: "[Get-DrsCodeLanguageViolations.ps1.md](docs/references/pwsh/catzc-base-drs/private/Get-DrsCodeLanguageViolations.ps1.md)"
+    docs: "[Get-DrsCodeLanguageViolations.ps1.md](../../../docs/references/pwsh/catzc-base-drs/private/Get-DrsCodeLanguageViolations.ps1.md)"
     cites:
       - ADR-REPO-DRSCODE-PATHOFSEGMENTS
       - ADR-REPO-DRSCODE-DOMAINSEGMENT

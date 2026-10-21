@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "86b8ecdac2ef"
   edges:
-    docs: "[Remove-PermanentPath.Tests.ps1.md](docs/references/pwsh/catzc-base-environment/tests/Remove-PermanentPath.Tests.ps1.md)"
+    docs: "[Remove-PermanentPath.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-environment/tests/Remove-PermanentPath.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Environment/Remove-PermanentPath.ps1
 ---
 #>

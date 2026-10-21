@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f3149ca27127
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-    docs: "[Test-Glossary.ps1.md](docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md)"
+    docs: "[Test-Glossary.ps1.md](../../docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST
       - ADR-AUTO-TEST-QUALITYGATE

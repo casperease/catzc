@@ -124,12 +124,13 @@ governance verify.
 
 #### What OE:01 means here
 
-The repository's standard practices are its domain rules: the ADRs under `docs/drs/`, each rule cited by code and enforced, where a machine
-can enforce it, by a quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../automation/test-automation.md#rule-adr-auto-test-qualitygate)). How the
-team works is the process domain — agile values and principles, stopping the line when a quality gate fails, and continuous improvement from
-evidence. A learning, blameless culture is the DORA capability
-[generative organizational culture](../../research/generative-organizational-culture.md). Compliance built in as guardrails is the landing
-zone's policy assignments ([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
+The repository's standard practices are its domain rules: the decision records under `docs/drs/`, each rule cited by code and enforced,
+where a machine can enforce it, by a quality gate
+([ADR-AUTO-TEST-QUALITYGATE](../../automation/test-automation.md#rule-adr-auto-test-qualitygate)). How the team works is the process domain
+— agile values and principles, stopping the line when a quality gate fails, and continuous improvement from evidence. A learning, blameless
+culture is the DORA capability [generative organizational culture](../../research/generative-organizational-culture.md). Compliance built in
+as guardrails is the landing zone's policy assignments
+([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)).
 
 Who holds which role, and who decides a dispute, belongs to the organisation that operates the repository; a repository cannot name people
 without coupling its rules to an organisation chart. What the repository does carry is ownership per resource: the CAF tags on every

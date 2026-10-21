@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2924c1b966d6"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
-    docs: "[Test-Markdownlint.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Markdownlint.ps1.md)"
+    docs: "[Test-Markdownlint.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Markdownlint.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-README-AUTHOREDSOURCES

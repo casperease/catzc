@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "504d0c2eeab8"
   edges:
-    docs: "[Get-PipelineTrigger.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md)"
+    docs: "[Get-PipelineTrigger.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
     cites:
       - FDR-CD-GLOBS-NAMEDGLOBSETS

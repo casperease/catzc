@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b7d930e2c132
   edges:
     test: pwsh/Catzc.Base.Writers/tests/Write-Header.Tests.ps1
-    docs: "[Write-Header.ps1.md](docs/references/pwsh/catzc-base-writers/Write-Header.ps1.md)"
+    docs: "[Write-Header.ps1.md](../../docs/references/pwsh/catzc-base-writers/Write-Header.ps1.md)"
 ---
 #>
 

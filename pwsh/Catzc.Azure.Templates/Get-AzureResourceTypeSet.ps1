@@ -5,7 +5,7 @@ catzc:
     with_body_sha: be7bbb36f9e7
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-AzureResourceTypeSet.Tests.ps1
-    docs: "[Get-AzureResourceTypeSet.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md)"
+    docs: "[Get-AzureResourceTypeSet.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md)"
     cites:
       - ADR-AZ-NAMING
 ---

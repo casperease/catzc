@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e33539111538
   edges:
-    docs: "[AzureEnvironment.cs.md](docs/references/pwsh/catzc-azure/types/AzureEnvironment.cs.md)"
+    docs: "[AzureEnvironment.cs.md](../../../docs/references/pwsh/catzc-azure/types/AzureEnvironment.cs.md)"
 ---
 */
 

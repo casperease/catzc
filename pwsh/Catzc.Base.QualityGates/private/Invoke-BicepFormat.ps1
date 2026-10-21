@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9a56da6da3e5"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-BicepFormat.Tests.ps1
-    docs: "[Invoke-BicepFormat.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-BicepFormat.ps1.md)"
+    docs: "[Invoke-BicepFormat.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-BicepFormat.ps1.md)"
     cites:
       - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
 ---

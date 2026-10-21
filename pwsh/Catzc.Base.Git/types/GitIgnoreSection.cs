@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4a93a3ffcd81"
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitIgnoreSection.Tests.ps1
-    docs: "[GitIgnoreSection.cs.md](docs/references/pwsh/catzc-base-git/types/GitIgnoreSection.cs.md)"
+    docs: "[GitIgnoreSection.cs.md](../../../docs/references/pwsh/catzc-base-git/types/GitIgnoreSection.cs.md)"
 ---
 */
 

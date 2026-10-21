@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "77dfd784cf24"
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Install-Git.Tests.ps1
-    docs: "[Install-Git.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Install-Git.ps1.md)"
+    docs: "[Install-Git.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Install-Git.ps1.md)"
 ---
 #>
 

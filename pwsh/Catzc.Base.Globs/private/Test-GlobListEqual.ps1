@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "37f981ad9e3e"
   edges:
-    docs: "[Test-GlobListEqual.ps1.md](docs/references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md)"
+    docs: "[Test-GlobListEqual.ps1.md](../../../docs/references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md)"
     cites:
       - ADR-AUTO-XPLAT
       - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS

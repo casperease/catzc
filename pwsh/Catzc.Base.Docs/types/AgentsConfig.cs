@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1f1e7abc3132"
+    with_body_sha: dd2d95d4284c
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
-    docs: "[AgentsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md)"
+    docs: "[AgentsConfig.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-CONF-LOADING-CSHARPCONFIGTYPE

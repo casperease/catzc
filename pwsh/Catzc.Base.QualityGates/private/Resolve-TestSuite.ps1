@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "27467b195cf5"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1
-    docs: "[Resolve-TestSuite.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Resolve-TestSuite.ps1.md)"
+    docs: "[Resolve-TestSuite.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Resolve-TestSuite.ps1.md)"
     cites:
       - ADR-AUTO-TEST-TESTSUITE
       - FDR-CD-GLOBS-EVERYSETHASLAYER

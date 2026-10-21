@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a6866a713710
   edges:
-    docs: "[DrsNeutralityCheck.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsNeutralityCheck.cs.md)"
+    docs: "[DrsNeutralityCheck.cs.md](../../../docs/references/pwsh/catzc-base-drs/types/DrsNeutralityCheck.cs.md)"
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

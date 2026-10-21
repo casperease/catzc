@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "06c0aa5b8294"
   edges:
-    docs: "[HighlightedCell.cs.md](docs/references/pwsh/catzc-base-maps/types/HighlightedCell.cs.md)"
+    docs: "[HighlightedCell.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/HighlightedCell.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

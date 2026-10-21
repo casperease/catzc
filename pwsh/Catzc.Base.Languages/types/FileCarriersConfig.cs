@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8bf5d698d890"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
-    docs: "[FileCarriersConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/FileCarriersConfig.cs.md)"
+    docs: "[FileCarriersConfig.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/FileCarriersConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-REPO-FILEMETA-HEADPOLICY

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "93fcab695c26"
   edges:
-    docs: "[Get-GlobSetMember.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md)"
+    docs: "[Get-GlobSetMember.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
     cites:
       - FDR-CD-GLOBS-TRACKEDFILESONLY

@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c7faeae1f56a
+    with_body_sha: "4799278100e4"
   edges:
-    docs: "[Get-AdrRuleText.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-AdrRuleText.ps1.md)"
+    docs: "[Get-AdrRuleText.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Get-AdrRuleText.ps1.md)"
     cites:
       - ADR-REPO-SLIDES-CHECKABLECLAIMS
       - PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b71449a06b48
   edges:
-    docs: "[Get-ExecutableVersion.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md)"
+    docs: "[Get-ExecutableVersion.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Execution/private/Get-ExecutableVersion.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

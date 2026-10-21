@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f42d18f9b2f5
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Get-PackageTreePlan.Tests.ps1
-    docs: "[Get-PackageTreePlan.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md)"
+    docs: "[Get-PackageTreePlan.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md)"
     cites:
       - ADR-AUTO-REMOVE-UNINSTALLMANAGEDONLY
       - ADR-PWSH-ENUM-ALWAYSBOUNDED

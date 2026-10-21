@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8db7777429c3"
+    with_body_sha: "387a656fbb08"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1
-    docs: "[Get-CatsRuleEnforcers.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md)"
+    docs: "[Get-CatsRuleEnforcers.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md)"
     cites:
       - ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS
       - ADR-CONF-LOADING-READINGISGLOBAL

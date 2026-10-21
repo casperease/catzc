@@ -1,4 +1,4 @@
-# ADR: DORA — Documentation quality
+# Research: DORA — Documentation quality
 
 ## Rules: RDR-DORA-DOCS
 
@@ -45,9 +45,9 @@ describes.[^1] The capability is not "documentation exists" but documentation qu
 to read, findable enough to reach, and reliable enough to trust.
 
 Documentation quality sits alongside DORA's other technical capabilities without being one of them in isolation — DORA's research finds it
-interacts with, and amplifies, the practices this repository's other capability ADRs cover (version control, trunk-based development,
-continuous integration, continuous delivery). A team that adopts those practices without quality documentation realizes a fraction of the
-available performance gain; a team that pairs them with quality documentation realizes far more.
+interacts with, and amplifies, the practices this repository's other capability decision records cover (version control, trunk-based
+development, continuous integration, continuous delivery). A team that adopts those practices without quality documentation realizes a
+fraction of the available performance gain; a team that pairs them with quality documentation realizes far more.
 
 ## Summary
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d4b61c09a1bd
   edges:
-    docs: "[TestTitle-TemplateTokens.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/TestTitle-TemplateTokens.Tests.ps1.md)"
+    docs: "[TestTitle-TemplateTokens.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/TestTitle-TemplateTokens.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-FILEPARALLELISM
       - ADR-AUTO-TEST-QUALITYGATE

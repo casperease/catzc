@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "97cb423630af"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1
-    docs: "[Test-PythonTypes.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-PythonTypes.ps1.md)"
+    docs: "[Test-PythonTypes.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-PythonTypes.ps1.md)"
     cites:
       - ADR-AUTO-PY-EVERYFILETYPECHECKED
 ---

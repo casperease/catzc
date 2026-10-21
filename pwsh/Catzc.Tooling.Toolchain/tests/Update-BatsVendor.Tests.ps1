@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d8dc1169d3e9
   edges:
-    docs: "[Update-BatsVendor.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Update-BatsVendor.Tests.ps1.md)"
+    docs: "[Update-BatsVendor.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Update-BatsVendor.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/Update-BatsVendor.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

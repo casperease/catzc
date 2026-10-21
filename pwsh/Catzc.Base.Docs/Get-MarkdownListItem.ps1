@@ -5,7 +5,7 @@ catzc:
     with_body_sha: dd1fc68da586
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-MarkdownListItem.Tests.ps1
-    docs: "[Get-MarkdownListItem.ps1.md](docs/references/pwsh/catzc-base-docs/Get-MarkdownListItem.ps1.md)"
+    docs: "[Get-MarkdownListItem.ps1.md](../../docs/references/pwsh/catzc-base-docs/Get-MarkdownListItem.ps1.md)"
 ---
 #>
 

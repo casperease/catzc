@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3214d0566eb1"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Test-IsGuidInRange.Tests.ps1
-    docs: "[Test-IsGuidInRange.ps1.md](docs/references/pwsh/catzc-base-asserts/Test-IsGuidInRange.ps1.md)"
+    docs: "[Test-IsGuidInRange.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Test-IsGuidInRange.ps1.md)"
 ---
 #>
 

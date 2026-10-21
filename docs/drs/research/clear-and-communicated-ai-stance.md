@@ -1,4 +1,4 @@
-# ADR: DORA — Clear and communicated AI stance
+# Research: DORA — Clear and communicated AI stance
 
 ## Rules: RDR-DORA-AISTANCE
 

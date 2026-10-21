@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b055d03eb005
   edges:
-    docs: "[Get-InternalAssetDependency.Integrity.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md)"
+    docs: "[Get-InternalAssetDependency.Integrity.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-module-system/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
       - ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY

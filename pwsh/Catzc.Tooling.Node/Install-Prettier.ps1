@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "321d22035590"
   edges:
-    docs: "[Install-Prettier.ps1.md](docs/references/pwsh/catzc-tooling-node/Install-Prettier.ps1.md)"
+    docs: "[Install-Prettier.ps1.md](../../docs/references/pwsh/catzc-tooling-node/Install-Prettier.ps1.md)"
 ---
 #>
 

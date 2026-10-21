@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b6950e927d81
   edges:
-    docs: "[Test-GlobSetProtection.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetProtection.Tests.ps1.md)"
+    docs: "[Test-GlobSetProtection.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetProtection.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1
     cites:
       - ADR-REPO-PROTGLOB

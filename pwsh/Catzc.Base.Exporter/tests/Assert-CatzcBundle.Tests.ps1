@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0aa2b44ec8db"
   edges:
-    docs: "[Assert-CatzcBundle.Tests.ps1.md](docs/references/pwsh/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md)"
+    docs: "[Assert-CatzcBundle.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

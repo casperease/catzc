@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2e94f13a092d"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/Get-GeneratorPath.Tests.ps1
-    docs: "[Get-GeneratorPath.ps1.md](docs/references/pwsh/catzc-base-languages/private/Get-GeneratorPath.ps1.md)"
+    docs: "[Get-GeneratorPath.ps1.md](../../../docs/references/pwsh/catzc-base-languages/private/Get-GeneratorPath.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-COMPOSEDFILES
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e88e449e732d
   edges:
-    docs: "[Invoke-Uv.ps1.md](docs/references/pwsh/catzc-tooling-core/Invoke-Uv.ps1.md)"
+    docs: "[Invoke-Uv.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Invoke-Uv.ps1.md)"
 ---
 #>
 

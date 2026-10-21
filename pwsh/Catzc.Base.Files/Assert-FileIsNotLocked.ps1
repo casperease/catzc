@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: eff2ea30394b
   edges:
-    docs: "[Assert-FileIsNotLocked.ps1.md](docs/references/pwsh/catzc-base-files/Assert-FileIsNotLocked.ps1.md)"
+    docs: "[Assert-FileIsNotLocked.ps1.md](../../docs/references/pwsh/catzc-base-files/Assert-FileIsNotLocked.ps1.md)"
 ---
 #>
 

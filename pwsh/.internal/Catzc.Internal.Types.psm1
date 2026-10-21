@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "60b5f64ab3fd"
   edges:
-    docs: "[Catzc.Internal.Types.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md)"
+    docs: "[Catzc.Internal.Types.psm1.md](../../docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md)"
     cites:
       - ADR-BCL-TYPES-STALETYPESGUARD
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ae9cd908b76f
   edges:
-    docs: "[GithubArtifactsTarget.cs.md](docs/references/pwsh/catzc-base-module-system/types/GithubArtifactsTarget.cs.md)"
+    docs: "[GithubArtifactsTarget.cs.md](../../../docs/references/pwsh/catzc-base-module-system/types/GithubArtifactsTarget.cs.md)"
 ---
 */
 

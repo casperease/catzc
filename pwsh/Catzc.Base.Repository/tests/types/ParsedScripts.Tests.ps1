@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5a1900f28aef"
   edges:
-    docs: "[ParsedScripts.Tests.ps1.md](docs/references/pwsh/catzc-base-repository/tests/types/ParsedScripts.Tests.ps1.md)"
+    docs: "[ParsedScripts.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-repository/tests/types/ParsedScripts.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Repository/types/ParsedScripts.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

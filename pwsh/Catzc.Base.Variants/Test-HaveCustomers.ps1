@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5403935f57f9"
   edges:
     test: pwsh/Catzc.Base.Variants/tests/Test-HaveCustomers.Tests.ps1
-    docs: "[Test-HaveCustomers.ps1.md](docs/references/pwsh/catzc-base-variants/Test-HaveCustomers.ps1.md)"
+    docs: "[Test-HaveCustomers.ps1.md](../../docs/references/pwsh/catzc-base-variants/Test-HaveCustomers.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1fb7ea9406b6"
   edges:
-    docs: "[NetworkSubscription.cs.md](docs/references/pwsh/catzc-azure/types/NetworkSubscription.cs.md)"
+    docs: "[NetworkSubscription.cs.md](../../../docs/references/pwsh/catzc-azure/types/NetworkSubscription.cs.md)"
     cites:
       - ADR-AZ-NETWORK
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

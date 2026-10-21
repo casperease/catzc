@@ -5,7 +5,7 @@ catzc:
     with_body_sha: bf26c890810c
   edges:
     test: pwsh/Catzc.Base.Writers/tests/Write-Message.Tests.ps1
-    docs: "[Write-Message.ps1.md](docs/references/pwsh/catzc-base-writers/Write-Message.ps1.md)"
+    docs: "[Write-Message.ps1.md](../../docs/references/pwsh/catzc-base-writers/Write-Message.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-SPARINGCOLOUR
       - ADR-AUTO-CONSOLE-NOBOXDRAWING

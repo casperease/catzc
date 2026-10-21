@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1afedce80b9e"
   edges:
-    docs: "[Catzc.Internal.Vendor.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md)"
+    docs: "[Catzc.Internal.Vendor.psm1.md](../../docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
       - ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE

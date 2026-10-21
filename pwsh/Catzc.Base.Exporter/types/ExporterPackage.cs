@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b703b277d5ef
   edges:
-    docs: "[ExporterPackage.cs.md](docs/references/pwsh/catzc-base-exporter/types/ExporterPackage.cs.md)"
+    docs: "[ExporterPackage.cs.md](../../../docs/references/pwsh/catzc-base-exporter/types/ExporterPackage.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

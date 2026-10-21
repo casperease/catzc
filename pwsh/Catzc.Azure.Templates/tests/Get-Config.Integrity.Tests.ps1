@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1d9bcae4c208"
   edges:
-    docs: "[Get-Config.Integrity.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-Config.Integrity.Tests.ps1.md)"
+    docs: "[Get-Config.Integrity.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Get-Config.Integrity.Tests.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "74d4df5db09c"
   edges:
-    docs: "[Install-Uv.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md)"
+    docs: "[Install-Uv.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/Install-Uv.ps1
     cites:
       - ADR-PWSH-ENV-NOPESTERISOLATION

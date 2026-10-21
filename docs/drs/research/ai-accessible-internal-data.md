@@ -1,4 +1,4 @@
-# ADR: DORA — AI-accessible internal data
+# Research: DORA — AI-accessible internal data
 
 ## Rules: RDR-DORA-AIDATA
 

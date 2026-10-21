@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c0b0f64b39f8
   edges:
-    docs: "[PSTypeAliasAttribute.cs.md](docs/references/pwsh/catzc-base-objects/types/PSTypeAliasAttribute.cs.md)"
+    docs: "[PSTypeAliasAttribute.cs.md](../../../docs/references/pwsh/catzc-base-objects/types/PSTypeAliasAttribute.cs.md)"
 ---
 */
 

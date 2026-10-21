@@ -5,8 +5,8 @@
 ### Rule ADR-REPO-PLANS-ONETOPICONEFILE
 
 A **plan** is one topic in one file, `.claude/plans/plan-<topic>.md`, authored directly there, and it holds the delta only: what is still
-open, and what was decided and why. The tree, the ADRs and git hold everything else, what landed included. A plan starts with `New-Plan`,
-which writes its head, its open steps section, its value row and its master line, and refuses a topic that has a plan.
+open, and what was decided and why. The tree, the decision records and git hold everything else, what landed included. A plan starts with
+`New-Plan`, which writes its head, its open steps section, its value row and its master line, and refuses a topic that has a plan.
 
 - [The delta, not the record](#the-delta-not-the-record)
 
@@ -72,7 +72,7 @@ They are cleared and rebuilt; the plans are never deleted by a clear.
 
 ### Rule ADR-REPO-PLANS-DECISIONSBECOMERULES
 
-Every constraining decision a plan records becomes an ADR rule in the same change that lands it; a decision with no ADR to hold it is
+Every constraining decision a plan records becomes a DRS rule in the same change that lands it; a decision with no ADR to hold it is
 reopened, not kept as plan text.
 
 - [Decisions become rules](#decisions-become-rules)
@@ -132,14 +132,14 @@ know where a task sits to find it ([conventional-folders](conventional-folders.m
 
 ### Decisions become rules
 
-A plan records what was decided so that work can proceed; the decision binds only once an ADR rule states it, cites its reason and is held
-by a check. A decision that lives only in a plan is lost when the plan is deleted, which is why it is written as a rule in the same change
-or reopened as a question.
+A plan records what was decided so that work can proceed; the decision binds only once a DRS rule states it, cites its reason and is held by
+a check. A decision that lives only in a plan is lost when the plan is deleted, which is why it is written as a rule in the same change or
+reopened as a question.
 
 ## Decision
 
 Plans are deltas with one shape and one head, judged by the cleaner and held by the gate; a done plan is deleted; the master and the task
-files are derived; every decision a plan records becomes an ADR rule.
+files are derived; every decision a plan records becomes a DRS rule.
 
 ## Consequences
 

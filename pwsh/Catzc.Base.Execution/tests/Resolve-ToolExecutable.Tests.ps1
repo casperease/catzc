@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b40247570243
   edges:
-    docs: "[Resolve-ToolExecutable.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md)"
+    docs: "[Resolve-ToolExecutable.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Execution/Resolve-ToolExecutable.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

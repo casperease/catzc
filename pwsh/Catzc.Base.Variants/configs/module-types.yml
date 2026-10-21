@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: a1043d4c940d
 #   edges:
-#     docs: "[module-types.yml.md](docs/references/pwsh/catzc-base-variants/configs/module-types.yml.md)"
+#     docs: "[module-types.yml.md](../../../docs/references/pwsh/catzc-base-variants/configs/module-types.yml.md)"
 # ---
 
 module_types:

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6233ff76b2a2"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Set-CSharpFileScopedNamespace.Tests.ps1
-    docs: "[Set-CSharpFileScopedNamespace.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Set-CSharpFileScopedNamespace.ps1.md)"
+    docs: "[Set-CSharpFileScopedNamespace.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Set-CSharpFileScopedNamespace.ps1.md)"
 ---
 #>
 

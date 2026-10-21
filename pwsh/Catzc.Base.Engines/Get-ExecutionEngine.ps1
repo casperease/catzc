@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1bab01bc5870"
   edges:
     test: pwsh/Catzc.Base.Engines/tests/Get-ExecutionEngine.Tests.ps1
-    docs: "[Get-ExecutionEngine.ps1.md](docs/references/pwsh/catzc-base-engines/Get-ExecutionEngine.ps1.md)"
+    docs: "[Get-ExecutionEngine.ps1.md](../../docs/references/pwsh/catzc-base-engines/Get-ExecutionEngine.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE
 ---

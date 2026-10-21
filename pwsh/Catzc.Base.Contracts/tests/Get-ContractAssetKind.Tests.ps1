@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6324cee7f3e5"
   edges:
-    docs: "[Get-ContractAssetKind.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-ContractAssetKind.Tests.ps1.md)"
+    docs: "[Get-ContractAssetKind.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/tests/Get-ContractAssetKind.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/private/Get-ContractAssetKind.ps1
     cites:
       - ADR-REPO-CONTRACT-CONTRACTASSET

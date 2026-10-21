@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "450d623ff4fd"
   edges:
-    docs: "[Test-AzureNetworkPlan.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md)"
+    docs: "[Test-AzureNetworkPlan.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md)"
     code: pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

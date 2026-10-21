@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "89d0cda94d57"
 #   edges:
-#     docs: "[download-artifact.yaml.md](docs/references/ado/pipelines/steps/download-artifact.yaml.md)"
+#     docs: "[download-artifact.yaml.md](../../../docs/references/ado/pipelines/steps/download-artifact.yaml.md)"
 #     cites:
 #       - FDR-CD-PRODPROGRESSIONISDEPLOY
 # ---

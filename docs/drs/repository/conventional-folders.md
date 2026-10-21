@@ -42,8 +42,8 @@ Documentation folders are markdown-only. `docs/` organizes its subfolders freely
 pages that embed its diagrams and holds one folder per diagram, `<page-folder>/.assets/<name>/`, whose name is the diagram's only name. The
 folder holds everything the diagram owns under role names: its one source `diagram.drawio.yml`, the render `diagram.drawio.png` put from it,
 and a `diagram.drawio.verify.md` record where the diagram has one (each drawn claim, the `file:line` that backs it, and its status); its
-minimaps are embedded in the render, drawn from computed data, never kept as files of their own. Each subfolder of `docs/drs/` is an ADR
-**domain**: a group of ADRs that `drs.yml` declares with its role and the domains it depends on.
+minimaps are embedded in the render, drawn from computed data, never kept as files of their own. Each subfolder of `docs/drs/` is a
+decision-record **domain**: a group of decision records that `drs.yml` declares with its role and the domains it depends on.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -270,12 +270,12 @@ and each has its own conventional sub-layout:
 domain, so the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles,
 including the sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference
 under `references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one diagram of
-how cats works and why, in a subfolder per ADR domain. These four are **markdown-only**; their subfolders are author-organized topic
-buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content
-under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is one folder in the `.assets/` beside
-the page that embeds it, so moving the diagram moves the folder and the page finds it by locality. The folder holds the diagram under role
-names: its yml declaration, the one source its words and cells live in; the png put from it; and its verify record, so every drawn claim
-stays checkable against the code. A minimap's reasons travel in its computed data and in the diagram's declaration.
+how cats works and why, in a subfolder per decision-record domain. These four are **markdown-only**; their subfolders are author-organized
+topic buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown
+content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is one folder in the `.assets/`
+beside the page that embeds it, so moving the diagram moves the folder and the page finds it by locality. The folder holds the diagram under
+role names: its yml declaration, the one source its words and cells live in; the png put from it; and its verify record, so every drawn
+claim stays checkable against the code. A minimap's reasons travel in its computed data and in the diagram's declaration.
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's

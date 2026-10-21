@@ -2,8 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f7a8f8f516c8
+    with_body_sha: "4e2a6f8a93ff"
   edges:
+    docs: "[AccostedRun.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/AccostedRun.cs.md)"
     cites:
       - ADR-AUTO-ACCOSTED-FILEFORM
 ---

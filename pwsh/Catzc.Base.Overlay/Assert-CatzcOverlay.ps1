@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d20e0c1278d1
   edges:
     test: pwsh/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1
-    docs: "[Assert-CatzcOverlay.ps1.md](docs/references/pwsh/catzc-base-overlay/Assert-CatzcOverlay.ps1.md)"
+    docs: "[Assert-CatzcOverlay.ps1.md](../../docs/references/pwsh/catzc-base-overlay/Assert-CatzcOverlay.ps1.md)"
     cites:
       - ADR-AUTO-OVERLAY
 ---

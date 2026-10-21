@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c3f028703d1d
   edges:
-    docs: "[AzureConfig.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md)"
+    docs: "[AzureConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Azure/types/AzureConfig.cs
     cites:
       - ADR-AUTO-TEST-ONECATEGORY

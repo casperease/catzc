@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1d441f789e5f"
   edges:
-    docs: "[Uninstall-Tool.ps1.md](docs/references/pwsh/catzc-tooling-core/Uninstall-Tool.ps1.md)"
+    docs: "[Uninstall-Tool.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Uninstall-Tool.ps1.md)"
 ---
 #>
 

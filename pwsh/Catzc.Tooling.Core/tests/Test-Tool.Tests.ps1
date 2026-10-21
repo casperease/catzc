@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "82f576d5fb97"
   edges:
-    docs: "[Test-Tool.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Test-Tool.Tests.ps1.md)"
+    docs: "[Test-Tool.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Test-Tool.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/Test-Tool.ps1
 ---
 #>

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "13052228b796"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractValue.Tests.ps1
-    docs: "[ContractValue.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractValue.cs.md)"
+    docs: "[ContractValue.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/ContractValue.cs.md)"
     cites:
       - ADR-REPO-CONTRACT-CONTRACTASSET
 ---

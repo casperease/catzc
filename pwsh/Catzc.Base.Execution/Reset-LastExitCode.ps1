@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ff9700213945
   edges:
     test: pwsh/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1
-    docs: "[Reset-LastExitCode.ps1.md](docs/references/pwsh/catzc-base-execution/Reset-LastExitCode.ps1.md)"
+    docs: "[Reset-LastExitCode.ps1.md](../../docs/references/pwsh/catzc-base-execution/Reset-LastExitCode.ps1.md)"
 ---
 #>
 

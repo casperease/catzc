@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "09cfedf5f07f"
   edges:
-    docs: "[GlobPattern.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md)"
+    docs: "[GlobPattern.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/types/GlobPattern.cs
     cites:
       - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS

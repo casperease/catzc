@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f11e2f68c933
   edges:
-    docs: "[NoTrackRootLiteral.psm1.md](docs/references/pwsh/scriptanalyzer/NoTrackRootLiteral.psm1.md)"
+    docs: "[NoTrackRootLiteral.psm1.md](../../docs/references/pwsh/scriptanalyzer/NoTrackRootLiteral.psm1.md)"
     cites:
       - ADR-AUTO-LAYERS
 ---

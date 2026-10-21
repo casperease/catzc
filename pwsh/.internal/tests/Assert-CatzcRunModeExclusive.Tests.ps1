@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a8aa38f8375f
   edges:
-    docs: "[Assert-CatzcRunModeExclusive.Tests.ps1.md](docs/references/pwsh/internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1.md)"
+    docs: "[Assert-CatzcRunModeExclusive.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1.md)"
 ---
 #>
 

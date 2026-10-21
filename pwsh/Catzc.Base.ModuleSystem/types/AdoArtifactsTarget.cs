@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "395a4a1fabb8"
   edges:
-    docs: "[AdoArtifactsTarget.cs.md](docs/references/pwsh/catzc-base-module-system/types/AdoArtifactsTarget.cs.md)"
+    docs: "[AdoArtifactsTarget.cs.md](../../../docs/references/pwsh/catzc-base-module-system/types/AdoArtifactsTarget.cs.md)"
 ---
 */
 

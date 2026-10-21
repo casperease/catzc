@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4505047a3c77"
   edges:
-    docs: "[Invoke-ScriptAnalyzerShards.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-ScriptAnalyzerShards.ps1.md)"
+    docs: "[Invoke-ScriptAnalyzerShards.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-ScriptAnalyzerShards.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
       - ADR-AUTO-CONSOLE-NOBOXDRAWING

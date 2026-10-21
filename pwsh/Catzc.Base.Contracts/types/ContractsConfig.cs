@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6bf417ca45c4"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1
-    docs: "[ContractsConfig.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractsConfig.cs.md)"
+    docs: "[ContractsConfig.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/ContractsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

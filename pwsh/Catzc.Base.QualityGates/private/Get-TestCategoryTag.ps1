@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3b9486d31568"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestCategoryTag.Tests.ps1
-    docs: "[Get-TestCategoryTag.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestCategoryTag.ps1.md)"
+    docs: "[Get-TestCategoryTag.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestCategoryTag.ps1.md)"
 ---
 #>
 

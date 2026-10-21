@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c2a5ed0ab59f
   edges:
-    docs: "[Get-Contract.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-Contract.Tests.ps1.md)"
+    docs: "[Get-Contract.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/tests/Get-Contract.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/Get-Contract.ps1
     cites:
       - ADR-AUTO-DEFAULT-ZEROARGUMENTCALL

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "10066b5ae2e5"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleCycles.Tests.ps1
-    docs: "[Test-ModuleCycles.ps1.md](docs/references/pwsh/catzc-base-module-system/Test-ModuleCycles.ps1.md)"
+    docs: "[Test-ModuleCycles.ps1.md](../../docs/references/pwsh/catzc-base-module-system/Test-ModuleCycles.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
 ---

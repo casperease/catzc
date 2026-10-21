@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d6c24a25464b
   edges:
-    docs: "[NetworkEnvironment.cs.md](docs/references/pwsh/catzc-azure/types/NetworkEnvironment.cs.md)"
+    docs: "[NetworkEnvironment.cs.md](../../../docs/references/pwsh/catzc-azure/types/NetworkEnvironment.cs.md)"
     cites:
       - ADR-AZ-NETWORK
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

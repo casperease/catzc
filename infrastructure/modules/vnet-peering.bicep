@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "489d1b397118"
 //   edges:
-//     docs: "[vnet-peering.bicep.md](docs/references/infrastructure/modules/vnet-peering.bicep.md)"
+//     docs: "[vnet-peering.bicep.md](../../docs/references/infrastructure/modules/vnet-peering.bicep.md)"
 // ---
 
 @description('Name of the existing local virtual network (in the deployment resource group).')

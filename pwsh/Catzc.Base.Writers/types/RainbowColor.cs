@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "586c5445acb1"
   edges:
     test: pwsh/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1
-    docs: "[RainbowColor.cs.md](docs/references/pwsh/catzc-base-writers/types/RainbowColor.cs.md)"
+    docs: "[RainbowColor.cs.md](../../../docs/references/pwsh/catzc-base-writers/types/RainbowColor.cs.md)"
     cites:
       - ADR-AUTO-CONSOLE
 ---

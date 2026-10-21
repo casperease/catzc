@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ef54e430acd6
   edges:
-    docs: "[DrsCitationChange.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsCitationChange.cs.md)"
+    docs: "[DrsCitationChange.cs.md](../../../docs/references/pwsh/catzc-base-drs/types/DrsCitationChange.cs.md)"
     cites:
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---

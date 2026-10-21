@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a225aa3b7b2e
+    with_body_sha: "5c7aae7eca4d"
   edges:
-    docs: "[Format-MarkdownTitle.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Format-MarkdownTitle.Tests.ps1.md)"
+    docs: "[Format-MarkdownTitle.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Format-MarkdownTitle.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Format-MarkdownTitle.ps1
     cites:
       - ADR-AUTO-TEST-QUALITYGATE

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "338497dfc6ea"
   edges:
     test: pwsh/Catzc.Base.Repository/tests/ConvertTo-RepoRelativePath.Tests.ps1
-    docs: "[ConvertTo-RepoRelativePath.ps1.md](docs/references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md)"
+    docs: "[ConvertTo-RepoRelativePath.ps1.md](../../docs/references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md)"
     cites:
       - ADR-AUTO-PATH
 ---

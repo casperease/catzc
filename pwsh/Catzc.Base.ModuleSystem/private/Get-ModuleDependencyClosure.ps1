@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "819086120ff3"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyClosure.Tests.ps1
-    docs: "[Get-ModuleDependencyClosure.ps1.md](docs/references/pwsh/catzc-base-module-system/private/Get-ModuleDependencyClosure.ps1.md)"
+    docs: "[Get-ModuleDependencyClosure.ps1.md](../../../docs/references/pwsh/catzc-base-module-system/private/Get-ModuleDependencyClosure.ps1.md)"
 ---
 #>
 

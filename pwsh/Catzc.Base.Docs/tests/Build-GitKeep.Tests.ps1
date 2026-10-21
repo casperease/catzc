@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e18eb96d72bc
   edges:
-    docs: "[Build-GitKeep.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md)"
+    docs: "[Build-GitKeep.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST

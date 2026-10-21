@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f78ba69b3c65
   edges:
-    docs: "[Install-PySpark.ps1.md](docs/references/pwsh/catzc-tooling-python/Install-PySpark.ps1.md)"
+    docs: "[Install-PySpark.ps1.md](../../docs/references/pwsh/catzc-tooling-python/Install-PySpark.ps1.md)"
 ---
 #>
 

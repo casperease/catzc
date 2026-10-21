@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9364a92af947"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/types/TestTiers.Tests.ps1
-    docs: "[TestTiers.cs.md](docs/references/pwsh/catzc-base-timeouts/types/TestTiers.cs.md)"
+    docs: "[TestTiers.cs.md](../../../docs/references/pwsh/catzc-base-timeouts/types/TestTiers.cs.md)"
     cites:
       - ADR-AUTO-TEST-TWOMANDATORYTAGS
       - ADR-AUTO-TEST-TESTINGINPRODUCTION

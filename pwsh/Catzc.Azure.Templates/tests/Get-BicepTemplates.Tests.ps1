@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "858a2b690920"
   edges:
-    docs: "[Get-BicepTemplates.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md)"
+    docs: "[Get-BicepTemplates.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS

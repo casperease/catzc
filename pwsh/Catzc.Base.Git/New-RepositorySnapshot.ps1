@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c1f5b79f82bf
   edges:
     test: pwsh/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
-    docs: "[New-RepositorySnapshot.ps1.md](docs/references/pwsh/catzc-base-git/New-RepositorySnapshot.ps1.md)"
+    docs: "[New-RepositorySnapshot.ps1.md](../../docs/references/pwsh/catzc-base-git/New-RepositorySnapshot.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
       - TDR-ONETRUTH

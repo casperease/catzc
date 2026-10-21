@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "3c0090d19372"
   edges:
-    docs: "[GlobSetTrigger-Coverage.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md)"
+    docs: "[GlobSetTrigger-Coverage.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - FDR-CD-GLOBS-NAMEDGLOBSETS

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6e4e2ff58c43"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
-    docs: "[Get-ContractFreezeFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractFreezeFindings.ps1.md)"
+    docs: "[Get-ContractFreezeFindings.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractFreezeFindings.ps1.md)"
     cites:
       - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
 ---

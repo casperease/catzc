@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "21448616f77c"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/types/FileKindsConfig.Tests.ps1
-    docs: "[FileKindsConfig.cs.md](docs/references/pwsh/catzc-base-globs/types/FileKindsConfig.cs.md)"
+    docs: "[FileKindsConfig.cs.md](../../../docs/references/pwsh/catzc-base-globs/types/FileKindsConfig.cs.md)"
     cites:
       - ADR-CONF-LOADING-CSHARPCONFIGTYPE
       - ADR-REPO-FILEMETA-METAKIND

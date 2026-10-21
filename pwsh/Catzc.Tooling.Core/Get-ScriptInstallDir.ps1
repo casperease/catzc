@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "261563c7504d"
   edges:
-    docs: "[Get-ScriptInstallDir.ps1.md](docs/references/pwsh/catzc-tooling-core/Get-ScriptInstallDir.ps1.md)"
+    docs: "[Get-ScriptInstallDir.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Get-ScriptInstallDir.ps1.md)"
 ---
 #>
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: eccbe027c08c
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-IsRunningInVSCode.Tests.ps1
-    docs: "[Assert-IsRunningInVSCode.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-IsRunningInVSCode.ps1.md)"
+    docs: "[Assert-IsRunningInVSCode.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Assert-IsRunningInVSCode.ps1.md)"
 ---
 #>
 

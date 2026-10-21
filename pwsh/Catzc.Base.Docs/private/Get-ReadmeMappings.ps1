@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "782fb6be1496"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
-    docs: "[Get-ReadmeMappings.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-ReadmeMappings.ps1.md)"
+    docs: "[Get-ReadmeMappings.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-ReadmeMappings.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - ADR-REPO-README

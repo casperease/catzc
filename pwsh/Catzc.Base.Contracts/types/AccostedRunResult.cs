@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2eca7212efac"
+    with_body_sha: f3eb89354ee2
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/AccostedRunResult.Tests.ps1
+    docs: "[AccostedRunResult.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/AccostedRunResult.cs.md)"
     cites:
       - ADR-AUTO-ACCOSTED-RUNNER
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6b62db2737d4"
   edges:
-    docs: "[AzureCustomer.cs.md](docs/references/pwsh/catzc-azure/types/AzureCustomer.cs.md)"
+    docs: "[AzureCustomer.cs.md](../../../docs/references/pwsh/catzc-azure/types/AzureCustomer.cs.md)"
     cites:
       - ADR-AZ-CUSTOMER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0d2e88c20e68"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
-    docs: "[Format-GeneratedFileHead.ps1.md](docs/references/pwsh/catzc-base-languages/Format-GeneratedFileHead.ps1.md)"
+    docs: "[Format-GeneratedFileHead.ps1.md](../../docs/references/pwsh/catzc-base-languages/Format-GeneratedFileHead.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-COMPOSEDFILES
 ---

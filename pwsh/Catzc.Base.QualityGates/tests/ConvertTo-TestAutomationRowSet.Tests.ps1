@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "68aa2ee30602"
   edges:
-    docs: "[ConvertTo-TestAutomationRowSet.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1.md)"
+    docs: "[ConvertTo-TestAutomationRowSet.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/ConvertTo-TestAutomationRowSet.ps1
 ---
 #>

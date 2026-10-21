@@ -108,9 +108,9 @@ independent file and the source is never written through.
 
 `The README carries its own link base`
 
-An authored article links to its neighbours — sibling references, decision records — relative to its own location, and those links are checked by the
-markdown quality gate at that location. The README places the same article in another folder, so `MarkdownLinkRebaser` resolves each
-relative target at the source's folder and writes it relative to the README's folder: the link that reads `../../adr/...` in
+An authored article links to its neighbours — sibling references, decision records — relative to its own location, and those links are
+checked by the markdown quality gate at that location. The README places the same article in another folder, so `MarkdownLinkRebaser`
+resolves each relative target at the source's folder and writes it relative to the README's folder: the link that reads `../../adr/...` in
 `docs/references/pwsh/` reads `../../docs/adr/...` in `pwsh/<Module>/`. What is not a relative file reference is left as written — code
 spans and fenced blocks (literal text), URLs, in-file `#anchors` (the README has the same headings), and repository-rooted `/` targets (they
 resolve the same from anywhere). The rebaser uses the link grammar of the links quality gate (`Test-Links`), so it rewrites exactly the

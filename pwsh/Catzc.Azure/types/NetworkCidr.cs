@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a4d686175392
   edges:
-    docs: "[NetworkCidr.cs.md](docs/references/pwsh/catzc-azure/types/NetworkCidr.cs.md)"
+    docs: "[NetworkCidr.cs.md](../../../docs/references/pwsh/catzc-azure/types/NetworkCidr.cs.md)"
     cites:
       - ADR-AZ-NETWORK
 ---

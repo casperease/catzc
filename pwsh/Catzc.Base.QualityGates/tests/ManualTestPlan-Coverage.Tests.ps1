@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1160a19ffbca"
   edges:
-    docs: "[ManualTestPlan-Coverage.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/ManualTestPlan-Coverage.Tests.ps1.md)"
+    docs: "[ManualTestPlan-Coverage.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/ManualTestPlan-Coverage.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-INTEGRITYREADSFILES
       - ADR-AUTO-TEST-QUALITYGATE

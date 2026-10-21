@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3839757d3d7d"
   edges:
     test: pwsh/Catzc.Base.Flow/tests/Get-Rung.Tests.ps1
-    docs: "[Get-Rung.ps1.md](docs/references/pwsh/catzc-base-flow/Get-Rung.ps1.md)"
+    docs: "[Get-Rung.ps1.md](../../docs/references/pwsh/catzc-base-flow/Get-Rung.ps1.md)"
     cites:
       - FDR-CD-RUNGSREGISTRY
 ---

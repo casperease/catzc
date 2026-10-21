@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "88fc03588f8f"
 //   edges:
-//     docs: "[private-endpoint.bicep.md](docs/references/infrastructure/modules/private-endpoint.bicep.md)"
+//     docs: "[private-endpoint.bicep.md](../../docs/references/infrastructure/modules/private-endpoint.bicep.md)"
 // ---
 
 @description('Private endpoint name (2-64 characters, unique within the resource group).')

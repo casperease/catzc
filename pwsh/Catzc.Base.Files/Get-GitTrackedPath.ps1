@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fd4fd7945839
   edges:
     test: pwsh/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1
-    docs: "[Get-GitTrackedPath.ps1.md](docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md)"
+    docs: "[Get-GitTrackedPath.ps1.md](../../docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE
       - ADR-AUTO-TRACKED

@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "2c856a4be4c2"
 #   edges:
-#     docs: "[test.yml.md](docs/references/infrastructure/templates/expedition/configuration/test.yml.md)"
+#     docs: "[test.yml.md](../../../../docs/references/infrastructure/templates/expedition/configuration/test.yml.md)"
 # ---
 
 ParametersFile:

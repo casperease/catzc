@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1ab90e588d72"
   edges:
-    docs: "[ConsoleText.Tests.ps1.md](docs/references/pwsh/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md)"
+    docs: "[ConsoleText.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Objects/types/ConsoleText.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9893f3a28612"
   edges:
-    docs: "[Get-RootConfigRenderedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-root-config/tests/Get-RootConfigRenderedFile.Tests.ps1.md)"
+    docs: "[Get-RootConfigRenderedFile.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-root-config/tests/Get-RootConfigRenderedFile.Tests.ps1.md)"
     code: pwsh/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

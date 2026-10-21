@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a440f81dee00
   edges:
-    docs: "[ToolConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md)"
+    docs: "[ToolConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Execution/types/ToolConfig.cs
     cites:
       - ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS

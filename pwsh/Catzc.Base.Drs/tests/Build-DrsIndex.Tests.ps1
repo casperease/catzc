@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7f5799f21ca8"
   edges:
-    docs: "[Build-DrsIndex.Tests.ps1.md](docs/references/pwsh/catzc-base-drs/tests/Build-DrsIndex.Tests.ps1.md)"
+    docs: "[Build-DrsIndex.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-drs/tests/Build-DrsIndex.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST

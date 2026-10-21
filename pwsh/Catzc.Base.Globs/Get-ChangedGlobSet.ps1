@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7d49fe611403"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
-    docs: "[Get-ChangedGlobSet.ps1.md](docs/references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md)"
+    docs: "[Get-ChangedGlobSet.ps1.md](../../docs/references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md)"
     cites:
       - FDR-CD-GLOBS-NAMEDGLOBSETS
       - FDR-CD-GLOBS-TRACKEDFILESONLY

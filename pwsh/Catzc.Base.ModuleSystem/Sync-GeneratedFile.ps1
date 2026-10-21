@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "14c14792be17"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
-    docs: "[Sync-GeneratedFile.ps1.md](docs/references/pwsh/catzc-base-module-system/Sync-GeneratedFile.ps1.md)"
+    docs: "[Sync-GeneratedFile.ps1.md](../../docs/references/pwsh/catzc-base-module-system/Sync-GeneratedFile.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
       - ADR-BCL-TYPES-JANITORSBYCALLER

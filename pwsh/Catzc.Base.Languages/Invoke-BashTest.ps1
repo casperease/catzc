@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b00532223b54
   edges:
     test: pwsh/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
-    docs: "[Invoke-BashTest.ps1.md](docs/references/pwsh/catzc-base-languages/Invoke-BashTest.ps1.md)"
+    docs: "[Invoke-BashTest.ps1.md](../../docs/references/pwsh/catzc-base-languages/Invoke-BashTest.ps1.md)"
 ---
 #>
 

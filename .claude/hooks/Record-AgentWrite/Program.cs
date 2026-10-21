@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2d82ba631803"
   edges:
-    docs: "[Program.cs.md](docs/references/pwsh/claude-hooks/Record-AgentWrite/Program.cs.md)"
+    docs: "[Program.cs.md](../../../docs/references/pwsh/claude-hooks/Record-AgentWrite/Program.cs.md)"
 ---
 */
 

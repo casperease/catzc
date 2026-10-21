@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: bf8ff2415cff
 #   edges:
-#     docs: "[bash.yml.md](docs/references/pwsh/catzc-base-languages/configs/bash.yml.md)"
+#     docs: "[bash.yml.md](../../../docs/references/pwsh/catzc-base-languages/configs/bash.yml.md)"
 #     cites:
 #       - ADR-AUTO-BASH
 # ---

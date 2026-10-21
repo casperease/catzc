@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "933e5b6780b5"
 #   edges:
-#     docs: "[artifacts.yml.md](docs/references/pwsh/catzc-base-module-system/configs/artifacts.yml.md)"
+#     docs: "[artifacts.yml.md](../../../docs/references/pwsh/catzc-base-module-system/configs/artifacts.yml.md)"
 #     cites:
 #       - ADR-AUTO-TEST
 # ---

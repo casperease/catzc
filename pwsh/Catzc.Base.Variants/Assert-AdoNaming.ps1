@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7aec61252ca2"
   edges:
     test: pwsh/Catzc.Base.Variants/tests/Assert-AdoNaming.Tests.ps1
-    docs: "[Assert-AdoNaming.ps1.md](docs/references/pwsh/catzc-base-variants/Assert-AdoNaming.ps1.md)"
+    docs: "[Assert-AdoNaming.ps1.md](../../docs/references/pwsh/catzc-base-variants/Assert-AdoNaming.ps1.md)"
 ---
 #>
 

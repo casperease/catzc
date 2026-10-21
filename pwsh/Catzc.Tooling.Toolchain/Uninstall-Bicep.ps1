@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0e67cf34762c"
   edges:
-    docs: "[Uninstall-Bicep.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Bicep.ps1.md)"
+    docs: "[Uninstall-Bicep.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Bicep.ps1.md)"
 ---
 #>
 

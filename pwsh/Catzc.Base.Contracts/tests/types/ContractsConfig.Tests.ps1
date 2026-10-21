@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "18e698236d4c"
   edges:
-    docs: "[ContractsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md)"
+    docs: "[ContractsConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/types/ContractsConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER

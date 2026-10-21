@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "741a4ca0317d"
   edges:
-    docs: "[ContractManifest.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractManifest.Tests.ps1.md)"
+    docs: "[ContractManifest.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-contracts/tests/types/ContractManifest.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/types/ContractManifest.cs
     cites:
       - ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION

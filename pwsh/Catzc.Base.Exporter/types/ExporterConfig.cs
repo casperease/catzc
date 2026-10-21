@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ae4a2fcb3b0b
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/types/ExporterConfig.Tests.ps1
-    docs: "[ExporterConfig.cs.md](docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md)"
+    docs: "[ExporterConfig.cs.md](../../../docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md)"
     cites:
       - ADR-AUTO-BUNDLE
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

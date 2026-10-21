@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ef5dfece417c
   edges:
-    docs: "[Format-GitIgnoreSection.ps1.md](docs/references/pwsh/catzc-base-git/private/Format-GitIgnoreSection.ps1.md)"
+    docs: "[Format-GitIgnoreSection.ps1.md](../../../docs/references/pwsh/catzc-base-git/private/Format-GitIgnoreSection.ps1.md)"
 ---
 #>
 

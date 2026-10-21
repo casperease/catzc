@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e20e6e3727c1
   edges:
-    docs: "[Get-AzureResourceTypeSet.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-AzureResourceTypeSet.Tests.ps1.md)"
+    docs: "[Get-AzureResourceTypeSet.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Get-AzureResourceTypeSet.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
 ---
 #>

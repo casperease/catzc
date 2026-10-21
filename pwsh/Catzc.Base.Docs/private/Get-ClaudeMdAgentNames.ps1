@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7da5c3b47da8"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-ClaudeMdAgentNames.Tests.ps1
-    docs: "[Get-ClaudeMdAgentNames.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-ClaudeMdAgentNames.ps1.md)"
+    docs: "[Get-ClaudeMdAgentNames.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-ClaudeMdAgentNames.ps1.md)"
     cites:
       - ADR-REPO-AGENTS-LISTEDINCLAUDEFILE
 ---

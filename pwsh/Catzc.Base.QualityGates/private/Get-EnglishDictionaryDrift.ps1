@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2de0a84ddc56"
   edges:
-    docs: "[Get-EnglishDictionaryDrift.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-EnglishDictionaryDrift.ps1.md)"
+    docs: "[Get-EnglishDictionaryDrift.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-EnglishDictionaryDrift.ps1.md)"
 ---
 #>
 

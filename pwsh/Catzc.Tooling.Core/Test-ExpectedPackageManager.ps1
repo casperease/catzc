@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9669e917e56f"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
-    docs: "[Test-ExpectedPackageManager.ps1.md](docs/references/pwsh/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md)"
+    docs: "[Test-ExpectedPackageManager.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md)"
     cites:
       - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "29596ab5b0a4"
   edges:
-    docs: "[MapsLabels.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsLabels.cs.md)"
+    docs: "[MapsLabels.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/MapsLabels.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

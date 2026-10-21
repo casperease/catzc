@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a7aff416c5f8
+    with_body_sha: "9c66644fae65"
   edges:
     code: pwsh/Catzc.Base.Languages/private/Get-GeneratorPath.ps1
     cites:

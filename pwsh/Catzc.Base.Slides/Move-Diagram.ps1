@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8552bd414e66"
+    with_body_sha: bb9bd7fb04ae
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Move-Diagram.Tests.ps1
-    docs: "[Move-Diagram.ps1.md](docs/references/pwsh/catzc-base-slides/Move-Diagram.ps1.md)"
+    docs: "[Move-Diagram.ps1.md](../../docs/references/pwsh/catzc-base-slides/Move-Diagram.ps1.md)"
     cites:
       - ADR-REPO-LINK-MARKDOWNRELATIVE
 ---

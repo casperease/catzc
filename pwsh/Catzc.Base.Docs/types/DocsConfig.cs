@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2d879f9c4f4a"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/DocsConfig.Tests.ps1
-    docs: "[DocsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md)"
+    docs: "[DocsConfig.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md)"
     cites:
       - ADR-CONF-LOADING
       - ADR-REPO-README

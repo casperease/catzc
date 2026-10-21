@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "95cd650ab608"
   edges:
-    docs: "[Get-ContractSchemaFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractSchemaFindings.ps1.md)"
+    docs: "[Get-ContractSchemaFindings.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractSchemaFindings.ps1.md)"
     cites:
       - ADR-REPO-CONTRACT-CONTRACTASSET
 ---

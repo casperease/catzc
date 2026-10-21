@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4549e6d81952"
   edges:
-    docs: "[Install-Go.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Go.Tests.ps1.md)"
+    docs: "[Install-Go.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Go.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/Install-Go.ps1
 ---
 #>

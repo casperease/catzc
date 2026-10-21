@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6467e04547cf"
   edges:
-    docs: "[Test-PrePost.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md)"
+    docs: "[Test-PrePost.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md)"
 ---
 #>
 

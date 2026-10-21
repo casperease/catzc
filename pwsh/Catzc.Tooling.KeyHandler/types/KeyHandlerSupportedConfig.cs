@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e2fa2f4bff6b
   edges:
     test: pwsh/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
-    docs: "[KeyHandlerSupportedConfig.cs.md](docs/references/pwsh/catzc-tooling-key-handler/types/KeyHandlerSupportedConfig.cs.md)"
+    docs: "[KeyHandlerSupportedConfig.cs.md](../../../docs/references/pwsh/catzc-tooling-key-handler/types/KeyHandlerSupportedConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

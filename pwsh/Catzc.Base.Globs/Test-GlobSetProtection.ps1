@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7016dd14e3bc"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
-    docs: "[Test-GlobSetProtection.ps1.md](docs/references/pwsh/catzc-base-globs/Test-GlobSetProtection.ps1.md)"
+    docs: "[Test-GlobSetProtection.ps1.md](../../docs/references/pwsh/catzc-base-globs/Test-GlobSetProtection.ps1.md)"
     cites:
       - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - ADR-REPO-PROTGLOB

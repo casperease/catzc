@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "20a5b7aaf034"
   edges:
     test: pwsh/Catzc.Base.CodeMeta/tests/Format-PropertyMetaHead.Tests.ps1
-    docs: "[Format-PropertyMetaHead.ps1.md](docs/references/pwsh/catzc-base-code-meta/Format-PropertyMetaHead.ps1.md)"
+    docs: "[Format-PropertyMetaHead.ps1.md](../../docs/references/pwsh/catzc-base-code-meta/Format-PropertyMetaHead.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-JSONCARRIER
 ---

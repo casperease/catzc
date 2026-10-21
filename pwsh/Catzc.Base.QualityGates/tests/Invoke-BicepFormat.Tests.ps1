@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d30f63192bb3
   edges:
-    docs: "[Invoke-BicepFormat.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-BicepFormat.Tests.ps1.md)"
+    docs: "[Invoke-BicepFormat.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-BicepFormat.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Invoke-BicepFormat.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

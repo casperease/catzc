@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6bcb24d2ce70"
   edges:
-    docs: "[Install-Terraform.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Install-Terraform.ps1.md)"
+    docs: "[Install-Terraform.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Install-Terraform.ps1.md)"
 ---
 #>
 

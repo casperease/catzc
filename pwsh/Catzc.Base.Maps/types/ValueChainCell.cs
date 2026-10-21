@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "3a675f0213ba"
   edges:
-    docs: "[ValueChainCell.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainCell.cs.md)"
+    docs: "[ValueChainCell.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/ValueChainCell.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - DDR-TRACK-CELL

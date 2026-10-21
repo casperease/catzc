@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "29a826662bff"
   edges:
     test: pwsh/Catzc.Base.Files/tests/Invoke-GitCommit.Tests.ps1
-    docs: "[Invoke-GitCommit.ps1.md](docs/references/pwsh/catzc-base-files/Invoke-GitCommit.ps1.md)"
+    docs: "[Invoke-GitCommit.ps1.md](../../docs/references/pwsh/catzc-base-files/Invoke-GitCommit.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-IDEM

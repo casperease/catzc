@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9cef903a3bd4"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-    docs: "[Test-Contracts.ps1.md](docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md)"
+    docs: "[Test-Contracts.ps1.md](../../docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-CONTRACT-LAYOUT

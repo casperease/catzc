@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e2da6b58d7da
   edges:
-    docs: "[Get-FirewallCsv.Tests.ps1.md](docs/references/pwsh/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md)"
+    docs: "[Get-FirewallCsv.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Firewall/Get-FirewallCsv.ps1
 ---
 #>

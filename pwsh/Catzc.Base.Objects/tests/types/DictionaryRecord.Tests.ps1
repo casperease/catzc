@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5f2294fd25e2"
   edges:
-    docs: "[DictionaryRecord.Tests.ps1.md](docs/references/pwsh/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md)"
+    docs: "[DictionaryRecord.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Objects/types/DictionaryRecord.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

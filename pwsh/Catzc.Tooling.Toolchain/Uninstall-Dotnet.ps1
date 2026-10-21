@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8f43b725ebe8"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
-    docs: "[Uninstall-Dotnet.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md)"
+    docs: "[Uninstall-Dotnet.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md)"
     cites:
       - ADR-AUTO-ONEJOB-CALLERHANDLESERRORS
       - ADR-AUTO-REMOVE-DOUBLYGUARDED

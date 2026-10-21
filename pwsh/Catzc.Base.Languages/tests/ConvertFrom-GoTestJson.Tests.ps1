@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f1490149f16e
   edges:
-    docs: "[ConvertFrom-GoTestJson.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-GoTestJson.Tests.ps1.md)"
+    docs: "[ConvertFrom-GoTestJson.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-GoTestJson.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/private/ConvertFrom-GoTestJson.ps1
 ---
 #>

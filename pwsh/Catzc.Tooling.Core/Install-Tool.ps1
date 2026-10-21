@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7bd815a978a4"
   edges:
-    docs: "[Install-Tool.ps1.md](docs/references/pwsh/catzc-tooling-core/Install-Tool.ps1.md)"
+    docs: "[Install-Tool.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Install-Tool.ps1.md)"
     cites:
       - ADR-AUTO-UVPY
 ---

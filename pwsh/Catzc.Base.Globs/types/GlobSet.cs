@@ -5,7 +5,7 @@ catzc:
     with_body_sha: dcb1c707f68e
   edges:
     test: pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
-    docs: "[GlobSet.cs.md](docs/references/pwsh/catzc-base-globs/types/GlobSet.cs.md)"
+    docs: "[GlobSet.cs.md](../../../docs/references/pwsh/catzc-base-globs/types/GlobSet.cs.md)"
     cites:
       - ADR-REPO-PROTGLOB
       - FDR-CD-GLOBS

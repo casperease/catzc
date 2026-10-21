@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b17fc9f4baca
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.Tests.ps1
-    docs: "[Invoke-Terraform.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Invoke-Terraform.ps1.md)"
+    docs: "[Invoke-Terraform.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Invoke-Terraform.ps1.md)"
 ---
 #>
 

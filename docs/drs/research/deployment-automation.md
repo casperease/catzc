@@ -1,4 +1,4 @@
-# ADR: DORA — Deployment automation
+# Research: DORA — Deployment automation
 
 ## Rules: RDR-DORA-DEPLOY
 

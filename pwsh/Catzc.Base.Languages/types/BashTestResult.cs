@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e096d7f1ae53
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/BashTestResult.Tests.ps1
-    docs: "[BashTestResult.cs.md](docs/references/pwsh/catzc-base-languages/types/BashTestResult.cs.md)"
+    docs: "[BashTestResult.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/BashTestResult.cs.md)"
     cites:
       - ADR-AUTO-TEST-ONECATEGORY
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

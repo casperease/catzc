@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "54cb7126c351"
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitIgnorePattern.Tests.ps1
-    docs: "[GitIgnorePattern.cs.md](docs/references/pwsh/catzc-base-git/types/GitIgnorePattern.cs.md)"
+    docs: "[GitIgnorePattern.cs.md](../../../docs/references/pwsh/catzc-base-git/types/GitIgnorePattern.cs.md)"
 ---
 */
 

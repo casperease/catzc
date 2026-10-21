@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ea21550fd7c2
   edges:
-    docs: "[Test-Pipelines.Tests.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/tests/Test-Pipelines.Tests.ps1.md)"
+    docs: "[Test-Pipelines.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-dev-ops/tests/Test-Pipelines.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
     cites:
       - ADR-ADO-NAME

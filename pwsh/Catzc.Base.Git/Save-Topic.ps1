@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "60eb1ea03912"
   edges:
     test: pwsh/Catzc.Base.Git/tests/Save-Topic.Tests.ps1
-    docs: "[Save-Topic.ps1.md](docs/references/pwsh/catzc-base-git/Save-Topic.ps1.md)"
+    docs: "[Save-Topic.ps1.md](../../docs/references/pwsh/catzc-base-git/Save-Topic.ps1.md)"
     cites:
       - FDR-GIT-USERRUNSGIT
 ---

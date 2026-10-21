@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a45d3a903ea8
   edges:
-    docs: "[ModulePlace.cs.md](docs/references/pwsh/catzc-base-variants/types/ModulePlace.cs.md)"
+    docs: "[ModulePlace.cs.md](../../../docs/references/pwsh/catzc-base-variants/types/ModulePlace.cs.md)"
     cites:
       - DDR-TRACK-ONETECHSTACK
 ---

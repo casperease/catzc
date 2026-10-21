@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "00517fb622f6"
   edges:
-    docs: "[ConvertFrom-PytestJunit.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md)"
+    docs: "[ConvertFrom-PytestJunit.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/private/ConvertFrom-PytestJunit.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

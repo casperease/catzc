@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b430b3993548
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
-    docs: "[Test-DrsRegistry.ps1.md](docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md)"
+    docs: "[Test-DrsRegistry.ps1.md](../../docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
@@ -100,15 +100,15 @@ function Test-DrsRegistry {
         }
         # A check reporting on its own writes under the caller's folder when one is given, else under its subject's default.
         $checkFolder = if ($OutputFolder) {
-            Join-Path $OutputFolder "adr-$($check.Name)"
+            Join-Path $OutputFolder "drs-$($check.Name)"
         }
         else {
             ''
         }
-        [void](Write-QualityGateReport -Subject "adr-$($check.Name)" -Title "Test-DrsRegistry $($check.Name) (report mode)" `
+        [void](Write-QualityGateReport -Subject "drs-$($check.Name)" -Title "Test-DrsRegistry $($check.Name) (report mode)" `
                 -Issues $check.Findings -OutputFolder $checkFolder -PassThru)
     }
 
-    Write-QualityGateReport -Subject 'adr-registry' -Title 'Test-DrsRegistry' -Issues $issues -Facts $facts `
+    Write-QualityGateReport -Subject 'drs-registry' -Title 'Test-DrsRegistry' -Issues $issues -Facts $facts `
         -OutputFolder $OutputFolder -PassThru:$PassThru
 }

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "40679acf86b4"
   edges:
     test: pwsh/Catzc.Azure/tests/Get-AzureEnvironment.Tests.ps1
-    docs: "[Get-AzureEnvironment.ps1.md](docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md)"
+    docs: "[Get-AzureEnvironment.ps1.md](../../docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD-CUSTOMERAXIS
 ---

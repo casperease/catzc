@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6af20043d20c"
   edges:
     test: pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
-    docs: "[AzureConfig.cs.md](docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md)"
+    docs: "[AzureConfig.cs.md](../../../docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD

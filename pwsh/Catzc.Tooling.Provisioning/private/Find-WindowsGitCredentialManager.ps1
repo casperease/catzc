@@ -5,7 +5,7 @@ catzc:
     with_body_sha: cff9ce3cfd41
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Find-WindowsGitCredentialManager.Tests.ps1
-    docs: "[Find-WindowsGitCredentialManager.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/private/Find-WindowsGitCredentialManager.ps1.md)"
+    docs: "[Find-WindowsGitCredentialManager.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/private/Find-WindowsGitCredentialManager.ps1.md)"
 ---
 #>
 

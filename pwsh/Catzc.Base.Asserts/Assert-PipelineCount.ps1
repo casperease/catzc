@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "425445f4300b"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-PipelineCount.Tests.ps1
-    docs: "[Assert-PipelineCount.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-PipelineCount.ps1.md)"
+    docs: "[Assert-PipelineCount.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Assert-PipelineCount.ps1.md)"
 ---
 #>
 

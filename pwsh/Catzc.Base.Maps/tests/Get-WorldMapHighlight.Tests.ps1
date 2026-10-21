@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "59ab9148ee78"
+    with_body_sha: "8281c4d30e54"
   edges:
     code: pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
     cites:

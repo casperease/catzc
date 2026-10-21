@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "231a62060f79"
   edges:
-    docs: "[Install-Dotnet.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md)"
+    docs: "[Install-Dotnet.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/Install-Dotnet.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST

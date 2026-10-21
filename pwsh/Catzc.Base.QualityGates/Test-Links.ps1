@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2da7d4b0530d"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
-    docs: "[Test-Links.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Links.ps1.md)"
+    docs: "[Test-Links.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Links.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-LINK-ONECITATIONSPELLING

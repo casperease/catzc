@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1bda5cf85eec"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/PythonTestResult.Tests.ps1
-    docs: "[PythonTestResult.cs.md](docs/references/pwsh/catzc-base-languages/types/PythonTestResult.cs.md)"
+    docs: "[PythonTestResult.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/PythonTestResult.cs.md)"
     cites:
       - ADR-AUTO-TEST-ONECATEGORY
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

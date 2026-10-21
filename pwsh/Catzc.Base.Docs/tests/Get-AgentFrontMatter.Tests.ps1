@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: edcc38cc62c7
   edges:
-    docs: "[Get-AgentFrontMatter.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-AgentFrontMatter.Tests.ps1.md)"
+    docs: "[Get-AgentFrontMatter.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Get-AgentFrontMatter.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-AgentFrontMatter.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

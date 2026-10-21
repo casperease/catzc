@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c9cebefb35df
   edges:
-    docs: "[NoRawInformationStream.psm1.md](docs/references/pwsh/scriptanalyzer/NoRawInformationStream.psm1.md)"
+    docs: "[NoRawInformationStream.psm1.md](../../docs/references/pwsh/scriptanalyzer/NoRawInformationStream.psm1.md)"
     cites:
       - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---

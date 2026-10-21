@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1250cef7a77e"
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Install-Postman.Tests.ps1
-    docs: "[Install-Postman.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Install-Postman.ps1.md)"
+    docs: "[Install-Postman.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Install-Postman.ps1.md)"
 ---
 #>
 

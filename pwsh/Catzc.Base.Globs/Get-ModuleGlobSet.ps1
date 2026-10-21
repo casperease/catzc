@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3680f939db71"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
-    docs: "[Get-ModuleGlobSet.ps1.md](docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md)"
+    docs: "[Get-ModuleGlobSet.ps1.md](../../docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md)"
     cites:
       - ADR-AUTO-BASH-ONEBASHROOT
       - ADR-AUTO-GO-ONEGOROOT

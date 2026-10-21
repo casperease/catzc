@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "10a4d3dbd7b8"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
-    docs: "[Test-AdoPipelineTriggerGlob.ps1.md](docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md)"
+    docs: "[Test-AdoPipelineTriggerGlob.ps1.md](../../docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - FDR-CD-GLOBS-NAMEDGLOBSETS

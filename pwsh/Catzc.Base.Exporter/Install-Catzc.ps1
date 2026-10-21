@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6511882d8bd6"
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
-    docs: "[Install-Catzc.ps1.md](docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md)"
+    docs: "[Install-Catzc.ps1.md](../../docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md)"
     cites:
       - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT

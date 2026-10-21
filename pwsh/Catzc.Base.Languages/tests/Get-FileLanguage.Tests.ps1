@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c7ecda1b0943
   edges:
-    docs: "[Get-FileLanguage.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md)"
+    docs: "[Get-FileLanguage.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/Get-FileLanguage.ps1
     cites:
       - DDR-TRACK-TRACKISPLACEDCLUSTER

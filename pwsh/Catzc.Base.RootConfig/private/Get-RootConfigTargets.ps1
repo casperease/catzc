@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0a3f583abdc7"
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/Get-RootConfigTargets.Tests.ps1
-    docs: "[Get-RootConfigTargets.ps1.md](docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigTargets.ps1.md)"
+    docs: "[Get-RootConfigTargets.ps1.md](../../../docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigTargets.ps1.md)"
     cites:
       - ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX
       - ADR-REPO-ROOTCFG

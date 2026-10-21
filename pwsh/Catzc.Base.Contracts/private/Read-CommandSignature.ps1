@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "91a019ab95b9"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Read-CommandSignature.Tests.ps1
-    docs: "[Read-CommandSignature.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Read-CommandSignature.ps1.md)"
+    docs: "[Read-CommandSignature.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Read-CommandSignature.ps1.md)"
     cites:
       - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
       - ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a2479b55a503
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/Build-VSCodeExtension.Tests.ps1
-    docs: "[Build-VSCodeExtension.ps1.md](docs/references/pwsh/catzc-base-vs-code/Build-VSCodeExtension.ps1.md)"
+    docs: "[Build-VSCodeExtension.ps1.md](../../docs/references/pwsh/catzc-base-vs-code/Build-VSCodeExtension.ps1.md)"
 ---
 #>
 

@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "34ba7412e004"
 #   edges:
-#     docs: "[ci-pwsh.yml.md](docs/references/github/workflows/ci-pwsh.yml.md)"
+#     docs: "[ci-pwsh.yml.md](../../docs/references/github/workflows/ci-pwsh.yml.md)"
 #     cites:
 #       - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
 #       - FDR-CD-GLOBS

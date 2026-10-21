@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f8cd7986c811
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
-    docs: "[Invoke-TestRun.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-TestRun.ps1.md)"
+    docs: "[Invoke-TestRun.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-TestRun.ps1.md)"
     cites:
       - ADR-AUTO-TEST-ONESCHEDULINGPOOL
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS

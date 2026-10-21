@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "44509a1a85f2"
   edges:
-    docs: "[Resolve-AdoBuildValidationContext.ps1.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/private/Resolve-AdoBuildValidationContext.ps1.md)"
+    docs: "[Resolve-AdoBuildValidationContext.ps1.md](../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/private/Resolve-AdoBuildValidationContext.ps1.md)"
 ---
 #>
 

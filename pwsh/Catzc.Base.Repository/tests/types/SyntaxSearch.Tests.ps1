@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: dea2093494c6
   edges:
-    docs: "[SyntaxSearch.Tests.ps1.md](docs/references/pwsh/catzc-base-repository/tests/types/SyntaxSearch.Tests.ps1.md)"
+    docs: "[SyntaxSearch.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-repository/tests/types/SyntaxSearch.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Repository/types/SyntaxSearch.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

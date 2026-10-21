@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4421a5028d3f"
   edges:
-    docs: "[Remove-LinuxToolInstall.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Remove-LinuxToolInstall.Tests.ps1.md)"
+    docs: "[Remove-LinuxToolInstall.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Remove-LinuxToolInstall.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
     cites:
       - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED

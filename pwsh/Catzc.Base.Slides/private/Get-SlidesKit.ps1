@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b6a18f645758
   edges:
-    docs: "[Get-SlidesKit.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-SlidesKit.ps1.md)"
+    docs: "[Get-SlidesKit.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Get-SlidesKit.ps1.md)"
     cites:
       - ADR-REPO-SLIDES-PATTERN
 ---

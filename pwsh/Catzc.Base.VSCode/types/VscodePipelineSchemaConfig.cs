@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2d309ed08374"
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/types/VscodePipelineSchemaConfig.Tests.ps1
-    docs: "[VscodePipelineSchemaConfig.cs.md](docs/references/pwsh/catzc-base-vs-code/types/VscodePipelineSchemaConfig.cs.md)"
+    docs: "[VscodePipelineSchemaConfig.cs.md](../../../docs/references/pwsh/catzc-base-vs-code/types/VscodePipelineSchemaConfig.cs.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---

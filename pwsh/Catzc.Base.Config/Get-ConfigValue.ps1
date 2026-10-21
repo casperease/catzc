@@ -5,7 +5,7 @@ catzc:
     with_body_sha: bea7f1e9775b
   edges:
     test: pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
-    docs: "[Get-ConfigValue.ps1.md](docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md)"
+    docs: "[Get-ConfigValue.ps1.md](../../docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md)"
     cites:
       - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
       - ADR-CONF-ADDRESSING

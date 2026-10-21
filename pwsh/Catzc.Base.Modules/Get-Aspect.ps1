@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9a43110e85a8"
   edges:
     test: pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-    docs: "[Get-Aspect.ps1.md](docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md)"
+    docs: "[Get-Aspect.ps1.md](../../docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md)"
     cites:
       - ADR-AUTO-MODULE-EXISTSBYLAYOUT
       - DDR-ASPECT

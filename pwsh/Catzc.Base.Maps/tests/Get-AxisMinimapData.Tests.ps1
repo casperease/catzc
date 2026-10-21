@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "983eb41bf966"
+    with_body_sha: "171b115e3c33"
   edges:
     code: pwsh/Catzc.Base.Maps/Get-AxisMinimapData.ps1
 ---

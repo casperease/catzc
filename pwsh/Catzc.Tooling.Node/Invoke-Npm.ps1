@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: cd2c12cee01c
   edges:
-    docs: "[Invoke-Npm.ps1.md](docs/references/pwsh/catzc-tooling-node/Invoke-Npm.ps1.md)"
+    docs: "[Invoke-Npm.ps1.md](../../docs/references/pwsh/catzc-tooling-node/Invoke-Npm.ps1.md)"
 ---
 #>
 

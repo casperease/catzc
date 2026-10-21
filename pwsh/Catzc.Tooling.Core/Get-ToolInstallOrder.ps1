@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "295ec5d59e06"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
-    docs: "[Get-ToolInstallOrder.ps1.md](docs/references/pwsh/catzc-tooling-core/Get-ToolInstallOrder.ps1.md)"
+    docs: "[Get-ToolInstallOrder.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Get-ToolInstallOrder.ps1.md)"
 ---
 #>
 

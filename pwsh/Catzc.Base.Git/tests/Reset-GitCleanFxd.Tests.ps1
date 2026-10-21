@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e964b7894275
   edges:
-    docs: "[Reset-GitCleanFxd.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/Reset-GitCleanFxd.Tests.ps1.md)"
+    docs: "[Reset-GitCleanFxd.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-git/tests/Reset-GitCleanFxd.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Git/Reset-GitCleanFxd.ps1
 ---
 #>

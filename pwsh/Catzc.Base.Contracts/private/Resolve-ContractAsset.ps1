@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e65c85d4fe5e
   edges:
-    docs: "[Resolve-ContractAsset.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Resolve-ContractAsset.ps1.md)"
+    docs: "[Resolve-ContractAsset.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Resolve-ContractAsset.ps1.md)"
     cites:
       - ADR-AUTO-ZERO
       - ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS

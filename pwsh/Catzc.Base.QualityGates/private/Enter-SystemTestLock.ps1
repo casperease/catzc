@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f8b879b97c91
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1
-    docs: "[Enter-SystemTestLock.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Enter-SystemTestLock.ps1.md)"
+    docs: "[Enter-SystemTestLock.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Enter-SystemTestLock.ps1.md)"
     cites:
       - ADR-AUTO-TEST-RUNSNEVERWAIT
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE

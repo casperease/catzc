@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "64904c9999bf"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/WinAnsi.Tests.ps1
-    docs: "[WinAnsi.cs.md](docs/references/pwsh/catzc-base-maps/types/WinAnsi.cs.md)"
+    docs: "[WinAnsi.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/WinAnsi.cs.md)"
 ---
 */
 

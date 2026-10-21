@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: aa7c4fd586b9
   edges:
-    docs: "[Get-PipelineTemplateReference.Tests.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/tests/Get-PipelineTemplateReference.Tests.ps1.md)"
+    docs: "[Get-PipelineTemplateReference.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-dev-ops/tests/Get-PipelineTemplateReference.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1
     cites:
       - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE

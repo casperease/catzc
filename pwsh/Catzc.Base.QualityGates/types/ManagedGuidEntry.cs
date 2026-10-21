@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: aff81c35cec3
   edges:
-    docs: "[ManagedGuidEntry.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/ManagedGuidEntry.cs.md)"
+    docs: "[ManagedGuidEntry.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/ManagedGuidEntry.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

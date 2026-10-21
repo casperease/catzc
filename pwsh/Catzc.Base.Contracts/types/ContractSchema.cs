@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5233bb0e97d8"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractSchema.Tests.ps1
-    docs: "[ContractSchema.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractSchema.cs.md)"
+    docs: "[ContractSchema.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/ContractSchema.cs.md)"
     cites:
       - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
       - ADR-REPO-CONTRACT-CONTRACTASSET

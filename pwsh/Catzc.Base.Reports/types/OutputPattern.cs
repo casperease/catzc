@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f9cdb2cb30db
   edges:
-    docs: "[OutputPattern.cs.md](docs/references/pwsh/catzc-base-reports/types/OutputPattern.cs.md)"
+    docs: "[OutputPattern.cs.md](../../../docs/references/pwsh/catzc-base-reports/types/OutputPattern.cs.md)"
     cites:
       - ADR-BCL-TYPES-CONSOLEREADYTOSTRING
       - ADR-REPO-OUTFMT-OUTPUTFORMAT

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "847bb81520eb"
   edges:
-    docs: "[Get-LogicTestIdentityFinding.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-LogicTestIdentityFinding.Tests.ps1.md)"
+    docs: "[Get-LogicTestIdentityFinding.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-LogicTestIdentityFinding.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1
 ---
 #>

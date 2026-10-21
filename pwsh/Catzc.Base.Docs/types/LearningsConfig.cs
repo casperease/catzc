@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7d335512fafb"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/LearningsConfig.Tests.ps1
-    docs: "[LearningsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/LearningsConfig.cs.md)"
+    docs: "[LearningsConfig.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/LearningsConfig.cs.md)"
 ---
 */
 

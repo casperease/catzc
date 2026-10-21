@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f483a5c1cad0
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1
-    docs: "[Install-AzCliBicep.ps1.md](docs/references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md)"
+    docs: "[Install-AzCliBicep.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md)"
     cites:
       - ADR-AZ-CLI-AZBYDEFAULT
 ---

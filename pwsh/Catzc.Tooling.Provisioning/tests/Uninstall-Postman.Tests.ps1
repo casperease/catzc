@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e054ec3520fb
   edges:
-    docs: "[Uninstall-Postman.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Postman.Tests.ps1.md)"
+    docs: "[Uninstall-Postman.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Postman.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/Uninstall-Postman.ps1
 ---
 #>

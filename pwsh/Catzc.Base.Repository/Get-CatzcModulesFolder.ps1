@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ebe1c235990a
   edges:
     test: pwsh/Catzc.Base.Repository/tests/Get-CatzcModulesFolder.Tests.ps1
-    docs: "[Get-CatzcModulesFolder.ps1.md](docs/references/pwsh/catzc-base-repository/Get-CatzcModulesFolder.ps1.md)"
+    docs: "[Get-CatzcModulesFolder.ps1.md](../../docs/references/pwsh/catzc-base-repository/Get-CatzcModulesFolder.ps1.md)"
     cites:
       - ADR-AUTO-LAYERS
 ---

@@ -4,7 +4,7 @@
 
 ### Rule ADR-REPO-VOCAB-DEFINEDTERM
 
-A **defined term** has exactly one meaning, fixed by exactly one ADR rule whose normative summary bolds it (`A **<term>** is …`). A term
+A **defined term** has exactly one meaning, fixed by exactly one DRS rule whose normative summary bolds it (`A **<term>** is …`). A term
 used with a private or shifting meaning, or defined a second time elsewhere, is a defect — the same way an undeclared identifier is.
 
 - [One term, one rule](#one-term-one-rule)
@@ -49,7 +49,7 @@ pattern.
 
 ### Rule ADR-REPO-VOCAB-DOMAINRULES
 
-The repository's conventions and decision records — its ADRs and the rules they state — are its **domain rules**, also called ADR rules.
+The repository's conventions and decision records — the records and the rules they state — are its **domain rules**, also called DRS rules.
 Prose names them that way; an informal stand-in such as "house rules" is an avoided phrasing (ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED).
 
 - [Domain rules](#domain-rules)
@@ -78,10 +78,10 @@ spell-checker keep that list honest ([spell-out-names](../automation/spell-out-n
 can still carry several meanings — "suite" names every test in the repository, a tier, a category, a run mode, a gate's own tests, and a
 pipeline payload, all in the same tree — and nothing in a spelling list can tell those apart.
 
-Meaning is fixed in prose. The process domain's flow vocabulary is the model: one article that pins the flow terms so the other process ADRs
-can reason with them. But prose alone leaves three things unchecked: which rule defines a term, whether other text drifts to a different
-word for it, and whether the concept a term names is enforced anywhere. This ADR turns the glossary discipline into a controlled vocabulary
-those three questions can be asked of mechanically.
+Meaning is fixed in prose. The process domain's flow vocabulary is the model: one article that pins the flow terms so the other process
+decision records can reason with them. But prose alone leaves three things unchecked: which rule defines a term, whether other text drifts
+to a different word for it, and whether the concept a term names is enforced anywhere. This ADR turns the glossary discipline into a
+controlled vocabulary those three questions can be asked of mechanically.
 
 ### One term, one rule
 
@@ -106,7 +106,7 @@ language is not this repository's to correct and a plan outlives no decision.
 
 A glossary is part of the codebase it governs, and it is versioned, reviewed, and checked like the rest of it
 ([everything-as-code](../principles/everything-as-code.md)). A URL would make a definition depend on something that can change or vanish
-without a commit, and would make the checks depend on the network. So a definition is an in-repository ADR rule, every pattern and glob is
+without a commit, and would make the checks depend on the network. So a definition is an in-repository DRS rule, every pattern and glob is
 repo-relative, and outside vocabulary arrives through the repository's own reference material.
 
 ### Contrasts
@@ -158,14 +158,14 @@ is explicit rather than an absence.
 ### Domain rules
 
 The vocabulary starts with the name of the rules themselves. A convention here is a decision with a rationale and a citation code, recorded
-in an ADR and checked where it can be — not a habit of the house. Calling the conventions **domain rules**, or ADR rules when the source
+in an ADR and checked where it can be — not a habit of the house. Calling the conventions **domain rules**, or DRS rules when the source
 matters, keeps that link visible in every conversation and review, and gives the glossary a first concept that is used everywhere and
 realized nowhere in code (`prose-only`).
 
 ## Decision
 
 Defined terms are registered in opt-in, in-repository glossary sources (`configs/glossary.yml`), one per owning module. Each concept points
-at the one ADR rule that defines it, declares how it is realized, contrasts itself with its similar terms, and lists its avoided phrasings
+at the one DRS rule that defines it, declares how it is realized, contrasts itself with its similar terms, and lists its avoided phrasings
 with their replacements. A source's options default sensibly, and a source overrides only what differs.
 
 ### How this is enforced
@@ -216,10 +216,10 @@ with their replacements. A source's options default sensibly, and a source overr
   fails once with every issue. An L2 integrity test runs every check over the real tree, so every rule here is checked mechanically; it is
   L2 because the source and phrasing checks ask git which files are tracked (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE).
 
-- **`Build-Glossary`** (`Catzc.Base.Docs`) projects every source into one readable page, `docs/drs/glossary.md`: per ADR domain, each term
-  with its definition, a link to its defining rule, its realization, relations, contrasts, and avoided phrasings. The page is a derived
-  artifact like the ADR index — committed so GitHub has it, and rebuilt on import — and an L1 integrity test fails when it drifts from the
-  sources.
+- **`Build-Glossary`** (`Catzc.Base.Docs`) projects every source into one readable page, `docs/drs/glossary.md`: per decision-record domain,
+  each term with its definition, a link to its defining rule, its realization, relations, contrasts, and avoided phrasings. The page is a
+  derived artifact like the DRS index — committed so GitHub has it, and rebuilt on import — and an L1 integrity test fails when it drifts
+  from the sources.
 
 ## Consequences
 

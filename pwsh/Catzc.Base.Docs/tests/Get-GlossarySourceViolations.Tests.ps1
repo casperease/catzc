@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "47e990716417"
+    with_body_sha: "93a2c94c6aed"
   edges:
-    docs: "[Get-GlossarySourceViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md)"
+    docs: "[Get-GlossarySourceViolations.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7085df4d84a8"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/types/DrsCodeForm.Tests.ps1
-    docs: "[DrsCodeForm.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsCodeForm.cs.md)"
+    docs: "[DrsCodeForm.cs.md](../../../docs/references/pwsh/catzc-base-drs/types/DrsCodeForm.cs.md)"
     cites:
       - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
       - ADR-REPO-DRSCODE

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e4b3c2f9e7b1
   edges:
     test: pwsh/Catzc.Base.Reports/tests/Clear-Output.Tests.ps1
-    docs: "[Clear-Output.ps1.md](docs/references/pwsh/catzc-base-reports/Clear-Output.ps1.md)"
+    docs: "[Clear-Output.ps1.md](../../docs/references/pwsh/catzc-base-reports/Clear-Output.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN-SIDEEFFECTSTAKEDRYRUN
       - ADR-REPO-OUTDIR-ONECLEANCOMMAND

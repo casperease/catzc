@@ -3,7 +3,7 @@
 This area summarizes [DORA](../../references/dora/index.md) — the research program behind the repository's delivery thinking — as a set of
 ADR-style articles, one per capability. Each article carries an `RDR-DORA-<NAME>` rule domain so its findings can be cited like any other
 rule in this repository. The articles summarize external research; the repository's own decisions live in the sibling areas (`principles/`,
-`process/`, `design/`, and the rest — see the [ADR index](../index.md)).
+`process/`, `design/`, and the rest — see the [DRS index](../index.md)).
 
 The research corpus around these articles — the Core Model, the metrics, the full catalogue with each capability's evidence, the AI
 Capabilities Model, and every publication — is the [DORA research reference](../../references/dora/index.md). Markdown anywhere in the

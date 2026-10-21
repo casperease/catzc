@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6be34f68e8a8"
   edges:
-    docs: "[Get-ContractCheckResults.Assets.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1.md)"
+    docs: "[Get-ContractCheckResults.Assets.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SETUPONCE
       - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT

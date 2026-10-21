@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4c5450ff2f33"
   edges:
     test: pwsh/Catzc.Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1
-    docs: "[Get-ConfigOverlayRoot.ps1.md](docs/references/pwsh/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md)"
+    docs: "[Get-ConfigOverlayRoot.ps1.md](../../../docs/references/pwsh/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md)"
     cites:
       - ADR-PWSH-CACHE
       - PDR-CATS-FOLDERSUSECATZC

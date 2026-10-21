@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1757c111e5db"
   edges:
-    docs: "[Resolve-DotnetRemovalTarget.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Resolve-DotnetRemovalTarget.ps1.md)"
+    docs: "[Resolve-DotnetRemovalTarget.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/private/Resolve-DotnetRemovalTarget.ps1.md)"
     cites:
       - ADR-PWSH-PARAM-RESOLUTIONORDER
 ---

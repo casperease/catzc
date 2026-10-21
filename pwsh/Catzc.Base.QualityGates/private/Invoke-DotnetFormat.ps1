@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d4bd160781d2
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-DotnetFormat.Tests.ps1
-    docs: "[Invoke-DotnetFormat.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-DotnetFormat.ps1.md)"
+    docs: "[Invoke-DotnetFormat.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-DotnetFormat.ps1.md)"
     cites:
       - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
 ---

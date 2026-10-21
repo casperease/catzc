@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6034e83514c6"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
-    docs: "[Resolve-MapLabelTerm.ps1.md](docs/references/pwsh/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md)"
+    docs: "[Resolve-MapLabelTerm.ps1.md](../../../docs/references/pwsh/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md)"
     cites:
       - DDR-TRACK-LABELSNAMEDEFINEDTERMS
       - DDR-TRACK-VALUECHAINMAP

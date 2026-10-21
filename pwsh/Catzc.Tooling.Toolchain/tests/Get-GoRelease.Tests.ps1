@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4112996df3bd"
   edges:
-    docs: "[Get-GoRelease.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Get-GoRelease.Tests.ps1.md)"
+    docs: "[Get-GoRelease.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Get-GoRelease.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/private/Get-GoRelease.ps1
 ---
 #>

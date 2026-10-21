@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "124fbd1ad2ae"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-LanguageTestFolders.Tests.ps1
-    docs: "[Get-LanguageTestFolders.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-LanguageTestFolders.ps1.md)"
+    docs: "[Get-LanguageTestFolders.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-LanguageTestFolders.ps1.md)"
     cites:
       - ADR-AUTO-BASH-ONEBASHROOT
       - ADR-AUTO-GO-ONEGOROOT

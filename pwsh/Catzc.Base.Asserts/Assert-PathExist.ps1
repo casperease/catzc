@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4f85f72032ab"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-PathExist.Tests.ps1
-    docs: "[Assert-PathExist.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-PathExist.ps1.md)"
+    docs: "[Assert-PathExist.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Assert-PathExist.ps1.md)"
 ---
 #>
 

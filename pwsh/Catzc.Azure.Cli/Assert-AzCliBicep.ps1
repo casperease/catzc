@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a33ecf88b24f
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Assert-AzCliBicep.Tests.ps1
-    docs: "[Assert-AzCliBicep.ps1.md](docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md)"
+    docs: "[Assert-AzCliBicep.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md)"
     cites:
       - ADR-AUTO-ENTERP
       - ADR-AZ-CLI-AZBYDEFAULT

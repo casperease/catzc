@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f6335001c3df
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/New-PesterRunConfiguration.Tests.ps1
-    docs: "[New-PesterRunConfiguration.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/New-PesterRunConfiguration.ps1.md)"
+    docs: "[New-PesterRunConfiguration.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/New-PesterRunConfiguration.ps1.md)"
     cites:
       - ADR-AUTO-TEST-FILEPARALLELISM
 ---

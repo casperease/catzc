@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: b74d01d6eb90
 //   edges:
-//     docs: "[subnet.bicep.md](docs/references/infrastructure/modules/subnet.bicep.md)"
+//     docs: "[subnet.bicep.md](../../docs/references/infrastructure/modules/subnet.bicep.md)"
 // ---
 
 @description('Name of the existing virtual network (in the deployment resource group).')

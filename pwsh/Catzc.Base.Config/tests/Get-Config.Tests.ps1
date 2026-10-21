@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "51c3af4cfb95"
   edges:
-    docs: "[Get-Config.Tests.ps1.md](docs/references/pwsh/catzc-base-config/tests/Get-Config.Tests.ps1.md)"
+    docs: "[Get-Config.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-config/tests/Get-Config.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Config/Get-Config.ps1
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER

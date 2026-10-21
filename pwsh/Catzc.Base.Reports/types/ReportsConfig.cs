@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "31d63c14805a"
   edges:
     test: pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
-    docs: "[ReportsConfig.cs.md](docs/references/pwsh/catzc-base-reports/types/ReportsConfig.cs.md)"
+    docs: "[ReportsConfig.cs.md](../../../docs/references/pwsh/catzc-base-reports/types/ReportsConfig.cs.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

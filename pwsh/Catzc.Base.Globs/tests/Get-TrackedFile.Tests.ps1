@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0693259581ac"
   edges:
-    docs: "[Get-TrackedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md)"
+    docs: "[Get-TrackedFile.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/Get-TrackedFile.ps1
     cites:
       - FDR-CD-GLOBS-TRACKEDFILESONLY

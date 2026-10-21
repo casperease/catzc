@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c6721ab8972c
   edges:
-    docs: "[GlossarySegment.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossarySegment.cs.md)"
+    docs: "[GlossarySegment.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/GlossarySegment.cs.md)"
 ---
 */
 

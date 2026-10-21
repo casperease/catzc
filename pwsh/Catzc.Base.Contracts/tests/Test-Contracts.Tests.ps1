@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "971ae0d7b204"
   edges:
-    docs: "[Test-Contracts.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md)"
+    docs: "[Test-Contracts.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

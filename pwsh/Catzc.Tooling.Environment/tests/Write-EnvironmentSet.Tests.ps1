@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0212cc76eefa"
   edges:
-    docs: "[Write-EnvironmentSet.Tests.ps1.md](docs/references/pwsh/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md)"
+    docs: "[Write-EnvironmentSet.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
 ---
 #>

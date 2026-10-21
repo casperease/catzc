@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fdacd8da545a
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Sync-AdoGraphGroupMembers.Tests.ps1
-    docs: "[Sync-AdoGraphGroupMembers.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/private/Sync-AdoGraphGroupMembers.ps1.md)"
+    docs: "[Sync-AdoGraphGroupMembers.ps1.md](../../../docs/references/pwsh/catzc-azure-dev-ops/private/Sync-AdoGraphGroupMembers.ps1.md)"
 ---
 #>
 

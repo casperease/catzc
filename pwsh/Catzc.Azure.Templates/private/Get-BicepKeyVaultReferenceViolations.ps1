@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a869643e902a
   edges:
-    docs: "[Get-BicepKeyVaultReferenceViolations.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepKeyVaultReferenceViolations.ps1.md)"
+    docs: "[Get-BicepKeyVaultReferenceViolations.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepKeyVaultReferenceViolations.ps1.md)"
 ---
 #>
 

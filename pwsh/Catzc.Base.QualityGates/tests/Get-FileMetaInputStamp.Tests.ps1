@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4f0e8b4e81e8"
+    with_body_sha: d3019ea7f2a5
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-FileMetaInputStamp.ps1
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f2986cd4be53
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Get-DotnetInstallHolder.Tests.ps1
-    docs: "[Get-DotnetInstallHolder.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Get-DotnetInstallHolder.ps1.md)"
+    docs: "[Get-DotnetInstallHolder.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/private/Get-DotnetInstallHolder.ps1.md)"
 ---
 #>
 

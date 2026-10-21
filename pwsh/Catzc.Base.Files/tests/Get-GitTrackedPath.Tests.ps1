@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d74461fadd07
   edges:
-    docs: "[Get-GitTrackedPath.Tests.ps1.md](docs/references/pwsh/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md)"
+    docs: "[Get-GitTrackedPath.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
 ---
 #>

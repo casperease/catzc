@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: aa3378d6701f
   edges:
-    docs: "[Get-GitChangedPath.Tests.ps1.md](docs/references/pwsh/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md)"
+    docs: "[Get-GitChangedPath.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Files/Get-GitChangedPath.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

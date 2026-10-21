@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "353300fb4b49"
   edges:
-    docs: "[Convert-FirewallCsvToYaml.Tests.ps1.md](docs/references/pwsh/catzc-azure-firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1.md)"
+    docs: "[Convert-FirewallCsvToYaml.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1
 ---
 #>

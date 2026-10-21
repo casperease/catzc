@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7578c7bdd5e0"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-CommandContract.Tests.ps1
-    docs: "[Get-CommandContract.ps1.md](docs/references/pwsh/catzc-base-contracts/Get-CommandContract.ps1.md)"
+    docs: "[Get-CommandContract.ps1.md](../../docs/references/pwsh/catzc-base-contracts/Get-CommandContract.ps1.md)"
     cites:
       - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
       - ADR-REPO-CMDCONTRACT-ONEREADER

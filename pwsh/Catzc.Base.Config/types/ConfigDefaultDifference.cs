@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "31c3c4b4ac52"
   edges:
-    docs: "[ConfigDefaultDifference.cs.md](docs/references/pwsh/catzc-base-config/types/ConfigDefaultDifference.cs.md)"
+    docs: "[ConfigDefaultDifference.cs.md](../../../docs/references/pwsh/catzc-base-config/types/ConfigDefaultDifference.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 ---

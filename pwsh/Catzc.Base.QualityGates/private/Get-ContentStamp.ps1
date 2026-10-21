@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4b2c2c19020a"
   edges:
-    docs: "[Get-ContentStamp.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ContentStamp.ps1.md)"
+    docs: "[Get-ContentStamp.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ContentStamp.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 ---

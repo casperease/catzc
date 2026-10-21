@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "64487cfd30eb"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
-    docs: "[Get-ChangedFile.ps1.md](docs/references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md)"
+    docs: "[Get-ChangedFile.ps1.md](../../../docs/references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md)"
     cites:
       - FDR-CD-GLOBS-TRACKEDFILESONLY
 ---

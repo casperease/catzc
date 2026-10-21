@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6eed84289af9"
   edges:
-    docs: "[AzureEnvironmentRecord.cs.md](docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md)"
+    docs: "[AzureEnvironmentRecord.cs.md](../../../docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md)"
     cites:
       - ADR-AZ-DATAMOD
       - ADR-AZ-NAMING

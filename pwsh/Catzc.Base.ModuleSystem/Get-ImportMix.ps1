@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "98644bbb5dfd"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ImportMix.Tests.ps1
-    docs: "[Get-ImportMix.ps1.md](docs/references/pwsh/catzc-base-module-system/Get-ImportMix.ps1.md)"
+    docs: "[Get-ImportMix.ps1.md](../../docs/references/pwsh/catzc-base-module-system/Get-ImportMix.ps1.md)"
     cites:
       - ADR-AUTO-IMPORTER
 ---

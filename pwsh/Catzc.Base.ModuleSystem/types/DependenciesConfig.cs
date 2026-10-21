@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a675bc04e8e8
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/DependenciesConfig.Tests.ps1
-    docs: "[DependenciesConfig.cs.md](docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md)"
+    docs: "[DependenciesConfig.cs.md](../../../docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md)"
     cites:
       - ADR-AUTO-DEPM
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

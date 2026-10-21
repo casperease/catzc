@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f83b52c27c3f
   edges:
-    docs: "[Test-LoadedTypesCurrent.Tests.ps1.md](docs/references/pwsh/catzc-base-types-system/tests/Test-LoadedTypesCurrent.Tests.ps1.md)"
+    docs: "[Test-LoadedTypesCurrent.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-types-system/tests/Test-LoadedTypesCurrent.Tests.ps1.md)"
     code: pwsh/Catzc.Base.TypesSystem/Test-LoadedTypesCurrent.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

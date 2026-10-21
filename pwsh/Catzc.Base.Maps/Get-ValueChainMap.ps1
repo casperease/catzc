@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "529107aef109"
+    with_body_sha: "6cda7abcbfc7"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
-    docs: "[Get-ValueChainMap.ps1.md](docs/references/pwsh/catzc-base-maps/Get-ValueChainMap.ps1.md)"
+    docs: "[Get-ValueChainMap.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-ValueChainMap.ps1.md)"
     cites:
       - DDR-TRACK-VALUECHAINSTACK
       - DDR-TRACK-VALUECHAINCONCERN

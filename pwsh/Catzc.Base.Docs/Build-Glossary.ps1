@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c19c5bdc53ed
+    with_body_sha: "522ac365606f"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
-    docs: "[Build-Glossary.ps1.md](docs/references/pwsh/catzc-base-docs/Build-Glossary.ps1.md)"
+    docs: "[Build-Glossary.ps1.md](../../docs/references/pwsh/catzc-base-docs/Build-Glossary.ps1.md)"
     cites:
       - ADR-REPO-README-AUTHOREDSOURCES
       - ADR-REPO-VOCAB

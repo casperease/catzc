@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: c40b15f465ac
 #   edges:
-#     docs: "[drs-checks.yml.md](docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md)"
+#     docs: "[drs-checks.yml.md](../../../docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-AUTO-TEST-QUALITYGATE

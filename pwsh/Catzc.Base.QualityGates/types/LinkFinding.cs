@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: fd654028f32d
   edges:
-    docs: "[LinkFinding.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/LinkFinding.cs.md)"
+    docs: "[LinkFinding.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkFinding.cs.md)"
 ---
 */
 

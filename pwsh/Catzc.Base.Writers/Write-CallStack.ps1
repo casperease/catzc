@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "39462ea5acf4"
   edges:
     test: pwsh/Catzc.Base.Writers/tests/Write-CallStack.Tests.ps1
-    docs: "[Write-CallStack.ps1.md](docs/references/pwsh/catzc-base-writers/Write-CallStack.ps1.md)"
+    docs: "[Write-CallStack.ps1.md](../../docs/references/pwsh/catzc-base-writers/Write-CallStack.ps1.md)"
 ---
 #>
 

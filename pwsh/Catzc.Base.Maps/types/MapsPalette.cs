@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6972af2630d6"
   edges:
-    docs: "[MapsPalette.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsPalette.cs.md)"
+    docs: "[MapsPalette.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/MapsPalette.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

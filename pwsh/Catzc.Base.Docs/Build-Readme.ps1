@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b9719f7f4b2a
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1
-    docs: "[Build-Readme.ps1.md](docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md)"
+    docs: "[Build-Readme.ps1.md](../../docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-CONF-LOADING

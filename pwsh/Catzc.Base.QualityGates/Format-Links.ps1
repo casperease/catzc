@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ca30d1a5ce8c
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
-    docs: "[Format-Links.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Format-Links.ps1.md)"
+    docs: "[Format-Links.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Format-Links.ps1.md)"
     cites:
       - ADR-REPO-LINK-ALIGNEDBYTOOL
 ---

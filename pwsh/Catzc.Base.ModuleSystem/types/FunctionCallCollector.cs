@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fb6403b37483
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
-    docs: "[FunctionCallCollector.cs.md](docs/references/pwsh/catzc-base-module-system/types/FunctionCallCollector.cs.md)"
+    docs: "[FunctionCallCollector.cs.md](../../../docs/references/pwsh/catzc-base-module-system/types/FunctionCallCollector.cs.md)"
 ---
 */
 

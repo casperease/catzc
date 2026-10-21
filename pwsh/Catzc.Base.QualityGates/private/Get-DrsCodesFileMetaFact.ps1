@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ec9203403b0c
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-DrsCodesFileMetaFact.Tests.ps1
-    docs: "[Get-DrsCodesFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-DrsCodesFileMetaFact.ps1.md)"
+    docs: "[Get-DrsCodesFileMetaFact.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-DrsCodesFileMetaFact.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-NOREADBACK
       - ADR-REPO-LINK-ONECITATIONSPELLING

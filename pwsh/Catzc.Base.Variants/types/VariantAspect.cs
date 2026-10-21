@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "00143814f216"
   edges:
-    docs: "[VariantAspect.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md)"
+    docs: "[VariantAspect.cs.md](../../../docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - DDR-ASPECT

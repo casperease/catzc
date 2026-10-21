@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: acc2c221ce2d
+    with_body_sha: "23271c98467a"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1
-    docs: "[MapsConfig.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsConfig.cs.md)"
+    docs: "[MapsConfig.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/MapsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

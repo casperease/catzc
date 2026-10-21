@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "82bbececd5c5"
   edges:
-    docs: "[Listen.Fixture.ps1.md](docs/references/pwsh/catzc-tooling-listen/tests/Listen.Fixture.ps1.md)"
+    docs: "[Listen.Fixture.ps1.md](../../../docs/references/pwsh/catzc-tooling-listen/tests/Listen.Fixture.ps1.md)"
 ---
 #>
 

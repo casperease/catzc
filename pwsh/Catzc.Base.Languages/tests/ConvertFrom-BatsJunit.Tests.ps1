@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9c73125fe39d"
   edges:
-    docs: "[ConvertFrom-BatsJunit.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-BatsJunit.Tests.ps1.md)"
+    docs: "[ConvertFrom-BatsJunit.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-BatsJunit.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/private/ConvertFrom-BatsJunit.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9692b8aad06a"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Resolve-SessionToolHost.Tests.ps1
-    docs: "[Resolve-SessionToolHost.ps1.md](docs/references/pwsh/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md)"
+    docs: "[Resolve-SessionToolHost.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md)"
 ---
 #>
 

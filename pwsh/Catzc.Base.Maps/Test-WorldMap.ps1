@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "86bb207eccc5"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
-    docs: "[Test-WorldMap.ps1.md](docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md)"
+    docs: "[Test-WorldMap.ps1.md](../../docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-OUTDIR

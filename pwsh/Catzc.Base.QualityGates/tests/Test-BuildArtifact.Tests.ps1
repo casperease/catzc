@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ea7808c4efe8
   edges:
-    docs: "[Test-BuildArtifact.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-BuildArtifact.Tests.ps1.md)"
+    docs: "[Test-BuildArtifact.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-BuildArtifact.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
     cites:
       - ADR-AUTO-TEST-QUALITYGATE

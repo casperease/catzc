@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "449b12c6e1c0"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1
-    docs: "[Build-SlideDeck.ps1.md](docs/references/pwsh/catzc-base-slides/Build-SlideDeck.ps1.md)"
+    docs: "[Build-SlideDeck.ps1.md](../../docs/references/pwsh/catzc-base-slides/Build-SlideDeck.ps1.md)"
     cites:
       - ADR-REPO-SLIDES-FAILFORWARDRENDER
 ---

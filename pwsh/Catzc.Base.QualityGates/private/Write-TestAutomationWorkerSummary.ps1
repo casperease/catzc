@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5f60ae0c8dc4"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationWorkerSummary.Tests.ps1
-    docs: "[Write-TestAutomationWorkerSummary.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationWorkerSummary.ps1.md)"
+    docs: "[Write-TestAutomationWorkerSummary.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationWorkerSummary.ps1.md)"
 ---
 #>
 

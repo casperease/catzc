@@ -26,7 +26,7 @@ report mode it prints the findings and their count, writes the same report, and 
 
 ### parameter `OutputFolder`
 
-The report base folder. Defaults to out/test-adr-engine-neutrality/ (Write-QualityGateReport).
+The report base folder. Defaults to out/test-drs-engine-neutrality/ (Write-QualityGateReport).
 
 ### parameter `PassThru`
 

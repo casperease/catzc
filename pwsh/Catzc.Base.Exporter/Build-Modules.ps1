@@ -5,7 +5,7 @@ catzc:
     with_body_sha: bad7752f7069
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1
-    docs: "[Build-Modules.ps1.md](docs/references/pwsh/catzc-base-exporter/Build-Modules.ps1.md)"
+    docs: "[Build-Modules.ps1.md](../../docs/references/pwsh/catzc-base-exporter/Build-Modules.ps1.md)"
     cites:
       - ADR-AUTO-BUNDLE-BUNDLEISBUILD
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT

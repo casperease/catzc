@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f4b31586431e
   edges:
-    docs: "[InspirationEntry.cs.md](docs/references/pwsh/catzc-tooling-inspiration/types/InspirationEntry.cs.md)"
+    docs: "[InspirationEntry.cs.md](../../../docs/references/pwsh/catzc-tooling-inspiration/types/InspirationEntry.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

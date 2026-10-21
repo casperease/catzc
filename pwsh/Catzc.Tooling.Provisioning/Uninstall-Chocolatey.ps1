@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8ea38bb370d2"
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1
-    docs: "[Uninstall-Chocolatey.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md)"
+    docs: "[Uninstall-Chocolatey.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
 ---

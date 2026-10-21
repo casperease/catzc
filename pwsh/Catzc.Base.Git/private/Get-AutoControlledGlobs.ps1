@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6e4937704037"
   edges:
     test: pwsh/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
-    docs: "[Get-AutoControlledGlobs.ps1.md](docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md)"
+    docs: "[Get-AutoControlledGlobs.ps1.md](../../../docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md)"
     cites:
       - ADR-CONF-LOADING-READINGISGLOBAL
       - ADR-REPO-OUTDIR-DICTIONARIESGENERATED

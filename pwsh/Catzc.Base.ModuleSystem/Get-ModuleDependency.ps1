@@ -5,7 +5,7 @@ catzc:
     with_body_sha: cfed2cbdbd83
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1
-    docs: "[Get-ModuleDependency.ps1.md](docs/references/pwsh/catzc-base-module-system/Get-ModuleDependency.ps1.md)"
+    docs: "[Get-ModuleDependency.ps1.md](../../docs/references/pwsh/catzc-base-module-system/Get-ModuleDependency.ps1.md)"
 ---
 #>
 

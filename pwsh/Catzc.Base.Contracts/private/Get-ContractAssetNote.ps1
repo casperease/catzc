@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c32b631f7e16
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1
-    docs: "[Get-ContractAssetNote.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractAssetNote.ps1.md)"
+    docs: "[Get-ContractAssetNote.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractAssetNote.ps1.md)"
     cites:
       - ADR-REPO-CONTRACT-CONTRACTASSET
 ---

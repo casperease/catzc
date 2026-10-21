@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5b5666a12078"
   edges:
-    docs: "[Get-RobotLineCount.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-RobotLineCount.ps1.md)"
+    docs: "[Get-RobotLineCount.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-RobotLineCount.ps1.md)"
     cites:
       - ADR-REPO-AGENTS-ROBOTBODYLIMIT
       - ADR-REPO-AGENTS-CAPABILITYFILE

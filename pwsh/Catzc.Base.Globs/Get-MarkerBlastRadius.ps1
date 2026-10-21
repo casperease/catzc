@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b781e8567caf
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-MarkerBlastRadius.Tests.ps1
-    docs: "[Get-MarkerBlastRadius.ps1.md](docs/references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md)"
+    docs: "[Get-MarkerBlastRadius.ps1.md](../../docs/references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md)"
     cites:
       - ADR-REPO-PROTGLOB
       - FDR-CD-GLOBS-NAMEDGLOBSETS

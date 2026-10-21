@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0531b056a07a"
   edges:
-    docs: "[New-BuiltCatzcRoot.Tests.ps1.md](docs/references/pwsh/internal/tests/New-BuiltCatzcRoot.Tests.ps1.md)"
+    docs: "[New-BuiltCatzcRoot.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/New-BuiltCatzcRoot.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
 ---

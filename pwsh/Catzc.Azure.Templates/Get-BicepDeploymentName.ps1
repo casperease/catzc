@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "534a28761ae3"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
-    docs: "[Get-BicepDeploymentName.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md)"
+    docs: "[Get-BicepDeploymentName.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md)"
     cites:
       - FDR-CD-DETECT-NODIRECTVARIABLECHECK
 ---

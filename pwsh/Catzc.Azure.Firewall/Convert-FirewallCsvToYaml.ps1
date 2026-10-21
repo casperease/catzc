@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "59db43f28f47"
   edges:
     test: pwsh/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1
-    docs: "[Convert-FirewallCsvToYaml.ps1.md](docs/references/pwsh/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md)"
+    docs: "[Convert-FirewallCsvToYaml.ps1.md](../../docs/references/pwsh/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md)"
     cites:
       - ADR-PWSH-PARAM-RESOLUTIONORDER
 ---

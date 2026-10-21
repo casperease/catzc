@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "80d2747eb53f"
   edges:
     test: pwsh/Catzc.Base.Variants/tests/Test-TrackDeclaration.Tests.ps1
-    docs: "[Test-TrackDeclaration.ps1.md](docs/references/pwsh/catzc-base-variants/Test-TrackDeclaration.ps1.md)"
+    docs: "[Test-TrackDeclaration.ps1.md](../../docs/references/pwsh/catzc-base-variants/Test-TrackDeclaration.ps1.md)"
     cites:
       - DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES
       - DDR-TRACKTYPE-DECLAREDONCE

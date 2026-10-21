@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e965e1ca5dc8
   edges:
-    docs: "[Get-GlossaryRuleStatements.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryRuleStatements.Tests.ps1.md)"
+    docs: "[Get-GlossaryRuleStatements.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryRuleStatements.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-GlossaryRuleStatements.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

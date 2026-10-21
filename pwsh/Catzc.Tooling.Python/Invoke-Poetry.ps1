@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c353b212ff59
   edges:
     test: pwsh/Catzc.Tooling.Python/tests/Invoke-Poetry.Tests.ps1
-    docs: "[Invoke-Poetry.ps1.md](docs/references/pwsh/catzc-tooling-python/Invoke-Poetry.ps1.md)"
+    docs: "[Invoke-Poetry.ps1.md](../../docs/references/pwsh/catzc-tooling-python/Invoke-Poetry.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a14689a9c33c
   edges:
-    docs: "[Get-ToolVersion.ps1.md](docs/references/pwsh/catzc-tooling-core/Get-ToolVersion.ps1.md)"
+    docs: "[Get-ToolVersion.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Get-ToolVersion.ps1.md)"
 ---
 #>
 

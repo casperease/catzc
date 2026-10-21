@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "72cb657f87c8"
+    with_body_sha: "89d6a26033f6"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Export-WorldMapPdf.Tests.ps1
-    docs: "[Export-WorldMapPdf.ps1.md](docs/references/pwsh/catzc-base-maps/Export-WorldMapPdf.ps1.md)"
+    docs: "[Export-WorldMapPdf.ps1.md](../../docs/references/pwsh/catzc-base-maps/Export-WorldMapPdf.ps1.md)"
     cites:
       - ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER
       - DDR-TRACK-ONETECHSTACK

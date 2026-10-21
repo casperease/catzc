@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ad1d49e3bdb3
   edges:
-    docs: "[NoRawPipelineDetection.psm1.md](docs/references/pwsh/scriptanalyzer/NoRawPipelineDetection.psm1.md)"
+    docs: "[NoRawPipelineDetection.psm1.md](../../docs/references/pwsh/scriptanalyzer/NoRawPipelineDetection.psm1.md)"
     cites:
       - ADR-BCL-TYPES-CHANGEDAFTERLOAD
       - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND

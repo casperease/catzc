@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: bab08f556ddf
 #   edges:
-#     docs: "[nsub.yml.md](docs/references/infrastructure/templates/discovery/configuration/apex/nsub.yml.md)"
+#     docs: "[nsub.yml.md](../../../../../docs/references/infrastructure/templates/discovery/configuration/apex/nsub.yml.md)"
 # ---
 
 ParametersFile:

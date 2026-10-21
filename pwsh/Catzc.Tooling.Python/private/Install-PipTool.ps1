@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ec8866513ce3
   edges:
     test: pwsh/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
-    docs: "[Install-PipTool.ps1.md](docs/references/pwsh/catzc-tooling-python/private/Install-PipTool.ps1.md)"
+    docs: "[Install-PipTool.ps1.md](../../../docs/references/pwsh/catzc-tooling-python/private/Install-PipTool.ps1.md)"
     cites:
       - ADR-AUTO-UVPY-TWOINSTALLSHAPES
 ---

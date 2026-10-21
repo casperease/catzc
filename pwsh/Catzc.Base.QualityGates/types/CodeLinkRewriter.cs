@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0b00e30943ce"
+    with_body_sha: "9f2b065f733c"
   edges:
-    docs: "[CodeLinkRewriter.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/CodeLinkRewriter.cs.md)"
+    docs: "[CodeLinkRewriter.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/CodeLinkRewriter.cs.md)"
     cites:
       - ADR-REPO-LINK-CODELINKS
 ---

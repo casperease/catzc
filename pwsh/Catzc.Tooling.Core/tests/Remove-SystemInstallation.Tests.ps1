@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f7f8c2788f44
   edges:
-    docs: "[Remove-SystemInstallation.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md)"
+    docs: "[Remove-SystemInstallation.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
     cites:
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE

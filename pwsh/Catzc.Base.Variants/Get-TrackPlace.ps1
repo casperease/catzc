@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f553a9fea4c7
   edges:
     test: pwsh/Catzc.Base.Variants/tests/Get-TrackPlace.Tests.ps1
-    docs: "[Get-TrackPlace.ps1.md](docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md)"
+    docs: "[Get-TrackPlace.ps1.md](../../docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md)"
     cites:
       - DDR-TRACK
 ---

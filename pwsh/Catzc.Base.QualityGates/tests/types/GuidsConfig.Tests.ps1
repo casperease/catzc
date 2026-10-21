@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e015013b2697
   edges:
-    docs: "[GuidsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/GuidsConfig.Tests.ps1.md)"
+    docs: "[GuidsConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/GuidsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/GuidsConfig.cs
 ---
 #>

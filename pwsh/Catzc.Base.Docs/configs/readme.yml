@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "34d581fae697"
 #   edges:
-#     docs: "[readme.yml.md](docs/references/pwsh/catzc-base-docs/configs/readme.yml.md)"
+#     docs: "[readme.yml.md](../../../docs/references/pwsh/catzc-base-docs/configs/readme.yml.md)"
 #     cites:
 #       - ADR-AUTO-PATH
 #       - ADR-REPO-README

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3436d5609c01"
   edges:
     test: pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
-    docs: "[Write-QualityGateReport.ps1.md](docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md)"
+    docs: "[Write-QualityGateReport.ps1.md](../../docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-PWSH-PARAM-RESOLUTIONORDER

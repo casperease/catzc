@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4e96b8d331d5"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-AzureNamePatternSet.Tests.ps1
-    docs: "[Get-AzureNamePatternSet.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-AzureNamePatternSet.ps1.md)"
+    docs: "[Get-AzureNamePatternSet.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Get-AzureNamePatternSet.ps1.md)"
 ---
 #>
 

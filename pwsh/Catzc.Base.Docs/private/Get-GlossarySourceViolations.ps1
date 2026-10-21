@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fc297ed57145
+    with_body_sha: "7d181a3f8b8b"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
-    docs: "[Get-GlossarySourceViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossarySourceViolations.ps1.md)"
+    docs: "[Get-GlossarySourceViolations.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossarySourceViolations.ps1.md)"
     cites:
       - ADR-REPO-VOCAB
 ---

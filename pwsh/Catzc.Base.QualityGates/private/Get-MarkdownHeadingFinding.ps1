@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3a5be20db4e5"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-MarkdownHeadingFinding.Tests.ps1
-    docs: "[Get-MarkdownHeadingFinding.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md)"
+    docs: "[Get-MarkdownHeadingFinding.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD
       - ADR-PWSH-AUTOVAR

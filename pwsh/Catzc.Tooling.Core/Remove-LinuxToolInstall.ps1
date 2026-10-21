@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f41fe038967b
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
-    docs: "[Remove-LinuxToolInstall.ps1.md](docs/references/pwsh/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md)"
+    docs: "[Remove-LinuxToolInstall.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md)"
     cites:
       - ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM
       - ADR-AUTO-REMOVE-THREEPLATFORMCORES

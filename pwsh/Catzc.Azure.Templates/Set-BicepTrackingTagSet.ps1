@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f79d729754b3
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Set-BicepTrackingTagSet.Tests.ps1
-    docs: "[Set-BicepTrackingTagSet.ps1.md](docs/references/pwsh/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md)"
+    docs: "[Set-BicepTrackingTagSet.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS

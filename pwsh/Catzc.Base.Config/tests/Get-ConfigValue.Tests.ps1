@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d091bfbce814
   edges:
-    docs: "[Get-ConfigValue.Tests.ps1.md](docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md)"
+    docs: "[Get-ConfigValue.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
     cites:
       - ADR-AUTO-TEST-LOGICANDINTEGRITY

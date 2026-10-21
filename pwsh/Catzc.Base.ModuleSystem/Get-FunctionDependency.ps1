@@ -5,7 +5,7 @@ catzc:
     with_body_sha: da6715472cde
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-FunctionDependency.Tests.ps1
-    docs: "[Get-FunctionDependency.ps1.md](docs/references/pwsh/catzc-base-module-system/Get-FunctionDependency.ps1.md)"
+    docs: "[Get-FunctionDependency.ps1.md](../../docs/references/pwsh/catzc-base-module-system/Get-FunctionDependency.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-FILESYSTEMDERIVED
       - ADR-AUTO-CACHE-KEYEDBYINPUTS

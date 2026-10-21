@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9fa6b907c04b"
   edges:
-    docs: "[Uninstall-Chocolatey.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Chocolatey.Tests.ps1.md)"
+    docs: "[Uninstall-Chocolatey.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Chocolatey.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1
     cites:
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE

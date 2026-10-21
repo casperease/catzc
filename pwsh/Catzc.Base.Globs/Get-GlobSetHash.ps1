@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "39e26637688d"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
-    docs: "[Get-GlobSetHash.ps1.md](docs/references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md)"
+    docs: "[Get-GlobSetHash.ps1.md](../../docs/references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md)"
     cites:
       - FDR-CD-GLOBS-DURABLESHAIDENTITY
 ---

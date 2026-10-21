@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "09433ad02c93"
   edges:
-    docs: "[ConvertTo-AccostedCallText.ps1.md](docs/references/pwsh/catzc-base-contracts/private/ConvertTo-AccostedCallText.ps1.md)"
+    docs: "[ConvertTo-AccostedCallText.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/ConvertTo-AccostedCallText.ps1.md)"
     cites:
       - ADR-AUTO-ACCOSTED
 ---

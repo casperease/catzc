@@ -5,7 +5,7 @@ catzc:
     with_body_sha: cd6e8e1c7488
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-DefinedName.Tests.ps1
-    docs: "[Get-DefinedName.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-DefinedName.ps1.md)"
+    docs: "[Get-DefinedName.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-DefinedName.ps1.md)"
 ---
 #>
 

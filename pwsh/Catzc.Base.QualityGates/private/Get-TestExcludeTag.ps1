@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "398e4e671f2f"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
-    docs: "[Get-TestExcludeTag.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestExcludeTag.ps1.md)"
+    docs: "[Get-TestExcludeTag.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestExcludeTag.ps1.md)"
 ---
 #>
 

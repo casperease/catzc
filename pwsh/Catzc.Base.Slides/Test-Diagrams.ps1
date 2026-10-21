@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "695fc905fa8c"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Test-Diagrams.Tests.ps1
-    docs: "[Test-Diagrams.ps1.md](docs/references/pwsh/catzc-base-slides/Test-Diagrams.ps1.md)"
+    docs: "[Test-Diagrams.ps1.md](../../docs/references/pwsh/catzc-base-slides/Test-Diagrams.ps1.md)"
 ---
 #>
 

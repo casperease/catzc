@@ -5,7 +5,7 @@ catzc:
     with_body_sha: bec5774f95e5
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
-    docs: "[BashSafeguard.cs.md](docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md)"
+    docs: "[BashSafeguard.cs.md](../../../docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md)"
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - ADR-AUTO-LAYERS

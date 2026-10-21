@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dfa3ff4a62eb
+    with_body_sha: e6e8a140a376
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1
-    docs: "[Get-GlossaryRuleStatements.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md)"
+    docs: "[Get-GlossaryRuleStatements.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md)"
     cites:
       - ADR-AUTO-TEST-TWOMANDATORYTAGS
       - ADR-REPO-VOCAB-DEFINEDTERM

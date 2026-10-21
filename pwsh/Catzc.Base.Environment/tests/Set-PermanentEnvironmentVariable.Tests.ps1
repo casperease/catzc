@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "090b7a404d15"
   edges:
-    docs: "[Set-PermanentEnvironmentVariable.Tests.ps1.md](docs/references/pwsh/catzc-base-environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1.md)"
+    docs: "[Set-PermanentEnvironmentVariable.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Environment/Set-PermanentEnvironmentVariable.ps1
     cites:
       - ADR-AUTO-TEST-NAMEDSCRATCHRESOURCES

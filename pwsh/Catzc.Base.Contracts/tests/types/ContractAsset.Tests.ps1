@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d3128550a0d3
   edges:
-    docs: "[ContractAsset.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md)"
+    docs: "[ContractAsset.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/types/ContractAsset.cs
     cites:
       - ADR-AUTO-PATH-TWOFORMS

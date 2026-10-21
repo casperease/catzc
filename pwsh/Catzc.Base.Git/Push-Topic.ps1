@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fad8357e46e0
   edges:
     test: pwsh/Catzc.Base.Git/tests/Push-Topic.Tests.ps1
-    docs: "[Push-Topic.ps1.md](docs/references/pwsh/catzc-base-git/Push-Topic.ps1.md)"
+    docs: "[Push-Topic.ps1.md](../../docs/references/pwsh/catzc-base-git/Push-Topic.ps1.md)"
     cites:
       - FDR-CD-LIFE-FASTPUSHLANDS
       - FDR-GIT-USERRUNSGIT

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "848bd0205615"
   edges:
     test: pwsh/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
-    docs: "[OutputFormatsConfig.cs.md](docs/references/pwsh/catzc-base-reports/types/OutputFormatsConfig.cs.md)"
+    docs: "[OutputFormatsConfig.cs.md](../../../docs/references/pwsh/catzc-base-reports/types/OutputFormatsConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-OUTFMT-OUTPUTFORMAT

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ef2a936678dd
   edges:
-    docs: "[BicepParameter.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepParameter.cs.md)"
+    docs: "[BicepParameter.cs.md](../../../docs/references/pwsh/catzc-azure-templates/types/BicepParameter.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-BCL-TYPES-NATIVETYPEDMODEL

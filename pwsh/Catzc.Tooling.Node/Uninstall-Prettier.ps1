@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "31fdfd990c26"
   edges:
-    docs: "[Uninstall-Prettier.ps1.md](docs/references/pwsh/catzc-tooling-node/Uninstall-Prettier.ps1.md)"
+    docs: "[Uninstall-Prettier.ps1.md](../../docs/references/pwsh/catzc-tooling-node/Uninstall-Prettier.ps1.md)"
 ---
 #>
 

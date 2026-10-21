@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "213857d95ab6"
   edges:
-    docs: "[PipelineDefinition.cs.md](docs/references/pwsh/catzc-azure-dev-ops/types/PipelineDefinition.cs.md)"
+    docs: "[PipelineDefinition.cs.md](../../../docs/references/pwsh/catzc-azure-dev-ops/types/PipelineDefinition.cs.md)"
 ---
 */
 

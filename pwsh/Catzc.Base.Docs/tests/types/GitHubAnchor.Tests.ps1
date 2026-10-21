@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2965aa79eb45"
   edges:
-    docs: "[GitHubAnchor.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/GitHubAnchor.Tests.ps1.md)"
+    docs: "[GitHubAnchor.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-docs/tests/types/GitHubAnchor.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/GitHubAnchor.cs
     cites:
       - ADR-REPO-LINK-MARKDOWNRELATIVE

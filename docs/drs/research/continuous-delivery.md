@@ -1,4 +1,4 @@
-# ADR: DORA — Continuous delivery
+# Research: DORA — Continuous delivery
 
 ## Rules: RDR-DORA-CD
 

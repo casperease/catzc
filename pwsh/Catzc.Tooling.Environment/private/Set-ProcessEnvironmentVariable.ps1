@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b0726a25a19a
   edges:
-    docs: "[Set-ProcessEnvironmentVariable.ps1.md](docs/references/pwsh/catzc-tooling-environment/private/Set-ProcessEnvironmentVariable.ps1.md)"
+    docs: "[Set-ProcessEnvironmentVariable.ps1.md](../../../docs/references/pwsh/catzc-tooling-environment/private/Set-ProcessEnvironmentVariable.ps1.md)"
 ---
 #>
 

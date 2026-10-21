@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "7b402cd48811"
 #   edges:
-#     docs: "[file-carriers.yml.md](docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md)"
+#     docs: "[file-carriers.yml.md](../../../docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-REPO-FILEMETA-HEADPOLICY

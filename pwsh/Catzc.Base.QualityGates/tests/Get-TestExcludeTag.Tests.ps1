@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ff1edb35f116
   edges:
-    docs: "[Get-TestExcludeTag.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestExcludeTag.Tests.ps1.md)"
+    docs: "[Get-TestExcludeTag.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestExcludeTag.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-TestExcludeTag.ps1
     cites:
       - ADR-AUTO-TEST-TESTINGINPRODUCTION

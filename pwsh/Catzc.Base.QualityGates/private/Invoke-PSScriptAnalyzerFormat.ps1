@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "59c9b751a472"
   edges:
-    docs: "[Invoke-PSScriptAnalyzerFormat.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-PSScriptAnalyzerFormat.ps1.md)"
+    docs: "[Invoke-PSScriptAnalyzerFormat.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-PSScriptAnalyzerFormat.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING

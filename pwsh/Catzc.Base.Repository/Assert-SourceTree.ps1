@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7fef3803990d"
   edges:
     test: pwsh/Catzc.Base.Repository/tests/Assert-SourceTree.Tests.ps1
-    docs: "[Assert-SourceTree.ps1.md](docs/references/pwsh/catzc-base-repository/Assert-SourceTree.ps1.md)"
+    docs: "[Assert-SourceTree.ps1.md](../../docs/references/pwsh/catzc-base-repository/Assert-SourceTree.ps1.md)"
     cites:
       - DDR-RUNMODE
 ---

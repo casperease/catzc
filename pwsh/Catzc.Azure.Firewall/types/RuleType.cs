@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c473fc835541
   edges:
-    docs: "[RuleType.cs.md](docs/references/pwsh/catzc-azure-firewall/types/RuleType.cs.md)"
+    docs: "[RuleType.cs.md](../../../docs/references/pwsh/catzc-azure-firewall/types/RuleType.cs.md)"
 ---
 */
 

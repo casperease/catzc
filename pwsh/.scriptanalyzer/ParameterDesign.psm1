@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: cf651b0113c5
   edges:
-    docs: "[ParameterDesign.psm1.md](docs/references/pwsh/scriptanalyzer/ParameterDesign.psm1.md)"
+    docs: "[ParameterDesign.psm1.md](../../docs/references/pwsh/scriptanalyzer/ParameterDesign.psm1.md)"
     cites:
       - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
       - ADR-PWSH-PARAM

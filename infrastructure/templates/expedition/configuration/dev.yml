@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "472628840eeb"
 #   edges:
-#     docs: "[dev.yml.md](docs/references/infrastructure/templates/expedition/configuration/dev.yml.md)"
+#     docs: "[dev.yml.md](../../../../docs/references/infrastructure/templates/expedition/configuration/dev.yml.md)"
 # ---
 
 ParametersFile:

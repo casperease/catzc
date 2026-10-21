@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ea7dce981d66
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/EditRemindersConfig.Tests.ps1
-    docs: "[EditRemindersConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/EditRemindersConfig.cs.md)"
+    docs: "[EditRemindersConfig.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/EditRemindersConfig.cs.md)"
     cites:
       - PDR-CONFIG
       - PDR-POKAYOKE

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8404b3553e31"
   edges:
-    docs: "[Deploy-Bicep.SampleSubscription.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md)"
+    docs: "[Deploy-Bicep.SampleSubscription.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SETUPONCE
       - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES

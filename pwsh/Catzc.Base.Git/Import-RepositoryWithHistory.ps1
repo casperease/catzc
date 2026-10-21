@@ -5,7 +5,7 @@ catzc:
     with_body_sha: bdd7ed9f13b0
   edges:
     test: pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
-    docs: "[Import-RepositoryWithHistory.ps1.md](docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md)"
+    docs: "[Import-RepositoryWithHistory.ps1.md](../../docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT

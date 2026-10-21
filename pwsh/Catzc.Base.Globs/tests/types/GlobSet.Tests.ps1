@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "67eccce0f6bd"
   edges:
-    docs: "[GlobSet.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md)"
+    docs: "[GlobSet.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/types/GlobSet.cs
     cites:
       - FDR-CD-GLOBS-TRACKEDFILESONLY

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6c4b0c1ac18a"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
-    docs: "[BicepShortName.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md)"
+    docs: "[BicepShortName.cs.md](../../../docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md)"
     cites:
       - ADR-AZ-NAMING
       - ADR-BCL-TYPES-NATIVETYPEDMODEL

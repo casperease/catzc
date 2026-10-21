@@ -1,4 +1,4 @@
-# ADR: DORA — Streamlining change approval
+# Research: DORA — Streamlining change approval
 
 ## Rules: RDR-DORA-APPROVAL
 

@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "95abe6acb45f"
 #   edges:
-#     docs: "[vscode-settings.yml.md](docs/references/pwsh/catzc-base-vs-code/configs/vscode-settings.yml.md)"
+#     docs: "[vscode-settings.yml.md](../../../docs/references/pwsh/catzc-base-vs-code/configs/vscode-settings.yml.md)"
 #     cites:
 #       - ADR-AUTO-GO-MANAGEDTOOLCHAIN
 #       - ADR-AUTO-PY-GENERATEDWORKSPACE

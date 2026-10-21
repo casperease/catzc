@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b0aeb67495b1
   edges:
-    docs: "[Install-BicepStandalone.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Install-BicepStandalone.Tests.ps1.md)"
+    docs: "[Install-BicepStandalone.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Install-BicepStandalone.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/private/Install-BicepStandalone.ps1
     cites:
       - ADR-AUTO-TEST-NOOVERMOCKING

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "709324f10ffd"
   edges:
-    docs: "[Get-FixtureIdentityTokens.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-FixtureIdentityTokens.Tests.ps1.md)"
+    docs: "[Get-FixtureIdentityTokens.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-FixtureIdentityTokens.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-FixtureIdentityTokens.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

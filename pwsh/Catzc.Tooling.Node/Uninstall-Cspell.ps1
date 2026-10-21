@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: fd8f36be3f79
   edges:
-    docs: "[Uninstall-Cspell.ps1.md](docs/references/pwsh/catzc-tooling-node/Uninstall-Cspell.ps1.md)"
+    docs: "[Uninstall-Cspell.ps1.md](../../docs/references/pwsh/catzc-tooling-node/Uninstall-Cspell.ps1.md)"
 ---
 #>
 

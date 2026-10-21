@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2ed9d10b860b"
   edges:
-    docs: "[Get-RepositoryWebUrl.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-RepositoryWebUrl.ps1.md)"
+    docs: "[Get-RepositoryWebUrl.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-RepositoryWebUrl.ps1.md)"
     cites:
       - ADR-REPO-LINK-OFFREPOSITORYURLS
 ---

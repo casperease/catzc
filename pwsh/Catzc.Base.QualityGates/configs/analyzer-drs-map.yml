@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: e263a9631e44
 #   edges:
-#     docs: "[analyzer-drs-map.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-drs-map.yml.md)"
+#     docs: "[analyzer-drs-map.yml.md](../../../docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-drs-map.yml.md)"
 #     cites:
 #       - ADR-ADO-VAR-NORAWLOGGINGCOMMANDS
 #       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY

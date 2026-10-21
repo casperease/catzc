@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "54a475f1bac4"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-LogicTestIdentityFinding.Tests.ps1
-    docs: "[Get-LogicTestIdentityFinding.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-LogicTestIdentityFinding.ps1.md)"
+    docs: "[Get-LogicTestIdentityFinding.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-LogicTestIdentityFinding.ps1.md)"
     cites:
       - ADR-AUTO-TEST-ONECATEGORY
       - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND

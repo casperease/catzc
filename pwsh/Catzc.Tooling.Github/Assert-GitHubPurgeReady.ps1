@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c0063e74d91c
   edges:
     test: pwsh/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
-    docs: "[Assert-GitHubPurgeReady.ps1.md](docs/references/pwsh/catzc-tooling-github/Assert-GitHubPurgeReady.ps1.md)"
+    docs: "[Assert-GitHubPurgeReady.ps1.md](../../docs/references/pwsh/catzc-tooling-github/Assert-GitHubPurgeReady.ps1.md)"
 ---
 #>
 

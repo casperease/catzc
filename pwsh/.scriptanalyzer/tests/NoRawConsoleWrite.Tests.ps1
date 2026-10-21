@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2ed88a7bbe3b"
   edges:
-    docs: "[NoRawConsoleWrite.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1.md)"
+    docs: "[NoRawConsoleWrite.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1.md)"
 ---
 #>
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b93662c44a03
   edges:
     test: pwsh/Catzc.Base.Files/tests/Get-RepoStatus.Tests.ps1
-    docs: "[Get-RepoStatus.ps1.md](docs/references/pwsh/catzc-base-files/Get-RepoStatus.ps1.md)"
+    docs: "[Get-RepoStatus.ps1.md](../../docs/references/pwsh/catzc-base-files/Get-RepoStatus.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-FILEISNODE
 ---

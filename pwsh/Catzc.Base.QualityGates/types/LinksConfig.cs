@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9e78095f0d65"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1
-    docs: "[LinksConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/LinksConfig.cs.md)"
+    docs: "[LinksConfig.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/LinksConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

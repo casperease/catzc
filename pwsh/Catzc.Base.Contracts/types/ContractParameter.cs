@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a9b38ec9fe48
   edges:
-    docs: "[ContractParameter.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractParameter.cs.md)"
+    docs: "[ContractParameter.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/ContractParameter.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE

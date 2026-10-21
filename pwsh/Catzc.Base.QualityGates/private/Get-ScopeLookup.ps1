@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2eefb4d275a8"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ScopeLookup.Tests.ps1
-    docs: "[Get-ScopeLookup.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ScopeLookup.ps1.md)"
+    docs: "[Get-ScopeLookup.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ScopeLookup.ps1.md)"
 ---
 #>
 

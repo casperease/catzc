@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "04f8c9bc254d"
   edges:
-    docs: "[Invoke-Gofmt.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-Gofmt.Tests.ps1.md)"
+    docs: "[Invoke-Gofmt.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-Gofmt.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Invoke-Gofmt.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e0c3771b1c58
   edges:
-    docs: "[Invoke-ConfigValidator.Tests.ps1.md](docs/references/pwsh/catzc-base-config-extensions/tests/Invoke-ConfigValidator.Tests.ps1.md)"
+    docs: "[Invoke-ConfigValidator.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-config-extensions/tests/Invoke-ConfigValidator.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ConfigExtensions/Invoke-ConfigValidator.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

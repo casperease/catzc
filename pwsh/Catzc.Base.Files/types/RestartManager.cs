@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "725ca64f45bb"
   edges:
-    docs: "[RestartManager.cs.md](docs/references/pwsh/catzc-base-files/types/RestartManager.cs.md)"
+    docs: "[RestartManager.cs.md](../../../docs/references/pwsh/catzc-base-files/types/RestartManager.cs.md)"
 ---
 */
 

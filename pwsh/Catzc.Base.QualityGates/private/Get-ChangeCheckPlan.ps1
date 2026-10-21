@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d6ca63511f71
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1
-    docs: "[Get-ChangeCheckPlan.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ChangeCheckPlan.ps1.md)"
+    docs: "[Get-ChangeCheckPlan.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ChangeCheckPlan.ps1.md)"
     cites:
       - PDR-CONFIG
 ---

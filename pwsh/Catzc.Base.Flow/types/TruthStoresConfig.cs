@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c669505a9c7e
   edges:
     test: pwsh/Catzc.Base.Flow/tests/types/TruthStoresConfig.Tests.ps1
-    docs: "[TruthStoresConfig.cs.md](docs/references/pwsh/catzc-base-flow/types/TruthStoresConfig.cs.md)"
+    docs: "[TruthStoresConfig.cs.md](../../../docs/references/pwsh/catzc-base-flow/types/TruthStoresConfig.cs.md)"
     cites:
       - TDR-STORES-THREEKINDS
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ffe1dd1f4f63
   edges:
-    docs: "[Get-ChangeCheckPlan.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-ChangeCheckPlan.Tests.ps1.md)"
+    docs: "[Get-ChangeCheckPlan.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-ChangeCheckPlan.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-ChangeCheckPlan.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

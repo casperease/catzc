@@ -1,4 +1,4 @@
-# ADR: DORA — Pervasive security
+# Research: DORA — Pervasive security
 
 ## Rules: RDR-DORA-SECURITY
 

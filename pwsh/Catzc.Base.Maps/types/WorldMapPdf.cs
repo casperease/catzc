@@ -5,7 +5,7 @@ catzc:
     with_body_sha: eb4a1eb4aea3
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/WorldMapPdf.Tests.ps1
-    docs: "[WorldMapPdf.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapPdf.cs.md)"
+    docs: "[WorldMapPdf.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/WorldMapPdf.cs.md)"
     cites:
       - DDR-TRACK-ONETECHSTACK
       - DDR-TRACK-ROOTFILE

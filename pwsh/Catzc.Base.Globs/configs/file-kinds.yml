@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: f53dea9ff8ad
 #   edges:
-#     docs: "[file-kinds.yml.md](docs/references/pwsh/catzc-base-globs/configs/file-kinds.yml.md)"
+#     docs: "[file-kinds.yml.md](../../../docs/references/pwsh/catzc-base-globs/configs/file-kinds.yml.md)"
 #     cites:
 #       - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
 #       - ADR-REPO-CONTRACT-CONTRACTASSET

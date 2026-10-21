@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fdafe152395a
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Test-AzCliIsConnected.Tests.ps1
-    docs: "[Test-AzCliIsConnected.ps1.md](docs/references/pwsh/catzc-azure-cli/Test-AzCliIsConnected.ps1.md)"
+    docs: "[Test-AzCliIsConnected.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Test-AzCliIsConnected.ps1.md)"
 ---
 #>
 

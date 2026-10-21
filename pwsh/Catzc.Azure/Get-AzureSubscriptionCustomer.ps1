@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2b7eaa94fc59"
   edges:
     test: pwsh/Catzc.Azure/tests/Get-AzureSubscriptionCustomer.Tests.ps1
-    docs: "[Get-AzureSubscriptionCustomer.ps1.md](docs/references/pwsh/catzc-azure/Get-AzureSubscriptionCustomer.ps1.md)"
+    docs: "[Get-AzureSubscriptionCustomer.ps1.md](../../docs/references/pwsh/catzc-azure/Get-AzureSubscriptionCustomer.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f386fb7fe83e
   edges:
-    docs: "[Write-AdoEnvironmentDiagnostic.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Write-AdoEnvironmentDiagnostic.ps1.md)"
+    docs: "[Write-AdoEnvironmentDiagnostic.ps1.md](../../docs/references/pwsh/catzc-azure-dev-ops/Write-AdoEnvironmentDiagnostic.ps1.md)"
 ---
 #>
 

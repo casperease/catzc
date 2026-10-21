@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a5f04f79cf88
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
-    docs: "[Install-Zsh.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Install-Zsh.ps1.md)"
+    docs: "[Install-Zsh.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Install-Zsh.ps1.md)"
     cites:
       - ADR-AUTO-ENTERP
       - ADR-AUTO-IDEM-CHECKBEFOREACTING

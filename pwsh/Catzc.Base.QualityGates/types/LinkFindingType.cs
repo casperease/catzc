@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6ef0321431ac"
   edges:
-    docs: "[LinkFindingType.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/LinkFindingType.cs.md)"
+    docs: "[LinkFindingType.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkFindingType.cs.md)"
     cites:
       - ADR-REPO-LINK
 ---

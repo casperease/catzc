@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b931d70dede0
   edges:
-    docs: "[Overlay.Fixture.ps1.md](docs/references/pwsh/catzc-base-overlay/tests/Overlay.Fixture.ps1.md)"
+    docs: "[Overlay.Fixture.ps1.md](../../../docs/references/pwsh/catzc-base-overlay/tests/Overlay.Fixture.ps1.md)"
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

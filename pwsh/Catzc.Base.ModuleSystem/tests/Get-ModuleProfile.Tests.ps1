@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c7c3c8fcbb97
   edges:
-    docs: "[Get-ModuleProfile.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/Get-ModuleProfile.Tests.ps1.md)"
+    docs: "[Get-ModuleProfile.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-module-system/tests/Get-ModuleProfile.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ModuleSystem/Get-ModuleProfile.ps1
 ---
 #>

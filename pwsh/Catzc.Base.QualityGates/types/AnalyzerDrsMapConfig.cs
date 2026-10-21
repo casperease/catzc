@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "147988c61b77"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/AnalyzerDrsMapConfig.Tests.ps1
-    docs: "[AnalyzerDrsMapConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerDrsMapConfig.cs.md)"
+    docs: "[AnalyzerDrsMapConfig.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerDrsMapConfig.cs.md)"
     cites:
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

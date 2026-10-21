@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6b6889302c67"
   edges:
-    docs: "[Get-LocalModuleViolation.ps1.md](docs/references/pwsh/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md)"
+    docs: "[Get-LocalModuleViolation.ps1.md](../../../docs/references/pwsh/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md)"
     cites:
       - ADR-AUTO-OVERLAY
       - ADR-PWSH-ENUM-ALWAYSBOUNDED

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e897de6ed136
   edges:
     test: pwsh/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
-    docs: "[ConvertTo-FlatSettingSet.ps1.md](docs/references/pwsh/catzc-base-objects/ConvertTo-FlatSettingSet.ps1.md)"
+    docs: "[ConvertTo-FlatSettingSet.ps1.md](../../docs/references/pwsh/catzc-base-objects/ConvertTo-FlatSettingSet.ps1.md)"
 ---
 #>
 

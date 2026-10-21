@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "49ead1c732f9"
   edges:
-    docs: "[Import-Catzc.Tests.ps1.md](docs/references/pwsh/internal/tests/Import-Catzc.Tests.ps1.md)"
+    docs: "[Import-Catzc.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Import-Catzc.Tests.ps1.md)"
 ---
 #>
 

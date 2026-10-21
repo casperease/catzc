@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ac8135d10ee4
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
-    docs: "[Test-DrsEngineNeutrality.ps1.md](docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md)"
+    docs: "[Test-DrsEngineNeutrality.ps1.md](../../docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-AUTO-TEST-QUALITYGATE
@@ -60,7 +60,7 @@ function Test-DrsEngineNeutrality {
 
     # Report mode still writes and prints the report; only the throw is withheld.
     $reportOnly = $settings.mode -eq [Catzc.Base.Reports.CheckMode]::Report
-    $result = Write-QualityGateReport -Subject 'adr-engine-neutrality' -Title 'Test-DrsEngineNeutrality' -Issues $issues `
+    $result = Write-QualityGateReport -Subject 'drs-engine-neutrality' -Title 'Test-DrsEngineNeutrality' -Issues $issues `
         -Facts ([ordered]@{
             Mode     = $settings.mode.ToString().ToLowerInvariant()
             Domains  = $settings.domains -join ', '

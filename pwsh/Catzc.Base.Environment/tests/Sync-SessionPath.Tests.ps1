@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "55e5596238bd"
   edges:
-    docs: "[Sync-SessionPath.Tests.ps1.md](docs/references/pwsh/catzc-base-environment/tests/Sync-SessionPath.Tests.ps1.md)"
+    docs: "[Sync-SessionPath.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-environment/tests/Sync-SessionPath.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Environment/Sync-SessionPath.ps1
 ---
 #>

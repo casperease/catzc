@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b4843bba69f9
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/types/TimeLimitAttribute.Tests.ps1
-    docs: "[TimeLimitAttribute.cs.md](docs/references/pwsh/catzc-base-timeouts/types/TimeLimitAttribute.cs.md)"
+    docs: "[TimeLimitAttribute.cs.md](../../../docs/references/pwsh/catzc-base-timeouts/types/TimeLimitAttribute.cs.md)"
     cites:
       - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
 ---

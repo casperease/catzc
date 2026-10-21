@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9eab36e7509e"
   edges:
     test: pwsh/Catzc.Base.Git/tests/Test-RepositorySnapshot.Tests.ps1
-    docs: "[Test-RepositorySnapshot.ps1.md](docs/references/pwsh/catzc-base-git/Test-RepositorySnapshot.ps1.md)"
+    docs: "[Test-RepositorySnapshot.ps1.md](../../docs/references/pwsh/catzc-base-git/Test-RepositorySnapshot.ps1.md)"
 ---
 #>
 

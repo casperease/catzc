@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "40d19cba548f"
   edges:
-    docs: "[Get-Variant.ps1.md](docs/references/pwsh/catzc-base-variants/private/Get-Variant.ps1.md)"
+    docs: "[Get-Variant.ps1.md](../../../docs/references/pwsh/catzc-base-variants/private/Get-Variant.ps1.md)"
     cites:
       - ADR-AUTO-CACHE
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER

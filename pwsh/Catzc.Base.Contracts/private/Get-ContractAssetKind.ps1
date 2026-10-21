@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "346670f69ce9"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-ContractAssetKind.Tests.ps1
-    docs: "[Get-ContractAssetKind.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractAssetKind.ps1.md)"
+    docs: "[Get-ContractAssetKind.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractAssetKind.ps1.md)"
     cites:
       - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
       - ADR-REPO-CONTRACT-CONTRACTASSET

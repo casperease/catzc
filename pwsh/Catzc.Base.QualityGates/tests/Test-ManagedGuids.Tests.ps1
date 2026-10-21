@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a0d7bc64a3b0
   edges:
-    docs: "[Test-ManagedGuids.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-ManagedGuids.Tests.ps1.md)"
+    docs: "[Test-ManagedGuids.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-ManagedGuids.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-ManagedGuids.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST

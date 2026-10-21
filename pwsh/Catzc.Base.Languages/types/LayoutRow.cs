@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "81d33242bce7"
   edges:
-    docs: "[LayoutRow.cs.md](docs/references/pwsh/catzc-base-languages/types/LayoutRow.cs.md)"
+    docs: "[LayoutRow.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/LayoutRow.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-MODULE-EXISTSBYLAYOUT

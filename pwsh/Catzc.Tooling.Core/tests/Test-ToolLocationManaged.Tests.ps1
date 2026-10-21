@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "41659fa1962b"
   edges:
-    docs: "[Test-ToolLocationManaged.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Test-ToolLocationManaged.Tests.ps1.md)"
+    docs: "[Test-ToolLocationManaged.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Test-ToolLocationManaged.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/private/Test-ToolLocationManaged.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

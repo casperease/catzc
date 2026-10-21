@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fc7a9bb7d7c4
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-Glossary.Tests.ps1
-    docs: "[Get-Glossary.ps1.md](docs/references/pwsh/catzc-base-docs/Get-Glossary.ps1.md)"
+    docs: "[Get-Glossary.ps1.md](../../docs/references/pwsh/catzc-base-docs/Get-Glossary.ps1.md)"
     cites:
       - ADR-PWSH-CACHE
       - ADR-REPO-VOCAB-GLOSSARYSOURCE

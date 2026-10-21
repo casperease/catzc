@@ -5,7 +5,7 @@ catzc:
     with_body_sha: dace363b0196
   edges:
     test: pwsh/Catzc.Base.CodeMeta/tests/Format-CodeMetaHead.Tests.ps1
-    docs: "[Format-CodeMetaHead.ps1.md](docs/references/pwsh/catzc-base-code-meta/Format-CodeMetaHead.ps1.md)"
+    docs: "[Format-CodeMetaHead.ps1.md](../../docs/references/pwsh/catzc-base-code-meta/Format-CodeMetaHead.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-IMPRINTEDPARTS
 ---

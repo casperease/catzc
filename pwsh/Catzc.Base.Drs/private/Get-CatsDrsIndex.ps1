@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d9b4b6fcf8e3
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Get-CatsDrsIndex.Tests.ps1
-    docs: "[Get-CatsDrsIndex.ps1.md](docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md)"
+    docs: "[Get-CatsDrsIndex.ps1.md](../../../docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md)"
     cites:
       - ADR-AUTO-CACHE
       - ADR-PWSH-CACHE-STRICTSAFEPROBE

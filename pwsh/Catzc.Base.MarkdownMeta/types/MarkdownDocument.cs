@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6beb5e05b4ae"
   edges:
     test: pwsh/Catzc.Base.MarkdownMeta/tests/types/MarkdownDocument.Tests.ps1
-    docs: "[MarkdownDocument.cs.md](docs/references/pwsh/catzc-base-markdown-meta/types/MarkdownDocument.cs.md)"
+    docs: "[MarkdownDocument.cs.md](../../../docs/references/pwsh/catzc-base-markdown-meta/types/MarkdownDocument.cs.md)"
     cites:
       - ADR-REPO-FILEMETA-HEADPOLICY
 ---

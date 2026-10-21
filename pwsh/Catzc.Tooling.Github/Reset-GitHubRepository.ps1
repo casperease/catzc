@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e592d5023100
   edges:
     test: pwsh/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1
-    docs: "[Reset-GitHubRepository.ps1.md](docs/references/pwsh/catzc-tooling-github/Reset-GitHubRepository.ps1.md)"
+    docs: "[Reset-GitHubRepository.ps1.md](../../docs/references/pwsh/catzc-tooling-github/Reset-GitHubRepository.ps1.md)"
 ---
 #>
 

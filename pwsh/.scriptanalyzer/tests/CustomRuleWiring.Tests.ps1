@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c5755585b8db
   edges:
-    docs: "[CustomRuleWiring.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/CustomRuleWiring.Tests.ps1.md)"
+    docs: "[CustomRuleWiring.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/CustomRuleWiring.Tests.ps1.md)"
 ---
 #>
 

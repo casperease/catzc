@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0bc4b36397f6"
+    with_body_sha: c5681b1a004a
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
-    docs: "[Test-ValueChainMap.ps1.md](docs/references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md)"
+    docs: "[Test-ValueChainMap.ps1.md](../../docs/references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md)"
     cites:
       - ADR-AUTO-ONEJOB
       - ADR-AUTO-TEST-QUALITYGATE

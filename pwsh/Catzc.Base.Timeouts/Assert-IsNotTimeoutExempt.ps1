@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4318475c9b5f"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/Assert-IsNotTimeoutExempt.Tests.ps1
-    docs: "[Assert-IsNotTimeoutExempt.ps1.md](docs/references/pwsh/catzc-base-timeouts/Assert-IsNotTimeoutExempt.ps1.md)"
+    docs: "[Assert-IsNotTimeoutExempt.ps1.md](../../docs/references/pwsh/catzc-base-timeouts/Assert-IsNotTimeoutExempt.ps1.md)"
 ---
 #>
 

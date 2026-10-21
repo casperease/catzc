@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "85641fbe84f5"
 //   edges:
-//     docs: "[log-analytics.bicep.md](docs/references/infrastructure/modules/log-analytics.bicep.md)"
+//     docs: "[log-analytics.bicep.md](../../docs/references/infrastructure/modules/log-analytics.bicep.md)"
 // ---
 
 @description('Log Analytics workspace name.')

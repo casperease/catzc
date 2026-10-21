@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "02d6971df781"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
-    docs: "[Install-Java.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Install-Java.ps1.md)"
+    docs: "[Install-Java.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Install-Java.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
 ---

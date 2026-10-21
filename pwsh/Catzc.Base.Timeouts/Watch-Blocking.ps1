@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "753f4667ad90"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/Watch-Blocking.Tests.ps1
-    docs: "[Watch-Blocking.ps1.md](docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md)"
+    docs: "[Watch-Blocking.ps1.md](../../docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT

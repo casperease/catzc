@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0c826aef70c4"
   edges:
-    docs: "[GlossaryScan.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryScan.cs.md)"
+    docs: "[GlossaryScan.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/GlossaryScan.cs.md)"
 ---
 */
 

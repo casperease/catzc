@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4c329886a107"
   edges:
-    docs: "[Ansi.Tests.ps1.md](docs/references/pwsh/catzc-base-writers/tests/types/Ansi.Tests.ps1.md)"
+    docs: "[Ansi.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-writers/tests/types/Ansi.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Writers/types/Ansi.cs
     cites:
       - ADR-AUTO-CONSOLE-SPARINGCOLOUR

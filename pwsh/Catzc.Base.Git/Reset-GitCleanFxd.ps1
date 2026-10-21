@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1f3efc769e01"
   edges:
     test: pwsh/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
-    docs: "[Reset-GitCleanFxd.ps1.md](docs/references/pwsh/catzc-base-git/Reset-GitCleanFxd.ps1.md)"
+    docs: "[Reset-GitCleanFxd.ps1.md](../../docs/references/pwsh/catzc-base-git/Reset-GitCleanFxd.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
       - ADR-REPO-OUTDIR-PLANNOTES

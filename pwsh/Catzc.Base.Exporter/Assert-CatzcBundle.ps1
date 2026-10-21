@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "22f8b2664873"
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
-    docs: "[Assert-CatzcBundle.ps1.md](docs/references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md)"
+    docs: "[Assert-CatzcBundle.ps1.md](../../docs/references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md)"
     cites:
       - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
       - ADR-AUTO-MODULE-EXISTSBYLAYOUT

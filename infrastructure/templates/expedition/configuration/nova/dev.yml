@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: fc09edec5d57
 #   edges:
-#     docs: "[dev.yml.md](docs/references/infrastructure/templates/expedition/configuration/nova/dev.yml.md)"
+#     docs: "[dev.yml.md](../../../../../docs/references/infrastructure/templates/expedition/configuration/nova/dev.yml.md)"
 # ---
 
 ParametersFile:

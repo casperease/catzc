@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3ed09a0ae68a"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Get-AdoAuthorizationHeader.Tests.ps1
-    docs: "[Get-AdoAuthorizationHeader.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Get-AdoAuthorizationHeader.ps1.md)"
+    docs: "[Get-AdoAuthorizationHeader.ps1.md](../../docs/references/pwsh/catzc-azure-dev-ops/Get-AdoAuthorizationHeader.ps1.md)"
     cites:
       - ADR-ADO-AUTH
 ---

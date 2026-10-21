@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: fc79f26d199a
   edges:
-    docs: "[Write-FramedLine.ps1.md](docs/references/pwsh/catzc-base-writers/private/Write-FramedLine.ps1.md)"
+    docs: "[Write-FramedLine.ps1.md](../../../docs/references/pwsh/catzc-base-writers/private/Write-FramedLine.ps1.md)"
 ---
 #>
 

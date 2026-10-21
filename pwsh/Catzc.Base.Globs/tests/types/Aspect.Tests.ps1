@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0b82da3ebf03"
   edges:
-    docs: "[Aspect.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md)"
+    docs: "[Aspect.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/types/Aspect.cs
     cites:
       - DDR-ASPECT

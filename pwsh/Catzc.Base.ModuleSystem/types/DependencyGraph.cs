@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "774f18c92a06"
   edges:
-    docs: "[DependencyGraph.cs.md](docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md)"
+    docs: "[DependencyGraph.cs.md](../../../docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md)"
     cites:
       - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
 ---

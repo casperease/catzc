@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: ca3d163bab05
 #   edges:
-#     docs: "[maps.yml.md](docs/references/pwsh/catzc-base-maps/configs/maps.yml.md)"
+#     docs: "[maps.yml.md](../../../docs/references/pwsh/catzc-base-maps/configs/maps.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER

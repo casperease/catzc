@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0b8c953d8359"
   edges:
     test: pwsh/Catzc.Base.ConfigExtensions/tests/Get-ConfigValidatorName.Tests.ps1
-    docs: "[Get-ConfigValidatorName.ps1.md](docs/references/pwsh/catzc-base-config-extensions/private/Get-ConfigValidatorName.ps1.md)"
+    docs: "[Get-ConfigValidatorName.ps1.md](../../../docs/references/pwsh/catzc-base-config-extensions/private/Get-ConfigValidatorName.ps1.md)"
 ---
 #>
 

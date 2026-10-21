@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a283fb1945aa
+    with_body_sha: "67e935d59e4f"
   edges:
-    docs: "[Get-ReadmeContent.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-ReadmeContent.ps1.md)"
+    docs: "[Get-ReadmeContent.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-ReadmeContent.ps1.md)"
     cites:
       - ADR-REPO-README-WORKINGLINKS
 ---

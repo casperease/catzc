@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: aaf2c8ce54de
   edges:
-    docs: "[Get-ToolCommandSuffix.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Get-ToolCommandSuffix.Tests.ps1.md)"
+    docs: "[Get-ToolCommandSuffix.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Get-ToolCommandSuffix.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/Get-ToolCommandSuffix.ps1
 ---
 #>

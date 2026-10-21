@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8d7ec02a0643"
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
-    docs: "[Assert-DevBoxToolsStatus.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Assert-DevBoxToolsStatus.ps1.md)"
+    docs: "[Assert-DevBoxToolsStatus.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Assert-DevBoxToolsStatus.ps1.md)"
 ---
 #>
 

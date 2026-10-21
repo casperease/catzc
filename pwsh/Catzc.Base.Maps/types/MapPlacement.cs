@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: fe1c28fcdda4
   edges:
-    docs: "[MapPlacement.cs.md](docs/references/pwsh/catzc-base-maps/types/MapPlacement.cs.md)"
+    docs: "[MapPlacement.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/MapPlacement.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

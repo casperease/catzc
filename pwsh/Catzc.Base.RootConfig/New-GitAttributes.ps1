@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "28baefeb3610"
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/New-GitAttributes.Tests.ps1
-    docs: "[New-GitAttributes.ps1.md](docs/references/pwsh/catzc-base-root-config/New-GitAttributes.ps1.md)"
+    docs: "[New-GitAttributes.ps1.md](../../docs/references/pwsh/catzc-base-root-config/New-GitAttributes.ps1.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---

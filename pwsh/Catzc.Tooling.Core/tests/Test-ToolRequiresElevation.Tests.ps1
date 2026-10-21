@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a39c03ad6662
   edges:
-    docs: "[Test-ToolRequiresElevation.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Test-ToolRequiresElevation.Tests.ps1.md)"
+    docs: "[Test-ToolRequiresElevation.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Test-ToolRequiresElevation.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/Test-ToolRequiresElevation.ps1
 ---
 #>

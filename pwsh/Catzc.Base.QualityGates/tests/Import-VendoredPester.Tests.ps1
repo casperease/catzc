@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "3e91c1a5d9cb"
   edges:
-    docs: "[Import-VendoredPester.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Import-VendoredPester.Tests.ps1.md)"
+    docs: "[Import-VendoredPester.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Import-VendoredPester.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Import-VendoredPester.ps1
     cites:
       - ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE

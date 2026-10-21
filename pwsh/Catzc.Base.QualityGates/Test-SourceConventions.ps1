@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "041c919f8e4d"
+    with_body_sha: "38a8edb8eb36"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
-    docs: "[Test-SourceConventions.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-SourceConventions.ps1.md)"
+    docs: "[Test-SourceConventions.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-SourceConventions.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "91188ee70906"
   edges:
-    docs: "[WorldMap.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMap.cs.md)"
+    docs: "[WorldMap.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/WorldMap.cs.md)"
     cites:
       - DDR-TRACK-TRACKISPLACEDCLUSTER
       - DDR-TRACK-FILELANGUAGE

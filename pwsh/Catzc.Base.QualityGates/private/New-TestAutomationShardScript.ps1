@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6afec50a00b1"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
-    docs: "[New-TestAutomationShardScript.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/New-TestAutomationShardScript.ps1.md)"
+    docs: "[New-TestAutomationShardScript.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/New-TestAutomationShardScript.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
       - ADR-AUTO-TEST-FILEPARALLELISM

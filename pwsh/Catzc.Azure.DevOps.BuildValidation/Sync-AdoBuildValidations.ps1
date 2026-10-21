@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1ecaca28b6ef"
   edges:
     test: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
-    docs: "[Sync-AdoBuildValidations.ps1.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/Sync-AdoBuildValidations.ps1.md)"
+    docs: "[Sync-AdoBuildValidations.ps1.md](../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/Sync-AdoBuildValidations.ps1.md)"
     cites:
       - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 ---

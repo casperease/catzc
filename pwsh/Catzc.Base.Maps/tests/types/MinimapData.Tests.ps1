@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "59b79935c8e1"
+    with_body_sha: "9ebf1e7a2761"
   edges:
     code: pwsh/Catzc.Base.Maps/types/MinimapData.cs
     cites:

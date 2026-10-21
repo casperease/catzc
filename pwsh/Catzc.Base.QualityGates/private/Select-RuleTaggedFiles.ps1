@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6218fa4920ab"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1
-    docs: "[Select-RuleTaggedFiles.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Select-RuleTaggedFiles.ps1.md)"
+    docs: "[Select-RuleTaggedFiles.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Select-RuleTaggedFiles.ps1.md)"
 ---
 #>
 

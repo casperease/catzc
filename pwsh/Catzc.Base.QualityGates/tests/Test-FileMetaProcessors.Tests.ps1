@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d02eda3e64ea
+    with_body_sha: "0343f67563fc"
   edges:
-    docs: "[Test-FileMetaProcessors.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-FileMetaProcessors.Tests.ps1.md)"
+    docs: "[Test-FileMetaProcessors.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-FileMetaProcessors.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

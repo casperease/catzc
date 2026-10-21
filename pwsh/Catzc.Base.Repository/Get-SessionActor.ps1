@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "96713ba2d7d0"
   edges:
     test: pwsh/Catzc.Base.Repository/tests/Get-SessionActor.Tests.ps1
-    docs: "[Get-SessionActor.ps1.md](docs/references/pwsh/catzc-base-repository/Get-SessionActor.ps1.md)"
+    docs: "[Get-SessionActor.ps1.md](../../docs/references/pwsh/catzc-base-repository/Get-SessionActor.ps1.md)"
     cites:
       - ADR-BCL-TYPES-JANITORSBYCALLER
 ---

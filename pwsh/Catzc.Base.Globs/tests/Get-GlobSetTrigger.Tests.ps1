@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "752eaa5c4b34"
   edges:
-    docs: "[Get-GlobSetTrigger.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md)"
+    docs: "[Get-GlobSetTrigger.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
     cites:
       - FDR-CD-GLOBS-NAMEDGLOBSETS

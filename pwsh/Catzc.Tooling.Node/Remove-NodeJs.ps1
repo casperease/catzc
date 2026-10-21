@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: eb610efbe8b4
   edges:
-    docs: "[Remove-NodeJs.ps1.md](docs/references/pwsh/catzc-tooling-node/Remove-NodeJs.ps1.md)"
+    docs: "[Remove-NodeJs.ps1.md](../../docs/references/pwsh/catzc-tooling-node/Remove-NodeJs.ps1.md)"
     cites:
       - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
       - ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM

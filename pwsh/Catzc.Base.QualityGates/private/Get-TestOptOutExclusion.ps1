@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "826cfecf5711"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestOptOutExclusion.Tests.ps1
-    docs: "[Get-TestOptOutExclusion.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestOptOutExclusion.ps1.md)"
+    docs: "[Get-TestOptOutExclusion.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestOptOutExclusion.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SOURCEONLYTAG
 ---

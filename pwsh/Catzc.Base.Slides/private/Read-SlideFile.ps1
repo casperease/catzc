@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b3c9dfb5cce4
+    with_body_sha: a65fedef1eba
   edges:
-    docs: "[Read-SlideFile.ps1.md](docs/references/pwsh/catzc-base-slides/private/Read-SlideFile.ps1.md)"
+    docs: "[Read-SlideFile.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Read-SlideFile.ps1.md)"
     cites:
       - ADR-REPO-SLIDES-SLIDEFILE
 ---

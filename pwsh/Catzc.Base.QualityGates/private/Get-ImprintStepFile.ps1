@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "91de6420bea1"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ImprintStepFile.Tests.ps1
-    docs: "[Get-ImprintStepFile.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ImprintStepFile.ps1.md)"
+    docs: "[Get-ImprintStepFile.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ImprintStepFile.ps1.md)"
     cites:
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
 ---

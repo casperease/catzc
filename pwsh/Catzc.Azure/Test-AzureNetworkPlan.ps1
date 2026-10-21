@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "565905c6b775"
   edges:
     test: pwsh/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
-    docs: "[Test-AzureNetworkPlan.ps1.md](docs/references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md)"
+    docs: "[Test-AzureNetworkPlan.ps1.md](../../docs/references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-AZ-NETWORK-KEYEDBYENVIRONMENT

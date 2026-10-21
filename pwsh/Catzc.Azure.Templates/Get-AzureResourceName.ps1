@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6174e830c7f3"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-AzureResourceName.Tests.ps1
-    docs: "[Get-AzureResourceName.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md)"
+    docs: "[Get-AzureResourceName.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md)"
     cites:
       - ADR-AZ-NAMING
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d8a5060aed80
   edges:
-    docs: "[NoRawVsoCommand.psm1.md](docs/references/pwsh/scriptanalyzer/NoRawVsoCommand.psm1.md)"
+    docs: "[NoRawVsoCommand.psm1.md](../../docs/references/pwsh/scriptanalyzer/NoRawVsoCommand.psm1.md)"
 ---
 #>
 

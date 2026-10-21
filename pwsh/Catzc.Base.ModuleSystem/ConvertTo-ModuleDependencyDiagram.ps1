@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "50f389df2bd2"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1
-    docs: "[ConvertTo-ModuleDependencyDiagram.ps1.md](docs/references/pwsh/catzc-base-module-system/ConvertTo-ModuleDependencyDiagram.ps1.md)"
+    docs: "[ConvertTo-ModuleDependencyDiagram.ps1.md](../../docs/references/pwsh/catzc-base-module-system/ConvertTo-ModuleDependencyDiagram.ps1.md)"
 ---
 #>
 

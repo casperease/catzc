@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "61d28ffd5f78"
   edges:
-    docs: "[Test-GlobSetTriggerCoverage.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1.md)"
+    docs: "[Test-GlobSetTriggerCoverage.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

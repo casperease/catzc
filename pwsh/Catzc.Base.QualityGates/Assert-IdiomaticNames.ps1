@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6d909f4116ec"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Assert-IdiomaticNames.Tests.ps1
-    docs: "[Assert-IdiomaticNames.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Assert-IdiomaticNames.ps1.md)"
+    docs: "[Assert-IdiomaticNames.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Assert-IdiomaticNames.ps1.md)"
     cites:
       - ADR-AUTO-IDIOM-HELDBYGATE
 ---

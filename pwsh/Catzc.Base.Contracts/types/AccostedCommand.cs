@@ -2,8 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "883ab4e963e3"
+    with_body_sha: b7deb696f2fc
   edges:
+    docs: "[AccostedCommand.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/AccostedCommand.cs.md)"
     cites:
       - ADR-AUTO-ACCOSTED-COMMANDFORM
 ---

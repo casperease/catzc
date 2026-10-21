@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8d703e03ca52"
   edges:
     test: pwsh/Catzc.Base.CodeMeta/tests/Get-CodeMetaState.Tests.ps1
-    docs: "[Get-CodeMetaState.ps1.md](docs/references/pwsh/catzc-base-code-meta/Get-CodeMetaState.ps1.md)"
+    docs: "[Get-CodeMetaState.ps1.md](../../docs/references/pwsh/catzc-base-code-meta/Get-CodeMetaState.ps1.md)"
     cites:
       - ADR-REPO-CODEMETA-CODEFILEHEAD
 ---

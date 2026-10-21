@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "88992b40a29b"
   edges:
     test: pwsh/Catzc.Base.Git/tests/Sync-Topic.Tests.ps1
-    docs: "[Sync-Topic.ps1.md](docs/references/pwsh/catzc-base-git/Sync-Topic.ps1.md)"
+    docs: "[Sync-Topic.ps1.md](../../docs/references/pwsh/catzc-base-git/Sync-Topic.ps1.md)"
     cites:
       - FDR-GIT-USERRUNSGIT
       - FDR-GIT-SYNCBYREBASE

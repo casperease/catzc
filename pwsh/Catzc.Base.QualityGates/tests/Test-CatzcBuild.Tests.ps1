@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e4cd97206752
   edges:
-    docs: "[Test-CatzcBuild.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-CatzcBuild.Tests.ps1.md)"
+    docs: "[Test-CatzcBuild.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-CatzcBuild.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
     cites:
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS

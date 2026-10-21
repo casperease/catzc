@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a18a70f69e2a
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1
-    docs: "[Test-RootAnalyzerSettings.ps1.md](docs/references/pwsh/catzc-base-root-config/Test-RootAnalyzerSettings.ps1.md)"
+    docs: "[Test-RootAnalyzerSettings.ps1.md](../../docs/references/pwsh/catzc-base-root-config/Test-RootAnalyzerSettings.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-ROOTCFG

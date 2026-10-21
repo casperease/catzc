@@ -36,7 +36,7 @@ and a field with more items than the pattern holds are each reported with the fi
 
 ### Rule ADR-REPO-SLIDES-CHECKABLECLAIMS
 
-Every claim on a slide is checkable. Every code in the head's `cites` exists in the ADR index; a field that quotes a rule carries the
+Every claim on a slide is checkable. Every code in the head's `cites` exists in the DRS index; a field that quotes a rule carries the
 registry's text verbatim, or the drift is reported with both texts; and every field's text is found in the rendered section. `Test-Slides`
 is the gate over these checks, one file at a time.
 
@@ -67,7 +67,7 @@ Every draw.io slide renders from the tree by one command on its diagram folder, 
 command repeated over every diagram folder found under `docs/**/.assets/**`, so no setting lists the folders. Its inputs are the folder's
 declaration (or, for a folder without one, the model embedded in its `diagram.drawio.png`) and the repository's maps. The articles and
 slides that embed the png are not inputs: the build finds every one of them, wherever it sits, and holds each one's Supports line against
-the declaration's ADR codes and lens. No step of it asks a session or a model to decide anything
+the declaration's rule codes and lens. No step of it asks a session or a model to decide anything
 ([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)). A raster is never
 drawn by hand or by the draw.io CLI: a session edits a model, and the kit renders it.
 
@@ -127,19 +127,19 @@ diagram. A token no set declares fails, naming the tokens it may be.
 
 A diagram shows exactly three minimaps: the ones its declaration names, or its kind's three defaults from the pools `maps.yml` declares,
 each one of the eight minimap ids. A minimap's data is computed, never drawn by hand: `Catzc.Base.Maps` projects the diagram's subject, the
-ADR codes in `about.adrs` and the files that cite them, onto the minimap's axes with the data command `maps.yml` names for its id, and every
-lit cell carries its reason. The diagram's declaration lists each shown minimap's lit cells, each with the files and rule codes that lit it,
-under `content.minimaps`, written from the computed data by `declaration.py minimaps`. A drawn minimap lights only the cells its declaration
-lists: `Write-DiagramMinimapData` drops and reports any other lit cell, since a lit cell nobody declared is unverifiable, and keeps the
-whole computed data beside it for that writer. The data is contract JSON ([ADR-REPO-CONTRACT](api-contracts.md)), written to `out/minimaps/`
-by `Build-Diagrams` and `Test-Diagrams`; the kit validates it and only draws it, and no minimap file lives in a diagram folder. A diagram
-whose data is missing does not put.
+rule codes in `about.adrs` and the files that cite them, onto the minimap's axes with the data command `maps.yml` names for its id, and
+every lit cell carries its reason. The diagram's declaration lists each shown minimap's lit cells, each with the files and rule codes that
+lit it, under `content.minimaps`, written from the computed data by `declaration.py minimaps`. A drawn minimap lights only the cells its
+declaration lists: `Write-DiagramMinimapData` drops and reports any other lit cell, since a lit cell nobody declared is unverifiable, and
+keeps the whole computed data beside it for that writer. The data is contract JSON ([ADR-REPO-CONTRACT](api-contracts.md)), written to
+`out/minimaps/` by `Build-Diagrams` and `Test-Diagrams`; the kit validates it and only draws it, and no minimap file lives in a diagram
+folder. A diagram whose data is missing does not put.
 
 - [The declaration is the source](#the-declaration-is-the-source)
 
 ### Rule ADR-REPO-SLIDES-SIDEBARSHAPE
 
-A diagram has two sides. The left holds the title, the subtitle (the ADR codes, which appear on the diagram there and nowhere else), the
+A diagram has two sides. The left holds the title, the subtitle (the rule codes, which appear on the diagram there and nowhere else), the
 drawing and the legend, whose entries print the name of each kind alone. The right column holds four slots: the three minimaps and the map
 key. The lens badge stands before the title, on its line. Every part is placed by put, so a declaration says what the diagram shows, never
 where the sidebar goes.

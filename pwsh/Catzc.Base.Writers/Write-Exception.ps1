@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c8458cad56dd
   edges:
     test: pwsh/Catzc.Base.Writers/tests/Write-Exception.Tests.ps1
-    docs: "[Write-Exception.ps1.md](docs/references/pwsh/catzc-base-writers/Write-Exception.ps1.md)"
+    docs: "[Write-Exception.ps1.md](../../docs/references/pwsh/catzc-base-writers/Write-Exception.ps1.md)"
 ---
 #>
 

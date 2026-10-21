@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1cbdab68507b"
   edges:
-    docs: "[FileSelector.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/FileSelector.cs.md)"
+    docs: "[FileSelector.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/FileSelector.cs.md)"
 ---
 */
 

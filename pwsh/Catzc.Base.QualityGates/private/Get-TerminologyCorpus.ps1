@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6759e5bf5651"
   edges:
-    docs: "[Get-TerminologyCorpus.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md)"
+    docs: "[Get-TerminologyCorpus.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
 ---

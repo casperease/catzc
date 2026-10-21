@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2b0e73e50126"
   edges:
-    docs: "[Get-GeneratedFileGenerator.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedFileGenerator.ps1.md)"
+    docs: "[Get-GeneratedFileGenerator.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedFileGenerator.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
 ---

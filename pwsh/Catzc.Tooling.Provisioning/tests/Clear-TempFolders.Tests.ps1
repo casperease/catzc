@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c2df81b14cfb
   edges:
-    docs: "[Clear-TempFolders.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md)"
+    docs: "[Clear-TempFolders.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
 ---
 #>

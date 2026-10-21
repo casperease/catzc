@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1c22d28cd948"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractCheckResult.Tests.ps1
-    docs: "[ContractCheckResult.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractCheckResult.cs.md)"
+    docs: "[ContractCheckResult.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/ContractCheckResult.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-CONTRACT-PROVENBYTESTS

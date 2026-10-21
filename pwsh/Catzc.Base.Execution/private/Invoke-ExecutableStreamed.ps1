@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: da1c5ea4ad97
   edges:
-    docs: "[Invoke-ExecutableStreamed.ps1.md](docs/references/pwsh/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md)"
+    docs: "[Invoke-ExecutableStreamed.ps1.md](../../../docs/references/pwsh/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md)"
 ---
 #>
 

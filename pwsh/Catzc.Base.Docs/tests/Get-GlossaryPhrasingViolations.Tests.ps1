@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "33462ede9644"
   edges:
-    docs: "[Get-GlossaryPhrasingViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md)"
+    docs: "[Get-GlossaryPhrasingViolations.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-GlossaryPhrasingViolations.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

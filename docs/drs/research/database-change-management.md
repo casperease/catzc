@@ -1,4 +1,4 @@
-# ADR: DORA — Database change management
+# Research: DORA — Database change management
 
 ## Rules: RDR-DORA-DBCHANGE
 

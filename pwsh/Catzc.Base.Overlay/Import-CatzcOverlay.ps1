@@ -5,7 +5,7 @@ catzc:
     with_body_sha: efd83ed647c7
   edges:
     test: pwsh/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1
-    docs: "[Import-CatzcOverlay.ps1.md](docs/references/pwsh/catzc-base-overlay/Import-CatzcOverlay.ps1.md)"
+    docs: "[Import-CatzcOverlay.ps1.md](../../docs/references/pwsh/catzc-base-overlay/Import-CatzcOverlay.ps1.md)"
     cites:
       - ADR-AUTO-OVERLAY
 ---

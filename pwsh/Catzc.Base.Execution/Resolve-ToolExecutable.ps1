@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ccddb494076d
   edges:
     test: pwsh/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
-    docs: "[Resolve-ToolExecutable.ps1.md](docs/references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md)"
+    docs: "[Resolve-ToolExecutable.ps1.md](../../docs/references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md)"
     cites:
       - ADR-CONF-LOADING-READINGISGLOBAL
 ---

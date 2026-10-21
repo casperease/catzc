@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "129ffc7723be"
   edges:
-    docs: "[Build-Bicep.SampleWithPrepost.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md)"
+    docs: "[Build-Bicep.SampleWithPrepost.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SETUPONCE
       - ADR-AUTO-TEST-ONEIMPORTPERCASE

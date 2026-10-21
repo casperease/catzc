@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6cbfd8e68c52"
+    with_body_sha: "018cad8f6be3"
   edges:
-    docs: "[DrsDomain.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsDomain.cs.md)"
+    docs: "[DrsDomain.cs.md](../../../docs/references/pwsh/catzc-base-drs/types/DrsDomain.cs.md)"
     cites:
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
       - ADR-REPO-DRSCODE-DOMAINSEGMENT

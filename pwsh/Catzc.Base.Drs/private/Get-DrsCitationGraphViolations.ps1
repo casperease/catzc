@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "80fb5c2a534f"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
-    docs: "[Get-DrsCitationGraphViolations.ps1.md](docs/references/pwsh/catzc-base-drs/private/Get-DrsCitationGraphViolations.ps1.md)"
+    docs: "[Get-DrsCitationGraphViolations.ps1.md](../../../docs/references/pwsh/catzc-base-drs/private/Get-DrsCitationGraphViolations.ps1.md)"
 ---
 #>
 

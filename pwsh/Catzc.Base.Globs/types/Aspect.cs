@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "63aeab9d31b2"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
-    docs: "[Aspect.cs.md](docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md)"
+    docs: "[Aspect.cs.md](../../../docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md)"
     cites:
       - DDR-ASPECT
       - FDR-CD-GLOBS-TRACKEDFILESONLY

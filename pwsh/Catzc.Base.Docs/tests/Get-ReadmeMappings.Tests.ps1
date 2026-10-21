@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1218351c0a35"
   edges:
-    docs: "[Get-ReadmeMappings.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md)"
+    docs: "[Get-ReadmeMappings.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
     cites:
       - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE

@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: c86b4f99df0c
 #   edges:
-#     docs: "[contracts.yml.md](docs/references/pwsh/catzc-base-contracts/configs/contracts.yml.md)"
+#     docs: "[contracts.yml.md](../../../docs/references/pwsh/catzc-base-contracts/configs/contracts.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-PWSH-PARAM-RESOLUTIONORDER

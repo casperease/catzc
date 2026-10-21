@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: bb1e0bfb641b
   edges:
-    docs: "[Uninstall-UvTool.ps1.md](docs/references/pwsh/catzc-tooling-core/Uninstall-UvTool.ps1.md)"
+    docs: "[Uninstall-UvTool.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Uninstall-UvTool.ps1.md)"
 ---
 #>
 

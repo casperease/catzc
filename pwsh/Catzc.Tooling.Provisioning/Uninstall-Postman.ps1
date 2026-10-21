@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fa6477fa83b8
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-Postman.Tests.ps1
-    docs: "[Uninstall-Postman.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Postman.ps1.md)"
+    docs: "[Uninstall-Postman.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Postman.ps1.md)"
 ---
 #>
 

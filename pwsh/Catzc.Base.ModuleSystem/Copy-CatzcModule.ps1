@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5ff1b4200570"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Copy-CatzcModule.Tests.ps1
-    docs: "[Copy-CatzcModule.ps1.md](docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md)"
+    docs: "[Copy-CatzcModule.ps1.md](../../docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md)"
     cites:
       - ADR-AUTO-PATH
       - ADR-BCL-TYPES-NATIVETYPEDMODEL

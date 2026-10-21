@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "63892e494309"
 #   edges:
-#     docs: "[parameter-consistency.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/parameter-consistency.yml.md)"
+#     docs: "[parameter-consistency.yml.md](../../../docs/references/pwsh/catzc-base-quality-gates/configs/parameter-consistency.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-PWSH-PARAM

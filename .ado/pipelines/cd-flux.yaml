@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "55ad35daf1a0"
 #   edges:
-#     docs: "[cd-flux.yaml.md](docs/references/ado/pipelines/cd-flux.yaml.md)"
+#     docs: "[cd-flux.yaml.md](../../docs/references/ado/pipelines/cd-flux.yaml.md)"
 #     cites:
 #       - FDR-CD-GLOBS
 # ---

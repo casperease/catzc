@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e7caad974c0a
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1
-    docs: "[ParameterConsistencyConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/ParameterConsistencyConfig.cs.md)"
+    docs: "[ParameterConsistencyConfig.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/ParameterConsistencyConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

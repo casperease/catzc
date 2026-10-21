@@ -1,4 +1,4 @@
-# ADR: DORA — Customer feedback
+# Research: DORA — Customer feedback
 
 ## Rules: RDR-DORA-FEEDBACK
 

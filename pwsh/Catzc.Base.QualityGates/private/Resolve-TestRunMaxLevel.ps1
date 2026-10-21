@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7879629093ba"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Resolve-TestRunMaxLevel.Tests.ps1
-    docs: "[Resolve-TestRunMaxLevel.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Resolve-TestRunMaxLevel.ps1.md)"
+    docs: "[Resolve-TestRunMaxLevel.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Resolve-TestRunMaxLevel.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE

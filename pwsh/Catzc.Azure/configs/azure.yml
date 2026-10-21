@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "3e164a076149"
 #   edges:
-#     docs: "[azure.yml.md](docs/references/pwsh/catzc-azure/configs/azure.yml.md)"
+#     docs: "[azure.yml.md](../../../docs/references/pwsh/catzc-azure/configs/azure.yml.md)"
 #     cites:
 #       - ADR-AZ-CUSTOMER
 #       - ADR-AZ-DATAMOD

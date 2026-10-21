@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "8cf3a29701bd"
 //   edges:
-//     docs: "[private-dns-zone.bicep.md](docs/references/infrastructure/modules/private-dns-zone.bicep.md)"
+//     docs: "[private-dns-zone.bicep.md](../../docs/references/infrastructure/modules/private-dns-zone.bicep.md)"
 // ---
 
 @description('Zone name, e.g. privatelink.database.windows.net.')

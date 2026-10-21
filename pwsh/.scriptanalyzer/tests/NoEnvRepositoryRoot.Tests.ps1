@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: af6da4b4219d
   edges:
-    docs: "[NoEnvRepositoryRoot.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1.md)"
+    docs: "[NoEnvRepositoryRoot.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1.md)"
     cites:
       - ADR-AUTO-NOPWD-ONEROOTACCESSOR
 ---

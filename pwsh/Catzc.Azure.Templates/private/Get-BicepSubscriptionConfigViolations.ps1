@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e389c0dc8154
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1
-    docs: "[Get-BicepSubscriptionConfigViolations.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md)"
+    docs: "[Get-BicepSubscriptionConfigViolations.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
 ---

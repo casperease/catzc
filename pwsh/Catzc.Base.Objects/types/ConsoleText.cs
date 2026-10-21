@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d5c77b75df42
   edges:
     test: pwsh/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
-    docs: "[ConsoleText.cs.md](docs/references/pwsh/catzc-base-objects/types/ConsoleText.cs.md)"
+    docs: "[ConsoleText.cs.md](../../../docs/references/pwsh/catzc-base-objects/types/ConsoleText.cs.md)"
 ---
 */
 

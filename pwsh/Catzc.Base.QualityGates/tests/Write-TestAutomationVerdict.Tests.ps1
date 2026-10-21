@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a8ab6f2cb461
   edges:
-    docs: "[Write-TestAutomationVerdict.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Write-TestAutomationVerdict.Tests.ps1.md)"
+    docs: "[Write-TestAutomationVerdict.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Write-TestAutomationVerdict.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
     cites:
       - ADR-AUTO-CONSOLE-SPARINGCOLOUR

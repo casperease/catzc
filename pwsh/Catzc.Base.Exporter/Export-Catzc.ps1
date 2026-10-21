@@ -5,7 +5,7 @@ catzc:
     with_body_sha: cdd0900f5ae6
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/Export-Catzc.Tests.ps1
-    docs: "[Export-Catzc.ps1.md](docs/references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md)"
+    docs: "[Export-Catzc.ps1.md](../../docs/references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md)"
     cites:
       - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
 ---

@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3f73ec49e584"
+    with_body_sha: "16e1fae9c516"
   edges:
-    docs: "[Get-SlideFinding.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-SlideFinding.ps1.md)"
+    docs: "[Get-SlideFinding.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Get-SlideFinding.ps1.md)"
     cites:
       - ADR-REPO-SLIDES-FAILFORWARDRENDER
       - ADR-REPO-SLIDES-CHECKABLECLAIMS

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c71abf839afa
   edges:
-    docs: "[Config-Conventions.Tests.ps1.md](docs/references/pwsh/catzc-base-config/tests/Config-Conventions.Tests.ps1.md)"
+    docs: "[Config-Conventions.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-config/tests/Config-Conventions.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5c5d5daa22f9"
   edges:
     test: pwsh/Catzc.Base.Environment/tests/Add-PermanentPath.Tests.ps1
-    docs: "[Add-PermanentPath.ps1.md](docs/references/pwsh/catzc-base-environment/Add-PermanentPath.ps1.md)"
+    docs: "[Add-PermanentPath.ps1.md](../../docs/references/pwsh/catzc-base-environment/Add-PermanentPath.ps1.md)"
 ---
 #>
 

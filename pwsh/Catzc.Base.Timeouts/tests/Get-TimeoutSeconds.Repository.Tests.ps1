@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c91f6814b59c
   edges:
-    docs: "[Get-TimeoutSeconds.Repository.Tests.ps1.md](docs/references/pwsh/catzc-base-timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1.md)"
+    docs: "[Get-TimeoutSeconds.Repository.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1.md)"
     cites:
       - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
 ---

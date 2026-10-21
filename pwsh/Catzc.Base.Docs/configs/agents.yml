@@ -1,9 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: de45cd6a3a47
+#     with_body_sha: "6d74ea7a380f"
 #   edges:
-#     docs: "[agents.yml.md](docs/references/pwsh/catzc-base-docs/configs/agents.yml.md)"
+#     docs: "[agents.yml.md](../../../docs/references/pwsh/catzc-base-docs/configs/agents.yml.md)"
 #     cites:
 #       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
 #       - ADR-AUTO-TEST-SETUPONCE

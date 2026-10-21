@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d7c4f6db5ed2
   edges:
     test: pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1
-    docs: "[Get-Config.ps1.md](docs/references/pwsh/catzc-base-config/Get-Config.ps1.md)"
+    docs: "[Get-Config.ps1.md](../../docs/references/pwsh/catzc-base-config/Get-Config.ps1.md)"
     cites:
       - ADR-AUTO-OVERLAY
       - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST

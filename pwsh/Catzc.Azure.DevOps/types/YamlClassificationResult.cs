@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7754b73f6538"
   edges:
-    docs: "[YamlClassificationResult.cs.md](docs/references/pwsh/catzc-azure-dev-ops/types/YamlClassificationResult.cs.md)"
+    docs: "[YamlClassificationResult.cs.md](../../../docs/references/pwsh/catzc-azure-dev-ops/types/YamlClassificationResult.cs.md)"
 ---
 */
 

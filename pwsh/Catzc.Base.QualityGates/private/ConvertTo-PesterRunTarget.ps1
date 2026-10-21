@@ -5,7 +5,7 @@ catzc:
     with_body_sha: eac57550a07d
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/ConvertTo-PesterRunTarget.Tests.ps1
-    docs: "[ConvertTo-PesterRunTarget.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/ConvertTo-PesterRunTarget.ps1.md)"
+    docs: "[ConvertTo-PesterRunTarget.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/ConvertTo-PesterRunTarget.ps1.md)"
 ---
 #>
 

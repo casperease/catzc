@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "42ee3fcc5e31"
   edges:
-    docs: "[Get-ContractCommandFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractCommandFindings.ps1.md)"
+    docs: "[Get-ContractCommandFindings.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractCommandFindings.ps1.md)"
     cites:
       - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
       - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE

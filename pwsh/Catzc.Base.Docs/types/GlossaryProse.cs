@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "3dce31092cc0"
   edges:
-    docs: "[GlossaryProse.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryProse.cs.md)"
+    docs: "[GlossaryProse.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/GlossaryProse.cs.md)"
     cites:
       - ADR-REPO-FORMAT-MARKDOWNTITLE
       - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED

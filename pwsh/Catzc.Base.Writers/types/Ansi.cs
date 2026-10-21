@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3840d32b784a"
   edges:
     test: pwsh/Catzc.Base.Writers/tests/types/Ansi.Tests.ps1
-    docs: "[Ansi.cs.md](docs/references/pwsh/catzc-base-writers/types/Ansi.cs.md)"
+    docs: "[Ansi.cs.md](../../../docs/references/pwsh/catzc-base-writers/types/Ansi.cs.md)"
     cites:
       - ADR-AUTO-CONSOLE-SPARINGCOLOUR
 ---

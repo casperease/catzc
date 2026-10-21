@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2e5df70fdf91"
   edges:
-    docs: "[Get-DrsRuleSet.Tests.ps1.md](docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSet.Tests.ps1.md)"
+    docs: "[Get-DrsRuleSet.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSet.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Drs/Get-DrsRuleSet.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
@@ -52,6 +52,6 @@ Describe 'Get-DrsRuleSet' -Tag 'L0', 'logic' {
 
 Describe 'Get-DrsRuleSet integrity' -Tag 'L1', 'integrity', 'ADR-CONF-LOADING-CSHARPCONFIGTYPE' {
     It 'Test-DrsRegistry reports no issue: one ADR file per rule set, headed by its external code, none unregistered' {
-        (Test-DrsRegistry -PassThru -OutputFolder (Join-Path $TestDrive 'adr-registry')).IssueCount | Should -Be 0
+        (Test-DrsRegistry -PassThru -OutputFolder (Join-Path $TestDrive 'drs-registry')).IssueCount | Should -Be 0
     }
 }

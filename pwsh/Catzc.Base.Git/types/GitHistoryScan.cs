@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a74d706c270d
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
-    docs: "[GitHistoryScan.cs.md](docs/references/pwsh/catzc-base-git/types/GitHistoryScan.cs.md)"
+    docs: "[GitHistoryScan.cs.md](../../../docs/references/pwsh/catzc-base-git/types/GitHistoryScan.cs.md)"
     cites:
       - ADR-AUTO-TRACKED
 ---

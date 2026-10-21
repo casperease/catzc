@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c3d0b8d27585
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-YmlNaming.Tests.ps1
-    docs: "[Assert-YmlNaming.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-YmlNaming.ps1.md)"
+    docs: "[Assert-YmlNaming.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Assert-YmlNaming.ps1.md)"
 ---
 #>
 

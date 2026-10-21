@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "706a5796ca67"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
-    docs: "[ToolConfig.cs.md](docs/references/pwsh/catzc-base-execution/types/ToolConfig.cs.md)"
+    docs: "[ToolConfig.cs.md](../../../docs/references/pwsh/catzc-base-execution/types/ToolConfig.cs.md)"
     cites:
       - ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS
       - ADR-AUTO-PKGMGR-VERIFYDOWNLOADS

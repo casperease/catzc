@@ -1,4 +1,4 @@
-# ADR: DORA — Learning culture
+# Research: DORA — Learning culture
 
 ## Rules: RDR-DORA-LEARNING
 
@@ -73,10 +73,10 @@ other fields such as accounting, of organizational performance generally.
 ## How to apply
 
 Catzc treats capturing what is learned as a first-class step in its own improvement loop rather than an optional afterthought: when
-something is learned, it is encoded as a convention, a gate, or an ADR so the next person inherits the knowledge instead of rediscovering
-it, which is the direct countermeasure to relearning, the relearning waste. The platform's stopped-line discipline treats a caught defect as
-a root-cause investigation rather than a blame event, and warns explicitly that punishing a stop teaches people to route around it — the
-same safety-to-fail stance DORA describes for post-mortems, applied to the gate that catches the defect in the first place.
+something is learned, it is encoded as a convention, a gate, or a decision record so the next person inherits the knowledge instead of
+rediscovering it, which is the direct countermeasure to relearning, the relearning waste. The platform's stopped-line discipline treats a
+caught defect as a root-cause investigation rather than a blame event, and warns explicitly that punishing a stop teaches people to route
+around it — the same safety-to-fail stance DORA describes for post-mortems, applied to the gate that catches the defect in the first place.
 
 ## Common pitfalls
 

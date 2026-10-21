@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "88897277e7dc"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
-    docs: "[Set-BicepTemplateConfiguration.ps1.md](docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md)"
+    docs: "[Set-BicepTemplateConfiguration.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-AZ-DATAMOD

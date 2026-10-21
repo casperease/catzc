@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f7a408d33bed
   edges:
-    docs: "[Set-CurrentAzSubscription.ps1.md](docs/references/pwsh/catzc-azure-cli/Set-CurrentAzSubscription.ps1.md)"
+    docs: "[Set-CurrentAzSubscription.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Set-CurrentAzSubscription.ps1.md)"
 ---
 #>
 

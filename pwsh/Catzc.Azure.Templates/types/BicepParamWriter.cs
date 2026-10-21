@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "11ddbbb75183"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/types/BicepParamWriter.Tests.ps1
-    docs: "[BicepParamWriter.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepParamWriter.cs.md)"
+    docs: "[BicepParamWriter.cs.md](../../../docs/references/pwsh/catzc-azure-templates/types/BicepParamWriter.cs.md)"
     cites:
       - ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS
 ---

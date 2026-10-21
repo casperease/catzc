@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2f7b8ffc9bbc"
   edges:
-    docs: "[Clear-ModuleTypeCache.Tests.ps1.md](docs/references/pwsh/catzc-base-types-system/tests/Clear-ModuleTypeCache.Tests.ps1.md)"
+    docs: "[Clear-ModuleTypeCache.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-types-system/tests/Clear-ModuleTypeCache.Tests.ps1.md)"
     code: pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
 ---
 #>

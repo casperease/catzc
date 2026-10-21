@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e625ba0ecf18
   edges:
     test: pwsh/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
-    docs: "[Set-PermanentEnvironmentVariable.ps1.md](docs/references/pwsh/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md)"
+    docs: "[Set-PermanentEnvironmentVariable.ps1.md](../../docs/references/pwsh/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
 ---

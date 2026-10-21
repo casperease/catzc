@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5d4a245e8fda"
   edges:
     test: pwsh/Catzc.Tooling.Github/tests/Remove-TokenFromHistory.Tests.ps1
-    docs: "[Remove-TokenFromHistory.ps1.md](docs/references/pwsh/catzc-tooling-github/Remove-TokenFromHistory.ps1.md)"
+    docs: "[Remove-TokenFromHistory.ps1.md](../../docs/references/pwsh/catzc-tooling-github/Remove-TokenFromHistory.ps1.md)"
 ---
 #>
 

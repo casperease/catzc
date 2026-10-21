@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "3525248d9be3"
 //   edges:
-//     docs: "[diagnostic-setting.bicep.md](docs/references/infrastructure/modules/diagnostic-setting.bicep.md)"
+//     docs: "[diagnostic-setting.bicep.md](../../docs/references/infrastructure/modules/diagnostic-setting.bicep.md)"
 // ---
 
 @description('Kind of the target resource.')

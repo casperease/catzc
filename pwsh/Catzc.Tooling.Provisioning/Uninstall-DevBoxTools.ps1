@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d301a8d38ac0
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-DevBoxTools.Tests.ps1
-    docs: "[Uninstall-DevBoxTools.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md)"
+    docs: "[Uninstall-DevBoxTools.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: cb1ea9b59513
   edges:
-    docs: "[ContractCheckResult.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractCheckResult.Tests.ps1.md)"
+    docs: "[ContractCheckResult.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-contracts/tests/types/ContractCheckResult.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/types/ContractCheckResult.cs
     cites:
       - ADR-BCL-TYPES-CONSOLEREADYTOSTRING

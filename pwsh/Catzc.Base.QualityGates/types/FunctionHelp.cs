@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d9ce34123aa1
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/FunctionHelp.Tests.ps1
-    docs: "[FunctionHelp.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/FunctionHelp.cs.md)"
+    docs: "[FunctionHelp.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/FunctionHelp.cs.md)"
     cites:
       - ADR-REPO-HELP-HELPONCOMMENTPAGE
 ---

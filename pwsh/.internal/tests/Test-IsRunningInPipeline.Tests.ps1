@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: cf011129a112
   edges:
-    docs: "[Test-IsRunningInPipeline.Tests.ps1.md](docs/references/pwsh/internal/tests/Test-IsRunningInPipeline.Tests.ps1.md)"
+    docs: "[Test-IsRunningInPipeline.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Test-IsRunningInPipeline.Tests.ps1.md)"
 ---
 #>
 

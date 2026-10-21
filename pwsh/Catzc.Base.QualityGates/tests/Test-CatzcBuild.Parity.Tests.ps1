@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1c2659530e44"
   edges:
-    docs: "[Test-CatzcBuild.Parity.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-CatzcBuild.Parity.Tests.ps1.md)"
+    docs: "[Test-CatzcBuild.Parity.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-CatzcBuild.Parity.Tests.ps1.md)"
     cites:
       - DDR-RUNMODE-SAMEMODULEINBOTH
 ---

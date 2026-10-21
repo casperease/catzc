@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: bb77900f5fe0
   edges:
-    docs: "[Set-BicepTemplateConfiguration.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md)"
+    docs: "[Set-BicepTemplateConfiguration.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
     cites:
       - ADR-AUTO-CACHE-IMPORTERINVALIDATES

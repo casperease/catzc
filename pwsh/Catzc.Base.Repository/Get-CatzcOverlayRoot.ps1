@@ -5,7 +5,7 @@ catzc:
     with_body_sha: abf588f2fd19
   edges:
     test: pwsh/Catzc.Base.Repository/tests/Get-CatzcOverlayRoot.Tests.ps1
-    docs: "[Get-CatzcOverlayRoot.ps1.md](docs/references/pwsh/catzc-base-repository/Get-CatzcOverlayRoot.ps1.md)"
+    docs: "[Get-CatzcOverlayRoot.ps1.md](../../docs/references/pwsh/catzc-base-repository/Get-CatzcOverlayRoot.ps1.md)"
     cites:
       - ADR-AUTO-OVERLAY
 ---

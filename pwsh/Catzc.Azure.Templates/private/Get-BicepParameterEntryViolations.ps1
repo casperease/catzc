@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a63eab088a6b
   edges:
-    docs: "[Get-BicepParameterEntryViolations.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md)"
+    docs: "[Get-BicepParameterEntryViolations.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md)"
 ---
 #>
 

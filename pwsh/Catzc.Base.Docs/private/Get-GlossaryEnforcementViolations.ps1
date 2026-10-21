@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7fc3ab6b1898"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1
-    docs: "[Get-GlossaryEnforcementViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossaryEnforcementViolations.ps1.md)"
+    docs: "[Get-GlossaryEnforcementViolations.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossaryEnforcementViolations.ps1.md)"
     cites:
       - ADR-REPO-VOCAB
 ---

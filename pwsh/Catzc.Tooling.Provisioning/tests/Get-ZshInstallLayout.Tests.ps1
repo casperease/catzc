@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6da9a7c4456d"
   edges:
-    docs: "[Get-ZshInstallLayout.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Get-ZshInstallLayout.Tests.ps1.md)"
+    docs: "[Get-ZshInstallLayout.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Get-ZshInstallLayout.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1
     cites:
       - ADR-AUTO-TEST-ONECATEGORY

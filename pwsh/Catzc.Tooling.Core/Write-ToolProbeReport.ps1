@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a1069bb2b3c5
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
-    docs: "[Write-ToolProbeReport.ps1.md](docs/references/pwsh/catzc-tooling-core/Write-ToolProbeReport.ps1.md)"
+    docs: "[Write-ToolProbeReport.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Write-ToolProbeReport.ps1.md)"
     cites:
       - ADR-PWSH-ANNOUNCE-CORRECTSTREAM
 ---

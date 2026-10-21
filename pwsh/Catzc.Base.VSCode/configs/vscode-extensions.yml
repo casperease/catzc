@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "69b8f165661b"
 #   edges:
-#     docs: "[vscode-extensions.yml.md](docs/references/pwsh/catzc-base-vs-code/configs/vscode-extensions.yml.md)"
+#     docs: "[vscode-extensions.yml.md](../../../docs/references/pwsh/catzc-base-vs-code/configs/vscode-extensions.yml.md)"
 #     cites:
 #       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
 #       - ADR-REPO-LINK-CODELINKS

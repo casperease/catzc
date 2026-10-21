@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e064fcdf7e84
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1
-    docs: "[Get-BicepResourceName.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md)"
+    docs: "[Get-BicepResourceName.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md)"
     cites:
       - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
 ---

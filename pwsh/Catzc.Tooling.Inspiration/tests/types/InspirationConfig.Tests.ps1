@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "399d685a26ea"
   edges:
-    docs: "[InspirationConfig.Tests.ps1.md](docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md)"
+    docs: "[InspirationConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Inspiration/types/InspirationConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER

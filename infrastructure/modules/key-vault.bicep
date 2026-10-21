@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "37cd9a57541f"
 //   edges:
-//     docs: "[key-vault.bicep.md](docs/references/infrastructure/modules/key-vault.bicep.md)"
+//     docs: "[key-vault.bicep.md](../../docs/references/infrastructure/modules/key-vault.bicep.md)"
 // ---
 
 @description('Key vault name (3-24 alphanumeric/hyphen, starts with a letter, globally unique).')

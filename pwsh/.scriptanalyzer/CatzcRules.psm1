@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "085aaf4b2683"
   edges:
-    docs: "[CatzcRules.psm1.md](docs/references/pwsh/scriptanalyzer/CatzcRules.psm1.md)"
+    docs: "[CatzcRules.psm1.md](../../docs/references/pwsh/scriptanalyzer/CatzcRules.psm1.md)"
 ---
 #>
 

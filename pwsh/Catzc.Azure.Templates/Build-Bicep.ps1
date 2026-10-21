@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "03e12a5b9895"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
-    docs: "[Build-Bicep.ps1.md](docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md)"
+    docs: "[Build-Bicep.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD-VALUEBYADDRESS
       - ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "79270ea4a3b4"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1
-    docs: "[Test-GlobSetTriggerCoverage.ps1.md](docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md)"
+    docs: "[Test-GlobSetTriggerCoverage.ps1.md](../../docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - FDR-CD-GLOBS-NATIVEPATHFILTER

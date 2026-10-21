@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c04d7b9fb24e
   edges:
     test: pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
-    docs: "[ModuleTypesConfig.cs.md](docs/references/pwsh/catzc-base-variants/types/ModuleTypesConfig.cs.md)"
+    docs: "[ModuleTypesConfig.cs.md](../../../docs/references/pwsh/catzc-base-variants/types/ModuleTypesConfig.cs.md)"
     cites:
       - DDR-TRACK-ONETECHSTACK
 ---

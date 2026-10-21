@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8c0d2f3c89c3"
   edges:
-    docs: "[TruthStore.cs.md](docs/references/pwsh/catzc-base-flow/types/TruthStore.cs.md)"
+    docs: "[TruthStore.cs.md](../../../docs/references/pwsh/catzc-base-flow/types/TruthStore.cs.md)"
 ---
 */
 

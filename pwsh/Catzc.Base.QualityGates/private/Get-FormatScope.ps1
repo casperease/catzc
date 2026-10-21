@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "82cac9461e5e"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-FormatScope.Tests.ps1
-    docs: "[Get-FormatScope.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-FormatScope.ps1.md)"
+    docs: "[Get-FormatScope.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-FormatScope.ps1.md)"
     cites:
       - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
       - ADR-REPO-CONTRACT-CONTRACTASSET

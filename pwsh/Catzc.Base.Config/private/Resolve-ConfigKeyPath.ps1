@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a6bce19f7353
   edges:
-    docs: "[Resolve-ConfigKeyPath.ps1.md](docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md)"
+    docs: "[Resolve-ConfigKeyPath.ps1.md](../../../docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md)"
     cites:
       - ADR-CONF-ADDRESSING
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b94756141d4e
   edges:
-    docs: "[Read-ContractManifest.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Read-ContractManifest.ps1.md)"
+    docs: "[Read-ContractManifest.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Read-ContractManifest.ps1.md)"
     cites:
       - ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION
 ---

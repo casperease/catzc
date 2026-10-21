@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "575bebb2f94c"
   edges:
-    docs: "[Save-VerifiedDownload.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Save-VerifiedDownload.Tests.ps1.md)"
+    docs: "[Save-VerifiedDownload.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Save-VerifiedDownload.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
 ---
 #>

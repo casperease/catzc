@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "316b2cc3f5c6"
+    with_body_sha: "3b02325916e9"
   edges:
-    docs: "[LinkEngine.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/LinkEngine.cs.md)"
+    docs: "[LinkEngine.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkEngine.cs.md)"
     cites:
       - ADR-REPO-LINK-KINDBYFILE
       - ADR-REPO-LINK-ONECITATIONSPELLING

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8dbe563f6962"
   edges:
-    docs: "[Get-AzureCustomers.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/Get-AzureCustomers.Tests.ps1.md)"
+    docs: "[Get-AzureCustomers.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure/tests/Get-AzureCustomers.Tests.ps1.md)"
     code: pwsh/Catzc.Azure/Get-AzureCustomers.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "08d14faee92b"
   edges:
     test: pwsh/Catzc.Base.Overlay/tests/Get-CatzcOverlay.Tests.ps1
-    docs: "[Get-CatzcOverlay.ps1.md](docs/references/pwsh/catzc-base-overlay/Get-CatzcOverlay.ps1.md)"
+    docs: "[Get-CatzcOverlay.ps1.md](../../docs/references/pwsh/catzc-base-overlay/Get-CatzcOverlay.ps1.md)"
     cites:
       - ADR-AUTO-OVERLAY
       - ADR-PWSH-ENUM-ALWAYSBOUNDED

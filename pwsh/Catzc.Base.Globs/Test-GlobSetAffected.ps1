@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6a0c16d3c2c2"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1
-    docs: "[Test-GlobSetAffected.ps1.md](docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md)"
+    docs: "[Test-GlobSetAffected.ps1.md](../../docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST
       - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT

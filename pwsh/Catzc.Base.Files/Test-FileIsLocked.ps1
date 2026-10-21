@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a476f3ce2e1d
   edges:
     test: pwsh/Catzc.Base.Files/tests/Test-FileIsLocked.Tests.ps1
-    docs: "[Test-FileIsLocked.ps1.md](docs/references/pwsh/catzc-base-files/Test-FileIsLocked.ps1.md)"
+    docs: "[Test-FileIsLocked.ps1.md](../../docs/references/pwsh/catzc-base-files/Test-FileIsLocked.ps1.md)"
 ---
 #>
 

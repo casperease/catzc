@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "917e43ba4284"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/DocPattern.Tests.ps1
-    docs: "[DocPattern.cs.md](docs/references/pwsh/catzc-base-docs/types/DocPattern.cs.md)"
+    docs: "[DocPattern.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/DocPattern.cs.md)"
     cites:
       - ADR-AUTO-PATH
 ---

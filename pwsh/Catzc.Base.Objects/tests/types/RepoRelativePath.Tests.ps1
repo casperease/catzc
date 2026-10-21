@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1258c0d54fce"
   edges:
-    docs: "[RepoRelativePath.Tests.ps1.md](docs/references/pwsh/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md)"
+    docs: "[RepoRelativePath.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
 ---
 #>

@@ -1,4 +1,4 @@
-# ADR: DORA — Monitoring systems to inform business decisions
+# Research: DORA — Monitoring systems to inform business decisions
 
 ## Rules: RDR-DORA-MONITOR
 

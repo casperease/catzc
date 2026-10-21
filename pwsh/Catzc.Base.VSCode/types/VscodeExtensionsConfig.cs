@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "46e91ef43728"
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/types/VscodeExtensionsConfig.Tests.ps1
-    docs: "[VscodeExtensionsConfig.cs.md](docs/references/pwsh/catzc-base-vs-code/types/VscodeExtensionsConfig.cs.md)"
+    docs: "[VscodeExtensionsConfig.cs.md](../../../docs/references/pwsh/catzc-base-vs-code/types/VscodeExtensionsConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-ROOTCFG

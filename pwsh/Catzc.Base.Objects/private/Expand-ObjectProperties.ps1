@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0ecdf89132e7"
   edges:
-    docs: "[Expand-ObjectProperties.ps1.md](docs/references/pwsh/catzc-base-objects/private/Expand-ObjectProperties.ps1.md)"
+    docs: "[Expand-ObjectProperties.ps1.md](../../../docs/references/pwsh/catzc-base-objects/private/Expand-ObjectProperties.ps1.md)"
 ---
 #>
 

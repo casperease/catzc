@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: b474df69cb1b
 #   edges:
-#     docs: "[python.yml.md](docs/references/pwsh/catzc-base-languages/configs/python.yml.md)"
+#     docs: "[python.yml.md](../../../docs/references/pwsh/catzc-base-languages/configs/python.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 # ---

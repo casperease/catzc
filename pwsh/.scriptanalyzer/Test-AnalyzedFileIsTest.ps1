@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5e6d9b73a2c0"
   edges:
-    docs: "[Test-AnalyzedFileIsTest.ps1.md](docs/references/pwsh/scriptanalyzer/Test-AnalyzedFileIsTest.ps1.md)"
+    docs: "[Test-AnalyzedFileIsTest.ps1.md](../../docs/references/pwsh/scriptanalyzer/Test-AnalyzedFileIsTest.ps1.md)"
 ---
 #>
 

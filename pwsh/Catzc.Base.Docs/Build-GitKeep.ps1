@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "57e79d5e2098"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
-    docs: "[Build-GitKeep.ps1.md](docs/references/pwsh/catzc-base-docs/Build-GitKeep.ps1.md)"
+    docs: "[Build-GitKeep.ps1.md](../../docs/references/pwsh/catzc-base-docs/Build-GitKeep.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS

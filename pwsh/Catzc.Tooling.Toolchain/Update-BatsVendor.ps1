@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3c427c0c69d5"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
-    docs: "[Update-BatsVendor.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Update-BatsVendor.ps1.md)"
+    docs: "[Update-BatsVendor.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Update-BatsVendor.ps1.md)"
     cites:
       - ADR-AUTO-BASH
 ---

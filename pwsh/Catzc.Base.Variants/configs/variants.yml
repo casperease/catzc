@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "45862c2816b8"
 #   edges:
-#     docs: "[variants.yml.md](docs/references/pwsh/catzc-base-variants/configs/variants.yml.md)"
+#     docs: "[variants.yml.md](../../../docs/references/pwsh/catzc-base-variants/configs/variants.yml.md)"
 #     cites:
 #       - ADR-AZ-CUSTOMER
 #       - ADR-AZ-NAMING

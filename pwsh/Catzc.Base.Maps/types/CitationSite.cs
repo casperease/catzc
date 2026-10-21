@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: db8a44ee361c
   edges:
-    docs: "[CitationSite.cs.md](docs/references/pwsh/catzc-base-maps/types/CitationSite.cs.md)"
+    docs: "[CitationSite.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/CitationSite.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fc3244d5443c
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitIndex.Tests.ps1
-    docs: "[GitIndex.cs.md](docs/references/pwsh/catzc-base-git/types/GitIndex.cs.md)"
+    docs: "[GitIndex.cs.md](../../../docs/references/pwsh/catzc-base-git/types/GitIndex.cs.md)"
     cites:
       - ADR-AUTO-TRACKED
 ---

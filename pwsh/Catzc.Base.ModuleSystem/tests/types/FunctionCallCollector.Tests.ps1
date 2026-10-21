@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d0bde712dcb8
   edges:
-    docs: "[FunctionCallCollector.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/types/FunctionCallCollector.Tests.ps1.md)"
+    docs: "[FunctionCallCollector.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-module-system/tests/types/FunctionCallCollector.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ModuleSystem/types/FunctionCallCollector.cs
 ---
 #>

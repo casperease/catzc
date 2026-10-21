@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2611388121c0"
+    with_body_sha: "8a9ca753904b"
   edges:
-    docs: "[Program.cs.md](docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md)"
+    docs: "[Program.cs.md](../../../docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "462a82e5b7a2"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
-    docs: "[Install-BicepStandalone.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Install-BicepStandalone.ps1.md)"
+    docs: "[Install-BicepStandalone.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/private/Install-BicepStandalone.ps1.md)"
     cites:
       - ADR-AUTO-PKGMGR
 ---

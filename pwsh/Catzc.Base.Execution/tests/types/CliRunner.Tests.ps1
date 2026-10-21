@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b1ee26a67913
   edges:
-    docs: "[CliRunner.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md)"
+    docs: "[CliRunner.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Execution/types/CliRunner.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

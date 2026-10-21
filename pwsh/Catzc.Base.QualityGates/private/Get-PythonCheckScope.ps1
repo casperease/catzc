@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4985e20e2027"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-PythonCheckScope.Tests.ps1
-    docs: "[Get-PythonCheckScope.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-PythonCheckScope.ps1.md)"
+    docs: "[Get-PythonCheckScope.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-PythonCheckScope.ps1.md)"
     cites:
       - ADR-AUTO-PY-EVERYFILELINTED
 ---

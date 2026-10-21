@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a8adf58add19
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1
-    docs: "[Get-ContractCheckResults.ps1.md](docs/references/pwsh/catzc-base-contracts/Get-ContractCheckResults.ps1.md)"
+    docs: "[Get-ContractCheckResults.ps1.md](../../docs/references/pwsh/catzc-base-contracts/Get-ContractCheckResults.ps1.md)"
     cites:
       - ADR-PWSH-VERBS-SEMANTICCONTRACT
       - ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS

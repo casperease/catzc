@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "6db8b128629c"
 //   edges:
-//     docs: "[policy-assignment.bicep.md](docs/references/infrastructure/modules/policy-assignment.bicep.md)"
+//     docs: "[policy-assignment.bicep.md](../../docs/references/infrastructure/modules/policy-assignment.bicep.md)"
 // ---
 
 targetScope = 'subscription'

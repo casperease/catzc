@@ -1,4 +1,4 @@
-# ADR: DORA — Continuous integration
+# Research: DORA — Continuous integration
 
 ## Rules: RDR-DORA-CI
 

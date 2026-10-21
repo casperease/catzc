@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: bd5c34b1774b
   edges:
-    docs: "[CommentsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/CommentsConfig.Tests.ps1.md)"
+    docs: "[CommentsConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/CommentsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER

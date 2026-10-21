@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d299837dd546
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleFunction.Tests.ps1
-    docs: "[Get-ModuleFunction.ps1.md](docs/references/pwsh/catzc-base-module-system/Get-ModuleFunction.ps1.md)"
+    docs: "[Get-ModuleFunction.ps1.md](../../docs/references/pwsh/catzc-base-module-system/Get-ModuleFunction.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - DDR-RUNMODE

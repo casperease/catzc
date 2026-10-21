@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f07422f62121
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Test-ToolHomeProbe.Tests.ps1
-    docs: "[Test-ToolHomeProbe.ps1.md](docs/references/pwsh/catzc-tooling-core/private/Test-ToolHomeProbe.ps1.md)"
+    docs: "[Test-ToolHomeProbe.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/private/Test-ToolHomeProbe.ps1.md)"
 ---
 #>
 

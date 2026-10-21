@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "287cb47c2e7a"
 #   edges:
-#     docs: "[output-formats.yml.md](docs/references/pwsh/catzc-base-reports/configs/output-formats.yml.md)"
+#     docs: "[output-formats.yml.md](../../../docs/references/pwsh/catzc-base-reports/configs/output-formats.yml.md)"
 #     cites:
 #       - ADR-REPO-OUTDIR-OUTGITIGNORED
 #       - ADR-REPO-OUTDIR-PLANNOTES

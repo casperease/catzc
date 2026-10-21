@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "98da282f948a"
   edges:
-    docs: "[NoUnboundedEnumeration.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1.md)"
+    docs: "[NoUnboundedEnumeration.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1.md)"
     cites:
       - ADR-PWSH-ENUM-RAWDOTNETENUMERATION
       - ADR-PWSH-ENUM-ALWAYSBOUNDED

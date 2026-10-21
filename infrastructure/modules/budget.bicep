@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: f1ff4e7b5a3e
 //   edges:
-//     docs: "[budget.bicep.md](docs/references/infrastructure/modules/budget.bicep.md)"
+//     docs: "[budget.bicep.md](../../docs/references/infrastructure/modules/budget.bicep.md)"
 // ---
 
 targetScope = 'subscription'

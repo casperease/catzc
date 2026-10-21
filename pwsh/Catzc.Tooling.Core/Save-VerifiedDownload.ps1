@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2d3febd139ac"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1
-    docs: "[Save-VerifiedDownload.ps1.md](docs/references/pwsh/catzc-tooling-core/Save-VerifiedDownload.ps1.md)"
+    docs: "[Save-VerifiedDownload.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Save-VerifiedDownload.ps1.md)"
 ---
 #>
 

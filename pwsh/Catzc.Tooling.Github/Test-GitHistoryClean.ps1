@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "518f3984ee53"
   edges:
     test: pwsh/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
-    docs: "[Test-GitHistoryClean.ps1.md](docs/references/pwsh/catzc-tooling-github/Test-GitHistoryClean.ps1.md)"
+    docs: "[Test-GitHistoryClean.ps1.md](../../docs/references/pwsh/catzc-tooling-github/Test-GitHistoryClean.ps1.md)"
 ---
 #>
 

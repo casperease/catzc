@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c7707bed7ae1
+    with_body_sha: d477575f8d4a
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1
-    docs: "[CitationScanner.cs.md](docs/references/pwsh/catzc-base-maps/types/CitationScanner.cs.md)"
+    docs: "[CitationScanner.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/CitationScanner.cs.md)"
     cites:
       - ADR-REPO-LINK-CODELINKS
 ---

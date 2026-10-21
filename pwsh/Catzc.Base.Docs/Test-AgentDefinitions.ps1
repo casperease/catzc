@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1e39f174a06c"
+    with_body_sha: "83462d57898d"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
-    docs: "[Test-AgentDefinitions.ps1.md](docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md)"
+    docs: "[Test-AgentDefinitions.ps1.md](../../docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-AGENTS

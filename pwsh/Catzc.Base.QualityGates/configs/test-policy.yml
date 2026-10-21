@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "7501bed527f5"
 #   edges:
-#     docs: "[test-policy.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/test-policy.yml.md)"
+#     docs: "[test-policy.yml.md](../../../docs/references/pwsh/catzc-base-quality-gates/configs/test-policy.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-AUTO-TEST-TESTINGINPRODUCTION

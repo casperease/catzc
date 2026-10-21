@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e99bfc928109
   edges:
     test: pwsh/Catzc.Base.Vendor/tests/Resolve-VendorRepository.Tests.ps1
-    docs: "[Resolve-VendorRepository.ps1.md](docs/references/pwsh/catzc-base-vendor/private/Resolve-VendorRepository.ps1.md)"
+    docs: "[Resolve-VendorRepository.ps1.md](../../../docs/references/pwsh/catzc-base-vendor/private/Resolve-VendorRepository.ps1.md)"
 ---
 #>
 

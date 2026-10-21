@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ef6cf442ab39
   edges:
     test: pwsh/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
-    docs: "[Get-Inspiration.ps1.md](docs/references/pwsh/catzc-tooling-inspiration/Get-Inspiration.ps1.md)"
+    docs: "[Get-Inspiration.ps1.md](../../docs/references/pwsh/catzc-tooling-inspiration/Get-Inspiration.ps1.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-REPO-INSPIRE-SIBLINGFORIDEAS

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "40bc730d9627"
   edges:
-    docs: "[Convert-FirewallCsvToMarkdown.Tests.ps1.md](docs/references/pwsh/catzc-azure-firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1.md)"
+    docs: "[Convert-FirewallCsvToMarkdown.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
 ---
 #>

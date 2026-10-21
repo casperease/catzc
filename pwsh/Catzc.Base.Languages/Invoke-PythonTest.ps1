@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "151947906ec7"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1
-    docs: "[Invoke-PythonTest.ps1.md](docs/references/pwsh/catzc-base-languages/Invoke-PythonTest.ps1.md)"
+    docs: "[Invoke-PythonTest.ps1.md](../../docs/references/pwsh/catzc-base-languages/Invoke-PythonTest.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE
       - ADR-AUTO-ENVVAR-SETONLYFORTOOLS

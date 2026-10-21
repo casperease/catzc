@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "077feb0f35ad"
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
-    docs: "[Get-ZshInstallLayout.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/private/Get-ZshInstallLayout.ps1.md)"
+    docs: "[Get-ZshInstallLayout.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/private/Get-ZshInstallLayout.ps1.md)"
     cites:
       - ADR-AUTO-ENTERP
 ---

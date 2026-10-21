@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a44f280efaaf
   edges:
-    docs: "[Test-AnalyzerDrsMap.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-AnalyzerDrsMap.Tests.ps1.md)"
+    docs: "[Test-AnalyzerDrsMap.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-AnalyzerDrsMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-AnalyzerDrsMap.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

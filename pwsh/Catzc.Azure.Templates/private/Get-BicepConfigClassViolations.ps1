@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9fa2093dd484"
   edges:
-    docs: "[Get-BicepConfigClassViolations.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md)"
+    docs: "[Get-BicepConfigClassViolations.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
 ---

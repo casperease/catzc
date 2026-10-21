@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ffbe3f4fd8bc
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Initialize-GitClone.Tests.ps1
-    docs: "[Initialize-GitClone.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Initialize-GitClone.ps1.md)"
+    docs: "[Initialize-GitClone.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Initialize-GitClone.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
 ---

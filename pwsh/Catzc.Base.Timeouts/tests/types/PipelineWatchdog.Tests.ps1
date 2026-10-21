@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "39bcded53cc0"
   edges:
-    docs: "[PipelineWatchdog.Tests.ps1.md](docs/references/pwsh/catzc-base-timeouts/tests/types/PipelineWatchdog.Tests.ps1.md)"
+    docs: "[PipelineWatchdog.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-timeouts/tests/types/PipelineWatchdog.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
 ---
 #>

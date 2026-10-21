@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: aeb1a5ddc52a
 #   edges:
-#     docs: "[psub.yml.md](docs/references/infrastructure/templates/discovery/configuration/psub.yml.md)"
+#     docs: "[psub.yml.md](../../../../docs/references/infrastructure/templates/discovery/configuration/psub.yml.md)"
 # ---
 
 ParametersFile:

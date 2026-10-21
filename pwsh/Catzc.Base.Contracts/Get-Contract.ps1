@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "98d4ff59df79"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
-    docs: "[Get-Contract.ps1.md](docs/references/pwsh/catzc-base-contracts/Get-Contract.ps1.md)"
+    docs: "[Get-Contract.ps1.md](../../docs/references/pwsh/catzc-base-contracts/Get-Contract.ps1.md)"
     cites:
       - ADR-AUTO-PATH-COMMUNICATIONFORM
       - ADR-REPO-CONTRACT-LAYOUT

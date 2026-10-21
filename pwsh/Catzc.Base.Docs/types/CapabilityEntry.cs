@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9b5be2f53b6a"
+    with_body_sha: "48ea9690158a"
   edges:
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

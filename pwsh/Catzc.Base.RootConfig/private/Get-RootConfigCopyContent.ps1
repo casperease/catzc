@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "565ae86683ad"
   edges:
-    docs: "[Get-RootConfigCopyContent.ps1.md](docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigCopyContent.ps1.md)"
+    docs: "[Get-RootConfigCopyContent.ps1.md](../../../docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigCopyContent.ps1.md)"
     cites:
       - ADR-REPO-ROOTCFG-HEADEDCOPY
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d6dfe3407cbd
   edges:
-    docs: "[VscodeSettingsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-vs-code/tests/types/VscodeSettingsConfig.Tests.ps1.md)"
+    docs: "[VscodeSettingsConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-vs-code/tests/types/VscodeSettingsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
 ---
 #>

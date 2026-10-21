@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6f55b3cb6e82"
   edges:
-    docs: "[Get-Inspiration.Shipped.Tests.ps1.md](docs/references/pwsh/catzc-tooling-inspiration/tests/Get-Inspiration.Shipped.Tests.ps1.md)"
+    docs: "[Get-Inspiration.Shipped.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-inspiration/tests/Get-Inspiration.Shipped.Tests.ps1.md)"
     cites:
       - ADR-REPO-INSPIRE-SIBLINGFORIDEAS
 ---

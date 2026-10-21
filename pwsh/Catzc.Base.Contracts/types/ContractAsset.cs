@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9b67ca35c48c"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
-    docs: "[ContractAsset.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractAsset.cs.md)"
+    docs: "[ContractAsset.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/ContractAsset.cs.md)"
     cites:
       - ADR-AUTO-PATH-TWOFORMS
       - ADR-AUTO-PATH-COMMUNICATIONFORM

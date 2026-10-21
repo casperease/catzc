@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a85b1c7dc28f
+    with_body_sha: "9fe4346ce021"
   edges:
-    docs: "[Build-Glossary.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md)"
+    docs: "[Build-Glossary.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Build-Glossary.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1daa4f1520ba"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-LiveIdentityTokens.Tests.ps1
-    docs: "[Get-LiveIdentityTokens.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-LiveIdentityTokens.ps1.md)"
+    docs: "[Get-LiveIdentityTokens.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-LiveIdentityTokens.ps1.md)"
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-CONF-LOADING

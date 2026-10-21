@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "029b33cf5666"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1
-    docs: "[Export-SpellingTriage.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Export-SpellingTriage.ps1.md)"
+    docs: "[Export-SpellingTriage.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Export-SpellingTriage.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-SPELL-ONEVOCABULARYSOURCE

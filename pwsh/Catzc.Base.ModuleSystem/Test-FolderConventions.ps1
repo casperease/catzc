@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4e4f58deb742"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Test-FolderConventions.Tests.ps1
-    docs: "[Test-FolderConventions.ps1.md](docs/references/pwsh/catzc-base-module-system/Test-FolderConventions.ps1.md)"
+    docs: "[Test-FolderConventions.ps1.md](../../docs/references/pwsh/catzc-base-module-system/Test-FolderConventions.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-FOLDERS

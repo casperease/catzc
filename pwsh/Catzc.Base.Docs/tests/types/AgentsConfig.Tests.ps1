@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8ed14fb0c490"
   edges:
-    docs: "[AgentsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md)"
+    docs: "[AgentsConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

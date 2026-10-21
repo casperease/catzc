@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ac01d34e340d
   edges:
-    docs: "[Uninstall-PipTool.ps1.md](docs/references/pwsh/catzc-tooling-python/private/Uninstall-PipTool.ps1.md)"
+    docs: "[Uninstall-PipTool.ps1.md](../../../docs/references/pwsh/catzc-tooling-python/private/Uninstall-PipTool.ps1.md)"
 ---
 #>
 

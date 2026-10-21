@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "640a8ba6f736"
   edges:
-    docs: "[Test-IsAdministrator.ps1.md](docs/references/pwsh/catzc-base-asserts/Test-IsAdministrator.ps1.md)"
+    docs: "[Test-IsAdministrator.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Test-IsAdministrator.ps1.md)"
 ---
 #>
 

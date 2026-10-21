@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fe7fcd279c6d
+    with_body_sha: cc43e0158282
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
-    docs: "[Get-WorldMap.ps1.md](docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md)"
+    docs: "[Get-WorldMap.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-IMPORTERINVALIDATES
       - ADR-AUTO-TRACKED

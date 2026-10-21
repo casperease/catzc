@@ -1,9 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "7cad89fa4982"
+#     with_body_sha: "2b22fcb50187"
 #   edges:
-#     docs: "[links.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/links.yml.md)"
+#     docs: "[links.yml.md](../../../docs/references/pwsh/catzc-base-quality-gates/configs/links.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-PWSH-PARAM-RESOLUTIONORDER

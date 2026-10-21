@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b785fd72a9ef
   edges:
-    docs: "[NoForEachObjectControlFlow.psm1.md](docs/references/pwsh/scriptanalyzer/NoForEachObjectControlFlow.psm1.md)"
+    docs: "[NoForEachObjectControlFlow.psm1.md](../../docs/references/pwsh/scriptanalyzer/NoForEachObjectControlFlow.psm1.md)"
     cites:
       - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---

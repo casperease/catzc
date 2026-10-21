@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "468d40c35d62"
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitIgnoreConfig.Tests.ps1
-    docs: "[GitIgnoreConfig.cs.md](docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md)"
+    docs: "[GitIgnoreConfig.cs.md](../../../docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md)"
     cites:
       - ADR-CONF-LOADING
       - ADR-REPO-ROOTCFG

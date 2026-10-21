@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "02747ba025ef"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Build-DrsIndex.Tests.ps1
-    docs: "[Build-DrsIndex.ps1.md](docs/references/pwsh/catzc-base-drs/Build-DrsIndex.ps1.md)"
+    docs: "[Build-DrsIndex.ps1.md](../../docs/references/pwsh/catzc-base-drs/Build-DrsIndex.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED

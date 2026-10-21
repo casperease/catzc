@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a88477fbc7fb
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-GitAttributeValue.Tests.ps1
-    docs: "[Get-GitAttributeValue.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-GitAttributeValue.ps1.md)"
+    docs: "[Get-GitAttributeValue.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-GitAttributeValue.ps1.md)"
 ---
 #>
 

@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "88f88d0cb478"
 #   edges:
-#     docs: "[tools.yml.md](docs/references/pwsh/catzc-base-execution/configs/tools.yml.md)"
+#     docs: "[tools.yml.md](../../../docs/references/pwsh/catzc-base-execution/configs/tools.yml.md)"
 #     cites:
 #       - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
 #       - ADR-AUTO-ENGINE

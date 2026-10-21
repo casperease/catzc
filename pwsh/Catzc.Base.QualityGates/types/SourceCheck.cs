@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "02db69a71d4d"
+    with_body_sha: f51270c3de08
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/SourceCheck.Tests.ps1
-    docs: "[SourceCheck.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/SourceCheck.cs.md)"
+    docs: "[SourceCheck.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/SourceCheck.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

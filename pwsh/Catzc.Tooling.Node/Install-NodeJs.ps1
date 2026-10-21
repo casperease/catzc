@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5fa05f2cf2fe"
   edges:
-    docs: "[Install-NodeJs.ps1.md](docs/references/pwsh/catzc-tooling-node/Install-NodeJs.ps1.md)"
+    docs: "[Install-NodeJs.ps1.md](../../docs/references/pwsh/catzc-tooling-node/Install-NodeJs.ps1.md)"
 ---
 #>
 

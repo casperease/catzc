@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "909b3353a2f0"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
-    docs: "[Uninstall-AzCli.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md)"
+    docs: "[Uninstall-AzCli.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md)"
     cites:
       - ADR-AUTO-ONEJOB-CALLERHANDLESERRORS
       - ADR-AUTO-REMOVE-DOUBLYGUARDED

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6eca2b13ee83"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Invoke-Dotnet.Tests.ps1
-    docs: "[Invoke-Dotnet.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Invoke-Dotnet.ps1.md)"
+    docs: "[Invoke-Dotnet.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Invoke-Dotnet.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "579ec4b27651"
   edges:
-    docs: "[Assert-Tool.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Assert-Tool.Tests.ps1.md)"
+    docs: "[Assert-Tool.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Assert-Tool.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/Assert-Tool.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

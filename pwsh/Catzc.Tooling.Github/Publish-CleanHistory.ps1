@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e208d95bc5e3
   edges:
     test: pwsh/Catzc.Tooling.Github/tests/Publish-CleanHistory.Tests.ps1
-    docs: "[Publish-CleanHistory.ps1.md](docs/references/pwsh/catzc-tooling-github/Publish-CleanHistory.ps1.md)"
+    docs: "[Publish-CleanHistory.ps1.md](../../docs/references/pwsh/catzc-tooling-github/Publish-CleanHistory.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "412e6a85730f"
   edges:
-    docs: "[Get-BicepParameterModel.Shipped.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md)"
+    docs: "[Get-BicepParameterModel.Shipped.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
       - ADR-AUTO-TEST-GENERICTEMPLATETESTS

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "311627d480df"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
-    docs: "[Set-AdoPipelineVariable.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Set-AdoPipelineVariable.ps1.md)"
+    docs: "[Set-AdoPipelineVariable.ps1.md](../../docs/references/pwsh/catzc-azure-dev-ops/Set-AdoPipelineVariable.ps1.md)"
     cites:
       - ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT
 ---

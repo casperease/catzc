@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "28dca9c8fef4"
   edges:
-    docs: "[Get-LoadedTypeDrift.Tests.ps1.md](docs/references/pwsh/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md)"
+    docs: "[Get-LoadedTypeDrift.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md)"
     cites:
       - ADR-BCL-TYPES-STALETYPESGUARD
       - ADR-BCL-TYPES-ONEDRIFTMEASURE

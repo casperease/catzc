@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "942900dc8582"
   edges:
-    docs: "[ImprintStep.cs.md](docs/references/pwsh/catzc-base-languages/types/ImprintStep.cs.md)"
+    docs: "[ImprintStep.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/ImprintStep.cs.md)"
     cites:
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
 ---

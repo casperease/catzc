@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: b0ac11d5d62b
 #   edges:
-#     docs: "[timeouts.yml.md](docs/references/pwsh/catzc-base-timeouts/configs/timeouts.yml.md)"
+#     docs: "[timeouts.yml.md](../../../docs/references/pwsh/catzc-base-timeouts/configs/timeouts.yml.md)"
 #     cites:
 #       - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
 # ---

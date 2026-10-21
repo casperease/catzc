@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4fd4e9edcd31"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/ConvertTo-NormalName.Tests.ps1
-    docs: "[ConvertTo-NormalName.ps1.md](docs/references/pwsh/catzc-base-languages/ConvertTo-NormalName.ps1.md)"
+    docs: "[ConvertTo-NormalName.ps1.md](../../docs/references/pwsh/catzc-base-languages/ConvertTo-NormalName.ps1.md)"
     cites:
       - ADR-AUTO-IDIOM-NORMALFORM
 ---

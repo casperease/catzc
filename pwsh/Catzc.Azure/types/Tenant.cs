@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a0eafd744426
   edges:
-    docs: "[Tenant.cs.md](docs/references/pwsh/catzc-azure/types/Tenant.cs.md)"
+    docs: "[Tenant.cs.md](../../../docs/references/pwsh/catzc-azure/types/Tenant.cs.md)"
 ---
 */
 

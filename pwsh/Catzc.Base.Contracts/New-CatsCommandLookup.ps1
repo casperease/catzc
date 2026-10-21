@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f6a7cc5bbb78
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/New-CatsCommandLookup.Tests.ps1
-    docs: "[New-CatsCommandLookup.ps1.md](docs/references/pwsh/catzc-base-contracts/New-CatsCommandLookup.ps1.md)"
+    docs: "[New-CatsCommandLookup.ps1.md](../../docs/references/pwsh/catzc-base-contracts/New-CatsCommandLookup.ps1.md)"
     cites:
       - ADR-REPO-CMDCONTRACT-ONEREADER
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7e6fa7937d71"
   edges:
     test: pwsh/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
-    docs: "[Install-Python.ps1.md](docs/references/pwsh/catzc-tooling-python/Install-Python.ps1.md)"
+    docs: "[Install-Python.ps1.md](../../docs/references/pwsh/catzc-tooling-python/Install-Python.ps1.md)"
 ---
 #>
 

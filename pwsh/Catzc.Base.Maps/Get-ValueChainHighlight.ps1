@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5cc1ca1ae50a"
+    with_body_sha: "7f152e0e7f8b"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
-    docs: "[Get-ValueChainHighlight.ps1.md](docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md)"
+    docs: "[Get-ValueChainHighlight.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md)"
     cites:
       - ADR-AUTO-TEST
       - DDR-TRACK-ONETECHSTACK

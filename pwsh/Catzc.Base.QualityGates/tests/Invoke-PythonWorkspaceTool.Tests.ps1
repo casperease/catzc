@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "952fa887ccb6"
   edges:
-    docs: "[Invoke-PythonWorkspaceTool.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-PythonWorkspaceTool.Tests.ps1.md)"
+    docs: "[Invoke-PythonWorkspaceTool.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-PythonWorkspaceTool.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

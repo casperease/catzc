@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f8173c18a118
   edges:
-    docs: "[Set-RedirectedOutputEncoding.Tests.ps1.md](docs/references/pwsh/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md)"
+    docs: "[Set-RedirectedOutputEncoding.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md)"
     cites:
       - ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT
       - ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE

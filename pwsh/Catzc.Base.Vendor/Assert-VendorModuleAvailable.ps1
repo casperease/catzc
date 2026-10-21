@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "82ff7f0eb08f"
   edges:
     test: pwsh/Catzc.Base.Vendor/tests/Assert-VendorModuleAvailable.Tests.ps1
-    docs: "[Assert-VendorModuleAvailable.ps1.md](docs/references/pwsh/catzc-base-vendor/Assert-VendorModuleAvailable.ps1.md)"
+    docs: "[Assert-VendorModuleAvailable.ps1.md](../../docs/references/pwsh/catzc-base-vendor/Assert-VendorModuleAvailable.ps1.md)"
 ---
 #>
 

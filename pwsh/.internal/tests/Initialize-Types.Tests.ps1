@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "23212beee3e0"
   edges:
-    docs: "[Initialize-Types.Tests.ps1.md](docs/references/pwsh/internal/tests/Initialize-Types.Tests.ps1.md)"
+    docs: "[Initialize-Types.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Initialize-Types.Tests.ps1.md)"
 ---
 #>
 

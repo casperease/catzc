@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "79ce61134364"
   edges:
-    docs: "[New-RepositorySnapshot.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/New-RepositorySnapshot.Tests.ps1.md)"
+    docs: "[New-RepositorySnapshot.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-git/tests/New-RepositorySnapshot.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Git/New-RepositorySnapshot.ps1
 ---
 #>

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ad5149184748
   edges:
-    docs: "[Resolve-ConfigEntry.ps1.md](docs/references/pwsh/catzc-base-config/private/Resolve-ConfigEntry.ps1.md)"
+    docs: "[Resolve-ConfigEntry.ps1.md](../../../docs/references/pwsh/catzc-base-config/private/Resolve-ConfigEntry.ps1.md)"
     cites:
       - ADR-AUTO-OVERLAY
       - ADR-PWSH-CACHE-STRICTSAFEPROBE

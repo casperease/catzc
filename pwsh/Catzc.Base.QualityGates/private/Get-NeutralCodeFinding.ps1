@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ab815a0d465d
+    with_body_sha: f8d1c8941210
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1
-    docs: "[Get-NeutralCodeFinding.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-NeutralCodeFinding.ps1.md)"
+    docs: "[Get-NeutralCodeFinding.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-NeutralCodeFinding.ps1.md)"
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

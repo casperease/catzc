@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5572da33bc67"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Test-IsGuid.Tests.ps1
-    docs: "[Test-IsGuid.ps1.md](docs/references/pwsh/catzc-base-asserts/Test-IsGuid.ps1.md)"
+    docs: "[Test-IsGuid.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Test-IsGuid.ps1.md)"
 ---
 #>
 

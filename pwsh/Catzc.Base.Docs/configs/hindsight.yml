@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "8d72f571764f"
 #   edges:
-#     docs: "[hindsight.yml.md](docs/references/pwsh/catzc-base-docs/configs/hindsight.yml.md)"
+#     docs: "[hindsight.yml.md](../../../docs/references/pwsh/catzc-base-docs/configs/hindsight.yml.md)"
 # ---
 
 folder: .claude/hindsight

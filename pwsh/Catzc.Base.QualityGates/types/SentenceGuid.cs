@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1865c0098409"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1
-    docs: "[SentenceGuid.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/SentenceGuid.cs.md)"
+    docs: "[SentenceGuid.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/SentenceGuid.cs.md)"
     cites:
       - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
 ---

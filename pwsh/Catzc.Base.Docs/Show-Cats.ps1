@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b81a62b83571
+    with_body_sha: b646130d337d
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1
-    docs: "[Show-Cats.ps1.md](docs/references/pwsh/catzc-base-docs/Show-Cats.ps1.md)"
+    docs: "[Show-Cats.ps1.md](../../docs/references/pwsh/catzc-base-docs/Show-Cats.ps1.md)"
     cites:
       - ADR-AUTO-CACHE
       - ADR-AUTO-CONSOLE

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1bc0674ce148"
   edges:
     test: pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
-    docs: "[Get-PathModule.ps1.md](docs/references/pwsh/catzc-base-variants/Get-PathModule.ps1.md)"
+    docs: "[Get-PathModule.ps1.md](../../docs/references/pwsh/catzc-base-variants/Get-PathModule.ps1.md)"
     cites:
       - DDR-TRACK-ONETECHSTACK
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e85012d0c5fd
   edges:
-    docs: "[OutputFormat.cs.md](docs/references/pwsh/catzc-base-reports/types/OutputFormat.cs.md)"
+    docs: "[OutputFormat.cs.md](../../../docs/references/pwsh/catzc-base-reports/types/OutputFormat.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-OUTFMT-OUTPUTFORMAT

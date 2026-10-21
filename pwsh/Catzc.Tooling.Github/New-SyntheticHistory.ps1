@@ -5,7 +5,7 @@ catzc:
     with_body_sha: cb595304ff8c
   edges:
     test: pwsh/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1
-    docs: "[New-SyntheticHistory.ps1.md](docs/references/pwsh/catzc-tooling-github/New-SyntheticHistory.ps1.md)"
+    docs: "[New-SyntheticHistory.ps1.md](../../docs/references/pwsh/catzc-tooling-github/New-SyntheticHistory.ps1.md)"
 ---
 #>
 

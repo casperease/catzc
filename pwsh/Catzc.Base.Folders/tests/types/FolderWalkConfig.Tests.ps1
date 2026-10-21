@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c5bfd45b3a20
   edges:
-    docs: "[FolderWalkConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md)"
+    docs: "[FolderWalkConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Folders/types/FolderWalkConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER

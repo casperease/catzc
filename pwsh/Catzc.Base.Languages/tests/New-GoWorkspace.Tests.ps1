@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b4913e25f348
   edges:
-    docs: "[New-GoWorkspace.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md)"
+    docs: "[New-GoWorkspace.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
     cites:
       - ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM

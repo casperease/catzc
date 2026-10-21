@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "370203c19a6b"
   edges:
     test: pwsh/Catzc.Base.Objects/tests/ConvertTo-YamlSafe.Tests.ps1
-    docs: "[ConvertTo-YamlSafe.ps1.md](docs/references/pwsh/catzc-base-objects/ConvertTo-YamlSafe.ps1.md)"
+    docs: "[ConvertTo-YamlSafe.ps1.md](../../docs/references/pwsh/catzc-base-objects/ConvertTo-YamlSafe.ps1.md)"
 ---
 #>
 

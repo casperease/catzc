@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3f5e3b2943c3"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-PsModule.Tests.ps1
-    docs: "[Assert-PsModule.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-PsModule.ps1.md)"
+    docs: "[Assert-PsModule.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Assert-PsModule.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8c1c79456993"
   edges:
-    docs: "[AnnounceStateChange.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/AnnounceStateChange.Tests.ps1.md)"
+    docs: "[AnnounceStateChange.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/AnnounceStateChange.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
       - ADR-PWSH-ANNOUNCE-INFORMATIONRECORD

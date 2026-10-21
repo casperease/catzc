@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b232547964cc
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-False.Tests.ps1
-    docs: "[Assert-False.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-False.ps1.md)"
+    docs: "[Assert-False.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Assert-False.ps1.md)"
 ---
 #>
 

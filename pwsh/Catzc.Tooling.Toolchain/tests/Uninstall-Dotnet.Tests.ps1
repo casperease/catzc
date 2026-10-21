@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c8eff2c715bd
   edges:
-    docs: "[Uninstall-Dotnet.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Uninstall-Dotnet.Tests.ps1.md)"
+    docs: "[Uninstall-Dotnet.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Uninstall-Dotnet.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/Uninstall-Dotnet.ps1
     cites:
       - ADR-AUTO-REMOVE-DOUBLYGUARDED

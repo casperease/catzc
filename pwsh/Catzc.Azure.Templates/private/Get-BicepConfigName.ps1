@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c59c3b8929fa
   edges:
-    docs: "[Get-BicepConfigName.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md)"
+    docs: "[Get-BicepConfigName.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigName.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
 ---

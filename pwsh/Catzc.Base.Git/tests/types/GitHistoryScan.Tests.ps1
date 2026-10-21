@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "403639cf6799"
   edges:
-    docs: "[GitHistoryScan.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md)"
+    docs: "[GitHistoryScan.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Git/types/GitHistoryScan.cs
 ---
 #>

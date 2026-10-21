@@ -5,7 +5,7 @@ catzc:
     with_body_sha: de5ae447088e
   edges:
     test: pwsh/Catzc.Base.Writers/tests/Write-Footer.Tests.ps1
-    docs: "[Write-Footer.ps1.md](docs/references/pwsh/catzc-base-writers/Write-Footer.ps1.md)"
+    docs: "[Write-Footer.ps1.md](../../docs/references/pwsh/catzc-base-writers/Write-Footer.ps1.md)"
 ---
 #>
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "65f58f53bcc4"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
-    docs: "[Get-GlobSetTrigger.ps1.md](docs/references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md)"
+    docs: "[Get-GlobSetTrigger.ps1.md](../../docs/references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md)"
     cites:
       - FDR-CD-GLOBS-NAMEDGLOBSETS
       - FDR-CD-GLOBS-TRACKEDFILESONLY

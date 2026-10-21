@@ -95,8 +95,8 @@ that catzc reads like any other, at a pinned commit.
 A responsibility domain is set by where git can enforce who may change what. Git's hard controls, the right to read, to push, and to merge
 into a protected branch, apply to a repository as a whole, so a repository is the smallest unit that can carry one responsibility. One
 organisation, team, product, or person owns it, and everything it owns is code in it, except the secrets injected at deploy time. A
-responsibility domain is not an ADR domain: an ADR domain groups decision records, and a responsibility domain is what a repository is
-accountable for.
+responsibility domain is not a decision-record domain: a decision-record domain groups decision records, and a responsibility domain is what
+a repository is accountable for.
 
 ### Fact sources
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5c1c3516fd0e"
   edges:
-    docs: "[HelveticaMetrics.cs.md](docs/references/pwsh/catzc-base-maps/types/HelveticaMetrics.cs.md)"
+    docs: "[HelveticaMetrics.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/HelveticaMetrics.cs.md)"
     cites:
       - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
 ---

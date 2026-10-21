@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ee3446b832fe
   edges:
     test: pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
-    docs: "[Get-Track.ps1.md](docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md)"
+    docs: "[Get-Track.ps1.md](../../docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md)"
     cites:
       - DDR-TRACK
       - DDR-TRACKTYPE-CLOSEDSETOFTYPES

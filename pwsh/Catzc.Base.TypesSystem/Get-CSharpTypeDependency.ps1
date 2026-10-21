@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "619c2f08d70f"
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
-    docs: "[Get-CSharpTypeDependency.ps1.md](docs/references/pwsh/catzc-base-types-system/Get-CSharpTypeDependency.ps1.md)"
+    docs: "[Get-CSharpTypeDependency.ps1.md](../../docs/references/pwsh/catzc-base-types-system/Get-CSharpTypeDependency.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - DDR-RUNMODE

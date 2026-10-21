@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "781a913e1661"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/FilesConfig.Tests.ps1
-    docs: "[FilesConfig.cs.md](docs/references/pwsh/catzc-base-module-system/types/FilesConfig.cs.md)"
+    docs: "[FilesConfig.cs.md](../../../docs/references/pwsh/catzc-base-module-system/types/FilesConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

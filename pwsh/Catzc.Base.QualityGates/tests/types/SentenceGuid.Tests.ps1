@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6413510c67f0"
   edges:
-    docs: "[SentenceGuid.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/SentenceGuid.Tests.ps1.md)"
+    docs: "[SentenceGuid.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/SentenceGuid.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/SentenceGuid.cs
 ---
 #>

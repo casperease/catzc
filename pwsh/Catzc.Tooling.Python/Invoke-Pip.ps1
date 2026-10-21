@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3f419eb4568e"
   edges:
     test: pwsh/Catzc.Tooling.Python/tests/Invoke-Pip.Tests.ps1
-    docs: "[Invoke-Pip.ps1.md](docs/references/pwsh/catzc-tooling-python/Invoke-Pip.ps1.md)"
+    docs: "[Invoke-Pip.ps1.md](../../docs/references/pwsh/catzc-tooling-python/Invoke-Pip.ps1.md)"
 ---
 #>
 

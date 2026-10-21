@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "000ab308145d"
 //   edges:
-//     docs: "[nsg.bicep.md](docs/references/infrastructure/modules/nsg.bicep.md)"
+//     docs: "[nsg.bicep.md](../../docs/references/infrastructure/modules/nsg.bicep.md)"
 // ---
 
 @description('Network security group name (1-80 characters, unique within the resource group).')

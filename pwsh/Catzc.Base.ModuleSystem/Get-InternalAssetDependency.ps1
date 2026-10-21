@@ -5,7 +5,7 @@ catzc:
     with_body_sha: de84fe6a6fea
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Tests.ps1
-    docs: "[Get-InternalAssetDependency.ps1.md](docs/references/pwsh/catzc-base-module-system/Get-InternalAssetDependency.ps1.md)"
+    docs: "[Get-InternalAssetDependency.ps1.md](../../docs/references/pwsh/catzc-base-module-system/Get-InternalAssetDependency.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-LITERALCHILDPATH
       - DDR-RUNMODE

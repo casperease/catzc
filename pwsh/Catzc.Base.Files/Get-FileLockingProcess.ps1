@@ -5,7 +5,7 @@ catzc:
     with_body_sha: af916832e28c
   edges:
     test: pwsh/Catzc.Base.Files/tests/Get-FileLockingProcess.Tests.ps1
-    docs: "[Get-FileLockingProcess.ps1.md](docs/references/pwsh/catzc-base-files/Get-FileLockingProcess.ps1.md)"
+    docs: "[Get-FileLockingProcess.ps1.md](../../docs/references/pwsh/catzc-base-files/Get-FileLockingProcess.ps1.md)"
 ---
 #>
 

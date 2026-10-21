@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "78bd4e413c04"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/ImportMix.Tests.ps1
-    docs: "[ImportMix.cs.md](docs/references/pwsh/catzc-base-module-system/types/ImportMix.cs.md)"
+    docs: "[ImportMix.cs.md](../../../docs/references/pwsh/catzc-base-module-system/types/ImportMix.cs.md)"
     cites:
       - ADR-AUTO-IMPORTER-ONEMIXRECORD
 ---

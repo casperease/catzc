@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "494dc90b5e2f"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaFact.Tests.ps1
-    docs: "[Get-FileMetaFact.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Get-FileMetaFact.ps1.md)"
+    docs: "[Get-FileMetaFact.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Get-FileMetaFact.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION
       - ADR-REPO-FILEMETA-NOREADBACK

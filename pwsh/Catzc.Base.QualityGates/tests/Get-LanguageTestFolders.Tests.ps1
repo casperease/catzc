@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f4ec1795e427
   edges:
-    docs: "[Get-LanguageTestFolders.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-LanguageTestFolders.Tests.ps1.md)"
+    docs: "[Get-LanguageTestFolders.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-LanguageTestFolders.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1
     cites:
       - ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM

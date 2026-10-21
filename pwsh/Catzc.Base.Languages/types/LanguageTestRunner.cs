@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8c346170b8b5"
   edges:
-    docs: "[LanguageTestRunner.cs.md](docs/references/pwsh/catzc-base-languages/types/LanguageTestRunner.cs.md)"
+    docs: "[LanguageTestRunner.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/LanguageTestRunner.cs.md)"
     cites:
       - ADR-AUTO-MODULE-CHECKSBYLANGUAGE
 ---

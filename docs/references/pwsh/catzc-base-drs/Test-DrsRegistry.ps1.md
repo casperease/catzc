@@ -35,8 +35,8 @@ gate's.
 
 ### parameter `OutputFolder`
 
-The report base folder. Defaults to out/test-adr-registry/ (Write-QualityGateReport); a check in report mode writes under
-`<OutputFolder>/adr-<check>/` when it is given, else under its own default folder.
+The report base folder. Defaults to out/test-drs-registry/ (Write-QualityGateReport); a check in report mode writes under
+`<OutputFolder>/drs-<check>/` when it is given, else under its own default folder.
 
 ### parameter `PassThru`
 

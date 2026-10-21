@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ebe30c79cbf2
   edges:
     test: pwsh/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
-    docs: "[Get-ConfigRegistry.ps1.md](docs/references/pwsh/catzc-base-config/private/Get-ConfigRegistry.ps1.md)"
+    docs: "[Get-ConfigRegistry.ps1.md](../../../docs/references/pwsh/catzc-base-config/private/Get-ConfigRegistry.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
       - ADR-PWSH-CACHE-STRICTSAFEPROBE

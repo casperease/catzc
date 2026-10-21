@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "212319fa5de6"
   edges:
-    docs: "[Format-Types.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Format-Types.Tests.ps1.md)"
+    docs: "[Format-Types.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Format-Types.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Format-Types.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

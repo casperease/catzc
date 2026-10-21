@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6485e5225ec1"
   edges:
-    docs: "[Test-ModuleDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/Test-ModuleDependency.Tests.ps1.md)"
+    docs: "[Test-ModuleDependency.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-module-system/tests/Test-ModuleDependency.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
     cites:
       - ADR-AUTO-TEST-QUALITYGATE

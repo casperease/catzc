@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4ff3a6a470b3"
   edges:
-    docs: "[NoBareCacheEntryRead.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md)"
+    docs: "[NoBareCacheEntryRead.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md)"
     cites:
       - ADR-PWSH-CACHE-STRICTSAFEPROBE
 ---

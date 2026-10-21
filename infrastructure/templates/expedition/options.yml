@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "72a1de5222a0"
 #   edges:
-#     docs: "[options.yml.md](docs/references/infrastructure/templates/expedition/options.yml.md)"
+#     docs: "[options.yml.md](../../../docs/references/infrastructure/templates/expedition/options.yml.md)"
 #     cites:
 #       - ADR-AZ-DATAMOD
 # ---

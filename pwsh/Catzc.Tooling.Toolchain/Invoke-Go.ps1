@@ -5,7 +5,7 @@ catzc:
     with_body_sha: dabb3204f8ab
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Invoke-Go.Tests.ps1
-    docs: "[Invoke-Go.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Invoke-Go.ps1.md)"
+    docs: "[Invoke-Go.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Invoke-Go.ps1.md)"
 ---
 #>
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f99c9e095374
   edges:
-    docs: "[Test-ModuleCycles.Tests.ps1.md](docs/references/pwsh/catzc-base-module-system/tests/Test-ModuleCycles.Tests.ps1.md)"
+    docs: "[Test-ModuleCycles.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-module-system/tests/Test-ModuleCycles.Tests.ps1.md)"
     code: pwsh/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

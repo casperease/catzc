@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a75e81cf9f96
   edges:
-    docs: "[Connect-AzCli.ps1.md](docs/references/pwsh/catzc-azure-cli/Connect-AzCli.ps1.md)"
+    docs: "[Connect-AzCli.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Connect-AzCli.ps1.md)"
 ---
 #>
 

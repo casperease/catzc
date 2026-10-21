@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: afc169404b87
   edges:
-    docs: "[GitIndex.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/types/GitIndex.Tests.ps1.md)"
+    docs: "[GitIndex.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-git/tests/types/GitIndex.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Git/types/GitIndex.cs
 ---
 #>

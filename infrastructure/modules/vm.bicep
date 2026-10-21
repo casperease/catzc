@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: dcba6cf46426
 //   edges:
-//     docs: "[vm.bicep.md](docs/references/infrastructure/modules/vm.bicep.md)"
+//     docs: "[vm.bicep.md](../../docs/references/infrastructure/modules/vm.bicep.md)"
 // ---
 
 @description('VM name. Also used as the Windows computer name, so keep it <= 15 chars.')

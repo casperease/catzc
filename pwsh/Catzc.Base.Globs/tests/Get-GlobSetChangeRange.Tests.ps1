@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c829894d7e15
   edges:
-    docs: "[Get-GlobSetChangeRange.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md)"
+    docs: "[Get-GlobSetChangeRange.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
     cites:
       - FDR-CD-DETECT

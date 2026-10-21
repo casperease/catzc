@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5a5f939a0225"
   edges:
     test: pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
-    docs: "[ArtifactRef.cs.md](docs/references/pwsh/catzc-base-objects/types/ArtifactRef.cs.md)"
+    docs: "[ArtifactRef.cs.md](../../../docs/references/pwsh/catzc-base-objects/types/ArtifactRef.cs.md)"
     cites:
       - ADR-AUTO-PATH-PUBLISHEDARTIFACT
 ---

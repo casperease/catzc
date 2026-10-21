@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "53424666c451"
   edges:
-    docs: "[Invoke-AdoScript.ps1.md](docs/references/ado/pipelines/Invoke-AdoScript.ps1.md)"
+    docs: "[Invoke-AdoScript.ps1.md](../../docs/references/ado/pipelines/Invoke-AdoScript.ps1.md)"
 ---
 #>
 

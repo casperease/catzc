@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "68f447ff5f59"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/Assert-CompletesWithin.Tests.ps1
-    docs: "[Assert-CompletesWithin.ps1.md](docs/references/pwsh/catzc-base-timeouts/Assert-CompletesWithin.ps1.md)"
+    docs: "[Assert-CompletesWithin.ps1.md](../../docs/references/pwsh/catzc-base-timeouts/Assert-CompletesWithin.ps1.md)"
 ---
 #>
 

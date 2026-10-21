@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: e69a36f01833
 #   edges:
-#     docs: "[glossary.yml.md](docs/references/pwsh/catzc-azure-templates/configs/glossary.yml.md)"
+#     docs: "[glossary.yml.md](../../../docs/references/pwsh/catzc-azure-templates/configs/glossary.yml.md)"
 #     cites:
 #       - ADR-AZ-CAF-NAME-DEFINETAGGINGREQUIREMENTS
 #       - ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS

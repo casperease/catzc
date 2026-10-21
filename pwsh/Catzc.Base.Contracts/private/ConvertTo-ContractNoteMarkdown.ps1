@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a7a9363f793e
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
-    docs: "[ConvertTo-ContractNoteMarkdown.ps1.md](docs/references/pwsh/catzc-base-contracts/private/ConvertTo-ContractNoteMarkdown.ps1.md)"
+    docs: "[ConvertTo-ContractNoteMarkdown.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/ConvertTo-ContractNoteMarkdown.ps1.md)"
     cites:
       - ADR-REPO-LINK-MARKDOWNRELATIVE
       - ADR-REPO-LINK-CODELINKS

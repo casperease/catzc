@@ -5,7 +5,7 @@ catzc:
     with_body_sha: cc09f1ef49b8
   edges:
     test: pwsh/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
-    docs: "[Import-PSReadLineKeyHandlerSet.ps1.md](docs/references/pwsh/catzc-tooling-key-handler/Import-PSReadLineKeyHandlerSet.ps1.md)"
+    docs: "[Import-PSReadLineKeyHandlerSet.ps1.md](../../docs/references/pwsh/catzc-tooling-key-handler/Import-PSReadLineKeyHandlerSet.ps1.md)"
 ---
 #>
 

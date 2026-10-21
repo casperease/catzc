@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "078e852b2cd3"
   edges:
-    docs: "[Resolve-WriterColor.ps1.md](docs/references/pwsh/catzc-base-writers/private/Resolve-WriterColor.ps1.md)"
+    docs: "[Resolve-WriterColor.ps1.md](../../../docs/references/pwsh/catzc-base-writers/private/Resolve-WriterColor.ps1.md)"
 ---
 #>
 

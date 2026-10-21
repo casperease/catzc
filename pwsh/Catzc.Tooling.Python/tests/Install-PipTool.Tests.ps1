@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2db11be3d61a"
   edges:
-    docs: "[Install-PipTool.Tests.ps1.md](docs/references/pwsh/catzc-tooling-python/tests/Install-PipTool.Tests.ps1.md)"
+    docs: "[Install-PipTool.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-python/tests/Install-PipTool.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Python/private/Install-PipTool.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

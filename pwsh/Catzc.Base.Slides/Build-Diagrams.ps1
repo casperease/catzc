@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ed4490c34d3d
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1
-    docs: "[Build-Diagrams.ps1.md](docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md)"
+    docs: "[Build-Diagrams.ps1.md](../../docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md)"
     cites:
       - ADR-REPO-SLIDES-MINIMAPSFROMDATA
 ---

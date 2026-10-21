@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "886097c26a5e"
   edges:
-    docs: "[Get-PackageTreePlan.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Get-PackageTreePlan.Tests.ps1.md)"
+    docs: "[Get-PackageTreePlan.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Get-PackageTreePlan.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

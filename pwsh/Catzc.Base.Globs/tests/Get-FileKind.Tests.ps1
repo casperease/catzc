@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f69f80ffab37
+    with_body_sha: "7ecf297e6809"
   edges:
     code: pwsh/Catzc.Base.Globs/Get-FileKind.ps1
     cites:

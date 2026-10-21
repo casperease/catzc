@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e1fd8b866ada
+    with_body_sha: "4fcecc967983"
   edges:
-    docs: "[Write-TestAutomationArtifacts.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationArtifacts.ps1.md)"
+    docs: "[Write-TestAutomationArtifacts.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationArtifacts.ps1.md)"
 ---
 #>
 

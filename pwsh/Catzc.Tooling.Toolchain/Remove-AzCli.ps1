@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "30449a9f204b"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
-    docs: "[Remove-AzCli.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Remove-AzCli.ps1.md)"
+    docs: "[Remove-AzCli.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Remove-AzCli.ps1.md)"
     cites:
       - ADR-AUTO-REMOVE
 ---

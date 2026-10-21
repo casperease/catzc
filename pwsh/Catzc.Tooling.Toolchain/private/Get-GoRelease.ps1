@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4fc868d24f79"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Get-GoRelease.Tests.ps1
-    docs: "[Get-GoRelease.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Get-GoRelease.ps1.md)"
+    docs: "[Get-GoRelease.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/private/Get-GoRelease.ps1.md)"
 ---
 #>
 

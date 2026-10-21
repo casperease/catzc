@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "55457d2ae4a4"
   edges:
-    docs: "[GlossaryAvoid.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryAvoid.cs.md)"
+    docs: "[GlossaryAvoid.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/GlossaryAvoid.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED

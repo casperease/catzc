@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "47eedec0d96f"
   edges:
     test: pwsh/Catzc.Base.Vendor/tests/Install-VendorModule.Tests.ps1
-    docs: "[Install-VendorModule.ps1.md](docs/references/pwsh/catzc-base-vendor/Install-VendorModule.ps1.md)"
+    docs: "[Install-VendorModule.ps1.md](../../docs/references/pwsh/catzc-base-vendor/Install-VendorModule.ps1.md)"
     cites:
       - ADR-PWSH-VENDOR
       - DDR-RUNMODE

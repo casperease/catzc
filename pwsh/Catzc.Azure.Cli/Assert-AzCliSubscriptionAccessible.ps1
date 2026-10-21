@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f417ea82feda
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Assert-AzCliSubscriptionAccessible.Tests.ps1
-    docs: "[Assert-AzCliSubscriptionAccessible.ps1.md](docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md)"
+    docs: "[Assert-AzCliSubscriptionAccessible.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST
       - ADR-AZ-CLI-AZBYDEFAULT

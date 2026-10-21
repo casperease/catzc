@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9eddaa7b8c15"
   edges:
-    docs: "[Catzc.Internal.Bootstrap.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md)"
+    docs: "[Catzc.Internal.Bootstrap.psm1.md](../../docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
       - ADR-BCL-TYPES-ONEDRIFTMEASURE

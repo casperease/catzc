@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "906909e5317f"
   edges:
     test: pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
-    docs: "[Select-SupportedKeyHandler.ps1.md](docs/references/pwsh/catzc-tooling-key-handler/private/Select-SupportedKeyHandler.ps1.md)"
+    docs: "[Select-SupportedKeyHandler.ps1.md](../../../docs/references/pwsh/catzc-tooling-key-handler/private/Select-SupportedKeyHandler.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-READONLYVALUES
       - ADR-AUTO-TEST

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "03852265f71f"
   edges:
     test: pwsh/Catzc.Base.Repository/tests/Get-OutputRoot.Tests.ps1
-    docs: "[Get-OutputRoot.ps1.md](docs/references/pwsh/catzc-base-repository/Get-OutputRoot.ps1.md)"
+    docs: "[Get-OutputRoot.ps1.md](../../docs/references/pwsh/catzc-base-repository/Get-OutputRoot.ps1.md)"
 ---
 #>
 

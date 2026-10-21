@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: bc9c70d01068
   edges:
-    docs: "[Build-Readme.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-Readme.Tests.ps1.md)"
+    docs: "[Build-Readme.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Build-Readme.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Build-Readme.ps1
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS

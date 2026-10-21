@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a21504902f78
   edges:
     test: pwsh/Catzc.Base.Variants/tests/Get-AspectDeclaration.Tests.ps1
-    docs: "[Get-AspectDeclaration.ps1.md](docs/references/pwsh/catzc-base-variants/Get-AspectDeclaration.ps1.md)"
+    docs: "[Get-AspectDeclaration.ps1.md](../../docs/references/pwsh/catzc-base-variants/Get-AspectDeclaration.ps1.md)"
     cites:
       - ADR-REPO-VARIANT
 ---

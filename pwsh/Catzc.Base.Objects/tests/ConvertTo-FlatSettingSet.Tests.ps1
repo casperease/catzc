@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e5aec553d6b8
   edges:
-    docs: "[ConvertTo-FlatSettingSet.Tests.ps1.md](docs/references/pwsh/catzc-base-objects/tests/ConvertTo-FlatSettingSet.Tests.ps1.md)"
+    docs: "[ConvertTo-FlatSettingSet.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-objects/tests/ConvertTo-FlatSettingSet.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Objects/ConvertTo-FlatSettingSet.ps1
 ---
 #>

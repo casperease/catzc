@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ceb840d5cdaa
   edges:
-    docs: "[Get-AdoYamlFiles.Tests.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/tests/Get-AdoYamlFiles.Tests.ps1.md)"
+    docs: "[Get-AdoYamlFiles.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-dev-ops/tests/Get-AdoYamlFiles.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.DevOps/Get-AdoYamlFiles.ps1
     cites:
       - ADR-AUTO-TEST-ONEIMPORTPERCASE

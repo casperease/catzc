@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5f02df4e92bd"
   edges:
-    docs: "[Get-ContractCheckResults.Repository.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-ContractCheckResults.Repository.Tests.ps1.md)"
+    docs: "[Get-ContractCheckResults.Repository.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/tests/Get-ContractCheckResults.Repository.Tests.ps1.md)"
     cites:
       - ADR-REPO-CONTRACT-PROVENBYTESTS
 ---

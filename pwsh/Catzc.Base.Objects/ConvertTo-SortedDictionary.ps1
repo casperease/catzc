@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "84a877614729"
   edges:
     test: pwsh/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
-    docs: "[ConvertTo-SortedDictionary.ps1.md](docs/references/pwsh/catzc-base-objects/ConvertTo-SortedDictionary.ps1.md)"
+    docs: "[ConvertTo-SortedDictionary.ps1.md](../../docs/references/pwsh/catzc-base-objects/ConvertTo-SortedDictionary.ps1.md)"
 ---
 #>
 

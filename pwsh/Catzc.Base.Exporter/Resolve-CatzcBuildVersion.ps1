@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e30f6d71c5f0
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/Resolve-CatzcBuildVersion.Tests.ps1
-    docs: "[Resolve-CatzcBuildVersion.ps1.md](docs/references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md)"
+    docs: "[Resolve-CatzcBuildVersion.ps1.md](../../docs/references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md)"
     cites:
       - ADR-AUTO-BUNDLE-AUTOVERSION
       - ADR-PWSH-ERROR-STOPONWARNING

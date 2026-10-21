@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7f2536332d1a"
   edges:
-    docs: "[Install-Postman.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Install-Postman.Tests.ps1.md)"
+    docs: "[Install-Postman.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Install-Postman.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/Install-Postman.ps1
 ---
 #>

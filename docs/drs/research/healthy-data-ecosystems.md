@@ -1,4 +1,4 @@
-# ADR: DORA — Healthy data ecosystems
+# Research: DORA — Healthy data ecosystems
 
 ## Rules: RDR-DORA-DATAECO
 

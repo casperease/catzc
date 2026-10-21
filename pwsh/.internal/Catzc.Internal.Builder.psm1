@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f973dc61a3fc
   edges:
-    docs: "[Catzc.Internal.Builder.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md)"
+    docs: "[Catzc.Internal.Builder.psm1.md](../../docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY
       - ADR-AUTO-BUNDLE

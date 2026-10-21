@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "766d66d3cbbc"
   edges:
-    docs: "[Uninstall-Git.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Git.Tests.ps1.md)"
+    docs: "[Uninstall-Git.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Git.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/Uninstall-Git.ps1
 ---
 #>

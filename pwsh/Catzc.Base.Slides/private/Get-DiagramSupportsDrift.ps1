@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ec9105a5c1a4
+    with_body_sha: fc0bb8bc4b29
   edges:
-    docs: "[Get-DiagramSupportsDrift.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-DiagramSupportsDrift.ps1.md)"
+    docs: "[Get-DiagramSupportsDrift.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramSupportsDrift.ps1.md)"
     cites:
       - ADR-REPO-SLIDES-ONEBUILDCOMMAND
 ---

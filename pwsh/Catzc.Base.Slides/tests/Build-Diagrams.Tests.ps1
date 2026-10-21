@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3b040428d624"
+    with_body_sha: a1f0a9f8171d
   edges:
     code: pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
     cites:

@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "129ebd41b071"
+    with_body_sha: "51498150fb4a"
   edges:
-    docs: "[Catzc.Internal.Importer.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md)"
+    docs: "[Catzc.Internal.Importer.psm1.md](../../docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md)"
     cites:
       - ADR-AUTO-BUNDLE-TWOROOTS
       - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER

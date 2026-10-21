@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3c6752db8656"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Format-LongMarkdownLines.Tests.ps1
-    docs: "[Format-LongMarkdownLines.ps1.md](docs/references/pwsh/catzc-base-docs/private/Format-LongMarkdownLines.ps1.md)"
+    docs: "[Format-LongMarkdownLines.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Format-LongMarkdownLines.ps1.md)"
 ---
 #>
 

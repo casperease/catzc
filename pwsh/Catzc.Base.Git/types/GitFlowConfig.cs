@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "72f978c62e2c"
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitFlowConfig.Tests.ps1
-    docs: "[GitFlowConfig.cs.md](docs/references/pwsh/catzc-base-git/types/GitFlowConfig.cs.md)"
+    docs: "[GitFlowConfig.cs.md](../../../docs/references/pwsh/catzc-base-git/types/GitFlowConfig.cs.md)"
 ---
 */
 

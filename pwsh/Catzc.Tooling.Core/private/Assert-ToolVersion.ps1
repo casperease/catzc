@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "07721c6ccb63"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
-    docs: "[Assert-ToolVersion.ps1.md](docs/references/pwsh/catzc-tooling-core/private/Assert-ToolVersion.ps1.md)"
+    docs: "[Assert-ToolVersion.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/private/Assert-ToolVersion.ps1.md)"
     cites:
       - ADR-PWSH-CACHE-STRICTSAFEPROBE
 ---

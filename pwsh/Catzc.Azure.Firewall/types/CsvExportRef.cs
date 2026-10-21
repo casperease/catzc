@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "107b68e71d81"
   edges:
-    docs: "[CsvExportRef.cs.md](docs/references/pwsh/catzc-azure-firewall/types/CsvExportRef.cs.md)"
+    docs: "[CsvExportRef.cs.md](../../../docs/references/pwsh/catzc-azure-firewall/types/CsvExportRef.cs.md)"
 ---
 */
 

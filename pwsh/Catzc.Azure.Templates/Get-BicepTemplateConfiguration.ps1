@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: df804dee3230
+    with_body_sha: d77ceaa7b78d
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
-    docs: "[Get-BicepTemplateConfiguration.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md)"
+    docs: "[Get-BicepTemplateConfiguration.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0c5106a7f32f"
   edges:
-    docs: "[NoWriteErrorOrWarning.psm1.md](docs/references/pwsh/scriptanalyzer/NoWriteErrorOrWarning.psm1.md)"
+    docs: "[NoWriteErrorOrWarning.psm1.md](../../docs/references/pwsh/scriptanalyzer/NoWriteErrorOrWarning.psm1.md)"
     cites:
       - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b03161d8b985
   edges:
-    docs: "[Get-TestRunLockHolder.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestRunLockHolder.ps1.md)"
+    docs: "[Get-TestRunLockHolder.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestRunLockHolder.ps1.md)"
 ---
 #>
 

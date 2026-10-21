@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5095b50b8a61"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1
-    docs: "[Invoke-GoTest.ps1.md](docs/references/pwsh/catzc-base-languages/Invoke-GoTest.ps1.md)"
+    docs: "[Invoke-GoTest.ps1.md](../../docs/references/pwsh/catzc-base-languages/Invoke-GoTest.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE
       - ADR-AUTO-ENVVAR-SETONLYFORTOOLS

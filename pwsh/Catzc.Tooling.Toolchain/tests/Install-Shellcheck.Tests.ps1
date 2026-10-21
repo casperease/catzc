@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ca14e1727b8b
   edges:
-    docs: "[Install-Shellcheck.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md)"
+    docs: "[Install-Shellcheck.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/Install-Shellcheck.ps1
 ---
 #>

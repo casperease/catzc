@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "71f42c784767"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-MinimapFact.Tests.ps1
-    docs: "[Get-MinimapFact.ps1.md](docs/references/pwsh/catzc-base-maps/Get-MinimapFact.ps1.md)"
+    docs: "[Get-MinimapFact.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-MinimapFact.ps1.md)"
 ---
 #>
 

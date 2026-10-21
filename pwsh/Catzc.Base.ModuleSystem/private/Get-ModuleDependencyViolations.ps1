@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: bf93a71d77b7
   edges:
-    docs: "[Get-ModuleDependencyViolations.ps1.md](docs/references/pwsh/catzc-base-module-system/private/Get-ModuleDependencyViolations.ps1.md)"
+    docs: "[Get-ModuleDependencyViolations.ps1.md](../../../docs/references/pwsh/catzc-base-module-system/private/Get-ModuleDependencyViolations.ps1.md)"
 ---
 #>
 

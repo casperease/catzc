@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b8e73ce9c777
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
-    docs: "[WorldMapHighlight.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md)"
+    docs: "[WorldMapHighlight.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md)"
     cites:
       - DDR-TRACK-TRACKISPLACEDCLUSTER
       - TDR-ONETRUTH-TRUTHISQUERYABLE

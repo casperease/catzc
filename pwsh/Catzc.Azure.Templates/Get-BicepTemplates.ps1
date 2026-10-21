@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b0add85b199f
+    with_body_sha: f78753a80dfb
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
-    docs: "[Get-BicepTemplates.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md)"
+    docs: "[Get-BicepTemplates.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md)"
     cites:
       - ADR-AUTO-CACHE
       - ADR-AZ-CUSTOMER

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7d026428d4e0"
   edges:
-    docs: "[Unregister-AdoBuildValidation.Tests.ps1.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/Unregister-AdoBuildValidation.Tests.ps1.md)"
+    docs: "[Unregister-AdoBuildValidation.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/Unregister-AdoBuildValidation.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
     cites:
       - ADR-AUTO-DRYRUN

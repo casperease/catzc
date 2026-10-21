@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6780a5299297"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
-    docs: "[BoundedCommand.cs.md](docs/references/pwsh/catzc-base-timeouts/types/BoundedCommand.cs.md)"
+    docs: "[BoundedCommand.cs.md](../../../docs/references/pwsh/catzc-base-timeouts/types/BoundedCommand.cs.md)"
     cites:
       - ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8a0d503318f0"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-ManagedGuid.Tests.ps1
-    docs: "[Test-ManagedGuid.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-ManagedGuid.ps1.md)"
+    docs: "[Test-ManagedGuid.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-ManagedGuid.ps1.md)"
 ---
 #>
 

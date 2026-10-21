@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e38ecf0eb9eb
   edges:
     test: pwsh/Catzc.Base.Vendor/tests/types/VendorConfig.Tests.ps1
-    docs: "[VendorConfig.cs.md](docs/references/pwsh/catzc-base-vendor/types/VendorConfig.cs.md)"
+    docs: "[VendorConfig.cs.md](../../../docs/references/pwsh/catzc-base-vendor/types/VendorConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-PWSH-VENDOR

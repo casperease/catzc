@@ -1,4 +1,4 @@
-# ADR: DORA — Monitoring and observability
+# Research: DORA — Monitoring and observability
 
 ## Rules: RDR-DORA-OBSERV
 

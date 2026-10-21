@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "691af71ca2df"
   edges:
-    docs: "[BicepState.cs.md](docs/references/pwsh/catzc-azure-cli/types/BicepState.cs.md)"
+    docs: "[BicepState.cs.md](../../../docs/references/pwsh/catzc-azure-cli/types/BicepState.cs.md)"
 ---
 */
 

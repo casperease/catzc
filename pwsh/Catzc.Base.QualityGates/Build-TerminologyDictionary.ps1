@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "07602e1bfba0"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1
-    docs: "[Build-TerminologyDictionary.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Build-TerminologyDictionary.ps1.md)"
+    docs: "[Build-TerminologyDictionary.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Build-TerminologyDictionary.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-SPELL

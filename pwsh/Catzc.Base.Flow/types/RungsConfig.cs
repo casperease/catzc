@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fda04bbc15ce
+    with_body_sha: "5bf159b9df4a"
   edges:
     test: pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
-    docs: "[RungsConfig.cs.md](docs/references/pwsh/catzc-base-flow/types/RungsConfig.cs.md)"
+    docs: "[RungsConfig.cs.md](../../../docs/references/pwsh/catzc-base-flow/types/RungsConfig.cs.md)"
     cites:
       - FDR-CD-CDSTAYSINNONPROD
       - FDR-CD-TWORELEASEGATES

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7685dc6afee8"
   edges:
-    docs: "[Assert-BicepTemplate.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md)"
+    docs: "[Assert-BicepTemplate.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
     cites:
       - ADR-AUTO-TEST-SETUPONCE

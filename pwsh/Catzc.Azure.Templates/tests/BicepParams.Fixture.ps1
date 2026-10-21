@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "3ae475913096"
   edges:
-    docs: "[BicepParams.Fixture.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/BicepParams.Fixture.ps1.md)"
+    docs: "[BicepParams.Fixture.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/BicepParams.Fixture.ps1.md)"
 ---
 #>
 

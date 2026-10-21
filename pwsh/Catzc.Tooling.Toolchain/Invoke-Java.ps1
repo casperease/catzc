@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a29a4d9eee18
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Invoke-Java.Tests.ps1
-    docs: "[Invoke-Java.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Invoke-Java.ps1.md)"
+    docs: "[Invoke-Java.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Invoke-Java.ps1.md)"
 ---
 #>
 

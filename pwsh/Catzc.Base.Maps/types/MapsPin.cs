@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "46bad79162b8"
   edges:
-    docs: "[MapsPin.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsPin.cs.md)"
+    docs: "[MapsPin.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/MapsPin.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "34eee2d31bd4"
   edges:
-    docs: "[Get-DynamicManifestContent.Tests.ps1.md](docs/references/pwsh/internal/tests/Get-DynamicManifestContent.Tests.ps1.md)"
+    docs: "[Get-DynamicManifestContent.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Get-DynamicManifestContent.Tests.ps1.md)"
 ---
 #>
 

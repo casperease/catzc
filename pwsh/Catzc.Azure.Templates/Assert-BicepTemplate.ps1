@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7c1f1c8e1f21"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
-    docs: "[Assert-BicepTemplate.ps1.md](docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md)"
+    docs: "[Assert-BicepTemplate.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD-PARAMETERCONTRACT
 ---

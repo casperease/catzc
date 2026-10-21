@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2bd0c728ba82"
   edges:
-    docs: "[ConnectionState.cs.md](docs/references/pwsh/catzc-azure-cli/types/ConnectionState.cs.md)"
+    docs: "[ConnectionState.cs.md](../../../docs/references/pwsh/catzc-azure-cli/types/ConnectionState.cs.md)"
 ---
 */
 

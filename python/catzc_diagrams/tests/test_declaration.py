@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "123f2cd1db19"
+#     with_body_sha: b1a53532a2ad
 # ---
 
 # cspell:ignore minimaps widgetese getpixel miny

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "80f33bf35c4c"
   edges:
-    docs: "[Test-DrsEngineNeutrality.Tests.ps1.md](docs/references/pwsh/catzc-base-drs/tests/Test-DrsEngineNeutrality.Tests.ps1.md)"
+    docs: "[Test-DrsEngineNeutrality.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-drs/tests/Test-DrsEngineNeutrality.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
@@ -90,7 +90,7 @@ Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
 
     It 'lists one finding per token and summary line, with every match, and skips other domains and body prose' {
         $result = Test-DrsEngineNeutrality -OutputFolder $out -PassThru
-        $result.Subject | Should -Be 'adr-engine-neutrality'
+        $result.Subject | Should -Be 'drs-engine-neutrality'
         $result.Issues | Should -Be @(
             "docs/drs/gadget/gadget-one.md:7: ADR-GA-ONE-RUN: gizmo-variable — '`$gizmo:'"
             "docs/drs/gadget/gadget-one.md:7: ADR-GA-ONE-RUN: gizmo-file — '.gz1'"
@@ -104,9 +104,9 @@ Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
     It 'prints the findings and their count in report mode, writes the report, and never throws' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         { Test-DrsEngineNeutrality -OutputFolder $out } | Should -Not -Throw
         Test-DrsEngineNeutrality -OutputFolder $out | Should -BeNullOrEmpty
-        Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '2 adr-engine-neutrality issue(s).' }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '2 drs-engine-neutrality issue(s).' }
         # The report sits in a run folder below the output folder; the deeper levels are headroom.
-        Get-ChildPath $out -File -Filter 'adr-engine-neutrality.md' -Depth 4 -Exclude @() | Should -Not -BeNullOrEmpty
+        Get-ChildPath $out -File -Filter 'drs-engine-neutrality.md' -Depth 4 -Exclude @() | Should -Not -BeNullOrEmpty
     }
 
     It 'throws once listing every finding in gate mode' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {

@@ -1,4 +1,4 @@
-# ADR: DORA — Job satisfaction
+# Research: DORA — Job satisfaction
 
 ## Rules: RDR-DORA-JOBSAT
 

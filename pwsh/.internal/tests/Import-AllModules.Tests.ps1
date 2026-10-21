@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d2d79b365ea5
   edges:
-    docs: "[Import-AllModules.Tests.ps1.md](docs/references/pwsh/internal/tests/Import-AllModules.Tests.ps1.md)"
+    docs: "[Import-AllModules.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Import-AllModules.Tests.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
       - ADR-AUTO-TEST-ONESCHEDULINGPOOL

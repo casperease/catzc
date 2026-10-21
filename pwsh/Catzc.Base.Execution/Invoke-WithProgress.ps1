@@ -5,7 +5,7 @@ catzc:
     with_body_sha: eb2e586db4f6
   edges:
     test: pwsh/Catzc.Base.Execution/tests/Invoke-WithProgress.Tests.ps1
-    docs: "[Invoke-WithProgress.ps1.md](docs/references/pwsh/catzc-base-execution/Invoke-WithProgress.ps1.md)"
+    docs: "[Invoke-WithProgress.ps1.md](../../docs/references/pwsh/catzc-base-execution/Invoke-WithProgress.ps1.md)"
     cites:
       - ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT
 ---

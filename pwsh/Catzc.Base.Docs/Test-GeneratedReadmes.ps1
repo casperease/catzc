@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7d5c11a83df6"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
-    docs: "[Test-GeneratedReadmes.ps1.md](docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md)"
+    docs: "[Test-GeneratedReadmes.ps1.md](../../docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-README

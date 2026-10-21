@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ddccdcc0b95b
   edges:
     test: pwsh/Catzc.Base.MarkdownMeta/tests/Get-MarkdownMetaState.Tests.ps1
-    docs: "[Get-MarkdownMetaState.ps1.md](docs/references/pwsh/catzc-base-markdown-meta/Get-MarkdownMetaState.ps1.md)"
+    docs: "[Get-MarkdownMetaState.ps1.md](../../docs/references/pwsh/catzc-base-markdown-meta/Get-MarkdownMetaState.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-HEADPOLICY
       - ADR-REPO-FILEMETA-IMPRINTEDPARTS

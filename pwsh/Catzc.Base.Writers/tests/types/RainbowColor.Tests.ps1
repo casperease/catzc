@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d7c57b0f06c8
   edges:
-    docs: "[RainbowColor.Tests.ps1.md](docs/references/pwsh/catzc-base-writers/tests/types/RainbowColor.Tests.ps1.md)"
+    docs: "[RainbowColor.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-writers/tests/types/RainbowColor.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Writers/types/RainbowColor.cs
     cites:
       - ADR-AUTO-CONSOLE-SPARINGCOLOUR

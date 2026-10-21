@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7a95c185a802"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-TestInRunScope.Tests.ps1
-    docs: "[Test-TestInRunScope.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Test-TestInRunScope.ps1.md)"
+    docs: "[Test-TestInRunScope.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Test-TestInRunScope.ps1.md)"
 ---
 #>
 

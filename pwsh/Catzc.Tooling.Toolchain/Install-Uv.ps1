@@ -5,7 +5,7 @@ catzc:
     with_body_sha: cbd49d765df0
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
-    docs: "[Install-Uv.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Install-Uv.ps1.md)"
+    docs: "[Install-Uv.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Install-Uv.ps1.md)"
 ---
 #>
 

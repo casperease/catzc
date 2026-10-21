@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0a6377b4b54e"
   edges:
     test: pwsh/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1
-    docs: "[Test-ConfigValidators.ps1.md](docs/references/pwsh/catzc-base-config-extensions/Test-ConfigValidators.ps1.md)"
+    docs: "[Test-ConfigValidators.ps1.md](../../docs/references/pwsh/catzc-base-config-extensions/Test-ConfigValidators.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - DDR-RUNMODE-SAMEMODULEINBOTH

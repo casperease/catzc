@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "33ffa70fef2b"
   edges:
-    docs: "[Test-RootConfigIntegrity.Tests.ps1.md](docs/references/pwsh/catzc-base-root-config/tests/Test-RootConfigIntegrity.Tests.ps1.md)"
+    docs: "[Test-RootConfigIntegrity.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-root-config/tests/Test-RootConfigIntegrity.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-ROOTCFG

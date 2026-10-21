@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d056e97d7934
   edges:
-    docs: "[ParameterDesign.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/ParameterDesign.Tests.ps1.md)"
+    docs: "[ParameterDesign.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/ParameterDesign.Tests.ps1.md)"
     cites:
       - ADR-PWSH-PARAM-POSITIONALPRIMARY
       - ADR-PWSH-PARAM-SWITCHNOTBOOL

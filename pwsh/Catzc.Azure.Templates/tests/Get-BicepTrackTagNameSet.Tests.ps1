@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2282781a8509"
   edges:
-    docs: "[Get-BicepTrackTagNameSet.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTrackTagNameSet.Tests.ps1.md)"
+    docs: "[Get-BicepTrackTagNameSet.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTrackTagNameSet.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Templates/Get-BicepTrackTagNameSet.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS

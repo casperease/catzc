@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: be39dc25d48a
+    with_body_sha: "68d7b8d8e988"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
-    docs: "[Test-Automation.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Automation.ps1.md)"
+    docs: "[Test-Automation.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Automation.ps1.md)"
     cites:
       - ADR-AUTO-TEST-ONESCHEDULINGPOOL
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS

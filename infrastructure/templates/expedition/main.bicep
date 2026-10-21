@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: afd5cb828281
 //   edges:
-//     docs: "[main.bicep.md](docs/references/infrastructure/templates/expedition/main.bicep.md)"
+//     docs: "[main.bicep.md](../../../docs/references/infrastructure/templates/expedition/main.bicep.md)"
 // ---
 
 @description('Azure region. Defaults to the resource group location; it must match the region of the network.')

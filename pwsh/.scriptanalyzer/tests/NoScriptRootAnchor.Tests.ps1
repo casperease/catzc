@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5f57e6b79af2"
   edges:
-    docs: "[NoScriptRootAnchor.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1.md)"
+    docs: "[NoScriptRootAnchor.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "58a0aac91e68"
   edges:
-    docs: "[Install-UvTool.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Install-UvTool.Tests.ps1.md)"
+    docs: "[Install-UvTool.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Install-UvTool.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/Install-UvTool.ps1
 ---
 #>

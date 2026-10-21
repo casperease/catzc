@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "70a334194e27"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Get-DrsDomainEdges.Tests.ps1
-    docs: "[Get-DrsDomainEdges.ps1.md](docs/references/pwsh/catzc-base-drs/Get-DrsDomainEdges.ps1.md)"
+    docs: "[Get-DrsDomainEdges.ps1.md](../../docs/references/pwsh/catzc-base-drs/Get-DrsDomainEdges.ps1.md)"
 ---
 #>
 

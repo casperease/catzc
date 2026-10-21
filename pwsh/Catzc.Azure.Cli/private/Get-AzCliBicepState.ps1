@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: dcc2affc99ab
   edges:
-    docs: "[Get-AzCliBicepState.ps1.md](docs/references/pwsh/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md)"
+    docs: "[Get-AzCliBicepState.ps1.md](../../../docs/references/pwsh/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md)"
     cites:
       - ADR-AUTO-PRELOG-SILENTSWITCH
 ---

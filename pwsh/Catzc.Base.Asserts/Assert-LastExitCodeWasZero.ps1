@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "71d76a94855d"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-LastExitCodeWasZero.Tests.ps1
-    docs: "[Assert-LastExitCodeWasZero.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-LastExitCodeWasZero.ps1.md)"
+    docs: "[Assert-LastExitCodeWasZero.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Assert-LastExitCodeWasZero.ps1.md)"
 ---
 #>
 

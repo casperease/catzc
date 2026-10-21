@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e85047352cde
+    with_body_sha: "41e2c9f550f9"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/types/BicepSlot.Tests.ps1
-    docs: "[BicepSlot.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepSlot.cs.md)"
+    docs: "[BicepSlot.cs.md](../../../docs/references/pwsh/catzc-azure-templates/types/BicepSlot.cs.md)"
     cites:
       - ADR-AZ-DATAMOD-BICEPPARAMSLOT
 ---

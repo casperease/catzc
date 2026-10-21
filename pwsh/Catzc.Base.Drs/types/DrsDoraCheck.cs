@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d95383177fbe
   edges:
-    docs: "[DrsDoraCheck.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsDoraCheck.cs.md)"
+    docs: "[DrsDoraCheck.cs.md](../../../docs/references/pwsh/catzc-base-drs/types/DrsDoraCheck.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - PDR-CONFIG-EXCEPTIONISCONFIGENTRY

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4de5d2ed2190"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-FileMetaProcessors.Tests.ps1
-    docs: "[Test-FileMetaProcessors.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-FileMetaProcessors.ps1.md)"
+    docs: "[Test-FileMetaProcessors.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-FileMetaProcessors.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION

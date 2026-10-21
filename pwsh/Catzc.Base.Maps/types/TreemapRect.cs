@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4ecc4ce7ca4a"
   edges:
-    docs: "[TreemapRect.cs.md](docs/references/pwsh/catzc-base-maps/types/TreemapRect.cs.md)"
+    docs: "[TreemapRect.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/TreemapRect.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

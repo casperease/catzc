@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7cbf77917946"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestPoolSize.Tests.ps1
-    docs: "[Get-TestPoolSize.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestPoolSize.ps1.md)"
+    docs: "[Get-TestPoolSize.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestPoolSize.ps1.md)"
 ---
 #>
 

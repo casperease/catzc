@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c1883866a779
   edges:
-    docs: "[Uninstall-Zsh.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md)"
+    docs: "[Uninstall-Zsh.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

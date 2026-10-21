@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8d5f273b474e"
   edges:
     test: pwsh/Catzc.Base.Writers/tests/Write-CmdletParameterSet.Tests.ps1
-    docs: "[Write-CmdletParameterSet.ps1.md](docs/references/pwsh/catzc-base-writers/Write-CmdletParameterSet.ps1.md)"
+    docs: "[Write-CmdletParameterSet.ps1.md](../../docs/references/pwsh/catzc-base-writers/Write-CmdletParameterSet.ps1.md)"
 ---
 #>
 

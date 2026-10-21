@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2b76b8936743"
   edges:
-    docs: "[Get-AzureCustomer.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/Get-AzureCustomer.Tests.ps1.md)"
+    docs: "[Get-AzureCustomer.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure/tests/Get-AzureCustomer.Tests.ps1.md)"
     code: pwsh/Catzc.Azure/Get-AzureCustomer.ps1
     cites:
       - ADR-AUTO-TEST-SETUPONCE

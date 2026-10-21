@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4f13e97b045a"
   edges:
-    docs: "[Invoke-GoTest.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Invoke-GoTest.Tests.ps1.md)"
+    docs: "[Invoke-GoTest.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-languages/tests/Invoke-GoTest.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/Invoke-GoTest.ps1
     cites:
       - ADR-AUTO-TEST-NOOVERMOCKING

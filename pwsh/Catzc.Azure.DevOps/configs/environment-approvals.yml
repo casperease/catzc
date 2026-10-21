@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: e3fd53559691
 #   edges:
-#     docs: "[environment-approvals.yml.md](docs/references/pwsh/catzc-azure-dev-ops/configs/environment-approvals.yml.md)"
+#     docs: "[environment-approvals.yml.md](../../../docs/references/pwsh/catzc-azure-dev-ops/configs/environment-approvals.yml.md)"
 # ---
 
 approver_group:

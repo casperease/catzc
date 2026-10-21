@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2aed58296ef2"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AgentFrontMatter.Tests.ps1
-    docs: "[Get-AgentFrontMatter.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AgentFrontMatter.ps1.md)"
+    docs: "[Get-AgentFrontMatter.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-AgentFrontMatter.ps1.md)"
     cites:
       - ADR-REPO-AGENTS-ONEFILEPERAGENT
 ---

@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "76113ec4a905"
 #   edges:
-#     docs: "[dev-blu.yml.md](docs/references/infrastructure/templates/expedition/configuration/apex/dev-blu.yml.md)"
+#     docs: "[dev-blu.yml.md](../../../../../docs/references/infrastructure/templates/expedition/configuration/apex/dev-blu.yml.md)"
 # ---
 
 ParametersFile:

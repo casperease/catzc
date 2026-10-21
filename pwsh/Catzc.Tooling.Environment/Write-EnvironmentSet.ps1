@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2b1266ee5ee7"
   edges:
     test: pwsh/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
-    docs: "[Write-EnvironmentSet.ps1.md](docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md)"
+    docs: "[Write-EnvironmentSet.ps1.md](../../docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md)"
     cites:
       - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
       - ADR-CONF-ADDRESSING

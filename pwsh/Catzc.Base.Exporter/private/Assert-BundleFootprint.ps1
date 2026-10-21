@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4e56047afec9"
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/Assert-BundleFootprint.Tests.ps1
-    docs: "[Assert-BundleFootprint.ps1.md](docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md)"
+    docs: "[Assert-BundleFootprint.ps1.md](../../../docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md)"
     cites:
       - ADR-AUTO-BUNDLE
       - ADR-PWSH-ENUM-ALWAYSBOUNDED

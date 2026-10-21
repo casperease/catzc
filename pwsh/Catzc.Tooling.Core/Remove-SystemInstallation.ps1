@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "98a61db13d37"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
-    docs: "[Remove-SystemInstallation.ps1.md](docs/references/pwsh/catzc-tooling-core/Remove-SystemInstallation.ps1.md)"
+    docs: "[Remove-SystemInstallation.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Remove-SystemInstallation.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
 ---

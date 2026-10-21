@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3c01cff6ebe2"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Build-DrsCodeDictionary.Tests.ps1
-    docs: "[Build-DrsCodeDictionary.ps1.md](docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md)"
+    docs: "[Build-DrsCodeDictionary.ps1.md](../../docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-REPO-DRSCODE-SEGMENTSAREWORDS

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a0e6aee58d8a
   edges:
-    docs: "[MapsHighlight.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsHighlight.cs.md)"
+    docs: "[MapsHighlight.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/MapsHighlight.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: a4abf810574d
 //   edges:
-//     docs: "[sql-database.bicep.md](docs/references/infrastructure/modules/sql-database.bicep.md)"
+//     docs: "[sql-database.bicep.md](../../docs/references/infrastructure/modules/sql-database.bicep.md)"
 // ---
 
 @description('Name of the existing SQL logical server that hosts this database.')

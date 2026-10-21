@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6e91502219a3"
   edges:
-    docs: "[CommentPageMap.cs.md](docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md)"
+    docs: "[CommentPageMap.cs.md](../../../docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-README-AUTHOREDSOURCES

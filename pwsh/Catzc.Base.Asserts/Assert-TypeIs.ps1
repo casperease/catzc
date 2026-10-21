@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fcd448ca524f
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-TypeIs.Tests.ps1
-    docs: "[Assert-TypeIs.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-TypeIs.ps1.md)"
+    docs: "[Assert-TypeIs.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Assert-TypeIs.ps1.md)"
 ---
 #>
 

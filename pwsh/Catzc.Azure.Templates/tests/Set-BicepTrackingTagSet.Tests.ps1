@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "28a847929c99"
   edges:
-    docs: "[Set-BicepTrackingTagSet.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Set-BicepTrackingTagSet.Tests.ps1.md)"
+    docs: "[Set-BicepTrackingTagSet.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Set-BicepTrackingTagSet.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
     cites:
       - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES

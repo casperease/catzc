@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3858955d6764"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
-    docs: "[ConvertFrom-PytestJunit.ps1.md](docs/references/pwsh/catzc-base-languages/private/ConvertFrom-PytestJunit.ps1.md)"
+    docs: "[ConvertFrom-PytestJunit.ps1.md](../../../docs/references/pwsh/catzc-base-languages/private/ConvertFrom-PytestJunit.ps1.md)"
 ---
 #>
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1d35793ea6b8"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-WorldMapOutputRoot.Tests.ps1
-    docs: "[Get-WorldMapOutputRoot.ps1.md](docs/references/pwsh/catzc-base-maps/private/Get-WorldMapOutputRoot.ps1.md)"
+    docs: "[Get-WorldMapOutputRoot.ps1.md](../../../docs/references/pwsh/catzc-base-maps/private/Get-WorldMapOutputRoot.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
       - ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER

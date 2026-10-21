@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1a75db2ebb9e"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-ContractCommandRoot.Tests.ps1
-    docs: "[Get-ContractCommandRoot.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractCommandRoot.ps1.md)"
+    docs: "[Get-ContractCommandRoot.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractCommandRoot.ps1.md)"
     cites:
       - ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
       - ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS

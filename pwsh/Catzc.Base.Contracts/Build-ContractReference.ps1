@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b86670b24cb8
+    with_body_sha: "4bc7c5b33387"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
-    docs: "[Build-ContractReference.ps1.md](docs/references/pwsh/catzc-base-contracts/Build-ContractReference.ps1.md)"
+    docs: "[Build-ContractReference.ps1.md](../../docs/references/pwsh/catzc-base-contracts/Build-ContractReference.ps1.md)"
     cites:
       - ADR-REPO-CMDCONTRACT-ONEREADER
       - ADR-REPO-CONTRACT-LAYOUT

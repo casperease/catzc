@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d93b91eef3e2
   edges:
-    docs: "[Get-ContractFreezeFindings.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md)"
+    docs: "[Get-ContractFreezeFindings.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/private/Get-ContractFreezeFindings.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

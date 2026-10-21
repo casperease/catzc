@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "3a6c4e7e9e32"
   edges:
-    docs: "[Initialize-GitClone.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Initialize-GitClone.Tests.ps1.md)"
+    docs: "[Initialize-GitClone.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Initialize-GitClone.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
 ---
 #>

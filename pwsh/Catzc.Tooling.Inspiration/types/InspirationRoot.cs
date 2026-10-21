@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1d3c0042a35d"
   edges:
     test: pwsh/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
-    docs: "[InspirationRoot.cs.md](docs/references/pwsh/catzc-tooling-inspiration/types/InspirationRoot.cs.md)"
+    docs: "[InspirationRoot.cs.md](../../../docs/references/pwsh/catzc-tooling-inspiration/types/InspirationRoot.cs.md)"
     cites:
       - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
       - ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM

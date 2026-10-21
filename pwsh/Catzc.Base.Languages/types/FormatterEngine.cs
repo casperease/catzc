@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e7efe28302b2
   edges:
-    docs: "[FormatterEngine.cs.md](docs/references/pwsh/catzc-base-languages/types/FormatterEngine.cs.md)"
+    docs: "[FormatterEngine.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/FormatterEngine.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS

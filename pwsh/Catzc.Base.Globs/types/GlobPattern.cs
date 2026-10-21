@@ -5,7 +5,7 @@ catzc:
     with_body_sha: feb30c417183
   edges:
     test: pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
-    docs: "[GlobPattern.cs.md](docs/references/pwsh/catzc-base-globs/types/GlobPattern.cs.md)"
+    docs: "[GlobPattern.cs.md](../../../docs/references/pwsh/catzc-base-globs/types/GlobPattern.cs.md)"
     cites:
       - FDR-CD-GLOBS
 ---

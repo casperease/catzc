@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "21f7763e72d6"
   edges:
-    docs: "[SubscriptionAccessState.cs.md](docs/references/pwsh/catzc-azure-cli/types/SubscriptionAccessState.cs.md)"
+    docs: "[SubscriptionAccessState.cs.md](../../../docs/references/pwsh/catzc-azure-cli/types/SubscriptionAccessState.cs.md)"
 ---
 */
 

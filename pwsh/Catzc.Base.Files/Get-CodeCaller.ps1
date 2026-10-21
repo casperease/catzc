@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "241a69bb8e07"
   edges:
     test: pwsh/Catzc.Base.Files/tests/Get-CodeCaller.Tests.ps1
-    docs: "[Get-CodeCaller.ps1.md](docs/references/pwsh/catzc-base-files/Get-CodeCaller.ps1.md)"
+    docs: "[Get-CodeCaller.ps1.md](../../docs/references/pwsh/catzc-base-files/Get-CodeCaller.ps1.md)"
     cites:
       - PDR-ONELIVE
 ---

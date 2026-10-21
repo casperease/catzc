@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b0687748a3fa
   edges:
-    docs: "[Get-BicepCustomerClassViolations.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepCustomerClassViolations.Tests.ps1.md)"
+    docs: "[Get-BicepCustomerClassViolations.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepCustomerClassViolations.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Templates/private/Get-BicepCustomerClassViolations.ps1
 ---
 #>

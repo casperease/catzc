@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7422ed38fd0e"
   edges:
-    docs: "[Get-TestDiscovery.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestDiscovery.Tests.ps1.md)"
+    docs: "[Get-TestDiscovery.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestDiscovery.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-TestDiscovery.ps1
 ---
 #>

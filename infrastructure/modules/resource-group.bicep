@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "1a001957bf51"
 //   edges:
-//     docs: "[resource-group.bicep.md](docs/references/infrastructure/modules/resource-group.bicep.md)"
+//     docs: "[resource-group.bicep.md](../../docs/references/infrastructure/modules/resource-group.bicep.md)"
 // ---
 
 targetScope = 'subscription'

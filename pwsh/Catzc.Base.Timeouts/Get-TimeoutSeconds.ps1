@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d947dbd47a0d
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Tests.ps1
-    docs: "[Get-TimeoutSeconds.ps1.md](docs/references/pwsh/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md)"
+    docs: "[Get-TimeoutSeconds.ps1.md](../../docs/references/pwsh/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md)"
     cites:
       - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
 ---

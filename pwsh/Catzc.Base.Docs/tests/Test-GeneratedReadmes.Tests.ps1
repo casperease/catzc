@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6b2d6d55098b"
   edges:
-    docs: "[Test-GeneratedReadmes.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md)"
+    docs: "[Test-GeneratedReadmes.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

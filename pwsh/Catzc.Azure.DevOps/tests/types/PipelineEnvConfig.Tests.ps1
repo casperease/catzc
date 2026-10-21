@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5bdaf232b78f"
   edges:
-    docs: "[PipelineEnvConfig.Tests.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/tests/types/PipelineEnvConfig.Tests.ps1.md)"
+    docs: "[PipelineEnvConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-azure-dev-ops/tests/types/PipelineEnvConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.DevOps/types/PipelineEnvConfig.cs
 ---
 #>

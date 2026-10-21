@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c4563455a0aa
   edges:
     test: pwsh/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
-    docs: "[New-GoWorkspace.ps1.md](docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md)"
+    docs: "[New-GoWorkspace.ps1.md](../../docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md)"
     cites:
       - ADR-CONF-ADDRESSING
       - ADR-REPO-ROOTCFG

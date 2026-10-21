@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a71cabc0828b
   edges:
     test: pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
-    docs: "[CheckModes.cs.md](docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md)"
+    docs: "[CheckModes.cs.md](../../../docs/references/pwsh/catzc-base-reports/types/CheckModes.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - PDR-ONELIVE-ONEVERSION

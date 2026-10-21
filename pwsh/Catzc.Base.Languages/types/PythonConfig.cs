@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9e014783e491"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1
-    docs: "[PythonConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/PythonConfig.cs.md)"
+    docs: "[PythonConfig.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/PythonConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-FOLDERS-LITERALNAMES

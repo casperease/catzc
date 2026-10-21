@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c0df781a81ee
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Test-ToolRequiresElevation.Tests.ps1
-    docs: "[Test-ToolRequiresElevation.ps1.md](docs/references/pwsh/catzc-tooling-core/Test-ToolRequiresElevation.ps1.md)"
+    docs: "[Test-ToolRequiresElevation.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Test-ToolRequiresElevation.ps1.md)"
 ---
 #>
 

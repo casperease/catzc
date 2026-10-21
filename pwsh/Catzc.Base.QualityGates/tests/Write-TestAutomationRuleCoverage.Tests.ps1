@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "746edaa921a7"
   edges:
-    docs: "[Write-TestAutomationRuleCoverage.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Write-TestAutomationRuleCoverage.Tests.ps1.md)"
+    docs: "[Write-TestAutomationRuleCoverage.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Write-TestAutomationRuleCoverage.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationRuleCoverage.ps1
     cites:
       - ADR-AUTO-TEST-COVERAGEREPORTEDONLY

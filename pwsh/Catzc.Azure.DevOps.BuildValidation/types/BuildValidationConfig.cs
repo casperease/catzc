@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a4641aeef15e
   edges:
     test: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
-    docs: "[BuildValidationConfig.cs.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/types/BuildValidationConfig.cs.md)"
+    docs: "[BuildValidationConfig.cs.md](../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/types/BuildValidationConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - FDR-CD-TYPE-PRECOMMITBUDGET

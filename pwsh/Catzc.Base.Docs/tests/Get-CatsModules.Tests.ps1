@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "94077bb9b87f"
   edges:
-    docs: "[Get-CatsModules.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md)"
+    docs: "[Get-CatsModules.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST

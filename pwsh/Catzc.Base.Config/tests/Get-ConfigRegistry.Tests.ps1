@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8be0c02322e7"
   edges:
-    docs: "[Get-ConfigRegistry.Tests.ps1.md](docs/references/pwsh/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md)"
+    docs: "[Get-ConfigRegistry.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST

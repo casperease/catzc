@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "931d6bb42cf3"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1
-    docs: "[Resolve-EngineExecutable.ps1.md](docs/references/pwsh/catzc-base-execution/Resolve-EngineExecutable.ps1.md)"
+    docs: "[Resolve-EngineExecutable.ps1.md](../../docs/references/pwsh/catzc-base-execution/Resolve-EngineExecutable.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE
 ---

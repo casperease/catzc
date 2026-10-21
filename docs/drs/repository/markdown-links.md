@@ -21,7 +21,7 @@ slugs it.
 
 ### Rule ADR-REPO-LINK-CODELINKS
 
-Every ADR citation in a comment is a code link: `[ADR-<CODE>](/docs/drs/<path>.md)` for a whole ADR, or
+Every rule citation in a comment is a code link: `[ADR-<CODE>](/docs/drs/<path>.md)` for a whole ADR, or
 `[ADR-<CODE>-<NAME>](/docs/drs/<path>.md#rule-adr-<code>-<name>)` for one rule. The text is the citation; the repository-rooted destination
 is derived from it, so the same checked-in text resolves from any file depth wherever it is rendered as markdown.
 
@@ -39,7 +39,7 @@ code: its "How this is enforced" section names the enforcing functions in code s
 ### Rule ADR-REPO-LINK-ONECITATIONSPELLING
 
 A citation is the code itself, spelled the same everywhere — code comments, test tags, configuration, and document prose, and the rule's own
-`### Rule` heading — and names a code in the ADR index or a rule that ADR declares. The code's grammar is ADR-REPO-DRSCODE.
+`### Rule` heading — and names a code in the DRS index or a rule that ADR declares. The code's grammar is ADR-REPO-DRSCODE.
 
 - [One citation spelling](#one-citation-spelling)
 
@@ -67,10 +67,10 @@ configured setting with a sensible default.
 
 ## Context
 
-The repository's rationale lives in its ADRs, and code points at that rationale constantly — a function's help names the ADR it implements,
-a comment cites the rule that forbids the obvious alternative. Those pointers are only useful while they resolve. A bare path such as
-`docs/drs/automation/caching.md` in a comment is not a link anywhere: nothing renders it, nothing checks it, and when an ADR moves folder
-the path silently rots. Citation codes rot the same way when a rule is renumbered or a code is renamed.
+The repository's rationale lives in its decision records, and code points at that rationale constantly — a function's help names the ADR it
+implements, a comment cites the rule that forbids the obvious alternative. Those pointers are only useful while they resolve. A bare path
+such as `docs/drs/automation/caching.md` in a comment is not a link anywhere: nothing renders it, nothing checks it, and when an ADR moves
+folder the path silently rots. Citation codes rot the same way when a rule is renumbered or a code is renamed.
 
 GitHub resolves links in every rendered file by one documented rule: "A relative link is a link that is relative to the current file", and
 "Links starting with `/` will be relative to the repository root" — both following whatever branch is being viewed. GitHub does not render
@@ -126,7 +126,7 @@ The leading `/` is link syntax meaning "the repository root"; the path after it 
 `The citation is the source of truth`
 
 The link text is the citation — `ADR-REPO-DRSCODE-PATHOFSEGMENTS`, or `ADR-REPO-DRSCODE` for a whole ADR — and the destination is derived
-from it through the ADR index, exactly as `Format-Types` derives a type's namespace from its folder. When an ADR moves, one `Format-Links`
+from it through the DRS index, exactly as `Format-Types` derives a type's namespace from its folder. When an ADR moves, one `Format-Links`
 run re-points every link to it; when a link's destination disagrees with its citation, the citation wins. A link to an ADR-folder document
 with no code of its own (the index, a domain's `dora-explains`) takes the file name as its text.
 

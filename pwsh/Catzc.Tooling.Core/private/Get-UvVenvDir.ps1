@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: be28de759672
   edges:
-    docs: "[Get-UvVenvDir.ps1.md](docs/references/pwsh/catzc-tooling-core/private/Get-UvVenvDir.ps1.md)"
+    docs: "[Get-UvVenvDir.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/private/Get-UvVenvDir.ps1.md)"
 ---
 #>
 

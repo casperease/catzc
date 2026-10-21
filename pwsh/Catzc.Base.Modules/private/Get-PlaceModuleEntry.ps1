@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a2f4dc624804
   edges:
-    docs: "[Get-PlaceModuleEntry.ps1.md](docs/references/pwsh/catzc-base-modules/private/Get-PlaceModuleEntry.ps1.md)"
+    docs: "[Get-PlaceModuleEntry.ps1.md](../../../docs/references/pwsh/catzc-base-modules/private/Get-PlaceModuleEntry.ps1.md)"
     cites:
       - ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
 ---

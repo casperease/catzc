@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "69bd56e8a9eb"
   edges:
-    docs: "[Test-Links.Repository.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Repository.Tests.ps1.md)"
+    docs: "[Test-Links.Repository.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Repository.Tests.ps1.md)"
     cites:
       - ADR-REPO-LINK
 ---

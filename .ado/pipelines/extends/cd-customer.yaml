@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "5243de31c50c"
 #   edges:
-#     docs: "[cd-customer.yaml.md](docs/references/ado/pipelines/extends/cd-customer.yaml.md)"
+#     docs: "[cd-customer.yaml.md](../../../docs/references/ado/pipelines/extends/cd-customer.yaml.md)"
 #     cites:
 #       - ADR-ADO-NAME
 #       - ADR-ADO-TEMPLATE

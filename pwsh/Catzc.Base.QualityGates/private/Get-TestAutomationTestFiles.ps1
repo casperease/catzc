@@ -5,7 +5,7 @@ catzc:
     with_body_sha: de57fc6c74a5
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestAutomationTestFiles.Tests.ps1
-    docs: "[Get-TestAutomationTestFiles.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestAutomationTestFiles.ps1.md)"
+    docs: "[Get-TestAutomationTestFiles.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestAutomationTestFiles.ps1.md)"
 ---
 #>
 

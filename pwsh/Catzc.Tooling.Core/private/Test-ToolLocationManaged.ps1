@@ -5,7 +5,7 @@ catzc:
     with_body_sha: bb5e42155f14
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
-    docs: "[Test-ToolLocationManaged.ps1.md](docs/references/pwsh/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md)"
+    docs: "[Test-ToolLocationManaged.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md)"
 ---
 #>
 

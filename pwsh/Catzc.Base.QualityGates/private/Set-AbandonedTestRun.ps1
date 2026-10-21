@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ef33578f1cc5
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Set-AbandonedTestRun.Tests.ps1
-    docs: "[Set-AbandonedTestRun.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Set-AbandonedTestRun.ps1.md)"
+    docs: "[Set-AbandonedTestRun.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Set-AbandonedTestRun.ps1.md)"
 ---
 #>
 

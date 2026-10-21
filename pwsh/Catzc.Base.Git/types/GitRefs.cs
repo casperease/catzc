@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f18cc8e954c0
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitRefs.Tests.ps1
-    docs: "[GitRefs.cs.md](docs/references/pwsh/catzc-base-git/types/GitRefs.cs.md)"
+    docs: "[GitRefs.cs.md](../../../docs/references/pwsh/catzc-base-git/types/GitRefs.cs.md)"
     cites:
       - ADR-AUTO-TRACKED
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "078d8790713b"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
-    docs: "[Test-GitHubWorkflowTriggerGlob.ps1.md](docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md)"
+    docs: "[Test-GitHubWorkflowTriggerGlob.ps1.md](../../docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - FDR-CD-GLOBS-NAMEDGLOBSETS

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f67014498636
   edges:
-    docs: "[Test-FolderConventions.Tests.ps1.md](docs/references/pwsh/internal/tests/Test-FolderConventions.Tests.ps1.md)"
+    docs: "[Test-FolderConventions.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Test-FolderConventions.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
 ---

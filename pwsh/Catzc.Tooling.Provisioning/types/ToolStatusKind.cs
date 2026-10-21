@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c85e44c37ef1
   edges:
-    docs: "[ToolStatusKind.cs.md](docs/references/pwsh/catzc-tooling-provisioning/types/ToolStatusKind.cs.md)"
+    docs: "[ToolStatusKind.cs.md](../../../docs/references/pwsh/catzc-tooling-provisioning/types/ToolStatusKind.cs.md)"
 ---
 */
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d91da32e6f74
   edges:
-    docs: "[DurableHash.cs.md](docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md)"
+    docs: "[DurableHash.cs.md](../../../docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md)"
     cites:
       - FDR-CD-GLOBS
 ---

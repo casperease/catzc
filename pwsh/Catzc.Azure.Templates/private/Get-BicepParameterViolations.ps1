@@ -5,7 +5,7 @@ catzc:
     with_body_sha: fbdd54da4db8
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
-    docs: "[Get-BicepParameterViolations.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepParameterViolations.ps1.md)"
+    docs: "[Get-BicepParameterViolations.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepParameterViolations.ps1.md)"
 ---
 #>
 

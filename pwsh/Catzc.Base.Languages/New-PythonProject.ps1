@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "364a4bb46c62"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
-    docs: "[New-PythonProject.ps1.md](docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md)"
+    docs: "[New-PythonProject.ps1.md](../../docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md)"
     cites:
       - ADR-AUTO-PY
       - ADR-CONF-ADDRESSING

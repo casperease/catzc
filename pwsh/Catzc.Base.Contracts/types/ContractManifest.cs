@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f1fdf976480f
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractManifest.Tests.ps1
-    docs: "[ContractManifest.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractManifest.cs.md)"
+    docs: "[ContractManifest.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/ContractManifest.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION

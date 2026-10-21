@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2e8821c4771a"
   edges:
-    docs: "[Get-ContractBindingAssets.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractBindingAssets.ps1.md)"
+    docs: "[Get-ContractBindingAssets.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractBindingAssets.ps1.md)"
     cites:
       - ADR-REPO-CONTRACT-KEPTWHILEPINNED
       - ADR-REPO-CONTRACT-PROVENBYTESTS

@@ -1,4 +1,4 @@
-# ADR: DORA — Flexible infrastructure
+# Research: DORA — Flexible infrastructure
 
 ## Rules: RDR-DORA-FLEXINFRA
 

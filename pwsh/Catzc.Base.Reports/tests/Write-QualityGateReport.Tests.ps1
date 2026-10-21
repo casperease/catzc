@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: aca099b42d0b
   edges:
-    docs: "[Write-QualityGateReport.Tests.ps1.md](docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md)"
+    docs: "[Write-QualityGateReport.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

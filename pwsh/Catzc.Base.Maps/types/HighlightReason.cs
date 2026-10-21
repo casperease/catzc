@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "0cee3657a4da"
   edges:
-    docs: "[HighlightReason.cs.md](docs/references/pwsh/catzc-base-maps/types/HighlightReason.cs.md)"
+    docs: "[HighlightReason.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/HighlightReason.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

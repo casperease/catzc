@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "5667d995ec19"
 #   edges:
-#     docs: "[drs-index.yml.md](docs/references/pwsh/catzc-base-drs/configs/drs-index.yml.md)"
+#     docs: "[drs-index.yml.md](../../../docs/references/pwsh/catzc-base-drs/configs/drs-index.yml.md)"
 #     cites:
 #       - ADR-AUTO-CACHE-READONLYVALUES
 #       - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "63ff5b91a399"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
-    docs: "[TimeoutsConfig.cs.md](docs/references/pwsh/catzc-base-timeouts/types/TimeoutsConfig.cs.md)"
+    docs: "[TimeoutsConfig.cs.md](../../../docs/references/pwsh/catzc-base-timeouts/types/TimeoutsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-ENGINE-THREEENGINES

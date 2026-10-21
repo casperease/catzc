@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "34b141f91397"
   edges:
-    docs: "[Build-Modules.Tests.ps1.md](docs/references/pwsh/catzc-base-exporter/tests/Build-Modules.Tests.ps1.md)"
+    docs: "[Build-Modules.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-exporter/tests/Build-Modules.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Exporter/Build-Modules.ps1
 ---
 #>

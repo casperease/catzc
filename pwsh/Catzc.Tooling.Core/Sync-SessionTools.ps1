@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6befa8abaff5"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
-    docs: "[Sync-SessionTools.ps1.md](docs/references/pwsh/catzc-tooling-core/Sync-SessionTools.ps1.md)"
+    docs: "[Sync-SessionTools.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Sync-SessionTools.ps1.md)"
 ---
 #>
 

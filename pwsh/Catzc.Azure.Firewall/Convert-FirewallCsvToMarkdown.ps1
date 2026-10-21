@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "76eeccb968c3"
   edges:
     test: pwsh/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1
-    docs: "[Convert-FirewallCsvToMarkdown.ps1.md](docs/references/pwsh/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md)"
+    docs: "[Convert-FirewallCsvToMarkdown.ps1.md](../../docs/references/pwsh/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md)"
     cites:
       - ADR-PWSH-PARAM-RESOLUTIONORDER
 ---

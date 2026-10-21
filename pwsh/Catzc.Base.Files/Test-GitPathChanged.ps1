@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b0a05ac5d37d
   edges:
     test: pwsh/Catzc.Base.Files/tests/Test-GitPathChanged.Tests.ps1
-    docs: "[Test-GitPathChanged.ps1.md](docs/references/pwsh/catzc-base-files/Test-GitPathChanged.ps1.md)"
+    docs: "[Test-GitPathChanged.ps1.md](../../docs/references/pwsh/catzc-base-files/Test-GitPathChanged.ps1.md)"
 ---
 #>
 

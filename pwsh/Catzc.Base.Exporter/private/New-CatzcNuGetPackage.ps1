@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "442b39ce57ca"
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
-    docs: "[New-CatzcNuGetPackage.ps1.md](docs/references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md)"
+    docs: "[New-CatzcNuGetPackage.ps1.md](../../../docs/references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md)"
     cites:
       - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
       - ADR-GH-RELEASE

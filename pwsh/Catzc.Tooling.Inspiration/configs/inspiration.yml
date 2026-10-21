@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: ca3d163bab05
 #   edges:
-#     docs: "[inspiration.yml.md](docs/references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md)"
+#     docs: "[inspiration.yml.md](../../../docs/references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-AUTO-PATH-WORKSPACEANCHOR

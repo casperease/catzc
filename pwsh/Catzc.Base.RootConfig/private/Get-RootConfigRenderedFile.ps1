@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d98c64415cb6
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1
-    docs: "[Get-RootConfigRenderedFile.ps1.md](docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigRenderedFile.ps1.md)"
+    docs: "[Get-RootConfigRenderedFile.ps1.md](../../../docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigRenderedFile.ps1.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---

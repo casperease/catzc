@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: c4f50ebf8884
 #   edges:
-#     docs: "[generated-head.yml.md](docs/references/pwsh/catzc-base-languages/configs/generated-head.yml.md)"
+#     docs: "[generated-head.yml.md](../../../docs/references/pwsh/catzc-base-languages/configs/generated-head.yml.md)"
 # ---
 
 keys:

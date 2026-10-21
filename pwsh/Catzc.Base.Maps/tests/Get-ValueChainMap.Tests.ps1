@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0a77f14bba90"
+    with_body_sha: d32d0514176d
   edges:
-    docs: "[Get-ValueChainMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md)"
+    docs: "[Get-ValueChainMap.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Get-ValueChainMap.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

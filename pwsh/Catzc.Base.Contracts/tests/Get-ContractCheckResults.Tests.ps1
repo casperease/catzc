@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "82bfd0c47650"
   edges:
-    docs: "[Get-ContractCheckResults.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-ContractCheckResults.Tests.ps1.md)"
+    docs: "[Get-ContractCheckResults.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/tests/Get-ContractCheckResults.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/Get-ContractCheckResults.ps1
     cites:
       - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE

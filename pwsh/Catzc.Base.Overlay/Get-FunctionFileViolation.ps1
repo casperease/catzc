@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "226cad2f27e7"
   edges:
     test: pwsh/Catzc.Base.Overlay/tests/Get-FunctionFileViolation.Tests.ps1
-    docs: "[Get-FunctionFileViolation.ps1.md](docs/references/pwsh/catzc-base-overlay/Get-FunctionFileViolation.ps1.md)"
+    docs: "[Get-FunctionFileViolation.ps1.md](../../docs/references/pwsh/catzc-base-overlay/Get-FunctionFileViolation.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
       - ADR-AUTO-OVERLAY

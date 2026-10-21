@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9164f82869eb"
   edges:
-    docs: "[NoAzModuleNaming.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1.md)"
+    docs: "[NoAzModuleNaming.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1.md)"
 ---
 #>
 

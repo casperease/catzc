@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a0c6957a1a68
   edges:
-    docs: "[Get-ModuleGlobSet.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md)"
+    docs: "[Get-ModuleGlobSet.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
     cites:
       - ADR-AUTO-BASH-ONEBASHROOT

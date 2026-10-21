@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "8e61a490ee77"
 //   edges:
-//     docs: "[subscription-diagnostic-setting.bicep.md](docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md)"
+//     docs: "[subscription-diagnostic-setting.bicep.md](../../docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md)"
 // ---
 
 targetScope = 'subscription'

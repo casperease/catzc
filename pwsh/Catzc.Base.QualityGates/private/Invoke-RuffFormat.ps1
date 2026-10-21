@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "93862c620fb7"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-RuffFormat.Tests.ps1
-    docs: "[Invoke-RuffFormat.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-RuffFormat.ps1.md)"
+    docs: "[Invoke-RuffFormat.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-RuffFormat.ps1.md)"
     cites:
       - ADR-AUTO-PY-EVERYFILELINTED
       - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE

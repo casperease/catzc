@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7ac323b3d0ea"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
-    docs: "[Split-TestAutomationFiles.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Split-TestAutomationFiles.ps1.md)"
+    docs: "[Split-TestAutomationFiles.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Split-TestAutomationFiles.ps1.md)"
     cites:
       - ADR-AUTO-TEST-ONESCHEDULINGPOOL
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE

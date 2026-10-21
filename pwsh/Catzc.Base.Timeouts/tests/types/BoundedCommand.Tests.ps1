@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "333447e9bb87"
   edges:
-    docs: "[BoundedCommand.Tests.ps1.md](docs/references/pwsh/catzc-base-timeouts/tests/types/BoundedCommand.Tests.ps1.md)"
+    docs: "[BoundedCommand.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-timeouts/tests/types/BoundedCommand.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Timeouts/types/BoundedCommand.cs
 ---
 #>

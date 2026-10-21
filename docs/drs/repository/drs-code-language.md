@@ -31,8 +31,8 @@ its kind, then its code where it has one.
 
 ### Rule ADR-REPO-DRSCODE-ADRSEGMENT
 
-The segment after the domain names the ADR, unique within its parent. A vendor reference adds one group level before it, so the decision records that
-answer one vendor framework are `ADR-<DOMAIN>-<FRAMEWORK>-<NAME>`, the framework's short name as the group segment.
+The segment after the domain names the ADR, unique within its parent. A vendor reference adds one group level before it, so the decision
+records that answer one vendor framework are `ADR-<DOMAIN>-<FRAMEWORK>-<NAME>`, the framework's short name as the group segment.
 
 - [Vendor references are a level](drs-code-language.md#vendor-references-are-a-level)
 
@@ -104,9 +104,9 @@ its own name, the DRS, and a record of any kind is a decision record. "XDR" is t
 
 ### One path for every level
 
-The repository's decisions form a tree: domains hold decision records, and decision records hold rules. One grammar with one separator spells every level of that
-tree, so a domain, an ADR, and a rule are read, searched, and parsed the same way. A second spelling for one level, such as a number after
-`#` or `:`, is a second small language with its own parser and its own way to go wrong.
+The repository's decisions form a tree: domains hold decision records, and decision records hold rules. One grammar with one separator
+spells every level of that tree, so a domain, an ADR, and a rule are read, searched, and parsed the same way. A second spelling for one
+level, such as a number after `#` or `:`, is a second small language with its own parser and its own way to go wrong.
 
 ### The domain comes first
 

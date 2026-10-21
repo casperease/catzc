@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "37c0d46fbb69"
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1
-    docs: "[Clear-TempFolders.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Clear-TempFolders.ps1.md)"
+    docs: "[Clear-TempFolders.ps1.md](../../docs/references/pwsh/catzc-tooling-provisioning/Clear-TempFolders.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
 ---

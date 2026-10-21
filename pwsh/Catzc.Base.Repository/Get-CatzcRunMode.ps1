@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "05aef5dac1ab"
   edges:
     test: pwsh/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1
-    docs: "[Get-CatzcRunMode.ps1.md](docs/references/pwsh/catzc-base-repository/Get-CatzcRunMode.ps1.md)"
+    docs: "[Get-CatzcRunMode.ps1.md](../../docs/references/pwsh/catzc-base-repository/Get-CatzcRunMode.ps1.md)"
     cites:
       - DDR-RUNMODE-MODEISDERIVED
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6e6a8c606a77"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1
-    docs: "[Assert-Tool.ps1.md](docs/references/pwsh/catzc-tooling-core/Assert-Tool.ps1.md)"
+    docs: "[Assert-Tool.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Assert-Tool.ps1.md)"
 ---
 #>
 

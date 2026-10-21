@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2dd644d99d2b"
   edges:
-    docs: "[Install-UvStandalone.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md)"
+    docs: "[Install-UvStandalone.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md)"
     cites:
       - ADR-AUTO-PKGMGR
       - ADR-AUTO-UVPY

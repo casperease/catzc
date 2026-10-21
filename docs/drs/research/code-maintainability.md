@@ -1,4 +1,4 @@
-# ADR: DORA — Code maintainability
+# Research: DORA — Code maintainability
 
 ## Rules: RDR-DORA-MAINTAIN
 

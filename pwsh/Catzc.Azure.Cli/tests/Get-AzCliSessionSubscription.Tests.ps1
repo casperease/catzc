@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e7c509f1efe0
   edges:
-    docs: "[Get-AzCliSessionSubscription.Tests.ps1.md](docs/references/pwsh/catzc-azure-cli/tests/Get-AzCliSessionSubscription.Tests.ps1.md)"
+    docs: "[Get-AzCliSessionSubscription.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-cli/tests/Get-AzCliSessionSubscription.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
     cites:
       - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES

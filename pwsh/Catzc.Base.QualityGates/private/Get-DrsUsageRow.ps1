@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "06221b3fe740"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-DrsUsageRow.Tests.ps1
-    docs: "[Get-DrsUsageRow.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-DrsUsageRow.ps1.md)"
+    docs: "[Get-DrsUsageRow.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-DrsUsageRow.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-NOREADBACK
 ---

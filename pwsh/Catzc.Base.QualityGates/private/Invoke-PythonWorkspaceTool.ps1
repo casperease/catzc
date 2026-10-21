@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e24379e8497c
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-PythonWorkspaceTool.Tests.ps1
-    docs: "[Invoke-PythonWorkspaceTool.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-PythonWorkspaceTool.ps1.md)"
+    docs: "[Invoke-PythonWorkspaceTool.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-PythonWorkspaceTool.ps1.md)"
     cites:
       - ADR-AUTO-PY-EVERYFILELINTED
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3fb39c5d5891"
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Assert-AzCliCanAccess.Tests.ps1
-    docs: "[Assert-AzCliCanAccess.ps1.md](docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md)"
+    docs: "[Assert-AzCliCanAccess.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md)"
     cites:
       - ADR-AZ-CLI-AZBYDEFAULT
       - ADR-AZ-DATAMOD

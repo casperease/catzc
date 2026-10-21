@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "52cec863cfff"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-    docs: "[Get-FileLanguage.ps1.md](docs/references/pwsh/catzc-base-languages/Get-FileLanguage.ps1.md)"
+    docs: "[Get-FileLanguage.ps1.md](../../docs/references/pwsh/catzc-base-languages/Get-FileLanguage.ps1.md)"
     cites:
       - DDR-TRACK-FILELANGUAGE
 ---

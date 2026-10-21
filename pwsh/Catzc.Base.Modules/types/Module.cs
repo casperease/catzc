@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "48ca8e13dff7"
   edges:
     test: pwsh/Catzc.Base.Modules/tests/types/Module.Tests.ps1
-    docs: "[Module.cs.md](docs/references/pwsh/catzc-base-modules/types/Module.cs.md)"
+    docs: "[Module.cs.md](../../../docs/references/pwsh/catzc-base-modules/types/Module.cs.md)"
     cites:
       - ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
       - ADR-BCL-TYPES-NATIVETYPEDMODEL

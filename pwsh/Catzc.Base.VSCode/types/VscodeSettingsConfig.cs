@@ -5,7 +5,7 @@ catzc:
     with_body_sha: cb80a990335f
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/types/VscodeSettingsConfig.Tests.ps1
-    docs: "[VscodeSettingsConfig.cs.md](docs/references/pwsh/catzc-base-vs-code/types/VscodeSettingsConfig.cs.md)"
+    docs: "[VscodeSettingsConfig.cs.md](../../../docs/references/pwsh/catzc-base-vs-code/types/VscodeSettingsConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-ROOTCFG

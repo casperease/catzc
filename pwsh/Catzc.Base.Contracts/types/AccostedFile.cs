@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f59ec9ff4f60
+    with_body_sha: "6bed67d2a3af"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/AccostedFile.Tests.ps1
+    docs: "[AccostedFile.cs.md](../../../docs/references/pwsh/catzc-base-contracts/types/AccostedFile.cs.md)"
     cites:
       - ADR-AUTO-ACCOSTED-FILEFORM
 ---

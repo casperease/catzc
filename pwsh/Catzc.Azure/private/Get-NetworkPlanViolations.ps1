@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: dce1d8f04feb
   edges:
-    docs: "[Get-NetworkPlanViolations.ps1.md](docs/references/pwsh/catzc-azure/private/Get-NetworkPlanViolations.ps1.md)"
+    docs: "[Get-NetworkPlanViolations.ps1.md](../../../docs/references/pwsh/catzc-azure/private/Get-NetworkPlanViolations.ps1.md)"
     cites:
       - ADR-AZ-NETWORK-KEYEDBYENVIRONMENT
       - ADR-AZ-NETWORK-SUBSCRIPTIONENVIRONMENTSNONETWORK

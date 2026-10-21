@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c39d4fbe75f0
   edges:
-    docs: "[Select-SupportedKeyHandler.Tests.ps1.md](docs/references/pwsh/catzc-tooling-key-handler/tests/Select-SupportedKeyHandler.Tests.ps1.md)"
+    docs: "[Select-SupportedKeyHandler.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-key-handler/tests/Select-SupportedKeyHandler.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

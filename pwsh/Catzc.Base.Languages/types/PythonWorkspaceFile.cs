@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "613a2fecc411"
   edges:
-    docs: "[PythonWorkspaceFile.cs.md](docs/references/pwsh/catzc-base-languages/types/PythonWorkspaceFile.cs.md)"
+    docs: "[PythonWorkspaceFile.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/PythonWorkspaceFile.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-ROOTCFG

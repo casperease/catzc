@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: e2c0cc59d7de
 //   edges:
-//     docs: "[route-table.bicep.md](docs/references/infrastructure/modules/route-table.bicep.md)"
+//     docs: "[route-table.bicep.md](../../docs/references/infrastructure/modules/route-table.bicep.md)"
 // ---
 
 @description('Route table name (1-80 characters, unique within the resource group).')

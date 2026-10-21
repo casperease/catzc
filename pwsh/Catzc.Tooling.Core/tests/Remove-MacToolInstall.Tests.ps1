@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "84df34b8e214"
   edges:
-    docs: "[Remove-MacToolInstall.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Remove-MacToolInstall.Tests.ps1.md)"
+    docs: "[Remove-MacToolInstall.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Remove-MacToolInstall.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
     cites:
       - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED

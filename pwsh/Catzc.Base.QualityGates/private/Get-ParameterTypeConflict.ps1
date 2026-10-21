@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b27c43d7c2ef
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ParameterTypeConflict.Tests.ps1
-    docs: "[Get-ParameterTypeConflict.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ParameterTypeConflict.ps1.md)"
+    docs: "[Get-ParameterTypeConflict.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ParameterTypeConflict.ps1.md)"
 ---
 #>
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2ec643f7822b"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
-    docs: "[Install-Dotnet.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Install-Dotnet.ps1.md)"
+    docs: "[Install-Dotnet.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Install-Dotnet.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "92f98d05784f"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Install-Go.Tests.ps1
-    docs: "[Install-Go.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Install-Go.ps1.md)"
+    docs: "[Install-Go.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Install-Go.ps1.md)"
 ---
 #>
 

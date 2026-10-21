@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7907ab1f3d40"
   edges:
-    docs: "[Get-GlossarySources.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySources.Tests.ps1.md)"
+    docs: "[Get-GlossarySources.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySources.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

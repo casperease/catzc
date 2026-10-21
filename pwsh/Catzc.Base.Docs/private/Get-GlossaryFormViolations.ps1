@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1a1752eb3a6b"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossaryFormViolations.Tests.ps1
-    docs: "[Get-GlossaryFormViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md)"
+    docs: "[Get-GlossaryFormViolations.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md)"
     cites:
       - ADR-REPO-VOCAB-FAMILYFORMS
 ---

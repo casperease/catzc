@@ -2,8 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f9e3ca14b263
+    with_body_sha: "5c074010b5b9"
   edges:
+    docs: "[PathRename.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/PathRename.cs.md)"
     cites:
       - ADR-AUTO-IDIOM-LANGUAGEIDIOM
 ---

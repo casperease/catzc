@@ -5,7 +5,7 @@ catzc:
     with_body_sha: aff5043d7ca7
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Install-Bicep.Tests.ps1
-    docs: "[Install-Bicep.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Install-Bicep.ps1.md)"
+    docs: "[Install-Bicep.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Install-Bicep.ps1.md)"
     cites:
       - ADR-AUTO-PKGMGR
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS

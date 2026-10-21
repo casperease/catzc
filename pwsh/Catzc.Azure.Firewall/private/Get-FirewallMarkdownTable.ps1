@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f6e20bb2bee9
   edges:
     test: pwsh/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownTable.Tests.ps1
-    docs: "[Get-FirewallMarkdownTable.ps1.md](docs/references/pwsh/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md)"
+    docs: "[Get-FirewallMarkdownTable.ps1.md](../../../docs/references/pwsh/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md)"
 ---
 #>
 

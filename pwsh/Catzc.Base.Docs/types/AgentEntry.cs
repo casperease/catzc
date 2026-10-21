@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3e23649e4be7"
+    with_body_sha: "00b300ff334b"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
-    docs: "[AgentEntry.cs.md](docs/references/pwsh/catzc-base-docs/types/AgentEntry.cs.md)"
+    docs: "[AgentEntry.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/AgentEntry.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-PWSH-ERROR-THROWNOTWRITEERROR

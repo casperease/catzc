@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "30a618d1e1bb"
   edges:
-    docs: "[Resolve-InspirationRoot.Tests.ps1.md](docs/references/pwsh/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md)"
+    docs: "[Resolve-InspirationRoot.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
     cites:
       - ADR-AUTO-PATH-WORKSPACEANCHOR

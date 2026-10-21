@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ead1a580db4a
   edges:
-    docs: "[ValueChainReason.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainReason.cs.md)"
+    docs: "[ValueChainReason.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/ValueChainReason.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - DDR-TRACK-VALUECHAINSTACK

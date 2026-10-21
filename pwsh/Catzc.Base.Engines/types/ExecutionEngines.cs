@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6bc3d45e400b"
   edges:
-    docs: "[ExecutionEngines.cs.md](docs/references/pwsh/catzc-base-engines/types/ExecutionEngines.cs.md)"
+    docs: "[ExecutionEngines.cs.md](../../../docs/references/pwsh/catzc-base-engines/types/ExecutionEngines.cs.md)"
     cites:
       - ADR-AUTO-ENGINE
 ---

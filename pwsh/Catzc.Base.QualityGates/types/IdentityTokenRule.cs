@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: cc198773e590
   edges:
-    docs: "[IdentityTokenRule.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/IdentityTokenRule.cs.md)"
+    docs: "[IdentityTokenRule.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/IdentityTokenRule.cs.md)"
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

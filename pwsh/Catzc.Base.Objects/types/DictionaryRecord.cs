@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ca5e580b7869
   edges:
     test: pwsh/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
-    docs: "[DictionaryRecord.cs.md](docs/references/pwsh/catzc-base-objects/types/DictionaryRecord.cs.md)"
+    docs: "[DictionaryRecord.cs.md](../../../docs/references/pwsh/catzc-base-objects/types/DictionaryRecord.cs.md)"
 ---
 */
 

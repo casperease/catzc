@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2f02e9a45535"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/types/DrsDomainEdge.Tests.ps1
-    docs: "[DrsDomainEdge.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsDomainEdge.cs.md)"
+    docs: "[DrsDomainEdge.cs.md](../../../docs/references/pwsh/catzc-base-drs/types/DrsDomainEdge.cs.md)"
     cites:
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "232c02c064d2"
   edges:
     test: pwsh/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1
-    docs: "[RepoRelativePath.cs.md](docs/references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md)"
+    docs: "[RepoRelativePath.cs.md](../../../docs/references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md)"
     cites:
       - ADR-AUTO-PATH
 ---

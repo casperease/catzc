@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9758a6ddeb24"
   edges:
     test: pwsh/Catzc.Azure.Firewall/tests/Get-FirewallIpgsYaml.Tests.ps1
-    docs: "[Get-FirewallIpgsYaml.ps1.md](docs/references/pwsh/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md)"
+    docs: "[Get-FirewallIpgsYaml.ps1.md](../../docs/references/pwsh/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md)"
 ---
 #>
 

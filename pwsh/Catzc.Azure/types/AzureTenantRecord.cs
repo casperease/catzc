@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "06fca1eb62d6"
   edges:
-    docs: "[AzureTenantRecord.cs.md](docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md)"
+    docs: "[AzureTenantRecord.cs.md](../../../docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md)"
     cites:
       - ADR-AZ-DATAMOD
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

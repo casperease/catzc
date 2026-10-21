@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: dfd4016ea6e6
   edges:
-    docs: "[Test-Links.Untracked.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Untracked.Tests.ps1.md)"
+    docs: "[Test-Links.Untracked.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Untracked.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-LINK-MARKDOWNRELATIVE

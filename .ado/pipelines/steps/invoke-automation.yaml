@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: d1476ef6c114
 #   edges:
-#     docs: "[invoke-automation.yaml.md](docs/references/ado/pipelines/steps/invoke-automation.yaml.md)"
+#     docs: "[invoke-automation.yaml.md](../../../docs/references/ado/pipelines/steps/invoke-automation.yaml.md)"
 #     cites:
 #       - FDR-CD-RUNNER
 # ---

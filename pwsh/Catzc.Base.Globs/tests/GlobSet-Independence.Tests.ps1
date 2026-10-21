@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "49211612be85"
   edges:
-    docs: "[GlobSet-Independence.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md)"
+    docs: "[GlobSet-Independence.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md)"
     cites:
       - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
 ---

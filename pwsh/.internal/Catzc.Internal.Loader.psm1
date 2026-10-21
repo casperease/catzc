@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a6627e11cf94
   edges:
-    docs: "[Catzc.Internal.Loader.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md)"
+    docs: "[Catzc.Internal.Loader.psm1.md](../../docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md)"
     cites:
       - PDR-ONELIVE
 ---

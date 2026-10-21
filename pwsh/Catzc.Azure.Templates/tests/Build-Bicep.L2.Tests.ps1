@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "4913c8c39d21"
   edges:
-    docs: "[Build-Bicep.L2.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md)"
+    docs: "[Build-Bicep.L2.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
       - ADR-AUTO-TEST-ONESCHEDULINGPOOL

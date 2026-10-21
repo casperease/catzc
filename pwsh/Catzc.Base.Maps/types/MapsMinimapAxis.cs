@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a1e4711edf18
   edges:
-    docs: "[MapsMinimapAxis.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsMinimapAxis.cs.md)"
+    docs: "[MapsMinimapAxis.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/MapsMinimapAxis.cs.md)"
 ---
 */
 

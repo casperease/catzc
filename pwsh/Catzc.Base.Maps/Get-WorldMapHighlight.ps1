@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "96d44a144001"
+    with_body_sha: "8bb8f97665fa"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-    docs: "[Get-WorldMapHighlight.ps1.md](docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md)"
+    docs: "[Get-WorldMapHighlight.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md)"
     cites:
       - DDR-TRACK-TRACKISPLACEDCLUSTER
       - DDR-TRACK-ONETECHSTACK

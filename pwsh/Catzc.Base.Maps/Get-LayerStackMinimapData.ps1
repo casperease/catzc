@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9cb91f37362f"
+    with_body_sha: "6a8d34a9c992"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-LayerStackMinimapData.Tests.ps1
-    docs: "[Get-LayerStackMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-LayerStackMinimapData.ps1.md)"
+    docs: "[Get-LayerStackMinimapData.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-LayerStackMinimapData.ps1.md)"
     cites:
       - ADR-AUTO-IMPORTER
       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE

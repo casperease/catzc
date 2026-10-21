@@ -1,9 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "7f5fb17210b5"
+#     with_body_sha: "14e7cb7528f8"
 #   edges:
-#     docs: "[terminology.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md)"
+#     docs: "[terminology.yml.md](../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md)"
 #     cites:
 #       - ADR-AUTO-ACCOSTED
 #       - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e2eec5b203fb
   edges:
-    docs: "[YamlInventoryRecord.cs.md](docs/references/pwsh/catzc-azure-dev-ops/types/YamlInventoryRecord.cs.md)"
+    docs: "[YamlInventoryRecord.cs.md](../../../docs/references/pwsh/catzc-azure-dev-ops/types/YamlInventoryRecord.cs.md)"
 ---
 */
 

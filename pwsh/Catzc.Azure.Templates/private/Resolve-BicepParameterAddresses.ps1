@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "7a9353f2c1bc"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
-    docs: "[Resolve-BicepParameterAddresses.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md)"
+    docs: "[Resolve-BicepParameterAddresses.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD-VALUEBYADDRESS
       - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM

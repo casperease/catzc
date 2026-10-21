@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d73d8576ada5
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestRunManifest.Tests.ps1
-    docs: "[Write-TestRunManifest.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Write-TestRunManifest.ps1.md)"
+    docs: "[Write-TestRunManifest.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Write-TestRunManifest.ps1.md)"
 ---
 #>
 

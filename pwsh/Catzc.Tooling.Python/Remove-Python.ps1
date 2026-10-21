@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: dc7f6fc2ee5f
   edges:
-    docs: "[Remove-Python.ps1.md](docs/references/pwsh/catzc-tooling-python/Remove-Python.ps1.md)"
+    docs: "[Remove-Python.ps1.md](../../docs/references/pwsh/catzc-tooling-python/Remove-Python.ps1.md)"
 ---
 #>
 

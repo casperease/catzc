@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "74cb06f8499e"
   edges:
-    docs: "[Assert-NotNull.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-NotNull.ps1.md)"
+    docs: "[Assert-NotNull.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Assert-NotNull.ps1.md)"
 ---
 #>
 

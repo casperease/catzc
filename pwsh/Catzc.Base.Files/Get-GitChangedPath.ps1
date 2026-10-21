@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e942a2431aef
   edges:
     test: pwsh/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
-    docs: "[Get-GitChangedPath.ps1.md](docs/references/pwsh/catzc-base-files/Get-GitChangedPath.ps1.md)"
+    docs: "[Get-GitChangedPath.ps1.md](../../docs/references/pwsh/catzc-base-files/Get-GitChangedPath.ps1.md)"
 ---
 #>
 

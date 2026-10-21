@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "471e57c38fa0"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1
-    docs: "[Assert-TestTagGate.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Assert-TestTagGate.ps1.md)"
+    docs: "[Assert-TestTagGate.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Assert-TestTagGate.ps1.md)"
     cites:
       - ADR-AUTO-TEST-TWOMANDATORYTAGS
 ---

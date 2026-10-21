@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: da7228167aa2
   edges:
-    docs: "[CommentFileResult.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/CommentFileResult.cs.md)"
+    docs: "[CommentFileResult.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/CommentFileResult.cs.md)"
     cites:
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
 ---

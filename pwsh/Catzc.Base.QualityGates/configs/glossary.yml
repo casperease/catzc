@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: dcbcf17dde3b
 #   edges:
-#     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/glossary.yml.md)"
+#     docs: "[glossary.yml.md](../../../docs/references/pwsh/catzc-base-quality-gates/configs/glossary.yml.md)"
 #     cites:
 #       - ADR-AUTO-TEST-ONECATEGORY
 #       - ADR-AUTO-TEST-TWOMANDATORYTAGS

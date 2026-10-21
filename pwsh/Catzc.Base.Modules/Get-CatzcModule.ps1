@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "01a1fa467c13"
   edges:
     test: pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-    docs: "[Get-CatzcModule.ps1.md](docs/references/pwsh/catzc-base-modules/Get-CatzcModule.ps1.md)"
+    docs: "[Get-CatzcModule.ps1.md](../../docs/references/pwsh/catzc-base-modules/Get-CatzcModule.ps1.md)"
     cites:
       - ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
       - ADR-AUTO-MODULE-EXISTSBYLAYOUT

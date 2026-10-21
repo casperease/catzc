@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "3d0167c5e940"
   edges:
-    docs: "[DocPattern.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/DocPattern.Tests.ps1.md)"
+    docs: "[DocPattern.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-docs/tests/types/DocPattern.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/DocPattern.cs
 ---
 #>

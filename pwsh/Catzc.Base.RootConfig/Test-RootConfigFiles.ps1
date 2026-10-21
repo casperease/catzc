@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3f04b693e8f5"
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigFiles.Tests.ps1
-    docs: "[Test-RootConfigFiles.ps1.md](docs/references/pwsh/catzc-base-root-config/Test-RootConfigFiles.ps1.md)"
+    docs: "[Test-RootConfigFiles.ps1.md](../../docs/references/pwsh/catzc-base-root-config/Test-RootConfigFiles.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-ROOTCFG

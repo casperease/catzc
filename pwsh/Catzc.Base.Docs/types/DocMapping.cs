@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "59c9315de682"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/DocMapping.Tests.ps1
-    docs: "[DocMapping.cs.md](docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md)"
+    docs: "[DocMapping.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md)"
     cites:
       - ADR-AUTO-PATH
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b39c2ca50cca
   edges:
-    docs: "[ConsoleDisplayAttribute.cs.md](docs/references/pwsh/catzc-base-objects/types/ConsoleDisplayAttribute.cs.md)"
+    docs: "[ConsoleDisplayAttribute.cs.md](../../../docs/references/pwsh/catzc-base-objects/types/ConsoleDisplayAttribute.cs.md)"
 ---
 */
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "03a27ee62a31"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
-    docs: "[CliRunner.cs.md](docs/references/pwsh/catzc-base-execution/types/CliRunner.cs.md)"
+    docs: "[CliRunner.cs.md](../../../docs/references/pwsh/catzc-base-execution/types/CliRunner.cs.md)"
 ---
 */
 

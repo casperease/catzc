@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "397958171764"
   edges:
-    docs: "[Get-BicepSubscriptionConfigViolations.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1.md)"
+    docs: "[Get-BicepSubscriptionConfigViolations.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Templates/private/Get-BicepSubscriptionConfigViolations.ps1
     cites:
       - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES

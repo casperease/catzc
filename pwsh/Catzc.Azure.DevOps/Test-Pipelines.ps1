@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d68046eaa4a8
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-    docs: "[Test-Pipelines.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Test-Pipelines.ps1.md)"
+    docs: "[Test-Pipelines.ps1.md](../../docs/references/pwsh/catzc-azure-dev-ops/Test-Pipelines.ps1.md)"
     cites:
       - ADR-ADO-NAME
       - ADR-AUTO-TEST-QUALITYGATE

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ef845f26a88b
   edges:
-    docs: "[Invoke-AzCli.L2.Tests.ps1.md](docs/references/pwsh/catzc-azure-cli/tests/Invoke-AzCli.L2.Tests.ps1.md)"
+    docs: "[Invoke-AzCli.L2.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-cli/tests/Invoke-AzCli.L2.Tests.ps1.md)"
 ---
 #>
 

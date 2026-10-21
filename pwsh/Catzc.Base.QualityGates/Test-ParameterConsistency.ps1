@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3695846ef872"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1
-    docs: "[Test-ParameterConsistency.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-ParameterConsistency.ps1.md)"
+    docs: "[Test-ParameterConsistency.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-ParameterConsistency.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-PWSH-PARAM

@@ -1,9 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "22a9731ab025"
+#     with_body_sha: "525733629ffd"
 #   edges:
-#     docs: "[drs.yml.md](docs/references/pwsh/catzc-base-drs/configs/drs.yml.md)"
+#     docs: "[drs.yml.md](../../../docs/references/pwsh/catzc-base-drs/configs/drs.yml.md)"
 #     cites:
 #       - ADR-ADO-AUTH
 #       - ADR-ADO-NAME

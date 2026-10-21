@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: eb3760e28698
   edges:
-    docs: "[Get-PermanentEnvironmentVariable.ps1.md](docs/references/pwsh/catzc-base-environment/Get-PermanentEnvironmentVariable.ps1.md)"
+    docs: "[Get-PermanentEnvironmentVariable.ps1.md](../../docs/references/pwsh/catzc-base-environment/Get-PermanentEnvironmentVariable.ps1.md)"
 ---
 #>
 

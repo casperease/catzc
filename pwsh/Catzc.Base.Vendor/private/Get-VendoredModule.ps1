@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9beaca0c467e"
   edges:
-    docs: "[Get-VendoredModule.ps1.md](docs/references/pwsh/catzc-base-vendor/private/Get-VendoredModule.ps1.md)"
+    docs: "[Get-VendoredModule.ps1.md](../../../docs/references/pwsh/catzc-base-vendor/private/Get-VendoredModule.ps1.md)"
 ---
 #>
 

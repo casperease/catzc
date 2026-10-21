@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "568d865fd6f6"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestSkipReason.Tests.ps1
-    docs: "[Get-TestSkipReason.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestSkipReason.ps1.md)"
+    docs: "[Get-TestSkipReason.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestSkipReason.ps1.md)"
 ---
 #>
 

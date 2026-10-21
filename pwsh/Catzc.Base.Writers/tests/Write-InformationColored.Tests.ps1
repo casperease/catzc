@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c294163951e6
   edges:
-    docs: "[Write-InformationColored.Tests.ps1.md](docs/references/pwsh/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md)"
+    docs: "[Write-InformationColored.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Writers/private/Write-InformationColored.ps1
 ---
 #>

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c0a8943e34fc
   edges:
     test: pwsh/Catzc.Base.Languages/tests/ConvertFrom-GoTestJson.Tests.ps1
-    docs: "[ConvertFrom-GoTestJson.ps1.md](docs/references/pwsh/catzc-base-languages/private/ConvertFrom-GoTestJson.ps1.md)"
+    docs: "[ConvertFrom-GoTestJson.ps1.md](../../../docs/references/pwsh/catzc-base-languages/private/ConvertFrom-GoTestJson.ps1.md)"
 ---
 #>
 

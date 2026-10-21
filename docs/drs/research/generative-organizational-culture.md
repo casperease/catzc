@@ -1,4 +1,4 @@
-# ADR: DORA — Generative organizational culture
+# Research: DORA — Generative organizational culture
 
 ## Rules: RDR-DORA-CULTURE
 
@@ -83,9 +83,9 @@ pattern a generative culture avoids. Inspect-and-adapt responds to a failure wit
 blame, which is Westrum's "failure leads to inquiry" applied to the platform's own gates. Building quality in removes the separate
 inspection phase and makes quality everyone's job rather than one team's, which is the shared-risk trait a generative culture requires.
 
-Beyond what these ADRs encode, apply the capability directly: run blameless postmortems that ask what happened rather than who did it, give
-developers ownership of their code once it runs in production, break down silos through shared planning and informal cross-functional
-conversation, and protect real time for people to try an idea rather than only tolerating the idea in theory.
+Beyond what these decision records encode, apply the capability directly: run blameless postmortems that ask what happened rather than who
+did it, give developers ownership of their code once it runs in production, break down silos through shared planning and informal
+cross-functional conversation, and protect real time for people to try an idea rather than only tolerating the idea in theory.
 
 ## Common pitfalls
 

@@ -355,13 +355,13 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 [ADR-REPO-INSPIRE](inspiration.md)
 
 > DORA's research ties delivery performance to a learning culture and to teams that try ideas and judge them on evidence. Reading a sibling
-> repository for ideas shortens the search for a good shape, and weighing each idea against catzc's own ADRs, then rebuilding it to their
-> rules, keeps that learning from turning into a second, unchecked set of rules.
+> repository for ideas shortens the search for a good shape, and weighing each idea against catzc's own decision records, then rebuilding it
+> to their rules, keeps that learning from turning into a second, unchecked set of rules.
 
 - [Learning culture](../../references/dora/capabilities.md#learning-culture) — a solution a sibling found is read and learned from, not
   rediscovered.
-- [Team experimentation](../../references/dora/capabilities.md#team-experimentation) — an idea is a candidate the ADRs judge, and the work
-  says where it came from, so the reasoning stays reviewable.
+- [Team experimentation](../../references/dora/capabilities.md#team-experimentation) — an idea is a candidate the decision records judge,
+  and the work says where it came from, so the reasoning stays reviewable.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — an idea is rebuilt to catzc's rules, never ported
   beside them, so the code keeps one living version of each behaviour.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
@@ -397,7 +397,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   check, so a session takes one step and leaves the tree verified.
 - [Work visibility in the value stream](../../references/dora/capabilities.md#work-visibility-in-value-stream) — the folder holds every open
   step and nothing done, and the value overlay orders them, so what is in flight is read in one place.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a decision a plan records becomes an ADR rule in the
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a decision a plan records becomes a DRS rule in the
   same change, so no constraint lives only in a file that will be deleted.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 

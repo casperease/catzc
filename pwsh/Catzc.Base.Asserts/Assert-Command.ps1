@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "91ab6f7a80f2"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-Command.Tests.ps1
-    docs: "[Assert-Command.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-Command.ps1.md)"
+    docs: "[Assert-Command.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Assert-Command.ps1.md)"
 ---
 #>
 

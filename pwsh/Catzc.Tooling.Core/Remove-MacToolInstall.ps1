@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ea2f0c4c27f1
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1
-    docs: "[Remove-MacToolInstall.ps1.md](docs/references/pwsh/catzc-tooling-core/Remove-MacToolInstall.ps1.md)"
+    docs: "[Remove-MacToolInstall.ps1.md](../../docs/references/pwsh/catzc-tooling-core/Remove-MacToolInstall.ps1.md)"
     cites:
       - ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM
       - ADR-AUTO-REMOVE-THREEPLATFORMCORES

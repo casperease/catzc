@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4c9da642eca4"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1
-    docs: "[Get-BicepResourceGroupName.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepResourceGroupName.ps1.md)"
+    docs: "[Get-BicepResourceGroupName.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepResourceGroupName.ps1.md)"
 ---
 #>
 

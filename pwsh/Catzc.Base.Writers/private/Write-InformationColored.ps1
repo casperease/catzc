@@ -5,7 +5,7 @@ catzc:
     with_body_sha: b585f7407bf3
   edges:
     test: pwsh/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
-    docs: "[Write-InformationColored.ps1.md](docs/references/pwsh/catzc-base-writers/private/Write-InformationColored.ps1.md)"
+    docs: "[Write-InformationColored.ps1.md](../../../docs/references/pwsh/catzc-base-writers/private/Write-InformationColored.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-NOBOXDRAWING
       - ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3f399779772f"
   edges:
     test: pwsh/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
-    docs: "[CustomerConfig.cs.md](docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md)"
+    docs: "[CustomerConfig.cs.md](../../../docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md)"
     cites:
       - ADR-AZ-CUSTOMER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

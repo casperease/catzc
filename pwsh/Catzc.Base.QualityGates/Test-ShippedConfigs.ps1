@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "107271ae1e6a"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-ShippedConfigs.Tests.ps1
-    docs: "[Test-ShippedConfigs.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-ShippedConfigs.ps1.md)"
+    docs: "[Test-ShippedConfigs.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-ShippedConfigs.ps1.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-TEST-QUALITYGATE

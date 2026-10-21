@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d00528446ad0
   edges:
-    docs: "[BicepTemplate.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepTemplate.cs.md)"
+    docs: "[BicepTemplate.cs.md](../../../docs/references/pwsh/catzc-azure-templates/types/BicepTemplate.cs.md)"
     cites:
       - ADR-AZ-CUSTOMER
 ---

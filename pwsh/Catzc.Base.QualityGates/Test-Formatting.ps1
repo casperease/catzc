@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e63642c3e5a0
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
-    docs: "[Test-Formatting.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Formatting.ps1.md)"
+    docs: "[Test-Formatting.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Formatting.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - DDR-TRACK-MIGRATEONEFILEPERCOMMIT

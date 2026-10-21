@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2d9d3f9567e7"
+    with_body_sha: "5044d86235ad"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-DefinedName.ps1
     cites:

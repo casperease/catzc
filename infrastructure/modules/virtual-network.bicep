@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "669cdd2c562e"
 //   edges:
-//     docs: "[virtual-network.bicep.md](docs/references/infrastructure/modules/virtual-network.bicep.md)"
+//     docs: "[virtual-network.bicep.md](../../docs/references/infrastructure/modules/virtual-network.bicep.md)"
 // ---
 
 @description('A subnet of the virtual network.')

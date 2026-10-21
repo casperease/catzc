@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "866a646f98c9"
   edges:
-    docs: "[FileMetaKind.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/FileMetaKind.cs.md)"
+    docs: "[FileMetaKind.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/FileMetaKind.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-REPO-FILEMETA-METAKIND

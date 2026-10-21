@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "9ffb953d30dc"
 //   edges:
-//     docs: "[storage-account.bicep.md](docs/references/infrastructure/modules/storage-account.bicep.md)"
+//     docs: "[storage-account.bicep.md](../../docs/references/infrastructure/modules/storage-account.bicep.md)"
 // ---
 
 @description('Storage account name (3-24 lowercase alphanumeric, globally unique).')

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ff60d28a8848
   edges:
-    docs: "[Get-Inspiration.Tests.ps1.md](docs/references/pwsh/catzc-tooling-inspiration/tests/Get-Inspiration.Tests.ps1.md)"
+    docs: "[Get-Inspiration.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-inspiration/tests/Get-Inspiration.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

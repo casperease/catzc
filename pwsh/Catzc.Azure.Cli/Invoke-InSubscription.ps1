@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: bd639a68c688
   edges:
-    docs: "[Invoke-InSubscription.ps1.md](docs/references/pwsh/catzc-azure-cli/Invoke-InSubscription.ps1.md)"
+    docs: "[Invoke-InSubscription.ps1.md](../../docs/references/pwsh/catzc-azure-cli/Invoke-InSubscription.ps1.md)"
 ---
 #>
 

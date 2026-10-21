@@ -1,4 +1,4 @@
-# ADR: DORA — Platform engineering
+# Research: DORA — Platform engineering
 
 ## Rules: RDR-DORA-PLATFORM
 

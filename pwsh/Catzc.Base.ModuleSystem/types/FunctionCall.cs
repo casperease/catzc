@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: be8b1c54c406
   edges:
-    docs: "[FunctionCall.cs.md](docs/references/pwsh/catzc-base-module-system/types/FunctionCall.cs.md)"
+    docs: "[FunctionCall.cs.md](../../../docs/references/pwsh/catzc-base-module-system/types/FunctionCall.cs.md)"
 ---
 */
 

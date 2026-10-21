@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "922f061d374f"
   edges:
-    docs: "[Get-RepositoryFolder.Tests.ps1.md](docs/references/pwsh/catzc-base-repository/tests/Get-RepositoryFolder.Tests.ps1.md)"
+    docs: "[Get-RepositoryFolder.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-repository/tests/Get-RepositoryFolder.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Repository/Get-RepositoryFolder.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

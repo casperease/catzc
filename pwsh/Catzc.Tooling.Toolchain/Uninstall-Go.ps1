@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "61c8ffe19978"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Uninstall-Go.Tests.ps1
-    docs: "[Uninstall-Go.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Go.ps1.md)"
+    docs: "[Uninstall-Go.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Go.ps1.md)"
 ---
 #>
 

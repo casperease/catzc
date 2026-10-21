@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5efc525b5fb7"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
-    docs: "[Get-GlobSetMember.ps1.md](docs/references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md)"
+    docs: "[Get-GlobSetMember.ps1.md](../../../docs/references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md)"
     cites:
       - FDR-CD-GLOBS-TRACKEDFILESONLY
 ---

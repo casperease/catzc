@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "83fb0034b1be"
   edges:
-    docs: "[LanguageNaming.cs.md](docs/references/pwsh/catzc-base-languages/types/LanguageNaming.cs.md)"
+    docs: "[LanguageNaming.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/LanguageNaming.cs.md)"
     cites:
       - ADR-AUTO-IDIOM-CLOSEDCASES
       - ADR-AUTO-IDIOM-ROUNDTRIP

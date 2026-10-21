@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "42f99c5552a7"
   edges:
-    docs: "[Get-OverlayContractViolation.ps1.md](docs/references/pwsh/catzc-base-overlay/private/Get-OverlayContractViolation.ps1.md)"
+    docs: "[Get-OverlayContractViolation.ps1.md](../../../docs/references/pwsh/catzc-base-overlay/private/Get-OverlayContractViolation.ps1.md)"
     cites:
       - ADR-AUTO-OVERLAY
 ---

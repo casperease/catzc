@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "9de7934588dd"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
-    docs: "[Get-GlobSetFile.ps1.md](docs/references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md)"
+    docs: "[Get-GlobSetFile.ps1.md](../../docs/references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md)"
     cites:
       - FDR-CD-GLOBS-TRACKEDFILESONLY
       - FDR-CD-GLOBS-DURABLESHAIDENTITY

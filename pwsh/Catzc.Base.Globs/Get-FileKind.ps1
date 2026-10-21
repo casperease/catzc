@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c86b90351839
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-FileKind.Tests.ps1
-    docs: "[Get-FileKind.ps1.md](docs/references/pwsh/catzc-base-globs/Get-FileKind.ps1.md)"
+    docs: "[Get-FileKind.ps1.md](../../docs/references/pwsh/catzc-base-globs/Get-FileKind.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-METAKIND
 ---

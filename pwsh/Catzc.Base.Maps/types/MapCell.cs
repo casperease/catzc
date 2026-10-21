@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "217d7553d6b5"
   edges:
-    docs: "[MapCell.cs.md](docs/references/pwsh/catzc-base-maps/types/MapCell.cs.md)"
+    docs: "[MapCell.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/MapCell.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - DDR-TRACK-TRACKISPLACEDCLUSTER

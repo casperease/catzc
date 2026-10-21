@@ -5,7 +5,7 @@ catzc:
     with_body_sha: f94ddfb9f9bc
   edges:
     test: pwsh/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
-    docs: "[Merge-ConfigFragment.ps1.md](docs/references/pwsh/catzc-base-config/private/Merge-ConfigFragment.ps1.md)"
+    docs: "[Merge-ConfigFragment.ps1.md](../../../docs/references/pwsh/catzc-base-config/private/Merge-ConfigFragment.ps1.md)"
     cites:
       - ADR-AUTO-OVERLAY
 ---

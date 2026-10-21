@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "2009f494fd12"
   edges:
-    docs: "[Catzc.Internal.TestKit.psm1.md](docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md)"
+    docs: "[Catzc.Internal.TestKit.psm1.md](../../docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md)"
     cites:
       - ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES
       - DDR-RUNMODE-MODEISDERIVED

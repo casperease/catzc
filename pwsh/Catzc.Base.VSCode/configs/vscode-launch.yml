@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "0589cf0c908c"
 #   edges:
-#     docs: "[vscode-launch.yml.md](docs/references/pwsh/catzc-base-vs-code/configs/vscode-launch.yml.md)"
+#     docs: "[vscode-launch.yml.md](../../../docs/references/pwsh/catzc-base-vs-code/configs/vscode-launch.yml.md)"
 #     cites:
 #       - ADR-REPO-ROOTCFG
 # ---

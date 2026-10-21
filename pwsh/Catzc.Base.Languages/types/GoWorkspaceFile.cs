@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e11eef3e4d2f
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/GoWorkspaceFile.Tests.ps1
-    docs: "[GoWorkspaceFile.cs.md](docs/references/pwsh/catzc-base-languages/types/GoWorkspaceFile.cs.md)"
+    docs: "[GoWorkspaceFile.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/GoWorkspaceFile.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-ROOTCFG

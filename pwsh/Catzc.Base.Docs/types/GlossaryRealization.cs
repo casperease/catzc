@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1fe979ebbd3c"
   edges:
-    docs: "[GlossaryRealization.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryRealization.cs.md)"
+    docs: "[GlossaryRealization.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/GlossaryRealization.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-REPO-VOCAB-SOURCESINREPOSITORY

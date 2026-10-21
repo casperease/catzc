@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e8f72b9e7862
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepTrackTagNameSet.Tests.ps1
-    docs: "[Get-BicepTrackTagNameSet.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepTrackTagNameSet.ps1.md)"
+    docs: "[Get-BicepTrackTagNameSet.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Get-BicepTrackTagNameSet.ps1.md)"
 ---
 #>
 

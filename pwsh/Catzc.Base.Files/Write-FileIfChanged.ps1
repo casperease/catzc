@@ -5,7 +5,7 @@ catzc:
     with_body_sha: c0103d658cb9
   edges:
     test: pwsh/Catzc.Base.Files/tests/Write-FileIfChanged.Tests.ps1
-    docs: "[Write-FileIfChanged.ps1.md](docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md)"
+    docs: "[Write-FileIfChanged.ps1.md](../../docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md)"
     cites:
       - ADR-AUTO-CACHE
       - ADR-AUTO-DRYRUN

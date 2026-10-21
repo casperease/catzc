@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a8fee44c65a0
   edges:
-    docs: "[TypeShape.cs.md](docs/references/pwsh/catzc-base-objects/types/TypeShape.cs.md)"
+    docs: "[TypeShape.cs.md](../../../docs/references/pwsh/catzc-base-objects/types/TypeShape.cs.md)"
     cites:
       - ADR-AUTO-CACHE
       - ADR-BCL-TYPES-CHANGEDAFTERLOAD

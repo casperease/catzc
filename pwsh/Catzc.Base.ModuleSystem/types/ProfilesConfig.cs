@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ed944d2b11d3
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/ProfilesConfig.Tests.ps1
-    docs: "[ProfilesConfig.cs.md](docs/references/pwsh/catzc-base-module-system/types/ProfilesConfig.cs.md)"
+    docs: "[ProfilesConfig.cs.md](../../../docs/references/pwsh/catzc-base-module-system/types/ProfilesConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

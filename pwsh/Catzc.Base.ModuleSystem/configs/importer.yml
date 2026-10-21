@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "0f36705270f4"
 #   edges:
-#     docs: "[importer.yml.md](docs/references/pwsh/catzc-base-module-system/configs/importer.yml.md)"
+#     docs: "[importer.yml.md](../../../docs/references/pwsh/catzc-base-module-system/configs/importer.yml.md)"
 # ---
 
 # auto: the executable languages of the loaded modules.

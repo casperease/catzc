@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "86742880305f"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/SquarifiedTreemap.Tests.ps1
-    docs: "[SquarifiedTreemap.cs.md](docs/references/pwsh/catzc-base-maps/types/SquarifiedTreemap.cs.md)"
+    docs: "[SquarifiedTreemap.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/SquarifiedTreemap.cs.md)"
     cites:
       - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
 ---

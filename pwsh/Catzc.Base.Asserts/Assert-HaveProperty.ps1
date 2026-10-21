@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "77da06c4837c"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-HaveProperty.Tests.ps1
-    docs: "[Assert-HaveProperty.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-HaveProperty.ps1.md)"
+    docs: "[Assert-HaveProperty.ps1.md](../../docs/references/pwsh/catzc-base-asserts/Assert-HaveProperty.ps1.md)"
 ---
 #>
 

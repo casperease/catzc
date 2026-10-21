@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: d375ff4cddb6
   edges:
-    docs: "[DrsNeutralityToken.cs.md](docs/references/pwsh/catzc-base-drs/types/DrsNeutralityToken.cs.md)"
+    docs: "[DrsNeutralityToken.cs.md](../../../docs/references/pwsh/catzc-base-drs/types/DrsNeutralityToken.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ba1a7df56045
   edges:
-    docs: "[Install-Bicep.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Bicep.Tests.ps1.md)"
+    docs: "[Install-Bicep.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Bicep.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/Install-Bicep.ps1
 ---
 #>

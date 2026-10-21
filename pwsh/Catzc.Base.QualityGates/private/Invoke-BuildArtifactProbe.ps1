@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b666a377813f
   edges:
-    docs: "[Invoke-BuildArtifactProbe.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-BuildArtifactProbe.ps1.md)"
+    docs: "[Invoke-BuildArtifactProbe.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-BuildArtifactProbe.ps1.md)"
     cites:
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
 ---

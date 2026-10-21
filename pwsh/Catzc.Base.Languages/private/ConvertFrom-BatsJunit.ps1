@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6cd67df72a14"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1
-    docs: "[ConvertFrom-BatsJunit.ps1.md](docs/references/pwsh/catzc-base-languages/private/ConvertFrom-BatsJunit.ps1.md)"
+    docs: "[ConvertFrom-BatsJunit.ps1.md](../../../docs/references/pwsh/catzc-base-languages/private/ConvertFrom-BatsJunit.ps1.md)"
 ---
 #>
 

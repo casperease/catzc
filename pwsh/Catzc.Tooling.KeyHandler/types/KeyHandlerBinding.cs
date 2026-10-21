@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "309fced996dd"
   edges:
-    docs: "[KeyHandlerBinding.cs.md](docs/references/pwsh/catzc-tooling-key-handler/types/KeyHandlerBinding.cs.md)"
+    docs: "[KeyHandlerBinding.cs.md](../../../docs/references/pwsh/catzc-tooling-key-handler/types/KeyHandlerBinding.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: ee0190983d84
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
-    docs: "[Deploy-AzureResourceGroup.ps1.md](docs/references/pwsh/catzc-azure-templates/Deploy-AzureResourceGroup.ps1.md)"
+    docs: "[Deploy-AzureResourceGroup.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Deploy-AzureResourceGroup.ps1.md)"
 ---
 #>
 

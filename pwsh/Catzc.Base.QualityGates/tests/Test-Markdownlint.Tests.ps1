@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: ffb1e8f06c91
   edges:
-    docs: "[Test-Markdownlint.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Markdownlint.Tests.ps1.md)"
+    docs: "[Test-Markdownlint.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Markdownlint.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Markdownlint.ps1
     cites:
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING

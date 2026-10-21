@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "58029ec081e7"
 #   edges:
-#     docs: "[deploy-nova.yaml.md](docs/references/ado/pipelines/deploy-nova.yaml.md)"
+#     docs: "[deploy-nova.yaml.md](../../docs/references/ado/pipelines/deploy-nova.yaml.md)"
 #     cites:
 #       - FDR-CD-TWORELEASEGATES
 # ---

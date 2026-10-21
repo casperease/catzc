@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "78f2e5c0a47f"
   edges:
-    docs: "[Write-TestAutomationSkipReport.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Write-TestAutomationSkipReport.Tests.ps1.md)"
+    docs: "[Write-TestAutomationSkipReport.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Write-TestAutomationSkipReport.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationSkipReport.ps1
 ---
 #>

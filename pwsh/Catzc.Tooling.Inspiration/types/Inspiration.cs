@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6936cbf8f08d"
   edges:
-    docs: "[Inspiration.cs.md](docs/references/pwsh/catzc-tooling-inspiration/types/Inspiration.cs.md)"
+    docs: "[Inspiration.cs.md](../../../docs/references/pwsh/catzc-tooling-inspiration/types/Inspiration.cs.md)"
     cites:
       - ADR-AUTO-PATH-FOREIGNPATHS
       - ADR-REPO-INSPIRE-SIBLINGFORIDEAS

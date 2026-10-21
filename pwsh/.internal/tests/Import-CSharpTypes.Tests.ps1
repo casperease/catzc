@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c5307d8672c3
   edges:
-    docs: "[Import-CSharpTypes.Tests.ps1.md](docs/references/pwsh/internal/tests/Import-CSharpTypes.Tests.ps1.md)"
+    docs: "[Import-CSharpTypes.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Import-CSharpTypes.Tests.ps1.md)"
     cites:
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
 ---

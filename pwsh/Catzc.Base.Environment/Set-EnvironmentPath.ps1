@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: fabb0cfceccd
   edges:
-    docs: "[Set-EnvironmentPath.ps1.md](docs/references/pwsh/catzc-base-environment/Set-EnvironmentPath.ps1.md)"
+    docs: "[Set-EnvironmentPath.ps1.md](../../docs/references/pwsh/catzc-base-environment/Set-EnvironmentPath.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
 ---

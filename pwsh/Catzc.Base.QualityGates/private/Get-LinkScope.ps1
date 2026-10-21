@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "233d1a9aed79"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-LinkScope.Tests.ps1
-    docs: "[Get-LinkScope.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-LinkScope.ps1.md)"
+    docs: "[Get-LinkScope.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-LinkScope.ps1.md)"
 ---
 #>
 

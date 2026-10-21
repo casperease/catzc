@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8afb9da29082"
   edges:
     test: pwsh/Catzc.Tooling.Listen/tests/types/WriteLedger.Tests.ps1
-    docs: "[WriteLedger.cs.md](docs/references/pwsh/catzc-tooling-listen/types/WriteLedger.cs.md)"
+    docs: "[WriteLedger.cs.md](../../../docs/references/pwsh/catzc-tooling-listen/types/WriteLedger.cs.md)"
 ---
 */
 

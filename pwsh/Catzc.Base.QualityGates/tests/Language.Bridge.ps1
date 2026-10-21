@@ -2,9 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "855ed7e2b713"
+    with_body_sha: "15f2fd12981b"
   edges:
-    docs: "[Language.Bridge.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Language.Bridge.ps1.md)"
+    docs: "[Language.Bridge.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Language.Bridge.ps1.md)"
     cites:
       - ADR-AUTO-ENGINE-STARTENVIRONMENT
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING

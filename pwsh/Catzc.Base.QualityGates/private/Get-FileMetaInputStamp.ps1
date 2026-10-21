@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "38fb0231a497"
+    with_body_sha: "2a9ff4b9717f"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaInputStamp.Tests.ps1
-    docs: "[Get-FileMetaInputStamp.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-FileMetaInputStamp.ps1.md)"
+    docs: "[Get-FileMetaInputStamp.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-FileMetaInputStamp.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 ---

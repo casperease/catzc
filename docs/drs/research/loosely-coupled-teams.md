@@ -1,4 +1,4 @@
-# ADR: DORA — Loosely coupled teams
+# Research: DORA — Loosely coupled teams
 
 ## Rules: RDR-DORA-LOOSETEAMS
 

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: eb7e3e930f45
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Add-SessionLearning.Tests.ps1
-    docs: "[Add-SessionLearning.ps1.md](docs/references/pwsh/catzc-base-docs/Add-SessionLearning.ps1.md)"
+    docs: "[Add-SessionLearning.ps1.md](../../docs/references/pwsh/catzc-base-docs/Add-SessionLearning.ps1.md)"
 ---
 #>
 

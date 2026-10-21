@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: fef0155dc720
   edges:
-    docs: "[Get-ContractFileHashes.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md)"
+    docs: "[Get-ContractFileHashes.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md)"
     cites:
       - ADR-AUTO-PATH-COMMUNICATIONFORM
       - ADR-PWSH-ENUM-ALWAYSBOUNDED

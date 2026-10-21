@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d84735af956f
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
-    docs: "[Uninstall-Java.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Java.ps1.md)"
+    docs: "[Uninstall-Java.ps1.md](../../docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Java.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
       - ADR-AUTO-ONEJOB-CALLERHANDLESERRORS

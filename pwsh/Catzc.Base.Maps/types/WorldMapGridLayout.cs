@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8493df479fa7"
   edges:
-    docs: "[WorldMapGridLayout.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapGridLayout.cs.md)"
+    docs: "[WorldMapGridLayout.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/WorldMapGridLayout.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - DDR-TRACK-ROOTFILE

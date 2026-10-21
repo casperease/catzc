@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "097280719392"
   edges:
     test: pwsh/Catzc.Base.Environment/tests/Remove-PermanentPath.Tests.ps1
-    docs: "[Remove-PermanentPath.ps1.md](docs/references/pwsh/catzc-base-environment/Remove-PermanentPath.ps1.md)"
+    docs: "[Remove-PermanentPath.ps1.md](../../docs/references/pwsh/catzc-base-environment/Remove-PermanentPath.ps1.md)"
     cites:
       - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
 ---

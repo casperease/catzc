@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c3cce2a538af
   edges:
-    docs: "[Get-Contract.Repository.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-Contract.Repository.Tests.ps1.md)"
+    docs: "[Get-Contract.Repository.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/tests/Get-Contract.Repository.Tests.ps1.md)"
     cites:
       - ADR-REPO-CONTRACT-LAYOUT
 ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "6f87a13cfc96"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ContentExemptPath.Tests.ps1
-    docs: "[Get-ContentExemptPath.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ContentExemptPath.ps1.md)"
+    docs: "[Get-ContentExemptPath.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ContentExemptPath.ps1.md)"
     cites:
       - ADR-REPO-CONTRACT-CONTRACTASSET
       - ADR-REPO-ROOTCFG-FULLYMANAGED

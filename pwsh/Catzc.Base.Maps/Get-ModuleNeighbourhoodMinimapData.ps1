@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "8bf32509d69d"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-ModuleNeighbourhoodMinimapData.Tests.ps1
-    docs: "[Get-ModuleNeighbourhoodMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md)"
+    docs: "[Get-ModuleNeighbourhoodMinimapData.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md)"
     cites:
       - ADR-AUTO-DEPM
 ---

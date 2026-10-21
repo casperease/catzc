@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "912667c66482"
   edges:
-    docs: "[Get-BicepParameterModel.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md)"
+    docs: "[Get-BicepParameterModel.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Templates/Get-BicepParameterModel.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

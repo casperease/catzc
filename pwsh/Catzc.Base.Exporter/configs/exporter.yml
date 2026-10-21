@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "78aa84fe73e0"
 #   edges:
-#     docs: "[exporter.yml.md](docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md)"
+#     docs: "[exporter.yml.md](../../../docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md)"
 #     cites:
 #       - ADR-AUTO-BUNDLE
 #       - ADR-AUTO-GUIDS

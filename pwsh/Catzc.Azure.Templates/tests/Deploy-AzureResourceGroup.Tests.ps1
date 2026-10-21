@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "25533575343d"
   edges:
-    docs: "[Deploy-AzureResourceGroup.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Deploy-AzureResourceGroup.Tests.ps1.md)"
+    docs: "[Deploy-AzureResourceGroup.Tests.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/tests/Deploy-AzureResourceGroup.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Templates/Deploy-AzureResourceGroup.ps1
 ---
 #>

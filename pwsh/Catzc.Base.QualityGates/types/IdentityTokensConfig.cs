@@ -5,7 +5,7 @@ catzc:
     with_body_sha: e01ad6722cc0
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/IdentityTokensConfig.Tests.ps1
-    docs: "[IdentityTokensConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/IdentityTokensConfig.cs.md)"
+    docs: "[IdentityTokensConfig.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/IdentityTokensConfig.cs.md)"
 ---
 */
 

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "68d777f8eb02"
   edges:
-    docs: "[BuildValidationEntry.cs.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/types/BuildValidationEntry.cs.md)"
+    docs: "[BuildValidationEntry.cs.md](../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/types/BuildValidationEntry.cs.md)"
     cites:
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

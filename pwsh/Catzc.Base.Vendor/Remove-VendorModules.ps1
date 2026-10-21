@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "047fab94acb4"
   edges:
     test: pwsh/Catzc.Base.Vendor/tests/Remove-VendorModules.Tests.ps1
-    docs: "[Remove-VendorModules.ps1.md](docs/references/pwsh/catzc-base-vendor/Remove-VendorModules.ps1.md)"
+    docs: "[Remove-VendorModules.ps1.md](../../docs/references/pwsh/catzc-base-vendor/Remove-VendorModules.ps1.md)"
     cites:
       - DDR-RUNMODE
 ---

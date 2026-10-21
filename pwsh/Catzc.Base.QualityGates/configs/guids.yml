@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: c8547018b7ff
 #   edges:
-#     docs: "[guids.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/guids.yml.md)"
+#     docs: "[guids.yml.md](../../../docs/references/pwsh/catzc-base-quality-gates/configs/guids.yml.md)"
 # ---
 
 # cspell:ignore oilzstgq

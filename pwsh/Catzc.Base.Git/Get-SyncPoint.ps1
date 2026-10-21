@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "802c85fdf7f9"
   edges:
     test: pwsh/Catzc.Base.Git/tests/Get-SyncPoint.Tests.ps1
-    docs: "[Get-SyncPoint.ps1.md](docs/references/pwsh/catzc-base-git/Get-SyncPoint.ps1.md)"
+    docs: "[Get-SyncPoint.ps1.md](../../docs/references/pwsh/catzc-base-git/Get-SyncPoint.ps1.md)"
     cites:
       - FDR-GIT-USERRUNSGIT
       - FDR-GIT-SYNCPOINT

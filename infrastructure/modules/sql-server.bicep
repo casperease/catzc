@@ -3,7 +3,7 @@
 //   immutable:
 //     with_body_sha: "8e8876228e47"
 //   edges:
-//     docs: "[sql-server.bicep.md](docs/references/infrastructure/modules/sql-server.bicep.md)"
+//     docs: "[sql-server.bicep.md](../../docs/references/infrastructure/modules/sql-server.bicep.md)"
 // ---
 
 @description('SQL logical server name (1-63 lowercase, globally unique).')

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4961fe5f8a6d"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/PathParts.Tests.ps1
-    docs: "[PathParts.cs.md](docs/references/pwsh/catzc-base-languages/types/PathParts.cs.md)"
+    docs: "[PathParts.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/PathParts.cs.md)"
     cites:
       - ADR-REPO-FILEMETA-ROLE
 ---

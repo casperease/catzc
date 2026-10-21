@@ -5,7 +5,7 @@ catzc:
     with_body_sha: d1f35a3b61e4
   edges:
     test: pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
-    docs: "[VariantsConfig.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md)"
+    docs: "[VariantsConfig.cs.md](../../../docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

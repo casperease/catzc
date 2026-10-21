@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4e00dfee7aa3"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1
-    docs: "[WorldMapBuilder.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md)"
+    docs: "[WorldMapBuilder.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md)"
     cites:
       - ADR-BCL-TYPES-REFERENCESFOLLOWDEPENDENCIES
       - DDR-TRACK-TRACKISPLACEDCLUSTER

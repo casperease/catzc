@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e46fb2c900aa
   edges:
-    docs: "[Test-ExpectedPackageManager.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Test-ExpectedPackageManager.Tests.ps1.md)"
+    docs: "[Test-ExpectedPackageManager.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Test-ExpectedPackageManager.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/Test-ExpectedPackageManager.ps1
     cites:
       - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED

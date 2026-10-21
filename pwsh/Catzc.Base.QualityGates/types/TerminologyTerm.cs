@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: bdbd6944e805
   edges:
-    docs: "[TerminologyTerm.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/TerminologyTerm.cs.md)"
+    docs: "[TerminologyTerm.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/TerminologyTerm.cs.md)"
     cites:
       - ADR-AUTO-SPELL
 ---

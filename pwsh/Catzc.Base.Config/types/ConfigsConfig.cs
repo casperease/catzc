@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "99276dc50478"
   edges:
-    docs: "[ConfigsConfig.cs.md](docs/references/pwsh/catzc-base-config/types/ConfigsConfig.cs.md)"
+    docs: "[ConfigsConfig.cs.md](../../../docs/references/pwsh/catzc-base-config/types/ConfigsConfig.cs.md)"
     cites:
       - ADR-AUTO-OVERLAY
 ---

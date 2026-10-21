@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e02ed43a6503
   edges:
-    docs: "[Test-ScriptAnalyzer.Tests.ps1.md](docs/references/pwsh/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md)"
+    docs: "[Test-ScriptAnalyzer.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
       - ADR-PWSH-FORMAT-EVERYFILECOVERED

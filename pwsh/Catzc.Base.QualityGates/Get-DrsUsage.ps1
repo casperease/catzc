@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4adb0bc063f6"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-DrsUsage.Tests.ps1
-    docs: "[Get-DrsUsage.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Get-DrsUsage.ps1.md)"
+    docs: "[Get-DrsUsage.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Get-DrsUsage.ps1.md)"
     cites:
       - ADR-PWSH-ERROR
       - ADR-REPO-FILEMETA-NOREADBACK

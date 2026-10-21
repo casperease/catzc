@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c4f1602c0b19
   edges:
-    docs: "[NoUnsafeFirstIndex.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoUnsafeFirstIndex.Tests.ps1.md)"
+    docs: "[NoUnsafeFirstIndex.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/NoUnsafeFirstIndex.Tests.ps1.md)"
     cites:
       - ADR-PWSH-ERROR-STRICTCLEAN
 ---

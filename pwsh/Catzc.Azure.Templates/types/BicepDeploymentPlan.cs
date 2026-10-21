@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "273cf6d65667"
   edges:
-    docs: "[BicepDeploymentPlan.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepDeploymentPlan.cs.md)"
+    docs: "[BicepDeploymentPlan.cs.md](../../../docs/references/pwsh/catzc-azure-templates/types/BicepDeploymentPlan.cs.md)"
 ---
 */
 

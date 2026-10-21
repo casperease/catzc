@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "05e4b81b59ce"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
-    docs: "[Test-FunctionDependency.ps1.md](docs/references/pwsh/catzc-base-module-system/Test-FunctionDependency.ps1.md)"
+    docs: "[Test-FunctionDependency.ps1.md](../../docs/references/pwsh/catzc-base-module-system/Test-FunctionDependency.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS

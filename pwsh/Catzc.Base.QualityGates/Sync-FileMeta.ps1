@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "2874c5329001"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Sync-FileMeta.Tests.ps1
-    docs: "[Sync-FileMeta.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Sync-FileMeta.ps1.md)"
+    docs: "[Sync-FileMeta.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Sync-FileMeta.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-NOREADBACK
 ---

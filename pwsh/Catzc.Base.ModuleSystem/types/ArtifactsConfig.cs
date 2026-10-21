@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a56fff300cb1
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1
-    docs: "[ArtifactsConfig.cs.md](docs/references/pwsh/catzc-base-module-system/types/ArtifactsConfig.cs.md)"
+    docs: "[ArtifactsConfig.cs.md](../../../docs/references/pwsh/catzc-base-module-system/types/ArtifactsConfig.cs.md)"
     cites:
       - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

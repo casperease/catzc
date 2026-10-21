@@ -5,7 +5,7 @@ catzc:
     with_body_sha: a7eb9249c6f3
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerInputs.Tests.ps1
-    docs: "[Get-ScriptAnalyzerInputs.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ScriptAnalyzerInputs.ps1.md)"
+    docs: "[Get-ScriptAnalyzerInputs.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ScriptAnalyzerInputs.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 ---

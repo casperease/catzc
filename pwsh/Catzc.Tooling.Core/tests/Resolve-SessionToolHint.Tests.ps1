@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a4b139c6ff46
   edges:
-    docs: "[Resolve-SessionToolHint.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Resolve-SessionToolHint.Tests.ps1.md)"
+    docs: "[Resolve-SessionToolHint.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-core/tests/Resolve-SessionToolHint.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/private/Resolve-SessionToolHint.ps1
 ---
 #>

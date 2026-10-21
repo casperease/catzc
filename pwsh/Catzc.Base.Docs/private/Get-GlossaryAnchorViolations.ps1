@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d03d486d3bc8
+    with_body_sha: "133040ea6303"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossaryAnchorViolations.Tests.ps1
-    docs: "[Get-GlossaryAnchorViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossaryAnchorViolations.ps1.md)"
+    docs: "[Get-GlossaryAnchorViolations.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossaryAnchorViolations.ps1.md)"
     cites:
       - ADR-REPO-VOCAB-DEFINEDTERM
 ---

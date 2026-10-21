@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "598e732a6df9"
   edges:
-    docs: "[Uninstall-Java.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md)"
+    docs: "[Uninstall-Java.Tests.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Toolchain/Uninstall-Java.ps1
     cites:
       - ADR-AUTO-REMOVE-DOUBLYGUARDED

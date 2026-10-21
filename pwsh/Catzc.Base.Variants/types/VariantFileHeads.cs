@@ -2,8 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f3520f09d038
+    with_body_sha: df578bf1549f
   edges:
+    docs: "[VariantFileHeads.cs.md](../../../docs/references/pwsh/catzc-base-variants/types/VariantFileHeads.cs.md)"
     cites:
       - ADR-REPO-VARIANT-FILEHEADS
 ---

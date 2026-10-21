@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b46254bb2f5c
   edges:
-    docs: "[Install-Catzc.Tests.ps1.md](docs/references/pwsh/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md)"
+    docs: "[Install-Catzc.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

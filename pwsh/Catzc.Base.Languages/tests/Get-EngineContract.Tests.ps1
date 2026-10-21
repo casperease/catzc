@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "1ec0fe35acf5"
   edges:
-    docs: "[Get-EngineContract.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Get-EngineContract.Tests.ps1.md)"
+    docs: "[Get-EngineContract.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-languages/tests/Get-EngineContract.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/private/Get-EngineContract.ps1
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT

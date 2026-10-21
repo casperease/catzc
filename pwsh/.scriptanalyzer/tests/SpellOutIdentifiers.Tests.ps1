@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7dfd1399304f"
   edges:
-    docs: "[SpellOutIdentifiers.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1.md)"
+    docs: "[SpellOutIdentifiers.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1.md)"
     cites:
       - ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS
       - ADR-AUTO-SPELL-IDENTIFIERSNOTDATA

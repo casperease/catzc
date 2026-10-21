@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5a32cedef061"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1
-    docs: "[Test-Terminology.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Terminology.ps1.md)"
+    docs: "[Test-Terminology.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Terminology.ps1.md)"
     cites:
       - ADR-AUTO-SPELL
       - ADR-AUTO-TEST-QUALITYGATE

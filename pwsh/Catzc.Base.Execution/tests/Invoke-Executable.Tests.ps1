@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c456f7f1eda1
   edges:
-    docs: "[Invoke-Executable.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md)"
+    docs: "[Invoke-Executable.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
     cites:
       - ADR-AUTO-TEST-PROCESSTRIPWIRE

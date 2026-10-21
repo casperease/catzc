@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "8dd33ea2f98f"
   edges:
-    docs: "[Test-WorldMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md)"
+    docs: "[Test-WorldMap.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

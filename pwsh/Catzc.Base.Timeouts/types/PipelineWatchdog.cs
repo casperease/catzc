@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "417a3f610c03"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/types/PipelineWatchdog.Tests.ps1
-    docs: "[PipelineWatchdog.cs.md](docs/references/pwsh/catzc-base-timeouts/types/PipelineWatchdog.cs.md)"
+    docs: "[PipelineWatchdog.cs.md](../../../docs/references/pwsh/catzc-base-timeouts/types/PipelineWatchdog.cs.md)"
 ---
 */
 

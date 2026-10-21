@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c0bdb38d62f2
   edges:
-    docs: "[NoRawInformationStream.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoRawInformationStream.Tests.ps1.md)"
+    docs: "[NoRawInformationStream.Tests.ps1.md](../../../docs/references/pwsh/scriptanalyzer/tests/NoRawInformationStream.Tests.ps1.md)"
 ---
 #>
 

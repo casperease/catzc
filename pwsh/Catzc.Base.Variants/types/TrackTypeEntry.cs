@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "88fcaeede288"
   edges:
-    docs: "[TrackTypeEntry.cs.md](docs/references/pwsh/catzc-base-variants/types/TrackTypeEntry.cs.md)"
+    docs: "[TrackTypeEntry.cs.md](../../../docs/references/pwsh/catzc-base-variants/types/TrackTypeEntry.cs.md)"
 ---
 */
 

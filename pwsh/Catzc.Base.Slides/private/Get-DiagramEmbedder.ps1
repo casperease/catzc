@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e2464154a475
   edges:
-    docs: "[Get-DiagramEmbedder.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-DiagramEmbedder.ps1.md)"
+    docs: "[Get-DiagramEmbedder.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramEmbedder.ps1.md)"
     cites:
       - ADR-REPO-SLIDES-ONEBUILDCOMMAND
 ---

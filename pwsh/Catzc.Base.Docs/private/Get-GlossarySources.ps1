@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0564aecb10ea"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossarySources.Tests.ps1
-    docs: "[Get-GlossarySources.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossarySources.ps1.md)"
+    docs: "[Get-GlossarySources.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossarySources.ps1.md)"
     cites:
       - ADR-CONF-LOADING-ONEREADER
       - ADR-REPO-VOCAB-GLOSSARYSOURCE

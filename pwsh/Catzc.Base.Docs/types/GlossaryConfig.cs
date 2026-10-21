@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "4043f4c2d701"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
-    docs: "[GlossaryConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryConfig.cs.md)"
+    docs: "[GlossaryConfig.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/GlossaryConfig.cs.md)"
     cites:
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-REPO-VOCAB

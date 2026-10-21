@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: bb101a3b93fb
   edges:
-    docs: "[Get-ModuleProtectionIdentity.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md)"
+    docs: "[Get-ModuleProtectionIdentity.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
     cites:
       - ADR-REPO-PROTGLOB-COMPOSITEIDENTITY

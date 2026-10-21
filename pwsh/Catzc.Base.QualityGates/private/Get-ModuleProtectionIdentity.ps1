@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3d14ced7cea8"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ModuleProtectionIdentity.Tests.ps1
-    docs: "[Get-ModuleProtectionIdentity.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md)"
+    docs: "[Get-ModuleProtectionIdentity.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md)"
     cites:
       - ADR-REPO-PROTGLOB
       - DDR-ASPECT

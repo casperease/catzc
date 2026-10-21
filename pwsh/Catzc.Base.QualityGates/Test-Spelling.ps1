@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1f2a00d79c2c"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
-    docs: "[Test-Spelling.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Spelling.ps1.md)"
+    docs: "[Test-Spelling.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Spelling.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-SELFCONTAINEDERRORS
       - ADR-AUTO-TEST-QUALITYGATE

@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: e501b81745ed
 #   edges:
-#     docs: "[slides.yml.md](docs/references/pwsh/catzc-base-slides/configs/slides.yml.md)"
+#     docs: "[slides.yml.md](../../../docs/references/pwsh/catzc-base-slides/configs/slides.yml.md)"
 #     cites:
 #       - ADR-REPO-SLIDES-SLIDEFILEKIND
 # ---

@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "5aa1e4fe1320"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/Resolve-DrsLinkTarget.Tests.ps1
-    docs: "[Resolve-DrsLinkTarget.ps1.md](docs/references/pwsh/catzc-base-drs/private/Resolve-DrsLinkTarget.ps1.md)"
+    docs: "[Resolve-DrsLinkTarget.ps1.md](../../../docs/references/pwsh/catzc-base-drs/private/Resolve-DrsLinkTarget.ps1.md)"
     cites:
       - ADR-REPO-LINK-MARKDOWNRELATIVE
 ---

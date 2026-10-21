@@ -3,7 +3,7 @@
 #   immutable:
 #     with_body_sha: "6869b953f6b0"
 #   edges:
-#     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-engines/configs/glossary.yml.md)"
+#     docs: "[glossary.yml.md](../../../docs/references/pwsh/catzc-base-engines/configs/glossary.yml.md)"
 #     cites:
 #       - ADR-AUTO-ENGINE-THREEENGINES
 #       - ADR-AUTO-ENGINE-STARTENVIRONMENT

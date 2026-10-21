@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "9566728e398e"
   edges:
-    docs: "[Get-ContractDotFolderFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md)"
+    docs: "[Get-ContractDotFolderFindings.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md)"
     cites:
       - ADR-PWSH-ENUM-ALWAYSBOUNDED
       - ADR-REPO-CONTRACT-LAYOUT

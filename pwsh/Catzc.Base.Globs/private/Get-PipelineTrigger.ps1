@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3aee3c6142fa"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1
-    docs: "[Get-PipelineTrigger.ps1.md](docs/references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md)"
+    docs: "[Get-PipelineTrigger.ps1.md](../../../docs/references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md)"
     cites:
       - FDR-CD-GLOBS
 ---

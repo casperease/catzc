@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3c7a04dabafd"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepCustomerClassViolations.Tests.ps1
-    docs: "[Get-BicepCustomerClassViolations.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md)"
+    docs: "[Get-BicepCustomerClassViolations.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md)"
     cites:
       - ADR-AZ-CUSTOMER
 ---

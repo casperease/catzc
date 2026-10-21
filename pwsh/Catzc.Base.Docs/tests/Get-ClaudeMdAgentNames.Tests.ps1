@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: f0a5af006527
   edges:
-    docs: "[Get-ClaudeMdAgentNames.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-ClaudeMdAgentNames.Tests.ps1.md)"
+    docs: "[Get-ClaudeMdAgentNames.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Get-ClaudeMdAgentNames.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-ClaudeMdAgentNames.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: a186f285bb61
   edges:
-    docs: "[MapsLimits.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsLimits.cs.md)"
+    docs: "[MapsLimits.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/MapsLimits.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

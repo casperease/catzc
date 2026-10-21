@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "21b4f91ffb77"
   edges:
-    docs: "[Test-Spelling.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Spelling.Tests.ps1.md)"
+    docs: "[Test-Spelling.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Spelling.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Spelling.ps1
     cites:
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING

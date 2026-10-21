@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: c76bc36fe8ce
   edges:
-    docs: "[Get-LiveIdentityTokens.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Get-LiveIdentityTokens.Tests.ps1.md)"
+    docs: "[Get-LiveIdentityTokens.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-LiveIdentityTokens.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

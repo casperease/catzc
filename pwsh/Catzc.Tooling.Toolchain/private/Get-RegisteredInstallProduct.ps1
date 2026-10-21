@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "84a17186cb69"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
-    docs: "[Get-RegisteredInstallProduct.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Get-RegisteredInstallProduct.ps1.md)"
+    docs: "[Get-RegisteredInstallProduct.ps1.md](../../../docs/references/pwsh/catzc-tooling-toolchain/private/Get-RegisteredInstallProduct.ps1.md)"
     cites:
       - ADR-AUTO-REMOVE-THREEPLATFORMCORES
 ---

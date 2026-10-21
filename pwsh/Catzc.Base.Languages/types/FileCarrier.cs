@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: e99d1a6bde0d
   edges:
-    docs: "[FileCarrier.cs.md](docs/references/pwsh/catzc-base-languages/types/FileCarrier.cs.md)"
+    docs: "[FileCarrier.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/FileCarrier.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

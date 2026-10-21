@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "7796d4aebcfc"
   edges:
-    docs: "[InputStamp.cs.md](docs/references/pwsh/catzc-base-files/types/InputStamp.cs.md)"
+    docs: "[InputStamp.cs.md](../../../docs/references/pwsh/catzc-base-files/types/InputStamp.cs.md)"
 ---
 */
 

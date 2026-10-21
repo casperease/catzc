@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "0fe274d9c4f2"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/PdfNumber.Tests.ps1
-    docs: "[PdfNumber.cs.md](docs/references/pwsh/catzc-base-maps/types/PdfNumber.cs.md)"
+    docs: "[PdfNumber.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/PdfNumber.cs.md)"
 ---
 */
 

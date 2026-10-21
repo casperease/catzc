@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "1d7663594329"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/GoConfig.Tests.ps1
-    docs: "[GoConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/GoConfig.cs.md)"
+    docs: "[GoConfig.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/GoConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML

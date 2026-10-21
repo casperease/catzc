@@ -5,7 +5,7 @@ catzc:
     with_body_sha: "3467349c8c11"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
-    docs: "[Invoke-Executable.ps1.md](docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md)"
+    docs: "[Invoke-Executable.ps1.md](../../docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
       - ADR-AUTO-TEST
