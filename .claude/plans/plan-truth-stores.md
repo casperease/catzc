@@ -42,11 +42,6 @@ with no check behind it, and the ADO writers below contradict it.
 
 ## Open steps
 
-5. [ ] `pwsh/Catzc.Base.Contracts/private/Read-ContractData.ps1:43`: `ConvertFrom-Json` gains `-DateKind String`, so an ISO 8601 string in a
-       sample stays a string, never a `DateTime` (found by step 5's samples, 2026-10-21). Check: `Invoke-TestFile` on
-       `Get-ContractCheckResults.Tests.ps1` with an ISO time case.
-6. [ ] The actionable-fact shape as a contract under `contracts/` (origin: store, address, read time; calls for: a change or a report), then
-       one junction contract per direction, inbound and outbound. Check: `Test-Contracts`.
 7. [ ] After steps 1-2: the truth-stores diagram as one sample in `out/diagrams/dark-sample/` (`drawio-diagram-waves`, a wave of one).
        Check: the user approves the sample.
 8. [ ] On approval: a slide file under `docs/explanation/thesis/product-thesis/`, its caption carrying the rule codes, and its line in

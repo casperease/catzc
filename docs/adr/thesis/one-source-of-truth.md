@@ -16,8 +16,8 @@ stores of other kinds ([ADR-THES-STORES](truth-stores.md)).
 ### Rule ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 
 The repository is the configuration record of everything it delivers. Infrastructure is reproducible from a commit, so no second database is
-kept in parity with it, and nothing about delivery state have source of truth (for BVT) outside it. An **adjacent store** is the one
-legitimate second store: a repository or service, such as a GitOps or configuration repository or Azure Devops Services SaaS / GitHub SaaS,
+kept in parity with it, and nothing about delivery state has its source of truth (for BVT) outside it. An **adjacent store** is the one
+legitimate second store: a repository or service, such as a GitOps or configuration repository or Azure DevOps Services SaaS / GitHub SaaS,
 that keeps its own history and is driven one way from the trunk's pipelines, never edited beside it.
 
 - [The repository is the configuration record](#the-repository-is-the-configuration-record)
@@ -97,7 +97,7 @@ the history.
 
 The code takes the place of the CMDBs. Infrastructure is reproducible from a commit, so the repository is the configuration record in its
 totality, and no second database has to be kept in parity with it. The principle of everything as code holds the mechanics: every artifact
-lives in version control, what can be diffed belongs there, and no configuration or operational state lives outside it.
+lives in version control, what can be diffed belongs there, and no configuration or operational state has its source of truth outside it.
 
 ### Adjacent stores
 
@@ -150,8 +150,8 @@ A process that keeps its own model of delivery recreates the disjoint store this
 ## Consequences
 
 - Every other ADR rests on this one: the principles state its mechanics, and the later ADRs specialise them.
-- Delivery state that lives outside the repository is a defect, unless it is an adjacent store driven one way from the trunk, or a fact
-  source that a state machine owns and catzc only reads ([ADR-THES-STORES](truth-stores.md)).
+- Delivery state whose source of truth is outside the repository is a defect, unless it is an adjacent store driven one way from the trunk,
+  or a fact source that a state machine owns and catzc only reads ([ADR-THES-STORES](truth-stores.md)).
 - A question about the system's state has one place to be answered, and the tooling owes an answer to it, as cmdlets and as data.
 - Versions appear only at the repository boundary: on pins inward, and on the bundle outward.
 - A consumer of catzc pins the bundle or owns a clone; no implicit cross-repository consumption exists to support.

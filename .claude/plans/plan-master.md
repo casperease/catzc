@@ -55,7 +55,6 @@ was decided in the round of 2026-10-21; no chunk waits on a question.
   following it; `New-Plan` for the plan file, its value row and master line after agent-friction's step 1.
 - truth-stores -> plan-truth-stores.md: restate FACTSOURCEREADONLY and one-source-of-truth.md:105 for the ADO split, tag the five writers,
   then the truth-store config, the actionable-fact and junction contracts, and the diagram sample.
-- listen-repository-record -> plan-listen-repository-record.md: editor notes 0002 and 0003's steps, the typo fix included.
 - eac-normal-form -> plan-eac-normal-form.md: the migration rules in ADR-DSGN-TRACK, the uncontested check, the avoid note,
   `fragment migration`, and one sample drawing.
 - bcl-language -> plan-bcl-language.md: move the BCL reference and how-to pages out of `pwsh/` and re-point their links; the reference-set

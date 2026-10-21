@@ -34,7 +34,7 @@ Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCR
         # The gate sees every processor function of the module, so each fixture registry also names the shipped ones.
         function script:Invoke-Gate {
             param($Kinds, [switch] $PassThru)
-            $all = [ordered]@{ 'file-path' = @{ keys = @('path') }; 'file-role' = @{ keys = @('role') }; 'file-language' = @{ keys = @('language') }; 'file-type' = @{ keys = @('filetype') }; track = @{}; 'body-sha' = @{ keys = @('with_body_sha') }; 'repo-status' = @{ keys = @('repo_status') }; 'track-type' = @{ keys = @('tracktype') }; vendor = @{ keys = @('vendor') }; 'adr-defines' = @{ keys = @('defines'); section = 'edges' }; 'adr-codes' = @{ keys = @('cites'); section = 'edges' }; links = @{ section = 'edges' }; 'module-name' = @{ keys = @('module') }; 'module-type' = @{ keys = @('moduletype') }; 'catzc-bundle' = @{}; 'file-name' = @{ keys = @('folder', 'name') }; visibility = @{ keys = @('visibility') }; 'relative-edges' = @{ keys = @('page', 'test'); section = 'edges' } }
+            $all = [ordered]@{ 'body-sha' = @{ keys = @('with_body_sha') }; 'adr-codes' = @{ keys = @('cites'); section = 'edges' }; 'relative-edges' = @{ keys = @('test', 'docs', 'code'); section = 'edges' } }
             foreach ($id in $Kinds.Keys) {
                 $all[$id] = $Kinds[$id]
             }

@@ -106,6 +106,8 @@ state of git that the repository's own history does not carry, such as refs and 
 they are facts about delivery that no commit records. It never writes to them: a write would make catzc a second author of state that a
 state machine owns. Its configuration, the approvals, the build validations with their branch policies, the pipeline definitions, and the
 variables, is an adjacent store: the repository declares it, the trunk's pipelines drive it one way, and nobody edits it beside the trunk.
+GitHub SaaS plays the same two roles: its configuration, such as branch protection and workflow settings, is an adjacent store, and its
+runtime state, such as workflow runs and pull-request history, is a fact source.
 
 ### State machines
 

@@ -105,10 +105,9 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         if (paths == null) { return findings; }
         foreach (string raw in paths.Where(p => !string.IsNullOrEmpty(p)).Select(p => p.Replace('\\', '/')).OrderBy(p => p, StringComparer.Ordinal))
         {
-            FileLanguage language = ForPath(raw);
-            if (language == null || language.naming == null || language.naming.exempt.Contains(raw)) { continue; }
+            FileLanguage language = JudgedLanguageOf(raw);
+            if (language == null) { continue; }
             string[] segments = raw.Split('/');
-            if (segments.Take(segments.Length - 1).Any(s => naming_exempt_folders.Contains(s))) { continue; }
             for (int i = 0; i < segments.Length - 1; i++)
             {
                 string folderPath = string.Join("/", segments.Take(i + 1));
@@ -125,6 +124,26 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
         return findings;
+    }
+
+    // The finding for one function or type a file defines, or null when its name is idiomatic and round-trips through the normal form.
+    public string MisnamedDefinition(string path, string kind, string name)
+    {
+        FileLanguage language = JudgedLanguageOf(path);
+        if (language == null) { return null; }
+        string finding = language.naming.JudgeName(kind, name, naming_normal_form);
+        return finding == null ? null : string.Format(CultureInfo.InvariantCulture, "{0}: the {1} '{2}' {3} ({4})", path.Replace('\\', '/'), kind, name, finding, language.name);
+    }
+
+    // The language that judges a file's names, or null: it has a naming entry, and neither the file nor a folder on its path is exempt.
+    private FileLanguage JudgedLanguageOf(string path)
+    {
+        if (string.IsNullOrEmpty(path)) { return null; }
+        string normalized = path.Replace('\\', '/');
+        FileLanguage language = ForPath(normalized);
+        if (language == null || language.naming == null || language.naming.exempt.Contains(normalized)) { return null; }
+        string[] segments = normalized.Split('/');
+        return segments.Take(segments.Length - 1).Any(s => naming_exempt_folders.Contains(s)) ? null : language;
     }
 
     // The folder a catzc module's tests have under a language's tests/, in that language's folder case.

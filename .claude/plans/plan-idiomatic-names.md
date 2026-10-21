@@ -49,22 +49,6 @@ Every decision is a rule of [idiomatic-names](../../docs/adr/automation/idiomati
 
 ### 1. Wire it in
 
-The module rename and its references land as one atomic pass, like the test-folder pass (delegated to the orchestrator, 2026-10-21):
-prepared and checked first, applied in one burst while the orchestrator holds the other sessions, then a fresh full import and each touched
-test, rolled back whole on any red. A rename without its references, or the references first, breaks the importer for every session.
-
-- [ ] `python/Catzc.Diagrams/` → `python/catzc_diagrams/`, with its `pyproject.toml` head (`path`, `module`) (check: `Invoke-PythonTest` on
-      its tests).
-- [ ] The references to `python/Catzc.Diagrams`, in the same pass, each checked by `Invoke-TestFile` on its own tests or `Test-Links`:
-      `pwsh/Catzc.Base.Globs/configs/file-kinds.yml` with `tests/Get-FileKind.Tests.ps1`; `pwsh/Catzc.Base.Maps/types/MapsHighlight.cs` with
-      `tests/types/MapsConfig.Tests.ps1`; `pwsh/Catzc.Base.Slides/types/SlidesConfig.cs`, `configs/slides.yml` with
-      `tests/types/SlidesConfig.Tests.ps1`; `pwsh/Catzc.Base.Reports/configs/output-formats.yml`;
-      `pwsh/Catzc.Base.QualityGates/configs/terminology.yml`; `python/catzc_diagrams/assets/STYLE.md`;
-      `docs/adr/repository/slides-as-markdown.md`; `docs/explanation/index.md`;
-      `docs/explanation/vendor/claude/artifact-diagramming-skill.md`; the drawio agents and skills under `.claude/` (check:
-      `Test-AgentDefinitions`).
-- [ ] `docs/references/`: regenerate the reference pages that name the old folders, never by hand (check: `Test-GeneratedFiles`).
-
 Turn the gate on, last, when it is green; `Test-IdiomaticNames` reads the git index (ADR-AUTO-TRACKED), so this waits on the user staging
 the moves (task-user-runs-and-commits):
 

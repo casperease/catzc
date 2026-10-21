@@ -14,6 +14,32 @@ Describe 'Get-BodyShaFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRIN
         $fact['with_body_sha'] | Should -Match '^[0-9a-f]{12}$'
     }
 
+    It 'hashes the text below a comment head, the same with or without the head' {
+        $form = [Catzc.Base.CodeMeta.HeadForm]::ForBlock('<#', '#>')
+        $body = "function Get-Gadget { }`n"
+        $hash = foreach ($text in $body, "<#`n---`ncatzc:`n  immutable:`n    with_body_sha: `"000000000000`"`n---`n#>`n`n$body") {
+            $state = Get-CodeMetaState -Text $text -Form $form
+            (InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:kind } {
+                param($State, $Kind)
+                Get-BodyShaFileMetaFact -State $State -Path 'widgets/Get-Gadget.ps1' -Kind $Kind
+            })['with_body_sha']
+        }
+        $hash[0] | Should -Match '^[0-9a-f]{12}$'
+        $hash[1] | Should -BeExactly $hash[0]
+    }
+
+    It 'hashes a JSON file without its head property, the same with or without the head' {
+        $hash = foreach ($text in "{`n  `"name`": `"widget`"`n}`n", "{`n  `"//`": `"catzc:\n  immutable:\n    with_body_sha: \`"000000000000\`"`",`n  `"name`": `"widget`"`n}`n") {
+            $state = Get-PropertyMetaState -Text $text -Property '//'
+            (InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:kind } {
+                param($State, $Kind)
+                Get-BodyShaFileMetaFact -State $State -Path 'widgets/widget.json' -Kind $Kind
+            })['with_body_sha']
+        }
+        $hash[0] | Should -Match '^[0-9a-f]{12}$'
+        $hash[1] | Should -BeExactly $hash[0]
+    }
+
     It 'does not move when only the front matter changes' {
         $plain = Get-MarkdownMetaState -Text "# docs/widget.md`n`nbody`n"
         $framed = Get-MarkdownMetaState -Text "---`nname: widget`n---`n# docs/widget.md`n`nbody`n"
@@ -32,15 +58,14 @@ Describe 'Get-BodyShaFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRIN
             $script:bodySha = $script:shipped.kinds | Where-Object id -EQ 'body-sha'
         }
 
-        It 'stamps a generated page and never an authored one, so a hand-kept hash on an authored page is no finding' -ForEach @(
-            @{ Class = 'comment-page'; Selected = $false }
-            @{ Class = 'glossary'; Selected = $true }
-            @{ Class = 'index'; Selected = $true }
-            @{ Class = 'adr'; Selected = $false }
-            @{ Class = 'reference'; Selected = $false }
-            @{ Class = 'explanation'; Selected = $false }
+        It 'selects every file, so the head policy alone decides which files carry the stamp' -ForEach @(
+            @{ Class = 'glossary'; Language = 'markdown' }
+            @{ Class = 'index'; Language = 'markdown' }
+            @{ Class = 'function'; Language = 'powershell' }
+            @{ Class = 'type'; Language = 'csharp' }
+            @{ Class = 'config'; Language = 'yaml' }
         ) {
-            $script:shipped.Selects($script:bodySha, $Class, 'markdown') | Should -Be $Selected
+            $script:shipped.Selects($script:bodySha, $Class, $Language) | Should -BeTrue
         }
 
         It 'owns the key, so a hash in an authored page''s block is never reported as unowned' {

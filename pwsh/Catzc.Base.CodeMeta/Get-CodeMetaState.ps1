@@ -52,5 +52,7 @@ function Get-CodeMetaState {
         Before        = $head.Before
         Rest          = $head.Rest
         NewLine       = $head.NewLine
+        # The text below the head, the body a generated file's writer hashes too.
+        Body          = $head.HasHead ? $head.Rest : $Text
     }
 }

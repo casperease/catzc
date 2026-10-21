@@ -39,5 +39,11 @@ function Get-BodyShaFileMetaFact {
         [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
-    [ordered]@{ $Kind.keys[0] = $State.BodyHash }
+    $hash = if ($State.PSObject.Properties['BodyHash']) {
+        $State.BodyHash
+    }
+    else {
+        [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($State.Body)
+    }
+    [ordered]@{ $Kind.keys[0] = $hash }
 }

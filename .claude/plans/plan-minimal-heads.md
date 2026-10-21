@@ -66,11 +66,10 @@ Every code file in the tree carries a head no reader needs, and the next `Format
 
 ## Open steps
 
-- [ ] `pwsh/Catzc.Base.QualityGates/configs/file-meta.yml`: keep the kinds `body-sha` and `relative-edges` (with the `code` relation for
-      tests) with no `select`, and `adr-codes` with its select minus the markdown entry plus the `config` class, so a registry page gets no
-      `cites`; remove `head_policy.pages`; the agent entry `forbidden`; index and glossary `required`; capability and slide `config` (a
-      slide's front matter is its tool's `catzc.config`; delegated, 2026-10-21); delete the other kinds. (check: `Test-FileMetaProcessors`
-      reports each removed kind's function as an orphan.)
+- [ ] `pwsh/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1`: hash the body below a comment head or JSON property the way
+      `Format-GeneratedFileHead` does, then `body-sha` in `file-meta.yml` drops its `select: [{ classes: [index, glossary] }]`, so every
+      head carries `with_body_sha` (found by the file-meta.yml step's outage, 2026-10-21). (check: `Invoke-TestFile` on its tests with a
+      comment head and a property case, then `Format-FileMeta` on one code file and one json file.)
 - [ ] `pwsh/Catzc.Base.QualityGates/private/`: delete the `Get-<Kind>FileMetaFact.ps1` files, their tests and their comment pages, for
       `RepoStatus`, `FilePath`, `FileName`, `FileType`, `FileRole`, `FileLanguage`, `Track`, `TrackType`, `Vendor`, `ModuleName`,
       `ModuleType`, `CatzcBundle`, `Visibility`, `AdrDefines`, `Links`, one file at a time (ADR-PRIN-ONELIVE). (check:

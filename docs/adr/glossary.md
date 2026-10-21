@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04360edd6c7b"
+    with_body_sha: fb6be9a7becf
     warning: "Do Not Edit, this file is generated"
     repo_status: locked
     path: docs/adr/glossary.md
@@ -35,8 +35,8 @@ or report it calls for.
 
 ### adjacent store
 
-The one legitimate second store — a repository or service, such as a GitOps repository or the Azure DevOps configuration, with its own
-history, driven one way from the trunk's pipelines and never edited beside it.
+The one legitimate second store — a repository or service, such as a GitOps or configuration repository, or Azure DevOps Services or GitHub
+SaaS, with its own history, driven one way from the trunk's pipelines and never edited beside it.
 
 - **Defined by:**
   [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)

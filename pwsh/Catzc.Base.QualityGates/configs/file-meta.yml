@@ -17,80 +17,24 @@
 #     docs: "[file-meta.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/file-meta.yml.md)"
 # ---
 
-# Whether a file of a class must, may or must not carry a block; the first class that matches decides, else pages for a file with a comment page (required on the type), else the default (forbidden on the type).
+# Whether a file of a class must, may or must not carry a block, or keeps only its authored config part; the first class that matches decides, else an authored code or config file takes the file-heads variant, else the default (forbidden on the type).
 head_policy:
   classes:
-    agent: required
-    capability: required
-    slide: required
+    agent: forbidden
+    capability: config
+    slide: config
     index: required
     glossary: required
 
 kinds:
-  # The hash of the body below the head, first of the place facts: a generated tracked file carries it, written by its writer or imprinted on a generated page; an authored page carries none, and one an author keeps in the config part is left alone.
+  # The hash of the body below the head, first of the place facts, on every file the policy gives a head; an author's hash in the config part is left alone.
   body-sha:
     keys: [with_body_sha]
-    select: [{ classes: [index, glossary] }]
 
-  # What the file itself decides of its repository status: locked for a generated file (edit its source), clean for an authored one; the states only git knows are computed on demand, never stored.
-  repo-status:
-    keys: [repo_status]
-    settings:
-      locked_classes: [index, glossary]
-
-  # The repository-relative path of every file that carries a block, written right after the stamp; a Markdown H1 is the title.
-  file-path:
-    keys: [path]
-
-  # The folder of the file under its module and its name in kebab case; the path is these two and the file type, asserted when they are read.
-  file-name:
-    keys: [folder, name]
-
-  # The file type of the file, the extension of its name, which tells the sorts of file inside one language apart (ps1 from psm1 and psd1).
-  file-type:
-    keys: [filetype]
-
-  # The role of the file, the name of the file-kinds registry entry that selects it, and its subkind when it has one.
-  file-role:
-    keys: [role, subkind]
-
-  # The file language of the file, from the languages registry by its extension; a file no language lists carries none.
-  file-language:
-    keys: [language]
-
-  # The track with the longest place that contains the file, from the tracks registry; a root file, which no track holds, carries none.
-  track:
-    keys: [track]
-
-  # The type of that track, from the tracks registry (modules, pipelines, vendor-settings, …); a root file carries none.
-  track-type:
-    keys: [tracktype]
-
-  # The vendor that reads that track's files, from the tracks registry; a root file and a track with no vendor carry none.
-  vendor:
-    keys: [vendor]
-
-  # The module the file is placed in, from the module-types registry; a file placed in no module carries none.
-  module-name:
-    keys: [module]
-
-  # The type of that module, from the module-types registry (pwsh-folder, settings, pipeline, …).
-  module-type:
-    keys: [moduletype]
-
-  # The smallest bundle of the catzc exporter that holds the module, from the exporter registry; a file in no module of a bundle carries none.
-  catzc-bundle:
-    keys: [catzc_bundle]
-
-  # Whether a PowerShell function file is public or private, from the module's private folder.
-  visibility:
-    keys: [visibility]
-    select: [{ classes: [function] }]
-
-  # The few files a code file points at, one edge per fixed name; each only when it exists, docs as a link to the comment page by its repository-relative path.
+  # The few files a code file points at, one edge per fixed name; each only when it exists, docs as a link to the comment page by its repository-relative path, code from a test to the file it tests.
   relative-edges:
     section: edges
-    keys: [test, docs]
+    keys: [test, docs, code]
     settings:
       relations:
         - name: docs
@@ -101,20 +45,12 @@ kinds:
           rules:
             - { classes: [type], paths: ["pwsh/{module}/tests/types/{stem}.Tests.ps1"] }
             - { classes: [function], paths: ["pwsh/{module}/tests/{stem}.Tests.ps1"] }
+        - name: code
+          rules:
+            - { classes: [test], paths: ["pwsh/{module}/types/{stem}.cs", "pwsh/{module}/{stem}.ps1", "pwsh/{module}/private/{stem}.ps1"] }
 
-  # The rules an ADR defines in its own rule headings, spelled as citations; they are no citation of the ADR, so adrs never lists them.
-  adr-defines:
-    section: edges
-    keys: [defines]
-    select: [{ classes: [adr], languages: [markdown] }]
-
-  # The ADR codes a file and its comment page cite, never read back from its head; a code class also lists bare domain codes (domain_classes default).
+  # The ADR codes a file and its comment page cite, never read back from its head; a code class also lists bare domain codes (domain_classes default). A page that renders a registry carries none.
   adr-codes:
     section: edges
     keys: [cites]
-    select: [{ languages: [markdown] }, { classes: [type, function] }, { classes: [test, fixture], languages: [powershell] }]
-
-  # Every link a Markdown file points out of itself, one spelling, sorted; a link that stays inside the file is not listed. Last: the longest key.
-  links:
-    section: edges
-    select: [{ languages: [markdown] }]
+    select: [{ classes: [type, function, config] }, { classes: [test, fixture], languages: [powershell] }]

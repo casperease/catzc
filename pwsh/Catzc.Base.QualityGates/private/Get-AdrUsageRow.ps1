@@ -43,7 +43,6 @@ function Get-AdrUsageRow {
     # The rows come from the file's text through the processors the imprint uses, never from its head.
     $kinds = (Get-Config -Config file-meta).kinds
     $citesKind = $kinds | Where-Object { $_.id -eq 'adr-codes' }
-    $linksKind = $kinds | Where-Object { $_.id -eq 'links' }
     $isCode = $PSBoundParameters.ContainsKey('Form')
     $state = if ($isCode) {
         Get-CodeMetaState -Text $Text -Form $Form
@@ -56,7 +55,7 @@ function Get-AdrUsageRow {
         @()
     }
     else {
-        @((Get-LinksFileMetaFact -State $state -Path $Path -Kind $linksKind)[$linksKind.keys[0]])
+        @([Catzc.Base.QualityGates.DocumentLinks]::Of($state.Body, $Path, (Get-Config -Config comments).PageFor($Path)))
     }
 
     foreach ($citation in $adrs) {

@@ -108,6 +108,71 @@ public sealed class LanguageNaming
         }
     }
 
+    // The cases the language names for one kind of name: folder, file, function or type.
+    public IReadOnlyList<string> CasesOf(string kind)
+    {
+        switch (kind)
+        {
+            case "folder": return folder;
+            case "file": return file;
+            case "function": return function;
+            case "type": return type;
+            default: throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "naming: unknown kind '{0}' (one of: folder, file, function, type)", kind));
+        }
+    }
+
+    // What breaks one defined name, or null: it must be in one of the kind's cases and round-trip through the normal form; rests on [ADR-AUTO-IDIOM-ROUNDTRIP](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-roundtrip).
+    public string JudgeName(string kind, string name, string normalForm)
+    {
+        IReadOnlyList<string> cases = CasesOf(kind);
+        if (cases.Count == 0) { return null; }
+        string caseName = cases.FirstOrDefault(c => IsInCase(c, name));
+        if (caseName == null) { return "is not " + string.Join(" or ", cases); }
+        string back;
+        try
+        {
+            back = FromNormal(ToNormal(caseName, name, normalForm), caseName, normalForm);
+        }
+        catch (ArgumentException e)
+        {
+            return "does not round-trip through the normal form (" + e.Message + ")";
+        }
+        return back == name ? null : "does not round-trip through the normal form (it renders back as " + back + ")";
+    }
+
+    // A name in a case as its normal form: each namespace segment joined in the normal form's case, the segments by '.'; snake's
+    // leading and trailing underscores stay outside the case, around the normal form.
+    public static string ToNormal(string caseName, string name, string normalForm)
+    {
+        string[][] segments = Split(caseName, name);
+        if (segments == null)
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "naming: '{0}' is not {1}", name, caseName));
+        }
+        string joined = string.Join(".", segments.Select(s => Join(normalForm, new[] { s })));
+        if (caseName != "snake") { return joined; }
+        return name.Substring(0, name.Length - name.TrimStart('_').Length) + joined + name.Substring(name.TrimEnd('_').Length);
+    }
+
+    // A normal-form name rendered in a case; snake's leading and trailing underscores stay outside the case, so a snake name keeps them.
+    public static string FromNormal(string normal, string caseName, string normalForm)
+    {
+        string core = normal ?? "";
+        string prefix = core.Substring(0, core.Length - core.TrimStart('_').Length);
+        string suffix = core.Substring(core.TrimEnd('_').Length);
+        string[][] segments = core.Trim('_').Split('.').Select(s =>
+        {
+            string[][] words = Split(normalForm, s);
+            if (words == null)
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "naming: '{0}' is not in the normal form ({1} segments joined by '.')", normal, normalForm));
+            }
+            return words[0];
+        }).ToArray();
+        string joined = Join(caseName, segments);
+        return caseName == "snake" ? prefix + joined + suffix : joined;
+    }
+
     // A catzc module's test folder in this language: the module's words joined in the first folder case, catzc_base_repository when it is snake; rests on [ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom).
     public string TestFolderOf(string module)
     {

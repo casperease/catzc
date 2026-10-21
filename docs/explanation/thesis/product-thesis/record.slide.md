@@ -29,14 +29,14 @@ ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD and ADR-THES-ONETRUTH-TRUTHISQ
 ## Cards
 
 - **No second database** Infrastructure is reproducible from a commit, so the code takes the place of the CMDB. Nothing about delivery state
-  lives outside the repository.
+  has its source of truth (for BVT) outside the repository.
 - **Answers as data** Every Get cmdlet reads the repository and returns a typed answer, and emits it as JSON, so a service-management tool
   reads the truth without PowerShell.
 
 ## Body
 
-One adjacent store is allowed, such as a GitOps repository, driven one way from the trunk's pipelines and never edited beside it: a
-projection of the truth, never a second record.
+One adjacent store is allowed, such as a GitOps or configuration repository, or Azure DevOps Services or GitHub SaaS, driven one way from
+the trunk's pipelines and never edited beside it: a projection of the truth, never a second record.
 
 ## Notes
 

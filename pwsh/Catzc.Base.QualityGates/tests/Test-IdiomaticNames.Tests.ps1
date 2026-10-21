@@ -17,6 +17,24 @@ Describe 'Test-IdiomaticNames' -Tag 'L0', 'logic' {
         $result.Issues | Should -Be @('widget_root/Bad-Folder/: the folder is not snake (widget)')
     }
 
+    It 'reports each defined function name that breaks its case or its round trip' -Tag 'ADR-AUTO-IDIOM-HELDBYGATE' {
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'widget_root/fine/fine_name.wdg' }
+        Mock Get-DefinedName -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Path = 'widget_root/fine/fine_name.wdg'; Kind = 'function'; Name = 'fine_widget' }
+            [pscustomobject]@{ Path = 'widget_root/fine/fine_name.wdg'; Kind = 'function'; Name = 'BadWidget' }
+        }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } {
+            [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{
+                        widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; naming = [ordered]@{ folder = 'snake'; file = 'snake'; function = 'snake' } }
+                    }
+                })
+        }
+
+        $result = Test-IdiomaticNames -PassThru -OutputFolder $script:reportFolder
+
+        $result.Issues | Should -Be @("widget_root/fine/fine_name.wdg: the function 'BadWidget' is not snake (widget)")
+    }
+
     It 'passes when every tracked name is idiomatic' -Tag 'ADR-AUTO-IDIOM-HELDBYGATE' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'widget_root/fine/fine_name.wdg' }
 

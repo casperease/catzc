@@ -335,8 +335,8 @@ concepts:
     domain: thesis
     defined_by: ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
     short:
-      The one legitimate second store — a repository or service, such as a GitOps repository or the Azure DevOps configuration, with its own
-      history, driven one way from the trunk's pipelines and never edited beside it.
+      The one legitimate second store — a repository or service, such as a GitOps or configuration repository, or Azure DevOps Services or
+      GitHub SaaS, with its own history, driven one way from the trunk's pipelines and never edited beside it.
     realized_by: { kind: prose-only }
     contrasts:
       source of truth:

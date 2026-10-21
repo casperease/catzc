@@ -502,6 +502,37 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             { $config.TestFolderOf('widget', '.internal') } | Should -Throw "*module '.internal' is not a pascal-dotted name*"
         }
 
+        It 'judges a defined function or type by its kind''s cases and its round trip, past exempt files and folders' -Tag 'ADR-AUTO-IDIOM-ROUNDTRIP' {
+            $config = & $script:make ([ordered]@{
+                    naming    = [ordered]@{ exempt_folders = @('assets'); normal_form = 'snake' }
+                    languages = [ordered]@{
+                        widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; naming = [ordered]@{ function = 'verb-noun'; type = 'pascal'; exempt = @('Fixed.wdg') } }
+                        gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'never'; naming = [ordered]@{ function = 'snake' } }
+                    }
+                })
+            $config.MisnamedDefinition('a/Get-Gadget.wdg', 'function', 'Get-Gadget') | Should -BeNullOrEmpty
+            $config.MisnamedDefinition('a/Get-Gadget.wdg', 'function', 'ConvertTo-GadgetName') | Should -BeNullOrEmpty
+            $config.MisnamedDefinition('a/Get-Gadget.wdg', 'function', 'get_gadget') | Should -BeExactly "a/Get-Gadget.wdg: the function 'get_gadget' is not verb-noun (widget)"
+            $config.MisnamedDefinition('a/Get-Gadget.wdg', 'function', 'Get-HTTPGadget') |
+                Should -BeExactly "a/Get-Gadget.wdg: the function 'Get-HTTPGadget' does not round-trip through the normal form (it renders back as Get-HttpGadget) (widget)"
+            $config.MisnamedDefinition('a/Get-Gadget.wdg', 'function', 'Gadget-Part') | Should -BeLike "*'Gadget-Part' does not round-trip*no approved verb*"
+            $config.MisnamedDefinition('a/Get-Gadget.wdg', 'type', 'GadgetConfig') | Should -BeNullOrEmpty
+            $config.MisnamedDefinition('a/gadgets.gdg', 'function', '__init__') | Should -BeNullOrEmpty
+            $config.MisnamedDefinition('a/gadgets.gdg', 'type', 'Anything_Goes') | Should -BeNullOrEmpty
+            $config.MisnamedDefinition('Fixed.wdg', 'function', 'get_gadget') | Should -BeNullOrEmpty
+            $config.MisnamedDefinition('a/assets/x.wdg', 'function', 'get_gadget') | Should -BeNullOrEmpty
+            $config.MisnamedDefinition('notes.md', 'function', 'get_gadget') | Should -BeNullOrEmpty
+        }
+
+        It 'carries a name to the normal form and back, snake''s outer underscores outside the case' -Tag 'ADR-AUTO-IDIOM-NORMALFORM' {
+            [Catzc.Base.Languages.LanguageNaming]::ToNormal('pascal-dotted', 'Widget.Base.GadgetParts', 'snake') | Should -BeExactly 'widget.base.gadget_parts'
+            [Catzc.Base.Languages.LanguageNaming]::FromNormal('widget.base.gadget_parts', 'pascal-dotted', 'snake') | Should -BeExactly 'Widget.Base.GadgetParts'
+            [Catzc.Base.Languages.LanguageNaming]::ToNormal('snake', '__init__', 'snake') | Should -BeExactly '__init__'
+            [Catzc.Base.Languages.LanguageNaming]::FromNormal('__init__', 'snake', 'snake') | Should -BeExactly '__init__'
+            [Catzc.Base.Languages.LanguageNaming]::FromNormal('_private_part', 'pascal', 'snake') | Should -BeExactly 'PrivatePart'
+            { [Catzc.Base.Languages.LanguageNaming]::ToNormal('kebab', 'Gadget', 'snake') } | Should -Throw "*'Gadget' is not kebab*"
+        }
+
         It 'judges a file name past its role suffix and the one qualifier before it' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
             $naming = [Catzc.Base.Languages.LanguageNaming]::new(@(), @('verb-noun', 'pascal'), @())
             $naming.IsFileIdiomatic('Get-Gadget.Tests') | Should -BeTrue

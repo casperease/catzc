@@ -44,5 +44,7 @@ function Get-PropertyMetaState {
         ImmutableKeys = [string[]] @($head.ImmutableKeys)
         EdgeKeys      = [string[]] @($head.EdgeKeys)
         ConfigLines   = [string[]] @($head.ConfigLines)
+        # The text without the imprinted parts, the body a generated file's writer hashes too.
+        Body          = $head.IsObject ? $head.WithFacts([ordered]@{}, [ordered]@{}) : $Text
     }
 }

@@ -41,7 +41,8 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     }
 
     It 'puts each key into the part its kind names, in registry order within the part' {
-        $facts = Get-Facts @{ kinds = [ordered]@{ 'body-sha' = @{ keys = @('with_body_sha') }; 'adr-codes' = @{ keys = @('cites'); section = 'edges' }; 'file-role' = @{ keys = @('role') } } }
+        Mock Get-RelativeEdgesFileMetaFact { [ordered]@{ role = 'widget' } } -ModuleName Catzc.Base.QualityGates
+        $facts = Get-Facts @{ kinds = [ordered]@{ 'body-sha' = @{ keys = @('with_body_sha') }; 'adr-codes' = @{ keys = @('cites'); section = 'edges' }; gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } }
         $facts.Immutable.Keys | Should -Be @('with_body_sha', 'role')
         $facts.Edges.Keys | Should -Be @('cites')
     }
@@ -78,8 +79,8 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     }
 
     It 'uses the function an entry names instead of the convention' {
-        Mock Get-FileRoleFileMetaFact { [ordered]@{ role = 'widget' } } -ModuleName Catzc.Base.QualityGates
-        $facts = Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-FileRoleFileMetaFact' } } }
+        Mock Get-BodyShaFileMetaFact { [ordered]@{ role = 'widget' } } -ModuleName Catzc.Base.QualityGates
+        $facts = Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-BodyShaFileMetaFact' } } }
         $facts.Immutable['role'] | Should -BeExactly 'widget'
     }
 
@@ -113,8 +114,8 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     }
 
     It 'rejects a processor that returns keys its kind does not declare' {
-        Mock Get-FileRoleFileMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
-        { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-FileRoleFileMetaFact' } } } } |
+        Mock Get-BodyShaFileMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
+        { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-BodyShaFileMetaFact' } } } } |
             Should -Throw "*returned keys ``[surprise``], but kind 'gadget' declares ``[role``]*"
     }
 }

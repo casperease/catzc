@@ -32,10 +32,25 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
                 [pscustomobject]@{ name = $Matches['name'] }
             }
         }
+        # Fixture kinds with fixture processors, so the engine is proven on facts of its own, whatever kinds the shipped registry holds.
+        InModuleScope Catzc.Base.QualityGates {
+            function script:Get-WidgetPathFileMetaFact {
+                param($State, $Path, $Kind)
+                [ordered]@{ path = $Path }
+            }
+            function script:Get-WidgetModuleFileMetaFact {
+                param($State, $Path, $Kind)
+                [ordered]@{ module = "$((Get-PathModule $Path).name)" }
+            }
+            function script:Get-WidgetVisibilityFileMetaFact {
+                param($State, $Path, $Kind)
+                [ordered]@{ visibility = $Path -match '/private/' ? 'private' : 'public' }
+            }
+        }
         $script:widgetKinds = [ordered]@{
-            'file-path'   = @{ keys = @('path') }
-            'module-name' = @{ keys = @('module'); select = @(@{ classes = @('widget-*') }) }
-            visibility    = @{ keys = @('visibility'); select = @(@{ classes = @('widget-function') }) }
+            'widget-path'       = @{ keys = @('path') }
+            'widget-module'     = @{ keys = @('module'); select = @(@{ classes = @('widget-*') }) }
+            'widget-visibility' = @{ keys = @('visibility'); select = @(@{ classes = @('widget-function') }) }
         }
         $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'required' }; kinds = $script:widgetKinds })
         $script:run = {
@@ -46,6 +61,12 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTE
                 param($Root, $Config)
                 Invoke-FileMetaEngine -RepositoryRoot $Root -Config $Config
             }
+        }
+    }
+
+    AfterAll {
+        InModuleScope Catzc.Base.QualityGates {
+            Remove-Item Function:\Get-WidgetPathFileMetaFact, Function:\Get-WidgetModuleFileMetaFact, Function:\Get-WidgetVisibilityFileMetaFact -ErrorAction Ignore
         }
     }
 
