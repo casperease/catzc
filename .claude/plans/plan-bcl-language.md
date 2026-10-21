@@ -89,8 +89,9 @@ The doc moves go first.
       `WorldMapBuilder.cs` and `WorldMapHighlight.cs` (check: the owning module's Pester files after each, then a fresh full import).
 - [ ] `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `docs/adr/index.md`: the `bcl` domain and its table; `automation/`'s description stops
       listing `BCL/` as a language layer (check: `Test-AdrIndex`).
-- [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first (check: `Test-AdrRegistry`, which runs the
-      citation graph).
+- [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first; the dry run lists
+      `ADR-AUTO-TYPES-DEBUGANYCPU` too, cited in the head of `DotnetConfig.cs`, the three `.csproj` comments and the
+      `Invoke-BuildForVSCode.ps1.md` page (check: `Test-AdrRegistry`, which runs the citation graph).
 - [ ] After plan-minimal-heads lands: `pwsh/Catzc.Base.Languages/configs/languages.yml`: rename the `csharp` row to `bcl` and the
       `csharp-namespace` step to `bcl-namespace`, then every caller in the same change, one file at a time (check: `Catzc.Base.Languages`
       and `Catzc.Base.QualityGates` Pester, then `Test-Formatting -Language bcl`).
@@ -104,6 +105,16 @@ The doc moves go first.
       approves the sample).
 - [ ] On approval: the folder moves to `docs/adr/automation/BCL/.assets/bcl-language/` and `docs/references/BCL/index.md` embeds it (check:
       `Test-Diagrams` on the folder, `Test-Links` on the page).
+
+## Open questions
+
+- From the session that added `ADR-AUTO-TYPES-DEBUGANYCPU` (2026-10-21): the one build pair (Debug on Any CPU) lives on `DotnetConfig`, read
+  through `pwsh/Catzc.Base.Languages/configs/dotnet.yml`. Should it stay its own config, or become keys of the planned `bcl.yml`?
+  Recommendation: keep `dotnet.yml`, since the pair governs the hook projects too, and they are .NET programs, not BCL types.
+- From the same session, two facts each could shrink what the next session reads, as one clause merged into an existing line: should
+  `catzc-run` say that changing a code line whose long comment moved to a `docs/references/` comment page means editing that page's "Above
+  `…`" line too? Should `.claude/CLAUDE.md`'s Project structure say that `catzc.sln` at the root is a gitignored output of
+  `Build-RootConfig`, with only its asset tracked? Recommendation: yes to the first; no to the second, which `rootconfig.yml` already says.
 
 ## Refs
 
