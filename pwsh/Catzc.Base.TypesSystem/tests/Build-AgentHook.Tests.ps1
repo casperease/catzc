@@ -35,7 +35,7 @@ Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
         $program | Should -Exist
         Join-Path $script:outputDirectory 'Assert-BashTimeout.source.sha256' | Should -Exist
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 1 -Exactly -ParameterFilter {
-            $Command -like 'dotnet publish *Assert-BashTimeout.csproj*--output*'
+            $Command -like 'dotnet publish *Assert-BashTimeout.csproj* --configuration Debug --output*'
         }
         Should -Invoke Write-Message -ModuleName Catzc.Base.TypesSystem -Times 1 -Exactly -ParameterFilter { $Message -like 'Agent hook: published*' }
     }

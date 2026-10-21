@@ -149,6 +149,17 @@ reads the memo, and the builder, the janitor and the gates hash every byte.
 - [Loaded by the first use](#loaded-by-the-first-use)
 - [How this is enforced](#how-this-is-enforced)
 
+### Rule ADR-AUTO-TYPES-DEBUGANYCPU
+
+Every non-vendored `.sln` and `.csproj` declares exactly one build configuration and platform, Debug on Any CPU, and every `dotnet` call a
+catzc command makes builds that pair. A solution lists only `Debug|Any CPU` in its `SolutionConfigurationPlatforms` and maps each project
+only by `<guid>.Debug|Any CPU.ActiveCfg` and `<guid>.Debug|Any CPU.Build.0`; a project declares `<Configurations>Debug</Configurations>` and
+`<Platforms>AnyCPU</Platforms>`. The pair is a sensible default declared once on the `DotnetConfig` type and read through `dotnet.yml`, so
+every generator of a solution, a project, or a build takes it from there and never names a configuration of its own.
+
+- [One build configuration](#one-build-configuration)
+- [How this is enforced](#how-this-is-enforced)
+
 ## Context
 
 Some logic is better expressed as a native .NET type than as script code: a process runner with background reader threads
@@ -397,7 +408,22 @@ beside the shadow copies, never in the tree, since it holds this machine's write
 a release, the janitor that prunes the cache and the gates that compare the committed assembly hash every byte, so the memo can speed up a
 session but never decide what ships.
 
+### One build configuration
+
+`One configuration, one platform, one build`
+
+The C# in this repository is source that runs inside one host or a small agent hook on the machine that built it: the IDE project mirrors
+the host's runtime compile, and a hook is published framework-dependent where it runs. Nothing ships a separately optimized build, so a
+Release configuration and the x64 and x86 platforms only multiply the matrix a solution carries, the rows an editor offers, and the outputs
+that can disagree. One pair, Debug on Any CPU, keeps the editor's build, the hook's publish and the solution's map the same build
+([reduce-variability](../../principles/reduce-variability.md)). The pair is configuration, not code: `DotnetConfig` declares the default
+once ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and a generator reads it.
+
 ### How this is enforced
+
+- **`DotnetConfig.Tests.ps1`** (in `Catzc.Base.Languages`) pins the default pair, and its integrity test fails a tracked, non-vendored
+  `.sln` or `.csproj` that declares any other configuration or platform (Rule ADR-AUTO-TYPES-DEBUGANYCPU). `Build-AgentHook` and
+  `Invoke-BuildForVSCode` build the configuration they read from `dotnet.yml`.
 
 - **`Import-CSharpTypes.Tests.ps1` and `Get-CombinedTypeHash.Tests.ps1`** (`pwsh/.internal/tests`) — the console cell verifies and defers,
   the first `Initialize-Types` loads, the eager cell loads at import, and the hash memo rehashes exactly the files whose length or last

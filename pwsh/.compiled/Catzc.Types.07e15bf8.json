@@ -1,5 +1,5 @@
 {
-  "hash": "fcde4dd5",
+  "hash": "07e15bf8",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -696,6 +696,11 @@
     },
     {
       "name": "Catzc.Base.Languages.CarrierKind",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.DotnetConfig",
       "aliases": [],
       "display": []
     },

@@ -27,9 +27,6 @@ function Invoke-BuildForVSCode {
     [CmdletBinding()]
     [OutputType([string])]
     param(
-        [ValidateSet('Debug', 'Release')]
-        [string] $Configuration = 'Debug',
-
         [switch] $PassThru
     )
 
@@ -42,7 +39,8 @@ function Invoke-BuildForVSCode {
     $project = Join-Path (Get-CatzcModulesRoot) '.internal/assets/Catzc.Types.csproj'
     Assert-PathExist $project
 
-    $result = Invoke-Executable "dotnet build `"$project`" --configuration $Configuration" -PassThru
+    $configuration = (Get-Config -Config dotnet).configuration
+    $result = Invoke-Executable "dotnet build `"$project`" --configuration $configuration" -PassThru
 
     if ($PassThru) {
         return $result

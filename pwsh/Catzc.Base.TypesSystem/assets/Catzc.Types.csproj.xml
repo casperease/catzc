@@ -20,6 +20,9 @@
   <PropertyGroup>
     <!-- The runtime host (PowerShell 7.6) runs on .NET 10, the framework Add-Type compiles these against. -->
     <TargetFramework>net10.0</TargetFramework>
+    <!-- The one configuration and platform of dotnet.yml (ADR-AUTO-TYPES-DEBUGANYCPU). -->
+    <Configurations>Debug</Configurations>
+    <Platforms>AnyCPU</Platforms>
     <!-- Mirror Add-Type: it compiles with neither a nullable context nor implicit usings, so neither here —
          otherwise the editor would flag (or silence) things the runtime compile never sees. -->
     <Nullable>disable</Nullable>

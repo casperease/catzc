@@ -147,6 +147,8 @@ configs:
     type: Catzc.Base.VSCode.VscodePipelineSchemaConfig
   go:
     type: Catzc.Base.Languages.GoConfig
+  dotnet:
+    type: Catzc.Base.Languages.DotnetConfig
   python:
     type: Catzc.Base.Languages.PythonConfig
   bash:

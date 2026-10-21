@@ -1,0 +1,8 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: e425ac975f10
+# ---
+
+# The one build configuration and platform of every non-vendored .sln and .csproj; the defaults live on DotnetConfig.
+{}

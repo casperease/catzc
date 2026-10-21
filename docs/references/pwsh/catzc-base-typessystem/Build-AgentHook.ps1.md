@@ -23,7 +23,7 @@ executable extension (if any), so the program is found as an application by that
 
 ## comment:3
 
-Above ``Invoke-Executable "dotnet publish `"$csproj`" --configuration Release...``, written with `#`.
+Above ``Invoke-Executable "dotnet publish `"$csproj`" --configuration $configuration...``, written with `#`.
 
 ```text
 --disable-build-servers: no MSBuild node or compiler server outlives the publish. A server started here would

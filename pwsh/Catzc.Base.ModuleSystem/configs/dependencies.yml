@@ -121,6 +121,7 @@ groups:
       ]
     Catzc.Base.TypesSystem:
       [
+        Catzc.Base.Config,
         Catzc.Base.Modules,
         Catzc.Base.Repository,
         Catzc.Base.Files,

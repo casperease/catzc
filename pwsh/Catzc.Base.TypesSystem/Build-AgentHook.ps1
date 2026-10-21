@@ -120,7 +120,8 @@ function Build-AgentHook {
             throw 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Build-AgentHook.'
         }
 
-        Invoke-Executable "dotnet publish `"$csproj`" --configuration Release --output `"$OutputDirectory`" --verbosity quiet --disable-build-servers -p:CatzcModulesFolder=$modulesFolder" -Silent
+        $configuration = (Get-Config -Config dotnet).configuration
+        Invoke-Executable "dotnet publish `"$csproj`" --configuration $configuration --output `"$OutputDirectory`" --verbosity quiet --disable-build-servers -p:CatzcModulesFolder=$modulesFolder" -Silent
         $program = & $findProgram
         Assert-NotNullOrWhitespace $program -ErrorText "dotnet publish succeeded but produced no runnable '$assemblyName' program in $OutputDirectory."
         Set-Content -LiteralPath $stamp -Value $sourceHash -NoNewline
