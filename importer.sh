@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "13861fbb7e83"
+#     with_body_sha: "92979499dcfb"
 #     warning: "Do Not Edit, this file is generated"
 #     role: script
 #     generator: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
@@ -16,13 +16,14 @@
 #   source ./importer.sh                                  # must be sourced, not run
 #   cats                                                  # lists the catzc commands
 #   cats Get-RepositoryRoot
-#   cats Test-Automation -Modules Catzc.Base.Repository -MaxLevel 2
+#   cats test-automation --modules Catzc.Base.Repository --max-level 2
 #
-# An argument that starts with '-' passes through as a parameter name; every other argument after the command is passed
-# as one PowerShell literal, quoted the PowerShell way, so a value with spaces or a quote stays one value. A command with a
-# command contract is checked first against pwsh/.internal/assets/importer-commands.sh, the generated lookup: an unknown parameter,
-# a missing mandatory one or a value not of the contract's type fails before pwsh starts, a switch passes as a flag and an int
-# unquoted (ADR-REPO-CMDCONTRACT-ONEREADER); CATZC_COMMAND_LOOKUP names another lookup, for a test. Every call
+# A command with a command contract is named in kebab case, its parameters as --name, and is checked first against
+# pwsh/.internal/assets/importer-commands.sh, the generated lookup: an unknown parameter, a missing mandatory one or a value not
+# of the contract's type fails before pwsh starts, a switch passes as a flag and an int unquoted (ADR-REPO-CMDCONTRACT-ONEREADER);
+# CATZC_COMMAND_LOOKUP names another lookup, for a test. Any other command is named as pwsh names it, an argument that starts with
+# '-' passes through as a parameter name, and every other argument after the command is passed as one PowerShell literal, quoted
+# the PowerShell way, so a value with spaces or a quote stays one value, as it is for a contracted command too. Every call
 # starts pwsh non-interactively and imports catzc, so it pays the import time; for many commands in a row, start pwsh
 # and dot-source importer.ps1 instead.
 #
@@ -52,7 +53,8 @@ _catzc_literal() {
     printf "'%s'" "$(printf '%s' "$1" | sed "s/'/''/g")"
 }
 
-# cats [Command] [arguments...] — runs a catzc command through pwsh; with no arguments, lists the catzc commands.
+# cats [command] [arguments...] — runs a catzc command through pwsh; a contracted command and its parameters are named in kebab case
+# (cats get-widget --count 3), any other command as pwsh names it; with no arguments, lists the catzc commands.
 cats() {
     _catzc_pwsh="$(command -v pwsh)" || {
         echo "cats: pwsh is not on PATH; catzc runs on PowerShell 7 (https://aka.ms/powershell)." >&2
@@ -81,7 +83,8 @@ cats() {
     "$_catzc_pwsh" -NoProfile -NonInteractive -Command "$_catzc_load; $_catzc_text"
 }
 
-# The lookup rows of one command, from the generated pwsh/.internal/assets/importer-commands.sh; empty for an uncontracted command.
+# The lookup rows of one command named in kebab case (column 10), from the generated pwsh/.internal/assets/importer-commands.sh; empty
+# for an uncontracted command.
 _catzc_contract() {
     _catzc_commands=''
     _catzc_lookup="${CATZC_COMMAND_LOOKUP:-$_catzc_root/pwsh/.internal/assets/importer-commands.sh}"
@@ -89,40 +92,40 @@ _catzc_contract() {
         # shellcheck source=/dev/null
         . "$_catzc_lookup"
     fi
-    printf '%s\n' "$_catzc_commands" | awk -F '\t' -v command="$1" '$1 == command'
+    printf '%s\n' "$_catzc_commands" | awk -F '\t' -v command="$1" '$10 == command'
 }
 
-# The call text of a contracted command: each -Name is a parameter the contract names, a switch takes no value, an int value is a
-# whole number and passes unquoted, a bool passes as $true or $false, and every mandatory parameter is present unless a value is
-# passed by position. A violation prints the contract's asset and fails.
+# The call text of a contracted command: each --name is a parameter the contract names in kebab case and passes as pwsh names it
+# (column 11, then 13), a switch takes no value, an int value is a whole number and passes unquoted, a bool passes as $true or $false,
+# and every mandatory parameter is present unless a value is passed by position. A violation prints the contract's asset and fails.
 _catzc_checked() {
     _catzc_command="$1"
-    _catzc_call="$1"
     _catzc_table="$2"
     shift 2
     _catzc_asset="$(printf '%s\n' "$_catzc_table" | awk -F '\t' 'NR == 1 { print $7 }')"
+    _catzc_call="$(printf '%s\n' "$_catzc_table" | awk -F '\t' 'NR == 1 { print $12 }')"
     _catzc_seen=' '
     _catzc_positional=0
     while [ "$#" -gt 0 ]; do
         _catzc_argument="$1"
         shift
         case "$_catzc_argument" in
-            -*)
-                _catzc_name="${_catzc_argument#-}"
-                _catzc_row="$(printf '%s\n' "$_catzc_table" | awk -F '\t' -v name="$_catzc_name" '$2 != "" && tolower($2) == tolower(name)')"
+            --*)
+                _catzc_name="${_catzc_argument#--}"
+                _catzc_row="$(printf '%s\n' "$_catzc_table" | awk -F '\t' -v name="$_catzc_name" '$11 != "" && $11 == name')"
                 if [ -z "$_catzc_row" ]; then
-                    echo "cats: $_catzc_command has no parameter -$_catzc_name ($_catzc_asset)" >&2
+                    echo "cats: $_catzc_command has no parameter --$_catzc_name ($_catzc_asset)" >&2
                     return 2
                 fi
                 _catzc_type="$(printf '%s\n' "$_catzc_row" | awk -F '\t' '{ print $3 }')"
-                _catzc_lower="$(printf '%s' "$_catzc_name" | tr '[:upper:]' '[:lower:]')"
-                _catzc_seen="$_catzc_seen$_catzc_lower "
+                _catzc_bound="$(printf '%s\n' "$_catzc_row" | awk -F '\t' '{ print $13 }')"
+                _catzc_seen="$_catzc_seen$_catzc_name "
                 if [ "$_catzc_type" = 'switch' ]; then
-                    _catzc_call="$_catzc_call -$_catzc_name"
+                    _catzc_call="$_catzc_call -$_catzc_bound"
                     continue
                 fi
                 if [ "$#" -eq 0 ]; then
-                    echo "cats: $_catzc_command: -$_catzc_name takes a $_catzc_type value ($_catzc_asset)" >&2
+                    echo "cats: $_catzc_command: --$_catzc_name takes a $_catzc_type value ($_catzc_asset)" >&2
                     return 2
                 fi
                 _catzc_value="$1"
@@ -131,24 +134,28 @@ _catzc_checked() {
                     int)
                         case "$_catzc_value" in
                             '' | *[!0-9-]* | ?*-*)
-                                echo "cats: $_catzc_command: -$_catzc_name takes an int, not '$_catzc_value' ($_catzc_asset)" >&2
+                                echo "cats: $_catzc_command: --$_catzc_name takes an int, not '$_catzc_value' ($_catzc_asset)" >&2
                                 return 2
                                 ;;
                         esac
-                        _catzc_call="$_catzc_call -$_catzc_name $_catzc_value"
+                        _catzc_call="$_catzc_call -$_catzc_bound $_catzc_value"
                         ;;
                     bool)
                         case "$_catzc_value" in
-                            true | True | 1) _catzc_call="$_catzc_call -$_catzc_name:\$true" ;;
-                            false | False | 0) _catzc_call="$_catzc_call -$_catzc_name:\$false" ;;
+                            true | True | 1) _catzc_call="$_catzc_call -$_catzc_bound:\$true" ;;
+                            false | False | 0) _catzc_call="$_catzc_call -$_catzc_bound:\$false" ;;
                             *)
-                                echo "cats: $_catzc_command: -$_catzc_name takes true or false, not '$_catzc_value' ($_catzc_asset)" >&2
+                                echo "cats: $_catzc_command: --$_catzc_name takes true or false, not '$_catzc_value' ($_catzc_asset)" >&2
                                 return 2
                                 ;;
                         esac
                         ;;
-                    *) _catzc_call="$_catzc_call -$_catzc_name $(_catzc_literal "$_catzc_value")" ;;
+                    *) _catzc_call="$_catzc_call -$_catzc_bound $(_catzc_literal "$_catzc_value")" ;;
                 esac
+                ;;
+            -*)
+                echo "cats: $_catzc_command takes its parameters in kebab case, as --name ($_catzc_asset)" >&2
+                return 2
                 ;;
             *)
                 _catzc_positional=1
@@ -166,7 +173,7 @@ _catzc_checked() {
             chosen = ""; count = 0
             for (set in universe) {
                 fits = 1
-                for (r = 1; r <= NR; r++) { split(rows[r], f, "\t"); if (f[2] != "" && index(seen, " " tolower(f[2]) " ") > 0 && !member(f[8], set)) fits = 0 }
+                for (r = 1; r <= NR; r++) { split(rows[r], f, "\t"); if (f[11] != "" && index(seen, " " f[11] " ") > 0 && !member(f[8], set)) fits = 0 }
                 if (fits) { count++; candidate[set] = 1; chosen = set }
             }
             if (sets > 0) {
@@ -176,7 +183,7 @@ _catzc_checked() {
             if (positional == 1) exit
             for (r = 1; r <= NR; r++) {
                 split(rows[r], f, "\t")
-                if (f[5] == "1" && f[6] != "1" && index(seen, " " tolower(f[2]) " ") == 0 && (chosen == "" || member(f[8], chosen))) { print "missing " f[2]; exit }
+                if (f[5] == "1" && f[6] != "1" && index(seen, " " f[11] " ") == 0 && (chosen == "" || member(f[8], chosen))) { print "missing " f[11]; exit }
             }
         }')"
     case "$_catzc_verdict" in
@@ -189,7 +196,7 @@ _catzc_checked() {
             return 2
             ;;
         missing\ *)
-            echo "cats: $_catzc_command needs -${_catzc_verdict#missing } ($_catzc_asset)" >&2
+            echo "cats: $_catzc_command needs --${_catzc_verdict#missing } ($_catzc_asset)" >&2
             return 2
             ;;
     esac

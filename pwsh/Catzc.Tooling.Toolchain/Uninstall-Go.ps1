@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/Uninstall-Go.ps1
-    name: uninstall-go
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "61c8ffe19978"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Uninstall-Go.Tests.ps1
     docs: "[Uninstall-Go.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Go.ps1.md)"

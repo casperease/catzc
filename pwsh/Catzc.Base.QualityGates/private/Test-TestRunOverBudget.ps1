@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
-    folder: private
-    name: test-test-run-over-budget
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: f63557b18856
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-TestRunOverBudget.Tests.ps1
     docs: "[Test-TestRunOverBudget.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md)"

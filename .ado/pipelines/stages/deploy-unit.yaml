@@ -1,18 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: ".ado/pipelines/stages/deploy-unit.yaml"
-#     folder: stages
-#     name: deploy-unit
-#     filetype: yaml
-#     role: pipeline-template
-#     language: pipeline-yaml
-#     track: ado-pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
+#     with_body_sha: "2bbabef7cdf8"
 #   edges:
 #     docs: "[deploy-unit.yaml.md](docs/references/ado/pipelines/stages/deploy-unit.yaml.md)"
 # ---

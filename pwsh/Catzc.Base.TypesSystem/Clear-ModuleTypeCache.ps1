@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
-    name: clear-module-type-cache
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "8d4643321dc2"
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
     docs: "[Clear-ModuleTypeCache.ps1.md](docs/references/pwsh/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md)"

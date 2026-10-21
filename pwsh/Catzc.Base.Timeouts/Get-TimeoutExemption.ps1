@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Timeouts/Get-TimeoutExemption.ps1
-    name: get-timeout-exemption
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "463a01de4d8b"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/Get-TimeoutExemption.Tests.ps1
     docs: "[Get-TimeoutExemption.ps1.md](docs/references/pwsh/catzc-base-timeouts/Get-TimeoutExemption.ps1.md)"

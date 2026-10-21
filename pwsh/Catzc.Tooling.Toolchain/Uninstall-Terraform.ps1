@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/Uninstall-Terraform.ps1
-    name: uninstall-terraform
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: c98632fb4bc4
   edges:
     docs: "[Uninstall-Terraform.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Terraform.ps1.md)"
 ---

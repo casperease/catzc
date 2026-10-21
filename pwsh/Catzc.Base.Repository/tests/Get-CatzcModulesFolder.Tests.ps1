@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3a870a9b9478"
+  edges:
+    code: pwsh/Catzc.Base.Repository/Get-CatzcModulesFolder.ps1
+    cites:
+      - ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE
+---
+#>
+
 Describe 'Get-CatzcModulesFolder' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE' {
     It 'returns the modules root relative to the repository root, forward-slashed' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository { Join-Path $TestDrive 'widget-repository' }

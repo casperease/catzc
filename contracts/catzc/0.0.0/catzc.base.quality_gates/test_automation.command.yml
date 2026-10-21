@@ -1,0 +1,19 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Automation, the source run of all tests: it runs
+# the tests in scope in worker shards, writes its report under out/test-automation and returns the run's result under -PassThru.
+parameters:
+  min_level: int = 0
+  max_level: int = 3
+  modules: string[]
+  category: string = Both
+  workers: int = 0
+  greedy_group_size: int = 0
+  timeout_seconds: int
+  output: string = Detailed
+  pass_thru: switch
+  enforce_timings: switch
+  rule: string[]
+  suite: string
+  output_folder: string
+  isolated: switch
+  keep_sandbox: switch
+output: catzc.base.reports.test_run_result

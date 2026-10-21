@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/types/AdoConfig.cs
-    folder: types
-    name: ado-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "6623a0b34bf7"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/types/AdoConfig.Tests.ps1
     docs: "[AdoConfig.cs.md](docs/references/pwsh/catzc-azure-devops/types/AdoConfig.cs.md)"

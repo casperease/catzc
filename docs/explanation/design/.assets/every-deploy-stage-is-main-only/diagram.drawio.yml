@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: d3a928c6c570
+# ---
+
 description:
   A pull request run builds in a CI stage but its Deploy stages carry a main-only condition and skip, so only the run on main deploys and no
   topic commit is deployed by a pipeline.

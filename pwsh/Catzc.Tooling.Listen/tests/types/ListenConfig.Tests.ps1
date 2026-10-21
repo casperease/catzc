@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "0e39b1e789b1"
+  edges:
+    code: pwsh/Catzc.Tooling.Listen/types/ListenConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+---
+#>
+
 Describe 'Catzc.Tooling.Listen.ListenConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
     BeforeAll {
         function Get-ViolationMessage {

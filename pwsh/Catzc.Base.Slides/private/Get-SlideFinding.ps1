@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Slides/private/Get-SlideFinding.ps1
-    folder: private
-    name: get-slide-finding
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Slides
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "1e67cd0a6a91"
   edges:
     docs: "[Get-SlideFinding.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-SlideFinding.ps1.md)"
     cites:

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
-    name: build-root-config
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "494f82ab9d86"
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
     docs: "[Build-RootConfig.ps1.md](docs/references/pwsh/catzc-base-rootconfig/Build-RootConfig.ps1.md)"

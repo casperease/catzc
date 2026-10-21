@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: ".claude/hooks/Assert-BashTimeout/Program.cs"
-    folder: hooks/Assert-BashTimeout
-    name: program
-    filetype: cs
-    role: hook
-    language: csharp
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+    with_body_sha: "4992e15d3413"
   edges:
     docs: "[Program.cs.md](docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md)"
 ---
@@ -24,7 +13,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Text.Json;
 using System.Text.RegularExpressions;
+using Catzc.Base.Git;
 using Catzc.Base.Timeouts;
 using YamlDotNet.RepresentationModel;
 
@@ -40,12 +31,23 @@ public static class AssertBashTimeout
         try
         {
             string repositoryRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+            string payload = Console.In.ReadToEnd();
+
+            // The git topic commands change the repository, so they run only at the user's hand (ADR-FLOW-GIT-USERRUNSGIT).
+            string userCommand = UserCommandIn(payload, repositoryRoot);
+            if (userCommand != null)
+            {
+                Console.Out.Write(BashSafeguard.DenyOutput(
+                    userCommand + " changes the repository and runs only at the user's hand (ADR-FLOW-GIT-USERRUNSGIT): name it to the user to run, and run only its tests."));
+                return 0;
+            }
+
             TimeoutsConfig config = new TimeoutsConfig(LoadYaml(BashSafeguard.FindConfig(repositoryRoot)));
             string environment = BashSafeguard.EnvironmentOf(
                 Environment.GetEnvironmentVariable("TF_BUILD"), Environment.GetEnvironmentVariable("GITHUB_ACTIONS"));
 
             string logLine;
-            string reason = BashSafeguard.Decide(Console.In.ReadToEnd(), config, environment, out logLine);
+            string reason = BashSafeguard.Decide(payload, config, environment, out logLine);
             if (reason != null)
             {
                 Console.Out.Write(BashSafeguard.DenyOutput(reason));
@@ -57,6 +59,36 @@ public static class AssertBashTimeout
         {
             Console.Out.Write(BashSafeguard.DenyOutput("Bash time safeguard hook failed, so the call is denied: " + e.Message));
             return 0;
+        }
+    }
+
+    // The git topic command the call invokes, or null. A broken git.yml falls back to the type's defaults, never to denying every call.
+    private static string UserCommandIn(string payload, string repositoryRoot)
+    {
+        GitFlowConfig gitFlow;
+        try
+        {
+            string path = GitFlowConfig.FindConfig(repositoryRoot);
+            gitFlow = new GitFlowConfig(path == null ? null : LoadYaml(path));
+        }
+        catch (Exception)
+        {
+            gitFlow = new GitFlowConfig(null);
+        }
+        return gitFlow.UserCommandIn(CommandOf(payload));
+    }
+
+    // The Bash command line of a hook payload, or null when it carries none.
+    private static string CommandOf(string payload)
+    {
+        using (JsonDocument document = JsonDocument.Parse(payload))
+        {
+            JsonElement input;
+            JsonElement command;
+            return document.RootElement.ValueKind == JsonValueKind.Object && document.RootElement.TryGetProperty("tool_input", out input) &&
+                input.ValueKind == JsonValueKind.Object && input.TryGetProperty("command", out command) && command.ValueKind == JsonValueKind.String
+                ? command.GetString()
+                : null;
         }
     }
 

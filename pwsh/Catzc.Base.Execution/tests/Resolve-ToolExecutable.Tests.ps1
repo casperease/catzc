@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
-    folder: tests
-    name: resolve-tool-executable-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b40247570243
   edges:
     docs: "[Resolve-ToolExecutable.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Execution/Resolve-ToolExecutable.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

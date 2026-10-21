@@ -1,3 +1,14 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "8d4116d5b08f"
+  edges:
+    cites:
+      - ADR-DSGN-TRACK-ONETECHSTACK
+---
+*/
+
 using System.Collections.Generic;
 
 namespace Catzc.Base.Variants;

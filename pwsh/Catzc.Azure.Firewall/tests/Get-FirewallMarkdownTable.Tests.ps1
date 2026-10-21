@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "67e2f4987d80"
+  edges:
+    code: pwsh/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
+---
+#>
+
 # Get-FirewallMarkdownTable is a private (non-exported) function, so it is invoked via InModuleScope.
 Describe 'Get-FirewallMarkdownTable' -Tag 'L0', 'logic' {
     BeforeAll {

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1
-    folder: tests
-    name: test-parameter-consistency-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "0c8452716db7"
   edges:
     docs: "[Test-ParameterConsistency.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-ParameterConsistency.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/tests/New-GitIgnore.Tests.ps1
-    folder: tests
-    name: new-git-ignore-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "548130b41004"
   edges:
     docs: "[New-GitIgnore.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/New-GitIgnore.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Git/New-GitIgnore.ps1
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
 ---

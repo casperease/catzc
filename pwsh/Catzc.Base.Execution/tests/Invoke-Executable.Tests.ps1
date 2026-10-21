@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
-    folder: tests
-    name: invoke-executable-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c456f7f1eda1
   edges:
     docs: "[Invoke-Executable.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
     cites:
       - ADR-AUTO-TEST-PROCESSTRIPWIRE
       - ADR-AUTO-TEST-ONIONOFRINGS

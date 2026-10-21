@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "1f2721e0c9d9"
+  edges:
+    code: pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
+    cites:
+      - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - ADR-REPO-SLIDES-ONEBUILDCOMMAND
+      - ADR-REPO-SLIDES-TWODIRECTIONS
+      - ADR-REPO-SLIDES-CONFLICTNEEDSAPICK
+---
+#>
+
 Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'diagram-repository'

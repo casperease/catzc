@@ -1,3 +1,14 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f2c088a4bb64
+  edges:
+    cites:
+      - ADR-PWSH-FORMAT-MULTILINECONDITIONALHASHTABLE
+---
+#>
+
 Describe 'Measure-NoOneLineHashtableIfElse' -Tag 'L0', 'logic', 'ADR-PWSH-FORMAT-MULTILINECONDITIONALHASHTABLE' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoOneLineHashtableIfElse.psm1') -Force

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f9afa5ff8da9
+  edges:
+    code: pwsh/Catzc.Base.ModuleSystem/ConvertTo-ModuleDependencyDiagram.ps1
+---
+#>
+
 Describe 'ConvertTo-ModuleDependencyDiagram' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:edges = @(

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/types/BashTestResult.cs
-    folder: types
-    name: bash-test-result
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e096d7f1ae53
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/BashTestResult.Tests.ps1
     docs: "[BashTestResult.cs.md](docs/references/pwsh/catzc-base-languages/types/BashTestResult.cs.md)"

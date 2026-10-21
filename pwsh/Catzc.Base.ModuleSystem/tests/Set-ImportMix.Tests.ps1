@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "913a5f9b73bc"
+  edges:
+    code: pwsh/Catzc.Base.ModuleSystem/Set-ImportMix.ps1
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-DRYRUN-SIDEEFFECTSTAKEDRYRUN
+      - ADR-AUTO-IMPORTER-ONEMIXRECORD
+      - ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES
+---
+#>
+
 Describe 'Set-ImportMix' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:loaded = [System.Collections.Generic.List[string]]::new()

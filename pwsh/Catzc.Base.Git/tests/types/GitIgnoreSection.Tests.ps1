@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: c1e895760d0d
+  edges:
+    code: pwsh/Catzc.Base.Git/types/GitIgnoreSection.cs
+---
+#>
+
 Describe 'GitIgnoreSection' -Tag 'L0', 'logic' {
     It 'constructs a static section with mixed bare and noted patterns' {
         $s = [Catzc.Base.Git.GitIgnoreSection]::new(@{

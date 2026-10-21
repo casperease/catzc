@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "8f3a8da52beb"
+# ---
+
 description:
   "Which rules that keep the platform thin have a gate: the function naming rule, the configuration check and the az version pin do, while
   no reimplementation, everything as code and the swappable substrate are held by review alone."

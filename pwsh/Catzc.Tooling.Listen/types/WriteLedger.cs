@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Listen/types/WriteLedger.cs
-    folder: types
-    name: write-ledger
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Listen
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: "8afb9da29082"
   edges:
     test: pwsh/Catzc.Tooling.Listen/tests/types/WriteLedger.Tests.ps1
     docs: "[WriteLedger.cs.md](docs/references/pwsh/catzc-tooling-listen/types/WriteLedger.cs.md)"

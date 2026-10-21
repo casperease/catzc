@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1
-    folder: tests
-    name: get-repository-folder-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "922f061d374f"
   edges:
     docs: "[Get-RepositoryFolder.Tests.ps1.md](docs/references/pwsh/catzc-base-repository/tests/Get-RepositoryFolder.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Repository/Get-RepositoryFolder.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

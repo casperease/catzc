@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Vendor/Test-VendorModuleAvailable.ps1
-    name: test-vendor-module-available
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Vendor
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "395cb5045797"
   edges:
     test: pwsh/Catzc.Base.Vendor/tests/Test-VendorModuleAvailable.Tests.ps1
     docs: "[Test-VendorModuleAvailable.ps1.md](docs/references/pwsh/catzc-base-vendor/Test-VendorModuleAvailable.ps1.md)"

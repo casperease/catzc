@@ -1,26 +1,19 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.Contracts/configs/contracts.yml
-#     folder: configs
-#     name: contracts
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.Contracts
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: c86b4f99df0c
 #   edges:
 #     docs: "[contracts.yml.md](docs/references/pwsh/catzc-base-contracts/configs/contracts.yml.md)"
+#     cites:
+#       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+#       - ADR-PWSH-PARAM-RESOLUTIONORDER
+#       - ADR-REPO-CONTRACT
 # ---
 
 addressing: full-path
 
 target_roots:
-  Catzc.Tooling.Github: .github
-  Catzc.Azure.DevOps: .ado
-  Catzc.Base.Globs: pwsh/Catzc.Base.Globs
-  Catzc.Azure.Templates: pwsh/Catzc.Azure.Templates
+  catzc.tooling.github: .github
+  catzc.azure.dev_ops: .ado
+  catzc.base.globs: pwsh/Catzc.Base.Globs
+  catzc.azure.templates: pwsh/Catzc.Azure.Templates

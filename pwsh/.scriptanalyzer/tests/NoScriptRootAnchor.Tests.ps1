@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1
-    folder: pwsh/.scriptanalyzer/tests
-    name: no-script-root-anchor-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "5f57e6b79af2"
   edges:
     docs: "[NoScriptRootAnchor.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1.md)"
     cites:

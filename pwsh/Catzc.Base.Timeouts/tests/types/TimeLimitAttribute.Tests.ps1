@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: fcc8ec742df4
+  edges:
+    code: pwsh/Catzc.Base.Timeouts/types/TimeLimitAttribute.cs
+    cites:
+      - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
+---
+#>
+
 Describe 'TimeLimitAttribute' -Tag 'L0', 'logic', 'ADR-PWSH-ASSERT-DECLAREDTIMELIMIT' {
     It 'carries a devbox limit and defaults the pipeline limit to it' {
         $limit = [Catzc.Base.Timeouts.TimeLimitAttribute]::new(360)

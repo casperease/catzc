@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: dd54552af701
+  edges:
+    code: pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependencyTree.ps1
+---
+#>
+
 Describe 'Get-FunctionDependencyTree' -Tag 'L0', 'logic' {
     BeforeAll {
         # Build a synthetic dependency graph

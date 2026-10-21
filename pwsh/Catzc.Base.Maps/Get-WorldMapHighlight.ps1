@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-    name: get-world-map-highlight
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "519b009e63e1"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
     docs: "[Get-WorldMapHighlight.ps1.md](docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md)"

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
-    folder: tests
-    name: update-adr-citation-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "865e066834aa"
   edges:
     docs: "[Update-AdrCitation.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
     cites:
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
       - ADR-AUTO-IDEM-CHECKBEFOREACTING

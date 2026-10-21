@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: c9cc45742da4
+  edges:
+    code: pwsh/Catzc.Azure.Cli/Install-AzCliBicep.ps1
+---
+#>
+
 Describe 'Install-AzCliBicep' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-Tool { } -ModuleName Catzc.Azure.Cli

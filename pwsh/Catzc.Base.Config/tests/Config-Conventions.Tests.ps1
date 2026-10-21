@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
-    folder: tests
-    name: config-conventions-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c71abf839afa
   edges:
     docs: "[Config-Conventions.Tests.ps1.md](docs/references/pwsh/catzc-base-config/tests/Config-Conventions.Tests.ps1.md)"
     cites:

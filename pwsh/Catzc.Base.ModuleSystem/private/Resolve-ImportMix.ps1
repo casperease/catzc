@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/private/Resolve-ImportMix.ps1
-    folder: private
-    name: resolve-import-mix
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "14e615554adb"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Resolve-ImportMix.Tests.ps1
     docs: "[Resolve-ImportMix.ps1.md](docs/references/pwsh/catzc-base-modulesystem/private/Resolve-ImportMix.ps1.md)"

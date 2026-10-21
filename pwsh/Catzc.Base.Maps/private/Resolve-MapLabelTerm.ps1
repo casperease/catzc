@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1
-    folder: private
-    name: resolve-map-label-term
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "6034e83514c6"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
     docs: "[Resolve-MapLabelTerm.ps1.md](docs/references/pwsh/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md)"

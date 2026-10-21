@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/private-endpoint.bicep
-//     name: private-endpoint
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: private-endpoint
-//     moduletype: bicep
+//     with_body_sha: "88fc03588f8f"
 //   edges:
 //     docs: "[private-endpoint.bicep.md](docs/references/infrastructure/modules/private-endpoint.bicep.md)"
 // ---

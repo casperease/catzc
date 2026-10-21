@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Python/Install-PySpark.ps1
-    name: install-py-spark
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Python
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: f78ba69b3c65
   edges:
     docs: "[Install-PySpark.ps1.md](docs/references/pwsh/catzc-tooling-python/Install-PySpark.ps1.md)"
 ---

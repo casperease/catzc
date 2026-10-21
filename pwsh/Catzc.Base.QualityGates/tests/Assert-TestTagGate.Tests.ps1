@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3e827ea01d87"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Assert-TestTagGate.ps1
+    cites:
+      - ADR-AUTO-TEST-TAGSENFORCED
+---
+#>
+
 Describe 'Assert-TestTagGate' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-TAGSENFORCED' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

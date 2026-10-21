@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/types/PythonTestResult.cs
-    folder: types
-    name: python-test-result
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "1bda5cf85eec"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/PythonTestResult.Tests.ps1
     docs: "[PythonTestResult.cs.md](docs/references/pwsh/catzc-base-languages/types/PythonTestResult.cs.md)"

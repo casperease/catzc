@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Writers/Write-Header.ps1
-    name: write-header
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: b7d930e2c132
   edges:
     test: pwsh/Catzc.Base.Writers/tests/Write-Header.Tests.ps1
     docs: "[Write-Header.ps1.md](docs/references/pwsh/catzc-base-writers/Write-Header.ps1.md)"

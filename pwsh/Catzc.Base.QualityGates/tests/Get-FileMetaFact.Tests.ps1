@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: cf12ce03e978
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/Get-FileMetaFact.ps1
+    cites:
+      - ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION
+---
+#>
+
 Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION' {
     BeforeAll {
         # The one code the fixture cites, registered with ten rules, so the adr-codes kind keeps it.

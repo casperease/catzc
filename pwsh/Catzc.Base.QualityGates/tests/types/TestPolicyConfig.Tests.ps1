@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: edbece5b0742
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/types/TestPolicyConfig.cs
+---
+#>
+
 Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
     It 'defaults every environment to read-only' {
         $config = [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{})

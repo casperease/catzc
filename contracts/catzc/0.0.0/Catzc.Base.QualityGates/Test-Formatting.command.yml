@@ -1,8 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Formatting, the quality gate that checks formatting would
-# leave the repository unchanged, for every file language or the named ones, and returns its result under -PassThru.
-parameters:
-  Language: string[]
-  Path: string[]
-  OutputFolder: string
-  PassThru: switch
-output: Catzc.Base.Reports.QualityGateResult

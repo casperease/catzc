@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/Get-EngineStripMinimapData.ps1
-    name: get-engine-strip-minimap-data
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: ce0b33f70495
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-EngineStripMinimapData.Tests.ps1
     docs: "[Get-EngineStripMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-EngineStripMinimapData.ps1.md)"

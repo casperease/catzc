@@ -1,5 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Install-Python, which installs Python. Version defaults to
-# the version tools.yml locks for 'python', a computed default the contract does not restate; Force reinstalls over a present install.
-parameters:
-  Version: string
-  Force: switch

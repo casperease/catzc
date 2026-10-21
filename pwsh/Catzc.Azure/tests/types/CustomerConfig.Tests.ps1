@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: fb7dad70c88a
+  edges:
+    code: pwsh/Catzc.Azure/types/CustomerConfig.cs
+    cites:
+      - ADR-AZ-CUSTOMER-TWOBINDINGS
+---
+#>
+
 Describe 'CustomerConfig' -Tag 'L0' {
     BeforeAll {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Azure.CustomerConfig]::new($raw) }

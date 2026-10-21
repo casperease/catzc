@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "16bb80a08e84"
+  edges:
+    code: pwsh/Catzc.Base.CodeMeta/types/PropertyHead.cs
+    cites:
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+---
+#>
+
 Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         # '~' stands for a real line end in the single-quoted JSON below, so a JSON '\n' escape stays a backslash and an n.

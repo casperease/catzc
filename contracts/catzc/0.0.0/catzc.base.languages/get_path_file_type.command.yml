@@ -1,0 +1,5 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Get-PathFileType, which names the file type a path
+# resolves to through the file-language registry.
+parameters:
+  path: string!
+output: string

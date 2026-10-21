@@ -2,25 +2,9 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.CodeMeta/types/CommentPagesConfig.cs
-    folder: types
-    name: comment-pages-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: f0c925612378
   edges:
     test: pwsh/Catzc.Base.CodeMeta/tests/types/CommentPagesConfig.Tests.ps1
-    cites:
-      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
-      - ADR-PRIN-ONELIVE-ONEVERSION
 ---
 */
 

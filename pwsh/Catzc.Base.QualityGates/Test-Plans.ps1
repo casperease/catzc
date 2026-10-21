@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
-    name: test-plans
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "78d97f573e88"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
     docs: "[Test-Plans.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md)"
@@ -29,7 +17,7 @@ function Test-Plans {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
-        [string] $Path,
+        [string[]] $Path,
 
         [Catzc.Base.QualityGates.PlansConfig] $Config = (Get-Config -Config plans),
 
@@ -43,15 +31,31 @@ function Test-Plans {
     Assert-SourceTree
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
-    $folder = if ($Path) {
-        [System.IO.Path]::GetFullPath($Path)
+    # A relative -Path names a place in the repository, whatever folder the process stands in.
+    $targets = @(foreach ($item in $Path) {
+            if ([System.IO.Path]::IsPathRooted($item)) {
+                [System.IO.Path]::GetFullPath($item)
+            }
+            else {
+                [System.IO.Path]::GetFullPath((Join-Path $root $item))
+            }
+        })
+    foreach ($target in $targets) {
+        Assert-True ([System.IO.Directory]::Exists($target) -or [System.IO.File]::Exists($target)) -ErrorText "Test-Plans: '$target' does not exist."
     }
-    else {
+    # The folder holds the overlays the cross-file checks read whole, even when -Path names only some of its files.
+    $folder = if ($targets.Count -eq 0) {
         Join-Path $root $Config.folder
     }
+    elseif ([System.IO.Directory]::Exists($targets[0])) {
+        $targets[0]
+    }
+    else {
+        [System.IO.Path]::GetDirectoryName($targets[0])
+    }
     Assert-True ([System.IO.Directory]::Exists($folder)) -ErrorText "Test-Plans: the plans folder '$folder' does not exist."
-    $label = if ($Path) {
-        [System.IO.Path]::GetFileName($folder)
+    $label = if ($targets.Count -gt 0) {
+        [System.IO.Path]::GetFileName($folder.TrimEnd('\', '/'))
     }
     else {
         $Config.folder
@@ -71,7 +75,14 @@ function Test-Plans {
     $issues = [System.Collections.Generic.List[string]]::new()
     $plans = 0
     $tasks = 0
-    $files = @(Get-ChildPath $folder -Depth 1 -File -Filter '*.md' | Sort-Object)
+    $files = @(@(foreach ($target in @(if ($targets.Count -gt 0) { $targets } else { $folder })) {
+                if ([System.IO.Directory]::Exists($target)) {
+                    Get-ChildPath $target -Depth 1 -File -Filter '*.md'
+                }
+                else {
+                    $target
+                }
+            }) | Sort-Object -Unique)
     foreach ($file in $files) {
         $name = [System.IO.Path]::GetFileName($file)
         $where = "$label/$name"

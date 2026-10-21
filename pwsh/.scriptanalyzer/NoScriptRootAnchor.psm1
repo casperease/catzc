@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/NoScriptRootAnchor.psm1
-    folder: pwsh/.scriptanalyzer
-    name: no-script-root-anchor
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: b4f779512bea
   edges:
     docs: "[NoScriptRootAnchor.psm1.md](docs/references/pwsh/scriptanalyzer/NoScriptRootAnchor.psm1.md)"
 ---

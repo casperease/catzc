@@ -1,3 +1,19 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b454038226c5
+  edges:
+    code: pwsh/Catzc.Base.ModuleSystem/types/ImportMix.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-IMPORTER-DECIDESMIX
+      - ADR-AUTO-IMPORTER-ONEMIXRECORD
+      - ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES
+      - ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS
+---
+#>
+
 Describe 'ImportMix' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:auto = [Catzc.Base.ModuleSystem.ImporterConfig]::new(@{})

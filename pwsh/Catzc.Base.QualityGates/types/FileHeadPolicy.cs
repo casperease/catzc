@@ -2,23 +2,13 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/FileHeadPolicy.cs
-    folder: types
-    name: file-head-policy
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "71f60bedbae7"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1
     docs: "[FileHeadPolicy.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/FileHeadPolicy.cs.md)"
     cites:
       - ADR-REPO-FILEMETA-HEADPOLICY
+      - ADR-REPO-VARIANT-FILEHEADS
 ---
 */
 

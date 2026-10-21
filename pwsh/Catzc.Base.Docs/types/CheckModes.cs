@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/CheckModes.cs
-    folder: types
-    name: check-modes
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "3320ddc202d6"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
     docs: "[CheckModes.cs.md](docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md)"

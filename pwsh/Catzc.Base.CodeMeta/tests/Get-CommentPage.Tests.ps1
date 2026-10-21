@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: efd1bc076a9e
+  edges:
+    code: pwsh/Catzc.Base.CodeMeta/Get-CommentPage.ps1
+    cites:
+      - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
+---
+#>
+
 Describe 'Get-CommentPage' -Tag 'L0', 'logic', 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
     BeforeAll {
         $script:config = [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) })

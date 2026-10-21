@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "71cc1eabd32a"
+  edges:
+    code: pwsh/Catzc.Base.Vendor/types/VendorConfig.cs
+---
+#>
+
 Describe 'VendorConfig' -Tag 'L0' {
 
     Context 'integrity (shipped vendor.yml)' -Tag 'integrity' {

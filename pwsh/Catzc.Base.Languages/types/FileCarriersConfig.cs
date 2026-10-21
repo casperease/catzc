@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/types/FileCarriersConfig.cs
-    folder: types
-    name: file-carriers-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8bf5d698d890"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
     docs: "[FileCarriersConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/FileCarriersConfig.cs.md)"

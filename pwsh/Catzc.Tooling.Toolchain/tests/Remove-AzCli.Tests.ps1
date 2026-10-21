@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "66a79629124e"
+  edges:
+    code: pwsh/Catzc.Tooling.Toolchain/Remove-AzCli.ps1
+    cites:
+      - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
+      - ADR-AUTO-REMOVE-DOUBLYGUARDED
+      - ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM
+      - ADR-AUTO-REMOVE-THREEPLATFORMCORES
+---
+#>
+
 Describe 'Remove-AzCli' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Get-ToolConfig { [pscustomobject]@{ command = 'widget' } } -ModuleName Catzc.Tooling.Toolchain

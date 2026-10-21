@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/Get-DynamicManifestContent.Tests.ps1
-    name: get-dynamic-manifest-content-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: "34eee2d31bd4"
   edges:
     docs: "[Get-DynamicManifestContent.Tests.ps1.md](docs/references/pwsh/internal/tests/Get-DynamicManifestContent.Tests.ps1.md)"
 ---

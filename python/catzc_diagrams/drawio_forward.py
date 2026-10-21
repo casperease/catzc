@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "3ff05cf2a5fc"
+# ---
+
 # cspell:ignore mxfile minimaps pnginfo XMLMATCH
 """Fail-forward render of a .drawio.png: always a source copy and a result PNG, warnings forwarded, never a silent stop.
 
@@ -125,6 +131,14 @@ def folder_role(folder):
     return role
 
 
+def undeclared_warnings(folder, source):
+    """A W_UNDECLARED warning for a slide with no declaration; a legend draws no minimaps, so it needs none and has none."""
+    if folder_role(folder) == "legend":
+        return []
+    path = str(Path(folder).resolve().relative_to(REPO)).replace("\\", "/")
+    return [f"W_UNDECLARED {path}: no {source}, so its minimaps are not rebuilt; declare it to put it"]
+
+
 def subtitle_facts(folder, model):
     """slide_facts for a slide, with each problem as a W_SUBTITLE warning; a legend names no ADR and carries no subtitle, so it has none."""
     if folder_role(folder) == "legend":
@@ -238,7 +252,7 @@ def bulk(root, theme=None):
             drift = supports_drift(f, adrs, lens)
             if drift:
                 warnings.append(f"W_SUPPORTS {drift}")
-        warnings.append(f"W_UNDECLARED {rel(f)}: no {declaration.SOURCE}, so its minimaps are not rebuilt; declare it to put it")
+        warnings += undeclared_warnings(f, declaration.SOURCE)
     counts.update(prepared=done, undeclared=len(folders))
     for w in warnings:
         print(f"warn {w}")

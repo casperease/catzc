@@ -1,3 +1,13 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: cf7a9b6e1fe4
+#   edges:
+#     cites:
+#       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+#       - ADR-AUTO-OVERLAY-CONFIGFRAGMENT
+# ---
+
 concepts:
   posture:
     key: config_posture

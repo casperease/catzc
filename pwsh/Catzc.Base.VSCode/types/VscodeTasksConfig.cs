@@ -1,3 +1,16 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "82b0e1117454"
+  edges:
+    test: pwsh/Catzc.Base.VSCode/tests/types/VscodeTasksConfig.Tests.ps1
+    cites:
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-ROOTCFG
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

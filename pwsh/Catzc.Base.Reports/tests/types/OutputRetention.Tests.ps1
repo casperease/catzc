@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "463e79c6b890"
+  edges:
+    code: pwsh/Catzc.Base.Reports/types/OutputRetention.cs
+    cites:
+      - ADR-REPO-OUTDIR-ONECLEANCOMMAND
+---
+#>
+
 Describe 'Catzc.Base.Reports.OutputRetention' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR-ONECLEANCOMMAND' {
     BeforeAll {
         $script:now = [datetime]::new(2026, 10, 15, 12, 0, 0, [System.DateTimeKind]::Utc)

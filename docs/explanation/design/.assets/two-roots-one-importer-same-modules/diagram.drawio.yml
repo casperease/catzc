@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: b5f5533b719b
+# ---
+
 description:
   The source tree and a built package are two code roots, each with its own entry script, that feed one importer; it loads the same modules
   in both modes, and each module finds its files through the code root it is handed.

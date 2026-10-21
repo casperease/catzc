@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: c0fc64dce09e
+  edges:
+    code: pwsh/Catzc.Azure.Templates/Get-AzureBicepDeploymentModes.ps1
+---
+#>
+
 Describe 'Get-AzureBicepDeploymentModes' -Tag 'L0', 'logic' {
     It 'returns Incremental, Complete, DoNotRun' {
         $modes = Get-AzureBicepDeploymentModes

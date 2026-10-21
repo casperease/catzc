@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "0f6ef2131cf9"
+# ---
+
 description:
   "A global config address is a read-only walk over the one config the reader has already loaded and cached: the caller's string goes
   through the one reader to the cached node, and a wrong address throws at the call."

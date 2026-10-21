@@ -1,19 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: infrastructure/templates/discovery/configuration/flux/nsub.yml
-#     folder: configuration/flux
-#     name: nsub
-#     filetype: yml
-#     role: template
-#     subkind: config
-#     language: yaml
-#     track: infrastructure
-#     tracktype: infrastructure
-#     vendor: azure
-#     module: discovery
-#     moduletype: bicep
+#     with_body_sha: f23058d72da0
 #   edges:
 #     docs: "[nsub.yml.md](docs/references/infrastructure/templates/discovery/configuration/flux/nsub.yml.md)"
 # ---

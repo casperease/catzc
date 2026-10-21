@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "8cf3851c062e"
+  edges:
+    code: pwsh/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1
+---
+#>
+
 Describe 'Get-TestTimeLimits' -Tag 'L0', 'logic' {
     It 'returns the configured tier limits and run budget' {
         Mock Get-Config -ModuleName Catzc.Base.Timeouts {

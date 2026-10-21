@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-MarkdownTitleFinding.ps1
-    folder: private
-    name: get-markdown-title-finding
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: cfcc28d95c6a
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-MarkdownTitleFinding.Tests.ps1
     docs: "[Get-MarkdownTitleFinding.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md)"

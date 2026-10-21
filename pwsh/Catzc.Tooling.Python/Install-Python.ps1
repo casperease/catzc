@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Python/Install-Python.ps1
-    name: install-python
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Python
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "7e6fa7937d71"
   edges:
     test: pwsh/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
     docs: "[Install-Python.ps1.md](docs/references/pwsh/catzc-tooling-python/Install-Python.ps1.md)"

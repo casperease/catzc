@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "875baba350eb"
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 function Measure-NoOneLineHashtableIfElse {

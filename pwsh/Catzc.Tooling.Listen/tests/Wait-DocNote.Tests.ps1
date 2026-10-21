@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "452c74516b43"
+  edges:
+    code: pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1
+    cites:
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+---
+#>
+
 Describe 'Wait-DocNote' -Tag 'L0', 'logic', 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Listen.Fixture.ps1')

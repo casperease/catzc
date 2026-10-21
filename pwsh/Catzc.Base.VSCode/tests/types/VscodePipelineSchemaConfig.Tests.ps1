@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/tests/types/VscodePipelineSchemaConfig.Tests.ps1
-    folder: tests/types
-    name: vscode-pipeline-schema-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5b0ffe8b5c13"
   edges:
     docs: "[VscodePipelineSchemaConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/types/VscodePipelineSchemaConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
 ---
 #>
 

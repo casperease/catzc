@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "776a65297d1a"
+  edges:
+    code: pwsh/Catzc.Base.Variants/Test-FileHeadVariant.ps1
+    cites:
+      - ADR-REPO-VARIANT-FILEHEADS
+---
+#>
+
 Describe 'Test-FileHeadVariant' -Tag 'L0', 'logic', 'ADR-REPO-VARIANT-FILEHEADS' {
 
     It 'returns true for -Minimal when the repo is minimal' {

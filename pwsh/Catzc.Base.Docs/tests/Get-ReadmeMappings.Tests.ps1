@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
-    folder: tests
-    name: get-readme-mappings-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: fd4402ff022f
   edges:
     docs: "[Get-ReadmeMappings.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
     cites:
       - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE
 ---

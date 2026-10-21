@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "9487b12ebf0f"
+  edges:
+    code: pwsh/Catzc.Tooling.Listen/types/WriteLedger.cs
+    cites:
+      - ADR-REPO-AI-EDITORISFACT
+---
+#>
+
 Describe 'Catzc.Tooling.Listen.WriteLedger' -Tag 'L0', 'logic', 'ADR-REPO-AI-EDITORISFACT' {
     BeforeAll {
         $script:t0 = [DateTimeOffset]::Parse('2026-10-20T10:00:00+00:00', [cultureinfo]::InvariantCulture)

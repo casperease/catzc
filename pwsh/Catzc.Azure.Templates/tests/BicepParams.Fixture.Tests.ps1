@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: c608316e1ef6
+---
+#>
+
 Describe 'BicepParams.Fixture (the strict build-params stand-in)' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'BicepParams.Fixture.ps1')

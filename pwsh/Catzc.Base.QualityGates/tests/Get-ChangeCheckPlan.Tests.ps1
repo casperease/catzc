@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1
-    folder: tests
-    name: get-change-check-plan-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: ffe1dd1f4f63
   edges:
     docs: "[Get-ChangeCheckPlan.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-ChangeCheckPlan.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Get-ChangeCheckPlan.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

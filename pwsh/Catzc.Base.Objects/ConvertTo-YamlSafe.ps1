@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Objects/ConvertTo-YamlSafe.ps1
-    name: convert-to-yaml-safe
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "370203c19a6b"
   edges:
     test: pwsh/Catzc.Base.Objects/tests/ConvertTo-YamlSafe.Tests.ps1
     docs: "[ConvertTo-YamlSafe.ps1.md](docs/references/pwsh/catzc-base-objects/ConvertTo-YamlSafe.ps1.md)"

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "880755644d8f"
+# ---
+
 description:
   Two entry scripts, one per run mode, feed one importer; the importer and its bootstrap are removed once the load is done, and the shared
   internal layer, the vendored modules, the cats modules and the janitor owners stay loaded.

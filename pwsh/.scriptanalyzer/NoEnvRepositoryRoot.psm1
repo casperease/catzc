@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/NoEnvRepositoryRoot.psm1
-    folder: pwsh/.scriptanalyzer
-    name: no-env-repository-root
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "04d2c2f8e2f5"
   edges:
     docs: "[NoEnvRepositoryRoot.psm1.md](docs/references/pwsh/scriptanalyzer/NoEnvRepositoryRoot.psm1.md)"
 ---

@@ -1,2 +1,2 @@
 direction:
-  Catzc.Base.Globs/configs/file-kinds.yml: provided
+  catzc.base.globs/configs/file-kinds.yml: provided

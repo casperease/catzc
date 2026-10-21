@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "6f0cd292ffff"
+# ---
+
 description:
   "Resolving a global config address is three small functions in a fixed order: the address is validated at binding, stripped and split, the
   named config is read once, and the keys are walked one segment at a time; every wrong turn throws where it happens."

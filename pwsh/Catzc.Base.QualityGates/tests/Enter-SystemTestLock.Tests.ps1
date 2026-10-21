@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1
-    folder: tests
-    name: enter-system-test-lock-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e787e0e4dba9
   edges:
     docs: "[Enter-SystemTestLock.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Enter-SystemTestLock.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Enter-SystemTestLock.ps1
     cites:
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
 ---

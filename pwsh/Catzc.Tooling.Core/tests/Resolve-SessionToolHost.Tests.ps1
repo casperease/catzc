@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "9599a5b76427"
+  edges:
+    code: pwsh/Catzc.Tooling.Core/private/Resolve-SessionToolHost.ps1
+---
+#>
+
 Describe 'Resolve-SessionToolHost' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:origPath = $env:PATH

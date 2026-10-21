@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/Write-ToolProbeReport.ps1
-    name: write-tool-probe-report
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: a1069bb2b3c5
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
     docs: "[Write-ToolProbeReport.ps1.md](docs/references/pwsh/catzc-tooling-core/Write-ToolProbeReport.ps1.md)"

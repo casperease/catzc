@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "6ba1c697301c"
+# ---
+
 description:
   The four CD pipelines bind deployable-units composed from the infrastructure track, while the two CI pipelines bind the pwsh and
   infrastructure track sets directly, with no unit between them.

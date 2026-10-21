@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "20714125b9d2"
+---
+#>
+
 Describe 'Write-TypesAssemblyManifest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:dll = Join-Path $TestDrive 'Catzc.Types.abcd1234.dll'

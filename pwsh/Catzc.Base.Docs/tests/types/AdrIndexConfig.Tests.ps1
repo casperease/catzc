@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: aeec41742f3a
+  edges:
+    code: pwsh/Catzc.Base.Docs/types/AdrIndexConfig.cs
+    cites:
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+---
+#>
+
 Describe 'AdrIndexConfig' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
     It 'holds the preamble and the conventions as written' {
         $config = [Catzc.Base.Docs.AdrIndexConfig]::new([ordered]@{ preamble = "# Widget index`n"; conventions = "## Gadget rules`n" })

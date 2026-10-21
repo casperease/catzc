@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: e58fb72d7976
+# ---
+
 description:
   "A pull request or a merge to main starts the CD pipeline: the CI stage builds, the deploy stages run on main only and reach every target
   the pipeline lists, prod tier included, with no approval step in the YAML; two deploy functions throw on a missing or wrong subscription."

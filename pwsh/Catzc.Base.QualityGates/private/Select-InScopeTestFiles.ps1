@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Select-InScopeTestFiles.ps1
-    folder: private
-    name: select-in-scope-test-files
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "2a43f4013fb1"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Select-InScopeTestFiles.Tests.ps1
     docs: "[Select-InScopeTestFiles.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Select-InScopeTestFiles.ps1.md)"

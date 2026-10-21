@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: e0c4e930ed8e
+# ---
+
 """The minimap data contract: one minimap's JSON is checked against the schema in contracts/ before anything draws it.
 
 Catzc.Base.Maps writes the data through its MinimapData type; this kit only reads it, and never loads that type

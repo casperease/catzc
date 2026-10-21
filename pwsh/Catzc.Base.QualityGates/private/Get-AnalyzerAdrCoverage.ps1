@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-AnalyzerAdrCoverage.ps1
-    folder: private
-    name: get-analyzer-adr-coverage
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: e488b38f56d9
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
     docs: "[Get-AnalyzerAdrCoverage.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-AnalyzerAdrCoverage.ps1.md)"

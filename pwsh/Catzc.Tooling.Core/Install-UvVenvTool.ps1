@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/Install-UvVenvTool.ps1
-    name: install-uv-venv-tool
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "5b2e3daa364c"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Install-UvVenvTool.Tests.ps1
     docs: "[Install-UvVenvTool.ps1.md](docs/references/pwsh/catzc-tooling-core/Install-UvVenvTool.ps1.md)"

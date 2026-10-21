@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: acbe1fdb2553
+# ---
+
 description:
   "A config file's place under a template's configuration tree is its coordinate: a root config or a customer config, checked against
   exactly one subscription, resolves to that subscription and to one resource group."

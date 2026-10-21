@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-    name: test-config-validators
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ConfigExtensions
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "0a6377b4b54e"
   edges:
     test: pwsh/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1
     docs: "[Test-ConfigValidators.ps1.md](docs/references/pwsh/catzc-base-configextensions/Test-ConfigValidators.ps1.md)"

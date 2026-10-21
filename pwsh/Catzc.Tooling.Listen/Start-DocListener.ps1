@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "1c1c25d4fc83"
+  edges:
+    test: pwsh/Catzc.Tooling.Listen/tests/Start-DocListener.Tests.ps1
+---
+#>
+
 function Start-DocListener {
     <#
     .SYNOPSIS

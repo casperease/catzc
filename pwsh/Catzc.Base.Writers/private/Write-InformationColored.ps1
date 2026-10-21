@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Writers/private/Write-InformationColored.ps1
-    folder: private
-    name: write-information-colored
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: b585f7407bf3
   edges:
     test: pwsh/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
     docs: "[Write-InformationColored.ps1.md](docs/references/pwsh/catzc-base-writers/private/Write-InformationColored.ps1.md)"

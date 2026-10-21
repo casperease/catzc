@@ -2,19 +2,9 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Flow/tests/Get-Rung.Tests.ps1
-    folder: tests
-    name: get-rung-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Flow
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "0d2753e11186"
   edges:
+    code: pwsh/Catzc.Base.Flow/Get-Rung.ps1
     cites:
       - ADR-FLOW-CD-RUNGSREGISTRY
 ---

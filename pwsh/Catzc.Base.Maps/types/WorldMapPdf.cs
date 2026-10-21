@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs
-    folder: types
-    name: world-map-pdf
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: eb4a1eb4aea3
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/WorldMapPdf.Tests.ps1
     docs: "[WorldMapPdf.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapPdf.cs.md)"

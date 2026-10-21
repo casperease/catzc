@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: d29026905228
+# ---
+
 description:
   A topic commit can reach an environment through an out-of-band deploy without reaching main; only landing on main puts it on the ladder
   toward the build validation verified commit.

@@ -1,3 +1,19 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "92639b0b0c18"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1
+    cites:
+      - ADR-REPO-CODEMETA-SAMEENGINE
+      - ADR-REPO-FILEMETA-HEADPOLICY
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-FILEMETA-KINDSCOPE
+      - ADR-REPO-VARIANT-FILEHEADS
+---
+#>
+
 Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-REPO-CODEMETA-SAMEENGINE' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'engine-repository'

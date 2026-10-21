@@ -1,3 +1,14 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "5dcf59de28df"
+  edges:
+    cites:
+      - ADR-REPO-FILEMETA-METAKIND
+---
+*/
+
 namespace Catzc.Base.Globs;
 
 // What the file-kinds registry names for one path: the role its kind gives it, its subkind when it has one, and the kind's definition ([ADR-REPO-FILEMETA-METAKIND](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-metakind)).

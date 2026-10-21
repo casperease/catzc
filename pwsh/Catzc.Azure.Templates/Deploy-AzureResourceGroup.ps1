@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/Deploy-AzureResourceGroup.ps1
-    name: deploy-azure-resource-group
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: ee0190983d84
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
     docs: "[Deploy-AzureResourceGroup.ps1.md](docs/references/pwsh/catzc-azure-templates/Deploy-AzureResourceGroup.ps1.md)"

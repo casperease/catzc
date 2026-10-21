@@ -1,3 +1,13 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "1ef2a3920252"
+  edges:
+    test: pwsh/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
+---
+*/
+
 // Pure: it reads no disk and no clock, so which stamps and files a retention pass removes is provable on fixtures.
 
 using System;

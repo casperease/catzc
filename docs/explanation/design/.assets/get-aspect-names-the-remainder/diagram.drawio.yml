@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: e6598c2d5c5e
+# ---
+
 description:
   "Get-Aspect answers each track's aspect order from variants.yml, naming the remainder: the code track ends in tests, the deployment track
   ends in live, and a wrong order fails the next time the config loads."

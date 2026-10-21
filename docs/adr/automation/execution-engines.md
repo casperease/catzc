@@ -156,9 +156,10 @@ catzc's commands are PowerShell functions, so a session in a POSIX engine cannot
 command, which would be a second copy of every command's surface, `importer.sh` defines one dispatcher, `cats`, the name the system goes by
 in prose: `cats Get-RepositoryRoot` runs that command in pwsh, with catzc imported and its import output discarded. It quotes every value
 argument as a PowerShell literal, so a value with a space or a quote stays one value, and passes `-Name` arguments through as parameter
-names. It finds the repository from its own path, in the form pwsh reads (`cygpath -m` under Git Bash), and runs under every POSIX engine
-alike, so they share one importer rather than each keeping a copy. Each call starts a fresh pwsh and pays the import, which suits a command
-or a test, not a loop: for many commands in a row, start pwsh.
+names. A command with a command contract is named in kebab case instead, `cats test-automation --max-level 2`, and checked against its
+contract before pwsh starts. It finds the repository from its own path, in the form pwsh reads (`cygpath -m` under Git Bash), and runs under
+every POSIX engine alike, so they share one importer rather than each keeping a copy. Each call starts a fresh pwsh and pays the import,
+which suits a command or a test, not a loop: for many commands in a row, start pwsh.
 
 `importer.sh` is a root-config file, generated from its source in `Catzc.Base.RootConfig` and committed so a fresh clone has it; it is LF,
 as every `*.sh` is, and checked by `Test-ShellScripts` (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED). Bash tests call catzc exactly this way

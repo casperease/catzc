@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
-    name: test-comments
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: d6a13b352dc9
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
     docs: "[Test-Comments.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Comments.ps1.md)"

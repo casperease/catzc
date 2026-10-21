@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/New-PesterRunConfiguration.ps1
-    folder: private
-    name: new-pester-run-configuration
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: f6335001c3df
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/New-PesterRunConfiguration.Tests.ps1
     docs: "[New-PesterRunConfiguration.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md)"

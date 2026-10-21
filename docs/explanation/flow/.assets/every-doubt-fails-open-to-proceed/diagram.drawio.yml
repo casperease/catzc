@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: b4b7a0880b50
+# ---
+
 description:
   Whether a change touches a deployable unit is asked of git between two commits that exist after the merge; only a confirmed untouched unit
   stops the stage, every doubt proceeds, and an undeclared unit name throws.

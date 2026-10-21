@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "3ebbb2106b8b"
+# ---
+
 description:
   "One rule bounds every agent call: the limits, the verdict and the hook follow it, three tests at three tiers prove the hook, and the
   exemption route has no gate because it exists only in the ADR."

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/MarkdownLinkRebaser.cs
-    folder: types
-    name: markdown-link-rebaser
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4c3d03c2b1f2"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/MarkdownLinkRebaser.Tests.ps1
     docs: "[MarkdownLinkRebaser.cs.md](docs/references/pwsh/catzc-base-docs/types/MarkdownLinkRebaser.cs.md)"

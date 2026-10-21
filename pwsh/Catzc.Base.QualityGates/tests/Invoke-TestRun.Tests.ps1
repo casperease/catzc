@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
-    folder: tests
-    name: invoke-test-run-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "3d7443c2f9a6"
   edges:
     docs: "[Invoke-TestRun.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-TestRun.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1
     cites:
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
       - ADR-AUTO-TEST-SOURCEONLYTAG

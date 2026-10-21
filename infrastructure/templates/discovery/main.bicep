@@ -1,17 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/templates/discovery/main.bicep
-//     name: main
-//     filetype: bicep
-//     role: template
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: discovery
-//     moduletype: bicep
+//     with_body_sha: "36abad2fc688"
 //   edges:
 //     docs: "[main.bicep.md](docs/references/infrastructure/templates/discovery/main.bicep.md)"
 // ---

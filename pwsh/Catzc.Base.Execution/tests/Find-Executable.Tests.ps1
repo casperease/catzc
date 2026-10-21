@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
-    folder: tests
-    name: find-executable-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "0b462a72826d"
   edges:
     docs: "[Find-Executable.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Execution/Find-Executable.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES

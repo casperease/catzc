@@ -2,22 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/New-VsCodeSettings.ps1
-    name: new-vs-code-settings
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "9b47b7762509"
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/New-VsCodeSettings.Tests.ps1
-    docs: "[New-VsCodeSettings.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VsCodeSettings.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
+    docs: "[New-VSCodeSettings.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VSCodeSettings.ps1.md)"
     cites:
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
       - ADR-REPO-ROOTCFG

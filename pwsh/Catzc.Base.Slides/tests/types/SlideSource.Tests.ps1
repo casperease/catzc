@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "0ce5ac3bfbd8"
+  edges:
+    code: pwsh/Catzc.Base.Slides/types/SlideSource.cs
+    cites:
+      - ADR-REPO-SLIDES-SLIDEFILE
+---
+#>
+
 Describe 'SlideSource' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILE' {
     BeforeAll {
         $script:body = @'

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f55d69cc9458
+  edges:
+    code: pwsh/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
+---
+#>
+
 Describe 'Get-CatzcModuleRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:originalModulesRoot = $env:CatzcModulesRoot

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "58abeffb1563"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/types/ParameterConsistencyConfig.cs
+---
+#>
+
 Describe 'ParameterConsistencyConfig' -Tag 'L0' {
     Context 'integrity (shipped parameter-consistency.yml)' -Tag 'integrity' {
         It 'loads, and gives every exempt name a reason' {

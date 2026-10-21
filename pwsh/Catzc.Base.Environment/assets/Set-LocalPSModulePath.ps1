@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: b57969e117f2
   edges:
-    docs: "[Set-LocalPsModulePath.ps1.md](docs/references/pwsh/catzc-base-environment/assets/Set-LocalPsModulePath.ps1.md)"
+    docs: "[Set-LocalPSModulePath.ps1.md](docs/references/pwsh/catzc-base-environment/assets/Set-LocalPSModulePath.ps1.md)"
 ---
 #>
 

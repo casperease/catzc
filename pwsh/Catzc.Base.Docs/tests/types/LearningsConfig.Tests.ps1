@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: a4cedd32cec9
+  edges:
+    code: pwsh/Catzc.Base.Docs/types/LearningsConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+---
+#>
+
 Describe 'Catzc.Base.Docs.LearningsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
     BeforeAll {
         function Get-ViolationMessage {

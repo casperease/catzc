@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Format-MarkdownParagraph.Tests.ps1
-    folder: tests
-    name: format-markdown-paragraph-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "9ac948e338e5"
   edges:
     docs: "[Format-MarkdownParagraph.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Format-MarkdownParagraph.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/Format-MarkdownParagraph.ps1
     cites:
       - ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED
 ---

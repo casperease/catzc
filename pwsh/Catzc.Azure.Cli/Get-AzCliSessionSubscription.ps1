@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
-    name: get-az-cli-session-subscription
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "20ee2acf973b"
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
     docs: "[Get-AzCliSessionSubscription.ps1.md](docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md)"

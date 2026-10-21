@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/Set-RedirectedOutputEncoding.Tests.ps1
-    name: set-redirected-output-encoding-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: f8173c18a118
   edges:
     docs: "[Set-RedirectedOutputEncoding.Tests.ps1.md](docs/references/pwsh/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md)"
     cites:

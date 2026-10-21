@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
-    folder: tests
-    name: remove-system-installation-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: f7f8c2788f44
   edges:
     docs: "[Remove-SystemInstallation.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
     cites:
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
 ---

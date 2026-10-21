@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/types/EngineCaseTable.cs
-    folder: types
-    name: engine-case-table
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "968732cf459e"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/types/EngineCaseTable.Tests.ps1
     docs: "[EngineCaseTable.cs.md](docs/references/pwsh/catzc-tooling-core/types/EngineCaseTable.cs.md)"

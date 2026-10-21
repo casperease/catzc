@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "4ea3b7e99ab0"
+  edges:
+    code: pwsh/Catzc.Base.Languages/types/GeneratedHeadConfig.cs
+    cites:
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-FILEMETA-COMPOSEDFILES
+---
+#>
+
 Describe 'Catzc.Base.Languages.GeneratedHeadConfig' -Tag 'L0', 'logic' {
     It 'keeps the keys in the order the registry lists them' {
         $config = [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = @('with_body_sha', 'warning', 'role', 'source', 'generator') })

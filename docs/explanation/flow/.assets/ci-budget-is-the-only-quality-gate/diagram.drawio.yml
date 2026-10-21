@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: ec0ddaddfbbc
+# ---
+
 description:
   The promotion flow from the CI inner loop to deploy to prod, with the one rule a quality gate checks (the per-test limits of the CI
   budget) set apart from the rules only a code reviewer enforces, drawn dashed.

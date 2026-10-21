@@ -1,20 +1,11 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.QualityGates/configs/generated-files.yml
-#     folder: configs
-#     name: generated-files
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.QualityGates
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: c1258e4a5e2e
 #   edges:
 #     docs: "[generated-files.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/generated-files.yml.md)"
+#     cites:
+#       - ADR-AUTO-TEST-QUALITYGATE
 # ---
 
 writers:

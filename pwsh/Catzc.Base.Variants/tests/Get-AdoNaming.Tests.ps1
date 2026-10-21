@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3fa033b17043"
+  edges:
+    code: pwsh/Catzc.Base.Variants/Get-AdoNaming.ps1
+---
+#>
+
 Describe 'Get-AdoNaming' -Tag 'L0', 'logic' {
 
     It 'returns the configured ado_naming value' {

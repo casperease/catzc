@@ -2,24 +2,13 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
-    folder: types
-    name: azure-environment-record
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "6eed84289af9"
   edges:
     docs: "[AzureEnvironmentRecord.cs.md](docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md)"
     cites:
-      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-DATAMOD
       - ADR-AZ-NAMING
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

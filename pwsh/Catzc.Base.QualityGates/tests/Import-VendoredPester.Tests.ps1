@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Import-VendoredPester.Tests.ps1
-    folder: tests
-    name: import-vendored-pester-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "3e91c1a5d9cb"
   edges:
     docs: "[Import-VendoredPester.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Import-VendoredPester.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Import-VendoredPester.ps1
     cites:
       - ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE
 ---

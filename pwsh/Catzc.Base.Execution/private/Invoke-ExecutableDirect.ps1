@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/private/Invoke-ExecutableDirect.ps1
-    folder: private
-    name: invoke-executable-direct
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "95671c604469"
   edges:
     docs: "[Invoke-ExecutableDirect.ps1.md](docs/references/pwsh/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md)"
 ---

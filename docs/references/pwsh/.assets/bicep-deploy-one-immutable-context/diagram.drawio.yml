@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: bd1f4ae8f308
+# ---
+
 description:
   Deploy-Bicep resolves one immutable deployment context from the az session and the Azure config, then builds, deploys through the az
   runner and sets the tracking tags, all from that one context.

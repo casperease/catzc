@@ -1,20 +1,11 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.VSCode/configs/vscode-launch.yml
-#     folder: configs
-#     name: vscode-launch
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.VSCode
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "0589cf0c908c"
 #   edges:
 #     docs: "[vscode-launch.yml.md](docs/references/pwsh/catzc-base-vscode/configs/vscode-launch.yml.md)"
+#     cites:
+#       - ADR-REPO-ROOTCFG
 # ---
 
 version: "0.2.0"

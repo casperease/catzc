@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
-    folder: tests
-    name: remove-linux-tool-install-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4421a5028d3f"
   edges:
     docs: "[Remove-LinuxToolInstall.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Remove-LinuxToolInstall.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
     cites:
       - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
       - ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM

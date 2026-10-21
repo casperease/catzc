@@ -17,4 +17,5 @@ metadata:
 1. Only `git status`, `log`, `diff`, `show`, `blame` and `ls-files`, in the foreground with `timeout: 3000`.
 2. Never add, commit, push, reset, checkout, rebase, merge, stash, rm or mv; a change the user must record is named in the report under
    asks.
-3. A file another session has dirty (`git status --short` shows it and the brief does not own it) is reported, never edited.
+3. A file another session has dirty (`git status --short` shows it and the brief does not own it) is reported, never edited, and re-read
+   before relying on it.

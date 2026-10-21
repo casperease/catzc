@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "2fc662a6eaf0"
+# ---
+
 description:
   One resolver combines the run environment, the typed timeouts config and the exemptions config into one limit for every consumer except
   the hook, which compiles the same config type itself.

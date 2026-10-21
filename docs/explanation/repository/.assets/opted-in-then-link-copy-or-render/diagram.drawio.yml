@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: e34c29bafd70
+# ---
+
 description:
   Build-RootConfig loads the registry through its validating config type, keeps the opted-in entries, and sends each one down the copy
   branch or the generator branch; one primitive writes every file, leaving a headed root file and never a link.

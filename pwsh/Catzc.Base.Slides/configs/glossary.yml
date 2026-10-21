@@ -1,3 +1,14 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: d9c397c4134d
+#   edges:
+#     cites:
+#       - ADR-REPO-SLIDES-SLIDEFILE
+#       - ADR-REPO-SLIDES-PATTERN
+#       - ADR-REPO-SLIDES-DECLARATION
+# ---
+
 concepts:
   slide file:
     key: slide_file

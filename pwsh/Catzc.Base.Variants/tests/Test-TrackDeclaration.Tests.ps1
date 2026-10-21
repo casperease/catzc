@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "4423c36247fa"
+  edges:
+    code: pwsh/Catzc.Base.Variants/Test-TrackDeclaration.ps1
+    cites:
+      - ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES
+      - ADR-DSGN-TRACKTYPE-DECLAREDONCE
+---
+#>
+
 # Rests on [ADR-DSGN-TRACKTYPE-DECLAREDONCE](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype-declaredonce).
 Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES' {
     BeforeAll {

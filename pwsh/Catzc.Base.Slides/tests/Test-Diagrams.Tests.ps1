@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: d42ae359ba4d
+  edges:
+    code: pwsh/Catzc.Base.Slides/Test-Diagrams.ps1
+    cites:
+      - ADR-REPO-SLIDES-TWODIRECTIONS
+---
+#>
+
 Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
     BeforeAll {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

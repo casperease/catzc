@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.TypesSystem/tests/Test-LoadedTypesCurrent.Tests.ps1
-    folder: tests
-    name: test-loaded-types-current-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: f83b52c27c3f
   edges:
     docs: "[Test-LoadedTypesCurrent.Tests.ps1.md](docs/references/pwsh/catzc-base-typessystem/tests/Test-LoadedTypesCurrent.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.TypesSystem/Test-LoadedTypesCurrent.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-NOOVERMOCKING

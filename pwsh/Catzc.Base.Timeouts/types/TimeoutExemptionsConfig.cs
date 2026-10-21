@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Timeouts/types/TimeoutExemptionsConfig.cs
-    folder: types
-    name: timeout-exemptions-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "58eecb0d38d5"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/types/TimeoutExemptionsConfig.Tests.ps1
     docs: "[TimeoutExemptionsConfig.cs.md](docs/references/pwsh/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md)"

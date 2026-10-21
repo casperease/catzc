@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "1a2b17a51dd5"
+# ---
+
 description:
   The two sections of dependencies.yml are validated at load and then unioned into one allow-set per source module, which the quality gate
   checks every function-call and type edge against, throwing one error that lists every issue.

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "5be005002147"
+# ---
+
 description:
   Every caller in any module reads config through the one reader module, which looks the file up in the session cache and, on a miss, builds
   the owning module's C# type from the file it ships; the quality gate calls the same reader.

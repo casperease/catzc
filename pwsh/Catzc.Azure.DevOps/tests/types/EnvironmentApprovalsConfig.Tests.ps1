@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: d1aa6a272952
+  edges:
+    code: pwsh/Catzc.Azure.DevOps/types/EnvironmentApprovalsConfig.cs
+    cites:
+      - ADR-FLOW-CD-RUNGSREGISTRY
+---
+#>
+
 Describe 'Catzc.Azure.DevOps.EnvironmentApprovalsConfig' -Tag 'L0' {
     BeforeAll {
         function Get-ViolationMessage {

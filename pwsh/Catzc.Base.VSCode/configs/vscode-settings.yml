@@ -1,20 +1,16 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.VSCode/configs/vscode-settings.yml
-#     folder: configs
-#     name: vscode-settings
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.VSCode
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "704b7e8b1a88"
 #   edges:
 #     docs: "[vscode-settings.yml.md](docs/references/pwsh/catzc-base-vscode/configs/vscode-settings.yml.md)"
+#     cites:
+#       - ADR-AUTO-GO-MANAGEDTOOLCHAIN
+#       - ADR-AUTO-PY-GENERATEDWORKSPACE
+#       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+#       - ADR-REPO-LINK-MARKDOWNRELATIVE
+#       - ADR-REPO-LINK-CODELINKS
+#       - ADR-REPO-ROOTCFG
 # ---
 
 settings:

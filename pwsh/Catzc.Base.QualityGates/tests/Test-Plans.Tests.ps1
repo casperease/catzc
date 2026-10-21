@@ -1,3 +1,22 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "04e842ae460d"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-FOLDERS-STABLEFILENAMES
+      - ADR-REPO-PLANS-ONETOPICONEFILE
+      - ADR-REPO-PLANS-PLANHEAD
+      - ADR-REPO-PLANS-THREEPARTS
+      - ADR-REPO-PLANS-ONESHAPE
+      - ADR-REPO-PLANS-OPENSTEP
+      - ADR-REPO-PLANS-MASTERANDTASKS
+---
+#>
+
 Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'widget-repository'
@@ -126,6 +145,28 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         $roof = [Catzc.Base.QualityGates.PlansConfig]::new(@{ tasks = @{ max = 1 } })
         $result = Test-Plans -Path $script:folder -Config $roof -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
         $result.Issues | Should -Be @('plans/task-spin-widget.md:1 [ADR-REPO-PLANS-MASTERANDTASKS] the folder holds more than the roof of 1 task files')
+    }
+
+    It 'checks only the plan files -Path names, and still reads the overlays of their folder' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
+        Write-Plan 'plan-gizmo.md' ($script:goodHead + @('# Gizmo', '', '## Open steps', '', '- [ ] Spin.'))
+        $result = Test-Plans -Path (Join-Path $script:folder 'plan-widget.md') -Config $script:config -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
+        $result.Facts['Files'] | Should -Be 1
+        $result.Facts['Plans'] | Should -Be 1
+    }
+
+    It 'resolves a relative -Path against the repository root, whatever folder the process stands in' {
+        Push-Location -LiteralPath $TestDrive
+        try {
+            $file = Test-Plans -Path 'plans/plan-widget.md' -Config $script:config -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
+            $folder = Test-Plans -Path 'plans' -Config $script:config -RepositoryRoot $script:root -OutputFolder $script:out -PassThru
+        }
+        finally {
+            Pop-Location
+        }
+        $file.Facts['Files'] | Should -Be 1
+        $folder.Facts['Files'] | Should -Be 5
+        $folder.IssueCount | Should -Be 0 -Because ($folder.Issues -join "`n")
     }
 
     It 'throws once listing every issue without -PassThru' {

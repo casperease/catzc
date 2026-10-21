@@ -1,20 +1,11 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
-#     folder: configs
-#     name: artifacts
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.ModuleSystem
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "933e5b6780b5"
 #   edges:
 #     docs: "[artifacts.yml.md](docs/references/pwsh/catzc-base-modulesystem/configs/artifacts.yml.md)"
+#     cites:
+#       - ADR-AUTO-TEST
 # ---
 
 ado: { enabled: false, organization: "", project: "", feed: "" }

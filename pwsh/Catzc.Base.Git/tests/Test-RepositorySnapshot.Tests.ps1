@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "7b617f13a486"
+  edges:
+    code: pwsh/Catzc.Base.Git/Test-RepositorySnapshot.ps1
+---
+#>
+
 Describe 'Test-RepositorySnapshot' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
-    folder: types
-    name: vscode-settings-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: cb80a990335f
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/types/VscodeSettingsConfig.Tests.ps1
     docs: "[VscodeSettingsConfig.cs.md](docs/references/pwsh/catzc-base-vscode/types/VscodeSettingsConfig.cs.md)"

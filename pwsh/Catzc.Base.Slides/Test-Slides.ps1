@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Slides/Test-Slides.ps1
-    name: test-slides
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Slides
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "6a079caed2c6"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
     docs: "[Test-Slides.ps1.md](docs/references/pwsh/catzc-base-slides/Test-Slides.ps1.md)"

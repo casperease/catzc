@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/SourceCheck.cs
-    folder: types
-    name: source-check
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "02db69a71d4d"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/SourceCheck.Tests.ps1
     docs: "[SourceCheck.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/SourceCheck.cs.md)"

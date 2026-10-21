@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
-    folder: private
-    name: get-changed-file
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "64487cfd30eb"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
     docs: "[Get-ChangedFile.ps1.md](docs/references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md)"

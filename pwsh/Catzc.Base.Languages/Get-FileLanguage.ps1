@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/Get-FileLanguage.ps1
-    name: get-file-language
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "52cec863cfff"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
     docs: "[Get-FileLanguage.ps1.md](docs/references/pwsh/catzc-base-languages/Get-FileLanguage.ps1.md)"

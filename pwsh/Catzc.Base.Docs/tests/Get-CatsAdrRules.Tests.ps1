@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3ae4d074270d"
+  edges:
+    code: pwsh/Catzc.Base.Docs/private/Get-CatsAdrRules.ps1
+    cites:
+      - ADR-REPO-VOCAB-DEFINEDTERM
+---
+#>
+
 Describe 'Get-CatsAdrRules' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:adrPath = Join-Path $TestDrive 'alpha-thing.md'

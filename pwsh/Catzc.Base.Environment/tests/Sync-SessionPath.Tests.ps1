@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
-    folder: tests
-    name: sync-session-path-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "55e5596238bd"
   edges:
     docs: "[Sync-SessionPath.Tests.ps1.md](docs/references/pwsh/catzc-base-environment/tests/Sync-SessionPath.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Environment/Sync-SessionPath.ps1
 ---
 #>
 

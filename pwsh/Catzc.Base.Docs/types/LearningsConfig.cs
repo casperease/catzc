@@ -1,3 +1,13 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "8d81cae1dd0a"
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/types/LearningsConfig.Tests.ps1
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "83e9e699d36b"
+# ---
+
 description:
   Of the rules around the sync point only the BVT rung has a gate in code, the ci-pwsh pipeline; every rule about occupants, the sync point,
   the manual release gates and the dirty HEAD is ADR-only.

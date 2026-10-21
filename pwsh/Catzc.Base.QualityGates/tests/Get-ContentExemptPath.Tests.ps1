@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: be60b59e0c3a
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
+    cites:
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+#>
+
 Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'

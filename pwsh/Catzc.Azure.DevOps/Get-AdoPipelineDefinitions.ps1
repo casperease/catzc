@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/Get-AdoPipelineDefinitions.ps1
-    name: get-ado-pipeline-definitions
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: c11967dbdbea
   edges:
     docs: "[Get-AdoPipelineDefinitions.ps1.md](docs/references/pwsh/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md)"
 ---

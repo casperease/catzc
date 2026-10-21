@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
-    folder: tests
-    name: invoke-test-file-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c8a86d46a995
   edges:
     docs: "[Invoke-TestFile.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Invoke-TestFile.ps1
     cites:
       - ADR-AUTO-TEST-FEWINTEGRATIONTESTS
       - ADR-AUTO-TEST-FILEPARALLELISM

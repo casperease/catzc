@@ -1,3 +1,14 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "4a985adc1c5a"
+  edges:
+    cites:
+      - ADR-BCL-TYPES-CONSOLEVERIFIESONLY
+---
+#>
+
 Describe 'Enable-DeferredJanitors' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-CONSOLEVERIFIESONLY' {
     BeforeEach {
         $script:savedPrompt = (Get-Command prompt -CommandType Function -ErrorAction Ignore).ScriptBlock

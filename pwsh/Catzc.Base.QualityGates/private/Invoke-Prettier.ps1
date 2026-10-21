@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Invoke-Prettier.ps1
-    folder: private
-    name: invoke-prettier
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "8a7a5939fef8"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-Prettier.Tests.ps1
     docs: "[Invoke-Prettier.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-Prettier.ps1.md)"

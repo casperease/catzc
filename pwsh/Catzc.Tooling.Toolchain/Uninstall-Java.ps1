@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/Uninstall-Java.ps1
-    name: uninstall-java
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: d84735af956f
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
     docs: "[Uninstall-Java.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Java.ps1.md)"

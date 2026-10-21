@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/ParameterConsistencyConfig.cs
-    folder: types
-    name: parameter-consistency-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e7caad974c0a
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1
     docs: "[ParameterConsistencyConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/ParameterConsistencyConfig.cs.md)"

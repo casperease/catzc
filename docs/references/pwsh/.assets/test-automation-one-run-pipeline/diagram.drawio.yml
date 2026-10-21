@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "8e58d8331702"
+# ---
+
 description:
   "Both kinds of test run share one harness: it discovers the tests once, checks their tags before any run directory exists, splits the
   files into three phases, drops protected modules, runs the workers and derives one verdict; a finally stamps run.json."

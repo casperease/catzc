@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b1edfda506a9
+  edges:
+    code: pwsh/Catzc.Tooling.Core/Get-EngineCaseTable.ps1
+---
+#>
+
 Describe 'Get-EngineCaseTable' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:table = Join-Path $TestDrive 'widget-cases.yml'

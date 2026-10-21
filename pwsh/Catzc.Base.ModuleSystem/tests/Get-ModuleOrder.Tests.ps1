@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "21ba61efe5a8"
+  edges:
+    code: pwsh/Catzc.Base.ModuleSystem/Get-ModuleOrder.ps1
+    cites:
+      - ADR-AUTO-MODULE-TOPOLOGICALORDER
+---
+#>
+
 Describe 'Get-ModuleOrder' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-TOPOLOGICALORDER' {
     It 'orders each module after its declared module dependencies (dependencies-first)' {
         Mock Get-ModuleGroupConfig { [ordered]@{} } -ModuleName Catzc.Base.ModuleSystem

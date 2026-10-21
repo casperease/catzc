@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
-    name: import-repository-with-history
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: bdd7ed9f13b0
   edges:
     test: pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
     docs: "[Import-RepositoryWithHistory.ps1.md](docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md)"

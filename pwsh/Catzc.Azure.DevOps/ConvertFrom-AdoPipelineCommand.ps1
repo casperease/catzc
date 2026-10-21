@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/ConvertFrom-AdoPipelineCommand.ps1
-    name: convert-from-ado-pipeline-command
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "0e16ef79acb0"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/ConvertFrom-AdoPipelineCommand.Tests.ps1
     docs: "[ConvertFrom-AdoPipelineCommand.ps1.md](docs/references/pwsh/catzc-azure-devops/ConvertFrom-AdoPipelineCommand.ps1.md)"

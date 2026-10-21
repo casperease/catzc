@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/Get-EngineCaseTable.ps1
-    name: get-engine-case-table
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "6932ac6d2192"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1
     docs: "[Get-EngineCaseTable.ps1.md](docs/references/pwsh/catzc-tooling-core/Get-EngineCaseTable.ps1.md)"

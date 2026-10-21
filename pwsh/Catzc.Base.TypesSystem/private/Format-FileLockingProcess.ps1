@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.TypesSystem/private/Format-FileLockingProcess.ps1
-    folder: private
-    name: format-file-locking-process
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "704b7446adde"
   edges:
     docs: "[Format-FileLockingProcess.ps1.md](docs/references/pwsh/catzc-base-typessystem/private/Format-FileLockingProcess.ps1.md)"
 ---

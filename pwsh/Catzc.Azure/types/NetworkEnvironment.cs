@@ -2,23 +2,12 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/types/NetworkEnvironment.cs
-    folder: types
-    name: network-environment
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: d6c24a25464b
   edges:
     docs: "[NetworkEnvironment.cs.md](docs/references/pwsh/catzc-azure/types/NetworkEnvironment.cs.md)"
     cites:
-      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-NETWORK
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

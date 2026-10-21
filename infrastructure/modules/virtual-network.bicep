@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/virtual-network.bicep
-//     name: virtual-network
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: virtual-network
-//     moduletype: bicep
+//     with_body_sha: "669cdd2c562e"
 //   edges:
 //     docs: "[virtual-network.bicep.md](docs/references/infrastructure/modules/virtual-network.bicep.md)"
 // ---

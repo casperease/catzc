@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1
-    folder: private
-    name: get-contract-dot-folder-findings
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "9566728e398e"
   edges:
     docs: "[Get-ContractDotFolderFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md)"
     cites:

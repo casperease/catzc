@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/Get-ScriptInstallDir.ps1
-    name: get-script-install-dir
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "261563c7504d"
   edges:
     docs: "[Get-ScriptInstallDir.ps1.md](docs/references/pwsh/catzc-tooling-core/Get-ScriptInstallDir.ps1.md)"
 ---

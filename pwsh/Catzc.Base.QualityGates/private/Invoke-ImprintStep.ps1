@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Invoke-ImprintStep.ps1
-    folder: private
-    name: invoke-imprint-step
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: f8405000d336
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
     docs: "[Invoke-ImprintStep.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md)"
@@ -79,6 +67,10 @@ function Invoke-ImprintStep {
             # The help is the ## help section of the file's comment page, so the step only reports what a person must settle and changes no file.
             $commentPages = Get-Config -Config comment-pages
             foreach ($path in $File) {
+                # A path the index lists but the working tree has lost, a deletion not yet staged, has no help to check.
+                if (-not [System.IO.File]::Exists($path)) {
+                    continue
+                }
                 $page = Get-CommentPage -Path ([System.IO.Path]::GetRelativePath($root, $path) -replace '\\', '/') -Config $commentPages
                 $pageText = if ($page -and [System.IO.File]::Exists((& $absolute $page))) {
                     [System.IO.File]::ReadAllText((& $absolute $page))

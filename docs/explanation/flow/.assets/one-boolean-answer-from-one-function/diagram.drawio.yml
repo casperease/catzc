@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: b763bb716130
+# ---
+
 description:
   The pipeline agent sets the signal, one detection function reads it and answers true or false, every function that behaves differently in
   a pipeline asks that function, and an analyzer rule flags any read of the signal outside it.

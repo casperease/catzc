@@ -15,6 +15,7 @@ itself is a managed, committed root file written by [Catzc.Base.RootConfig](catz
 | responsibility:2 | registry | [The section registry](#responsibility2--the-section-registry) |
 | responsibility:3 | snapshot | [Repository snapshots](#responsibility3--repository-snapshots) |
 | responsibility:4 | read     | [Reading git](#responsibility4--reading-git)                   |
+| responsibility:5 | topic    | [The git topic flow](#responsibility5--the-git-topic-flow)     |
 
 ### responsibility:1 — Gitignore rendering
 
@@ -52,6 +53,15 @@ reaches, reading each object once from one `git cat-file` stream. These are type
 seam and the branch and commit getters in [Catzc.Base.Files](catzc-base-files.md), the snapshot above, and the token scan in
 [Catzc.Tooling.Github](catzc-tooling-github.md). Writing git stays with the git CLI.
 
+### responsibility:5 — The git topic flow
+
+The steps that bring a topic branch to the server's main ([git-topic-flow](../../adr/flow/git-topic-flow.md)): reading the sync point, the
+BVT-verified server head or, announced, the current server HEAD; saving the working tree as a commit; rebasing the topic onto the sync
+point; and landing it as one commit by squash, rebase and squash, pushed by the workspace variant. Every step but the reading one changes
+the repository, so it runs only at the user's hand
+([ADR-FLOW-GIT-USERRUNSGIT](../../adr/flow/git-topic-flow.md#rule-adr-flow-git-userrunsgit)); the Bash hook denies those commands to an
+agent, reading their names from `git.yml`, and the VS Code tasks offer them to the user.
+
 ## What the module does
 
 The module makes the repository's ignore rules a reviewed, explained artifact instead of an accreted one, and it holds the platform's git
@@ -74,3 +84,8 @@ The module's public surface, sorted into the responsibilities above.
 | responsibility:1 — Gitignore rendering  | `New-GitIgnore`                                       |
 | responsibility:2 — The section registry | `gitignore.yml`                                       |
 | responsibility:3 — Repository snapshots | `New-RepositorySnapshot`, `Remove-RepositorySnapshot` |
+| responsibility:5 — The git topic flow   | `Get-SyncPoint`                                       |
+|                                         | `Save-Topic`                                          |
+|                                         | `Sync-Topic`                                          |
+|                                         | `Push-Topic`                                          |
+| config                                  | `git.yml`                                             |

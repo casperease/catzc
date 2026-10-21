@@ -1,0 +1,40 @@
+<!--
+  The Claude Code hook that reminds an agent session of the checks an edit owes (Program.cs). Build-AgentHook publishes it,
+  framework-dependent, to .claude/hooks/bin/ whenever its sources change; obj/bin here and the published output are gitignored.
+
+  The path-to-reminder map is the Catzc.Base.QualityGates module's own type and config (edit-reminders.yml), compiled in from its source
+  file, so the hook and the config gates can never drift apart. YAML is read with the YamlDotNet the vendored powershell-yaml module ships.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <!-- The one configuration and platform of bcl.yml (ADR-BCL-TYPES-DEBUGANYCPU). -->
+    <Configurations>Debug</Configurations>
+    <Platforms>AnyCPU</Platforms>
+    <AssemblyName>Show-EditReminder</AssemblyName>
+    <RootNamespace>Catzc.Hooks</RootNamespace>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <UseAppHost>true</UseAppHost>
+    <TieredPGO>true</TieredPGO>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleText.cs" Link="linked/ConsoleText.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs" Link="linked/ConsoleDisplayAttribute.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/TypeShape.cs" Link="linked/TypeShape.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Objects/types/DictionaryRecord.cs" Link="linked/DictionaryRecord.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.QualityGates/types/EditRemindersConfig.cs" Link="linked/EditRemindersConfig.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="YamlDotNet">
+      <HintPath>../../../$(CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/lib/netstandard2.1/YamlDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Target Name="RequireCatzcModulesFolder" BeforeTargets="BeforeBuild" Condition="'$(CatzcModulesFolder)' == ''">
+    <Error Text="CatzcModulesFolder is not set: build the hook with Build-AgentHook, which passes the modules folder from Get-CatzcModulesFolder." />
+  </Target>
+</Project>

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e2911192ca9f
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-TestAutomationTestFiles.ps1
+---
+#>
+
 Describe 'Get-TestAutomationTestFiles' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:widget = Join-Path $TestDrive 'widget/tests'

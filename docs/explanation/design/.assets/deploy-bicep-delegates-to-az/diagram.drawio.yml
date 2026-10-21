@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "6118c6f25cb3"
+# ---
+
 description:
   Deploy-Bicep adds the guards and the configuration lookup and runs every vendor step through one wrapper that calls the az command-line
   interface, which compiles the Bicep template.

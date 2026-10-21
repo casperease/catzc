@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
-    folder: tests
-    name: build-contract-reference-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "593776784495"
   edges:
     docs: "[Build-ContractReference.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Contracts/Build-ContractReference.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-CMDCONTRACT-ONEREADER
@@ -52,17 +42,17 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
         $null = New-Item -ItemType Directory -Force -Path $script:root
-        Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget/flows/build.yml' ((@('# The keys the gadget host reads, per [ADR-TST-WIDGET-TURN](/docs/adr/repository/widget-thing.md#rule-adr-tst-widget-turn).', 'widget:') -join "`n") + "`n")
-        Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget/README.md' ''
-        Add-File 'contracts/widget/0.0.0/Catzc.Gadget/gadget.sample.json' '{ "gadget": 1 }'
-        Add-File 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml' "parameters:`n  Path: string!`n  Strict: switch`noutput: string`n"
-        Add-File 'contracts/widget/0.0.0/contract.yml' "direction:`n  Catzc.Widget/.widget/README.md: provided`n"
-        Add-File 'contracts/widget/1.2.0/Catzc.Widget/.widget/README.md' ''
-        Add-File 'contracts/widget/1.10.0/Catzc.Widget/.widget/README.md' ''
+        Add-File 'contracts/widget/0.0.0/catzc.widget/.widget/flows/build.yml' ((@('# The keys the gadget host reads, per [ADR-TST-WIDGET-TURN](/docs/adr/repository/widget-thing.md#rule-adr-tst-widget-turn).', 'widget:') -join "`n") + "`n")
+        Add-File 'contracts/widget/0.0.0/catzc.widget/.widget/README.md' ''
+        Add-File 'contracts/widget/0.0.0/catzc.gadget/gadget.sample.json' '{ "gadget": 1 }'
+        Add-File 'contracts/widget/0.0.0/catzc.widget/get_widget.command.yml' "parameters:`n  path: string!`n  strict: switch`noutput: string`n"
+        Add-File 'contracts/widget/0.0.0/contract.yml' "direction:`n  catzc.widget/.widget/README.md: provided`n"
+        Add-File 'contracts/widget/1.2.0/catzc.widget/.widget/README.md' ''
+        Add-File 'contracts/widget/1.10.0/catzc.widget/.widget/README.md' ''
     }
 
     It 'writes one page per unit, with a section per version folder: the draft first, then the releases newest first' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
-        Add-File 'contracts/gadget/0.0.0/Catzc.Gadget/.gadget/README.md' ''
+        Add-File 'contracts/gadget/0.0.0/catzc.gadget/.gadget/README.md' ''
 
         $paths = @(Build-ContractReference -RepositoryRoot $script:root -Silent)
         $paths | Should -Be @('docs/references/contracts/gadget.md', 'docs/references/contracts/widget.md')
@@ -75,43 +65,43 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 
     It 'lists each asset with its module, path, target, direction, and kind' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET', 'ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
-        $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `Catzc.') } | ForEach-Object {
+        $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `catzc.') } | ForEach-Object {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
             })
 
-        $rows[0] | Should -Be @('`Catzc.Gadget`', '`gadget.sample.json`', 'none', 'provided', 'sample payload', 'none')
-        $rows[1] | Should -Be @('`Catzc.Widget`', '`.widget/README.md`', '`.widget/README.md`', 'provided (contract.yml)', 'presence', 'none')
-        $rows[2] | Should -Be @('`Catzc.Widget`', '`.widget/flows/build.yml`', '`.widget/flows/build.yml`', 'depended-on', 'fragment', 'none')
+        $rows[0] | Should -Be @('`catzc.gadget`', '`gadget.sample.json`', 'none', 'provided', 'sample payload', 'none')
+        $rows[1] | Should -Be @('`catzc.widget`', '`.widget/README.md`', '`.widget/README.md`', 'provided (contract.yml)', 'presence', 'none')
+        $rows[2] | Should -Be @('`catzc.widget`', '`.widget/flows/build.yml`', '`.widget/flows/build.yml`', 'depended-on', 'fragment', 'none')
     }
 
     It 'shows a command contract''s signature in its own column, from the one reader' -Tag 'ADR-REPO-CMDCONTRACT-ONEREADER' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
-        $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `Catzc.') } | ForEach-Object {
+        $rows = @((Read-Page) -split "`n" | Where-Object { $_.StartsWith('| `catzc.') } | ForEach-Object {
                 , @($_.Trim().Trim('|') -split ' \| ' | ForEach-Object { $_.Trim() })
             })
-        $rows[3] | Should -Be @('`Catzc.Widget`', '`Get-Widget.command.yml`', '`widgets/Catzc.Widget/Get-Widget.ps1`', 'provided', 'command contract', '`Path: string!, Strict: switch -> string`')
+        $rows[3] | Should -Be @('`catzc.widget`', '`get_widget.command.yml`', '`widgets/Catzc.Widget/Get-Widget.ps1`', 'provided', 'command contract', '`path: string!, strict: switch -> string`')
     }
 
     It 'marks a command contract that does not read, and still writes the page' -Tag 'ADR-REPO-CMDCONTRACT-ONEREADER' {
-        Add-File 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml' "parameters:`n  Path: text`n"
+        Add-File 'contracts/widget/0.0.0/catzc.widget/get_widget.command.yml' "parameters:`n  path: text`n"
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
-        (Read-Page) | Should -Match '(?m)^\| `Catzc\.Widget` +\| `Get-Widget\.command\.yml` .*\| not readable \(Test-Contracts reports it\) +\|$'
+        (Read-Page) | Should -Match '(?m)^\| `catzc\.widget` +\| `get_widget\.command\.yml` .*\| not readable \(Test-Contracts reports it\) +\|$'
     }
 
     It 'lists the notes under the table, one item per asset that carries one' -Tag 'ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $lines = (Read-Page) -split "`n"
-        $first = [array]::IndexOf($lines, '- `Catzc.Widget/.widget/flows/build.yml`: The keys the gadget host reads, per')
+        $first = [array]::IndexOf($lines, '- `catzc.widget/.widget/flows/build.yml`: The keys the gadget host reads, per')
 
         @($lines | Where-Object { $_.StartsWith('- ') }).Count | Should -Be 1
         $first | Should -BeGreaterThan 0
         $lines[$first + 1] | Should -BeExactly '  [ADR-TST-WIDGET-TURN](../../adr/repository/widget-thing.md#rule-adr-tst-widget-turn).'
-        (Read-Page) | Should -Match "(?m)^\| ``Catzc\.Widget``.*\|\n\nNotes:\n\n- "
+        (Read-Page) | Should -Match "(?m)^\| ``catzc\.widget``.*\|\n\nNotes:\n\n- "
     }
 
     It 'fills a long note across lines at the prose width' -Tag 'ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED' {
         $long = (@('widget gadget') * 20) -join ' '
-        Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget/flows/build.yml' ((@("# $long.", 'widget:') -join "`n") + "`n")
+        Add-File 'contracts/widget/0.0.0/catzc.widget/.widget/flows/build.yml' ((@("# $long.", 'widget:') -join "`n") + "`n")
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
         $lines = (Read-Page) -split "`n"
 

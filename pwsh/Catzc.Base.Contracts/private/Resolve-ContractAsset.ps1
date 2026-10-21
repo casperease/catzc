@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Resolve-ContractAsset.ps1
-    folder: private
-    name: resolve-contract-asset
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "9cc53d0235b8"
   edges:
     docs: "[Resolve-ContractAsset.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Resolve-ContractAsset.ps1.md)"
     cites:
@@ -76,7 +64,17 @@ function Resolve-ContractAsset {
         if (-not $CommandRoot) {
             throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': a command contract needs its module's root to name the command's file; pass -CommandRoot (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."
         }
-        $target = "$CommandRoot/" + $name.Substring(0, $name.Length - '.command.yml'.Length) + '.ps1'
+        # The asset names the command in the normal form; its file is named in PowerShell's function case.
+        $languages = Get-Config -Config languages
+        $commandLanguage = $languages.languages | Where-Object name -ceq 'powershell' | Select-Object -First 1
+        $stem = $name.Substring(0, $name.Length - '.command.yml'.Length)
+        try {
+            $command = [Catzc.Base.Languages.LanguageNaming]::FromNormal($stem, $commandLanguage.naming.function[0], $languages.naming_normal_form)
+        }
+        catch {
+            throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': the command '$stem' is not in the repository normal form, $($languages.naming_normal_form) (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."
+        }
+        $target = "$CommandRoot/$command.ps1"
         $direction = [Catzc.Base.Contracts.ContractDirection]::Provided
     }
     elseif ($kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Schema) {

@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: def88782a7db
+---
+#>
+
 Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:shipped = [System.IO.Path]::Combine((Split-Path $PSScriptRoot -Parent), 'assets', 'types-load.yml')

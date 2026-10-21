@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "30cc2321a5f6"
+  edges:
+    code: pwsh/Catzc.Base.Variants/Get-Track.ps1
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-DSGN-TRACK-UNORDEREDTRACK
+---
+#>
+
 Describe 'Get-Track' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{

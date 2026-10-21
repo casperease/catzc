@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: a6abfb45ec7c
+  edges:
+    code: pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
+---
+#>
+
 Describe 'TimeoutsConfig' -Tag 'L0' {
 
     Context 'integrity (shipped timeouts.yml)' -Tag 'integrity' {

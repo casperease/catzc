@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "4ee19917fe75"
+# ---
+
 description:
   An Azure resource name is assembled from eight components in a fixed order; the type's pattern picks the form and the limit, a render past
   the limit throws at deploy time and is never truncated, and three worked examples show the names that come out.

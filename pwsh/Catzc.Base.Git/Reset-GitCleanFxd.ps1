@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/Reset-GitCleanFxd.ps1
-    name: reset-git-clean-fxd
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "1f3efc769e01"
   edges:
     test: pwsh/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
     docs: "[Reset-GitCleanFxd.ps1.md](docs/references/pwsh/catzc-base-git/Reset-GitCleanFxd.ps1.md)"

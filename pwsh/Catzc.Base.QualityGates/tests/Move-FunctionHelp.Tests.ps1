@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "4d4c3a50f8ed"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Move-FunctionHelp.ps1
+    cites:
+      - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - ADR-REPO-COMMENTS-PAGEISAUTHORED
+      - ADR-REPO-FILEMETA-NOREADBACK
+      - ADR-REPO-HELP-HELPONCOMMENTPAGE
+---
+#>
+
 Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'help-repository'

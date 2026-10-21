@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/types/GitHistoryScan.cs
-    folder: types
-    name: git-history-scan
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a74d706c270d
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
     docs: "[GitHistoryScan.cs.md](docs/references/pwsh/catzc-base-git/types/GitHistoryScan.cs.md)"

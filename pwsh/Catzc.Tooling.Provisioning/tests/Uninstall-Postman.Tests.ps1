@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-Postman.Tests.ps1
-    folder: tests
-    name: uninstall-postman-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e054ec3520fb
   edges:
     docs: "[Uninstall-Postman.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Postman.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Provisioning/Uninstall-Postman.ps1
 ---
 #>
 

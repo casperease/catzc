@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Variants/private/Get-Variant.ps1
-    folder: private
-    name: get-variant
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "40d19cba548f"
   edges:
     docs: "[Get-Variant.ps1.md](docs/references/pwsh/catzc-base-variants/private/Get-Variant.ps1.md)"
     cites:

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Files/types/InputStamp.cs
-    folder: types
-    name: input-stamp
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "7796d4aebcfc"
   edges:
     docs: "[InputStamp.cs.md](docs/references/pwsh/catzc-base-files/types/InputStamp.cs.md)"
 ---

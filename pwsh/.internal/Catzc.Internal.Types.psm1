@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/Catzc.Internal.Types.psm1
-    name: catzc-internal-types
-    filetype: psm1
-    role: module
-    subkind: internal
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Types
-    moduletype: pwsh-psm1
-    catzc_bundle: minimal
+    with_body_sha: "60b5f64ab3fd"
   edges:
     docs: "[Catzc.Internal.Types.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md)"
 ---

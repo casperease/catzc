@@ -44,9 +44,22 @@ final full run last.
    `Catzc.Base.VSCode/private/New-VSCodeExtensionFolder`, `Catzc.Base.VSCode/New-VSCode{Tasks,Settings,Launch,Extensions,PipelineSchema}`,
    `Catzc.Base.Asserts/Assert-IsRunningInVSCode`, and `pwsh/.internal/tests/Test-IsRunningInVSCode.Tests.ps1`. Check: `git ls-files` lists
    no old spelling, and the L1 round trip in `ConvertTo-NormalName.Tests.ps1` passes.
-9. Edit `.claude/CLAUDE.md`, section Project structure: one line saying the `types/*.cs` files are written in BCL, a subset of .NET, hosted
-   by pwsh (plan-bcl-language.md, the CLAUDE.md step). Check: `Test-AgentDefinitions` passes.
-10. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+9. Commit the contracts normal form (plan-idiomatic-names). Re-stage the whole working tree first: the index holds stale partial copies
+   (`MM` on `Get-CommandContract.ps1` and five private readers; `AD` on `ConvertTo-NormalFormContract.ps1` and its tests, deleted on disk).
+   Under `contracts/catzc/0.0.0/`, `git mv` each module folder to its normal form, the case-only ones in two moves via a temporary name:
+   `Catzc.Azure`, `Catzc.Azure.Templates`, `Catzc.Base.{Contracts,Docs,Flow,Globs,Languages,Maps,Repository}` and
+   `Catzc.Tooling.{Github,Inspiration,Node,Provisioning,Python,Toolchain}` to lower case; `Catzc.Azure.DevOps` to `catzc.azure.dev_ops`,
+   `Catzc.Azure.DevOps.BuildValidation` to `catzc.azure.dev_ops.build_validation`, `Catzc.Base.ConfigExtensions` to
+   `catzc.base.config_extensions`, `Catzc.Base.ModuleSystem` to `catzc.base.module_system`, `Catzc.Base.QualityGates` to
+   `catzc.base.quality_gates`, `Catzc.Base.RootConfig` to `catzc.base.root_config`, `Catzc.Base.TypesSystem` to `catzc.base.types_system`.
+   Inside them the 112 `Verb-Noun.command.yml` files are `verb_noun.command.yml`. Check: `git ls-files contracts` lists no `Catzc.` folder
+   and `Test-Contracts` reports 0.
+10. Commit the git topic commands (plan-git-topic-commands): `pwsh/Catzc.Base.Git` (GitFlowConfig, `git.yml`, `Get-SyncPoint`, `Save-Topic`,
+    `Sync-Topic`, `Push-Topic`, the L1 flow test), the VS Code tasks, the `Assert-BashTimeout` deny, and the deletion of `Push-Dirty.ps1`,
+    its test and its page. Check: `Invoke-TestFile` on `pwsh/Catzc.Base.Git/tests/Git.Flow.Tests.ps1` passes.
+11. Edit `.claude/CLAUDE.md`, section Project structure: one line saying the `types/*.cs` files are written in BCL, a subset of .NET, hosted
+    by pwsh (plan-bcl-language.md, the CLAUDE.md step). Check: `Test-AgentDefinitions` passes.
+12. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.CodeMeta/Get-PropertyMetaState.ps1
-    name: get-property-meta-state
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "14bb4d64da53"
   edges:
     docs: "[Get-PropertyMetaState.ps1.md](docs/references/pwsh/catzc-base-codemeta/Get-PropertyMetaState.ps1.md)"
     cites:

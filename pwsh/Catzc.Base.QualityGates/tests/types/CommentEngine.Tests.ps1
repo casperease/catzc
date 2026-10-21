@@ -1,3 +1,23 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "5c6bfa9c7dac"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs
+    cites:
+      - ADR-AUTO-IDEM-CHECKBEFOREACTING
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - ADR-PRIN-ONELIVE-ONEVERSION
+      - ADR-REPO-CODEMETA-COMMENTSLEAVEHEAD
+      - ADR-REPO-COMMENTS-ONELINEOFINSIGHT
+      - ADR-REPO-COMMENTS-MOVELOSESNOTHING
+      - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
+      - ADR-REPO-COMMENTS-INLINEVIEWGENERATED
+      - ADR-REPO-COMMENTS-MOVEDBYTOOL
+---
+#>
+
 # Rests on [ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion).
 # cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt wdgt -- escape-sequence artifacts in the "`n…" fixture strings, and the deliberate misspelling a kept cspell directive covers
 Describe 'CommentEngine' -Tag 'L0', 'logic' {

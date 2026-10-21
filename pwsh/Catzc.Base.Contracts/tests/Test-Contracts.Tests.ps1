@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-    folder: tests
-    name: test-contracts-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "971ae0d7b204"
   edges:
     docs: "[Test-Contracts.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE
@@ -42,7 +32,7 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-Config -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' } {
-            [Catzc.Base.Contracts.ContractsConfig]::new(@{ target_roots = @{ 'Catzc.Gadget' = '.gadget' } })
+            [Catzc.Base.Contracts.ContractsConfig]::new(@{ target_roots = @{ 'catzc.gadget' = '.gadget' } })
         }
         Mock Get-Config -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'exporter' } {
             [pscustomobject]@{ direct_install_version = '6.6.666' }

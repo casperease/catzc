@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "6b13b3edd316"
+# ---
+
 description:
   The repository and a built package are the two places the code loads from; both go through one importer into the same modules, and the
   place it loaded from is the run mode, which nothing stores.

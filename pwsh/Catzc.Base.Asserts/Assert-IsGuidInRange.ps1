@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Asserts/Assert-IsGuidInRange.ps1
-    name: assert-is-guid-in-range
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-    visibility: public
+    with_body_sha: "42ec386b0253"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-IsGuidInRange.Tests.ps1
     docs: "[Assert-IsGuidInRange.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-IsGuidInRange.ps1.md)"

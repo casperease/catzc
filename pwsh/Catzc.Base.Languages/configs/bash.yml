@@ -1,20 +1,11 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.Languages/configs/bash.yml
-#     folder: configs
-#     name: bash
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.Languages
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: bf8ff2415cff
 #   edges:
 #     docs: "[bash.yml.md](docs/references/pwsh/catzc-base-languages/configs/bash.yml.md)"
+#     cites:
+#       - ADR-AUTO-BASH
 # ---
 
 bats_version: "1.14.0"

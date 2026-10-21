@@ -1,17 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: ".ado/pipelines/cd-nova.yaml"
-#     name: cd-nova
-#     filetype: yaml
-#     role: pipeline
-#     language: pipeline-yaml
-#     track: ado-pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
+#     with_body_sha: "2c2423ae3877"
 #   edges:
 #     docs: "[cd-nova.yaml.md](docs/references/ado/pipelines/cd-nova.yaml.md)"
 # ---

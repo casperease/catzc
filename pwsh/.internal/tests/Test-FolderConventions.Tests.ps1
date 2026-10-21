@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
-    name: test-folder-conventions-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: f67014498636
   edges:
     docs: "[Test-FolderConventions.Tests.ps1.md](docs/references/pwsh/internal/tests/Test-FolderConventions.Tests.ps1.md)"
     cites:

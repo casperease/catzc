@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/tests/New-VsCodeExtensions.Tests.ps1
-    folder: tests
-    name: new-vs-code-extensions-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "490265120efa"
   edges:
-    docs: "[New-VsCodeExtensions.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VsCodeExtensions.Tests.ps1.md)"
+    docs: "[New-VSCodeExtensions.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VSCodeExtensions.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.VSCode/New-VSCodeExtensions.ps1
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1
-    name: test-config-identity-hygiene
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: c27a9ae8687b
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
     docs: "[Test-ConfigIdentityHygiene.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md)"

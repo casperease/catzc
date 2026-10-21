@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: b4260950d4dc
+# ---
+
 description:
   Four throwing gates hold the rule that the az session is the deploy target; the customer and the resource-group name hold by construction,
   with no gate, and every gate ends in a throw.

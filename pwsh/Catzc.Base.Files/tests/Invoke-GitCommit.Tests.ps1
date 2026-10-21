@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: eaa84202812e
+  edges:
+    code: pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1
+---
+#>
+
 Describe 'Invoke-GitCommit' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-Executable {

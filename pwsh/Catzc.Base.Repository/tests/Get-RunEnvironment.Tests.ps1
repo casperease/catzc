@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "04b825707316"
+  edges:
+    code: pwsh/Catzc.Base.Repository/Get-RunEnvironment.ps1
+---
+#>
+
 Describe 'Get-RunEnvironment' -Tag 'L0', 'logic' {
     It 'is a devbox outside a pipeline' {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.Repository

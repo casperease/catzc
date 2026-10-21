@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "8abdae51de96"
+  edges:
+    code: pwsh/Catzc.Tooling.Toolchain/Uninstall-AzCli.ps1
+    cites:
+      - ADR-AUTO-REMOVE-DOUBLYGUARDED
+      - ADR-AUTO-REMOVE-ONECALLESCALATION
+---
+#>
+
 Describe 'Uninstall-AzCli' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Uninstall-UvVenvTool { } -ModuleName Catzc.Tooling.Toolchain

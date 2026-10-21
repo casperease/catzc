@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
-    folder: tests
-    name: get-uncovered-internal-asset-dependency-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5b84ee3f3e7b"
   edges:
     docs: "[Get-UncoveredInternalAssetDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
       - ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY

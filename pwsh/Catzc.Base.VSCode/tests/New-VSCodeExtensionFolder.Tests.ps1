@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "07cd7c39961b"
   edges:
-    code: pwsh/Catzc.Base.VSCode/private/New-VsCodeExtensionFolder.ps1
+    code: pwsh/Catzc.Base.VSCode/private/New-VSCodeExtensionFolder.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS

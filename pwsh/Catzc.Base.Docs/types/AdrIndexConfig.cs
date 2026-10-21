@@ -1,3 +1,15 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "3f2a7a839001"
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/types/AdrIndexConfig.Tests.ps1
+    cites:
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

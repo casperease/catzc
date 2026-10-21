@@ -1,20 +1,27 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-#     folder: configs
-#     name: glossary
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.QualityGates
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "27eb1ea2aeea"
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/glossary.yml.md)"
+#     cites:
+#       - ADR-AUTO-TEST-ONECATEGORY
+#       - ADR-AUTO-TEST-TWOMANDATORYTAGS
+#       - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+#       - ADR-AUTO-TEST-ONESCHEDULINGPOOL
+#       - ADR-AUTO-TEST-TESTRUN
+#       - ADR-AUTO-TEST-QUALITYGATE
+#       - ADR-AUTO-TEST-ALLTESTS
+#       - ADR-AUTO-TEST-TESTSUITE
+#       - ADR-AUTO-TEST-ONIONOFRINGS
+#       - ADR-AUTO-TEST-TESTINGINPRODUCTION
+#       - ADR-AUTO-TEST-TEST
+#       - ADR-AUTO-TEST-TESTFILE
+#       - ADR-FLOW-CD-GATEDEFINED
+#       - ADR-PWSH-PESTER-TESTISIT
+#       - ADR-REPO-COMMENTS-ONELINEOFINSIGHT
+#       - ADR-REPO-LINK-KINDBYFILE
+#       - ADR-REPO-VOCAB
 # ---
 
 concepts:

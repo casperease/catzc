@@ -1,17 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: ".ado/pipelines/deploy-apex.yaml"
-#     name: deploy-apex
-#     filetype: yaml
-#     role: pipeline
-#     language: pipeline-yaml
-#     track: ado-pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
+#     with_body_sha: "4bcd27f143f8"
 #   edges:
 #     docs: "[deploy-apex.yaml.md](docs/references/ado/pipelines/deploy-apex.yaml.md)"
 # ---

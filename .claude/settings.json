@@ -65,6 +65,16 @@
     ],
     "PostToolUse": [
       {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "p=\"$CLAUDE_PROJECT_DIR/.claude/hooks/bin/Show-EditReminder\"; command -v \"$p\" >/dev/null || exit 0; exec \"$p\"",
+            "timeout": 5
+          }
+        ]
+      },
+      {
         "matcher": "Bash|Edit|Write|MultiEdit|NotebookEdit",
         "hooks": [
           {

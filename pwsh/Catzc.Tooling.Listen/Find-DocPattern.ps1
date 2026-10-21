@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "8e2cfc380600"
+  edges:
+    test: pwsh/Catzc.Tooling.Listen/tests/Find-DocPattern.Tests.ps1
+---
+#>
+
 function Find-DocPattern {
     <#
     .SYNOPSIS

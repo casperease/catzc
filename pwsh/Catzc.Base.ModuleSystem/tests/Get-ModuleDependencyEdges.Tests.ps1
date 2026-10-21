@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "826c7fcfbc10"
+  edges:
+    code: pwsh/Catzc.Base.ModuleSystem/Get-ModuleDependencyEdges.ps1
+---
+#>
+
 Describe 'Get-ModuleDependencyEdges' -Tag 'L0', 'logic' {
     It 'returns typed actual edges from Get-ModuleDependency' {
         Mock Get-ModuleDependency {

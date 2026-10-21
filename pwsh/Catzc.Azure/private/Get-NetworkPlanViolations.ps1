@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/private/Get-NetworkPlanViolations.ps1
-    folder: private
-    name: get-network-plan-violations
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: dce1d8f04feb
   edges:
     docs: "[Get-NetworkPlanViolations.ps1.md](docs/references/pwsh/catzc-azure/private/Get-NetworkPlanViolations.ps1.md)"
     cites:

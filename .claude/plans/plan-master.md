@@ -51,18 +51,16 @@ plan-decide round, and only truth-stores and test-signal-proposals are blocked b
   form: helper and acronym renames, the repair command, and the `0.0.0` command contracts.
 - listen-internal-readers -> plan-listen-internal-readers.md: one step left, the user's `.claude/CLAUDE.md` edit
   (task-user-runs-and-commits); the plan closes when it lands.
-- agent-shortcuts -> plan-agent-shortcuts.md: the gate runner's CLAUDE.md line (the user's); `New-Plan` writes the value row and master line
-  after agent-friction's step 1; the memory trim after its hook; four one-line capability and agent additions.
+- agent-shortcuts -> plan-agent-shortcuts.md: one step left, the gate runner's CLAUDE.md line (the user's, task-user-runs-and-commits).
 - truth-stores -> plan-truth-stores.md: the approved sample enters the product-thesis deck; blocked_on its Q1 (no slide pattern carries an
   image).
 - eac-normal-form -> plan-eac-normal-form.md: one step left, the explanation page that embeds the approved sample.
 - bcl-language -> plan-bcl-language.md: the language-row rename after plan-minimal-heads; the CLAUDE.md line is the user's
   (task-user-runs-and-commits).
-- agent-friction -> plan-agent-friction.md: the three gate steps first (Test-Plans' three-part plan rule and file paths, Test-Formatting
-  `-Path`), then the plan-edit hook with its path-pattern map and the CLAUDE.md trim; the plans ADR's no-Done restatement and the
-  plan-intake agent and skill brought in step with it; the head how-to and its drawing after plan-minimal-heads.
-- git-topic-commands -> plan-git-topic-commands.md: the git flow config type and file, `Get-SyncPoint`, `Save-Topic`, `Sync-Topic`,
-  `Push-Topic`, their L1 flow test, `Push-Dirty` deleted, the VS Code tasks, the hook that denies an agent the three, the help.
+- agent-friction -> plan-agent-friction.md: `Test-ParameterConsistency` clean after the `-Kind` rename; the head how-to and its drawing
+  after plan-minimal-heads; the CLAUDE.md trim (the user's).
+- git-topic-commands -> plan-git-topic-commands.md: one check left, `Test-Formatting` on the module after plan-minimal-heads' whole-tree
+  re-format.
 - claude-diet -> plan-claude-diet.md: the Sub-agents section of CLAUDE.md cut to names and one clause each, and the pwsh index named.
 - adr-authoring -> plan-adr-authoring.md: the glossary contrast declared once and the domain-deps memory deleted, the add-an-adr how-to
   after plan-agent-shortcuts' gate runner, the ADR-edit entry in plan-agent-friction's hook map.

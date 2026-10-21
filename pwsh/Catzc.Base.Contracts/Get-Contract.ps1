@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/Get-Contract.ps1
-    name: get-contract
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "98d4ff59df79"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
     docs: "[Get-Contract.ps1.md](docs/references/pwsh/catzc-base-contracts/Get-Contract.ps1.md)"

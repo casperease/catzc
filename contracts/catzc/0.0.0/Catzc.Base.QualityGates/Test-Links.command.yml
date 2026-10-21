@@ -1,9 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Links, the link quality gate that fails on any off-form,
-# dangling or dead link or citation, and returns its result, with the report-mode findings, under -PassThru.
-parameters:
-  Path: string[]
-  Kind: Catzc.Base.QualityGates.LinkKind
-  RepositoryRoot: string
-  OutputFolder: string
-  PassThru: switch
-output: Catzc.Base.Reports.QualityGateResult

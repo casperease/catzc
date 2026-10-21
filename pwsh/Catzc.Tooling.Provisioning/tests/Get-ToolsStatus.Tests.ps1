@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1
-    folder: tests
-    name: get-tools-status-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "7d0c7f6d0bed"
   edges:
     docs: "[Get-ToolsStatus.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Provisioning/Get-ToolsStatus.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

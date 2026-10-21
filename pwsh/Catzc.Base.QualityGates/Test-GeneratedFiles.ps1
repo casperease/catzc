@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
-    name: test-generated-files
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "7e3f66a59a45"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
     docs: "[Test-GeneratedFiles.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-GeneratedFiles.ps1.md)"

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Get-LanguageTestOutcomes.Tests.ps1
-    folder: tests
-    name: get-language-test-outcomes-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "6955d14d4252"
   edges:
     docs: "[Get-LanguageTestOutcomes.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-LanguageTestOutcomes.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-AUTO-MODULE-CHECKSBYLANGUAGE

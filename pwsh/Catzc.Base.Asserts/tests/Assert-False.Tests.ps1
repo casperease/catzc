@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "220d0ad4cf88"
+  edges:
+    code: pwsh/Catzc.Base.Asserts/Assert-False.ps1
+---
+#>
+
 Describe 'Assert-False' -Tag 'L0', 'logic' {
     It 'passes when value is $false' {
         { Assert-False $false } | Should -Not -Throw

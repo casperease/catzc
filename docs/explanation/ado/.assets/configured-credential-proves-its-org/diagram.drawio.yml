@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "5b53b13b4582"
+# ---
+
 description:
   "The three Azure DevOps credentials in their fixed order, as a column of gates: each returns one Authorization header or raises its own
   error, and none falls back to the next."

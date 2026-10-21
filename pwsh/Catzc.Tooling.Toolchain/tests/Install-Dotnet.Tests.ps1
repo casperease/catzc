@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
-    folder: tests
-    name: install-dotnet-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "231a62060f79"
   edges:
     docs: "[Install-Dotnet.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Toolchain/Install-Dotnet.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
 ---

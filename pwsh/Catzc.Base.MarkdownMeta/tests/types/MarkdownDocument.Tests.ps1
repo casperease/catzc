@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "050a2a490941"
+  edges:
+    code: pwsh/Catzc.Base.MarkdownMeta/types/MarkdownDocument.cs
+    cites:
+      - ADR-REPO-FILEMETA-HEADPOLICY
+---
+#>
+
 Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     BeforeAll {
         $script:withMeta = "---`nname: widget`ncatzc:`n  immutable:`n    kind: gadget`nother: 1`n---`n# docs/widget.md`n`nbody text`n"

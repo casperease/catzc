@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
-    folder: private
-    name: get-guid-scan-files
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "71a4136f217e"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-GuidScanFiles.Tests.ps1
     docs: "[Get-GuidScanFiles.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md)"

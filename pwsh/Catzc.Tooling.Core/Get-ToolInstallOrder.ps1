@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/Get-ToolInstallOrder.ps1
-    name: get-tool-install-order
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "295ec5d59e06"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
     docs: "[Get-ToolInstallOrder.ps1.md](docs/references/pwsh/catzc-tooling-core/Get-ToolInstallOrder.ps1.md)"

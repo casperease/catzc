@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Vendor/private/Get-VendoredModule.ps1
-    folder: private
-    name: get-vendored-module
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Vendor
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "9beaca0c467e"
   edges:
     docs: "[Get-VendoredModule.ps1.md](docs/references/pwsh/catzc-base-vendor/private/Get-VendoredModule.ps1.md)"
 ---

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Write-TestRunLockRecord.ps1
-    folder: private
-    name: write-test-run-lock-record
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "330180dd1786"
   edges:
     docs: "[Write-TestRunLockRecord.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestRunLockRecord.ps1.md)"
 ---

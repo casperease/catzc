@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-    folder: tests
-    name: get-file-language-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a6f144b81d63
   edges:
     docs: "[Get-FileLanguage.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Languages/Get-FileLanguage.ps1
     cites:
       - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
       - ADR-DSGN-TRACK-ONETECHSTACK

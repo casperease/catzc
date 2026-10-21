@@ -1,8 +1,14 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: ddd98b259e29
+# ---
+
 # Black-box tests of the bash engine's entry, importer.sh, and its cats dispatcher (Catzc.Base.Engines).
 #
 # Each test uses importer.sh the way a Bash user does (ADR-AUTO-BASH-BLACKBOXTESTS): setup sources the engine's entry
-# (CATZC_ENGINE_ENTRY), and a test runs a catzc command through cats, asserting on output and exit code only. Two of
-# them start pwsh and import catzc; the run-directly case starts no pwsh.
+# (CATZC_ENGINE_ENTRY), and a test runs a catzc command through cats, asserting on output and exit code only. Three of
+# them start pwsh and import catzc; the run-directly case and the contract refusals start no pwsh.
 
 setup() {
     if [ -z "${CATZC_ENGINE_ENTRY:-}" ]; then
@@ -57,76 +63,106 @@ _cats_fixture_lookup() {
     export CATZC_COMMAND_LOOKUP
     {
         printf "_catzc_commands='\n"
-        printf 'Get-Widget\tCount\tint\t0\t1\t0\tcontracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml\n'
-        printf 'Get-Widget\tLoud\tswitch\t0\t0\t0\tcontracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml\n'
-        printf 'Find-Gadget\tId\tstring\t0\t1\t0\tcontracts/widget/0.0.0/Catzc.Widget/Find-Gadget.command.yml\tId\tAll\n'
-        printf 'Find-Gadget\tCount\tint\t0\t1\t0\tcontracts/widget/0.0.0/Catzc.Widget/Find-Gadget.command.yml\tRandom\tAll\n'
-        printf 'Find-Gadget\tSeed\tint\t0\t0\t0\tcontracts/widget/0.0.0/Catzc.Widget/Find-Gadget.command.yml\tRandom\tAll\n'
+        # command, parameter (normal form), type, list, mandatory, pipeline, asset, sets, default set, then kebab and pwsh renderings
+        printf 'get_widget\tcount\tint\t0\t1\t0\tcontracts/widget/0.0.0/catzc.widget/get_widget.command.yml\t\t\tget-widget\tcount\tGet-Widget\tCount\n'
+        printf 'get_widget\tloud\tswitch\t0\t0\t0\tcontracts/widget/0.0.0/catzc.widget/get_widget.command.yml\t\t\tget-widget\tloud\tGet-Widget\tLoud\n'
+        printf 'find_gadget\tid\tstring\t0\t1\t0\tcontracts/widget/0.0.0/catzc.widget/find_gadget.command.yml\tid\tall\tfind-gadget\tid\tFind-Gadget\tId\n'
+        printf 'find_gadget\tcount\tint\t0\t1\t0\tcontracts/widget/0.0.0/catzc.widget/find_gadget.command.yml\trandom\tall\tfind-gadget\tcount\tFind-Gadget\tCount\n'
+        printf 'find_gadget\tseed\tint\t0\t0\t0\tcontracts/widget/0.0.0/catzc.widget/find_gadget.command.yml\trandom\tall\tfind-gadget\tseed\tFind-Gadget\tSeed\n'
+        printf 'test_is_guid\tobject_guid\tstring\t0\t1\t0\tcontracts/widget/0.0.0/catzc.widget/test_is_guid.command.yml\t\t\ttest-is-guid\tobject-guid\tTest-IsGuid\tObjectGuid\n'
         printf "'\n"
     } >"$CATZC_COMMAND_LOOKUP"
 }
 
-@test "a contracted command refuses parameters from two parameter sets" {
+@test "a contracted command named in kebab case reaches pwsh by its pwsh names" {
     _cats_fixture_lookup
-    run cats Find-Gadget -Id one -Count 2
-    [ "$status" -eq 2 ] || {
-        echo "cats Find-Gadget -Id -Count exited $status, want 2: $output" >&2
+    run cats test-is-guid --object-guid "it's not a guid"
+    [ "$status" -eq 0 ] || {
+        echo "cats test-is-guid failed with exit $status: $output" >&2
         return 1
     }
-    [[ "$output" == *"belong to no one parameter set"*"Find-Gadget.command.yml"* ]] || {
-        echo "cats Find-Gadget -Id -Count printed '$output', want the set refusal and the asset named" >&2
+    local got
+    got="$(printf '%s' "$output" | tr -d '\r' | tail -n 1)"
+    [ "$got" = "False" ] || {
+        echo "cats test-is-guid --object-guid \"it's not a guid\" printed '$got', want 'False'" >&2
+        return 1
+    }
+}
+
+@test "a contracted command refuses a parameter not in kebab case" {
+    _cats_fixture_lookup
+    run cats get-widget -Count 3
+    [ "$status" -eq 2 ] || {
+        echo "cats get-widget -Count exited $status, want 2: $output" >&2
+        return 1
+    }
+    [[ "$output" == *"takes its parameters in kebab case, as --name"*"get_widget.command.yml"* ]] || {
+        echo "cats get-widget -Count printed '$output', want the kebab refusal and the asset named" >&2
+        return 1
+    }
+}
+
+@test "a contracted command refuses parameters from two parameter sets" {
+    _cats_fixture_lookup
+    run cats find-gadget --id one --count 2
+    [ "$status" -eq 2 ] || {
+        echo "cats find-gadget --id --count exited $status, want 2: $output" >&2
+        return 1
+    }
+    [[ "$output" == *"belong to no one parameter set"*"find_gadget.command.yml"* ]] || {
+        echo "cats find-gadget --id --count printed '$output', want the set refusal and the asset named" >&2
         return 1
     }
 }
 
 @test "a contracted command refuses a call missing a mandatory parameter of the set it fits" {
     _cats_fixture_lookup
-    run cats Find-Gadget -Seed 7
+    run cats find-gadget --seed 7
     [ "$status" -eq 2 ] || {
-        echo "cats Find-Gadget -Seed exited $status, want 2: $output" >&2
+        echo "cats find-gadget --seed exited $status, want 2: $output" >&2
         return 1
     }
-    [[ "$output" == *"needs -Count"* ]] || {
-        echo "cats Find-Gadget -Seed printed '$output', want it to name -Count" >&2
+    [[ "$output" == *"needs --count"* ]] || {
+        echo "cats find-gadget --seed printed '$output', want it to name --count" >&2
         return 1
     }
 }
 
 @test "a contracted command refuses a parameter its contract does not name, naming the asset" {
     _cats_fixture_lookup
-    run cats Get-Widget -Count 3 -Gadget x
+    run cats get-widget --count 3 --gadget x
     [ "$status" -eq 2 ] || {
-        echo "cats Get-Widget -Gadget exited $status, want 2: $output" >&2
+        echo "cats get-widget --gadget exited $status, want 2: $output" >&2
         return 1
     }
-    [[ "$output" == *"has no parameter -Gadget"*"Get-Widget.command.yml"* ]] || {
-        echo "cats Get-Widget -Gadget printed '$output', want the parameter and the asset named" >&2
+    [[ "$output" == *"has no parameter --gadget"*"get_widget.command.yml"* ]] || {
+        echo "cats get-widget --gadget printed '$output', want the parameter and the asset named" >&2
         return 1
     }
 }
 
 @test "a contracted command refuses a call without a mandatory parameter" {
     _cats_fixture_lookup
-    run cats Get-Widget -Loud
+    run cats get-widget --loud
     [ "$status" -eq 2 ] || {
-        echo "cats Get-Widget -Loud exited $status, want 2: $output" >&2
+        echo "cats get-widget --loud exited $status, want 2: $output" >&2
         return 1
     }
-    [[ "$output" == *"needs -Count"* ]] || {
-        echo "cats Get-Widget -Loud printed '$output', want it to name -Count" >&2
+    [[ "$output" == *"needs --count"* ]] || {
+        echo "cats get-widget --loud printed '$output', want it to name --count" >&2
         return 1
     }
 }
 
 @test "a contracted int parameter refuses a value that is not a whole number" {
     _cats_fixture_lookup
-    run cats Get-Widget -Count three
+    run cats get-widget --count three
     [ "$status" -eq 2 ] || {
-        echo "cats Get-Widget -Count three exited $status, want 2: $output" >&2
+        echo "cats get-widget --count three exited $status, want 2: $output" >&2
         return 1
     }
-    [[ "$output" == *"-Count takes an int, not 'three'"* ]] || {
-        echo "cats Get-Widget -Count three printed '$output', want the int refusal" >&2
+    [[ "$output" == *"--count takes an int, not 'three'"* ]] || {
+        echo "cats get-widget --count three printed '$output', want the int refusal" >&2
         return 1
     }
 }

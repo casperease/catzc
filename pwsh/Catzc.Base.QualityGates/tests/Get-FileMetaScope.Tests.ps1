@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "134cd2925092"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-FileMetaScope.ps1
+    cites:
+      - ADR-REPO-FILEMETA-HEADPOLICY
+      - ADR-REPO-FILEMETA-KINDSCOPE
+---
+#>
+
 Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'

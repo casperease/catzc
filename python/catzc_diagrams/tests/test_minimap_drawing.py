@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "82c08cf2cbb3"
+# ---
+
 # cspell:ignore minimaps
 """A minimap drawn from its contract data: every shape of data draws, and what is lit is what shows.
 

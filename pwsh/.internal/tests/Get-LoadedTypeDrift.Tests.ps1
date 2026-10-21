@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/Get-LoadedTypeDrift.Tests.ps1
-    name: get-loaded-type-drift-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: "28dca9c8fef4"
   edges:
     docs: "[Get-LoadedTypeDrift.Tests.ps1.md](docs/references/pwsh/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md)"
     cites:

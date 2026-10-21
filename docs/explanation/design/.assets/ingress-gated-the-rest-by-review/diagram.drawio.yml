@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "85fb610a9c37"
+# ---
+
 description:
   Only ingress is checked by gates, a local guard and a server branch policy; the rules that the server main is the truth and that consumers
   integrate from the verified point rest on code review alone.

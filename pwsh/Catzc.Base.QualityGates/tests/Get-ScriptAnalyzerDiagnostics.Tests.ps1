@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1
-    folder: tests
-    name: get-script-analyzer-diagnostics-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: dcac80c2add1
   edges:
     docs: "[Get-ScriptAnalyzerDiagnostics.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Get-ScriptAnalyzerDiagnostics.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
 ---

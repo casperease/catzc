@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3b98bda56c58"
+  edges:
+    code: pwsh/Catzc.Tooling.Listen/Find-DocPattern.ps1
+---
+#>
+
 Describe 'Find-DocPattern' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Listen.Fixture.ps1')

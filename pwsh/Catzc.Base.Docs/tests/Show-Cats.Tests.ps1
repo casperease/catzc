@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "8732c1f0c6ab"
+  edges:
+    code: pwsh/Catzc.Base.Docs/Show-Cats.ps1
+---
+#>
+
 Describe 'Show-Cats' -Tag 'L0', 'logic' {
     It 'prints the overview with no argument, without reading the getters' {
         Mock Get-CatsAdrIndex -ModuleName Catzc.Base.Docs

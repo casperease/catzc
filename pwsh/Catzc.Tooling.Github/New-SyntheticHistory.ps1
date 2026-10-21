@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Github/New-SyntheticHistory.ps1
-    name: new-synthetic-history
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Github
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
+    with_body_sha: cb595304ff8c
   edges:
     test: pwsh/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1
     docs: "[New-SyntheticHistory.ps1.md](docs/references/pwsh/catzc-tooling-github/New-SyntheticHistory.ps1.md)"

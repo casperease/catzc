@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Get-ContractFreezeFindings.ps1
-    folder: private
-    name: get-contract-freeze-findings
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "6e4e2ff58c43"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
     docs: "[Get-ContractFreezeFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractFreezeFindings.ps1.md)"

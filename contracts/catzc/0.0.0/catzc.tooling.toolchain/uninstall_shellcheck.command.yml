@@ -1,0 +1,4 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Shellcheck, which uninstalls the
+# tool. Version defaults to the installed or locked version, a computed default the contract does not restate.
+parameters:
+  version: string

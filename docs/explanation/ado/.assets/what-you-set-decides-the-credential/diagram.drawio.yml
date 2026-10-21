@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "500ed099aead"
+# ---
+
 description:
   What an operator sets decides the Azure DevOps credential, in a fixed order; each wrong setup stops with its own message, and a working
   one gives the REST call its Authorization header.

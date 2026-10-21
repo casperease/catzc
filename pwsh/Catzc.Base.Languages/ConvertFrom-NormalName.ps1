@@ -1,6 +1,19 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f21b312895e3
+  edges:
+    test: pwsh/Catzc.Base.Languages/tests/ConvertFrom-NormalName.Tests.ps1
+    cites:
+      - ADR-PWSH-PARAM-RESOLUTIONORDER
+---
+#>
+
 function ConvertFrom-NormalName {
     [CmdletBinding()]
     [OutputType([string])]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-Case defaults to the first case -Language configures for -NameKind, so the body first checks that the language names one and says so; a declared default would fail before that message (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
     param(
         [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
         [string] $Name,
@@ -10,7 +23,7 @@ function ConvertFrom-NormalName {
         [string] $Language,
 
         [ValidateSet('function', 'type', 'file', 'folder')]
-        [string] $Kind = 'function',
+        [string] $NameKind = 'function',
 
         [ArgumentCompleter({ [Catzc.Base.Languages.LanguageNaming]::Cases })]
         [string] $Case
@@ -19,15 +32,15 @@ function ConvertFrom-NormalName {
     begin {
         $config = Get-Config -Config languages
         $naming = (Get-FileLanguage -Name $Language).naming
-        if ($null -eq $naming -or $naming.$Kind.Count -eq 0) {
-            throw "languages['$Language'].naming names no $Kind case, so no $Language $Kind name renders from the normal form."
+        if ($null -eq $naming -or $naming.$NameKind.Count -eq 0) {
+            throw "languages['$Language'].naming names no $NameKind case, so no $Language $NameKind name renders from the normal form."
         }
         # One resolution order: the case named, else the language's first case for the kind.
         if (-not $Case) {
-            $Case = $naming.$Kind[0]
+            $Case = $naming.$NameKind[0]
         }
-        elseif ($Case -cnotin $naming.$Kind) {
-            throw "'$Case' is not a $Language $Kind case (one of: $($naming.$Kind -join ', '))."
+        elseif ($Case -cnotin $naming.$NameKind) {
+            throw "'$Case' is not a $Language $NameKind case (one of: $($naming.$NameKind -join ', '))."
         }
     }
 

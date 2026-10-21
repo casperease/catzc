@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "31702a4a85bc"
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE
+---
+#>
+
 Describe 'Measure-NoLiteralDefault' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoLiteralDefault.psm1') -Force

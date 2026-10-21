@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Firewall/types/RuleType.cs
-    folder: types
-    name: rule-type
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c473fc835541
   edges:
     docs: "[RuleType.cs.md](docs/references/pwsh/catzc-azure-firewall/types/RuleType.cs.md)"
 ---

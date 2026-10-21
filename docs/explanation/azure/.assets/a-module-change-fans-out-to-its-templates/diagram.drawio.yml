@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "0075cc7d062b"
+# ---
+
 description:
   "A change to one reusable module edits one file in the modules place of the infrastructure track and fans out: every template that
   references the module builds it in, the infrastructure CI validates every template, and every CD pipeline runs."

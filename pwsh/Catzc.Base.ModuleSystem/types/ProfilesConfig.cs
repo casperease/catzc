@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/types/ProfilesConfig.cs
-    folder: types
-    name: profiles-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: ed944d2b11d3
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/ProfilesConfig.Tests.ps1
     docs: "[ProfilesConfig.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ProfilesConfig.cs.md)"

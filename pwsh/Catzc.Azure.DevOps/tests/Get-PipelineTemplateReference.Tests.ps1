@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
-    folder: tests
-    name: get-pipeline-template-reference-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: aa7c4fd586b9
   edges:
     docs: "[Get-PipelineTemplateReference.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops/tests/Get-PipelineTemplateReference.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1
     cites:
       - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE
 ---

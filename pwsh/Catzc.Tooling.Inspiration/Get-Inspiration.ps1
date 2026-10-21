@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
-    name: get-inspiration
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
+    with_body_sha: ef6cf442ab39
   edges:
     test: pwsh/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
     docs: "[Get-Inspiration.ps1.md](docs/references/pwsh/catzc-tooling-inspiration/Get-Inspiration.ps1.md)"

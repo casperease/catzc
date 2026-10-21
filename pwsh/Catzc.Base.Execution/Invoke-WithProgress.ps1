@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/Invoke-WithProgress.ps1
-    name: invoke-with-progress
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: eb2e586db4f6
   edges:
     test: pwsh/Catzc.Base.Execution/tests/Invoke-WithProgress.Tests.ps1
     docs: "[Invoke-WithProgress.ps1.md](docs/references/pwsh/catzc-base-execution/Invoke-WithProgress.ps1.md)"

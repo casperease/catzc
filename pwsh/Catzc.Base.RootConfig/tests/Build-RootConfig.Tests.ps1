@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
-    folder: tests
-    name: build-root-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "155d273aef5a"
   edges:
     docs: "[Build-RootConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

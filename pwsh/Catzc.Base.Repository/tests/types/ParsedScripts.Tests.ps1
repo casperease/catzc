@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Repository/tests/types/ParsedScripts.Tests.ps1
-    folder: tests/types
-    name: parsed-scripts-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5a1900f28aef"
   edges:
     docs: "[ParsedScripts.Tests.ps1.md](docs/references/pwsh/catzc-base-repository/tests/types/ParsedScripts.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Repository/types/ParsedScripts.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

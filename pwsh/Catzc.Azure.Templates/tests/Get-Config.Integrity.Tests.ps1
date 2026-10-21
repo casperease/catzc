@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Get-Config.Integrity.Tests.ps1
-    folder: tests
-    name: get-config-integrity-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "1d9bcae4c208"
   edges:
     docs: "[Get-Config.Integrity.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-Config.Integrity.Tests.ps1.md)"
 ---

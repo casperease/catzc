@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/private/Get-AdrCitationGraphViolations.ps1
-    folder: private
-    name: get-adr-citation-graph-violations
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "2740d6f9022f"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
     docs: "[Get-AdrCitationGraphViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AdrCitationGraphViolations.ps1.md)"

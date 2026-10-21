@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/tests/Get-ToolCommandSuffix.Tests.ps1
-    folder: tests
-    name: get-tool-command-suffix-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: aaf2c8ce54de
   edges:
     docs: "[Get-ToolCommandSuffix.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Get-ToolCommandSuffix.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Core/Get-ToolCommandSuffix.ps1
 ---
 #>
 

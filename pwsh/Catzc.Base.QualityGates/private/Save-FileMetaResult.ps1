@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Save-FileMetaResult.ps1
-    folder: private
-    name: save-file-meta-result
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "637b54e55b5b"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Save-FileMetaResult.Tests.ps1
     docs: "[Save-FileMetaResult.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Save-FileMetaResult.ps1.md)"

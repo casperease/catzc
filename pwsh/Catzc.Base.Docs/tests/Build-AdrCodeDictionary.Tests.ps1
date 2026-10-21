@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "300d438ba0e4"
+  edges:
+    code: pwsh/Catzc.Base.Docs/Build-AdrCodeDictionary.ps1
+    cites:
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+      - ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
+---
+#>
+
 Describe 'Build-AdrCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-ADRCODE-NAMEDNOTNUMBERED' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

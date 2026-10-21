@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/Uninstall-Dotnet.ps1
-    name: uninstall-dotnet
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "8f43b725ebe8"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
     docs: "[Uninstall-Dotnet.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md)"

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
-    folder: tests
-    name: new-test-automation-shard-script-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4e6bb98970d0"
   edges:
     docs: "[New-TestAutomationShardScript.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/New-TestAutomationShardScript.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
       - ADR-AUTO-TEST-FILEPARALLELISM

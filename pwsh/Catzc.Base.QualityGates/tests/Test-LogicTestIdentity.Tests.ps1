@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
-    folder: tests
-    name: test-logic-test-identity-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c0c7b8a461dd
   edges:
     docs: "[Test-LogicTestIdentity.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-LogicTestIdentity.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1
     cites:
       - ADR-AUTO-TEST-ONECATEGORY
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

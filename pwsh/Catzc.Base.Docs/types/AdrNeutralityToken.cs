@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/AdrNeutralityToken.cs
-    folder: types
-    name: adr-neutrality-token
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "21af09922fac"
   edges:
     docs: "[AdrNeutralityToken.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrNeutralityToken.cs.md)"
     cites:

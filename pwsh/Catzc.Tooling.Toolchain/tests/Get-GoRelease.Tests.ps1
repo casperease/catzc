@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/tests/Get-GoRelease.Tests.ps1
-    folder: tests
-    name: get-go-release-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4112996df3bd"
   edges:
     docs: "[Get-GoRelease.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Get-GoRelease.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Toolchain/private/Get-GoRelease.ps1
 ---
 #>
 

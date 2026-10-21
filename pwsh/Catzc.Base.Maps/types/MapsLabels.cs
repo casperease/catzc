@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/MapsLabels.cs
-    folder: types
-    name: maps-labels
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "29596ab5b0a4"
   edges:
     docs: "[MapsLabels.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsLabels.cs.md)"
     cites:

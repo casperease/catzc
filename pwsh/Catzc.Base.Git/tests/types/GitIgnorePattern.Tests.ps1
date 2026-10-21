@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: fdc599adf624
+  edges:
+    code: pwsh/Catzc.Base.Git/types/GitIgnorePattern.cs
+---
+#>
+
 Describe 'GitIgnorePattern' -Tag 'L0', 'logic' {
     It 'constructs from a bare string' {
         $p = [Catzc.Base.Git.GitIgnorePattern]::new('out/*')

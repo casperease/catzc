@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "7230db44f0a6"
+# ---
+
 description:
   "The bash hook's program loads the limits and the run environment, hands the call to Decide, and acts on what comes back: nothing to let
   the call through, or a reason that becomes a denial and one line in the blocker log."

@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/Import-Catzc.Tests.ps1
-    name: import-catzc-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: "49ead1c732f9"
   edges:
     docs: "[Import-Catzc.Tests.ps1.md](docs/references/pwsh/internal/tests/Import-Catzc.Tests.ps1.md)"
 ---

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1
-    folder: private
-    name: resolve-bicep-config-name
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: dcd9bde00efb
   edges:
     docs: "[Resolve-BicepConfigName.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md)"
     cites:

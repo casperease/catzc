@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "35fb9a833967"
+# ---
+
 description:
   A change enters the server's main only through a pull request, and consumers build on the last verified commit, a point that never moves,
   never on the provisional HEAD.

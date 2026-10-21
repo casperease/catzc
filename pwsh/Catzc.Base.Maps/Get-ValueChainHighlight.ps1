@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
-    name: get-value-chain-highlight
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "5cc1ca1ae50a"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
     docs: "[Get-ValueChainHighlight.ps1.md](docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md)"

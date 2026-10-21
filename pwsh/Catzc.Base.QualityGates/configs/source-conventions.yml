@@ -1,20 +1,17 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml
-#     folder: configs
-#     name: source-conventions
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.QualityGates
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "2b50912349d8"
 #   edges:
 #     docs: "[source-conventions.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/source-conventions.yml.md)"
+#     cites:
+#       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+#       - ADR-AUTO-ENGINE-THREEENGINES
+#       - ADR-AUTO-ENGINE-IMPORTERENTRY
+#       - ADR-AUTO-LAYERS
+#       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+#       - ADR-DSGN-TRACK-UNORDEREDTRACK
+#       - ADR-REPO-COMMENTS-MOVELOSESNOTHING
 # ---
 
 engine_set:

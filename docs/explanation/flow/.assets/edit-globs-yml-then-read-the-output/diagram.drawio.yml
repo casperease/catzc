@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: bfdaf6444b55
+# ---
+
 description:
   "globs.yml is the only file a person writes; the config load validates it, and three commands then print what was derived from it: the
   projection of one set, the globsets a commit range touched, and the skip line of the test run."

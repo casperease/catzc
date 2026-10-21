@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3e79f2734f97"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/Get-AdrUsage.ps1
+    cites:
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+---
+#>
+
 Describe 'Get-AdrUsage (repository)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:rows = @(Get-AdrUsage)

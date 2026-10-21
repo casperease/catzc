@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/budget.bicep
-//     name: budget
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: budget
-//     moduletype: bicep
+//     with_body_sha: f1ff4e7b5a3e
 //   edges:
 //     docs: "[budget.bicep.md](docs/references/infrastructure/modules/budget.bicep.md)"
 // ---

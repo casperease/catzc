@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/Sync-SessionTools.ps1
-    name: sync-session-tools
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "6befa8abaff5"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
     docs: "[Sync-SessionTools.ps1.md](docs/references/pwsh/catzc-tooling-core/Sync-SessionTools.ps1.md)"

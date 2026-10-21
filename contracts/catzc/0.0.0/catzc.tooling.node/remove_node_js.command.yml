@@ -1,0 +1,6 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Remove-NodeJs, which removes a manually installed Node.js and its
+# PATH entries. InstallDir defaults to the install it finds, a computed default the contract does not restate; without Force it shows
+# what it would remove (ADR-AUTO-REMOVE-DOUBLYGUARDED).
+parameters:
+  install_dir: string
+  force: switch

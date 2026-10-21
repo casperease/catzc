@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
-    folder: tests
-    name: get-bicep-parameter-violations-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: cc62213f4813
   edges:
     docs: "[Get-BicepParameterViolations.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/private/Get-BicepParameterViolations.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS

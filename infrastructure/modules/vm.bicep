@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/vm.bicep
-//     name: vm
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: vm
-//     moduletype: bicep
+//     with_body_sha: dcba6cf46426
 //   edges:
 //     docs: "[vm.bicep.md](docs/references/infrastructure/modules/vm.bicep.md)"
 // ---

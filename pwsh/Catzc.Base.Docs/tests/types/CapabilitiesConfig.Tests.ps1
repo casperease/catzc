@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: d69f62a42c7f
+  edges:
+    code: pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
+    cites:
+      - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-AGENTS-NOORPHANNOGHOST
+      - ADR-REPO-AGENTS-CAPABILITYREGISTERED
+      - ADR-REPO-AGENTS-USERSKILL
+---
+#>
+
 # Rests on [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities) and [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost).
 Describe 'CapabilitiesConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-CAPABILITYREGISTERED' {
     BeforeAll {

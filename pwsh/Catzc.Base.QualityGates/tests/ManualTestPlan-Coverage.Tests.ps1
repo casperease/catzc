@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1
-    folder: tests
-    name: manual-test-plan-coverage-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "1160a19ffbca"
   edges:
     docs: "[ManualTestPlan-Coverage.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/ManualTestPlan-Coverage.Tests.ps1.md)"
     cites:

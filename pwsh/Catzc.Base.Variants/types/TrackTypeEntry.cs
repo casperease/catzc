@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Variants/types/TrackTypeEntry.cs
-    folder: types
-    name: track-type-entry
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "88fcaeede288"
   edges:
     docs: "[TrackTypeEntry.cs.md](docs/references/pwsh/catzc-base-variants/types/TrackTypeEntry.cs.md)"
 ---

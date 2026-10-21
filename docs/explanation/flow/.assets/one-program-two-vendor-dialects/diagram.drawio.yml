@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: d504e18a7584
+# ---
+
 description:
   "One flattened scan program composed from a base unit and a configured unit, and its two projections: GitHub paths keep the order exactly,
   Azure DevOps include and exclude collapse each pattern to its last select."

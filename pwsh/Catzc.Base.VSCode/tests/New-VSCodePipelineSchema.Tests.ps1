@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/tests/New-VsCodePipelineSchema.Tests.ps1
-    folder: tests
-    name: new-vs-code-pipeline-schema-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "34d8490a1829"
   edges:
-    docs: "[New-VsCodePipelineSchema.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VsCodePipelineSchema.Tests.ps1.md)"
+    docs: "[New-VSCodePipelineSchema.Tests.ps1.md](docs/references/pwsh/catzc-base-vscode/tests/New-VSCodePipelineSchema.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
 ---

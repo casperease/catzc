@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Asserts/Assert-PipelineCount.ps1
-    name: assert-pipeline-count
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-    visibility: public
+    with_body_sha: "425445f4300b"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-PipelineCount.Tests.ps1
     docs: "[Assert-PipelineCount.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-PipelineCount.ps1.md)"

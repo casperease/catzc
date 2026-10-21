@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
-    folder: tests
-    name: get-az-cli-session-subscription-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e7c509f1efe0
   edges:
     docs: "[Get-AzCliSessionSubscription.Tests.ps1.md](docs/references/pwsh/catzc-azure-cli/tests/Get-AzCliSessionSubscription.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
     cites:
       - ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES
 ---

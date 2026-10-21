@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepTrackTagNameSet.Tests.ps1
-    folder: tests
-    name: get-bicep-track-tag-name-set-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "2282781a8509"
   edges:
     docs: "[Get-BicepTrackTagNameSet.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTrackTagNameSet.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/Get-BicepTrackTagNameSet.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS
       - ADR-AUTO-TEST-SETUPONCE

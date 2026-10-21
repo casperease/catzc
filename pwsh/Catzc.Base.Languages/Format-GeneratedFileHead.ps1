@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
-    name: format-generated-file-head
-    filetype: ps1
-    role: function
-    subkind: formatter
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "0d2e88c20e68"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
     docs: "[Format-GeneratedFileHead.ps1.md](docs/references/pwsh/catzc-base-languages/Format-GeneratedFileHead.ps1.md)"

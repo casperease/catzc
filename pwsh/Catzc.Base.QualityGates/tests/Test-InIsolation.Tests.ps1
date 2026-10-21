@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1
-    folder: tests
-    name: test-in-isolation-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "0a29589a522e"
   edges:
     docs: "[Test-InIsolation.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-InIsolation.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Test-InIsolation.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
 ---

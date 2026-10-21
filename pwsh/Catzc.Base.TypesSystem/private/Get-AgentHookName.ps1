@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "02f0758182e1"
+---
+#>
+
 function Get-AgentHookName {
     <#
     .SYNOPSIS

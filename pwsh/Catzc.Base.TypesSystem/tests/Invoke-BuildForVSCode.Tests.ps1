@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "5aca149f62c2"
   edges:
-    code: pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVsCode.ps1
+    code: pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
 ---
 #>
 

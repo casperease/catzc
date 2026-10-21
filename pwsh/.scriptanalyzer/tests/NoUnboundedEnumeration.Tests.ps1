@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1
-    folder: pwsh/.scriptanalyzer/tests
-    name: no-unbounded-enumeration-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "98da282f948a"
   edges:
     docs: "[NoUnboundedEnumeration.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1.md)"
     cites:

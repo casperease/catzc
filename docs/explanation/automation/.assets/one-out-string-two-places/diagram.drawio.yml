@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "9cd5a929fc3f"
+# ---
+
 description:
   One stored out/ string is the same on every machine; the output root joins it at the point of use, so it lands in the repository's out
   folder on a devbox and in the staging directory in a pipeline, and a missing staging directory throws.

@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: d7d01c12f2c8
+  edges:
+    cites:
+      - ADR-REPO-FILEMETA-METAKIND
+      - ADR-REPO-FILEMETA-ROLE
+---
+#>
+
 Describe 'The file-kinds registry against the tracked files' -Tag 'L2', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
     # Read at discovery: -ForEach needs the declared classes before any BeforeAll runs.
     $declared = foreach ($entry in (Get-Config -Config file-kinds).kinds) {

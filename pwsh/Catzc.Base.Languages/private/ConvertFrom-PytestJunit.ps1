@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/private/ConvertFrom-PytestJunit.ps1
-    folder: private
-    name: convert-from-pytest-junit
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "3858955d6764"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
     docs: "[ConvertFrom-PytestJunit.ps1.md](docs/references/pwsh/catzc-base-languages/private/ConvertFrom-PytestJunit.ps1.md)"

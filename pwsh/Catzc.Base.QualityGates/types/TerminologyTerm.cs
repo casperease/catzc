@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/TerminologyTerm.cs
-    folder: types
-    name: terminology-term
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: bdbd6944e805
   edges:
     docs: "[TerminologyTerm.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/TerminologyTerm.cs.md)"
     cites:

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/Catzc.Internal.Builder.psm1
-    name: catzc-internal-builder
-    filetype: psm1
-    role: module
-    subkind: internal
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Builder
-    moduletype: pwsh-psm1
-    catzc_bundle: minimal
+    with_body_sha: a41332907d76
   edges:
     docs: "[Catzc.Internal.Builder.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md)"
 ---

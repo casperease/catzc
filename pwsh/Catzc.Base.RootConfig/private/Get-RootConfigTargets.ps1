@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
-    folder: private
-    name: get-root-config-targets
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "0a3f583abdc7"
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/Get-RootConfigTargets.Tests.ps1
     docs: "[Get-RootConfigTargets.ps1.md](docs/references/pwsh/catzc-base-rootconfig/private/Get-RootConfigTargets.ps1.md)"

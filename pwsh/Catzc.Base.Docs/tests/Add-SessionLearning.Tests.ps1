@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: eea50a83ac4e
+  edges:
+    code: pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1
+---
+#>
+
 Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.Docs.LearningsConfig]::new([ordered]@{ files = 2; lines_per_file = 2 })

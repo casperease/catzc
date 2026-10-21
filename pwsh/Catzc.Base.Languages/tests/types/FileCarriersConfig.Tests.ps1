@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3cc88a99e56e"
+  edges:
+    code: pwsh/Catzc.Base.Languages/types/FileCarriersConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-CODEMETA-CODEFILEHEAD
+      - ADR-REPO-CODEMETA-SAMEENGINE
+      - ADR-REPO-FILEMETA-HEADPOLICY
+---
+#>
+
 Describe 'FileCarriersConfig' -Tag 'L0' {
     BeforeAll {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Languages.FileCarriersConfig]::new($raw) }

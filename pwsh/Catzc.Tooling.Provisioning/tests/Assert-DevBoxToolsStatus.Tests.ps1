@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
-    folder: tests
-    name: assert-dev-box-tools-status-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: d9bed51999a1
   edges:
     docs: "[Assert-DevBoxToolsStatus.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
 ---
 #>
 

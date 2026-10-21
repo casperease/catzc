@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/private/Get-GlossaryPhrasingViolations.ps1
-    folder: private
-    name: get-glossary-phrasing-violations
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: c21f62ab8ffb
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1
     docs: "[Get-GlossaryPhrasingViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md)"

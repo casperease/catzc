@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
-    folder: tests/types
-    name: folder-walk-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Folders
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c5bfd45b3a20
   edges:
     docs: "[FolderWalkConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-folders/tests/types/FolderWalkConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Folders/types/FolderWalkConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM

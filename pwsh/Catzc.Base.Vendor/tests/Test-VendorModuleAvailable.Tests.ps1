@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: d2190fd36486
+  edges:
+    code: pwsh/Catzc.Base.Vendor/Test-VendorModuleAvailable.ps1
+---
+#>
+
 Describe 'Test-VendorModuleAvailable' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Resolve-VendorRepository -ModuleName Catzc.Base.Vendor { 'PSGallery' }

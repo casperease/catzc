@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Config/Get-Config.ps1
-    name: get-config
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: e560df31c7a0
   edges:
     test: pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1
     docs: "[Get-Config.ps1.md](docs/references/pwsh/catzc-base-config/Get-Config.ps1.md)"

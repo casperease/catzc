@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/TestPolicyConfig.cs
-    folder: types
-    name: test-policy-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "74c54646707a"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/TestPolicyConfig.Tests.ps1
     docs: "[TestPolicyConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/TestPolicyConfig.cs.md)"

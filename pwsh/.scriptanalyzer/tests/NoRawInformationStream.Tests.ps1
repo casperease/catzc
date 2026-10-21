@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/tests/NoRawInformationStream.Tests.ps1
-    folder: pwsh/.scriptanalyzer/tests
-    name: no-raw-information-stream-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: c0bdb38d62f2
   edges:
     docs: "[NoRawInformationStream.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoRawInformationStream.Tests.ps1.md)"
 ---

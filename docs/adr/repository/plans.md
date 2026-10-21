@@ -6,7 +6,7 @@
 
 A **plan** is one topic in one file, `.claude/plans/plan-<topic>.md`, authored directly there, and it holds the delta only: what is still
 open, and what was decided and why. The tree, the ADRs and git hold everything else, what landed included. A plan starts with `New-Plan`,
-which writes its head and its open steps section and refuses a topic that has a plan.
+which writes its head, its open steps section, its value row and its master line, and refuses a topic that has a plan.
 
 - [The delta, not the record](#the-delta-not-the-record)
 
@@ -27,9 +27,9 @@ A plan is three parts: its file, its row in `value-of-plan.md` and its chunk lin
 
 ### Rule ADR-REPO-PLANS-ONESHAPE
 
-A plan has one shape: the head, why its value, what is decided, the open steps, the refs; it has no section for what is done; text carried verbatim from
-elsewhere sits below a "Carried" heading, after the shape. The open steps section is always present; the others are present when they have
-content. There is no line roof: the cleaner shortens a plan only after its data is in the tree, never by dropping a signal.
+A plan has one shape: the head, why its value, what is decided, the open steps, the refs; it has no section for what is done; text carried
+verbatim from elsewhere sits below a "Carried" heading, after the shape. The open steps section is always present; the others are present
+when they have content. There is no line roof: the cleaner shortens a plan only after its data is in the tree, never by dropping a signal.
 
 - [The shape](#the-shape)
 
@@ -103,8 +103,8 @@ overlay or the master does not list is invisible to whoever reads them to pick t
 
 The sections answer the reader's questions in the order a reader asks them: why does this matter, what is settled, what is left, where do I
 look. What is already there is the tree's to say, so a "done" section would be a second record that drifts (the user, 2026-10-20: a plan
-holds only planned work). A reader who finds the open steps finds the whole remaining job, each step naming its file and its proof, so
-a sub-agent can take one step cold. Carried text, a draft or a paste kept verbatim, sits last, so the shape is read before the material.
+holds only planned work). A reader who finds the open steps finds the whole remaining job, each step naming its file and its proof, so a
+sub-agent can take one step cold. Carried text, a draft or a paste kept verbatim, sits last, so the shape is read before the material.
 
 ### Done is deleted
 

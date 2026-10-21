@@ -19,3 +19,5 @@ metadata:
    command, `Invoke-TestFile` with `-PassThru`; no `cd &&`, pipes or `;` in the call; `<s>` at most 360.
 3. Exit 124 is the safeguard: report it as the stop reason and never retry with a larger limit; a denied call goes to the coordinator, not
    to a retry.
+4. A private function runs inside its module, `& (Get-Module <Module>) { <Function> … }`, never by dot-sourcing its file; a background run
+   is waited on by a second background call, never by polling its output; the tree is searched with the Grep tool, never a shell loop.

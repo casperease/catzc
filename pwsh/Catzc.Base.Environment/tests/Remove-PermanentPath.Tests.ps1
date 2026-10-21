@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Environment/tests/Remove-PermanentPath.Tests.ps1
-    folder: tests
-    name: remove-permanent-path-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "86b8ecdac2ef"
   edges:
     docs: "[Remove-PermanentPath.Tests.ps1.md](docs/references/pwsh/catzc-base-environment/tests/Remove-PermanentPath.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Environment/Remove-PermanentPath.ps1
 ---
 #>
 

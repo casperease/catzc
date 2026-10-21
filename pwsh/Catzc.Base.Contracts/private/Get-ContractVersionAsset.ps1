@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Get-ContractVersionAsset.ps1
-    folder: private
-    name: get-contract-version-asset
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: f63dbcf10108
   edges:
     docs: "[Get-ContractVersionAsset.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractVersionAsset.ps1.md)"
     cites:
@@ -54,12 +42,18 @@ function Get-ContractVersionAsset {
     }
 
     $override = (Read-ContractManifest -Folder $Folder).direction
+    $normalForm = (Get-Config -Config languages).naming_normal_form
     $used = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $moduleFolders = [string[]] [System.IO.Directory]::GetDirectories($Folder)
     [System.Array]::Sort($moduleFolders, [System.StringComparer]::Ordinal)
     $assets = foreach ($moduleFolder in $moduleFolders) {
         $module = [System.IO.Path]::GetFileName($moduleFolder)
-        $root = [Catzc.Base.Contracts.ContractsConfig]::ResolveTargetRoot($TargetRoot, $module)
+        # target_roots names a module in the normal form; a unit that keeps its source's folder names is looked up by its rendering.
+        $key = $module
+        if ([Catzc.Base.Languages.LanguageNaming]::IsInCase('pascal-dotted', $module)) {
+            $key = [Catzc.Base.Languages.LanguageNaming]::ToNormal('pascal-dotted', $module, $normalForm)
+        }
+        $root = [Catzc.Base.Contracts.ContractsConfig]::ResolveTargetRoot($TargetRoot, $key)
         $files = [string[]] @(Get-ChildPath $moduleFolder -File -Depth 64 -Exclude @() -PruneVendor $false)
         $paths = [string[]] @($files | ForEach-Object { [System.IO.Path]::GetRelativePath($moduleFolder, $_) -replace '\\', '/' })
         [System.Array]::Sort($paths, [System.StringComparer]::Ordinal)

@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "018932aa5caf"
+  edges:
+    code: pwsh/Catzc.Base.CodeMeta/Format-CodeMetaHead.ps1
+    cites:
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+---
+#>
+
 Describe 'Format-CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         $script:form = [Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')

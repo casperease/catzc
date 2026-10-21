@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "016df956143b"
+---
+#>
+
 @{
     Severity            = @('Error', 'Warning', 'Information')
 

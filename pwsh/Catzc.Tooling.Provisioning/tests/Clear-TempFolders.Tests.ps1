@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1
-    folder: tests
-    name: clear-temp-folders-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c2df81b14cfb
   edges:
     docs: "[Clear-TempFolders.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
 ---
 #>
 

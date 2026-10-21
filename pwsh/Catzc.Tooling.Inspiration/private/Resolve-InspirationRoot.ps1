@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
-    folder: private
-    name: resolve-inspiration-root
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: private
+    with_body_sha: "248648d5aece"
   edges:
     test: pwsh/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
     docs: "[Resolve-InspirationRoot.ps1.md](docs/references/pwsh/catzc-tooling-inspiration/private/Resolve-InspirationRoot.ps1.md)"

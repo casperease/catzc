@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/NoAzModuleNaming.psm1
-    folder: pwsh/.scriptanalyzer
-    name: no-az-module-naming
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: fe59d6fd84f4
   edges:
     docs: "[NoAzModuleNaming.psm1.md](docs/references/pwsh/scriptanalyzer/NoAzModuleNaming.psm1.md)"
 ---

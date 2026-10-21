@@ -1,17 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: python/catzc_diagrams/configs/drawio.yml
-#     folder: configs
-#     name: drawio
-#     filetype: yml
-#     role: drawio-kit
-#     language: yaml
-#     track: python
-#     tracktype: modules
-#     module: catzc_diagrams
-#     moduletype: python
+#     with_body_sha: "3103a327be19"
 #   edges:
 #     docs: "[drawio.yml.md](docs/references/python/catzc_diagrams/configs/drawio.yml.md)"
 # ---

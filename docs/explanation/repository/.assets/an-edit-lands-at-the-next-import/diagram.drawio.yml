@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: bf704e4570ef
+# ---
+
 description:
   A variant edit is one key in variants.yml and a re-import; a wrong value fails once at load in the config type, and a guard asked later or
   a committer asking for the workspace stops with a message naming the fix.

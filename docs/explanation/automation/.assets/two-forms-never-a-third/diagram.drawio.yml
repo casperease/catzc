@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "9bf424d90fda"
+# ---
+
 description:
   A path has a communication form and a binding form, never a third; one pair of crossers moves it between them, a hybrid form is always a
   bug, and a published artifact anchors on its own root across a stage boundary.

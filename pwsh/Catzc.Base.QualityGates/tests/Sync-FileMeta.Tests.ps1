@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "4df5a068fd65"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/Sync-FileMeta.ps1
+    cites:
+      - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - ADR-REPO-FILEMETA-HEADPOLICY
+---
+#>
+
 Describe 'Sync-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'sync-repository'

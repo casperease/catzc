@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepCustomerClassViolations.Tests.ps1
-    folder: tests
-    name: get-bicep-customer-class-violations-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b0687748a3fa
   edges:
     docs: "[Get-BicepCustomerClassViolations.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepCustomerClassViolations.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/private/Get-BicepCustomerClassViolations.ps1
 ---
 #>
 

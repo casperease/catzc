@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
-    name: update-adr-citation
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: b56f1b8df323
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
     docs: "[Update-AdrCitation.ps1.md](docs/references/pwsh/catzc-base-docs/Update-AdrCitation.ps1.md)"

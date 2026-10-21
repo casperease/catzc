@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b4e253814490
+  edges:
+    code: pwsh/Catzc.Base.Maps/types/WorldMapHighlight.cs
+    cites:
+      - ADR-DSGN-TRACK-ROOTFILE
+      - ADR-DSGN-TRACK-LITCELL
+---
+#>
+
 Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $tracks = @(

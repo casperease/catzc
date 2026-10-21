@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
-    folder: tests
-    name: write-tool-probe-report-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4ae137e5712d"
   edges:
     docs: "[Write-ToolProbeReport.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Write-ToolProbeReport.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Core/Write-ToolProbeReport.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

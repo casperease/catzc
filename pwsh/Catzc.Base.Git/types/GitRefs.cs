@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/types/GitRefs.cs
-    folder: types
-    name: git-refs
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: f18cc8e954c0
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitRefs.Tests.ps1
     docs: "[GitRefs.cs.md](docs/references/pwsh/catzc-base-git/types/GitRefs.cs.md)"

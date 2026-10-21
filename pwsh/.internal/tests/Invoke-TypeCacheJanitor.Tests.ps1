@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e19efd668439
+---
+#>
+
 BeforeAll {
     # The transient importer modules are removed after every import, so this test file loads its own copies.
     Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force

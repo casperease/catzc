@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/Get-AdrRuleSet.ps1
-    name: get-adr-rule-set
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "838a0273a24c"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
     docs: "[Get-AdrRuleSet.ps1.md](docs/references/pwsh/catzc-base-docs/Get-AdrRuleSet.ps1.md)"

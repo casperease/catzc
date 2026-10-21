@@ -1,0 +1,8 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Spelling, the quality gate that spell-checks the
+# repository's known file types with cspell, and returns its result under -PassThru.
+parameters:
+  path: string[]
+  exclude: string[]
+  output_folder: string
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

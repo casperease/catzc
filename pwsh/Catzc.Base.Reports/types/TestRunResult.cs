@@ -1,3 +1,16 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "720b5c1bee75"
+  edges:
+    test: pwsh/Catzc.Base.Reports/tests/types/TestRunResult.Tests.ps1
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
+---
+*/
+
 using System;
 using System.Collections.Generic;
 

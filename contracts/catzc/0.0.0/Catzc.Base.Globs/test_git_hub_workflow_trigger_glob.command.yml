@@ -1,0 +1,8 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-GitHubWorkflowTriggerGlob, the quality gate that checks
+# a GitHub workflow's trigger path filters against a globset's projection and returns its result under -PassThru.
+parameters:
+  name: string!
+  workflow_path: string!
+  output_folder: string
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

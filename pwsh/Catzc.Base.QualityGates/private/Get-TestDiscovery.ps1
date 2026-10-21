@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-TestDiscovery.ps1
-    folder: private
-    name: get-test-discovery
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "60bd94a4ce80"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestDiscovery.Tests.ps1
     docs: "[Get-TestDiscovery.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TestDiscovery.ps1.md)"

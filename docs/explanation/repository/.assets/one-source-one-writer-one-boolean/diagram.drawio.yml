@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: c59a12828ac8
+# ---
+
 description:
   A source of truth and the registry feed the single writer, which reproduces every opted-in root file as a headed file; one boolean per
   entry sends it to a gitignored or a tracked target.

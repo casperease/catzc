@@ -1,17 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: ".ado/pipelines/deploy-nova.yaml"
-#     name: deploy-nova
-#     filetype: yaml
-#     role: pipeline
-#     language: pipeline-yaml
-#     track: ado-pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
+#     with_body_sha: "58029ec081e7"
 #   edges:
 #     docs: "[deploy-nova.yaml.md](docs/references/ado/pipelines/deploy-nova.yaml.md)"
 # ---

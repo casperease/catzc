@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
-    folder: tests
-    name: test-adr-engine-neutrality-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "346071240b0b"
   edges:
     docs: "[Test-AdrEngineNeutrality.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Test-AdrEngineNeutrality.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: a7e9b305b18d
+  edges:
+    code: pwsh/Catzc.Base.Git/types/GitRefs.cs
+---
+#>
+
 Describe 'GitRefs' -Tag 'L0', 'logic' {
     BeforeAll {
         # A git directory written by hand: the reader only reads ref files, so no git is needed.

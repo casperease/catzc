@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/Build-CombinedTypeAssembly.Tests.ps1
-    name: build-combined-type-assembly-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: "2a049ef3e815"
   edges:
     docs: "[Build-CombinedTypeAssembly.Tests.ps1.md](docs/references/pwsh/internal/tests/Build-CombinedTypeAssembly.Tests.ps1.md)"
 ---

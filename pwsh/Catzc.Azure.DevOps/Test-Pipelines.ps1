@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
-    name: test-pipelines
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "836ace994f00"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
     docs: "[Test-Pipelines.ps1.md](docs/references/pwsh/catzc-azure-devops/Test-Pipelines.ps1.md)"

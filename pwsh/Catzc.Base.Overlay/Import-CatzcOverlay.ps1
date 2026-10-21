@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Overlay/Import-CatzcOverlay.ps1
-    name: import-catzc-overlay
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Overlay
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: efd83ed647c7
   edges:
     test: pwsh/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1
     docs: "[Import-CatzcOverlay.ps1.md](docs/references/pwsh/catzc-base-overlay/Import-CatzcOverlay.ps1.md)"

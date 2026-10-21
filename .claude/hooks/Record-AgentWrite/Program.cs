@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: ".claude/hooks/Record-AgentWrite/Program.cs"
-    folder: hooks/Record-AgentWrite
-    name: program
-    filetype: cs
-    role: hook
-    language: csharp
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
+    with_body_sha: "2d82ba631803"
   edges:
     docs: "[Program.cs.md](docs/references/pwsh/claude-hooks/Record-AgentWrite/Program.cs.md)"
 ---

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b62e9f4ed7bf
+  edges:
+    code: pwsh/Catzc.Base.Variants/Get-EnabledCustomers.ps1
+---
+#>
+
 Describe 'Get-EnabledCustomers' -Tag 'L0', 'logic' {
 
     It 'returns an empty set when have_customers is false' {

@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "97d9e90c0d62"
+---
+*/
+
 // Records every save the editor makes in a catzc checkout, so the listen mode can tell the editor's changes from an agent's.
 // One JSON line per save, appended to out/editor-saves.jsonl (the path WriteLedger.EditorLedger names): the time, the repository-relative
 // path, and the content hash the listener computes, SHA-256 of the bytes with every CR removed. A workspace without importer.ps1 at

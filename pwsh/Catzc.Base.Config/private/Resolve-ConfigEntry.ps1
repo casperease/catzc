@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
-    folder: private
-    name: resolve-config-entry
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: ad5149184748
   edges:
     docs: "[Resolve-ConfigEntry.ps1.md](docs/references/pwsh/catzc-base-config/private/Resolve-ConfigEntry.ps1.md)"
     cites:

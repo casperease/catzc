@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "9c874fec3f74"
+  edges:
+    code: pwsh/Catzc.Base.Slides/Move-Diagram.ps1
+    cites:
+      - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+      - ADR-REPO-SLIDES-ONEBUILDCOMMAND
+---
+#>
+
 Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive "widget-repository-$([guid]::NewGuid().ToString('N').Substring(0, 8))"

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ConfigExtensions/Invoke-ConfigValidator.ps1
-    name: invoke-config-validator
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ConfigExtensions
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: d9e01555ed38
   edges:
     test: pwsh/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
     docs: "[Invoke-ConfigValidator.ps1.md](docs/references/pwsh/catzc-base-configextensions/Invoke-ConfigValidator.ps1.md)"

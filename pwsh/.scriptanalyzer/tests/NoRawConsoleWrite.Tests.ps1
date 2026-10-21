@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1
-    folder: pwsh/.scriptanalyzer/tests
-    name: no-raw-console-write-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "2ed88a7bbe3b"
   edges:
     docs: "[NoRawConsoleWrite.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1.md)"
 ---

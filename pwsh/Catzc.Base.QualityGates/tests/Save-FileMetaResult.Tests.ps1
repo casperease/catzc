@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b9823b17f61d
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Save-FileMetaResult.ps1
+    cites:
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+---
+#>
+
 Describe 'Save-FileMetaResult' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'save-repository'

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/types/PythonWorkspaceFile.cs
-    folder: types
-    name: python-workspace-file
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "613a2fecc411"
   edges:
     docs: "[PythonWorkspaceFile.cs.md](docs/references/pwsh/catzc-base-languages/types/PythonWorkspaceFile.cs.md)"
     cites:

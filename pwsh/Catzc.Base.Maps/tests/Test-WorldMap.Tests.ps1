@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
-    folder: tests
-    name: test-world-map-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: f3f988ffed35
   edges:
     docs: "[Test-WorldMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE

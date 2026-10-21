@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Inspiration/types/InspirationEntry.cs
-    folder: types
-    name: inspiration-entry
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: f4b31586431e
   edges:
     docs: "[InspirationEntry.cs.md](docs/references/pwsh/catzc-tooling-inspiration/types/InspirationEntry.cs.md)"
     cites:

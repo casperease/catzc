@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1
-    name: assert-catzc-run-mode-exclusive-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: a8aa38f8375f
   edges:
     docs: "[Assert-CatzcRunModeExclusive.Tests.ps1.md](docs/references/pwsh/internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1.md)"
 ---

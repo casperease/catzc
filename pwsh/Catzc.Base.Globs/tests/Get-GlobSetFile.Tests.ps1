@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
-    folder: tests
-    name: get-glob-set-file-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: f26b7d9a68aa
   edges:
     docs: "[Get-GlobSetFile.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Globs/Get-GlobSetFile.ps1
     cites:
       - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
       - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY

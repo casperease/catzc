@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ae545a72a12a
+---
+#>
+
 function Add-MinimapHit {
     [CmdletBinding()]
     param(

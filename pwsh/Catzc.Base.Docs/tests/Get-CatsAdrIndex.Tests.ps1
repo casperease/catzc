@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: baf8c16e9eec
+  edges:
+    code: pwsh/Catzc.Base.Docs/private/Get-CatsAdrIndex.ps1
+---
+#>
+
 Describe 'Get-CatsAdrIndex' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:indexPath = Join-Path $TestDrive 'index.md'

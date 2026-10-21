@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "6988149f58b6"
+# ---
+
 # cspell:ignore minimaps widgetese getpixel miny
 """The declaration of a diagram and its two directions: put (yml to model to raster) and get (model to yml).
 

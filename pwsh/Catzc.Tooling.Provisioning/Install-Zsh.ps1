@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/Install-Zsh.ps1
-    name: install-zsh
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: a5f04f79cf88
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
     docs: "[Install-Zsh.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Install-Zsh.ps1.md)"

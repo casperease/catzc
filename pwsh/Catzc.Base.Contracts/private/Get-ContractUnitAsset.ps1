@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Get-ContractUnitAsset.ps1
-    folder: private
-    name: get-contract-unit-asset
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "77a67e6ec1b5"
   edges:
     docs: "[Get-ContractUnitAsset.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractUnitAsset.ps1.md)"
     cites:

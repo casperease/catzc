@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Modules/Get-CatzcModule.ps1
-    name: get-catzc-module
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Modules
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "7f74cd7bca56"
   edges:
     test: pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
     docs: "[Get-CatzcModule.ps1.md](docs/references/pwsh/catzc-base-modules/Get-CatzcModule.ps1.md)"

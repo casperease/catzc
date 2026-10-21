@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: eb0f41aa21af
+  edges:
+    code: pwsh/Catzc.Base.CodeMeta/types/CodeMetaHead.cs
+    cites:
+      - ADR-REPO-CODEMETA-CODEFILEHEAD
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-HELP-HELPONCOMMENTPAGE
+---
+#>
+
 # CodeMetaHead over short widget/gadget texts: the proofs are the byte-identical second run and the lossless removal.
 Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {

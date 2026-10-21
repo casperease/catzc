@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: c387da943718
+  edges:
+    code: pwsh/Catzc.Tooling.Core/private/Test-ToolHomeProbe.ps1
+---
+#>
+
 Describe 'Test-ToolHomeProbe' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:toolHome = Join-Path $TestDrive ([Guid]::NewGuid())

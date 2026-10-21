@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e4952b02d9b3
+  edges:
+    code: pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+---
+#>
+
 Describe 'Get-BicepParametersFileName' -Tag 'L0', 'logic' {
     It 'names a configuration-root artifact by config alone (parameters.CONFIG.json)' {
         & (Get-Module Catzc.Azure.Templates) { Get-BicepParametersFileName -Environment alpha } |

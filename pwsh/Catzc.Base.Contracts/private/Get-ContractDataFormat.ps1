@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Get-ContractDataFormat.ps1
-    folder: private
-    name: get-contract-data-format
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "33738b64b5dd"
   edges:
     docs: "[Get-ContractDataFormat.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractDataFormat.ps1.md)"
     cites:

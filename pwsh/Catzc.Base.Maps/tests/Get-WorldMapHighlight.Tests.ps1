@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: a233ff3cde06
+  edges:
+    code: pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+    cites:
+      - ADR-DSGN-TRACK-LITCELL
+      - ADR-FLOW-CD
+---
+#>
+
 Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:map = [Catzc.Base.Maps.WorldMapBuilder]::Build(

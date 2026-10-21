@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
-    name: test-catzc-build
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: f81bacbe0d66
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1
     docs: "[Test-CatzcBuild.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-CatzcBuild.ps1.md)"

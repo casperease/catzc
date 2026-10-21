@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
-    folder: tests/types
-    name: cli-runner-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b1ee26a67913
   edges:
     docs: "[CliRunner.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Execution/types/CliRunner.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

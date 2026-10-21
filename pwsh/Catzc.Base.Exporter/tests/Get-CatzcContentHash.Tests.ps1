@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b2c40212ad21
+  edges:
+    code: pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
+---
+#>
+
 Describe 'Get-CatzcContentHash' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:tree = Join-Path $TestDrive ([System.Guid]::NewGuid())

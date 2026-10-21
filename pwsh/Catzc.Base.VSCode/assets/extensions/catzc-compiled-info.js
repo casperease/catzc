@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: b8b1fcec3805
+---
+*/
+
 // A read-only editor for the committed pwsh/.compiled/Catzc.Types.<hash>.dll: a short note instead of the binary screen.
 // The current hash is computed from pwsh/<module>/types/*.cs with the algorithm of Import-CSharpTypes (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD):
 // per file the SHA-256 of the bytes without CR, upper-hex; one "<module>/<type>|<hex>\n" line per file in ordinal order;

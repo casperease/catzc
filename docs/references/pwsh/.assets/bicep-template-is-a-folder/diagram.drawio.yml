@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "355f21e3dac2"
+# ---
+
 description:
   Template discovery walks the template folders, lets an optional options.yml override five derived defaults, and resolves each template's
   short name and type; the build then resolves the parameter addresses per slot and compiles through the az runner.

@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/policy-assignment.bicep
-//     name: policy-assignment
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: policy-assignment
-//     moduletype: bicep
+//     with_body_sha: "6db8b128629c"
 //   edges:
 //     docs: "[policy-assignment.bicep.md](docs/references/infrastructure/modules/policy-assignment.bicep.md)"
 // ---

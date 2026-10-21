@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/tests/Install-Postman.Tests.ps1
-    folder: tests
-    name: install-postman-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "7f2536332d1a"
   edges:
     docs: "[Install-Postman.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Install-Postman.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Provisioning/Install-Postman.ps1
 ---
 #>
 

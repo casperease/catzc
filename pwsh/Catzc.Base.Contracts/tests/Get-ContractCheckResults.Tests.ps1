@@ -2,21 +2,12 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1
-    folder: tests
-    name: get-contract-check-results-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: cac1ad4d187e
   edges:
     docs: "[Get-ContractCheckResults.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-ContractCheckResults.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Contracts/Get-ContractCheckResults.ps1
     cites:
+      - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
       - ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE
       - ADR-REPO-CONTRACT-PROVENBYTESTS
       - ADR-REPO-CONTRACT-CONTRACTASSET
@@ -34,7 +25,7 @@ Describe 'Get-ContractCheckResults' -Tag 'L0', 'logic' {
 
         function Add-Asset {
             param([string] $Relative, [string] $Content = '')
-            Add-File "contracts/widget/0.0.0/Catzc.Widget/$Relative" $Content
+            Add-File "contracts/widget/0.0.0/catzc.widget/$Relative" $Content
         }
 
         function Get-CheckResult {
@@ -214,7 +205,7 @@ widget: cog
 
         It 'fails a sample with no schema beside it when it does not parse' {
             Add-Asset 'rest/gadget.sample.yml' "widget: [1`n"
-            (Get-CheckResult 'rest/gadget.sample.yml').Findings | Should -BeLike "'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.sample.yml' does not parse as Yaml:*"
+            (Get-CheckResult 'rest/gadget.sample.yml').Findings | Should -BeLike "'contracts/widget/0.0.0/catzc.widget/rest/gadget.sample.yml' does not parse as Yaml:*"
         }
 
         It 'fails a sample that is neither JSON nor YAML' {
@@ -247,7 +238,7 @@ widget: cog
             $sample.Passed | Should -BeFalse
             $sample.Findings | Should -Be @("`$: the required property 'widget' is missing")
             $schema = $results | Where-Object { $_.Asset.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Schema }
-            $schema.Asset.Target | Should -Be 'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.sample.json'
+            $schema.Asset.Target | Should -Be 'contracts/widget/0.0.0/catzc.widget/rest/gadget.sample.json'
             $schema.Passed | Should -BeTrue
         }
 
@@ -262,7 +253,7 @@ widget: cog
         It 'fails a schema beside a sample on the schema''s result when it does not parse' {
             Add-Asset 'rest/gadget.schema.json' '{"type":'
             Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'
-            (Get-CheckResult 'rest/gadget.schema.json').Findings | Should -BeLike "'contracts/widget/0.0.0/Catzc.Widget/rest/gadget.schema.json' does not parse as Json:*"
+            (Get-CheckResult 'rest/gadget.schema.json').Findings | Should -BeLike "'contracts/widget/0.0.0/catzc.widget/rest/gadget.schema.json' does not parse as Json:*"
         }
     }
 
@@ -302,12 +293,12 @@ widget: cog
             Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
                 [pscustomobject]@{ name = 'Catzc.Widget'; root = 'widgets/Catzc.Widget'; languages = @('powershell') }
             }
-            Add-Asset 'Get-Widget.command.yml' "parameters:`n  Path: string!`n  Strict: switch`noutput: string`n"
+            Add-Asset 'get_widget.command.yml' "parameters:`n  path: string!`n  strict: switch`noutput: string`n"
         }
 
-        It 'passes when the command declares the signature the contract states' {
+        It 'passes when the command declares the signature the contract states, its names rendered to the normal form' {
             Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([string])]`n    param(`n        [Parameter(Mandatory)]`n        [string] `$Path,`n`n        [switch] `$Strict`n    )`n}`n"
-            $result = Get-CheckResult 'Get-Widget.command.yml'
+            $result = Get-CheckResult 'get_widget.command.yml'
             $result.Asset.Kind | Should -Be ([Catzc.Base.Contracts.ContractAssetKind]::Command)
             $result.Asset.Direction | Should -Be ([Catzc.Base.Contracts.ContractDirection]::Provided)
             $result.Asset.Target | Should -Be 'widgets/Catzc.Widget/Get-Widget.ps1'
@@ -316,18 +307,32 @@ widget: cog
 
         It 'fails on each disagreement, one finding each' {
             Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([int])]`n    param(`n        [string] `$Path,`n`n        [switch] `$Strict,`n`n        [int] `$Depth`n    )`n}`n"
-            $result = Get-CheckResult 'Get-Widget.command.yml'
+            $result = Get-CheckResult 'get_widget.command.yml'
             $result.Passed | Should -BeFalse
             $result.Findings | Should -Be @(
-                "parameter 'Path': the contract says mandatory, the command declares optional"
-                "parameter 'Depth' is in the command but not in the contract"
+                "parameter 'path': the contract says mandatory, the command declares optional"
+                "parameter 'depth' is in the command but not in the contract"
                 'output: the contract says string, the command declares int'
             )
         }
 
+        It 'compares a catzc type and a parameter set in the normal form' {
+            Add-Asset 'get_widget.command.yml' "parameters:`n  path: string! in by_path`noutput: catzc.widgets.widget_gadget[]`n"
+            Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([Catzc.Widgets.WidgetGadget[]])]`n    param(`n        [Parameter(Mandatory, ParameterSetName = 'ByPath')]`n        [string] `$Path`n    )`n}`n"
+            $result = Get-CheckResult 'get_widget.command.yml'
+            $result.Passed | Should -BeTrue -Because ($result.Findings -join "`n")
+        }
+
+        It 'fails when the contract names anything outside the normal form' {
+            Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    param([string] `$Path)`n}`n"
+            Add-Asset 'get_widget.command.yml' "parameters:`n  Path: string`n"
+            $result = Get-CheckResult 'get_widget.command.yml'
+            $result.Findings | Should -Be @("'contracts/widget/0.0.0/catzc.widget/get_widget.command.yml': 'Path' is not in the repository normal form, snake (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE)")
+        }
+
         It 'fails when the command file is missing, and says so when the name is a private function' {
             Add-File 'widgets/Catzc.Widget/private/Get-Widget.ps1' "function Get-Widget {`n}`n"
-            $result = Get-CheckResult 'Get-Widget.command.yml'
+            $result = Get-CheckResult 'get_widget.command.yml'
             $result.Passed | Should -BeFalse
             $result.Findings.Count | Should -Be 1
             $result.Findings[0] | Should -BeLike "the target 'widgets/Catzc.Widget/Get-Widget.ps1' does not exist*'widgets/Catzc.Widget/private/Get-Widget.ps1' exists, so 'Get-Widget' is a private function, not a command*"
@@ -335,10 +340,10 @@ widget: cog
 
         It 'fails when the contract is not written in the contract language' {
             Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    param([string] `$Path)`n}`n"
-            Add-Asset 'Get-Widget.command.yml' "parameters:`n  Path: text`n"
-            $result = Get-CheckResult 'Get-Widget.command.yml'
+            Add-Asset 'get_widget.command.yml' "parameters:`n  path: text`n"
+            $result = Get-CheckResult 'get_widget.command.yml'
             $result.Findings.Count | Should -Be 1
-            $result.Findings[0] | Should -BeLike "'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml': command contract validation failed*type 'text' is not one of*"
+            $result.Findings[0] | Should -BeLike "'contracts/widget/0.0.0/catzc.widget/get_widget.command.yml': command contract validation failed*type 'text' is not one of*"
         }
     }
 }

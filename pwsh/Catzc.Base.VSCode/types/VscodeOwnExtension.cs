@@ -1,3 +1,15 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: fd22e510262c
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

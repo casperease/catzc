@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Asserts/Test-Command.ps1
-    name: test-command
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-    visibility: public
+    with_body_sha: d72ddf112bf9
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Test-Command.Tests.ps1
     docs: "[Test-Command.ps1.md](docs/references/pwsh/catzc-base-asserts/Test-Command.ps1.md)"

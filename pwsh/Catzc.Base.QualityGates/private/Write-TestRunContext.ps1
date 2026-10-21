@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Write-TestRunContext.ps1
-    folder: private
-    name: write-test-run-context
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: c3164331e51f
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestRunContext.Tests.ps1
     docs: "[Write-TestRunContext.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestRunContext.ps1.md)"

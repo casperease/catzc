@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
-    folder: types
-    name: build-validation-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: a4641aeef15e
   edges:
     test: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
     docs: "[BuildValidationConfig.cs.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md)"

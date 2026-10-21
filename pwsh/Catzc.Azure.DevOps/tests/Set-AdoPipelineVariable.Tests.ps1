@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
-    folder: tests
-    name: set-ado-pipeline-variable-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: ca1483bfff71
   edges:
     docs: "[Set-AdoPipelineVariable.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops/tests/Set-AdoPipelineVariable.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
 ---
 #>
 

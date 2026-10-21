@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: dbe49f15abfe
+  edges:
+    code: pwsh/Catzc.Base.Folders/types/FolderWalker.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY
+---
+#>
+
 # FolderWalker lists below a folder to a bounded depth, prunes named folders while it walks, and never follows a link.
 Describe 'FolderWalker' -Tag 'L0', 'logic' {
     BeforeAll {

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: bf2fd227d84b
+# ---
+
 """The minimap contract: the kit accepts the contract's sample and rejects a minimap JSON that breaks the schema.
 
 usage (repo root, background): timeout 120 uv run -q --project python/catzc_diagrams python -m pytest python/catzc_diagrams/tests/test_minimap_contract.py

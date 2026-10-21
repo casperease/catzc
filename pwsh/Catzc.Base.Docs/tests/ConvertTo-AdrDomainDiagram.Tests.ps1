@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1
-    folder: tests
-    name: convert-to-adr-domain-diagram-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "19fe9cd3fee0"
   edges:
     docs: "[ConvertTo-AdrDomainDiagram.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/ConvertTo-AdrDomainDiagram.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

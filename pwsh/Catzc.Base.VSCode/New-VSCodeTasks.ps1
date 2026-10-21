@@ -2,22 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/New-VsCodeTasks.ps1
-    name: new-vs-code-tasks
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "12ff78e090d8"
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/New-VsCodeTasks.Tests.ps1
-    docs: "[New-VsCodeTasks.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VsCodeTasks.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeTasks.Tests.ps1
+    docs: "[New-VSCodeTasks.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VSCodeTasks.ps1.md)"
     cites:
       - ADR-REPO-ROOTCFG
 ---

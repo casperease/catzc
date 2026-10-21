@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
-    name: test-glob-set-trigger-coverage
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "79270ea4a3b4"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1
     docs: "[Test-GlobSetTriggerCoverage.ps1.md](docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md)"

@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "0aa62c03406a"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/types/FunctionHelp.cs
+    cites:
+      - ADR-REPO-COMMENTS-PAGEISAUTHORED
+      - ADR-REPO-HELP-HELPONCOMMENTPAGE
+      - ADR-REPO-HELP-MARKDOWNASWRITTEN
+      - ADR-REPO-HELP-FIVEFAULTSREPORTED
+---
+#>
+
 Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
     BeforeAll {
         $script:config = [ordered]@{

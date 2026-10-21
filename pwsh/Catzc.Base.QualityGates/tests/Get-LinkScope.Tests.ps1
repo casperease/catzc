@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ce8d3a877edb
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-LinkScope.ps1
+    cites:
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+---
+#>
+
 Describe 'Get-LinkScope' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:diskRoot = [System.IO.Path]::GetPathRoot($TestDrive)

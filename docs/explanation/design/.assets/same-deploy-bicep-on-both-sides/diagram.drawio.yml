@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "094e13f832a7"
+# ---
+
 description:
   A developer after Connect-AzCli and a pipeline step in azcli mode type the same Deploy-Bicep; only the pipeline must pin the subscription,
   and a run ends as a rejection, a preview, a failure or a deployment.

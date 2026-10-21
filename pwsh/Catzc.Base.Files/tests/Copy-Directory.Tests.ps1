@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: a408ecdeb20a
+  edges:
+    code: pwsh/Catzc.Base.Files/Copy-Directory.ps1
+---
+#>
+
 Describe 'Copy-Directory' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:src = Join-Path $TestDrive ([Guid]::NewGuid())

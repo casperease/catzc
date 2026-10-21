@@ -1,18 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Azure.DevOps/configs/ado.yml
-#     folder: configs
-#     name: ado
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Azure.DevOps
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "4aedd15d0f81"
 #   edges:
 #     docs: "[ado.yml.md](docs/references/pwsh/catzc-azure-devops/configs/ado.yml.md)"
 # ---

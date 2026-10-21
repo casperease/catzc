@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "651cc49f2178"
+# ---
+
 description:
   "What a developer and the pipeline see of the pipeline-detection seam: Test-ScriptAnalyzer on a devbox writes its report or throws once
   with every raw-read line, and a CI step on the agent asserts the detector answers true and prints the staging directory."

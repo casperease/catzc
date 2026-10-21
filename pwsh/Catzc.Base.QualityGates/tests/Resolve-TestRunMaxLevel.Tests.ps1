@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "433ff7af0277"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Resolve-TestRunMaxLevel.ps1
+---
+#>
+
 Describe 'Resolve-TestRunMaxLevel' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates

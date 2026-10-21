@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
-    folder: tests
-    name: test-glob-set-protection-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "664bbb3f2e23"
   edges:
     docs: "[Test-GlobSetProtection.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetProtection.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1
     cites:
       - ADR-REPO-PROTGLOB
 ---

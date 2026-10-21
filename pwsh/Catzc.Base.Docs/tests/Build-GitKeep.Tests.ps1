@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
-    folder: tests
-    name: build-git-keep-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e18eb96d72bc
   edges:
     docs: "[Build-GitKeep.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
 ---

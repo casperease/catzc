@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
-    folder: private
-    name: get-terminology-corpus
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: e876676be2a7
   edges:
     docs: "[Get-TerminologyCorpus.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md)"
     cites:

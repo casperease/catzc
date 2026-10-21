@@ -1,20 +1,13 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Azure/configs/azure.yml
-#     folder: configs
-#     name: azure
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Azure
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "3e164a076149"
 #   edges:
 #     docs: "[azure.yml.md](docs/references/pwsh/catzc-azure/configs/azure.yml.md)"
+#     cites:
+#       - ADR-AZ-CUSTOMER
+#       - ADR-AZ-DATAMOD
+#       - ADR-AZ-NAMING
 # ---
 
 # yaml-language-server: $schema=.not-azure-schema.json

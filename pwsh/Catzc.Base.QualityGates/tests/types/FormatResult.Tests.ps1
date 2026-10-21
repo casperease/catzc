@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "0ef69c7eca3d"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/types/FormatResult.cs
+    cites:
+      - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+---
+#>
+
 Describe 'FormatResult' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
     It 'carries the language, engine, checked and changed files, and the dry-run flag' {
         $result = [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @('a.wdg', 'b.wdg'), [string[]] @('a.wdg'), $true)

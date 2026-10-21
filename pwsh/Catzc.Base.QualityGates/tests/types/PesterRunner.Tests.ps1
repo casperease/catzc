@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1
-    folder: tests/types
-    name: pester-runner-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5720bfb4769f"
   edges:
     docs: "[PesterRunner.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/PesterRunner.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/types/PesterRunner.cs
 ---
 #>
 

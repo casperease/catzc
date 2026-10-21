@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
-    name: invoke-executable
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "3467349c8c11"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
     docs: "[Invoke-Executable.ps1.md](docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md)"

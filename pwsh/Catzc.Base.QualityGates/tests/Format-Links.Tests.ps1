@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
-    folder: tests
-    name: format-links-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4ccbbcce1319"
   edges:
     docs: "[Format-Links.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Format-Links.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Format-Links.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-PWSH-PARAM-RESOLUTIONORDER

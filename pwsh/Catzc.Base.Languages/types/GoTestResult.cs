@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/types/GoTestResult.cs
-    folder: types
-    name: go-test-result
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: eca303637893
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/GoTestResult.Tests.ps1
     docs: "[GoTestResult.cs.md](docs/references/pwsh/catzc-base-languages/types/GoTestResult.cs.md)"

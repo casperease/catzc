@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "92b5e694cbfd"
+  edges:
+    code: pwsh/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
+---
+#>
+
 Describe 'Assert-AzCliIsConnected' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate from the shipped azure.yml: resolve identity from the test config fixture.

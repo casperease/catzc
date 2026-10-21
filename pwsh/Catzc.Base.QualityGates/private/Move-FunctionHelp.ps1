@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Move-FunctionHelp.ps1
-    folder: private
-    name: move-function-help
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "1569e05c481c"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Move-FunctionHelp.Tests.ps1
     docs: "[Move-FunctionHelp.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Move-FunctionHelp.ps1.md)"
@@ -52,7 +40,7 @@ function Move-FunctionHelp {
         $outcome.Reason = 'the head holds no help'
         return $outcome
     }
-    Assert-NotNull $page -ErrorText "Move-FunctionHelp: comments.yml maps '$Path' to no comment page, so its help has nowhere to go."
+    Assert-NotNull $page -ErrorText "Move-FunctionHelp: the comment-pages config maps '$Path' to no comment page, so its help has nowhere to go."
 
     $yaml = (@($state.ConfigLines | ForEach-Object { if ($_.Length -ge 4) {
                     $_.Substring(4)

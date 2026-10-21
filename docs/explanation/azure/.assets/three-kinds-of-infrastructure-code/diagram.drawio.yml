@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "5f78f48cb0c8"
+# ---
+
 description:
   "The infrastructure code has three kinds, each in its own place of the infrastructure track: reusable modules, templates and configuration
   slots. A template pulls the modules it references into its main.bicep, and one configuration slot deploys that template into one resource

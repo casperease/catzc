@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/private/Get-AdoGraphContext.ps1
-    folder: private
-    name: get-ado-graph-context
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "8deb4aeab729"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Get-AdoGraphContext.Tests.ps1
     docs: "[Get-AdoGraphContext.ps1.md](docs/references/pwsh/catzc-azure-devops/private/Get-AdoGraphContext.ps1.md)"

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
-    folder: types
-    name: comment-page-map
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "55faa45dda5d"
   edges:
     docs: "[CommentPageMap.cs.md](docs/references/pwsh/catzc-base-codemeta/types/CommentPageMap.cs.md)"
     cites:

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/private/ConvertFrom-GoTestJson.ps1
-    folder: private
-    name: convert-from-go-test-json
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: c0a8943e34fc
   edges:
     test: pwsh/Catzc.Base.Languages/tests/ConvertFrom-GoTestJson.Tests.ps1
     docs: "[ConvertFrom-GoTestJson.ps1.md](docs/references/pwsh/catzc-base-languages/private/ConvertFrom-GoTestJson.ps1.md)"

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "1c75c7e8d1e8"
+# ---
+
 description:
   "Invoke-Executable forks by parameter set: the streamed path looks up the executable's time limit and runs it through the C# runner, which
   kills the process tree when the limit runs out; the direct path runs through Invoke-Expression with no time limit."

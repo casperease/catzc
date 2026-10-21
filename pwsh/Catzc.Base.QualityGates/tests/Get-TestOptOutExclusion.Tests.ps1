@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "098711bab8fe"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-TestOptOutExclusion.ps1
+    cites:
+      - ADR-AUTO-TEST-SOURCEONLYTAG
+---
+#>
+
 Describe 'Get-TestOptOutExclusion' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SOURCEONLYTAG' {
     BeforeAll {
         # Fake discovery objects — the same Pester test shape Get-TestBlockTag walks.

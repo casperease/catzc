@@ -1,18 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Tooling.KeyHandler/configs/key-handler-supported.yml
-#     folder: configs
-#     name: key-handler-supported
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Tooling.KeyHandler
-#     moduletype: pwsh-folder
-#     catzc_bundle: full
+#     with_body_sha: "366d1b64070f"
 #   edges:
 #     docs: "[key-handler-supported.yml.md](docs/references/pwsh/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md)"
 # ---

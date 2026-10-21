@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
-    name: new-ado-pull-request
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: eb5b8c38e74d
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/New-AdoPullRequest.Tests.ps1
     docs: "[New-AdoPullRequest.ps1.md](docs/references/pwsh/catzc-azure-devops/New-AdoPullRequest.ps1.md)"

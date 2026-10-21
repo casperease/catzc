@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "9704af14f9a8"
+  edges:
+    code: pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
+---
+#>
+
 Describe 'Get-TrackPlace' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{

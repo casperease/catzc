@@ -4,8 +4,8 @@ catzc:
   immutable:
     with_body_sha: "844022ea64a2"
   edges:
-    test: pwsh/Catzc.Tooling.KeyHandler/tests/Save-PsReadLineKeyHandlerSet.Tests.ps1
-    docs: "[Save-PsReadLineKeyHandlerSet.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/Save-PsReadLineKeyHandlerSet.ps1.md)"
+    test: pwsh/Catzc.Tooling.KeyHandler/tests/Save-PSReadLineKeyHandlerSet.Tests.ps1
+    docs: "[Save-PSReadLineKeyHandlerSet.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/Save-PSReadLineKeyHandlerSet.ps1.md)"
 ---
 #>
 

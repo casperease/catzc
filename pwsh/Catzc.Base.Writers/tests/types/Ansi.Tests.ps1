@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Writers/tests/types/Ansi.Tests.ps1
-    folder: tests/types
-    name: ansi-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4c329886a107"
   edges:
     docs: "[Ansi.Tests.ps1.md](docs/references/pwsh/catzc-base-writers/tests/types/Ansi.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Writers/types/Ansi.cs
     cites:
       - ADR-AUTO-CONSOLE-SPARINGCOLOUR
 ---

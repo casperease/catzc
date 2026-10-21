@@ -1,18 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.CodeMeta/configs/comment-pages.yml
-#     folder: configs
-#     name: comment-pages
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.CodeMeta
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "26d4dfc795b4"
+#   edges:
+#     docs: "[comment-pages.yml.md](docs/references/pwsh/catzc-base-codemeta/configs/comment-pages.yml.md)"
 # ---
 
 pages:

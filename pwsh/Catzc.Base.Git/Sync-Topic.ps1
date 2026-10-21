@@ -1,0 +1,42 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "88992b40a29b"
+  edges:
+    test: pwsh/Catzc.Base.Git/tests/Sync-Topic.Tests.ps1
+    docs: "[Sync-Topic.ps1.md](docs/references/pwsh/catzc-base-git/Sync-Topic.ps1.md)"
+    cites:
+      - ADR-FLOW-GIT-USERRUNSGIT
+      - ADR-FLOW-GIT-SYNCBYREBASE
+---
+#>
+
+function Sync-Topic {
+    [CmdletBinding()]
+    [OutputType([pscustomobject])]
+    param(
+        [Catzc.Base.Git.GitFlowConfig] $Config = (Get-Config -Config git),
+
+        [string] $RepositoryRoot = (Get-RepositoryRoot)
+    )
+
+    Assert-Command git
+
+    $branch = "$((Invoke-Executable 'git rev-parse --abbrev-ref HEAD' -WorkingDirectory $RepositoryRoot -PassThru -Silent).Output)".Trim()
+    Assert-True ($branch -cne 'HEAD') -ErrorText 'Sync-Topic needs a named branch; HEAD is detached.'
+    Assert-False ($Config.IsMain($branch)) -ErrorText "Sync-Topic stopped: '$branch' is a main branch. A topic syncs on its own branch."
+    $status = "$((Invoke-Executable 'git status --porcelain' -WorkingDirectory $RepositoryRoot -PassThru -Silent).Output)".Trim()
+    Assert-True (-not $status) -ErrorText "Sync-Topic stopped: '$branch' has uncommitted changes. Run Save-Topic first."
+
+    Invoke-Executable "git fetch $($Config.remote)" -WorkingDirectory $RepositoryRoot -Silent | Out-Null
+    $point = Get-SyncPoint -Config $Config -RepositoryRoot $RepositoryRoot
+
+    $rebase = Invoke-Executable "git rebase $($point.Commit)" -WorkingDirectory $RepositoryRoot -PassThru -Silent -NoAssert
+    if ($rebase.ExitCode -ne 0) {
+        $conflicts = @("$((Invoke-Executable 'git diff --name-only --diff-filter=U' -WorkingDirectory $RepositoryRoot -PassThru -Silent -NoAssert).Output)" -split "`r?`n" | Where-Object { $_ })
+        throw "Sync-Topic stopped: rebasing '$branch' onto $($point.Commit) conflicts in: $($conflicts -join ', '). Resolve them, then run 'git add <file>' and 'git rebase --continue', or run 'git rebase --abort' to go back."
+    }
+    Write-Message "Sync-Topic: '$branch' now stands on $($point.Commit) ($($point.Source))."
+    [pscustomobject]@{ Branch = $branch; Onto = $point.Commit; Source = $point.Source }
+}

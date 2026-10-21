@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/types/BicepDeploymentPlan.cs
-    folder: types
-    name: bicep-deployment-plan
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "273cf6d65667"
   edges:
     docs: "[BicepDeploymentPlan.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepDeploymentPlan.cs.md)"
 ---

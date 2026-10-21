@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "0ab77ad75581"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/types/FileHeadPolicy.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-FILEMETA-HEADPOLICY
+      - ADR-REPO-FILEMETA-METAKIND
+      - ADR-REPO-VARIANT-FILEHEADS
+---
+#>
+
 Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     It 'forbids a block by default, declared once on the type' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $policy = [Catzc.Base.QualityGates.FileHeadPolicy]::new($null)

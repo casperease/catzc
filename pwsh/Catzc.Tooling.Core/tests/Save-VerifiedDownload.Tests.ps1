@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1
-    folder: tests
-    name: save-verified-download-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "575bebb2f94c"
   edges:
     docs: "[Save-VerifiedDownload.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Save-VerifiedDownload.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
 ---
 #>
 

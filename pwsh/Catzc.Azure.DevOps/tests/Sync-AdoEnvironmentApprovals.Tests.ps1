@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "859619ff1e72"
+  edges:
+    code: pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+---
+#>
+
 Describe 'Sync-AdoEnvironmentApprovals' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:members = @('a@widget.test')

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/private/Read-BicepTemplateOptions.ps1
-    folder: private
-    name: read-bicep-template-options
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: b544824ef7a8
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Read-BicepTemplateOptions.Tests.ps1
     docs: "[Read-BicepTemplateOptions.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Read-BicepTemplateOptions.ps1.md)"

@@ -1,6 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-RootAnalyzerSettings, the quality gate that checks the
-# root analyzer settings parse as a settings hashtable through their link, and returns its result under -PassThru.
-parameters:
-  OutputFolder: string
-  PassThru: switch
-output: Catzc.Base.Reports.QualityGateResult

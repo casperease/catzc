@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.KeyHandler/types/KeyHandlerBinding.cs
-    folder: types
-    name: key-handler-binding
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: "309fced996dd"
   edges:
     docs: "[KeyHandlerBinding.cs.md](docs/references/pwsh/catzc-tooling-keyhandler/types/KeyHandlerBinding.cs.md)"
     cites:

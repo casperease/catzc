@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/SquarifiedTreemap.cs
-    folder: types
-    name: squarified-treemap
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "86742880305f"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/SquarifiedTreemap.Tests.ps1
     docs: "[SquarifiedTreemap.cs.md](docs/references/pwsh/catzc-base-maps/types/SquarifiedTreemap.cs.md)"

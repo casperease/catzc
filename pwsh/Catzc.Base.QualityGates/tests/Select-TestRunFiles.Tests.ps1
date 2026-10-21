@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "0fafb8343075"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Select-TestRunFiles.ps1
+---
+#>
+
 Describe 'Select-TestRunFiles' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fake discovery tests — the Pester test shape Get-TestBlockTag walks and ConvertTo-TestAutomationRowSet reads.

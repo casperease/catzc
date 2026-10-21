@@ -1,3 +1,13 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "236840a67c1e"
+  edges:
+    test: pwsh/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1
+---
+*/
+
 // A scriptblock handed to FindAll runs once per node and allocates about 2 KB each time; these compiled walks allocate almost nothing.
 
 using System;

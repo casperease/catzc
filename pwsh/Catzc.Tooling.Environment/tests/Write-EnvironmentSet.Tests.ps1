@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
-    folder: tests
-    name: write-environment-set-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "0212cc76eefa"
   edges:
     docs: "[Write-EnvironmentSet.Tests.ps1.md](docs/references/pwsh/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
 ---
 #>
 

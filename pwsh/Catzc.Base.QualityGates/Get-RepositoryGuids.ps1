@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Get-RepositoryGuids.ps1
-    name: get-repository-guids
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "21fc89d72a90"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
     docs: "[Get-RepositoryGuids.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md)"

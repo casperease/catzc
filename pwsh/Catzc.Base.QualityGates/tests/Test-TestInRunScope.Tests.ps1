@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "29a8b62f8d3f"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Test-TestInRunScope.ps1
+---
+#>
+
 Describe 'Test-TestInRunScope' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fake discovery tests — the Pester test shape Get-TestBlockTag walks (own It-tags, then the block chain).

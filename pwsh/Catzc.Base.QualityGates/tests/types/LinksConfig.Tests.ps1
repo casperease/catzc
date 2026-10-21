@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1
-    folder: tests/types
-    name: links-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c4057abf4f5f
   edges:
     docs: "[LinksConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/LinksConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/types/LinksConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY

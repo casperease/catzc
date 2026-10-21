@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "467566e9fbc6"
+---
+#>
+
 function New-MinimapData {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.MinimapData])]

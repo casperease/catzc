@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Python/Invoke-Poetry.ps1
-    name: invoke-poetry
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Python
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: c353b212ff59
   edges:
     test: pwsh/Catzc.Tooling.Python/tests/Invoke-Poetry.Tests.ps1
     docs: "[Invoke-Poetry.ps1.md](docs/references/pwsh/catzc-tooling-python/Invoke-Poetry.ps1.md)"

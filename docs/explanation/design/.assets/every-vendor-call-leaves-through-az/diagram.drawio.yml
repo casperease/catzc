@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: f4b37b1bf84b
+# ---
+
 description:
   Two Azure modules do the platform's part on the Bicep deploy path, and every vendor call, a template compile included, leaves through the
   az command-line tool, the one exit to Azure.

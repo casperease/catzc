@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/types/GitIndex.cs
-    folder: types
-    name: git-index
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: fc3244d5443c
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitIndex.Tests.ps1
     docs: "[GitIndex.cs.md](docs/references/pwsh/catzc-base-git/types/GitIndex.cs.md)"

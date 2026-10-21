@@ -16,7 +16,8 @@ name in [use-ps1-not-psm1 rule ADR-PWSH-USEPS-MODULEFILESRESERVED](../../../adr/
 The generated `importer.ps1` shim sets `$env:RepositoryRoot`, imports the **Loader** unconditionally, and delegates the entire load body to
 `Invoke-Importer` in the **Importer** overlay. That body loads the remaining shared modules (**Bootstrap**, **Types**, **Vendor**), then the
 vendored dependencies, then every `pwsh/*` module — compiling the combined C# type assembly once before any module's functions — and
-finishes with the post-import janitors. Two lifetimes fall out of this:
+finishes with the post-import janitors. A janitor reads its source on every load, so a bad source (a glossary or the root config) breaks
+every session's next import, not just the session that wrote it. Two lifetimes fall out of this:
 
 - **Transient** — removed once import finishes: the **Importer** overlay (the shim removes it after `Invoke-Importer` returns) and
   **Bootstrap** (removed at the tail of `Invoke-Importer`). Their functions are import-time orchestration and must not linger in the
@@ -43,4 +44,4 @@ Listed in load order.
 - ADR: [one-living-version](../../../adr/principles/one-living-version.md) — why the two-layer shared code lives here once.
 - ADR: [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) and [caching](../../../adr/automation/caching.md) — the
   combined type assembly and its committed prebuild that Bootstrap and Types implement.
-- Reference: the [BCL area](../BCL/index.md) — the C# type system these loaders compile and load.
+- Reference: the [BCL area](../../BCL/index.md) — the C# type system these loaders compile and load.

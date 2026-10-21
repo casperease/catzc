@@ -1,20 +1,36 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-#     folder: configs
-#     name: glossary
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.ModuleSystem
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "70c2646bcc05"
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-modulesystem/configs/glossary.yml.md)"
+#     cites:
+#       - ADR-AUTO-IMPORTER-ONEENTRY
+#       - ADR-AUTO-MODULE-EXISTSBYLAYOUT
+#       - ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE
+#       - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+#       - ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT
+#       - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+#       - ADR-DSGN-TRACK-ONETECHSTACK
+#       - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+#       - ADR-DSGN-TRACK-FILELANGUAGE
+#       - ADR-DSGN-TRACK-ROOTFILE
+#       - ADR-DSGN-TRACK-UNLISTEDFILE
+#       - ADR-DSGN-TRACK-WORLDMAP
+#       - ADR-DSGN-TRACK-CELL
+#       - ADR-DSGN-TRACK-STACKVIOLATION
+#       - ADR-DSGN-TRACK-LITCELL
+#       - ADR-DSGN-TRACK-VALUECHAINSTACK
+#       - ADR-DSGN-TRACK-VALUECHAINCONCERN
+#       - ADR-DSGN-TRACK-VALUECHAINMAP
+#       - ADR-DSGN-TRACK-UNORDEREDTRACK
+#       - ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES
+#       - ADR-DSGN-TRACKTYPE-ONEROLE
+#       - ADR-DSGN-TRACKTYPE-OPTIONALVENDOR
+#       - ADR-DSGN-TRACKTYPE-VENDOREDCODE
+#       - ADR-FLOW-CD-RELEASECANDIDATE
+#       - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+#       - ADR-REPO-VOCAB
 # ---
 
 concepts:

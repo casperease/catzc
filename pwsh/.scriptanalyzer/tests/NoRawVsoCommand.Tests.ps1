@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1
-    folder: pwsh/.scriptanalyzer/tests
-    name: no-raw-vso-command-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "442d37a11037"
   edges:
     docs: "[NoRawVsoCommand.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1.md)"
 ---

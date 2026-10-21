@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
-    folder: tests
-    name: get-world-map-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "305e5c7980f0"
   edges:
     docs: "[Get-WorldMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
     cites:
       - ADR-DSGN-TRACK-ONETECHSTACK
 ---

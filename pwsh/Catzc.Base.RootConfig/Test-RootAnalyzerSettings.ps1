@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
-    name: test-root-analyzer-settings
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: a18a70f69e2a
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1
     docs: "[Test-RootAnalyzerSettings.ps1.md](docs/references/pwsh/catzc-base-rootconfig/Test-RootAnalyzerSettings.ps1.md)"

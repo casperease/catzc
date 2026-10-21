@@ -2,24 +2,13 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs
-    folder: types
-    name: azure-subscription-record
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e79d21a88a75
   edges:
     docs: "[AzureSubscriptionRecord.cs.md](docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md)"
     cites:
-      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-AZ-DATAMOD
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

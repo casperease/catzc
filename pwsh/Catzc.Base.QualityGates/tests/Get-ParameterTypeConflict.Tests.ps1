@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Get-ParameterTypeConflict.Tests.ps1
-    folder: tests
-    name: get-parameter-type-conflict-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "01de1737c5f1"
   edges:
     docs: "[Get-ParameterTypeConflict.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-ParameterTypeConflict.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Get-ParameterTypeConflict.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

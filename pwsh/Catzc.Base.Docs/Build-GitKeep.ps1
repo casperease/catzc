@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
-    name: build-git-keep
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "57e79d5e2098"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
     docs: "[Build-GitKeep.ps1.md](docs/references/pwsh/catzc-base-docs/Build-GitKeep.ps1.md)"

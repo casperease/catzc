@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f1e97f041b13
+  edges:
+    code: pwsh/Catzc.Base.Variants/types/TrackTypesConfig.cs
+    cites:
+      - ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES
+---
+#>
+
 Describe 'TrackTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES' {
     BeforeAll {
         function script:New-Config {

@@ -18,18 +18,18 @@ plan:
 Lessons from adding ADR-THES-NORMALFORM (catzc-4f, 2026-10-21). Adding one ADR touched seven places (the page, `adrs.yml`, the index build,
 glossary entries, the build of the glossary, the domain's `dora-explains.md`, formatting), needed three throwaway `out/*.ps1` scripts to run
 the checks, and failed `Test-Glossary` once on a contrast written on one side only. The throwaway scripts are plan-agent-shortcuts' gate
-runner, and the plan-edit hook is plan-agent-friction's step 4; this plan follows them and never restates them. Recommended order: step 1
-first (it removes a duplicated fact), then 4 (free), then 2 and 3. Every new ADR or defined term pays these costs again, so each moves from
-an agent's memory or a failing gate into the tree.
+runner, and the plan-edit hook is `Show-EditReminder` with its map `edit-reminders.yml` (landed); this plan follows them and never restates
+them. Recommended order: step 1 first (it removes a duplicated fact), then 2 and 3. Every new ADR or defined term pays these costs again, so
+each moves from an agent's memory or a failing gate into the tree.
 
 ## Decided (the user, 2026-10-21, decision round)
 
 - **An untracked link target stays a failing finding**, as the tree has it (`LinkFindingType.Untracked`): a pipeline's clean checkout
   reports the same link as Dangling and fails, so a devbox-only `pending` kind would break ADR-AUTO-PARITY-CHECKEDEQUALLY. The fix for a new
   file stays its commit.
-- **The ADR-edit reminder is an entry in the plan-edit hook's path-pattern map** (plan-agent-friction's step 4): an edit of `adrs.yml` or
-  any `*/configs/glossary.yml` prints `Build-AdrIndex` / `Build-Glossary` and the checks to run; one mechanism, config entries
-  (ADR-PRIN-CONFIG).
+- **The ADR-edit reminder is an entry in the plan-edit hook's path-pattern map**
+  (`pwsh/Catzc.Base.QualityGates/configs/edit-reminders.yml`): an edit of `adrs.yml` or any `*/configs/glossary.yml` prints `Build-AdrIndex`
+  / `Build-Glossary` and the checks to run; one mechanism, config entries (ADR-PRIN-CONFIG).
 
 ## Open steps
 
@@ -45,7 +45,6 @@ an agent's memory or a failing gate into the tree.
        `adrs.yml` ruleset entry, the index and glossary builds, the domain's `dora-explains.md` entry, the formatting, the checks through
        the gate runner). It links the authoring conventions in `docs/adr/index.md` and ADR-REPO-ADRCODE, and never restates their rules.
        Check: `Test-Links -Path` on it and `Format-Code -Language markdown` on it.
-3. [ ] After plan-agent-friction's step 4: the ADR-edit entry in the hook's path-to-reminder map. Check: the hook's test file under
-       `Invoke-TestFile`, and an edit of `adrs.yml` in a fresh session prints the reminder.
-4. [ ] Delete the memory `adr-citations-follow-domain-deps.md` and its `MEMORY.md` line: `Test-AdrRegistry` already fails a citation outside
-       a domain's `depends_on` (its `CitationGraph` fact), so the gate is the one place the rule lives. Check: a file read of `MEMORY.md`.
+3. [ ] `pwsh/Catzc.Base.QualityGates/configs/edit-reminders.yml`: the ADR-edit entry. Check: `Invoke-TestFile` on
+       `tests/types/EditRemindersConfig.Tests.ps1` with a case for `adrs.yml`, and the piped hook prints the reminder for an `adrs.yml`
+       edit.

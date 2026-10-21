@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1
-    folder: tests
-    name: get-module-profile-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c7c3c8fcbb97
   edges:
     docs: "[Get-ModuleProfile.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Get-ModuleProfile.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.ModuleSystem/Get-ModuleProfile.ps1
 ---
 #>
 

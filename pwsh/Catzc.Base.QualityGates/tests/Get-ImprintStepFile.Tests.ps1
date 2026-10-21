@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: cdbd63e68cee
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-ImprintStepFile.ps1
+    cites:
+      - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+---
+#>
+
 Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-scope-repo'))

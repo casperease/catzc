@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/VariableCasing.psm1
-    folder: pwsh/.scriptanalyzer
-    name: variable-casing
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "407bb7fcb9c6"
   edges:
     docs: "[VariableCasing.psm1.md](docs/references/pwsh/scriptanalyzer/VariableCasing.psm1.md)"
 ---

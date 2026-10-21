@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: af3931882c17
+  edges:
+    code: pwsh/Catzc.Azure/Get-AzureSubscriptionCustomer.ps1
+---
+#>
+
 Describe 'Get-AzureSubscriptionCustomer' -Tag 'L0', 'logic' {
     It 'returns the customer field for a customer subscription' {
         $subscription = [ordered]@{ name = 's'; customer = 'acme'; environments = @('alpha') }

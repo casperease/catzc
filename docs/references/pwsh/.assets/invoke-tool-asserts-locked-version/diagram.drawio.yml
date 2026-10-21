@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: f29ccd2f58bc
+# ---
+
 description:
   "Every Invoke-Tool wrapper asserts the locked version before it runs the tool: Assert-Tool either probes for the executable or checks the
   command and reads its version, and Test-Tool shares the same pieces as a boolean."

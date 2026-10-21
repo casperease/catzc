@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "4559ac72c912"
+  edges:
+    code: pwsh/Catzc.Base.Files/Test-GitPathChanged.ps1
+---
+#>
+
 Describe 'Test-GitPathChanged' -Tag 'L0', 'logic' {
     It 'is true when git status reports an entry under the paths' {
         Mock Invoke-Executable {

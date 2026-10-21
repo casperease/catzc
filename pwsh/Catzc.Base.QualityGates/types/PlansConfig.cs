@@ -1,3 +1,20 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "0de6169d09d1"
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/types/PlansConfig.Tests.ps1
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-PLANS-ONETOPICONEFILE
+      - ADR-REPO-PLANS-PLANHEAD
+      - ADR-REPO-PLANS-THREEPARTS
+      - ADR-REPO-PLANS-ONESHAPE
+      - ADR-REPO-PLANS-MASTERANDTASKS
+---
+*/
+
 // The settings Test-Plans holds the plans folder to; every default is declared once here ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 using System;
 using System.Collections;

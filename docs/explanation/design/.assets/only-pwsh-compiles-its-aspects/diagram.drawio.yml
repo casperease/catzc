@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "4ce2a4829c04"
+# ---
+
 description:
   "The aspect conventions are declared in one variants file and read by two modules: the globs engine compiles only the pwsh convention into
   a live and a tests globset per module, while the maps module reads every track's convention to classify files and derives no globset."

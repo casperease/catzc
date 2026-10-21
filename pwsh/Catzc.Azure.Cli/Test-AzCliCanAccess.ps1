@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
-    name: test-az-cli-can-access
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: c034ed98a5e3
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Test-AzCliCanAccess.Tests.ps1
     docs: "[Test-AzCliCanAccess.ps1.md](docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md)"

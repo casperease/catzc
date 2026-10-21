@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
-    name: resolve-catzc-build-version
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: e30f6d71c5f0
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/Resolve-CatzcBuildVersion.Tests.ps1
     docs: "[Resolve-CatzcBuildVersion.ps1.md](docs/references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md)"

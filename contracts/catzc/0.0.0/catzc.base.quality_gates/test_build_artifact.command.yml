@@ -1,0 +1,9 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-BuildArtifact, the quality gate that builds the selected
+# modules once into a temporary destination, verifies the built artifact by facet, and returns its result under -PassThru.
+parameters:
+  module: string[]
+  module_profile: string
+  facet: string[]
+  output_folder: string
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

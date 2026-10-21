@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1
-    folder: tests
-    name: deploy-bicep-sample-subscription-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8404b3553e31"
   edges:
     docs: "[Deploy-Bicep.SampleSubscription.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1.md)"
     cites:

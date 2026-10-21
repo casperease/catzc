@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "1bb4a2c251b0"
+# ---
+
 description:
   Before the workers start, a module's globset hashes fold into one identity that is compared with the identity recorded after its last
   green run; a match skips the module, the asked identity is held as pending, and a green result promotes it afterwards.

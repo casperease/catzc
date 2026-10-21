@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/Get-AdrCitationMap.ps1
-    name: get-adr-citation-map
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "90399a1e1434"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AdrCitationMap.Tests.ps1
     docs: "[Get-AdrCitationMap.ps1.md](docs/references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)"

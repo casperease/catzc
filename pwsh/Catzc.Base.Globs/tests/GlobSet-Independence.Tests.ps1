@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
-    folder: tests
-    name: glob-set-independence-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a2d11588fd48
   edges:
     docs: "[GlobSet-Independence.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md)"
     cites:

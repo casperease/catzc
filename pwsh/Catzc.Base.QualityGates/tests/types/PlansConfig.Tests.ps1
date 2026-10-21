@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "82a9af3dea2c"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/types/PlansConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-PLANS-PLANHEAD
+      - ADR-REPO-PLANS-MASTERANDTASKS
+---
+#>
+
 Describe 'Catzc.Base.QualityGates.PlansConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
     BeforeAll {
         function Get-ViolationMessage {

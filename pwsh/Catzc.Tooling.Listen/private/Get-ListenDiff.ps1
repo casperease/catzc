@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: d91166b0c4c4
+---
+#>
+
 function Get-ListenDiff {
     <#
     .SYNOPSIS

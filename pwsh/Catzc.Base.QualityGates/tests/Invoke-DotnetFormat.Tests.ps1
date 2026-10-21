@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Invoke-DotnetFormat.Tests.ps1
-    folder: tests
-    name: invoke-dotnet-format-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c4193c585ef9
   edges:
     docs: "[Invoke-DotnetFormat.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-DotnetFormat.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Invoke-DotnetFormat.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-NOOVERMOCKING

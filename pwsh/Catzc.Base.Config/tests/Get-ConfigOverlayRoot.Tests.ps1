@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: c3511eb6e80d
+  edges:
+    code: pwsh/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
+    cites:
+      - ADR-PRIN-CATS-FOLDERSUSECATZC
+---
+#>
+
 Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:originalRepositoryRoot = $env:RepositoryRoot

@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/NoRawConsoleWrite.psm1
-    folder: pwsh/.scriptanalyzer
-    name: no-raw-console-write
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: ef2fa52c3bf9
   edges:
     docs: "[NoRawConsoleWrite.psm1.md](docs/references/pwsh/scriptanalyzer/NoRawConsoleWrite.psm1.md)"
 ---

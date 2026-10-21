@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "45cd2ecd20af"
+  edges:
+    code: pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs
+    cites:
+      - ADR-DSGN-TRACK-ONETECHSTACK
+---
+#>
+
 Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
     BeforeAll {
         function script:New-Config {

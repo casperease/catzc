@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "6626272fc61f"
+  edges:
+    code: pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
+    cites:
+      - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+---
+#>
+
 Describe 'ArtifactRef' -Tag 'L0', 'logic', 'ADR-AUTO-PATH-PUBLISHEDARTIFACT' {
     It 'materializes both forms from a raw absolute path under the artifact root' {
         $artifactRoot = [IO.Path]::GetFullPath((Join-Path ([IO.Path]::GetTempPath()) ('catzc-art-' + [Guid]::NewGuid())))

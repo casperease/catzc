@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "9da292d1a0b7"
+  edges:
+    code: pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
+    cites:
+      - ADR-DSGN-TRACK-UNORDEREDTRACK
+---
+#>
+
 Describe 'Import-RepositoryWithHistory' -Tag 'L2', 'logic', 'ADR-DSGN-TRACK-UNORDEREDTRACK' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.Git

@@ -1,5 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of New-GoWorkspace, the go.work generator; Target selects
-# the verification modules it renders for, every one by default.
-parameters:
-  Target: string = '*'
-output: Catzc.Base.Languages.GoWorkspaceFile

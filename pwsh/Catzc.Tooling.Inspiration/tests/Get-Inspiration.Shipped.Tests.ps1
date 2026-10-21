@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Shipped.Tests.ps1
-    folder: tests
-    name: get-inspiration-shipped-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: "6f55b3cb6e82"
   edges:
     docs: "[Get-Inspiration.Shipped.Tests.ps1.md](docs/references/pwsh/catzc-tooling-inspiration/tests/Get-Inspiration.Shipped.Tests.ps1.md)"
     cites:

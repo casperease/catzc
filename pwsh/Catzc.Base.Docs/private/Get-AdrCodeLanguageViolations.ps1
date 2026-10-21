@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/private/Get-AdrCodeLanguageViolations.ps1
-    folder: private
-    name: get-adr-code-language-violations
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: bdc1e0ebf866
   edges:
     docs: "[Get-AdrCodeLanguageViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AdrCodeLanguageViolations.ps1.md)"
     cites:

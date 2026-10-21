@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
-    folder: tests
-    name: write-information-colored-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c294163951e6
   edges:
     docs: "[Write-InformationColored.Tests.ps1.md](docs/references/pwsh/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Writers/private/Write-InformationColored.ps1
 ---
 #>
 

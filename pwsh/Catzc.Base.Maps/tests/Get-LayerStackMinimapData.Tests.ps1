@@ -1,6 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b97fd87f0639
+  edges:
+    code: pwsh/Catzc.Base.Maps/Get-LayerStackMinimapData.ps1
+---
+#>
+
 Describe 'Get-LayerStackMinimapData' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/Catzc.Base.Maps/minimap.schema.json'))
+        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.maps/minimap.schema.json'))
         Mock Get-AdrRuleSet -ModuleName Catzc.Base.Maps {
             $concerns = [string[]] @('alpha')
             [Catzc.Base.Docs.AdrRuleSet]::new('widgetry', 'fixture', 'widget', 'ADR-WIDGET-GADGET', 'WIDGET', 'WIDGET', 'TOP', $concerns, $concerns, 'engine', $null)

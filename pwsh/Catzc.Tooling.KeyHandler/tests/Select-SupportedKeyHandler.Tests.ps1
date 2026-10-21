@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
-    folder: tests
-    name: select-supported-key-handler-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: c39d4fbe75f0
   edges:
     docs: "[Select-SupportedKeyHandler.Tests.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/tests/Select-SupportedKeyHandler.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS

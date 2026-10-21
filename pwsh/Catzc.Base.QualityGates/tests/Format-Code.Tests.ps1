@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1
-    folder: tests
-    name: format-code-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: bac9c9333afe
   edges:
     docs: "[Format-Code.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Format-Code.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
       - ADR-AUTO-CACHE
@@ -190,6 +180,32 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
         $script:handed.Clear()
         $null = Format-Code -DryRun
         $script:handed | Should -Be @($script:gadgetFile)
+    }
+
+    It 'reports how many changed files changed in content and how many only in wrapping' {
+        [System.IO.File]::WriteAllText($script:widgetFile, "one two`nthree")
+        [System.IO.File]::WriteAllText($script:gadgetFile, 'one two three')
+        # The fake engine rewraps the widget and rewrites the gadget's words.
+        Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates {
+            [System.IO.File]::WriteAllText($script:widgetFile, "one`ntwo  three")
+            [System.IO.File]::WriteAllText($script:gadgetFile, 'one two four')
+            , [string[]] @($script:widgetFile, $script:gadgetFile)
+        }
+        $null = Format-Code
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Message -ceq 'widget: 1 of 1 file(s) changed (0 in content, 1 only in wrapping).'
+        }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Message -ceq 'gadget: 1 of 1 file(s) changed (1 in content, 0 only in wrapping).'
+        }
+    }
+
+    It 'reports no change kinds under -DryRun, where no file is written' {
+        Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:widgetFile) }
+        $null = Format-Code -DryRun
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Message -ceq 'widget: 1 of 1 file(s) would change.'
+        }
     }
 }
 

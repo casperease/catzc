@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Test-FileMetaProcessors.Tests.ps1
-    folder: tests
-    name: test-file-meta-processors-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: d02eda3e64ea
   edges:
     docs: "[Test-FileMetaProcessors.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-FileMetaProcessors.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION

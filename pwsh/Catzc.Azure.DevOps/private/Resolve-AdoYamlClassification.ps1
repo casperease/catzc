@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/private/Resolve-AdoYamlClassification.ps1
-    folder: private
-    name: resolve-ado-yaml-classification
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "137a74646777"
   edges:
     docs: "[Resolve-AdoYamlClassification.ps1.md](docs/references/pwsh/catzc-azure-devops/private/Resolve-AdoYamlClassification.ps1.md)"
 ---

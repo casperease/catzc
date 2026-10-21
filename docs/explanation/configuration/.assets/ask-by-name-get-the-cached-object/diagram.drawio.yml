@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "7a84878c5421"
+# ---
+
 description:
   Get-ConfigValue and Get-Config resolve a name to one file and answer with the session's cached object; the first read parses and types the
   file, and a bad key, an unknown or ambiguous name or a malformed config throws at the call.

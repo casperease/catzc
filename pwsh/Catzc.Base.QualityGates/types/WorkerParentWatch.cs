@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/WorkerParentWatch.cs
-    folder: types
-    name: worker-parent-watch
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "2e78dfbfb113"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/WorkerParentWatch.Tests.ps1
     docs: "[WorkerParentWatch.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/WorkerParentWatch.cs.md)"

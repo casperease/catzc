@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
-    folder: private
-    name: merge-config-fragment
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: f94ddfb9f9bc
   edges:
     test: pwsh/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
     docs: "[Merge-ConfigFragment.ps1.md](docs/references/pwsh/catzc-base-config/private/Merge-ConfigFragment.ps1.md)"

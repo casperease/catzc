@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "12235ff00f97"
+  edges:
+    code: pwsh/Catzc.Base.Timeouts/types/TestTiers.cs
+---
+#>
+
 Describe 'TestTiers' -Tag 'L0', 'logic' {
     It 'lists the tiers lowest first, L0 to L4' {
         [Catzc.Base.Timeouts.TestTiers]::Names | Should -Be @('L0', 'L1', 'L2', 'L3', 'L4')

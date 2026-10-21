@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/Test-IsRunningInPipeline.Tests.ps1
-    name: test-is-running-in-pipeline-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: cf011129a112
   edges:
     docs: "[Test-IsRunningInPipeline.Tests.ps1.md](docs/references/pwsh/internal/tests/Test-IsRunningInPipeline.Tests.ps1.md)"
 ---

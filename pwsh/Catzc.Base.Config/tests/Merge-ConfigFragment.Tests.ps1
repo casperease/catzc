@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "8223ae9ff3dc"
+  edges:
+    code: pwsh/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
+---
+#>
+
 Describe 'Merge-ConfigFragment' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:merge = {

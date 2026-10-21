@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Get-AzureResourceTypeSet.Tests.ps1
-    folder: tests
-    name: get-azure-resource-type-set-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e20e6e3727c1
   edges:
     docs: "[Get-AzureResourceTypeSet.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-AzureResourceTypeSet.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
 ---
 #>
 

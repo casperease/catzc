@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Files/Copy-Directory.ps1
-    name: copy-directory
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "2e1d90ba20b2"
   edges:
     test: pwsh/Catzc.Base.Files/tests/Copy-Directory.Tests.ps1
     docs: "[Copy-Directory.ps1.md](docs/references/pwsh/catzc-base-files/Copy-Directory.ps1.md)"

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
-    folder: tests
-    name: install-zsh-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "1d65f72d6b7a"
   edges:
     docs: "[Install-Zsh.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Install-Zsh.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Provisioning/Install-Zsh.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-NOCLOUDBELOWLTHREE

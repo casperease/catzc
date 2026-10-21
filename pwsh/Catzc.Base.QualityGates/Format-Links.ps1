@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Format-Links.ps1
-    name: format-links
-    filetype: ps1
-    role: function
-    subkind: formatter
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: ca30d1a5ce8c
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
     docs: "[Format-Links.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Format-Links.ps1.md)"

@@ -60,28 +60,24 @@ tracked (`python/catzc_diagrams/`, `python/tests/catzc_base_repository/`, `go/te
 The word model, the 15 acronym renames, the helper renames, the manual-test-plan rows and `Repair-IdiomaticNames` landed on 2026-10-21; the
 L1 round trip in `ConvertTo-NormalName.Tests.ps1` passes once the user commits the case-only renames with `git mv`.
 
-The contracts in the normal form, `contracts/catzc/0.0.0`, wait on the user's choice of sequencing (a red gate across sessions, a
-transitional dual reader, a separate chunk, or a one-shot converter from the existing assets):
-
-- [ ] `pwsh/Catzc.Base.Contracts/types/ContractCommand.cs` and `ContractParameter.cs`: read names, sets and types in the normal form (check:
-      `Invoke-TestFile` on their type tests).
-- [ ] `pwsh/Catzc.Base.Contracts/Get-CommandContract.ps1` and the PowerShell checker under `private/`: render the normal form to `verb-noun`
-      and PascalCase parameters before comparing with the file (check: `Invoke-TestFile` on their tests).
-- [ ] `contracts/catzc/0.0.0/<Module>/`: each module folder moved to its normal form (`catzc.base.contracts/`), the pipeline assets under
-      `catzc.azure.devops/pipelines/` with it, one folder per step (check: `Test-Contracts`).
-- [ ] `contracts/catzc/0.0.0/**/*.command.yml`: each asset renamed and rewritten in the normal form, one file per step (check:
-      `Test-Contracts`).
-- [ ] `pwsh/Catzc.Base.Contracts/New-CatsCommandLookup.ps1`: the committed lookup keys by the normal form (check: `Invoke-TestFile` on its
-      tests, `Test-GeneratedFiles`).
-- [ ] The `cats` entry of each engine: take the command and its parameters in kebab case and map them through the lookup's normal form
-      (check: the bash and pwsh tests of `cats`, `Invoke-BashTest`).
-
 From the session's finalizer (catzc-73, 2026-10-21); its `catzc-verify` line and the rename how-to landed:
 
 - [ ] `CommentPageMap.cs` (in `Catzc.Base.CodeMeta`), `Get-ReadmeMappings.ps1`, `Get-ModuleGlobSet.ps1` and
       `Get-ModuleProtectionIdentity.ps1` render `{kebab}` by `ToLowerInvariant().Replace('.', '-')`; moving them to `LanguageNaming` renames
       the `catzc-base-*` reference pages, so it waits on the user's yes (check: the user answers; then `Invoke-TestFile` on each one's tests
       and `Test-GeneratedFiles`).
+
+## Open questions
+
+- From catzc-73's finalize (2026-10-21): `catzc-verify` step 1 names the import-path readers of a folder rename, but not that the import's
+  lookup janitor (`New-CatsCommandLookup`) runs every contract reader, so a reader edit ahead of its data turned every session's import red.
+  Should step 1's clause say "the contract readers" too? Recommendation: yes, three words merged into the existing list.
+- Same finalize: `LanguageNaming.IsInCase` is false for a dotted name, so every caller with a module or type name splits on `.` first.
+  Should `LanguageNaming` take a dotted name in one call, the way `FromNormal` already does? Recommendation: yes, one method, its callers in
+  the same pass.
+- Same finalize: `Format-Code` on a C# type file changes the types hash, so a gate run right after in the same process looks for a DLL the
+  next import builds. Should `catzc-verify` step 2 say to format before the fresh import? Recommendation: yes, an order clause merged into
+  the step.
 
 ## Refs
 

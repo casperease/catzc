@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ca884302bae0
+  edges:
+    code: pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+---
+#>
+
 Describe 'Get-AdoAuthorizationHeader' -Tag 'L0', 'logic' {
     Context 'in pipeline' {
         BeforeEach {

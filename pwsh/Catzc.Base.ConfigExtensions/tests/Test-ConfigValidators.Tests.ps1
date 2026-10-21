@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1
-    folder: tests
-    name: test-config-validators-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ConfigExtensions
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a5cf839c5f2a
   edges:
     docs: "[Test-ConfigValidators.Tests.ps1.md](docs/references/pwsh/catzc-base-configextensions/tests/Test-ConfigValidators.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

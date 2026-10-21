@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/LinkKind.cs
-    folder: types
-    name: link-kind
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "767588a2e560"
   edges:
     docs: "[LinkKind.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinkKind.cs.md)"
     cites:

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-ChangeCheckPlan.ps1
-    folder: private
-    name: get-change-check-plan
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: d6ca63511f71
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1
     docs: "[Get-ChangeCheckPlan.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-ChangeCheckPlan.ps1.md)"

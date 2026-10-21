@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationSkipReport.ps1
-    folder: private
-    name: write-test-automation-skip-report
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "9a711fc69173"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationSkipReport.Tests.ps1
     docs: "[Write-TestAutomationSkipReport.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationSkipReport.ps1.md)"

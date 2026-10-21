@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "2a515193cf5c"
+# ---
+
 description:
   "What an Azure DevOps run shows of one step: the label is the command, the log names the mode and echoes the command, a failure prints a
   full exception, and a developer copies the command from the label with no gate checking that."

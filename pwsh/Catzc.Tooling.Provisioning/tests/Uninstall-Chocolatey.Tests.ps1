@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1
-    folder: tests
-    name: uninstall-chocolatey-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "9fa6b907c04b"
   edges:
     docs: "[Uninstall-Chocolatey.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Chocolatey.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1
     cites:
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
 ---

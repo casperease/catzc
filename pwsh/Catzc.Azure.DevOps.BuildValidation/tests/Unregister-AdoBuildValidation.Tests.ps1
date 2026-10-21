@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Unregister-AdoBuildValidation.Tests.ps1
-    folder: tests
-    name: unregister-ado-build-validation-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: "7d026428d4e0"
   edges:
     docs: "[Unregister-AdoBuildValidation.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/Unregister-AdoBuildValidation.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-IDEM-ALREADYDONEISFINE

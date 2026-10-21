@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "8165a68452f2"
+  edges:
+    code: pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 Describe 'Catzc.Base.Reports.ReportsConfig' -Tag 'L0', 'logic' {
     It 'defaults every key, so an empty file gives the test-subject folder, the subject report, and latest.txt' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $config = [Catzc.Base.Reports.ReportsConfig]::new(@{})

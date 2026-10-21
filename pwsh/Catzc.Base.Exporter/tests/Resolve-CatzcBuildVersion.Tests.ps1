@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ec6a60bd4249
+  edges:
+    code: pwsh/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
+---
+#>
+
 Describe 'Resolve-CatzcBuildVersion' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config {

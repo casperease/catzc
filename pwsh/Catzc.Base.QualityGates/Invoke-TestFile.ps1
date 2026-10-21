@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Invoke-TestFile.ps1
-    name: invoke-test-file
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "2fdfea89c041"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
     docs: "[Invoke-TestFile.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Invoke-TestFile.ps1.md)"

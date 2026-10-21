@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "0de55a5c90ed"
+  edges:
+    code: pwsh/Catzc.Tooling.Core/Sync-SessionTools.ps1
+    cites:
+      - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
+---
+#>
+
 Describe 'Sync-SessionTools' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:origPath = $env:PATH

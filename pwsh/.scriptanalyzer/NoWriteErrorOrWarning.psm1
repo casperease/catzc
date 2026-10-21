@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/NoWriteErrorOrWarning.psm1
-    folder: pwsh/.scriptanalyzer
-    name: no-write-error-or-warning
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "0c5106a7f32f"
   edges:
     docs: "[NoWriteErrorOrWarning.psm1.md](docs/references/pwsh/scriptanalyzer/NoWriteErrorOrWarning.psm1.md)"
 ---

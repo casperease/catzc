@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "11efbac54746"
+# ---
+
 description:
   "One typed registry, globs.yml, is validated and flattened by GlobsConfig and GlobSet, and the module computes three roles from it: the
   trigger projection read by pipelines and workflows, the change report built from git, and the protection identity read by the test run."

@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "352eef5b25d6"
+---
+#>
+
 function Get-ListenFileIndex {
     <#
     .SYNOPSIS

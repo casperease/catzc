@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
-    folder: types
-    name: artifact-ref
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5a5f939a0225"
   edges:
     test: pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
     docs: "[ArtifactRef.cs.md](docs/references/pwsh/catzc-base-objects/types/ArtifactRef.cs.md)"

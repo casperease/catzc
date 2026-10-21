@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/route-table.bicep
-//     name: route-table
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: route-table
-//     moduletype: bicep
+//     with_body_sha: e2c0cc59d7de
 //   edges:
 //     docs: "[route-table.bicep.md](docs/references/infrastructure/modules/route-table.bicep.md)"
 // ---

@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: ".ado/pipelines/Invoke-AdoScript.ps1"
-    name: invoke-ado-script
-    filetype: ps1
-    role: script
-    language: powershell
-    track: ado-pipelines
-    tracktype: pipelines
-    vendor: ado
-    module: pipelines
-    moduletype: pipeline
+    with_body_sha: "53424666c451"
   edges:
     docs: "[Invoke-AdoScript.ps1.md](docs/references/ado/pipelines/Invoke-AdoScript.ps1.md)"
 ---

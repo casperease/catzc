@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/vnet-peering.bicep
-//     name: vnet-peering
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: vnet-peering
-//     moduletype: bicep
+//     with_body_sha: "489d1b397118"
 //   edges:
 //     docs: "[vnet-peering.bicep.md](docs/references/infrastructure/modules/vnet-peering.bicep.md)"
 // ---

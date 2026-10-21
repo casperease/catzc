@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
-    folder: tests/types
-    name: glob-pattern-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "7447e51c04e5"
   edges:
     docs: "[GlobPattern.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Globs/types/GlobPattern.cs
     cites:
       - ADR-FLOW-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
       - ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED

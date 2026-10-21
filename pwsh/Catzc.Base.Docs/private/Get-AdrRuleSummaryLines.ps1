@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/private/Get-AdrRuleSummaryLines.ps1
-    folder: private
-    name: get-adr-rule-summary-lines
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: b3541755b44e
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSummaryLines.Tests.ps1
     docs: "[Get-AdrRuleSummaryLines.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AdrRuleSummaryLines.ps1.md)"

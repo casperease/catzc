@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: f6c0a22faad7
+# ---
+
 description:
   "Whatever the entry point, cats loads through the same five stages in the same order: enter, set up the session, load, prove one run mode,
   then tidy and leave."

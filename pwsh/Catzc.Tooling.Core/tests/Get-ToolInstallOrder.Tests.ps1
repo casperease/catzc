@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
-    folder: tests
-    name: get-tool-install-order-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: f7a6225c4d9c
   edges:
     docs: "[Get-ToolInstallOrder.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Get-ToolInstallOrder.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Core/Get-ToolInstallOrder.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-GENERICTEMPLATETESTS

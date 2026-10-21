@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
-    folder: tests
-    name: new-repository-snapshot-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "2538af0a40ec"
   edges:
     docs: "[New-RepositorySnapshot.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/New-RepositorySnapshot.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Git/New-RepositorySnapshot.ps1
 ---
 #>
 

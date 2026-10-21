@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1
-    folder: tests
-    name: test-catzc-build-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e4cd97206752
   edges:
     docs: "[Test-CatzcBuild.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-CatzcBuild.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
     cites:
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
 ---

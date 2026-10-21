@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
-    folder: tests
-    name: get-glob-set-hash-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "0a1d42d07000"
   edges:
     docs: "[Get-GlobSetHash.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Globs/Get-GlobSetHash.ps1
     cites:
       - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
 ---

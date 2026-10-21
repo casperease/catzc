@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1
-    name: invoke-module-build-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: d268558ac0f4
   edges:
     docs: "[Invoke-ModuleBuild.Tests.ps1.md](docs/references/pwsh/internal/tests/Invoke-ModuleBuild.Tests.ps1.md)"
     cites:

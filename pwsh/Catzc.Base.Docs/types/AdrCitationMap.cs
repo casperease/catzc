@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/AdrCitationMap.cs
-    folder: types
-    name: adr-citation-map
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "54a002ee9d4a"
   edges:
     docs: "[AdrCitationMap.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationMap.cs.md)"
     cites:

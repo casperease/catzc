@@ -1,3 +1,14 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "2d3217cda3e1"
+  edges:
+    cites:
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
+---
+*/
+
 // Every property is fixed at construction and the engine is pure over text, so a block is a value the caller can keep.
 
 using System;

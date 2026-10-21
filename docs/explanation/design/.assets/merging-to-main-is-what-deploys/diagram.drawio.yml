@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "85786bea114d"
+# ---
+
 description:
   A pull request starts a build that skips every deploy stage and a hand-started release builds a package, while only completing the pull
   request into main starts the run that deploys; a topic deploy has no pipeline behind it.

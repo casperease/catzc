@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "66427ed29333"
+  edges:
+    code: pwsh/Catzc.Base.CodeMeta/types/CommentPagesConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
+---
+#>
+
 Describe 'CommentPagesConfig' -Tag 'L0', 'logic' {
     It 'takes the declared default pages when the key is omitted' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{})

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Variants/Assert-HaveCustomers.ps1
-    name: assert-have-customers
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "80131f852044"
   edges:
     test: pwsh/Catzc.Base.Variants/tests/Assert-HaveCustomers.Tests.ps1
     docs: "[Assert-HaveCustomers.ps1.md](docs/references/pwsh/catzc-base-variants/Assert-HaveCustomers.ps1.md)"

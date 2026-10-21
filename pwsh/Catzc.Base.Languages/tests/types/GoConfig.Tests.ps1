@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "7f58d0fef4a5"
+  edges:
+    code: pwsh/Catzc.Base.Languages/types/GoConfig.cs
+---
+#>
+
 Describe 'GoConfig' -Tag 'L0' {
 
     Context 'integrity (shipped go.yml)' -Tag 'integrity' {

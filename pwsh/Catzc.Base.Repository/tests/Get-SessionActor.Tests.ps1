@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3608f8e8c419"
+  edges:
+    code: pwsh/Catzc.Base.Repository/Get-SessionActor.ps1
+    cites:
+      - ADR-BCL-TYPES-JANITORSBYCALLER
+---
+#>
+
 Describe 'Get-SessionActor' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-JANITORSBYCALLER' {
     It 'is a person when neither a pipeline nor an agent is detected' {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.Repository

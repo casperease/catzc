@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Asserts/Test-HaveProperty.ps1
-    name: test-have-property
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-    visibility: public
+    with_body_sha: "5a37cd0beedb"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Test-HaveProperty.Tests.ps1
     docs: "[Test-HaveProperty.ps1.md](docs/references/pwsh/catzc-base-asserts/Test-HaveProperty.ps1.md)"

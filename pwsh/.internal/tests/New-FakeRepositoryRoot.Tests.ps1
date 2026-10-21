@@ -1,3 +1,14 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: da0133468e85
+  edges:
+    cites:
+      - ADR-DSGN-RUNMODE-MODEISDERIVED
+---
+#>
+
 Describe 'New-FakeRepositoryRoot' -Tag 'L0', 'logic', 'ADR-DSGN-RUNMODE-MODEISDERIVED' {
     BeforeAll {
         Import-InternalModule TestKit

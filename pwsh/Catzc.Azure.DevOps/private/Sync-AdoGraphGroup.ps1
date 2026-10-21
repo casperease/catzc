@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/private/Sync-AdoGraphGroup.ps1
-    folder: private
-    name: sync-ado-graph-group
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "4ddbffa3b595"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Sync-AdoGraphGroup.Tests.ps1
     docs: "[Sync-AdoGraphGroup.ps1.md](docs/references/pwsh/catzc-azure-devops/private/Sync-AdoGraphGroup.ps1.md)"

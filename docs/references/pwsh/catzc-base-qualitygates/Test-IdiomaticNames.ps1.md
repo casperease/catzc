@@ -18,6 +18,9 @@ file name, without its extension, against the language's file cases, and every f
 a misnamed file one issue: '`<folder>/`: the folder is not `<case>` (`<language>`)' or '`<file>`: the file name is not `<case>`
 (`<language>`)'.
 
+"Tracked" means in the git index (`Get-GitTrackedPath`), so a new file counts only once it is staged; an unstaged new file is not judged,
+and the gate stays green over it.
+
 Ends with Write-QualityGateReport: the report lands in out/test-idiomatic-names/, and the gate throws once listing every issue (or returns
 the result with -PassThru). Needs the source tree (Assert-SourceTree).
 

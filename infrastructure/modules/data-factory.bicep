@@ -1,3 +1,9 @@
+// ---
+// catzc:
+//   immutable:
+//     with_body_sha: "10a56e76b429"
+// ---
+
 @description('Data Factory name (3-24 lowercase alphanumeric, globally unique).')
 param name string
 

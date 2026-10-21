@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Folders/Get-ChildPath.ps1
-    name: get-child-path
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Folders
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: a92a67a3aa33
   edges:
     test: pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
     docs: "[Get-ChildPath.ps1.md](docs/references/pwsh/catzc-base-folders/Get-ChildPath.ps1.md)"

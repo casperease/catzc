@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "692babcdd544"
+  edges:
+    code: pwsh/Catzc.Tooling.Python/Install-Python.ps1
+---
+#>
+
 Describe 'Install-Python' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Tooling.Python

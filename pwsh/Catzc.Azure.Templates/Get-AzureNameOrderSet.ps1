@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/Get-AzureNameOrderSet.ps1
-    name: get-azure-name-order-set
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "45a10fd6b57d"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-AzureNameOrderSet.Tests.ps1
     docs: "[Get-AzureNameOrderSet.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-AzureNameOrderSet.ps1.md)"

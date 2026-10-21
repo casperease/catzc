@@ -1,7 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Invoke-BashTest, the bash test runner of one module.
-parameters:
-  Module: string!
-  EntryScript: string
-  EngineExecutable: string
-  Folder: string
-output: Catzc.Base.Languages.BashTestResult

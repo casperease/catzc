@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f004fb2960e7
+  edges:
+    code: pwsh/Catzc.Base.Variants/Assert-HaveCustomers.ps1
+---
+#>
+
 Describe 'Assert-HaveCustomers' -Tag 'L0', 'logic' {
 
     It 'passes (no -Name) when enabled' {

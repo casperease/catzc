@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ddba8f7b0af6
+  edges:
+    test: pwsh/Catzc.Base.Flow/tests/Get-TruthStore.Tests.ps1
+    cites:
+      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+      - ADR-THES-STORES-THREEKINDS
+---
+#>
+
 function Get-TruthStore {
     <#
     .SYNOPSIS
@@ -11,7 +24,7 @@ function Get-TruthStore {
     .PARAMETER Name
         Only the stores with these names.
 
-    .PARAMETER Kind
+    .PARAMETER StoreKind
         Only the stores of these kinds.
 
     .OUTPUTS
@@ -24,11 +37,11 @@ function Get-TruthStore {
         [string[]] $Name,
 
         [ArgumentCompleter({ [Catzc.Base.Flow.TruthStoresConfig]::Kinds })]
-        [string[]] $Kind
+        [string[]] $StoreKind
     )
 
     foreach ($store in (Get-Config -Config truth-stores).stores) {
-        if ((-not $Name -or $Name -ccontains $store.name) -and (-not $Kind -or $Kind -ccontains $store.kind)) {
+        if ((-not $Name -or $Name -ccontains $store.name) -and (-not $StoreKind -or $StoreKind -ccontains $store.kind)) {
             $store
         }
     }

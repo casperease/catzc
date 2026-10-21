@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-PythonCheckScope.ps1
-    folder: private
-    name: get-python-check-scope
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "4985e20e2027"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-PythonCheckScope.Tests.ps1
     docs: "[Get-PythonCheckScope.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-PythonCheckScope.ps1.md)"

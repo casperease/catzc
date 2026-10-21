@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
-    folder: tests
-    name: get-value-chain-map-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "86e8c8f2f1d9"
   edges:
     docs: "[Get-ValueChainMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Maps/Get-ValueChainMap.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-DSGN-TRACK-VALUECHAINSTACK

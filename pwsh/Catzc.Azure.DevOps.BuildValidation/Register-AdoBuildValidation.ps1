@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
-    name: register-ado-build-validation
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
+    with_body_sha: c625853f3cb1
   edges:
     test: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
     docs: "[Register-AdoBuildValidation.ps1.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md)"

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/MapsPalette.cs
-    folder: types
-    name: maps-palette
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "6972af2630d6"
   edges:
     docs: "[MapsPalette.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsPalette.cs.md)"
     cites:

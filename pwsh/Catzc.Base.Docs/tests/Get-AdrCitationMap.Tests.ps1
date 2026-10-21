@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Get-AdrCitationMap.Tests.ps1
-    folder: tests
-    name: get-adr-citation-map-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8a26a3a2a31a"
   edges:
     docs: "[Get-AdrCitationMap.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-AdrCitationMap.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/Get-AdrCitationMap.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-LINK-CODELINKS

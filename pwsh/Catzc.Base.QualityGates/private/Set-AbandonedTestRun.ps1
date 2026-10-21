@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Set-AbandonedTestRun.ps1
-    folder: private
-    name: set-abandoned-test-run
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: ef33578f1cc5
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Set-AbandonedTestRun.Tests.ps1
     docs: "[Set-AbandonedTestRun.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md)"

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Asserts/Assert-TypeIs.ps1
-    name: assert-type-is
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-    visibility: public
+    with_body_sha: fcd448ca524f
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-TypeIs.Tests.ps1
     docs: "[Assert-TypeIs.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-TypeIs.ps1.md)"

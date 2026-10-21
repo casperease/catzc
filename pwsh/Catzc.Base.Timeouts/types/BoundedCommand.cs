@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Timeouts/types/BoundedCommand.cs
-    folder: types
-    name: bounded-command
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "6780a5299297"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
     docs: "[BoundedCommand.cs.md](docs/references/pwsh/catzc-base-timeouts/types/BoundedCommand.cs.md)"

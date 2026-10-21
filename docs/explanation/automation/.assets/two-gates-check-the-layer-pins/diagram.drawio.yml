@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: a44e2f3d583a
+# ---
+
 description:
   Two gates check the layer pins, one against the declaration's own shape at load and one against the real code and the on-disk modules; a
   new edge landing with its code is left to review, because no gate checks it.

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
-    folder: tests
-    name: convert-to-contract-note-markdown-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: acc8e07965c8
   edges:
     docs: "[ConvertTo-ContractNoteMarkdown.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-LINK-MARKDOWNRELATIVE

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/GlossaryAvoid.cs
-    folder: types
-    name: glossary-avoid
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "55457d2ae4a4"
   edges:
     docs: "[GlossaryAvoid.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryAvoid.cs.md)"
     cites:

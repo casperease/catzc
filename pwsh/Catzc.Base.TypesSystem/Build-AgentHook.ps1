@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
-    name: build-agent-hook
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: c793a8bb02c4
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1
     docs: "[Build-AgentHook.ps1.md](docs/references/pwsh/catzc-base-typessystem/Build-AgentHook.ps1.md)"

@@ -1,7 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-GeneratedFiles, the quality gate that checks every
-# generated file equals what its generator would write now, and returns its result under -PassThru.
-parameters:
-  Generator: string[]
-  OutputFolder: string
-  PassThru: switch
-output: Catzc.Base.Reports.QualityGateResult

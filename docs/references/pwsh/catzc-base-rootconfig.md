@@ -60,7 +60,8 @@ not touched, so takeover is always an explicit, reviewable registry change, and 
 is one boolean, not two systems**: `importer.ps1` cannot be a gitignored copy-in (it is the load entry point itself), but it is still fully
 managed — its `generator` is `New-Importer` ([Catzc.Base.ModuleSystem](catzc-base-modulesystem.md)), and the same materialisation reports it
 drift-free instead of silently rewriting a tracked file. The importer tail runs `Build-RootConfig` as a janitor on every load, so a clean
-tree costs a few file reads and writes nothing.
+tree costs a few file reads and writes nothing. Because the janitor runs on every load, a bad root config breaks every session's next
+import, not just the session that wrote it.
 
 ## Division
 

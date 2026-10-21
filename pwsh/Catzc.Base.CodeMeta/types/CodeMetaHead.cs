@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.CodeMeta/types/CodeMetaHead.cs
-    folder: types
-    name: code-meta-head
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c3f90649ab88
   edges:
     test: pwsh/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1
     docs: "[CodeMetaHead.cs.md](docs/references/pwsh/catzc-base-codemeta/types/CodeMetaHead.cs.md)"

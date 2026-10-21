@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Files/Get-FileLockingProcess.ps1
-    name: get-file-locking-process
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: af916832e28c
   edges:
     test: pwsh/Catzc.Base.Files/tests/Get-FileLockingProcess.Tests.ps1
     docs: "[Get-FileLockingProcess.ps1.md](docs/references/pwsh/catzc-base-files/Get-FileLockingProcess.ps1.md)"

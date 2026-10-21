@@ -1,3 +1,14 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: da87dc2fdf7e
+  edges:
+    cites:
+      - ADR-REPO-FILEMETA-METAKIND
+---
+*/
+
 using System.Collections.Generic;
 using System.Linq;
 

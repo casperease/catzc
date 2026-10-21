@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1
-    name: watch-blocking
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "753f4667ad90"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/Watch-Blocking.Tests.ps1
     docs: "[Watch-Blocking.ps1.md](docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md)"

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: b6c478980d86
+# ---
+
 description:
   Two rules govern each stage of a limit's resolution; tests gate the config and the resolver, the hook gates an agent's shell calls, and
   the interactive executable mode has no gate, so two gaps remain.

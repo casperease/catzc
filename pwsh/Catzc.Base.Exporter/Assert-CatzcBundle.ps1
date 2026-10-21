@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
-    name: assert-catzc-bundle
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: fa08c18087e3
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
     docs: "[Assert-CatzcBundle.ps1.md](docs/references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md)"

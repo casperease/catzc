@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Get-FormatScope.Tests.ps1
-    folder: tests
-    name: get-format-scope-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "3f8d2314e018"
   edges:
     docs: "[Get-FormatScope.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-FormatScope.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Get-FormatScope.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE

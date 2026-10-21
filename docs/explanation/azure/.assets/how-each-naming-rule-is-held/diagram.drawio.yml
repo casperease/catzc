@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: b8e2290f64e8
+# ---
+
 description:
   "The eight naming rules and where code holds them: seven behind a check that throws, from template discovery through the resolver and the
   namer's registry, format and length checks, and one, that no subscription enters a name, held by construction."

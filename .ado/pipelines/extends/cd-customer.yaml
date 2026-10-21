@@ -1,18 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: ".ado/pipelines/extends/cd-customer.yaml"
-#     folder: extends
-#     name: cd-customer
-#     filetype: yaml
-#     role: pipeline-template
-#     language: pipeline-yaml
-#     track: ado-pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
+#     with_body_sha: "4381854524ee"
 #   edges:
 #     docs: "[cd-customer.yaml.md](docs/references/ado/pipelines/extends/cd-customer.yaml.md)"
 # ---

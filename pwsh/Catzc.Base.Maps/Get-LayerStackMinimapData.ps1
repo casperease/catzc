@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/Get-LayerStackMinimapData.ps1
-    name: get-layer-stack-minimap-data
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "04c2fee5e9b4"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-LayerStackMinimapData.Tests.ps1
     docs: "[Get-LayerStackMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-LayerStackMinimapData.ps1.md)"

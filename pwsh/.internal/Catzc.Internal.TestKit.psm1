@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/Catzc.Internal.TestKit.psm1
-    name: catzc-internal-test-kit
-    filetype: psm1
-    role: module
-    subkind: internal
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.TestKit
-    moduletype: pwsh-psm1
-    catzc_bundle: minimal
+    with_body_sha: "2009f494fd12"
   edges:
     docs: "[Catzc.Internal.TestKit.psm1.md](docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md)"
 ---

@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e34b006124b8
+  edges:
+    code: pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-MODULE-ENGINESUBSET
+      - ADR-REPO-VARIANT-FILEHEADS
+---
+#>
+
 Describe 'VariantsConfig' -Tag 'L0' {
     BeforeAll {
         # tracks is required, so a fixture that is about another key gets one neutral track; a fixture that states tracks keeps its own.

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/Catzc.Internal.Vendor.psm1
-    name: catzc-internal-vendor
-    filetype: psm1
-    role: module
-    subkind: internal
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Vendor
-    moduletype: pwsh-psm1
-    catzc_bundle: minimal
+    with_body_sha: "1afedce80b9e"
   edges:
     docs: "[Catzc.Internal.Vendor.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md)"
 ---

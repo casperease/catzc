@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
-    folder: tests
-    name: get-ado-yaml-files-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: ceb840d5cdaa
   edges:
     docs: "[Get-AdoYamlFiles.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.DevOps/Get-AdoYamlFiles.ps1
     cites:
       - ADR-AUTO-TEST-ONEIMPORTPERCASE
 ---

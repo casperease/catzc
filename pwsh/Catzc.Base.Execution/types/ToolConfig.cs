@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/types/ToolConfig.cs
-    folder: types
-    name: tool-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "706a5796ca67"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
     docs: "[ToolConfig.cs.md](docs/references/pwsh/catzc-base-execution/types/ToolConfig.cs.md)"

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
-    folder: tests
-    name: write-quality-gate-report-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5c72854e9e9d"
   edges:
     docs: "[Write-QualityGateReport.Tests.ps1.md](docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE

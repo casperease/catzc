@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/Get-AzureCustomer.ps1
-    name: get-azure-customer
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "7799bf8dd804"
   edges:
     test: pwsh/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1
     docs: "[Get-AzureCustomer.ps1.md](docs/references/pwsh/catzc-azure/Get-AzureCustomer.ps1.md)"

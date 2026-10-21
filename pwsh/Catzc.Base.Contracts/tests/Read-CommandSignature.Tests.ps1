@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "9572e2e35d10"
+  edges:
+    code: pwsh/Catzc.Base.Contracts/private/Read-CommandSignature.ps1
+    cites:
+      - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
+      - ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE
+---
+#>
+
 Describe 'Read-CommandSignature' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE' {
     BeforeAll {
         function Read-Fixture {

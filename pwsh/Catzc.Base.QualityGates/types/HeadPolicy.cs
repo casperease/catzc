@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "91db005a6be1"
+---
+*/
+
 namespace Catzc.Base.QualityGates;
 
 public enum HeadPolicy

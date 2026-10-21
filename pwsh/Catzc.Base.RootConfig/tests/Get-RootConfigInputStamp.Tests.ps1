@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b0582dc5ac0f
+  edges:
+    code: pwsh/Catzc.Base.RootConfig/private/Get-RootConfigInputStamp.ps1
+    cites:
+      - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
+---
+#>
+
 Describe 'Get-RootConfigInputStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
     BeforeAll {
         Import-InternalModule TestKit

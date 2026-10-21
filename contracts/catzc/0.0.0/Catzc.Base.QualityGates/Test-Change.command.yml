@@ -1,9 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Change, the quality gate over what changed: it runs the
-# tests and checks of the changed files and returns its result under -PassThru, or the planned set under -DryRun.
-parameters:
-  Path: string[]
-  WholeModule: switch
-  DryRun: switch
-  OutputFolder: string
-  PassThru: switch
-output: Catzc.Base.Reports.QualityGateResult

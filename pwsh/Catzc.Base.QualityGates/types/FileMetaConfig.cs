@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs
-    folder: types
-    name: file-meta-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: f118c052e47c
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
     docs: "[FileMetaConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/FileMetaConfig.cs.md)"

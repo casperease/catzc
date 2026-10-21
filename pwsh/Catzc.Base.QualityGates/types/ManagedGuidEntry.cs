@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/ManagedGuidEntry.cs
-    folder: types
-    name: managed-guid-entry
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: aff81c35cec3
   edges:
     docs: "[ManagedGuidEntry.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/ManagedGuidEntry.cs.md)"
     cites:

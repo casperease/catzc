@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
-    folder: tests
-    name: get-module-glob-set-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: ecfd53036f07
   edges:
     docs: "[Get-ModuleGlobSet.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
     cites:
       - ADR-AUTO-BASH-ONEBASHROOT
       - ADR-AUTO-GO-ONEGOROOT

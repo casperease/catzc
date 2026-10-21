@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/Show-Cats.ps1
-    name: show-cats
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "6e8fa604b8c5"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1
     docs: "[Show-Cats.ps1.md](docs/references/pwsh/catzc-base-docs/Show-Cats.ps1.md)"

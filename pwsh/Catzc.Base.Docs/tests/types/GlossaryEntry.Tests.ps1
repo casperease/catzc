@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/types/GlossaryEntry.Tests.ps1
-    folder: tests/types
-    name: glossary-entry-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e02a1c588b17
   edges:
     docs: "[GlossaryEntry.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/GlossaryEntry.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/types/GlossaryEntry.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-VOCAB-GLOSSARYSOURCE

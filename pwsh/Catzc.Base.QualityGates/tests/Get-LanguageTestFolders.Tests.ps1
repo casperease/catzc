@@ -2,21 +2,12 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Get-LanguageTestFolders.Tests.ps1
-    folder: tests
-    name: get-language-test-folders-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: f4ec1795e427
   edges:
     docs: "[Get-LanguageTestFolders.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-LanguageTestFolders.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1
     cites:
+      - ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---
 #>

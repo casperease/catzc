@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: eea51eb0cc6e
+# ---
+
 description:
   "Every globset carries one of three layers: deployable-unit and loose-fileset sets are declared in globs.yml, module sets are derived from
   the folders under pwsh; the reserved umbrellas are derived loose-filesets, and compose is the only edge between sets."

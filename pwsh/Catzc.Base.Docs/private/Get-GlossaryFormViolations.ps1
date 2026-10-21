@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/private/Get-GlossaryFormViolations.ps1
-    folder: private
-    name: get-glossary-form-violations
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "1a1752eb3a6b"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossaryFormViolations.Tests.ps1
     docs: "[Get-GlossaryFormViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md)"

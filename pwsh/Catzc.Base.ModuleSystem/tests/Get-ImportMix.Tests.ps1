@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "775875daf11e"
+  edges:
+    code: pwsh/Catzc.Base.ModuleSystem/Get-ImportMix.ps1
+    cites:
+      - ADR-AUTO-IMPORTER-ONEMIXRECORD
+---
+#>
+
 Describe 'Get-ImportMix' -Tag 'L0', 'logic' {
     BeforeEach {
         InModuleScope Catzc.Base.ModuleSystem { $script:importMix = $null }

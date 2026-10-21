@@ -18,7 +18,8 @@ metadata:
 1. Wave 0: at most 4 read-only scouts split by area return the style rules (exact hex values, verbatim style strings) and at most 6
    candidates each (filename, finding, source ADR, box sketch); the lead ranks them, picks at most 12, and keeps the rest as the backlog in
    the diagram-waves plan under `.claude/plans/`; every wave launches in one message, never more than 12 agents in flight, the lead preps
-   the next briefs while a wave runs and never polls or predicts.
+   the next briefs while a wave runs and never polls or predicts; a session spawns at most 20 subagents in all, and a fan-out writes its
+   brief once to a file and sends each agent one line naming it.
 2. Wave N: each maker gets exactly this brief: read `python/catzc_diagrams/assets/STYLE.md` and its quality-bar diagram; verify each claim
    against the ADR, code and configs into `<name>.verify.md` (claim, `file:line`, confirmed / contradicted / ADR-only); write
    `out/diagrams/wave-N/<subfolder>/<name>/diagram.drawio.yml` (`description:`, `about:`, `content:`, `layout:` only where the grid would

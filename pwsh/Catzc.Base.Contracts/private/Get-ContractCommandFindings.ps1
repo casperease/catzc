@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Get-ContractCommandFindings.ps1
-    folder: private
-    name: get-contract-command-findings
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "5b2b62506f5e"
   edges:
     docs: "[Get-ContractCommandFindings.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractCommandFindings.ps1.md)"
     cites:
@@ -55,11 +43,23 @@ function Get-ContractCommandFindings {
         return "'$($Asset.AssetPath)': $reason"
     }
 
+    $normalForm = (Get-Config -Config languages).naming_normal_form
+    $findings = @(Get-ContractNormalFormFindings -Contract $contract -NormalForm $normalForm)
+    if ($findings.Count -gt 0) {
+        return $findings | ForEach-Object { "'$($Asset.AssetPath)': $_" }
+    }
+
+    # The command's file spells its names in PowerShell's idiom; rendered to the normal form, they compare with the contract's.
+    $toNormal = [Func[string, string]] {
+        param([string] $text)
+        [Catzc.Base.Languages.LanguageNaming]::IsInCase($normalForm, $text) ? $text : [Catzc.Base.Languages.LanguageNaming]::ToNormal('pascal', $text, $normalForm)
+    }.GetNewClosure()
     try {
-        $command = Read-CommandSignature -Path (Join-Path $RepositoryRoot $Asset.Target) -Name $name
+        $command = (Read-CommandSignature -Path (Join-Path $RepositoryRoot $Asset.Target) -Name $name).Renamed($toNormal)
     }
     catch {
-        return $_.Exception.Message
+        $reason = $_.Exception.InnerException ? $_.Exception.InnerException.Message : $_.Exception.Message
+        return $reason
     }
 
     [Catzc.Base.Contracts.ContractCommand]::Compare($contract, $command)

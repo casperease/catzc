@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "8c92686349ed"
+  edges:
+    code: pwsh/Catzc.Base.Repository/Test-IsRunningAsAgent.ps1
+---
+#>
+
 Describe 'Test-IsRunningAsAgent' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalClaudeCode = $env:CLAUDECODE

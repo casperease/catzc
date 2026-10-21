@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/Get-ModuleProfile.ps1
-    name: get-module-profile
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: d5f390e9504f
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1
     docs: "[Get-ModuleProfile.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-ModuleProfile.ps1.md)"

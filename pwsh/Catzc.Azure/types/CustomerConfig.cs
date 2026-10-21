@@ -2,24 +2,13 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/types/CustomerConfig.cs
-    folder: types
-    name: customer-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "3f399779772f"
   edges:
     test: pwsh/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
     docs: "[CustomerConfig.cs.md](docs/references/pwsh/catzc-azure/types/CustomerConfig.cs.md)"
     cites:
-      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-CUSTOMER
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

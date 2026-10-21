@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: "6cd427f319c6"
   edges:
-    code: pwsh/Catzc.Base.VSCode/Install-VsCodeExtension.ps1
+    code: pwsh/Catzc.Base.VSCode/Install-VSCodeExtension.ps1
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
 ---

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/Build-Readme.ps1
-    name: build-readme
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: b9719f7f4b2a
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1
     docs: "[Build-Readme.ps1.md](docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md)"

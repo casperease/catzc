@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-FileMeta.ps1
-    name: test-file-meta
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: b016f60d2a1b
   edges:
     docs: "[Test-FileMeta.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-FileMeta.ps1.md)"
     cites:

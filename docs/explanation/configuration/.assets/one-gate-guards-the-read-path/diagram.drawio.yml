@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "1b2bec224176"
+# ---
+
 description:
   "Each stage of the config read path with the rules that govern it and what actually checks them: one quality gate guards the typed step
   and one the validator extension point, while the one-reader and read-only rules rest on convention."

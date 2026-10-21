@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Save-TestDurationHistory.ps1
-    folder: private
-    name: save-test-duration-history
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "09a51a2552b9"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Save-TestDurationHistory.Tests.ps1
     docs: "[Save-TestDurationHistory.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Save-TestDurationHistory.ps1.md)"

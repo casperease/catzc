@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/private/Get-BicepConfigClassViolations.ps1
-    folder: private
-    name: get-bicep-config-class-violations
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "9fa2093dd484"
   edges:
     docs: "[Get-BicepConfigClassViolations.ps1.md](docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md)"
     cites:

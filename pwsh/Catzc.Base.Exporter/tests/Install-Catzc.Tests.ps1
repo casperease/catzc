@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
-    folder: tests
-    name: install-catzc-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b46254bb2f5c
   edges:
     docs: "[Install-Catzc.Tests.ps1.md](docs/references/pwsh/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

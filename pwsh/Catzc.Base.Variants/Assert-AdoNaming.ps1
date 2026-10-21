@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Variants/Assert-AdoNaming.ps1
-    name: assert-ado-naming
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "7aec61252ca2"
   edges:
     test: pwsh/Catzc.Base.Variants/tests/Assert-AdoNaming.Tests.ps1
     docs: "[Assert-AdoNaming.ps1.md](docs/references/pwsh/catzc-base-variants/Assert-AdoNaming.ps1.md)"

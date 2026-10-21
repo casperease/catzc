@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ffc333bd0426
+---
+#>
+
 function Resolve-ListenSession {
     <#
     .SYNOPSIS

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/types/PythonConfig.cs
-    folder: types
-    name: python-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "9e014783e491"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1
     docs: "[PythonConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/PythonConfig.cs.md)"

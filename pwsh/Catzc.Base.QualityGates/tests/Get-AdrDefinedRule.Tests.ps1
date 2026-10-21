@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: d06a112e072d
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-AdrDefinedRule.ps1
+    cites:
+      - ADR-REPO-LINK-ONECITATIONSPELLING
+---
+#>
+
 Describe 'Get-AdrDefinedRule' -Tag 'L0', 'logic', 'ADR-REPO-LINK-ONECITATIONSPELLING' {
     BeforeAll {
         function script:Get-Defined {

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1
-    name: uninstall-zsh
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: b5e5e480f0a9
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
     docs: "[Uninstall-Zsh.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md)"

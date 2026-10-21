@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "5b68d646bc50"
+# ---
+
 description:
   A consumer binds to one command-line interface, which hands the work to the vendor's own tooling, which talks to the cloud vendor
   substrate behind it.

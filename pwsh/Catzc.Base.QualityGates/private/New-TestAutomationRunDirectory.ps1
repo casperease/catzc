@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/New-TestAutomationRunDirectory.ps1
-    folder: private
-    name: new-test-automation-run-directory
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: bac2dccec20a
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/New-TestAutomationRunDirectory.Tests.ps1
     docs: "[New-TestAutomationRunDirectory.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/New-TestAutomationRunDirectory.ps1.md)"

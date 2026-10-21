@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3c672459d99e"
+  edges:
+    code: pwsh/Catzc.Base.Asserts/Assert-NotNullOrWhitespace.ps1
+---
+#>
+
 Describe 'Assert-NotNullOrWhitespace' -Tag 'L0', 'logic' {
     It 'passes when value is a non-empty string' {
         { Assert-NotNullOrWhitespace 'hello' } | Should -Not -Throw

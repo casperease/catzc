@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/types/NetworkCidr.cs
-    folder: types
-    name: network-cidr
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a4d686175392
   edges:
     docs: "[NetworkCidr.cs.md](docs/references/pwsh/catzc-azure/types/NetworkCidr.cs.md)"
     cites:

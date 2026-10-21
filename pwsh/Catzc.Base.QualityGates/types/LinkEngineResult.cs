@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/LinkEngineResult.cs
-    folder: types
-    name: link-engine-result
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4974d05bd315"
   edges:
     docs: "[LinkEngineResult.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinkEngineResult.cs.md)"
 ---

@@ -1,17 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: python/catzc_diagrams/assets/slides/slides.yml
-#     folder: assets/slides
-#     name: slides
-#     filetype: yml
-#     role: slides-kit
-#     language: yaml
-#     track: python
-#     tracktype: modules
-#     module: catzc_diagrams
-#     moduletype: python
+#     with_body_sha: b6ca157fa8a1
 #   edges:
 #     docs: "[slides.yml.md](docs/references/python/catzc_diagrams/assets/slides/slides.yml.md)"
 # ---

@@ -33,7 +33,7 @@ whole comment run before the head is written.
 
 Which page under docs/ holds a file's long comments, from the ordered source-folder to docs-folder maps of the comment-pages settings; the
 first map that covers the file wins, and a file no map covers has no page. The settings reach it as a parameter, so every head writer and
-every comment gate finds the same page with the same call
+every quality gate over comments finds the same page with the same call
 ([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](../../adr/repository/comments-in-docs.md#rule-adr-repo-comments-commentpageplace)).
 
 ## What the module does

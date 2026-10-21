@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
-    folder: tests
-    name: get-engine-contract-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "1ec0fe35acf5"
   edges:
     docs: "[Get-EngineContract.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Get-EngineContract.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Languages/private/Get-EngineContract.ps1
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

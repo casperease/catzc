@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "60f0e5f81f96"
+  edges:
+    code: pwsh/Catzc.Base.Variants/Get-GitWorkspace.ps1
+---
+#>
+
 Describe 'Get-GitWorkspace' -Tag 'L0', 'logic' {
 
     It 'returns the configured mode' {

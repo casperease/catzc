@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/Get-InstallScope.ps1
-    name: get-install-scope
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "7a0963351fdd"
   edges:
     docs: "[Get-InstallScope.ps1.md](docs/references/pwsh/catzc-tooling-core/Get-InstallScope.ps1.md)"
 ---

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.CodeMeta/Get-CodeMetaState.ps1
-    name: get-code-meta-state
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "8d703e03ca52"
   edges:
     test: pwsh/Catzc.Base.CodeMeta/tests/Get-CodeMetaState.Tests.ps1
     docs: "[Get-CodeMetaState.ps1.md](docs/references/pwsh/catzc-base-codemeta/Get-CodeMetaState.ps1.md)"

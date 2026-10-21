@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "92fccf0db9c2"
+  edges:
+    test: pwsh/Catzc.Base.Languages/tests/ConvertTo-NormalName.Tests.ps1
+---
+#>
+
 function ConvertTo-NormalName {
     [CmdletBinding()]
     [OutputType([string])]
@@ -10,23 +20,23 @@ function ConvertTo-NormalName {
         [string] $Language,
 
         [ValidateSet('function', 'type', 'file', 'folder')]
-        [string] $Kind = 'function'
+        [string] $NameKind = 'function'
     )
 
     begin {
         $config = Get-Config -Config languages
         $naming = (Get-FileLanguage -Name $Language).naming
-        if ($null -eq $naming -or $naming.$Kind.Count -eq 0) {
-            throw "languages['$Language'].naming names no $Kind case, so a $Language $Kind name has no normal form."
+        if ($null -eq $naming -or $naming.$NameKind.Count -eq 0) {
+            throw "languages['$Language'].naming names no $NameKind case, so a $Language $NameKind name has no normal form."
         }
-        $cases = $naming.$Kind
+        $cases = $naming.$NameKind
     }
 
     process {
         # The first of the language's cases the name is in.
         $case = @($cases.Where({ [Catzc.Base.Languages.LanguageNaming]::IsInCase($_, $Name) }, 'First'))
         if ($case.Count -eq 0) {
-            throw "'$Name' is not a $Language $Kind name (it is in none of: $($cases -join ', '))."
+            throw "'$Name' is not a $Language $NameKind name (it is in none of: $($cases -join ', '))."
         }
         [Catzc.Base.Languages.LanguageNaming]::ToNormal($case[0], $Name, $config.naming_normal_form)
     }

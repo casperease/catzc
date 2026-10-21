@@ -11,7 +11,7 @@ plan:
 
 `.claude/CLAUDE.md` is 14294 bytes (about 3574 tokens, bytes / 4, an estimate) read at the start of every session; the Sub-agents section is
 4788 of them. Each agent's purpose already sits in its `description` front matter and in `agents.yml`, so the section restates a fact held
-twice elsewhere. The time-safeguard trim of the same file is plan-agent-friction's step 7.
+twice elsewhere. The time-safeguard trim of the same file is plan-agent-friction's step 3.
 
 ## Why its value is medium
 

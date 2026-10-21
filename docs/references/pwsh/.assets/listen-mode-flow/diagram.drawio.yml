@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "871cd84b7e37"
+# ---
+
 description:
   "The listen mode: each writer leaves its trace in a ledger, the listener notes every settled change with who wrote it, and the processor
   plans from the editor's notes alone."

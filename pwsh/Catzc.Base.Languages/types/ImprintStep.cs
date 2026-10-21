@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/types/ImprintStep.cs
-    folder: types
-    name: imprint-step
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "942900dc8582"
   edges:
     docs: "[ImprintStep.cs.md](docs/references/pwsh/catzc-base-languages/types/ImprintStep.cs.md)"
     cites:

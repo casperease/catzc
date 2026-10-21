@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "84893f2c7c7f"
+  edges:
+    code: pwsh/Catzc.Base.Overlay/Get-CatzcOverlay.ps1
+---
+#>
+
 Describe 'Get-CatzcOverlay' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Overlay.Fixture.ps1')

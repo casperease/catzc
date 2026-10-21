@@ -1,0 +1,7 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-AdoPipelineTriggerGlob, the quality gate that checks
+# each named ADO pipeline's trigger path filters against its globset's projection and returns its result under -PassThru.
+parameters:
+  name: string[]
+  output_folder: string
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

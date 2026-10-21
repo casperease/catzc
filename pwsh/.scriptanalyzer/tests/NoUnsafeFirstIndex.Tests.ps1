@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/tests/NoUnsafeFirstIndex.Tests.ps1
-    folder: pwsh/.scriptanalyzer/tests
-    name: no-unsafe-first-index-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: c4f1602c0b19
   edges:
     docs: "[NoUnsafeFirstIndex.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoUnsafeFirstIndex.Tests.ps1.md)"
     cites:

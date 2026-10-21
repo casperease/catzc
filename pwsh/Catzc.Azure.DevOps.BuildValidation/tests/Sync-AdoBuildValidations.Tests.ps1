@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
-    folder: tests
-    name: sync-ado-build-validations-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps.BuildValidation
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: d2f56be31927
   edges:
     docs: "[Sync-AdoBuildValidations.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops-buildvalidation/tests/Sync-AdoBuildValidations.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.DevOps.BuildValidation/Sync-AdoBuildValidations.ps1
 ---
 #>
 

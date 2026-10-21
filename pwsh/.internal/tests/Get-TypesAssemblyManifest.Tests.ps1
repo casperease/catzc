@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e711fabe5e42
+---
+#>
+
 Describe 'Get-TypesAssemblyManifest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:space = 'Fixture' + [guid]::NewGuid().ToString('N').Substring(0, 8)

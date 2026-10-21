@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f5772fe046f7
+  edges:
+    code: pwsh/Catzc.Base.Reports/types/TestRunResult.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-CONSOLEREADYTOSTRING
+---
+#>
+
 Describe 'Catzc.Base.Reports.TestRunResult' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'holds the counts, the rows, the shards and the run directory, and counts the rows as the total' {
         $rows = @([pscustomobject]@{ Name = 'widget spins'; Result = 'Passed' }, [pscustomobject]@{ Name = 'gadget turns'; Result = 'Failed' })

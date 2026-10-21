@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.CodeMeta/Format-PropertyMetaHead.ps1
-    name: format-property-meta-head
-    filetype: ps1
-    role: function
-    subkind: formatter
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "20a5b7aaf034"
   edges:
     test: pwsh/Catzc.Base.CodeMeta/tests/Format-PropertyMetaHead.Tests.ps1
     docs: "[Format-PropertyMetaHead.ps1.md](docs/references/pwsh/catzc-base-codemeta/Format-PropertyMetaHead.ps1.md)"

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-    name: sync-ado-environment-approvals
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "994797e78dfc"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Sync-AdoEnvironmentApprovals.Tests.ps1
     docs: "[Sync-AdoEnvironmentApprovals.ps1.md](docs/references/pwsh/catzc-azure-devops/Sync-AdoEnvironmentApprovals.ps1.md)"

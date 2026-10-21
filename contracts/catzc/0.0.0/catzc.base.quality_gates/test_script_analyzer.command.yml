@@ -1,0 +1,8 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ScriptAnalyzer, the quality gate that analyzes the
+# PowerShell with PSScriptAnalyzer, and returns its result under -PassThru.
+parameters:
+  path: string[]
+  output_folder: string
+  no_cache: switch
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "73a30d51dec1"
+  edges:
+    code: pwsh/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
+    cites:
+      - ADR-REPO-FILEMETA-HEADPOLICY
+---
+#>
+
 Describe 'Get-MarkdownMetaState' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     It 'reports no front matter and no meta block for a plain file' {
         $state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nbody`n"

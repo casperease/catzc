@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Python/private/Uninstall-PipTool.ps1
-    folder: private
-    name: uninstall-pip-tool
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Python
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: ac01d34e340d
   edges:
     docs: "[Uninstall-PipTool.ps1.md](docs/references/pwsh/catzc-tooling-python/private/Uninstall-PipTool.ps1.md)"
 ---

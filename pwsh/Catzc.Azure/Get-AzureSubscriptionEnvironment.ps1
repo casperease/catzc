@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
-    name: get-azure-subscription-environment
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: d4cc9e9d09e3
   edges:
     test: pwsh/Catzc.Azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1
     docs: "[Get-AzureSubscriptionEnvironment.ps1.md](docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md)"

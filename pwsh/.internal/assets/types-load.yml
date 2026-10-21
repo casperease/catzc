@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "4d618842cad2"
+# ---
+
 # How the combined C# types assembly is loaded, one row per mode: <host>.<os>.<run mode>.
 # host: console (interactive) | headless (pipeline, test worker, analyzer, pwsh -File). os: windows | unix. run mode: source | build.
 # load: lazy = unloaded after verification, loaded by the first use | eager = loaded right after verification.

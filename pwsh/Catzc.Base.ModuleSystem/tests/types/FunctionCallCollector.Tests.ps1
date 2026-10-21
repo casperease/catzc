@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
-    folder: tests/types
-    name: function-call-collector-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: d0bde712dcb8
   edges:
     docs: "[FunctionCallCollector.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/types/FunctionCallCollector.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.ModuleSystem/types/FunctionCallCollector.cs
 ---
 #>
 

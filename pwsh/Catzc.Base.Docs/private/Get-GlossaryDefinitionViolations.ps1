@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/private/Get-GlossaryDefinitionViolations.ps1
-    folder: private
-    name: get-glossary-definition-violations
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "7bd62cb8edd1"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossaryDefinitionViolations.Tests.ps1
     docs: "[Get-GlossaryDefinitionViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossaryDefinitionViolations.ps1.md)"

@@ -4,8 +4,8 @@ catzc:
   immutable:
     with_body_sha: b03beb362092
   edges:
-    docs: "[Import-PsReadLineKeyHandlerSet.Tests.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/tests/Import-PsReadLineKeyHandlerSet.Tests.ps1.md)"
-    code: pwsh/Catzc.Tooling.KeyHandler/Import-PsReadLineKeyHandlerSet.ps1
+    docs: "[Import-PSReadLineKeyHandlerSet.Tests.ps1.md](docs/references/pwsh/catzc-tooling-keyhandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.KeyHandler/Import-PSReadLineKeyHandlerSet.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

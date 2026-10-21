@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1
-    folder: tests
-    name: get-bicep-resource-group-name-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: fa164fc44436
   edges:
     docs: "[Get-BicepResourceGroupName.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepResourceGroupName.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/private/Get-BicepResourceGroupName.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS
       - ADR-AUTO-TEST-SETUPONCE

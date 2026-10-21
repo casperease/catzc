@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
-    name: convert-firewall-csv-to-markdown
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "76eeccb968c3"
   edges:
     test: pwsh/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1
     docs: "[Convert-FirewallCsvToMarkdown.ps1.md](docs/references/pwsh/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md)"

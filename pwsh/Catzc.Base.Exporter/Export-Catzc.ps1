@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Exporter/Export-Catzc.ps1
-    name: export-catzc
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: cdd0900f5ae6
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/Export-Catzc.Tests.ps1
     docs: "[Export-Catzc.ps1.md](docs/references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md)"

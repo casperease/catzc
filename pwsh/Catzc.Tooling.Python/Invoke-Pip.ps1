@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Python/Invoke-Pip.ps1
-    name: invoke-pip
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Python
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "3f419eb4568e"
   edges:
     test: pwsh/Catzc.Tooling.Python/tests/Invoke-Pip.Tests.ps1
     docs: "[Invoke-Pip.ps1.md](docs/references/pwsh/catzc-tooling-python/Invoke-Pip.ps1.md)"

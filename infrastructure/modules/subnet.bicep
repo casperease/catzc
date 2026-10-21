@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/subnet.bicep
-//     name: subnet
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: subnet
-//     moduletype: bicep
+//     with_body_sha: b74d01d6eb90
 //   edges:
 //     docs: "[subnet.bicep.md](docs/references/infrastructure/modules/subnet.bicep.md)"
 // ---

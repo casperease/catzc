@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Github/Test-GitHistoryClean.ps1
-    name: test-git-history-clean
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Github
-    moduletype: pwsh-folder
-    catzc_bundle: full
-    visibility: public
+    with_body_sha: "518f3984ee53"
   edges:
     test: pwsh/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
     docs: "[Test-GitHistoryClean.ps1.md](docs/references/pwsh/catzc-tooling-github/Test-GitHistoryClean.ps1.md)"

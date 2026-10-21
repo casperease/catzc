@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "7e2571947cc2"
+  edges:
+    code: pwsh/Catzc.Base.Slides/types/SlidePattern.cs
+    cites:
+      - ADR-PRIN-POKAYOKE-DETECTEARLIEST
+      - ADR-REPO-SLIDES-PATTERN
+      - ADR-REPO-SLIDES-FAILFORWARDRENDER
+---
+#>
+
 Describe 'SlidePattern' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-PATTERN', 'ADR-REPO-SLIDES-FAILFORWARDRENDER' {
     BeforeAll {
         $script:html = @'

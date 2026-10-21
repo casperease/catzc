@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
-    folder: tests/types
-    name: dictionary-record-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5f2294fd25e2"
   edges:
     docs: "[DictionaryRecord.Tests.ps1.md](docs/references/pwsh/catzc-base-objects/tests/types/DictionaryRecord.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Objects/types/DictionaryRecord.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-BCL-TYPES-NATIVETYPEDMODEL

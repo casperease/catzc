@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b0f9241b875c
+  edges:
+    code: pwsh/Catzc.Azure.DevOps/types/AdoConfig.cs
+---
+#>
+
 Describe 'AdoConfig' -Tag 'L0' {
     BeforeAll {
         $script:baseConfig = @{

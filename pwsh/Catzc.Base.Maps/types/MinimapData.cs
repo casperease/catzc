@@ -1,3 +1,13 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "71ffe9655502"
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/types/MinimapData.Tests.ps1
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +16,7 @@ using System.Text.Json;
 
 namespace Catzc.Base.Maps;
 
-// The data one minimap draws, in the shape of the minimap contract (contracts/catzc/0.0.0/Catzc.Base.Maps/minimap.schema.json).
+// The data one minimap draws, in the shape of the minimap contract (contracts/catzc/0.0.0/catzc.base.maps/minimap.schema.json).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Id), nameof(Axes))]
 public sealed class MinimapData
 {

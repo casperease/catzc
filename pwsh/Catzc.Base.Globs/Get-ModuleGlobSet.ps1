@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-    name: get-module-glob-set
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: e846e480dec1
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
     docs: "[Get-ModuleGlobSet.ps1.md](docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md)"

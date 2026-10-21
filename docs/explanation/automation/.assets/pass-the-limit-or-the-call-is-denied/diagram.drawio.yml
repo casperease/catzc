@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "574262bcc843"
+# ---
+
 description:
   A shell call inside the limit runs as if the safeguard were absent; a call outside it is denied by the hook with the fix and logged, and a
   background call that outlives its prefix is stopped with exit 124.

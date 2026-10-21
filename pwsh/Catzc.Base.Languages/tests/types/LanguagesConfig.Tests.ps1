@@ -1,3 +1,28 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b9957eb1c66e
+  edges:
+    code: pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs
+    cites:
+      - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-IDIOM-LANGUAGEIDIOM
+      - ADR-AUTO-IDIOM-CLOSEDCASES
+      - ADR-AUTO-IDIOM-NORMALFORM
+      - ADR-AUTO-IDIOM-ROUNDTRIP
+      - ADR-AUTO-IDIOM-ACRONYMISWORD
+      - ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM
+      - ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION
+      - ADR-AUTO-MODULE-EXISTSBYLAYOUT
+      - ADR-AUTO-MODULE-CHECKSBYLANGUAGE
+      - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
+      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+      - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+---
+#>
+
 Describe 'LanguagesConfig' -Tag 'L0' {
     BeforeAll {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Languages.LanguagesConfig]::new($raw) }

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
-    folder: tests/types
-    name: comments-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b81784849801
   edges:
     docs: "[CommentsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/CommentsConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-CONF-LOADING-CSHARPCONFIGTYPE

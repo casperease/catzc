@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "4f54b76738d8"
+# ---
+
 description:
   "The bundle in code: Build-Modules reads exporter.yml and calls the build engine, Assert-CatzcBundle checks what the engine wrote, and
   each target verifies the build folder again before it copies or packs it whole."

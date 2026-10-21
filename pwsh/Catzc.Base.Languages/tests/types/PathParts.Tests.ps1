@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "885e42ab205f"
+  edges:
+    code: pwsh/Catzc.Base.Languages/types/PathParts.cs
+    cites:
+      - ADR-REPO-FILEMETA-ROLE
+---
+#>
+
 Describe 'Catzc.Base.Languages.PathParts' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-ROLE' {
     Context 'Of' {
         It 'splits a path into its folder, its kebab-case name and its file type' -ForEach @(

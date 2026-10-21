@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Group-AdrUsage.ps1
-    folder: private
-    name: group-adr-usage
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "74c097155f58"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Group-AdrUsage.Tests.ps1
     docs: "[Group-AdrUsage.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Group-AdrUsage.ps1.md)"

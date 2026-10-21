@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/types/Tenant.cs
-    folder: types
-    name: tenant
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a0eafd744426
   edges:
     docs: "[Tenant.cs.md](docs/references/pwsh/catzc-azure/types/Tenant.cs.md)"
 ---

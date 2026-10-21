@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "87cb774e4e59"
+  edges:
+    code: pwsh/Catzc.Tooling.Provisioning/private/Find-WindowsGitCredentialManager.ps1
+---
+#>
+
 Describe 'Find-WindowsGitCredentialManager' -Tag 'L0', 'logic' {
     It 'returns the first candidate path that exists' {
         InModuleScope Catzc.Tooling.Provisioning {

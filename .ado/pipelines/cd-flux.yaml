@@ -1,17 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: ".ado/pipelines/cd-flux.yaml"
-#     name: cd-flux
-#     filetype: yaml
-#     role: pipeline
-#     language: pipeline-yaml
-#     track: ado-pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
+#     with_body_sha: "55ad35daf1a0"
 #   edges:
 #     docs: "[cd-flux.yaml.md](docs/references/ado/pipelines/cd-flux.yaml.md)"
 # ---

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/types/ExecutableProbe.cs
-    folder: types
-    name: executable-probe
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "177c3f4b32a2"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
     docs: "[ExecutableProbe.cs.md](docs/references/pwsh/catzc-base-execution/types/ExecutableProbe.cs.md)"

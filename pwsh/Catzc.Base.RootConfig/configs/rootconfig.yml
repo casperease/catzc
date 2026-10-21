@@ -1,20 +1,13 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
-#     folder: configs
-#     name: rootconfig
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.RootConfig
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: c6dda46eadd1
 #   edges:
 #     docs: "[rootconfig.yml.md](docs/references/pwsh/catzc-base-rootconfig/configs/rootconfig.yml.md)"
+#     cites:
+#       - ADR-AUTO-ENGINE
+#       - ADR-AUTO-PATH
+#       - ADR-REPO-ROOTCFG
 # ---
 
 files:

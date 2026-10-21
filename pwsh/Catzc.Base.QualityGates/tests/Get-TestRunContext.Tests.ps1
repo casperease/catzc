@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Get-TestRunContext.Tests.ps1
-    folder: tests
-    name: get-test-run-context-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b6959cc445c6
   edges:
     docs: "[Get-TestRunContext.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-TestRunContext.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Get-TestRunContext.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

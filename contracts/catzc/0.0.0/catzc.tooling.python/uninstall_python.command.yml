@@ -1,0 +1,4 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Uninstall-Python, which uninstalls the uv-provisioned Python.
+# Version defaults to the version tools.yml locks, a computed default the contract does not restate.
+parameters:
+  version: string

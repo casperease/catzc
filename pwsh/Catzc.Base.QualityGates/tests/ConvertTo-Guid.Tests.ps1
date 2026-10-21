@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e550d5d80a89
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/ConvertTo-Guid.ps1
+---
+#>
+
 Describe 'ConvertTo-Guid' -Tag 'L0', 'logic' {
     It 'returns a [guid], positionally' {
         $result = ConvertTo-Guid 'sample test data'

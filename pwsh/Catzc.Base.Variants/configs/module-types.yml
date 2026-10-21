@@ -1,18 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.Variants/configs/module-types.yml
-#     folder: configs
-#     name: module-types
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.Variants
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: a1043d4c940d
 #   edges:
 #     docs: "[module-types.yml.md](docs/references/pwsh/catzc-base-variants/configs/module-types.yml.md)"
 # ---

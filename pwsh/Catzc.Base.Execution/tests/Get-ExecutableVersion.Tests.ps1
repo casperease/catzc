@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
-    folder: tests
-    name: get-executable-version-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b71449a06b48
   edges:
     docs: "[Get-ExecutableVersion.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Execution/private/Get-ExecutableVersion.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

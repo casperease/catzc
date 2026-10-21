@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "378f11746fc5"
+# ---
+
 description:
   Tracks and deployable-units are checked in code, by the variants config, an integrity test over the real repository and the globs config
   on load; the rules that one unit binds one pipeline and that a scope is no new track are held by code review alone.

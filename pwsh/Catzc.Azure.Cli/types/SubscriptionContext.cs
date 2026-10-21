@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Cli/types/SubscriptionContext.cs
-    folder: types
-    name: subscription-context
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: fff42a523d0d
   edges:
     docs: "[SubscriptionContext.cs.md](docs/references/pwsh/catzc-azure-cli/types/SubscriptionContext.cs.md)"
 ---

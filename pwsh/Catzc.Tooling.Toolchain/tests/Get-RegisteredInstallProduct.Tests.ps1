@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
-    folder: tests
-    name: get-registered-install-product-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "9f95334e8bc4"
   edges:
     docs: "[Get-RegisteredInstallProduct.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Toolchain/private/Get-RegisteredInstallProduct.ps1
     cites:
       - ADR-AUTO-REMOVE-THREEPLATFORMCORES
 ---

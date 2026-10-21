@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/New-PythonProject.ps1
-    name: new-python-project
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: df84afb10af3
   edges:
     test: pwsh/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
     docs: "[New-PythonProject.ps1.md](docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md)"

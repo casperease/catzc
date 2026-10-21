@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "13038acddac7"
+# ---
+
 description:
   "Each stage of resolving a global config address with the rules that govern it and what checks them: two L0 test files check the grammar,
   the reader, the walk and the secret hand-off, while read-only and committed-only rest on convention."

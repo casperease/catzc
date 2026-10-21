@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/NoBareCacheEntryRead.psm1
-    folder: pwsh/.scriptanalyzer
-    name: no-bare-cache-entry-read
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: fd02664a83df
   edges:
     docs: "[NoBareCacheEntryRead.psm1.md](docs/references/pwsh/scriptanalyzer/NoBareCacheEntryRead.psm1.md)"
 ---

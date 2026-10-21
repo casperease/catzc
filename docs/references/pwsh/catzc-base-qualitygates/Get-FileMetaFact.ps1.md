@@ -18,7 +18,8 @@ changes no output, because the facts are derived, never read back
 its facts belong to its description file, which is in scope on its own. The imprint calls it with the state it has already read.
 
 Each kind's processor is the function the registry names, found in this module's scope; a kind with no such function fails the run and names
-the function it expected. A processor must return exactly the keys its kind declares, so a kind can never write a key another kind owns.
+the function it expected. A test fixture follows the precedent of `Invoke-FileMetaEngine.Tests.ps1`: it defines its processor at script
+scope (`function script:Get-WidgetPathFileMetaFact`) so the lookup finds it, and removes it after. A processor must return exactly the keys its kind declares, so a kind can never write a key another kind owns.
 Each key goes into the part its kind names, `immutable` or `edges`, and comes back in registry order, which is the order it is written.
 
 It rests on [ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-subscribebyfunction).

@@ -1,6 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "57c0768eabfc"
+  edges:
+    code: pwsh/Catzc.Base.Maps/Get-EngineStripMinimapData.ps1
+---
+#>
+
 Describe 'Get-EngineStripMinimapData' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/Catzc.Base.Maps/minimap.schema.json'))
+        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.maps/minimap.schema.json'))
         Mock Get-FileLanguage -ModuleName Catzc.Base.Maps {
             [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)
             [Catzc.Base.Languages.FileLanguage]::new('gadget-shell', @('.sh'), $null, 'fixture', $null, $null, $null)

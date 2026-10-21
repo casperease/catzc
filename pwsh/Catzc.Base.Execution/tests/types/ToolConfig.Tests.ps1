@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
-    folder: tests/types
-    name: tool-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a440f81dee00
   edges:
     docs: "[ToolConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Execution/types/ToolConfig.cs
     cites:
       - ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS
       - ADR-AUTO-PKGMGR-VERIFYDOWNLOADS

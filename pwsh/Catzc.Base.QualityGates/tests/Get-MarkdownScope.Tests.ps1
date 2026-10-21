@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: df0e7be55e34
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-MarkdownScope.ps1
+    cites:
+      - ADR-REPO-FILEMETA-KINDSCOPE
+      - ADR-REPO-FORMAT-MARKDOWNTITLE
+---
+#>
+
 Describe 'Get-MarkdownScope' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-MARKDOWNTITLE', 'ADR-REPO-FILEMETA-KINDSCOPE' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'

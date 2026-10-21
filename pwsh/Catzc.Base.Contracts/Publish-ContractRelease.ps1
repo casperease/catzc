@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1
-    name: publish-contract-release
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: b65eacd011f4
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
     docs: "[Publish-ContractRelease.ps1.md](docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md)"

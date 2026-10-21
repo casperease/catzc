@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: af4b73211805
   edges:
-    code: pwsh/Catzc.Tooling.KeyHandler/Save-PsReadLineKeyHandlerSet.ps1
+    code: pwsh/Catzc.Tooling.KeyHandler/Save-PSReadLineKeyHandlerSet.ps1
 ---
 #>
 

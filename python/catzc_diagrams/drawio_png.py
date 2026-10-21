@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: c86286497f35
+# ---
+
 # cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo prel segoeui segoeuib textbbox textlength dout
 """Build a .drawio.png from an mxGraphModel XML file, or re-render one from the model it already carries.
 

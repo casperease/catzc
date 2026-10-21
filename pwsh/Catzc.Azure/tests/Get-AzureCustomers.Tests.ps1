@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/tests/Get-AzureCustomers.Tests.ps1
-    folder: tests
-    name: get-azure-customers-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8dbe563f6962"
   edges:
     docs: "[Get-AzureCustomers.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/Get-AzureCustomers.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure/Get-AzureCustomers.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS
       - ADR-AUTO-TEST-SETUPONCE

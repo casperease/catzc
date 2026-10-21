@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Flow/types/TruthStore.cs
-    folder: types
-    name: truth-store
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Flow
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8c0d2f3c89c3"
   edges:
     docs: "[TruthStore.cs.md](docs/references/pwsh/catzc-base-flow/types/TruthStore.cs.md)"
 ---

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/Uninstall-Uv.ps1
-    name: uninstall-uv
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: ef362777b366
   edges:
     docs: "[Uninstall-Uv.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Uv.ps1.md)"
 ---

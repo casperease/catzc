@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: aed9870d3c4b
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-FILEMETA-NOREADBACK
+---
+#>
+
 Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         # The one fixture kind below is a code file, so its class is what the kind's settings name.

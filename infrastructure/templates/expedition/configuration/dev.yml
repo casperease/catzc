@@ -1,19 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: infrastructure/templates/expedition/configuration/dev.yml
-#     folder: configuration
-#     name: dev
-#     filetype: yml
-#     role: template
-#     subkind: config
-#     language: yaml
-#     track: infrastructure
-#     tracktype: infrastructure
-#     vendor: azure
-#     module: expedition
-#     moduletype: bicep
+#     with_body_sha: "472628840eeb"
 #   edges:
 #     docs: "[dev.yml.md](docs/references/infrastructure/templates/expedition/configuration/dev.yml.md)"
 # ---

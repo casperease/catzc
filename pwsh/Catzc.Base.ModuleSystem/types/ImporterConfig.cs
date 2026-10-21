@@ -1,3 +1,15 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "4271c776d662"
+  edges:
+    test: pwsh/Catzc.Base.ModuleSystem/tests/types/ImporterConfig.Tests.ps1
+    cites:
+      - ADR-AUTO-IMPORTER-DECIDESMIX
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

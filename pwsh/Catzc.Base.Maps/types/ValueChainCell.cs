@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/ValueChainCell.cs
-    folder: types
-    name: value-chain-cell
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "32020a4ed221"
   edges:
     docs: "[ValueChainCell.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainCell.cs.md)"
     cites:

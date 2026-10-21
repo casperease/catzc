@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: fff526e3d185
+  edges:
+    code: pwsh/Catzc.Tooling.Toolchain/Remove-Dotnet.ps1
+    cites:
+      - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
+      - ADR-AUTO-REMOVE-THREEPLATFORMCORES
+---
+#>
+
 Describe 'Remove-Dotnet' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED' {
     BeforeEach {
         if (-not $IsWindows) {

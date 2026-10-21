@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: bfcfb514d94e
+  edges:
+    code: pwsh/Catzc.Base.Variants/Test-HaveCustomer.ps1
+---
+#>
+
 Describe 'Test-HaveCustomer' -Tag 'L0', 'logic' {
 
     It 'is true when the single customer is enabled' {

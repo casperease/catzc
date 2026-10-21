@@ -1,3 +1,18 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "82b46a8c7b20"
+  edges:
+    test: pwsh/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1
+    cites:
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - ADR-REPO-AGENTS-NOORPHANNOGHOST
+      - ADR-REPO-AGENTS-CAPABILITYREGISTERED
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

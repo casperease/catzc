@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/Set-ImportMix.ps1
-    name: set-import-mix
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "3de483135680"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Set-ImportMix.Tests.ps1
     docs: "[Set-ImportMix.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Set-ImportMix.ps1.md)"

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "4063d700f9f2"
+# ---
+
 description:
   "Which checks keep globset layers disjoint: one quality gate covers the deployable-unit and module layers, config-load validation keeps
   the module layer derived-only, loose-filesets are exempt, and two prohibitions have no check at all."

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
-    name: write-environment-set
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "2b1266ee5ee7"
   edges:
     test: pwsh/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
     docs: "[Write-EnvironmentSet.ps1.md](docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md)"

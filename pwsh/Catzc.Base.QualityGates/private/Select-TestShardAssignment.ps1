@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Select-TestShardAssignment.ps1
-    folder: private
-    name: select-test-shard-assignment
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "2e4e4246f735"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Select-TestShardAssignment.Tests.ps1
     docs: "[Select-TestShardAssignment.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Select-TestShardAssignment.ps1.md)"

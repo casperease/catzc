@@ -1,0 +1,7 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-FileMetaProcessors, the quality gate that checks every
+# meta kind resolves to a processor and every processor belongs to a kind, and returns its result under -PassThru.
+parameters:
+  config: catzc.base.quality_gates.file_meta_config
+  output_folder: string
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

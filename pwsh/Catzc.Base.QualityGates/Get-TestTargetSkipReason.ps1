@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Get-TestTargetSkipReason.ps1
-    name: get-test-target-skip-reason
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "4329c67123d6"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1
     docs: "[Get-TestTargetSkipReason.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md)"

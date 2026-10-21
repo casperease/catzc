@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/AdrCitationChange.cs
-    folder: types
-    name: adr-citation-change
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "7d509ab09053"
   edges:
     docs: "[AdrCitationChange.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationChange.cs.md)"
     cites:

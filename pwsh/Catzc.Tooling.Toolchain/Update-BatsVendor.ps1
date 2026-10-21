@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/Update-BatsVendor.ps1
-    name: update-bats-vendor
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "3c427c0c69d5"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
     docs: "[Update-BatsVendor.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Update-BatsVendor.ps1.md)"

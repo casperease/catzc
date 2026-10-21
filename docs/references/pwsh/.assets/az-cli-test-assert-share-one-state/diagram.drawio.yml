@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: c1a70ff96ff4
+# ---
+
 description:
   Each of the three az checks has a Test and an Assert half that call one state function, which runs az once through the shared runner; the
   config-aware wrappers look the subscription up in Catzc.Azure first.

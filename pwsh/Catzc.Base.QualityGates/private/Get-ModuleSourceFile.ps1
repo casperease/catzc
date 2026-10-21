@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-ModuleSourceFile.ps1
-    folder: private
-    name: get-module-source-file
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "71994bc162f4"
   edges:
     docs: "[Get-ModuleSourceFile.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-ModuleSourceFile.ps1.md)"
 ---

@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: eef41d4dd57a
+  edges:
+    code: pwsh/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
+    cites:
+      - ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX
+---
+#>
+
 Describe 'Get-RootConfigTargets' -Tag 'L0', 'logic' {
     It 'returns only the opted-in entries, in registry order' {
         $config = [pscustomobject]@{

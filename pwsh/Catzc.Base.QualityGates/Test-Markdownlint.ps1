@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-Markdownlint.ps1
-    name: test-markdownlint
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "2924c1b966d6"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
     docs: "[Test-Markdownlint.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Markdownlint.ps1.md)"

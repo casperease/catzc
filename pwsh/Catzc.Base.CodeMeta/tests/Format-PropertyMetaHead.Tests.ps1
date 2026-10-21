@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: adb34bf9f4e4
+  edges:
+    code: pwsh/Catzc.Base.CodeMeta/Format-PropertyMetaHead.ps1
+    cites:
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+---
+#>
+
 Describe 'Format-PropertyMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     It 'imprints the facts as the first property, and a second run changes nothing' {
         $facts = [ordered]@{ path = 'widget/gadget.json'; kind = 'other' }

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
-    folder: tests
-    name: sync-generated-file-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "15078dc33d81"
   edges:
     docs: "[Sync-GeneratedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Sync-GeneratedFile.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
       - ADR-BCL-TYPES-JANITORSBYCALLER

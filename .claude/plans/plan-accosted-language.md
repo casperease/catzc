@@ -80,7 +80,7 @@ The ADR and the reserved word go first, so every later file has a rule to cite.
 - [ ] `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml`: the `accosted_run` limit for one run (check: `Catzc.Base.Timeouts` Pester).
 - [ ] `pwsh/Catzc.Base.Contracts/Invoke-Accosted.ps1`: runs every run of a file through `cats` under each engine of the engine registry,
       each run bounded by `accosted_run`, and returns one result per run and engine (check: `Invoke-TestFile` on its test file).
-- [ ] `contracts/catzc/0.0.0/Catzc.Base.Contracts/get_accosted_file.command.yml` and `invoke_accosted.command.yml`: both commands contracted
+- [ ] `contracts/catzc/0.0.0/catzc.base.contracts/get_accosted_file.command.yml` and `invoke_accosted.command.yml`: both commands contracted
       (check: `Test-Contracts`).
 - [ ] `pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml`: the first file, one run per harmless command of `Catzc.Base.Contracts`
       (check: `Invoke-Accosted -Path` on it, every run green under every engine).

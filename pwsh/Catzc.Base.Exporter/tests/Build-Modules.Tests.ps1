@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1
-    folder: tests
-    name: build-modules-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "34b141f91397"
   edges:
     docs: "[Build-Modules.Tests.ps1.md](docs/references/pwsh/catzc-base-exporter/tests/Build-Modules.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Exporter/Build-Modules.ps1
 ---
 #>
 

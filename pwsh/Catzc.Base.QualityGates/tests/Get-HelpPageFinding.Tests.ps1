@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "365c3bb001d7"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-HelpPageFinding.ps1
+    cites:
+      - ADR-REPO-HELP-FIVEFAULTSREPORTED
+---
+#>
+
 Describe 'Get-HelpPageFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP-FIVEFAULTSREPORTED' {
     BeforeAll {
         $script:code = "function Get-Widget {`n    [CmdletBinding()]`n    [OutputType([string])]`n    param(`n        [string] `$Name,`n        [switch] `$Force`n    )`n}`n"

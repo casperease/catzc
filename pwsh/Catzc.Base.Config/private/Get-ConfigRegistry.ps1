@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
-    folder: private
-    name: get-config-registry
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Config
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: ebe30c79cbf2
   edges:
     test: pwsh/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
     docs: "[Get-ConfigRegistry.ps1.md](docs/references/pwsh/catzc-base-config/private/Get-ConfigRegistry.ps1.md)"

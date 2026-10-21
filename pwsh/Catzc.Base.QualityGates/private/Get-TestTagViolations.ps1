@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-TestTagViolations.ps1
-    folder: private
-    name: get-test-tag-violations
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "8d7e4f74bdf6"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
     docs: "[Get-TestTagViolations.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md)"

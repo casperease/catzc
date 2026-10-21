@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
-    folder: tests/types
-    name: console-text-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "1ab90e588d72"
   edges:
     docs: "[ConsoleText.Tests.ps1.md](docs/references/pwsh/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Objects/types/ConsoleText.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-BCL-TYPES-NATIVETYPEDMODEL

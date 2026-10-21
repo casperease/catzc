@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "5f7406cdd4f5"
+# ---
+
 description:
   The variants file and the module edges each meet a gate, the config type at load and the module dependency test; the rule against reading
   the file directly has no gate and is left to code review.

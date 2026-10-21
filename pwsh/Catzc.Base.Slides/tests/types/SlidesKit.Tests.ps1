@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "01488c491a3e"
+  edges:
+    code: pwsh/Catzc.Base.Slides/types/SlidesKit.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-SLIDES-PATTERN
+      - ADR-REPO-SLIDES-THEMESELECTOR
+---
+#>
+
 Describe 'SlidesKit' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-PATTERN' {
     BeforeAll {
         $script:raw = @{

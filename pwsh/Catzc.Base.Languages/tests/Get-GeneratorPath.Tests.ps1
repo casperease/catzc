@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: a7aff416c5f8
+  edges:
+    code: pwsh/Catzc.Base.Languages/private/Get-GeneratorPath.ps1
+    cites:
+      - ADR-REPO-FILEMETA-COMPOSEDFILES
+---
+#>
+
 Describe 'Get-GeneratorPath' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
     It 'names the file a loaded function is defined in, relative to the root the code lives in, with forward slashes' {
         InModuleScope Catzc.Base.Languages {

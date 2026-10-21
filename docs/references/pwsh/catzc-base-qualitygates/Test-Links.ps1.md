@@ -28,7 +28,8 @@ Write-QualityGateReport, which writes out/test-links/, prints every issue, and t
 
 ### parameter `Path`
 
-Files or folders to check. Default: every git-tracked file.
+Files or folders to check. Default: every git-tracked file. "Tracked" means in the git index (`Get-GitTrackedPath`), so a new file counts
+only once it is staged, and an unstaged new file's links are not checked by default.
 
 ### parameter `Kind`
 

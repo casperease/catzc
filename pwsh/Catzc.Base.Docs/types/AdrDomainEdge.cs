@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/AdrDomainEdge.cs
-    folder: types
-    name: adr-domain-edge
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5099d55ae51a"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrDomainEdge.Tests.ps1
     docs: "[AdrDomainEdge.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrDomainEdge.cs.md)"

@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "7d267f854e0f"
+  edges:
+    code: pwsh/Catzc.Base.Contracts/types/ContractCommand.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
+      - ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS
+      - ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE
+---
+#>
+
 Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE' {
     BeforeAll {
         function New-Command {
@@ -156,5 +171,43 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLAN
             $command = [Catzc.Base.Contracts.ContractCommand]::new([Catzc.Base.Contracts.ContractParameter[]] @($computed), 'void')
             [Catzc.Base.Contracts.ContractCommand]::Compare((New-Command "parameters:`n  Root: string = here`n"), $command) | Should -BeNullOrEmpty
         }
+    }
+}
+
+Describe 'ContractCommand.ToAssetText' -Tag 'L0', 'logic' {
+    It 'writes every part of the grammar, passing each name, set and catzc type through the rename' {
+        $raw = [ordered]@{
+            parameters  = [ordered]@{
+                Path  = 'string!'
+                Count = 'int = 3'
+                Items = 'Catzc.Base.Widgets.Gadget[]! pipeline'
+                Quiet = 'switch in ById,ByName'
+            }
+            output      = 'Catzc.Base.Widgets.Widget[]'
+            default_set = 'ById'
+        }
+        $command = [Catzc.Base.Contracts.ContractCommand]::new($raw)
+        $text = $command.ToAssetText([Func[string, string]] { param($name) $name.ToLowerInvariant() })
+        $text | Should -BeExactly ("parameters:`n  path: string!`n  count: int = 3`n  items: catzc.base.widgets.gadget[]! pipeline`n" +
+            "  quiet: switch in byid,byname`noutput: catzc.base.widgets.widget[]`ndefault_set: byid`n")
+    }
+
+    It 'leaves out a void output and an absent default set, and writes nothing for an empty contract' {
+        $command = [Catzc.Base.Contracts.ContractCommand]::new([ordered]@{ parameters = [ordered]@{ Name = 'string' } })
+        $command.ToAssetText([Func[string, string]] { param($name) $name }) | Should -BeExactly "parameters:`n  Name: string`n"
+        [Catzc.Base.Contracts.ContractCommand]::new($null).ToAssetText([Func[string, string]] { param($name) $name }) | Should -BeExactly ''
+    }
+}
+
+Describe 'ContractCommand.ToAssetText — every shipped command asset round-trips' -Tag 'L1', 'integrity' {
+    It 'reads back each shipped command contract, written with its names unchanged, to the same signature' {
+        $differ = @(foreach ($contract in Get-CommandContract -Module '*' -Name '*') {
+                $text = $contract.ToAssetText([Func[string, string]] { param($name) $name })
+                $again = [Catzc.Base.Contracts.ContractCommand]::new(($text | ConvertFrom-Yaml -Ordered))
+                if ($again.Signature -cne $contract.Signature) {
+                    "$($contract.Asset.AssetPath): $($contract.Signature) <> $($again.Signature)"
+                }
+            })
+        $differ | Should -BeNullOrEmpty
     }
 }

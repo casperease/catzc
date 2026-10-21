@@ -4,8 +4,8 @@ catzc:
   immutable:
     with_body_sha: d8b500ff3b17
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/Install-VsCodeExtension.Tests.ps1
-    docs: "[Install-VsCodeExtension.ps1.md](docs/references/pwsh/catzc-base-vscode/Install-VsCodeExtension.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/Install-VSCodeExtension.Tests.ps1
+    docs: "[Install-VSCodeExtension.ps1.md](docs/references/pwsh/catzc-base-vscode/Install-VSCodeExtension.ps1.md)"
 ---
 #>
 

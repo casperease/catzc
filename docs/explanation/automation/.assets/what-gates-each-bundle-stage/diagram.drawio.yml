@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: a2d0a33b7fea
+# ---
+
 description:
   "Every stage of the bundle follows a rule and two gates check it: the integrity gate on every build and again before every install, and
   the build run that repeats the same tests against a fresh build."

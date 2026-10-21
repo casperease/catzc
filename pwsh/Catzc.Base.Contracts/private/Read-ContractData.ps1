@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Read-ContractData.ps1
-    folder: private
-    name: read-contract-data
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: cc74ada19455
   edges:
     docs: "[Read-ContractData.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Read-ContractData.ps1.md)"
     cites:

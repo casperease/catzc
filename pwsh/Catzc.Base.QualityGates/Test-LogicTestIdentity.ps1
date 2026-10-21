@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1
-    name: test-logic-test-identity
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "37259a66ce44"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
     docs: "[Test-LogicTestIdentity.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md)"

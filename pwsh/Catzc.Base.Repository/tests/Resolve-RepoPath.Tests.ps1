@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ec5c650c0d99
+  edges:
+    code: pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
+---
+#>
+
 Describe 'Resolve-RepoPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = [IO.Path]::GetFullPath((Join-Path ([IO.Path]::GetTempPath()) ('catzc-root-' + [Guid]::NewGuid())))

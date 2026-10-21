@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "21244136548d"
+  edges:
+    code: pwsh/Catzc.Base.Reports/types/QualityGateResult.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-CONSOLEREADYTOSTRING
+---
+#>
+
 Describe 'Catzc.Base.Reports.QualityGateResult' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'holds the subject, the issues, the report path and the facts in the gate''s order' {
         $facts = [ordered]@{ Widgets = 3; Gadgets = 'two' }

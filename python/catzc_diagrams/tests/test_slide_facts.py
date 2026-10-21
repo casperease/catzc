@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: b30a211a07cd
+# ---
+
 """The subtitle a slide says it supports (`<codes> · <lens>`) and the article's Supports line held against it.
 
 usage (repo root, background): timeout 120 uv run -q --with pillow==12.3.0 --with pytest==9.1.1 python -m pytest python/catzc_diagrams/tests
@@ -159,6 +165,18 @@ def test_a_slide_without_a_subtitle_is_warned(roles):
         None,
         ["W_SUBTITLE docs/explanation/.assets/gadget-slide: the model has no subtitle cell"],
     )
+
+
+def test_a_legend_without_a_declaration_is_not_warned(roles):
+    legend, _ = roles
+    assert drawio_forward.undeclared_warnings(legend, "diagram.drawio.yml") == []
+
+
+def test_a_slide_without_a_declaration_is_warned(roles):
+    _, slide = roles
+    assert drawio_forward.undeclared_warnings(slide, "diagram.drawio.yml") == [
+        "W_UNDECLARED docs/explanation/.assets/gadget-slide: no diagram.drawio.yml, so its minimaps are not rebuilt; declare it to put it"
+    ]
 
 
 def test_a_role_outside_the_closed_set_is_refused(roles, monkeypatch):

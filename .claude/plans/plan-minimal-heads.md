@@ -17,7 +17,7 @@ plan:
       docs/adr/repository/repo-variants.md,
       docs/adr/repository/comments-in-docs.md,
       docs/explanation/file-meta.md,
-      contracts/catzc/0.0.0/Catzc.Base.QualityGates/head.sample.yml,
+      contracts/catzc/0.0.0/catzc.base.quality_gates/head.sample.yml,
     ]
 ---
 

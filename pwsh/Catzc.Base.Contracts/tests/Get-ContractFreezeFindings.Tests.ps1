@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
-    folder: tests
-    name: get-contract-freeze-findings-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: d93b91eef3e2
   edges:
     docs: "[Get-ContractFreezeFindings.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Contracts/private/Get-ContractFreezeFindings.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE

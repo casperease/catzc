@@ -1,20 +1,16 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.Docs/configs/adr-index.yml
-#     folder: configs
-#     name: adr-index
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.Docs
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: fbe8358363c6
 #   edges:
 #     docs: "[adr-index.yml.md](docs/references/pwsh/catzc-base-docs/configs/adr-index.yml.md)"
+#     cites:
+#       - ADR-AUTO-CACHE-READONLYVALUES
+#       - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+#       - ADR-AZ-NAMING-NEVERTRUNCATE
+#       - ADR-PWSH
+#       - ADR-REPO-ADRCODE
+#       - ADR-REPO-LINK
 # ---
 
 preamble: |

@@ -1,6 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-WorldMap, the quality gate that checks every tracked file
-# sits in a declared track and its tech-stack and every label the map prints is a glossary term, and returns its result under -PassThru.
-parameters:
-  OutputFolder: string
-  PassThru: switch
-output: Catzc.Base.Reports.QualityGateResult

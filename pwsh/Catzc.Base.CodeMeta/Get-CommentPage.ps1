@@ -2,23 +2,9 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.CodeMeta/Get-CommentPage.ps1
-    name: get-comment-page
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "293ecdf7b80d"
   edges:
     test: pwsh/Catzc.Base.CodeMeta/tests/Get-CommentPage.Tests.ps1
-    cites:
-      - ADR-PRIN-ONELIVE-ONEVERSION
-      - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
 ---
 #>
 

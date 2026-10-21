@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: e206686f8f33
+# ---
+
 description: >-
   Six pipeline shapes, each a run of the promotion ladder from its first state: every step a commit takes is labelled with the stage that
   moves it, and every state it holds can be discarded.

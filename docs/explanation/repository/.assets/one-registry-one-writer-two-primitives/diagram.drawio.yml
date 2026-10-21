@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "1eb914cdc84c"
+# ---
+
 description:
   The registry, the templates and the generators feed one writer in the RootConfig module, which writes every target through the one
   primitive in the Files module; the targets split into gitignored and tracked by one boolean.

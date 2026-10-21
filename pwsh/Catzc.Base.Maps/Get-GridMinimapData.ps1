@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "27087e554f3b"
+  edges:
+    test: pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
+---
+#>
+
 function Get-GridMinimapData {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]

@@ -1,0 +1,11 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: b295f4e89251
+# ---
+
+reminders:
+  - paths: [".claude/plans/*.md"]
+    say: >-
+      You edited a plan file. Before you report: run `Format-Code -Language markdown -Path <the plan files you edited>`, then
+      `Test-Plans -Path <the same files>`. A new plan also needs its row in value-of-plan.md and its chunk line in plan-master.md.

@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ae2b3b0899f5
+  edges:
+    code: pwsh/Catzc.Base.MarkdownMeta/Format-MarkdownMetaBlock.ps1
+    cites:
+      - ADR-REPO-FILEMETA-HEADPOLICY
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+---
+#>
+
 Describe 'Format-MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     It 'creates front matter above a text with none' {
         Format-MarkdownMetaBlock -Text "# docs/widget.md`n" -Immutable ([ordered]@{ kind = 'gadget' }) |

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "07bb69543c06"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-ScriptAnalyzerInputs.ps1
+---
+#>
+
 Describe 'Get-ScriptAnalyzerInputs' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:inputsOf = {

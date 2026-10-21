@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1
-    folder: pwsh/.scriptanalyzer/tests
-    name: test-analyzed-file-is-test-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "09ab66f3d90c"
   edges:
     docs: "[Test-AnalyzedFileIsTest.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1.md)"
 ---

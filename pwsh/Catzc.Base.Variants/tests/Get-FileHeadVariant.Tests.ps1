@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "5c076568b5b8"
+  edges:
+    code: pwsh/Catzc.Base.Variants/Get-FileHeadVariant.ps1
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-VARIANT-FILEHEADS
+---
+#>
+
 Describe 'Get-FileHeadVariant' -Tag 'L0', 'logic', 'ADR-REPO-VARIANT-FILEHEADS' {
 
     It 'returns the configured mode' {

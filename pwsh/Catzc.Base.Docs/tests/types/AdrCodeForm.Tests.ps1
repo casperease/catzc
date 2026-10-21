@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "43cd689e0488"
+  edges:
+    code: pwsh/Catzc.Base.Docs/types/AdrCodeForm.cs
+    cites:
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
+---
+#>
+
 Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         $script:form = [Catzc.Base.Docs.AdrCodeForm]

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1
-    folder: tests/types
-    name: rainbow-color-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: d7c57b0f06c8
   edges:
     docs: "[RainbowColor.Tests.ps1.md](docs/references/pwsh/catzc-base-writers/tests/types/RainbowColor.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Writers/types/RainbowColor.cs
     cites:
       - ADR-AUTO-CONSOLE-SPARINGCOLOUR
 ---

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/private/Get-ClaudeMdAgentNames.ps1
-    folder: private
-    name: get-claude-md-agent-names
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "7da5c3b47da8"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-ClaudeMdAgentNames.Tests.ps1
     docs: "[Get-ClaudeMdAgentNames.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-ClaudeMdAgentNames.ps1.md)"

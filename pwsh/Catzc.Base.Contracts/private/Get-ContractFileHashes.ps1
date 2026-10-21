@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1
-    folder: private
-    name: get-contract-file-hashes
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: fef0155dc720
   edges:
     docs: "[Get-ContractFileHashes.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md)"
     cites:

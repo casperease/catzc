@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-NeutralCodeFinding.ps1
-    folder: private
-    name: get-neutral-code-finding
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "17061e68c859"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1
     docs: "[Get-NeutralCodeFinding.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-NeutralCodeFinding.ps1.md)"

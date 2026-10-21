@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
-    folder: tests
-    name: test-generated-readmes-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "6b2d6d55098b"
   edges:
     docs: "[Test-GeneratedReadmes.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-README

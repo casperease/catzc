@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
-    folder: tests
-    name: test-ado-pipeline-trigger-glob-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b26a03c95010
   edges:
     docs: "[Test-AdoPipelineTriggerGlob.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
 ---

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "6a69e5e09181"
+# ---
+
 description:
   Three types check path forms at construction and throw on a mis-formed or wrong-anchor path; the rules about crossing the boundary,
   through the two crossers and only at the point of use, have no gate and are left to code review.

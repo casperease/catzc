@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "2d62f8f62125"
+  edges:
+    code: pwsh/Catzc.Base.Files/Get-RepoStatus.ps1
+    cites:
+      - ADR-REPO-FILEMETA-FILEISNODE
+---
+#>
+
 # Rests on [ADR-REPO-FILEMETA-FILEISNODE](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-fileisnode).
 Describe 'Get-RepoStatus' -Tag 'L0', 'logic' {
     BeforeEach {

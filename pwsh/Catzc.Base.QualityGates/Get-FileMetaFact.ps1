@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Get-FileMetaFact.ps1
-    name: get-file-meta-fact
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "3fdbb9f65d02"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaFact.Tests.ps1
     docs: "[Get-FileMetaFact.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Get-FileMetaFact.ps1.md)"

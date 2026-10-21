@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1
-    folder: tests/types
-    name: sentence-guid-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "6413510c67f0"
   edges:
     docs: "[SentenceGuid.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/SentenceGuid.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/types/SentenceGuid.cs
 ---
 #>
 

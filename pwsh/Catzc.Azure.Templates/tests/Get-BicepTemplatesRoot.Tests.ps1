@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ee89b48cdea6
+  edges:
+    code: pwsh/Catzc.Azure.Templates/private/Get-BicepTemplatesRoot.ps1
+---
+#>
+
 Describe 'Get-BicepTemplatesRoot' -Tag 'L0', 'logic' {
     It 'resolves the templates kind of the infrastructure track under the repository root, never a fixed path' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Azure.Templates { $TestDrive }

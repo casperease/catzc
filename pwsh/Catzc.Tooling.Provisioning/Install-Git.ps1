@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/Install-Git.ps1
-    name: install-git
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "77dfd784cf24"
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Install-Git.Tests.ps1
     docs: "[Install-Git.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Install-Git.ps1.md)"

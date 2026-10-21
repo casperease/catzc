@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
-    name: test-world-map
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "54941b3f5ff4"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
     docs: "[Test-WorldMap.ps1.md](docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md)"

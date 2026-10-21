@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "1eacb6f2098b"
+  edges:
+    code: pwsh/Catzc.Azure.DevOps/Assert-AdoDeploymentHistory.ps1
+---
+#>
+
 Describe 'Assert-AdoDeploymentHistory' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:assert = {

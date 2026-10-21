@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: e0593fe7f4fc
+# ---
+
 description:
   "Where the pipeline detector lives: the CI platforms set the variables, one loader function reads them, the bootstrap, the builder and the
   modules ask that function, an analyzer rule bans a raw read, and only the C# hook repeats the test."

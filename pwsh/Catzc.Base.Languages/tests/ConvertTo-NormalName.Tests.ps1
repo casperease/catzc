@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: dcb7cb6d8533
+  edges:
+    code: pwsh/Catzc.Base.Languages/ConvertTo-NormalName.ps1
+    cites:
+      - ADR-AUTO-IDIOM-NORMALFORM
+      - ADR-AUTO-IDIOM-ROUNDTRIP
+      - ADR-AUTO-IDIOM-ACRONYMISWORD
+---
+#>
+
 Describe 'ConvertTo-NormalName' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
@@ -22,7 +36,7 @@ Describe 'ConvertTo-NormalName' -Tag 'L0', 'logic' {
         @{ Name = 'get_gadget_part'; Language = 'gadget'; Kind = 'function'; Expected = 'get_gadget_part' }
         @{ Name = 'GadgetPart'; Language = 'gadget'; Kind = 'type'; Expected = 'gadget_part' }
     ) {
-        ConvertTo-NormalName $Name -Language $Language -Kind $Kind | Should -BeExactly $Expected
+        ConvertTo-NormalName $Name -Language $Language -NameKind $Kind | Should -BeExactly $Expected
     }
 
     It 'reads an acronym as one ordinary word' -Tag 'ADR-AUTO-IDIOM-ACRONYMISWORD' {
@@ -36,7 +50,7 @@ Describe 'ConvertTo-NormalName' -Tag 'L0', 'logic' {
     It 'throws on a name in none of the language''s cases, and on a language with no case for the kind' {
         { ConvertTo-NormalName 'gadget_part' -Language widget } | Should -Throw "*'gadget_part' is not a widget function name*verb-noun*"
         { ConvertTo-NormalName 'Get-Gadget' -Language plain } | Should -Throw "*naming names no function case*"
-        { ConvertTo-NormalName 'Get-Gadget' -Language gadget -Kind folder } | Should -Throw "*naming names no folder case*"
+        { ConvertTo-NormalName 'Get-Gadget' -Language gadget -NameKind folder } | Should -Throw "*naming names no folder case*"
     }
 }
 

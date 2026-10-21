@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
-    folder: tests
-    name: test-expected-package-manager-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e46fb2c900aa
   edges:
     docs: "[Test-ExpectedPackageManager.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Test-ExpectedPackageManager.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Core/Test-ExpectedPackageManager.ps1
     cites:
       - ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

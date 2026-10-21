@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-    name: test-glossary
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: f3149ca27127
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
     docs: "[Test-Glossary.ps1.md](docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md)"

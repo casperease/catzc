@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "13279de6d2a2"
+  edges:
+    code: pwsh/Catzc.Base.Reports/types/IsolationRunResult.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
+      - ADR-BCL-TYPES-CONSOLEREADYTOSTRING
+---
+#>
+
 Describe 'Catzc.Base.Reports.IsolationRunResult' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'holds the isolation, the sandbox, the modules and the counts, and succeeds exactly when nothing failed' {
         $result = [Catzc.Base.Reports.IsolationRunResult]::new('InProcess', 'C:/tmp/widget', [string[]] @('Catzc.Widget', 'Catzc.Gadget'), 5, 0,

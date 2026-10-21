@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/Initialize-Types.Tests.ps1
-    name: initialize-types-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: "23212beee3e0"
   edges:
     docs: "[Initialize-Types.Tests.ps1.md](docs/references/pwsh/internal/tests/Initialize-Types.Tests.ps1.md)"
 ---

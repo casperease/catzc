@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/private/Get-AgentFrontMatter.ps1
-    folder: private
-    name: get-agent-front-matter
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "2aed58296ef2"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AgentFrontMatter.Tests.ps1
     docs: "[Get-AgentFrontMatter.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AgentFrontMatter.ps1.md)"

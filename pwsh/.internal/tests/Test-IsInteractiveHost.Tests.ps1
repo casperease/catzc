@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "48e15773626b"
+---
+#>
+
 Describe 'Test-IsInteractiveHost' -Tag 'L0', 'logic' {
     It 'reads a host started with no command, or with options only, as interactive' -ForEach @(
         @{ CommandLine = @('pwsh') }

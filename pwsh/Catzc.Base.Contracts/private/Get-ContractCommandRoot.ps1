@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Get-ContractCommandRoot.ps1
-    folder: private
-    name: get-contract-command-root
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: bd954ec00ec8
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-ContractCommandRoot.Tests.ps1
     docs: "[Get-ContractCommandRoot.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractCommandRoot.ps1.md)"
@@ -36,9 +24,18 @@ function Get-ContractCommandRoot {
         [string] $RepositoryRoot
     )
 
-    $found = @(Get-CatzcModule -Name $Module -EngineTrack -RepositoryRoot $RepositoryRoot)
+    # The contract folder names the module in the normal form; the code track names it in PowerShell's folder case.
+    $languages = Get-Config -Config languages
+    $commandLanguage = $languages.languages | Where-Object name -ceq 'powershell' | Select-Object -First 1
+    try {
+        $name = [Catzc.Base.Languages.LanguageNaming]::FromNormal($Module, $commandLanguage.naming.folder[0], $languages.naming_normal_form)
+    }
+    catch {
+        throw "contract asset: the module folder '$Module' is not in the repository normal form, $($languages.naming_normal_form) (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."
+    }
+    $found = @(Get-CatzcModule -Name $name -EngineTrack -RepositoryRoot $RepositoryRoot)
     if ($found.Count -ne 1) {
-        throw "contract asset: no module named '$Module' in the code track, so its command contracts name no command file (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."
+        throw "contract asset: no module named '$name' (the folder '$Module') in the code track, so its command contracts name no command file (ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS)."
     }
     if (@($found[0].languages) -cnotcontains 'powershell') {
         throw [System.NotImplementedException]::new("contract asset: the command contracts of '$Module' need a checker for its implementation language ($(@($found[0].languages) -join ', ')); only PowerShell commands are checked (ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE).")

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/types/GlobPattern.cs
-    folder: types
-    name: glob-pattern
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "51d62eece749"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
     docs: "[GlobPattern.cs.md](docs/references/pwsh/catzc-base-globs/types/GlobPattern.cs.md)"

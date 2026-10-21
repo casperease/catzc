@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "6b5c2206c5ad"
+# ---
+
 description:
   The two ways an Azure DevOps call starts, a pipeline step through invoke-automation.yaml or a developer's shell, both reaching one header
   function whose three credentials each rest on a proof anchored in ado.yml.

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "108efe325092"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/types/GzipText.cs
+---
+#>
+
 Describe 'GzipText' -Tag 'L0', 'logic' {
     It 'round-trips UTF-8 text through compress/decompress' {
         $text = "the quick brown fox`n" + "ÆØÅ`n" + "rule collection group`n"

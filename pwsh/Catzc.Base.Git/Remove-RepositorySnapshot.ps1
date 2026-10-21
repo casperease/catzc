@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/Remove-RepositorySnapshot.ps1
-    name: remove-repository-snapshot
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "7a7fa7e05255"
   edges:
     test: pwsh/Catzc.Base.Git/tests/Remove-RepositorySnapshot.Tests.ps1
     docs: "[Remove-RepositorySnapshot.ps1.md](docs/references/pwsh/catzc-base-git/Remove-RepositorySnapshot.ps1.md)"

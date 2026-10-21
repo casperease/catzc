@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "724b8cdf93ce"
+# ---
+
 description:
   Running Test-Automation or Test-ModuleDependency checks every module edge against the declaration; a malformed declaration throws first,
   an undeclared edge fails with one line per issue after the report is written, and the fix goes in dependencies.yml.

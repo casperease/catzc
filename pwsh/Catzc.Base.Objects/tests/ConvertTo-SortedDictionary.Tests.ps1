@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: bc07149aa185
+  edges:
+    code: pwsh/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
+---
+#>
+
 Describe 'ConvertTo-SortedDictionary' -Tag 'L0', 'logic' {
     It 'preserves order of OrderedDictionary' {
         $source = [ordered]@{ z = 1; a = 2; m = 3 }

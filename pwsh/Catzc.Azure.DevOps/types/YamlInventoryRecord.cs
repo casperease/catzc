@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/types/YamlInventoryRecord.cs
-    folder: types
-    name: yaml-inventory-record
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e2eec5b203fb
   edges:
     docs: "[YamlInventoryRecord.cs.md](docs/references/pwsh/catzc-azure-devops/types/YamlInventoryRecord.cs.md)"
 ---

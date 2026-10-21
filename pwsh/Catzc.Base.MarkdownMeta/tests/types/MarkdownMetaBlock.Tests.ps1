@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "18d63e79dae6"
+  edges:
+    code: pwsh/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
+    cites:
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-HELP-HELPONCOMMENTPAGE
+---
+#>
+
 Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         $script:none = [string[]] @()

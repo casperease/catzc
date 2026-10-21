@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
-    name: test-module-cycles
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "10066b5ae2e5"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleCycles.Tests.ps1
     docs: "[Test-ModuleCycles.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Test-ModuleCycles.ps1.md)"

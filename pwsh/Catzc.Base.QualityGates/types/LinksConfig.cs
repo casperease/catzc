@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/LinksConfig.cs
-    folder: types
-    name: links-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "9e78095f0d65"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1
     docs: "[LinksConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinksConfig.cs.md)"

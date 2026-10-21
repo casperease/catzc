@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e9bb3502aac0
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-RelativeEdgesFileMetaFact.ps1
+    cites:
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - ADR-REPO-FILEMETA-FEWLINKS
+---
+#>
+
 Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-FEWLINKS', 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
     BeforeAll {
         $script:kinds = [Catzc.Base.Globs.FileKindsConfig]::new(@{

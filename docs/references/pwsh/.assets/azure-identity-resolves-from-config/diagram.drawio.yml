@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "9dcc73cd9143"
+# ---
+
 description:
   Azure identities resolve only from the typed azure.yml and customer.yml; the az session subscription is looked up in the azure config and
   must match exactly one declared subscription before it reaches the subscription resolver.

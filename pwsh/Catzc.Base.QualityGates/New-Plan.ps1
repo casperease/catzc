@@ -1,13 +1,29 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b7bc0db2da66
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/New-Plan.Tests.ps1
+    cites:
+      - ADR-REPO-PLANS-ONETOPICONEFILE
+      - ADR-REPO-PLANS-THREEPARTS
+      - ADR-REPO-PLANS-ONESHAPE
+---
+#>
+
 function New-Plan {
     <#
     .SYNOPSIS
-        Starts a plan: writes plan-<topic>.md in the plans folder with its head and its open steps section.
+        Starts a plan: writes plan-<topic>.md in the plans folder with its head and its open steps section, its value row and its master line.
 
     .DESCRIPTION
         The way a plan starts (ADR-REPO-PLANS-ONETOPICONEFILE): the file it writes carries the plan head (status active, the value, today's
         date as reviewed, the targets) and the sections ADR-REPO-PLANS-ONESHAPE requires, so Test-Plans passes it before a step is written.
-        It refuses a topic whose file exists, a name the plans folder does not accept, a value outside the ranks, and a target that does
-        not exist. It writes the plan file only; the value row and the master line are written by hand.
+        A plan is three parts (ADR-REPO-PLANS-THREEPARTS), so it also adds the plan's row to the value overlay's table under the
+        "<Class> plans" heading, and its chunk line to the master's Chunks list, ahead of the pointer lines to task files, which the master
+        keeps last; the planner moves the line to its place. It refuses a topic whose file exists, a name the plans folder does not accept,
+        a value outside the ranks, a target that does not exist, and an overlay without the section the plan goes in.
 
     .PARAMETER Topic
         The plan's topic in kebab case; the file is plan-<topic>.md.
@@ -20,6 +36,9 @@ function New-Plan {
 
     .PARAMETER Target
         The repository-relative paths the plan changes, each one existing.
+
+    .PARAMETER Summary
+        One line on what the plan delivers: the text of its master line, and the Why of its value row where the table has that column.
 
     .PARAMETER Config
         The plans config. Default: Get-Config -Config plans.
@@ -45,6 +64,9 @@ function New-Plan {
         [Parameter(Mandatory)]
         [string[]] $Target,
 
+        [Parameter(Mandatory)]
+        [string] $Summary,
+
         [Catzc.Base.QualityGates.PlansConfig] $Config = (Get-Config -Config plans),
 
         [string] $RepositoryRoot = (Get-RepositoryRoot)
@@ -58,8 +80,61 @@ function New-Plan {
         $full = Join-Path $root $path
         Assert-True ([System.IO.File]::Exists($full) -or [System.IO.Directory]::Exists($full)) -ErrorText "New-Plan: target '$path' does not exist."
     }
-    $file = Join-Path (Join-Path $root $Config.folder) $name
+    $folder = Join-Path $root $Config.folder
+    $file = Join-Path $folder $name
     Assert-True (-not [System.IO.File]::Exists($file)) -ErrorText "New-Plan: '$($Config.folder)/$name' exists; a topic has one plan."
+    $readOverlay = {
+        param([string] $Overlay)
+        $path = Join-Path $folder $Overlay
+        Assert-True ([System.IO.File]::Exists($path)) -ErrorText "New-Plan: '$($Config.folder)/$Overlay' does not exist; a plan is its file, its value row and its master line."
+        # The comma keeps the list whole on its way out of the script block.
+        , [System.Collections.Generic.List[string]]::new([string[]] @([System.IO.File]::ReadAllText($path) -split "`r?`n"))
+    }
+    $valueLines = & $readOverlay $Config.value_file
+    $masterLines = & $readOverlay $Config.master_file
+
+    # The value row: the last row of the table under the "<Class> plans" heading, one cell per column of its header.
+    $section = [Array]::FindIndex($valueLines.ToArray(), [Predicate[string]] { param($line) $line -match "^##\s+$([regex]::Escape($Class)) plans\b" })
+    Assert-True ($section -ge 0) -ErrorText "New-Plan: $($Config.value_file) has no '## $Class plans' section for a plan of class '$Class'."
+    $header = -1
+    $last = -1
+    for ($i = $section + 1; $i -lt $valueLines.Count -and $valueLines[$i] -notmatch '^##\s'; $i++) {
+        if ($valueLines[$i] -match '^\|') {
+            if ($header -lt 0) {
+                $header = $i
+            }
+            $last = $i
+        }
+    }
+    Assert-True ($header -ge 0) -ErrorText "New-Plan: the '## $Class plans' section of $($Config.value_file) has no table."
+    $cells = foreach ($column in @($valueLines[$header].Trim('|').Split('|') | ForEach-Object { $_.Trim() })) {
+        switch ($column) {
+            'Value' { $Value }
+            'Plan' { "plan-$Topic" }
+            'Why' { $Summary }
+            'State' { 'new' }
+            default { '' }
+        }
+    }
+    $valueLines.Insert($last + 1, "| $($cells -join ' | ') |")
+
+    # The master line: in the Chunks list, ahead of the first pointer to a task file, else after the list's last item.
+    $chunks = [Array]::FindIndex($masterLines.ToArray(), [Predicate[string]] { param($line) $line -match '^##\s+Chunks' })
+    Assert-True ($chunks -ge 0) -ErrorText "New-Plan: $($Config.master_file) has no '## Chunks' section."
+    $at = -1
+    for ($i = $chunks + 1; $i -lt $masterLines.Count -and $masterLines[$i] -notmatch '^##\s'; $i++) {
+        if ($masterLines[$i] -match '^- .*->\s*task-') {
+            $at = $i
+            break
+        }
+        if ($masterLines[$i] -match '^- ' -or ($at -ge 0 -and $masterLines[$i] -match '^\s+\S')) {
+            $at = $i + 1
+        }
+    }
+    if ($at -lt 0) {
+        $at = $chunks + 1
+    }
+    $masterLines.Insert($at, "- $Topic -> ${name}: $Summary")
 
     $title = $Topic.Replace('-', ' ')
     $lines = @(
@@ -77,7 +152,10 @@ function New-Plan {
         '## Open steps'
     )
     [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($file))
-    [System.IO.File]::WriteAllText($file, ($lines -join "`n") + "`n", [System.Text.UTF8Encoding]::new($false))
-    Write-Message "New-Plan: wrote $($Config.folder)/$name."
+    $utf8 = [System.Text.UTF8Encoding]::new($false)
+    [System.IO.File]::WriteAllText($file, ($lines -join "`n") + "`n", $utf8)
+    [System.IO.File]::WriteAllText((Join-Path $folder $Config.value_file), ($valueLines -join "`n"), $utf8)
+    [System.IO.File]::WriteAllText((Join-Path $folder $Config.master_file), ($masterLines -join "`n"), $utf8)
+    Write-Message "New-Plan: wrote $($Config.folder)/$name, its row in $($Config.value_file) and its line in $($Config.master_file); run Format-Code -Language markdown on the three."
     $file
 }

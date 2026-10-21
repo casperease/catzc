@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7b1f32ef4fc2"
+    with_body_sha: "9eddaa7b8c15"
   edges:
     docs: "[Catzc.Internal.Bootstrap.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md)"
 ---

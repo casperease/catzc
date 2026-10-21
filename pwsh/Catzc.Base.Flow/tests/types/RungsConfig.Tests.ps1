@@ -2,19 +2,9 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
-    folder: tests/types
-    name: rungs-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Flow
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: d5527f993233
   edges:
+    code: pwsh/Catzc.Base.Flow/types/RungsConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-FLOW-CD-PREPRODRUNG

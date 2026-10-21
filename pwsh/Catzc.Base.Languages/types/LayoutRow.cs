@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/types/LayoutRow.cs
-    folder: types
-    name: layout-row
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: ba88bdfa7e1e
   edges:
     docs: "[LayoutRow.cs.md](docs/references/pwsh/catzc-base-languages/types/LayoutRow.cs.md)"
     cites:

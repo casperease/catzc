@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "1968db23bf98"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
+    cites:
+      - ADR-AUTO-TEST-TESTSUITE
+---
+#>
+
 Describe 'Resolve-TestSuite' -Tag 'L0', 'logic' {
     It 'returns the test suite''s verify modules and level' -Tag 'ADR-AUTO-TEST-TESTSUITE' {
         Mock Get-GlobSet {

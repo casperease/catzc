@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Asserts/Assert-IsAdministrator.ps1
-    name: assert-is-administrator
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-    visibility: public
+    with_body_sha: b4fb0fb80d4f
   edges:
     docs: "[Assert-IsAdministrator.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-IsAdministrator.ps1.md)"
 ---

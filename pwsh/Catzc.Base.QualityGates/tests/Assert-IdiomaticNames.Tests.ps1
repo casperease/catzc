@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b806a6226465
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/Assert-IdiomaticNames.ps1
+    cites:
+      - ADR-AUTO-IDIOM-HELDBYGATE
+---
+#>
+
 Describe 'Assert-IdiomaticNames' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestExecutable.ps1
-    folder: private
-    name: get-language-test-executable
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: d72c6bdbfb8d
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-LanguageTestExecutable.Tests.ps1
     docs: "[Get-LanguageTestExecutable.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md)"

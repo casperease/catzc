@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/types/CliResult.cs
-    folder: types
-    name: cli-result
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "11725a908889"
   edges:
     docs: "[CliResult.cs.md](docs/references/pwsh/catzc-base-execution/types/CliResult.cs.md)"
 ---

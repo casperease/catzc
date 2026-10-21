@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-    folder: tests
-    name: test-glossary-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "62a29abc6321"
   edges:
     docs: "[Test-Glossary.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/Test-Glossary.ps1
     cites:
       - ADR-AUTO-FAILFAST
       - ADR-AUTO-TEST-SETUPONCE

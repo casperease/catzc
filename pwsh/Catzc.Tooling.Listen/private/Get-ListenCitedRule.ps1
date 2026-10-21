@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "5364a03dcac8"
+---
+#>
+
 function Get-ListenCitedRule {
     <#
     .SYNOPSIS

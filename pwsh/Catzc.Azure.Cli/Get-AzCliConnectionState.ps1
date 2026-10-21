@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Cli/Get-AzCliConnectionState.ps1
-    name: get-az-cli-connection-state
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: bf3176bdd283
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Get-AzCliConnectionState.Tests.ps1
     docs: "[Get-AzCliConnectionState.ps1.md](docs/references/pwsh/catzc-azure-cli/Get-AzCliConnectionState.ps1.md)"

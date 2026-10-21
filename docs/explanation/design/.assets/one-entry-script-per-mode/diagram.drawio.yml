@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: d09832f284d2
+# ---
+
 description:
   Each run mode is entered through its own dot-sourced script, all of them ending in one exclusivity check that stops a session holding
   modules from two roots; a source-tree tool run in a build stops on its own check.

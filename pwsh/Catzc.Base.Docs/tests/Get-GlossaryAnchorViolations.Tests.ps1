@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Get-GlossaryAnchorViolations.Tests.ps1
-    folder: tests
-    name: get-glossary-anchor-violations-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: db36ebc428da
   edges:
     docs: "[Get-GlossaryAnchorViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryAnchorViolations.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/private/Get-GlossaryAnchorViolations.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE

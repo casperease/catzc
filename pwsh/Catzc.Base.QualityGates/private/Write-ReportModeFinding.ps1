@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Write-ReportModeFinding.ps1
-    folder: private
-    name: write-report-mode-finding
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: aeeba2f56f86
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-ReportModeFinding.Tests.ps1
     docs: "[Write-ReportModeFinding.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-ReportModeFinding.ps1.md)"

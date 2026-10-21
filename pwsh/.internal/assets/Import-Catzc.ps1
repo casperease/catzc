@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/assets/Import-Catzc.ps1
-    name: import-catzc
-    filetype: ps1
-    role: asset
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Assets
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: dde44aa116b4
   edges:
     docs: "[Import-Catzc.ps1.md](docs/references/pwsh/internal/assets/Import-Catzc.ps1.md)"
 ---

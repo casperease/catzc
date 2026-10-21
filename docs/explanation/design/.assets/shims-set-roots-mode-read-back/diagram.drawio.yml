@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "1efebfeec867"
+# ---
+
 description:
   Each entry script only fixes the code root and calls the one importer function, which hands the root to three load steps and reads the run
   mode back from the same root; a foreign module left loaded stops the load.

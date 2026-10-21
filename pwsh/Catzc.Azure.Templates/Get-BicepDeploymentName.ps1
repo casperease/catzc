@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
-    name: get-bicep-deployment-name
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "534a28761ae3"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
     docs: "[Get-BicepDeploymentName.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md)"

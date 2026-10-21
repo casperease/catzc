@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Objects/types/TypeShape.cs
-    folder: types
-    name: type-shape
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a8fee44c65a0
   edges:
     docs: "[TypeShape.cs.md](docs/references/pwsh/catzc-base-objects/types/TypeShape.cs.md)"
     cites:

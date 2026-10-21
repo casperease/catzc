@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
-    name: export-spelling-triage
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: c515e91cef42
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1
     docs: "[Export-SpellingTriage.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Export-SpellingTriage.ps1.md)"

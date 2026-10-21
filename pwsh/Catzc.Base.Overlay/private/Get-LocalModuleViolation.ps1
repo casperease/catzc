@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Overlay/private/Get-LocalModuleViolation.ps1
-    folder: private
-    name: get-local-module-violation
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Overlay
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "6b6889302c67"
   edges:
     docs: "[Get-LocalModuleViolation.ps1.md](docs/references/pwsh/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md)"
     cites:

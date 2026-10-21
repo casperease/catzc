@@ -2,22 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/New-VsCodeExtensions.ps1
-    name: new-vs-code-extensions
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "19beacbe3ab1"
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/New-VsCodeExtensions.Tests.ps1
-    docs: "[New-VsCodeExtensions.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VsCodeExtensions.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeExtensions.Tests.ps1
+    docs: "[New-VSCodeExtensions.ps1.md](docs/references/pwsh/catzc-base-vscode/New-VSCodeExtensions.ps1.md)"
     cites:
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
       - ADR-REPO-ROOTCFG

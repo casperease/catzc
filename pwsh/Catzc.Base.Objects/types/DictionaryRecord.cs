@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Objects/types/DictionaryRecord.cs
-    folder: types
-    name: dictionary-record
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: ca5e580b7869
   edges:
     test: pwsh/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
     docs: "[DictionaryRecord.cs.md](docs/references/pwsh/catzc-base-objects/types/DictionaryRecord.cs.md)"

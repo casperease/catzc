@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Writers/types/RainbowColor.cs
-    folder: types
-    name: rainbow-color
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "586c5445acb1"
   edges:
     test: pwsh/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1
     docs: "[RainbowColor.cs.md](docs/references/pwsh/catzc-base-writers/types/RainbowColor.cs.md)"

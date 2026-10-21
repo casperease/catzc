@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Writers/private/Write-FramedLine.ps1
-    folder: private
-    name: write-framed-line
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: fc79f26d199a
   edges:
     docs: "[Write-FramedLine.ps1.md](docs/references/pwsh/catzc-base-writers/private/Write-FramedLine.ps1.md)"
 ---

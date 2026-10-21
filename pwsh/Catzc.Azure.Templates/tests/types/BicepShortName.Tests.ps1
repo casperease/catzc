@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
-    folder: tests/types
-    name: bicep-short-name-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "987d24d3be35"
   edges:
     docs: "[BicepShortName.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS

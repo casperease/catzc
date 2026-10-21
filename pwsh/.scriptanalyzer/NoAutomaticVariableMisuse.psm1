@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/NoAutomaticVariableMisuse.psm1
-    folder: pwsh/.scriptanalyzer
-    name: no-automatic-variable-misuse
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "42731dcf93ed"
   edges:
     docs: "[NoAutomaticVariableMisuse.psm1.md](docs/references/pwsh/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md)"
 ---

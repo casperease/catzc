@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/nsg.bicep
-//     name: nsg
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: nsg
-//     moduletype: bicep
+//     with_body_sha: "000ab308145d"
 //   edges:
 //     docs: "[nsg.bicep.md](docs/references/infrastructure/modules/nsg.bicep.md)"
 // ---

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "04ac8999ccbc"
+# ---
+
 description:
   The customer CD pipeline builds each of the three templates once in the CI stage, then three chained deploy stages apply the published
   artifacts, reaching the non-prod targets and the prod tier in the same run.

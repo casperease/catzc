@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "65ae3df07952"
+  edges:
+    code: pwsh/Catzc.Base.Maps/Export-WorldMapPdf.ps1
+---
+#>
+
 # cspell:ignore startxref
 BeforeAll {
     # The PDF structure every written file must have: the header, an xref table where startxref points, and %%EOF.

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1
-    folder: tests/types
-    name: engine-set-check-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "10e4a72203cc"
   edges:
     docs: "[EngineSetCheck.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/EngineSetCheck.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/types/EngineSetCheck.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-ENGINE-THREEENGINES

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: fb902dec6ba1
+# ---
+
 description:
   The declared module graph in dependencies.yml is built into one map that orders the test run and closes a set of modules; the graph
   observed from the parsed code is checked for cycles and against the declared allow-list.

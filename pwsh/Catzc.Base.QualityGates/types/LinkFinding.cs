@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/LinkFinding.cs
-    folder: types
-    name: link-finding
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: fd654028f32d
   edges:
     docs: "[LinkFinding.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinkFinding.cs.md)"
 ---

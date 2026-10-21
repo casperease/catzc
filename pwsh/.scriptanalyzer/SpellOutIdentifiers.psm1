@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/SpellOutIdentifiers.psm1
-    folder: pwsh/.scriptanalyzer
-    name: spell-out-identifiers
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "2ff56717e7e7"
   edges:
     docs: "[SpellOutIdentifiers.psm1.md](docs/references/pwsh/scriptanalyzer/SpellOutIdentifiers.psm1.md)"
 ---

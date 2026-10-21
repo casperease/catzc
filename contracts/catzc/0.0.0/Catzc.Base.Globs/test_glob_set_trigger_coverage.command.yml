@@ -1,0 +1,6 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-GlobSetTriggerCoverage, the quality gate that checks
+# every member of a pipeline-bound globset matches one of its ADO trigger include patterns, and returns its result under -PassThru.
+parameters:
+  output_folder: string
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

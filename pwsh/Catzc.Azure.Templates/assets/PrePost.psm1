@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "74674e9666c9"
+---
+#>
+
 # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) —
 # [ADR-PWSH-ERROR-STRICTCLEAN](/docs/adr/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)
 Set-StrictMode -Version Latest

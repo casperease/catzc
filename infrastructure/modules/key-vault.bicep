@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/key-vault.bicep
-//     name: key-vault
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: key-vault
-//     moduletype: bicep
+//     with_body_sha: "37cd9a57541f"
 //   edges:
 //     docs: "[key-vault.bicep.md](docs/references/infrastructure/modules/key-vault.bicep.md)"
 // ---

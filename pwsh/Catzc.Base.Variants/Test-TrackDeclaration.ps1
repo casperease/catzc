@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Variants/Test-TrackDeclaration.ps1
-    name: test-track-declaration
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "80d2747eb53f"
   edges:
     test: pwsh/Catzc.Base.Variants/tests/Test-TrackDeclaration.Tests.ps1
     docs: "[Test-TrackDeclaration.ps1.md](docs/references/pwsh/catzc-base-variants/Test-TrackDeclaration.ps1.md)"

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
-    folder: tests
-    name: get-test-exclude-tag-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: ff1edb35f116
   edges:
     docs: "[Get-TestExcludeTag.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-TestExcludeTag.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Get-TestExcludeTag.ps1
     cites:
       - ADR-AUTO-TEST-TESTINGINPRODUCTION
 ---

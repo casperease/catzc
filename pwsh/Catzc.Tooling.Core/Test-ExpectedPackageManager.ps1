@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/Test-ExpectedPackageManager.ps1
-    name: test-expected-package-manager
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "9669e917e56f"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
     docs: "[Test-ExpectedPackageManager.ps1.md](docs/references/pwsh/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md)"

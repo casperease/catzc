@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "793b01eddf73"
+    with_body_sha: eccbe027c08c
   edges:
-    test: pwsh/Catzc.Base.Asserts/tests/Assert-IsRunningInVsCode.Tests.ps1
-    docs: "[Assert-IsRunningInVsCode.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-IsRunningInVsCode.ps1.md)"
+    test: pwsh/Catzc.Base.Asserts/tests/Assert-IsRunningInVSCode.Tests.ps1
+    docs: "[Assert-IsRunningInVSCode.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-IsRunningInVSCode.ps1.md)"
 ---
 #>
 

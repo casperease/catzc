@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
-    name: initialize-git-clone
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: ffbe3f4fd8bc
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Initialize-GitClone.Tests.ps1
     docs: "[Initialize-GitClone.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Initialize-GitClone.ps1.md)"

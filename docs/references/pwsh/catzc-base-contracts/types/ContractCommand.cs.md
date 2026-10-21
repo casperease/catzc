@@ -20,3 +20,12 @@ Above `public ContractCommand(ContractAsset asset, IDictionary raw) : this(raw)`
 The contract of one command asset: the asset names the command
 ([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)), raw is its parsed document.
 ```
+
+## comment:3
+
+Above `public string ToAssetText(Func<string, string> rename)`, written with `//`.
+
+```text
+The asset text of the contract, the inverse of the grammar: each parameter name, set name and catzc type name passes through rename,
+and the base types, flags, defaults and order stay as read; void output and no default set are left out, as the defaults are.
+```

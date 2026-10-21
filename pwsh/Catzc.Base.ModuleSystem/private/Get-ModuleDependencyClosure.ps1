@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyClosure.ps1
-    folder: private
-    name: get-module-dependency-closure
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "819086120ff3"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyClosure.Tests.ps1
     docs: "[Get-ModuleDependencyClosure.ps1.md](docs/references/pwsh/catzc-base-modulesystem/private/Get-ModuleDependencyClosure.ps1.md)"

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/types/FormatterEngine.cs
-    folder: types
-    name: formatter-engine
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e7efe28302b2
   edges:
     docs: "[FormatterEngine.cs.md](docs/references/pwsh/catzc-base-languages/types/FormatterEngine.cs.md)"
     cites:

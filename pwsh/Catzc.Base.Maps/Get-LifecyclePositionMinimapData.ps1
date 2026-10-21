@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
-    name: get-lifecycle-position-minimap-data
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "95c4d6c12b6c"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-LifecyclePositionMinimapData.Tests.ps1
     docs: "[Get-LifecyclePositionMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md)"

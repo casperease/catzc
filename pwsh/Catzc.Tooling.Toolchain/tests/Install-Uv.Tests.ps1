@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
-    folder: tests
-    name: install-uv-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "74d4df5db09c"
   edges:
     docs: "[Install-Uv.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Toolchain/Install-Uv.ps1
     cites:
       - ADR-PWSH-ENV-NOPESTERISOLATION
 ---

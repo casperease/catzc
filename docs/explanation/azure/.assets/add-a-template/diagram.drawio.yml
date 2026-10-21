@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "02b74f0ab526"
+# ---
+
 description:
   Adding a template adds one folder to the templates place of the infrastructure track, with its main.bicep, options.yml, README.md and a
   configuration folder holding its first slot; the tooling finds it through the track, and the CD pipelines' path filters name it before any

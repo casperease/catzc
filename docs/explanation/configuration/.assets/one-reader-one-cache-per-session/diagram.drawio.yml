@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "7855d7723119"
+# ---
+
 description:
   "Every config read goes through one reader and one session cache: a hit returns the same object, and only a miss opens the file and parses
   and types it once."

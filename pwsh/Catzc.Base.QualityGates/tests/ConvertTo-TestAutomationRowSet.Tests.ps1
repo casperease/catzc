@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1
-    folder: tests
-    name: convert-to-test-automation-row-set-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "68aa2ee30602"
   edges:
     docs: "[ConvertTo-TestAutomationRowSet.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/ConvertTo-TestAutomationRowSet.ps1
 ---
 #>
 

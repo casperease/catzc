@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Asserts/Assert-NotNullOrWhitespace.ps1
-    name: assert-not-null-or-whitespace
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-    visibility: public
+    with_body_sha: "57a01b059329"
   edges:
     test: pwsh/Catzc.Base.Asserts/tests/Assert-NotNullOrWhitespace.Tests.ps1
     docs: "[Assert-NotNullOrWhitespace.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-NotNullOrWhitespace.ps1.md)"

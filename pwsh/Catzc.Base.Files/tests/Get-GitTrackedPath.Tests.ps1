@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1
-    folder: tests
-    name: get-git-tracked-path-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: d74461fadd07
   edges:
     docs: "[Get-GitTrackedPath.Tests.ps1.md](docs/references/pwsh/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
 ---
 #>
 

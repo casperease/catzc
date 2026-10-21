@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Environment/Set-EnvironmentPath.ps1
-    name: set-environment-path
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: fabb0cfceccd
   edges:
     docs: "[Set-EnvironmentPath.ps1.md](docs/references/pwsh/catzc-base-environment/Set-EnvironmentPath.ps1.md)"
     cites:

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Environment/tests/Add-PermanentPath.Tests.ps1
-    folder: tests
-    name: add-permanent-path-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5dd2dc26cde2"
   edges:
     docs: "[Add-PermanentPath.Tests.ps1.md](docs/references/pwsh/catzc-base-environment/tests/Add-PermanentPath.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Environment/Add-PermanentPath.ps1
 ---
 #>
 

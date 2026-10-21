@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "4fd7f77ba635"
+  edges:
+    code: pwsh/Catzc.Base.Exporter/Export-Catzc.ps1
+---
+#>
+
 Describe 'Export-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:buildRoot = Join-Path $TestDrive 'out/pwsh/built/widgets/Catzc/6.6.666'

@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b658192ee722
+---
+#>
+
 Describe 'Invoke-Npm' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'node_js'

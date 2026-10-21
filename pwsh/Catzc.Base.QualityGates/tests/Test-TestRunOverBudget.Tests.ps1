@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "191f8d3a3f4c"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
+    cites:
+      - ADR-AUTO-TEST-DEVBOXRUNBUDGET
+---
+#>
+
 Describe 'Test-TestRunOverBudget' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-DEVBOXRUNBUDGET' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

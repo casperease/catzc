@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
-    folder: private
-    name: get-auto-controlled-globs
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "6e4937704037"
   edges:
     test: pwsh/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
     docs: "[Get-AutoControlledGlobs.ps1.md](docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md)"

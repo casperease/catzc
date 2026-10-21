@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
-    folder: tests/types
-    name: network-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "6c3bcfd3e039"
   edges:
     docs: "[NetworkConfig.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure/types/NetworkConfig.cs
     cites:
       - ADR-AUTO-TEST-ONECATEGORY
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

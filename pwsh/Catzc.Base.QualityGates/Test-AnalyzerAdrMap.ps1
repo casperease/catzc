@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
-    name: test-analyzer-adr-map
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "1f5fc7e33249"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1
     docs: "[Test-AnalyzerAdrMap.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md)"

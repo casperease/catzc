@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Format-Code.ps1
-    name: format-code
-    filetype: ps1
-    role: function
-    subkind: formatter
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: b6c4f8fded52
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1
     docs: "[Format-Code.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Format-Code.ps1.md)"
@@ -83,6 +71,7 @@ function Format-Code {
 
     $results = [System.Collections.Generic.List[object]]::new()
     $outcomes = [ordered]@{}
+    $wrapFree = @{}
     $verb = $DryRun ? 'Checking' : 'Formatting'
     foreach ($engineGroup in @($selected | Group-Object -Property formatter)) {
         $engine = $engineGroup.Name
@@ -107,6 +96,12 @@ function Format-Code {
         $pending = @($split.Pending)
 
         Write-Message "$verb $($pending.Count) $(@($engineGroup.Group | ForEach-Object name) -join ', ') file(s) with $engine ($($split.CachedCount) unchanged since their last check)..."
+        # The text before the engine, whitespace collapsed, tells a change of content from a change of wrapping alone.
+        if (-not $DryRun) {
+            foreach ($file in $pending) {
+                $wrapFree[$file] = Get-WrapFreeStamp -Path $file
+            }
+        }
         $changed = @(Invoke-FormatterEngine -Engine $engine -File $pending -DryRun:$DryRun | ForEach-Object { $_ })
         $changedSet = [System.Collections.Generic.HashSet[string]]::new([string[]] $changed, [System.StringComparer]::OrdinalIgnoreCase)
 
@@ -209,7 +204,15 @@ function Format-Code {
         foreach ($file in $languageOutcome.Unfixable.Keys) {
             Write-Message "needs a hand edit: $file — $($languageOutcome.Unfixable[$file])" -Warning
         }
-        Write-Message "${name}: $($languageOutcome.Changed.Count) of $($languageOutcome.Files.Count) file(s) $($DryRun ? 'would change' : 'changed')."
+        $kinds = ''
+        if (-not $DryRun -and $languageOutcome.Changed.Count -gt 0) {
+            $wrapOnly = @($languageOutcome.Changed | Where-Object {
+                    $before = $wrapFree[$_]
+                    $null -ne $before -and $before -ceq (Get-WrapFreeStamp -Path $_)
+                }).Count
+            $kinds = " ($($languageOutcome.Changed.Count - $wrapOnly) in content, $wrapOnly only in wrapping)"
+        }
+        Write-Message "${name}: $($languageOutcome.Changed.Count) of $($languageOutcome.Files.Count) file(s) $($DryRun ? 'would change' : 'changed')$kinds."
         $results.Add([Catzc.Base.QualityGates.FormatResult]::new($name, $languageOutcome.Engine, [string[]] $languageOutcome.Files, $languageOutcome.Changed.ToArray(), [bool] $DryRun, $languageOutcome.Unfixable))
     }
     Save-ResultCache -Path $cachePath -Cache $cache

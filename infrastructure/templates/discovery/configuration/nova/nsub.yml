@@ -1,19 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: infrastructure/templates/discovery/configuration/nova/nsub.yml
-#     folder: configuration/nova
-#     name: nsub
-#     filetype: yml
-#     role: template
-#     subkind: config
-#     language: yaml
-#     track: infrastructure
-#     tracktype: infrastructure
-#     vendor: azure
-#     module: discovery
-#     moduletype: bicep
+#     with_body_sha: "6a73b7a5ef7b"
 #   edges:
 #     docs: "[nsub.yml.md](docs/references/infrastructure/templates/discovery/configuration/nova/nsub.yml.md)"
 # ---

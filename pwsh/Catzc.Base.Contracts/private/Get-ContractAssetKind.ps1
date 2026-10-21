@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/private/Get-ContractAssetKind.ps1
-    folder: private
-    name: get-contract-asset-kind
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "346670f69ce9"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-ContractAssetKind.Tests.ps1
     docs: "[Get-ContractAssetKind.ps1.md](docs/references/pwsh/catzc-base-contracts/private/Get-ContractAssetKind.ps1.md)"
@@ -34,7 +22,7 @@ function Get-ContractAssetKind {
         [switch] $IsEmpty
     )
 
-    if ($Name -cmatch '^[A-Z][a-z]+-[A-Z][A-Za-z0-9]*\.command\.yml$') {
+    if ($Name -cmatch '^.+\.command\.yml$') {
         return [Catzc.Base.Contracts.ContractAssetKind]::Command
     }
     if ($Name -cmatch '^.+\.schema\.json$') {

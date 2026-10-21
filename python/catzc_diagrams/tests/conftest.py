@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: c7891b438da4
+# ---
+
 # cspell:ignore minimaps
 """The kit's tests run on fixture folders outside the repository, where no minimap data has been computed: each folder gets its
 declared minimaps (or three fixed ones) as empty contract data, so put draws the sidebar without Catzc.Base.Maps."""

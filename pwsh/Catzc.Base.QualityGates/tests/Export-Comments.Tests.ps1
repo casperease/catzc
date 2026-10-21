@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
-    folder: tests
-    name: export-comments-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "92888805cc7a"
   edges:
     docs: "[Export-Comments.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Export-Comments.ps1
     cites:
       - ADR-AUTO-DRYRUN-SIDEEFFECTSTAKEDRYRUN
       - ADR-AUTO-IDEM-CHECKBEFOREACTING

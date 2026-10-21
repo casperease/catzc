@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-HelpPageFinding.ps1
-    folder: private
-    name: get-help-page-finding
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: e0a91ab4e138
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-HelpPageFinding.Tests.ps1
     docs: "[Get-HelpPageFinding.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-HelpPageFinding.ps1.md)"

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: bd7b7a309823
+  edges:
+    code: pwsh/Catzc.Base.Timeouts/Test-CompletesWithin.ps1
+---
+#>
+
 Describe 'Test-CompletesWithin' -Tag 'L0', 'logic' {
     It 'returns $true, with no other output, when the block finishes in time' {
         $result = @(Test-CompletesWithin { 'widget' } -Seconds 5)

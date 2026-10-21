@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/Install-DevBoxTools.ps1
-    name: install-dev-box-tools
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: b2d9d01cb502
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Install-DevBoxTools.Tests.ps1
     docs: "[Install-DevBoxTools.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md)"

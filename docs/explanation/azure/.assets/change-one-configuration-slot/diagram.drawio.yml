@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "757b9c126a0a"
+# ---
+
 description:
   Changing one configuration slot edits one file in the configs place of the infrastructure track; only the CD pipeline of the slot's owner
   runs, and the change reaches the one resource group the slot deploys.

@@ -2,21 +2,12 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
-    folder: tests
-    name: new-python-project-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Languages
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5783d1634d31"
   edges:
     docs: "[New-PythonProject.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/New-PythonProject.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Languages/New-PythonProject.ps1
     cites:
+      - ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---
 #>

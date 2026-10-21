@@ -1,17 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/templates/expedition/main.bicep
-//     name: main
-//     filetype: bicep
-//     role: template
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: expedition
-//     moduletype: bicep
+//     with_body_sha: afd5cb828281
 //   edges:
 //     docs: "[main.bicep.md](docs/references/infrastructure/templates/expedition/main.bicep.md)"
 // ---

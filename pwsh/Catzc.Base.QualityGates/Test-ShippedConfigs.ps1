@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
-    name: test-shipped-configs
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "107271ae1e6a"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-ShippedConfigs.Tests.ps1
     docs: "[Test-ShippedConfigs.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-ShippedConfigs.ps1.md)"

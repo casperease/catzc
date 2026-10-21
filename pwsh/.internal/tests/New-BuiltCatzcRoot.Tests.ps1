@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
-    name: new-built-catzc-root-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: "0531b056a07a"
   edges:
     docs: "[New-BuiltCatzcRoot.Tests.ps1.md](docs/references/pwsh/internal/tests/New-BuiltCatzcRoot.Tests.ps1.md)"
     cites:

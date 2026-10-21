@@ -1,3 +1,12 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "2c709202910f"
+#   edges:
+#     cites:
+#       - ADR-REPO-PLANS
+# ---
+
 # The settings Test-Plans holds the plans folder to ([ADR-REPO-PLANS](/docs/adr/repository/plans.md)); the defaults are declared once on PlansConfig.
 folder: .claude/plans
 statuses: [active, blocked]

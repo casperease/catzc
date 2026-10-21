@@ -1,3 +1,13 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "289de261e643"
+  edges:
+    test: pwsh/Catzc.Base.Languages/tests/types/GeneratedHeadConfig.Tests.ps1
+---
+*/
+
 // The keys of the generated-file head, in the order they are written; a key a file has no value for is left out.
 
 using System;

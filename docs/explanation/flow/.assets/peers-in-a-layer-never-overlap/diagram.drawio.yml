@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: c53933b089a5
+# ---
+
 description:
   "The three globset layers as bands: deployable-unit, loose-fileset and module sets, with one rule across them, peers in a layer are
   disjoint, which a gate checks for the two boundary layers and the loose-fileset layer is exempt from."

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
-    folder: tests
-    name: install-bicep-standalone-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b0aeb67495b1
   edges:
     docs: "[Install-BicepStandalone.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Install-BicepStandalone.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Toolchain/private/Install-BicepStandalone.ps1
     cites:
       - ADR-AUTO-TEST-NOOVERMOCKING
 ---

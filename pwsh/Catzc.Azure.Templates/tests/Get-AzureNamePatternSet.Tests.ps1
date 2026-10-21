@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "756467db230b"
+  edges:
+    code: pwsh/Catzc.Azure.Templates/Get-AzureNamePatternSet.ps1
+---
+#>
+
 Describe 'Get-AzureNamePatternSet' -Tag 'L0', 'logic' {
     It 'defines the four patterns: long, kv, storage, vm' {
         $p = Get-AzureNamePatternSet

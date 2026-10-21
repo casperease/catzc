@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1
-    name: add-session-learning
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: a6d947139adc
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Add-SessionLearning.Tests.ps1
     docs: "[Add-SessionLearning.ps1.md](docs/references/pwsh/catzc-base-docs/Add-SessionLearning.ps1.md)"

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "314743c52deb"
+# ---
+
 description:
   An Azure name is computed from fixed components and the type's pattern; it fits the pattern's length limit and is the same every time, or
   the deploy stops, and it is never truncated.

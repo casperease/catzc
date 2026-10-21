@@ -2,19 +2,9 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Flow/tests/types/TruthStoresConfig.Tests.ps1
-    folder: tests/types
-    name: truth-stores-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Flow
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "7f20e3ce8bc9"
   edges:
+    code: pwsh/Catzc.Base.Flow/types/TruthStoresConfig.cs
     cites:
       - ADR-THES-STORES-THREEKINDS
 ---

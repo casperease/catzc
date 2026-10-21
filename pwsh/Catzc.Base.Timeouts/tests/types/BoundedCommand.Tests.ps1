@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
-    folder: tests/types
-    name: bounded-command-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "333447e9bb87"
   edges:
     docs: "[BoundedCommand.Tests.ps1.md](docs/references/pwsh/catzc-base-timeouts/tests/types/BoundedCommand.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Timeouts/types/BoundedCommand.cs
 ---
 #>
 

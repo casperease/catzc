@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1
-    folder: tests/types
-    name: pipeline-env-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5bdaf232b78f"
   edges:
     docs: "[PipelineEnvConfig.Tests.ps1.md](docs/references/pwsh/catzc-azure-devops/tests/types/PipelineEnvConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.DevOps/types/PipelineEnvConfig.cs
 ---
 #>
 

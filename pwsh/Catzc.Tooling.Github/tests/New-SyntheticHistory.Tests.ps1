@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "4efa15741316"
+  edges:
+    code: pwsh/Catzc.Tooling.Github/New-SyntheticHistory.ps1
+---
+#>
+
 Describe 'New-SyntheticHistory' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:repo = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-synth-' + [guid]::NewGuid().ToString('N').Substring(0, 12))

@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "21c18adc1d56"
+  edges:
+    code: pwsh/Catzc.Base.Slides/types/SlidesConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-PATH-TWOFORMS
+      - ADR-REPO-SLIDES-SLIDEFILEKIND
+      - ADR-REPO-SLIDES-ONEBUILDCOMMAND
+---
+#>
+
 Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILEKIND' {
     It 'takes the declared default kit folder for an omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         ([Catzc.Base.Slides.SlidesConfig]::new(@{})).kit | Should -Be 'python/catzc_diagrams/assets/slides'

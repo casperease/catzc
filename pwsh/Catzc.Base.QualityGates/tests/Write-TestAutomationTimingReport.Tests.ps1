@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3a2b9207ce7d"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationTimingReport.ps1
+---
+#>
+
 Describe 'Write-TestAutomationTimingReport' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Write-Header -ModuleName Catzc.Base.QualityGates { }

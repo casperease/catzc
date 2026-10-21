@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
-    name: get-changed-glob-set
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "7d49fe611403"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
     docs: "[Get-ChangedGlobSet.ps1.md](docs/references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md)"

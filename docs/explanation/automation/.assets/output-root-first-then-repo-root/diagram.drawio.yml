@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "864a4a493045"
+# ---
+
 description:
   A path is converted under the output root first, then the repository root, else kept absolute; Resolve-RepoPath re-anchors out/ on the
   output root, and an artifact reference carries the relative and absolute forms across stages.

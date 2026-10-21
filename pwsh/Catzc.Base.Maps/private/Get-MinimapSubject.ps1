@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b6c28c4bd742
+---
+#>
+
 function Get-MinimapSubject {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

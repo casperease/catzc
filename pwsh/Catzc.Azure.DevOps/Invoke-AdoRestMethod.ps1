@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1
-    name: invoke-ado-rest-method
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "2c20d931ec43"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Invoke-AdoRestMethod.Tests.ps1
     docs: "[Invoke-AdoRestMethod.ps1.md](docs/references/pwsh/catzc-azure-devops/Invoke-AdoRestMethod.ps1.md)"

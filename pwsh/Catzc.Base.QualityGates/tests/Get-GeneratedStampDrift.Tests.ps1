@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "0d9e8b2ae4ae"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-GeneratedStampDrift.ps1
+    cites:
+      - ADR-REPO-FILEMETA-COMPOSEDFILES
+---
+#>
+
 Describe 'Get-GeneratedStampDrift' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'widget-repository'

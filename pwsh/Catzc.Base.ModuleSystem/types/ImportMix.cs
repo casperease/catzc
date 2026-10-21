@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/types/ImportMix.cs
-    folder: types
-    name: import-mix
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8c8c31748f42"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/ImportMix.Tests.ps1
     docs: "[ImportMix.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ImportMix.cs.md)"

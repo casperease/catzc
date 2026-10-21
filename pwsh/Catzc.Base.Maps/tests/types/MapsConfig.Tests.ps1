@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: badd31f4b56f
+  edges:
+    code: pwsh/Catzc.Base.Maps/types/MapsConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+---
+#>
+
 Describe 'MapsConfig' -Tag 'L0' {
     BeforeAll {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Maps.MapsConfig]::new($raw) }

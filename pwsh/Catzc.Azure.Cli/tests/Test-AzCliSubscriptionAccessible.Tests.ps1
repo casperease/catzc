@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: c40c75b77e10
+  edges:
+    code: pwsh/Catzc.Azure.Cli/Test-AzCliSubscriptionAccessible.ps1
+---
+#>
+
 Describe 'Test-AzCliSubscriptionAccessible' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:sub = '50a0ed00-de00-50b0-0000-000000000000'

@@ -13,12 +13,22 @@ Rebuilds diagram folders from their source: each folder's `diagram.drawio.yml` a
 
 One command on one diagram folder, `<article-folder>/.assets/<name>/`, which holds a diagram's `diagram.drawio.yml`, its one source, and the
 `diagram.drawio.png` put from it; with no `-Path` it repeats that for every diagram folder found under `docs/**/.assets/**`, so a folder is
-found, never listed. For each folder it writes the minimap data the declaration's three minimaps draw from, then runs the draw.io kit's
-renderer once (`drawio_forward.py --all <folder>`, through uv with Pillow), which puts the folder from its yml, the minimaps drawn from that
-data (ADR-REPO-SLIDES-MINIMAPSFROMDATA). A folder with no declaration is left as it is and reported.
+found, never listed. The run has two stages. First it writes the minimap data of every declared folder, the data the declaration's three
+minimaps draw from; then it renders each folder with one call of the draw.io kit's renderer (`drawio_forward.py --all <folder>`, through uv
+with Pillow), which puts the folder from its yml, the minimaps drawn from that data (ADR-REPO-SLIDES-MINIMAPSFROMDATA), or under
+`-FromDrawing` it syncs each. A folder with no declaration gets no minimap data and is left to the renderer, which reports it.
 
-Before it renders, each folder finds its article by locality: the one page beside the folder's `.assets` that embeds its
-`diagram.drawio.png`. A folder no page there embeds is an orphan, reported and still rendered; a folder two pages embed stops the run.
+Each stage prints one line per folder with its position, the folder, its status and its time, and the run ends with the total. A full run
+over every folder takes minutes; the everyday journeys are `-Stale`, which rebuilds only what a tree change left stale, and `-Path`, which
+rebuilds the folders named.
+
+Before it renders, each folder finds its articles: every page anywhere in the tree that embeds its `diagram.drawio.png`. A folder no page
+embeds is an orphan, reported and still rendered. Each page's Supports line is held against the folder's yml, and a mismatch is reported as
+drift.
+
+A single sample outside `docs/`, such as a folder under `out/diagrams/dark-sample/`, is put by hand in two calls: `Write-DiagramMinimapData`
+run inside its module (`& (Get-Module Catzc.Base.Slides) { Write-DiagramMinimapData -Folder <folder> }`), then the kit's renderer's `put` on
+the folder.
 
 The renderer's exit codes decide the result: 0 is clean, 2 is warnings with every artifact delivered (reported, the run goes on), 3 is
 nothing to render, and anything else stops the run with the renderer's last lines. The kit is `drawio_kit` of `slides.yml`, with its default

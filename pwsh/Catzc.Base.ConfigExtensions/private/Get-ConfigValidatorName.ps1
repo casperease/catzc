@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1
-    folder: private
-    name: get-config-validator-name
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ConfigExtensions
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "0b8c953d8359"
   edges:
     test: pwsh/Catzc.Base.ConfigExtensions/tests/Get-ConfigValidatorName.Tests.ps1
     docs: "[Get-ConfigValidatorName.ps1.md](docs/references/pwsh/catzc-base-configextensions/private/Get-ConfigValidatorName.ps1.md)"

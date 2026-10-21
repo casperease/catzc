@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "97f3cea12688"
+# ---
+
 description:
   A config read resolves the name to one entry and the overlay root; on a cache miss the registry is read, a fragment of a sealed config
   throws, any other fragment is merged onto the shipped config, and the registered type builds the result.

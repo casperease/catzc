@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
-    name: assert-az-cli-subscription-accessible
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: f417ea82feda
   edges:
     test: pwsh/Catzc.Azure.Cli/tests/Assert-AzCliSubscriptionAccessible.Tests.ps1
     docs: "[Assert-AzCliSubscriptionAccessible.ps1.md](docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md)"

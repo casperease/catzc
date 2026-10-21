@@ -1,19 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: infrastructure/templates/discovery/configuration/apex/psub.yml
-#     folder: configuration/apex
-#     name: psub
-#     filetype: yml
-#     role: template
-#     subkind: config
-#     language: yaml
-#     track: infrastructure
-#     tracktype: infrastructure
-#     vendor: azure
-#     module: discovery
-#     moduletype: bicep
+#     with_body_sha: b4c9f8b1d608
 #   edges:
 #     docs: "[psub.yml.md](docs/references/infrastructure/templates/discovery/configuration/apex/psub.yml.md)"
 # ---

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/private/Install-UvStandalone.ps1
-    folder: private
-    name: install-uv-standalone
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "2dd644d99d2b"
   edges:
     docs: "[Install-UvStandalone.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md)"
     cites:

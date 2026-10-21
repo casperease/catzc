@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/ConvertTo-ModuleDependencyDiagram.ps1
-    name: convert-to-module-dependency-diagram
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "50f389df2bd2"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1
     docs: "[ConvertTo-ModuleDependencyDiagram.ps1.md](docs/references/pwsh/catzc-base-modulesystem/ConvertTo-ModuleDependencyDiagram.ps1.md)"

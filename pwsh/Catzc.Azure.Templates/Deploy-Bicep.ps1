@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
-    name: deploy-bicep
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "19936dc38441"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
     docs: "[Deploy-Bicep.ps1.md](docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md)"

@@ -2,27 +2,16 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/types/AzureConfig.cs
-    folder: types
-    name: azure-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "6af20043d20c"
   edges:
     test: pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
     docs: "[AzureConfig.cs.md](docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-AZ-DATAMOD
       - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

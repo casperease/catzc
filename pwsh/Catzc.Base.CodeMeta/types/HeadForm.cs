@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.CodeMeta/types/HeadForm.cs
-    folder: types
-    name: head-form
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.CodeMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "0e967649a97f"
   edges:
     test: pwsh/Catzc.Base.CodeMeta/tests/types/HeadForm.Tests.ps1
     docs: "[HeadForm.cs.md](docs/references/pwsh/catzc-base-codemeta/types/HeadForm.cs.md)"

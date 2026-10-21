@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/EngineSetCheck.cs
-    folder: types
-    name: engine-set-check
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "156756c12dd4"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1
     docs: "[EngineSetCheck.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/EngineSetCheck.cs.md)"

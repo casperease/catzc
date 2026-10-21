@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
-    folder: tests
-    name: get-contract-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c2a5ed0ab59f
   edges:
     docs: "[Get-Contract.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-Contract.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Contracts/Get-Contract.ps1
     cites:
       - ADR-AUTO-DEFAULT-ZEROARGUMENTCALL
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
@@ -285,11 +275,17 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
                 Should -Be 'flows/build.yml'
         }
 
-        It 'takes the target roots from the contracts config' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'ADR-REPO-CONTRACT-LAYOUT' {
-            Mock Get-Config { [Catzc.Base.Contracts.ContractsConfig]::new(@{ target_roots = @{ 'Catzc.Widget' = '.widget' } }) } -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' }
-            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.yml'
+        It 'takes the target roots from the contracts config, keyed by the module''s normal form' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'ADR-REPO-CONTRACT-LAYOUT' {
+            Mock Get-Config { [Catzc.Base.Contracts.ContractsConfig]::new(@{ target_roots = @{ 'catzc.widget' = '.widget' } }) } -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' }
+            Add-Asset 'contracts/widget/0.0.0/catzc.widget/widget.yml'
 
             (Get-Contract -RepositoryRoot $script:root).Target | Should -Be '.widget/widget.yml'
+        }
+
+        It 'looks up a unit that keeps its source''s folder names by their normal form' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.WidgetGadget/widget.yml'
+
+            (Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{ 'catzc.widget_gadget' = '.widget' }).Target | Should -Be '.widget/widget.yml'
         }
 
         It 'rejects a target root that is not a repository-relative folder' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
@@ -337,8 +333,8 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
             }
         }
 
-        It 'targets the command file under the module root the one resolver gives, and is provided' {
-            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml' 'parameters:'
+        It 'targets the command file, named in PowerShell''s function case, under the module root the one resolver gives, and is provided' {
+            Add-Asset 'contracts/widget/0.0.0/catzc.widget/get_widget.command.yml' 'parameters:'
             $asset = Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{}
             $asset.Kind | Should -Be ([Catzc.Base.Contracts.ContractAssetKind]::Command)
             $asset.Target | Should -Be 'widgets/Catzc.Widget/Get-Widget.ps1'
@@ -347,16 +343,21 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
         }
 
         It 'resolves the module once for all its command contracts, and not at all without one' {
-            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml' 'parameters:'
-            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/Set-Widget.command.yml' 'parameters:'
-            Add-Asset 'contracts/widget/0.0.0/Catzc.Gadget/gadget.yml'
+            Add-Asset 'contracts/widget/0.0.0/catzc.widget/get_widget.command.yml' 'parameters:'
+            Add-Asset 'contracts/widget/0.0.0/catzc.widget/set_widget.command.yml' 'parameters:'
+            Add-Asset 'contracts/widget/0.0.0/catzc.gadget/gadget.yml'
             @(Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{}).Count | Should -Be 3
-            Should -Invoke -ModuleName Catzc.Base.Contracts Get-CatzcModule -Times 1 -Exactly -ParameterFilter { $Name -eq 'Catzc.Widget' }
+            Should -Invoke -ModuleName Catzc.Base.Contracts Get-CatzcModule -Times 1 -Exactly -ParameterFilter { $Name -ceq 'Catzc.Widget' }
         }
 
         It 'throws on a command contract below a folder of the module' {
-            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/flows/Get-Widget.command.yml' 'parameters:'
+            Add-Asset 'contracts/widget/0.0.0/catzc.widget/flows/get_widget.command.yml' 'parameters:'
             { Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{} } | Should -Throw '*sits directly in its module folder*'
+        }
+
+        It 'throws on a command contract whose file name is not in the normal form' {
+            Add-Asset 'contracts/widget/0.0.0/catzc.widget/Get-Widget.command.yml' 'parameters:'
+            { Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{} } | Should -Throw "*the command 'Get-Widget' is not in the repository normal form, snake*"
         }
     }
 }

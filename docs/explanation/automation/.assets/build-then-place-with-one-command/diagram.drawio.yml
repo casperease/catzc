@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "905d00bd6b5c"
+# ---
+
 description:
   A source-mode session builds the bundle, the build checks its own output, and one placement command then copies the build into a module
   path, beside a working root, or into a package.

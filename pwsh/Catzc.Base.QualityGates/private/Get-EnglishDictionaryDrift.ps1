@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-EnglishDictionaryDrift.ps1
-    folder: private
-    name: get-english-dictionary-drift
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "2de0a84ddc56"
   edges:
     docs: "[Get-EnglishDictionaryDrift.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-EnglishDictionaryDrift.ps1.md)"
 ---

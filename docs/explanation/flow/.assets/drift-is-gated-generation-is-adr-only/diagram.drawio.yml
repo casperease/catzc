@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "7c911d30b880"
+# ---
+
 description:
   The flattened scan program feeds the GitHub paths and the Azure DevOps include and exclude lists, and three quality gates check those
   projections; the generation of the YAML filters is drawn dashed because no code and no gate holds it.

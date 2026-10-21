@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "083b750b9fec"
+  edges:
+    code: pwsh/Catzc.Base.Timeouts/Assert-CompletesWithin.ps1
+---
+#>
+
 Describe 'Assert-CompletesWithin' -Tag 'L0', 'logic' {
     It 'passes, with no output, when the block finishes in time' {
         Assert-CompletesWithin { 'widget' } -Seconds 5 | Should -BeNullOrEmpty

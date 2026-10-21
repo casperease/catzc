@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
-    name: get-markdown-meta-state
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.MarkdownMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: ddccdcc0b95b
   edges:
     test: pwsh/Catzc.Base.MarkdownMeta/tests/Get-MarkdownMetaState.Tests.ps1
     docs: "[Get-MarkdownMetaState.ps1.md](docs/references/pwsh/catzc-base-markdownmeta/Get-MarkdownMetaState.ps1.md)"

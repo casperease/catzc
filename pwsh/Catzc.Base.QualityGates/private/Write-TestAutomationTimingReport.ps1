@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationTimingReport.ps1
-    folder: private
-    name: write-test-automation-timing-report
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: e40912e0686f
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationTimingReport.Tests.ps1
     docs: "[Write-TestAutomationTimingReport.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationTimingReport.ps1.md)"

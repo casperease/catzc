@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1
-    folder: tests/types
-    name: contracts-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8c310f593da3"
   edges:
     docs: "[ContractsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractsConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Contracts/types/ContractsConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-REPO-CONTRACT-LAYOUT
@@ -96,9 +86,13 @@ Describe 'ContractsConfig (shipped contracts.yml)' -Tag 'L1', 'integrity' {
         $config.addressing | Should -BeIn ([Catzc.Base.Contracts.ContractsConfig]::BuiltAddressingModes)
     }
 
-    It 'names a target root only for a module folder that exists' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
+    It 'names a target root only for a module folder that exists, by the module''s normal form' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
+        $normalForm = (Get-Config -Config languages).naming_normal_form
         foreach ($module in (Get-Config -Config contracts).target_roots.Keys) {
-            Join-Path (Get-CatzcModulesRoot) $module | Should -Exist
+            foreach ($segment in $module.Split('.')) {
+                [Catzc.Base.Languages.LanguageNaming]::IsInCase($normalForm, $segment) | Should -BeTrue -Because "'$module' keys a target root"
+            }
+            Join-Path (Get-CatzcModulesRoot) ([Catzc.Base.Languages.LanguageNaming]::FromNormal($module, 'pascal-dotted', $normalForm)) | Should -Exist
         }
     }
 }

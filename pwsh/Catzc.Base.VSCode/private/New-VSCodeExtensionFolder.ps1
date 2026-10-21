@@ -4,8 +4,8 @@ catzc:
   immutable:
     with_body_sha: "87c97f955050"
   edges:
-    test: pwsh/Catzc.Base.VSCode/tests/New-VsCodeExtensionFolder.Tests.ps1
-    docs: "[New-VsCodeExtensionFolder.ps1.md](docs/references/pwsh/catzc-base-vscode/private/New-VsCodeExtensionFolder.ps1.md)"
+    test: pwsh/Catzc.Base.VSCode/tests/New-VSCodeExtensionFolder.Tests.ps1
+    docs: "[New-VSCodeExtensionFolder.ps1.md](docs/references/pwsh/catzc-base-vscode/private/New-VSCodeExtensionFolder.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
 ---

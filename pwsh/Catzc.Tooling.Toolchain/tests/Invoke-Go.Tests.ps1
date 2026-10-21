@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "31fa0b10eb01"
+  edges:
+    code: pwsh/Catzc.Tooling.Toolchain/Invoke-Go.ps1
+---
+#>
+
 Describe 'Invoke-Go' -Tag 'L0', 'logic' {
     It 'builds the command via -DryRun' {
         Invoke-Go 'version' -DryRun | Should -Be 'go version'

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
-    folder: tests
-    name: new-catzc-nu-get-package-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "1511756a8fda"
   edges:
     docs: "[New-CatzcNuGetPackage.Tests.ps1.md](docs/references/pwsh/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-ONEIMPORTPERCASE

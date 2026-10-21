@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b8534e68b8ba
+  edges:
+    code: pwsh/Catzc.Base.ModuleSystem/private/Resolve-ImportMix.ps1
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-IMPORTER-DECIDESMIX
+      - ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES
+      - ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS
+---
+#>
+
 Describe 'Resolve-ImportMix' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'importer' } {

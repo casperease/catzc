@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/types/ContractCommand.cs
-    folder: types
-    name: contract-command
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b31278584682
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractCommand.Tests.ps1
     docs: "[ContractCommand.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractCommand.cs.md)"
@@ -155,7 +144,7 @@ public sealed class ContractCommand
                 }
                 else
                 {
-                    errors.Add("parameters must be a map of parameter name to spec, e.g. { Path: string! }");
+                    errors.Add("parameters must be a map of parameter name to spec, e.g. { path: string! }");
                 }
             }
 
@@ -279,6 +268,88 @@ public sealed class ContractCommand
             findings.Add(string.Format(CultureInfo.InvariantCulture, "output: the contract says {0}, the command declares {1}", contract.output, command.output));
         }
         return findings;
+    }
+
+    // Every name the contract language writes, once each in the order written: parameters, their sets, catzc type segments, the default set.
+    public IReadOnlyList<string> Names
+    {
+        get
+        {
+            var names = new List<string>();
+            Func<string, string> collect = name =>
+            {
+                if (!names.Contains(name)) { names.Add(name); }
+                return name;
+            };
+            ToAssetText(collect);
+            return names;
+        }
+    }
+
+    // The same call interface with every name the contract language writes renamed; a checker renders a command's signature to the normal form so.
+    public ContractCommand Renamed(Func<string, string> rename)
+    {
+        if (rename == null) { throw new ArgumentNullException(nameof(rename), "contract command: the rename is required"); }
+        var list = new List<ContractParameter>();
+        foreach (ContractParameter parameter in parameters)
+        {
+            var sets = new List<string>();
+            foreach (string set in parameter.Sets) { sets.Add(rename(set)); }
+            list.Add(new ContractParameter(rename(parameter.Name), TypeOf(parameter.Type, rename), parameter.IsList, parameter.Mandatory,
+                parameter.Default, parameter.Pipeline, sets));
+        }
+        return new ContractCommand(list, TypeOf(output, rename), default_set == null ? null : rename(default_set));
+    }
+
+    public string ToAssetText(Func<string, string> rename)
+    {
+        if (rename == null) { throw new ArgumentNullException(nameof(rename), "contract command: the rename is required"); }
+        var text = new System.Text.StringBuilder();
+        if (parameters.Count > 0)
+        {
+            text.Append("parameters:\n");
+            foreach (ContractParameter parameter in parameters)
+            {
+                text.Append("  ").Append(rename(parameter.Name)).Append(": ").Append(SpecOf(parameter, rename)).Append('\n');
+            }
+        }
+        if (output != DefaultOutput)
+        {
+            text.Append("output: ").Append(TypeOf(output, rename)).Append('\n');
+        }
+        if (default_set != null)
+        {
+            text.Append("default_set: ").Append(rename(default_set)).Append('\n');
+        }
+        return text.ToString();
+    }
+
+    private static string SpecOf(ContractParameter parameter, Func<string, string> rename)
+    {
+        string spec = TypeOf(parameter.Type, rename) + (parameter.IsList ? "[]" : "") + (parameter.Mandatory ? "!" : "");
+        if (parameter.Default != null) { spec += " = " + parameter.Default; }
+        if (parameter.Pipeline) { spec += " pipeline"; }
+        if (parameter.Sets.Count > 0)
+        {
+            var sets = new List<string>();
+            foreach (string set in parameter.Sets) { sets.Add(rename(set)); }
+            spec += " in " + string.Join(",", sets);
+        }
+        return spec;
+    }
+
+    // A catzc type name and a list of one, renamed segment by segment; any other type as written.
+    private static string TypeOf(string type, Func<string, string> rename)
+    {
+        bool list = type.EndsWith("[]", StringComparison.Ordinal);
+        string bare = list ? type.Substring(0, type.Length - 2) : type;
+        if (Array.IndexOf(ContractParameter.BaseTypes, bare) < 0 && ContractParameter.IsContractType(bare))
+        {
+            string[] segments = bare.Split('.');
+            for (int i = 0; i < segments.Length; i++) { segments[i] = rename(segments[i]); }
+            bare = string.Join(".", segments);
+        }
+        return bare + (list ? "[]" : "");
     }
 
     private static string Describe(string value) => value == null ? "none" : "'" + value + "'";

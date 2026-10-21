@@ -1,20 +1,11 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.Timeouts/configs/timeouts.yml
-#     folder: configs
-#     name: timeouts
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.Timeouts
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: d4adeb31067c
 #   edges:
 #     docs: "[timeouts.yml.md](docs/references/pwsh/catzc-base-timeouts/configs/timeouts.yml.md)"
+#     cites:
+#       - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
 # ---
 
 executables:

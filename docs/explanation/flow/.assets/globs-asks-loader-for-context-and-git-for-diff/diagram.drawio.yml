@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "62e1db1172ea"
+# ---
+
 description:
   The touched-unit check of the globs module asks the loader which context it runs in, to pick the reference commit, and asks git for the
   changed paths; the pipeline stage that should call it is drawn dashed because no pipeline does.

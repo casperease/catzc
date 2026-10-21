@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
-    folder: tests
-    name: get-c-sharp-type-dependency-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: bd16710f0437
   edges:
     docs: "[Get-CSharpTypeDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-typessystem/tests/Get-CSharpTypeDependency.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
     cites:
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
 ---

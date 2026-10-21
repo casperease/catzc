@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/Remove-AzCli.ps1
-    name: remove-az-cli
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "30449a9f204b"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
     docs: "[Remove-AzCli.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Remove-AzCli.ps1.md)"

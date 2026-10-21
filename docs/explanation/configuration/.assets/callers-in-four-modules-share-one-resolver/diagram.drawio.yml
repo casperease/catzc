@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "66b73855bd62"
+# ---
+
 description:
   Four modules hold config addresses and hand them to the one public resolver in Catzc.Base.Config, which keeps the key walk private and
   builds on its own reader; the only file an address can reach is a committed config file.

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
-    folder: tests/types
-    name: aspect-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "0b82da3ebf03"
   edges:
     docs: "[Aspect.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Globs/types/Aspect.cs
     cites:
       - ADR-DSGN-ASPECT
 ---

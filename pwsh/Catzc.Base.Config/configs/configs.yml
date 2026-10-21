@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f1c4d3718201
+#     with_body_sha: af2017c7edf2
 #   edges:
 #     docs: "[configs.yml.md](docs/references/pwsh/catzc-base-config/configs/configs.yml.md)"
 #     cites:
@@ -24,6 +24,8 @@ configs:
     type: Catzc.Base.QualityGates.CommentsConfig
   comment-pages:
     type: Catzc.Base.CodeMeta.CommentPagesConfig
+  edit-reminders:
+    type: Catzc.Base.QualityGates.EditRemindersConfig
   file-meta:
     type: Catzc.Base.QualityGates.FileMetaConfig
   generated-files:
@@ -44,6 +46,8 @@ configs:
     type: Catzc.Base.RootConfig.RootConfigFiles
   gitignore:
     type: Catzc.Base.Git.GitIgnoreConfig
+  git:
+    type: Catzc.Base.Git.GitFlowConfig
   globs:
     type: Catzc.Base.Globs.GlobsConfig
   file-kinds:

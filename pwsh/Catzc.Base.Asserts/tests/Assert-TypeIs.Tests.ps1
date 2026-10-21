@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "722349673958"
+  edges:
+    code: pwsh/Catzc.Base.Asserts/Assert-TypeIs.ps1
+---
+#>
+
 Describe 'Assert-TypeIs' -Tag 'L0', 'logic' {
     It 'passes when type matches' {
         { Assert-TypeIs 'hello' 'System.String' } | Should -Not -Throw

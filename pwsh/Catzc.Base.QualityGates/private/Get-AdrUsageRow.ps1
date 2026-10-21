@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-AdrUsageRow.ps1
-    folder: private
-    name: get-adr-usage-row
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "7929e2929f94"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-AdrUsageRow.Tests.ps1
     docs: "[Get-AdrUsageRow.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-AdrUsageRow.ps1.md)"

@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3feda441060a"
+  edges:
+    code: pwsh/Catzc.Base.Folders/Get-ChildPath.ps1
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY
+      - ADR-PWSH-PARAM-RESOLUTIONORDER
+---
+#>
+
 Describe 'Get-ChildPath' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

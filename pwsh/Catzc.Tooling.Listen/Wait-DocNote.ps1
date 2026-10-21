@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: c2bab1e43f69
+  edges:
+    test: pwsh/Catzc.Tooling.Listen/tests/Wait-DocNote.Tests.ps1
+    cites:
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+---
+#>
+
 function Wait-DocNote {
     <#
     .SYNOPSIS

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
-    folder: tests/types
-    name: spelling-oracle-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "22f48a3659d8"
   edges:
     docs: "[SpellingOracle.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/SpellingOracle.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/types/SpellingOracle.cs
     cites:
       - ADR-AUTO-SPELL-CATEGORYANDMEANING
       - ADR-AUTO-TEST-ONECATEGORY

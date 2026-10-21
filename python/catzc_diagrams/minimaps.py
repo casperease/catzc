@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "355e00720041"
+# ---
+
 # cspell:ignore minimaps textlength LANCZOS
 """The minimaps of a diagram, drawn for the sidebar from the data Catzc.Base.Maps computes.
 

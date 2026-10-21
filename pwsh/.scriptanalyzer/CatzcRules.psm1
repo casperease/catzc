@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/CatzcRules.psm1
-    folder: pwsh/.scriptanalyzer
-    name: catzc-rules
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "085aaf4b2683"
   edges:
     docs: "[CatzcRules.psm1.md](docs/references/pwsh/scriptanalyzer/CatzcRules.psm1.md)"
 ---

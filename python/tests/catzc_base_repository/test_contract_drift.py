@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "6abd53f57de4"
+# ---
+
 """Black-box contract drift test of Catzc.Base.Repository's provided command Get-RepositoryFile.
 
 The caller below calls the command the way an outside consumer does. It takes the call shape from the command contract,

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "5e88d077d107"
+# ---
+
 description:
   "A wait's limit resolves in one order: the caller's value, else the config file, else the declared default; an exemption only raises it to
   a ceiling, and one bounded wait runs under the winner."

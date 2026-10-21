@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "0c3b5ff5146d"
+---
+*/
+
 using System;
 
 namespace Catzc.Base.Slides;

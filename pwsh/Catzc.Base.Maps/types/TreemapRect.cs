@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/TreemapRect.cs
-    folder: types
-    name: treemap-rect
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4ecc4ce7ca4a"
   edges:
     docs: "[TreemapRect.cs.md](docs/references/pwsh/catzc-base-maps/types/TreemapRect.cs.md)"
     cites:

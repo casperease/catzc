@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/CitationScanner.cs
-    folder: types
-    name: citation-scanner
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "91b6f7fa2415"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1
     docs: "[CitationScanner.cs.md](docs/references/pwsh/catzc-base-maps/types/CitationScanner.cs.md)"

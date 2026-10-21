@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/Get-BicepParameterModel.ps1
-    name: get-bicep-parameter-model
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "9f3d5c2fe788"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
     docs: "[Get-BicepParameterModel.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepParameterModel.ps1.md)"

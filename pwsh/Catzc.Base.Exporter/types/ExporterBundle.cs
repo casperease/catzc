@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
-    folder: types
-    name: exporter-bundle
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8572d8d7e0c1"
   edges:
     docs: "[ExporterBundle.cs.md](docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md)"
     cites:

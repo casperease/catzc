@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "84cb3ac254dc"
+# ---
+
 description:
   A client's change goes from its local clone through the server's identity model and branch policy to HEAD on the server remote, and
   consumers clone out from the verified point.

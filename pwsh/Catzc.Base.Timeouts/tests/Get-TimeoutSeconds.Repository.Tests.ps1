@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1
-    folder: tests
-    name: get-timeout-seconds-repository-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c91f6814b59c
   edges:
     docs: "[Get-TimeoutSeconds.Repository.Tests.ps1.md](docs/references/pwsh/catzc-base-timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1.md)"
     cites:

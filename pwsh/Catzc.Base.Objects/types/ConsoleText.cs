@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Objects/types/ConsoleText.cs
-    folder: types
-    name: console-text
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: d5c77b75df42
   edges:
     test: pwsh/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
     docs: "[ConsoleText.cs.md](docs/references/pwsh/catzc-base-objects/types/ConsoleText.cs.md)"

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/Uninstall-Shellcheck.ps1
-    name: uninstall-shellcheck
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "668427290508"
   edges:
     docs: "[Uninstall-Shellcheck.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Shellcheck.ps1.md)"
 ---

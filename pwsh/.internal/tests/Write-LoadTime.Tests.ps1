@@ -1,3 +1,14 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "6697dffa02ca"
+  edges:
+    cites:
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+---
+#>
+
 BeforeAll {
     # The transient importer modules are removed after every import, so this test file loads its own copies.
     Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force

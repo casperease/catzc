@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
-    name: write-quality-gate-report
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: ef12363b8b28
   edges:
     test: pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
     docs: "[Write-QualityGateReport.ps1.md](docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md)"

@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ea799664f73f
+  edges:
+    code: pwsh/Catzc.Tooling.Node/Uninstall-NodeJs.ps1
+    cites:
+      - ADR-AUTO-REMOVE-DOUBLYGUARDED
+      - ADR-AUTO-REMOVE-ONECALLESCALATION
+---
+#>
+
 Describe 'Uninstall-NodeJs' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Uninstall-Tool { } -ModuleName Catzc.Tooling.Node

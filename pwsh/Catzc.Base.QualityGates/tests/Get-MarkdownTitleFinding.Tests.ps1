@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: fc661868706c
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-MarkdownTitleFinding.ps1
+    cites:
+      - ADR-REPO-FORMAT-MARKDOWNTITLE
+---
+#>
+
 Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-MARKDOWNTITLE' {
     BeforeAll {
         # Fixture text is built from lines, so every escape stays apart from the words around it.

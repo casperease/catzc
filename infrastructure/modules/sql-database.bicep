@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/sql-database.bicep
-//     name: sql-database
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: sql-database
-//     moduletype: bicep
+//     with_body_sha: a4abf810574d
 //   edges:
 //     docs: "[sql-database.bicep.md](docs/references/infrastructure/modules/sql-database.bicep.md)"
 // ---

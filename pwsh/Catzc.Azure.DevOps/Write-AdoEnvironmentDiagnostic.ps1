@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/Write-AdoEnvironmentDiagnostic.ps1
-    name: write-ado-environment-diagnostic
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: f386fb7fe83e
   edges:
     docs: "[Write-AdoEnvironmentDiagnostic.ps1.md](docs/references/pwsh/catzc-azure-devops/Write-AdoEnvironmentDiagnostic.ps1.md)"
 ---

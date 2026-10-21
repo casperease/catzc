@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Objects/ConvertTo-FlatSettingSet.ps1
-    name: convert-to-flat-setting-set
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: e897de6ed136
   edges:
     test: pwsh/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
     docs: "[ConvertTo-FlatSettingSet.ps1.md](docs/references/pwsh/catzc-base-objects/ConvertTo-FlatSettingSet.ps1.md)"

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "1c77e98495cd"
+  edges:
+    code: pwsh/Catzc.Base.Languages/types/GoWorkspaceFile.cs
+---
+#>
+
 Describe 'GoWorkspaceFile' -Tag 'L0', 'logic' {
     It 'carries its target and content' {
         $file = [Catzc.Base.Languages.GoWorkspaceFile]::new('go/tests/catzc-widget/go.mod', "module widget`n")

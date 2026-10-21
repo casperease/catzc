@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: c80d614712a8
+  edges:
+    code: pwsh/Catzc.Base.ModuleSystem/types/ImporterConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-IMPORTER-DECIDESMIX
+---
+#>
+
 Describe 'ImporterConfig' -Tag 'L0', 'logic' {
     It 'takes auto for both axes when every key is omitted' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.ModuleSystem.ImporterConfig]::new(@{})

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
-    folder: tests
-    name: test-module-dependency-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "6485e5225ec1"
   edges:
     docs: "[Test-ModuleDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Test-ModuleDependency.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
 ---

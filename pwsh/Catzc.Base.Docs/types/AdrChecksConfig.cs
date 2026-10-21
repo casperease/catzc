@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/AdrChecksConfig.cs
-    folder: types
-    name: adr-checks-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "271d5e67268d"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1
     docs: "[AdrChecksConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrChecksConfig.cs.md)"

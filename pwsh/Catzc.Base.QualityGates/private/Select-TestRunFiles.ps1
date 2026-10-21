@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Select-TestRunFiles.ps1
-    folder: private
-    name: select-test-run-files
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: d9b35be5f8fc
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Select-TestRunFiles.Tests.ps1
     docs: "[Select-TestRunFiles.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Select-TestRunFiles.ps1.md)"

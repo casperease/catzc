@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-FixtureIdentityTokens.ps1
-    folder: private
-    name: get-fixture-identity-tokens
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: a3d605fc984b
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1
     docs: "[Get-FixtureIdentityTokens.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md)"

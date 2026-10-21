@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "7fd00e35a221"
+  edges:
+    code: pwsh/Catzc.Azure.DevOps/private/Sync-AdoGraphGroupMembers.ps1
+---
+#>
+
 Describe 'Sync-AdoGraphGroupMembers' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:context = [pscustomobject]@{ Organization = 'https://dev.azure.com/widgetorg'; GraphBase = 'https://vssps.dev.azure.com/widgetorg/_apis/graph' }

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "6f3f7af9582b"
+# ---
+
 description:
   Every import runs the root-file writer, which leaves each managed root file a current headed file; the drift gate and the integrity gate
   each report the file and the exact fix when something is out of step.

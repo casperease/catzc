@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1
-    folder: tests
-    name: pipeline-trigger-integrity-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "28a6e6445e3c"
   edges:
     docs: "[PipelineTrigger-Integrity.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md)"
     cites:

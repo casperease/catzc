@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/New-RepositorySnapshot.ps1
-    name: new-repository-snapshot
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "01c02f75a2e8"
   edges:
     test: pwsh/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
     docs: "[New-RepositorySnapshot.ps1.md](docs/references/pwsh/catzc-base-git/New-RepositorySnapshot.ps1.md)"

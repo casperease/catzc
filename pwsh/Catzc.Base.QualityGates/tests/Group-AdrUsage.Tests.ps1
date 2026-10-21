@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f8d612c16bcd
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Group-AdrUsage.ps1
+---
+#>
+
 Describe 'Group-AdrUsage' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:rows = @(

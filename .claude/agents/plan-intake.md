@@ -18,8 +18,8 @@ Land one pasted continuation prompt in the plans; nothing in the paste is discar
 
 1. Say "ready to parse the continuation prompt", then Read `value-of-plan.md` and the plans the paste names or implies.
 2. For each claim of done, check the tree (Glob, Grep, `ls`; foreground Bash at most 3 s) before writing it as done.
-3. For each item, pick the one owning plan; an item no plan covers gets a new plan started with `New-Plan` at the value plan-value gives
-   it, plus its row in `value-of-plan.md` and its chunk line in `plan-master.md`.
+3. For each item, pick the one owning plan; an item no plan covers gets a new plan started with `New-Plan` at the value plan-value gives it;
+   `New-Plan -Summary` also writes its row in `value-of-plan.md` and its chunk line in `plan-master.md`.
 4. Edit the owning plan: a verified done item deletes the open step it closes and is written nowhere; open items become checkbox steps
    naming their check; a contradiction between the paste and the tree is recorded as a correction, with both sides.
 5. A pasted prompt meant for a fresh session becomes `prompt-<topic>-continue.md` beside its plan, verbatim, with a header that maps any

@@ -1,6 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: a0fddc1fae63
+  edges:
+    code: pwsh/Catzc.Base.Maps/types/MinimapData.cs
+    cites:
+      - ADR-REPO-CONTRACT-PROVENBYTESTS
+---
+#>
+
 Describe 'MinimapData' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     BeforeAll {
-        $schemaPath = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/Catzc.Base.Maps/minimap.schema.json'
+        $schemaPath = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.maps/minimap.schema.json'
         $script:schema = [System.IO.File]::ReadAllText($schemaPath)
         $script:conforms = { param([string] $Json) Test-Json -Json $Json -Schema $script:schema -ErrorAction SilentlyContinue }
 

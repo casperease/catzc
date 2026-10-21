@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: cb6e4ae9347c
+  edges:
+    test: pwsh/Catzc.Tooling.Listen/tests/New-DocNote.Tests.ps1
+---
+#>
+
 function New-DocNote {
     <#
     .SYNOPSIS

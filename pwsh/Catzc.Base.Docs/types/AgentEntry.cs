@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/AgentEntry.cs
-    folder: types
-    name: agent-entry
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: d354229fa4cd
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
     docs: "[AgentEntry.cs.md](docs/references/pwsh/catzc-base-docs/types/AgentEntry.cs.md)"

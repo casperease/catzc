@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Execution/Resolve-EngineExecutable.ps1
-    name: resolve-engine-executable
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Execution
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "931d6bb42cf3"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1
     docs: "[Resolve-EngineExecutable.ps1.md](docs/references/pwsh/catzc-base-execution/Resolve-EngineExecutable.ps1.md)"

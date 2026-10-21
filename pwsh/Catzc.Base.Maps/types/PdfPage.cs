@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/PdfPage.cs
-    folder: types
-    name: pdf-page
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "22aa8352c996"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/PdfPage.Tests.ps1
     docs: "[PdfPage.cs.md](docs/references/pwsh/catzc-base-maps/types/PdfPage.cs.md)"

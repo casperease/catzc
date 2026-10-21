@@ -44,3 +44,41 @@ Started 2026-10-21T06:22:09.4408143+02:00.
   which time out and need a second read.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: reading one sample command.yml and the plans ADR rule headings before writing a
   plan, instead of whole ADR pages.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: the import runs New-CatsCommandLookup as a janitor, so every contract reader
+  (Get-Contract, Get-ContractAssetKind, Resolve-ContractAsset, Get-ContractCommandRoot, Get-ContractVersionAsset, Get-CommandContract) is on
+  the import path.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Get-ContractAssetKind decides a command contract by its file name alone, so a
+  renamed command asset silently becomes a fragment and the cats lookup comes out empty.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: LanguageNaming.IsInCase is false for any dotted name; FromNormal and ToNormal take
+  dotted names, so a module or type name is checked segment by segment.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: contracts.yml target_roots are keyed by the module folder in the normal form, and a
+  unit that keeps its source's folder names (EXTERNAL-azure) is looked up by their rendering.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Format-Code on a C# type file changes the types hash, so a gate run after it in the
+  same process fails to find the compiled DLL until the next fresh import.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: pwsh -File passes a comma-joined argument as one string to a [string[]] parameter;
+  a script run that way splits it itself.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: the cats lookup row has 13 columns: the normal-form key and the contract facts,
+  then the command and parameter in kebab case and in PowerShell's case, so importer.sh only compares strings.
+- 2026-10-21 Cats: Token tip: Next time, save tokens by: grepping every reader of a renamed asset kind (its file-name pattern, its folder,
+  its config keys) before editing any of them, so one import-checked burst lands them all.
+- 2026-10-21 Cats: Token tip: Next time, save tokens by: running a staging script over all modules in one process with one import, not a
+  fresh pwsh per module.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Invoke-Executable runs in Get-RepositoryRoot unless -WorkingDirectory is passed, so
+  a git command tested by Push-Location into a scratch clone acts on the real repository; every git call in Catzc.Base.Git passes
+  -WorkingDirectory $RepositoryRoot.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Get-RobotLineCount counts only unindented lines, so a capability grows by a new
+  numbered item and never by a clause merged into an existing one.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: one parse error in any module .ps1 (a "$name:" inside a double-quoted string)
+  breaks the importer for every session; the Parser::ParseFile check is instant and needs no import.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: the Assert-BashTimeout hook denies any Bash command line that names Sync-Topic,
+  Save-Topic or Push-Topic as a word, a heredoc included; write such scripts with the Write tool.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: a hook payload piped through Git Bash echo loses its JSON backslashes; test a hook
+  with a payload file redirected into the exe.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Build-AgentHook can fail with "a process it started still holds its output" while
+  the importer janitor republishes the same hook; a rerun passes.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Test-Formatting over pwsh/Catzc.Base.Git lists every file of the module until the
+  minimal-heads whole-tree re-format runs, so a module-wide formatting check cannot prove one new file today.
+- 2026-10-21 Cats: Token tip: Next time, save tokens by: keeping one out/ runner script per task (test, probe, verdict) instead of rewriting
+  a script per check.
+- 2026-10-21 Cats: Token tip: Next time, save tokens by: reading a function's Invoke-Executable defaults before writing an L1 test against
+  scratch repositories.

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/Get-CodeLocationsMinimapData.ps1
-    name: get-code-locations-minimap-data
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "3623868a097b"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-CodeLocationsMinimapData.Tests.ps1
     docs: "[Get-CodeLocationsMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-CodeLocationsMinimapData.ps1.md)"

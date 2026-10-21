@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: a6b8e1edc404
+  edges:
+    code: pwsh/Catzc.Base.Timeouts/Get-TimeoutSeconds.ps1
+    cites:
+      - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
+---
+#>
+
 Describe 'Get-TimeoutSeconds' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.Timeouts {

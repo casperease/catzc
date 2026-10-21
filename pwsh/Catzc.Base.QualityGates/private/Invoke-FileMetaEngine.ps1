@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1
-    folder: private
-    name: invoke-file-meta-engine
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "149b74997318"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
     docs: "[Invoke-FileMetaEngine.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md)"

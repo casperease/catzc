@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/Invoke-Uv.ps1
-    name: invoke-uv
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: e88e449e732d
   edges:
     docs: "[Invoke-Uv.ps1.md](docs/references/pwsh/catzc-tooling-core/Invoke-Uv.ps1.md)"
 ---

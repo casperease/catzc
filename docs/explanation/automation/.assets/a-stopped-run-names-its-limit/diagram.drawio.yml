@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "7eeb15731be4"
+# ---
+
 description:
   "Every call runs inside a limit: an agent's Bash call meets the hook, a developer's or pipeline's pwsh work runs through the two bounded
   runners, and a run past its limit stops with a message naming the limit and where to change it."

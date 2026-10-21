@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: a84b69c63196
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/types/DocumentLinks.cs
+    cites:
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+---
+#>
+
 # DocumentLinks lists the links a Markdown file points out of itself, in one spelling; a link that stays inside the file is not a link out.
 Describe 'DocumentLinks' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {

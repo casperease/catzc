@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/types/ArtifactoryArtifactsTarget.cs
-    folder: types
-    name: artifactory-artifacts-target
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e755342a284b
   edges:
     docs: "[ArtifactoryArtifactsTarget.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/ArtifactoryArtifactsTarget.cs.md)"
 ---

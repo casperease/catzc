@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Environment/Get-PermanentEnvironmentVariable.ps1
-    name: get-permanent-environment-variable
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: eb3760e28698
   edges:
     docs: "[Get-PermanentEnvironmentVariable.ps1.md](docs/references/pwsh/catzc-base-environment/Get-PermanentEnvironmentVariable.ps1.md)"
 ---

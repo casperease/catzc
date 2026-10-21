@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Engines/types/ExecutionEngines.cs
-    folder: types
-    name: execution-engines
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Engines
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "6bc3d45e400b"
   edges:
     docs: "[ExecutionEngines.cs.md](docs/references/pwsh/catzc-base-engines/types/ExecutionEngines.cs.md)"
     cites:

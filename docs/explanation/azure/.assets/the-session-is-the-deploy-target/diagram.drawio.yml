@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: a57f61cd5e30
+# ---
+
 description:
   The deploy target is the subscription the az session is signed in to; the guard states which subscription the session is expected to
   target and only confirms it, stopping a mis-wired connection, and never selects one.

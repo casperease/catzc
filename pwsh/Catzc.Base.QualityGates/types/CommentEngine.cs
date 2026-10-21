@@ -1,3 +1,17 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "6249b4c13443"
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
+    cites:
+      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - ADR-PRIN-ONELIVE-ONEVERSION
+      - ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED
+---
+*/
+
 // Pure functions over text, so the move and its inverse are provable on fixtures and each comment keeps one living copy.
 
 using System;

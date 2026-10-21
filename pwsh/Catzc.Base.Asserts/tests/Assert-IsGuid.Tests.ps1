@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ea1813a557d2
+  edges:
+    code: pwsh/Catzc.Base.Asserts/Assert-IsGuid.ps1
+---
+#>
+
 Describe 'Assert-IsGuid' -Tag 'L0', 'logic' {
     It 'passes for a valid GUID' {
         { Assert-IsGuid '550e8400-e29b-41d4-a716-446655440000' } | Should -Not -Throw

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1
-    folder: tests
-    name: get-azure-bicep-min-version-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c14ef35af881
   edges:
     docs: "[Get-AzureBicepMinVersion.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure/Get-AzureBicepMinVersion.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS
       - ADR-AUTO-TEST-SETUPONCE

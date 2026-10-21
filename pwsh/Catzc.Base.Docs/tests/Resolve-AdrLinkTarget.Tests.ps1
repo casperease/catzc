@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Resolve-AdrLinkTarget.Tests.ps1
-    folder: tests
-    name: resolve-adr-link-target-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e384d15d4b88
   edges:
     docs: "[Resolve-AdrLinkTarget.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Resolve-AdrLinkTarget.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/private/Resolve-AdrLinkTarget.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-LINK-MARKDOWNRELATIVE

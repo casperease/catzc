@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
-    folder: types
-    name: git-ignore-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "468d40c35d62"
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitIgnoreConfig.Tests.ps1
     docs: "[GitIgnoreConfig.cs.md](docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md)"

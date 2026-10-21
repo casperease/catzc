@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
-    name: get-c-sharp-type-dependency
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "619c2f08d70f"
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
     docs: "[Get-CSharpTypeDependency.ps1.md](docs/references/pwsh/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md)"

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
-    name: get-firewall-ipgs-yaml
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "9758a6ddeb24"
   edges:
     test: pwsh/Catzc.Azure.Firewall/tests/Get-FirewallIpgsYaml.Tests.ps1
     docs: "[Get-FirewallIpgsYaml.ps1.md](docs/references/pwsh/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md)"

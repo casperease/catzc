@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "9f1d4002c349"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Split-TestAutomationFiles.ps1
+    cites:
+      - ADR-AUTO-TEST-ONESCHEDULINGPOOL
+---
+#>
+
 Describe 'Split-TestAutomationFiles' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fake discovery objects — the same Pester test shape Get-TestBlockTag walks.

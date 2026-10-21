@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "32a40d7ca56e"
+  edges:
+    code: pwsh/Catzc.Base.Variants/Assert-AdoNaming.ps1
+---
+#>
+
 Describe 'Assert-AdoNaming' -Tag 'L0', 'logic' {
 
     It 'passes when the repo matches the asserted order' {

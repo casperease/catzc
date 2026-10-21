@@ -1,3 +1,14 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "75589a37bf27"
+  edges:
+    cites:
+      - ADR-DSGN-TRACK-ONETECHSTACK
+---
+*/
+
 namespace Catzc.Base.Variants;
 
 // The module a path is placed in, and the module type that says what sort of module it is ([ADR-DSGN-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)).

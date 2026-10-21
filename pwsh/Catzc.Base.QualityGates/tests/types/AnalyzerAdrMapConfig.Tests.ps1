@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: d735c96966a0
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+    cites:
+      - ADR-PWSH-FORMAT-ANALYZERADRMAPPING
+---
+#>
+
 Describe 'Catzc.Base.QualityGates.AnalyzerAdrMapConfig' -Tag 'L0', 'logic', 'ADR-PWSH-FORMAT-ANALYZERADRMAPPING' {
     BeforeAll {
         function Get-ViolationMessage {

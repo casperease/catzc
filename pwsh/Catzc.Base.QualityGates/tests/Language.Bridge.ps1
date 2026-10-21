@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Language.Bridge.ps1
-    folder: tests
-    name: language-bridge
-    filetype: ps1
-    role: fixture
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "82f6dfbebd50"
   edges:
     docs: "[Language.Bridge.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Language.Bridge.ps1.md)"
     cites:

@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/private-dns-zone.bicep
-//     name: private-dns-zone
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: private-dns-zone
-//     moduletype: bicep
+//     with_body_sha: "8cf3a29701bd"
 //   edges:
 //     docs: "[private-dns-zone.bicep.md](docs/references/infrastructure/modules/private-dns-zone.bicep.md)"
 // ---

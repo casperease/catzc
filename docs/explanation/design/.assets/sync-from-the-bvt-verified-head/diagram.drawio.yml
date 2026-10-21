@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "51b02e4d463d"
+# ---
+
 description:
   An upstream integrator takes its commit from the BVT-verified server head, which main-UAT also takes first, never from the dirty HEAD, the
   newest commit on main, which failed there.

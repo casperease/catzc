@@ -1,3 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ab01f64850c1
+  edges:
+    code: pwsh/Catzc.Base.Reports/types/OutputFormatsConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-OUTFMT-OUTPUTFORMAT
+      - ADR-REPO-OUTFMT-VALIDATORISCODE
+      - ADR-REPO-OUTFMT-LIMITSINCATALOGUE
+---
+#>
+
 Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function script:New-Format {

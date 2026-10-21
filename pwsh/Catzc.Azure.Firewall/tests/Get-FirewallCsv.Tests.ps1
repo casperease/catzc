@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
-    folder: tests
-    name: get-firewall-csv-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e2da6b58d7da
   edges:
     docs: "[Get-FirewallCsv.Tests.ps1.md](docs/references/pwsh/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Firewall/Get-FirewallCsv.ps1
 ---
 #>
 

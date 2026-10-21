@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/NoForEachObjectControlFlow.psm1
-    folder: pwsh/.scriptanalyzer
-    name: no-for-each-object-control-flow
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: b785fd72a9ef
   edges:
     docs: "[NoForEachObjectControlFlow.psm1.md](docs/references/pwsh/scriptanalyzer/NoForEachObjectControlFlow.psm1.md)"
 ---

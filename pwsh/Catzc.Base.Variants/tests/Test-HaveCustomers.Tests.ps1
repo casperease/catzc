@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "68fe0b28a5b5"
+  edges:
+    code: pwsh/Catzc.Base.Variants/Test-HaveCustomers.ps1
+---
+#>
+
 Describe 'Test-HaveCustomers' -Tag 'L0', 'logic' {
 
     Context 'no -Name (repo-wide capability)' {

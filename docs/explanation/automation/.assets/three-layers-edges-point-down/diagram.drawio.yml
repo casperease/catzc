@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "67fda0297add"
+# ---
+
 description:
   "Module dependencies form three layers: the Azure extension group on top, the Azure root and the tooling modules in the middle, and the
   base libraries as the foundation; every allowed edge points down."

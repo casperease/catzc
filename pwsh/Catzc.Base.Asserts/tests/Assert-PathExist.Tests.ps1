@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "391eeb99f07c"
+  edges:
+    code: pwsh/Catzc.Base.Asserts/Assert-PathExist.ps1
+---
+#>
+
 Describe 'Assert-PathExist' -Tag 'L0', 'logic' {
     It 'passes for an existing path' {
         { Assert-PathExist $PSScriptRoot } | Should -Not -Throw

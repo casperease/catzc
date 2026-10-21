@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Get-PythonCheckScope.Tests.ps1
-    folder: tests
-    name: get-python-check-scope-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b429aa2c52b3
   edges:
     docs: "[Get-PythonCheckScope.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-PythonCheckScope.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Get-PythonCheckScope.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

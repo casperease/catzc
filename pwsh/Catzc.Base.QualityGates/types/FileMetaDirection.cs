@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/FileMetaDirection.cs
-    folder: types
-    name: file-meta-direction
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "7be0112e5b43"
   edges:
     docs: "[FileMetaDirection.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/FileMetaDirection.cs.md)"
     cites:

@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
-    name: build-diagrams
-    filetype: ps1
-    role: function
-    subkind: writer
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Slides
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "5ff46dce0063"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1
     docs: "[Build-Diagrams.ps1.md](docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md)"

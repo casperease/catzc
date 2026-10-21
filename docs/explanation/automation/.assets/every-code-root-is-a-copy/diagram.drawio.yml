@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "9d4b8e241e4e"
+# ---
+
 description:
   One engine in the internal modules builds the bundle from the source tree, the exporter module drives it and owns the integrity guard, and
   every code root outside the repository is a copy of the one verified build.

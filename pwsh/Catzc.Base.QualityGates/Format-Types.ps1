@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Format-Types.ps1
-    name: format-types
-    filetype: ps1
-    role: function
-    subkind: formatter
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: e222a78c3fd2
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
     docs: "[Format-Types.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Format-Types.ps1.md)"

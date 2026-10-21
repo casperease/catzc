@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/types/YamlTemplateType.cs
-    folder: types
-    name: yaml-template-type
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: f4e4a321c280
   edges:
     docs: "[YamlTemplateType.cs.md](docs/references/pwsh/catzc-azure-devops/types/YamlTemplateType.cs.md)"
 ---

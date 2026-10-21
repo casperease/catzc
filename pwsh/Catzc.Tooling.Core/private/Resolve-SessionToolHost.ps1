@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/private/Resolve-SessionToolHost.ps1
-    folder: private
-    name: resolve-session-tool-host
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "9692b8aad06a"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Resolve-SessionToolHost.Tests.ps1
     docs: "[Resolve-SessionToolHost.ps1.md](docs/references/pwsh/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md)"

@@ -1,3 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: cffefedbcf3e
+  edges:
+    code: pwsh/Catzc.Base.Modules/Get-CatzcModule.ps1
+    cites:
+      - ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
+      - ADR-AUTO-MODULE-EXISTSBYLAYOUT
+      - ADR-AUTO-MODULE-LANGUAGESFROMFILES
+      - ADR-AUTO-MODULE-ENGINESUBSET
+      - ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE
+      - ADR-AUTO-TEST
+      - ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT
+---
+#>
+
 # Rests on [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md).
 Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE' {
     BeforeAll {

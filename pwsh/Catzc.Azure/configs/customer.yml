@@ -1,20 +1,12 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Azure/configs/customer.yml
-#     folder: configs
-#     name: customer
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Azure
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "066ea0e6b5d1"
 #   edges:
 #     docs: "[customer.yml.md](docs/references/pwsh/catzc-azure/configs/customer.yml.md)"
+#     cites:
+#       - ADR-AZ-CUSTOMER
+#       - ADR-AZ-NAMING
 # ---
 
 customers:

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ab548ca85ce5
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-TestAutomationVerdict.ps1
+---
+#>
+
 Describe 'Get-TestAutomationVerdict' -Tag 'L0', 'logic' {
     It 'reads Passed with an invariant counts-in-time summary when nothing failed' {
         $verdict = InModuleScope Catzc.Base.QualityGates {

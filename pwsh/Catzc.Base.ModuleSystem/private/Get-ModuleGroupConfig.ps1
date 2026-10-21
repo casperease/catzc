@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/private/Get-ModuleGroupConfig.ps1
-    folder: private
-    name: get-module-group-config
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "379aaaae4fc9"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleGroupConfig.Tests.ps1
     docs: "[Get-ModuleGroupConfig.ps1.md](docs/references/pwsh/catzc-base-modulesystem/private/Get-ModuleGroupConfig.ps1.md)"

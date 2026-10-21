@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "2cb34b4dc521"
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-DefinedName.Tests.ps1
+---
+#>
+
 function Get-DefinedName {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

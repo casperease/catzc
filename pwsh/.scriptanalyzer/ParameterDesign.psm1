@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/ParameterDesign.psm1
-    folder: pwsh/.scriptanalyzer
-    name: parameter-design
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: cf651b0113c5
   edges:
     docs: "[ParameterDesign.psm1.md](docs/references/pwsh/scriptanalyzer/ParameterDesign.psm1.md)"
 ---

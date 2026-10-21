@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b22c376f01a3
+  edges:
+    code: pwsh/Catzc.Base.Repository/Get-CatzcOverlayRoot.ps1
+---
+#>
+
 Describe 'Get-CatzcOverlayRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:originalModulesRoot = $env:CatzcModulesRoot

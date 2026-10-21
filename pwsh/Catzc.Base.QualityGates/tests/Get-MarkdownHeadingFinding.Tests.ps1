@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "1dd1742ad01c"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
+    cites:
+      - ADR-REPO-FORMAT-PLAINHEADINGS
+---
+#>
+
 Describe 'Get-MarkdownHeadingFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAINHEADINGS' {
     BeforeAll {
         # Fixture text is built from lines, so every escape stays apart from the words around it.

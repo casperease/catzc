@@ -1,3 +1,19 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: "942644489425"
+  edges:
+    cites:
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - ADR-PWSH-ERROR-THROWNOTWRITEERROR
+      - ADR-REPO-AGENTS-NOORPHANNOGHOST
+      - ADR-REPO-AGENTS-CAPABILITYREGISTERED
+      - ADR-REPO-AGENTS-USERSKILL
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

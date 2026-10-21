@@ -1,20 +1,11 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Azure/configs/network.yml
-#     folder: configs
-#     name: network
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Azure
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "0e74f8c899d3"
 #   edges:
 #     docs: "[network.yml.md](docs/references/pwsh/catzc-azure/configs/network.yml.md)"
+#     cites:
+#       - ADR-AZ-NETWORK
 # ---
 
 environments:

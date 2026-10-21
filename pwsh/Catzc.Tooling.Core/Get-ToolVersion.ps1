@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/Get-ToolVersion.ps1
-    name: get-tool-version
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: a14689a9c33c
   edges:
     docs: "[Get-ToolVersion.ps1.md](docs/references/pwsh/catzc-tooling-core/Get-ToolVersion.ps1.md)"
 ---

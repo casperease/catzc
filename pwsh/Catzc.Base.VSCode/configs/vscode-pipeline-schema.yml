@@ -1,20 +1,11 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
-#     folder: configs
-#     name: vscode-pipeline-schema
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.VSCode
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "88fbb59b90fb"
 #   edges:
 #     docs: "[vscode-pipeline-schema.yml.md](docs/references/pwsh/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md)"
+#     cites:
+#       - ADR-REPO-ROOTCFG
 # ---
 
 $schema: http://json-schema.org/draft-07/schema#

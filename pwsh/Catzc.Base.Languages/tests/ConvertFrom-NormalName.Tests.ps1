@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "17fc0a8c9517"
+  edges:
+    code: pwsh/Catzc.Base.Languages/ConvertFrom-NormalName.ps1
+    cites:
+      - ADR-AUTO-IDIOM-ROUNDTRIP
+---
+#>
+
 Describe 'ConvertFrom-NormalName' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
@@ -21,12 +33,12 @@ Describe 'ConvertFrom-NormalName' -Tag 'L0', 'logic' {
         @{ Name = 'widget.base.gadget_parts'; Language = 'gadget'; Kind = 'type'; Expected = 'WidgetBaseGadgetParts' }
         @{ Name = 'catzc.base.repository'; Language = 'gadget'; Kind = 'folder'; Expected = 'catzcbaserepository' }
     ) {
-        ConvertFrom-NormalName $Name -Language $Language -Kind $Kind | Should -BeExactly $Expected
+        ConvertFrom-NormalName $Name -Language $Language -NameKind $Kind | Should -BeExactly $Expected
     }
 
     It 'renders in the case named, one of the language''s cases for the kind' {
-        ConvertFrom-NormalName 'gadget_config' -Language widget -Kind file -Case pascal | Should -BeExactly 'GadgetConfig'
-        { ConvertFrom-NormalName 'gadget_config' -Language widget -Kind file -Case snake } | Should -Throw "*'snake' is not a widget file case*"
+        ConvertFrom-NormalName 'gadget_config' -Language widget -NameKind file -Case pascal | Should -BeExactly 'GadgetConfig'
+        { ConvertFrom-NormalName 'gadget_config' -Language widget -NameKind file -Case snake } | Should -Throw "*'snake' is not a widget file case*"
     }
 
     It 'throws on a name not in the normal form, and on words that start with no approved verb' {

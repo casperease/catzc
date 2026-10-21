@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1
-    name: uninstall-chocolatey
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "8ea38bb370d2"
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1
     docs: "[Uninstall-Chocolatey.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md)"

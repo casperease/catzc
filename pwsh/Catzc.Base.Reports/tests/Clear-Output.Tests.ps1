@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "65f5030aadc4"
+  edges:
+    code: pwsh/Catzc.Base.Reports/Clear-Output.ps1
+    cites:
+      - ADR-REPO-OUTDIR-ONECLEANCOMMAND
+      - ADR-REPO-OUTDIR-EVERYFILEHASFORMAT
+---
+#>
+
 Describe 'Clear-Output' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR-EVERYFILEHASFORMAT' {
     BeforeAll {
         function script:Add-Output {

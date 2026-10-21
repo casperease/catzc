@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: d37b0c1eb9cb
+  edges:
+    code: pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
+---
+#>
+
 # cspell:ignore nbeta  -- the escape-sequence artifact in the "alpha`nbeta" fixture strings
 Describe 'Write-FileIfChanged' -Tag 'L0', 'logic' {
     BeforeEach {

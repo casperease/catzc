@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.MarkdownMeta/Remove-MarkdownFrontMatter.ps1
-    name: remove-markdown-front-matter
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.MarkdownMeta
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "0cbe5abf6779"
   edges:
     test: pwsh/Catzc.Base.MarkdownMeta/tests/Remove-MarkdownFrontMatter.Tests.ps1
     docs: "[Remove-MarkdownFrontMatter.ps1.md](docs/references/pwsh/catzc-base-markdownmeta/Remove-MarkdownFrontMatter.ps1.md)"

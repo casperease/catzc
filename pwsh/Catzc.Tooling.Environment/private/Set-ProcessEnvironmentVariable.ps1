@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Environment/private/Set-ProcessEnvironmentVariable.ps1
-    folder: private
-    name: set-process-environment-variable
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Environment
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: b0726a25a19a
   edges:
     docs: "[Set-ProcessEnvironmentVariable.ps1.md](docs/references/pwsh/catzc-tooling-environment/private/Set-ProcessEnvironmentVariable.ps1.md)"
 ---

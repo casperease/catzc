@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1
-    folder: tests
-    name: get-module-dependency-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5ebc96817059"
   edges:
     docs: "[Get-ModuleDependency.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/Get-ModuleDependency.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.ModuleSystem/Get-ModuleDependency.ps1
 ---
 #>
 

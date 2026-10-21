@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
-    folder: private
-    name: assert-bundle-footprint
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Exporter
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "4e56047afec9"
   edges:
     test: pwsh/Catzc.Base.Exporter/tests/Assert-BundleFootprint.Tests.ps1
     docs: "[Assert-BundleFootprint.ps1.md](docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md)"

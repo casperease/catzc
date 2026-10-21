@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1
-    folder: tests/types
-    name: git-hub-anchor-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "2965aa79eb45"
   edges:
     docs: "[GitHubAnchor.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/GitHubAnchor.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/types/GitHubAnchor.cs
     cites:
       - ADR-REPO-LINK-MARKDOWNRELATIVE
 ---

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/types/GitIgnoreSection.cs
-    folder: types
-    name: git-ignore-section
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4a93a3ffcd81"
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitIgnoreSection.Tests.ps1
     docs: "[GitIgnoreSection.cs.md](docs/references/pwsh/catzc-base-git/types/GitIgnoreSection.cs.md)"

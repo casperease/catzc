@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "327b1e69b087"
+  edges:
+    code: pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
+---
+#>
+
 Describe 'Remove-VendorModules' -Tag 'L0', 'logic' {
     BeforeEach {
         # The run-mode guard is its own boundary (covered in the build-mode block below).

@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: a5de5dcec82e
+# ---
+
 description:
   The five keys of variants.yml are loaded through Get-Config and read by one private reader, which feeds the Get- accessors, which feed the
   Test- and Assert- guards.

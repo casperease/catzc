@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/types/FunctionCallCollector.cs
-    folder: types
-    name: function-call-collector
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: fb6403b37483
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
     docs: "[FunctionCallCollector.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/FunctionCallCollector.cs.md)"

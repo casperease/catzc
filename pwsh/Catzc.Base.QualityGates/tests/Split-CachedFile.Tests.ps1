@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Split-CachedFile.Tests.ps1
-    folder: tests
-    name: split-cached-file-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "7ed2aee09cc1"
   edges:
     docs: "[Split-CachedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Split-CachedFile.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Split-CachedFile.ps1
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

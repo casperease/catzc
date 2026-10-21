@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "9df946838c69"
+# ---
+
 description:
   "The path from a pipeline's RunCommand to the running command: the step template's three tasks carry one inline guard that can throw, then
   the runner imports, traps, sanitizes and invokes in a fixed order."

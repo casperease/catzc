@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "919f453be896"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/types/FileCarrierResolver.cs
+    cites:
+      - ADR-REPO-FILEMETA-KINDSCOPE
+---
+#>
+
 Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE' {
     BeforeAll {
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new(@{

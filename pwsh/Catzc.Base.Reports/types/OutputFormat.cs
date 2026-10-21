@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Reports/types/OutputFormat.cs
-    folder: types
-    name: output-format
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e85012d0c5fd
   edges:
     docs: "[OutputFormat.cs.md](docs/references/pwsh/catzc-base-reports/types/OutputFormat.cs.md)"
     cites:

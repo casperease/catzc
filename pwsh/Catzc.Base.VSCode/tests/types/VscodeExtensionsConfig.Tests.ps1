@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "974fd2d4b92b"
+  edges:
+    code: pwsh/Catzc.Base.VSCode/types/VscodeExtensionsConfig.cs
+---
+#>
+
 Describe 'Catzc.Base.VSCode.VscodeExtensionsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

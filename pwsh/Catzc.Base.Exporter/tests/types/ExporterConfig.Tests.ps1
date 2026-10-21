@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: aef1b36a784c
+  edges:
+    code: pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
+---
+#>
+
 Describe 'ExporterConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         # One valid config; each case breaks exactly one thing in a copy of it.

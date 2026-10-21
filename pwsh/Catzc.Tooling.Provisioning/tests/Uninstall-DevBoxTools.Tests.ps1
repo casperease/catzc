@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/tests/Uninstall-DevBoxTools.Tests.ps1
-    folder: tests
-    name: uninstall-dev-box-tools-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8c4d3a390c1e"
   edges:
     docs: "[Uninstall-DevBoxTools.Tests.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-DevBoxTools.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Provisioning/Uninstall-DevBoxTools.ps1
 ---
 #>
 

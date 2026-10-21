@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "2c12928c5428"
+  edges:
+    code: pwsh/Catzc.Azure.DevOps/Get-AdoRepositoryName.ps1
+    cites:
+      - ADR-PWSH-PARAM-RESOLUTIONORDER
+---
+#>
+
 Describe 'Get-AdoRepositoryName' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM-RESOLUTIONORDER' {
     BeforeEach {
         $script:originalName = $env:BUILD_REPOSITORY_NAME

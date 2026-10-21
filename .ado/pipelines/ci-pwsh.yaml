@@ -1,17 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: ".ado/pipelines/ci-pwsh.yaml"
-#     name: ci-pwsh
-#     filetype: yaml
-#     role: pipeline
-#     language: pipeline-yaml
-#     track: ado-pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
+#     with_body_sha: "801279e2c44e"
 #   edges:
 #     docs: "[ci-pwsh.yaml.md](docs/references/ado/pipelines/ci-pwsh.yaml.md)"
 # ---

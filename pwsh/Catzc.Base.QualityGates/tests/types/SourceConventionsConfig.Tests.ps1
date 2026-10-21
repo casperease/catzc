@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1
-    folder: tests/types
-    name: source-conventions-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "0ab629612b51"
   edges:
     docs: "[SourceConventionsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/SourceConventionsConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/types/SourceConventionsConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY

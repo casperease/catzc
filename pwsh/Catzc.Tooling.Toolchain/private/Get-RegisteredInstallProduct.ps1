@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/private/Get-RegisteredInstallProduct.ps1
-    folder: private
-    name: get-registered-install-product
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "84a17186cb69"
   edges:
     test: pwsh/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
     docs: "[Get-RegisteredInstallProduct.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/private/Get-RegisteredInstallProduct.ps1.md)"

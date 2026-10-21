@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
-    folder: tests
-    name: test-comments-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "2a53df5c81cc"
   edges:
     docs: "[Test-Comments.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-Comments.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
     cites:
       - ADR-PRIN-ONELIVE-ONEVERSION
       - ADR-REPO-COMMENTS-MOVEDBYTOOL

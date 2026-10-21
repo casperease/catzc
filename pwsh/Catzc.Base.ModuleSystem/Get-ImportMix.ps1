@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/Get-ImportMix.ps1
-    name: get-import-mix
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "98644bbb5dfd"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ImportMix.Tests.ps1
     docs: "[Get-ImportMix.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Get-ImportMix.ps1.md)"

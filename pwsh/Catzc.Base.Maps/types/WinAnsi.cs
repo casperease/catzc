@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/WinAnsi.cs
-    folder: types
-    name: win-ansi
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "64904c9999bf"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/WinAnsi.Tests.ps1
     docs: "[WinAnsi.cs.md](docs/references/pwsh/catzc-base-maps/types/WinAnsi.cs.md)"

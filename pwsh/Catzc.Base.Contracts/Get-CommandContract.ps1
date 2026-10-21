@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/Get-CommandContract.ps1
-    name: get-command-contract
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "7578c7bdd5e0"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-CommandContract.Tests.ps1
     docs: "[Get-CommandContract.ps1.md](docs/references/pwsh/catzc-base-contracts/Get-CommandContract.ps1.md)"
@@ -54,11 +43,16 @@ function Get-CommandContract {
         }
         try {
             $raw = Read-ContractData -RepositoryRoot $RepositoryRoot -Path $asset.AssetPath
-            [Catzc.Base.Contracts.ContractCommand]::new($asset, $raw)
+            $contract = [Catzc.Base.Contracts.ContractCommand]::new($asset, $raw)
         }
         catch {
             $reason = $_.Exception.InnerException ? $_.Exception.InnerException.Message : $_.Exception.Message
             throw "contract asset '$($asset.AssetPath)': $reason"
         }
+        $findings = @(Get-ContractNormalFormFindings -Contract $contract)
+        if ($findings.Count -gt 0) {
+            throw "contract asset '$($asset.AssetPath)': $($findings -join '; ')"
+        }
+        $contract
     }
 }

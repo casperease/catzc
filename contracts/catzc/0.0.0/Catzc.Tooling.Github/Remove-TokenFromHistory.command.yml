@@ -1,9 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Remove-TokenFromHistory, which scrubs a token from a git
-# history's blob content and commit messages. RepositoryPath defaults to the repository root, a computed default the contract does not
-# restate; SkipMessages leaves the commit messages alone, and DryRun reports what would change.
-parameters:
-  Token: string!
-  ReplaceWith: string = '***REMOVED***'
-  SkipMessages: switch
-  RepositoryPath: string
-  DryRun: switch

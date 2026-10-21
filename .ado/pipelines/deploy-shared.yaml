@@ -1,17 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: ".ado/pipelines/deploy-shared.yaml"
-#     name: deploy-shared
-#     filetype: yaml
-#     role: pipeline
-#     language: pipeline-yaml
-#     track: ado-pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
+#     with_body_sha: c6f14c847ae9
 #   edges:
 #     docs: "[deploy-shared.yaml.md](docs/references/ado/pipelines/deploy-shared.yaml.md)"
 # ---

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "99eb242ade9d"
+  edges:
+    code: pwsh/Catzc.Base.Asserts/Test-Command.ps1
+---
+#>
+
 Describe 'Test-Command' -Tag 'L0', 'logic' {
     It 'returns $true for an existing command' {
         Test-Command 'pwsh' | Should -BeTrue

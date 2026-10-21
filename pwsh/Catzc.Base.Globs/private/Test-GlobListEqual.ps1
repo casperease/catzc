@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/private/Test-GlobListEqual.ps1
-    folder: private
-    name: test-glob-list-equal
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "37f981ad9e3e"
   edges:
     docs: "[Test-GlobListEqual.ps1.md](docs/references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md)"
     cites:

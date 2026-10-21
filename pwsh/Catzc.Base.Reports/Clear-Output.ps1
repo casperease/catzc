@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Reports/Clear-Output.ps1
-    name: clear-output
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Reports
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: e4b3c2f9e7b1
   edges:
     test: pwsh/Catzc.Base.Reports/tests/Clear-Output.Tests.ps1
     docs: "[Clear-Output.ps1.md](docs/references/pwsh/catzc-base-reports/Clear-Output.ps1.md)"

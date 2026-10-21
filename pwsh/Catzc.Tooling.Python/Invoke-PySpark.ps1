@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Python/Invoke-PySpark.ps1
-    name: invoke-py-spark
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Python
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: f3b69696f798
   edges:
     test: pwsh/Catzc.Tooling.Python/tests/Invoke-PySpark.Tests.ps1
     docs: "[Invoke-PySpark.ps1.md](docs/references/pwsh/catzc-tooling-python/Invoke-PySpark.ps1.md)"

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/types/ContractDirection.cs
-    folder: types
-    name: contract-direction
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "2f6928dcd649"
   edges:
     docs: "[ContractDirection.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractDirection.cs.md)"
     cites:

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
-    folder: types
-    name: key-handler-supported-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.KeyHandler
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: e2fa2f4bff6b
   edges:
     test: pwsh/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
     docs: "[KeyHandlerSupportedConfig.cs.md](docs/references/pwsh/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md)"

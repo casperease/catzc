@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "98460b2c998a"
+# ---
+
 description:
   Upstream consumers sync from the latest BVT-verified HEAD of the server's main and never from the dirty tip, a commit that landed after it
   and is not yet judged or failed; the main-UAT occupant is a separate fact, with the verified HEAD queued as its next candidate.

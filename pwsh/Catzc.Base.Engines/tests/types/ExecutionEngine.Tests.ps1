@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
-    folder: tests/types
-    name: execution-engine-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Engines
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "755a59e0507b"
   edges:
     docs: "[ExecutionEngine.Tests.ps1.md](docs/references/pwsh/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
     cites:
       - ADR-AUTO-ENGINE
 ---

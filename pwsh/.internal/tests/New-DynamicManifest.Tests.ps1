@@ -1,3 +1,14 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: a553b55d20dd
+  edges:
+    cites:
+      - ADR-AUTO-MODULE-EXISTSBYLAYOUT
+---
+#>
+
 # The loader runs before the types load, so it cannot read the layout. This test holds it to the layout instead.
 Describe 'New-DynamicManifest against the layout' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
     BeforeAll {

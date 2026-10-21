@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "7cb9369c6ba6"
+# ---
+
 description:
   A pipeline step names a command and holds no PowerShell; the pipeline task adds the authentication and the runner loads the modules once,
   so the command runs exactly as a developer runs it after loading the modules, with no gate checking that.

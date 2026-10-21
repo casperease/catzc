@@ -1,3 +1,14 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "5e53b1a14090"
+  edges:
+    cites:
+      - ADR-PWSH-ERROR-STRICTCLEAN
+---
+#>
+
 Describe 'Measure-NoCollapsingAssignment' -Tag 'L0', 'logic', 'ADR-PWSH-ERROR-STRICTCLEAN' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoCollapsingAssignment.psm1') -Force

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Variants/Get-FileHeadVariant.ps1
-    name: get-file-head-variant
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: c5f24bb3c093
   edges:
     test: pwsh/Catzc.Base.Variants/tests/Get-FileHeadVariant.Tests.ps1
     docs: "[Get-FileHeadVariant.ps1.md](docs/references/pwsh/catzc-base-variants/Get-FileHeadVariant.ps1.md)"

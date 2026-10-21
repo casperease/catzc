@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: c4332f3626dc
+  edges:
+    code: pwsh/Catzc.Base.Flow/Get-TruthStore.ps1
+    cites:
+      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+---
+#>
+
 Describe 'Get-TruthStore' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.Flow -ParameterFilter { $Config -eq 'truth-stores' } {
@@ -18,7 +30,7 @@ Describe 'Get-TruthStore' -Tag 'L0', 'logic' {
         $store = Get-TruthStore -Name widget-runtime
         $store | Should -BeOfType ([Catzc.Base.Flow.TruthStore])
         $store.owner | Should -BeExactly 'widget-itsm'
-        (Get-TruthStore -Kind state-machine, version-controlled-repository).name | Should -Be @('widget-repository', 'widget-itsm')
+        (Get-TruthStore -StoreKind state-machine, version-controlled-repository).name | Should -Be @('widget-repository', 'widget-itsm')
     }
 
     Context 'the contract samples' {
@@ -27,7 +39,7 @@ Describe 'Get-TruthStore' -Tag 'L0', 'logic' {
             @{ name = 'junction-inbound' }
             @{ name = 'junction-outbound' }
         ) {
-            $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/Catzc.Base.Flow'
+            $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.flow'
             $schema = [System.IO.File]::ReadAllText((Join-Path $folder "$name.schema.json"))
             [System.IO.File]::ReadAllText((Join-Path $folder "$name.sample.json")) | Test-Json -Schema $schema | Should -BeTrue
         }

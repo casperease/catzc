@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/MarkdownLinkScanner.cs
-    folder: types
-    name: markdown-link-scanner
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "514f8b75ca30"
   edges:
     docs: "[MarkdownLinkScanner.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md)"
     cites:

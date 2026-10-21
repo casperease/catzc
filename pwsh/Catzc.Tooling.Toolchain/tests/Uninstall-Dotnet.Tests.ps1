@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
-    folder: tests
-    name: uninstall-dotnet-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c8eff2c715bd
   edges:
     docs: "[Uninstall-Dotnet.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Uninstall-Dotnet.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Toolchain/Uninstall-Dotnet.ps1
     cites:
       - ADR-AUTO-REMOVE-DOUBLYGUARDED
       - ADR-AUTO-REMOVE-ONECALLESCALATION

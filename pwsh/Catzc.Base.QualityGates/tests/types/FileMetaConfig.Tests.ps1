@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
-    folder: tests/types
-    name: file-meta-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "85fe5ff314d5"
   edges:
     docs: "[FileMetaConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-REPO-FILEMETA-METAKIND

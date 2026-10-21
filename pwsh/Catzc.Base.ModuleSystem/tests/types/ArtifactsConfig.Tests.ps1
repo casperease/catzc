@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1
-    folder: tests/types
-    name: artifacts-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "30ca38a1412d"
   edges:
     docs: "[ArtifactsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-modulesystem/tests/types/ArtifactsConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
 ---
 #>
 

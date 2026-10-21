@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "38d3597a2638"
+# ---
+
 description:
   A globset registry flattens into one ordered program, and the trigger, the change report and the protection identity are read-outs derived
   live from it, never committed.

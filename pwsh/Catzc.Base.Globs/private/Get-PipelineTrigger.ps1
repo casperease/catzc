@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-    folder: private
-    name: get-pipeline-trigger
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "3aee3c6142fa"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1
     docs: "[Get-PipelineTrigger.ps1.md](docs/references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md)"

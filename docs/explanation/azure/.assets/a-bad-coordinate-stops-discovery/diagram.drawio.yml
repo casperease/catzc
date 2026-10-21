@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: defb3d979c1f
+# ---
+
 description:
   "A config file placed under a template is discovered as a slot, or stops discovery with one line naming the file and why: no subscription,
   more than one, or a subfolder that is not a customer key."

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/tests/types/ContractCheckResult.Tests.ps1
-    folder: tests/types
-    name: contract-check-result-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: cb1ea9b59513
   edges:
     docs: "[ContractCheckResult.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/types/ContractCheckResult.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Contracts/types/ContractCheckResult.cs
     cites:
       - ADR-BCL-TYPES-CONSOLEREADYTOSTRING
       - ADR-REPO-CONTRACT-PROVENBYTESTS

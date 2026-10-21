@@ -1,20 +1,13 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Tooling.Inspiration/configs/inspiration.yml
-#     folder: configs
-#     name: inspiration
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Tooling.Inspiration
-#     moduletype: pwsh-folder
-#     catzc_bundle: full
+#     with_body_sha: ca3d163bab05
 #   edges:
 #     docs: "[inspiration.yml.md](docs/references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md)"
+#     cites:
+#       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+#       - ADR-AUTO-PATH-WORKSPACEANCHOR
+#       - ADR-REPO-INSPIRE
 # ---
 
 {}

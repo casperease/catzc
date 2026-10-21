@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "57b6528d0950"
+# ---
+
 description:
   CI, CD and DEPLOY are separate pipeline kinds keyed together by one tagged artifact that CI builds once; the two release gates sit between
   the kinds, and the CD run's own path to production runs below them.

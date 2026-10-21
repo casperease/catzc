@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
-    folder: tests
-    name: get-git-changed-path-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: aa3378d6701f
   edges:
     docs: "[Get-GitChangedPath.Tests.ps1.md](docs/references/pwsh/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Files/Get-GitChangedPath.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

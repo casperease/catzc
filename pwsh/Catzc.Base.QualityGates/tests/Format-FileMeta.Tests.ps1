@@ -1,3 +1,19 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e7379209f7ab
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/Format-FileMeta.ps1
+    cites:
+      - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
+      - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-FORMAT-METAIMPRINT
+---
+#>
+
 Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-REPO-FORMAT-METAIMPRINT' {
     BeforeAll {
         # A fixture kind with a fixture processor, so the commands are proven on a place fact of their own.

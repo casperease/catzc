@@ -1,13 +1,49 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "9861a8114c75"
+#   edges:
+#     cites:
+#       - ADR-FLOW-GIT
+# ---
+
 version: "2.0.0"
 tasks:
-  # Fast push (commit-lifecycle rule 11): commit everything with the typed message and push; an empty message becomes "...". Bind a key to it in your user keybindings.
-  - label: Push dirty
+  # The git topic flow (ADR-FLOW-GIT), each step at the user's hand: rebase the topic onto the sync point. Bind keys to these in your user keybindings.
+  - label: Sync
     type: process
     command: pwsh
     args:
       - -NoProfile
       - -Command
-      - . ./importer.ps1; Push-Dirty -Message $env:COMMIT_MESSAGE
+      - . ./importer.ps1; Sync-Topic
+    presentation:
+      reveal: always
+      panel: shared
+    problemMatcher: []
+  # Commit everything on the topic with the typed message; an empty message becomes "...".
+  - label: Save
+    type: process
+    command: pwsh
+    args:
+      - -NoProfile
+      - -Command
+      - . ./importer.ps1; Save-Topic -Message $env:COMMIT_MESSAGE
+    options:
+      env:
+        COMMIT_MESSAGE: ${input:commitMessage}
+    presentation:
+      reveal: always
+      panel: shared
+    problemMatcher: []
+  # Land the topic: save, squash, rebase onto the current server HEAD, squash again and push by the workspace variant.
+  - label: Push
+    type: process
+    command: pwsh
+    args:
+      - -NoProfile
+      - -Command
+      - . ./importer.ps1; Push-Topic -Message $env:COMMIT_MESSAGE
     options:
       env:
         COMMIT_MESSAGE: ${input:commitMessage}

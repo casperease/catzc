@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
-    folder: tests
-    name: get-glossary-source-violations-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "9a56f4b55a4f"
   edges:
     docs: "[Get-GlossarySourceViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE

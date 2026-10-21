@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "9a946063d057"
+  edges:
+    code: pwsh/Catzc.Azure.Cli/Assert-AzCliBicep.ps1
+---
+#>
+
 Describe 'Assert-AzCliBicep' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-AzureBicepMinVersion { [version]'0.30.0' } -ModuleName Catzc.Azure.Cli

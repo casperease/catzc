@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0e9aa65d8517"
+    with_body_sha: "78cf3019d320"
   edges:
     docs: "[NoRawPipelineDetection.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1.md)"
 ---

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/SentenceGuid.cs
-    folder: types
-    name: sentence-guid
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "1865c0098409"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1
     docs: "[SentenceGuid.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/SentenceGuid.cs.md)"

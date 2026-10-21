@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1
-    folder: tests
-    name: get-cats-modules-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "94077bb9b87f"
   edges:
     docs: "[Get-CatsModules.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
       - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE

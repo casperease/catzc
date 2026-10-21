@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/tests/Get-AzureSubscription.Tests.ps1
-    folder: tests
-    name: get-azure-subscription-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "491de3c1bcaf"
   edges:
     docs: "[Get-AzureSubscription.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/Get-AzureSubscription.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure/Get-AzureSubscription.ps1
     cites:
       - ADR-AUTO-TEST-SAFESEAMSWAPS
       - ADR-AUTO-TEST-SETUPONCE

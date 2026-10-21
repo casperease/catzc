@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "37c02fc1c327"
+# ---
+
 description:
   "A dropped Verb-Noun file needs no registration: the next import exports it, or throws on a name collision, the module's aspect sets place
   it in the live set, and the quality gates report a non-conventional file."

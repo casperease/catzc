@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "63343cde14f6"
+  edges:
+    code: pwsh/Catzc.Base.Vendor/Assert-VendorModuleAvailable.ps1
+---
+#>
+
 Describe 'Assert-VendorModuleAvailable' -Tag 'L0', 'logic' {
     It 'does not throw when the module is available' {
         Mock Test-VendorModuleAvailable -ModuleName Catzc.Base.Vendor { $true }

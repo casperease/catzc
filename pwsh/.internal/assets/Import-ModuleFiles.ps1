@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "803c32aac523"
+---
+#>
+
 # The shared loader of a source module ([ADR-PWSH-MANIFEST](/docs/adr/automation/pwsh/dynamic-module-manifests.md)): every
 # derived <Module>.psd1 names this script as its one NestedModule and lists the module's function files in
 # PrivateData.CatzcFiles (private/ first, then the root, each group ordinal, relative to the module folder). As a

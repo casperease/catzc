@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Measure-NoForEachObjectControlFlow.Tests.ps1
-    folder: tests
-    name: measure-no-for-each-object-control-flow-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b0543cfca0ef
   edges:
     docs: "[Measure-NoForEachObjectControlFlow.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Measure-NoForEachObjectControlFlow.Tests.ps1.md)"
 ---

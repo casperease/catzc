@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/NoRawVsoCommand.psm1
-    folder: pwsh/.scriptanalyzer
-    name: no-raw-vso-command
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: d8a5060aed80
   edges:
     docs: "[NoRawVsoCommand.psm1.md](docs/references/pwsh/scriptanalyzer/NoRawVsoCommand.psm1.md)"
 ---

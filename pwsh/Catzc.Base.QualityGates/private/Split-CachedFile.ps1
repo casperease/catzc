@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Split-CachedFile.ps1
-    folder: private
-    name: split-cached-file
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "30673ce572fb"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Split-CachedFile.Tests.ps1
     docs: "[Split-CachedFile.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Split-CachedFile.ps1.md)"

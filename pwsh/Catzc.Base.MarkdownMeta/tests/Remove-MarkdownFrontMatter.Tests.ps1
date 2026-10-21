@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "60ba58f6541f"
+  edges:
+    code: pwsh/Catzc.Base.MarkdownMeta/Remove-MarkdownFrontMatter.ps1
+    cites:
+      - ADR-REPO-FILEMETA-HEADPOLICY
+---
+#>
+
 Describe 'Remove-MarkdownFrontMatter' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     It 'returns the text from its first body line, dropping the blank line after written front matter' {
         Remove-MarkdownFrontMatter -Text "---`ncatzc:`n  immutable:`n    kind: gadget`n---`n`n# docs/widget.md`n`nbody`n" |

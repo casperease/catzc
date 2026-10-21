@@ -4,8 +4,8 @@ catzc:
   immutable:
     with_body_sha: "197ca274180d"
   edges:
-    test: pwsh/Catzc.Base.TypesSystem/tests/Invoke-BuildForVsCode.Tests.ps1
-    docs: "[Invoke-BuildForVsCode.ps1.md](docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVsCode.ps1.md)"
+    test: pwsh/Catzc.Base.TypesSystem/tests/Invoke-BuildForVSCode.Tests.ps1
+    docs: "[Invoke-BuildForVSCode.ps1.md](docs/references/pwsh/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md)"
     cites:
       - ADR-BCL-TYPES
       - ADR-DSGN-RUNMODE

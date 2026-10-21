@@ -1,0 +1,6 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-ShippedConfigs, the quality gate that checks every
+# shipped config has a registered C# config type and loads through it, and returns its result under -PassThru.
+parameters:
+  output_folder: string
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

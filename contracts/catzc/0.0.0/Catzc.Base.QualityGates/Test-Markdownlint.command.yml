@@ -1,7 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Markdownlint, the quality gate that lints the
-# repository's Markdown with markdownlint-cli2 and returns its result under -PassThru.
-parameters:
-  Path: string[]
-  OutputFolder: string
-  PassThru: switch
-output: Catzc.Base.Reports.QualityGateResult

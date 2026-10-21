@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "40b5866c8066"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Split-CommandLineBatch.ps1
+---
+#>
+
 Describe 'Split-CommandLineBatch' -Tag 'L0', 'logic' {
     It 'keeps every batch under the limit, counting the quotes and the separator, in order' {
         $batches = InModuleScope Catzc.Base.QualityGates {

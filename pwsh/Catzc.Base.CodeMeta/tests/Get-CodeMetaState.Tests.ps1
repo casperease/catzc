@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "75d03720d12f"
+  edges:
+    code: pwsh/Catzc.Base.CodeMeta/Get-CodeMetaState.ps1
+    cites:
+      - ADR-REPO-CODEMETA-CODEFILEHEAD
+---
+#>
+
 Describe 'Get-CodeMetaState' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD' {
     BeforeAll {
         $script:form = [Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')

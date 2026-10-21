@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
-    name: sync-generated-file
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "14c14792be17"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
     docs: "[Sync-GeneratedFile.ps1.md](docs/references/pwsh/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md)"

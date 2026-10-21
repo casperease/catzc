@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Timeouts/Invoke-WithTimeout.ps1
-    name: invoke-with-timeout
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "3096b060f5d1"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/Invoke-WithTimeout.Tests.ps1
     docs: "[Invoke-WithTimeout.ps1.md](docs/references/pwsh/catzc-base-timeouts/Invoke-WithTimeout.ps1.md)"

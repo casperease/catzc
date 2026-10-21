@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: b8b743c28a60
+# ---
+
 description:
   "Who takes which commit: the upstream integrator takes the BVT-verified head, which the main-UAT environment takes first and so holds,
   each rung of the promotion ladder takes its commit from the rung before it, and the dirty head at the tip of main, which failed in

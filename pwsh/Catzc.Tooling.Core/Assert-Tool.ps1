@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/Assert-Tool.ps1
-    name: assert-tool
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "6e6a8c606a77"
   edges:
     test: pwsh/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1
     docs: "[Assert-Tool.ps1.md](docs/references/pwsh/catzc-tooling-core/Assert-Tool.ps1.md)"

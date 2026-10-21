@@ -1,3 +1,17 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "3107f2d08537"
+  edges:
+    code: pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
+    cites:
+      - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-FILEMETA-COMPOSEDFILES
+---
+#>
+
 Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         # The fixture generators are no loaded functions; the resolver's own tests prove the lookup.

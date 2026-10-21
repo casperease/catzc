@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Writers/Write-CallStack.ps1
-    name: write-call-stack
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Writers
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "39462ea5acf4"
   edges:
     test: pwsh/Catzc.Base.Writers/tests/Write-CallStack.Tests.ps1
     docs: "[Write-CallStack.ps1.md](docs/references/pwsh/catzc-base-writers/Write-CallStack.ps1.md)"

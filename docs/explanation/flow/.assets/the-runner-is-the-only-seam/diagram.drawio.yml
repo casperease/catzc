@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "1b0ef5e4a4fb"
+# ---
+
 description:
   "The one crossing from pipeline YAML into PowerShell: root pipelines call one step template, the template selects one task, the task calls
   one runner script that loads the importer, and a developer reaches the same importer from a terminal."

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: c11dcb0cb4fb
+  edges:
+    code: pwsh/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs
+---
+#>
+
 Describe 'Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

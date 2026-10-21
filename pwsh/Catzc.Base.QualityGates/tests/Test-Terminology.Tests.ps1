@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1
-    folder: tests
-    name: test-terminology-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "0b56fe96c727"
   edges:
     docs: "[Test-Terminology.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-Terminology.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Test-Terminology.ps1
     cites:
       - ADR-AUTO-SPELL-ONEVOCABULARYSOURCE
       - ADR-AUTO-SPELL-CATEGORYANDMEANING

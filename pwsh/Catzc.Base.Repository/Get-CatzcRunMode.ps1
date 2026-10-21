@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Repository/Get-CatzcRunMode.ps1
-    name: get-catzc-run-mode
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Repository
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "05aef5dac1ab"
   edges:
     test: pwsh/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1
     docs: "[Get-CatzcRunMode.ps1.md](docs/references/pwsh/catzc-base-repository/Get-CatzcRunMode.ps1.md)"

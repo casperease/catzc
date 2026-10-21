@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/Test-InIsolation.ps1
-    name: test-in-isolation
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "6e719409c781"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1
     docs: "[Test-InIsolation.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-InIsolation.ps1.md)"

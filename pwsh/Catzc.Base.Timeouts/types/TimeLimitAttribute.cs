@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Timeouts/types/TimeLimitAttribute.cs
-    folder: types
-    name: time-limit-attribute
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b4843bba69f9
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/types/TimeLimitAttribute.Tests.ps1
     docs: "[TimeLimitAttribute.cs.md](docs/references/pwsh/catzc-base-timeouts/types/TimeLimitAttribute.cs.md)"

@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: a0e1b354356c
+  edges:
+    code: pwsh/Catzc.Base.Engines/Get-ExecutionEngine.ps1
+---
+#>
+
 Describe 'Get-ExecutionEngine' -Tag 'L0', 'logic' {
     It 'returns every engine, pwsh first, when no name is given' {
         @(Get-ExecutionEngine).Name | Should -Be @('pwsh', 'bash', 'zsh')

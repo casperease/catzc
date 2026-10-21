@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: bceb2f81091f
+# ---
+
 description:
   "Two entry scripts, one per run mode, start the same load: session set-up, load, a run-mode check and the janitors, ending on one line in
   a console session; each of the three checks that can stop the load fails with a named error."

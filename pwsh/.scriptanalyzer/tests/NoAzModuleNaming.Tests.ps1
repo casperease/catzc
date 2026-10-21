@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1
-    folder: pwsh/.scriptanalyzer/tests
-    name: no-az-module-naming-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "9164f82869eb"
   edges:
     docs: "[NoAzModuleNaming.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1.md)"
 ---

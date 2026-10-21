@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/NoTrackRootLiteral.psm1
-    folder: pwsh/.scriptanalyzer
-    name: no-track-root-literal
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: f11e2f68c933
   edges:
     docs: "[NoTrackRootLiteral.psm1.md](docs/references/pwsh/scriptanalyzer/NoTrackRootLiteral.psm1.md)"
 ---

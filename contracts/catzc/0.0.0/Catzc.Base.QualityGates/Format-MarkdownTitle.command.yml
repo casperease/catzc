@@ -1,8 +1,0 @@
-# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Format-MarkdownTitle, which makes the H1 of every
-# in-scope Markdown file its title. RepositoryRoot defaults to the repository root, a computed default the contract does not restate.
-parameters:
-  Path: string[]
-  RepositoryRoot: string
-  DryRun: switch
-  PassThru: switch
-output: string[]

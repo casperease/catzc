@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1
-    folder: tests
-    name: get-contract-asset-note-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "9fbbc3b4f65b"
   edges:
     docs: "[Get-ContractAssetNote.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Get-ContractAssetNote.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Contracts/private/Get-ContractAssetNote.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-CONTRACT-CONTRACTASSET

@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "5aec1dbf781e"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/Get-TestTargetSkipReason.ps1
+    cites:
+      - ADR-AUTO-TEST-TESTINGINPRODUCTION
+---
+#>
+
 Describe 'Get-TestTargetSkipReason' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-TESTINGINPRODUCTION' {
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'test-policy' } {

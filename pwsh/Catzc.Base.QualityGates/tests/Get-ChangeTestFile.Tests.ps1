@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Get-ChangeTestFile.Tests.ps1
-    folder: tests
-    name: get-change-test-file-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a7f40d9dbc90
   edges:
     docs: "[Get-ChangeTestFile.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Get-ChangeTestFile.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Get-ChangeTestFile.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
 ---

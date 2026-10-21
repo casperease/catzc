@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/types/ContractParameter.cs
-    folder: types
-    name: contract-parameter
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: ab779dcd02f3
   edges:
     docs: "[ContractParameter.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractParameter.cs.md)"
     cites:
@@ -43,7 +32,8 @@ public sealed class ContractParameter
         "^(?<type>[A-Za-z][A-Za-z0-9_.]*)(?<list>\\[\\])?(?<mandatory>!)?(?:\\s*=\\s*(?<default>'[^']*'|\\S+))?(?:\\s+(?<pipeline>pipeline))?" +
         "(?:\\s+in\\s+(?<sets>[A-Za-z][A-Za-z0-9_]*(?:,[A-Za-z][A-Za-z0-9_]*)*))?\\s*$");
     private static readonly Regex NameRe = new Regex("^[A-Za-z][A-Za-z0-9_]*$");
-    private static readonly Regex CatzcType = new Regex("^Catzc\\.[A-Za-z][A-Za-z0-9_]*(\\.[A-Za-z][A-Za-z0-9_]*)+$");
+    // A catzc type as a contract or a command's file spells it; the reader checks a contract's names against the normal form.
+    private static readonly Regex CatzcType = new Regex("^(catzc|Catzc)\\.[A-Za-z][A-Za-z0-9_]*(\\.[A-Za-z][A-Za-z0-9_]*)+$");
 
     private static readonly Dictionary<string, string> KnownTypes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
     {
@@ -149,7 +139,7 @@ public sealed class ContractParameter
         if (!IsContractType(type))
         {
             throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                "parameter '{0}': type '{1}' is not one of {2} or a Catzc.* type name", name, type, string.Join(", ", BaseTypes)));
+                "parameter '{0}': type '{1}' is not one of {2} or a catzc type name", name, type, string.Join(", ", BaseTypes)));
         }
         string defaultValue = match.Groups["default"].Success ? Unquote(match.Groups["default"].Value) : null;
         if (defaultValue != null && type == "switch")
@@ -161,7 +151,7 @@ public sealed class ContractParameter
             match.Groups["pipeline"].Success, sets);
     }
 
-    // Whether a type name is in the closed set: a base type or a Catzc.* type name.
+    // Whether a type name is in the closed set: a base type or a catzc type name.
     public static bool IsContractType(string type) => Array.IndexOf(BaseTypes, type) >= 0 || (type != null && CatzcType.IsMatch(type));
 
     // Maps a type name as a PowerShell parameter block spells it to the contract's type, with isList for a trailing '[]'; null when it maps to none.

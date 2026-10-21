@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Files/Test-GitPathChanged.ps1
-    name: test-git-path-changed
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Files
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: b0a05ac5d37d
   edges:
     test: pwsh/Catzc.Base.Files/tests/Test-GitPathChanged.Tests.ps1
     docs: "[Test-GitPathChanged.ps1.md](docs/references/pwsh/catzc-base-files/Test-GitPathChanged.ps1.md)"

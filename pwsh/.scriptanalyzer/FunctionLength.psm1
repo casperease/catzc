@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/FunctionLength.psm1
-    folder: pwsh/.scriptanalyzer
-    name: function-length
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "222b6b3dcb2a"
   edges:
     docs: "[FunctionLength.psm1.md](docs/references/pwsh/scriptanalyzer/FunctionLength.psm1.md)"
 ---

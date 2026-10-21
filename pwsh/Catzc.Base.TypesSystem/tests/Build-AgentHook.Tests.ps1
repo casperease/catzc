@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1
-    folder: tests
-    name: build-agent-hook-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.TypesSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "72e07d142e9b"
   edges:
     docs: "[Build-AgentHook.Tests.ps1.md](docs/references/pwsh/catzc-base-typessystem/tests/Build-AgentHook.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
 ---
 #>
 
@@ -74,7 +64,7 @@ Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
             Copy-Item -LiteralPath $hostExecutable -Destination (Join-Path $script:outputDirectory ($assembly + [IO.Path]::GetExtension($hostExecutable)))
         }
         $programs = @(Build-AgentHook -OutputDirectory $script:outputDirectory)
-        @($programs | ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) }) | Should -Be @('Assert-BashTimeout', 'Record-AgentWrite')
+        @($programs | ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) }) | Should -Be @('Assert-BashTimeout', 'Record-AgentWrite', 'Show-EditReminder')
         Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256' | Should -Exist
         Get-Content -LiteralPath (Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256') -Raw | Should -BeLike '*Catzc.Tooling.Listen/types/WriteLedger.cs:*'
     }

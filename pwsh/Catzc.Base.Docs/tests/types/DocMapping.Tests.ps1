@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/types/DocMapping.Tests.ps1
-    folder: tests/types
-    name: doc-mapping-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "9436083b2c0f"
   edges:
     docs: "[DocMapping.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/DocMapping.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/types/DocMapping.cs
 ---
 #>
 

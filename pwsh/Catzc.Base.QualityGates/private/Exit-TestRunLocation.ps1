@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Exit-TestRunLocation.ps1
-    folder: private
-    name: exit-test-run-location
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "0ea94b4007d5"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Exit-TestRunLocation.Tests.ps1
     docs: "[Exit-TestRunLocation.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md)"

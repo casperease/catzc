@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "2d9d3f9567e7"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-DefinedName.ps1
+    cites:
+      - ADR-AUTO-IDIOM-HELDBYGATE
+---
+#>
+
 Describe 'Get-DefinedName' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

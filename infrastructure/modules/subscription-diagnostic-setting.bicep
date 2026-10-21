@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/subscription-diagnostic-setting.bicep
-//     name: subscription-diagnostic-setting
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: subscription-diagnostic-setting
-//     moduletype: bicep
+//     with_body_sha: "8e61a490ee77"
 //   edges:
 //     docs: "[subscription-diagnostic-setting.bicep.md](docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md)"
 // ---

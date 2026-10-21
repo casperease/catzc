@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b38bf759f376
+  edges:
+    code: pwsh/Catzc.Base.Files/Get-FileLockingProcess.ps1
+---
+#>
+
 Describe 'Get-FileLockingProcess' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:f = Join-Path $TestDrive ([guid]::NewGuid().ToString('N') + '.bin')

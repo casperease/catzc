@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: b5542c1c94ab
+# ---
+
 description:
   "Get-BicepDeploymentContext reads the az session and resolves it against azure.yml, applies the optional subscription guard, and only then
   addresses the slot: the environment check, the configuration file and the resource-group name."

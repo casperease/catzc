@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.ModuleSystem/types/AdoArtifactsTarget.cs
-    folder: types
-    name: ado-artifacts-target
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.ModuleSystem
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "395a4a1fabb8"
   edges:
     docs: "[AdoArtifactsTarget.cs.md](docs/references/pwsh/catzc-base-modulesystem/types/AdoArtifactsTarget.cs.md)"
 ---

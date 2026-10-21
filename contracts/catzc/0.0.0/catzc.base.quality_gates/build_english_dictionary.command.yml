@@ -1,0 +1,6 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Build-EnglishDictionary, which generates the committed
+# English word list the spell-out-names analyzer rule checks identifiers against.
+parameters:
+  dry_run: switch
+  pass_thru: switch
+output: string

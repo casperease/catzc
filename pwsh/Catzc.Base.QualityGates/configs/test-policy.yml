@@ -1,20 +1,12 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.QualityGates/configs/test-policy.yml
-#     folder: configs
-#     name: test-policy
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.QualityGates
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "7501bed527f5"
 #   edges:
 #     docs: "[test-policy.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/test-policy.yml.md)"
+#     cites:
+#       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+#       - ADR-AUTO-TEST-TESTINGINPRODUCTION
 # ---
 
 l4_mutation: {}

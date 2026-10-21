@@ -1,0 +1,5 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Install-Terraform, which installs Terraform. Version defaults to
+# the version tools.yml locks for 'terraform', a computed default the contract does not restate; Force reinstalls over a present install.
+parameters:
+  version: string
+  force: switch

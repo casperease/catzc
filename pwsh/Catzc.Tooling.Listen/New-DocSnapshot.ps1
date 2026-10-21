@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "479329b98cba"
+  edges:
+    test: pwsh/Catzc.Tooling.Listen/tests/New-DocSnapshot.Tests.ps1
+---
+#>
+
 function New-DocSnapshot {
     <#
     .SYNOPSIS

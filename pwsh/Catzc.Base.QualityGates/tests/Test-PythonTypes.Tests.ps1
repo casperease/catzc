@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "9e3184550dae"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/Test-PythonTypes.ps1
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
 Describe 'Test-PythonTypes' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:repo = Join-Path $TestDrive 'repo'

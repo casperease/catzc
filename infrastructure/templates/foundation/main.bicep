@@ -1,17 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/templates/foundation/main.bicep
-//     name: main
-//     filetype: bicep
-//     role: template
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: foundation
-//     moduletype: bicep
+//     with_body_sha: "0afa278ff829"
 //   edges:
 //     docs: "[main.bicep.md](docs/references/infrastructure/templates/foundation/main.bicep.md)"
 // ---

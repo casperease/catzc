@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Timeouts/Test-CompletesWithin.ps1
-    name: test-completes-within
-    filetype: ps1
-    role: function
-    subkind: gate
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Timeouts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: e2e75960671f
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/Test-CompletesWithin.Tests.ps1
     docs: "[Test-CompletesWithin.ps1.md](docs/references/pwsh/catzc-base-timeouts/Test-CompletesWithin.ps1.md)"

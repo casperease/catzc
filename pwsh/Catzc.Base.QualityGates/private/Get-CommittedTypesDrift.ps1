@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-CommittedTypesDrift.ps1
-    folder: private
-    name: get-committed-types-drift
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: f55634c23916
   edges:
     docs: "[Get-CommittedTypesDrift.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-CommittedTypesDrift.ps1.md)"
 ---

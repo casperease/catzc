@@ -1,20 +1,12 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.Execution/configs/tools.yml
-#     folder: configs
-#     name: tools
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.Execution
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "88f88d0cb478"
 #   edges:
 #     docs: "[tools.yml.md](docs/references/pwsh/catzc-base-execution/configs/tools.yml.md)"
+#     cites:
+#       - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
+#       - ADR-AUTO-ENGINE
 # ---
 
 winget:

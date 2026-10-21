@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/resource-group.bicep
-//     name: resource-group
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: resource-group
-//     moduletype: bicep
+//     with_body_sha: "1a001957bf51"
 //   edges:
 //     docs: "[resource-group.bicep.md](docs/references/infrastructure/modules/resource-group.bicep.md)"
 // ---

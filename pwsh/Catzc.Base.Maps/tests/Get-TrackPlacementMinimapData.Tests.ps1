@@ -1,6 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "215f60df1775"
+  edges:
+    code: pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+---
+#>
+
 Describe 'Get-TrackPlacementMinimapData' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/Catzc.Base.Maps/minimap.schema.json'))
+        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.maps/minimap.schema.json'))
         Mock Get-Track -ModuleName Catzc.Base.Maps {
             [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script'))
             [Catzc.Base.Variants.VariantTrack]::new('gadgets', @('gadgets'), 'modules', 'gizmo', @('widget-script'))

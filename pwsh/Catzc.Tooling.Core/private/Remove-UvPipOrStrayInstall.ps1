@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Core/private/Remove-UvPipOrStrayInstall.ps1
-    folder: private
-    name: remove-uv-pip-or-stray-install
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Core
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "7d33575ea249"
   edges:
     docs: "[Remove-UvPipOrStrayInstall.ps1.md](docs/references/pwsh/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md)"
     cites:

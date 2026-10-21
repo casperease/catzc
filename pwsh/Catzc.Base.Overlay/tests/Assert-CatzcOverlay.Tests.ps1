@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: fbb06804489c
+  edges:
+    code: pwsh/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
+    cites:
+      - ADR-AUTO-OVERLAY
+---
+#>
+
 Describe 'Assert-CatzcOverlay' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Overlay.Fixture.ps1')

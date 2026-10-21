@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e7af37eb9cd6
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Write-TestRunContext.ps1
+---
+#>
+
 # Write-TestRunContext renders a fixture context record: one line per fact, under the banner.
 Describe 'Write-TestRunContext' -Tag 'L0', 'logic' {
     BeforeEach {

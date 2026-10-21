@@ -1,3 +1,16 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "9f91a489810d"
+  edges:
+    code: pwsh/Catzc.Base.Slides/Test-Slides.ps1
+    cites:
+      - ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY
+      - ADR-REPO-SLIDES-CHECKABLECLAIMS
+---
+#>
+
 Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
     BeforeAll {
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

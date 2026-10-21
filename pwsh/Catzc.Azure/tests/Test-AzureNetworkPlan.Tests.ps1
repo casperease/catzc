@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
-    folder: tests
-    name: test-azure-network-plan-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "450d623ff4fd"
   edges:
     docs: "[Test-AzureNetworkPlan.Tests.ps1.md](docs/references/pwsh/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AZ-NETWORK-KEYEDBYENVIRONMENT

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
-    folder: tests
-    name: reset-git-clean-fxd-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Git
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: e964b7894275
   edges:
     docs: "[Reset-GitCleanFxd.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/Reset-GitCleanFxd.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Git/Reset-GitCleanFxd.ps1
 ---
 #>
 

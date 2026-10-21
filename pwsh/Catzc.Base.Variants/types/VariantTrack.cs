@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Variants/types/VariantTrack.cs
-    folder: types
-    name: variant-track
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8d7eab15115e"
   edges:
     docs: "[VariantTrack.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md)"
     cites:

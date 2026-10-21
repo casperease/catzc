@@ -2,24 +2,13 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
-    folder: types
-    name: glossary-concept
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c0358c472a8b
   edges:
     docs: "[GlossaryConcept.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md)"
     cites:
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
-      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
       - ADR-REPO-VOCAB-DEFINEDTERM
       - ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED

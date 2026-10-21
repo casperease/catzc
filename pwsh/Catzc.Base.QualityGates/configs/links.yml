@@ -1,20 +1,14 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.QualityGates/configs/links.yml
-#     folder: configs
-#     name: links
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.QualityGates
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "7cad89fa4982"
 #   edges:
 #     docs: "[links.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/links.yml.md)"
+#     cites:
+#       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+#       - ADR-PWSH-PARAM-RESOLUTIONORDER
+#       - ADR-REPO-LINK-ONECITATIONSPELLING
+#       - ADR-REPO-LINK-ALIGNEDBYTOOL
 # ---
 
 wrap: break

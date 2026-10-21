@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Toolchain/tests/Install-Shellcheck.Tests.ps1
-    folder: tests
-    name: install-shellcheck-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Toolchain
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: ca14e1727b8b
   edges:
     docs: "[Install-Shellcheck.Tests.ps1.md](docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Toolchain/Install-Shellcheck.ps1
 ---
 #>
 

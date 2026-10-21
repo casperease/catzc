@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
-    folder: types
-    name: repo-relative-path
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Objects
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "232c02c064d2"
   edges:
     test: pwsh/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1
     docs: "[RepoRelativePath.cs.md](docs/references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md)"

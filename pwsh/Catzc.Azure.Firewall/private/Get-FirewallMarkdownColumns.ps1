@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1
-    folder: private
-    name: get-firewall-markdown-columns
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "240b1bb3212d"
   edges:
     test: pwsh/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownColumns.Tests.ps1
     docs: "[Get-FirewallMarkdownColumns.ps1.md](docs/references/pwsh/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md)"

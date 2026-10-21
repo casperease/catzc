@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
-    folder: tests
-    name: publish-contract-release-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Contracts
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "9576a6a5054d"
   edges:
     docs: "[Publish-ContractRelease.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Publish-ContractRelease.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-PWSH-ENUM-ALWAYSBOUNDED

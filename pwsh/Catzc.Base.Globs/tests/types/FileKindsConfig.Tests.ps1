@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ac164dea50f3
+  edges:
+    code: pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs
+    cites:
+      - ADR-REPO-FILEMETA-METAKIND
+---
+#>
+
 Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
     BeforeAll {
         function script:New-Config {

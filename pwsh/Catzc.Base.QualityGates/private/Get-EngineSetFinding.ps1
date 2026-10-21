@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-EngineSetFinding.ps1
-    folder: private
-    name: get-engine-set-finding
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "58f290c4c483"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-EngineSetFinding.Tests.ps1
     docs: "[Get-EngineSetFinding.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-EngineSetFinding.ps1.md)"

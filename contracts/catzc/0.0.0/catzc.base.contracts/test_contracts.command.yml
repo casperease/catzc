@@ -1,0 +1,8 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-Contracts, the quality gate that checks the repository
+# honours every binding contract asset and every released folder is unchanged, and returns its result under -PassThru.
+parameters:
+  version: string = 0.0.0
+  repository_root: string
+  output_folder: string
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

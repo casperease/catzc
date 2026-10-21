@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "63f97685547e"
+# ---
+
 description:
   "Five rules govern pipeline detection: the analyzer rule checks the raw-read rule over every PowerShell file, a test pins that the answer
   is a plain boolean, and the other rules, and the one reader outside PowerShell, rest on the ADR alone, drawn dashed."

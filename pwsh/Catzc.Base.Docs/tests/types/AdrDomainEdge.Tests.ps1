@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/types/AdrDomainEdge.Tests.ps1
-    folder: tests/types
-    name: adr-domain-edge-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "68f8f7e501e7"
   edges:
     docs: "[AdrDomainEdge.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrDomainEdge.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/types/AdrDomainEdge.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-BCL-TYPES-NATIVETYPEDMODEL

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
-    folder: tests
-    name: get-bicep-deployment-name-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Templates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b6d3847be3f6
   edges:
     docs: "[Get-BicepDeploymentName.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepDeploymentName.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
 ---
 #>
 

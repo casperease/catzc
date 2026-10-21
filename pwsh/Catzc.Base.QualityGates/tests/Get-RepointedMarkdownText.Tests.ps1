@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "56e351554097"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-RepointedMarkdownText.ps1
+    cites:
+      - ADR-REPO-FORMAT-PLAINHEADINGS
+---
+#>
+
 Describe 'Get-RepointedMarkdownText' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAINHEADINGS' {
     BeforeAll {
         function script:Get-Repointed {

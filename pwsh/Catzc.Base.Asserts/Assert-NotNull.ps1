@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Asserts/Assert-NotNull.ps1
-    name: assert-not-null
-    filetype: ps1
-    role: function
-    subkind: assert
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Asserts
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
-    visibility: public
+    with_body_sha: "74cb06f8499e"
   edges:
     docs: "[Assert-NotNull.ps1.md](docs/references/pwsh/catzc-base-asserts/Assert-NotNull.ps1.md)"
 ---

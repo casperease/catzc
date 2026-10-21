@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "915c063557b0"
+# ---
+
 description:
   "One module folder is read by two components that never read each other: the loader derives the manifest and so what the module exports,
   and the globs engine derives the live and tests sets and so what ships."

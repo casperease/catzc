@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1
-    folder: private
-    name: get-zsh-install-layout
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Provisioning
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: "077feb0f35ad"
   edges:
     test: pwsh/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
     docs: "[Get-ZshInstallLayout.ps1.md](docs/references/pwsh/catzc-tooling-provisioning/private/Get-ZshInstallLayout.ps1.md)"

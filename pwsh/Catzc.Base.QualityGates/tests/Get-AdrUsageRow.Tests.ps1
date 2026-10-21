@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "0efe70bc4660"
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-AdrUsageRow.ps1
+    cites:
+      - ADR-REPO-FILEMETA-NOREADBACK
+---
+#>
+
 Describe 'Get-AdrUsageRow' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
     BeforeAll {
         $script:map = [Catzc.Base.Docs.AdrCitationMap]::new(

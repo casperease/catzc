@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
-    folder: tests
-    name: get-changed-glob-set-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c50b6b6e1050
   edges:
     docs: "[Get-ChangedGlobSet.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/AdrCitationRewriter.cs
-    folder: types
-    name: adr-citation-rewriter
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a8bac2d3f7d6
   edges:
     docs: "[AdrCitationRewriter.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationRewriter.cs.md)"
     cites:

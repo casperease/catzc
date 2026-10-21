@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
-    folder: tests/types
-    name: agents-config-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "8ed14fb0c490"
   edges:
     docs: "[AgentsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-AGENTS-BACKEDBYRULE

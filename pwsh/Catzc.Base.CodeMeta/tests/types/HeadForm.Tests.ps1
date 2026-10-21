@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "47facf554e72"
+  edges:
+    code: pwsh/Catzc.Base.CodeMeta/types/HeadForm.cs
+    cites:
+      - ADR-REPO-CODEMETA-CODEFILEHEAD
+---
+#>
+
 Describe 'HeadForm' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD' {
     It 'is a line-comment form or a block-comment form, anchored at the start by default' {
         $line = [Catzc.Base.CodeMeta.HeadForm]::ForLine('#')

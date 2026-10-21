@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "7f27c91b5430"
+  edges:
+    code: pwsh/Catzc.Base.Variants/Get-PathModule.ps1
+    cites:
+      - ADR-DSGN-TRACK-ONETECHSTACK
+---
+#>
+
 Describe 'Get-PathModule' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
     BeforeAll {
         $script:types = [Catzc.Base.Variants.ModuleTypesConfig]::new(@{

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Invoke-Prettier.Tests.ps1
-    folder: tests
-    name: invoke-prettier-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c4d3c84017a4
   edges:
     docs: "[Invoke-Prettier.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-Prettier.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/Invoke-Prettier.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-NOOVERMOCKING

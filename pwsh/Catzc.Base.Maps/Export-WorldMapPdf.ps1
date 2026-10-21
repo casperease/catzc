@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/Export-WorldMapPdf.ps1
-    name: export-world-map-pdf
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "72cb657f87c8"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Export-WorldMapPdf.Tests.ps1
     docs: "[Export-WorldMapPdf.ps1.md](docs/references/pwsh/catzc-base-maps/Export-WorldMapPdf.ps1.md)"

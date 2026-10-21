@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
-    folder: tests
-    name: get-tracked-file-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "0693259581ac"
   edges:
     docs: "[Get-TrackedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Globs/Get-TrackedFile.ps1
     cites:
       - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
 ---

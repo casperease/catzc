@@ -1,18 +1,7 @@
 // ---
 // catzc:
 //   immutable:
-//     repo_status: clean
-//     path: infrastructure/modules/sql-server.bicep
-//     name: sql-server
-//     filetype: bicep
-//     role: template
-//     subkind: module
-//     language: bicep
-//     track: infrastructure
-//     tracktype: infrastructure
-//     vendor: azure
-//     module: sql-server
-//     moduletype: bicep
+//     with_body_sha: "8e8876228e47"
 //   edges:
 //     docs: "[sql-server.bicep.md](docs/references/infrastructure/modules/sql-server.bicep.md)"
 // ---

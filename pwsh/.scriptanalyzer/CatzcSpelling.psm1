@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: e702cf4cfb29
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The check module loads nested in this rule module, inside the analyzer engine; nothing in the session changes, so there is no state to announce')]
 param()
 

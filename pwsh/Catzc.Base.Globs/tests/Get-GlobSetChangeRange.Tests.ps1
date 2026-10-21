@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
-    folder: tests
-    name: get-glob-set-change-range-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Globs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c829894d7e15
   edges:
     docs: "[Get-GlobSetChangeRange.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
     cites:
       - ADR-FLOW-CD-DETECT
 ---

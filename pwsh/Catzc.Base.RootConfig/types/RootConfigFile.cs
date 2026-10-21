@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
-    folder: types
-    name: root-config-file
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.RootConfig
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4ac28183739b"
   edges:
     test: pwsh/Catzc.Base.RootConfig/tests/types/RootConfigFile.Tests.ps1
     docs: "[RootConfigFile.cs.md](docs/references/pwsh/catzc-base-rootconfig/types/RootConfigFile.cs.md)"

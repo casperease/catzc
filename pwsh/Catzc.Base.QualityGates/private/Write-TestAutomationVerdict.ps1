@@ -2,19 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
-    folder: private
-    name: write-test-automation-verdict
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: bc4de333415a
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestAutomationVerdict.Tests.ps1
     docs: "[Write-TestAutomationVerdict.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md)"

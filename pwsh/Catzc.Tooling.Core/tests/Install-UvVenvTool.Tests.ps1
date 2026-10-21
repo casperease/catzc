@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: fa159bf4b220
+  edges:
+    code: pwsh/Catzc.Tooling.Core/Install-UvVenvTool.ps1
+---
+#>
+
 Describe 'Install-UvVenvTool' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-ToolConfig {

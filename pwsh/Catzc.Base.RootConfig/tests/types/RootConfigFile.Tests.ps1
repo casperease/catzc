@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "96f25c22ffd8"
+  edges:
+    code: pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
+---
+#>
+
 Describe 'RootConfigFile' -Tag 'L0', 'logic' {
     It 'constructs a source copy-in and exposes its fields with defaults' {
         $f = [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = '.editorconfig'; source = 'a/b/.editorconfig' })

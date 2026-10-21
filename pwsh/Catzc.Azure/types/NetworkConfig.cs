@@ -2,24 +2,13 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure/types/NetworkConfig.cs
-    folder: types
-    name: network-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "08088962be8e"
   edges:
     test: pwsh/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
     docs: "[NetworkConfig.cs.md](docs/references/pwsh/catzc-azure/types/NetworkConfig.cs.md)"
     cites:
-      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-AZ-NETWORK
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 ---
 */
 

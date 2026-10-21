@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "697d86a5cb7b"
+  edges:
+    code: pwsh/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1
+---
+#>
+
 Describe 'Get-FunctionFileViolation' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:check = {

@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1
-    folder: tests
-    name: convert-firewall-csv-to-yaml-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Firewall
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "353300fb4b49"
   edges:
     docs: "[Convert-FirewallCsvToYaml.Tests.ps1.md](docs/references/pwsh/catzc-azure-firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1.md)"
+    code: pwsh/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1
 ---
 #>
 

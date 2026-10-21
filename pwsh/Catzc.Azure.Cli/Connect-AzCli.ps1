@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Cli/Connect-AzCli.ps1
-    name: connect-az-cli
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: a75e81cf9f96
   edges:
     docs: "[Connect-AzCli.ps1.md](docs/references/pwsh/catzc-azure-cli/Connect-AzCli.ps1.md)"
 ---

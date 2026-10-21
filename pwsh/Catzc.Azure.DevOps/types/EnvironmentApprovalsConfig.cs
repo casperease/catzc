@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.DevOps/types/EnvironmentApprovalsConfig.cs
-    folder: types
-    name: environment-approvals-config
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.DevOps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "30628f559992"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/types/EnvironmentApprovalsConfig.Tests.ps1
     docs: "[EnvironmentApprovalsConfig.cs.md](docs/references/pwsh/catzc-azure-devops/types/EnvironmentApprovalsConfig.cs.md)"

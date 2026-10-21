@@ -37,6 +37,7 @@
     <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/TestTiers.cs" Link="linked/TestTiers.cs" />
     <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/BashSafeguard.cs" Link="linked/BashSafeguard.cs" />
     <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/BoundedCommand.cs" Link="linked/BoundedCommand.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Git/types/GitFlowConfig.cs" Link="linked/GitFlowConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="YamlDotNet">

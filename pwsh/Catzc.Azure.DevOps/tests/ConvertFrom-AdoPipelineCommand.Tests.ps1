@@ -1,3 +1,13 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "6ac67a9aefe8"
+  edges:
+    code: pwsh/Catzc.Azure.DevOps/ConvertFrom-AdoPipelineCommand.ps1
+---
+#>
+
 # cspell:ignore nline
 Describe 'ConvertFrom-AdoPipelineCommand' -Tag 'L0', 'logic' {
     Context 'line ending normalization' {

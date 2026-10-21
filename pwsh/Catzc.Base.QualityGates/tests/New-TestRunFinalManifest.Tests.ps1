@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/New-TestRunFinalManifest.Tests.ps1
-    folder: tests
-    name: new-test-run-final-manifest-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "1511ef5d8454"
   edges:
     docs: "[New-TestRunFinalManifest.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/New-TestRunFinalManifest.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/private/New-TestRunFinalManifest.ps1
     cites:
       - ADR-AUTO-TEST-RUNSNEVERWAIT
 ---

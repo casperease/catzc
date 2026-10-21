@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Variants/types/ModulePlace.cs
-    folder: types
-    name: module-place
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Variants
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b2a6db30847f
   edges:
     docs: "[ModulePlace.cs.md](docs/references/pwsh/catzc-base-variants/types/ModulePlace.cs.md)"
     cites:

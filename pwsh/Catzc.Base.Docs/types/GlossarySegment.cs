@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Docs/types/GlossarySegment.cs
-    folder: types
-    name: glossary-segment
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Docs
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: c6721ab8972c
   edges:
     docs: "[GlossarySegment.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossarySegment.cs.md)"
 ---

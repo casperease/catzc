@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Azure.Cli/Get-CurrentAzSubscription.ps1
-    name: get-current-az-subscription
-    filetype: ps1
-    role: function
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Azure.Cli
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: public
+    with_body_sha: "0ffc74ca4db4"
   edges:
     docs: "[Get-CurrentAzSubscription.ps1.md](docs/references/pwsh/catzc-azure-cli/Get-CurrentAzSubscription.ps1.md)"
 ---

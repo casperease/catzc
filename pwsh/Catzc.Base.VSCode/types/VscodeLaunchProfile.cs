@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.VSCode/types/VscodeLaunchProfile.cs
-    folder: types
-    name: vscode-launch-profile
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.VSCode
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "2f8ffc182b35"
   edges:
     docs: "[VscodeLaunchProfile.cs.md](docs/references/pwsh/catzc-base-vscode/types/VscodeLaunchProfile.cs.md)"
 ---

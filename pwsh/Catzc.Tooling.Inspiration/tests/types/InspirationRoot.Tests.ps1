@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
-    folder: tests/types
-    name: inspiration-root-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Tooling.Inspiration
-    moduletype: pwsh-folder
-    catzc_bundle: full
+    with_body_sha: "9e7d185b2107"
   edges:
     docs: "[InspirationRoot.Tests.ps1.md](docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md)"
+    code: pwsh/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
     cites:
       - ADR-AUTO-PATH-WORKSPACEANCHOR
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

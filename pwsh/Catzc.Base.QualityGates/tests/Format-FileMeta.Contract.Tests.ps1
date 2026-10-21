@@ -1,7 +1,18 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "023e6f5e0135"
+  edges:
+    cites:
+      - ADR-REPO-CONTRACT-PROVENBYTESTS
+---
+#>
+
 # The provided head contract names the keys of a file's meta head; this proves they are the keys the code writes, so neither can drift.
 Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     BeforeAll {
-        $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/Catzc.Base.QualityGates'
+        $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.quality_gates'
         $script:sample = Get-Content -LiteralPath (Join-Path $folder 'head.sample.yml') -Raw | ConvertFrom-Yaml -Ordered
         $script:schema = Get-Content -LiteralPath (Join-Path $folder 'head.schema.json') -Raw | ConvertFrom-Json -AsHashtable
         $registry = Get-Config -Config file-meta

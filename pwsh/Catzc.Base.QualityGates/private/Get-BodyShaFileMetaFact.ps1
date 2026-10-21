@@ -2,20 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1
-    folder: private
-    name: get-body-sha-file-meta-fact
-    filetype: ps1
-    role: function
-    subkind: fact
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
-    visibility: private
+    with_body_sha: c66f82b6c521
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-BodyShaFileMetaFact.Tests.ps1
     docs: "[Get-BodyShaFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-BodyShaFileMetaFact.ps1.md)"

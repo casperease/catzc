@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ad07120e461a
+  edges:
+    code: pwsh/Catzc.Base.RootConfig/New-GitAttributes.ps1
+    cites:
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+---
+#>
+
 Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
     BeforeAll {
         function script:New-Registry {

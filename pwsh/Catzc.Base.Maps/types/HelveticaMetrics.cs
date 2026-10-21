@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/HelveticaMetrics.cs
-    folder: types
-    name: helvetica-metrics
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "5c1c3516fd0e"
   edges:
     docs: "[HelveticaMetrics.cs.md](docs/references/pwsh/catzc-base-maps/types/HelveticaMetrics.cs.md)"
     cites:
