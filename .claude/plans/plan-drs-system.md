@@ -40,10 +40,10 @@ The prose still says "ADR" where it means any decision record: a reader who meet
 
 ## Open questions
 
-- From catzc-8b's finalize (2026-10-22): should `Update-DrsCitation`'s page say in one line that a root row rewrites path mentions and
-  links it can resolve from the citing file, so a test fixture's relative `../adr/...` string and a bare `](adr/...)` link are found by a
-  search for the old folder name and fixed by hand? Recommendation: yes, one clause in its root-row sentence.
-- Same finalize: should the file-meta page (`docs/explanation/file-meta.md`) say that a kind's id names its subscriber, so kind
-  `drs-codes` calls `Get-DrsCodesFileMetaFact`, and renaming either means renaming both? Recommendation: yes, one sentence.
+- From catzc-8b's finalize (2026-10-22): should `Update-DrsCitation`'s page say in one line that a root row rewrites path mentions and links
+  it can resolve from the citing file, so a test fixture's relative `../adr/...` string and a bare `](adr/...)` link are found by a search
+  for the old folder name and fixed by hand? Recommendation: yes, one clause in its root-row sentence.
+- Same finalize: should the file-meta page (`docs/explanation/file-meta.md`) say that a kind's id names its subscriber, so kind `drs-codes`
+  calls `Get-DrsCodesFileMetaFact`, and renaming either means renaming both? Recommendation: yes, one sentence.
 - Same finalize: should `Move-Diagram`'s page say that it moves with `git mv`, so a session that may not change git moves the pair on disk
   and re-points the links that a `-DryRun` lists? Recommendation: yes, one sentence under its synopsis.

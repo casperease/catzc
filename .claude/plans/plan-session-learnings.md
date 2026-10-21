@@ -34,11 +34,10 @@ reach.
 
 ## Open questions (the orchestrator's finalize, 2026-10-22)
 
-- Three simplifications, none applied: (a) the `catzc-module` capability gains one line, "a validation attribute also runs when the
-  function reassigns its parameter; put a computed default in a local", so no command repeats the `ValidatePathGiven` trap; (b)
-  `plans-orchestrate` gains one line, "an idle notice older than the session's last reply is stale; ask nothing"; (c) the
-  `implementation-orchestrator` robot cites `ADR-REPO-PLANS-DONEPLANDELETED` for the deletion line in `value-of-plan.md`. Recommendation:
-  all three.
+- Three simplifications, none applied: (a) the `catzc-module` capability gains one line, "a validation attribute also runs when the function
+  reassigns its parameter; put a computed default in a local", so no command repeats the `ValidatePathGiven` trap; (b) `plans-orchestrate`
+  gains one line, "an idle notice older than the session's last reply is stale; ask nothing"; (c) the `implementation-orchestrator` robot
+  cites `ADR-REPO-PLANS-DONEPLANDELETED` for the deletion line in `value-of-plan.md`. Recommendation: all three.
 
 ## Open steps
 

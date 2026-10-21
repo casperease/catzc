@@ -56,3 +56,51 @@ Started 2026-10-21T20:42:19.8972026+02:00.
   whole outputs.
 - 2026-10-22 Cats: Token tip: Next time, save tokens by: keeping one reusable check script per burst under out/gate/ and editing its path
   list, rather than writing a new script per check.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Update-DrsCitation and Rename-CodeName rewrite only tracked text files they can
+  decode; a binary in git ls-files must be skipped, and a page moved on disk but not committed is not read.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a root move's rewrite misses relative links it cannot resolve from the citing file,
+  such as a bare ](adr/...) link in docs/index.md or a test fixture's ../adr string; search for the old folder name after the move.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a file-meta kind's id names its subscriber function (drs-codes calls
+  Get-DrsCodesFileMetaFact), so renaming the function without the kind breaks Format-FileMeta and Test-FileMeta for every session.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a private function of one module is invisible to another, so a move that leaves a
+  caller behind in Catzc.Base.Docs needs the function public in Catzc.Base.Drs.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Move-Diagram moves with git mv, so a session that may not change git moves the yml
+  and png pair on disk and re-points the links a -DryRun lists.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Test-Glossary's G6 limits the qualifiers of terms such as domain and layer, so
+  "record domain" or "this FDR layers on" fail until reworded or registered as a form.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: pwsh -File binds only the first positional argument to a [string[]] parameter
+  unless it declares ValueFromRemainingArguments.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: grepping with -o and a short context window, or output_mode count, instead of
+  printing whole lines of wide markdown tables.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: writing one verify script per burst and reading only its filtered tail, instead of
+  re-reading full outputs.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: pwsh -File passes 'a,b' to a [string[]] parameter as ONE string, so a filter built
+  from it can come back empty; Format-Code and the other whole-tree commands now refuse an empty -Path (ValidatePathGiven).
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Rename-CodeName renames a name only as a whole token, so a hyphenated id such as
+  g-\<name> is skipped; its rows carry Skipped as line:token, so read them before trusting a rename.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a glossary concept's forms must be one word, and Test-Glossary G6 checks the single
+  word before the head word, so the form 'record' covers 'decision-record domain'.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Test-ManualTestPlan matches each row by test file AND Describe-block name, so a
+  row's block column changes only together with the test's Describe text.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Test-Diagrams reports staleness as the facts StaleDiagrams and StaleMinimapCount;
+  diagrams are flat .assets/\<name>.drawio.yml + .drawio.png, and Build-Diagrams -Path takes the yml.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: in the DRS an implementation-domain record (automation, repository, azure, ado,
+  configuration, github) really is the ADR kind, so 'the automation ADR' stays; only the umbrella becomes 'decision record' or 'the DRS'.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a pytest that monkeypatches minimaps.REPO must cache_clear kinds, rules and
+  records_root, or a temp repository leaks into later tests.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: guarding every out/ script that feeds a path list to a tree-wide command with an
+  explicit empty-list throw, before the import.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: delegating a repeated one-line edit over many files to parallel catzc-worker agents
+  with exact file lists, not doing it in the main session.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: the live orchestrator a worker reports to is the interactive session that sends it
+  work (catzc-9c on 2026-10-21); the background "Plan orchestration agent" session does not answer worker messages.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a plan's open checkbox can lag the tree by hours, so a chunk is checked with a grep
+  or file read before it is claimed; drs-system steps 1-3 were already in the tree while still open.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a scratch folder out/\<topic>/ with staged copies and burst scripts means a peer is
+  mid-burst on that plan, so a worker backs off it.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: hindsight lines go stale within a day, so its-a-chore-but-i-will-do-better must
+  grep each gap before planning it; 8 of its 10 steps on 2026-10-21 had already landed.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: messaging the orchestrator that sends work (ListAgents, the session that messaged
+  last) before reading plan-master and every plan.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: verifying a plan's landed steps with one combined grep per plan instead of one
+  probe per step.

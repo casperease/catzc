@@ -31,7 +31,17 @@ A diagram's declaration may live inside its article, in a fenced block the kit r
 ## Open steps
 
 3. [ ] The tree checks of the step-3 tools burst (its code and tests landed: pytest 149, Slides Pester green; the run of the tree checks was
-       stopped for low memory; the user frees memory first, then the orchestrator sends catzc-1c on): run `out/gate/article-final.ps1`, or by hand `Test-ParameterConsistency`, `Test-Links` and `Test-Diagrams`
-       over the tree (check: all three report 0 issues, so the default file carrier is unchanged).
+       stopped for low memory; the user frees memory first, then the orchestrator sends catzc-1c on): run `out/gate/article-final.ps1`, or
+       by hand `Test-ParameterConsistency`, `Test-Links` and `Test-Diagrams` over the tree (check: all three report 0 issues, so the default
+       file carrier is unchanged).
 4. [ ] `build-diagrams-runs-five-stages` moved to the article mode as the proof (the user, 2026-10-21) (check: `Build-Diagrams -Path` on it
        re-renders the same png, `Test-Diagrams` and `Test-Links` clean).
+
+## Open questions
+
+- From catzc-1c's finalize (2026-10-22): a staged copy of a public function dot-sourced into its module does not replace the exported
+  command. Should the `catzc-verify` capability's staging clause say a public staged copy is proved by the real swap, not by dot-sourcing?
+  Recommendation: yes, one merged clause.
+- From catzc-1c's finalize (2026-10-22): a tree `Build-Diagrams -Stale` takes about 210 s, so a tree `Test-Diagrams` after it in the same
+  call breaks the 360 s roof. Should the `Build-Diagrams` help say the two run as two calls? Recommendation: yes, one sentence in its
+  description.
