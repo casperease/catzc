@@ -32,7 +32,16 @@ step below moves one of those to the one place that serves it; steps 1 and 2 lan
        clause that Bash calls use absolute paths (hindsight 226bbf, "the second half"; no line says it, a drifting folder is learned by
        failure), paid for by the cut. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
 
+3. [ ] One `Format-Code` form (catzc-54's review, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT): `Format-Code -Path <the files touched>`,
+       never `-Language markdown`, as `catzc-run` says, in the plan-edit reminder of
+       `pwsh/Catzc.Base.QualityGates/configs/edit-reminders.yml`, `.claude/agents/plan-intake.md` and
+       `.claude/agents/listen-very-carefully-to-doc-changes.md`, one file at a time. Check: `Invoke-TestFile` on the edit-reminders config
+       test, `Test-ShippedConfigs`, `Test-AgentDefinitions`, and the Grep tool finds no `-Language markdown` under `.claude/agents`,
+       `.claude/skills` or that yml.
+
 ## Decided (delegated, the orchestrator, 2026-10-22)
+
+- One `Format-Code` form, `-Path` on the files touched (step 3): `catzc-run` is the capability every robot that runs pwsh loads.
 
 - catzc-11's question taken as recommended: the HOLD and GO of an import-path burst go to every live peer, the orchestrator included (landed
   in `catzc-verify`).

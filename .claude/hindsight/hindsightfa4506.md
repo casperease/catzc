@@ -111,3 +111,22 @@ Started 2026-10-22T01:08:38.5211231+02:00.
   answer.
 - 2026-10-22 Jack: If only the session had read its own CLAUDE.md: .claude/CLAUDE.md:117-119 already says a file in private/ is loaded but
   not exported and reaches only the functions of its own module, so a function moved away from its callers is public there by rule.
+- 2026-10-22 Jack: If only the session had read its own CLAUDE.md: .claude/CLAUDE.md:74 already makes catzc-worker the standard sub-agent
+  for delegated work with exact file lists, so the repeated one-line edit was a delegation the tree had already named.
+- 2026-10-22 Jack: If only the session had read the registry type: pwsh/Catzc.Base.Drs/types/DrsConfig.cs:39 makes ADR the default kind and
+  pwsh/Catzc.Base.Drs/configs/drs.yml:212-555 names TDR, PDR, WDR, DDR, FDR and RDR on their own domains only, so an implementation-domain
+  record is an ADR by declaration and only the umbrella needed a new word.
+- 2026-10-22 Jack: If only the session had read the rewrite article: docs/references/pwsh/catzc-base-drs/Update-DrsCitation.ps1.md:26
+  resolves a relative link at the citing file folder and :33 leaves what it cannot resolve as a warning for a person, so the search for the
+  old folder name after the move was declared, not discovered.
+- 2026-10-22 Jack: If only the swap had a rule for publics: .claude/skills/catzc-run/SKILL.md:25 runs a private inside its module and
+  forbids dot-sourcing its file, but nothing in the tree says a dot-sourced staged copy leaves the exported command of a public function
+  untouched, so the old definition answers until a real swap.
+- 2026-10-22 Jack: If only the grep had a capability: nothing in the tree, no SKILL.md and no CLAUDE.md line, says a wide markdown table is
+  searched with only-matching output or a count, so printing whole table rows stays the token tip it was.
+- 2026-10-22 Jack: If only the session had loaded git-readonly before the bulk compare: .claude/skills/git-readonly/SKILL.md:17-18 decodes
+  git show output as utf-8, never the Windows code page, so the many reported losses were the false differences that line prevents and the
+  byte-wise diff was its symptom.
+- 2026-10-22 Jack: If only someone had asked first: nothing in the tree, no capability or how-to, says to confirm the final shape of a
+  cross-cutting record before writing its first hundred entries, and plan-shape shapes plans only, so the rewrite of a hundred rows remains
+  the lesson.

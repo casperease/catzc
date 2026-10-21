@@ -1,15 +1,14 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "95c5d3f4307e"
+#     with_body_sha: "8352ebf72413"
 # ---
 
 reminders:
   - paths: [".claude/plans/*.md"]
     say: >-
-      You edited a plan file. Before you report: run `Format-Code -Language markdown -Path <the plan files you edited>`, then `Test-Plans
-      -Path <the same files>`. Every open step names its check. A new plan also needs its row in value-of-plan.md and its chunk line in
-      plan-master.md.
+      You edited a plan file. Before you report: run `Format-Code -Path <the files touched>`, then `Test-Plans -Path <the plan files you
+      edited>`. Every open step names its check. A new plan also needs its row in value-of-plan.md and its chunk line in plan-master.md.
   - paths: ["pwsh/Catzc.Base.Drs/configs/drs.yml"]
     say: >-
       You edited the ADR registry. Before you report: run `Build-DrsIndex`, then `Test-DrsRegistry`; a new ADR also needs its entry in its

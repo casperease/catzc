@@ -40,6 +40,10 @@ stale or superseded item is recorded as such, with the reason.
 | high   | plan-agent-friction    | ADR-REPO-PLANS gains the three-part plan rule; a how-to for a head fact                         | Pester for Test-Plans and Test-Formatting, the hook test, Test-ParameterConsistency                   | the head how-to and drawing, the user's trim     |
 | medium | plan-bcl-language      | the BCL reference-set rule in ADR-AUTO-TYPES, the narrowed ADR-PWSH-TYPES rules, the bcl domain | Test-Links on the moved pages, Pester for the host-binding gate and config, Test-DrsRegistry          | one step left, the user's CLAUDE.md line         |
 | high   | plan-drs-system        | the DRS rule in ADR-REPO-DRSCODE, glossary entries for DRS, decision record and record kind     | Catzc.Base.Docs Pester, Update-DrsCitation dry run, Test-DrsRegistry, Test-Links, Test-GeneratedFiles | one step left, the user's CLAUDE.md edit         |
+| medium | plan-debt-reference-pages |  |  | new |
+| medium | plan-debt-gate-findings |  |  | new |
+| medium | plan-debt-docs |  |  | new |
+| medium | plan-debt-import-path |  |  | new |
 
 ## Pending deletion
 
