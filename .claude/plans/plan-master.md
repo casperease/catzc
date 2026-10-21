@@ -46,8 +46,7 @@ Open, in execution order. A chunk without a task file is executed from its plan'
 2026-10-21 are open in agent-friction, claude-diet, truth-stores, session-learnings and test-signal-proposals; they wait on the next
 plan-decide round, and only truth-stores and test-signal-proposals are blocked by them.
 
-- minimal-heads -> task-comment-pages.md, then plan-minimal-heads.md: the comment-page map moved to `Catzc.Base.CodeMeta` so the generated
-  head derives its `docs` edge, the engine's unowned-key case, one whole-tree re-format; the ADR fold last.
+- minimal-heads -> plan-minimal-heads.md: the engine's unowned-key case, one whole-tree re-format after the bcl re-cite; the ADR fold last.
 - idiomatic-names -> plan-idiomatic-names.md: wire the naming gate in (the three folder renames are tracked), then the repository normal
   form: helper and acronym renames, the repair command, and the `0.0.0` command contracts.
 - listen-internal-readers -> plan-listen-internal-readers.md: one step left, the user's `.claude/CLAUDE.md` edit

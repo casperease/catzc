@@ -28,7 +28,7 @@ reach.
   `catzc-run` says a shared config is live for every session's next import (Q10); a peer's relayed lines are removed when it appends its own
   (Q11); the bootstrap comment page's `comment:18` shrinks to its first sentence and a link to `ADR-AUTO-TYPES-CHANGEDAFTERLOAD` when the
   page is next touched (Q12); `catzc-module` says an internal psm1 exports an explicit list, and names `Catzc.Base.CodeMeta` as the home of
-  a shared head mechanism once task-comment-pages lands (Q13, Q15); `Test-IsRunningInVSCode` stays on `TERM_PROGRAM` until a session reports
+  a shared head mechanism (Q13, Q15); `Test-IsRunningInVSCode` stays on `TERM_PROGRAM` until a session reports
   the mark missing (Q14); no session reads the log at start until it has filled for a week (Q16).
 
 ## Open steps
@@ -46,5 +46,5 @@ reach.
       `Test-AgentDefinitions`, the body at most 10 lines).
 - [ ] `.claude/skills/catzc-module/SKILL.md`: half a line, an internal psm1 exports an explicit list, so a new loader function is named in
       its `Export-ModuleMember` before its first test run (check: `Test-AgentDefinitions`).
-- [ ] After task-comment-pages lands: `.claude/skills/catzc-module/SKILL.md`, half a line merged into an existing line naming
+- [ ] `.claude/skills/catzc-module/SKILL.md`, half a line merged into an existing line naming
       `Catzc.Base.CodeMeta` as the home of a shared head mechanism (check: `Test-AgentDefinitions`).

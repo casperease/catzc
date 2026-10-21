@@ -102,7 +102,7 @@ From the session's finalizer (catzc-73, 2026-10-21):
       readers (Build-RootConfig's project writers, `Get-LanguageTestFolders`) in the same pass (check: `Test-AgentDefinitions`).
 - [ ] `docs/how-to/automation/rename-a-tooling-folder.md` (new): the prepared, applied-in-one-burst, rolled-back-whole pattern of the two
       renames (check: `Test-Links` on the page).
-- [ ] `CommentPageMap.cs` (in `Catzc.Base.CodeMeta` once task-comment-pages lands), `Get-ReadmeMappings.ps1`, `Get-ModuleGlobSet.ps1` and
+- [ ] `CommentPageMap.cs` (in `Catzc.Base.CodeMeta`), `Get-ReadmeMappings.ps1`, `Get-ModuleGlobSet.ps1` and
       `Get-ModuleProtectionIdentity.ps1` render `{kebab}` by `ToLowerInvariant().Replace('.', '-')`; moving them to `LanguageNaming` renames
       the `catzc-base-*` reference pages, so it waits on the user's yes (check: the user answers; then `Invoke-TestFile` on each one's tests
       and `Test-GeneratedFiles`).
